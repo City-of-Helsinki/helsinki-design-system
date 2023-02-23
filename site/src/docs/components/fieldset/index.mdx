@@ -80,3 +80,21 @@ Border variant is also useful when the form contains multiple form elements with
     />
   </Fieldset>
 </PlaygroundPreview>
+
+#### With tooltip
+
+A Fieldset can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. You can find more information about Tooltips how they are used from the <InternalLink href="/components/tooltip">Tooltip documentation page</InternalLink>.
+
+<PlaygroundPreview>
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }} tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label">
+    <TextInput id="first-name-1" name="first-name" label="First name" />
+    <TextInput id="last-name-1" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number-1"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+</PlaygroundPreview>

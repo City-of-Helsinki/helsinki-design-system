@@ -3,7 +3,6 @@ slug: '/components/checkbox'
 title: 'Checkbox'
 navTitle: 'Checkbox'
 ---
-
 import { useReducer } from 'react';
 import { Checkbox, SelectionGroup, Fieldset } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
@@ -42,6 +41,8 @@ export const CheckboxExample = () => {
         onChange={onChange}
         disabled
       />
+      <Checkbox label="Label" id="checkbox-unchecked-error-text" checked={checkedItems['checkbox-unchecked-error-text']} onChange={onChange} errorText="Error text"/>
+      <Checkbox label= "label" id="checkbox-with-tooltip" tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label" checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
     </>
   );
 };
@@ -57,7 +58,7 @@ export const CheckboxExample = () => {
 - Checkboxes work independently from each other. This means that checking one option should never affect other checkboxes.
 - If Checkboxes are related to each other, use <InternalLink href="/components/selection-group">HDS Selection group</InternalLink> to achieve that.
 - Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use <InternalLink href="/components/toggle-button">HDS Toggle button component</InternalLink> instead. Also see <InternalLink href="/foundation/guidelines/checkbox-radiobutton-toggle">guidelines for choosing between radio buttons, checkboxes and toggles.</InternalLink>
-
+- Checkbox can be provided with additional tooltip. Tooltip information should be considered as extra information. You can find more information about Tooltips how they are used from the <InternalLink href="/components/tooltip">Tooltip documentation page</InternalLink>.
 ### Variations
 
 #### Default

@@ -20,7 +20,7 @@ export type FieldsetProps = {
    */
   className?: string;
   /**
-   * Tooltip text for the checkbox
+   * Tooltip text for the fieldset
    */
   tooltipText?: string;
   /**

@@ -45,6 +45,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       style={{ marginTop: '12px' }}
     />
   </Fieldset>
+
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }} tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label">
+    <TextInput id="first-name-1" name="first-name" label="First name" />
+    <TextInput id="last-name-1" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number-1"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+
 </>
 ```
 
@@ -217,7 +230,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-dropdowns-select--default">React Storybook.</Link>
 
-| Property  | Description                                            | Values    | Default value |
-| --------- | ------------------------------------------------------ | --------- | ------------- |
-| `heading` | Heading of the fieldset element.                       | `string`  | -             |
-| `border`  | If set to true, a border is drawn around the fieldset. | `boolean` | false         |
+| Property              | Description                                            | Values    | Default value |
+| --------------------- | ------------------------------------------------------ | --------- | ------------- |
+| `heading`             | Heading of the fieldset element.                       | `string`  | -             |
+| `border`              | If set to true, a border is drawn around the fieldset. | `boolean` | false         |
+| `tooltipLabel`        | The aria-label text for the tooltip.                   | `string`  | -             |
+| `tooltipButtonLabel`  | The aria-label text for the tooltip trigger button.    | `string`  | -             |
+| `tooltipText`         | The text content of the tooltip.                       | `string`  | -             |
