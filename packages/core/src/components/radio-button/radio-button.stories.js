@@ -41,7 +41,7 @@ SelectedDisabled.storyName = 'Selected & disabled';
 export const WithHelperText = () => `
     <div class="hds-radio-button">
       <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" aria-describedby="${helperTextId}"/>
-      ${getLabel('radio5')}
+      ${getLabel('radio3')}
       ${getHelperText()}
     </div>
 `;
