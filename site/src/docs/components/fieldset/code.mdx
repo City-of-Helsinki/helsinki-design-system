@@ -20,7 +20,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <>
-  <Fieldset heading="Child information" style={{ maxWidth: '400px' }}>
+  <Fieldset heading="Child information" style={{ maxWidth: '400px' }} helperText='Assistive text'>
     <TextInput id="first-name-child" name="first-name" label="First name" required />
     <TextInput id="last-name-child" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
     <TextInput
@@ -89,6 +89,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
         />
       </div>
     </div>
+    <div class="helper-text">Assistive text</div>
   </fieldset>
   <fieldset class="hds-fieldset" style="max-width: 400px;margin-top: var(--spacing-s);">
     <legend class="hds-fieldset-legend">Guardian information</legend>
@@ -230,10 +231,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-dropdowns-select--default">React Storybook.</Link>
 
-| Property              | Description                                            | Values    | Default value |
-| --------------------- | ------------------------------------------------------ | --------- | ------------- |
-| `heading`             | Heading of the fieldset element.                       | `string`  | -             |
-| `border`              | If set to true, a border is drawn around the fieldset. | `boolean` | false         |
-| `tooltipLabel`        | The aria-label text for the tooltip.                   | `string`  | -             |
-| `tooltipButtonLabel`  | The aria-label text for the tooltip trigger button.    | `string`  | -             |
-| `tooltipText`         | The text content of the tooltip.                       | `string`  | -             |
+| Property              | Description                                                          | Values    | Default value |
+| --------------------- | -------------------------------------------------------------------- | --------- | ------------- |
+| `heading`             | Heading of the fieldset element.                                     | `string`  | -             |
+| `border`              | If set to true, a border is drawn around the fieldset.               | `boolean` | false         |
+| `helperText`          | The help text content that will be shown below the fieldset content. | `string`  | -             |
+| `tooltipLabel`        | The aria-label text for the tooltip.                                 | `string`  | -             |
+| `tooltipButtonLabel`  | The aria-label text for the tooltip trigger button.                  | `string`  | -             |
+| `tooltipText`         | The text content of the tooltip.                                     | `string`  | -             |

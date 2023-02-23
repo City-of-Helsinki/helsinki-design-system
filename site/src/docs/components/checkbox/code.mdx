@@ -30,6 +30,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <Checkbox label="Label" id="checkbox-disabled" checked={checkedItems["checkbox-disabled"]} onChange={onChange} disabled />
     <Checkbox label="Label" id="checkbox-checked-disabled" checked={checkedItems["checkbox-checked-disabled"]} onChange={onChange} disabled />
     <Checkbox label="Label" id="checkbox-checked-error-text" checked={checkedItems['checkbox-checked-error-text']} onChange={onChange} errorText="Error text"/>
+    <Checkbox label="Label" id="checkbox-checked-helper-text" checked={checkedItems['checkbox-checked-helper-text']} onChange={onChange} helperText="Helper text"/>
+    <Checkbox label="label" id="checkbox-with-tooltip" tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label" checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
   </>
 }}
 ```
@@ -38,27 +40,27 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <div>
   <div class="hds-checkbox">
     <input type="checkbox" id="checkbox-core" class="hds-checkbox__input" />
-    <label for="checkbox-core"  class="hds-checkbox__label">Label</label>
+    <label for="checkbox-core" class="hds-checkbox__label">Label</label>
   </div>
 
   <div class="hds-checkbox">
     <input type="checkbox" id="checkbox-checked-core" class="hds-checkbox__input" checked />
-    <label for="checkbox-checked-core"  class="hds-checkbox__label">Label</label>
+    <label for="checkbox-checked-core" class="hds-checkbox__label">Label</label>
   </div>
 
   <div class="hds-checkbox">
     <input type="checkbox" id="checkbox-disabled-core" class="hds-checkbox__input" disabled />
-    <label for="checkbox-disabled-core"  class="hds-checkbox__label">Label</label>
+    <label for="checkbox-disabled-core" class="hds-checkbox__label">Label</label>
   </div>
 
   <div class="hds-checkbox">
     <input type="checkbox" id="checkbox-checked-disabled" class="hds-checkbox__input" checked disabled />
-    <label for="checkbox-checked-disabled"  class="hds-checkbox__label">Label</label>
+    <label for="checkbox-checked-disabled" class="hds-checkbox__label">Label</label>
   </div>
 
   <div class="hds-checkbox">
     <input type="checkbox" id="checkbox-core-error-text" class="hds-checkbox__input" checked errorText="Error text"/>
-    <label for="checkbox-core-error-text"  class="hds-checkbox__label">Label</label>
+    <label for="checkbox-core-error-text" class="hds-checkbox__label">Label</label>
   </div>
 </div>
 ```
@@ -270,6 +272,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `indeterminate`            | If set to true, the component is in indeterminate state.                   | `boolean`   | false         |
 | `label`                    | A text label for the checkbox.                                             | `string`    | -             |
 | `errorText`                | The error text content that will be shown below the checkbox.              | `string`    | -             |
+| `helperText`               | The helper text content that will be shown below the checkbox.               | `string`    | -             |
 | `tooltipLabel`             | The aria-label text for the tooltip.                                       | `string`    | -             |
 | `tooltipButtonLabel`       | The aria-label text for the tooltip trigger button.                        | `string`    | -             |
 | `tooltipText`              | The text content of the tooltip.                                           | `string`    | -             |

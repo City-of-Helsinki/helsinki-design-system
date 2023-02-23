@@ -48,7 +48,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 The default HDS Fieldset is a visually light since it omits the borders that are present in the default HTML fieldset. It is well suited for forms with a relatively low amount of fields where input groups are easily perceivable even without Fieldset borders.
 
 <PlaygroundPreview>
-  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }} helperText='Assistive text'>
     <TextInput id="first-name-1" name="first-name" label="First name" />
     <TextInput id="last-name-1" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
     <TextInput
