@@ -6,6 +6,7 @@ import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { Tooltip } from '../tooltip';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
 export type CheckboxProps = {
   /**
@@ -25,7 +26,7 @@ export type CheckboxProps = {
    */
   errorText?: string;
   /**
-   * The helper text content that will be shown below the radiobutton
+   * The helper text content that will be shown below the checkbox
    */
   helperText?: string;
   /**
@@ -107,13 +108,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       );
     }
 
-    const ariaDescribedby = [];
-    if (errorText) {
-      ariaDescribedby.push(`${id}-error`);
-    }
-    if (helperText) {
-      ariaDescribedby.push(`${id}-helper`);
-    }
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, undefined, undefined);
 
     return (
       <div className={classNames(styles.checkbox, className)} style={style}>
@@ -126,7 +121,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           disabled={disabled}
           checked={checked}
-          aria-describedby={ariaDescribedby.length > 0 ? ariaDescribedby.join(' ') : null}
+          aria-describedby={ariaDescribedBy}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>
