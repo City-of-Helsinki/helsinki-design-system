@@ -24,7 +24,7 @@ export type FieldsetProps = {
    */
   helperText?: string;
   /**
-   * Tooltip text for the checkbox
+   * Tooltip text for the fieldset
    */
   tooltipText?: string;
   /**
