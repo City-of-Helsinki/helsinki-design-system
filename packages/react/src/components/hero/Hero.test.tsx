@@ -2,12 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Hero } from './Hero';
+import { Hero, HeroProps } from './Hero';
 import { Button } from '../button';
 
 describe('<Hero /> spec', () => {
   const imageSrc = 'http://image.com/image.jpg';
-  const DefaultCardContent = () => {
+  const DefaultContent = () => {
     return (
       <>
         <h1>This is the heading</h1>
@@ -19,46 +19,25 @@ describe('<Hero /> spec', () => {
     );
   };
 
-  const TextAndOrImage = ({ imagePosition }: { imagePosition?: 'left' | 'right' }) => {
+  const HeroWithContent = (props: HeroProps) => {
+    const heroProps: HeroProps = {
+      ...props,
+      imageSrc: props.variant !== 'textOnly' ? imageSrc : undefined,
+    };
     return (
-      <Hero>
-        {imagePosition === 'left' && <Hero.Image src={imageSrc} />}
-        <Hero.Card>
-          <DefaultCardContent />
-        </Hero.Card>
-        {imagePosition === 'right' && <Hero.Image src={imageSrc} />}
+      <Hero {...heroProps}>
+        <DefaultContent />
       </Hero>
     );
   };
-
-  const WithBackgroundImage = ({ imagePosition }: { imagePosition: 'top' | 'right' }) => {
-    return (
-      <Hero>
-        {imagePosition === 'top' && <Hero.BackgroundImage src={imageSrc} />}
-        <Hero.Card>
-          <DefaultCardContent />
-        </Hero.Card>
-        {imagePosition === 'right' && <Hero.BackgroundImage src={imageSrc} />}
-      </Hero>
-    );
-  };
-
-  const BottomWideImage = () => (
-    <Hero>
-      <Hero.Card>
-        <DefaultCardContent />
-      </Hero.Card>
-      <Hero.WideImage src={imageSrc} />
-    </Hero>
-  );
 
   const componentVariations = [
-    () => <WithBackgroundImage imagePosition="right" />,
-    () => <WithBackgroundImage imagePosition="top" />,
-    () => <TextAndOrImage imagePosition="left" />,
-    () => <TextAndOrImage imagePosition="right" />,
-    () => <TextAndOrImage />,
-    () => <BottomWideImage />,
+    () => <HeroWithContent variant="diagonalKoros" />,
+    () => <HeroWithContent variant="backgroundTop" />,
+    () => <HeroWithContent variant="imageLeft" />,
+    () => <HeroWithContent variant="imageRight" />,
+    () => <HeroWithContent />,
+    () => <HeroWithContent variant="wideImage" />,
   ];
 
   it('renders the component', () => {

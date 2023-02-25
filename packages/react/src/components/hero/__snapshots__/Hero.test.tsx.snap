@@ -3,10 +3,10 @@
 exports[`<Hero /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-1 angledKoros"
+    class="hero custom-theme-1 diagonalKoros"
   >
     <div
-      class="angledKorosWithBackgroundContainer"
+      class="diagonalKorosWithBackgroundContainer"
     >
       <div
         class="content"
@@ -40,7 +40,7 @@ exports[`<Hero /> spec renders the component 1`] = `
           />
         </div>
         <div
-          class="angledKorosMobileKoros"
+          class="diagonalKorosMobileKoros"
         >
           <div
             class="koros basic"
@@ -77,7 +77,7 @@ exports[`<Hero /> spec renders the component 1`] = `
         </div>
       </div>
       <div
-        class="koros basic angledKorosAndBackground"
+        class="koros basic diagonalKorosAndBackground"
         style="fill: var(--koros-color);"
       >
         <svg
@@ -109,7 +109,7 @@ exports[`<Hero /> spec renders the component 1`] = `
         </svg>
       </div>
       <div
-        class="withBackgroundBackground angledKorosBackgroundContainer"
+        class="withBackgroundBackground diagonalKorosBackgroundContainer"
       >
         <img
           alt=""
@@ -421,14 +421,24 @@ exports[`<Hero /> spec renders the component 4`] = `
 exports[`<Hero /> spec renders the component 5`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-11 textOnly"
+    class="hero custom-theme-11 imageLeft"
   >
     <div
       class="container"
     >
       <div
-        class="content singleColumn"
+        class="content twoColumns"
       >
+        <div
+          class="twoColumnsImageContainer"
+        >
+          <img
+            alt=""
+            aria-hidden="true"
+            class="image"
+            src="http://image.com/image.jpg"
+          />
+        </div>
         <div
           class="card"
         >
@@ -483,6 +493,16 @@ exports[`<Hero /> spec renders the component 5`] = `
           width="100%"
         />
       </svg>
+    </div>
+    <div
+      class="imageContainer imageBelowKoros"
+    >
+      <img
+        alt=""
+        aria-hidden="true"
+        class="image"
+        src="http://image.com/image.jpg"
+      />
     </div>
   </div>
 </DocumentFragment>
