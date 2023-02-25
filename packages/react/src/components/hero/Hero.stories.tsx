@@ -16,7 +16,7 @@ export default {
   args: {},
 };
 
-type DefaultCardContentProps = {
+type DefaultContentProps = {
   title?: string;
   text?: string;
   buttonStyle?: Record<string, string>;
@@ -25,7 +25,7 @@ type DefaultCardContentProps = {
 const defaultText =
   'Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.';
 
-const DefaultCardContent = (props: DefaultCardContentProps) => {
+const DefaultContent = (props: DefaultContentProps) => {
   const { title, text, buttonStyle } = props;
   const h1Text = title || 'Welcome to the hero story';
   const paragraphText = text || defaultText;
@@ -76,27 +76,31 @@ const NavigationComponent = () => (
   </Navigation>
 );
 
-export const ImageLeftOrRight = (args) => (
-  <Hero koros={args.koros} theme={{ '--background-color': '#c2a251', '--color': '#000', ...args.theme }}>
-    {args?.imagePosition === 'left' && <Hero.Image src={imageFile} />}
-    <Hero.Card>
-      <DefaultCardContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
-    </Hero.Card>
-    {args?.imagePosition === 'right' && <Hero.Image src={imageFile} />}
-  </Hero>
-);
+export const ImageLeftOrRight = (args) => {
+  const heroProps: HeroProps = {
+    koros: args.koros,
+    theme: { '--background-color': '#c2a251', '--color': '#000', ...args.theme },
+    imageSrc: imageFile,
+    variant: args.variant,
+  };
+  return (
+    <Hero {...heroProps}>
+      <DefaultContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
+    </Hero>
+  );
+};
 
 ImageLeftOrRight.argTypes = {
-  imagePosition: {
-    options: ['right', 'left'],
+  variant: {
+    options: ['imageRight', 'imageLeft'],
     control: { type: 'radio' },
-    defaultValue: 'right',
+    defaultValue: 'imageRight',
   },
 };
 
 export const WithoutImage = (args) => {
   const heroProps: HeroProps = {};
-  const defaultContentProps: DefaultCardContentProps = {};
+  const defaultContentProps: DefaultContentProps = {};
   if (args.heroType === 'blueAndGreen') {
     heroProps.theme = { '--background-color': '#9fc9eb', '--color': '#000', '--koros-color': '#009246' };
     heroProps.koros = { type: 'pulse', flipHorizontal: false };
@@ -110,11 +114,10 @@ export const WithoutImage = (args) => {
   }
   heroProps.theme = { ...heroProps.theme, ...args.theme };
   heroProps.koros = { ...heroProps.koros, ...args.koros };
+  heroProps.centeredContent = args.heroType === 'blueAndGreen';
   return (
     <Hero {...heroProps}>
-      <Hero.Card centered={args.heroType === 'blueAndGreen'}>
-        <DefaultCardContent {...defaultContentProps} />
-      </Hero.Card>
+      <DefaultContent {...defaultContentProps} />
     </Hero>
   );
 };
@@ -130,63 +133,64 @@ WithoutImage.argTypes = {
 
 export const WithBackgroundImage = (args) => {
   const heroProps: HeroProps = {};
-  if (args.imagePosition === 'top') {
+  if (args.variant === 'backgroundTop') {
     heroProps.theme = { '--background-color': '#fff', ...args.theme };
-  } else if (args.imagePosition === 'right') {
+  } else if (args.variant === 'angledKoros') {
     heroProps.theme = { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme };
   }
 
   heroProps.theme = { ...heroProps.theme, ...args.theme };
   heroProps.koros = { ...args.koros };
+  heroProps.imageSrc = imageFile;
+  heroProps.variant = args.variant;
 
   return (
     <Hero {...heroProps}>
-      {args?.imagePosition === 'top' && <Hero.BackgroundImage src={imageFile} />}
-      <Hero.Card>
-        {!args.demoLongContent ? (
-          <DefaultCardContent
-            buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-          />
-        ) : (
-          <Hero.Card>
-            <h1>This is a header with too much text for single line</h1>
-            <p>{defaultText}</p>
-            <p>{defaultText}</p>
+      {!args.demoLongContent ? (
+        <DefaultContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
+      ) : (
+        <>
+          <h1>This is a header with too much text for single line</h1>
+          <p>{defaultText}</p>
+          <p>{defaultText}</p>
+          <Button variant="secondary" role="link">
+            Click me once!
+          </Button>
+          <p>
             <Button variant="secondary" role="link">
-              Click me once!
+              Never click me!
             </Button>
-            <p>
-              <Button variant="secondary" role="link">
-                Never click me!
-              </Button>
-            </p>
-          </Hero.Card>
-        )}
-      </Hero.Card>
-      {args?.imagePosition === 'right' && <Hero.BackgroundImage src={imageFile} />}
+          </p>
+        </>
+      )}
     </Hero>
   );
 };
 
 WithBackgroundImage.argTypes = {
-  imagePosition: {
-    options: ['top', 'right'],
+  variant: {
+    options: ['backgroundTop', 'angledKoros'],
     control: { type: 'radio' },
-    defaultValue: 'top',
+    defaultValue: 'backgroundTop',
   },
   demoLongContent: {
     control: 'boolean',
   },
 };
 
-export const BottomWideImage = (args) => (
-  <Hero koros={args.koros} theme={{ '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme }}>
-    <Hero.Card>
-      <DefaultCardContent />
-    </Hero.Card>
-    <Hero.WideImage src={imageFile} />
-  </Hero>
-);
+export const BottomWideImage = (args) => {
+  const heroProps: HeroProps = {
+    koros: { ...args.koros },
+    theme: { '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme },
+    imageSrc: imageFile,
+    variant: 'wideImage',
+  };
+  return (
+    <Hero {...heroProps}>
+      <DefaultContent />
+    </Hero>
+  );
+};
 
 export const PlaygroundForKoros = (args) => {
   const heroProps: HeroProps = {
@@ -202,14 +206,12 @@ export const PlaygroundForKoros = (args) => {
       '--koros-color': args.color || '#9fc9eb',
       ...args.theme,
     },
+    imageSrc: imageFile,
   };
 
   return (
     <Hero {...heroProps}>
-      <Hero.Image src={imageFile} />
-      <Hero.Card>
-        <DefaultCardContent />
-      </Hero.Card>
+      <DefaultContent />
     </Hero>
   );
 };
@@ -235,36 +237,26 @@ PlaygroundForKoros.argTypes = {
   },
 };
 
-const componentTypes = {
-  imageOnSide: 'image on side',
-  backgroundImage: 'background image',
-  withoutImage: 'without image',
-  wideImage: 'wide image',
-};
-
 export const EmbeddedToPage = (args) => {
-  const { componentType, variant } = args;
-  const { imageOnSide, backgroundImage, withoutImage, wideImage } = componentTypes;
+  const { preset, variant } = args;
   const BasicImageVersion = () => {
-    const imagePosition = variant === '1' ? 'left' : 'right';
-    return <ImageLeftOrRight imagePosition={imagePosition} />;
+    return <ImageLeftOrRight variant={variant} />;
   };
   const BackgroundImageVersion = () => {
-    const imagePosition = variant === '1' ? 'top' : 'right';
-    const theme = imagePosition === 'top' ? { '--bottom-koros-color': 'var(--color-fog)' } : {};
-    return <WithBackgroundImage imagePosition={imagePosition} theme={theme} />;
+    const theme = variant === 'backgroundTop' ? { '--bottom-koros-color': 'var(--color-fog)' } : {};
+    return <WithBackgroundImage variant={variant} theme={theme} />;
   };
   const NoImage = () => {
-    const heroTypes = ['blueAndGreen', 'whiteWithoutKoros', 'blackAndWhite'];
-    return <WithoutImage heroType={heroTypes[parseInt(variant, 10) - 1]} />;
+    const heroPresets = ['blueAndGreen', 'whiteWithoutKoros', 'blackAndWhite'];
+    return <WithoutImage heroType={heroPresets[parseInt(preset, 10) - 1]} />;
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
-      {componentType === imageOnSide && <BasicImageVersion />}
-      {componentType === backgroundImage && <BackgroundImageVersion />}
-      {componentType === withoutImage && <NoImage />}
-      {componentType === wideImage && <BottomWideImage />}
+      {(variant === 'imageLeft' || variant === 'imageRight') && <BasicImageVersion />}
+      {(variant === 'backgroundTop' || variant === 'angledKoros') && <BackgroundImageVersion />}
+      {variant === 'textOnly' && <NoImage />}
+      {variant === 'wideImage' && <BottomWideImage />}
       <Section color="secondary">
         <h1 className="heading-xl">Component after hero</h1>
         This component shows padding after hero
@@ -282,21 +274,21 @@ EmbeddedToPage.argTypes = {
     description: '*** Theme is not passed the the components ***',
     control: false,
   },
-  componentType: {
-    defaultValue: componentTypes.withoutImage,
+  variant: {
+    defaultValue: 'textOnly',
     control: {
       type: 'select',
-      options: Object.values(componentTypes),
+      options: ['imageLeft', 'imageRight', 'backgroundTop', 'wideImage', 'angledKoros', 'textOnly'],
     },
   },
-  variant: {
+  preset: {
     defaultValue: '1',
     control: {
       type: 'select',
       options: ['1', '2', '3'],
     },
     table: {
-      type: { summary: 'Changes to another variant of the selected component.' },
+      type: { summary: 'Changes to another preset of the selected variant.' },
     },
   },
 };
@@ -308,10 +300,10 @@ export const PlaygroundForAngledKoros = (args) => (
         .hero {
           --angled-koros-inset: ${args.korosInset};
         }
-        .hero-card h1{
+        .hero > * h1{
           max-width: ${args.headingMaxWidth};
         }
-        #hero .hero-card > p {
+        #hero > * p {
           padding-right: ${args.paragraphPadding};
         }
       `}
@@ -321,14 +313,13 @@ export const PlaygroundForAngledKoros = (args) => (
       koros={args.koros}
       className="hero"
       theme={{ '--background-color': '#f5a3c7', '--color': '#000', ...args.theme }}
+      variant="angledKoros"
+      imageSrc={imageFile}
     >
-      <Hero.Card id="hero-card" className="hero-card">
-        <DefaultCardContent
-          title="This hero layout is broken intentionally"
-          text="When angled koros is visible*, heading or text may overflow the koros and image. Can be fixed by adding padding to the elements with css. Can also be fixed by changing theme property 'angled-koros-inset'"
-        />
-      </Hero.Card>
-      <Hero.BackgroundImage id="hero-image" src={imageFile} />
+      <DefaultContent
+        title="This hero layout is broken intentionally"
+        text="When angled koros is visible*, heading or text may overflow the koros and image. Can be fixed by adding padding to the elements with css. Can also be fixed by changing theme property 'angled-koros-inset'"
+      />
     </Hero>
     <p>*On large screens, resolution &gt;=992px</p>
   </div>
@@ -370,7 +361,12 @@ export const PlaygroundForTheme = (args) => {
   };
 
   const theme = Object.fromEntries(Object.entries(argsAsTheme).filter(([, value]) => !!value));
-
+  const heroProps: HeroProps = {
+    koros: args.koros,
+    theme,
+    imageSrc: imageFile,
+    variant: 'backgroundTop',
+  };
   return (
     <div>
       <style>
@@ -387,11 +383,8 @@ export const PlaygroundForTheme = (args) => {
        
       `}
       </style>
-      <Hero koros={args.koros} theme={theme}>
-        <Hero.BackgroundImage src={imageFile} />
-        <Hero.Card>
-          <DefaultCardContent />
-        </Hero.Card>
+      <Hero {...heroProps}>
+        <DefaultContent />
       </Hero>
       <div className="oddly-padded">
         <p>This text should align with the hero content box on all screen sizes</p>
@@ -481,15 +474,15 @@ export const AllHeroes = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#adf1c3' }}>
       <NavigationComponent />
-      <ImageLeftOrRight imagePosition="left" />
+      <ImageLeftOrRight variant="imageLeft" />
       <Divider />
-      <WithBackgroundImage imagePosition="top" theme={{ '--bottom-koros-color': '#adf1c3' }} />
+      <WithBackgroundImage variant="backgroundTop" theme={{ '--bottom-koros-color': '#adf1c3' }} />
       <Divider />
-      <ImageLeftOrRight imagePosition="right" />
+      <ImageLeftOrRight variant="imageRight" />
       <Divider />
       <WithoutImage heroType="blueAndGreen" />
       <Divider />
-      <WithBackgroundImage imagePosition="right" />
+      <WithBackgroundImage variant="angledKoros" />
       <Divider />
       <WithoutImage heroType="blackAndWhite" />
       <Divider />
