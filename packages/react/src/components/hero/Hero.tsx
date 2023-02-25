@@ -11,28 +11,83 @@ type HTMLElementAttributes = React.HtmlHTMLAttributes<HTMLDivElement>;
 type ImgElementAttributes = React.ImgHTMLAttributes<HTMLImageElement>;
 export type HeroProps = React.PropsWithChildren<
   HTMLElementAttributes & {
-    theme?: HeroCustomTheme;
+    /**
+     * Should texts be centered. Use when there is no image.
+     */
+    centeredContent?: boolean;
+    /**
+     * Image source
+     */
+    imageSrc?: string;
+    /**
+     * Koros properties. Accepts also boolean "hide", which hides the koros.
+     * @see KorosProps
+     */
     koros?: Omit<KorosProps, 'rotate'> & {
       hide?: boolean;
     };
+    /*
+     * Css variables for theming the hero
+     */
+    theme?: HeroCustomTheme;
+    /**
+     * Defines the hero variant
+     */
     variant?: 'imageLeft' | 'imageRight' | 'backgroundTop' | 'wideImage' | 'diagonalKoros' | 'textOnly';
-    imageSrc?: string;
-    centeredContent?: boolean;
   }
 >;
 
 export interface HeroCustomTheme {
+  /**
+   * Sets the background color. Is also koros color, if --koros-color is not set.
+   * Default --color-white
+   */
   '--background-color'?: string;
+  /**
+   * Text color
+   * Default --color-black-90
+   */
   '--color'?: string;
+  /**
+   * How background image is positioned if it overflows the container. Is set to css property "object-position"
+   * Default bottom right
+   */
   '--image-position'?: string;
+  /**
+   * Koros of the koros
+   * Default --background-color
+   */
   '--koros-color'?: string;
-  // used only with top bg image!
+  /**
+   * The 'backgroundTop' variant might need a custom color for the bottom/mobile koros.
+   * Default none
+   */
   '--bottom-koros-color'?: string;
-  // used only with diagonal bg image!
+  /**
+   * The "diagonalKoros" variant might need koros position adjustment, if texts overflow.
+   * This is an inset value with "top right bottom left"
+   * Default "auto auto 10% -33%"
+   */
   '--diagonal-koros-inset'?: string;
+  /**
+   * Custom horizontal padding for small screens
+   * Default --spacing-layout-2-xs
+   */
   '--horizontal-padding-small'?: string;
+  /**
+   * Custom horizontal padding for medium screens
+   * Default --spacing-layout-xs
+   */
   '--horizontal-padding-medium'?: string;
+  /**
+   * Custom horizontal padding for large screens
+   * Default --spacing-layout-xs
+   */
   '--horizontal-padding-large'?: string;
+  /**
+   * Custom horizontal padding for x-large screens
+   * Default --spacing-layout-xs
+   */
   '--horizontal-padding-x-large'?: string;
 }
 
@@ -96,7 +151,7 @@ export const Hero = ({
   if (currentVariant === 'backgroundTop') {
     const TopOrBottomKoros = ({ top }: { top?: boolean }) => {
       const className = top ? styles.topKoros : styles.bottomKoros;
-      const topKorosFillColor =
+      const korosFillColor =
         !top && theme && theme['--bottom-koros-color'] ? theme['--bottom-koros-color'] : 'var(--koros-color)';
       return (
         <Koros
@@ -104,7 +159,7 @@ export const Hero = ({
           shift
           compact
           className={`${(koros && koros.className) || ''} ${className}`}
-          style={{ fill: topKorosFillColor }}
+          style={{ fill: korosFillColor }}
         />
       );
     };
