@@ -15,7 +15,7 @@ export type HeroProps = React.PropsWithChildren<
     koros?: Omit<KorosProps, 'rotate'> & {
       hide?: boolean;
     };
-    variant?: 'imageLeft' | 'imageRight' | 'backgroundTop' | 'wideImage' | 'angledKoros' | 'textOnly';
+    variant?: 'imageLeft' | 'imageRight' | 'backgroundTop' | 'wideImage' | 'diagonalKoros' | 'textOnly';
     imageSrc?: string;
     centeredContent?: boolean;
   }
@@ -28,8 +28,8 @@ export interface HeroCustomTheme {
   '--koros-color'?: string;
   // used only with top bg image!
   '--bottom-koros-color'?: string;
-  // used only with angled bg image!
-  '--angled-koros-inset'?: string;
+  // used only with diagonal bg image!
+  '--diagonal-koros-inset'?: string;
   '--horizontal-padding-small'?: string;
   '--horizontal-padding-medium'?: string;
   '--horizontal-padding-large'?: string;
@@ -124,21 +124,21 @@ export const Hero = ({
     );
   }
 
-  if (currentVariant === 'angledKoros') {
+  if (currentVariant === 'diagonalKoros') {
     return (
       <div {...heroElementAttributes}>
-        <div className={styles.angledKorosWithBackgroundContainer}>
+        <div className={styles.diagonalKorosWithBackgroundContainer}>
           <div className={styles.content}>
             <div className={styles.contentColums}>
               <Content />
               <div className={styles.emptyColumn} />
             </div>
-            <div className={styles.angledKorosMobileKoros}>
+            <div className={styles.diagonalKorosMobileKoros}>
               <Koros {...koros} flipHorizontal shift compact style={korosStyle} />
             </div>
           </div>
-          <Koros {...koros} className={styles.angledKorosAndBackground} style={korosStyle} />
-          <ImageAsBackground className={styles.angledKorosBackgroundContainer} />
+          <Koros {...koros} className={styles.diagonalKorosAndBackground} style={korosStyle} />
+          <ImageAsBackground className={styles.diagonalKorosBackgroundContainer} />
         </div>
       </div>
     );

@@ -64,18 +64,18 @@
   composes: hds-hero--background-top__bottom-koros from heroCss;
 }
 
-/* angledKoros specific styles */
+/* diagonalKoros specific styles */
 
-.angledKoros {
-  composes: hds-hero--angled-koros from heroCss;
+.diagonalKoros {
+  composes: hds-hero--diagonal-koros from heroCss;
 }
 
-.angledKorosWithBackgroundContainer {
-  composes: hds-hero--angled-koros hds-hero--with-background__container from heroCss;
+.diagonalKorosWithBackgroundContainer {
+  composes: hds-hero--diagonal-koros hds-hero--with-background__container from heroCss;
 }
 
-.angledKorosAndBackground {
-  composes: hds-hero--angled-koros hds-hero--angled-koros__koros-and-background from heroCss;
+.diagonalKorosAndBackground {
+  composes: hds-hero--diagonal-koros hds-hero--diagonal-koros__koros-and-background from heroCss;
 }
 
 .contentColums {
@@ -85,11 +85,11 @@
   composes: hds-hero--with-background__emptyColumn from heroCss;
 }
 
-.angledKorosMobileKoros {
+.diagonalKorosMobileKoros {
   display: block;
 }
 
-.angledKorosAndBackground {
+.diagonalKorosAndBackground {
   display: none;
 }
 
@@ -103,11 +103,11 @@
 }
 
 @media large-up {
-  /* angledKoros specific styles */
-  .angledKorosMobileKoros {
+  /* diagonalKoros specific styles */
+  .diagonalKorosMobileKoros {
     display: none;
   }
-  .angledKorosAndBackground {
+  .diagonalKorosAndBackground {
     display: block;
   }
 }

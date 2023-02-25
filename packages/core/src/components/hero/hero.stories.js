@@ -52,7 +52,7 @@ export const BottomWideImage = () => `
 
 BottomWideImage.storyName = 'Bottom wide image';
 
-export const AngledKoros = () => `
+export const DiagonalKoros = () => `
 <style type="text/css">
   .custom-theme {
     content: "";
@@ -78,7 +78,7 @@ export const AngledKoros = () => `
     }  
   }
   </style>
-<div class="hds-hero custom-theme hds-hero--angled-koros">
+<div class="hds-hero custom-theme hds-hero--diagonal-koros">
    <div class="hds-hero--with-background__container">
    <div class="hds-hero--with-background__contentColumns">
       <div class="hds-hero__content">
@@ -86,7 +86,7 @@ export const AngledKoros = () => `
       </div>
       <div class="hds-hero--with-background__emptyColumn"></div>
       </div>
-      <div class="hds-koros shifted-koros hds-hero--angled-koros__koros-and-background" style="fill: var(--koros-color);">
+      <div class="hds-koros shifted-koros hds-hero--diagonal-koros__koros-and-background" style="fill: var(--koros-color);">
          ${getKorosSVG()}
       </div>
       <div class="hds-hero--with-background__background">
@@ -94,7 +94,7 @@ export const AngledKoros = () => `
       </div>
    </div>
 </div>`;
-AngledKoros.storyName = 'Angled koros and background';
+DiagonalKoros.storyName = 'Diagonal koros and background';
 
 export const WithoutImage = () => `
   <style type="text/css">

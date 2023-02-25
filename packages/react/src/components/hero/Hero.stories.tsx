@@ -135,7 +135,7 @@ export const WithBackgroundImage = (args) => {
   const heroProps: HeroProps = {};
   if (args.variant === 'backgroundTop') {
     heroProps.theme = { '--background-color': '#fff', ...args.theme };
-  } else if (args.variant === 'angledKoros') {
+  } else if (args.variant === 'diagonalKoros') {
     heroProps.theme = { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme };
   }
 
@@ -169,7 +169,7 @@ export const WithBackgroundImage = (args) => {
 
 WithBackgroundImage.argTypes = {
   variant: {
-    options: ['backgroundTop', 'angledKoros'],
+    options: ['backgroundTop', 'diagonalKoros'],
     control: { type: 'radio' },
     defaultValue: 'backgroundTop',
   },
@@ -254,7 +254,7 @@ export const EmbeddedToPage = (args) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
       {(variant === 'imageLeft' || variant === 'imageRight') && <BasicImageVersion />}
-      {(variant === 'backgroundTop' || variant === 'angledKoros') && <BackgroundImageVersion />}
+      {(variant === 'backgroundTop' || variant === 'diagonalKoros') && <BackgroundImageVersion />}
       {variant === 'textOnly' && <NoImage />}
       {variant === 'wideImage' && <BottomWideImage />}
       <Section color="secondary">
@@ -278,7 +278,7 @@ EmbeddedToPage.argTypes = {
     defaultValue: 'textOnly',
     control: {
       type: 'select',
-      options: ['imageLeft', 'imageRight', 'backgroundTop', 'wideImage', 'angledKoros', 'textOnly'],
+      options: ['imageLeft', 'imageRight', 'backgroundTop', 'wideImage', 'diagonalKoros', 'textOnly'],
     },
   },
   preset: {
@@ -293,12 +293,12 @@ EmbeddedToPage.argTypes = {
   },
 };
 
-export const PlaygroundForAngledKoros = (args) => (
+export const PlaygroundForDiagonalKoros = (args) => (
   <div>
     <style>
       {`
         .hero {
-          --angled-koros-inset: ${args.korosInset};
+          --diagonal-koros-inset: ${args.korosInset};
         }
         .hero > * h1{
           max-width: ${args.headingMaxWidth};
@@ -313,19 +313,19 @@ export const PlaygroundForAngledKoros = (args) => (
       koros={args.koros}
       className="hero"
       theme={{ '--background-color': '#f5a3c7', '--color': '#000', ...args.theme }}
-      variant="angledKoros"
+      variant="diagonalKoros"
       imageSrc={imageFile}
     >
       <DefaultContent
         title="This hero layout is broken intentionally"
-        text="When angled koros is visible*, heading or text may overflow the koros and image. Can be fixed by adding padding to the elements with css. Can also be fixed by changing theme property 'angled-koros-inset'"
+        text="When diagonal koros is visible*, heading or text may overflow the koros and image. Can be fixed by adding padding to the elements with css. Can also be fixed by changing theme property 'diagonal-koros-inset'"
       />
     </Hero>
     <p>*On large screens, resolution &gt;=992px</p>
   </div>
 );
 
-PlaygroundForAngledKoros.argTypes = {
+PlaygroundForDiagonalKoros.argTypes = {
   korosInset: {
     defaultValue: 'auto auto 30% -40%',
     control: 'text',
@@ -353,7 +353,7 @@ export const PlaygroundForTheme = (args) => {
     '--image-position': args.imagePosition,
     '--koros-color': args.korosColor,
     '--bottom-koros-color': args.bottomKorosColor,
-    '--angled-koros-inset': args.angledKorosInset,
+    '--diagonal-koros-inset': args.diagonalKorosInset,
     '--horizontal-padding-small': args.horizontalPaddingSmall,
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
     '--horizontal-padding-large': args.horizontalPaddingLarge,
@@ -443,7 +443,7 @@ PlaygroundForTheme.argTypes = {
   korosInset: {
     defaultValue: demoPadding,
     control: 'text',
-    description: 'Position of the koros. Used only with angled koros.',
+    description: 'Position of the koros. Used only with diagonal koros.',
   },
   horizontalPaddingSmall: {
     defaultValue: demoPadding,
@@ -482,7 +482,7 @@ export const AllHeroes = () => {
       <Divider />
       <WithoutImage heroType="blueAndGreen" />
       <Divider />
-      <WithBackgroundImage variant="angledKoros" />
+      <WithBackgroundImage variant="diagonalKoros" />
       <Divider />
       <WithoutImage heroType="blackAndWhite" />
       <Divider />

@@ -3,7 +3,7 @@
   --color: var(--color-black-90);
   --image-position: bottom right;
   --koros-color: var(--color-white);
-  --angled-koros-inset: auto auto 10% -33%;
+  --diagonal-koros-inset: auto auto 10% -33%;
   --horizontal-padding-small: var(--spacing-layout-2-xs);
   --horizontal-padding-medium: var(--spacing-layout-xs);
   --horizontal-padding-large: var(--spacing-layout-xs);
@@ -104,25 +104,25 @@
   display: none;
 }
 
-.hds-hero--angled-koros .hds-hero--with-background__container {
+.hds-hero--diagonal-koros .hds-hero--with-background__container {
   display: flex;
   position: relative;
   overflow: hidden;
   z-index: 1;
   flex-direction: column;
 }
-.hds-hero--angled-koros .hds-hero__content {
+.hds-hero--diagonal-koros .hds-hero__content {
   display: block;
   z-index: 2;
   width: 100%;
   padding: 0;
   box-sizing: border-box;
 }
-.hds-hero--angled-koros .hds-hero__card {
+.hds-hero--diagonal-koros .hds-hero__card {
   background-color: var(--background-color);
   padding: var(--padding-vertical) var(--padding-horizontal);
 }
-.hds-hero--angled-koros .hds-hero--angled-koros__koros-and-background {
+.hds-hero--diagonal-koros .hds-hero--diagonal-koros__koros-and-background {
   transform: scaleY(-1);
   overflow: hidden;
 }
@@ -200,17 +200,17 @@
     display: block;
     width: 45%;
   }
-  .hds-hero--angled-koros .hds-hero__content {
+  .hds-hero--diagonal-koros .hds-hero__content {
     background-color: transparent;
     padding: var(--padding-vertical) 0;
   }
-  .hds-hero--angled-koros .hds-hero__card {
+  .hds-hero--diagonal-koros .hds-hero__card {
     padding: 0 var(--padding-horizontal);
     background: none;
     width: 55%;
   }
 
-  .hds-hero--angled-koros .hds-hero--angled-koros__koros-and-background {
+  .hds-hero--diagonal-koros .hds-hero--diagonal-koros__koros-and-background {
     transform: rotate(135deg);
     transform-origin: center;
     width: 150%;
@@ -218,10 +218,10 @@
     position: absolute;
     z-index: 1;
     height: 100%;
-    inset: var(--angled-koros-inset);
+    inset: var(--diagonal-koros-inset);
     overflow: visible;
   }
-  .hds-hero--angled-koros__koros-and-background:after {
+  .hds-hero--diagonal-koros__koros-and-background:after {
     content: '';
     background-color: var(--koros-color);
     display: block;
@@ -240,7 +240,7 @@
     font-size: var(--fontsize-heading-xxl);
     letter-spacing: -1.2px;
   }
-  .hds-hero--angled-koros .hds-hero__content p {
+  .hds-hero--diagonal-koros .hds-hero__content p {
     padding-right: var(--spacing-l);
   }
   .hds-hero__content--two-columns > *:first-child {
