@@ -84,7 +84,7 @@ export const DiagonalKoros = () => `
         <div class="hds-hero__content">
           ${card}
         </div>
-        <div class="hds-hero--with-background__emptyColumn"></div>
+        <div class="hds-hero--with-background__empty-column"></div>
       </div>
       <div class="hds-koros shifted-koros hds-hero--diagonal-koros__koros-and-background" style="fill: var(--koros-color);">
         ${getKorosSVG()}
@@ -184,7 +184,7 @@ export const BackgroundImage = () => `
       </div>
       <div class="hds-hero__content">
           ${card}
-          <div class="hds-hero--with-background__emptyColumn"></div>
+          <div class="hds-hero--with-background__empty-column"></div>
       </div>
     </div>
     <div class="hds-koros hds-hero--background-image__bottom-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">

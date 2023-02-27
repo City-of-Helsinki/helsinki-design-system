@@ -85,7 +85,7 @@
   margin: 0 auto;
 }
 
-.hds-hero--with-background__emptyColumn {
+.hds-hero--with-background__empty-column {
   display: none;
 }
 
@@ -196,7 +196,7 @@
     width: auto;
   }
 
-  .hds-hero--with-background__emptyColumn {
+  .hds-hero--with-background__empty-column {
     display: block;
     width: 45%;
   }

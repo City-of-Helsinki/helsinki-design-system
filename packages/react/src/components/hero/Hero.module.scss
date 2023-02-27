@@ -82,7 +82,7 @@
   composes: hds-hero--with-background__contentColumns from heroCss;
 }
 .emptyColumn {
-  composes: hds-hero--with-background__emptyColumn from heroCss;
+  composes: hds-hero--with-background__empty-column from heroCss;
 }
 
 .diagonalKorosMobileKoros {
