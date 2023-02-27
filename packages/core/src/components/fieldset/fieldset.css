@@ -11,6 +11,12 @@
 
 .hds-fieldset-legend {
   font-weight: bold;
+
+ /* Normalize.css rule
+  * Remove the padding so developers are not caught out when they zero out
+  * `fieldset` elements in all browsers.
+  */
+  padding: 0;
 }
 
 .hds-fieldset--border {
