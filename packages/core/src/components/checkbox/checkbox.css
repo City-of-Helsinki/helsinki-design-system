@@ -69,6 +69,13 @@
   z-index: 1;
 }
 
+
+/* focus outline */
+.hds-checkbox .hds-checkbox__label:before {
+  height: var(--size);
+  width: var(--size);
+}
+
 /* background */
 .hds-checkbox .hds-checkbox__label:after {
   background-color: var(--background-unselected);
@@ -84,12 +91,6 @@
 .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label:after {
   transition: 85ms ease-out;
   transition-property: background-color, border-color, transform;
-}
-
-/* focus outline */
-.hds-checkbox .hds-checkbox__label:before {
-  height: var(--size);
-  width: var(--size);
 }
 
 .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label:before {
@@ -136,7 +137,7 @@
   position: relative;
 }
 
-.hds-checkbox__error-texticon:before {
+.hds-checkbox__error-text:before {
   background: var(--color-error);
   content: '';
   height: var(--icon-size);
