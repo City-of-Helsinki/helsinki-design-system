@@ -1,0 +1,38 @@
+.highlight {
+  --border-left-color: var(--color-bus);
+  --text-color: var(--color-black-90);
+  
+  border-left: 8px solid var(--border-left-color);
+
+  border-left-color: var(--border-left-color);
+  border-left-width: 8px;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  flex-direction: column;  
+  grid-row-gap: 24px;
+  padding-left: 16px;
+}
+.text {
+  max-width: 536px;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.small {
+  max-width: 264px;
+}
+.large {
+  font-size: 36px;
+  line-height: 43px;
+  max-width: 680px;
+}
+.quote {
+  font-style: italic;
+}
+.reference {
+  font-size: 18px;
+  line-height: 27px;
+}
