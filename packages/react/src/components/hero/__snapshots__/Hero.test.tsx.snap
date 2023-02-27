@@ -511,7 +511,7 @@ exports[`<Hero /> spec renders the component 5`] = `
 exports[`<Hero /> spec renders the component 6`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-13 wideImage"
+    class="hero custom-theme-13 imageBottom"
   >
     <div
       class="container"

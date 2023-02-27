@@ -37,7 +37,7 @@ describe('<Hero /> spec', () => {
     () => <HeroWithContent variant="imageLeft" />,
     () => <HeroWithContent variant="imageRight" />,
     () => <HeroWithContent />,
-    () => <HeroWithContent variant="wideImage" />,
+    () => <HeroWithContent variant="imageBottom" />,
   ];
 
   it('renders the component', () => {

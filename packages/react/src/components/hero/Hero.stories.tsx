@@ -178,12 +178,12 @@ WithBackgroundImage.argTypes = {
   },
 };
 
-export const BottomWideImage = (args) => {
+export const ImageBottom = (args) => {
   const heroProps: HeroProps = {
     koros: { ...args.koros },
     theme: { '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme },
     imageSrc: imageFile,
-    variant: 'wideImage',
+    variant: 'imageBottom',
   };
   return (
     <Hero {...heroProps}>
@@ -256,7 +256,7 @@ export const EmbeddedToPage = (args) => {
       {(variant === 'imageLeft' || variant === 'imageRight') && <BasicImageVersion />}
       {(variant === 'backgroundTop' || variant === 'diagonalKoros') && <BackgroundImageVersion />}
       {variant === 'textOnly' && <NoImage />}
-      {variant === 'wideImage' && <BottomWideImage />}
+      {variant === 'imageBottom' && <ImageBottom />}
       <Section color="secondary">
         <h1 className="heading-xl">Component after hero</h1>
         This component shows padding after hero
@@ -278,7 +278,7 @@ EmbeddedToPage.argTypes = {
     defaultValue: 'textOnly',
     control: {
       type: 'select',
-      options: ['imageLeft', 'imageRight', 'backgroundTop', 'wideImage', 'diagonalKoros', 'textOnly'],
+      options: ['imageLeft', 'imageRight', 'backgroundTop', 'imageBottom', 'diagonalKoros', 'textOnly'],
     },
   },
   preset: {
@@ -486,7 +486,7 @@ export const AllHeroes = () => {
       <Divider />
       <WithoutImage heroType="blackAndWhite" />
       <Divider />
-      <BottomWideImage />
+      <ImageBottom />
       <Divider />
       <WithoutImage heroType="whiteWithoutKoros" />
       <Divider />

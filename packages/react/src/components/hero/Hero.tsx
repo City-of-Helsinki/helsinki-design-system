@@ -33,7 +33,7 @@ export type HeroProps = React.PropsWithChildren<
     /**
      * Defines the hero variant
      */
-    variant?: 'imageLeft' | 'imageRight' | 'backgroundTop' | 'wideImage' | 'diagonalKoros' | 'textOnly';
+    variant?: 'imageLeft' | 'imageRight' | 'backgroundTop' | 'imageBottom' | 'diagonalKoros' | 'textOnly';
   }
 >;
 
@@ -200,7 +200,7 @@ export const Hero = ({
   }
 
   const hasImage = !!imageSrc && currentVariant !== 'textOnly';
-  const columnStyle = hasImage && currentVariant !== 'wideImage' ? styles.twoColumns : styles.singleColumn;
+  const columnStyle = hasImage && currentVariant !== 'imageBottom' ? styles.twoColumns : styles.singleColumn;
   return (
     <div {...heroElementAttributes}>
       <div className={styles.container}>

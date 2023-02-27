@@ -37,8 +37,8 @@ const koros = `
 
 const image = `<img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="">`;
 
-export const BottomWideImage = () => `
-<div class="hds-hero hds-hero--wide-image">
+export const ImageBottom = () => `
+<div class="hds-hero hds-hero--image-bottom">
   <div class="hds-hero__container">
     <div class="hds-hero__content hds-hero__content--single-column">
       ${card}
@@ -50,7 +50,7 @@ export const BottomWideImage = () => `
   </div>
 </div>`;
 
-BottomWideImage.storyName = 'Bottom wide image';
+ImageBottom.storyName = 'Bottom image';
 
 export const DiagonalKoros = () => `
 <style type="text/css">
