@@ -80,8 +80,8 @@ body {
 }
 
 .page-header-title {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-right: var(--spacing-2-xs);
 
   & > div:first-of-type {
