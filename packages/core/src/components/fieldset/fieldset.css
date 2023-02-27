@@ -6,7 +6,7 @@
 
   border: var(--border-style);
   box-sizing: border-box;
-  padding: var(--padding-top) var(--padding-sides) var(--padding-bottom)
+  padding: var(--padding-top) var(--padding-sides) var(--padding-bottom);
 }
 
 .hds-fieldset-legend {
