@@ -178,10 +178,10 @@ export const BackgroundImage = () => `
         --koros-color: var(--background-color);
       }
     </style>
-    <div class="hds-hero custom-theme hds-hero--background-top">
+    <div class="hds-hero custom-theme hds-hero--background-image">
         <div class="hds-hero--with-background__container">
           <div class="hds-hero--with-background__background">${image}</div>
-          <div class="hds-koros hds-hero--background-top__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
+          <div class="hds-koros hds-hero--background-image__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
             ${getKorosSVG()}
           </div>
           <div class="hds-hero__content">
@@ -189,7 +189,7 @@ export const BackgroundImage = () => `
               <div class="hds-hero--with-background__emptyColumn"></div>
           </div>
         </div>
-        <div class="hds-koros hds-hero--background-top__bottom-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
+        <div class="hds-koros hds-hero--background-image__bottom-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
           ${getKorosSVG()}
         </div>
     </div>`;

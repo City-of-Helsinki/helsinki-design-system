@@ -33,7 +33,7 @@ describe('<Hero /> spec', () => {
 
   const componentVariations = [
     () => <HeroWithContent variant="diagonalKoros" />,
-    () => <HeroWithContent variant="backgroundTop" />,
+    () => <HeroWithContent variant="backgroundImage" />,
     () => <HeroWithContent variant="imageLeft" />,
     () => <HeroWithContent variant="imageRight" />,
     () => <HeroWithContent />,

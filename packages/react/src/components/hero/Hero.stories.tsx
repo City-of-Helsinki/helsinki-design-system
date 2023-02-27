@@ -133,7 +133,7 @@ WithoutImage.argTypes = {
 
 export const WithBackgroundImage = (args) => {
   const heroProps: HeroProps = {};
-  if (args.variant === 'backgroundTop') {
+  if (args.variant === 'backgroundImage') {
     heroProps.theme = { '--background-color': '#fff', ...args.theme };
   } else if (args.variant === 'diagonalKoros') {
     heroProps.theme = { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme };
@@ -143,7 +143,6 @@ export const WithBackgroundImage = (args) => {
   heroProps.koros = { ...args.koros };
   heroProps.imageSrc = imageFile;
   heroProps.variant = args.variant;
-
   return (
     <Hero {...heroProps}>
       {!args.demoLongContent ? (
@@ -169,9 +168,9 @@ export const WithBackgroundImage = (args) => {
 
 WithBackgroundImage.argTypes = {
   variant: {
-    options: ['backgroundTop', 'diagonalKoros'],
+    options: ['backgroundImage', 'diagonalKoros'],
     control: { type: 'radio' },
-    defaultValue: 'backgroundTop',
+    defaultValue: 'backgroundImage',
   },
   demoLongContent: {
     control: 'boolean',
@@ -243,7 +242,7 @@ export const EmbeddedToPage = (args) => {
     return <ImageLeftOrRight variant={variant} />;
   };
   const BackgroundImageVersion = () => {
-    const theme = variant === 'backgroundTop' ? { '--bottom-koros-color': 'var(--color-fog)' } : {};
+    const theme = variant === 'backgroundImage' ? { '--bottom-koros-color': 'var(--color-fog)' } : {};
     return <WithBackgroundImage variant={variant} theme={theme} />;
   };
   const NoImage = () => {
@@ -254,7 +253,7 @@ export const EmbeddedToPage = (args) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
       {(variant === 'imageLeft' || variant === 'imageRight') && <BasicImageVersion />}
-      {(variant === 'backgroundTop' || variant === 'diagonalKoros') && <BackgroundImageVersion />}
+      {(variant === 'backgroundImage' || variant === 'diagonalKoros') && <BackgroundImageVersion />}
       {variant === 'textOnly' && <NoImage />}
       {variant === 'imageBottom' && <ImageBottom />}
       <Section color="secondary">
@@ -278,7 +277,7 @@ EmbeddedToPage.argTypes = {
     defaultValue: 'textOnly',
     control: {
       type: 'select',
-      options: ['imageLeft', 'imageRight', 'backgroundTop', 'imageBottom', 'diagonalKoros', 'textOnly'],
+      options: ['imageLeft', 'imageRight', 'backgroundImage', 'imageBottom', 'diagonalKoros', 'textOnly'],
     },
   },
   preset: {
@@ -365,7 +364,7 @@ export const PlaygroundForTheme = (args) => {
     koros: args.koros,
     theme,
     imageSrc: imageFile,
-    variant: 'backgroundTop',
+    variant: 'backgroundImage',
   };
   return (
     <div>
@@ -476,7 +475,7 @@ export const AllHeroes = () => {
       <NavigationComponent />
       <ImageLeftOrRight variant="imageLeft" />
       <Divider />
-      <WithBackgroundImage variant="backgroundTop" theme={{ '--bottom-koros-color': '#adf1c3' }} />
+      <WithBackgroundImage variant="backgroundImage" theme={{ '--bottom-koros-color': '#adf1c3' }} />
       <Divider />
       <ImageLeftOrRight variant="imageRight" />
       <Divider />

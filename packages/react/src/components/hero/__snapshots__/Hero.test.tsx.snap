@@ -126,7 +126,7 @@ exports[`<Hero /> spec renders the component 1`] = `
 exports[`<Hero /> spec renders the component 2`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-4 backgroundTop"
+    class="hero custom-theme-4 backgroundImage"
   >
     <div
       class="withBackgroundContainer"

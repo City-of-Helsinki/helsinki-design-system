@@ -50,18 +50,18 @@
   composes: hds-hero--with-background__background from heroCss;
 }
 
-/* backgroundTop specific styles */
+/* backgroundImage specific styles */
 
-.backgroundTop {
-  composes: hds-hero--background-top from heroCss;
+.backgroundImage {
+  composes: hds-hero--background-image from heroCss;
 }
 
 .topKoros {
-  composes: hds-hero--background-top__top-koros from heroCss;
+  composes: hds-hero--background-image__top-koros from heroCss;
 }
 
 .bottomKoros {
-  composes: hds-hero--background-top__bottom-koros from heroCss;
+  composes: hds-hero--background-image__bottom-koros from heroCss;
 }
 
 /* diagonalKoros specific styles */

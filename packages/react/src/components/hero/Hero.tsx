@@ -33,7 +33,7 @@ export type HeroProps = React.PropsWithChildren<
     /**
      * Defines the hero variant
      */
-    variant?: 'imageLeft' | 'imageRight' | 'backgroundTop' | 'imageBottom' | 'diagonalKoros' | 'textOnly';
+    variant?: 'imageLeft' | 'imageRight' | 'backgroundImage' | 'imageBottom' | 'diagonalKoros' | 'textOnly';
   }
 >;
 
@@ -59,7 +59,7 @@ export interface HeroCustomTheme {
    */
   '--koros-color'?: string;
   /**
-   * The 'backgroundTop' variant might need a custom color for the bottom/mobile koros.
+   * The 'backgroundImage' variant might need a custom color for the bottom/mobile koros.
    * Default none
    */
   '--bottom-koros-color'?: string;
@@ -148,7 +148,7 @@ export const Hero = ({
     return <div className={classNameList}>{children}</div>;
   };
 
-  if (currentVariant === 'backgroundTop') {
+  if (currentVariant === 'backgroundImage') {
     const TopOrBottomKoros = ({ top }: { top?: boolean }) => {
       const className = top ? styles.topKoros : styles.bottomKoros;
       const korosFillColor =
