@@ -127,7 +127,7 @@ WithoutImage.argTypes = {
     options: ['blackAndWhite', 'blueAndGreen', 'whiteWithoutKoros'],
     control: { type: 'radio' },
     defaultValue: 'blueAndGreen',
-    description: 'Choose a preset hero type',
+    description: 'Choose a preset hero type. This is a Storybook control, not an actual component property.',
   },
 };
 
@@ -174,6 +174,7 @@ WithBackgroundImage.argTypes = {
   },
   demoLongContent: {
     control: 'boolean',
+    description: 'Storybook control, not an actual component property.',
   },
 };
 
@@ -287,7 +288,10 @@ EmbeddedToPage.argTypes = {
       options: ['1', '2', '3'],
     },
     table: {
-      type: { summary: 'Changes to another preset of the selected variant.' },
+      type: {
+        summary:
+          'Changes to another preset of the selected variant. Storybook control, not an actual component property',
+      },
     },
   },
 };
@@ -328,17 +332,17 @@ PlaygroundForDiagonalKoros.argTypes = {
   korosInset: {
     defaultValue: 'auto auto 30% -40%',
     control: 'text',
-    description: 'Position of the koros',
+    description: 'Position of the koros. Storybook control, not an actual component property.',
   },
   headingMaxWidth: {
     defaultValue: '35vw',
     control: 'text',
-    description: 'Max width of the heading',
+    description: 'Max width of the heading. Storybook control, not an actual component property.',
   },
   paragraphPadding: {
     defaultValue: '0%',
     control: 'text',
-    description: 'Padding of the p element',
+    description: 'Padding of the p element. Storybook control, not an actual component property.',
   },
 };
 
@@ -404,17 +408,17 @@ PlaygroundForTheme.argTypes = {
   backgroundColor: {
     defaultValue: demoBgColor,
     control: 'color',
-    description: 'Background / koros color',
+    description: 'Background / koros color.',
   },
   color: {
     defaultValue: '',
     control: 'color',
-    description: 'Text color',
+    description: 'Text color.',
   },
   korosColor: {
     defaultValue: '',
     control: 'color',
-    description: 'Optional koros color',
+    description: 'Optional koros color.',
   },
   bottomKorosColor: {
     defaultValue: '',
@@ -447,22 +451,22 @@ PlaygroundForTheme.argTypes = {
   horizontalPaddingSmall: {
     defaultValue: demoPadding,
     control: 'text',
-    description: 'Horizontal padding on small screens <768px',
+    description: 'Horizontal padding on small screens <768px.',
   },
   horizontalPaddingMedium: {
     defaultValue: demoPadding,
     control: 'text',
-    description: 'Horizontal padding on medium screens >=768px',
+    description: 'Horizontal padding on medium screens >=768px.',
   },
   horizontalPaddingLarge: {
     defaultValue: demoPadding,
     control: 'text',
-    description: 'Horizontal padding on large screens >=992px',
+    description: 'Horizontal padding on large screens >=992px.',
   },
   horizontalPaddingXLarge: {
     defaultValue: demoPadding,
     control: 'text',
-    description: 'Horizontal padding on x-large screens >=1248px',
+    description: 'Horizontal padding on x-large screens >=1248px.',
   },
 };
 
