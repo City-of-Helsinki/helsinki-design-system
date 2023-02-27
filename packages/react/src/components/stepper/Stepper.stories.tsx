@@ -9,7 +9,6 @@ import { TextInput } from '../textInput';
 import { NumberInput } from '../numberInput';
 import { Card } from '../card';
 import { ErrorSummary } from '../errorSummary';
-import { FileInput } from '../fileInput/FileInput';
 
 export default {
   component: Stepper,
@@ -700,15 +699,8 @@ export const SimpleFormExample = (args) => {
 
   const errorRef = useRef(null);
 
-  const [files, setFiles] = React.useState<File[]>();
-
   return (
     <form>
-      {state.activeStepIndex === 0 ? (
-        <>
-          <FileInput id="filu" label="tiedostot" onChange={setFiles} defaultValue={files} multiple />
-        </>
-      ) : null}
       <h1 style={{ marginTop: '0', fontSize: '52px', lineHeight: '62px' }}>Simple form example</h1>
       <Stepper
         className="stepper-form-validation"
