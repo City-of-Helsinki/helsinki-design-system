@@ -254,7 +254,7 @@ export const EmbeddedToPage = (args) => {
       <NavigationComponent />
       {(variant === 'imageLeft' || variant === 'imageRight') && <BasicImageVersion />}
       {(variant === 'backgroundImage' || variant === 'diagonalKoros') && <BackgroundImageVersion />}
-      {variant === 'textOnly' && <NoImage />}
+      {variant === 'noImage' && <NoImage />}
       {variant === 'imageBottom' && <ImageBottom />}
       <Section color="secondary">
         <h1 className="heading-xl">Component after hero</h1>
@@ -274,10 +274,10 @@ EmbeddedToPage.argTypes = {
     control: false,
   },
   variant: {
-    defaultValue: 'textOnly',
+    defaultValue: 'noImage',
     control: {
       type: 'select',
-      options: ['imageLeft', 'imageRight', 'backgroundImage', 'imageBottom', 'diagonalKoros', 'textOnly'],
+      options: ['imageLeft', 'imageRight', 'backgroundImage', 'imageBottom', 'diagonalKoros', 'noImage'],
     },
   },
   preset: {

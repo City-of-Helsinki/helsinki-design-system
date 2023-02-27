@@ -22,7 +22,7 @@ describe('<Hero /> spec', () => {
   const HeroWithContent = (props: HeroProps) => {
     const heroProps: HeroProps = {
       ...props,
-      imageSrc: props.variant !== 'textOnly' ? imageSrc : undefined,
+      imageSrc: props.variant !== 'noImage' ? imageSrc : undefined,
     };
     return (
       <Hero {...heroProps}>

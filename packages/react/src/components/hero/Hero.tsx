@@ -33,7 +33,7 @@ export type HeroProps = React.PropsWithChildren<
     /**
      * Defines the hero variant
      */
-    variant?: 'imageLeft' | 'imageRight' | 'backgroundImage' | 'imageBottom' | 'diagonalKoros' | 'textOnly';
+    variant?: 'imageLeft' | 'imageRight' | 'backgroundImage' | 'imageBottom' | 'diagonalKoros' | 'noImage';
   }
 >;
 
@@ -104,7 +104,7 @@ export const Hero = ({
   if (!editableTheme['--koros-color']) {
     editableTheme['--koros-color'] = 'var(--background-color)';
   }
-  const currentVariant: HeroProps['variant'] = variant || (imageSrc ? 'imageLeft' : 'textOnly');
+  const currentVariant: HeroProps['variant'] = variant || (imageSrc ? 'imageLeft' : 'noImage');
   const customThemeClass = useTheme<HeroCustomTheme>(styles.hero, editableTheme);
   const korosStyle = { fill: 'var(--koros-color)' };
   const hideKoros = !!koros?.hide;
@@ -199,7 +199,7 @@ export const Hero = ({
     );
   }
 
-  const hasImage = !!imageSrc && currentVariant !== 'textOnly';
+  const hasImage = !!imageSrc && currentVariant !== 'noImage';
   const columnStyle = hasImage && currentVariant !== 'imageBottom' ? styles.twoColumns : styles.singleColumn;
   return (
     <div {...heroElementAttributes}>
