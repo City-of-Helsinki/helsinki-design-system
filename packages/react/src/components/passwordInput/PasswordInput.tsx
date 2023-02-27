@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './PasswordInput.module.scss';
 import { TextInputProps } from '../textInput';
 import { IconEye, IconEyeCrossed } from '../../icons';

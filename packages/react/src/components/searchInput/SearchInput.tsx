@@ -1,8 +1,8 @@
 import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
 import { useCombobox, UseComboboxStateChangeTypes } from 'downshift';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 
 import styles from './SearchInput.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';

@@ -13,7 +13,8 @@ import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
 import { useVirtual } from 'react-virtual';
 
-import 'hds-core';
+// import base styles
+import '../../../styles/base.css';
 
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';

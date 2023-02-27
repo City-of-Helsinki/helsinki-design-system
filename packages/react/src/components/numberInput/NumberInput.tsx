@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import 'hds-core';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
+
+// import base styles
+import '../../styles/base.css';
 
 import styles from './NumberInput.module.scss';
 import { IconMinus, IconPlus } from '../../icons';

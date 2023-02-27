@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import core base styles
-import 'hds-core';
 import uniqueId from 'lodash.uniqueid';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
 import { ResizeObserver } from '@juggle/resize-observer';
+
+// import base styles
+import '../../styles/base.css';
 
 import styles from './MenuButton.module.scss';
 import { Menu } from './menu/Menu';

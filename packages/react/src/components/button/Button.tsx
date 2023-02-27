@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import { LoadingSpinner } from '../loadingSpinner';
 import styles from './Button.module.scss';
 import classNames from '../../utils/classNames';

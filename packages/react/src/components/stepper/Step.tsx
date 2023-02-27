@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Stepper.module.scss';
 import classNames from '../../utils/classNames';
 

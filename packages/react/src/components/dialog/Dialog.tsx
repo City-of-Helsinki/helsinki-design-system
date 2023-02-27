@@ -1,8 +1,9 @@
 import React, { useEffect, RefObject, useCallback, useState, useRef, createRef } from 'react';
 import ReactDOM from 'react-dom';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Dialog.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
