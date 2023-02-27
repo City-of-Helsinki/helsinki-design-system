@@ -117,7 +117,7 @@
 .helper-text {
   color: var(--color-black-60);
   display: block;
+  flex-basis: 100%;
   font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-2-xs);
-  flex-basis: 100%;
 }
