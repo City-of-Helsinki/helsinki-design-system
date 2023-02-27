@@ -87,9 +87,6 @@ const getConfig = (format, extractCSS) => ({
     json(),
     postcss({
       extract: extractCSS ? 'index.css' : undefined,
-      inject: {
-        injectAt: 'top'
-      },
       modules: true,
       use: ['sass'],
       minimize: {
