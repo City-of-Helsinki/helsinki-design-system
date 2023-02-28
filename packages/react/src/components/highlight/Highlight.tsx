@@ -41,12 +41,8 @@ export const Highlight = ({ theme, size, type, text, reference }: HighlightProps
 
   return (
     <div className={classNames(styles.highlight, customThemeClass)} role="region">
-      <div className={classNames(styles.text, isQuote && styles.quote, size && styles[size])}>
-        {isQuote && '“'}
-        {text}
-        {isQuote && '”'}
-      </div>
-      {reference && <div className={styles.reference}>⁠—{reference}</div>}
+      <div className={classNames(styles.text, isQuote && styles.quote, size && styles[size])}>{text}</div>
+      {reference && <div className={styles.reference}>⁠{reference}</div>}
     </div>
   );
 };

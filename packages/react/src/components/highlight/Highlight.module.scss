@@ -13,28 +13,21 @@
 }
 
 .text {
-  max-width: 536px;
-  font-size: 24px;
-  line-height: 28px;
-  display: flex;
-  flex-wrap: wrap;
+  composes: hds-highlight--text from 'hds-core/lib/components/highlight/highlight.css';
 }
 
 .small {
-  max-width: 264px;
+  composes: hds-highlight--small from 'hds-core/lib/components/highlight/highlight.css';
 }
 
 .large {
-  font-size: 36px;
-  line-height: 43px;
-  max-width: 680px;
+  composes: hds-highlight--large from 'hds-core/lib/components/highlight/highlight.css';
 }
 
 .quote {
-  font-style: italic;
+  composes: hds-highlight--quote from 'hds-core/lib/components/highlight/highlight.css';
 }
 
 .reference {
-  font-size: 18px;
-  line-height: 27px;
+  composes: hds-highlight--reference from 'hds-core/lib/components/highlight/highlight.css';
 }
