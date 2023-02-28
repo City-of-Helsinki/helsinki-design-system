@@ -102,16 +102,6 @@
 
 .hds-text-input textarea.hds-text-input__input {
  /*
-  * Normalize.css rules
-  * 1. Change the font styles in all browsers.
-  * 2. Remove the margin in Firefox and Safari.
-  */
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-
- /*
   * Normalize.css rule
   * 1. Remove the default vertical scrollbar in IE 10+.
   */
