@@ -4,6 +4,12 @@
   --toggle-button-color: var(--color-bus);
   --toggle-button-hover-color: var(--color-bus-dark);
   --toggle-button-unselected-color: var(--color-black-90);
+/*
+ * Normalize rule
+ * 1. Correct the line height in all browsers.
+ */
+
+  line-height: 1.15;/* 1 */
 }
 
 .toggleButtonContainerInlineVariant {
