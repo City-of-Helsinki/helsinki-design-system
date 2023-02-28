@@ -26,6 +26,10 @@
   pointer-events: none;
 }
 
+.fullInput, .partialInput {
+  @extend %normalizedInput;
+}
+
 .partialInputLabel {
   @extend %hiddenFromScreen;
 }

@@ -54,6 +54,8 @@
 }
 
 .step {
+  @extend %normalizedInput;
+
   display: flex;
   flex-direction: column;
   align-items: center;

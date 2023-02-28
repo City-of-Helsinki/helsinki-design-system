@@ -1,3 +1,5 @@
+@import '../../styles/common';
+
 .container {
   position: fixed;
   left: 0;
@@ -134,6 +136,7 @@
 }
 
 .accordionButton {
+  @extend %normalizedInput;
   border: none;
   background: transparent;
   cursor: pointer;

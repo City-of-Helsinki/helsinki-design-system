@@ -35,6 +35,8 @@
 }
 
 .toggleButton {
+  @extend %normalizedInput;
+
   $toggle-button-height: 32px;
   $toggle-button-width: 56px;
   $toggle-button-border-width: 2px;

@@ -1,4 +1,5 @@
 @value x-small-down, small-down from "../../styles/breakpoints.css";
+@import "../../styles/common";
 
 .table {
   --content-background-color: var(--color-white);
@@ -97,6 +98,8 @@
 }
 
 .sortButton {
+  @extend %normalizedInput;
+
   display: flex;
   align-items: center;
   justify-content: center;
