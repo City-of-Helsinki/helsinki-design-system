@@ -25,6 +25,31 @@ describe('<FileInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('should show files if defaultValue is set', async () => {
+    const defaultFiles = [
+      new File(['string content'], 'dummy.txt', { type: 'text/plain' }),
+      new File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
+    ];
+    const { container } = render(
+      <FileInput
+        id="test-default-value"
+        language="en"
+        accept=".txt"
+        onChange={onChangeTest}
+        multiple
+        label="default value"
+        defaultValue={defaultFiles}
+      />,
+    );
+
+    const list = screen.getByLabelText('2 files added.');
+    const { getAllByRole } = within(list);
+    const fileListItems = getAllByRole('listitem');
+    expect(fileListItems.length).toBe(2);
+
+    // expect(true).toEqual(true);
+  });
+
   it('should not have accessibility issues when there are files added', async () => {
     const inputLabel = 'Choose a file';
     const { container } = render(
