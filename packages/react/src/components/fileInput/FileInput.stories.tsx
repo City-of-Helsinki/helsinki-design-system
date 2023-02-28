@@ -88,7 +88,6 @@ export const WithDefaultValue = (args) => {
 };
 
 WithDefaultValue.args = {
-  accept: '',
   defaultValue: [
     new File(['string content'], 'dummy.txt', { type: 'text/plain' }),
     new File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
