@@ -83,7 +83,6 @@
   font-family: inherit; /* 1 */
   margin: 0; /* 2 */
 
-
   /* removes the input shadow on iOS */
   -webkit-appearance: none;
   background-color: var(--input-background-default);
