@@ -24,6 +24,10 @@ export type SelectionGroupProps = React.PropsWithChildren<
      */
     errorText?: string;
     /**
+     * The helper text content that will be shown below the radiobutton
+     */
+    helperText?: string;
+    /**
      * If `true`, the label is displayed as required.
      */
     required?: boolean;
@@ -50,6 +54,7 @@ export const SelectionGroup = ({
   label,
   direction = 'vertical',
   errorText,
+  helperText,
   required,
   tooltipLabel,
   tooltipButtonLabel,
@@ -78,7 +83,6 @@ export const SelectionGroup = ({
       );
     }
   }, [children]);
-
   return (
     <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
       <legend className={styles.label}>
@@ -95,6 +99,7 @@ export const SelectionGroup = ({
         ))}
       </div>
       {errorText && <div className={styles.errorText}>{errorText}</div>}
+      {helperText && <div className={styles.helperText}>{helperText}</div>}
     </fieldset>
   );
 };

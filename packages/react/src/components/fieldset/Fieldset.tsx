@@ -19,8 +19,12 @@ export type FieldsetProps = {
    * Additional class names to apply to the card.
    */
   className?: string;
+  /*
+   * The helper text content that will be shown below the radiobutton
+   */
+  helperText?: string;
   /**
-   * Tooltip text for the checkbox
+   * Tooltip text for the fieldset
    */
   tooltipText?: string;
   /**
@@ -37,6 +41,7 @@ export const Fieldset = ({
   heading,
   border,
   className,
+  helperText,
   tooltipText,
   tooltipLabel,
   tooltipButtonLabel,
@@ -53,5 +58,6 @@ export const Fieldset = ({
       )}
     </legend>
     {children}
+    {helperText && <div className={styles.helperText}>{helperText}</div>}
   </fieldset>
 );

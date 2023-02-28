@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.12.1] - February, 23, 2023
+
+### React 
+
+#### Fixed
+
+- Added missing helper texts and tooltips
+
+### Documentation
+
+- Added documentation for helper texts and tooltips
+- Fixed version documentation
+
+## [2.12.0] - February, 21, 2023
+
+### React 
+
+#### Changed
+
+- [Checkbox] Support for tooltips
+- [Fieldset] Support for tooltips
+
+#### Fixed
+
+- [DateInput] Changed input type to textual so that even iOS users can write the date in addition of picking it from calendar
+- [Navigation] Fixed sizing 320px screens where title overlapped menu button
+
+### Documentation
+
+#### Added
+
+- Information about breaking changes and versioning in HDS
+
+#### Fixed
+
+- Date input default values for min and max
+- Required field asterisk position to match the components
+
 ## [2.11.0] - February, 9, 2023
 
 ### React 

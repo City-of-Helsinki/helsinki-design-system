@@ -2,7 +2,11 @@ import { useEffect } from "@storybook/client-api";
 import './checkbox.css';
 import '../selection-group/selection-group.css';
 
+const errorTextId = 'checkbox-error-text';
+const helperTextId = 'checkbox-helper-text';
 const getLabel = (id = 'input', label = 'Option') => `<label for="${id}"  class="hds-checkbox__label">${label}</label>`;
+const getHelperText = (text = 'Assistive text') => `<span id="${helperTextId}" class="helper-text">${text}</span>`;
+const getErrorText = (text = 'Error text') => `<span id="${errorTextId}" class="hds-checkbox__error-text">${text}</span>`;
 
 export default {
   title: 'Components/Checkbox',
@@ -53,9 +57,9 @@ SelectedDisabled.storyName = 'Selected & disabled';
 
 export const Invalid = () => `
     <div class="hds-checkbox">
-      <input type="checkbox" id="checkbox6" class="hds-checkbox__input" value="baz" />
+      <input type="checkbox" id="checkbox6" class="hds-checkbox__input" value="baz" aria-describedby="${errorTextId}" />
       ${getLabel('checkbox6')}
-      <div class="hds-checkbox__error-text">Error text</div>
+      ${getErrorText()}
     </div>
 `;
 
@@ -120,3 +124,11 @@ export const GroupWithParent = () => {
 }
 
 GroupWithParent.storyName = 'Group with a parent';
+
+export const WithHelperText = () => `
+    <div class="hds-checkbox">
+      <input type="checkbox" id="checkbox7" class="hds-checkbox__input" value="foo" aria-describedby="${helperTextId}"/>
+      ${getLabel('checkbox7')}
+      ${getHelperText()}
+    </div>
+`;

@@ -43,11 +43,11 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   selectButtonLabel?: string;
   /**
-   * Minumum date to show in the datepicker calendar. Defaults to start of the month one year before current date.
+   * Minimum date to show in the datepicker calendar. Defaults to start of the month ten years before current date.
    */
   minDate?: Date;
   /**
-   * Maximum date to show in the datepicker calendar. Defaults to end of the month one year from current date.
+   * Maximum date to show in the datepicker calendar. Defaults to end of the month ten years from current date.
    */
   maxDate?: Date;
   /**
@@ -199,7 +199,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           }}
           value={inputValue}
           ref={inputRef}
-          inputMode="numeric"
         >
           {disableDatePicker === false && showPicker && (
             <DatePicker
