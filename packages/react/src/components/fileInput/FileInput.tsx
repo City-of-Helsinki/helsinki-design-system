@@ -26,7 +26,7 @@ type FileInputProps = {
    */
   className?: string;
   /**
-   * If `true`, the file input will be disabled
+   * Default selected files for the input
    */
   defaultValue?: File[];
   /**

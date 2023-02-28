@@ -67,6 +67,35 @@ Multiple.args = {
   multiple: true,
 };
 
+export const WithDefaultValue = (args) => {
+  const [files, setFiles] = React.useState<File[]>();
+  // eslint-disable-next-line no-console
+  console.log('selected files', files);
+
+  return (
+    <FileInput
+      multiple={args.multiple}
+      defaultValue={args.defaultValue}
+      id={args.id}
+      label={args.label}
+      buttonLabel={args.buttonLabel}
+      language={args.language}
+      onChange={setFiles}
+      maxSize={args.maxSize}
+      accept={args.accept}
+    />
+  );
+};
+
+WithDefaultValue.args = {
+  accept: '.txt',
+  defaultValue: [
+    new File(['string content'], 'dummy.txt', { type: 'text/plain' }),
+    new File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
+  ],
+  multiple: true,
+};
+
 export const WithDragAndDrop = (args) => {
   const [files, setFiles] = React.useState<File[]>();
   // eslint-disable-next-line no-console
@@ -212,6 +241,7 @@ export const Playground = (args) => {
       maxSize={args.maxSize}
       language={args.language}
       accept={args.accept}
+      defaultValue={args.defaultValue}
       disabled={args.disabled}
       required={args.required}
       multiple={args.multiple}
@@ -244,6 +274,7 @@ Playground.args = {
   multiple: false,
   maxSize: 300 * 1024,
   accept: '.png,.jpg,.pdf,.json',
+  defaultValue: undefined,
   disabled: false,
   required: false,
   helperText: '',
