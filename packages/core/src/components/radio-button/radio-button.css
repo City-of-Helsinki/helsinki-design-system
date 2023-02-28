@@ -1,14 +1,4 @@
 .hds-radio-button {
-  /*
- * Normalize.css rules
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-
   --size: 24px;
   /* icon (circle) size relative to the radio button size (--size) */
   --icon-scale: 0.5;
@@ -73,6 +63,16 @@
 
 /* NATIVE INPUT */
 .hds-radio-button .hds-radio-button__input {
+ /*
+  * Normalize.css rules
+  * 1. Change the font styles in all browsers.
+  * 2. Remove the margin in Firefox and Safari.
+  */
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+
   height: var(--size);
   left: 0;
   opacity: 0;

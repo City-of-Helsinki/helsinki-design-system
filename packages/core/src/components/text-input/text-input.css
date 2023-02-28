@@ -4,16 +4,6 @@
 @svg-load successIcon url(../../svg/ui/check-circle-fill.svg);
 
 .hds-text-input {
- /*
-  * Normalize.css rules
-  * 1. Change the font styles in all browsers.
-  * 2. Remove the margin in Firefox and Safari.
-  */
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-
   --border-width: 2px;
   --outline-width: 3px;
   --input-height: 56px;
@@ -85,6 +75,15 @@
 }
 
 .hds-text-input .hds-text-input__input {
+ /*
+  * Normalize.css rules
+  * 1. Change the font styles in all browsers.
+  * 2. Remove the margin in Firefox and Safari.
+  */
+  font-family: inherit; /* 1 */
+  margin: 0; /* 2 */
+
+
   /* removes the input shadow on iOS */
   -webkit-appearance: none;
   background-color: var(--input-background-default);
