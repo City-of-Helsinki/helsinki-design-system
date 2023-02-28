@@ -1,10 +1,4 @@
 .hds-button {
-  --border-width: 2px;
-  --color: inherit;
-  --min-size: 44px;
-  --outline-gutter: 2px;
-  --outline-width: 3px;
-
  /*
   * Normalize.css rules
   * 1. Change the font styles in all browsers.
@@ -15,11 +9,17 @@
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
 
- /*
-  * Normalize.css rule
-  * Remove the inheritance of text transform in Edge, Firefox, and IE.
-  */
+  /*
+   * Normalize.css rule
+   * Remove the inheritance of text transform in Edge, Firefox, and IE.
+   */
   text-transform: none;
+
+  --border-width: 2px;
+  --color: inherit;
+  --min-size: 44px;
+  --outline-gutter: 2px;
+  --outline-width: 3px;
 
   align-content: flex-start;
   align-items: center;
