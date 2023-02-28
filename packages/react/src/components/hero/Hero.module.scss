@@ -1,88 +1,86 @@
 @value large-up from "../../styles/breakpoints.css";
 
-@value heroCss: "../../../../core/src/components/hero/hero.css";
-
 .hero {
-  composes: hds-hero from heroCss;
+  composes: hds-hero from 'hds-core/lib/components/hero/hero.css';
 }
 
 .container {
-  composes: hds-hero__container from heroCss;
+  composes: hds-hero__container from 'hds-core/lib/components/hero/hero.css';
 }
 
 .content {
-  composes: hds-hero__content from heroCss;
+  composes: hds-hero__content from 'hds-core/lib/components/hero/hero.css';
 }
 
 .singleColumn {
-  composes: hds-hero__content--single-column from heroCss;
+  composes: hds-hero__content--single-column from 'hds-core/lib/components/hero/hero.css';
 }
 
 .twoColumns {
-  composes: hds-hero__content--two-columns from heroCss;
+  composes: hds-hero__content--two-columns from 'hds-core/lib/components/hero/hero.css';
 }
 
 .twoColumnsImageContainer {
-  composes: hds-hero__content--two-columns__image-container from heroCss;
+  composes: hds-hero__content--two-columns__image-container from 'hds-core/lib/components/hero/hero.css';
 }
 
 .card {
-  composes: hds-hero__card from heroCss;
+  composes: hds-hero__card from 'hds-core/lib/components/hero/hero.css';
 }
 
 .centeredContent {
-  composes: hds-hero__card--centered-content from heroCss;
+  composes: hds-hero__card--centered-content from 'hds-core/lib/components/hero/hero.css';
 }
 
 .image {
-  composes: hds-hero__image from heroCss;
+  composes: hds-hero__image from 'hds-core/lib/components/hero/hero.css';
 }
 
 .imageBelowKoros {
-  composes: hds-hero__image-below-koros from heroCss;
+  composes: hds-hero__image-below-koros from 'hds-core/lib/components/hero/hero.css';
 }
 
 .withBackgroundContainer {
-  composes: hds-hero--with-background__container from heroCss;
+  composes: hds-hero--with-background__container from 'hds-core/lib/components/hero/hero.css';
 }
 
 .withBackgroundBackground {
-  composes: hds-hero--with-background__background from heroCss;
+  composes: hds-hero--with-background__background from 'hds-core/lib/components/hero/hero.css';
 }
 
 /* backgroundImage specific styles */
 
 .backgroundImage {
-  composes: hds-hero--background-image from heroCss;
+  composes: hds-hero--background-image from 'hds-core/lib/components/hero/hero.css';
 }
 
 .topKoros {
-  composes: hds-hero--background-image__top-koros from heroCss;
+  composes: hds-hero--background-image__top-koros from 'hds-core/lib/components/hero/hero.css';
 }
 
 .bottomKoros {
-  composes: hds-hero--background-image__bottom-koros from heroCss;
+  composes: hds-hero--background-image__bottom-koros from 'hds-core/lib/components/hero/hero.css';
 }
 
 /* diagonalKoros specific styles */
 
 .diagonalKoros {
-  composes: hds-hero--diagonal-koros from heroCss;
+  composes: hds-hero--diagonal-koros from 'hds-core/lib/components/hero/hero.css';
 }
 
 .diagonalKorosWithBackgroundContainer {
-  composes: hds-hero--diagonal-koros hds-hero--with-background__container from heroCss;
+  composes: hds-hero--diagonal-koros hds-hero--with-background__container from 'hds-core/lib/components/hero/hero.css';
 }
 
 .diagonalKorosAndBackground {
-  composes: hds-hero--diagonal-koros hds-hero--diagonal-koros__koros-and-background from heroCss;
+  composes: hds-hero--diagonal-koros hds-hero--diagonal-koros__koros-and-background from 'hds-core/lib/components/hero/hero.css';
 }
 
 .contentColums {
-  composes: hds-hero--with-background__contentColumns from heroCss;
+  composes: hds-hero--with-background__contentColumns from 'hds-core/lib/components/hero/hero.css';
 }
 .emptyColumn {
-  composes: hds-hero--with-background__empty-column from heroCss;
+  composes: hds-hero--with-background__empty-column from 'hds-core/lib/components/hero/hero.css';
 }
 
 .diagonalKorosMobileKoros {
@@ -96,10 +94,10 @@
 /* imageLeft/Right specific styles */
 
 .imageLeft {
-  composes: hds-hero--image-left from heroCss;
+  composes: hds-hero--image-left from 'hds-core/lib/components/hero/hero.css';
 }
 .imageRight {
-  composes: hds-hero--image-right from heroCss;
+  composes: hds-hero--image-right from 'hds-core/lib/components/hero/hero.css';
 }
 
 @media large-up {
