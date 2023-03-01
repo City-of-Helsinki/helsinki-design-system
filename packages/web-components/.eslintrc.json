@@ -30,9 +30,15 @@
     }],
     "lines-between-class-members": [ "error", "always", { "exceptAfterSingleLine": true }],
     "comma-dangle": [ "warn", "only-multiline" ],
-    "brace-style": [ "error", "stroustrup" ],
+    "brace-style": [ "error" ],
     "import/extensions": "off",
-    "import/export": "off"
+    "import/export": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.test.ts", "**/*.test.tsx", "**/test*.ts*", "**/*.stories.tsx, **/*.mjs"]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {

@@ -11,7 +11,9 @@
     "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "inlineSources": true,
   },
   "include": ["src/*"],
   "compileOnSave": false,
