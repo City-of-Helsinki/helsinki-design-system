@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'hds-core';
+import throttle from 'lodash.throttle';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from './NumberInput.module.scss';
@@ -117,6 +118,24 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     const notifyScreenReaderStepperChangedValue = () => {
       setScreenReaderValue(String(inputRef.current.value));
     };
+    let throttledMouseWheel = false;
+
+    const throttledMouseWheeloggler = throttle(() => {
+      throttledMouseWheel = false;
+    }, 200);
+
+    useEffect(() => {
+      const ignoreScroll = (e) => {
+        if (throttledMouseWheel) {
+          e.preventDefault();
+        }
+        throttledMouseWheel = true;
+        throttledMouseWheeloggler();
+      };
+      if (inputRef.current) {
+        inputRef.current.addEventListener('wheel', ignoreScroll);
+      }
+    }, [inputRef]);
 
     /**
      * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on
