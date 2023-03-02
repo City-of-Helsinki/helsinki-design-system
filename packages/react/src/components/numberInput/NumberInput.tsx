@@ -135,6 +135,11 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       if (inputRef.current) {
         inputRef.current.addEventListener('wheel', ignoreScroll);
       }
+      return () => {
+        if (inputRef.current) {
+          inputRef.current.removeEventListener('wheel', ignoreScroll);
+        }
+      };
     }, [inputRef]);
 
     /**
