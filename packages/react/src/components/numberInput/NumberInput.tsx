@@ -133,7 +133,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         throttledMouseWheeloggler();
       };
       if (inputRef.current) {
-        inputRef.current.addEventListener('wheel', ignoreScroll);
+        inputRef.current.addEventListener('wheel', ignoreScroll, { passive: false });
       }
       return () => {
         if (inputRef.current) {
