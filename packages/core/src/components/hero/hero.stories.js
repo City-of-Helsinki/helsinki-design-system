@@ -11,8 +11,8 @@ const button = `
 
 const card = `
   <div class="hds-hero__card">
-    <h1>Welcome to the hero story</h1>
-    <p>Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.</p>
+    <h1 class="hds-hero__title">Welcome to the hero story</h1>
+    <p class="hds-hero__text">Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.</p>
     ${button}
   </div>`;
 

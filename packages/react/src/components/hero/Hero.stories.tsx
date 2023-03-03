@@ -31,8 +31,8 @@ const DefaultContent = (props: DefaultContentProps) => {
   const paragraphText = text || defaultText;
   return (
     <>
-      <h1>{h1Text}</h1>
-      <p>{paragraphText}</p>
+      <Hero.Title>{h1Text}</Hero.Title>
+      <Hero.Text>{paragraphText}</Hero.Text>
       <Button
         variant="secondary"
         role="link"
@@ -149,9 +149,9 @@ export const WithBackgroundImage = (args) => {
         <DefaultContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
       ) : (
         <>
-          <h1>This is a header with too much text for single line</h1>
-          <p>{defaultText}</p>
-          <p>{defaultText}</p>
+          <Hero.Title>This is a header with too much text for single line</Hero.Title>
+          <Hero.Text>{defaultText}</Hero.Text>
+          <Hero.Text>{defaultText}</Hero.Text>
           <Button variant="secondary" role="link">
             Click me once!
           </Button>

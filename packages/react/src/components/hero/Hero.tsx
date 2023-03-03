@@ -6,6 +6,8 @@ import styles from './Hero.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
 import { Koros, KorosProps, KorosShiftSpacer } from '../koros';
+import { Text } from './Text';
+import { Title } from './Title';
 
 type HTMLElementAttributes = React.HtmlHTMLAttributes<HTMLDivElement>;
 type ImgElementAttributes = React.ImgHTMLAttributes<HTMLImageElement>;
@@ -220,3 +222,6 @@ export const Hero = ({
     </div>
   );
 };
+
+Hero.Title = Title;
+Hero.Text = Text;

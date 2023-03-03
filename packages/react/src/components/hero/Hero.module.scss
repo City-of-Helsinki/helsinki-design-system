@@ -4,6 +4,14 @@
   composes: hds-hero from 'hds-core/lib/components/hero/hero.css';
 }
 
+.title {
+  composes: hds-hero__title from 'hds-core/lib/components/hero/hero.css';
+}
+
+.text {
+  composes: hds-hero__text from 'hds-core/lib/components/hero/hero.css';
+}
+
 .container {
   composes: hds-hero__container from 'hds-core/lib/components/hero/hero.css';
 }
