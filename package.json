@@ -12,7 +12,7 @@
     "build:core": "lerna run --scope hds-core build",
     "build:react": "lerna run --scope hds-react build",
     "build:site": "lerna run --scope site build",
-    "clean": "rimraf node_modules/ packages/core/lib packages/core/node_modules packages/core/storybook-static packages/react/lib packages/react/node_modules packages/react/storybook-static packages/design-tokens/lib packages/design-tokens/node_modules site/.cache site/node_modules site/public",
+    "clean": "lerna clean --yes && rimraf node_modules/ packages/core/lib packages/core/storybook-static packages/react/lib packages/react/storybook-static packages/design-tokens/lib site/.cache site/public",
     "start:core": "lerna run --scope hds-core start",
     "start:react": "lerna run --scope hds-react start",
     "release": "lerna publish from-package --yes",
