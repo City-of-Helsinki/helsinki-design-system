@@ -43,3 +43,7 @@
   --status-label-background: var(--color-error);
   --status-label-color: var(--color-white);
 }
+
+.hds-status-label--rounded-corners {
+  border-radius: 20px;
+}
