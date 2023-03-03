@@ -3,7 +3,7 @@
   --color: var(--color-black-90);
   --image-position: bottom right;
   --koros-color: var(--color-white);
-  --diagonal-koros-inset: auto auto 10% -33%;
+  --diagonal-koros-inset: 0 auto 10% -33%;
   --horizontal-padding-small: var(--spacing-layout-2-xs);
   --horizontal-padding-medium: var(--spacing-layout-xs);
   --horizontal-padding-large: var(--spacing-layout-xs);
@@ -16,6 +16,7 @@
   position: relative;
   z-index: 1;
   background-color: var(--background-color);
+  position: relative;
 }
 .hds-hero__title {
   font-size: var(--fontsize-heading-xl);
@@ -51,6 +52,24 @@
   display: block;
   max-width: var(--container-width-xl);
 }
+.hds-hero__koros-container,
+.hds-hero__koros-container--without-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+.hds-hero__koros-container--without-overlay {
+  position: relative;
+}
+
+.hds-hero__koros-container > div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .hds-hero__card--centered-content {
   width: 100%;
   text-align: center;
@@ -58,6 +77,10 @@
 .hds-hero__image {
   display: block;
   width: 100%;
+}
+.hds-hero__koros-and-image-container {
+  display: block;
+  position: relative;
 }
 .hds-hero__image-below-koros {
   display: block;
@@ -81,7 +104,7 @@
 
 .hds-hero--with-background__contentColumns {
   display: flex;
-  max-width: 1200px;
+  max-width: var(--container-width-xl);
   margin: 0 auto;
 }
 
@@ -122,9 +145,24 @@
   background-color: var(--background-color);
   padding: var(--padding-vertical) var(--padding-horizontal);
 }
-.hds-hero--diagonal-koros .hds-hero--diagonal-koros__koros-and-background {
-  transform: scaleY(-1);
+
+.hds-hero--diagonal-koros__koros-and-background {
+  transform: rotate(180deg);
+  position: absolute;
+  width: 100%;
+}
+
+.hds-hero--diagonal-koros__koros-aligner {
+  position: relative;
+}
+
+.hds-hero--diagonal-koros__koros-and-background .hds-hero__koros-container {
+  position: absolute;
+  z-index: 1;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
+  top: 0;
 }
 
 .hds-hero--with-background__background,
@@ -187,6 +225,10 @@
   }
   .hds-hero--background-image__bottom-koros {
     display: block;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
   }
   .hds-hero--with-background__background {
     position: absolute;
@@ -210,13 +252,18 @@
     width: 55%;
   }
 
-  .hds-hero--diagonal-koros .hds-hero--diagonal-koros__koros-and-background {
+  .hds-hero--diagonal-koros__koros-aligner {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hds-hero--diagonal-koros__koros-and-background {
     transform: rotate(135deg);
     transform-origin: center;
     width: 150%;
     display: block;
     position: absolute;
-    z-index: 1;
     height: 100%;
     inset: var(--diagonal-koros-inset);
     overflow: visible;
@@ -226,10 +273,18 @@
     background-color: var(--koros-color);
     display: block;
     width: 100%;
-    height: 200%;
+    height: 1500px;
     left: 0;
     position: absolute;
     top: 50px;
+  }
+  .hds-hero--diagonal-koros__koros-and-background .hds-hero__koros-container {
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    top: 0;
   }
 }
 @media only screen and (min-width: 1248px) {

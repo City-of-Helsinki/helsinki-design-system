@@ -17,8 +17,19 @@ const card = `
   </div>`;
 
 let korosId = 0;
-const getKorosSVG = () => {
+const getKorosSVG = (pulse) => {
   korosId = korosId + 1;
+  if (pulse) {
+    return `
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+        <defs>
+            <pattern id="koros_pulse-${korosId}" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+              <path transform="scale(5.3)" d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"></path>
+            </pattern>
+        </defs>
+        <rect fill="url(#koros_pulse-${korosId})" width="100%" height="85"></rect>
+      </svg>`;
+  }
   return `
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
@@ -30,10 +41,11 @@ const getKorosSVG = () => {
     </svg>`;
 };
 
-const koros = `
-  <div class="hds-koros" style="fill: var(--koros-color); transform: scaleY(-1); margin-bottom: -14px; height: 14px; overflow: hidden;">
-    ${getKorosSVG()}
-  </div>`;
+const getKoros = (flipped, pulse) => {
+  return `<div class="hds-koros" style="fill: var(--koros-color);${!flipped ? ' transform: scaleY(-1);' : ''}">
+            ${getKorosSVG(pulse)}
+          </div>`;
+};
 
 const image = `<img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />`;
 
@@ -44,9 +56,13 @@ export const ImageBottom = () => `
         ${card}
       </div>
     </div>
-    ${koros}
-    <div class="hds-hero__image-below-koros">
-      ${image}
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container" style="height:14px;">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
     </div>
   </div>`;
 
@@ -67,13 +83,11 @@ export const DiagonalKoros = () => `
       React version calculates these automatically.
       Heights of different koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
     */
-    .shifted-koros{
-      margin-bottom: -14px;
+    .responsive-koros{
       height: 14px;
     }  
     @media only screen and (min-width: 992px){
-      .shifted-koros{
-        margin-bottom: 0;
+      .responsive-koros{
         height: auto;
       }  
     }
@@ -86,15 +100,19 @@ export const DiagonalKoros = () => `
         </div>
         <div class="hds-hero--with-background__empty-column"></div>
       </div>
-      <div class="hds-koros shifted-koros hds-hero--diagonal-koros__koros-and-background" style="fill: var(--koros-color);">
-        ${getKorosSVG()}
+      <div class="hds-hero--diagonal-koros__koros-aligner">
+        <div class="responsive-koros hds-hero--diagonal-koros__koros-and-background">
+          <div class="hds-hero__koros-container">
+            ${getKoros(true)}
+          </div>
+        </div>
       </div>
       <div class="hds-hero--with-background__background">
         ${image}
       </div>
     </div>
   </div>`;
-DiagonalKoros.storyName = 'Diagonal koros and background';
+DiagonalKoros.storyName = 'Diagonal koros';
 
 export const WithoutImage = () => `
   <style type="text/css">
@@ -109,19 +127,11 @@ export const WithoutImage = () => `
     <div class="hds-hero__container">
       <div class="hds-hero__content hds-hero__content--single-column">
         ${card}
-        <div class="hds-koros__spacer" style="height: 34px;"></div>
       </div>
     </div>
-    <div class="hds-koros" style="fill: var(--koros-color); margin-top: -34px;">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-          <defs>
-              <pattern id="koros_pulse-23" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
-                <path transform="scale(5.3)" d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"></path>
-              </pattern>
-          </defs>
-          <rect fill="url(#koros_pulse-23)" width="100%" height="85"></rect>
-        </svg>
-    </div>
+    <div class="hds-hero__koros-container--without-overlay" style="margin-top: -34px;">
+        ${getKoros(true, true)}
+      </div>
   </div>`;
 WithoutImage.storyName = 'Without image';
 
@@ -141,8 +151,14 @@ export const ImageRight = () => `
         <div class="hds-hero__content--two-columns__image-container">${image}</div>
       </div>
     </div>
-    ${koros}
-    <div class="hds-hero__image-below-koros">${image}</div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container" style="height:14px;">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
   </div>`;
 ImageRight.storyName = 'Image right';
 
@@ -162,8 +178,14 @@ export const ImageLeft = () => `
           ${card}
       </div>
     </div>
-    ${koros}
-    <div class="hds-hero__image-below-koros">${image}</div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container" style="height:14px;">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
   </div>`;
 ImageLeft.storyName = 'Image left';
 
@@ -179,7 +201,7 @@ export const BackgroundImage = () => `
   <div class="hds-hero custom-theme hds-hero--background-image">
     <div class="hds-hero--with-background__container">
       <div class="hds-hero--with-background__background">${image}</div>
-      <div class="hds-koros hds-hero--background-image__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
+      <div class="hds-hero--background-image__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
         ${getKorosSVG()}
       </div>
       <div class="hds-hero__content">
@@ -187,8 +209,10 @@ export const BackgroundImage = () => `
           <div class="hds-hero--with-background__empty-column"></div>
       </div>
     </div>
-    <div class="hds-koros hds-hero--background-image__bottom-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
-      ${getKorosSVG()}
+    <div class="hds-hero--background-image__bottom-koros">
+      <div class="hds-hero__koros-container--without-overlay" style="height:14px;">
+        ${getKoros(true)}
+      </div>
     </div>
   </div>`;
 BackgroundImage.storyName = 'Background image';
