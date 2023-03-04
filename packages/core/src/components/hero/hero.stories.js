@@ -191,27 +191,33 @@ ImageLeft.storyName = 'Image left';
 
 export const BackgroundImage = () => `
   <style type="text/css">
+    .container {
+      content: "";
+      background: #ccc;
+      padding: 10px 10px 200px;
+    }
     .custom-theme {
       content: "";
       --background-color: #fff;
       --color: #000;
-      --koros-color: var(--background-color);
+      --bottom-koros-color: #ccc;
+      --top-koros-color: var(--background-color);
     }
   </style>
-  <div class="hds-hero custom-theme hds-hero--background-image">
-    <div class="hds-hero--with-background__container">
-      <div class="hds-hero--with-background__background">${image}</div>
-      <div class="hds-hero--background-image__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
-        ${getKorosSVG()}
-      </div>
-      <div class="hds-hero__content">
+  <div class="container">
+    <div class="hds-hero custom-theme hds-hero--background-image">
+      <div class="hds-hero--with-background__container">
+        <div class="hds-hero--with-background__background">
+          <div class="hds-hero--background-image__koros" style="height:14px;">
+            ${getKoros(true)}
+          </div>
+          ${image}
+        </div>
+        <div class="hds-hero__content">
           ${card}
-          <div class="hds-hero--with-background__empty-column"></div>
-      </div>
-    </div>
-    <div class="hds-hero--background-image__bottom-koros">
-      <div class="hds-hero__koros-container--without-overlay" style="height:14px;">
-        ${getKoros(true)}
+          <div class="hds-hero--with-background__empty-column">
+          </div>
+        </div>
       </div>
     </div>
   </div>`;

@@ -95,6 +95,7 @@
 }
 .hds-hero--with-background__background {
   width: 100%;
+  position: relative;
 }
 .hds-hero--with-background__background .hds-hero__image {
   object-fit: cover;
@@ -120,11 +121,13 @@
   background-color: var(--background-color);
   padding: var(--padding-vertical) var(--padding-horizontal);
 }
-.hds-hero--background-image__top-koros {
-  display: block;
-}
-.hds-hero--background-image-bottom-koros {
-  display: none;
+
+.hds-hero--background-image__koros {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  overflow: hidden;
+  --koros-color: var(--top-koros-color);
 }
 
 .hds-hero--diagonal-koros .hds-hero--with-background__container {
@@ -220,16 +223,7 @@
   .hds-hero--background-image .hds-hero__card {
     width: 50%;
   }
-  .hds-hero--background-image__top-koros {
-    display: none;
-  }
-  .hds-hero--background-image__bottom-koros {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    width: 100%;
-  }
+
   .hds-hero--with-background__background {
     position: absolute;
     z-index: -1;
@@ -285,6 +279,10 @@
     height: 100%;
     width: 100%;
     top: 0;
+  }
+
+  .hds-hero--background-image__koros {
+    --koros-color: var(--bottom-koros-color);
   }
 }
 @media only screen and (min-width: 1248px) {
