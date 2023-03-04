@@ -50,14 +50,14 @@ const getKoros = (flipped, pulse) => {
 const image = `<img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />`;
 
 export const ImageBottom = () => `
-  <div class="hds-hero hds-hero--image-bottom">
+  <div class="hds-hero hds-hero--image-bottom" style="--koros-height:14px;">
     <div class="hds-hero__container">
       <div class="hds-hero__content hds-hero__content--single-column">
         ${card}
       </div>
     </div>
     <div class="hds-hero__koros-and-image-container">
-      <div class="hds-hero__koros-container" style="height:14px;">
+      <div class="hds-hero__koros-container">
         ${getKoros()}
       </div>
       <div class="hds-hero__image-below-koros">
@@ -84,11 +84,13 @@ export const DiagonalKoros = () => `
       Heights of different koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
     */
     .responsive-koros{
+      --koros-height: 14px;
       height: 14px;
     }  
     @media only screen and (min-width: 992px){
       .responsive-koros{
-        height: auto;
+        --koros-height: auto;
+       height: auto;
       }  
     }
   </style>
@@ -142,6 +144,7 @@ export const ImageRight = () => `
       --background-color: #c2a251;
       --color: #000;
       --koros-color: var(--background-color);
+      --koros-height: 14px;
     }
   </style>
   <div class="hds-hero custom-theme hds-hero--image-right">
@@ -152,7 +155,7 @@ export const ImageRight = () => `
       </div>
     </div>
     <div class="hds-hero__koros-and-image-container">
-      <div class="hds-hero__koros-container" style="height:14px;">
+      <div class="hds-hero__koros-container">
         ${getKoros()}
       </div>
       <div class="hds-hero__image-below-koros">
@@ -169,6 +172,7 @@ export const ImageLeft = () => `
       --background-color: #c2a251;
       --color: #000;
       --koros-color: var(--background-color);
+      --koros-height: 14px;
     }
   </style>
   <div class="hds-hero custom-theme hds-hero--image-left">
@@ -179,7 +183,7 @@ export const ImageLeft = () => `
       </div>
     </div>
     <div class="hds-hero__koros-and-image-container">
-      <div class="hds-hero__koros-container" style="height:14px;">
+      <div class="hds-hero__koros-container">
         ${getKoros()}
       </div>
       <div class="hds-hero__image-below-koros">
@@ -192,7 +196,6 @@ ImageLeft.storyName = 'Image left';
 export const BackgroundImage = () => `
   <style type="text/css">
     .container {
-      content: "";
       background: #ccc;
       padding: 10px 10px 200px;
     }
@@ -202,13 +205,14 @@ export const BackgroundImage = () => `
       --color: #000;
       --bottom-koros-color: #ccc;
       --top-koros-color: var(--background-color);
+      --koros-height: 14px;
     }
   </style>
   <div class="container">
     <div class="hds-hero custom-theme hds-hero--background-image">
       <div class="hds-hero--with-background__container">
         <div class="hds-hero--with-background__background">
-          <div class="hds-hero--background-image__koros" style="height:14px;">
+          <div class="hds-hero--background-image__koros">
             ${getKoros(true)}
           </div>
           ${image}

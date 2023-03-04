@@ -3,7 +3,8 @@
   --color: var(--color-black-90);
   --image-position: bottom right;
   --koros-color: var(--color-white);
-  --diagonal-koros-inset: 0 auto 10% -33%;
+  --koros-height: 85px;
+  --diagonal-koros-inset: 0 0 0 -40%;
   --horizontal-padding-small: var(--spacing-layout-2-xs);
   --horizontal-padding-medium: var(--spacing-layout-xs);
   --horizontal-padding-large: var(--spacing-layout-xs);
@@ -16,7 +17,6 @@
   position: relative;
   z-index: 1;
   background-color: var(--background-color);
-  position: relative;
 }
 .hds-hero__title {
   font-size: var(--fontsize-heading-xl);
@@ -58,6 +58,7 @@
   inset: 0;
   z-index: 1;
   overflow: hidden;
+  height: var(--koros-height);
 }
 .hds-hero__koros-container--without-overlay {
   position: relative;
@@ -128,6 +129,7 @@
   bottom: 0;
   overflow: hidden;
   --koros-color: var(--top-koros-color);
+  height: var(--koros-height);
 }
 
 .hds-hero--diagonal-koros .hds-hero--with-background__container {
@@ -153,15 +155,16 @@
   transform: rotate(180deg);
   position: absolute;
   width: 100%;
+  height: var(--koros-height);
 }
 
 .hds-hero--diagonal-koros__koros-aligner {
   position: relative;
+  z-index: 1;
 }
 
 .hds-hero--diagonal-koros__koros-and-background .hds-hero__koros-container {
   position: absolute;
-  z-index: 1;
   overflow: hidden;
   height: 100%;
   width: 100%;
