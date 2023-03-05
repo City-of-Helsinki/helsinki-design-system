@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './Hero.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import { Koros, KorosProps, KorosShiftSpacer } from '../koros';
+import { getShapeHeight, Koros, KorosProps } from '../koros';
 import { Text } from './Text';
 import { Title } from './Title';
 
@@ -56,19 +56,19 @@ export interface HeroCustomTheme {
    */
   '--image-position'?: string;
   /**
-   * Koros of the koros
+   * Color of the koros
    * Default --background-color
    */
   '--koros-color'?: string;
   /**
-   * The 'backgroundImage' variant might need a custom color for the bottom/mobile koros.
-   * Default none
+   * Height of the koros
+   * Default 85px
    */
-  '--bottom-koros-color'?: string;
+  '--koros-height'?: string;
   /**
    * The "diagonalKoros" variant might need koros position adjustment, if texts overflow.
    * This is an inset value with "top right bottom left"
-   * Default "auto auto 10% -33%"
+   * Default "0 0 0 -40%"
    */
   '--diagonal-koros-inset'?: string;
   /**
@@ -106,11 +106,20 @@ export const Hero = ({
   if (!editableTheme['--koros-color']) {
     editableTheme['--koros-color'] = 'var(--background-color)';
   }
+  if (variant === 'backgroundImage') {
+    editableTheme['--top-koros-color'] = 'var(--background-color)';
+    editableTheme['--bottom-koros-color'] = 'var(--koros-color)';
+  }
+  if (!editableTheme['--koros-height']) {
+    const korosHeight = getShapeHeight(koros || {});
+    if (korosHeight) {
+      editableTheme['--koros-height'] = `${korosHeight}px`;
+    }
+  }
+
   const currentVariant: HeroProps['variant'] = variant || (imageSrc ? 'imageLeft' : 'noImage');
   const customThemeClass = useTheme<HeroCustomTheme>(styles.hero, editableTheme);
-  const korosStyle = { fill: 'var(--koros-color)' };
-  const hideKoros = !!koros?.hide;
-  const canKorosBeFlipped = koros?.flipHorizontal !== false;
+  const korosStyle = { ...koros, style: { fill: 'var(--koros-color)' } };
 
   const heroElementAttributes: HTMLElementAttributes = {
     ...elementAttributes,
@@ -150,33 +159,35 @@ export const Hero = ({
     return <div className={classNameList}>{children}</div>;
   };
 
-  if (currentVariant === 'backgroundImage') {
-    const TopOrBottomKoros = ({ top }: { top?: boolean }) => {
-      const className = top ? styles.topKoros : styles.bottomKoros;
-      const korosFillColor =
-        !top && theme && theme['--bottom-koros-color'] ? theme['--bottom-koros-color'] : 'var(--koros-color)';
-      return (
-        <Koros
-          {...koros}
-          shift
-          compact
-          className={`${(koros && koros.className) || ''} ${className}`}
-          style={{ fill: korosFillColor }}
-        />
-      );
-    };
+  const KorosInContainer = (
+    props: KorosProps & {
+      inward?: boolean;
+      containerClassName?: string;
+    },
+  ) => {
+    const { inward, containerClassName, style, ...korosProps } = props;
+    const className =
+      containerClassName || (inward !== true ? styles.korosContainer : styles.korosContainerInwardKoros);
+    return (
+      <div className={className}>
+        <Koros {...{ ...korosProps, style, shift: false, compact: false }} />
+      </div>
+    );
+  };
 
+  if (currentVariant === 'backgroundImage') {
     return (
       <div {...heroElementAttributes}>
         <div className={styles.withBackgroundContainer}>
-          <ImageAsBackground />
-          <TopOrBottomKoros top />
+          <div className={classNames(styles.withBackgroundBackground)}>
+            <Image />
+            <KorosInContainer {...korosStyle} containerClassName={styles.backgroundImageKoros} />
+          </div>
           <div className={classNames(styles.content)}>
             <Content />
             <div className={styles.emptyColumn} />
           </div>
         </div>
-        <TopOrBottomKoros />
       </div>
     );
   }
@@ -190,17 +201,20 @@ export const Hero = ({
               <Content />
               <div className={styles.emptyColumn} />
             </div>
-            <div className={styles.diagonalKorosMobileKoros}>
-              <Koros {...koros} flipHorizontal shift compact style={korosStyle} />
+          </div>
+          <div className={styles.korosAligner}>
+            <div className={styles.diagonalKorosAndBackground}>
+              <KorosInContainer {...korosStyle} />
             </div>
           </div>
-          <Koros {...koros} className={styles.diagonalKorosAndBackground} style={korosStyle} />
           <ImageAsBackground className={styles.diagonalKorosBackgroundContainer} />
         </div>
       </div>
     );
   }
 
+  const hideKoros = !!koros?.hide;
+  const flipHorizontal = koros?.flipHorizontal;
   const hasImage = !!imageSrc && currentVariant !== 'noImage';
   const columnStyle = hasImage && currentVariant !== 'imageBottom' ? styles.twoColumns : styles.singleColumn;
   return (
@@ -210,13 +224,22 @@ export const Hero = ({
           {hasImage && currentVariant === 'imageLeft' && <TwoColumsImage />}
           <Content />
           {hasImage && currentVariant === 'imageRight' && <TwoColumsImage />}
-          {!hideKoros && !canKorosBeFlipped && <KorosShiftSpacer {...koros} />}
         </div>
       </div>
-      {!hideKoros && <Koros {...koros} flipHorizontal={canKorosBeFlipped} style={korosStyle} />}
+      {!hasImage && !hideKoros && (
+        <KorosInContainer
+          {...korosStyle}
+          inward={!flipHorizontal}
+          flipHorizontal={flipHorizontal}
+          containerClassName={flipHorizontal ? styles.korosContainerOverflowBottom : undefined}
+        />
+      )}
       {hasImage && (
-        <div key="imageContainer" className={classNames(styles.imageContainer, styles.imageBelowKoros)}>
-          <Image />
+        <div key="korosAndImageContainer" className={classNames(styles.korosAndImageContainer)}>
+          <KorosInContainer {...korosStyle} flipHorizontal={flipHorizontal !== false} />
+          <div key="imageContainer" className={classNames(styles.imageBelowKoros)}>
+            <Image />
+          </div>
         </div>
       )}
     </div>

@@ -62,12 +62,8 @@
   composes: hds-hero--background-image from 'hds-core/lib/components/hero/hero.css';
 }
 
-.topKoros {
-  composes: hds-hero--background-image__top-koros from 'hds-core/lib/components/hero/hero.css';
-}
-
-.bottomKoros {
-  composes: hds-hero--background-image__bottom-koros from 'hds-core/lib/components/hero/hero.css';
+.backgroundImageKoros {
+  composes: hds-hero--background-image__koros from 'hds-core/lib/components/hero/hero.css';
 }
 
 /* diagonalKoros specific styles */
@@ -81,7 +77,7 @@
 }
 
 .diagonalKorosAndBackground {
-  composes: hds-hero--diagonal-koros hds-hero--diagonal-koros__koros-and-background from 'hds-core/lib/components/hero/hero.css';
+  composes: hds-hero--diagonal-koros__koros-and-background from 'hds-core/lib/components/hero/hero.css';
 }
 
 .contentColums {
@@ -89,14 +85,6 @@
 }
 .emptyColumn {
   composes: hds-hero--with-background__empty-column from 'hds-core/lib/components/hero/hero.css';
-}
-
-.diagonalKorosMobileKoros {
-  display: block;
-}
-
-.diagonalKorosAndBackground {
-  display: none;
 }
 
 /* imageLeft/Right specific styles */
@@ -108,12 +96,21 @@
   composes: hds-hero--image-right from 'hds-core/lib/components/hero/hero.css';
 }
 
-@media large-up {
-  /* diagonalKoros specific styles */
-  .diagonalKorosMobileKoros {
-    display: none;
-  }
-  .diagonalKorosAndBackground {
-    display: block;
-  }
+.korosContainer {
+  composes: hds-hero__koros-container from 'hds-core/lib/components/hero/hero.css';
+}
+
+.korosContainerInwardKoros {
+  composes: hds-hero__koros-container--inward-koros from 'hds-core/lib/components/hero/hero.css';
+}
+.korosContainerOverflowBottom {
+  composes: hds-hero__koros-container--overflow-bottom from 'hds-core/lib/components/hero/hero.css';
+}
+
+.korosAndImageContainer {
+  composes: hds-hero__koros-and-image-container from 'hds-core/lib/components/hero/hero.css';
+}
+
+.korosAligner {
+  composes: hds-hero--diagonal-koros__koros-aligner from 'hds-core/lib/components/hero/hero.css';
 }

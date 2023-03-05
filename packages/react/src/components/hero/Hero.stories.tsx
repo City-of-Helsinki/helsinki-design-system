@@ -102,10 +102,20 @@ export const WithoutImage = (args) => {
   const heroProps: HeroProps = {};
   const defaultContentProps: DefaultContentProps = {};
   if (args.heroType === 'blueAndGreen') {
-    heroProps.theme = { '--background-color': '#9fc9eb', '--color': '#000', '--koros-color': '#009246' };
-    heroProps.koros = { type: 'pulse', flipHorizontal: false };
+    heroProps.theme = {
+      '--background-color': '#9fc9eb',
+      '--color': '#000',
+      '--koros-color': '#009246',
+      '--koros-height': '82px',
+    };
+    heroProps.koros = { type: 'pulse' };
   } else if (args.heroType === 'blackAndWhite') {
-    heroProps.theme = { '--background-color': '#000', '--color': '#fff' };
+    heroProps.theme = {
+      '--background-color': '#000',
+      '--color': '#fff',
+      '--koros-color': '#000',
+    };
+    heroProps.koros = { flipHorizontal: true };
     defaultContentProps.buttonStyle = { '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' };
   } else if (args.heroType === 'whiteWithoutKoros') {
     heroProps.koros = { hide: true };
@@ -114,7 +124,8 @@ export const WithoutImage = (args) => {
   }
   heroProps.theme = { ...heroProps.theme, ...args.theme };
   heroProps.koros = { ...heroProps.koros, ...args.koros };
-  heroProps.centeredContent = args.heroType === 'blueAndGreen';
+  heroProps.centeredContent =
+    (args.heroType === 'blueAndGreen' && args.centeredContent === undefined) || args.centeredContent;
   return (
     <Hero {...heroProps}>
       <DefaultContent {...defaultContentProps} />
@@ -243,7 +254,7 @@ export const EmbeddedToPage = (args) => {
     return <ImageLeftOrRight variant={variant} />;
   };
   const BackgroundImageVersion = () => {
-    const theme = variant === 'backgroundImage' ? { '--bottom-koros-color': 'var(--color-fog)' } : {};
+    const theme = variant === 'backgroundImage' ? { '--koros-color': 'var(--color-fog)' } : {};
     return <WithBackgroundImage variant={variant} theme={theme} />;
   };
   const NoImage = () => {
@@ -330,7 +341,7 @@ export const PlaygroundForDiagonalKoros = (args) => (
 
 PlaygroundForDiagonalKoros.argTypes = {
   korosInset: {
-    defaultValue: 'auto auto 30% -40%',
+    defaultValue: '0 0 0 -40%',
     control: 'text',
     description: 'Position of the koros. Storybook control, not an actual component property.',
   },
@@ -355,7 +366,6 @@ export const PlaygroundForTheme = (args) => {
     '--color': args.color,
     '--image-position': args.imagePosition,
     '--koros-color': args.korosColor,
-    '--bottom-koros-color': args.bottomKorosColor,
     '--diagonal-koros-inset': args.diagonalKorosInset,
     '--horizontal-padding-small': args.horizontalPaddingSmall,
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
@@ -420,11 +430,6 @@ PlaygroundForTheme.argTypes = {
     control: 'color',
     description: 'Optional koros color.',
   },
-  bottomKorosColor: {
-    defaultValue: '',
-    control: 'color',
-    description: 'Optional bottom koros color. Used only with top bg image.',
-  },
   imagePosition: {
     defaultValue: '',
     control: {
@@ -479,7 +484,7 @@ export const AllHeroes = () => {
       <NavigationComponent />
       <ImageLeftOrRight variant="imageLeft" />
       <Divider />
-      <WithBackgroundImage variant="backgroundImage" theme={{ '--bottom-koros-color': '#adf1c3' }} />
+      <WithBackgroundImage variant="backgroundImage" theme={{ '--koros-color': '#adf1c3' }} />
       <Divider />
       <ImageLeftOrRight variant="imageRight" />
       <Divider />
