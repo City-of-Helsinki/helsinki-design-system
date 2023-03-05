@@ -77,20 +77,15 @@ export const DiagonalKoros = () => `
       --color: #000;
     }
     /*
-      Koros is very high by default, so height is defined here. Padding is set in the container.
-      Koros should also "pull" next sibling upwards so koros overflows it.
-      These are not in the css file as the amounts depend on the koros height.
-      React version calculates these automatically.
+      Koros is very high by default and the height can be set with css var "--koros-height".
       Heights of different koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
     */
     .responsive-koros{
       --koros-height: 14px;
-      height: 14px;
     }  
     @media only screen and (min-width: 992px){
       .responsive-koros{
         --koros-height: auto;
-       height: auto;
       }  
     }
   </style>
@@ -123,19 +118,57 @@ export const WithoutImage = () => `
       --background-color: #9fc9eb;
       --color: #000;
       --koros-color: #009246;
+      --koros-height: 82px;
     }
   </style>
   <div class="hds-hero custom-theme">
     <div class="hds-hero__container">
       <div class="hds-hero__content hds-hero__content--single-column">
-        ${card}
+        <div class="hds-hero__card hds-hero__card--centered-content">
+          <h1 class="hds-hero__title">Welcome to the hero story</h1>
+          <p class="hds-hero__text">Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.</p>
+          ${button}
+        </div>
       </div>
     </div>
-    <div class="hds-hero__koros-container--without-overlay" style="margin-top: -34px;">
-        ${getKoros(true, true)}
-      </div>
+    <div class="hds-hero__koros-container--inward-koros">
+      ${getKoros(true, true)}
+    </div>
   </div>`;
 WithoutImage.storyName = 'Without image';
+
+export const WithoutImageKorosOverlay = () => `
+  <style type="text/css">
+    .container {
+      background: #000;
+      padding: 0 0 200px;
+    }
+    .custom-theme {
+      content: "";
+      --background-color: #9fc9eb;
+      --color: #000;
+      --koros-color: #9fc9eb;
+      --koros-height: 14px;
+    }
+  </style>
+  <div class="container">
+    <div class="hds-hero custom-theme">
+      <div class="hds-hero__container">
+        <div class="hds-hero__content hds-hero__content--single-column">
+          <div class="hds-hero__card hds-hero__card--centered-content">
+            <h1 class="hds-hero__title">The overflowing koros</h1>
+            <p class="hds-hero__text">The koros overflows the container from bottom.</p>
+            <p class="hds-hero__text">Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.</p>
+            ${button}
+          </div>
+        </div>
+      </div>
+      <div class="hds-hero__koros-container--overflow-bottom">
+        ${getKoros(false, false)}
+      </div>
+    </div>
+  </div>`;
+WithoutImageKorosOverlay.storyName = 'Without image II';
 
 export const ImageRight = () => `
   <style type="text/css">

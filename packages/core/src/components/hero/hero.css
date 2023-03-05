@@ -53,15 +53,23 @@
   max-width: var(--container-width-xl);
 }
 .hds-hero__koros-container,
-.hds-hero__koros-container--without-overlay {
+.hds-hero__koros-container--overflow-bottom,
+.hds-hero__koros-container--inward-koros {
   position: absolute;
   inset: 0;
   z-index: 1;
   overflow: hidden;
   height: var(--koros-height);
 }
-.hds-hero__koros-container--without-overlay {
+.hds-hero__koros-container--inward-koros {
   position: relative;
+}
+.hds-hero__koros-container--overflow-bottom {
+  top: auto;
+  bottom: calc(-1 * var(--koros-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .hds-hero__koros-container > div {
