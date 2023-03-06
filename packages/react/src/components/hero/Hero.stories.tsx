@@ -22,6 +22,21 @@ type DefaultContentProps = {
   buttonStyle?: Record<string, string>;
 };
 
+const variantSelection = {
+  defaultValue: 'noImage',
+  control: {
+    type: 'select',
+    options: ['imageLeft', 'imageRight', 'backgroundImage', 'imageBottom', 'diagonalKoros', 'noImage'],
+  },
+};
+
+const insetSelection = {
+  defaultValue: '0 0 0 -40%',
+  control: 'text',
+  description:
+    'Position of the koros in variant "diagonalKoros". Value is set to the theme of the hero. Theme property is "--diagonal-koros-inset".',
+};
+
 const defaultText =
   'Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.';
 
@@ -209,15 +224,16 @@ export const PlaygroundForKoros = (args) => {
       type: args.type,
       dense: !!args.dense,
       hide: !!args.hide,
-      forcedDirection: args.forcedDirection || undefined,
       ...args.koros,
     },
     theme: {
       '--background-color': '#9fc9eb',
       '--koros-color': args.color || '#9fc9eb',
+      '--diagonal-koros-inset': args.diagonalKorosInset,
       ...args.theme,
     },
     imageSrc: imageFile,
+    variant: args.variant,
   };
 
   return (
@@ -230,21 +246,32 @@ export const PlaygroundForKoros = (args) => {
 PlaygroundForKoros.argTypes = {
   type: {
     defaultValue: 'basic',
+    description: 'Koros type',
     control: {
       type: 'select',
       options: ['basic', 'beat', 'pulse', 'storm', 'wave', 'calm'],
     },
   },
-  color: { control: { type: 'color' } },
+  color: {
+    control: { type: 'color' },
+    description: 'Koros color. Default is "--background-color"',
+  },
   hide: {
     control: 'boolean',
+    description: 'Hide koros',
   },
   dense: {
     control: 'boolean',
+    description: 'Use dense koros version or not',
   },
+  diagonalKorosInset: insetSelection,
   flipHorizontal: {
-    defaultValue: true,
     control: 'boolean',
+    description: 'Flip koros horizontally. Most variants override this setting.',
+  },
+  variant: {
+    ...variantSelection,
+    defaultValue: 'diagonalKoros',
   },
 };
 
@@ -286,11 +313,7 @@ EmbeddedToPage.argTypes = {
     control: false,
   },
   variant: {
-    defaultValue: 'noImage',
-    control: {
-      type: 'select',
-      options: ['imageLeft', 'imageRight', 'backgroundImage', 'imageBottom', 'diagonalKoros', 'noImage'],
-    },
+    ...variantSelection,
   },
   preset: {
     defaultValue: '1',
@@ -304,56 +327,6 @@ EmbeddedToPage.argTypes = {
           'Changes to another preset of the selected variant. Storybook control, not an actual component property',
       },
     },
-  },
-};
-
-export const PlaygroundForDiagonalKoros = (args) => (
-  <div>
-    <style>
-      {`
-        .hero {
-          --diagonal-koros-inset: ${args.korosInset};
-        }
-        .hero > * h1{
-          max-width: ${args.headingMaxWidth};
-        }
-        #hero > * p {
-          padding-right: ${args.paragraphPadding};
-        }
-      `}
-    </style>
-    <Hero
-      id="hero"
-      koros={args.koros}
-      className="hero"
-      theme={{ '--background-color': '#f5a3c7', '--color': '#000', ...args.theme }}
-      variant="diagonalKoros"
-      imageSrc={imageFile}
-    >
-      <DefaultContent
-        title="This hero layout is broken intentionally"
-        text="When diagonal koros is visible*, heading or text may overflow the koros and image. Can be fixed by adding padding to the elements with css. Can also be fixed by changing theme property 'diagonal-koros-inset'"
-      />
-    </Hero>
-    <p>*On large screens, resolution &gt;=992px</p>
-  </div>
-);
-
-PlaygroundForDiagonalKoros.argTypes = {
-  korosInset: {
-    defaultValue: '0 0 0 -40%',
-    control: 'text',
-    description: 'Position of the koros. Storybook control, not an actual component property.',
-  },
-  headingMaxWidth: {
-    defaultValue: '35vw',
-    control: 'text',
-    description: 'Max width of the heading. Storybook control, not an actual component property.',
-  },
-  paragraphPadding: {
-    defaultValue: '0%',
-    control: 'text',
-    description: 'Padding of the p element. Storybook control, not an actual component property.',
   },
 };
 
@@ -378,7 +351,7 @@ export const PlaygroundForTheme = (args) => {
     koros: args.koros,
     theme,
     imageSrc: imageFile,
-    variant: 'backgroundImage',
+    variant: args.variant,
   };
   return (
     <div>
@@ -388,12 +361,15 @@ export const PlaygroundForTheme = (args) => {
           padding: 20px ${demoPadding};
           background:${demoBgColor};
         }
+        .oddly-padded p{
+          max-width: var(--container-width-xl);
+          margin: 0 auto;
+        }
         .theme {
           padding: 20px 20px 20px ${demoPadding};
           font-size:10px;
           border:1px solid #000;
         }
-       
       `}
       </style>
       <Hero {...heroProps}>
@@ -418,7 +394,7 @@ PlaygroundForTheme.argTypes = {
   backgroundColor: {
     defaultValue: demoBgColor,
     control: 'color',
-    description: 'Background / koros color.',
+    description: 'Background color. Also koros color, if not set.',
   },
   color: {
     defaultValue: '',
@@ -428,10 +404,12 @@ PlaygroundForTheme.argTypes = {
   korosColor: {
     defaultValue: '',
     control: 'color',
-    description: 'Optional koros color.',
+    description: 'Optional koros color. Default is "--background-color"',
   },
   imagePosition: {
     defaultValue: '',
+    description:
+      'How image is aligned to its container when image is larger than the container. Value can be any valid value for css rule "object-fit"',
     control: {
       type: 'select',
       options: [
@@ -448,11 +426,7 @@ PlaygroundForTheme.argTypes = {
       ],
     },
   },
-  korosInset: {
-    defaultValue: demoPadding,
-    control: 'text',
-    description: 'Position of the koros. Used only with diagonal koros.',
-  },
+  diagonalKorosInset: insetSelection,
   horizontalPaddingSmall: {
     defaultValue: demoPadding,
     control: 'text',
@@ -473,6 +447,10 @@ PlaygroundForTheme.argTypes = {
     control: 'text',
     description: 'Horizontal padding on x-large screens >=1248px.',
   },
+  variant: {
+    ...variantSelection,
+    defaultValue: 'backgroundImage',
+  },
 };
 
 export const AllHeroes = () => {
@@ -480,11 +458,11 @@ export const AllHeroes = () => {
     return <div style={{ height: '50px' }} />;
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#adf1c3' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#eafad4' }}>
       <NavigationComponent />
       <ImageLeftOrRight variant="imageLeft" />
       <Divider />
-      <WithBackgroundImage variant="backgroundImage" theme={{ '--koros-color': '#adf1c3' }} />
+      <WithBackgroundImage variant="backgroundImage" theme={{ '--koros-color': '#eafad4' }} />
       <Divider />
       <ImageLeftOrRight variant="imageRight" />
       <Divider />
