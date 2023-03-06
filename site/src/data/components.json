@@ -143,6 +143,19 @@
     }
   },
   {
+    "name": "Highlight",
+    "text": "Quote and highlight allow lifting an excerpt from a longer text to emphasize. The Quote element has a reference to the quote source. The Highlight element is an excerpt from the text without the source information.",
+    "linkboxAriaLabel": "Highlight component",
+    "linkAriaLabel": "Go to the Higlight component page",
+    "href": "/components/highlight",
+    "imgProps": {
+      "src": "/images/components/overview/higlight@2x.png",
+      "alt": "An illustration of the Highlight component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
     "name": "Icon",
     "text": "Icons are used for providing visual cues and highlighting actions.",
     "linkboxAriaLabel": "Icon component",

@@ -1,0 +1,53 @@
+---
+slug: '/components/highlight'
+title: 'Highlight'
+navTitle: 'Highlight'
+---
+
+import { Highlight } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+const settings = {
+  theme: {
+    '--border-left-color': '#009246',
+    '--width': '50px'
+  },
+  text: 'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.'
+}
+
+## Usage
+
+### Example
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight text={settings.text} />
+  <Highlight {...settings} />
+</PlaygroundPreview>
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight type="quote" text={settings.text} />
+  <Highlight type="quote" {...settings} />
+</PlaygroundPreview>
+
+### Principles
+
+- **Select an excerpt that you want the user to pay attention to.** 
+- Quote type wraps text inside quote marks
+
+### Variations
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight text={settings.text} variant="small"/>
+  <Highlight text={settings.text} />
+  <Highlight text={settings.text} variant="large"/>
+</PlaygroundPreview>
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight type="quote" text={settings.text} variant="small"/>
+  <Highlight type="quote" text={settings.text} />
+  <Highlight type="quote" text={settings.text} variant="large"/>
+</PlaygroundPreview>

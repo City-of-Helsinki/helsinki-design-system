@@ -35,7 +35,7 @@ export const HighlightSmall = () => `
 export const DefaultQuote = () => `
   <div class="hds-highlight-wrapper">
     <div class="hds-highlight" role="region">
-      <div class="hds-highlight--text hds-highlight--quote">${highlightText}</div>
+      <div class="hds-highlight--text hds-highlight--quote">${quoteText}</div>
       <div class="hds-highlight--reference">${quoteReference}</div>
     </div>
   </div>
@@ -44,7 +44,7 @@ export const DefaultQuote = () => `
 export const QuoteLarge = () => `
   <div class="hds-highlight-wrapper--large">
     <div class="hds-highlight" role="region">
-      <div class="hds-highlight--text hds-highlight--large hds-highlight--quote">${highlightText}</div>
+      <div class="hds-highlight--text hds-highlight--large hds-highlight--quote">${quoteText}</div>
       <div class="hds-highlight--reference">${quoteReference}</div>
     </div>
   </div>  
@@ -53,7 +53,7 @@ export const QuoteLarge = () => `
 export const QuoteSmall = () => `
   <div class="hds-highlight-wrapper--small">
     <div class="hds-highlight" role="region">
-      <div class="hds-highlight--text hds-highlight--small hds-highlight--quote">${highlightText}</div>
+      <div class="hds-highlight--text hds-highlight--small hds-highlight--quote">${quoteText}</div>
       <div class="hds-highlight--reference">${quoteReference}</div>
     </div>
   </div>  

@@ -22,19 +22,21 @@
 }
 
 .hds-highlight--text {
-  max-width: 536px;
+  width: 536px;
   font-size: 24px;
   line-height: 28px;
 }
 
 .hds-highlight--small {
-  max-width: 264px;
+  width: 264px;
+  font-size: 24px;
+  line-height: 28px;
 }
 
 .hds-highlight--large {
+  width: 680px;
   font-size: 36px;
   line-height: 43px;
-  max-width: 680px;
 }
 
 .hds-highlight--quote {
@@ -60,6 +62,7 @@
 .hds-highlight--reference {
   font-size: 18px;
   line-height: 27px;
+  width: inherit;
 }
 .hds-highlight--reference::before {
   content: '⁠—';

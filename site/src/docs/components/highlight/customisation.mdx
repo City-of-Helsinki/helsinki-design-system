@@ -1,0 +1,72 @@
+---
+slug: '/components/highlight/customisation'
+title: 'Highlight - Customisation'
+---
+
+import { Highlight } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
+
+In React version, you can use the `theme` property to customise the component.
+
+See all available theme variables in the table below.
+
+| Theme variable                           | Description                                     |
+| ---------------------------------------- | ----------------------------------------------- |
+| `--border-left-color`                    | Colour of the highlight's accent line.          |
+| `--text-color`                           | Colour of the highlight's text                  |
+| `--width`                                | Width of the highlight                          |
+
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<Highlight
+  text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."
+  theme={{
+    '--border-left-color': '#009246', 
+    '--width': '50px'
+  }}
+/>
+<Highlight
+  text="Add an interesting quote here"
+  type="quote"
+  reference="First name Last name. Title."
+  theme={{
+    '--border-left-color': '#009246', 
+    '--width': '50px'
+  }}
+/>
+```
+
+```html
+<div
+  class="hds-highlight-wrapper"
+  style="--border-left-color: '#009246',--width: '50px'"
+>
+  <div class="hds-highlight" role="region">
+    <div class="hds-highlight--text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
+  </div>
+</div>
+<div 
+  class="hds-highlight-wrapper"
+  style="--border-left-color: '#009246',--width: '50px'"
+>
+  <div class="hds-highlight" role="region">
+    <div class="hds-highlight--text hds-highlight--quote">Add an interesting quote here</div>
+    <div class="hds-highlight--reference">First name Last name. Title.</div>
+  </div>
+</div>
+
+```
+
+</Playground>

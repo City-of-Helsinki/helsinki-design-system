@@ -2,13 +2,14 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
+import styles from './Highlight.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import styles from './Highlight.module.scss';
 
 export interface HighlightTheme {
   '--border-left-color'?: string;
   '--text-color'?: string;
+  '--width'?: string;
 }
 
 export type HighlightProps = {
@@ -19,7 +20,7 @@ export type HighlightProps = {
   /**
    * Highlight size. Currently highlight comes in three sizes
    */
-  size?: 'small' | 'medium' | 'large';
+  variant?: 'small' | 'medium' | 'large';
   /**
    * Highlight type
    */
@@ -34,16 +35,16 @@ export type HighlightProps = {
   reference?: string;
 };
 
-export const Highlight = ({ theme, size, type, text, reference }: HighlightProps) => {
+export const Highlight = ({ theme, variant, type, text, reference }: HighlightProps) => {
   // custom theme
   const customThemeClass = useTheme<HighlightTheme>(styles.highlight, theme || {});
   const isQuote = type && type === 'quote';
 
   return (
-    <div className={size ? styles[`highlight${size}`] : styles.highlightdefault}>
+    <div className={styles.highlightdefault}>
       <div className={classNames(styles.highlight, customThemeClass)} role="region">
-        <div className={classNames(styles.text, isQuote && styles.quote, size && styles[size])}>{text}</div>
-        {reference && <div className={styles.reference}>⁠{reference}</div>}
+        <div className={classNames(styles.text, isQuote && styles.quote, variant && styles[variant])}>{text}</div>
+        {reference && <div className={styles.reference}>{reference}</div>}
       </div>
     </div>
   );
