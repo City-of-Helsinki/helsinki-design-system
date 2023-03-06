@@ -19,7 +19,7 @@ export default {
 type DefaultContentProps = {
   title?: string;
   text?: string;
-  buttonStyle?: Record<string, string>;
+  buttonTheme?: 'black' | 'white';
 };
 
 const variantSelection = {
@@ -34,16 +34,38 @@ const korosPosition = {
   defaultValue: '45%',
   control: 'text',
   description:
-    'Position of the koros in variant "diagonalKoros". Value is set to the theme of the hero. Theme property is "--diagonal-koros-position".',
+    'Position of the koros in variant "diagonalKoros". Value is set to to theme of the hero. Theme property is "--diagonal-koros-position".',
 };
 
 const defaultText =
   'Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.';
 
+const imageLeftOrRightTheme = { '--background-color': '#c2a251', '--color': '#000' };
+
+const getDisabledControl = (control: string, notUsed?: boolean) => {
+  const description = notUsed
+    ? `*** ${control} is not used in this variant ***`
+    : `*** ${control} is not passed to the component in this story ***`;
+  return {
+    [control]: {
+      description,
+      control: false,
+      table: {
+        type: {
+          summary: 'Disabled',
+        },
+      },
+    },
+  };
+};
+
 const DefaultContent = (props: DefaultContentProps) => {
-  const { title, text, buttonStyle } = props;
+  const { title, text, buttonTheme } = props;
   const h1Text = title || 'Welcome to the hero story';
   const paragraphText = text || defaultText;
+  const blackButtonStyle = { '--background-color': '#000', '--color': '#fff', '--border-color': '#000' };
+  const whiteButtonStyle = { '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' };
+  const buttonStyle = buttonTheme !== 'black' ? whiteButtonStyle : blackButtonStyle;
   return (
     <>
       <Hero.Title>{h1Text}</Hero.Title>
@@ -52,7 +74,7 @@ const DefaultContent = (props: DefaultContentProps) => {
         variant="secondary"
         role="link"
         // @ts-ignore
-        style={buttonStyle}
+        style={buttonTheme ? buttonStyle : {}}
       >
         Click me
       </Button>
@@ -91,124 +113,156 @@ const NavigationComponent = () => (
   </Navigation>
 );
 
-export const ImageLeftOrRight = (args) => {
+export const ImageLeft = (args) => {
   const heroProps: HeroProps = {
     koros: args.koros,
-    theme: { '--background-color': '#c2a251', '--color': '#000', ...args.theme },
-    imageSrc: imageFile,
-    variant: args.variant,
+    centeredContent: args.centeredContent,
+    theme: { ...imageLeftOrRightTheme, ...args.theme },
+    imageSrc: args.imageSrc || imageFile,
+    variant: 'imageLeft',
   };
   return (
     <Hero {...heroProps}>
-      <DefaultContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
+      <DefaultContent buttonTheme="black" />
     </Hero>
   );
 };
+ImageLeft.argTypes = {
+  ...getDisabledControl('variant'),
+};
 
-ImageLeftOrRight.argTypes = {
-  variant: {
-    options: ['imageRight', 'imageLeft'],
-    control: { type: 'radio' },
-    defaultValue: 'imageRight',
-  },
+export const ImageRight = (args) => {
+  const heroProps: HeroProps = {
+    koros: args.koros,
+    centeredContent: args.centeredContent,
+    theme: { ...imageLeftOrRightTheme, ...args.theme },
+    imageSrc: args.imageSrc || imageFile,
+    variant: 'imageRight',
+  };
+  return (
+    <Hero {...heroProps}>
+      <DefaultContent buttonTheme="black" />
+    </Hero>
+  );
+};
+ImageRight.argTypes = {
+  ...getDisabledControl('variant'),
 };
 
 export const WithoutImage = (args) => {
-  const heroProps: HeroProps = {};
-  const defaultContentProps: DefaultContentProps = {};
-  if (args.heroType === 'blueAndGreen') {
-    heroProps.theme = {
+  const heroProps: HeroProps = {
+    theme: {
       '--background-color': '#9fc9eb',
       '--color': '#000',
       '--koros-color': '#009246',
       '--koros-height': '82px',
-    };
-    heroProps.koros = { type: 'pulse' };
-  } else if (args.heroType === 'blackAndWhite') {
-    heroProps.theme = {
-      '--background-color': '#000',
-      '--color': '#fff',
-      '--koros-color': '#000',
-    };
-    heroProps.koros = { flipHorizontal: true };
-    defaultContentProps.buttonStyle = { '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' };
-  } else if (args.heroType === 'whiteWithoutKoros') {
-    heroProps.koros = { hide: true };
-    heroProps.theme = { '--background-color': '#fff', '--color': '#000' };
-    defaultContentProps.buttonStyle = {};
-  }
-  heroProps.theme = { ...heroProps.theme, ...args.theme };
-  heroProps.koros = { ...heroProps.koros, ...args.koros };
-  heroProps.centeredContent =
-    (args.heroType === 'blueAndGreen' && args.centeredContent === undefined) || args.centeredContent;
+      ...args.theme,
+    },
+    koros: { type: 'pulse', ...args.koros },
+    centeredContent: args.centeredContent !== false,
+    variant: 'noImage',
+  };
   return (
     <Hero {...heroProps}>
-      <DefaultContent {...defaultContentProps} />
+      <DefaultContent />
     </Hero>
   );
 };
 
 WithoutImage.argTypes = {
-  heroType: {
-    options: ['blackAndWhite', 'blueAndGreen', 'whiteWithoutKoros'],
-    control: { type: 'radio' },
-    defaultValue: 'blueAndGreen',
-    description: 'Choose a preset hero type. This is a Storybook control, not an actual component property.',
-  },
+  ...getDisabledControl('variant'),
+  ...getDisabledControl('imageSrc'),
 };
 
-export const WithBackgroundImage = (args) => {
-  const heroProps: HeroProps = {};
-  if (args.variant === 'backgroundImage') {
-    heroProps.theme = { '--background-color': '#fff', ...args.theme };
-  } else if (args.variant === 'diagonalKoros') {
-    heroProps.theme = { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme };
-  }
-
-  heroProps.theme = { ...heroProps.theme, ...args.theme };
-  heroProps.koros = { ...args.koros };
-  heroProps.imageSrc = imageFile;
-  heroProps.variant = args.variant;
+export const WithoutImage2 = (args) => {
+  const heroProps: HeroProps = {
+    theme: {
+      '--background-color': '#000',
+      '--color': '#fff',
+      '--koros-color': '#000',
+      ...args.theme,
+    },
+    koros: { flipHorizontal: true, ...args.koros },
+    centeredContent: args.centeredContent,
+    variant: 'noImage',
+  };
   return (
     <Hero {...heroProps}>
-      {!args.demoLongContent ? (
-        <DefaultContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
-      ) : (
-        <>
-          <Hero.Title>This is a header with too much text for single line</Hero.Title>
-          <Hero.Text>{defaultText}</Hero.Text>
-          <Hero.Text>{defaultText}</Hero.Text>
-          <Button variant="secondary" role="link">
-            Click me once!
-          </Button>
-          <p>
-            <Button variant="secondary" role="link">
-              Never click me!
-            </Button>
-          </p>
-        </>
-      )}
+      <DefaultContent buttonTheme="white" />
+    </Hero>
+  );
+};
+WithoutImage2.storyName = 'Without image II';
+WithoutImage2.argTypes = {
+  ...getDisabledControl('variant'),
+  ...getDisabledControl('imageSrc'),
+};
+
+export const WithoutImageAndKoros = (args) => {
+  const heroProps: HeroProps = {
+    theme: { '--background-color': '#fff', '--color': '#000', ...args.theme },
+    koros: { hide: true, ...args.koros },
+    centeredContent: args.centeredContent,
+    variant: 'noImage',
+  };
+  return (
+    <Hero {...heroProps}>
+      <DefaultContent />
     </Hero>
   );
 };
 
-WithBackgroundImage.argTypes = {
-  variant: {
-    options: ['backgroundImage', 'diagonalKoros'],
-    control: { type: 'radio' },
-    defaultValue: 'backgroundImage',
-  },
-  demoLongContent: {
-    control: 'boolean',
-    description: 'Storybook control, not an actual component property.',
-  },
+WithoutImageAndKoros.argTypes = {
+  ...getDisabledControl('variant'),
+  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('koros'),
+};
+
+export const BackgroundImage = (args) => {
+  const heroProps: HeroProps = {
+    theme: { '--background-color': '#fff', ...args.theme },
+    koros: { ...args.koros },
+    imageSrc: args.imageSrc || imageFile,
+    variant: 'backgroundImage',
+  };
+  return (
+    <Hero {...heroProps}>
+      <DefaultContent buttonTheme="black" />
+    </Hero>
+  );
+};
+
+BackgroundImage.argTypes = {
+  ...getDisabledControl('centeredContent', true),
+  ...getDisabledControl('variant'),
+};
+
+export const DiagonalKoros = (args) => {
+  const heroProps: HeroProps = {
+    theme: { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme },
+    koros: { ...args.koros },
+    imageSrc: args.imageSrc || imageFile,
+    variant: 'diagonalKoros',
+  };
+
+  return (
+    <Hero {...heroProps}>
+      <DefaultContent buttonTheme="black" />
+    </Hero>
+  );
+};
+
+DiagonalKoros.argTypes = {
+  ...getDisabledControl('centeredContent', true),
+  ...getDisabledControl('variant'),
 };
 
 export const ImageBottom = (args) => {
   const heroProps: HeroProps = {
     koros: { ...args.koros },
+    centeredContent: args.centeredContent,
     theme: { '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme },
-    imageSrc: imageFile,
+    imageSrc: args.imageSrc || imageFile,
     variant: 'imageBottom',
   };
   return (
@@ -216,6 +270,10 @@ export const ImageBottom = (args) => {
       <DefaultContent />
     </Hero>
   );
+};
+ImageBottom.storyName = 'Bottom image';
+ImageBottom.argTypes = {
+  ...getDisabledControl('variant'),
 };
 
 export const PlaygroundForKoros = (args) => {
@@ -230,7 +288,6 @@ export const PlaygroundForKoros = (args) => {
       '--background-color': '#9fc9eb',
       '--koros-color': args.color || '#9fc9eb',
       '--diagonal-koros-position': args.diagonalKorosPosition,
-      ...args.theme,
     },
     imageSrc: imageFile,
     variant: args.variant,
@@ -244,6 +301,9 @@ export const PlaygroundForKoros = (args) => {
 };
 
 PlaygroundForKoros.argTypes = {
+  ...getDisabledControl('centeredContent'),
+  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('theme'),
   type: {
     defaultValue: 'basic',
     description: 'Koros type',
@@ -258,7 +318,7 @@ PlaygroundForKoros.argTypes = {
   },
   hide: {
     control: 'boolean',
-    description: 'Hide koros',
+    description: 'Hide koros. Most variants override this setting.',
   },
   dense: {
     control: 'boolean',
@@ -275,24 +335,25 @@ PlaygroundForKoros.argTypes = {
   },
 };
 
+const noImageOptions = ['', 'Without image', 'Without image II', 'Without image and koros'];
 export const EmbeddedToPage = (args) => {
   const { preset, variant } = args;
-  const BasicImageVersion = () => {
-    return <ImageLeftOrRight variant={variant} />;
-  };
-  const BackgroundImageVersion = () => {
-    const theme = variant === 'backgroundImage' ? { '--koros-color': 'var(--color-fog)' } : {};
-    return <WithBackgroundImage variant={variant} theme={theme} />;
-  };
   const NoImage = () => {
-    const heroPresets = ['blueAndGreen', 'whiteWithoutKoros', 'blackAndWhite'];
-    return <WithoutImage heroType={heroPresets[parseInt(preset, 10) - 1]} />;
+    if (preset === noImageOptions[1]) {
+      return <WithoutImage />;
+    }
+    if (preset === noImageOptions[2]) {
+      return <WithoutImage2 />;
+    }
+    return <WithoutImageAndKoros />;
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
-      {(variant === 'imageLeft' || variant === 'imageRight') && <BasicImageVersion />}
-      {(variant === 'backgroundImage' || variant === 'diagonalKoros') && <BackgroundImageVersion />}
+      {variant === 'imageRight' && <ImageRight />}
+      {variant === 'imageLeft' && <ImageLeft />}
+      {variant === 'backgroundImage' && <BackgroundImage theme={{ '--koros-color': 'var(--color-fog)' }} />}
+      {variant === 'diagonalKoros' && <DiagonalKoros />}
       {variant === 'noImage' && <NoImage />}
       {variant === 'imageBottom' && <ImageBottom />}
       <Section color="secondary">
@@ -304,27 +365,23 @@ export const EmbeddedToPage = (args) => {
 };
 
 EmbeddedToPage.argTypes = {
-  koros: {
-    description: '*** Koros is not passed the the components ***',
-    control: false,
-  },
-  theme: {
-    description: '*** Theme is not passed the the components ***',
-    control: false,
-  },
+  ...getDisabledControl('koros'),
+  ...getDisabledControl('theme'),
+  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('centeredContent'),
   variant: {
     ...variantSelection,
   },
   preset: {
-    defaultValue: '1',
+    defaultValue: noImageOptions[1],
     control: {
       type: 'select',
-      options: ['1', '2', '3'],
+      options: noImageOptions,
     },
     table: {
       type: {
         summary:
-          'Changes to another preset of the selected variant. Storybook control, not an actual component property',
+          'Changes to another version of the "noImage" variant. Storybook control, not an actual component property',
       },
     },
   },
@@ -344,6 +401,7 @@ export const PlaygroundForTheme = (args) => {
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
     '--horizontal-padding-large': args.horizontalPaddingLarge,
     '--horizontal-padding-x-large': args.horizontalPaddingXLarge,
+    ...args.theme,
   };
 
   const theme = Object.fromEntries(Object.entries(argsAsTheme).filter(([, value]) => !!value));
@@ -387,10 +445,9 @@ export const PlaygroundForTheme = (args) => {
 };
 
 PlaygroundForTheme.argTypes = {
-  theme: {
-    description: '*** Theme is not used here ***',
-    control: false,
-  },
+  ...getDisabledControl('centeredContent'),
+  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('koros'),
   backgroundColor: {
     defaultValue: demoBgColor,
     control: 'color',
@@ -460,22 +517,30 @@ export const AllHeroes = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#eafad4' }}>
       <NavigationComponent />
-      <ImageLeftOrRight variant="imageLeft" />
+      <ImageLeft />
       <Divider />
-      <WithBackgroundImage variant="backgroundImage" theme={{ '--koros-color': '#eafad4' }} />
+      <BackgroundImage theme={{ '--koros-color': '#eafad4' }} />
       <Divider />
-      <ImageLeftOrRight variant="imageRight" />
+      <ImageRight />
       <Divider />
-      <WithoutImage heroType="blueAndGreen" />
+      <WithoutImage />
       <Divider />
-      <WithBackgroundImage variant="diagonalKoros" />
+      <DiagonalKoros />
       <Divider />
-      <WithoutImage heroType="blackAndWhite" />
+      <WithoutImage2 />
       <Divider />
       <ImageBottom />
       <Divider />
-      <WithoutImage heroType="whiteWithoutKoros" />
+      <WithoutImageAndKoros />
       <Divider />
     </div>
   );
+};
+
+AllHeroes.argTypes = {
+  ...getDisabledControl('koros'),
+  ...getDisabledControl('theme'),
+  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('centeredContent'),
+  ...getDisabledControl('variant'),
 };
