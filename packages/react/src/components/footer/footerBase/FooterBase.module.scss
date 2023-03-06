@@ -13,7 +13,7 @@
 .base {
   display: flex;
   flex-direction: column;
-  padding: 0 var(--spacing-m) var(--spacing-m);
+  padding-bottom: var(--spacing-m);
 }
 
 .baseActions {

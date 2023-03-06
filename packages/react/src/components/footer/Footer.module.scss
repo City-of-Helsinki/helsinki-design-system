@@ -49,15 +49,11 @@ $koros-heights: (
   background-color: var(--footer-background);
 }
 
-.navigationContainer {
-  padding: var(--spacing-l) var(--spacing-m) var(--spacing-m);
+.footerSections {
+  padding: var(--spacing-l) var(--spacing-m) 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.titleWrapper {
-  display: flex;
 }
 
 .title {
@@ -79,9 +75,7 @@ $koros-heights: (
 }
 
 @media x-large-up {
-  // set max-width of footer sections
-  .centeredNavigation,
-  .footer > .footerContent > div {
+  .footerSections {
     margin: 0 auto;
     max-width: var(--container-width-xl);
   }

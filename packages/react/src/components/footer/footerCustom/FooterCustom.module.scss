@@ -1,7 +1,7 @@
 @import '../common';
 
 .custom {
-  padding: 0 var(--spacing-m) var(--spacing-m);
+  padding-bottom: var(--spacing-m);
 }
 .divider {
   @extend %divider;

@@ -15,7 +15,6 @@ import { FooterUtilityGroup } from './footerUtilityGroup/FooterUtilityGroup';
 import { FooterBase } from './footerBase/FooterBase';
 import { FooterCustom } from './footerCustom/FooterCustom';
 import { FooterTheme } from './Footer.interface';
-import { getComponentFromChildren } from '../../utils/getChildren';
 import { useTheme } from '../../hooks/useTheme';
 
 export type FooterProps = React.PropsWithChildren<{
@@ -51,8 +50,6 @@ export const Footer = ({
 }: FooterProps) => {
   // custom theme class that is applied to the root element
   const customThemeClass = useTheme<FooterTheme>(styles.footer, theme);
-  // filter out navigation from other children so that they can be rendered separately
-  const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'FooterNavigation');
 
   return (
     <footer
@@ -67,11 +64,10 @@ export const Footer = ({
     >
       <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
       <div className={styles.footerContent}>
-        <section className={classNames(styles.navigationContainer, styles.centeredNavigation)}>
-          <div className={styles.titleWrapper}>{title && <h2 className={styles.title}>{title}</h2>}</div>
-          {navigation}
-        </section>
-        {childrenWithoutNavigation}
+        <div className={styles.footerSections}>
+          {title && <h2 className={styles.title}>{title}</h2>}
+          {children}
+        </div>
       </div>
     </footer>
   );
