@@ -30,11 +30,11 @@ const variantSelection = {
   },
 };
 
-const insetSelection = {
-  defaultValue: '0 0 0 -40%',
+const korosPosition = {
+  defaultValue: '45%',
   control: 'text',
   description:
-    'Position of the koros in variant "diagonalKoros". Value is set to the theme of the hero. Theme property is "--diagonal-koros-inset".',
+    'Position of the koros in variant "diagonalKoros". Value is set to the theme of the hero. Theme property is "--diagonal-koros-position".',
 };
 
 const defaultText =
@@ -229,7 +229,7 @@ export const PlaygroundForKoros = (args) => {
     theme: {
       '--background-color': '#9fc9eb',
       '--koros-color': args.color || '#9fc9eb',
-      '--diagonal-koros-inset': args.diagonalKorosInset,
+      '--diagonal-koros-position': args.diagonalKorosPosition,
       ...args.theme,
     },
     imageSrc: imageFile,
@@ -264,7 +264,7 @@ PlaygroundForKoros.argTypes = {
     control: 'boolean',
     description: 'Use dense koros version or not',
   },
-  diagonalKorosInset: insetSelection,
+  diagonalKorosPosition: korosPosition,
   flipHorizontal: {
     control: 'boolean',
     description: 'Flip koros horizontally. Most variants override this setting.',
@@ -339,7 +339,7 @@ export const PlaygroundForTheme = (args) => {
     '--color': args.color,
     '--image-position': args.imagePosition,
     '--koros-color': args.korosColor,
-    '--diagonal-koros-inset': args.diagonalKorosInset,
+    '--diagonal-koros-position': args.diagonalKorosPosition,
     '--horizontal-padding-small': args.horizontalPaddingSmall,
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
     '--horizontal-padding-large': args.horizontalPaddingLarge,
@@ -426,7 +426,7 @@ PlaygroundForTheme.argTypes = {
       ],
     },
   },
-  diagonalKorosInset: insetSelection,
+  diagonalKorosPosition: korosPosition,
   horizontalPaddingSmall: {
     defaultValue: demoPadding,
     control: 'text',

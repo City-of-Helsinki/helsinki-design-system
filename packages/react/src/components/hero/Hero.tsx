@@ -67,10 +67,10 @@ export interface HeroCustomTheme {
   '--koros-height'?: string;
   /**
    * The "diagonalKoros" variant might need koros position adjustment, if texts overflow.
-   * This is an inset value with "top right bottom left"
-   * Default "0 0 0 -40%"
+   * This set the koros element's css rule "right"
+   * Default "45%"
    */
-  '--diagonal-koros-inset'?: string;
+  '--diagonal-koros-position'?: string;
   /**
    * Custom horizontal padding for small screens
    * Default --spacing-layout-2-xs
