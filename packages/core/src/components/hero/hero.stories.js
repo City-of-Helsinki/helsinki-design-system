@@ -91,11 +91,11 @@ export const DiagonalKoros = () => `
   </style>
   <div class="hds-hero custom-theme hds-hero--diagonal-koros">
     <div class="hds-hero--with-background__container">
-      <div class="hds-hero--with-background__contentColumns">
-        <div class="hds-hero__content">
+      <div class="hds-hero__content">
+        <div class="hds-hero--with-background__contentColumns">
           ${card}
+          <div class="hds-hero--with-background__empty-column"></div>
         </div>
-        <div class="hds-hero--with-background__empty-column"></div>
       </div>
       <div class="hds-hero--diagonal-koros__koros-aligner">
         <div class="responsive-koros hds-hero--diagonal-koros__koros-and-background">

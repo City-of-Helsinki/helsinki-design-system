@@ -4,7 +4,7 @@
   --image-position: bottom right;
   --koros-color: var(--color-white);
   --koros-height: 85px;
-  --diagonal-koros-inset: 0 0 0 -40%;
+  --diagonal-koros-position: 45%;
   --horizontal-padding-small: var(--spacing-layout-2-xs);
   --horizontal-padding-medium: var(--spacing-layout-xs);
   --horizontal-padding-large: var(--spacing-layout-xs);
@@ -259,8 +259,12 @@
 
   .hds-hero--diagonal-koros__koros-aligner {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    right: var(--diagonal-koros-position);
     z-index: 1;
+    max-width: var(--container-width-xl);
   }
 
   .hds-hero--diagonal-koros__koros-and-background {
@@ -270,14 +274,14 @@
     display: block;
     position: absolute;
     height: 100%;
-    inset: var(--diagonal-koros-inset);
+    inset: 0;
     overflow: visible;
   }
   .hds-hero--diagonal-koros__koros-and-background:after {
     content: '';
     background-color: var(--koros-color);
     display: block;
-    width: 100%;
+    width: 150%;
     height: 1500px;
     left: 0;
     position: absolute;
