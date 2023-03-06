@@ -20,7 +20,6 @@ const createArray = (length: number): number[] => Array.from({ length }, (value,
 
 const Utilities = () => {
   const someLinks = () => {
-    console.log('somelinks ajo');
     return [
       <Footer.NavigationLink
         title="Link to Facebook"
