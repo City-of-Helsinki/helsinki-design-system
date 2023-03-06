@@ -39,24 +39,20 @@ exports[`<Footer.FooterGroupHeading /> spec renders the component 1`] = `
     <div
       class="footerContent"
     >
-      <section
-        class="navigationContainer centeredNavigation"
+      <div
+        class="footerSections"
       >
-        <div
-          class="titleWrapper"
+        <h2
+          class="title"
         >
-          <h2
-            class="title"
-          >
-            Bar
-          </h2>
-        </div>
-      </section>
-      <span
-        class="heading"
-      >
-        Test
-      </span>
+          Bar
+        </h2>
+        <span
+          class="heading"
+        >
+          Test
+        </span>
+      </div>
     </div>
   </footer>
 </DocumentFragment>

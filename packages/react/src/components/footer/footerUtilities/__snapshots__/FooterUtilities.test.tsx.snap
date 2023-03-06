@@ -39,53 +39,49 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
     <div
       class="footerContent"
     >
-      <section
-        class="navigationContainer centeredNavigation"
-      >
-        <div
-          class="titleWrapper"
-        >
-          <h2
-            class="title"
-          >
-            Bar
-          </h2>
-        </div>
-      </section>
       <div
-        class="utilities"
+        class="footerSections"
       >
-        <hr
-          aria-hidden="true"
-          class="divider"
-        />
-        <div
-          class="links widerLinks"
+        <h2
+          class="title"
         >
-          <a
-            class="item"
-            href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
+          Bar
+        </h2>
+        <div
+          class="utilities"
+        >
+          <hr
+            aria-hidden="true"
+            class="divider"
+          />
+          <div
+            class="links widerLinks"
           >
-            <span>
-              Yhteystiedot
-            </span>
-          </a>
-          <a
-            class="item"
-            href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
-          >
-            <span>
-              Anna ja lue palautetta
-            </span>
-          </a>
-          <a
-            class="item"
-            href="https://hel.fi/kanslia/neuvonta-fi"
-          >
-            <span>
-              Chat-neuvonta
-            </span>
-          </a>
+            <a
+              class="item"
+              href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
+            >
+              <span>
+                Yhteystiedot
+              </span>
+            </a>
+            <a
+              class="item"
+              href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
+            >
+              <span>
+                Anna ja lue palautetta
+              </span>
+            </a>
+            <a
+              class="item"
+              href="https://hel.fi/kanslia/neuvonta-fi"
+            >
+              <span>
+                Chat-neuvonta
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

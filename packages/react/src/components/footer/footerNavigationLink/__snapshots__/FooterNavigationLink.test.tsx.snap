@@ -51,26 +51,22 @@ exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
     <div
       class="footerContent"
     >
-      <section
-        class="navigationContainer centeredNavigation"
+      <div
+        class="footerSections"
       >
-        <div
-          class="titleWrapper"
+        <h2
+          class="title"
         >
-          <h2
-            class="title"
-          >
-            Bar
-          </h2>
-        </div>
-      </section>
-      <a
-        class="item"
-      >
-        <span>
-          Link
-        </span>
-      </a>
+          Bar
+        </h2>
+        <a
+          class="item"
+        >
+          <span>
+            Link
+          </span>
+        </a>
+      </div>
     </div>
   </footer>
 </DocumentFragment>

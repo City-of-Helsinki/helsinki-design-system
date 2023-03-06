@@ -39,18 +39,14 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
     <div
       class="footerContent"
     >
-      <section
-        class="navigationContainer centeredNavigation"
+      <div
+        class="footerSections"
       >
-        <div
-          class="titleWrapper"
+        <h2
+          class="title"
         >
-          <h2
-            class="title"
-          >
-            Bar
-          </h2>
-        </div>
+          Bar
+        </h2>
         <nav
           class="navigation"
         >
@@ -90,7 +86,7 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
             </div>
           </div>
         </nav>
-      </section>
+      </div>
     </div>
   </footer>
 </DocumentFragment>

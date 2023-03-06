@@ -39,26 +39,22 @@ exports[`<Footer.Custom /> spec renders the component 1`] = `
     <div
       class="footerContent"
     >
-      <section
-        class="navigationContainer centeredNavigation"
-      >
-        <div
-          class="titleWrapper"
-        >
-          <h2
-            class="title"
-          >
-            Bar
-          </h2>
-        </div>
-      </section>
       <div
-        class="custom"
+        class="footerSections"
       >
-        <hr
-          aria-hidden="true"
-          class="divider"
-        />
+        <h2
+          class="title"
+        >
+          Bar
+        </h2>
+        <div
+          class="custom"
+        >
+          <hr
+            aria-hidden="true"
+            class="divider"
+          />
+        </div>
       </div>
     </div>
   </footer>

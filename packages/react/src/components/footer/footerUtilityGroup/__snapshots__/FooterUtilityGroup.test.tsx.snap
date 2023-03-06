@@ -39,130 +39,126 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
     <div
       class="footerContent"
     >
-      <section
-        class="navigationContainer centeredNavigation"
-      >
-        <div
-          class="titleWrapper"
-        >
-          <h2
-            class="title"
-          >
-            Bar
-          </h2>
-        </div>
-      </section>
       <div
-        class="utilities"
+        class="footerSections"
       >
-        <hr
-          aria-hidden="true"
-          class="divider"
-        />
-        <div
-          class="links widerLinks"
+        <h2
+          class="title"
         >
+          Bar
+        </h2>
+        <div
+          class="utilities"
+        >
+          <hr
+            aria-hidden="true"
+            class="divider"
+          />
           <div
-            class="utilityGroup"
+            class="links widerLinks"
           >
             <div
               class="utilityGroup"
             >
-              <a
-                class="heading utility"
-                href="https://google.com"
+              <div
+                class="utilityGroup"
               >
-                Main Page
-              </a>
-              <a
-                class="item utility"
-                href="https://google.com"
-              >
-                <span>
-                  Sub page
-                </span>
-              </a>
-              <a
-                class="item utility"
-                href="https://google.com"
-              >
-                <span>
-                  Sub page
-                </span>
-              </a>
+                <a
+                  class="heading utility"
+                  href="https://google.com"
+                >
+                  Main Page
+                </a>
+                <a
+                  class="item utility"
+                  href="https://google.com"
+                >
+                  <span>
+                    Sub page
+                  </span>
+                </a>
+                <a
+                  class="item utility"
+                  href="https://google.com"
+                >
+                  <span>
+                    Sub page
+                  </span>
+                </a>
+              </div>
             </div>
-          </div>
-          <div
-            class="utilityGroup"
-          >
             <div
               class="utilityGroup"
             >
-              <span
-                class="heading utility"
+              <div
+                class="utilityGroup"
               >
-                Social media
-              </span>
-              <a
-                aria-label="Helsingin kaupungin Facebook-tili"
-                class="item"
-                href="https://facebook.com/helsinginkaupunki/"
-                title="Helsingin kaupungin Facebook-tili"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon s"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <span
+                  class="heading utility"
                 >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2h-3.356v-7.12h2.435l.35-2.716h-2.785V9.43c0-.788.217-1.322 1.346-1.322h1.439V5.68l-.35-.036-.341-.025c-.38-.026-.873-.048-1.407-.048-2.073 0-3.495 1.266-3.495 3.592v2.005h-2.443v2.716h2.447L12.839 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14z"
-                      fill="currentColor"
-                    />
-                  </g>
-                </svg>
-                <span>
-                  Facebook
+                  Social media
                 </span>
-              </a>
-              <a
-                aria-label="Helsingin kaupungin Facebook-tili"
-                class="item"
-                href="https://facebook.com/helsinginkaupunki/"
-                title="Helsingin kaupungin Facebook-tili"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon s"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <a
+                  aria-label="Helsingin kaupungin Facebook-tili"
+                  class="item"
+                  href="https://facebook.com/helsinginkaupunki/"
+                  title="Helsingin kaupungin Facebook-tili"
                 >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
+                  <svg
+                    aria-hidden="true"
+                    class="icon s"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2h-3.356v-7.12h2.435l.35-2.716h-2.785V9.43c0-.788.217-1.322 1.346-1.322h1.439V5.68l-.35-.036-.341-.025c-.38-.026-.873-.048-1.407-.048-2.073 0-3.495 1.266-3.495 3.592v2.005h-2.443v2.716h2.447L12.839 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14z"
-                      fill="currentColor"
-                    />
-                  </g>
-                </svg>
-                <span>
-                  Facebook
-                </span>
-              </a>
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                      />
+                      <path
+                        d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2h-3.356v-7.12h2.435l.35-2.716h-2.785V9.43c0-.788.217-1.322 1.346-1.322h1.439V5.68l-.35-.036-.341-.025c-.38-.026-.873-.048-1.407-.048-2.073 0-3.495 1.266-3.495 3.592v2.005h-2.443v2.716h2.447L12.839 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14z"
+                        fill="currentColor"
+                      />
+                    </g>
+                  </svg>
+                  <span>
+                    Facebook
+                  </span>
+                </a>
+                <a
+                  aria-label="Helsingin kaupungin Facebook-tili"
+                  class="item"
+                  href="https://facebook.com/helsinginkaupunki/"
+                  title="Helsingin kaupungin Facebook-tili"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="icon s"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                      />
+                      <path
+                        d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2h-3.356v-7.12h2.435l.35-2.716h-2.785V9.43c0-.788.217-1.322 1.346-1.322h1.439V5.68l-.35-.036-.341-.025c-.38-.026-.873-.048-1.407-.048-2.073 0-3.495 1.266-3.495 3.592v2.005h-2.443v2.716h2.447L12.839 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14z"
+                        fill="currentColor"
+                      />
+                    </g>
+                  </svg>
+                  <span>
+                    Facebook
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
