@@ -183,8 +183,66 @@ export const WithSuggestionsAndHighlighting = (args) => {
     />
   );
 };
+
 WithSuggestionsAndHighlighting.storyName = 'With suggestions and highlighting';
 WithSuggestionsAndHighlighting.args = {
+  label: 'Search for a fruit',
+  helperText: 'Assistive text',
+  highlightSuggestions: true,
+  placeholder: 'Placeholder',
+};
+
+export const WithHistoryAndSuggestions = (args) => {
+  type SuggestionItemType = {
+    value: string;
+  };
+
+  const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
+    const suggestions = await asynchronousSearchOperation(inputValue);
+    return suggestions;
+  };
+
+  const searchHistoryKey = 'search-history';
+
+  const getStorageHistoryItems = (): string[] => {
+    const historyString = sessionStorage.getItem(searchHistoryKey);
+    if (!historyString) {
+      return [];
+    }
+
+    return historyString.split(',');
+  };
+
+  const getSearchHistory = (): SuggestionItemType[] => {
+    const historyItems = getStorageHistoryItems();
+    return historyItems.map((value) => ({ value }));
+  };
+
+  const setHistoryItem = (value): void => {
+    const historyStringItems = getStorageHistoryItems();
+    const uniqueHistoryWithNew = Array.from(new Set([value, ...historyStringItems]));
+    return sessionStorage.setItem(searchHistoryKey, uniqueHistoryWithNew.join());
+  };
+
+  const onSubmit = (value: string) => {
+    console.log('Submitted value:', value);
+    setHistoryItem(value);
+  };
+
+  return (
+    <SearchInput<SuggestionItemType>
+      {...args}
+      onSubmit={onSubmit}
+      searchHistoryGroupLabel="Search history"
+      getSearchHistory={getSearchHistory}
+      suggestionLabelField="value"
+      suggestionGroupLabel="All suggestions"
+      getSuggestions={getSuggestions}
+    />
+  );
+};
+
+WithHistoryAndSuggestions.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
   highlightSuggestions: true,
