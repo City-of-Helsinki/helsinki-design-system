@@ -36,7 +36,7 @@ describe('<Hero /> spec', () => {
     () => <HeroWithContent variant="backgroundImage" />,
     () => <HeroWithContent variant="imageLeft" />,
     () => <HeroWithContent variant="imageRight" />,
-    () => <HeroWithContent />,
+    () => <HeroWithContent variant="noImage" />,
     () => <HeroWithContent variant="imageBottom" />,
   ];
 

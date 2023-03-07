@@ -39,74 +39,50 @@ exports[`<Hero /> spec renders the component 1`] = `
             class="emptyColumn"
           />
         </div>
-        <div
-          class="diagonalKorosMobileKoros"
-        >
-          <div
-            class="koros basic"
-            style="fill: var(--koros-color); transform: scaleY(-1); margin-bottom: -14px; height: 14px; overflow: hidden;"
-          >
-            <svg
-              aria-hidden="true"
-              height="85"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <pattern
-                  height="85"
-                  id="koros_basic-2"
-                  patternUnits="userSpaceOnUse"
-                  width="106"
-                  x="0"
-                  y="0"
-                >
-                  <path
-                    d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-                    transform="scale(5.3)"
-                  />
-                </pattern>
-              </defs>
-              <rect
-                fill="url(#koros_basic-2)"
-                height="85"
-                width="100%"
-              />
-            </svg>
-          </div>
-        </div>
       </div>
       <div
-        class="koros basic diagonalKorosAndBackground"
-        style="fill: var(--koros-color);"
+        class="korosAligner"
       >
-        <svg
-          aria-hidden="true"
-          height="85"
-          width="100%"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="diagonalKorosAndBackground"
         >
-          <defs>
-            <pattern
-              height="85"
-              id="koros_basic-3"
-              patternUnits="userSpaceOnUse"
-              width="106"
-              x="0"
-              y="0"
+          <div
+            class="korosContainer"
+          >
+            <div
+              class="koros basic"
+              style="fill: var(--koros-color);"
             >
-              <path
-                d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-                transform="scale(5.3)"
-              />
-            </pattern>
-          </defs>
-          <rect
-            fill="url(#koros_basic-3)"
-            height="85"
-            width="100%"
-          />
-        </svg>
+              <svg
+                aria-hidden="true"
+                height="85"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <pattern
+                    height="85"
+                    id="koros_basic-2"
+                    patternUnits="userSpaceOnUse"
+                    width="106"
+                    x="0"
+                    y="0"
+                  >
+                    <path
+                      d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+                      transform="scale(5.3)"
+                    />
+                  </pattern>
+                </defs>
+                <rect
+                  fill="url(#koros_basic-2)"
+                  height="85"
+                  width="100%"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class="withBackgroundBackground diagonalKorosBackgroundContainer"
@@ -126,7 +102,7 @@ exports[`<Hero /> spec renders the component 1`] = `
 exports[`<Hero /> spec renders the component 2`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-4 backgroundImage"
+    class="hero custom-theme-3 backgroundImage"
   >
     <div
       class="withBackgroundContainer"
@@ -140,38 +116,42 @@ exports[`<Hero /> spec renders the component 2`] = `
           class="image"
           src="http://image.com/image.jpg"
         />
-      </div>
-      <div
-        class="koros basic  topKoros"
-        style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;"
-      >
-        <svg
-          aria-hidden="true"
-          height="85"
-          width="100%"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="backgroundImageKoros"
         >
-          <defs>
-            <pattern
+          <div
+            class="koros basic"
+            style="fill: var(--koros-color);"
+          >
+            <svg
+              aria-hidden="true"
               height="85"
-              id="koros_basic-5"
-              patternUnits="userSpaceOnUse"
-              width="106"
-              x="0"
-              y="0"
+              width="100%"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-                transform="scale(5.3)"
+              <defs>
+                <pattern
+                  height="85"
+                  id="koros_basic-4"
+                  patternUnits="userSpaceOnUse"
+                  width="106"
+                  x="0"
+                  y="0"
+                >
+                  <path
+                    d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+                    transform="scale(5.3)"
+                  />
+                </pattern>
+              </defs>
+              <rect
+                fill="url(#koros_basic-4)"
+                height="85"
+                width="100%"
               />
-            </pattern>
-          </defs>
-          <rect
-            fill="url(#koros_basic-5)"
-            height="85"
-            width="100%"
-          />
-        </svg>
+            </svg>
+          </div>
+        </div>
       </div>
       <div
         class="content"
@@ -202,38 +182,6 @@ exports[`<Hero /> spec renders the component 2`] = `
         />
       </div>
     </div>
-    <div
-      class="koros basic  bottomKoros"
-      style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;"
-    >
-      <svg
-        aria-hidden="true"
-        height="85"
-        width="100%"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern
-            height="85"
-            id="koros_basic-6"
-            patternUnits="userSpaceOnUse"
-            width="106"
-            x="0"
-            y="0"
-          >
-            <path
-              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-              transform="scale(5.3)"
-            />
-          </pattern>
-        </defs>
-        <rect
-          fill="url(#koros_basic-6)"
-          height="85"
-          width="100%"
-        />
-      </svg>
-    </div>
   </div>
 </DocumentFragment>
 `;
@@ -241,7 +189,7 @@ exports[`<Hero /> spec renders the component 2`] = `
 exports[`<Hero /> spec renders the component 3`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-7 imageLeft"
+    class="hero custom-theme-5 imageLeft"
   >
     <div
       class="container"
@@ -283,46 +231,54 @@ exports[`<Hero /> spec renders the component 3`] = `
       </div>
     </div>
     <div
-      class="koros basic"
-      style="fill: var(--koros-color); transform: scaleY(-1); margin-bottom: -14px; height: 14px; overflow: hidden;"
+      class="korosAndImageContainer"
     >
-      <svg
-        aria-hidden="true"
-        height="85"
-        width="100%"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="korosContainer"
       >
-        <defs>
-          <pattern
+        <div
+          class="koros basic"
+          style="fill: var(--koros-color); transform: scaleY(-1);"
+        >
+          <svg
+            aria-hidden="true"
             height="85"
-            id="koros_basic-8"
-            patternUnits="userSpaceOnUse"
-            width="106"
-            x="0"
-            y="0"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-              transform="scale(5.3)"
+            <defs>
+              <pattern
+                height="85"
+                id="koros_basic-6"
+                patternUnits="userSpaceOnUse"
+                width="106"
+                x="0"
+                y="0"
+              >
+                <path
+                  d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+                  transform="scale(5.3)"
+                />
+              </pattern>
+            </defs>
+            <rect
+              fill="url(#koros_basic-6)"
+              height="85"
+              width="100%"
             />
-          </pattern>
-        </defs>
-        <rect
-          fill="url(#koros_basic-8)"
-          height="85"
-          width="100%"
+          </svg>
+        </div>
+      </div>
+      <div
+        class="imageBelowKoros"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="image"
+          src="http://image.com/image.jpg"
         />
-      </svg>
-    </div>
-    <div
-      class="imageContainer imageBelowKoros"
-    >
-      <img
-        alt=""
-        aria-hidden="true"
-        class="image"
-        src="http://image.com/image.jpg"
-      />
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -331,7 +287,7 @@ exports[`<Hero /> spec renders the component 3`] = `
 exports[`<Hero /> spec renders the component 4`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-9 imageRight"
+    class="hero custom-theme-7 imageRight"
   >
     <div
       class="container"
@@ -373,46 +329,54 @@ exports[`<Hero /> spec renders the component 4`] = `
       </div>
     </div>
     <div
-      class="koros basic"
-      style="fill: var(--koros-color); transform: scaleY(-1); margin-bottom: -14px; height: 14px; overflow: hidden;"
+      class="korosAndImageContainer"
     >
-      <svg
-        aria-hidden="true"
-        height="85"
-        width="100%"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="korosContainer"
       >
-        <defs>
-          <pattern
+        <div
+          class="koros basic"
+          style="fill: var(--koros-color); transform: scaleY(-1);"
+        >
+          <svg
+            aria-hidden="true"
             height="85"
-            id="koros_basic-10"
-            patternUnits="userSpaceOnUse"
-            width="106"
-            x="0"
-            y="0"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-              transform="scale(5.3)"
+            <defs>
+              <pattern
+                height="85"
+                id="koros_basic-8"
+                patternUnits="userSpaceOnUse"
+                width="106"
+                x="0"
+                y="0"
+              >
+                <path
+                  d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+                  transform="scale(5.3)"
+                />
+              </pattern>
+            </defs>
+            <rect
+              fill="url(#koros_basic-8)"
+              height="85"
+              width="100%"
             />
-          </pattern>
-        </defs>
-        <rect
-          fill="url(#koros_basic-10)"
-          height="85"
-          width="100%"
+          </svg>
+        </div>
+      </div>
+      <div
+        class="imageBelowKoros"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="image"
+          src="http://image.com/image.jpg"
         />
-      </svg>
-    </div>
-    <div
-      class="imageContainer imageBelowKoros"
-    >
-      <img
-        alt=""
-        aria-hidden="true"
-        class="image"
-        src="http://image.com/image.jpg"
-      />
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -421,97 +385,7 @@ exports[`<Hero /> spec renders the component 4`] = `
 exports[`<Hero /> spec renders the component 5`] = `
 <DocumentFragment>
   <div
-    class="hero custom-theme-11 imageLeft"
-  >
-    <div
-      class="container"
-    >
-      <div
-        class="content twoColumns"
-      >
-        <div
-          class="twoColumnsImageContainer"
-        >
-          <img
-            alt=""
-            aria-hidden="true"
-            class="image"
-            src="http://image.com/image.jpg"
-          />
-        </div>
-        <div
-          class="card"
-        >
-          <h1>
-            This is the heading
-          </h1>
-          <p>
-            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
-          </p>
-          <button
-            class="button secondary theme-default size-default"
-            role="link"
-            type="button"
-          >
-            <span
-              class="label"
-            >
-              Click me
-            </span>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      class="koros basic"
-      style="fill: var(--koros-color); transform: scaleY(-1); margin-bottom: -14px; height: 14px; overflow: hidden;"
-    >
-      <svg
-        aria-hidden="true"
-        height="85"
-        width="100%"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern
-            height="85"
-            id="koros_basic-12"
-            patternUnits="userSpaceOnUse"
-            width="106"
-            x="0"
-            y="0"
-          >
-            <path
-              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-              transform="scale(5.3)"
-            />
-          </pattern>
-        </defs>
-        <rect
-          fill="url(#koros_basic-12)"
-          height="85"
-          width="100%"
-        />
-      </svg>
-    </div>
-    <div
-      class="imageContainer imageBelowKoros"
-    >
-      <img
-        alt=""
-        aria-hidden="true"
-        class="image"
-        src="http://image.com/image.jpg"
-      />
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`<Hero /> spec renders the component 6`] = `
-<DocumentFragment>
-  <div
-    class="hero custom-theme-13 imageBottom"
+    class="hero custom-theme-9 noImage"
   >
     <div
       class="container"
@@ -543,46 +417,128 @@ exports[`<Hero /> spec renders the component 6`] = `
       </div>
     </div>
     <div
-      class="koros basic"
-      style="fill: var(--koros-color); transform: scaleY(-1); margin-bottom: -14px; height: 14px; overflow: hidden;"
+      class="korosContainerInwardKoros"
     >
-      <svg
-        aria-hidden="true"
-        height="85"
-        width="100%"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="koros basic"
+        style="fill: var(--koros-color);"
       >
-        <defs>
-          <pattern
-            height="85"
-            id="koros_basic-14"
-            patternUnits="userSpaceOnUse"
-            width="106"
-            x="0"
-            y="0"
-          >
-            <path
-              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-              transform="scale(5.3)"
-            />
-          </pattern>
-        </defs>
-        <rect
-          fill="url(#koros_basic-14)"
+        <svg
+          aria-hidden="true"
           height="85"
           width="100%"
-        />
-      </svg>
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              height="85"
+              id="koros_basic-10"
+              patternUnits="userSpaceOnUse"
+              width="106"
+              x="0"
+              y="0"
+            >
+              <path
+                d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+                transform="scale(5.3)"
+              />
+            </pattern>
+          </defs>
+          <rect
+            fill="url(#koros_basic-10)"
+            height="85"
+            width="100%"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Hero /> spec renders the component 6`] = `
+<DocumentFragment>
+  <div
+    class="hero custom-theme-11 imageBottom"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="content singleColumn"
+      >
+        <div
+          class="card"
+        >
+          <h1>
+            This is the heading
+          </h1>
+          <p>
+            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+          </p>
+          <button
+            class="button secondary theme-default size-default"
+            role="link"
+            type="button"
+          >
+            <span
+              class="label"
+            >
+              Click me
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
     <div
-      class="imageContainer imageBelowKoros"
+      class="korosAndImageContainer"
     >
-      <img
-        alt=""
-        aria-hidden="true"
-        class="image"
-        src="http://image.com/image.jpg"
-      />
+      <div
+        class="korosContainer"
+      >
+        <div
+          class="koros basic"
+          style="fill: var(--koros-color); transform: scaleY(-1);"
+        >
+          <svg
+            aria-hidden="true"
+            height="85"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <pattern
+                height="85"
+                id="koros_basic-12"
+                patternUnits="userSpaceOnUse"
+                width="106"
+                x="0"
+                y="0"
+              >
+                <path
+                  d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+                  transform="scale(5.3)"
+                />
+              </pattern>
+            </defs>
+            <rect
+              fill="url(#koros_basic-12)"
+              height="85"
+              width="100%"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="imageBelowKoros"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="image"
+          src="http://image.com/image.jpg"
+        />
+      </div>
     </div>
   </div>
 </DocumentFragment>
