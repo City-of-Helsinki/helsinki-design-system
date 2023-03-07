@@ -215,63 +215,65 @@ export const DropdownMenu = <T,>({
 
   return (
     <ul {...menuProps} className={classNames(menuStyles.menu)}>
-      {open && sanitizedOptionGroups.length > 0 ? (
+      {open && (
         <>
-          {sanitizedOptionGroups.map((optionGroup, groupIndex) => {
-            return (
-              <li key={optionGroup.label} className={menuStyles.menuGroup}>
-                <div className={menuStyles.menuGroupLabel}>
-                  {optionGroup.icon && (
-                    <span className={menuStyles.menuGroupLabelIcon} aria-hidden="true">
-                      {optionGroup.icon}
-                    </span>
-                  )}
-                  {optionGroup.label}
-                </div>
-                <ul className={menuStyles.menuGroupOptions}>
-                  {optionGroup.options.length &&
-                    optionGroup.options.map((data, _index) => {
-                      groupIndexRef.current = groupIndex === 0 && _index === 0 ? 0 : groupIndexRef.current + 1;
-                      const elementIndex = groupIndexRef.current;
-                      const optionLabel = data[optionLabelField];
+          {sanitizedOptionGroups.length > 0 ? (
+            sanitizedOptionGroups.map((optionGroup, groupIndex) => {
+              return (
+                <li key={optionGroup.label} className={menuStyles.menuGroup}>
+                  <div className={menuStyles.menuGroupLabel}>
+                    {optionGroup.icon && (
+                      <span className={menuStyles.menuGroupLabelIcon} aria-hidden="true">
+                        {optionGroup.icon}
+                      </span>
+                    )}
+                    {optionGroup.label}
+                  </div>
+                  <ul className={menuStyles.menuGroupOptions}>
+                    {optionGroup.options.length &&
+                      optionGroup.options.map((data, _index) => {
+                        groupIndexRef.current = groupIndex === 0 && _index === 0 ? 0 : groupIndexRef.current + 1;
+                        const elementIndex = groupIndexRef.current;
+                        const optionLabel = data[optionLabelField];
 
-                      return (
-                        <ItemWrapper
-                          key={optionLabel}
-                          {...{
-                            elementIndex,
-                            optionLabel,
-                            // @ts-ignore
-                            options: optionGroups.flatMap((group) => group.options),
-                            data,
-                            ...commonItemProps,
-                          }}
-                        />
-                      );
-                    })}
-                </ul>
-              </li>
-            );
-          })}
-        </>
-      ) : (
-        <>
-          {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}
-          {listOptions.map((data, _index) => {
-            const optionLabel = data[optionLabelField];
-            return (
-              <ItemWrapper
-                key={optionLabel}
-                {...{
-                  elementIndex: _index,
-                  optionLabel,
-                  data,
-                  options,
-                  ...commonItemProps,
-                }}
-              />
-            );
-          })}
+                        return (
+                          <ItemWrapper
+                            key={optionLabel}
+                            {...{
+                              elementIndex,
+                              optionLabel,
+                              // @ts-ignore
+                              options: optionGroups.flatMap((group) => group.options),
+                              data,
+                              ...commonItemProps,
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </li>
+              );
+            })
+          ) : (
+            <>
+              {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}
+              {listOptions.map((data, _index) => {
+                const optionLabel = data[optionLabelField];
+                return (
+                  <ItemWrapper
+                    key={optionLabel}
+                    {...{
+                      elementIndex: _index,
+                      optionLabel,
+                      data,
+                      options,
+                      ...commonItemProps,
+                    }}
+                  />
+                );
+              })}
+            </>
+          )}
         </>
       )}
     </ul>
