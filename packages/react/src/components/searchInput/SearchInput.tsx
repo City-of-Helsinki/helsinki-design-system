@@ -33,7 +33,7 @@ export type SearchInputProps<SuggestionItem> = {
    */
   getSearchHistory?: () => SuggestionItem[];
   /**
-   * A label for search history items group
+   * A label for suggestions items group
    */
   suggestionGroupLabel?: string;
   /**
