@@ -8,7 +8,7 @@ import styles from './SearchInput.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import { DropdownMenu } from '../../internal/dropdownMenu/DropdownMenu';
 import classNames from '../../utils/classNames';
-import { IconCrossCircle, IconSearch } from '../../icons';
+import { IconClock, IconCrossCircle, IconSearch } from '../../icons';
 import { GetSuggestionsFunction, SUGGESTIONS_DEBOUNCE_VALUE, useSuggestions } from './useSuggestions';
 import { DROPDOWN_MENU_ITEM_HEIGHT } from '../dropdown/dropdownUtils';
 import { useShowLoadingSpinner } from '../../hooks/useShowLoadingSpinner';
@@ -24,6 +24,18 @@ export type SearchInputProps<SuggestionItem> = {
    * @default Clear
    */
   clearButtonAriaLabel?: string;
+  /**
+   * A label for search history items group
+   */
+  searchHistoryGroupLabel?: string;
+  /**
+   * Callback function fired every time the input value is submitted. Called also on component initialize.
+   */
+  getSearchHistory?: () => SuggestionItem[];
+  /**
+   * A label for search history items group
+   */
+  suggestionGroupLabel?: string;
   /**
    * Callback function fired every time the input content changes. Receives the input value as a parameter. Must return a promise which resolves to an array of SuggestionItems.
    */
@@ -87,6 +99,11 @@ export type SearchInputProps<SuggestionItem> = {
    */
   value?: string;
   /**
+   * The number of history items that are visible in the menu before it becomes scrollable.
+   * @default 5
+   */
+  visibleSearchHistoryItems?: number;
+  /**
    * The number of suggestions that are visible in the menu before it becomes scrollable.
    * @default 8
    */
@@ -96,6 +113,9 @@ export type SearchInputProps<SuggestionItem> = {
 export const SearchInput = <SuggestionItem,>({
   className,
   clearButtonAriaLabel = 'Clear',
+  searchHistoryGroupLabel,
+  getSearchHistory,
+  suggestionGroupLabel,
   getSuggestions,
   helperText,
   highlightSuggestions = false,
@@ -108,16 +128,19 @@ export const SearchInput = <SuggestionItem,>({
   hideSearchButton = false,
   style,
   suggestionLabelField,
+  visibleSearchHistoryItems = 5,
   visibleSuggestions = 8,
   onChange,
   value,
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
   const userEnterKeyAction = 'userEnterKeyAction';
   const [lastAction, updateLastAction] = useState<UseComboboxStateChangeTypes | typeof userEnterKeyAction>(undefined);
   const [internalValue, setInternalValue] = useState<string>('');
   const inputValue = value || internalValue;
+  const [scrollMenuTop, setScrollMenuTop] = useState<boolean>(false);
 
   const wasLastActionStateChangeEnterKey = () => {
     return lastAction === useCombobox.stateChangeTypes.InputKeyDownEnter;
@@ -136,6 +159,25 @@ export const SearchInput = <SuggestionItem,>({
     getSuggestions,
     wasSubmitted(),
   );
+
+  const menuOptionProps = {
+    ...(getSearchHistory
+      ? {
+          optionGroups: [
+            {
+              icon: <IconClock />,
+              label: searchHistoryGroupLabel,
+              options: getSearchHistory().slice(0, visibleSearchHistoryItems),
+            },
+            { label: suggestionGroupLabel, options: suggestions },
+          ],
+          options: [],
+        }
+      : { options: suggestions, optionGroups: [] }),
+  };
+  const hasOptionGroups = menuOptionProps.optionGroups.length > 0 && menuOptionProps.optionGroups[0].options;
+  const allVisibleOptions = hasOptionGroups ? visibleSearchHistoryItems + visibleSuggestions : visibleSuggestions;
+
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
   const isControlledComponent = value !== undefined && onChange;
 
@@ -172,10 +214,23 @@ export const SearchInput = <SuggestionItem,>({
     getItemProps,
     reset,
   } = useCombobox<SuggestionItem>({
-    items: suggestions,
+    // @ts-ignore
+    items: hasOptionGroups ? menuOptionProps.optionGroups.flatMap((group) => group.options) : suggestions,
     onStateChange(props) {
-      const { ItemClick, FunctionReset, InputKeyDownEnter } = useCombobox.stateChangeTypes;
+      const {
+        ItemClick,
+        FunctionReset,
+        InputKeyDownEnter,
+        InputKeyDownArrowUp,
+        InputKeyDownArrowDown,
+      } = useCombobox.stateChangeTypes;
       const handledChanges = [ItemClick, FunctionReset, InputKeyDownEnter] as UseComboboxStateChangeTypes[];
+      if (
+        (hasOptionGroups && props.type === InputKeyDownArrowUp && props.highlightedIndex === 0) ||
+        (props.type === InputKeyDownArrowDown && props.highlightedIndex === 0)
+      ) {
+        setScrollMenuTop(true);
+      }
       if (handledChanges.includes(props.type)) {
         // if props.type === ItemClick and the value of the clicked item matches
         // the value in the input element then props.inputValue does not exist.
@@ -242,6 +297,16 @@ export const SearchInput = <SuggestionItem,>({
     }
   }, [onChange, inputValue]);
 
+  /**
+   * Show also the first optionGroup label when the user navigates with arrow keys to the first option.
+   */
+  useEffect(() => {
+    if (scrollMenuTop && menuRef.current) {
+      menuRef.current.scrollTo(0, 0);
+      setScrollMenuTop(false);
+    }
+  }, [scrollMenuTop, menuRef]);
+
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
       {label && <FieldLabel label={label} {...getLabelProps()} />}
@@ -295,6 +360,7 @@ export const SearchInput = <SuggestionItem,>({
           </div>
         )}
         <DropdownMenu<SuggestionItem>
+          {...menuOptionProps}
           isOptionDisabled={() => false}
           multiselect={false}
           open={isOpen && !showLoadingSpinner}
@@ -302,10 +368,10 @@ export const SearchInput = <SuggestionItem,>({
           selectedItems={[]}
           highlightValue={highlightSuggestions && inputValue.length >= 3 && inputValue}
           menuStyles={styles}
-          options={suggestions}
           optionLabelField={`${String(suggestionLabelField)}`}
           menuProps={getMenuProps({
-            style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleSuggestions },
+            ref: menuRef,
+            style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * allVisibleOptions },
           })}
           getItemProps={(item, index, selected, optionDisabled) =>
             getItemProps({
