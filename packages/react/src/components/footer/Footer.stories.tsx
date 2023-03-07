@@ -371,13 +371,17 @@ export const UtilityGroups = (args) => (
     </Footer.Navigation>
     <Footer.Utilities ariaLabel={footerUtilityAriaLabel}>
       {createArray(3).map((index) => (
-        <Footer.UtilityGroup key={index}>
-          <Footer.GroupHeading
-            href="https://google.com"
-            onClick={(e) => e.preventDefault()}
-            label="Main Page"
-            variant={FooterVariant.Utility}
-          />
+        <Footer.UtilityGroup
+          key={index}
+          headingLink={
+            <Footer.GroupHeading
+              href="https://google.com"
+              onClick={(e) => e.preventDefault()}
+              label="Main Page"
+              variant={FooterVariant.Utility}
+            />
+          }
+        >
           {createArray(6).map((subIndex) => {
             return (
               <Footer.NavigationLink
@@ -391,8 +395,10 @@ export const UtilityGroups = (args) => (
           })}
         </Footer.UtilityGroup>
       ))}
-      <Footer.UtilityGroup key={6}>
-        <Footer.GroupHeading label="Social media" variant={FooterVariant.Utility} />
+      <Footer.UtilityGroup
+        key={6}
+        headingLink={<Footer.GroupHeading label="Social media" variant={FooterVariant.Utility} />}
+      >
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
