@@ -3,7 +3,7 @@ slug: '/components/footer/customisation'
 title: 'Footer - Customisation'
 ---
 
-import { Footer } from 'hds-react';
+import { Footer, FooterVariant } from 'hds-react';
 import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -38,17 +38,17 @@ You can use the `theme` property to customise the component. See all available t
   }}
 >
   <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-    <Footer.NavigationLink label="Item" />
-    <Footer.NavigationLink label="Item" />
-    <Footer.NavigationLink label="Item" />
-    <Footer.NavigationLink label="Item" />
-    <Footer.NavigationLink label="Item" />
-    <Footer.NavigationLink label="Item" />
+    <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+    <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+    <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+    <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+    <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+    <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
   </Footer.Navigation>
   <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-    <Footer.NavigationLink label="Link" />
-    <Footer.NavigationLink label="Link" />
-    <Footer.NavigationLink label="Link" />
+    <Footer.NavigationLink label="Link" variant={FooterVariant.Base} />
+    <Footer.NavigationLink label="Link" variant={FooterVariant.Base} />
+    <Footer.NavigationLink label="Link" variant={FooterVariant.Base} />
   </Footer.Base>
 </Footer>
 ```

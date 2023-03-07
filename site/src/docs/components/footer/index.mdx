@@ -4,7 +4,7 @@ title: 'Footer'
 navTitle: 'Footer'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
@@ -121,14 +121,14 @@ Navigation section two different layout options:
 <PlaygroundPreview>
   <Footer title="Default" footerAriaLabel="HDS Footer">
     <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink label="Item" variant={FooterVariant.Navigation} />
     </Footer.Navigation>
   </Footer>
   <br />
@@ -137,13 +137,13 @@ Navigation section two different layout options:
     <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
       {[1, 2, 3, 4].map((key) => (
         <Footer.NavigationGroup key={key}>
-          <Footer.GroupHeading href="http://www.google.com" onClick={(e) => e.preventDefault()} label="Item" />
-          <Footer.NavigationLink label="Sub item" />
-          <Footer.NavigationLink label="Sub item" />
-          <Footer.NavigationLink label="Sub item" />
-          <Footer.NavigationLink label="Sub item" />
-          <Footer.NavigationLink label="Sub item" />
-          <Footer.NavigationLink label="Sub item" />
+          <Footer.GroupHeading href="http://www.google.com" onClick={(e) => e.preventDefault()} label="Item" variant={FooterVariant.Navigation}/>
+          <Footer.NavigationLink label="Sub item" variant={FooterVariant.Navigation} />
+          <Footer.NavigationLink label="Sub item" variant={FooterVariant.Navigation} />
+          <Footer.NavigationLink label="Sub item" variant={FooterVariant.Navigation} />
+          <Footer.NavigationLink label="Sub item" variant={FooterVariant.Navigation} />
+          <Footer.NavigationLink label="Sub item" variant={FooterVariant.Navigation} />
+          <Footer.NavigationLink label="Sub item" variant={FooterVariant.Navigation} />
         </Footer.NavigationGroup>
       ))}
     </Footer.Navigation>
