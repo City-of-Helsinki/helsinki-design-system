@@ -152,6 +152,29 @@
 }
 
 /**
+ * MENU GROUP
+ */
+
+%dropdownMenuGroupLabel {
+  align-items: center;
+  background-color: var(--color-black-20);
+  display: flex;
+  font-weight: bold;
+  min-height: 2rem;
+  padding: 2px var(--spacing-s);
+}
+
+%dropdownMenuGroupLabelIcon {
+  display: flex;
+  margin-right: 3px;
+}
+
+%dropdownMenuGroupOptions {
+  margin: 0;
+  padding: 0;
+}
+
+/**
  * MENU ITEM
  */
 
