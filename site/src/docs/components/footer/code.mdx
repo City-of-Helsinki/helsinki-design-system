@@ -33,18 +33,19 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
       <Footer.NavigationLink label="Item" />
       <Footer.NavigationLink label="Item" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Back to top">
-      <Footer.SoMe>
-        <Footer.NavigationLink icon={<IconFacebook />} />
-        <Footer.NavigationLink icon={<IconTwitter />} />
-        <Footer.NavigationLink icon={<IconInstagram />} />
-        <Footer.NavigationLink icon={<IconYoutube />} />
-        <Footer.NavigationLink icon={<IconTiktok />} />
-      </Footer.SoMe>
+    <Footer.Utilities
+      soMeLinks={[
+        <Footer.NavigationLink icon={<IconFacebook />} />,
+        <Footer.NavigationLink icon={<IconTwitter />} />,
+        <Footer.NavigationLink icon={<IconInstagram />} />,
+        <Footer.NavigationLink icon={<IconYoutube />} />,
+        <Footer.NavigationLink icon={<IconTiktok />} />,
+      ]}
+    >
       <Footer.NavigationLink label="Contact us" />
       <Footer.NavigationLink label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
       <Footer.NavigationLink label="Link" />
       <Footer.NavigationLink label="Link" />
       <Footer.NavigationLink label="Link" />
@@ -65,40 +66,37 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
 import { Footer } from 'hds-react';
 
 () => (
-  <>
-    <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
-      <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-      </Footer.Navigation>
-      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
-      </Footer.Base>
-    </Footer>
-    <br />
-    <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
-      <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-      </Footer.Navigation>
-      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
-      </Footer.Base>
-    </Footer>
-  </>
-);
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+      <Footer.NavigationLink label="Link" />
+      <Footer.NavigationLink label="Link" />
+      <Footer.NavigationLink label="Link" />
+    </Footer.Base>
+  </Footer>
+  <br />
+  <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+      <Footer.NavigationLink label="Link" />
+      <Footer.NavigationLink label="Link" />
+      <Footer.NavigationLink label="Link" />
+    </Footer.Base>
+  </Footer>)
 ```
 
 </Playground>
@@ -111,40 +109,39 @@ import { Footer } from 'hds-react';
 import { Footer } from 'hds-react';
 
 () => (
-  <>
-    <Footer title="Default" footerAriaLabel="HDS Footer">
-      <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-      </Footer.Navigation>
-    </Footer>
-    <br />
-    <br />
-    <Footer title="Sitemap" footerAriaLabel="HDS Footer">
-      <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-        {[1, 2, 3, 4].map((key) => (
-          <Footer.NavigationGroup key={key}>
-            <Footer.GroupHeading href="http://www.google.com" onClick={(e) => e.preventDefault()} label="Item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-          </Footer.NavigationGroup>
-        ))}
-      </Footer.Navigation>
-    </Footer>
-    <br />
-    <Footer title="Hidden" footerAriaLabel="HDS Footer" />
-  </>
-);
+<>
+  <Footer title="Default" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+      <Footer.NavigationLink label="Item" />
+    </Footer.Navigation>
+  </Footer>
+  <br />
+  <br />
+  <Footer title="Sitemap" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      {[1, 2, 3, 4].map((key) => (
+        <Footer.NavigationGroup key={key}>
+          <Footer.GroupHeading href="http://www.google.com" onClick={(e) => e.preventDefault()} label="Item" />
+          <Footer.NavigationLink label="Sub item" />
+          <Footer.NavigationLink label="Sub item" />
+          <Footer.NavigationLink label="Sub item" />
+          <Footer.NavigationLink label="Sub item" />
+          <Footer.NavigationLink label="Sub item" />
+          <Footer.NavigationLink label="Sub item" />
+        </Footer.NavigationGroup>
+      ))}
+    </Footer.Navigation>
+  </Footer>
+  <br />
+  <Footer title="Hidden" footerAriaLabel="HDS Footer" />
+</>)
 ```
 
 </Playground>

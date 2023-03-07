@@ -27,18 +27,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <Footer.NavigationLink label="Item" />
       <Footer.NavigationLink label="Item" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Back to top">
-      <Footer.SoMe>
-        <Footer.NavigationLink icon={<IconFacebook />} />
-        <Footer.NavigationLink icon={<IconTwitter />} />
-        <Footer.NavigationLink icon={<IconInstagram />} />
-        <Footer.NavigationLink icon={<IconYoutube />} />
-        <Footer.NavigationLink icon={<IconTiktok />} />
-      </Footer.SoMe>
+    <Footer.Utilities
+      soMeLinks={[
+        <Footer.NavigationLink icon={<IconFacebook />} />,
+        <Footer.NavigationLink icon={<IconTwitter />} />,
+        <Footer.NavigationLink icon={<IconInstagram />} />,
+        <Footer.NavigationLink icon={<IconYoutube />} />,
+        <Footer.NavigationLink icon={<IconTiktok />} />,
+      ]}
+    >
       <Footer.NavigationLink label="Contact us" />
       <Footer.NavigationLink label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
       <Footer.NavigationLink label="Link" />
       <Footer.NavigationLink label="Link" />
       <Footer.NavigationLink label="Link" />
@@ -87,18 +88,19 @@ The default footer uses the black text colour variant and includes all three sec
       <Footer.NavigationLink label="Item" />
       <Footer.NavigationLink label="Item" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Back to top">
-      <Footer.SoMe>
-        <Footer.NavigationLink icon={<IconFacebook />} />
-        <Footer.NavigationLink icon={<IconTwitter />} />
-        <Footer.NavigationLink icon={<IconInstagram />} />
-        <Footer.NavigationLink icon={<IconYoutube />} />
-        <Footer.NavigationLink icon={<IconTiktok />} />
-      </Footer.SoMe>
+    <Footer.Utilities
+      soMeLinks={[
+        <Footer.NavigationLink icon={<IconFacebook />} />,
+        <Footer.NavigationLink icon={<IconTwitter />} />,
+        <Footer.NavigationLink icon={<IconInstagram />} />,
+        <Footer.NavigationLink icon={<IconYoutube />} />,
+        <Footer.NavigationLink icon={<IconTiktok />} />,
+      ]}
+    >
       <Footer.NavigationLink label="Contact us" />
       <Footer.NavigationLink label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
       <Footer.NavigationLink label="Link" />
       <Footer.NavigationLink label="Link" />
       <Footer.NavigationLink label="Link" />
