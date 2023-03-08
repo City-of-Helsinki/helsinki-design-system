@@ -249,7 +249,7 @@ WithHistoryAndSuggestions.args = {
   placeholder: 'Placeholder',
   parameters: {
     loki: { skip: true },
-  }
+  },
 };
 
 export const WithSuggestionsSpinner = (args) => {
