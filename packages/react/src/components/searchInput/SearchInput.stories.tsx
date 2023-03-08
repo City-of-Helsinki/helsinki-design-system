@@ -247,9 +247,10 @@ WithHistoryAndSuggestions.args = {
   helperText: 'Assistive text',
   highlightSuggestions: true,
   placeholder: 'Placeholder',
-  parameters: {
-    loki: { skip: true },
-  },
+};
+
+WithHistoryAndSuggestions.parameters = {
+  loki: { skip: true },
 };
 
 export const WithSuggestionsSpinner = (args) => {
