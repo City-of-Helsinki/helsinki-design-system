@@ -7,7 +7,7 @@ import { useTheme } from '../../hooks/useTheme';
 import styles from './Highlight.module.scss';
 
 export interface HighlightTheme {
-  '--border-left-color'?: string;
+  '--accent-line-color'?: string;
   '--text-color'?: string;
 }
 
@@ -19,7 +19,7 @@ export type HighlightProps = {
   /**
    * Highlight size. Currently highlight comes in three sizes
    */
-  size?: 'small' | 'medium' | 'large';
+  variant?: 'small' | 'medium' | 'large';
   /**
    * Highlight type
    */
@@ -34,19 +34,21 @@ export type HighlightProps = {
   reference?: string;
 };
 
-export const Highlight = ({ theme, size, type, text, reference }: HighlightProps) => {
+export const Highlight = ({ theme, variant, type, text, reference }: HighlightProps) => {
   // custom theme
   const customThemeClass = useTheme<HighlightTheme>(styles.highlight, theme || {});
   const isQuote = type && type === 'quote';
 
   return (
-    <div className={classNames(styles.highlight, customThemeClass)} role="region">
-      <div className={classNames(styles.text, isQuote && styles.quote, size && styles[size])}>
-        {isQuote && '“'}
-        {text}
-        {isQuote && '”'}
+    <div className={variant ? styles[`highlightwrapper${variant}`] : styles.highlightwrapper} role="region">
+      <div className={classNames(styles.highlight, customThemeClass)}>
+        <div className={classNames(styles.text, isQuote && styles.quote, variant && styles[variant])}>
+          {isQuote && '“'}
+          {text}
+          {isQuote && '”'}
+        </div>
+        {reference && <div className={styles.reference}>⁠—{reference}</div>}
       </div>
-      {reference && <div className={styles.reference}>⁠—{reference}</div>}
     </div>
   );
 };

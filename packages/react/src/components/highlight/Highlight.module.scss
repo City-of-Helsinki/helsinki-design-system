@@ -1,33 +1,46 @@
+.highlightwrapper {
+  padding: var(--spacing-m) 0;
+}
+.highlightwrappersmall {
+  padding: var(--spacing-s) 0;
+}
+.highlightwrapperlarge {
+  padding: var(--spacing-l) 0;
+}
+
 .highlight {
-  --border-left-color: var(--color-bus);
+  --accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
-  
-  border-left: 8px solid var(--border-left-color);
+  --width: 536px;
+
+  border-left: 8px solid var(--accent-line-color);
   color: var(--text-color);
   display: flex;
   justify-content: center;
   align-items: space-between;
   flex-direction: column;  
-  grid-row-gap: 24px;
-  padding-left: 16px;
+  grid-row-gap: var(--spacing-m);
+  padding: 0;
+  padding-left: var(--spacing-s);
 }
 
 .text {
-  max-width: 536px;
-  font-size: 24px;
-  line-height: 28px;
+  width: var(--width);
+  max-width: 100%;
+  font-size: var(--fontsize-heading-m);
+  line-height: var(--lineheight-m);
   display: flex;
   flex-wrap: wrap;
 }
 
 .small {
-  max-width: 264px;
+  --width: 264px;
 }
 
 .large {
-  font-size: 36px;
-  line-height: 43px;
-  max-width: 680px;
+  --width: 680px;
+  font-size: var(--fontsize-heading-l);
+  line-height: var(--lineheight-l);
 }
 
 .quote {
@@ -35,6 +48,6 @@
 }
 
 .reference {
-  font-size: 18px;
-  line-height: 27px;
+  font-size: var(--fontsize-heading-xs);
+  line-height: var(--lineheight-m);
 }

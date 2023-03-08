@@ -1,0 +1,68 @@
+.hds-highlight-wrapper {
+  padding: var(--spacing-m) 0;
+}
+.hds-highlight-wrapper--large {
+  padding: var(--spacing-l) 0;
+}
+.hds-highlight-wrapper--small {
+  padding: var(--spacing-s) 0;
+}
+.hds-highlight {
+  --border-left-color: var(--color-bus);
+  --text-color: var(--color-black-90);
+  
+  border-left: 8px solid var(--border-left-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  flex-direction: column;  
+  grid-row-gap: var(--spacing-m);
+  padding-left: var(--spacing-s);
+}
+
+.hds-highlight--text {
+  width: 536px;
+  max-width: 100%;
+  font-size: var(--fontsize-heading-m);
+  line-height: var(--lineheight-m);
+}
+
+.hds-highlight--small {
+  width: 264px;
+}
+
+.hds-highlight--large {
+  font-size: var(--fontsize-heading-l);
+  line-height: var(--lineheight-l);
+  width: 680px;
+}
+
+.hds-highlight--quote {
+  font-style: italic;
+}
+
+.hds-highlight--quote::before {
+  content: '“';  
+}
+
+.hds-highlight--quote::after {
+  content: '”';  
+}
+
+.hds-highlight--quote::before,
+.hds-highlight--quote::after {
+  font-style: italic;
+  display: inline;
+}
+
+.hds-highlight--reference {
+  font-size: 18px;
+  line-height: 27px;
+}
+.hds-highlight--reference::before {
+  content: '⁠—';
+  font-size: inherit;
+  display: inline;
+  line-height: inherit;
+}
