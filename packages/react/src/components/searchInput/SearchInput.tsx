@@ -301,11 +301,11 @@ export const SearchInput = <SuggestionItem,>({
    * Show also the first optionGroup label when the user navigates with arrow keys to the first option.
    */
   useEffect(() => {
-    if (scrollMenuTop && menuRef.current) {
+    if (hasOptionGroups && scrollMenuTop && menuRef.current) {
       menuRef.current.scrollTo(0, 0);
       setScrollMenuTop(false);
     }
-  }, [scrollMenuTop, menuRef]);
+  }, [hasOptionGroups, scrollMenuTop, menuRef]);
 
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
