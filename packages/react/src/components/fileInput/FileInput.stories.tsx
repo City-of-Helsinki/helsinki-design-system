@@ -24,17 +24,7 @@ export const Single = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
-  return (
-    <FileInput
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFile} />;
 };
 
 Single.args = {
@@ -46,21 +36,7 @@ export const Multiple = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected files', files);
 
-  return (
-    <FileInput
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Multiple.args = {
@@ -72,19 +48,7 @@ export const WithDefaultValue = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected files', files);
 
-  return (
-    <FileInput
-      multiple={args.multiple}
-      defaultValue={args.defaultValue}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 WithDefaultValue.args = {
@@ -101,21 +65,7 @@ export const WithDragAndDrop = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected files', files);
 
-  return (
-    <FileInput
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 WithDragAndDrop.args = {
@@ -128,20 +78,7 @@ export const WithTooltip = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
-  return (
-    <FileInput
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      accept={args.accept}
-      maxSize={args.maxSize}
-      tooltipLabel={args.tooltipLabel}
-      tooltipButtonLabel={args.tooltipButtonLabel}
-      tooltipText={args.tooltipText}
-    />
-  );
+  return <FileInput {...args} onChange={setFile} />;
 };
 WithTooltip.args = {
   accept: 'image/*',
@@ -155,17 +92,7 @@ export const Disabled = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
-  return (
-    <FileInput
-      disabled={args.disabled}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFile} />;
 };
 
 Disabled.args = {
@@ -179,22 +106,7 @@ export const DisabledDragAndDrop = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
-  return (
-    <FileInput
-      disabled={args.disabled}
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 DisabledDragAndDrop.args = {
@@ -209,17 +121,7 @@ export const Required = (args) => {
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
-  return (
-    <FileInput
-      required
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFile} />;
 };
 
 Required.args = {
@@ -233,27 +135,7 @@ export const Playground = (args) => {
     console.log('onChange callback files:', files);
   };
 
-  return (
-    <FileInput
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      maxSize={args.maxSize}
-      language={args.language}
-      accept={args.accept}
-      defaultValue={args.defaultValue}
-      disabled={args.disabled}
-      required={args.required}
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      helperText={args.helperText}
-      errorText={args.errorText}
-      infoText={args.infoText}
-      onChange={onChange}
-    />
-  );
+  return <FileInput {...args} onChange={onChange} />;
 };
 Playground.parameters = {
   previewTabs: {
