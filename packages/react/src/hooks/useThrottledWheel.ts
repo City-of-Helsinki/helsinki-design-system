@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import throttle from 'lodash.throttle';
 /*
   A Hook that will throttle the wheel event
-  for 200ms on given html input reference object.
+  for 200ms or with chosen delay on given html input reference object.
 */
-function useThrottledWheel(inputRef: React.MutableRefObject<HTMLInputElement>) {
+function useThrottledWheel(inputRef: React.MutableRefObject<HTMLInputElement>, delay = 200) {
   let throttledWheel = false;
 
   const throttledWheelToggler = throttle(() => {
     throttledWheel = false;
-  }, 200);
+  }, delay);
 
   useEffect(() => {
     const ignoreScroll = (e) => {
