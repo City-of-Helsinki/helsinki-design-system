@@ -1,0 +1,110 @@
+---
+slug: '/components/highlight/code'
+title: 'Highlight - Code'
+---
+
+import { Button, Highlight, Link } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Empty
+
+<Playground>
+
+
+```jsx
+<>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="small"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="large"/>
+  <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
+  <Highlight text="Add an interesting quote here" variant="small" type="quote" reference="First name Last name. Title."/>
+  <Highlight text="Add an interesting quote here" variant="large" type="quote" reference="First name Last name. Title."/>
+</>
+```
+
+```html
+  <div>
+    <div class="hds-highlight-wrapper">
+      <div class="hds-highlight" role="region">
+        <div class="hds-highlight--text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
+      </div>
+    </div>
+    <div class="hds-highlight-wrapper--small">
+      <div class="hds-highlight" role="region">
+        <div class="hds-highlight--text hds-highlight--small">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
+      </div>
+    </div>
+    <div class="hds-highlight-wrapper--large">
+      <div class="hds-highlight" role="region">
+        <div class="hds-highlight--text hds-highlight--large">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
+      </div>
+    </div>
+    <div class="hds-highlight-wrapper">
+      <div class="hds-highlight" role="region">
+        <div class="hds-highlight--text hds-highlight--quote">Add an interesting quote here</div>
+        <div class="hds-highlight--reference">First name Last name. Title.</div>
+      </div>
+    </div>
+    <div class="hds-highlight-wrapper--large">
+      <div class="hds-highlight" role="region">
+        <div class="hds-highlight--text hds-highlight--large hds-highlight--quote">Add an interesting quote here</div>
+        <div class="hds-highlight--reference">First name Last name. Title.</div>
+      </div>
+    </div>
+    <div class="hds-highlight-wrapper--small">
+      <div class="hds-highlight" role="region">
+        <div class="hds-highlight--text hds-highlight--small hds-highlight--quote">Add an interesting quote here</div>
+        <div class="hds-highlight--reference">First name Last name. Title.</div>
+      </div>
+    </div>
+  </div>
+```
+
+</Playground>
+
+
+#### With custom accent line color
+
+<Playground>
+
+
+```jsx
+<>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"/>
+</>
+```
+
+</Playground>
+
+#### With custom text color
+
+<Playground>
+
+
+```jsx
+<>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"/>
+</>
+```
+
+</Playground>
+
+### Packages
+
+### Properties
+
+| Property  | Description                     | Values                        | Default value |
+| --------- | ------------------------------- | ----------------------------- | ------------- |
+| `text`    | Heading for the Highlight/quote | -                             | -             |
+| `variant` | Highlight variant               | `"small"` `"medium"` `"large"`| `"medium"`    | 
+| `type`    | Type of the Highlight           | `"highlight"` `"quote"`       | `"highlight"` |

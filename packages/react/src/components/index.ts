@@ -13,6 +13,7 @@ export * from './fieldset';
 export * from './fileInput';
 export * from './footer';
 export * from './header';
+export * from './highlight';
 export * from './imageWithCard';
 export * from './koros';
 export * from './link';

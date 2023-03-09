@@ -1,0 +1,46 @@
+---
+slug: '/components/highlight'
+title: 'Highlight'
+navTitle: 'Highlight'
+---
+
+import { Highlight } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+</PlaygroundPreview>
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+</PlaygroundPreview>
+
+### Principles
+
+- **Select an excerpt that you want the user to pay attention to.** 
+- Quote type wraps text inside quote marks
+
+### Variations
+
+- Quote and Highlight support three different size variant: small, medium and large
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="small"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="large"/>
+</PlaygroundPreview>
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="small"/>
+  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="large"/>
+</PlaygroundPreview>

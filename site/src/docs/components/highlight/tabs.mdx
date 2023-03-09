@@ -1,0 +1,30 @@
+---
+slug: '/components/highlight/tabs'
+title: 'Highlight'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+
+# Highlight
+
+<StatusLabel type="alert" variant="rounded">Draft</StatusLabel>
+
+<LeadParagraph>
+    Quote and highlight allow lifting an excerpt from a longer text to emphasize. The Quote element has a reference to the quote source. The Highlight element is an excerpt from the text without the source information.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
