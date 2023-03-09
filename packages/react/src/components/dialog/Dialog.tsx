@@ -177,7 +177,9 @@ export const Dialog = ({
         });
       };
     }
-    return null;
+
+    // Returning null from useEffect is prohibited, but undefined is fine
+    return undefined;
   }, [dialogRef, isOpen]);
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
