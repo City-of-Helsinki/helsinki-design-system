@@ -1,0 +1,35 @@
+---
+slug: '/components/header-universal-bar'
+title: 'HeaderUniversalBar'
+navTitle: 'HeaderUniversalBar'
+---
+
+import { Header, HeaderUniversalBar, NavigationLink } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Header>
+    <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin Kaupunki">
+      <NavigationLink href="#">Link</NavigationLink>
+      <NavigationLink href="#">Link</NavigationLink>
+      <NavigationLink href="#">Link</NavigationLink>
+    </HeaderUniversalBar>
+  </Header>
+</PlaygroundPreview>
+
+### Principles
+
+- Using the universal bar is optional. Use it only if you have contemporary or frequently visited and useful links.
+- Put the universal bar component inside the<InternalLink href="/components/header">HDS Header component</InternalLink>.
+- The first link should always direct to the webpage of City of Helsinki.
+- Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word. Use the <InternalLink href="/components/navigation-link">navigation link component</InternalLink> for secondary links.
+- Always position universal bar to the top of the page. Keep the bar in place so the user can always easily locate it. It is recommended to include the univeral bar on every page of the service.
+- Header universal bar component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. On smaller screens (576px and down) the universal bar will not be displayed on the page and its contents should be found inside the navigation bar component.
