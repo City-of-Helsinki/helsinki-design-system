@@ -41,6 +41,7 @@ const defaultText =
   'Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.';
 
 const imageLeftOrRightTheme = { '--background-color': '#c2a251', '--color': '#000' };
+const noImageOptions = ['', 'Without image', 'Without image II', 'Without image and koros'];
 
 const getDisabledControl = (control: string, notUsed?: boolean) => {
   const description = notUsed
@@ -57,6 +58,45 @@ const getDisabledControl = (control: string, notUsed?: boolean) => {
       },
     },
   };
+};
+
+const getDefaultArgs = (variant: HeroProps['variant'], preset?: string): HeroProps => {
+  const defaultValuePicker = (args: Record<string, { defaultValue: unknown }>) => {
+    return Object.entries(args).reduce((currentObject, [prop, value]) => {
+      if (value.defaultValue) {
+        return {
+          ...currentObject,
+          [prop]: value.defaultValue,
+        };
+      }
+      return currentObject;
+    }, {});
+  };
+  /* eslint-disable @typescript-eslint/no-use-before-define */
+  if (variant === 'noImage') {
+    if (preset === noImageOptions[1]) {
+      return defaultValuePicker(WithoutImage.argTypes);
+    }
+    if (preset === noImageOptions[2]) {
+      return defaultValuePicker(WithoutImage2.argTypes);
+    }
+    return defaultValuePicker(WithoutImageAndKoros.argTypes);
+  }
+
+  switch (variant) {
+    case 'backgroundImage':
+      return defaultValuePicker(BackgroundImage.argTypes);
+    case 'imageLeft':
+      return defaultValuePicker(ImageLeft.argTypes);
+    case 'imageRight':
+      return defaultValuePicker(ImageRight.argTypes);
+    case 'imageBottom':
+      return defaultValuePicker(ImageBottom.argTypes);
+    case 'diagonalKoros':
+      return defaultValuePicker(DiagonalKoros.argTypes);
+    default:
+      return {};
+  }
 };
 
 const defaultImageSrcArg = {
@@ -338,27 +378,29 @@ PlaygroundForKoros.argTypes = {
   ...createVariantArg('diagonalKoros'),
 };
 
-const noImageOptions = ['', 'Without image', 'Without image II', 'Without image and koros'];
 export const EmbeddedToPage = (args) => {
   const { preset, variant } = args;
+  const props = getDefaultArgs(variant, preset);
   const NoImage = () => {
     if (preset === noImageOptions[1]) {
-      return <WithoutImage />;
+      return <WithoutImage {...props} />;
     }
     if (preset === noImageOptions[2]) {
-      return <WithoutImage2 />;
+      return <WithoutImage2 {...props} />;
     }
-    return <WithoutImageAndKoros />;
+    return <WithoutImageAndKoros {...props} />;
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
-      {variant === 'imageRight' && <ImageRight />}
-      {variant === 'imageLeft' && <ImageLeft />}
-      {variant === 'backgroundImage' && <BackgroundImage theme={{ '--koros-color': 'var(--color-fog)' }} />}
-      {variant === 'diagonalKoros' && <DiagonalKoros />}
-      {variant === 'noImage' && <NoImage />}
-      {variant === 'imageBottom' && <ImageBottom />}
+      {variant === 'imageRight' && <ImageRight {...props} />}
+      {variant === 'imageLeft' && <ImageLeft {...props} />}
+      {variant === 'backgroundImage' && (
+        <BackgroundImage {...{ ...props, theme: { '--koros-color': 'var(--color-fog)' } }} />
+      )}
+      {variant === 'diagonalKoros' && <DiagonalKoros {...props} />}
+      {variant === 'noImage' && <NoImage {...props} />}
+      {variant === 'imageBottom' && <ImageBottom {...props} />}
       <Section color="secondary">
         <h1 className="heading-xl">Component after hero</h1>
         This component shows padding after hero
@@ -512,24 +554,25 @@ export const AllHeroes = () => {
   const Divider = () => {
     return <div style={{ height: '50px' }} />;
   };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#eafad4' }}>
       <NavigationComponent />
-      <ImageLeft />
+      <ImageLeft {...getDefaultArgs('imageLeft')} />
       <Divider />
-      <BackgroundImage theme={{ '--koros-color': '#eafad4' }} />
+      <BackgroundImage {...{ ...getDefaultArgs('backgroundImage'), theme: { '--koros-color': '#eafad4' } }} />
       <Divider />
-      <ImageRight />
+      <ImageRight {...getDefaultArgs('imageRight')} />
       <Divider />
-      <WithoutImage />
+      <WithoutImage {...getDefaultArgs('noImage', noImageOptions[1])} />
       <Divider />
-      <DiagonalKoros />
+      <DiagonalKoros {...getDefaultArgs('diagonalKoros')} />
       <Divider />
-      <WithoutImage2 />
+      <WithoutImage2 {...getDefaultArgs('noImage', noImageOptions[2])} />
       <Divider />
-      <ImageBottom />
+      <ImageBottom {...getDefaultArgs('imageBottom')} />
       <Divider />
-      <WithoutImageAndKoros />
+      <WithoutImageAndKoros {...getDefaultArgs('noImage', noImageOptions[3])} />
       <Divider />
     </div>
   );
