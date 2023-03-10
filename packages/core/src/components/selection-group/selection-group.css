@@ -14,18 +14,20 @@
   float: left;
 }
 
-.hds-selection-group__legend {
- /*
-  * Normalized rules
-  * 1. Correct the text wrapping in Edge and IE.
-  * 2. Remove the padding so developers are not caught out when they zero out
-  *    `fieldset` elements in all browsers.
-  */
+:where(.hds-selection-group__legend) {
+  /*
+ * Normalized rules
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
   box-sizing: border-box; /* 1 */
   max-width: 100%; /* 1 */
   padding: 0; /* 2 */
   white-space: normal; /* 1 */
+}
 
+.hds-selection-group__legend {
   color: var(--label-color-default);
   display: block;
   font-size: var(--fontsize-body-m);

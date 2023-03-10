@@ -67,17 +67,19 @@
 }
 
 /* NATIVE INPUT */
-.hds-checkbox .hds-checkbox__input {
- /*
-  * Normalize.css rules
-  * 1. Change the font styles in all browsers.
-  * 2. Remove the margin in Firefox and Safari.
-  */
+:where(.hds-checkbox__input) {
+  /*
+   * Normalize.css rules
+   * 1. Change the font styles in all browsers.
+   * 2. Remove the margin in Firefox and Safari.
+   */
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+}
 
+.hds-checkbox .hds-checkbox__input {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;

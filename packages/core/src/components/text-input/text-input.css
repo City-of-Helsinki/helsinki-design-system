@@ -74,15 +74,17 @@
   position: relative;
 }
 
-.hds-text-input .hds-text-input__input {
- /*
-  * Normalize.css rules
-  * 1. Change the font styles in all browsers.
-  * 2. Remove the margin in Firefox and Safari.
-  */
+:where(.hds-text-input__input) {
+  /*
+   * Normalize.css rules
+   * 1. Change the font styles in all browsers.
+   * 2. Remove the margin in Firefox and Safari.
+   */
   font-family: inherit; /* 1 */
   margin: 0; /* 2 */
+}
 
+.hds-text-input .hds-text-input__input {
   /* removes the input shadow on iOS */
   -webkit-appearance: none;
   background-color: var(--input-background-default);
@@ -99,12 +101,15 @@
   will-change: transform, box-shadow;
 }
 
-.hds-text-input textarea.hds-text-input__input {
- /*
-  * Normalize.css rule
-  * 1. Remove the default vertical scrollbar in IE 10+.
-  */
+:where(.hds-text-input textarea.hds-text-input__input) {
+  /*
+   * Normalize.css rule
+   * 1. Remove the default vertical scrollbar in IE 10+.
+   */
   overflow: auto; /* 1 */
+}
+
+.hds-text-input textarea.hds-text-input__input {
   height: var(--textarea-height);
   min-height: var(--input-height);
   padding: var(--spacing-s);
