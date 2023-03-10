@@ -1,0 +1,51 @@
+---
+slug: '/components/header-universal-bar/code'
+title: 'HeaderUniversalBar - Code'
+---
+
+import { Header, HeaderUniversalBar, NavigationLink } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Default
+
+<InternalLink href="/components/navigation-link">Navigation links</InternalLink> can be put inside the header universal component indepedently as sibling elements or inside a container element.
+
+<Playground>
+
+```jsx
+<Header>
+  <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin Kaupunki">
+    <NavigationLink href="#">Link</NavigationLink>
+    <NavigationLink href="#">Link</NavigationLink>
+    <NavigationLink href="#">Link</NavigationLink>
+  </HeaderUniversalBar>
+</Header>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                     | Source link                                                                                                                                                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-headeruniversalbar--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/headerUniversalBar">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                  | -                                                                                                                                                                                                                               |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-headeruniversalbar--default">React Storybook.</Link>
+
+| Property                                | Description                                                                                                                                            | Values            | Default value |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | ------------- | --- | -------- | --- |
+| `ariaLabel`                             | aria-label for describing universal bar for the screen readers.                                                                                        | `string`          | -             |
+| `className`                             | Additional class names to apply.                                                                                                                       | `string`          | -             |
+| `primaryLinkHref`                    | Hypertext reference for the primary link.                                                                                                              | `string`          | -             |
+| `primaryLinkText`                       | Link text for the primary link                                                                                                                         | `string`          | -             |     | `string` | -   |
+| [Table 1:HeaderUniversalBar properties] |
