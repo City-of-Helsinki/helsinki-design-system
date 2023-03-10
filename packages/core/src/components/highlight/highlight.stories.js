@@ -32,6 +32,14 @@ export const HighlightSmall = () => `
   </div>
 `;
 
+export const HighlightCustomStyles = () => `
+  <div class="hds-highlight-wrapper">
+    <div class="hds-highlight" role="region" style="--accent-line-color:#009246;--text-color:#0000bf">
+      <div class="hds-highlight--text">${highlightText}</div>
+    </div>
+  </div>
+`;
+
 export const DefaultQuote = () => `
   <div class="hds-highlight-wrapper">
     <div class="hds-highlight" role="region">
@@ -58,3 +66,12 @@ export const QuoteSmall = () => `
     </div>
   </div>  
 `;
+
+export const QuoteCustomStyles = () => `
+  <div class="hds-highlight-wrapper">
+    <div class="hds-highlight" role="region" style="--accent-line-color:#009246;--text-color:#0000bf">
+      <div class="hds-highlight--text hds-highlight--quote">${highlightText}</div>
+      <div class="hds-highlight--reference">${quoteReference}</div>
+    </div>
+  </div>
+  `;

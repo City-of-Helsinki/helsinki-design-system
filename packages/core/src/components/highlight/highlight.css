@@ -8,10 +8,10 @@
   padding: var(--spacing-s) 0;
 }
 .hds-highlight {
-  --border-left-color: var(--color-bus);
+  --accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
   
-  border-left: 8px solid var(--border-left-color);
+  border-left: 8px solid var(--accent-line-color);
   color: var(--text-color);
   display: flex;
   justify-content: center;
@@ -26,6 +26,7 @@
   max-width: 100%;
   font-size: var(--fontsize-heading-m);
   line-height: var(--lineheight-m);
+  color: var(--text-color);
 }
 
 .hds-highlight--small {
