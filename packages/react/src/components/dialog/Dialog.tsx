@@ -177,7 +177,7 @@ export const Dialog = ({
         });
       };
     }
-    return null;
+    return undefined;
   }, [dialogRef, isOpen]);
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
