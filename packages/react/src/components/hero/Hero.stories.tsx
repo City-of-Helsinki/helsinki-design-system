@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Hero, HeroProps } from './Hero';
+import { Hero, HeroCustomTheme, HeroProps } from './Hero';
 import { Button } from '../button/Button';
 // @ts-ignore
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
@@ -59,6 +59,39 @@ const getDisabledControl = (control: string, notUsed?: boolean) => {
   };
 };
 
+const defaultImageSrcArg = {
+  imageSrc: {
+    defaultValue: imageFile,
+    control: 'text',
+  },
+};
+const createCenteredContentArg = (defaultValue: boolean) => ({
+  centeredContent: {
+    defaultValue,
+    control: 'boolean',
+  },
+});
+const createThemeArg = (themeProps: HeroCustomTheme) => ({
+  theme: {
+    defaultValue: { ...themeProps },
+    control: 'object',
+  },
+});
+
+const createKorosArg = (korosProps: HeroProps['koros']) => ({
+  koros: {
+    defaultValue: { ...korosProps },
+    control: 'object',
+  },
+});
+
+const createVariantArg = (defaultValue: HeroProps['variant']) => ({
+  variant: {
+    ...variantSelection,
+    defaultValue,
+  },
+});
+
 const DefaultContent = (props: DefaultContentProps) => {
   const { title, text, buttonTheme } = props;
   const h1Text = title || 'Welcome to the hero story';
@@ -114,166 +147,139 @@ const NavigationComponent = () => (
 );
 
 export const ImageLeft = (args) => {
-  const heroProps: HeroProps = {
-    koros: args.koros,
-    centeredContent: args.centeredContent,
-    theme: { ...imageLeftOrRightTheme, ...args.theme },
-    imageSrc: args.imageSrc || imageFile,
-    variant: 'imageLeft',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent buttonTheme="black" />
     </Hero>
   );
 };
 ImageLeft.argTypes = {
-  ...getDisabledControl('variant'),
+  ...defaultImageSrcArg,
+  ...createThemeArg(imageLeftOrRightTheme),
+  ...createVariantArg('imageLeft'),
 };
 
 export const ImageRight = (args) => {
-  const heroProps: HeroProps = {
-    koros: args.koros,
-    centeredContent: args.centeredContent,
-    theme: { ...imageLeftOrRightTheme, ...args.theme },
-    imageSrc: args.imageSrc || imageFile,
-    variant: 'imageRight',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent buttonTheme="black" />
     </Hero>
   );
 };
 ImageRight.argTypes = {
   ...getDisabledControl('variant'),
+  ...defaultImageSrcArg,
+  ...createThemeArg(imageLeftOrRightTheme),
+  ...createVariantArg('imageRight'),
 };
 
 export const WithoutImage = (args) => {
-  const heroProps: HeroProps = {
-    theme: {
-      '--background-color': '#9fc9eb',
-      '--color': '#000',
-      '--koros-color': '#009246',
-      '--koros-height': '82px',
-      ...args.theme,
-    },
-    koros: { type: 'pulse', ...args.koros },
-    centeredContent: args.centeredContent !== false,
-    variant: 'noImage',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent />
     </Hero>
   );
 };
 
 WithoutImage.argTypes = {
-  ...getDisabledControl('variant'),
-  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('imageSrc', true),
+  ...createThemeArg({
+    '--background-color': '#9fc9eb',
+    '--color': '#000',
+    '--koros-color': '#009246',
+    '--koros-height': '82px',
+  }),
+  ...createVariantArg('noImage'),
+  ...createCenteredContentArg(true),
 };
 
 export const WithoutImage2 = (args) => {
-  const heroProps: HeroProps = {
-    theme: {
-      '--background-color': '#000',
-      '--color': '#fff',
-      '--koros-color': '#000',
-      ...args.theme,
-    },
-    koros: { flipHorizontal: true, ...args.koros },
-    centeredContent: args.centeredContent,
-    variant: 'noImage',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent buttonTheme="white" />
     </Hero>
   );
 };
 WithoutImage2.storyName = 'Without image II';
 WithoutImage2.argTypes = {
-  ...getDisabledControl('variant'),
-  ...getDisabledControl('imageSrc'),
+  ...getDisabledControl('imageSrc', true),
+  ...createThemeArg({
+    '--background-color': '#000',
+    '--color': '#fff',
+    '--koros-color': '#000',
+  }),
+  ...createKorosArg({ flipHorizontal: true }),
+  ...createVariantArg('noImage'),
+  ...createCenteredContentArg(false),
 };
 
 export const WithoutImageAndKoros = (args) => {
-  const heroProps: HeroProps = {
-    theme: { '--background-color': '#fff', '--color': '#000', ...args.theme },
-    koros: { hide: true, ...args.koros },
-    centeredContent: args.centeredContent,
-    variant: 'noImage',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent />
     </Hero>
   );
 };
 
 WithoutImageAndKoros.argTypes = {
-  ...getDisabledControl('variant'),
-  ...getDisabledControl('imageSrc'),
-  ...getDisabledControl('koros'),
+  ...getDisabledControl('imageSrc', true),
+  ...createThemeArg({
+    '--background-color': '#fff',
+    '--color': '#000',
+  }),
+  ...createKorosArg({ hide: true }),
+  ...createVariantArg('noImage'),
+  ...createCenteredContentArg(false),
 };
 
 export const BackgroundImage = (args) => {
-  const heroProps: HeroProps = {
-    theme: { '--background-color': '#fff', ...args.theme },
-    koros: { ...args.koros },
-    imageSrc: args.imageSrc || imageFile,
-    variant: 'backgroundImage',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent buttonTheme="black" />
     </Hero>
   );
 };
 
 BackgroundImage.argTypes = {
-  ...getDisabledControl('centeredContent', true),
-  ...getDisabledControl('variant'),
+  ...defaultImageSrcArg,
+  ...createThemeArg({
+    '--background-color': '#fff',
+  }),
+  ...createVariantArg('backgroundImage'),
 };
 
 export const DiagonalKoros = (args) => {
-  const heroProps: HeroProps = {
-    theme: { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme },
-    koros: { ...args.koros },
-    imageSrc: args.imageSrc || imageFile,
-    variant: 'diagonalKoros',
-  };
-
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent buttonTheme="black" />
     </Hero>
   );
 };
 
 DiagonalKoros.argTypes = {
-  ...getDisabledControl('centeredContent', true),
-  ...getDisabledControl('variant'),
+  ...defaultImageSrcArg,
+  ...createThemeArg({
+    '--background-color': '#f5a3c7',
+    '--color': '#000',
+  }),
+  ...createVariantArg('diagonalKoros'),
 };
 
 export const ImageBottom = (args) => {
-  const heroProps: HeroProps = {
-    koros: { ...args.koros },
-    centeredContent: args.centeredContent,
-    theme: { '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme },
-    imageSrc: args.imageSrc || imageFile,
-    variant: 'imageBottom',
-  };
   return (
-    <Hero {...heroProps}>
+    <Hero {...args}>
       <DefaultContent />
     </Hero>
   );
 };
 ImageBottom.storyName = 'Bottom image';
 ImageBottom.argTypes = {
-  ...getDisabledControl('variant'),
+  ...defaultImageSrcArg,
+  ...createThemeArg({
+    '--background-color': '#fff',
+    '--image-position': 'bottom left',
+  }),
+  ...createVariantArg('imageBottom'),
 };
 
 export const PlaygroundForKoros = (args) => {
@@ -302,7 +308,7 @@ export const PlaygroundForKoros = (args) => {
 
 PlaygroundForKoros.argTypes = {
   ...getDisabledControl('centeredContent'),
-  ...getDisabledControl('imageSrc'),
+  ...defaultImageSrcArg,
   ...getDisabledControl('theme'),
   type: {
     defaultValue: 'basic',
@@ -329,10 +335,7 @@ PlaygroundForKoros.argTypes = {
     control: 'boolean',
     description: 'Flip koros horizontally. Most variants override this setting.',
   },
-  variant: {
-    ...variantSelection,
-    defaultValue: 'diagonalKoros',
-  },
+  ...createVariantArg('diagonalKoros'),
 };
 
 const noImageOptions = ['', 'Without image', 'Without image II', 'Without image and koros'];
@@ -369,9 +372,7 @@ EmbeddedToPage.argTypes = {
   ...getDisabledControl('theme'),
   ...getDisabledControl('imageSrc'),
   ...getDisabledControl('centeredContent'),
-  variant: {
-    ...variantSelection,
-  },
+  ...createVariantArg('noImage'),
   preset: {
     defaultValue: noImageOptions[1],
     control: {
@@ -504,10 +505,7 @@ PlaygroundForTheme.argTypes = {
     control: 'text',
     description: 'Horizontal padding on x-large screens >=1248px.',
   },
-  variant: {
-    ...variantSelection,
-    defaultValue: 'backgroundImage',
-  },
+  ...createVariantArg('backgroundImage'),
 };
 
 export const AllHeroes = () => {
