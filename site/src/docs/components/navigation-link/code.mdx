@@ -1,0 +1,42 @@
+---
+slug: '/components/navigation-link/code'
+title: 'NavigationLink - Code'
+---
+
+import { NavigationLink } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Default
+
+<Playground>
+
+```jsx
+<NavigationLink href="#">Navigation link</NavigationLink>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                 | Source link                                                                                                                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-navigationlink--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/navigationLink">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                              | -                                                                                                                                                                                                                           |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-link--default">React Storybook.</Link>
+
+| Property    | Description                                 | Values              | Default value |
+| ----------- | ------------------------------------------- | ------------------- | ------------- |
+| `className` | Additional class names to apply.            | `string`            | -             |
+| `size`      | Controls the size of the navigation link.   | `"S"`, `"M"`, `"L"` | `"M"`         |
+| `href`      | Hypertext reference of the navigation link. | `string`            | -             |
