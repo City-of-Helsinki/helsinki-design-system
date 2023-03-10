@@ -3,7 +3,7 @@ slug: '/components/header/code'
 title: 'Header - Code'
 ---
 
-import { Header, HeaderUniversalBar, NavigationLink } from 'hds-react';
+import { Header } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -19,11 +19,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <Header>
-  <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-    <NavigationLink href="#">Link</NavigationLink>
-    <NavigationLink href="#">Link</NavigationLink>
-    <NavigationLink href="#">Link</NavigationLink>
-  </HeaderUniversalBar>
+  <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+    <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.NavigationLink href="#">Link</Header.NavigationLink>
+  </Header.UniversalBar>
 </Header>
 ```
 
@@ -52,4 +52,4 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `className`                             | Additional class names to apply.                                | `string` | -                    |
 | `primaryLinkHref`                       | Hypertext reference for the primary link.                       | `string` | `https://hel.fi`     |
 | `primaryLinkText`                       | Link text for the primary link                                  | `string` | `Helsingin kaupunki` |
-| [Table 2:HeaderUniversalBar properties] |
+| [Table 2:Header.UniversalBar properties] |

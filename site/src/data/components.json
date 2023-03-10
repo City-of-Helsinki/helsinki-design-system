@@ -241,13 +241,6 @@
     }
   },
   {
-    "name": "NavigationLink",
-    "text": "The navigation links are meant to be used inside header or footer elements.",
-    "linkboxAriaLabel": "NavigationLink component",
-    "linkAriaLabel": "Go to the NavigationLink component page",
-    "href": "/components/navigation-link"
-  },
-  {
     "name": "Notification",
     "text": "Notifications are used to present timely information to the user.",
     "linkboxAriaLabel": "Notification component",
