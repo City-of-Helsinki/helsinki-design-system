@@ -4,7 +4,7 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header, HeaderUniversalBar, NavigationLink } from 'hds-react';
+import { Header } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
@@ -17,11 +17,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <Header>
-    <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <NavigationLink href="#">Link</NavigationLink>
-      <NavigationLink href="#">Link</NavigationLink>
-      <NavigationLink href="#">Link</NavigationLink>
-    </HeaderUniversalBar>
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
   </Header>
 </PlaygroundPreview>
 
@@ -32,27 +32,27 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - The only mandatory component inside the header is HeaderActionBar. Other components may be used if needed.
 - HeaderNavigationBar is coming soon
 - HeaderActionBar is coming soon
-- The inner components should **always** be in this order: HeaderUniversalBar, HeaderActionBar and HeaderNavigationBar.
+- The inner components should **always** be in this order: Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
 
 ### Variations
 
 #### With universal bar
 
-- Using the HeaderUniversalBar component is optional. Use it only if you have contemporary or frequently visited and useful links.
-- Put the HeaderUniversalBar component inside the<InternalLink href="/components/header">HDS Header component</InternalLink>.
+- Using the Header.UniversalBar component is optional. Use it only if you have contemporary or frequently visited and useful links.
+- Put the Header.UniversalBar component inside the<InternalLink href="/components/header">HDS Header component</InternalLink>.
 - The first link should always direct to the webpage of City of Helsinki.
 - Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word. Use the <InternalLink href="/components/navigation-link">navigation link component</InternalLink> for secondary links.
-- Always position the HeaderUniversalBar to the top of the page. Keep the bar in place so the user can always easily locate it. It is recommended to include the HeaderUniversalBar on every page of the service.
-- It's recommended to pass an ariaLabel prop for the HeaderUniversalBar to describe it for the screen readers, e.g. "Quick links".
-- The HeaderUniversalBar component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. On smaller screens (576px and down) the HeaderUniversalBar will not be displayed on the page and its contents should be found inside the HeaderNavigationMenu component.
+- Always position the Header.UniversalBar to the top of the page. Keep the bar in place so the user can always easily locate it. It is recommended to include the Header.UniversalBar on every page of the service.
+- It's recommended to pass an ariaLabel prop for the Header.UniversalBar to describe it for the screen readers, e.g. "Quick links".
+- The Header.UniversalBar component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. On smaller screens (576px and down) the Header.UniversalBar will not be displayed on the page and its contents should be found inside the HeaderNavigationMenu component.
 
 <PlaygroundPreview>
   <Header>
-    <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <NavigationLink href="#">Link</NavigationLink>
-      <NavigationLink href="#">Link</NavigationLink>
-      <NavigationLink href="#">Link</NavigationLink>
-    </HeaderUniversalBar>
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
   </Header>
 </PlaygroundPreview>
 
