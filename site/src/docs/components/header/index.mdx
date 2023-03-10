@@ -1,0 +1,57 @@
+---
+slug: '/components/header'
+title: 'Header'
+navTitle: 'Header'
+---
+
+import { Header, HeaderUniversalBar, NavigationLink } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Header>
+    <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin Kaupunki">
+      <NavigationLink href="#">Link</NavigationLink>
+      <NavigationLink href="#">Link</NavigationLink>
+      <NavigationLink href="#">Link</NavigationLink>
+    </HeaderUniversalBar>
+  </Header>
+</PlaygroundPreview>
+
+### Principles
+
+- **It is strongly recommended to always include the header component in your service.**
+- Header component is a wrapper for the HDS header navigation components. This means you should put all the other header elements inside this component.
+- The only mandatory component inside the header is HeaderActionBar. Other components may be used if needed.
+- HeaderNavigationBar is coming soon
+- HeaderActionBar is coming soon
+- The inner components should **always** be in this order: HeaderUniversalBar, HeaderActionBar and HeaderNavigationBar.
+
+### Variations
+
+#### With universal bar
+
+<PlaygroundPreview>
+  <Header>
+    <HeaderUniversalBar primaryLinkHref="#" primaryLinkText="Helsingin Kaupunki">
+      <NavigationLink href="#">Link</NavigationLink>
+      <NavigationLink href="#">Link</NavigationLink>
+      <NavigationLink href="#">Link</NavigationLink>
+    </HeaderUniversalBar>
+  </Header>
+</PlaygroundPreview>
+
+#### With action bar
+
+Coming soon!
+
+#### With navigation bar
+
+Coming soon!
