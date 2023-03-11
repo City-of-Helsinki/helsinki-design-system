@@ -93,7 +93,7 @@ const getDefaultArgs = (variant: HeroProps['variant'], preset?: string): HeroPro
       return defaultValuePicker(WithoutImage.argTypes);
     }
     if (preset === noImageOptions[2]) {
-      return defaultValuePicker(WithoutImage2.argTypes);
+      return defaultValuePicker(WithoutImageKorosOverlay.argTypes);
     }
     return defaultValuePicker(WithoutImageAndKoros.argTypes);
   }
@@ -244,19 +244,20 @@ WithoutImage.argTypes = {
     '--koros-color': '#009246',
     '--koros-height': '82px',
   }),
+  ...createKorosArg({ type: 'pulse' }),
   ...createVariantArg('noImage'),
   ...createCenteredContentArg(true),
 };
 
-export const WithoutImage2 = (args) => {
+export const WithoutImageKorosOverlay = (args) => {
   return (
     <Hero {...args}>
       <DefaultContent buttonTheme="white" />
     </Hero>
   );
 };
-WithoutImage2.storyName = 'Without image II';
-WithoutImage2.argTypes = {
+
+WithoutImageKorosOverlay.argTypes = {
   ...getDisabledControl('imageSrc', true),
   ...createThemeArg({
     '--background-color': '#000',
@@ -426,7 +427,7 @@ export const EmbeddedToPage = (args) => {
       return <WithoutImage {...props} />;
     }
     if (preset === noImageOptions[2]) {
-      return <WithoutImage2 {...props} />;
+      return <WithoutImageKorosOverlay {...props} />;
     }
     return <WithoutImageAndKoros {...props} />;
   };
@@ -617,7 +618,7 @@ export const AllHeroes = () => {
       <Divider />
       <DiagonalKoros {...getDefaultArgs('diagonalKoros')} />
       <Divider />
-      <WithoutImage2 {...getDefaultArgs('noImage', noImageOptions[2])} />
+      <WithoutImageKorosOverlay {...getDefaultArgs('noImage', noImageOptions[2])} />
       <Divider />
       <ImageBottom {...getDefaultArgs('imageBottom')} />
       <Divider />
