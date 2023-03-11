@@ -33,8 +33,7 @@ const variantSelection = {
 const korosPosition = {
   defaultValue: '45%',
   control: 'text',
-  description:
-    'Position of the koros in variant "diagonalKoros". Value is set to to theme of the hero. Theme property is "--diagonal-koros-position".',
+  description: 'Position of the koros in the variant "diagonalKoros".',
 };
 
 const defaultText =
@@ -42,6 +41,22 @@ const defaultText =
 
 const imageLeftOrRightTheme = { '--background-color': '#c2a251', '--color': '#000' };
 const noImageOptions = ['', 'Without image', 'Without image II', 'Without image and koros'];
+
+const getThemePropertyDescriptionAsSummary = (themeVariable: string) => ({
+  table: {
+    type: {
+      summary: `Storybook control for a theme variable, not an actual component property. Given value is set to theme property as "${themeVariable}".`,
+    },
+  },
+});
+
+const getKorosPropertyDescriptionAsSummary = () => ({
+  table: {
+    type: {
+      summary: `Storybook control for a koros property, not an actual component property. Given value is set to the "koros" property of the component.`,
+    },
+  },
+});
 
 const getDisabledControl = (control: string, notUsed?: boolean) => {
   const description = notUsed
@@ -334,22 +349,39 @@ export const PlaygroundForKoros = (args) => {
       '--background-color': '#9fc9eb',
       '--koros-color': args.color || '#9fc9eb',
       '--diagonal-koros-position': args.diagonalKorosPosition,
+      ...args.theme,
     },
     imageSrc: imageFile,
     variant: args.variant,
   };
-
   return (
-    <Hero {...heroProps}>
-      <DefaultContent />
-    </Hero>
+    <div>
+      <style>
+        {`
+          .theme {
+            padding: 20px;
+            font-size:10px;
+          }
+        `}
+      </style>
+      <Hero {...heroProps}>
+        <DefaultContent />
+      </Hero>
+      <div className="theme">
+        <p>Applied theme:</p>
+        <pre>{JSON.stringify(heroProps.theme, null, 2)}</pre>
+      </div>
+      <div className="theme">
+        <p>Applied koros:</p>
+        <pre>{JSON.stringify(heroProps.koros, null, 2)}</pre>
+      </div>
+    </div>
   );
 };
 
 PlaygroundForKoros.argTypes = {
   ...getDisabledControl('centeredContent'),
-  ...defaultImageSrcArg,
-  ...getDisabledControl('theme'),
+  ...getDisabledControl('imageSrc'),
   type: {
     defaultValue: 'basic',
     description: 'Koros type',
@@ -357,23 +389,31 @@ PlaygroundForKoros.argTypes = {
       type: 'select',
       options: ['basic', 'beat', 'pulse', 'storm', 'wave', 'calm'],
     },
+    ...getKorosPropertyDescriptionAsSummary(),
   },
   color: {
     control: { type: 'color' },
     description: 'Koros color. Default is "--background-color"',
+    ...getThemePropertyDescriptionAsSummary('--koros-color'),
   },
   hide: {
     control: 'boolean',
     description: 'Hide koros. Most variants override this setting.',
+    ...getKorosPropertyDescriptionAsSummary(),
   },
   dense: {
     control: 'boolean',
     description: 'Use dense koros version or not',
+    ...getKorosPropertyDescriptionAsSummary(),
   },
-  diagonalKorosPosition: korosPosition,
+  diagonalKorosPosition: {
+    ...korosPosition,
+    ...getThemePropertyDescriptionAsSummary('--diagonal-koros-position'),
+  },
   flipHorizontal: {
     control: 'boolean',
     description: 'Flip koros horizontally. Most variants override this setting.',
+    ...getKorosPropertyDescriptionAsSummary(),
   },
   ...createVariantArg('diagonalKoros'),
 };
@@ -469,7 +509,6 @@ export const PlaygroundForTheme = (args) => {
         .theme {
           padding: 20px 20px 20px ${demoPadding};
           font-size:10px;
-          border:1px solid #000;
         }
       `}
       </style>
@@ -490,21 +529,23 @@ export const PlaygroundForTheme = (args) => {
 PlaygroundForTheme.argTypes = {
   ...getDisabledControl('centeredContent'),
   ...getDisabledControl('imageSrc'),
-  ...getDisabledControl('koros'),
   backgroundColor: {
     defaultValue: demoBgColor,
     control: 'color',
     description: 'Background color. Also koros color, if not set.',
+    ...getThemePropertyDescriptionAsSummary('--background-color'),
   },
   color: {
     defaultValue: '',
     control: 'color',
     description: 'Text color.',
+    ...getThemePropertyDescriptionAsSummary('--color'),
   },
   korosColor: {
     defaultValue: '',
     control: 'color',
     description: 'Optional koros color. Default is "--background-color"',
+    ...getThemePropertyDescriptionAsSummary('--koros-color'),
   },
   imagePosition: {
     defaultValue: '',
@@ -525,27 +566,35 @@ PlaygroundForTheme.argTypes = {
         '',
       ],
     },
+    ...getThemePropertyDescriptionAsSummary('--image-position'),
   },
-  diagonalKorosPosition: korosPosition,
+  diagonalKorosPosition: {
+    ...korosPosition,
+    ...getThemePropertyDescriptionAsSummary('--diagonal-koros-position'),
+  },
   horizontalPaddingSmall: {
     defaultValue: demoPadding,
     control: 'text',
     description: 'Horizontal padding on small screens <768px.',
+    ...getThemePropertyDescriptionAsSummary('--horizontal-padding-small'),
   },
   horizontalPaddingMedium: {
     defaultValue: demoPadding,
     control: 'text',
     description: 'Horizontal padding on medium screens >=768px.',
+    ...getThemePropertyDescriptionAsSummary('--horizontal-padding-medium'),
   },
   horizontalPaddingLarge: {
     defaultValue: demoPadding,
     control: 'text',
     description: 'Horizontal padding on large screens >=992px.',
+    ...getThemePropertyDescriptionAsSummary('--horizontal-padding-large'),
   },
   horizontalPaddingXLarge: {
     defaultValue: demoPadding,
     control: 'text',
     description: 'Horizontal padding on x-large screens >=1248px.',
+    ...getThemePropertyDescriptionAsSummary('--horizontal-padding-x-large'),
   },
   ...createVariantArg('backgroundImage'),
 };
