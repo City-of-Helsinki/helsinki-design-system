@@ -1,0 +1,107 @@
+---
+slug: '/components/hero/code'
+title: 'Hero - Code'
+---
+
+import { Button, Hero as HDSHero, Link } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Diagonal koros
+
+<Playground>
+
+```jsx
+<>
+  <HDSHero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    theme={{
+      '--background-color': '#f5a3c7',
+      '--color': '#000',
+    }}
+  >
+    <HDSHero.Title>Hero title</HDSHero.Title>
+    <HDSHero.Text>
+      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
+      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+    </HDSHero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </HDSHero>
+</>
+```
+
+```html
+<div>
+  <div class="hds-hero custom-theme hds-hero--diagonal-koros">
+    <div class="hds-hero--with-background__container">
+      <div class="hds-hero__content">
+        <div class="hds-hero--with-background__contentColumns">
+          <div class="hds-hero__card">
+            <h1 class="hds-hero__title">Welcome to the hero story</h1>
+            <p class="hds-hero__text">
+              Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet
+              egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+            </p>
+            <button type="button" class="hds-button hds-button--secondary hds-button--theme-black" role="link">
+              <span class="hds-button__label">Button</span>
+            </button>
+          </div>
+          <div class="hds-hero--with-background__empty-column"></div>
+        </div>
+      </div>
+      <div class="hds-hero--diagonal-koros__koros-aligner">
+        <div class="responsive-koros hds-hero--diagonal-koros__koros-and-background">
+          <div class="hds-hero__koros-container">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+              <defs>
+                <pattern id="koros_pulse-1" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+                  <path transform="scale(5.3)" d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"></path>
+                </pattern>
+              </defs>
+              <rect fill="url(#koros_pulse-1)" width="100%" height="85"></rect>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="hds-hero--with-background__background">
+        <img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                    | Source link                                                                                                                                                                                                                |
+| ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-hero--diagonal-koros">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/hero/Hero.tsx">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-hero--diagonal-koros">View in Storybook</Link>        | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/hero">View source</ExternalLink>           |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-hero--diagonal-koros">React Storybook.</Link>
+
+| Property        | Description                                                      | Values                                                                       | Default value |
+| --------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------- |
+| `theme`         | Theme prop for customisation of the Hero component.              | `object`                                                                     | TBD           |
+| `koros`         | Koros prop for customisation of the Koros of the Hero component. | `object`                                                                     | TBD           |
+| `imageSrc`      | Url of the image                                                 | `string`                                                                     | none          |
+| `centerContent` | Should the text be aligned to center                             | `boolean`                                                                    | false         |
+| `variant`       | What kind of hero render                                         | `imageLeft, imageRight, backgroundImage, imageBottom,diagonalKoros, noImage` | noImage       |

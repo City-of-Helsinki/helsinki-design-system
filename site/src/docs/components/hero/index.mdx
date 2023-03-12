@@ -1,0 +1,182 @@
+---
+slug: '/components/hero'
+title: 'Hero'
+navTitle: 'Hero '
+---
+
+import { Button, Hero, IconAngleRight, IconShare, IconTrash } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Hero
+    theme={{
+      '--background-color': '#000',
+      '--color': '#fff',
+      '--koros-color': '#000',
+    }}
+    koros={{ type: 'pulse', flipHorizontal: true }}
+  >
+    <Hero.Title>Hero Component</Hero.Title>
+    <Hero.Text>Hero Component</Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+### Principles
+
+- Hero should be the first element on the page
+
+#### Should I use a Hero?
+
+- **Use the Hero component when**
+  - TBD
+
+### Variations
+
+#### Image left or right
+
+Use when...
+
+<PlaygroundPreview>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="imageLeft"
+    theme={{ '--background-color': '#c2a251', '--color': '#000' }}
+  >
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
+      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Image as a background
+
+Use when...
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="backgroundImage"
+    theme={{
+      '--background-color': '#fff',
+    }}
+  >
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
+      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Diagonal koros and image as a background
+
+Use when...
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    theme={{
+      '--background-color': '#f5a3c7',
+      '--color': '#000',
+    }}
+  >
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
+      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Wide bottom image
+
+Use when...
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="imageBottom"
+    theme={{
+      '--background-color': '#fff',
+    }}
+  >
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
+      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### No image
+
+Use when...
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    theme={{
+      '--background-color': '#9fc9eb',
+      '--color': '#000',
+      '--koros-color': '#009246',
+      '--koros-height': '82px',
+    }}
+    koros={{ type: 'pulse' }}
+  >
+    <Hero.Title>Hero Component</Hero.Title>
+    <Hero.Text>Hero Component</Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>

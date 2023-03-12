@@ -1,0 +1,17 @@
+---
+slug: '/components/hero/accessibility'
+title: 'Hero - Accessibility'
+---
+
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+
+- Heading level. Hero.Title is rendered as h1 element by default.
+- The hero component itself is not interactable so it does not have a focus state.
+- Images in the hero component are hidden from assistive technologies and have an empty alt-text

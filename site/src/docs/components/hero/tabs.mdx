@@ -1,0 +1,35 @@
+---
+slug: '/components/hero/tabs'
+title: 'Hero'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+
+# Hero
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Hero elements are used below the main navigation as the first content element. They can be used for different purposes
+  but most often they shortly describe the role of the page and offer the most important function of the page as a
+  call-to-action button.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
