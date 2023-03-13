@@ -21,7 +21,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   ```jsx
   import { Button } from 'hds-react';
 
-  <Button>Primary</Button>
+  () => <Button>Primary</Button>
   ```
 
   ```html
@@ -57,9 +57,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
   ```jsx
-  <Button variant="supplementary" iconLeft={<IconTrash />}>
-    Supplementary
-  </Button>
+  import { Button } from 'hds-react';
+
+  () => (
+    <Button variant="supplementary" iconLeft={<IconTrash />}>
+      Supplementary
+    </Button>
+  )
   ```
 
   ```html
@@ -77,13 +81,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
   ```jsx
-  <div>
-    <Button iconLeft={<IconShare />}>Button</Button>
-    <Button iconRight={<IconAngleRight />}>Button</Button>
-    <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-      Button
-    </Button>
-  </div>
+  import { Button } from 'hds-react';
+
+  () => (
+    <div>
+      <Button iconLeft={<IconShare />}>Button</Button>
+      <Button iconRight={<IconAngleRight />}>Button</Button>
+      <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
+        Button
+      </Button>
+    </div>
+  )
   ```
 
   ```html
@@ -115,15 +123,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
   ```jsx
-  <div>
-    <Button size="small">Primary</Button>
-    <Button variant="secondary" size="small">
-      Secondary
-    </Button>
-    <Button variant="supplementary" size="small">
-      Supplementary
-    </Button>
-  </div>
+  import { Button } from 'hds-react';
+
+  () => (
+    <div>
+      <Button size="small">Primary</Button>
+      <Button variant="secondary" size="small">
+        Secondary
+      </Button>
+      <Button variant="supplementary" size="small">
+        Supplementary
+      </Button>
+    </div>
+  )
   ```
 
   ```html
@@ -151,16 +163,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div>
-  <Button variant="success" iconLeft={<IconSaveDisketteFill />}>Save</Button>
-  <Button 
-    variant="danger" 
-    iconLeft={<IconTrash />} 
-    style={{ marginLeft: 'var(--spacing-s)' }}
-  >
-    Delete
-  </Button>
-</div>
+import { Button } from 'hds-react';
+
+() => (
+  <div>
+    <Button variant="success" iconLeft={<IconSaveDisketteFill />}>Save</Button>
+    <Button
+      variant="danger"
+      iconLeft={<IconTrash />}
+      style={{ marginLeft: 'var(--spacing-s)' }}
+    >
+      Delete
+    </Button>
+  </div>
+)
 ```
 
 ```html
@@ -186,53 +202,53 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
   ```jsx
-  {
-    () => {
-      const [isLoading, setIsLoading] = React.useState(false);
-      const [showNotification, setShowNotification] = React.useState(false);
-      React.useEffect(() => {
-        let timeout;
-        if (isLoading) {
-          timeout = setTimeout(() => {
-            setShowNotification(true);
-            setIsLoading(false);
-          }, 2000);
-        }
-        return () => {
-          clearTimeout(timeout);
-        };
-      }, [isLoading]);
-      return (
-        <>
-          <Button
-            isLoading={isLoading}
-            loadingText="Saving form changes"
-            onClick={() => {
+  import { Button } from 'hds-react';
+
+  () => {
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [showNotification, setShowNotification] = React.useState(false);
+    React.useEffect(() => {
+      let timeout;
+      if (isLoading) {
+        timeout = setTimeout(() => {
+          setShowNotification(true);
+          setIsLoading(false);
+        }, 2000);
+      }
+      return () => {
+        clearTimeout(timeout);
+      };
+    }, [isLoading]);
+    return (
+      <>
+        <Button
+          isLoading={isLoading}
+          loadingText="Saving form changes"
+          onClick={() => {
+            setShowNotification(false);
+            setIsLoading(true);
+          }}
+        >
+          Save form
+        </Button>
+        {showNotification && (
+          <Notification
+            key={new Date().toString()}
+            position="top-right"
+            displayAutoCloseProgress={false}
+            autoClose
+            dismissible
+            label="Form saved!"
+            type="success"
+            onClose={() => {
               setShowNotification(false);
-              setIsLoading(true);
             }}
           >
-            Save form
-          </Button>
-          {showNotification && (
-            <Notification
-              key={new Date().toString()}
-              position="top-right"
-              displayAutoCloseProgress={false}
-              autoClose
-              dismissible
-              label="Form saved!"
-              type="success"
-              onClose={() => {
-                setShowNotification(false);
-              }}
-            >
-              Saving your form was successful.
-            </Notification>
-          )}
-        </>
-      );
-    }
+            Saving your form was successful.
+          </Notification>
+        )}
+      </>
+    );
   }
   ```
 

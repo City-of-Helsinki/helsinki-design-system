@@ -18,12 +18,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<Notification label="New messages">You have received new messages.</Notification>
-<Notification label="Form done" type="success" style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
-<Notification label="Slow loading" type="alert" style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
-<Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
-</>
+import { Notification } from 'hds-react';
+
+() => (<>
+  <Notification label="New messages">You have received new messages.</Notification>
+  <Notification label="Form done" type="success" style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
+  <Notification label="Slow loading" type="alert" style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
+  <Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
+</>)
 ```
 
 ```html
@@ -77,7 +79,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { Notification, Button } from 'hds-react';
+
+() => {
   const [open, setOpen] = React.useState(false)
   const [autoCloseOpen, setAutoCloseOpen] = React.useState(false)
   const showButtonRef = React.useRef(null)
@@ -110,7 +114,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       )}
     </>
   )
-}}
+}
 ```
 
 ```html
@@ -135,11 +139,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<Notification size="large" label="New messages">You have received new messages.</Notification>
-<Notification size="default" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
-<Notification size="small" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
-</>
+import { Notification } from 'hds-react';
+
+() => (<>
+  <Notification size="large" label="New messages">You have received new messages.</Notification>
+  <Notification size="default" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
+  <Notification size="small" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
+</>)
 ```
 
 ```html
@@ -182,9 +188,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Notification label="New messages" invisible>
-  You have received new messages. This notification is invisible.
-</Notification>
+import { Notification } from 'hds-react';
+
+() => (
+  <Notification label="New messages" invisible>
+    You have received new messages. This notification is invisible.
+  </Notification>
+)
 ```
 
 ```html

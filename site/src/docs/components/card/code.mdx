@@ -20,10 +20,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { Card } from 'hds-react';
+
+() => (<>
   <Card />
   <Card border />
-</>
+</>)
 ```
 
 ```html
@@ -44,7 +46,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { Card } from 'hds-react';
+
+() => (<>
   <Card
     heading="Card"
     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -54,7 +58,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     heading="Card"
     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   />
-</>
+</>)
 ```
 
 ```html
@@ -90,7 +94,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { Card, Button } from 'hds-react';
+
+() => (<>
   <Card
     heading="Card"
     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -108,7 +114,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       Button
     </Button>
   </Card>
-</>
+</>)
 ```
 
 ```html

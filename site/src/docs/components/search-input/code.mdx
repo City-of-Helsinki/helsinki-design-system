@@ -18,15 +18,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<SearchInput 
-  label="Search" 
-  placeholder="Placeholder text"
-  helperText="Assistive text" 
-  searchButtonAriaLabel="Search" 
-  clearButtonAriaLabel="Clear search field"
-  onSubmit={submittedValue => console.log('Submitted value:', submittedValue)}
-  style={{ maxWidth: '320px' }}
-/>
+import { SearchInput } from 'hds-react';
+
+() => (
+  <SearchInput
+    label="Search"
+    placeholder="Placeholder text"
+    helperText="Assistive text"
+    searchButtonAriaLabel="Search"
+    clearButtonAriaLabel="Clear search field"
+    onSubmit={submittedValue => console.log('Submitted value:', submittedValue)}
+    style={{ maxWidth: '320px' }}
+  />
+)
 ```
 
 ```html
@@ -60,7 +64,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { SearchInput } from 'hds-react';
+
+() => {
   const fruits = ['Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut', 'Cranberry', 'Date', 'Dragonfruit', 'Fig', 'Gooseberry', 'Grape', 'Honeyberry', 'Jackfruit', 'Kiwifruit', 'Lemon', 'Lime', 'Mango', 'Melon', 'Nectarine', 'Orange', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Satsuma', 'Start fruit', 'Strawberry', 'Tangelo', 'Tomato'].map((fruit) => ({ value: fruit }));
   
   const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
@@ -83,7 +89,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       style={{ maxWidth: '320px' }}
     />
   );
-}}
+}
 ```
 
 </Playground>
@@ -93,7 +99,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { SearchInput } from 'hds-react';
+
+() => {
   const educations = ['Daycare education', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
   
   const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
@@ -119,7 +127,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       />
     </>
   );
-}}
+}
 ```
 
 </Playground>

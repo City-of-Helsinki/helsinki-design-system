@@ -21,7 +21,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<IconFaceSmile aria-hidden="true" />
+import { IconFaceSmile } from 'hds-react';
+
+() => <IconFaceSmile aria-hidden="true" />
 ```
 
 ```html
@@ -37,13 +39,15 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { IconFaceSmile } from 'hds-react';
+
+() => (<>
   <IconFaceSmile size="xs" aria-hidden="true" />
   <IconFaceSmile size="s" aria-hidden="true" />
   <IconFaceSmile size="m" aria-hidden="true" />
   <IconFaceSmile size="l" aria-hidden="true" />
   <IconFaceSmile size="xl" aria-hidden="true" />
-</>
+</>)
 ```
 
 ```html
@@ -64,7 +68,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<IconPlusCircle aria-label="Add an item" />
+import { IconPlusCircle } from 'hds-react';
+
+() => <IconPlusCircle aria-label="Add an item" />
 ```
 
 ```html

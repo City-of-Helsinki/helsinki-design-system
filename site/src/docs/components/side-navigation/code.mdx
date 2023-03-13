@@ -18,7 +18,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { SideNavigation } from 'hds-react';
+
+() => {
   const [active, setActive] = React.useState('/archive');
   const setActivePage = (e) => {
     e.preventDefault();
@@ -114,7 +116,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </SideNavigation>
     </div>
   </div>)
-}}
+}
 ```
 
 </Playground>
@@ -124,7 +126,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() =>  {
+import { SideNavigation } from 'hds-react';
+
+() => {
   const [active, setActive] = React.useState('/archive');
   const setActivePage = (e) => {
     e.preventDefault();
@@ -223,7 +227,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </SideNavigation>
     </div>
   </div>)
-}}
+}
 ```
 
 </Playground>

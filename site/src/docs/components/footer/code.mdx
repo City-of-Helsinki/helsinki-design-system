@@ -19,7 +19,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
- <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+
+() => (
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
     <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
         <Footer.Item label="Item" />
         <Footer.Item label="Item" />
@@ -49,6 +52,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
         <Footer.Item label="Link" />
       </Footer.Base>
   </Footer>
+)
 ```
 
 </Playground>
@@ -60,39 +64,41 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
-    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-    </Footer.Navigation>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-    </Footer.Base>
+import { Footer } from 'hds-react';
+
+() => (<>
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+      <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+      </Footer.Navigation>
+      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+      </Footer.Base>
+    </Footer>
+    <br />
+    <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
+      <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+          <Footer.Item label="Item" />
+      </Footer.Navigation>
+      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+      </Footer.Base>
   </Footer>
-  <br />
-  <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
-    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-        <Footer.Item label="Item" />
-    </Footer.Navigation>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-    </Footer.Base>
-</Footer>
-</>
+</>)
 ```
 
 
@@ -103,47 +109,49 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<Footer title="Default" footerAriaLabel="HDS Footer">
-  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-  </Footer.Navigation>
-</Footer>
-<br />
-<Footer title="Minimal" footerAriaLabel="HDS Footer">
-  <Footer.Navigation variant="minimal" navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-  </Footer.Navigation>
-</Footer>
-<br />
-<Footer title="Sitemap" footerAriaLabel="HDS Footer">
-  <Footer.Navigation variant="sitemap" navigationAriaLabel="HDS Footer navigation">
-    {[1, 2, 3, 4].map((key) =>
-       <Footer.ItemGroup key={key}>
-          <Footer.Item label="Item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-      </Footer.ItemGroup>
-    )}
-  </Footer.Navigation>
-</Footer>
-<br />
-<Footer title="Hidden" footerAriaLabel="HDS Footer" />
-</>
+import { Footer } from 'hds-react';
+
+() => (<>
+  <Footer title="Default" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+  </Footer>
+  <br />
+  <Footer title="Minimal" footerAriaLabel="HDS Footer">
+    <Footer.Navigation variant="minimal" navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+  </Footer>
+  <br />
+  <Footer title="Sitemap" footerAriaLabel="HDS Footer">
+    <Footer.Navigation variant="sitemap" navigationAriaLabel="HDS Footer navigation">
+      {[1, 2, 3, 4].map((key) =>
+         <Footer.ItemGroup key={key}>
+            <Footer.Item label="Item" />
+            <Footer.Item subItem label="Sub item" />
+            <Footer.Item subItem label="Sub item" />
+            <Footer.Item subItem label="Sub item" />
+            <Footer.Item subItem label="Sub item" />
+            <Footer.Item subItem label="Sub item" />
+            <Footer.Item subItem label="Sub item" />
+        </Footer.ItemGroup>
+      )}
+    </Footer.Navigation>
+  </Footer>
+  <br />
+  <Footer title="Hidden" footerAriaLabel="HDS Footer" />
+</>)
 ```
 
 

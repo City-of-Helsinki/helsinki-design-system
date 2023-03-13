@@ -18,20 +18,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Tag
-  aria-label="Category: News"
->
-  News
-</Tag>
+import { Tag } from 'hds-react';
 
-<Tag
-  aria-label="Category: Announcements" 
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</Tag>
-</>
+() => (<>
+  <Tag
+    aria-label="Category: News"
+  >
+    News
+  </Tag>
+
+  <Tag
+    aria-label="Category: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </Tag>
+</>)
 ```
 
 ```html
@@ -52,24 +54,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Tag 
-  role="link" 
-  onClick={() => {}} 
-  aria-label="Move to category: News"
->
-  News
-</Tag>
+import { Tag } from 'hds-react';
 
-<Tag 
-  role="link" 
-  onClick={() => {}} 
-  aria-label="Move to category: Announcements"
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</Tag>
-</>
+() => (<>
+  <Tag
+    role="link"
+    onClick={() => {}}
+    aria-label="Move to category: News"
+  >
+    News
+  </Tag>
+
+  <Tag
+    role="link"
+    onClick={() => {}}
+    aria-label="Move to category: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </Tag>
+</>)
 ```
 
 ```html
@@ -90,22 +94,24 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Tag 
-  onDelete={() => {}} 
-  deleteButtonAriaLabel="Delete filter: News"
->
-  News
-</Tag>
+import { Tag } from 'hds-react';
 
-<Tag 
-  onDelete={() => {}} 
-  deleteButtonAriaLabel="Delete filter: Announcements" 
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</Tag>
-</>
+() => (<>
+  <Tag
+    onDelete={() => {}}
+    deleteButtonAriaLabel="Delete filter: News"
+  >
+    News
+  </Tag>
+
+  <Tag
+    onDelete={() => {}}
+    deleteButtonAriaLabel="Delete filter: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </Tag>
+</>)
 ```
 
 ```html
@@ -132,20 +138,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<RoundedTagComponent
-  aria-label="Category: News"
->
-  News
-</RoundedTagComponent>
+import { RoundedTagComponent } from 'hds-react';
 
-<RoundedTagComponent
-  aria-label="Category: Announcements" 
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</RoundedTagComponent>
-</>
+() => (<>
+  <RoundedTagComponent
+    aria-label="Category: News"
+  >
+    News
+  </RoundedTagComponent>
+
+  <RoundedTagComponent
+    aria-label="Category: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </RoundedTagComponent>
+</>)
 ```
 
 ```html
@@ -166,24 +174,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<RoundedTagComponent 
-  role="link" 
-  onClick={() => {}} 
-  aria-label="Move to category: News"
->
-  News
-</RoundedTagComponent>
+import { RoundedTagComponent } from 'hds-react';
 
-<RoundedTagComponent 
-  role="link" 
-  onClick={() => {}} 
-  aria-label="Move to category: Announcements"
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</RoundedTagComponent>
-</>
+() => (<>
+  <RoundedTagComponent
+    role="link"
+    onClick={() => {}}
+    aria-label="Move to category: News"
+  >
+    News
+  </RoundedTagComponent>
+
+  <RoundedTagComponent
+    role="link"
+    onClick={() => {}}
+    aria-label="Move to category: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </RoundedTagComponent>
+</>)
 ```
 
 ```html
@@ -204,22 +214,24 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<RoundedTagComponent 
-  onDelete={() => {}} 
-  deleteButtonAriaLabel="Delete filter: News"
->
-  News
-</RoundedTagComponent>
+import { RoundedTagComponent } from 'hds-react';
 
-<RoundedTagComponent 
-  onDelete={() => {}} 
-  deleteButtonAriaLabel="Delete filter: Announcements" 
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</RoundedTagComponent>
-</>
+() => (<>
+  <RoundedTagComponent
+    onDelete={() => {}}
+    deleteButtonAriaLabel="Delete filter: News"
+  >
+    News
+  </RoundedTagComponent>
+
+  <RoundedTagComponent
+    onDelete={() => {}}
+    deleteButtonAriaLabel="Delete filter: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </RoundedTagComponent>
+</>)
 ```
 
 ```html
@@ -246,22 +258,24 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<LargeRoundedTag 
-  onDelete={() => {}} 
-  deleteButtonAriaLabel="Delete filter: News"
->
-  News
-</LargeRoundedTag>
+import { LargeRoundedTag } from 'hds-react';
 
-<LargeRoundedTag 
-  onDelete={() => {}} 
-  deleteButtonAriaLabel="Delete filter: Announcements" 
-  style={{ marginLeft: 'var(--spacing-s)' }}
->
-  Announcements
-</LargeRoundedTag>
-</>
+() => (<>
+  <LargeRoundedTag
+    onDelete={() => {}}
+    deleteButtonAriaLabel="Delete filter: News"
+  >
+    News
+  </LargeRoundedTag>
+
+  <LargeRoundedTag
+    onDelete={() => {}}
+    deleteButtonAriaLabel="Delete filter: Announcements"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Announcements
+  </LargeRoundedTag>
+</>)
 ```
 
 ```html

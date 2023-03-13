@@ -18,21 +18,25 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Navigation
-  title="Helsinki Design System"
-  menuToggleAriaLabel="menu"
-  skipTo="#content"
-  skipToContentLabel="Skip to content"
->
-  <Navigation.Row>
-    <Navigation.Item label="Item" active />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-  </Navigation.Row>
-</Navigation>
+import { Navigation } from 'hds-react';
+
+() => (
+  <Navigation
+    title="Helsinki Design System"
+    menuToggleAriaLabel="menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Row>
+      <Navigation.Item label="Item" active />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+    </Navigation.Row>
+  </Navigation>
+)
 ```
 
 </Playground>
@@ -42,18 +46,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Navigation
-  title="Helsinki Design System"
-  menuToggleAriaLabel="menu"
-  skipTo="#content"
-  skipToContentLabel="Skip to content"
->
-  <Navigation.Row variant="inline">
-    <Navigation.Item label="Item" active />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-  </Navigation.Row>
-</Navigation>
+import { Navigation } from 'hds-react';
+
+() => (
+  <Navigation
+    title="Helsinki Design System"
+    menuToggleAriaLabel="menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Row variant="inline">
+      <Navigation.Item label="Item" active />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+    </Navigation.Row>
+  </Navigation>
+)
 ```
 
 </Playground>
@@ -63,22 +71,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Navigation
-  title="Helsinki Design System"
-  menuToggleAriaLabel="menu"
-  skipTo="#content"
-  skipToContentLabel="Skip to content"
->
-  <Navigation.Actions>
-    <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
-    <Navigation.User label="Sign in" />
-    <Navigation.LanguageSelector label="FI">
-      <Navigation.Item href="#navigation-actions" lang="fi" label="Suomeksi" />
-      <Navigation.Item href="#navigation-actions" lang="sv" label="På svenska" />
-      <Navigation.Item href="#navigation-actions" lang="en" label="In English" />
-    </Navigation.LanguageSelector>
-  </Navigation.Actions>
-</Navigation>
+import { Navigation } from 'hds-react';
+
+() => (
+  <Navigation
+    title="Helsinki Design System"
+    menuToggleAriaLabel="menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Actions>
+      <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
+      <Navigation.User label="Sign in" />
+      <Navigation.LanguageSelector label="FI">
+        <Navigation.Item href="#navigation-actions" lang="fi" label="Suomeksi" />
+        <Navigation.Item href="#navigation-actions" lang="sv" label="På svenska" />
+        <Navigation.Item href="#navigation-actions" lang="en" label="In English" />
+      </Navigation.LanguageSelector>
+    </Navigation.Actions>
+  </Navigation>
+)
 ```
 
 </Playground>
@@ -88,34 +100,36 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<Navigation
-  title="Helsinki Design System"
-  menuToggleAriaLabel="menu"
-  skipTo="#content"
-  skipToContentLabel="Skip to content"
->
-  <Navigation.Row variant="inline">
-    <Navigation.Item label="Item" active />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-  </Navigation.Row>
-</Navigation>
-<br />
-<Navigation
-  theme="dark"
-  title="Helsinki Design System"
-  menuToggleAriaLabel="menu"
-  skipTo="#content"
-  skipToContentLabel="Skip to content"
->
-  <Navigation.Row variant="inline">
-    <Navigation.Item label="Item" active />
-    <Navigation.Item label="Item" />
-    <Navigation.Item label="Item" />
-  </Navigation.Row>
-</Navigation>
-</>
+import { Navigation } from 'hds-react';
+
+() => (<>
+  <Navigation
+    title="Helsinki Design System"
+    menuToggleAriaLabel="menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Row variant="inline">
+      <Navigation.Item label="Item" active />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+    </Navigation.Row>
+  </Navigation>
+  <br />
+  <Navigation
+    theme="dark"
+    title="Helsinki Design System"
+    menuToggleAriaLabel="menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Row variant="inline">
+      <Navigation.Item label="Item" active />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+    </Navigation.Row>
+  </Navigation>
+</>)
 ```
 
 </Playground>
