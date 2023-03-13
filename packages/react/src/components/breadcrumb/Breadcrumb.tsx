@@ -4,6 +4,7 @@ import 'hds-core';
 import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
+import classNames from '../../utils/classNames';
 
 export type BreadcrumbInfo = { title: string; path: string | null };
 export type BreadcrumbProps = { list: BreadcrumbInfo[]; label?: string };
@@ -19,10 +20,10 @@ const LinkItem = ({ item }: { item: BreadcrumbInfo }) => {
 const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) => {
   const isRightArrow = direction === 'right';
   const IconComponent = isRightArrow ? IconAngleRight : IconAngleLeft;
-  const classNames = isRightArrow ? styles.separator : styles.backArrow;
+  const classList = isRightArrow ? styles.separator : styles.backArrow;
   const size = isRightArrow ? 'xs' : 's';
   return (
-    <span className={classNames} aria-hidden>
+    <span className={classList} aria-hidden>
       <IconComponent size={size} />
     </span>
   );
@@ -35,7 +36,7 @@ const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSep
       {hasPath ? (
         <LinkItem item={item} />
       ) : (
-        <span aria-current className={styles.active}>
+        <span aria-current className={styles.activeListItem}>
           {item.title}
         </span>
       )}
@@ -46,7 +47,7 @@ const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSep
 
 const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
   return (
-    <div className={styles.mobileView}>
+    <div className={classNames(styles.list, styles.mobileList)}>
       <Separator direction="left" />
       <LinkItem item={item} />
     </div>
@@ -55,7 +56,7 @@ const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
 
 const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
   return (
-    <ol className={styles.breadcrumb}>
+    <ol className={classNames(styles.list, styles.desktopList)}>
       {list.map((item, index) => (
         <React.Fragment key={item.title}>
           <BreadcrumbItem key={item.title} item={item} showSeparator={index < list.length - 1} />
@@ -87,7 +88,7 @@ export const Breadcrumb = ({ list, label = 'Murupolku' }: BreadcrumbProps) => {
   }
 
   return (
-    <nav aria-label={label} className={styles.container}>
+    <nav aria-label={label} className={styles.breadcrumb}>
       <DesktopListView list={list} />
       <MobileView item={lastItemWithPath} />
     </nav>
