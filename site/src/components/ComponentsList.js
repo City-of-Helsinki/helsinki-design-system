@@ -10,9 +10,22 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Accordion component',
       linkAriaLabel: 'Go to the Accordion component page',
       href: '/components/accordion',
-      imgProps: { 
-        src: '/images/components/overview/accordion@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/accordion@2x.png',
         alt: 'An illustration of the Accordion component.',
+        height: 180,
+        width: 280,
+      },
+    },
+    {
+      name: 'Breadcrumb',
+      text: "Breadcrumb provides links back to each previous page and shows the user's current location on a website.",
+      linkboxAriaLabel: 'Breadcrumb component',
+      linkAriaLabel: 'Go to the Breadcrumb component page',
+      href: '/components/breadcrumb',
+      imgProps: {
+        src: '/images/components/overview/breadcrumbs@2x.png',
+        alt: 'An illustration of the Breadcrumb component.',
         height: 180,
         width: 280,
       },
@@ -23,8 +36,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Button component',
       linkAriaLabel: 'Go to the Button component page',
       href: '/components/buttons',
-      imgProps: { 
-        src: '/images/components/overview/button@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/button@2x.png',
         alt: 'An illustration of the Button component.',
         height: 180,
         width: 280,
@@ -36,8 +49,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Card component',
       linkAriaLabel: 'Go to the Card component page',
       href: '/components/card',
-      imgProps: { 
-        src: '/images/components/overview/card@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/card@2x.png',
         alt: 'An illustration of the Card component.',
         height: 180,
         width: 280,
@@ -49,8 +62,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Checkbox component',
       linkAriaLabel: 'Go to the Checkbox component page',
       href: '/components/checkbox',
-      imgProps: { 
-        src: '/images/components/overview/checkbox@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/checkbox@2x.png',
         alt: 'An illustration of the Checkbox component.',
         height: 180,
         width: 280,
@@ -62,8 +75,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'CookieConsent components',
       linkAriaLabel: 'Go to the CookieConsent components page',
       href: '/components/cookie-consent',
-      imgProps: { 
-        src: '/images/components/overview/cookieconsent@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/cookieconsent@2x.png',
         alt: 'An illustration of the CookieConsent component.',
         height: 180,
         width: 280,
@@ -75,8 +88,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'DateInput component',
       linkAriaLabel: 'Go to the DateInput component page',
       href: '/components/date-input',
-      imgProps: { 
-        src: '/images/components/overview/dateinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/dateinput@2x.png',
         alt: 'An illustration of the DateInput component.',
         height: 180,
         width: 280,
@@ -88,8 +101,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Dialog component',
       linkAriaLabel: 'Go to the Dialog component page',
       href: '/components/dialog',
-      imgProps: { 
-        src: '/images/components/overview/dialog@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/dialog@2x.png',
         alt: 'An illustration of the Dialog component.',
         height: 180,
         width: 280,
@@ -101,8 +114,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Dropdown component',
       linkAriaLabel: 'Go to the Dropdown component page',
       href: '/components/dropdown',
-      imgProps: { 
-        src: '/images/components/overview/dropdown@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/dropdown@2x.png',
         alt: 'An illustration of the Dropdown component.',
         height: 180,
         width: 280,
@@ -114,8 +127,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Fieldset component',
       linkAriaLabel: 'Go to the Fieldset component page',
       href: '/components/fieldset',
-      imgProps: { 
-        src: '/images/components/overview/fieldset@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/fieldset@2x.png',
         alt: 'An illustration of the Fieldset component.',
         height: 180,
         width: 280,
@@ -127,8 +140,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'FileInput component',
       linkAriaLabel: 'Go to the FileInput component page',
       href: '/components/file-input',
-      imgProps: { 
-        src: '/images/components/overview/fileinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/fileinput@2x.png',
         alt: 'An illustration of the FileInput component.',
         height: 180,
         width: 280,
@@ -140,8 +153,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Footer component',
       linkAriaLabel: 'Go to the Footer component page',
       href: '/components/footer',
-      imgProps: { 
-        src: '/images/components/overview/footer@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/footer@2x.png',
         alt: 'An illustration of the Footer component.',
         height: 180,
         width: 280,
@@ -153,8 +166,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Icon component',
       linkAriaLabel: 'Go to the Icon component page',
       href: '/components/icon',
-      imgProps: { 
-        src: '/images/components/overview/icon@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/icon@2x.png',
         alt: 'An illustration of the Icon component.',
         height: 180,
         width: 280,
@@ -166,8 +179,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Koros component',
       linkAriaLabel: 'Go to the Koros component page',
       href: '/components/koros',
-      imgProps: { 
-        src: '/images/components/overview/koros@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/koros@2x.png',
         alt: 'An illustration of the Koros component.',
         height: 180,
         width: 280,
@@ -179,8 +192,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Link component',
       linkAriaLabel: 'Go to the Link component page',
       href: '/components/link',
-      imgProps: { 
-        src: '/images/components/overview/link@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/link@2x.png',
         alt: 'An illustration of the Link component.',
         height: 180,
         width: 280,
@@ -192,8 +205,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Linkbox component',
       linkAriaLabel: 'Go to the Linkbox component page',
       href: '/components/linkbox',
-      imgProps: { 
-        src: '/images/components/overview/linkbox@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/linkbox@2x.png',
         alt: 'An illustration of the Linkbox component.',
         height: 180,
         width: 280,
@@ -205,8 +218,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'LoadingSpinner component',
       linkAriaLabel: 'Go to the LoadingSpinner component page',
       href: '/components/loading-spinner',
-      imgProps: { 
-        src: '/images/components/overview/loadingspinner@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/loadingspinner@2x.png',
         alt: 'An illustration of the LoadingSpinner component.',
         height: 180,
         width: 280,
@@ -218,8 +231,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Logo component',
       linkAriaLabel: 'Go to the Logo component page',
       href: '/components/logo',
-      imgProps: { 
-        src: '/images/components/overview/logo@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/logo@2x.png',
         alt: 'An illustration of the Logo component.',
         height: 180,
         width: 280,
@@ -231,8 +244,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Navigation component',
       linkAriaLabel: 'Go to the Navigation component page',
       href: '/components/navigation',
-      imgProps: { 
-        src: '/images/components/overview/navigation@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/navigation@2x.png',
         alt: 'An illustration of the Navigation component.',
         height: 180,
         width: 280,
@@ -244,8 +257,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Notification component',
       linkAriaLabel: 'Go to the Notification component page',
       href: '/components/notification',
-      imgProps: { 
-        src: '/images/components/overview/notification@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/notification@2x.png',
         alt: 'An illustration of the Notification component.',
         height: 180,
         width: 280,
@@ -257,8 +270,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'NumberInput component',
       linkAriaLabel: 'Go to the NumberInput component page',
       href: '/components/number-input',
-      imgProps: { 
-        src: '/images/components/overview/numberinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/numberinput@2x.png',
         alt: 'An illustration of the NumberInput component.',
         height: 180,
         width: 280,
@@ -270,8 +283,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Pagination component',
       linkAriaLabel: 'Go to the Pagination component page',
       href: '/components/pagination',
-      imgProps: { 
-        src: '/images/components/overview/pagination@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/pagination@2x.png',
         alt: 'An illustration of the Pagination component.',
         height: 180,
         width: 280,
@@ -283,8 +296,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'PasswordInput component',
       linkAriaLabel: 'Go to the PasswordInput component page',
       href: '/components/password-input',
-      imgProps: { 
-        src: '/images/components/overview/passwordinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/passwordinput@2x.png',
         alt: 'An illustration of the PasswordInput component.',
         height: 180,
         width: 280,
@@ -296,8 +309,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'PhoneInput component',
       linkAriaLabel: 'Go to the PhoneInput component page',
       href: '/components/phone-input',
-      imgProps: { 
-        src: '/images/components/overview/phoneinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/phoneinput@2x.png',
         alt: 'An illustration of the PhoneInput component.',
         height: 180,
         width: 280,
@@ -309,8 +322,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'RadioButton component',
       linkAriaLabel: 'Go to the RadioButton component page',
       href: '/components/radio-button',
-      imgProps: { 
-        src: '/images/components/overview/radiobutton@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/radiobutton@2x.png',
         alt: 'An illustration of the RadioButton component.',
         height: 180,
         width: 280,
@@ -322,8 +335,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'SearchInput component',
       linkAriaLabel: 'Go to the SearchInput component page',
       href: '/components/search-input',
-      imgProps: { 
-        src: '/images/components/overview/searchinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/searchinput@2x.png',
         alt: 'An illustration of the SearchInput component.',
         height: 180,
         width: 280,
@@ -335,8 +348,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'SelectionGroup component',
       linkAriaLabel: 'Go to the SelectionGroup component page',
       href: '/components/selection-group',
-      imgProps: { 
-        src: '/images/components/overview/selectiongroup@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/selectiongroup@2x.png',
         alt: 'An illustration of the SelectionGroup component.',
         height: 180,
         width: 280,
@@ -348,8 +361,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'SideNavigation component',
       linkAriaLabel: 'Go to the SideNavigation component page',
       href: '/components/side-navigation',
-      imgProps: { 
-        src: '/images/components/overview/sidenavigation@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/sidenavigation@2x.png',
         alt: 'An illustration of the SideNavigation component.',
         height: 180,
         width: 280,
@@ -361,8 +374,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'StatusLabel component',
       linkAriaLabel: 'Go to the StatusLabel component page',
       href: '/components/status-label',
-      imgProps: { 
-        src: '/images/components/overview/statuslabel@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/statuslabel@2x.png',
         alt: 'An illustration of the StatusLabel component.',
         height: 180,
         width: 280,
@@ -374,8 +387,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Stepper component',
       linkAriaLabel: 'Go to the Stepper component page',
       href: '/components/stepper',
-      imgProps: { 
-        src: '/images/components/overview/stepper@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/stepper@2x.png',
         alt: 'An illustration of the Stepper component.',
         height: 180,
         width: 280,
@@ -387,8 +400,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Table component',
       linkAriaLabel: 'Go to the Table component page',
       href: '/components/table',
-      imgProps: { 
-        src: '/images/components/overview/table@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/table@2x.png',
         alt: 'An illustration of the Table component.',
         height: 180,
         width: 280,
@@ -400,8 +413,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Tabs component',
       linkAriaLabel: 'Go to the Tabs component page',
       href: '/components/tabs',
-      imgProps: { 
-        src: '/images/components/overview/tabs@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/tabs@2x.png',
         alt: 'An illustration of the Tabs component.',
         height: 180,
         width: 280,
@@ -413,8 +426,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Tag component',
       linkAriaLabel: 'Go to the Tag component page',
       href: '/components/tag',
-      imgProps: { 
-        src: '/images/components/overview/tag@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/tag@2x.png',
         alt: 'An illustration of the Tag component.',
         height: 180,
         width: 280,
@@ -426,8 +439,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'TextArea component',
       linkAriaLabel: 'Go to the TextArea component page',
       href: '/components/text-area',
-      imgProps: { 
-        src: '/images/components/overview/textarea@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/textarea@2x.png',
         alt: 'An illustration of the TextArea component.',
         height: 180,
         width: 280,
@@ -439,8 +452,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'TextInput component',
       linkAriaLabel: 'Go to the TextInput component page',
       href: '/components/text-input',
-      imgProps: { 
-        src: '/images/components/overview/textinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/textinput@2x.png',
         alt: 'An illustration of the TextInput component.',
         height: 180,
         width: 280,
@@ -452,8 +465,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'TimeInput component',
       linkAriaLabel: 'Go to the TimeInput component page',
       href: '/components/time-input',
-      imgProps: { 
-        src: '/images/components/overview/timeinput@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/timeinput@2x.png',
         alt: 'An illustration of the TimeInput component.',
         height: 180,
         width: 280,
@@ -465,8 +478,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'ToggleButton component',
       linkAriaLabel: 'Go to the ToggleButton component page',
       href: '/components/toggle-button',
-      imgProps: { 
-        src: '/images/components/overview/togglebutton@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/togglebutton@2x.png',
         alt: 'An illustration of the ToggleButton component.',
         height: 180,
         width: 280,
@@ -478,8 +491,8 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Tooltip component',
       linkAriaLabel: 'Go to the Tooltip component page',
       href: '/components/tooltip',
-      imgProps: { 
-        src: '/images/components/overview/tooltip@2x.png', 
+      imgProps: {
+        src: '/images/components/overview/tooltip@2x.png',
         alt: 'An illustration of the Tooltip component.',
         height: 180,
         width: 280,
