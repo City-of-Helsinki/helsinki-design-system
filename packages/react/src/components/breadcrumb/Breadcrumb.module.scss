@@ -1,74 +1,34 @@
 @value medium-up from "../../styles/breakpoints.css";
 
-.container {
-  display: flex;
-  // margins added to match margins in menu above the breadcrumb
-  // this can be removed, if container provides spacing
-  margin-left: var(--spacing-xs);
-  margin-right: var(--spacing-xs);
-  padding: var(--spacing-s) 0;
-}
-
-.mobileView {
-  display: flex;
-}
-
 .breadcrumb {
-  display: none;
+  composes: hds-breadcrumb from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
 }
-
-.mobileView,
-.breadcrumb {
-  flex-direction: row;
-  align-items: center;
-  word-wrap: break-word;
+.list {
+  composes: hds-breadcrumb__list from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
 }
-
+.mobileList {
+  composes: hds-breadcrumb__list--mobile from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+.desktopList {
+  composes: hds-breadcrumb__list--desktop from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
 .listItem {
-  align-items: center;
-  display: flex;
-  line-height: var(--lineheight-l);
-  .active {
-    font-weight: 700;
-    // to match 3px border around links
-    padding: 3px;
-  }
+  composes: hds-breadcrumb__list-item from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
 }
-
+.activeListItem {
+  composes: hds-breadcrumb__list-item--active from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
 .link {
-  --link-visited-color: none;
-  --link-color: var(--color-black-90);
-  &:hover,
-  &:focus {
-    text-decoration-color: var(--color-black-90);
-  }
+  composes: hds-breadcrumb__link from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
 }
-
-.mobileView .link {
-  font-size: var(--fontsize-body-l);
-}
-
 .backArrow {
-  display: inline-flex;
-  // compensate the white space in the icon
-  margin-left: -5px;
-  margin-right: -3px;
+  composes: hds-breadcrumb__back-arrow from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
 }
-
 .separator {
-  display: inline-flex;
-  padding-left: var(--spacing-3-xs);
+  composes: hds-breadcrumb__separator from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
 }
-
-@media medium-up {
-  .mobileView {
-    display: none;
-  }
-  .breadcrumb {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+/* icon is aligned differently in the svg itself */
+.separator.separator {
+  padding-left: 2px;
+  padding-right: 2px;
 }
