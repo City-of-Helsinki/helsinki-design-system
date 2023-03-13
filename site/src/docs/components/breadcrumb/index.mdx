@@ -1,0 +1,34 @@
+---
+slug: '/components/breadcrumb'
+title: 'Breadcrumb'
+navTitle: 'Breadcrumb'
+---
+
+import { IconDocument, IconPhone, IconEnvelope, IconPhoto, Breadcrumb } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Breadcrumb
+    list={[
+      { title: 'Front page', path: '/' },
+      { title: 'Health and social services', path: '/path' },
+      { title: 'Senior services', path: '/path/2ndLevelPath' },
+      { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+      { title: 'Care options', path: null },
+    ]}
+  />
+</PlaygroundPreview>
+
+### Principles
+
+- The breadcrumb may show the current page as the last item on the list. The current page should not be a link.
+- The mobile version shows only one item which is a link to one step upward in the path.
+- If there are no links to parent pages, breadcrumb should not be visible.
