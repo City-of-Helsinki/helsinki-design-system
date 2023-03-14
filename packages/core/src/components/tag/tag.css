@@ -48,7 +48,7 @@
   padding-left:  var(--tag-padding);
 }
 
-.hds-tag--rounded-corners > button {
+.hds-tag--rounded-corners .hds-tag__delete-button {
   padding-right: calc(var(--tag-padding) / 2);
 }
 
