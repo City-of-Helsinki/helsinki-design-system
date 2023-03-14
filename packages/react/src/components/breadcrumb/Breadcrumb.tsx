@@ -6,10 +6,10 @@ import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import classNames from '../../utils/classNames';
 
-export type BreadcrumbInfo = { title: string; path: string | null };
-export type BreadcrumbProps = { list: BreadcrumbInfo[]; label?: string };
+export type BreadcrumbListItem = { title: string; path: string | null };
+export type BreadcrumbProps = { list: BreadcrumbListItem[]; label?: string };
 
-const LinkItem = ({ item }: { item: BreadcrumbInfo }) => {
+const LinkItem = ({ item }: { item: BreadcrumbListItem }) => {
   return (
     <Link href={item.path} className={styles.link}>
       {item.title}
@@ -29,7 +29,7 @@ const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) =>
   );
 };
 
-const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSeparator: boolean }) => {
+const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbListItem; showSeparator: boolean }) => {
   const hasPath = item.path !== null;
   return (
     <li className={styles.listItem}>
@@ -45,7 +45,7 @@ const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSep
   );
 };
 
-const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
+const MobileView = ({ item }: { item: BreadcrumbListItem }) => {
   return (
     <div className={classNames(styles.list, styles.mobileList)}>
       <Separator direction="left" />
@@ -54,7 +54,7 @@ const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
   );
 };
 
-const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
+const DesktopListView = ({ list }: { list: BreadcrumbListItem[] }) => {
   return (
     <ol className={classNames(styles.list, styles.desktopList)}>
       {list.map((item, index) => (
@@ -66,7 +66,7 @@ const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
   );
 };
 
-const getLastItemWithPath = (list: BreadcrumbInfo[]): BreadcrumbInfo | undefined => {
+const getLastItemWithPath = (list: BreadcrumbListItem[]): BreadcrumbListItem | undefined => {
   return list.reduceRight((currentValue, currentItem) => {
     if (currentValue) {
       return currentValue;
