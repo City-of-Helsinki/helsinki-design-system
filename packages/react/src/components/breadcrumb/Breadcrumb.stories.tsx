@@ -12,12 +12,11 @@ export default {
   },
   args: {
     list: [
-      { title: 'Helsinki', path: '/' },
-      { title: 'Nuorten Helsinki', path: '/nuoret' },
-      { title: 'Hyvinvointi ja mielenterveysneuvonta ', path: '/nuoret/hyvinvointi' },
-      { title: 'Opiskelijan kehon- ja mielenhuolto-opas', path: '/nuoret/hyvinvointi/opiskelijat' },
-      { title: 'Kaikki Helsingin kaupungin tarpeelliset linkit', path: '/nuoret/hyvinvointi/opiskelijat/linkit' },
-      { title: 'Tämänhetkisen sivun pitkä otsikko', path: null },
+      { title: 'Front page', path: '/' },
+      { title: 'Health and social services', path: '/path' },
+      { title: 'Senior services ', path: '/path/2ndLevelPath' },
+      { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+      { title: 'Care options', path: null },
     ],
   },
 };
@@ -84,10 +83,11 @@ export const LastItemIsLink = (args) => (
   <Breadcrumb
     {...args}
     list={[
-      { title: 'Home', path: '/' },
-      { title: 'Level 1', path: '/level1' },
-      { title: 'Level 2', path: '/level1/level2' },
-      { title: 'Level 3', path: '/level1/level2/level3' },
+      { title: 'Front page', path: '/' },
+      { title: 'Health and social services', path: '/path' },
+      { title: 'Senior services ', path: '/path/2ndLevelPath' },
+      { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+      { title: 'Care options', path: '/path/2ndLevelPath/3rdLevelPath/currentPage' },
     ]}
   />
 );
