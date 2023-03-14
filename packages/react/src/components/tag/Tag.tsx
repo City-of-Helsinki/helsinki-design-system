@@ -69,6 +69,9 @@ export type TagProps = {
 const ROUNDED_CORNERS_CLASS_NAME = 'tag-rounded-corners';
 const ROUNDED_CORNERS_LARGE_CLASS_NAME = 'tag-rounded-corners-large';
 
+/**
+ * The RoundedTag component will replace Tag component in the next major release.
+ */
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {
@@ -132,10 +135,18 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
   },
 );
 
+/**
+ * RoundedTag will be removed in the next major release and replace Tag component. This means the Tag component will have rounded corners by default.
+ * @deprecated
+ */
 export const RoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
   <Tag className={classNames(styles[ROUNDED_CORNERS_CLASS_NAME], className)} {...props} ref={ref} />
 ));
 
+/**
+ * LargeRoundedTag will be removed in the next major release. It will be supported via the default Tag component with the size property.
+ * @deprecated
+ */
 export const LargeRoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
   <Tag
     className={classNames(styles[ROUNDED_CORNERS_LARGE_CLASS_NAME], styles[ROUNDED_CORNERS_CLASS_NAME], className)}
