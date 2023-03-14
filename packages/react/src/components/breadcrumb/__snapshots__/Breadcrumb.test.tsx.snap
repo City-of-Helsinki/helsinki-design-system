@@ -4,10 +4,10 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
 <DocumentFragment>
   <nav
     aria-label="Murupolku"
-    class="container"
+    class="breadcrumb"
   >
     <ol
-      class="breadcrumb"
+      class="list desktopList"
     >
       <li
         class="listItem"
@@ -149,14 +149,15 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         class="listItem"
       >
         <span
-          class="active"
+          aria-current="true"
+          class="activeListItem"
         >
           Current
         </span>
       </li>
     </ol>
     <div
-      class="mobileView"
+      class="list mobileList"
     >
       <span
         aria-hidden="true"
