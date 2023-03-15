@@ -22,6 +22,8 @@
 .deleteButton {
   @extend %buttonReset;
   @extend %deleteButton;
+
+  composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
 }
 
 .visuallyHidden {
