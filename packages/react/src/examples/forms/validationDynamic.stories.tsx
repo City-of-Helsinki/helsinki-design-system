@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-console */
-import React, { FormEvent, useRef, useState } from 'react';
-// import { FormikValues, useFormik } from 'formik';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -24,25 +23,20 @@ import './validation.scss';
 const cities = getCitites();
 
 export const Dynamic = () => {
-  /**
-   * Form submitted state
-   */
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  /**
-   * Ref to set dateInput field dirty to help with validation.
-   */
-  const dateInputIsDirty = useRef(false);
-
   const validationSchema = Yup.object()
     .shape({
       firstName: Yup.string().required('Please enter your first name'),
       lastName: Yup.string().required('Please enter your last name'),
       city: Yup.string().required('Please select your city of residence'),
       postalCode: Yup.string()
+        .required('Please enter your postal code')
         .matches(/^\d+$/, 'Postal code can only contain numbers')
-        .length(5, 'Postal code needs to contain 5 numbers')
-        .required('Please enter your postal code'),
+        .length(5, 'Postal code needs to contain 5 numbers'),
       email: Yup.string().email('Please check the email address format').required('Please enter your email address'),
+      phoneNumber: Yup.string().matches(/^[+][0-9]*$/, {
+        message: 'Please enter the phone number in international mobile phone number format.',
+        excludeEmptyString: true,
+      }),
       registerPlate: Yup.string()
         .matches(/^\w{2,3}-\d{1,3}$/, 'Register plate number must include 2-3 letters, a hyphen and 1-3 numbers.')
         .required('Please enter a register plate number'),
@@ -51,16 +45,14 @@ export const Dynamic = () => {
       parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
       permitEndDate: Yup.string().when('parkingPeriod', {
         is: 'temporary',
-        then: Yup.string()
-          .required('Please enter a permit end date')
-          .test('is-date', (value, { createError, path }) => {
+        then: (schema) =>
+          schema.required('Please enter a permit end date').test('is-date', (value, { createError, path }) => {
             if (!isValidDate(value)) {
               return createError({
                 path,
                 message: 'Please enter a permit end date in DD.MM.YYYY format',
               });
             }
-
             const selectedDate = parse(value, 'd.M.yyyy', new Date());
 
             if (isBefore(selectedDate, startOfDay(new Date()))) {
@@ -71,13 +63,9 @@ export const Dynamic = () => {
             }
             return true;
           }),
-        otherwise: Yup.string(),
+        otherwise: (schema) => schema,
       }),
       acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
-      phoneNumber: Yup.string().matches(
-        /^[+][0-9]*$/,
-        'Please enter the phone number in international mobile phone number format.',
-      ),
     })
     .required();
 
@@ -86,73 +74,78 @@ export const Dynamic = () => {
     lastName: string;
     city: string;
     postalCode: string;
+    phoneNumber: string;
     email: string;
     registerPlate: string;
     brand: string;
     model: string;
     parkingPeriod: string;
     permitEndDate: string;
+    additionalRequests: string;
     acceptTerms: boolean;
-    phoneNumber: string;
   };
 
   const {
     register,
     handleSubmit,
-    watch,
+    setValue,
+    getValues,
+    reset,
+    trigger,
+    // resetField,
     formState: { errors },
-  } = useForm<FormData>({ resolver: yupResolver(validationSchema) });
+  } = useForm<FormData>({
+    mode: 'onTouched',
+    defaultValues: {
+      parkingPeriod: 'continuous',
+      acceptTerms: false,
+    },
+    resolver: yupResolver(validationSchema),
+  });
 
-  /**
-   * Get the error message for a single field
-   */
-  // const getErrorMessage = (fieldName: string) => {
-  //   return (formik.touched[fieldName] || isSubmitted) && formik.errors[fieldName];
-  // };
+  const handleChange = (name, value) => {
+    setValue(name, value, { shouldTouch: true, shouldValidate: true });
+  };
 
   /**
    * Get the success message for a single field
    */
-  // const getSuccessMessage = (fieldName: string) => {
-  //   if (fieldName === 'registerPlate') {
-  //     return formik.touched[fieldName] && !formik.errors[fieldName] ? 'Register plate number is valid' : undefined;
-  //   }
-  //   return null;
-  // };
-
-  /**
-   * Get the focusable field id
-   */
-  const getFocusableFieldId = (fieldName: string): string => {
-    // For the city select element, focus the toggle button
-    if (fieldName === 'city') {
-      return `${fieldName}-toggle-button`;
+  const getSuccessMessage = (fieldName: string) => {
+    if (fieldName === 'registerPlate') {
+      return getValues('registerPlate') && errors?.registerPlate === undefined
+        ? 'Register plate number is valid'
+        : undefined;
     }
-    return fieldName;
+    return undefined;
   };
 
   /**
    * Handle form submit
    */
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    // formik.validateForm().then((errors) => {
-    //   // Focus the first invalid field
-    //   const invalidFields = Object.keys(errors);
-    //   if (invalidFields.length > 0) {
-    //     const firstFieldId = getFocusableFieldId(invalidFields[0]);
-    //     document.getElementById(firstFieldId).focus();
-    //   } else {
-    //     formik.submitForm();
-    //   }
-    // });
+  const onSubmitHandler = (data) => {
+    console.log({ data });
+    reset();
   };
+
+  React.useEffect(() => {
+    // check for city and if it's the 1st -> focus
+    if (errors?.city) {
+      const invalidFields = Object.keys(errors);
+      if (invalidFields[0] === 'city') {
+        const element = document.getElementById('city-toggle-button');
+        if (element) {
+          setTimeout(() => {
+            element.focus();
+          }, 10);
+        }
+      }
+    }
+  }, [errors]);
 
   return (
     <div className="hds-example-form">
       <h1 className="hds-example-form__main-title">Dynamic form validation example</h1>
-      <form onSubmit={onSubmit} noValidate>
+      <form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
         <h2 className="hds-example-form__title">Residental parking permit application</h2>
         <div className="hds-example-form__required-info">All fields marked with * are required</div>
         <div className="hds-example-form__section">
@@ -160,30 +153,26 @@ export const Dynamic = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <TextInput
+                {...register('firstName')}
                 id="firstName"
                 name="firstName"
                 label="First name"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.firstName}
-                // invalid={!!getErrorMessage('firstName')}
-                // aria-invalid={!!getErrorMessage('firstName')}
-                // errorText={getErrorMessage('firstName')}
+                invalid={!!errors.firstName?.message}
+                aria-invalid={!!errors.firstName?.message}
+                errorText={errors.firstName?.message}
                 autoComplete="given-name"
                 required
               />
             </div>
             <div className="hds-example-form__item">
               <TextInput
+                {...register('lastName')}
                 id="lastName"
                 name="lastName"
                 label="Last name"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.lastName}
-                // invalid={!!getErrorMessage('lastName')}
-                // aria-invalid={!!getErrorMessage('lastName')}
-                // errorText={getErrorMessage('lastName')}
+                invalid={!!errors.lastName?.message}
+                aria-invalid={!!errors.lastName?.message}
+                errorText={errors.lastName?.message}
                 autoComplete="family-name"
                 required
               />
@@ -196,30 +185,29 @@ export const Dynamic = () => {
                 label="City"
                 optionLabelField="label"
                 options={cities}
-                // onChange={(selected: CityOptionType) => {
-                //   formik.setFieldValue('city', selected ? selected.label : '');
-                // }}
-                // onBlur={() => {
-                //   formik.handleBlur({ target: { name: 'city' } });
-                // }}
-                // defaultValue={{ label: formik.values.city }}
+                onChange={(selected: CityOptionType) => {
+                  handleChange('city', selected ? selected.label : '');
+                }}
+                defaultValue={{ label: getValues('city') }}
                 toggleButtonAriaLabel="Toggle"
-                // invalid={!!getErrorMessage('city')}
-                // error={getErrorMessage('city')}
+                invalid={!!errors.city?.message}
+                error={errors.city?.message}
                 required
+                value={{ label: getValues('city') ? getValues('city') : '' }}
+                onBlur={() => {
+                  trigger('city');
+                }}
               />
             </div>
             <div className="hds-example-form__item">
               <TextInput
+                {...register('postalCode')}
                 id="postalCode"
                 name="postalCode"
                 label="Postal code"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.postalCode}
-                // invalid={!!getErrorMessage('postalCode')}
-                // aria-invalid={!!getErrorMessage('postalCode')}
-                // errorText={getErrorMessage('postalCode')}
+                invalid={!!errors.postalCode?.message}
+                aria-invalid={!!errors.postalCode?.message}
+                errorText={errors.postalCode?.message}
                 autoComplete="postal-code"
                 required
               />
@@ -227,15 +215,13 @@ export const Dynamic = () => {
           </div>
           <div className="hds-example-form__item">
             <TextInput
+              {...register('email')}
               id="email"
               name="email"
               label="Email address"
-              // onChange={formik.handleChange}
-              // onBlur={formik.handleBlur}
-              // value={formik.values.email}
-              // invalid={!!getErrorMessage('email')}
-              // aria-invalid={!!getErrorMessage('email')}
-              // errorText={getErrorMessage('email')}
+              invalid={!!errors.email?.message}
+              aria-invalid={!!errors.email?.message}
+              errorText={errors.email?.message}
               autoComplete="email"
               required
               tooltipButtonLabel="Tooltip: Email address"
@@ -245,18 +231,16 @@ export const Dynamic = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <PhoneInput
+                {...register('phoneNumber')}
                 id="phoneNumber"
                 name="phoneNumber"
                 label="Phone number"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
                 pattern="[+][0-9]"
                 helperText="Use international mobile number format, e.g. +358401234567"
-                // value={formik.values.phoneNumber}
-                // invalid={!!getErrorMessage('phoneNumber')}
-                // aria-invalid={!!getErrorMessage('phoneNumber')}
-                // errorText={getErrorMessage('phoneNumber')}
-                // successText={getSuccessMessage ? getSuccessMessage('phoneNumber') : undefined}
+                invalid={!!errors.phoneNumber?.message}
+                aria-invalid={!!errors.phoneNumber?.message}
+                errorText={errors.phoneNumber?.message}
+                successText={getSuccessMessage('phoneNumber')}
               />
             </div>
           </div>
@@ -266,50 +250,45 @@ export const Dynamic = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <TextInput
+                {...register('registerPlate')}
                 id="registerPlate"
                 name="registerPlate"
                 label="Register plate number"
                 placeholder="E.g. ABC-123"
                 helperText="Use format XXX-NNN"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.registerPlate}
-                // invalid={!!getErrorMessage('registerPlate')}
-                // aria-invalid={!!getErrorMessage('registerPlate')}
-                // errorText={getErrorMessage('registerPlate')}
-                // successText={getSuccessMessage ? getSuccessMessage('registerPlate') : undefined}
+                invalid={!!errors.registerPlate?.message}
+                aria-invalid={!!errors.registerPlate?.message}
+                errorText={errors.registerPlate?.message}
+                successText={getSuccessMessage('registerPlate')}
                 required
+                onBlur={() => trigger('registerPlate')}
               />
             </div>
           </div>
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <TextInput
+                {...register('brand')}
                 id="brand"
                 name="brand"
                 label="Vehicle brand"
                 placeholder="E.g. Skoda"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.brand}
-                // invalid={!!getErrorMessage('brand')}
-                // aria-invalid={!!getErrorMessage('brand')}
-                // errorText={getErrorMessage('brand')}
+                invalid={!!errors.brand?.message}
+                aria-invalid={!!errors.brand?.message}
+                errorText={errors.brand?.message}
                 required
               />
             </div>
             <div className="hds-example-form__item">
               <TextInput
+                {...register('model')}
                 id="model"
                 name="model"
                 label="Vehicle model"
                 placeholder="E.g. Octavia"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.model}
-                // invalid={!!getErrorMessage('model')}
-                // aria-invalid={!!getErrorMessage('model')}
-                // errorText={getErrorMessage('model')}
+                invalid={!!errors.model?.message}
+                aria-invalid={!!errors.model?.message}
+                errorText={errors.model?.message}
                 required
               />
             </div>
@@ -319,75 +298,60 @@ export const Dynamic = () => {
           <h3 className="hds-example-form__section-title">Parking information</h3>
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
-              <SelectionGroup
-                label="Parking period"
-                direction="horizontal"
-                required
-                // errorText={getErrorMessage('parkingPeriod')}
-              >
+              <SelectionGroup label="Parking period" direction="horizontal" required>
                 <RadioButton
+                  {...register('parkingPeriod')}
                   id="parkingPeriodContinuous"
                   name="parkingPeriod"
                   value="continuous"
                   label="Continuous"
-                  // onChange={(e) => {
-                  //   formik.handleChange(e);
-                  //   formik.resetForm({ ...formik.values, permitEndDate: '' } as FormikValues);
-                  // }}
-                  // onBlur={formik.handleBlur}
-                  // checked={formik.values.parkingPeriod === 'continuous'}
+                  checked={getValues('parkingPeriod') === 'continuous'}
+                  onChange={() => {
+                    handleChange('parkingPeriod', 'continuous');
+                    setValue('permitEndDate', '');
+                  }}
                 />
                 <RadioButton
+                  {...register('parkingPeriod')}
                   id="parkingPeriodTemporary"
                   name="parkingPeriod"
                   value="temporary"
                   label="Temporary"
-                  // onChange={formik.handleChange}
-                  // onBlur={formik.handleBlur}
-                  // checked={formik.values.parkingPeriod === 'temporary'}
+                  checked={getValues('parkingPeriod') === 'temporary'}
+                  onChange={() => handleChange('parkingPeriod', 'temporary')}
                 />
               </SelectionGroup>
             </div>
-            {/* {formik.values.parkingPeriod === 'temporary' && (
+            {getValues('parkingPeriod') === 'temporary' && (
               <div className="hds-example-form__item">
                 <DateInput
+                  {...register('permitEndDate')}
                   id="permitEndDate"
                   name="permitEndDate"
                   label="Permit end date"
                   helperText="Use format DD.MM.YYYY"
                   minDate={new Date()}
-                  onChange={(value) => {
-                    dateInputIsDirty.current = true;
-                    formik.setFieldValue('permitEndDate', value || '');
+                  onChange={(e) => {
+                    handleChange('permitEndDate', e);
                   }}
-                  onBlur={() => {
-                    if (dateInputIsDirty.current) {
-                      formik.handleBlur({ target: { name: 'permitEndDate' } });
-                    }
-                  }}
-                  value={formik.values.permitEndDate}
-                  invalid={!!getErrorMessage('permitEndDate')}
-                  aria-invalid={!!getErrorMessage('permitEndDate')}
-                  errorText={getErrorMessage('permitEndDate')}
+                  value={getValues('permitEndDate')}
+                  invalid={!!errors.permitEndDate?.message}
+                  aria-invalid={!!errors.permitEndDate?.message}
+                  errorText={errors.permitEndDate?.message}
                   required
                   tooltipButtonLabel="Tooltip: Permit end date"
                   tooltipText="This is the last date you need the permit to be active. The permit will expire at the inputted date at 23:59 o'clock."
                 />
               </div>
-            )} */}
+            )}
           </div>
           <div className="hds-example-form__item">
             <TextArea
+              {...register('additionalRequests')}
               id="additionalRequests"
               name="additionalRequests"
               label="Additional requests"
               placeholder="E.g. Request for a parking space near a specific location"
-              // onChange={formik.handleChange}
-              // onBlur={formik.handleBlur}
-              // value={formik.values.additionalRequests}
-              // invalid={!!getErrorMessage('additionalRequests')}
-              // aria-invalid={!!getErrorMessage('additionalRequests')}
-              // errorText={getErrorMessage('additionalRequests')}
               tooltipButtonLabel="Tooltip: Additional requests"
               tooltipText="Here you may leave extra requests regarding the parking space. For example, you may request space near a specific location. If you have a large vehicle, you may request a larger space."
             />
@@ -396,15 +360,17 @@ export const Dynamic = () => {
         <div className="hds-example-form__section">
           <div className="hds-example-form__item">
             <Checkbox
+              {...register('acceptTerms')}
               id="acceptTerms"
               name="acceptTerms"
               label="I have read and I accept the terms and conditions"
               required
-              // checked={formik.values.acceptTerms === true}
-              // errorText={getErrorMessage('acceptTerms')}
-              // onChange={formik.handleChange}
-              // onBlur={formik.handleBlur}
-              // aria-invalid={!!getErrorMessage('acceptTerms')}
+              aria-invalid={!!errors.acceptTerms?.message}
+              errorText={errors.acceptTerms?.message}
+              checked={getValues('acceptTerms')}
+              onChange={(e) => {
+                handleChange('acceptTerms', e.target.checked);
+              }}
             />
             <div className="hds-example-form__terms">
               <span>Read the terms of service</span>
