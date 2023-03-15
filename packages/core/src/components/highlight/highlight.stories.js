@@ -34,28 +34,28 @@ export const HighlightCustomStyles = () => `
 
 export const DefaultQuote = () => `
   <div class="hds-highlight" role="region">
-    <div class="hds-highlight__text hds-highlight--quote">${highlightText}</div>
-    <div class="hds-highlight--reference">${quoteReference}</div>
+    <div class="hds-highlight__text hds-highlight__quote">${highlightText}</div>
+    <div class="hds-highlight__reference">${quoteReference}</div>
   </div>
 `;
 
 export const QuoteLarge = () => `
   <div class="hds-highlight hds-highlight--large" role="region">
-    <div class="hds-highlight__text hds-highlight--quote">${highlightText}</div>
-    <div class="hds-highlight--reference">${quoteReference}</div>
+    <div class="hds-highlight__text hds-highlight__quote">${highlightText}</div>
+    <div class="hds-highlight__reference">${quoteReference}</div>
   </div>
 `;
 
 export const QuoteSmall = () => `
   <div class="hds-highlight hds-highlight--small" role="region">
-    <div class="hds-highlight__text hds-highlight--small hds-highlight--quote">${highlightText}</div>
-    <div class="hds-highlight--reference">${quoteReference}</div>
+    <div class="hds-highlight__text hds-highlight--small hds-highlight__quote">${highlightText}</div>
+    <div class="hds-highlight__reference">${quoteReference}</div>
   </div>
 `;
 
 export const QuoteCustomStyles = () => `
   <div class="hds-highlight" role="region" style="--accent-line-color:#009246;--text-color:#0000bf">
-    <div class="hds-highlight__text hds-highlight--quote">${highlightText}</div>
-    <div class="hds-highlight--reference">${quoteReference}</div>
+    <div class="hds-highlight__text hds-highlight__quote">${highlightText}</div>
+    <div class="hds-highlight__reference">${quoteReference}</div>
   </div>
   `;

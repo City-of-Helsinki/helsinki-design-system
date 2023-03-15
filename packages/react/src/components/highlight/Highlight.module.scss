@@ -23,7 +23,7 @@
 }
 
 .quote {
-  composes: hds-highlight--quote from 'hds-core/lib/components/highlight/highlight.css';
+  composes: hds-highlight__quote from 'hds-core/lib/components/highlight/highlight.css';
   &:before,
   &:after {
     content: '"';
@@ -33,7 +33,7 @@
 }
 
 .reference {
-  composes: hds-highlight--reference from 'hds-core/lib/components/highlight/highlight.css';
+  composes: hds-highlight__reference from 'hds-core/lib/components/highlight/highlight.css';
   &:before {
     content: '-';
     font-size: inherit;

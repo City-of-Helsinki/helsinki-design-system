@@ -42,23 +42,23 @@
   width: 680px;
 }
 
-.hds-highlight--quote {
+.hds-highlight__quote {
   font-style: italic;
 }
 
-.hds-highlight--quote:before,
-.hds-highlight--quote:after {
+.hds-highlight__quote:before,
+.hds-highlight__quote:after {
   content: '"';
   font-style: italic;
   display: inline;  
 }
 
-.hds-highlight--reference {
+.hds-highlight__reference {
   font-size: var(--fontsize-heading-xs);
   line-height: var(--lineheight-m);
 }
 
-.hds-highlight--reference:before {
+.hds-highlight__reference:before {
   content: '-';
   font-size: inherit;
   display: inline;
