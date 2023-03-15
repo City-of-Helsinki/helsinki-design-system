@@ -1,5 +1,6 @@
 .highlight {
-  --accent-line-color: var(--color-bus);
+  composes: hds-highlight from 'hds-core/lib/components/highlight/highlight.css';
+  /*--accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
   --width: 536px;
   --margin: var(--spacing-m) 0;
@@ -13,27 +14,28 @@
   grid-row-gap: var(--spacing-m);
   padding: 0;
   padding-left: var(--spacing-s);
-  margin: var(--margin);
+  margin: var(--margin);*/
 }
 
 .text {
-  width: var(--width);
+  composes: hds-highlight__text from 'hds-core/lib/components/highlight/highlight.css';
+  /*width: var(--width);
   max-width: 100%;
   font-size: var(--fontsize-heading-m);
   line-height: var(--lineheight-m);
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;*/
 }
 
 .size-s {
-  --margin: var(--spacing-s) 0;
+  composes: hds-highlight--small from 'hds-core/lib/components/highlight/highlight.css';
   & > .text {
     --width: 264px;
   }
 }
 
 .size-l  {
-  --margin: var(--spacing-l) 0;
+  composes: hds-highlight--large from 'hds-core/lib/components/highlight/highlight.css';
   & > .text {
     --width: 680px;
     font-size: var(--fontsize-heading-l);
@@ -42,7 +44,7 @@
 }
 
 .quote {
-  font-style: italic;
+  composes: hds-highlight--quote from 'hds-core/lib/components/highlight/highlight.css';
   &:before,
   &:after {
     content: '"';
@@ -52,8 +54,7 @@
 }
 
 .reference {
-  font-size: var(--fontsize-heading-xs);
-  line-height: var(--lineheight-m);
+  composes: hds-highlight--reference from 'hds-core/lib/components/highlight/highlight.css';
   &:before {
     content: '-';
     font-size: inherit;

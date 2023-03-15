@@ -1,6 +1,7 @@
 .hds-highlight {
   --accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
+  --width: 536px;
   --margin: var(--spacing-m) 0;
 
   border-left: 8px solid var(--accent-line-color);
@@ -8,8 +9,9 @@
   display: flex;
   justify-content: center;
   align-items: space-between;
-  flex-direction: column;
+  flex-direction: column;  
   grid-row-gap: var(--spacing-m);
+  padding: 0;
   padding-left: var(--spacing-s);
   margin: var(--margin);
 }

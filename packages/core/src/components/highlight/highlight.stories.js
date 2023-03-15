@@ -40,14 +40,14 @@ export const DefaultQuote = () => `
 `;
 
 export const QuoteLarge = () => `
-  <div class="hds-highlight--large" role="region">
+  <div class="hds-highlight hds-highlight--large" role="region">
     <div class="hds-highlight__text hds-highlight--quote">${highlightText}</div>
     <div class="hds-highlight--reference">${quoteReference}</div>
   </div>
 `;
 
 export const QuoteSmall = () => `
-  <div class="hds-highlight--small" role="region">
+  <div class="hds-highlight hds-highlight--small" role="region">
     <div class="hds-highlight__text hds-highlight--small hds-highlight--quote">${highlightText}</div>
     <div class="hds-highlight--reference">${quoteReference}</div>
   </div>
