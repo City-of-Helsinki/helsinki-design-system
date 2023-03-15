@@ -25,7 +25,7 @@ export const HighlightLarge = (args) => <Highlight {...args} />;
 HighlightLarge.args = {
   text:
     'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
-  variant: 'large',
+  variant: 'l',
 };
 export const HighlightCustomAccentColor = (args) => <Highlight {...args} />;
 HighlightCustomAccentColor.args = {
@@ -53,14 +53,14 @@ export const QuoteLarge = (args) => <Highlight {...args} />;
 QuoteLarge.args = {
   text: 'Add an interesting quote here',
   type: 'quote',
-  variant: 'large',
+  variant: 'l',
   reference: 'First name Last name. Title.',
 };
 export const QuoteSmall = (args) => <Highlight {...args} />;
 QuoteSmall.args = {
   text: 'Add an interesting quote here',
   type: 'quote',
-  variant: 'small',
+  variant: 's',
   reference: 'First name Last name. Title.',
 };
 export const QuoteCustomAccentColor = (args) => <Highlight {...args} />;

@@ -19,7 +19,7 @@ export type HighlightProps = {
   /**
    * Highlight size. Currently highlight comes in three sizes
    */
-  variant?: 'small' | 'medium' | 'large';
+  variant?: 's' | 'm' | 'l';
   /**
    * Highlight type
    */
@@ -40,15 +40,9 @@ export const Highlight = ({ theme, variant, type, text, reference }: HighlightPr
   const isQuote = type && type === 'quote';
 
   return (
-    <div className={variant ? styles[`highlightwrapper${variant}`] : styles.highlightwrapper} role="region">
-      <div className={classNames(styles.highlight, customThemeClass)}>
-        <div className={classNames(styles.text, isQuote && styles.quote, variant && styles[variant])}>
-          {isQuote && '“'}
-          {text}
-          {isQuote && '”'}
-        </div>
-        {reference && <div className={styles.reference}>⁠—{reference}</div>}
-      </div>
+    <div className={classNames(styles.highlight, variant && styles[`size-${variant}`], customThemeClass)} role="region">
+      <div className={classNames(styles.text, isQuote && styles.quote)}>{text}</div>
+      {reference && <div className={styles.reference}>⁠{reference}</div>}
     </div>
   );
 };

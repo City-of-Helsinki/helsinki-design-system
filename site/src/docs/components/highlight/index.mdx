@@ -32,15 +32,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Variations
 
 - Quote and Highlight support three different size variant: small, medium and large
+- Quote and Highlight adds vertical margin before and after actual content
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="small"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
   <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="large"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
 </PlaygroundPreview>
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
-  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="small"/>
+  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
   <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
-  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="large"/>
+  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
 </PlaygroundPreview>

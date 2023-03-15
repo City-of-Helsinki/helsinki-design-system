@@ -1,17 +1,8 @@
-.highlightwrapper {
-  padding: var(--spacing-m) 0;
-}
-.highlightwrappersmall {
-  padding: var(--spacing-s) 0;
-}
-.highlightwrapperlarge {
-  padding: var(--spacing-l) 0;
-}
-
 .highlight {
   --accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
   --width: 536px;
+  --margin: var(--spacing-m) 0;
 
   border-left: 8px solid var(--accent-line-color);
   color: var(--text-color);
@@ -22,6 +13,7 @@
   grid-row-gap: var(--spacing-m);
   padding: 0;
   padding-left: var(--spacing-s);
+  margin: var(--margin);
 }
 
 .text {
@@ -33,21 +25,39 @@
   flex-wrap: wrap;
 }
 
-.small {
-  --width: 264px;
+.size-s {
+  --margin: var(--spacing-s) 0;
+  & > .text {
+    --width: 264px;
+  }
 }
 
-.large {
-  --width: 680px;
-  font-size: var(--fontsize-heading-l);
-  line-height: var(--lineheight-l);
+.size-l  {
+  --margin: var(--spacing-l) 0;
+  & > .text {
+    --width: 680px;
+    font-size: var(--fontsize-heading-l);
+    line-height: var(--lineheight-l);
+  }
 }
 
 .quote {
   font-style: italic;
+  &:before,
+  &:after {
+    content: '"';
+    font-style: italic;
+    display: inline;  
+  }
 }
 
 .reference {
   font-size: var(--fontsize-heading-xs);
   line-height: var(--lineheight-m);
+  &:before {
+    content: '-';
+    font-size: inherit;
+    display: inline;
+    line-height: inherit;  
+  }
 }
