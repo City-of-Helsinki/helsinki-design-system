@@ -1,30 +1,9 @@
 .highlight {
   composes: hds-highlight from 'hds-core/lib/components/highlight/highlight.css';
-  /*--accent-line-color: var(--color-bus);
-  --text-color: var(--color-black-90);
-  --width: 536px;
-  --margin: var(--spacing-m) 0;
-
-  border-left: 8px solid var(--accent-line-color);
-  color: var(--text-color);
-  display: flex;
-  justify-content: center;
-  align-items: space-between;
-  flex-direction: column;  
-  grid-row-gap: var(--spacing-m);
-  padding: 0;
-  padding-left: var(--spacing-s);
-  margin: var(--margin);*/
 }
 
 .text {
   composes: hds-highlight__text from 'hds-core/lib/components/highlight/highlight.css';
-  /*width: var(--width);
-  max-width: 100%;
-  font-size: var(--fontsize-heading-m);
-  line-height: var(--lineheight-m);
-  display: flex;
-  flex-wrap: wrap;*/
 }
 
 .size-s {
