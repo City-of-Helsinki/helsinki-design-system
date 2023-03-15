@@ -17,7 +17,7 @@
 }
 
 .hds-highlight__text {
-  width: 536px;
+  width: var(--width);
   max-width: 100%;
   font-size: var(--fontsize-heading-m);
   line-height: var(--lineheight-m);
@@ -26,20 +26,17 @@
 
 .hds-highlight--small {
   --margin: var(--spacing-s) 0;
+  --width: 264px;
 }
 
 .hds-highlight--large {
   --margin: var(--spacing-l) 0;
-}
-
-.hds-highlight--small .hds-highlight__text {
-  width: 264px;
+  --width: 680px;
 }
 
 .hds-highlight--large .hds-highlight__text {
   font-size: var(--fontsize-heading-l);
   line-height: var(--lineheight-l);
-  width: 680px;
 }
 
 .hds-highlight__quote {

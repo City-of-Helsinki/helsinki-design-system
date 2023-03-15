@@ -8,15 +8,11 @@
 
 .size-s {
   composes: hds-highlight--small from 'hds-core/lib/components/highlight/highlight.css';
-  & > .text {
-    --width: 264px;
-  }
 }
 
 .size-l  {
   composes: hds-highlight--large from 'hds-core/lib/components/highlight/highlight.css';
   & > .text {
-    --width: 680px;
     font-size: var(--fontsize-heading-l);
     line-height: var(--lineheight-l);
   }
