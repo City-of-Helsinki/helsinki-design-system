@@ -2,10 +2,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { parse, isBefore, startOfDay } from 'date-fns';
 
-import { CityOptionType, getCitites, isValidDate } from './validationUtils';
+import { CityOptionType, getCitites } from './validationUtils';
+import { validationSchema, FormData, defaultValues } from './validationSchema';
 import {
   Button,
   TextInput,
@@ -23,68 +22,6 @@ import './validation.scss';
 const cities = getCitites();
 
 export const Dynamic = () => {
-  const validationSchema = Yup.object()
-    .shape({
-      firstName: Yup.string().required('Please enter your first name'),
-      lastName: Yup.string().required('Please enter your last name'),
-      city: Yup.string().required('Please select your city of residence'),
-      postalCode: Yup.string()
-        .required('Please enter your postal code')
-        .matches(/^\d+$/, 'Postal code can only contain numbers')
-        .length(5, 'Postal code needs to contain 5 numbers'),
-      email: Yup.string().email('Please check the email address format').required('Please enter your email address'),
-      phoneNumber: Yup.string().matches(/^[+][0-9]*$/, {
-        message: 'Please enter the phone number in international mobile phone number format.',
-        excludeEmptyString: true,
-      }),
-      registerPlate: Yup.string()
-        .matches(/^\w{2,3}-\d{1,3}$/, 'Register plate number must include 2-3 letters, a hyphen and 1-3 numbers.')
-        .required('Please enter a register plate number'),
-      brand: Yup.string().required('Please enter a vehicle brand'),
-      model: Yup.string().required('Please enter a vehicle model'),
-      parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
-      permitEndDate: Yup.string().when('parkingPeriod', {
-        is: 'temporary',
-        then: (schema) =>
-          schema.required('Please enter a permit end date').test('is-date', (value, { createError, path }) => {
-            if (!isValidDate(value)) {
-              return createError({
-                path,
-                message: 'Please enter a permit end date in DD.MM.YYYY format',
-              });
-            }
-            const selectedDate = parse(value, 'd.M.yyyy', new Date());
-
-            if (isBefore(selectedDate, startOfDay(new Date()))) {
-              return createError({
-                path,
-                message: 'Selected permit date is in the past. Please select a date that is in the future',
-              });
-            }
-            return true;
-          }),
-        otherwise: (schema) => schema,
-      }),
-      acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
-    })
-    .required();
-
-  type FormData = {
-    firstName: string;
-    lastName: string;
-    city: string;
-    postalCode: string;
-    phoneNumber: string;
-    email: string;
-    registerPlate: string;
-    brand: string;
-    model: string;
-    parkingPeriod: string;
-    permitEndDate: string;
-    additionalRequests: string;
-    acceptTerms: boolean;
-  };
-
   const {
     register,
     handleSubmit,
@@ -92,14 +29,10 @@ export const Dynamic = () => {
     getValues,
     reset,
     trigger,
-    // resetField,
     formState: { errors },
   } = useForm<FormData>({
     mode: 'onTouched',
-    defaultValues: {
-      parkingPeriod: 'continuous',
-      acceptTerms: false,
-    },
+    defaultValues,
     resolver: yupResolver(validationSchema),
   });
 
@@ -128,11 +61,22 @@ export const Dynamic = () => {
   };
 
   React.useEffect(() => {
+    const invalidFields = Object.keys(errors);
     // check for city and if it's the 1st -> focus
     if (errors?.city) {
-      const invalidFields = Object.keys(errors);
       if (invalidFields[0] === 'city') {
         const element = document.getElementById('city-toggle-button');
+        if (element) {
+          setTimeout(() => {
+            element.focus();
+          }, 10);
+        }
+      }
+      return;
+    }
+    if (errors?.permitEndDate) {
+      if (invalidFields[0] === 'permitEndDate') {
+        const element = document.getElementById('permitEndDate');
         if (element) {
           setTimeout(() => {
             element.focus();
