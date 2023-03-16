@@ -3,6 +3,9 @@ name: development
 on:
   pull_request:
   merge_group:
+    branches:
+      - master
+      - hds-1642-merge-queue
   push:
     branches:
       - master
