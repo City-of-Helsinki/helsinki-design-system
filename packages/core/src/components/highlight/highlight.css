@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;  
-  grid-row-gap: var(--spacing-m);
+  row-gap: var(--spacing-m);
   padding: 0;
   padding-left: var(--spacing-s);
   margin: var(--margin);
