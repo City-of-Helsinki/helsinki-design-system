@@ -1,6 +1,9 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 
 import { FileInput } from './FileInput';
+
+const onFilesChanged = (files: File[] | undefined) => action('filesChanged')(files);
 
 export default {
   component: FileInput,
@@ -20,11 +23,10 @@ export default {
 };
 
 export const Single = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return <FileInput {...args} onChange={setFile} />;
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Single.args = {
@@ -33,8 +35,7 @@ Single.args = {
 
 export const Multiple = (args) => {
   const [files, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', files);
+  onFilesChanged(files);
 
   return <FileInput {...args} onChange={setFiles} />;
 };
@@ -45,8 +46,7 @@ Multiple.args = {
 
 export const WithDefaultValue = (args) => {
   const [files, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', files);
+  onFilesChanged(files);
 
   return <FileInput {...args} onChange={setFiles} />;
 };
@@ -62,8 +62,7 @@ WithDefaultValue.args = {
 
 export const WithDragAndDrop = (args) => {
   const [files, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', files);
+  onFilesChanged(files);
 
   return <FileInput {...args} onChange={setFiles} />;
 };
@@ -74,11 +73,10 @@ WithDragAndDrop.args = {
 };
 
 export const WithTooltip = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return <FileInput {...args} onChange={setFile} />;
+  return <FileInput {...args} onChange={setFiles} />;
 };
 WithTooltip.args = {
   accept: 'image/*',
@@ -88,11 +86,10 @@ WithTooltip.args = {
 };
 
 export const Disabled = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return <FileInput {...args} onChange={setFile} />;
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Disabled.args = {
@@ -102,9 +99,8 @@ Disabled.args = {
 };
 
 export const DisabledDragAndDrop = (args) => {
-  const [file, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
   return <FileInput {...args} onChange={setFiles} />;
 };
@@ -117,11 +113,10 @@ DisabledDragAndDrop.args = {
 };
 
 export const Required = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return <FileInput {...args} onChange={setFile} />;
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Required.args = {
@@ -131,8 +126,7 @@ Required.args = {
 
 export const Playground = (args) => {
   const onChange = (files) => {
-    // eslint-disable-next-line no-console
-    console.log('onChange callback files:', files);
+    onFilesChanged(files);
   };
 
   return <FileInput {...args} onChange={onChange} />;
