@@ -16,12 +16,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Example
 
-<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+<PlaygroundPreview>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices tincidunt nunc, porttitor pretium enim vestibulum eget. Suspendisse ac tempor ante. Nullam at convallis ex. Integer mattis sagittis interdum. Suspendisse viverra sit amet mauris non interdum. In porttitor tempus diam vel venenatis. Aenean elementum sem vitae tempus tempor. </p>
   <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
-</PlaygroundPreview>
-
-<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
-  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <p>Sed quis massa elementum, pulvinar lacus at, efficitur velit. Nam nec ornare augue. Aliquam pellentesque dictum nisl, a commodo arcu dapibus id.</p>
+  <Highlight type="quote" text="Add an interesting quote here" reference="First name Last name. Title."/>
+  <p>Sed mollis mauris nec dui condimentum pulvinar. Suspendisse vitae aliquet nisi. Donec libero ipsum, fermentum ut augue id, scelerisque lobortis orci.</p>
 </PlaygroundPreview>
 
 ### Principles
@@ -34,14 +34,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Quote and Highlight support three different size variant: small, medium and large
 - Quote and Highlight adds vertical margin before and after actual content
 
-<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+<PlaygroundPreview>
   <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
-</PlaygroundPreview>
-
-<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
-  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
-  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
-  <Highlight type="quote" text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
 </PlaygroundPreview>

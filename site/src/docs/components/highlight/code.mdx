@@ -21,17 +21,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
   <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
   <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
+  <Highlight text="Add an interesting quote here" variant="l" type="quote" reference="First name Last name. Title."/>
   <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
   <Highlight text="Add an interesting quote here" variant="s" type="quote" reference="First name Last name. Title."/>
-  <Highlight text="Add an interesting quote here" variant="l" type="quote" reference="First name Last name. Title."/>
 </>
 ```
 
 ```html
   <div>
+    <div class="hds-highlight hds-highlight--large" role="region">
+      <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
+    </div>
     <div class="hds-highlight" role="region">
       <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
     </div>
@@ -39,13 +42,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
     </div>
     <div class="hds-highlight hds-highlight--large" role="region">
-      <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
-    </div>
-    <div class="hds-highlight" role="region">
       <div class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</div>
       <div class="hds-highlight__reference">First name Last name. Title.</div>
     </div>
-    <div class="hds-highlight hds-highlight--large" role="region">
+    <div class="hds-highlight" role="region">
       <div class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</div>
       <div class="hds-highlight__reference">First name Last name. Title.</div>
     </div>
@@ -66,8 +66,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
-  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." theme={{'--accent-line-color':'green'}}/>
+  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--accent-line-color':'red'}}/>
 </>
 ```
 
@@ -80,8 +80,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
-  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."  theme={{'--text-color':'green'}}/>
+  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--text-color':'red'}}/>
 </>
 ```
 
@@ -89,10 +89,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Packages
 
+| Package       | Included                                                                                        | Storybook link                                                                                                   | Source link                                                                                                                                                        |
+| ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-highlight--default-highlight">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/card/Card.tsx">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-highlight--default-highlight">View in Storybook</Link>        | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/card">View source</ExternalLink>           |
+
 ### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-highlight--default-highlight">React Storybook.</Link>
 
 | Property  | Description                     | Values                        | Default value |
 | --------- | ------------------------------- | ----------------------------- | ------------- |
 | `text`    | Text for the Highlight/quote    | -                             | -             |
-| `variant` | Highlight variant               | `"small"` `"medium"` `"large"`| `"medium"`    | 
+| `variant` | Highlight variant               | `"s"` `"m"` `"l"`             | `"m"`         | 
 | `type`    | Type of the Highlight           | `"highlight"` `"quote"`       | `"highlight"` |
