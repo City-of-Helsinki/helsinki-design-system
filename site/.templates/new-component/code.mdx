@@ -3,6 +3,7 @@ slug: '/components/{newComponentPathName}/code'
 title: '{newComponent} - Code'
 ---
 
+import { {newComponent} } from 'hds-react';
 import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -14,13 +15,15 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <Playground>
 
-  ```jsx
-  <></>
-  ```
+```jsx
+  import { {newComponent} } from 'hds-react';
 
-  ```html
+  () => <{newComponent}></{newComponent}>
+```
+
+```html
   <div></div>
-  ```
+```
 
 </Playground>
 

@@ -19,7 +19,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Checkbox } from 'hds-react';
+
+() => {
   const [checkedItems, setCheckedItems] = React.useState({ "checkbox-checked": true, "checkbox-checked-disabled": true });
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.id]: event.target.checked });
@@ -33,7 +35,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <Checkbox label="Label" id="checkbox-checked-helper-text" checked={checkedItems['checkbox-checked-helper-text']} onChange={onChange} helperText="Helper text"/>
     <Checkbox label="label" id="checkbox-with-tooltip" tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label" checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
   </>
-}}
+}
 ```
 
 ```html
@@ -71,7 +73,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Checkbox, SelectionGroup } from 'hds-react';
+
+() => {
   const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
@@ -84,7 +88,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
     </SelectionGroup>
   );
-}}
+}
 ```
 
 ```html
@@ -125,7 +129,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Checkbox, Fieldset } from 'hds-react';
+
+() => {
   const CheckboxState = {
     checked: 0,
     unchecked: 1,
@@ -250,7 +256,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </ul>
     </Fieldset>
   );
-}}
+}
 ```
 
 </Playground>

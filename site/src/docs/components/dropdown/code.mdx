@@ -20,7 +20,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { Select, IconUser } from 'hds-react';
+
+() => {
   const options = [{ label: 'Plutonium' }, { label: 'Americium' }, { label: 'Copernicium' }, { label: 'Berkelium' }];
   return (
     <>
@@ -53,7 +55,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       />
     </>
   )
-}}
+}
 ```
 
 </Playground>
@@ -63,21 +65,25 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Select
-  multiselect
-  required
-  label="Label"
-  placeholder="Placeholder"
-  helper="Assistive text"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-    { label: 'Berkelium' },
-  ]}
-  clearButtonAriaLabel="Clear all selections"
-  selectedItemRemoveButtonAriaLabel="Remove ${value}"
-/>
+import { Select } from 'hds-react';
+
+() => (
+  <Select
+    multiselect
+    required
+    label="Label"
+    placeholder="Placeholder"
+    helper="Assistive text"
+    options={[
+      { label: 'Plutonium' },
+      { label: 'Americium' },
+      { label: 'Copernicium' },
+      { label: 'Berkelium' },
+    ]}
+    clearButtonAriaLabel="Clear all selections"
+    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+  />
+)
 ```
 
 </Playground>
@@ -87,7 +93,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { Combobox, IconUser } from 'hds-react';
+
+() => {
   const options = [
     { label: 'Americium' },
     { label: 'Berkelium' },
@@ -141,7 +149,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       />
     </>
   )
-}}
+}
 ```
 
 </Playground>
@@ -151,26 +159,30 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Combobox
-  multiselect
-  required
-  label="Label"
-  helper="Assistive text"
-  placeholder="Placeholder"
-  options={[
-    { label: 'Americium' },
-    { label: 'Berkelium' },
-    { label: 'Californium' },
-    { label: 'Copernicium' },
-    { label: 'Einsteinium' },
-    { label: 'Fermium' },
-    { label: 'Mendelevium' },
-    { label: 'Plutonium' },
-  ]}
-  clearButtonAriaLabel="Clear all selections"
-  selectedItemRemoveButtonAriaLabel="Remove ${value}"
-  toggleButtonAriaLabel="Toggle menu"
-/>
+import { Combobox } from 'hds-react';
+
+() => (
+  <Combobox
+    multiselect
+    required
+    label="Label"
+    helper="Assistive text"
+    placeholder="Placeholder"
+    options={[
+      { label: 'Americium' },
+      { label: 'Berkelium' },
+      { label: 'Californium' },
+      { label: 'Copernicium' },
+      { label: 'Einsteinium' },
+      { label: 'Fermium' },
+      { label: 'Mendelevium' },
+      { label: 'Plutonium' },
+    ]}
+    clearButtonAriaLabel="Clear all selections"
+    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+    toggleButtonAriaLabel="Toggle menu"
+  />
+)
 ```
 
 </Playground>

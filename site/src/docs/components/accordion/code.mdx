@@ -21,9 +21,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Accordion heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
-  To publish your data, open your profile settings and click the button 'Publish'.
-</Accordion>
+import { Accordion } from 'hds-react';
+
+() => (
+  <Accordion heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+)
 ```
 
 </Playground>
@@ -35,9 +39,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Accordion card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
-  To publish your data, open your profile settings and click the button 'Publish'.
-</Accordion>
+import { Accordion } from 'hds-react';
+
+() => (
+  <Accordion card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+)
 ```
 
 </Playground>
@@ -49,9 +57,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Accordion card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
-  To publish your data, open your profile settings and click the button 'Publish'.
-</Accordion>
+import { Accordion } from 'hds-react';
+
+() => (
+  <Accordion card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+)
 ```
 
 </Playground>
@@ -61,7 +73,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
+import { Accordion } from 'hds-react';
+
+() => (<>
   <Accordion size="s" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
@@ -71,7 +85,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <Accordion size="l" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
-</>
+</>)
 ```
 
 </Playground>
@@ -83,48 +97,48 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{
-  () => {
-    const initiallyOpen = false;
-    const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
-    const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
-    return (
-      <>
-        <Button iconLeft={icon} {...buttonProps}>
-          Advanced filters
-        </Button>
-        <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
-          <Select
-            multiselect
-            label="Filter by event category"
-            placeholder="No selected categories"
-            options={[{ label: 'Culture & arts' }, { label: 'Sports' }, { label: 'Museums' }, { label: 'Music' }]}
-            clearButtonAriaLabel="Clear all selections"
-            selectedItemRemoveButtonAriaLabel="Remove"
-            style={{ maxWidth: '360px' }}
-          />
-          <Select
-            multiselect
-            label="Filter by event location"
-            placeholder="No selected locations"
-            options={[
-              { label: 'Haaga' },
-              { label: 'Herttoniemi' },
-              { label: 'Kallio' },
-              { label: 'Kamppi' },
-              { label: 'Laajasalo' },
-              { label: 'Lauttasaari' },
-              { label: 'Mellunkylä' },
-              { label: 'Pasila' },
-            ]}
-            clearButtonAriaLabel="Clear all selections"
-            selectedItemRemoveButtonAriaLabel="Remove"
-            style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}
-          />
-        </Card>
-      </>
-    );
-  };
+import { Accordion } from 'hds-react';
+
+() => {
+  const initiallyOpen = false;
+  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
+  const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+  return (
+    <>
+      <Button iconLeft={icon} {...buttonProps}>
+        Advanced filters
+      </Button>
+      <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
+        <Select
+          multiselect
+          label="Filter by event category"
+          placeholder="No selected categories"
+          options={[{ label: 'Culture & arts' }, { label: 'Sports' }, { label: 'Museums' }, { label: 'Music' }]}
+          clearButtonAriaLabel="Clear all selections"
+          selectedItemRemoveButtonAriaLabel="Remove"
+          style={{ maxWidth: '360px' }}
+        />
+        <Select
+          multiselect
+          label="Filter by event location"
+          placeholder="No selected locations"
+          options={[
+            { label: 'Haaga' },
+            { label: 'Herttoniemi' },
+            { label: 'Kallio' },
+            { label: 'Kamppi' },
+            { label: 'Laajasalo' },
+            { label: 'Lauttasaari' },
+            { label: 'Mellunkylä' },
+            { label: 'Pasila' },
+          ]}
+          clearButtonAriaLabel="Clear all selections"
+          selectedItemRemoveButtonAriaLabel="Remove"
+          style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}
+        />
+      </Card>
+    </>
+  );
 }
 ```
 

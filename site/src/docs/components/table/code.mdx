@@ -20,46 +20,46 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ];
-    const rows = [
-      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    ];
-    const captionDark = (
-      <span>
-        <b>Table 1</b>: Service users (dark variant)
-      </span>
-    );
-    const captionLight = (
-      <span>
-        <b>Table 2</b>: Service users (light variant)
-      </span>
-    );
-    return (
-      <div style={{ maxWidth: '640px' }}>
-        <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
-        <div style={{ marginTop: 'var(--spacing-l)' }}>
-          <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
-        </div>
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const captionDark = (
+    <span>
+      <b>Table 1</b>: Service users (dark variant)
+    </span>
+  );
+  const captionLight = (
+    <span>
+      <b>Table 2</b>: Service users (light variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+      <div style={{ marginTop: 'var(--spacing-l)' }}>
+        <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
       </div>
-    );
-  };
+    </div>
+  );
 }
 ```
 
@@ -160,48 +160,48 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: '8-12', headerName: '8-12' },
-      { key: '12-14', headerName: '12-14' },
-      { key: '14-16', headerName: '14-16' },
-      { key: '16-18', headerName: '16-18' },
-    ];
-    const unitRows = [
-      { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
-      { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
-      { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
-      { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
-      { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
-    ];
-    const verticalHeaders = [
-      { key: 'monday', headerName: 'Monday' },
-      { key: 'tuesday', headerName: 'Tuesday' },
-      { key: 'wednesday', headerName: 'Wednesday' },
-      { key: 'thursday', headerName: 'Thursday' },
-      { key: 'friday', headerName: 'Friday' },
-    ];
-    const caption = (
-      <span>
-        <b>Table 3</b>: Units sold by weekday
-      </span>
-    );
-    return (
-      <div style={{ maxWidth: '486px' }}>
-        <Table
-          verticalHeaders={verticalHeaders}
-          cols={cols}
-          rows={unitRows}
-          caption={caption}
-          textAlignContentRight
-          indexKey="id"
-          renderIndexCol={false}
-        />
-      </div>
-    );
-  };
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: '8-12', headerName: '8-12' },
+    { key: '12-14', headerName: '12-14' },
+    { key: '14-16', headerName: '14-16' },
+    { key: '16-18', headerName: '16-18' },
+  ];
+  const unitRows = [
+    { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
+    { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
+    { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
+    { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
+    { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
+  ];
+  const verticalHeaders = [
+    { key: 'monday', headerName: 'Monday' },
+    { key: 'tuesday', headerName: 'Tuesday' },
+    { key: 'wednesday', headerName: 'Wednesday' },
+    { key: 'thursday', headerName: 'Thursday' },
+    { key: 'friday', headerName: 'Friday' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 3</b>: Units sold by weekday
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '486px' }}>
+      <Table
+        verticalHeaders={verticalHeaders}
+        cols={cols}
+        rows={unitRows}
+        caption={caption}
+        textAlignContentRight
+        indexKey="id"
+        renderIndexCol={false}
+      />
+    </div>
+  );
 }
 ```
 
@@ -272,78 +272,78 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'city', headerName: 'City' },
-      { key: 'profession', headerName: 'Profession' },
-      {
-        key: 'experience',
-        headerName: 'Experience (years)',
-        transform: ({ experience }) => {
-          return <div style={{ textAlign: 'right' }}>{experience}</div>;
-        },
+    },
+    { key: 'city', headerName: 'City' },
+    { key: 'profession', headerName: 'Profession' },
+    {
+      key: 'experience',
+      headerName: 'Experience (years)',
+      transform: ({ experience }) => {
+        return <div style={{ textAlign: 'right' }}>{experience}</div>;
       },
-    ];
-    const rows = [
-      {
-        id: 1000,
-        firstName: 'Lauri',
-        surname: 'Kekkonen',
-        age: 39,
-        city: 'Helsinki',
-        profession: 'Engineer',
-        experience: 10,
-      },
-      {
-        id: 1001,
-        firstName: 'Maria',
-        surname: 'Sarasoja',
-        age: 62,
-        city: 'Tampere',
-        profession: 'Designer',
-        experience: 39,
-      },
-      {
-        id: 1002,
-        firstName: 'Anneli',
-        surname: 'Routa',
-        age: 50,
-        city: 'Turku',
-        profession: 'Meteorologist',
-        experience: 25,
-      },
-      {
-        id: 1003,
-        firstName: 'Osku',
-        surname: 'Rausku',
-        age: 18,
-        city: 'Oulu',
-        profession: 'Mail Carrier',
-        experience: 1,
-      },
-    ];
-    const caption = (
-      <span>
-        <b>Table 4</b>: Service users (zebra variant)
-      </span>
-    );
-    return (
-      <div style={{ maxWidth: '800px' }}>
-        <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
-      </div>
-    );
-  };
+    },
+  ];
+  const rows = [
+    {
+      id: 1000,
+      firstName: 'Lauri',
+      surname: 'Kekkonen',
+      age: 39,
+      city: 'Helsinki',
+      profession: 'Engineer',
+      experience: 10,
+    },
+    {
+      id: 1001,
+      firstName: 'Maria',
+      surname: 'Sarasoja',
+      age: 62,
+      city: 'Tampere',
+      profession: 'Designer',
+      experience: 39,
+    },
+    {
+      id: 1002,
+      firstName: 'Anneli',
+      surname: 'Routa',
+      age: 50,
+      city: 'Turku',
+      profession: 'Meteorologist',
+      experience: 25,
+    },
+    {
+      id: 1003,
+      firstName: 'Osku',
+      surname: 'Rausku',
+      age: 18,
+      city: 'Oulu',
+      profession: 'Mail Carrier',
+      experience: 1,
+    },
+  ];
+  const caption = (
+    <span>
+      <b>Table 4</b>: Service users (zebra variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '800px' }}>
+      <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
+    </div>
+  );
 }
 ```
 
@@ -409,50 +409,50 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'day', headerName: 'Day' },
-      {
-        key: 'product1',
-        headerName: 'Product 1',
-        transform: ({ product1 }) => {
-          return <div style={{ textAlign: 'right' }}>{product1}</div>;
-        },
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'day', headerName: 'Day' },
+    {
+      key: 'product1',
+      headerName: 'Product 1',
+      transform: ({ product1 }) => {
+        return <div style={{ textAlign: 'right' }}>{product1}</div>;
       },
-      {
-        key: 'product2',
-        headerName: 'Product 2',
-        transform: ({ product2 }) => {
-          return <div style={{ textAlign: 'right' }}>{product2}</div>;
-        },
+    },
+    {
+      key: 'product2',
+      headerName: 'Product 2',
+      transform: ({ product2 }) => {
+        return <div style={{ textAlign: 'right' }}>{product2}</div>;
       },
-      {
-        key: 'product3',
-        headerName: 'Product 3',
-        transform: ({ product3 }) => {
-          return <div style={{ textAlign: 'right' }}>{product3}</div>;
-        },
+    },
+    {
+      key: 'product3',
+      headerName: 'Product 3',
+      transform: ({ product3 }) => {
+        return <div style={{ textAlign: 'right' }}>{product3}</div>;
       },
-    ];
-    const rows = [
-      { day: 'Monday', product1: 12, product2: 24, product3: 5 },
-      { day: 'Tuesday', product1: 10, product2: 32, product3: 6 },
-      { day: 'Wednesday', product1: 14, product2: 35, product3: 6 },
-      { day: 'Thursday', product1: 11, product2: 18, product3: 2 },
-      { day: 'Friday', product1: 16, product2: 45, product3: 12 },
-    ];
-    const caption = (
-      <span>
-        <b>Table 5</b>: Units sold by weekday (vertical lines variant)
-      </span>
-    );
-    return (
-      <div style={{ maxWidth: '496px' }}>
-        <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
-      </div>
-    );
-  };
+    },
+  ];
+  const rows = [
+    { day: 'Monday', product1: 12, product2: 24, product3: 5 },
+    { day: 'Tuesday', product1: 10, product2: 32, product3: 6 },
+    { day: 'Wednesday', product1: 14, product2: 35, product3: 6 },
+    { day: 'Thursday', product1: 11, product2: 18, product3: 2 },
+    { day: 'Friday', product1: 16, product2: 45, product3: 12 },
+  ];
+  const caption = (
+    <span>
+      <b>Table 5</b>: Units sold by weekday (vertical lines variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '496px' }}>
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
+    </div>
+  );
 }
 ```
 
@@ -511,38 +511,38 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ];
-    const rows = [
-      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    ];
-    const caption = (
-      <span>
-        <b>Table 6</b>: Service users (dense variant)
-      </span>
-    );
-    return (
-      <div style={{ maxWidth: '500px' }}>
-        <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
-      </div>
-    );
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 6</b>: Service users (dense variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
+    </div>
+  );
 }
 ```
 
@@ -598,50 +598,50 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name', isSortable: true },
-      { key: 'surname', headerName: 'Surname', isSortable: true },
-      {
-        key: 'age',
-        headerName: 'Age',
-        sortIconType: 'other',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
-        isSortable: true,
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession', isSortable: true },
-    ];
-    const rows = [
-      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-      { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
-    ];
-    const caption = (
-      <span>
-        <b>Table 7</b>: Service users (sorting, dark variant)
-      </span>
-    );
-    return (
-      <div style={{ maxWidth: '640px' }}>
-        <Table
-          ariaLabelSortButtonUnset="Not sorted"
-          ariaLabelSortButtonAscending="Sorted in ascending order"
-          ariaLabelSortButtonDescending="Sorted in descending order"
-          indexKey="id"
-          renderIndexCol={false}
-          cols={cols}
-          rows={rows}
-          caption={caption}
-        />
-      </div>
-    );
-  };
+      isSortable: true,
+    },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 7</b>: Service users (sorting, dark variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        ariaLabelSortButtonUnset="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
+    </div>
+  );
 }
 ```
 
@@ -652,47 +652,47 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{
-  () => {
-    const cols = [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ];
-    const rows = [
-      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    ];
-    const [selectedRows, setSelectedRows] = useState([]);
-    return (
-      <div style={{ maxWidth: '640px' }}>
-        <Table
-          checkboxSelection
-          selectedRows={selectedRows}
-          setSelectedRows={setSelectedRows}
-          heading="Employees"
-          id="checkbox-selection"
-          indexKey="id"
-          renderIndexCol={false}
-          cols={cols}
-          rows={rows}
-          selectAllRowsText="Select all rows"
-          clearSelectionsText="Clear selections"
-          ariaLabelCheckboxSelection="Row selection"
-        />
-      </div>
-    );
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const [selectedRows, setSelectedRows] = useState([]);
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        heading="Employees"
+        id="checkbox-selection"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
 }
 ```
 

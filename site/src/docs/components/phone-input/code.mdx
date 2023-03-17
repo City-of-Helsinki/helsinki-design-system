@@ -19,13 +19,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<PhoneInput
-  defaultValue="0451234567"
-  helperText="Assistive text"
-  id="phone-input-1"
-  label="Phone number"
-  style={{ maxWidth: '320px' }}
-/>
+import { PhoneInput } from 'hds-react';
+
+() => (
+  <PhoneInput
+    defaultValue="0451234567"
+    helperText="Assistive text"
+    id="phone-input-1"
+    label="Phone number"
+    style={{ maxWidth: '320px' }}
+  />
+)
 ```
 
 ```html
@@ -53,7 +57,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { PhoneInput } from 'hds-react';
+
+() => {
   const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
   return (
     <>
@@ -81,7 +87,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </>
   )
-}}
+}
 ```
 
 </Playground>

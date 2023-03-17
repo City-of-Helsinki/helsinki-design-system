@@ -18,32 +18,36 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<div style={{ maxWidth: '320px' }}>
-<TextInput
-  id="textinput"
-  label="Label"
-  placeholder="Placeholder"
-  helperText="Assistive text"
-  required
-/>
-<TextInput
-  id="textinput-invalid"
-  label="Label"
-  defaultValue="Text input value"
-  helperText="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  disabled
-/>
-<TextInput
-  id="textinput-invalid"
-  label="Label"
-  defaultValue="Text input value"
-  errorText="Error text"
-  helperText="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  invalid
-/>
-</div>
+import { TextInput } from 'hds-react';
+
+() => (
+  <div style={{ maxWidth: '320px' }}>
+    <TextInput
+      id="textinput"
+      label="Label"
+      placeholder="Placeholder"
+      helperText="Assistive text"
+      required
+    />
+    <TextInput
+      id="textinput-invalid"
+      label="Label"
+      defaultValue="Text input value"
+      helperText="Assistive text"
+      style={{marginTop: 'var(--spacing-s)'}}
+      disabled
+    />
+    <TextInput
+      id="textinput-invalid"
+      label="Label"
+      defaultValue="Text input value"
+      errorText="Error text"
+      helperText="Assistive text"
+      style={{marginTop: 'var(--spacing-s)'}}
+      invalid
+    />
+  </div>
+)
 ```
 
 ```html
@@ -85,13 +89,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<TextInput
-  id="textinput-readonly"
-  label="Label"
-  defaultValue="Read-only value"
-  helperText="Assistive text"
-  readOnly
-/>
+import { TextInput } from 'hds-react';
+
+() => (
+  <TextInput
+    id="textinput-readonly"
+    label="Label"
+    defaultValue="Read-only value"
+    helperText="Assistive text"
+    readOnly
+  />
+)
 ```
 
 ```html
@@ -112,14 +120,18 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<TextInput
-  id="textinput-tooltip"
-  label="Label"
-  placeholder="Placeholder"
-  tooltipLabel="Tooltip label"
-  tooltipButtonLabel="Tooltip button label"
-  tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
-/>
+import { TextInput } from 'hds-react';
+
+() => (
+  <TextInput
+    id="textinput-tooltip"
+    label="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+  />
+)
 ```
 
 </Playground>

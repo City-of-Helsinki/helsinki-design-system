@@ -18,13 +18,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<div id="labels-no-icon">
-  <StatusLabel>Neutral</StatusLabel>
-  <StatusLabel type="info" style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
-  <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
-  <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
-  <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
-</div>
+import { StatusLabel } from 'hds-react';
+
+() => (
+  <div id="labels-no-icon">
+    <StatusLabel>Neutral</StatusLabel>
+    <StatusLabel type="info" style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+    <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+    <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+    <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+  </div>
+)
 ```
 
 ```html
@@ -53,13 +57,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<div id="labels-no-icon">
-  <StatusLabel variant="rounded">Neutral</StatusLabel>
-  <StatusLabel type="info" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
-  <StatusLabel type="success" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
-  <StatusLabel type="alert" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
-  <StatusLabel type="error" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
-</div>
+import { StatusLabel } from 'hds-react';
+
+() => (
+  <div id="labels-no-icon">
+    <StatusLabel variant="rounded">Neutral</StatusLabel>
+    <StatusLabel type="info" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+    <StatusLabel type="success" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+    <StatusLabel type="alert" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+    <StatusLabel type="error" variant="rounded" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+  </div>
+)
 ```
 
 ```html
@@ -89,13 +97,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div id="labels-with-icon">
-  <StatusLabel iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
-  <StatusLabel type="info" iconLeft={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
-  <StatusLabel type="success" iconLeft={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
-  <StatusLabel type="alert" iconLeft={<IconAlertCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
-  <StatusLabel type="error" iconLeft={<IconError />} style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
-</div>
+import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
+
+() => (
+  <div id="labels-with-icon">
+    <StatusLabel iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
+    <StatusLabel type="info" iconLeft={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+    <StatusLabel type="success" iconLeft={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+    <StatusLabel type="alert" iconLeft={<IconAlertCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+    <StatusLabel type="error" iconLeft={<IconError />} style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+  </div>
+)
 ```
 
 ```html
@@ -130,13 +142,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div id="labels-with-icon">
-  <StatusLabel variant="rounded" iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
-  <StatusLabel variant="rounded" type="info" iconLeft={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
-  <StatusLabel variant="rounded" type="success" iconLeft={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
-  <StatusLabel variant="rounded" type="alert" iconLeft={<IconAlertCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
-  <StatusLabel variant="rounded" type="error" iconLeft={<IconError />} style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
-</div>
+import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
+
+() => (
+  <div id="labels-with-icon">
+    <StatusLabel variant="rounded" iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
+    <StatusLabel variant="rounded" type="info" iconLeft={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+    <StatusLabel variant="rounded" type="success" iconLeft={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+    <StatusLabel variant="rounded" type="alert" iconLeft={<IconAlertCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+    <StatusLabel variant="rounded" type="error" iconLeft={<IconError />} style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+  </div>
+)
 ```
 
 ```html
