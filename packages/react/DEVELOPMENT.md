@@ -38,6 +38,11 @@ To add a new component, use the scaffold helper. Helper will automatically creat
 ```bash
 yarn scaffold
 ```
+Also notice below steps:
+- Add the new component to rollup.config.js file's esmInput variable. Use same format as other components.
+- Review that the component is exported from component’s index.ts and components folder's index.ts files
+- If the component has related component on core side, remember to add the component’s css to all.css file in core folder. Otherwise core styles won't be exported and cannot be used in the react component.
+
 
 Also note the section below about visual regression tests and adding new components.
 
