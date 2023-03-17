@@ -535,7 +535,7 @@ export const FileInput = ({
   }, [setInputStateText, language]);
 
   useEffect(() => {
-    if (!hasFileItems && defaultValue) {
+    if (!hasFileItems && defaultValue && inputRef.current) {
       const dataTransfer = new DataTransfer();
 
       defaultValue.forEach((defaultFile) => {
@@ -546,11 +546,9 @@ export const FileInput = ({
         dataTransfer.items.add(file);
       });
 
-      if (inputRef.current) {
-        inputRef.current.files = dataTransfer.files;
-        const event = new Event('change', { bubbles: true });
-        inputRef.current.dispatchEvent(event);
-      }
+      inputRef.current.files = dataTransfer.files;
+      const event = new Event('change', { bubbles: true });
+      inputRef.current.dispatchEvent(event);
     }
   }, [defaultValue]);
 
