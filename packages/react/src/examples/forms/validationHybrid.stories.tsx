@@ -4,18 +4,18 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { CityOptionType, getCitites } from './validationUtils';
-import { validationSchema, FormData, FieldName, defaultValues } from './validationSchema';
+import { defaultValues, FieldName, FormData, validationSchema } from './validationSchema';
 import {
   Button,
-  TextInput,
   Checkbox,
-  SelectionGroup,
-  RadioButton,
-  TextArea,
-  ErrorSummary,
   Combobox,
   DateInput,
+  ErrorSummary,
   PhoneInput,
+  RadioButton,
+  SelectionGroup,
+  TextArea,
+  TextInput,
 } from '../../components';
 
 import './validation.scss';
@@ -24,12 +24,12 @@ const cities = getCitites();
 
 export const Hybrid = () => {
   const {
-    register,
-    handleSubmit,
-    setValue,
     getValues,
-    trigger,
+    handleSubmit,
+    register,
     setError,
+    setValue,
+    trigger,
     formState: { errors },
   } = useForm<FormData>({
     mode: 'onTouched',
@@ -291,7 +291,7 @@ export const Hybrid = () => {
                   checked={getValues('parkingPeriod') === 'continuous'}
                   onChange={() => {
                     handleChange('parkingPeriod', 'continuous');
-                    setValue('permitEndDate', '');
+                    handleChange('permitEndDate', '');
                   }}
                 />
                 <RadioButton

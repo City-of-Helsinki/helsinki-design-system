@@ -4,17 +4,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { CityOptionType, getCitites } from './validationUtils';
-import { validationSchema, FormData, defaultValues } from './validationSchema';
+import { defaultValues, FieldName, FormData, validationSchema } from './validationSchema';
 import {
   Button,
-  TextInput,
   Checkbox,
-  SelectionGroup,
-  RadioButton,
-  TextArea,
   Combobox,
   DateInput,
   PhoneInput,
+  RadioButton,
+  SelectionGroup,
+  TextArea,
+  TextInput,
 } from '../../components';
 
 import './validation.scss';
@@ -23,11 +23,11 @@ const cities = getCitites();
 
 export const Dynamic = () => {
   const {
-    register,
-    handleSubmit,
-    setValue,
     getValues,
+    handleSubmit,
+    register,
     reset,
+    setValue,
     trigger,
     formState: { errors },
   } = useForm<FormData>({
@@ -36,14 +36,14 @@ export const Dynamic = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const handleChange = (name, value) => {
-    setValue(name, value, { shouldTouch: true, shouldValidate: true });
+  const handleChange = (fieldName: FieldName, value) => {
+    setValue(fieldName, value, { shouldTouch: true, shouldValidate: true });
   };
 
   /**
    * Get the success message for a single field
    */
-  const getSuccessMessage = (fieldName: string) => {
+  const getSuccessMessage = (fieldName: FieldName) => {
     if (fieldName === 'registerPlate') {
       return getValues('registerPlate') && errors?.registerPlate === undefined
         ? 'Register plate number is valid'
@@ -252,7 +252,7 @@ export const Dynamic = () => {
                   checked={getValues('parkingPeriod') === 'continuous'}
                   onChange={() => {
                     handleChange('parkingPeriod', 'continuous');
-                    setValue('permitEndDate', '');
+                    handleChange('permitEndDate', '');
                   }}
                 />
                 <RadioButton

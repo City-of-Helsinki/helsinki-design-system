@@ -4,18 +4,18 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { CityOptionType, getCitites } from './validationUtils';
-import { validationSchema, FormData, defaultValues } from './validationSchema';
+import { defaultValues, FieldName, FormData, validationSchema } from './validationSchema';
 import {
   Button,
-  ErrorSummary,
-  TextInput,
   Checkbox,
-  SelectionGroup,
-  RadioButton,
-  TextArea,
   Combobox,
   DateInput,
+  ErrorSummary,
   PhoneInput,
+  RadioButton,
+  SelectionGroup,
+  TextArea,
+  TextInput,
 } from '../../components';
 
 import './validation.scss';
@@ -24,11 +24,11 @@ const cities = getCitites();
 
 export const Static = () => {
   const {
-    register,
-    handleSubmit,
-    setValue,
     getValues,
+    handleSubmit,
+    register,
     reset,
+    setValue,
     watch,
     formState: { errors },
   } = useForm<FormData>({
@@ -37,16 +37,14 @@ export const Static = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const handleChange = (name, value) => {
-    console.log('handleChange: ', name, value);
-    setValue(name, value);
-    // setValue(name, value, { shouldTouch: true, shouldValidate: true });
+  const handleChange = (fieldName: FieldName, value) => {
+    setValue(fieldName, value);
   };
 
   /**
    * Get the success message for a single field
    */
-  const getSuccessMessage = (fieldName: string) => {
+  const getSuccessMessage = (fieldName: FieldName) => {
     if (fieldName === 'registerPlate') {
       return getValues('registerPlate') && errors?.registerPlate === undefined
         ? 'Register plate number is valid'
@@ -58,7 +56,7 @@ export const Static = () => {
   /**
    * Get the focusable field id
    */
-  const getFocusableFieldId = (fieldName: string): string => {
+  const getFocusableFieldId = (fieldName: FieldName): string => {
     // For the city select element, focus the toggle button
     if (fieldName === 'city') {
       return `${fieldName}-toggle-button`;
@@ -109,7 +107,8 @@ export const Static = () => {
         <ul>
           {Object.keys(errors).map((errorKey, index) => (
             <li key={`error-${errorKey}`}>
-              Error {index + 1}: <a href={`#${getFocusableFieldId(errorKey)}`}>{errors[errorKey].message}</a>
+              Error {index + 1}:{' '}
+              <a href={`#${getFocusableFieldId(errorKey as FieldName)}`}>{errors[errorKey].message}</a>
             </li>
           ))}
         </ul>
@@ -169,15 +168,10 @@ export const Static = () => {
                 onChange={(selected: CityOptionType) => {
                   handleChange('city', selected ? selected.label : '');
                 }}
-                // defaultValue={{ label: getValues('city') }}
                 toggleButtonAriaLabel="Toggle"
                 invalid={!!errors.city?.message}
                 error={errors.city?.message}
                 required
-                // value={{ label: getValues('city') ? getValues('city') : '' }}
-                // onBlur={() => {
-                //   trigger('city');
-                // }}
               />
             </div>
             <div className="hds-example-form__item">
@@ -254,7 +248,6 @@ export const Static = () => {
                 errorText={errors.registerPlate?.message}
                 successText={getSuccessMessage('registerPlate')}
                 required
-                // onBlur={() => trigger('registerPlate')}
               />
             </div>
           </div>
@@ -369,7 +362,6 @@ export const Static = () => {
               required
               aria-invalid={!!errors.acceptTerms?.message}
               errorText={errors.acceptTerms?.message}
-              // checked={getValues('acceptTerms')}
               checked={watch('acceptTerms')}
               onChange={(e) => {
                 handleChange('acceptTerms', e.target.checked);

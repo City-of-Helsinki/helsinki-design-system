@@ -18,8 +18,8 @@ export const validationSchema = Yup.object()
       excludeEmptyString: true,
     }),
     registerPlate: Yup.string()
-      .matches(/^\w{2,3}-\d{1,3}$/, 'Register plate number must include 2-3 letters, a hyphen and 1-3 numbers.')
-      .required('Please enter a register plate number'),
+      .required('Please enter a register plate number')
+      .matches(/^\w{2,3}-\d{1,3}$/, 'Register plate number must include 2-3 letters, a hyphen and 1-3 numbers.'),
     brand: Yup.string().required('Please enter a vehicle brand'),
     model: Yup.string().required('Please enter a vehicle model'),
     parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
