@@ -157,7 +157,7 @@
   },
   {
     "name": "Hero",
-    "text": "...Hero",
+    "text": "Hero is used below the main navigation as the first content element.",
     "linkboxAriaLabel": "Hero component",
     "linkAriaLabel": "Go to the Hero component page",
     "href": "/components/hero",

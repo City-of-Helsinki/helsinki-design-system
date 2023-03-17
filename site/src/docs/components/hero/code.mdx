@@ -3,7 +3,7 @@ slug: '/components/hero/code'
 title: 'Hero - Code'
 ---
 
-import { Button, Hero as HDSHero, Link } from 'hds-react';
+import { Button, Hero, Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
@@ -19,45 +19,67 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-  <HDSHero
-    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
-    variant="diagonalKoros"
-    theme={{
-      '--background-color': '#f5a3c7',
-      '--color': '#000',
-    }}
+<Hero
+  imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+  variant="diagonalKoros"
+  theme={{
+    '--background-color': '#f5a3c7',
+    '--color': '#000',
+  }}
+>
+  <Hero.Title>Hero title</Hero.Title>
+  <Hero.Text>
+    This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+    introduction is around 230 characters, including spaces. The intro ends with a period.
+  </Hero.Text>
+  <Button
+    variant="secondary"
+    role="link"
+    style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
   >
-    <HDSHero.Title>Hero title</HDSHero.Title>
-    <HDSHero.Text>
-      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
-      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
-    </HDSHero.Text>
-    <Button
-      variant="secondary"
-      role="link"
-      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >
-      Call to action
-    </Button>
-  </HDSHero>
-</>
+    Call to action
+  </Button>
+</Hero>
 ```
 
 ```html
+<style scoped>
+  .custom-theme {
+    --background-color: #f5a3c7;
+    --koros-color: var(--background-color);
+    --color: #000;
+  }
+  .responsive-koros {
+    --koros-height: 14px;
+  }
+  .black-button.black-button {
+    --background-color: #000;
+    --color: #fff;
+    --border-color: #000;
+  }
+  @media only screen and (min-width: 992px) {
+    .responsive-koros {
+      --koros-height: auto;
+    }
+  }
+</style>
 <div>
   <div class="hds-hero custom-theme hds-hero--diagonal-koros">
     <div class="hds-hero--with-background__container">
       <div class="hds-hero__content">
         <div class="hds-hero--with-background__contentColumns">
           <div class="hds-hero__card">
-            <h1 class="hds-hero__title">Welcome to the hero story</h1>
+            <h1 class="hds-hero__title">Hero title</h1>
             <p class="hds-hero__text">
-              Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet
-              egestas velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+              This is an introduction text. The length is circa two sentences. The suitable total length of the title
+              and introduction is around 230 characters, including spaces. The intro ends with a period.
             </p>
-            <button type="button" class="hds-button hds-button--secondary hds-button--theme-black" role="link">
-              <span class="hds-button__label">Button</span>
+            <button
+              type="button"
+              class="hds-button hds-button--secondary hds-button--theme-black black-button"
+              role="link"
+            >
+              <span class="hds-button__label">Call to action</span>
             </button>
           </div>
           <div class="hds-hero--with-background__empty-column"></div>
@@ -66,14 +88,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <div class="hds-hero--diagonal-koros__koros-aligner">
         <div class="responsive-koros hds-hero--diagonal-koros__koros-and-background">
           <div class="hds-hero__koros-container">
-            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-              <defs>
-                <pattern id="koros_pulse-1" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
-                  <path transform="scale(5.3)" d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"></path>
-                </pattern>
-              </defs>
-              <rect fill="url(#koros_pulse-1)" width="100%" height="85"></rect>
-            </svg>
+            <div class="hds-koros" style="fill: var(--koros-color);">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+                <defs>
+                  <pattern id="koros_pulse-1" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+                    <path transform="scale(5.3)" d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"></path>
+                  </pattern>
+                </defs>
+                <rect fill="url(#koros_pulse-1)" width="100%" height="85"></rect>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
@@ -98,10 +122,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-hero--diagonal-koros">React Storybook.</Link>
 
-| Property        | Description                                                      | Values                                                                       | Default value |
-| --------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------- |
-| `theme`         | Theme prop for customisation of the Hero component.              | `object`                                                                     | TBD           |
-| `koros`         | Koros prop for customisation of the Koros of the Hero component. | `object`                                                                     | TBD           |
-| `imageSrc`      | Url of the image                                                 | `string`                                                                     | none          |
-| `centerContent` | Should the text be aligned to center                             | `boolean`                                                                    | false         |
-| `variant`       | What kind of hero render                                         | `imageLeft, imageRight, backgroundImage, imageBottom,diagonalKoros, noImage` | noImage       |
+| Property        | Description                                                                                                        | Values                                                                       | Default value                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `theme`         | Theme prop for customisation of the Hero component.                                                                | `object`                                                                     | <Link href="/components/hero/customisation">See customisation</Link> |
+| `koros`         | Koros prop for customisation of the Koros of the Hero component.                                                   | `object`                                                                     | <Link href="/components/koros/customisation">See koros</Link>        |
+| `imageSrc`      | Url of the image                                                                                                   | `string`                                                                     | -                                                                    |
+| `centerContent` | Should the text be aligned to center                                                                               | `boolean`                                                                    | false                                                                |
+| `variant`       | Which variant to render. The default value is `noImage` if `imageSrc` is not set. Otherwise default is `imageLeft` | `imageLeft, imageRight, backgroundImage, imageBottom,diagonalKoros, noImage` | `noImage` or `imageLeft`                                             |

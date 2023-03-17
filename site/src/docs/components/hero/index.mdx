@@ -19,18 +19,18 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <Hero
     theme={{
-      '--background-color': '#000',
+      '--background-color': 'var(--color-bus)',
       '--color': '#fff',
-      '--koros-color': '#000',
+      '--koros-color': 'var(--color-bus)',
     }}
     koros={{ type: 'pulse', flipHorizontal: true }}
   >
-    <Hero.Title>Hero Component</Hero.Title>
-    <Hero.Text>Hero Component</Hero.Text>
+    <Hero.Title>Hero without an image</Hero.Title>
+    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
     <Button
       variant="secondary"
       role="link"
-      style={{ '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' }}
+      style={{ '--background-color': '#fff', '--color': 'var(--color-bus)', '--border-color': '#fff' }}
     >
       Call to action
     </Button>
@@ -39,29 +39,49 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Principles
 
-- Hero should be the first element on the page
+- Hero is primarily intended only for landing pages.
+- Hero is highly recommended to be **the first element below the main navigation**.
 
-#### Should I use a Hero?
+#### Use the Hero component when you want to:
 
-- **Use the Hero component when**
-  - TBD
+- Lead the user quickly to the actual content of the service or page.
+- To make a visual impact.
+- Add emotion to the look and feel of the page.
+
+#### Functionalities
+- **Image:** There are both with-image and without-an-image options for Hero. When using a Hero with an image, choose an image that works well on all screen sizes.
+- **Colour:** The background colour is recommended to be the primary colour of the colour palette selected for the site.
+- **Koro shapes:** There are six different koro shapes (basic, beat, calm, pulse, vibration and wave). The koro shape can also cover the Hero image at a 45-degree angle. To learn more about Koro shapes and their customization, refer to <InternalLink href="/components/koros">HDS Koros documentation</InternalLink>.
+- **Title and introduction (required):** The suitable total length of the title and introduction is circa 230 characters, including spaces. The intro ends with a period.
+- **CTA:** Buttons can also be added to the Hero component, and it is recommended to include, e.g. the most critical link of the page in the Hero component, if one is known. By default, use a button with a background colour (primary button style). On dark background colours, secondary button style can be used.
+
+### React subcomponents
+
+Hero has two subcomponents: `Hero.Title` and `Hero.Text`
+
+#### Hero.Title
+
+`Hero.Title` is rendered as a `<h1>`. If hero is not the first element with a heading, then the heading level should be changed. The level can be set with the `headingLevel` property of the `Hero.Title`
+
+#### Hero.Text
+
+`Hero.Text` is rendered as a `<p>`.
 
 ### Variations
 
 #### Image left or right
 
-Use when...
+Use when you want to support the title's message with an image. Don't use an image just for illustrative purposes.
 
 <PlaygroundPreview>
   <Hero
     imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
-    variant="imageLeft"
+    variant="imageRight"
     theme={{ '--background-color': '#c2a251', '--color': '#000' }}
   >
-    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Title>Hero image on the right</Hero.Title>
     <Hero.Text>
-      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
-      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
@@ -75,7 +95,7 @@ Use when...
 
 #### Image as a background
 
-Use when...
+Use when you want to fill the background area with an image. Use an image that works when the title and intro container covers part of the image. 
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
@@ -85,10 +105,9 @@ Use when...
       '--background-color': '#fff',
     }}
   >
-    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Title>Hero image as a background</Hero.Title>
     <Hero.Text>
-      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
-      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
@@ -100,23 +119,23 @@ Use when...
   </Hero>
 </PlaygroundPreview>
 
-#### Diagonal koros and image as a background
+#### Diagonal koro shape and image as a background
 
-Use when...
+Use when you want to create a dynamic Hero layout on your page. Use an image that works when the diagonal koro shape covers part of the image. Pay attention to how the image appereance varies on different Hero screen sizes.
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
     imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
     variant="diagonalKoros"
     theme={{
-      '--background-color': '#f5a3c7',
+      '--background-color': 'var(--color-suomenlinna)',
       '--color': '#000',
+      '--diagonal-koros-position': '43%',
     }}
   >
-    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Title>Hero with a diagonal koro shape</Hero.Title>
     <Hero.Text>
-      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
-      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
@@ -130,7 +149,7 @@ Use when...
 
 #### Wide bottom image
 
-Use when...
+Use when you want to emphasize the title and introduction text content over the image. Use an image that works when the diagonal koro shape covers part of the image. Pay attention to how the image appereance varies on different Hero screen sizes.
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
@@ -140,10 +159,9 @@ Use when...
       '--background-color': '#fff',
     }}
   >
-    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Title>Hero image below the title</Hero.Title>
     <Hero.Text>
-      Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia tristique est, sit amet egestas
-      velit elementum sit amet. Nam lacinia volutpat erat vel faucibus.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
@@ -157,7 +175,7 @@ Use when...
 
 #### No image
 
-Use when...
+Use when you don't have a suitable image to support the title section's message – or in a situation – where you want to emphasize a visual piece of content right after the Hero component.
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
@@ -169,8 +187,8 @@ Use when...
     }}
     koros={{ type: 'pulse' }}
   >
-    <Hero.Title>Hero Component</Hero.Title>
-    <Hero.Text>Hero Component</Hero.Text>
+    <Hero.Title>Hero without an image</Hero.Title>
+    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
     <Button
       variant="secondary"
       role="link"

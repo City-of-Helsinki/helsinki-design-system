@@ -32,9 +32,9 @@ See all available theme variables in the table below.
 | `--horizontal-padding-large`   | Horizontal padding on large screens (>= 992px). Default is `--spacing-layout-xs`                     |
 | `--horizontal-padding-x-large` | Horizontal padding on xtra large screens (>= 1248px). Default is `--spacing-layout-xs`               |
 
-In React version, you can use the `koros` property to customise the component.
+In React version, you can use the `koros` property to customise the Koros component.
 
-You can use same propertis as the Koros component and also `hide`
+You can use the same properties as the <Link href="/components/koros/customisation">Koros component</Link> and also an additional property `hide`.
 
 | Koros property | Description                          |
 | -------------- | ------------------------------------ |
@@ -51,6 +51,7 @@ You can use same propertis as the Koros component and also `hide`
   theme={{
     '--background-color': '#fff',
   }}
+  koros={{ style: 'pulse', dense: true }}
 >
   <Hero.Title>Hero title</Hero.Title>
   <Hero.Text>
