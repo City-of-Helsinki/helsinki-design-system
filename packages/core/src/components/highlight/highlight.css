@@ -1,19 +1,22 @@
 .hds-highlight {
   --accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
-  --width: 536px;
+  --variant-width-s: 264px;
+  --variant-width-m: 536px;
+  --variant-width-l: 680px;
+  --width: var(--variant-width-m);
   --margin: var(--spacing-m) 0;
 
   border-left: 8px solid var(--accent-line-color);
   color: var(--text-color);
   display: flex;
   justify-content: center;
-  align-items: space-between;
   flex-direction: column;  
   grid-row-gap: var(--spacing-m);
   padding: 0;
   padding-left: var(--spacing-s);
   margin: var(--margin);
+  max-width: 100%;
 }
 
 .hds-highlight__text {
@@ -26,12 +29,12 @@
 
 .hds-highlight--small {
   --margin: var(--spacing-s) 0;
-  --width: 264px;
+  --width: var(--variant-width-s);
 }
 
 .hds-highlight--large {
   --margin: var(--spacing-l) 0;
-  --width: 680px;
+  --width: var(--variant-width-l);
 }
 
 .hds-highlight--large .hds-highlight__text {
