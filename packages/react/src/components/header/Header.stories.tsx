@@ -36,11 +36,9 @@ export const WithFullFeatures = (args) => (
         primaryLinkText="Helsingin kaupunki"
         primaryLinkHref="#"
         items={[
-          [
-            <Header.NavigationLink href="#" label="Link 1" />,
-            <Header.NavigationLink href="#" label="Link 2" />,
-            <Header.NavigationLink href="#" label="Link 3" />,
-          ],
+          <Header.NavigationLink href="#" label="Link 1" />,
+          <Header.NavigationLink href="#" label="Link 2" />,
+          <Header.NavigationLink href="#" label="Link 3" />,
         ]}
       />
       <Header.NavigationMenu
