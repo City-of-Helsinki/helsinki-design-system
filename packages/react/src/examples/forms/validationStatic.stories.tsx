@@ -140,7 +140,7 @@ export const Static = () => {
               <TextInput
                 {...register('lastName')}
                 onChange={(e) => {
-                  handleChange('firstName', e.currentTarget.value);
+                  handleChange('lastName', e.currentTarget.value);
                 }}
                 id="lastName"
                 name="lastName"
