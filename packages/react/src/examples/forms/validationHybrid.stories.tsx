@@ -84,25 +84,20 @@ export const Hybrid = () => {
   React.useEffect(() => {
     const invalidFields = Object.keys(errors);
     // check for city and if it's the 1st -> focus
-    if (errors?.city) {
-      if (invalidFields[0] === 'city') {
-        const element = document.getElementById('city-toggle-button');
-        if (element) {
-          setTimeout(() => {
-            element.focus();
-          }, 10);
-        }
+    if (errors?.city && invalidFields[0] === 'city') {
+      const element = document.getElementById('city-toggle-button');
+      if (element) {
+        setTimeout(() => {
+          element.focus();
+        }, 10);
       }
-      return;
     }
-    if (errors?.permitEndDate) {
-      if (invalidFields[0] === 'permitEndDate') {
-        const element = document.getElementById('permitEndDate');
-        if (element) {
-          setTimeout(() => {
-            element.focus();
-          }, 10);
-        }
+    if (errors?.permitEndDate && invalidFields[0] === 'permitEndDate') {
+      const element = document.getElementById('permitEndDate');
+      if (element) {
+        setTimeout(() => {
+          element.focus();
+        }, 10);
       }
     }
   }, [errors]);
