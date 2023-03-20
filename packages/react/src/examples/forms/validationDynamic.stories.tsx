@@ -37,7 +37,9 @@ export const Dynamic = () => {
   });
 
   const handleChange = (fieldName: FieldName, value) => {
-    setValue(fieldName, value, { shouldTouch: true, shouldValidate: true });
+    if (getValues(fieldName) !== value) {
+      setValue(fieldName, value, { shouldTouch: true, shouldValidate: true });
+    }
   };
 
   /**
@@ -132,7 +134,6 @@ export const Dynamic = () => {
                 invalid={!!errors.city?.message}
                 error={errors.city?.message}
                 required
-                value={{ label: getValues('city') ? getValues('city') : '' }}
                 onBlur={() => {
                   trigger('city');
                 }}
