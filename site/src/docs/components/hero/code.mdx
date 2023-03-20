@@ -48,19 +48,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     --background-color: #f5a3c7;
     --koros-color: var(--background-color);
     --color: #000;
-  }
-  .responsive-koros {
-    --koros-height: 14px;
+    --koros-height: 34px;
   }
   .black-button.black-button {
     --background-color: #000;
     --color: #fff;
     --border-color: #000;
-  }
-  @media only screen and (min-width: 992px) {
-    .responsive-koros {
-      --koros-height: auto;
-    }
   }
 </style>
 <div>
@@ -86,16 +79,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
         </div>
       </div>
       <div class="hds-hero--diagonal-koros__koros-aligner">
-        <div class="responsive-koros hds-hero--diagonal-koros__koros-and-background">
+        <div class="hds-hero--diagonal-koros__koros-and-background">
           <div class="hds-hero__koros-container">
             <div class="hds-koros" style="fill: var(--koros-color);">
               <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
                 <defs>
-                  <pattern id="koros_pulse-1" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
-                    <path transform="scale(5.3)" d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"></path>
+                  <pattern id="koros_basic-5" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+                    <path transform="scale(5.3)" d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"></path>
                   </pattern>
                 </defs>
-                <rect fill="url(#koros_pulse-1)" width="100%" height="85"></rect>
+                <rect fill="url(#koros_basic-5)" width="100%" height="85"></rect>
               </svg>
             </div>
           </div>
