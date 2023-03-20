@@ -23,6 +23,10 @@ export type NavigationRowProps = React.PropsWithChildren<{
   ariaLabel?: string;
 }>;
 
+/**
+ * NavigationRow will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationRow = ({ variant = 'default', ariaLabel, children }: NavigationRowProps) => {
   const { setNavigationVariant } = useContext(NavigationContext);
 

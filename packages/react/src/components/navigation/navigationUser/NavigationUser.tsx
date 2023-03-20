@@ -26,6 +26,10 @@ export type NavigationUserProps = MenuButtonProps & {
   userName?: React.ReactNode;
 };
 
+/**
+ * NavigationUser will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationUser = ({
   authenticated = false,
   children,

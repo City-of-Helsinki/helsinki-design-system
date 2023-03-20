@@ -42,6 +42,10 @@ export type NavigationSearchProps = {
   searchPlaceholder?: string;
 };
 
+/**
+ * NavigationSearch will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationSearch = ({
   onBlur = () => null,
   onFocus = () => null,
