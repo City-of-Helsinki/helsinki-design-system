@@ -176,24 +176,24 @@
     }
   },
   {
-    "name": "Icon",
-    "text": "Icons are used for providing visual cues and highlighting actions.",
-    "linkboxAriaLabel": "Icon component",
-    "linkAriaLabel": "Go to the Icon component page",
-    "href": "/components/icon",
-    "imgProps": {
-      "src": "/images/components/overview/icon@2x.png",
-      "alt": "An illustration of the Icon component.",
-      "height": 180,
-      "width": 280
-    }
-  },
-  {
     "name": "Highlight",
     "text": "Quote and highlight allow lifting an excerpt from a longer text to emphasize.",
     "linkboxAriaLabel": "Highlight component",
     "linkAriaLabel": "Go to the Highlight component page",
     "href": "/components/highlight",
+    "imgProps": {
+      "src": "/images/components/overview/highlight@2x.png",
+      "alt": "An illustration of the Highlight component.",
+      "height": 180,
+      "width": 280
+    }
+  },  
+  {
+    "name": "Icon",
+    "text": "Icons are used for providing visual cues and highlighting actions.",
+    "linkboxAriaLabel": "Icon component",
+    "linkAriaLabel": "Go to the Icon component page",
+    "href": "/components/icon",
     "imgProps": {
       "src": "/images/components/overview/icon@2x.png",
       "alt": "An illustration of the Icon component.",
