@@ -19,9 +19,11 @@ describe('<NavigationLink /> spec', () => {
   });
 
   it('should open dropdown when the button is clicked', async () => {
-    render(<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />, {
-      wrapper: HeaderNavigationMenuWrapper,
-    });
+    render(
+      HeaderNavigationMenuWrapper({
+        items: [<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />],
+      }),
+    );
 
     userEvent.click(screen.getByTestId('dropdown-button-0'));
     expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
@@ -29,11 +31,20 @@ describe('<NavigationLink /> spec', () => {
 
   it('should have only one main dropdown active', async () => {
     render(
-      <>
-        <NavigationLink href="#" label="Link 1" dropdownLinks={[<NavigationLink href="#" label="Link 1 nested" />]} />
-        <NavigationLink href="#" label="Link 2" dropdownLinks={[<NavigationLink href="#" label="Link 2 nested" />]} />
-      </>,
-      { wrapper: HeaderNavigationMenuWrapper },
+      HeaderNavigationMenuWrapper({
+        items: [
+          <NavigationLink
+            href="#"
+            label="Link 1"
+            dropdownLinks={[<NavigationLink href="#" label="Link 1 nested" />]}
+          />,
+          <NavigationLink
+            href="#"
+            label="Link 2"
+            dropdownLinks={[<NavigationLink href="#" label="Link 2 nested" />]}
+          />,
+        ],
+      }),
     );
 
     // Click the first main navigation link's dropdown button

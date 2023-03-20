@@ -177,13 +177,12 @@ export const NavigationLink = ({
           setOpen={handleDropdownOpen}
           index={index}
           dynamicPosition={dynamicPosition}
-        >
-          {React.Children.map(dropdownLinks, (child, childIndex) => {
-            return cloneElement(child as React.ReactElement, {
+          items={dropdownLinks.map((child, childIndex) =>
+            cloneElement(child as React.ReactElement, {
               key: childIndex,
-            });
-          })}
-        </NavigationLinkDropdown>
+            }),
+          )}
+        />
       )}
     </span>
   );

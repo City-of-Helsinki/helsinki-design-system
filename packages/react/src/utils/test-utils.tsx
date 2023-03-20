@@ -15,8 +15,8 @@ export const FooterWrapper = ({ children }: PropsWithChildren<Record<string, unk
   <Footer title="Bar">{children}</Footer>
 );
 
-export const HeaderNavigationMenuWrapper = ({ children }: PropsWithChildren<Record<string, unknown>>) => (
+export const HeaderNavigationMenuWrapper = ({ items }: { items: React.ReactNode[] }) => (
   <Header>
-    <HeaderNavigationMenu>{children}</HeaderNavigationMenu>
+    <HeaderNavigationMenu items={items} />
   </Header>
 );

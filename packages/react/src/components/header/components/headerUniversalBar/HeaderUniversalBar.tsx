@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, useContext } from 'react';
+import React, { cloneElement, useContext } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -6,9 +6,8 @@ import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
 import { HeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import { getChildElementsEvenIfContainerInbetween } from '../../../../utils/getChildren';
 
-export type HeaderUniversalBarProps = React.PropsWithChildren<{
+export type HeaderUniversalBarProps = {
   /**
    * aria-label for describing universal bar.
    */
@@ -18,9 +17,9 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
-   * Children are expected to be NavigationLink components or a container with NavigationLink components inside.
+   * Items are expected to be NavigationLink components.
    */
-  children?: React.ReactNode;
+  items?: React.ReactNode[];
   /**
    * ID of the header element.
    */
@@ -35,18 +34,17 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
    * @default 'Helsingin kaupunki'
    */
   primaryLinkText?: string;
-}>;
+};
 
 export const HeaderUniversalBar = ({
   ariaLabel,
-  children,
+  items,
   id,
   primaryLinkHref,
   primaryLinkText,
 }: HeaderUniversalBarProps) => {
   const { isSmallScreen } = useContext(HeaderContext);
   if (isSmallScreen) return null;
-  const childElements = getChildElementsEvenIfContainerInbetween(children);
 
   return (
     <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerUniversalBar}>
@@ -54,19 +52,20 @@ export const HeaderUniversalBar = ({
         <li className={styles.universalBarMainLinkContainer}>
           <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
         </li>
-        {Children.map(childElements, (child, index) => {
-          if (React.isValidElement(child)) {
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
-                {cloneElement(child as React.ReactElement, {
-                  className: classNames(child.props.className, styles.universalBarLink),
-                })}
-              </li>
-            );
-          }
-          return null;
-        })}
+        {items &&
+          items.map((child, index) => {
+            if (React.isValidElement(child)) {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
+                  {cloneElement(child as React.ReactElement, {
+                    className: classNames(child.props.className, styles.universalBarLink),
+                  })}
+                </li>
+              );
+            }
+            return null;
+          })}
       </ul>
     </nav>
   );

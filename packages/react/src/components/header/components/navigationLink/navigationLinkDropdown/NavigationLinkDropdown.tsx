@@ -14,7 +14,8 @@ export enum DropdownMenuPosition {
   Left = 'left',
   Right = 'right',
 }
-export type NavigationLinkDropdownProps = React.PropsWithChildren<{
+
+export type NavigationLinkDropdownProps = {
   /**
    * Direction for dropdown position.
    * @default DropdownMenuPosition.Right
@@ -30,16 +31,20 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    */
   open: boolean;
   /**
+   * Items are expected to be NavigationLink components.
+   */
+  items?: React.ReactNode[];
+  /**
    * Function that is called when open value is changed.
    */
   setOpen: (isOpen: boolean, interaction: NavigationLinkInteraction) => void;
-}>;
+};
 
 export const NavigationLinkDropdown = ({
-  children,
   dynamicPosition = DropdownMenuPosition.Right,
   index,
   open,
+  items,
   setOpen,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
@@ -68,23 +73,24 @@ export const NavigationLinkDropdown = ({
         data-testid={`dropdown-menu-${index}`}
         ref={ref}
       >
-        {React.Children.map(children, (child, childIndex) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
-              {isValidElement(child)
-                ? cloneElement(child as React.ReactElement, {
-                    index: childIndex,
-                    openSubNavIndex,
-                    setOpenSubNavIndex,
-                    className: child.props.active
-                      ? classNames(styles.dropdownLink, styles.activeLink)
-                      : styles.dropdownLink,
-                  })
-                : child}
-            </li>
-          );
-        })}
+        {items &&
+          items.map((child, childIndex) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index}>
+                {isValidElement(child)
+                  ? cloneElement(child as React.ReactElement, {
+                      index: childIndex,
+                      openSubNavIndex,
+                      setOpenSubNavIndex,
+                      className: child.props.active
+                        ? classNames(styles.dropdownLink, styles.activeLink)
+                        : styles.dropdownLink,
+                    })
+                  : child}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
