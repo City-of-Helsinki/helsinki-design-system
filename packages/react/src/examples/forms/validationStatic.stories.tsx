@@ -34,6 +34,7 @@ export const Static = () => {
   } = useForm<FormData>({
     mode: 'onSubmit',
     defaultValues,
+    shouldFocusError: false,
     resolver: yupResolver(validationSchema),
   });
 
@@ -71,27 +72,6 @@ export const Static = () => {
     console.log({ data });
     reset();
   };
-
-  React.useEffect(() => {
-    const invalidFields = Object.keys(errors);
-    // check for city and if it's the 1st -> focus
-    if (errors?.city && invalidFields[0] === 'city') {
-      const element = document.getElementById('city-toggle-button');
-      if (element) {
-        setTimeout(() => {
-          element.focus();
-        }, 10);
-      }
-    }
-    if (errors?.permitEndDate && invalidFields[0] === 'permitEndDate') {
-      const element = document.getElementById('permitEndDate');
-      if (element) {
-        setTimeout(() => {
-          element.focus();
-        }, 10);
-      }
-    }
-  }, [errors]);
 
   /**
    * Render the error summary section
