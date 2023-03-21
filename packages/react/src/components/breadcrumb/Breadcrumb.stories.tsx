@@ -11,6 +11,7 @@ export default {
     controls: { expanded: true },
   },
   args: {
+    ariaLabel: 'Breadcrumb',
     list: [
       { title: 'Front page', path: '/' },
       { title: 'Health and social services', path: '/path' },
@@ -41,33 +42,33 @@ export const ExampleInHeader = (args) => {
         <Header.NavigationMenu>
           <Header.NavigationLink
             href="#"
-            label="Link 1"
+            label="Health and social services"
             onClick={(event) => event.preventDefault()}
             active
             dropdownLinks={[
               <Header.NavigationLink
                 href="#"
-                label="Test"
+                label="Senior services"
                 dropdownDirection={DropdownDirection.Dynamic}
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
+                  <Header.NavigationLink href="#" label="Informal care" active />,
+                  <Header.NavigationLink href="#" label="Senior centres" />,
+                  <Header.NavigationLink href="#" label="Home care" />,
                 ]}
               />,
               <Header.NavigationLink
                 href="#"
-                label="Test"
+                label="Data and the rights of the client"
                 dropdownDirection={DropdownDirection.Dynamic}
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
+                  <Header.NavigationLink href="#" label="Requesting client data" />,
+                  <Header.NavigationLink href="#" label="Fees" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink href="#" label="Link 2" />
+          <Header.NavigationLink href="#" label="Child and family services" />
         </Header.NavigationMenu>
         <div className="breadcrumb-container ">
           <Breadcrumb {...args} />
