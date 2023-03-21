@@ -19,33 +19,25 @@ describe('<NavigationLink /> spec', () => {
   });
 
   it('should open dropdown when the button is clicked', async () => {
-    render(
-      HeaderNavigationMenuWrapper({
-        items: [<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />],
-      }),
-    );
+    const wrapper = HeaderNavigationMenuWrapper({
+      items: [<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />],
+    });
+
+    render(wrapper);
 
     userEvent.click(screen.getByTestId('dropdown-button-0'));
     expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
   });
 
   it('should have only one main dropdown active', async () => {
-    render(
-      HeaderNavigationMenuWrapper({
-        items: [
-          <NavigationLink
-            href="#"
-            label="Link 1"
-            dropdownLinks={[<NavigationLink href="#" label="Link 1 nested" />]}
-          />,
-          <NavigationLink
-            href="#"
-            label="Link 2"
-            dropdownLinks={[<NavigationLink href="#" label="Link 2 nested" />]}
-          />,
-        ],
-      }),
-    );
+    const wrapper = HeaderNavigationMenuWrapper({
+      items: [
+        <NavigationLink href="#" label="Link 1" dropdownLinks={[<NavigationLink href="#" label="Link 1 nested" />]} />,
+        <NavigationLink href="#" label="Link 2" dropdownLinks={[<NavigationLink href="#" label="Link 2 nested" />]} />,
+      ],
+    });
+
+    render(wrapper);
 
     // Click the first main navigation link's dropdown button
     userEvent.click(screen.getByTestId('dropdown-button-0'));
