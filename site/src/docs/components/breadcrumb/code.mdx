@@ -18,6 +18,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <Breadcrumb
+  ariaLabel="Breadcrumb"
   list={[
     { title: 'Front page', path: '/' },
     { title: 'Health and social services', path: '/path' },
@@ -71,7 +72,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-breadcrumb--example">React Storybook.</Link>
 
-| Property | Description                                                               | Values                 | Default value |
-| -------- | ------------------------------------------------------------------------- | ---------------------- | ------------- |
-| `list`   | Array of breadcrumb items. Each item is an object with `title` and `path` | `BreadcrumbListItem[]` | -             |
-| `label`  | `aria-label` of the `<nav>` element created by the component              | `string`               | Murupolku     |
+| Property    | Description                                                               | Values                 | Default value |
+| ----------- | ------------------------------------------------------------------------- | ---------------------- | ------------- |
+| `ariaLabel` | `aria-label` of the `<nav>` element created by the component              | `string`               | -             |
+| `list`      | Array of breadcrumb items. Each item is an object with `title` and `path` | `BreadcrumbListItem[]` | -             |
