@@ -76,6 +76,6 @@ PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
   **Solution:** Run `$(npm bin)/gatsby clean` or manually remove .cache folder to clean up cache files. Then try to run the build again.
 
 - **Development: A new local component is not available when trying to import from the hds-react in the site**:
-  1. Review that all component exports exist in hds-react package
+  1. Review that all component exports exist in hds-react package. Check the hds-react [DEVELOPMENT.md](../packages/react/DEVELOPMENT.md) for more information.
   2. Remove old build folders from package-folders
   3. Run ```bash yarn build``` in the root folder of the repository. This will build the local libraries into root node_modules as installed libraries.
