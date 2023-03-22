@@ -65,23 +65,25 @@ export const SelectionGroup = ({
   ...fieldSetProps
 }: SelectionGroupProps) => {
   useEffect(() => {
-    let hasRadios = false;
-    let hasCheckedRadios = false;
-    React.Children.forEach(children, (child) => {
-      const reactElement = child as React.ReactElement;
-      const { displayName } = reactElement.type as React.FunctionComponent;
-      if (displayName === 'RadioButton') {
-        hasRadios = true;
-        if (reactElement.props.checked === true) {
-          hasCheckedRadios = true;
+    if (Array.isArray(children)) {
+      let hasRadios = false;
+      let hasCheckedRadios = false;
+      children.forEach((child) => {
+        const reactElement = child as React.ReactElement;
+        const { displayName } = reactElement.type as React.FunctionComponent;
+        if (displayName === 'RadioButton') {
+          hasRadios = true;
+          if (reactElement.props.checked === true) {
+            hasCheckedRadios = true;
+          }
         }
+      });
+      if (hasRadios && !hasCheckedRadios) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'All radio buttons in a SelectionGroup are unchecked. One radio button should be checked by default.',
+        );
       }
-    });
-    if (hasRadios && !hasCheckedRadios) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'All radio buttons in a SelectionGroup are unchecked. One radio button should be checked by default.',
-      );
     }
   }, [children]);
   return (
@@ -95,9 +97,11 @@ export const SelectionGroup = ({
         </Tooltip>
       )}
       <div className={classNames(styles.items, styles[direction])}>
-        {React.Children.map(children, (child) => (
-          <div className={styles.item}>{child}</div>
-        ))}
+        {Array.isArray(children) ? (
+          children.map((child) => <div className={styles.item}>{child}</div>)
+        ) : (
+          <div className={styles.item}>{children}</div>
+        )}
       </div>
       {errorText && <div className={styles.errorText}>{errorText}</div>}
       {helperText && <div className={styles.helperText}>{helperText}</div>}
