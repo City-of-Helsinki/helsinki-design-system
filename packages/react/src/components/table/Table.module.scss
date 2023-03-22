@@ -120,7 +120,6 @@
   composes: hds-table__content--text-align-td-right from 'hds-core/lib/components/table/table.css';
 }
 
-<<<<<<< HEAD
 .sortButton {
   @extend %normalizedInput;
 
@@ -145,8 +144,6 @@
   }
 }
 
-=======
->>>>>>> master
 /* MOBILE STYLES */
 
 @media small-down {
