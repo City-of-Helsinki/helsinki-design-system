@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './StatusLabel.module.css';
 import classNames from '../../utils/classNames';
 

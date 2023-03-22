@@ -1,7 +1,7 @@
 import React, { cloneElement, isValidElement, useEffect } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 
 import styles from './SideNavigation.module.scss';
 import SideNavigationContext from './SideNavigationContext';

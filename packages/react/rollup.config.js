@@ -8,6 +8,7 @@ import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import postcss from 'rollup-plugin-postcss';
+import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
@@ -100,6 +101,7 @@ const getConfig = (format, extractCSS) => ({
           },
         ],
       },
+      plugins: [postcssImport()],
     }),
     terser(),
     extractCSS ? cssText() : undefined,

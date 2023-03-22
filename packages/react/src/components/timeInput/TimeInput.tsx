@@ -1,5 +1,7 @@
 import React, { FocusEventHandler, useEffect, useRef, useState } from 'react';
-import 'hds-core';
+
+// import base styles
+import '../../styles/base.css';
 
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput/TextInput';

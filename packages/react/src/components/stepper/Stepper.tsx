@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Stepper.module.scss';
 import { Step, StepState } from './Step';
 import classNames from '../../utils/classNames';

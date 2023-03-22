@@ -1,7 +1,8 @@
 import React, { useReducer } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Footer.module.scss';
 import { Logo, LogoLanguage } from '../logo';
 import { Koros, KorosType } from '../koros';

@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../styles/base.css';
+
 import styles from './FooterItem.module.scss';
 import { MergeElementProps } from '../../../common/types';
 import classNames from '../../../utils/classNames';

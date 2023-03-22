@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Table.module.scss';
 import { TableContainer } from './components/TableContainer';
 import { HeaderRow } from './components/HeaderRow';

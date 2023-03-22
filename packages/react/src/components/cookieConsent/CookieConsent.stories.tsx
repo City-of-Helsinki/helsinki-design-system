@@ -299,7 +299,7 @@ export const EnglishModalVersion = (args) => {
       <div>
         <p>Example how to track single consent.</p>
         <p>Matomo onConsentsParsed is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
-        <small>* This won&apos;t change in real time</small>
+        <small style={{ fontSize: '80%' }}>* This won&apos;t change in real time</small>
       </div>
     );
   };
@@ -597,7 +597,7 @@ export const FinnishModalVersion = (args) => {
       <div>
         <p>Esimerkki kuinka seurata yhden keksin suostumusta</p>
         <p>Matomo suostumusta {isMatomoCookieApproved ? 'on' : <strong>EI OLE </strong>} asetettu.*</p>
-        <small>* Tämä ei päivity reaaliajassa</small>
+        <small style={{ fontSize: '80%' }}>* Tämä ei päivity reaaliajassa</small>
       </div>
     );
   };

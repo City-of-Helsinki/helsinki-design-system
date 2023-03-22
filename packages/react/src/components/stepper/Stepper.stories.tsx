@@ -881,7 +881,7 @@ export const States = (args) => {
         <Step label="Paused" language="en" index={6} stepsTotal={9} state={StepState.paused} />
         <Step label="Paused + selected" language="en" selected index={7} stepsTotal={9} state={StepState.paused} />
         <div className={styles.step}>
-          <p>Small variant:</p>
+          <p style={{ fontSize: 'var(--fontsize-body-m)', lineHeight: 'var(--lineheight-l)' }}>Small variant:</p>
           <Step
             label="Available"
             language="en"

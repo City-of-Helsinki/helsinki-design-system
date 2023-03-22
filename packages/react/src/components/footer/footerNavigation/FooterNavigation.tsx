@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../styles/base.css';
+
 import styles from './FooterNavigation.module.scss';
 import { FooterContext } from '../FooterContext';
 import { FooterNavigationVariant } from '../Footer.interface';

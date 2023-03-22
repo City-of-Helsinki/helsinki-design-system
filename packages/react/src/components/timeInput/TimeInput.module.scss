@@ -26,6 +26,10 @@
   width: 0;
 }
 
+.fullInput, .partialInput {
+  @extend %normalizedInput;
+}
+
 .partialInputLabel {
   @extend %hiddenFromScreen;
 }
