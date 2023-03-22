@@ -3,6 +3,8 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 // import base styles
 import '../../../../../styles/base.css';
 
+// import core base styles
+import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import classNames from '../../../../../utils/classNames';
