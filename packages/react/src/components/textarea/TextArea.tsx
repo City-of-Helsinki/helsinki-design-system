@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from '../textInput/TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';

@@ -1,3 +1,46 @@
+:where(.hds-button) {
+  /*
+   * Normalize.css rules
+   * 1. Change the font styles in all browsers.
+   * 2. Remove the margin in Firefox and Safari.
+   */
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+
+  /*
+   * Normalize.css rule
+   * Remove the inheritance of text transform in Edge, Firefox, and IE.
+   */
+  text-transform: none;
+}
+
+/*
+ * Normalize.css rules
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+:where(.hds-button, .hds-button[type="button"], .hds-button[type="reset"], .hds-button[type="submit"]) {
+  -webkit-appearance: button;
+}
+
+/*
+ * Normalize.css rules
+ * Remove the inner border and padding in Firefox.
+ */
+:where(.hds-button::-moz-focus-inner, .hds-button[type="button"]::-moz-focus-inner, .hds-button[type="reset"]::-moz-focus-inner, .hds-button[type="submit"]::-moz-focus-inner) {
+  border-style: none;
+  padding: 0;
+}
+
+/*
+ * Normalize.css rules
+ * Restore the focus styles unset by the previous rule.
+ */
+:where(.hds-button:-moz-focusring, .hds-button[type="button"]:-moz-focusring, .hds-button[type="reset"]:-moz-focusring, .hds-button[type="submit"]:-moz-focusring) {
+  outline: 1px dotted ButtonText;
+}
+
 .hds-button {
   --border-width: 2px;
   --color: inherit;
@@ -23,19 +66,19 @@
 }
 
 .hds-button,
-.hds-button::before,
-.hds-button::after,
+.hds-button:before,
+.hds-button:after,
 .hds-button *,
-.hds-button *::before,
-.hds-button *::after {
+.hds-button *:before,
+.hds-button *:after {
   box-sizing: border-box;
 }
 
 /* button transitions */
 .hds-button:hover,
 .hds-button:focus-visible {
-  transition-property: background-color, border-color, color;
   transition-duration: 85ms;
+  transition-property: background-color, border-color, color;
   transition-timing-function: ease-out;
 }
 
@@ -56,12 +99,8 @@
   outline: none;
 }
 
-.hds-button:focus-visible:hover {
-  background-color: var(--background-color-hover-focus, transparent);
-}
-
-.hds-button:active:hover {
-  background-color: var(--background-color-hover-focus, transparent);
+.hds-button:not(:disabled) {
+  border-color: var(--border-color, transparent);
 }
 
 .hds-button:disabled {
@@ -71,8 +110,12 @@
   cursor: not-allowed;
 }
 
-.hds-button:not(:disabled) {
-  border-color: var(--border-color, transparent);
+.hds-button:focus-visible:hover {
+  background-color: var(--background-color-hover-focus, transparent);
+}
+
+.hds-button:active:hover {
+  background-color: var(--background-color-hover-focus, transparent);
 }
 
 .hds-button:not(:disabled):hover {
@@ -99,7 +142,7 @@
 
 /* FOCUS OUTLINE */
 
-.hds-button::after {
+.hds-button:after {
   --size: 100%;
 
   border: var(--outline-width) solid transparent;
@@ -109,22 +152,17 @@
   width: var(--size);
 }
 
-.hds-button:focus-visible::after {
+.hds-button:focus-visible:after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+
   border-color: var(--focus-outline-color);
 }
 
-.hds-button:active::after {
+.hds-button:active:after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+
   border-color: var(--focus-outline-color);
 }
-
-/* submit input */
-input[type="submit"].hds-button:focus-visible {
-  box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
-}
-
-/* LABEL */
 
 input[type="submit"].hds-button,
 .hds-button__label {
@@ -138,19 +176,38 @@ input[type="submit"].hds-button {
   padding: var(--spacing-s) var(--spacing-l);
 }
 
+/* submit input */
+input[type="submit"].hds-button:focus-visible {
+  box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
+}
+
 /* no icons */
 .hds-button__label:only-child {
   margin: 0 var(--spacing-2-xs);
 }
 
+input[type="submit"].hds-button--small,
+.hds-button--small .hds-button__label {
+  line-height: var(--lineheight-s);
+  padding: var(--spacing-2-xs) var(--spacing-xs);
+}
+
+
 /* supplementary with right icon */
 .hds-button--supplementary .hds-button__label:first-child {
   padding-right: var(--spacing-2-xs);
 }
+
+/* no icons */
+.hds-button--small .hds-button__label:only-child {
+  margin: 0 var(--spacing-xs);
+}
+
 /* supplementary with left icon */
 .hds-button--supplementary .hds-icon + .hds-button__label:last-child {
   padding-left: var(--spacing-2-xs);
 }
+
 /* supplementary with both icons */
 .hds-button--supplementary .hds-icon + .hds-button__label:not(:last-child) {
   padding-left: var(--spacing-2-xs);
@@ -162,19 +219,8 @@ input[type="submit"].hds-button {
   padding: 0;
 }
 
-input[type="submit"].hds-button--small,
-.hds-button--small .hds-button__label {
-  line-height: var(--lineheight-s);
-  padding: var(--spacing-2-xs) var(--spacing-xs);
-}
-
 input[type="submit"].hds-button--small {
   padding: var(--spacing-2-xs) var(--spacing-m);
-}
-
-/* no icons */
-.hds-button--small .hds-button__label:only-child {
-  margin: 0 var(--spacing-xs);
 }
 
 /* both icons */
@@ -241,19 +287,16 @@ input[type="submit"].hds-button--small {
   --background-color-focus: var(--color-bus);
   --background-color-hover-focus: var(--color-bus-dark);
   --background-color-disabled: var(--color-black-20);
-
   --border-color: var(--color-bus);
   --border-color-hover: var(--color-bus-dark);
   --border-color-focus: var(--color-bus);
   --border-color-hover-focus: var(--color-bus-dark);
   --border-color-disabled: var(--color-black-20);
-
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
   --color-hover-focus: var(--color-white);
   --color-disabled: var(--color-white);
-
   --focus-outline-color: var(--color-coat-of-arms);
   --submit-input-focus-gutter-color: var(--color-white);
 }
@@ -267,19 +310,16 @@ input[type="submit"].hds-button--small {
   --background-color-focus: transparent;
   --background-color-hover-focus: var(--color-bus-light);
   --background-color-disabled: transparent;
-
   --border-color: var(--color-bus);
   --border-color-hover: var(--color-bus-dark);
   --border-color-focus: var(--color-bus);
   --border-color-hover-focus: var(--color-bus-dark);
   --border-color-disabled: var(--color-black-50);
-
   --color: var(--color-bus);
   --color-hover: var(--color-bus-dark);
   --color-focus: var(--color-bus);
   --color-hover-focus: var(--color-bus-dark);
   --color-disabled: var(--color-black-40);
-
   --focus-outline-color: var(--color-coat-of-arms);
   --submit-input-focus-gutter-color: var(--color-white);
 }
@@ -292,19 +332,16 @@ input[type="submit"].hds-button--small {
   --background-color-focus: transparent;
   --background-color-hover-focus: var(--color-bus-light);
   --background-color-disabled: transparent;
-
   --border-color: transparent;
   --border-color-hover: transparent;
   --border-color-focus: var(--color-coat-of-arms);
   --border-color-hover-focus: var(--color-coat-of-arms);
   --border-color-disabled: transparent;
-
   --color: var(--color-bus);
   --color-hover: var(--color-bus-dark);
   --color-focus: var(--color-bus);
   --color-hover-focus: var(--color-bus-dark);
   --color-disabled: var(--color-black-40);
-
   --focus-outline-color: transparent;
   --submit-input-focus-gutter-color: transparent;
 }
@@ -317,13 +354,11 @@ input[type="submit"].hds-button--small {
   --background-color-focus: transparent;
   --background-color-hover-focus: transparent;
   --background-color-disabled: transparent;
-
   --border-color: transparent;
   --border-color-hover: transparent;
   --border-color-focus: transparent;
   --border-color-hover-focus: transparent;
   --border-color-disabled: transparent;
-
   --color: var(--color-black-90);
   --color-hover: var(--color-black-90);
   --color-focus: var(--color-black-90);
@@ -341,17 +376,14 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-success-dark);
   --background-color-focus: var(--color-success);
   --background-color-hover-focus: var(--color-success-dark);
-
   --border-color: var(--color-success);
   --border-color-hover: var(--color-success-dark);
   --border-color-focus: var(--color-success);
   --border-color-hover-focus: var(--color-success-dark);
-
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
   --color-hover-focus: var(--color-white);
-
   --focus-outline-color: var(--color-coat-of-arms);
 }
 
@@ -361,17 +393,14 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-error-dark);
   --background-color-focus: var(--color-error);
   --background-color-hover-focus: var(--color-error-dark);
-
   --border-color: var(--color-error);
   --border-color-hover: var(--color-error-dark);
   --border-color-focus: var(--color-error);
   --border-color-hover-focus: var(--color-error-dark);
-
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
   --color-hover-focus: var(--color-white);
-
   --focus-outline-color: var(--color-coat-of-arms);
 }
 
@@ -383,12 +412,10 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-coat-of-arms-dark);
   --background-color-focus: var(--color-coat-of-arms);
   --background-color-hover-focus: var(--color-coat-of-arms-dark);
-
   --border-color: var(--color-coat-of-arms);
   --border-color-hover: var(--color-coat-of-arms-dark);
   --border-color-focus: var(--color-coat-of-arms);
   --border-color-hover-focus: var(--color-coat-of-arms-dark);
-
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
@@ -400,12 +427,10 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-coat-of-arms-light);
   --background-color-focus: transparent;
   --background-color-hover-focus: var(--color-coat-of-arms-light);
-
   --border-color: var(--color-coat-of-arms);
   --border-color-hover: var(--color-coat-of-arms-dark);
   --border-color-focus: var(--color-coat-of-arms);
   --border-color-hover-focus: var(--color-coat-of-arms-dark);
-
   --color: var(--color-coat-of-arms);
   --color-hover: var(--color-coat-of-arms);
   --color-focus: var(--color-coat-of-arms);
@@ -417,12 +442,10 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-coat-of-arms-light);
   --background-color-focus: transparent;
   --background-color-hover-focus: var(--color-coat-of-arms-light);
-
   --border-color: transparent;
   --border-color-hover: transparent;
   --border-color-focus: var(--color-coat-of-arms);
   --border-color-hover-focus: var(--color-coat-of-arms);
-
   --color: var(--color-coat-of-arms);
   --color-hover: var(--color-coat-of-arms);
   --color-focus: var(--color-coat-of-arms);
@@ -435,12 +458,10 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-black);
   --background-color-focus: var(--color-black);
   --background-color-hover-focus: var(--color-black);
-
   --border-color: var(--color-black);
   --border-color-hover: var(--color-black);
   --border-color-focus: var(--color-black);
   --border-color-hover-focus: var(--color-black);
-
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
@@ -452,12 +473,10 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-black-5);
   --background-color-focus: transparent;
   --background-color-hover-focus: var(--color-black-5);
-
   --border-color: var(--color-black);
   --border-color-hover: var(--color-black);
   --border-color-focus: var(--color-black);
   --border-color-hover-focus: var(--color-black);
-
   --color: var(--color-black);
   --color-hover: var(--color-black);
   --color-focus: var(--color-black);
@@ -469,12 +488,10 @@ input[type="submit"].hds-button--small {
   --background-color-hover: var(--color-black-5);
   --background-color-focus: transparent;
   --background-color-hover-focus: var(--color-black-5);
-
   --border-color: transparent;
   --border-color-hover: transparent;
   --border-color-focus: var(--color-coat-of-arms);
   --border-color-hover-focus: var(--color-coat-of-arms-dark);
-
   --color: var(--color-black);
   --color-hover: var(--color-black);
   --color-focus: var(--color-black);

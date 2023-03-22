@@ -1,4 +1,4 @@
-@value x-small-down, small-down from "../../../../styles/breakpoints.css";
+@value x-small-down, small-down from "../../../../styles/breakpoints.scss";
 
 .headerUniversalBar {
   align-items: center;
@@ -20,8 +20,8 @@
 }
 
 .universalBarMainLinkContainer {
-  flex: 1;
   display: flex;
+  flex: 1;
   justify-self: start;
 }
 

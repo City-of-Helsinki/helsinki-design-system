@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import { TabsContext } from './TabsContext';
 
 export type TabPanelProps = React.PropsWithChildren<{

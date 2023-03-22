@@ -20,7 +20,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { FileInput } from 'hds-react';
+
+() => {
   const [file, setFile] = React.useState([]);
   console.log('selected file', file);
   return <FileInput
@@ -31,7 +33,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     accept=".png,.jpg"
     onChange={setFile}
   />
-}}
+}
 ```
 
 </Playground>
@@ -41,7 +43,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { FileInput } from 'hds-react';
+
+() => {
   const [files, setFiles] = React.useState([]);
   console.log('selected files', files);
   return <FileInput
@@ -52,6 +56,29 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     language="en"
     accept=".png,.jpg"
     onChange={setFiles}
+  />
+}
+```
+
+</Playground>
+
+### With default value
+<Playground>
+
+
+```jsx
+{() => {
+  const [files, setFiles] = React.useState([
+    new File(['string content'], 'dummy.txt', { type: 'text/plain' }),
+    new File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
+  ]);
+  console.log('selected files', files);
+  return <FileInput
+    multiple
+    id="file-input-default-value"
+    language="en"
+    onChange={setFiles}
+    defaultValue={files}
   />
 }}
 ```
@@ -73,6 +100,7 @@ Also, note that this component is an input. All features supported by the HDS Te
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------- |
 | `accept`      | A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. | `string`              | -             |
 | `buttonLabel` | The label for the file button. Overrides default text. The button is not visible for assistive technology.                                                                   | `string`              | -             |
+| `defaultValue`| If set, pre-fill the file(s) selection                                                                                                                                       | `File[]`              | -             |
 | `dragAndDrop` | If set to true, the input will show a drag and rop area.                                                                                                                     | `boolean`             | false         |
 | `language`    | The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels.                                            | `string` (fi, en, sv) | fi            |
 | `maxSize`     | Maximum file size in bytes.                                                                                                                                                  | `number`              | -             |

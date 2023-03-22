@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/playback-rewind.svg);
+@svg-load icon url("../../svg/ui/playback-rewind.svg");
 
 .hds-icon--playback-rewind {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

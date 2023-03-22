@@ -41,14 +41,16 @@
     --menu-item-background-color-highlighted: transparent;
     --menu-item-color: inherit;
     --menu-item-color-highlighted: var(--menu-item-color);
+
     align-self: stretch;
     margin-left: var(--spacing-l);
     max-width: unset;
-    position: relative;
-    width: auto;
+
     // override inline min-width and top styles applied by the MenuButton component
     min-width: auto !important;
+    position: relative;
     top: 0 !important;
+    width: auto;
 
     > * {
       padding-left: var(--spacing-2-xs);

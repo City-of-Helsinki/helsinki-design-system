@@ -1,4 +1,4 @@
-@import "normalize.css";
-@import "hds-design-tokens";
-@import "utils/animations.css";
-@import "utils/helpers.css";
+@import url("normalize.css");
+@import url("hds-design-tokens");
+@import url("utils/animations.css");
+@import url("utils/helpers.css");

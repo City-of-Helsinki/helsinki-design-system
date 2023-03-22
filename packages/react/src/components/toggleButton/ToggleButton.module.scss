@@ -1,9 +1,107 @@
-@import '../../styles/common';
+@import '../../styles/common.scss';
 
 .toggleButtonContainer {
   --toggle-button-color: var(--color-bus);
   --toggle-button-hover-color: var(--color-bus-dark);
   --toggle-button-unselected-color: var(--color-black-90);
+}
+
+.label {
+  @extend %inputLabel;
+}
+
+.onIcon {
+  color: white;
+  opacity: 0;
+}
+
+.offIcon {
+  color: var(--toggle-button-unselected-color);
+  opacity: 1;
+}
+
+.toggleButton {
+  $toggle-button-height: 32px;
+  $toggle-button-width: 56px;
+  $toggle-button-border-width: 2px;
+  $toggle-button-border-radius: 20px;
+  $toggle-button-icon-width: 24px;
+  $toggle-button-outline-width: 3px;
+  $toggle-button-outline-offset: 2px;
+  $toggle-button-checked-icon-margin: $toggle-button-width - ($toggle-button-icon-width + 8px);
+
+  background: #fff;
+  border: $toggle-button-border-width solid var(--toggle-button-unselected-color);
+  border-radius: $toggle-button-border-radius;
+  bottom: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: $toggle-button-height;
+  left: 0;
+  position: relative;
+  right: 0;
+  top: 0;
+  transition: all 200ms;
+  width: $toggle-button-width;
+
+
+  &:after {
+    $calculated-offset: ($toggle-button-border-width + $toggle-button-outline-width + $toggle-button-outline-offset) * -1;
+
+    border-radius: $toggle-button-border-radius + 5px;
+    bottom: $calculated-offset;
+    content: '';
+    display: block;
+    left: $calculated-offset;
+    position: absolute;
+    right: $calculated-offset;
+    top: $calculated-offset;
+  }
+
+  &:focus {
+    outline: none;
+
+    &:after {
+      border: $toggle-button-outline-width solid var(--color-coat-of-arms);
+      box-sizing: content-box;
+    }
+  }
+
+  &[aria-pressed='true'] {
+    background-color: var(--toggle-button-color);
+    border-color: var(--toggle-button-color);
+
+    &:hover {
+      background-color: var(--toggle-button-hover-color);
+      border-color: var(--toggle-button-hover-color);
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      background-color: var(--color-black-10);
+      border-color: var(--color-black-10);
+    }
+
+    & .onIcon {
+      margin-left: $toggle-button-checked-icon-margin !important;
+      opacity: 1;
+    }
+
+    & .offIcon {
+      margin-left: $toggle-button-checked-icon-margin !important;
+      opacity: 0;
+    }
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    border-color: var(--color-black-20);
+    cursor: not-allowed;
+
+    & .offIcon {
+      color: var(--color-black-10);
+    }
+  }
 }
 
 .toggleButtonContainerInlineVariant {
@@ -25,113 +123,15 @@
   display: flex;
 }
 
-.label {
-  @extend %inputLabel;
-}
-
 .tooltipButton {
   display: block; // Remove the impact of the label's line-height on the tooltip button height. Usually, the tooltip is an element with an absolute position.
   margin-left: var(--spacing-2-xs);
 }
 
-.toggleButton {
-  $toggle-button-height: 32px;
-  $toggle-button-width: 56px;
-  $toggle-button-border-width: 2px;
-  $toggle-button-border-radius: 20px;
-  $toggle-button-icon-width: 24px;
-  $toggle-button-outline-width: 3px;
-  $toggle-button-outline-offset: 2px;
-  $toggle-button-checked-icon-margin: $toggle-button-width - ($toggle-button-icon-width + 8px);
-
-  background: #fff;
-  border: $toggle-button-border-width solid var(--toggle-button-unselected-color);
-  border-radius: $toggle-button-border-radius;
-  cursor: pointer;
-  display: inline-block;
-  height: $toggle-button-height;
-  width: $toggle-button-width;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: all 200ms;
-
-
-  &:after {
-    $calculated-offset: ($toggle-button-border-width + $toggle-button-outline-width + $toggle-button-outline-offset) * -1;
-
-    border-radius: $toggle-button-border-radius + 5px;
-    display: block;
-    content: '';
-    position: absolute;
-    top: $calculated-offset;
-    left: $calculated-offset;
-    right: $calculated-offset;
-    bottom: $calculated-offset;
-  }
-
-  &:focus {
-    outline: none;
-
-    &:after {
-      box-sizing: content-box;
-      border: $toggle-button-outline-width solid var(--color-coat-of-arms);
-    }
-  }
-
-  &[disabled],
-  &[disabled]:hover {
-    border-color: var(--color-black-20);
-    cursor: not-allowed;
-
-    & .offIcon {
-      color: var(--color-black-10);
-    }
-  }
-
-  &[aria-pressed='true'] {
-    background-color: var(--toggle-button-color);
-    border-color: var(--toggle-button-color);
-
-    &:hover {
-      background-color: var(--toggle-button-hover-color);
-      border-color: var(--toggle-button-hover-color);
-    }
-
-    &[disabled],
-    &[disabled]:hover {
-      border-color: var(--color-black-10);
-      background-color: var(--color-black-10);
-    }
-
-    & .onIcon {
-      margin-left: $toggle-button-checked-icon-margin !important;
-      opacity: 1;
-    }
-
-    & .offIcon {
-      margin-left: $toggle-button-checked-icon-margin !important;
-      opacity: 0;
-    }
-  }
-}
-
 .toggleButtonIcon {
   cursor: pointer;
-  top: -2px;
   left: -2px;
-  transition: all 200ms;
   position: absolute;
-}
-
-.onIcon {
-  color: white;
-  opacity: 0;
-}
-
-.offIcon {
-  color: var(--toggle-button-unselected-color);
-  opacity: 1;
+  top: -2px;
+  transition: all 200ms;
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/cross-circle.svg);
+@svg-load icon url("../../svg/ui/cross-circle.svg");
 
 .hds-icon--cross-circle {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

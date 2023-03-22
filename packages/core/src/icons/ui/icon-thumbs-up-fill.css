@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/thumbs-up-fill.svg);
+@svg-load icon url("../../svg/ui/thumbs-up-fill.svg");
 
 .hds-icon--thumbs-up-fill {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

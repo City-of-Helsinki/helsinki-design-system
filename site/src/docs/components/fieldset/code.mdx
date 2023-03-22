@@ -19,7 +19,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { Fieldset, TextInput } from 'hds-react';
+
+() => (<>
   <Fieldset heading="Child information" style={{ maxWidth: '400px' }} helperText='Assistive text'>
     <TextInput id="first-name-child" name="first-name" label="First name" required />
     <TextInput id="last-name-child" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
@@ -58,7 +60,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     />
   </Fieldset>
 
-</>
+</>)
 ```
 
 ```html
@@ -129,7 +131,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { Fieldset, TextInput } from 'hds-react';
+
+() => (<>
   <Fieldset heading="Child information" border style={{ maxWidth: '400px' }}>
     <TextInput id="first-name-child-2" name="first-name" label="First name" required />
     <TextInput id="last-name-child-2" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
@@ -155,7 +159,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       style={{ marginTop: '12px' }}
     />
   </Fieldset>
-</>
+</>)
 ```
 
 ```html

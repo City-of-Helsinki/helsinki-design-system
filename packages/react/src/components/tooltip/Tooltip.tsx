@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Placement } from '@popperjs/core';
 import { usePopper } from 'react-popper';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Tooltip.module.scss';
 import { IconQuestionCircle } from '../../icons/ui/IconQuestionCircle';
 import classNames from '../../utils/classNames';

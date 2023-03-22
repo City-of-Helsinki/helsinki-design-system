@@ -1,12 +1,13 @@
-@import '../../../styles/common';
-@import '../_dialog.common';
-@value medium-up from "../../../styles/breakpoints.css";
+@import '../../../styles/common.scss';
+@import '../dialog.common.scss';
+@value medium-up from "../../../styles/breakpoints.scss";
 
 .dialogActionButtons {
   @include dialogComponentSidePaddings;
+
+  display: block;
   padding-bottom: var(--spacing-m);
   padding-top: var(--spacing-s);
-  display: block;
 
   > * {
     width: 100%;

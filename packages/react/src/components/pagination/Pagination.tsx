@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Pagination.module.scss';
 import classNames from '../../utils/classNames';
 import { Button } from '../button';

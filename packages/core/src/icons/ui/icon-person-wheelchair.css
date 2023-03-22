@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/person-wheelchair.svg);
+@svg-load icon url("../../svg/ui/person-wheelchair.svg");
 
 .hds-icon--person-wheelchair {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

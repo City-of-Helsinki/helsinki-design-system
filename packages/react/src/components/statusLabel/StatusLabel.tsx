@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './StatusLabel.module.css';
 import classNames from '../../utils/classNames';
 
@@ -24,6 +25,10 @@ export type StatusLabelProps = React.PropsWithChildren<{
    * Element placed on the left side of the status label
    */
   iconLeft?: React.ReactNode;
+  /**
+   * Defines if label has rounded corners
+   */
+  variant?: 'rounded';
 }>;
 
 const IconElement = ({ icon }: { icon: React.ReactNode }) => (
@@ -38,10 +43,17 @@ export const StatusLabel = ({
   dataTestId,
   type = 'neutral',
   iconLeft,
+  variant,
   ...rest
 }: StatusLabelProps) => (
   <span
-    className={classNames(styles.statusLabel, styles[type], iconLeft && styles.statusLabelWithIcon, className)}
+    className={classNames(
+      styles.statusLabel,
+      styles[type],
+      iconLeft && styles.statusLabelWithIcon,
+      variant && styles[variant],
+      className,
+    )}
     data-testid={dataTestId}
     {...rest}
   >

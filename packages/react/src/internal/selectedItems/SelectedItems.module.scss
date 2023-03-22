@@ -34,13 +34,15 @@
 
   &.truncateFirstChild {
     flex-wrap: nowrap;
+
     & > .tag:first-child {
       justify-content: flex-end;
       overflow: hidden;
+
       .tagLabel {
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
@@ -55,6 +57,7 @@
 
     &.hidden {
       @extend %hidden;
+
       opacity: 0;
     }
   }
@@ -65,11 +68,10 @@
   border: none;
   color: inherit;
   cursor: pointer;
-  font: inherit;
-  padding: 0;
-
   display: flex;
+  font: inherit;
   outline: none;
+  padding: 0;
   position: absolute;
   right: calc(var(--border-width) * -1);
   top: 0;

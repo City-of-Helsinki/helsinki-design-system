@@ -18,7 +18,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+import { Tooltip } from 'hds-react';
+
+() => (
+  <Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+)
 ```
 
 </Playground>
@@ -27,7 +31,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<Tooltip small>Less than five words long</Tooltip>
+import { Tooltip } from 'hds-react';
+
+() => (
+  <Tooltip small>Less than five words long</Tooltip>
+)
 ```
 
 </Playground>
@@ -36,23 +44,25 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Tooltip placement="auto">Tooltip with auto placement setting</Tooltip>
-<Tooltip placement="auto-start">Tooltip with auto-start placement setting</Tooltip>
-<Tooltip placement="auto-end">Tooltip with auto-end placement setting</Tooltip>
-<Tooltip placement="top">Tooltip with top placement setting</Tooltip>
-<Tooltip placement="top-start">Tooltip with top-start placement setting</Tooltip>
-<Tooltip placement="top-end">Tooltip with top-end placement setting</Tooltip>
-<Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
-<Tooltip placement="bottom-start">Tooltip with bottom-start placement setting</Tooltip>
-<Tooltip placement="bottom-end">Tooltip with bottom-end placement setting</Tooltip>
-<Tooltip placement="right">Tooltip with right placement setting</Tooltip>
-<Tooltip placement="right-start">Tooltip with right-start placement setting</Tooltip>
-<Tooltip placement="right-end">Tooltip with right-end placement setting</Tooltip>
-<Tooltip placement="left">Tooltip with left placement setting</Tooltip>
-<Tooltip placement="left-start">Tooltip with left-start placement setting</Tooltip>
-<Tooltip placement="left-end">Tooltip with left-end placement setting</Tooltip>
-</>
+import { Tooltip } from 'hds-react';
+
+() => (<>
+  <Tooltip placement="auto">Tooltip with auto placement setting</Tooltip>
+  <Tooltip placement="auto-start">Tooltip with auto-start placement setting</Tooltip>
+  <Tooltip placement="auto-end">Tooltip with auto-end placement setting</Tooltip>
+  <Tooltip placement="top">Tooltip with top placement setting</Tooltip>
+  <Tooltip placement="top-start">Tooltip with top-start placement setting</Tooltip>
+  <Tooltip placement="top-end">Tooltip with top-end placement setting</Tooltip>
+  <Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
+  <Tooltip placement="bottom-start">Tooltip with bottom-start placement setting</Tooltip>
+  <Tooltip placement="bottom-end">Tooltip with bottom-end placement setting</Tooltip>
+  <Tooltip placement="right">Tooltip with right placement setting</Tooltip>
+  <Tooltip placement="right-start">Tooltip with right-start placement setting</Tooltip>
+  <Tooltip placement="right-end">Tooltip with right-end placement setting</Tooltip>
+  <Tooltip placement="left">Tooltip with left placement setting</Tooltip>
+  <Tooltip placement="left-start">Tooltip with left-start placement setting</Tooltip>
+  <Tooltip placement="left-end">Tooltip with left-end placement setting</Tooltip>
+</>)
 ```
   
 </Playground>

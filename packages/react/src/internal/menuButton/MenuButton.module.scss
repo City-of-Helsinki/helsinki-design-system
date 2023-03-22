@@ -1,12 +1,11 @@
-@import "../../styles/common";
-@value x-large-up from "../../styles/breakpoints.css";
+@import "../../styles/common.scss";
+@value x-large-up from "../../styles/breakpoints.scss";
 
 .menuButton {
   --menu-border-width: 1px;
   --menu-max-width: 20rem;
   --menu-top-margin: 0;
   --menu-item-min-height: var(--spacing-xl);
-
   --menu-button-focus-outline-color: var(--color-coat-of-arms);
   --menu-border-color: var(--color-black-90);
   --menu-item-background-color: var(--color-white);
@@ -24,6 +23,7 @@
 
 .toggleButton {
   @extend %buttonReset;
+
   align-items: center;
   display: flex;
   line-height: var(--lineheight-s);

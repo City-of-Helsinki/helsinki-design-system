@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/upload-cloud.svg);
+@svg-load icon url("../../svg/ui/upload-cloud.svg");
 
 .hds-icon--upload-cloud {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/calendar-cross.svg);
+@svg-load icon url("../../svg/ui/calendar-cross.svg");
 
 .hds-icon--calendar-cross {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

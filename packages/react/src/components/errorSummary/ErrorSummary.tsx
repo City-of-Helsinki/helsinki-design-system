@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import notificationStyles from '../notification/Notification.module.css';
 import errorSummaryStyles from './ErrorSummary.module.scss';
 import { IconAlertCircleFill } from '../../icons';

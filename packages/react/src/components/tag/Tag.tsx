@@ -1,9 +1,8 @@
 // eslint-disable-next-line import/order
 import React, { forwardRef } from 'react';
 
-// import core base styles
-import 'hds-core';
-
+// import base styles
+import '../../styles/base.css';
 import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
 import classNames from '../../utils/classNames';

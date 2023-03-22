@@ -1,0 +1,12 @@
+@import 'hds-design-tokens';
+@import 'hds-core/lib/utils/animations.css';
+@import 'hds-core/lib/utils/helpers.css';
+
+/*
+ * Normalize.css rule
+ * 1. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+html {
+  -webkit-text-size-adjust: 100%; /* 1 */
+}

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/vimeo.svg);
+@svg-load icon url("../../svg/some/vimeo.svg");
 
 .hds-icon--vimeo {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

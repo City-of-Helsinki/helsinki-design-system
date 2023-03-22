@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/customer-bot-neutral.svg);
+@svg-load icon url("../../svg/ui/customer-bot-neutral.svg");
 
 .hds-icon--customer-bot-neutral {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

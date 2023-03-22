@@ -1,5 +1,5 @@
-@value x-small-only, small-down, small-only, small-up, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
-@import "../common";
+@import "../common.scss";
+@value x-small-only, small-down, small-only, small-up, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
 
 .divider {
   @extend %divider;
@@ -28,7 +28,6 @@
 
 @media x-small-only {
   .copyright {
-
     &Dot {
       display: none;
     }
@@ -57,8 +56,8 @@
 
 @media small-up {
   .copyright {
-    grid-auto-flow: column;
     gap: var(--spacing-3-xs);
+    grid-auto-flow: column;
   }
 }
 

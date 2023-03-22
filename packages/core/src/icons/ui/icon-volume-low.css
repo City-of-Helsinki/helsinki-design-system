@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/volume-low.svg);
+@svg-load icon url("../../svg/ui/volume-low.svg");
 
 .hds-icon--volume-low {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -4,10 +4,18 @@
   .hideNextButton {
     &:before {
       content: '';
-      padding-left: 0;
       line-height: 0;
+      padding-left: 0;
     }
   }
+}
+
+.buttonPrevious {
+  composes: hds-pagination__button-prev from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.buttonNext {
+  composes: hds-pagination__button-next from 'hds-core/lib/components/pagination/pagination.css';
 }
 
 .pagination {
@@ -40,12 +48,4 @@
 
 .itemLinkActive {
   composes: hds-pagination__item-link--active from 'hds-core/lib/components/pagination/pagination.css';
-}
-
-.buttonPrevious {
-  composes: hds-pagination__button-prev from 'hds-core/lib/components/pagination/pagination.css';
-}
-
-.buttonNext {
-  composes: hds-pagination__button-next from 'hds-core/lib/components/pagination/pagination.css';
 }

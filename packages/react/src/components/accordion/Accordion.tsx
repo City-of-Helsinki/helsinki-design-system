@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 import pickBy from 'lodash.pickby';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 
 import styles from './Accordion.module.scss';
 import classNames from '../../utils/classNames';

@@ -7,8 +7,8 @@
 }
 
 .headerNavigationMenuList {
-  flex-wrap: wrap;
   display: flex;
+  flex-wrap: wrap;
   gap: 0 var(--spacing-xs);
   list-style: none;
   margin: 0;

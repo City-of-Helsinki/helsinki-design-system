@@ -1,7 +1,7 @@
-@import "../../utils/animations.css";
+@import url("../../utils/animations.css");
 
-@svg-load icon url(../../svg/ui/alert-circle-fill.svg);
-@svg-load successIcon url(../../svg/ui/check-circle-fill.svg);
+@svg-load icon url("../../svg/ui/alert-circle-fill.svg");
+@svg-load successicon url("../../svg/ui/check-circle-fill.svg");
 
 .hds-text-input {
   --border-width: 2px;
@@ -9,7 +9,6 @@
   --input-height: 56px;
   --textarea-height: 149px;
   --icon-size: var(--spacing-m);
-
   --helper-color-default: var(--color-black-60);
   --helper-color-invalid: var(--color-error);
   --helper-color-success: var(--color-success);
@@ -32,21 +31,49 @@
   --focus-outline-color: var(--color-coat-of-arms);
 }
 
+.hds-text-input .hds-text-input__input {
+  /* removes the input shadow on iOS */
+  -webkit-appearance: none;
+  background-color: var(--input-background-default);
+  border: var(--border-width) solid var(--input-border-color-default);
+
+  /* removes the border radius on iOS */
+  border-radius: 0;
+  box-sizing: border-box;
+  color: var(--input-color-default);
+  font-size: 1.125em;
+  height: var(--input-height);
+  line-height: normal;
+  padding: 0 var(--spacing-s);
+  width: 100%;
+  will-change: transform, box-shadow;
+}
+
 /* text-input transitions */
 .hds-text-input .hds-text-input__input:hover {
+  border-color: var(--input-border-color-hover);
   transition: border-color 85ms ease-out;
 }
 
+.hds-text-input__input-wrapper:focus-within .hds-text-input__input {
+  border-color: var(--input-border-color-focus);
+  outline: none;
+}
+
+.hds-text-input.hds-text-input--invalid .hds-text-input__input {
+  border-color: var(--input-border-color-invalid);
+}
+
+.hds-text-input.hds-text-input--success .hds-text-input__input {
+  border-color: var(--input-border-color-success);
+}
+
 .hds-text-input__input-wrapper:focus-within .hds-text-input__input:not([readonly]) {
+  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  transform: translate3d(0, 0, 0);
   transition: 85ms ease-out;
   transition-property: box-shadow, transform;
 }
-
-.hds-text-input--invalid .hds-text-input__label {
-  transition: color 85ms linear;
-}
-
-/* LABEL */
 
 .hds-text-input__label {
   color: var(--label-color-default);
@@ -54,6 +81,11 @@
   font-size: var(--fontsize-body-m);
   font-weight: 500;
   margin-bottom: var(--spacing-3-xs);
+}
+
+.hds-text-input--invalid .hds-text-input__label {
+  color: var(--label-color-invalid);
+  transition: color 85ms linear;
 }
 
 /* REQUIRED */
@@ -74,21 +106,14 @@
   position: relative;
 }
 
-.hds-text-input .hds-text-input__input {
-  /* removes the input shadow on iOS */
-  -webkit-appearance: none;
-  background-color: var(--input-background-default);
-  border: var(--border-width) solid var(--input-border-color-default);
-  /* removes the border radius on iOS */
-  border-radius: 0;
-  box-sizing: border-box;
-  color: var(--input-color-default);
-  font-size: 1.125em;
-  height: var(--input-height);
-  line-height: normal;
-  padding: 0 var(--spacing-s);
-  width: 100%;
-  will-change: transform, box-shadow;
+:where(.hds-text-input__input) {
+  /*
+   * Normalize.css rules
+   * 1. Change the font styles in all browsers.
+   * 2. Remove the margin in Firefox and Safari.
+   */
+  font-family: inherit; /* 1 */
+  margin: 0; /* 2 */
 }
 
 .hds-text-input textarea.hds-text-input__input {
@@ -98,13 +123,12 @@
   resize: vertical;
 }
 
-.hds-text-input .hds-text-input__input:hover {
-  border-color: var(--input-border-color-hover);
-}
-
-.hds-text-input__input-wrapper:focus-within .hds-text-input__input {
-  border-color: var(--input-border-color-focus);
-  outline: none;
+:where(.hds-text-input textarea.hds-text-input__input) {
+  /*
+   * Normalize.css rule
+   * 1. Remove the default vertical scrollbar in IE 10+.
+   */
+  overflow: auto; /* 1 */
 }
 
 .hds-text-input .hds-text-input__input::placeholder {
@@ -112,118 +136,102 @@
   opacity: 1;
 }
 
-/* FOCUS OUTLINE */
-
-.hds-text-input__input-wrapper:focus-within .hds-text-input__input:not([readonly]) {
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
-  transform: translate3d(0, 0, 0);
-}
 
 /* HELPER TEXT */
 
 .hds-text-input__helper-text {
   color: var(--helper-color-default);
   display: block;
-  line-height: var(--lineheight-l);
   font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   white-space: pre-line;
 }
 
 /* ERROR TEXT */
 .hds-text-input__error-text {
-  position: relative;
   color: var(--helper-color-invalid);
   display: block;
   font-size: var(--fontsize-body-m);
   line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  position: relative;
   white-space: pre-line;
 }
+
 .hds-text-input__error-text:not(:last-child) {
   margin-bottom: var(--spacing-2-xs);
 }
 
-.hds-text-input__error-text::before {
+.hds-text-input__error-text:before {
   animation: fadeIn 85ms ease-out;
   background: var(--icon-color-invalid);
   content: '';
   height: var(--icon-size);
-  mask-image: svg-inline(icon);
+  left: 0;
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
   pointer-events: none;
   position: absolute;
-  left: 0;
   top: 0;
   width: var(--icon-size);
 }
 
-/* INVALID */
-
-.hds-text-input--invalid .hds-text-input__label {
-  color: var(--label-color-invalid);
-}
-
-.hds-text-input.hds-text-input--invalid .hds-text-input__input {
-  border-color: var(--input-border-color-invalid);
-}
-
-/* SUCCESS */
-.hds-text-input.hds-text-input--success .hds-text-input__input {
-  border-color: var(--input-border-color-success);
-}
 .hds-text-input__success-text {
-  position: relative;
   color: var(--helper-color-success);
   display: block;
   font-size: var(--fontsize-body-m);
   line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  position: relative;
   white-space: pre-wrap;
 }
+
 .hds-text-input__success-text:not(:last-child) {
   margin-bottom: var(--spacing-2-xs);
 }
-.hds-text-input__success-text::before {
+
+.hds-text-input__success-text:before {
   animation: fadeIn 85ms ease-out;
   background: var(--helper-color-success);
   content: '';
   height: var(--icon-size);
-  mask-image: svg-inline(successIcon);
-  -webkit-mask-image: svg-inline(successIcon);
+  left: 0;
+  -webkit-mask-image: svg-inline(successicon);
+  mask-image: svg-inline(successicon);
   pointer-events: none;
   position: absolute;
-  left: 0;
   top: 0;
   width: var(--icon-size);
 }
 
 /* INFO TEXT */
 .hds-text-input__info-text {
-  position: relative;
   color: var(--helper-color-info);
   display: block;
   font-size: var(--fontsize-body-m);
   line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  position: relative;
 }
+
 .hds-text-input__info-text:not(:last-child) {
   margin-bottom: var(--spacing-2-xs);
 }
 
-.hds-text-input__info-text::before {
+.hds-text-input__info-text:before {
   animation: fadeIn 85ms ease-out;
   background: var(--helper-color-info-icon);
   content: '';
   height: var(--icon-size);
-  mask-image: svg-inline(icon);
+  left: 0;
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
   pointer-events: none;
   position: absolute;
-  left: 0;
   top: 0;
   width: var(--icon-size);
 }
@@ -244,6 +252,7 @@
   border: 0;
   color: var(--input-color-default);
   padding: 0;
+
   /* fixes faded text color on Safari */
   -webkit-text-fill-color: var(--input-color-default);
 }
@@ -251,15 +260,15 @@
 /* BUTTON */
 
 .hds-text-input__buttons {
-  position: absolute;
-  top: 0;
-  right: 0;
+  align-items: center;
   bottom: 0;
   display: flex;
-  align-items: center;
+  font-size: 1rem;
   justify-content: center;
   margin-right: calc(var(--spacing-s) - var(--spacing-xs) / 2);
-  font-size: 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .hds-text-input__button {
@@ -267,9 +276,9 @@
   background: none;
   border: none;
   cursor: pointer;
+  display: flex;
   font: inherit;
   outline: none;
-  display: flex;
   padding: var(--spacing-xs) calc(var(--spacing-xs) / 2);
 }
 

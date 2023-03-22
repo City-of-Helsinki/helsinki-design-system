@@ -9,12 +9,13 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn postcss-build",
+    "build": "rimraf lib/&& yarn run lint:styles && yarn postcss-build",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
     "storybook": "start-storybook -p 6007 --quiet",
-    "build-storybook": "build-storybook --loglevel error"
+    "build-storybook": "build-storybook --loglevel error",
+    "lint:styles": "yarn stylelint \"src/**/*.css\""
   },
   "devDependencies": {
     "@storybook/addon-a11y": "6.4.18",
@@ -33,6 +34,10 @@
     "postcss-import": "12.0.1",
     "postcss-inline-svg": "4.1.0",
     "postcss-preset-env": "6.7.0",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "stylelint": "^15.1.0",
+    "stylelint-config-css-modules": "^4.2.0",
+    "stylelint-config-standard": "^30.0.1",
+    "stylelint-order": "^6.0.2"
   }
 }

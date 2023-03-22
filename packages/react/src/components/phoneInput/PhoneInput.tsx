@@ -1,6 +1,8 @@
 import React from 'react';
 
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput';
 import textInputStyles from '../textInput/TextInput.module.css';

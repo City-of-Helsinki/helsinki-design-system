@@ -6,7 +6,15 @@
 
   border: var(--border-style);
   box-sizing: border-box;
-  padding: var(--padding-top) var(--padding-sides) var(--padding-bottom)
+  padding: var(--padding-top) var(--padding-sides) var(--padding-bottom);
+}
+
+:where(.hds-fieldset-legend) {
+  /* Normalize.css rule
+   * Remove the padding so developers are not caught out when they zero out
+   * `fieldset` elements in all browsers.
+   */
+  padding: 0;
 }
 
 .hds-fieldset-legend {
@@ -21,5 +29,5 @@
 
 .hds-fieldset--border > .hds-fieldset-legend {
   margin-left: calc(var(--padding-sides) / -2);
-  padding: 0 6px 0 6px;
+  padding: 0 6px;
 }
