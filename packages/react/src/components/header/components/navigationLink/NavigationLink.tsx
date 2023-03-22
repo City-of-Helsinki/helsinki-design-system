@@ -1,7 +1,5 @@
 import React, { cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
 import styles from './NavigationLink.module.scss';
 import classNames from '../../../../utils/classNames';
 import { Link } from '../../../link';
@@ -178,7 +176,7 @@ export const NavigationLink = ({
           index={index}
           dynamicPosition={dynamicPosition}
         >
-          {React.Children.map(dropdownLinks, (child, childIndex) => {
+          {dropdownLinks.map((child, childIndex) => {
             return cloneElement(child as React.ReactElement, {
               key: childIndex,
             });
