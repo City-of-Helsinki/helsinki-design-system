@@ -558,8 +558,6 @@ export const SimpleFormExample = (args) => {
   };
   const lastStep = initialState.steps.length - 1;
 
-  console.log(lastStep);
-
   const activeStepIsValid = (state) => {
     if (state.activeStepIndex === 0) {
       // first name

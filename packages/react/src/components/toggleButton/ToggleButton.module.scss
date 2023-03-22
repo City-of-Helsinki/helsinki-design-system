@@ -33,14 +33,11 @@
   background: #fff;
   border: $toggle-button-border-width solid var(--toggle-button-unselected-color);
   border-radius: $toggle-button-border-radius;
-  bottom: 0;
   cursor: pointer;
   display: inline-block;
   height: $toggle-button-height;
-  left: 0;
+  inset: 0;
   position: relative;
-  right: 0;
-  top: 0;
   transition: all 200ms;
   width: $toggle-button-width;
 
@@ -49,13 +46,10 @@
     $calculated-offset: ($toggle-button-border-width + $toggle-button-outline-width + $toggle-button-outline-offset) * -1;
 
     border-radius: $toggle-button-border-radius + 5px;
-    bottom: $calculated-offset;
     content: '';
     display: block;
-    left: $calculated-offset;
+    inset: $calculated-offset;
     position: absolute;
-    right: $calculated-offset;
-    top: $calculated-offset;
   }
 
   &:focus {

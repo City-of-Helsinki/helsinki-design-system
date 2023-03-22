@@ -65,7 +65,6 @@
     "@types/react-dom": "17.0.2",
     "@types/yup": "^0.29.9",
     "@typescript-eslint/eslint-plugin": "5.10.2",
-    "@typescript-eslint/parser": "5.41.0",
     "@wessberg/rollup-plugin-ts": "2.0.4",
     "babel-jest": "^26.0.1",
     "babel-plugin-require-context-hook": "1.0.0",
@@ -117,6 +116,7 @@
     "@popperjs/core": "2.11.5",
     "@react-aria/visually-hidden": "3.2.0",
     "@types/cookie": "^0.4.1",
+    "@typescript-eslint/parser": "^5.56.0",
     "cookie": "^0.4.1",
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
@@ -150,8 +150,8 @@
     "ts-jest": "^26.0.1"
   },
   "peerDependencies": {
+    "postcss": "^8.4.21",
     "react": "^16.8.0 || ^17",
-    "react-dom": "^16.8.0 || ^17",
-    "postcss": "^8.4.21"
+    "react-dom": "^16.8.0 || ^17"
   }
 }

@@ -15,13 +15,10 @@
 
   &:focus:after {
     border: 3px solid var(--color-coat-of-arms);
-    bottom: 0;
     box-sizing: border-box;
     content: "";
-    left: 0;
+    inset: 0;
     position: absolute;
-    right: 0;
-    top: 0;
   }
 }
 
