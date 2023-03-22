@@ -26,55 +26,49 @@ export const Example = (args) => <Breadcrumb {...args} />;
 
 export const ExampleInHeader = (args) => {
   return (
-    <>
-      <style>
-        {`
-          @media only screen and (min-width: 576px) {
-            .breadcrumb-container {
-              margin-right: var(--spacing-xs);
-              margin-left: var(--spacing-xs);
-            }
-          }
-        `}
-      </style>
-      <Header>
-        <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
-        <Header.NavigationMenu>
-          <Header.NavigationLink
-            href="#"
-            label="Health and social services"
-            onClick={(event) => event.preventDefault()}
-            active
-            dropdownLinks={[
-              <Header.NavigationLink
-                href="#"
-                label="Senior services"
-                dropdownDirection={DropdownDirection.Dynamic}
-                active
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Informal care" active />,
-                  <Header.NavigationLink href="#" label="Senior centres" />,
-                  <Header.NavigationLink href="#" label="Home care" />,
-                ]}
-              />,
-              <Header.NavigationLink
-                href="#"
-                label="Data and the rights of the client"
-                dropdownDirection={DropdownDirection.Dynamic}
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Requesting client data" />,
-                  <Header.NavigationLink href="#" label="Fees" />,
-                ]}
-              />,
-            ]}
-          />
-          <Header.NavigationLink href="#" label="Child and family services" />
-        </Header.NavigationMenu>
-        <div className="breadcrumb-container ">
-          <Breadcrumb {...args} />
-        </div>
-      </Header>
-    </>
+    <Header>
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
+      <Header.NavigationMenu>
+        <Header.NavigationLink
+          href="#"
+          label="Health and social services"
+          onClick={(event) => event.preventDefault()}
+          active
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Senior services"
+              dropdownDirection={DropdownDirection.Dynamic}
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Informal care" active />,
+                <Header.NavigationLink href="#" label="Senior centres" />,
+                <Header.NavigationLink href="#" label="Home care" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Data and the rights of the client"
+              dropdownDirection={DropdownDirection.Dynamic}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Requesting client data" />,
+                <Header.NavigationLink href="#" label="Fees" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.NavigationLink href="#" label="Child and family services" />
+      </Header.NavigationMenu>
+      <Breadcrumb
+        {...args}
+        theme={{
+          '--horizontal-margin-small': '0',
+          '--horizontal-margin-medium': 'var(--spacing-m)',
+          '--horizontal-margin-large': 'var(--spacing-xs)',
+          '--horizontal-margin-x-large': 'var(--spacing-xs)',
+        }}
+      />
+    </Header>
   );
 };
 
@@ -94,3 +88,17 @@ export const LastItemIsLink = (args) => (
 );
 
 LastItemIsLink.storyName = 'Last item a link';
+
+export const WithCustomTheme = (args) => (
+  <Breadcrumb
+    {...args}
+    theme={{
+      '--horizontal-margin-small': 'var(--spacing-layout-s)',
+      '--horizontal-margin-medium': 'var(--spacing-layout-m)',
+      '--horizontal-margin-large': 'var(--spacing-layout-l)',
+      '--horizontal-margin-x-large': 'var(--spacing-layout-xl)',
+    }}
+  />
+);
+
+WithCustomTheme.storyName = 'With custom theme';

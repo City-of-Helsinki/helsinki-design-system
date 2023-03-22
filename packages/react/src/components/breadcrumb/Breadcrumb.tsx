@@ -5,17 +5,46 @@ import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import classNames from '../../utils/classNames';
+import { useTheme } from '../../hooks/useTheme';
+
+export interface BreadcrumbCustomTheme {
+  /**
+   * Custom horizontal margins for small screens.
+   * This is for the mobile view with only a single visible path.
+   * Default --spacing-layout-2-xs
+   */
+  '--horizontal-margin-small:'?: string;
+  /**
+   * Custom horizontal margins for medium screens
+   * Default --spacing-layout-xs
+   */
+  '--horizontal-margin-medium:'?: string;
+  /**
+   * Custom horizontal margins for large screens
+   * Default --spacing-layout-xs
+   */
+  '--horizontal-margin-large:'?: string;
+  /**
+   * Custom horizontal margins for x-large screens
+   * Default --spacing-layout-s
+   */
+  '--horizontal-margin-x-large:'?: string;
+}
 
 export type BreadcrumbListItem = { title: string; path: string | null };
 export type BreadcrumbProps = {
+  /**
+   * Aria-label for the created <nav> element
+   */
+  ariaLabel: string;
   /**
    * Array of items that should be shown in the breadcrumb.
    */
   list: BreadcrumbListItem[];
   /**
-   * Aria-label for the created <nav> element
+   * Custom theme styles
    */
-  ariaLabel: string;
+  theme?: BreadcrumbCustomTheme;
 };
 
 const LinkItem = ({ item }: { item: BreadcrumbListItem }) => {
@@ -87,7 +116,8 @@ const getLastItemWithPath = (list: BreadcrumbListItem[]): BreadcrumbListItem | u
   }, undefined);
 };
 
-export const Breadcrumb = ({ list, ariaLabel }: BreadcrumbProps) => {
+export const Breadcrumb = ({ list, ariaLabel, theme }: BreadcrumbProps) => {
+  const customThemeClass = useTheme<BreadcrumbCustomTheme>(styles.breadcrumb, theme);
   // The breadcrumb shows a list of links to parent pages and optionally can also show the title of the current page
   // If there are no items with paths, then the breadcrumb would only show the title of the current page
   // In this case there is no need to show the breadcrumb at all
@@ -97,7 +127,7 @@ export const Breadcrumb = ({ list, ariaLabel }: BreadcrumbProps) => {
   }
 
   return (
-    <nav aria-label={ariaLabel} className={styles.breadcrumb}>
+    <nav aria-label={ariaLabel} className={classNames(styles.breadcrumb, customThemeClass)}>
       <DesktopListView list={list} />
       <MobileView item={lastItemWithPath} />
     </nav>
