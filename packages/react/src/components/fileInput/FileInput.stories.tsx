@@ -1,6 +1,9 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 
 import { FileInput } from './FileInput';
+
+const onFilesChanged = (files: File[] | undefined) => action('filesChanged')(files);
 
 export default {
   component: FileInput,
@@ -20,21 +23,10 @@ export default {
 };
 
 export const Single = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Single.args = {
@@ -43,50 +35,36 @@ Single.args = {
 
 export const Multiple = (args) => {
   const [files, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', files);
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Multiple.args = {
   multiple: true,
 };
 
+export const WithDefaultValue = (args) => {
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
+
+  return <FileInput {...args} onChange={setFiles} />;
+};
+
+WithDefaultValue.args = {
+  accept: '',
+  defaultValue: [
+    new File(['string content'], 'dummy.txt', { type: 'text/plain' }),
+    new File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
+  ],
+  multiple: true,
+};
+
 export const WithDragAndDrop = (args) => {
   const [files, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', files);
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 WithDragAndDrop.args = {
@@ -95,24 +73,10 @@ WithDragAndDrop.args = {
 };
 
 export const WithTooltip = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      accept={args.accept}
-      maxSize={args.maxSize}
-      tooltipLabel={args.tooltipLabel}
-      tooltipButtonLabel={args.tooltipButtonLabel}
-      tooltipText={args.tooltipText}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 WithTooltip.args = {
   accept: 'image/*',
@@ -122,21 +86,10 @@ WithTooltip.args = {
 };
 
 export const Disabled = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      disabled={args.disabled}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Disabled.args = {
@@ -146,26 +99,10 @@ Disabled.args = {
 };
 
 export const DisabledDragAndDrop = (args) => {
-  const [file, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      disabled={args.disabled}
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFiles}
-      maxSize={args.maxSize}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 DisabledDragAndDrop.args = {
@@ -176,21 +113,10 @@ DisabledDragAndDrop.args = {
 };
 
 export const Required = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected file', file);
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
 
-  return (
-    <FileInput
-      required
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      language={args.language}
-      onChange={setFile}
-      accept={args.accept}
-    />
-  );
+  return <FileInput {...args} onChange={setFiles} />;
 };
 
 Required.args = {
@@ -200,30 +126,10 @@ Required.args = {
 
 export const Playground = (args) => {
   const onChange = (files) => {
-    // eslint-disable-next-line no-console
-    console.log('onChange callback files:', files);
+    onFilesChanged(files);
   };
 
-  return (
-    <FileInput
-      id={args.id}
-      label={args.label}
-      buttonLabel={args.buttonLabel}
-      maxSize={args.maxSize}
-      language={args.language}
-      accept={args.accept}
-      disabled={args.disabled}
-      required={args.required}
-      multiple={args.multiple}
-      dragAndDrop={args.dragAndDrop}
-      dragAndDropLabel={args.dragAndDropLabel}
-      dragAndDropInputLabel={args.dragAndDropInputLabel}
-      helperText={args.helperText}
-      errorText={args.errorText}
-      infoText={args.infoText}
-      onChange={onChange}
-    />
-  );
+  return <FileInput {...args} onChange={onChange} />;
 };
 Playground.parameters = {
   previewTabs: {
@@ -244,6 +150,7 @@ Playground.args = {
   multiple: false,
   maxSize: 300 * 1024,
   accept: '.png,.jpg,.pdf,.json',
+  defaultValue: undefined,
   disabled: false,
   required: false,
   helperText: '',

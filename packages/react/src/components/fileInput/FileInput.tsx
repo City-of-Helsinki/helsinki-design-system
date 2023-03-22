@@ -27,6 +27,10 @@ type FileInputProps = {
    */
   className?: string;
   /**
+   * Default selected files for the input
+   */
+  defaultValue?: File[];
+  /**
    * If `true`, the file input will be disabled
    */
   disabled?: boolean;
@@ -325,6 +329,7 @@ export const FileInput = ({
   label,
   buttonLabel,
   language = 'fi',
+  defaultValue,
   disabled,
   dragAndDrop,
   dragAndDropLabel,
@@ -445,7 +450,6 @@ export const FileInput = ({
   const handleSingleFileChange = (files: File[]) => {
     if (files.length > 0) {
       const { validFiles, validationErrors } = runValidations(files);
-
       if (validationErrors.length > 0) {
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
@@ -530,6 +534,24 @@ export const FileInput = ({
       didMountRef.current = true;
     }
   }, [setInputStateText, language]);
+
+  useEffect(() => {
+    if (!hasFileItems && defaultValue && inputRef.current) {
+      const dataTransfer = new DataTransfer();
+
+      defaultValue.forEach((defaultFile) => {
+        const file = new File([defaultFile], defaultFile.name, {
+          type: defaultFile.type,
+          lastModified: defaultFile.lastModified,
+        });
+        dataTransfer.items.add(file);
+      });
+
+      inputRef.current.files = dataTransfer.files;
+      const event = new Event('change', { bubbles: true });
+      inputRef.current.dispatchEvent(event);
+    }
+  }, [defaultValue]);
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
