@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/yle.svg);
+@svg-load icon url("../../svg/some/yle.svg");
 
 .hds-icon--yle {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

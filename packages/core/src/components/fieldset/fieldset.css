@@ -29,5 +29,5 @@
 
 .hds-fieldset--border > .hds-fieldset-legend {
   margin-left: calc(var(--padding-sides) / -2);
-  padding: 0 6px 0 6px;
+  padding: 0 6px;
 }

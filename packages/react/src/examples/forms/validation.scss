@@ -39,13 +39,13 @@
   }
 
   &__terms {
-    margin-top: var(--spacing-2-xs);
     margin-left: var(--spacing-l);
+    margin-top: var(--spacing-2-xs);
 
     span {
+      color: var(--color-bus);
       cursor: pointer;
       text-decoration: underline;
-      color: var(--color-bus);
     }
   }
 
@@ -53,14 +53,16 @@
     &__grid {
       &-6-6 {
         display: grid;
-        grid-template-columns: 1fr 1fr;
         gap: var(--spacing-m);
+        grid-template-columns: 1fr 1fr;
       }
+
       &-8-4 {
         display: grid;
-        grid-template-columns: 2fr 1fr;
         gap: var(--spacing-m);
+        grid-template-columns: 2fr 1fr;
       }
+
       &-6-6:last-child,
       &-8-4:last-child {
         margin-bottom: calc(-1 * var(--spacing-m));

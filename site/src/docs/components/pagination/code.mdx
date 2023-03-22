@@ -19,7 +19,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Pagination } from 'hds-react';
+
+() => {
   const [pageIndex, setPageIndex] = useState(0);
   return (
     <Pagination
@@ -35,7 +37,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       siblingCount={9}
     />
   );
-}}
+}
 ```
 
 ```html
@@ -106,7 +108,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Pagination } from 'hds-react';
+
+() => {
   const [pageIndex, setPageIndex] = useState(31);
   return (
     <Pagination
@@ -122,7 +126,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       siblingCount={2}
     />
   );
-}}
+}
 ```
 
 ```html
@@ -193,7 +197,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Pagination } from 'hds-react';
+
+() => {
   const [pageIndex, setPageIndex] = useState(31);
   return (
     <Pagination
@@ -211,7 +217,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       siblingCount={2}
     />
   );
-}}
+}
 ```
 
 </Playground>

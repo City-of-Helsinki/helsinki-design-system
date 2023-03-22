@@ -1,9 +1,10 @@
-@import "../../styles/common";
-@import "../dropdown/dropdown.common";
+@import "../../styles/common.scss";
+@import "../dropdown/dropdown.common.scss";
 
 
 .root {
   @extend %dropdownRoot;
+
   --helper-color-default: var(--color-black-60);
 }
 
@@ -12,6 +13,7 @@
  */
  .wrapper {
   @extend %dropdownWrapper;
+
   align-items: center;
   display: flex;
 }
@@ -21,8 +23,8 @@
 }
 
 .button {
-  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css';
   color: var(--dropdown-color-default);
+  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css';
 
   &.hidden {
     @extend %hiddenFromScreen;
@@ -40,18 +42,20 @@
 
 .input {
   align-self: stretch;
+
+  // Removes the input shadow on iOS
+  appearance: none;
   background-color: var(--input-background-default);
   border: none;
   box-sizing: border-box;
   color: var(--input-color-default);
   font-size: var(--fontsize-body-l);
   height: var(--menu-item-height);
+
   // The focus is given to the wrapping element instead of this input
   // so we can hide the outline.
   outline: none;
   padding: 0 calc(var(--spacing-l) + var(--icon-size)) 0 0;
-  // Removes the input shadow on iOS
-  -webkit-appearance: none;
   width: 100%;
 
   // add left padding when there is no icon
@@ -96,8 +100,8 @@
 
     mark {
       background: none;
-      font-weight: normal;
       color: inherit;
+      font-weight: normal;
     }
   }
 }
@@ -111,12 +115,13 @@
 
 .loadingSpinnerContainer {
   @extend %dropdownMenu;
-  display: flex;
-  flex-direction: column;
+
   align-items: center;
   background-color: var(--menu-item-background-default);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   padding: var(--spacing-m) 0;
+  text-align: center;
 }
 
 .loadingSpinner {

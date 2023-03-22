@@ -1,5 +1,5 @@
-@import "../../styles/common";
-@import "tag.common";
+@import "../../styles/common.scss";
+@import "tag.common.scss";
 
 .tag {
   @extend %tag;

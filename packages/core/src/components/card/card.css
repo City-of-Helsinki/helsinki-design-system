@@ -27,6 +27,7 @@
   gap: var(--spacing-s);
   margin-bottom: var(--spacing-l);
 }
+
 .hds-card__body:last-child {
   margin-bottom: 0;
 }

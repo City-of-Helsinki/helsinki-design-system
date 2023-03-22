@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/volume-high.svg);
+@svg-load icon url("../../svg/ui/volume-high.svg");
 
 .hds-icon--volume-high {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/instagram.svg);
+@svg-load icon url("../../svg/some/instagram.svg");
 
 .hds-icon--instagram {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

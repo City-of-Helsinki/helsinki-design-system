@@ -1,8 +1,8 @@
-@import "../../icons/icon.css";
-@import "../../icons/ui/icon-alert-circle-fill.css";
-@import "../../icons/ui/icon-check-circle-fill.css";
-@import "../../icons/ui/icon-error-fill.css";
-@import "../../icons/ui/icon-info-circle-fill.css";
+@import url("../../icons/icon.css");
+@import url("../../icons/ui/icon-alert-circle-fill.css");
+@import url("../../icons/ui/icon-check-circle-fill.css");
+@import url("../../icons/ui/icon-error-fill.css");
+@import url("../../icons/ui/icon-info-circle-fill.css");
 
 .hds-notification {
   --notification-background-color: var(--color-info-light);
@@ -42,8 +42,8 @@
 .hds-notification__label {
   align-items: flex-start;
   display: flex;
-  font-weight: bold;
   font-size: var(--fontsize-heading-xs);
+  font-weight: bold;
   letter-spacing: 0.4px;
   line-height: 24px;
   margin-right: var(--spacing-l);
@@ -51,6 +51,7 @@
 
 .hds-notification__label > .hds-icon {
   color: var(--notification-icon-color);
+  flex: none;
   margin-right: var(--spacing-2-xs);
 }
 
@@ -96,14 +97,11 @@
   --icon-size: var(--spacing-layout-xs);
 }
 
-.hds-notification__label > .hds-icon {
-  flex: none;
-}
-
 /* CLOSE BUTTON */
 
 .hds-notification__close-button {
   --notification-close-button-offset: var(--spacing-s);
+
   background: none;
   border: none;
   cursor: pointer;
@@ -140,19 +138,19 @@
 }
 
 .hds-notification--top-left {
-  top: var(--notification-offset);
   left: var(--notification-offset);
+  top: var(--notification-offset);
 }
 
 .hds-notification--top-center {
-  top: var(--notification-offset);
   left: 50%;
+  top: var(--notification-offset);
   transform: translateX(-50%);
 }
 
 .hds-notification--top-right {
-  top: var(--notification-offset);
   right: var(--notification-offset);
+  top: var(--notification-offset);
 }
 
 .hds-notification--bottom-left {

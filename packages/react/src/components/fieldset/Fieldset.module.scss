@@ -15,14 +15,14 @@
 }
 
 .legendWithTooltip {
+  align-items: center;
   composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   grid-column-gap: var(--spacing-2-xs);
+  justify-content: flex-start;
 }
 
 .tooltipButton {
-  display: flex;
   align-items: center;
+  display: flex;
 }

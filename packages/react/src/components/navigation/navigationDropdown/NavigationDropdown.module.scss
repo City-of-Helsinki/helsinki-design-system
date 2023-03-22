@@ -1,5 +1,5 @@
 @import "../navigation.common";
-@value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.css";
+@value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.scss";
 
 .dropdownItem.dropdownItem {
   &:focus-within {

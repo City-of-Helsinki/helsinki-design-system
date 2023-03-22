@@ -18,11 +18,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} /> 
-<Logo language="sv" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-<Logo language="ru" size="medium" />
-</>
+import { Logo } from 'hds-react';
+
+() => (<>
+  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo language="sv" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo language="ru" size="medium" />
+</>)
 ```
 
 </Playground>
@@ -32,11 +34,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<Logo language="fi" size="small" style={{marginRight: 'var(--spacing-xs)'}} />  
-<Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-<Logo language="fi" size="large" />
-</>
+import { Logo } from 'hds-react';
+
+() => (<>
+  <Logo language="fi" size="small" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo language="fi" size="large" />
+</>)
 ```
 
 </Playground>

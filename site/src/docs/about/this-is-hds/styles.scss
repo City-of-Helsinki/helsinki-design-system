@@ -13,8 +13,8 @@
 }
 
 .info-page-hero-logo {
-  width: 100px;
   margin-left: 0;
+  width: 100px;
 
   @include small-medium-and-above-screen {
     margin-left: var(--spacing-s);
@@ -46,6 +46,7 @@
 }
 
 .info-page-content {
+  color: var(--color-black-90);
   margin: 0 auto;
   padding: var(--spacing-layout-xs) var(--spacing-layout-2-xs);
 
@@ -58,16 +59,14 @@
     padding-left: 0;
     padding-right: 0;
   }
-
-  color: var(--color-black-90);
 }
 
 .info-page-content h2 {
-  font-weight: 400;
   font-size: var(--fontsize-heading-xl);
+  font-weight: 400;
   letter-spacing: -0.01em;
-  margin-top: 0;
   margin-bottom: var(--spacing-layout-xxs);
+  margin-top: 0;
 
   @include small-screen {
     font-size: var(--fontsize-heading-l);
@@ -75,8 +74,8 @@
 }
 
 .info-page-content h3 {
-  font-weight: 400;
   font-size: var(--fontsize-heading-l);
+  font-weight: 400;
   letter-spacing: -0.01em;
   margin: var(--spacing-layout-l) 0 var(--spacing-layout-xs) 0;
 
@@ -91,13 +90,13 @@
 }
 
 .info-page-content p {
-  font-weight: 400;
   font-size: var(--fontsize-body-xl);
-  line-height: var(--lineheight-l);
+  font-weight: 400;
   letter-spacing: -0.01em;
+  line-height: var(--lineheight-l);
+  margin-bottom: 0;
   max-width: 768px;
   padding-top: var(--spacing-layout-xxs);
-  margin-bottom: 0;
 
   @include small-screen {
     font-size: var(--fontsize-body-l);
@@ -126,8 +125,8 @@
 
 .accessibility-chart-m {
   display: block;
-  max-width: 720px;
   height: auto;
+  max-width: 720px;
 
   @media only screen and (max-width: 768px) {
     max-width: 564px;
@@ -143,14 +142,14 @@
 
   @media only screen and (max-width: 575px) {
     display: block;
-    max-width: 288px;
     height: auto;
+    max-width: 288px;
   }
 }
 
 .info-page-data-card {
-  margin-top: var(--spacing-s);
   height: 480px;
+  margin-top: var(--spacing-s);
 
   @media only screen and (max-width: 428px) {
     height: 596px;
@@ -158,8 +157,8 @@
 }
 
 .info-page-data-card-design {
-  margin-top: var(--spacing-s);
   height: 552px;
+  margin-top: var(--spacing-s);
 
   @media only screen and (max-width: 428px) {
     height: 596px;
@@ -171,9 +170,9 @@
 }
 
 .datawrapper-iframe {
-  width: 100%;
   border: none;
   height: 76%;
+  width: 100%;
 
   @media only screen and (max-width: 428px) {
     height: 72%;
@@ -189,25 +188,25 @@
 }
 
 .info-page-image-card-container {
-  overflow: hidden;
   margin-top: var(--spacing-layout-m);
+  overflow: hidden;
 }
 
 .info-page-image-card [class^="ImageWithCard-module_card_"] {
   background-color: var(--color-black-10);
+  margin-top: var(--spacing-layout-m);
+  max-width: 352px;
   min-height: auto;
   padding: var(--spacing-layout-l);
-  max-width: 352px;
-  margin-top: var(--spacing-layout-m);
 
   @include medium-screen {
-    padding: var(--spacing-layout-m);
     margin-top: auto;
+    padding: var(--spacing-layout-m);
   }
 
   @include small-screen {
-    padding: var(--spacing-layout-s);
     margin-top: auto;
+    padding: var(--spacing-layout-s);
   }
 }
 
@@ -275,12 +274,12 @@
 }
 
 .info-page-card-grid-item {
-  background-repeat: no-repeat;
+  align-content: center;
   background-position: right center;
+  background-repeat: no-repeat;
   background-size: 44%;
   display: flex;
   flex-direction: column;
-  align-content: center;
   justify-content: center;
   min-height: 200px;
 
@@ -296,9 +295,9 @@
 
   & [role="heading"] {
     font-size: $fontsize-heading-l;
-    line-height: $lineheight-m;
     font-weight: 400;
     letter-spacing: -0.004em;
+    line-height: $lineheight-m;
 
     @include small-screen {
       font-size: $fontsize-heading-m;
@@ -347,15 +346,15 @@
 }
 
 .grid-box {
-  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m);
   max-height: 248px;
+  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m);
 }
 
 .timeline {
   .box-tag {
-    margin-bottom: var(--spacing-s);
     background-color: var(--color-coat-of-arms);
     color: var(--color-white);
+    margin-bottom: var(--spacing-s);
   }
 
   .alert {
@@ -376,8 +375,8 @@
     height: 276px;
 
     .box-heading {
-      margin-top: var(--spacing-m);
       margin-bottom: var(--spacing-s);
+      margin-top: var(--spacing-m);
     }
   }
 }

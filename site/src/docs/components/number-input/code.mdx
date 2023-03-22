@@ -19,7 +19,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
+import { NumberInput } from 'hds-react';
+
+() => (<>
   <NumberInput
     id="default"
     helperText="Assistive text"
@@ -38,7 +40,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     defaultValue={1000}
     style={{ maxWidth: '320px', marginTop: 'var(--spacing-s)' }}
   />
-</>
+</>)
 ```
 
 ```html
@@ -75,7 +77,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<NumberInput
+import { NumberInput } from 'hds-react';
+
+() => (<NumberInput
   id="stepper"
   helperText="Assistive text"
   label="Number of attendees"
@@ -84,7 +88,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   step={1}
   defaultValue={5}
   style={{ maxWidth: '320px' }}
-/>
+/>)
 ```
 
 ```html
@@ -104,7 +108,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<NumberInput
+import { NumberInput } from 'hds-react';
+
+() => (<NumberInput
   id="stepper-minmax"
   helperText="At least 3 attendees are required"
   label="Number of attendees"
@@ -115,7 +121,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   step={1}
   defaultValue={3}
   style={{ maxWidth: '320px' }}
-/>
+/>)
 ```
 
 ```html

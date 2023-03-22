@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/shopping-cart.svg);
+@svg-load icon url("../../svg/ui/shopping-cart.svg");
 
 .hds-icon--shopping-cart {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

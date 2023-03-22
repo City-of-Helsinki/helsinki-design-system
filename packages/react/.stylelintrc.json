@@ -1,5 +1,8 @@
 {
-  "extends": "stylelint-config-standard-scss",
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-css-modules"
+  ],
   "plugins": [
 		"stylelint-order"
 	],
@@ -8,7 +11,7 @@
     "at-rule-no-unknown": null,
     "function-no-unknown": null,
     "keyframes-name-pattern": "([a-z][A-z]*)",
-    "order/properties-alphabetical-order": true,
+    "order/properties-alphabetical-order": [ true, { "severity": "warning" }],
     "property-no-vendor-prefix": null,
     "scss/at-import-partial-extension": "always",
     "scss/at-mixin-pattern": "([a-z][A-z]*)",

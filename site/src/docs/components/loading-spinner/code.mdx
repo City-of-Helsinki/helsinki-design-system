@@ -19,11 +19,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-<LoadingSpinner />
-<br />
-<LoadingSpinner small />
-</>
+import { LoadingSpinner } from 'hds-react';
+
+() => (<>
+  <LoadingSpinner />
+  <br />
+  <LoadingSpinner small />
+</>)
 ```
 
 ```html

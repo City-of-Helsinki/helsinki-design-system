@@ -2,39 +2,38 @@
   --card-background-primary: var(--color-coat-of-arms);
   --card-background-secondary: var(--color-fog);
   --card-background-tertiary: var(--color-suomenlinna);
-
   --card-color-primary: var(--color-white);
   --card-color-secondary: var(--color-black-90);
   --card-color-tertiary: var(--color-white);
 
-  top: 0;
-  margin: 0 auto;
   height: 34.375em;
+  margin: 0 auto;
+  top: 0;
   width: 72em;
 }
 
 .image {
-  background-size: cover;
   background-position: 50% 50%;
-  width: 100%;
+  background-size: cover;
   height: 100%;
+  width: 100%;
 }
 
 .cardContainer {
-  padding: 3.625em 3.625em;
-  position: relative;
-  margin: 0 auto;
-  top: -100%;
   height: 100%;
+  margin: 0 auto;
   max-width: 72em;
+  padding: 3.625em;
+  position: relative;
+  top: -100%;
 }
 
 .card {
-  composes: text-body from 'hds-core/lib/utils/helpers.css';
-  padding: 1em 3em;
   background: white;
-  width: 45%;
+  composes: text-body from 'hds-core/lib/utils/helpers.css';
   min-height: 100%;
+  padding: 1em 3em;
+  width: 45%;
 }
 
 .rightAlignment .card {
@@ -43,8 +42,8 @@
 }
 
 .leftAlignment .image {
-  margin-right: 0;
   margin-left: auto;
+  margin-right: 0;
 }
 
 /* SPLIT LAYOUT */
@@ -129,15 +128,15 @@
   }
 
   .cardContainer {
-    width: auto;
     height: auto;
     margin: -4.625em 1em 0;
     padding: 0;
+    width: auto;
   }
 
   .card {
-    width: auto;
     padding: 1em;
+    width: auto;
   }
 }
 

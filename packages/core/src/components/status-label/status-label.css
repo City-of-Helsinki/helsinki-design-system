@@ -7,8 +7,8 @@
   color: var(--status-label-color);
   display: inline-block;
   font-size: var(--fontsize-body-s);
-  min-height: var(--status-label-height);
   line-height: var(--status-label-height);
+  min-height: var(--status-label-height);
   padding: 0 var(--spacing-2-xs);
   vertical-align: middle;
 }

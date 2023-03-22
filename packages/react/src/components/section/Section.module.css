@@ -3,7 +3,6 @@
   --section-background-primary: var(--color-coat-of-arms);
   --section-background-secondary: var(--color-fog);
   --section-background-tertiary: var(--color-suomenlinna);
-
   --section-color-plain: var(--color-black-90);
   --section-color-primary: var(--color-white);
   --section-color-secondary: var(--color-black-90);
@@ -22,9 +21,9 @@
 }
 
 .content {
-  padding: var(--spacing-layout-s) var(--spacing-layout-xl);
-  max-width: 72em;
   margin: 0 auto;
+  max-width: 72em;
+  padding: var(--spacing-layout-s) var(--spacing-layout-xl);
   position: relative;
   z-index: 1;
 }
@@ -49,6 +48,10 @@
   color: var(--section-color-tertiary);
 }
 
+.koros {
+  position: absolute;
+}
+
 .section.plain .koros {
   fill: var(--section-background-plain);
 }
@@ -63,10 +66,6 @@
 
 .section.tertiary .koros {
   fill: var(--section-background-tertiary);
-}
-
-.koros {
-  position: absolute;
 }
 
 .koros.basic.topKoros {

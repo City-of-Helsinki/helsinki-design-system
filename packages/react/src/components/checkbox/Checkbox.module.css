@@ -19,6 +19,6 @@
 }
 
 .tooltipButton {
-  margin-left: var(--spacing-2-xs);
   display: inline-block;
+  margin-left: var(--spacing-2-xs);
 }

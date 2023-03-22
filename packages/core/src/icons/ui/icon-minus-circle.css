@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/minus-circle.svg);
+@svg-load icon url("../../svg/ui/minus-circle.svg");
 
 .hds-icon--minus-circle {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

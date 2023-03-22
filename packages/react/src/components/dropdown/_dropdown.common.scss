@@ -14,7 +14,6 @@
   --menu-item-height: calc(var(--dropdown-height) - var(--border-width) * 2);
   --icon-size: var(--spacing-m);
   --menu-z-index: 10;
-
   --dropdown-background-default: var(--color-white);
   --dropdown-background-disabled: var(--color-black-10);
   --dropdown-border-color-default: var(--color-black-50);
@@ -52,6 +51,7 @@
   --placeholder-color: var(--color-black-60);
 
   position: relative;
+
   &.open {
     .angleIcon {
       transform: rotateX(180deg);
@@ -93,6 +93,7 @@
 
   &:focus-within {
     @extend %dropdownFocusOutline;
+
     border-color: var(--dropdown-border-color-focus);
   }
 
@@ -141,8 +142,8 @@
   left: 0;
   list-style: none;
   margin: 0;
-  overflow-y: auto;
   outline: none;
+  overflow-y: auto;
   padding: 0;
   position: absolute;
   transform: translate(calc(var(--border-width) * -1), 100%);
@@ -284,6 +285,7 @@
 
     &.highlighted .checkbox {
       @extend %dropdownFocusOutline;
+
       border-color: var(--multiselect-checkbox-border-hover);
     }
 

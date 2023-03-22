@@ -8,6 +8,10 @@
   padding-top: calc(var(--notification-padding) + var(--notification-border-width));
 }
 
+.close {
+  composes: hds-notification__close-button from 'hds-core/lib/components/notification/notification.css';
+}
+
 .notification.noBorder .close {
   top: calc(var(--notification-close-button-offset) + var(--notification-border-width));
 }
@@ -26,8 +30,8 @@
 }
 
 .icon {
-  composes: hds-icon from 'hds-core/lib/components/notification/notification.css';
   background-color: transparent;
+  composes: hds-icon from 'hds-core/lib/components/notification/notification.css';
 }
 
 .label {
@@ -36,10 +40,6 @@
 
 .body {
   composes: hds-notification__body from 'hds-core/lib/components/notification/notification.css';
-}
-
-.close {
-  composes: hds-notification__close-button from 'hds-core/lib/components/notification/notification.css';
 }
 
 .small {

@@ -13,9 +13,9 @@
 
 .withoutBackground {
   background: transparent;
+  padding-bottom: var(--spacing-2-xl) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
-  padding-bottom: var(--spacing-2-xl) !important;
 }
 
 .paddingWithoutImageAndWithBackground {
@@ -39,40 +39,59 @@
 }
 
 .contentSmall {
+  padding-bottom: var(--spacing-4-xl);
   padding-left: var(--spacing-s);
   padding-right: var(--spacing-s);
-  padding-bottom: var(--spacing-4-xl);
 }
 
 .contentMedium {
+  padding-bottom: var(--spacing-4-xl);
   padding-left: var(--spacing-s);
   padding-right: var(--spacing-s);
-  padding-bottom: var(--spacing-4-xl);
 }
 
 .contentLarge {
+  padding-bottom: var(--spacing-5-xl);
   padding-left: var(--spacing-m);
   padding-right: var(--spacing-m);
-  padding-bottom: var(--spacing-5-xl);
+}
+
+.icon {
+  bottom: var(--spacing-s);
+  left: var(--spacing-s);
+  position: absolute;
+  vertical-align: bottom;
 }
 
 .withBorder {
+  border: solid 2px var(--color-black-90);
+
+  &:focus-within {
+    border: var(--color-black-90) 2px solid !important;
+    outline: var(--color-coat-of-arms) 3px solid;
+  }
+
   .contentSmall {
+    padding-bottom: 62px;
     padding-left: 14px;
     padding-right: 14px;
-    padding-bottom: 62px;
   }
 
   .contentMedium {
+    padding-bottom: 62px;
     padding-left: 14px;
     padding-right: 14px;
-    padding-bottom: 62px;
   }
 
   .contentLarge {
+    padding-bottom: 70px;
     padding-left: 22px;
     padding-right: 22px;
-    padding-bottom: 70px;
+  }
+
+  .icon {
+    bottom: 14px;
+    left: 14px;
   }
 
   .paddingWithoutImageAndWithBackground {
@@ -80,22 +99,22 @@
   }
 }
 
+.text {
+  color: var(--color-black-90);
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
+  margin-bottom: var(--spacing-s);
+  margin-top: var(--spacing-2-xs);
+}
+
 .contentLarge .text {
   margin-bottom: var(--spacing-m);
 }
 
-.withBorder {
-  border: solid 2px var(--color-black-90);
-
-  &:focus-within {
-    outline: var(--color-coat-of-arms) 3px solid;
-    border: var(--color-black-90) 2px solid !important;
-  }
-}
-
 .headingSmall {
-  padding-bottom: 0;
   composes: heading-s from 'hds-core/lib/utils/helpers.css';
+  padding-bottom: 0;
 }
 
 .headingMedium {
@@ -103,46 +122,23 @@
 }
 
 .headingLarge {
-  padding-bottom: var(--spacing-2-xs);
   composes: heading-l from 'hds-core/lib/utils/helpers.css';
-}
-
-.text {
-  font-family: var(--font-default);
-  font-size: var(--fontsize-body-m);
-  margin-top: var(--spacing-2-xs);
-  margin-bottom: var(--spacing-s);
-  line-height: var(--lineheight-l);
-  color: var(--color-black-90);
+  padding-bottom: var(--spacing-2-xs);
 }
 
 .link {
-  width: 100%;
-  height:100%;
-  display: inline-block;
-  position: absolute;
-  line-height: var(--lineheight-l);
   color: var(--color-black-90);
-  top: 0;
+  display: inline-block;
+  height:100%;
   left: 0;
+  line-height: var(--lineheight-l);
+  position: absolute;
+  top: 0;
+  width: 100%;
   
   &:focus {
-    outline: none;
     border: none;
-  }
-}
-
-.icon {
-  vertical-align: bottom;
-  position: absolute;
-  bottom: var(--spacing-s);
-  left: var(--spacing-s);
-}
-
-.withBorder {
-  .icon {
-    bottom: 14px;
-    left: 14px;
+    outline: none;
   }
 }
 
@@ -157,8 +153,8 @@
 }
 
 .image {
-  width: 100%;
-  height: auto;
   display: block;
+  height: auto;
   object-fit: contain;
+  width: 100%;
 }

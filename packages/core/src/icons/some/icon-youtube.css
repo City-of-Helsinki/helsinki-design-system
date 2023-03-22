@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/youtube.svg);
+@svg-load icon url("../../svg/some/youtube.svg");
 
 .hds-icon--youtube {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -18,32 +18,36 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<div style={{ maxWidth: '320px' }}>
-<TextArea
-  id="textarea"
-  label="Label"
-  placeholder="Placeholder"
-  helperText="Assistive text"
-  required
-/>
-<TextArea
-  id="textarea-disabled"
-  label="Label"
-  defaultValue="Text area value"
-  helperText="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  disabled
-/>
-<TextArea
-  id="textarea-invalid"
-  label="Label"
-  defaultValue="Text area value"
-  errorText="Error text"
-  helperText="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  invalid
-/>
-</div>
+import { TextArea } from 'hds-react';
+
+() => (
+  <div style={{ maxWidth: '320px' }}>
+    <TextArea
+      id="textarea"
+      label="Label"
+      placeholder="Placeholder"
+      helperText="Assistive text"
+      required
+    />
+    <TextArea
+      id="textarea-disabled"
+      label="Label"
+      defaultValue="Text area value"
+      helperText="Assistive text"
+      style={{marginTop: 'var(--spacing-s)'}}
+      disabled
+    />
+    <TextArea
+      id="textarea-invalid"
+      label="Label"
+      defaultValue="Text area value"
+      errorText="Error text"
+      helperText="Assistive text"
+      style={{marginTop: 'var(--spacing-s)'}}
+      invalid
+    />
+  </div>
+)
 ```
 
 ```html
@@ -85,15 +89,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<TextArea
-  id="textarea-tooltip"
-  label="Label"
-  placeholder="Placeholder"
-  tooltipLabel="Tooltip label"
-  tooltipButtonLabel="Tooltip button label"
-  tooltipText="Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
-  style={{ maxWidth: '320px' }}
-/>
+import { TextArea } from 'hds-react';
+
+() => (
+  <TextArea
+    id="textarea-tooltip"
+    label="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+    style={{ maxWidth: '320px' }}
+  />
+)
 ```
 
 </Playground>

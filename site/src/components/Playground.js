@@ -105,6 +105,12 @@ const sanitize = (code) => {
     : trimmedCode;
 };
 
+function transformCode(code) {
+  const importsIgnored = code.replace(/import\s*{\s*(\S+)(\s*,\s*\S+)*\s*}\s*from\s*'([^\s;]+)';?/g, '');
+  const renderAdded = `render(${importsIgnored})`;
+  return renderAdded;
+}
+
 const HtmlLivePreview = ({ code }) => {
   const sanitizedHtml = () => ({
     __html: sanitizeHtml(code, sanitizeConfig),
@@ -299,7 +305,12 @@ export const PlaygroundBlock = (props) => {
 
           return (
             <TabPanel key={language}>
-              <LiveProvider code={sanitizedCode} scope={scopeComponents} language={language}>
+              <LiveProvider
+                code={sanitizedCode}
+                transformCode={(code) => `${transformCode(code)}`}
+                scope={scopeComponents}
+                language={language}
+                noInline={true}>
                 <div className="playground-block-content">
                   <PreviewComponent />
                   <EditorWithLive
