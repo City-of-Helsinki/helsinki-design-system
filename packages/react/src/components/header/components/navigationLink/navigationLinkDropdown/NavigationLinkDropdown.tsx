@@ -6,6 +6,7 @@ import '../../../../../styles/base.css';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import classNames from '../../../../../utils/classNames';
+import { getChildElementsEvenIfContainerInbetween } from '../../../../../utils/getChildren';
 
 export enum NavigationLinkInteraction {
   Hover = 'hover',
@@ -53,6 +54,8 @@ export const NavigationLinkDropdown = ({
 
   const handleMenuButtonClick = () => setOpen(!open, NavigationLinkInteraction.Click);
 
+  const childElements = getChildElementsEvenIfContainerInbetween(children);
+
   return (
     <div className={styles.navigationLinkDropdownContainer}>
       <button
@@ -69,10 +72,10 @@ export const NavigationLinkDropdown = ({
         data-testid={`dropdown-menu-${index}`}
         ref={ref}
       >
-        {React.Children.map(children, (child, childIndex) => {
+        {childElements.map((child, childIndex) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
+            <li key={`link-dropdown-${index}-${childIndex}`}>
               {isValidElement(child)
                 ? cloneElement(child as React.ReactElement, {
                     index: childIndex,

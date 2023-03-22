@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, useContext } from 'react';
+import React, { cloneElement, useContext } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
@@ -28,12 +28,10 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
   id?: string;
   /**
    * Hypertext reference of the primary link.
-   * @default 'https://hel.fi'
    */
-  primaryLinkHref?: string;
+  primaryLinkHref: string;
   /**
    * Link text for the primary link.
-   * @default 'Helsingin kaupunki'
    */
   primaryLinkText?: string;
 }>;
@@ -55,7 +53,7 @@ export const HeaderUniversalBar = ({
         <li className={styles.universalBarMainLinkContainer}>
           <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
         </li>
-        {Children.map(childElements, (child, index) => {
+        {childElements.map((child, index) => {
           if (React.isValidElement(child)) {
             return (
               // eslint-disable-next-line react/no-array-index-key
