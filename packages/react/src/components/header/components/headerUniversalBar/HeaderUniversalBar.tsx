@@ -1,5 +1,7 @@
 import React, { cloneElement, useContext } from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
 import { HeaderContext } from '../../HeaderContext';
@@ -25,10 +27,12 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
   id?: string;
   /**
    * Hypertext reference of the primary link.
+   * @default 'https://hel.fi'
    */
-  primaryLinkHref: string;
+  primaryLinkHref?: string;
   /**
    * Link text for the primary link.
+   * @default 'Helsingin kaupunki'
    */
   primaryLinkText?: string;
 }>;
