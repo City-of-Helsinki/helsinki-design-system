@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/whatsapp.svg);
+@svg-load icon url("../../svg/some/whatsapp.svg");
 
 .hds-icon--whatsapp {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

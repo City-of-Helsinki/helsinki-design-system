@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/google.svg);
+@svg-load icon url("../../svg/some/google.svg");
 
 .hds-icon--google {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

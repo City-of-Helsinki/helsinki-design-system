@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/text-italic.svg);
+@svg-load icon url("../../svg/ui/text-italic.svg");
 
 .hds-icon--text-italic {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

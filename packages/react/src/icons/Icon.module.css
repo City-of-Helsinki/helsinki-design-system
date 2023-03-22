@@ -1,6 +1,6 @@
 .icon {
-  composes: hds-icon from 'hds-core/lib/icons/icon.css';
   background-color: transparent;
+  composes: hds-icon from 'hds-core/lib/icons/icon.css';
 }
 
 .xs {

@@ -1,21 +1,41 @@
-@import '../../styles/common';
-
-@value medium-up from "../../styles/breakpoints.css";
+@import '../../styles/common.scss';
+@value medium-up from "../../styles/breakpoints.scss";
 
 .dialogVisibleBodyWithHiddenScrollbars {
     overflow: hidden !important;
 }
 
+.dialogBackdrop {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.dialog {
+  background: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto var(--spacing-s);
+  max-width: 100%;
+  position: relative;
+  visibility: hidden;
+  z-index: 900;
+}
+
 .dialogContainer {
   --accent-line-color: var(--color-bus);
-  --overlay-color: rgba(0, 0, 0, 0.3);
-  -webkit-overflow-scrolling: unset;
+  --overlay-color: rgb(0 0 0 / 0.3);
+
   align-items: center;
   bottom: 0;
   display: flex;
   justify-content: center;
   left: 0;
   overflow: auto;
+  -webkit-overflow-scrolling: unset;
   overscroll-behavior: none;
   position: fixed;
   right: 0;
@@ -35,26 +55,6 @@
   .dialog.danger {
     border-top-color: var(--color-error);
   }
-}
-
-.dialogBackdrop {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-.dialog {
-  background: white;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  margin: auto var(--spacing-s);
-  max-width: 100%;
-  position: relative;
-  z-index: 900;
-  visibility: hidden;
 }
 
 .dialogVisible {

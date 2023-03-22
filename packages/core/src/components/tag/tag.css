@@ -1,5 +1,5 @@
-@import "../../icons/icon.css";
-@import "../../icons/ui/icon-cross.css";
+@import url("../../icons/icon.css");
+@import url("../../icons/ui/icon-cross.css");
 
 .hds-tag {
   --tag-background: var(--color-black-10);
@@ -15,8 +15,8 @@
   display: inline-flex;
   flex-direction: row-reverse;
   font-size: var(--tag-font-size);
-  min-height: var(--tag-height);
   line-height: var(--tag-height);
+  min-height: var(--tag-height);
   outline: none;
 }
 
@@ -29,6 +29,15 @@
   cursor: pointer;
 }
 
+.hds-tag__label {
+  line-height: var(--lineheight-m);
+  padding: 0 var(--tag-padding);
+}
+
+.hds-tag__label:not(:only-child) {
+  padding: 0 var(--tag-padding) 0 0;
+}
+
 /* Rounded corners variant */
 .hds-tag--rounded-corners {
   border-radius:    20px;
@@ -39,27 +48,18 @@
   --tag-font-size:  var(--fontsize-body-m);
   --tag-padding:    var(--spacing-s);
   --tag-height:     48px;
+
   border-radius:    24px;
   flex-direction:   row;
 }
 
 .hds-tag--rounded-corners > .hds-tag__label:not(:only-child) {
-  padding-right: 0;
   padding-left:  var(--tag-padding);
+  padding-right: 0;
 }
 
 .hds-tag--rounded-corners > button {
   padding-right: calc(var(--tag-padding) / 2);
-}
-
-/* Child nodes */
-.hds-tag__label {
-  line-height: var(--lineheight-m);
-  padding: 0 var(--tag-padding);
-}
-
-.hds-tag__label:not(:only-child) {
-  padding: 0 var(--tag-padding) 0 0;
 }
 
 .hds-tag__delete-button {

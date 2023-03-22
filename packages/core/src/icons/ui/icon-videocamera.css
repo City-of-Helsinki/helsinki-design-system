@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/videocamera.svg);
+@svg-load icon url("../../svg/ui/videocamera.svg");
 
 .hds-icon--videocamera {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

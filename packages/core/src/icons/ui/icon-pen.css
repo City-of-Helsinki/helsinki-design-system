@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/pen.svg);
+@svg-load icon url("../../svg/ui/pen.svg");
 
 .hds-icon--pen {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

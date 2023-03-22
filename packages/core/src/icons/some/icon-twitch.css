@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/twitch.svg);
+@svg-load icon url("../../svg/some/twitch.svg");
 
 .hds-icon--twitch {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

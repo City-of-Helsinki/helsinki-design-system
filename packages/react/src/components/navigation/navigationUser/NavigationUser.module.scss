@@ -1,5 +1,5 @@
 @import "../navigation.common";
-@value small-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
+@value small-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
 
 .signInButton > span {
   padding: var(--spacing-2-xs);
@@ -55,7 +55,6 @@
 
     .signInButton {
       --border-width: 3px;
-
       --background-color: transparent;
       --background-color-hover: transparent;
       --background-color-hover-focus: transparent;

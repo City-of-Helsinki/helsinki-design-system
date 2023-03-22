@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/arrow-redo.svg);
+@svg-load icon url("../../svg/ui/arrow-redo.svg");
 
 .hds-icon--arrow-redo {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

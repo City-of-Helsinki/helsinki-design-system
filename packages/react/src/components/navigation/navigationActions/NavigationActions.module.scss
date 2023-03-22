@@ -1,12 +1,12 @@
-@value medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
+@value medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
 
 @media medium-up {
   .navigationActions {
     align-items: center;
     box-sizing: border-box;
     display: flex;
-    height: 100%;
     flex: none;
+    height: 100%;
     margin-left: auto;
     padding: var(--spacing-xs) 0;
   }

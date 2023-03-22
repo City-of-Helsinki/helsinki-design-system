@@ -9,83 +9,79 @@
 
 @font-face {
   font-family: HelsinkiGrotesk;
+  font-style: normal;
+  font-weight: 400;
   src: url("../fonts/565d73a693abe0776c801607ac28f0bf.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
+  font-style: italic;
+  font-weight: 400;
   src: url("../fonts/5bb29e3b7b1d3ef30121229bbe67c3e1.woff") format("woff");
-  font-weight: 400;
-  font-style: italic;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
+  font-style: normal;
+  font-weight: 500;
   src: url("../fonts/7c46f288e8133b87e6b12b45dac71865.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
+  font-style: italic;
+  font-weight: 500;
   src: url("../fonts/e62dc97e83a385e4d8cdc939cf1e4213.woff") format("woff");
-  font-weight: 500;
-  font-style: italic;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
+  font-style: normal;
+  font-weight: 700;
   src: url("../fonts/533af26cf28d7660f24c2884d3c27eac.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
+  font-style: italic;
+  font-weight: 700;
   src: url("../fonts/20d494430c87e15e194932b729d48270.woff") format("woff");
-  font-weight: 700;
-  font-style: italic;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url("../fonts/a50a1bd245ce63abcc0d1da80ff790d2.woff") format("woff");
-  font-weight: 900;
   font-style: normal;
+  font-weight: 900;
+  src: url("../fonts/a50a1bd245ce63abcc0d1da80ff790d2.woff") format("woff");
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url("../fonts/62a1781d8b396fbb025b0552cf6304d2.woff") format("woff");
-  font-weight: 900;
   font-style: italic;
+  font-weight: 900;
+  src: url("../fonts/62a1781d8b396fbb025b0552cf6304d2.woff") format("woff");
 }
 
 html {
-  /* stylelint-disable property-no-vendor-prefix  */
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  /* stylelint-enable property-no-vendor-prefix  */
   box-sizing: border-box;
   overflow-y: scroll;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-default);
-  margin: 0;
-  /* stylelint-disable property-no-vendor-prefix  */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* stylelint-enable property-no-vendor-prefix  */
+  margin: 0;
   text-rendering: optimizelegibility;
   word-wrap: break-word;
 }
 
 .page-header-title {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-right: var(--spacing-2-xs);
 
   & > div:first-of-type {
@@ -201,8 +197,8 @@ body {
 
   .side-content {
     margin-bottom: auto;
-    width: 230px;
     padding: var(--spacing-s) 0;
+    width: 230px;
   }
 
   .main-content {
@@ -212,8 +208,8 @@ body {
 
   .side-content + .main-content {
     border-left: 1px solid var(--page-border-color);
-    padding: 0 var(--spacing-m) var(--spacing-m);
     max-width: calc(100% - var(--side-content-min-width));
+    padding: 0 var(--spacing-m) var(--spacing-m);
   }
 }
 
@@ -250,9 +246,9 @@ h5 {
 
 .header-anchor {
   color: var(--color-black-90);
-  padding-left: 0 !important;
-  margin-left: var(--spacing-2-xs);
   font-size: 0;
+  margin-left: var(--spacing-2-xs);
+  padding-left: 0 !important;
   vertical-align: middle;
 
   &:focus {
@@ -266,8 +262,8 @@ h5 {
 
 code {
   background-color: var(--color-black-5);
+  box-decoration-break: clone;
   font-family: courier, monospace;
   padding: var(--spacing-4-xs) var(--spacing-3-xs);
   word-wrap: break-word;
-  box-decoration-break: clone;
 }

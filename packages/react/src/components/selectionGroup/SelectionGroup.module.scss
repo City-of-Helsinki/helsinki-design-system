@@ -1,4 +1,4 @@
-@import "../../styles/common";
+@import "../../styles/common.scss";
 
 .selectionGroup {
   --spacing-col: 1.25rem;
@@ -16,6 +16,7 @@
 
 .label {
   @extend %inputLabel;
+
   margin-bottom: var(--spacing-row);
 }
 
@@ -28,6 +29,7 @@
   &.vertical {
     grid-auto-flow: row;
   }
+
   &.horizontal {
     grid-auto-flow: column;
   }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/playback-fastforward.svg);
+@svg-load icon url("../../svg/ui/playback-fastforward.svg");
 
 .hds-icon--playback-fastforward {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

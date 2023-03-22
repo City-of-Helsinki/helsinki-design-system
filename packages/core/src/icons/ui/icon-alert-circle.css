@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/alert-circle.svg);
+@svg-load icon url("../../svg/ui/alert-circle.svg");
 
 .hds-icon--alert-circle {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

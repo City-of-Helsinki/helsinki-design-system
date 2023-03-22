@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/arrow-undo.svg);
+@svg-load icon url("../../svg/ui/arrow-undo.svg");
 
 .hds-icon--arrow-undo {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

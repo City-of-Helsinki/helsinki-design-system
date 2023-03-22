@@ -1,15 +1,5 @@
-@import "../../../styles/common";
-@import "../dropdown.common";
-
-.root {
-  @extend %dropdownRoot;
-
-  &.open {
-    .angleIcon {
-      transform: translateY(2px) rotateX(180deg);
-    }
-  }
-}
+@import "../../../styles/common.scss";
+@import "../dropdown.common.scss";
 
 /**
  * WRAPPER
@@ -25,6 +15,7 @@
 
 .button {
   @extend %buttonReset;
+
   align-items: center;
   color: var(--dropdown-color-default);
   display: flex;
@@ -68,6 +59,16 @@
 
 .angleIcon {
   @extend %dropdownAngleIcon;
+}
+
+.root {
+  @extend %dropdownRoot;
+
+  &.open {
+    .angleIcon {
+      transform: translateY(2px) rotateX(180deg);
+    }
+  }
 }
 
 /**

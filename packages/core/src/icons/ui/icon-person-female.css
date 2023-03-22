@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/person-female.svg);
+@svg-load icon url("../../svg/ui/person-female.svg");
 
 .hds-icon--person-female {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/layers.svg);
+@svg-load icon url("../../svg/ui/layers.svg");
 
 .hds-icon--layers {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

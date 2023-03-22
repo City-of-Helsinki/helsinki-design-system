@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/check-circle.svg);
+@svg-load icon url("../../svg/ui/check-circle.svg");
 
 .hds-icon--check-circle {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,8 +1,8 @@
-@import "../../styles/common";
+@import "../../styles/common.scss";
 
 .timeInputFrame {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
   padding: 0 calc(var(--spacing-s) - 3px);
 
   &.disabled {
@@ -18,12 +18,12 @@
 }
 
 .fullInput {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
   position: absolute;
   width: 0;
-  height: 0;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .partialInputLabel {
@@ -31,26 +31,26 @@
 }
 
 .partialInput, .divider {
-  border: 0;
-  padding: 0;
-  -webkit-appearance: none;
-  box-sizing: border-box;
-  font-size: 1.125rem;
-  color: var(--input-color-default);
-  line-height: normal;
+  appearance: none;
   background: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: var(--input-color-default);
+  font-size: 1.125rem;
+  line-height: normal;
+  padding: 0;
 }
 
 .partialInput {
-  will-change: transform, box-shadow;
+  overflow: visible;
   padding: 0;
   text-align: center;
   width: 1.40rem;
-  overflow: visible;
+  will-change: transform, box-shadow;
 
   &:focus {
-    outline: none;
     box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+    outline: none;
     transform: translate3d(0, 0, 0);
 
     &::placeholder {
@@ -60,10 +60,10 @@
 }
 
 .divider {
-  width: auto;
   display: inline-block;
   margin: 0 5px;
   pointer-events: none;
+  width: auto;
 }
 
 .input.disabled {
