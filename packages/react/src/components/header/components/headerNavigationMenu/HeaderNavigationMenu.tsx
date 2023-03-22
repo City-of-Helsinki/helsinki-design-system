@@ -1,10 +1,5 @@
 import React, { cloneElement, useContext, useState } from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
-
-// import core base styles
-import 'hds-core';
 import styles from './HeaderNavigationMenu.module.scss';
 import { HeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
