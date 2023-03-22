@@ -10,30 +10,32 @@ export default {
   },
 };
 
-export const DefaultHighlight = (args) => <Highlight {...args} />;
-DefaultHighlight.args = {
+const QuoteArgs = { text: 'Add an interesting quote here', type: 'quote', reference: 'First name Last name. Title.' };
+const HighlightArgs = {
   text:
     'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
 };
 
+export const DefaultHighlight = (args) => <Highlight {...args} />;
+DefaultHighlight.args = {
+  ...HighlightArgs,
+};
+
 export const HighlightSmall = (args) => <Highlight {...args} />;
 HighlightSmall.args = {
-  text:
-    'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
+  ...HighlightArgs,
   variant: 'small',
 };
 
 export const HighlightLarge = (args) => <Highlight {...args} />;
 HighlightLarge.args = {
-  text:
-    'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
+  ...HighlightArgs,
   variant: 'l',
 };
 
 export const HighlightCustomAccentColor = (args) => <Highlight {...args} />;
 HighlightCustomAccentColor.args = {
-  text:
-    'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
+  ...HighlightArgs,
   theme: {
     '--accent-line-color': '#009246',
   },
@@ -41,8 +43,7 @@ HighlightCustomAccentColor.args = {
 
 export const HighlightCustomTextColor = (args) => <Highlight {...args} />;
 HighlightCustomTextColor.args = {
-  text:
-    'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
+  ...HighlightArgs,
   theme: {
     '--text-color': '#009246',
   },
@@ -50,32 +51,24 @@ HighlightCustomTextColor.args = {
 
 export const DefaultQuote = (args) => <Highlight {...args} />;
 DefaultQuote.args = {
-  text: 'Add an interesting quote here',
-  type: 'quote',
-  reference: 'First name Last name. Title.',
+  ...QuoteArgs,
 };
 
 export const QuoteLarge = (args) => <Highlight {...args} />;
 QuoteLarge.args = {
-  text: 'Add an interesting quote here',
-  type: 'quote',
+  ...QuoteArgs,
   variant: 'l',
-  reference: 'First name Last name. Title.',
 };
 
 export const QuoteSmall = (args) => <Highlight {...args} />;
 QuoteSmall.args = {
-  text: 'Add an interesting quote here',
-  type: 'quote',
+  ...QuoteArgs,
   variant: 's',
-  reference: 'First name Last name. Title.',
 };
 
 export const QuoteCustomAccentColor = (args) => <Highlight {...args} />;
 QuoteCustomAccentColor.args = {
-  text: 'Add an interesting quote here',
-  type: 'quote',
-  reference: 'First name Last name. Title.',
+  ...QuoteArgs,
   theme: {
     '--accent-line-color': '#009246',
   },
@@ -83,9 +76,7 @@ QuoteCustomAccentColor.args = {
 
 export const QuoteCustomTextColor = (args) => <Highlight {...args} />;
 QuoteCustomTextColor.args = {
-  text: 'Add an interesting quote here',
-  type: 'quote',
-  reference: 'First name Last name. Title.',
+  ...QuoteArgs,
   theme: {
     '--text-color': '#009246',
   },
