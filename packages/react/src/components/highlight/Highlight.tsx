@@ -11,6 +11,9 @@ export interface HighlightTheme {
   '--text-color'?: string;
 }
 
+export type HighlightType = 'highlight' | 'quote';
+export type HighlightVariant = 's' | 'm' | 'l';
+
 export type HighlightProps = {
   /**
    * Highlight Theme
@@ -19,11 +22,11 @@ export type HighlightProps = {
   /**
    * Highlight size. Currently highlight comes in three sizes
    */
-  variant?: 's' | 'm' | 'l';
+  variant?: HighlightVariant;
   /**
    * Highlight type
    */
-  type?: 'highlight' | 'quote';
+  type?: HighlightType;
   /**
    * Highlight or Quote text
    */
