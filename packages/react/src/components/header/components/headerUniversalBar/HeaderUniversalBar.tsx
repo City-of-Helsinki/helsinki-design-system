@@ -27,12 +27,10 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
   id?: string;
   /**
    * Hypertext reference of the primary link.
-   * @default 'https://hel.fi'
    */
-  primaryLinkHref?: string;
+  primaryLinkHref: string;
   /**
    * Link text for the primary link.
-   * @default 'Helsingin kaupunki'
    */
   primaryLinkText?: string;
 }>;
