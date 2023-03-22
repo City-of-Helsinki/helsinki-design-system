@@ -3,6 +3,8 @@ import React, { cloneElement, useCallback, useContext, useEffect, useRef, useSta
 // import base styles
 import '../../../../styles/base.css';
 
+// import core base styles
+import 'hds-core';
 import styles from './NavigationLink.module.scss';
 import classNames from '../../../../utils/classNames';
 import { Link } from '../../../link';
