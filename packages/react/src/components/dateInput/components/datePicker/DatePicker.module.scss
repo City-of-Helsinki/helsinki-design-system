@@ -130,16 +130,13 @@
   &__wrapper {
     align-items: center;
     background: var(--background-color);
-    bottom: 2px;
     color: var(--color);
     display: flex;
     font-size: 1rem;
+    inset: 2px;
     justify-content: center;
-    left: 2px;
     line-height: 1rem;
     position: absolute;
-    right: 2px;
-    top: 2px;
 
     &-vhidden {
       @extend %hiddenFromScreen;

@@ -1,4 +1,4 @@
-@import '../../styles/common';
+@import '../../styles/common.scss';
 
 .container {
   bottom: 0;
@@ -146,6 +146,7 @@
 
 .accordionButton {
   @extend %normalizedInput;
+
   align-items: center;
   background: transparent;
   border: none;

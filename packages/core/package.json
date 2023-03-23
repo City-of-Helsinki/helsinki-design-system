@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/&& yarn run lint:styles && yarn postcss-build",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
