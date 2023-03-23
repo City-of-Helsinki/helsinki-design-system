@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepByStep /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <header
+      class="header"
+    >
+      <section
+        class="description"
+      />
+    </header>
+    <ol
+      class="stepsContainer"
+    >
+      <li
+        class="stepItem"
+      >
+        <h3
+          class="stepItem__title"
+        >
+          Vaiheen otsikko
+        </h3>
+        <div
+          class="stepItem__description"
+        >
+          <p>
+            Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.
+          </p>
+          <p>
+            <button
+              class="button primary theme-default size-default"
+              href="https://hel.fi"
+              type="button"
+            >
+              <span
+                class="label"
+              >
+                Esimerkki painikkeesta
+              </span>
+            </button>
+          </p>
+          <p>
+            <a
+              class="link linkM"
+              href="https://hel.fi"
+            >
+              Esimerkki lisätietolinkistä
+            </a>
+          </p>
+        </div>
+      </li>
+      <li
+        class="stepItem"
+      >
+        <h3
+          class="stepItem__title"
+        >
+          Vaiheen otsikko
+        </h3>
+        <div
+          class="stepItem__description"
+        >
+          <p>
+            Tähän voit lisätä tekstiä.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</DocumentFragment>
+`;

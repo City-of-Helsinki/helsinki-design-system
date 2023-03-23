@@ -30,6 +30,7 @@ export * from './section';
 export * from './selectionGroup';
 export * from './sideNavigation';
 export * from './statusLabel';
+export * from './stepByStep';
 export * from './stepper';
 export * from './table';
 export * from './tag';
