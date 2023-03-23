@@ -37,8 +37,8 @@ ul.hds-step-by-step__steps-container {
 .hds-step-by-step__step-item {
   background-color: var(--color-coat-of-arms-light);
   padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
-  position: relative;
   margin: var(--spacing-l) 0;
+  position: relative;
 }
 
 .hds-step-by-step__step-item__title {
@@ -73,6 +73,6 @@ ul.hds-step-by-step__steps-container {
   z-index: 1;
 }
 
-.hds-step-by-step__step-item:last-of-type::before {
+.hds-step-by-step__step-item:last-of-type:before {
   display: none;
 }
