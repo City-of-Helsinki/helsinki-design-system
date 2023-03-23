@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "rimraf lib/ && yarn run lint && yarn run tcm && rollup -c",
+    "clean": "rimraf node_modules lib storybook-static",
     "start": "tcm src internal --watch & yarn storybook",
     "scaffold": "node scripts/scaffold.js",
     "icon": "node scripts/icon.js",

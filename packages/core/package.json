@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build",
+    "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
