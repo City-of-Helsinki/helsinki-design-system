@@ -68,6 +68,15 @@
 
 /*
  * Normalize.css rules
+ * Remove the inner border and padding in Firefox.
+ */
+.hds-button::-moz-focus-inner, .hds-button[type="button"]::-moz-focus-inner, .hds-button[type="reset"]::-moz-focus-inner, .hds-button[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/*
+ * Normalize.css rules
  * Restore the focus styles unset by the previous rule.
  */
 .hds-button:-moz-focusring, .hds-button[type="button"]:-moz-focusring, .hds-button[type="reset"]:-moz-focusring, .hds-button[type="submit"]:-moz-focusring {
