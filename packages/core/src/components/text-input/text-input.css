@@ -41,9 +41,21 @@
   border-radius: 0;
   box-sizing: border-box;
   color: var(--input-color-default);
+
+  /*
+  * Normalize.css rules
+  * 1. Change the font styles in all browsers.
+  */
+  font-family: inherit; /* 1 */
   font-size: 1.125em;
   height: var(--input-height);
   line-height: normal;
+
+  /*
+  * Normalize.css rules
+  * 2. Remove the margin in Firefox and Safari.
+  */
+  margin: 0; /* 2 */
   padding: 0 var(--spacing-s);
   width: 100%;
   will-change: transform, box-shadow;
@@ -106,29 +118,28 @@
   position: relative;
 }
 
-:where(.hds-text-input__input) {
-  /*
-   * Normalize.css rules
-   * 1. Change the font styles in all browsers.
-   * 2. Remove the margin in Firefox and Safari.
-   */
-  font-family: inherit; /* 1 */
-  margin: 0; /* 2 */
-}
-
 .hds-text-input textarea.hds-text-input__input {
+  /*
+  * Normalize.css rules
+  * 1. Change the font styles in all browsers.
+  */
+  font-family: inherit; /* 1 */
   height: var(--textarea-height);
-  min-height: var(--input-height);
-  padding: var(--spacing-s);
-  resize: vertical;
-}
 
-:where(.hds-text-input textarea.hds-text-input__input) {
+  /*
+  * Normalize.css rules
+  * 2. Remove the margin in Firefox and Safari.
+  */
+  margin: 0; /* 2 */
+  min-height: var(--input-height);
+
   /*
    * Normalize.css rule
    * 1. Remove the default vertical scrollbar in IE 10+.
    */
   overflow: auto; /* 1 */
+  padding: var(--spacing-s);
+  resize: vertical;
 }
 
 .hds-text-input .hds-text-input__input::placeholder {
