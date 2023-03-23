@@ -26,6 +26,10 @@ export type NavigationDropdownLinkProps = MenuButtonProps & {
   id?: string;
 };
 
+/**
+ * NavigationDropdownLink will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationDropdownLink = ({
   label,
   href,

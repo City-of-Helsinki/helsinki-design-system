@@ -168,6 +168,10 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
   );
 };
 
+/**
+ * Navigation will be removed in the next major release. Upcoming Header component will be the replacement.
+ * @deprecated
+ */
 export const Navigation = ({
   children,
   className,
