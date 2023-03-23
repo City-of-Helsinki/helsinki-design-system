@@ -36,8 +36,8 @@ ul.hds-step-by-step__steps-container {
 
 .hds-step-by-step__step-item {
   background-color: var(--color-coat-of-arms-light);
-  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
   margin: var(--spacing-l) 0;
+  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
   position: relative;
 }
 
