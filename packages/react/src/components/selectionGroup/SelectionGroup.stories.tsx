@@ -67,17 +67,6 @@ export const Default = ({ numberOfItems, ...args }) => {
   const radiobuttons = getRadioButtonItems(numberOfItems, radioValue, handleRadioChange);
   return (
     <>
-      <SelectionGroup {...args}>
-        <Checkbox
-          id="test-checkbox0"
-          label="Option 1"
-          name="test-checkbox0"
-          key="test-checkbox0" // eslint-disable-line react/no-array-index-key
-          checked={false}
-        />
-      </SelectionGroup>
-      <br />
-      <br />
       <SelectionGroup {...args}>{checkboxes}</SelectionGroup>
       <br />
       <br />
