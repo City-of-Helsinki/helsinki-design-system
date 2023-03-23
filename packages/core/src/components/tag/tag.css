@@ -58,13 +58,13 @@
   padding-right: 0;
 }
 
+.hds-tag__delete-button {
+  display: flex;
+  outline: none;
+ }
+
 .hds-tag--rounded-corners .hds-tag__delete-button {
   padding-right: calc(var(--tag-padding) / 2);
-}
-
-.hds-tag__delete-button {
- display: flex;
- outline: none;
 }
 
 .hds-tag__delete-button .hds-icon {
