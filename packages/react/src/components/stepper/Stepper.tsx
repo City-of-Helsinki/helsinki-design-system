@@ -90,7 +90,7 @@ export type StepperProps = {
    */
   renderCustomStepHeading?: (stepIndex: number, totalNumberOfSteps: number, label: string) => string;
   /**
-   * The index of the selected step
+   * The index of the selected step. Used to set the aria-current="step" attribute to the active step
    */
   selectedStep?: number;
   /**
