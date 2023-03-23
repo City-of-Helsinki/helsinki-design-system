@@ -30,6 +30,8 @@
   $toggle-button-outline-offset: 2px;
   $toggle-button-checked-icon-margin: $toggle-button-width - ($toggle-button-icon-width + 8px);
 
+  @extend %normalizedInput;
+  
   background: #fff;
   border: $toggle-button-border-width solid var(--toggle-button-unselected-color);
   border-radius: $toggle-button-border-radius;
