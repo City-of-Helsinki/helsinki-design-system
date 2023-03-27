@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.13.0] - March, 27, 2023
+
+### React 
+
+#### Added
+
+- Form validation
+
+#### Changed
+
+- [Tag] Deprecate rectangular tag
+- [Navigation] Deprecation warnings for Navigation
+
+#### Fixed
+
+- [Dialog] fixed returning null is not allowed from useEffect
+- [NumberInput] Slow down number scrolling
+
+
+### Documentation
+
+#### Changed
+
+- Improve Stepper's a11y docs
+- Improve documentatino on problem solving
+
+#### Fixed
+
+- Date input default values for min and max
+- Required field asterisk position to match the components
+
+### Design
+
+- Sketch update 95.3
+
+### Others
+- css linter added to improve css quality
+- fixed normalize css affecting elements outside the actual hds-react component
+- License updated and added in missing places
+
+
 ## [2.12.1] - February, 23, 2023
 
 ### React 
