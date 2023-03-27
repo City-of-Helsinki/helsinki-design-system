@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### React 
 
 #### Added
+
 - [FileInput] Supports defaultValue prop
 - Styles are linted for better quality CSS
 
