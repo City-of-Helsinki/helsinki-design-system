@@ -178,7 +178,7 @@ export const NavigationLink = ({
           index={index}
           dynamicPosition={dynamicPosition}
         >
-          {React.Children.map(dropdownLinks, (child, childIndex) => {
+          {dropdownLinks.map((child, childIndex) => {
             return cloneElement(child as React.ReactElement, {
               key: childIndex,
             });

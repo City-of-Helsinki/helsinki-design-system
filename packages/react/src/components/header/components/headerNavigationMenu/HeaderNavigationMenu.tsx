@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, useContext, useState } from 'react';
+import React, { cloneElement, useContext, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -37,7 +37,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
     <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
       <ul className={styles.headerNavigationMenuList}>
         <HeaderNavigationMenuContext.Provider value={context}>
-          {Children.map(childElements, (child, index) => {
+          {childElements.map((child, index) => {
             if (React.isValidElement(child)) {
               const linkContainerClasses = child.props.active
                 ? classNames(styles.headerNavigationMenuLinkContent, styles.headerNavigationMenuLinkContentActive)

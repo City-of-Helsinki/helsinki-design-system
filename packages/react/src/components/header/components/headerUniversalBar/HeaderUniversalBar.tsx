@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, useContext } from 'react';
+import React, { cloneElement, useContext } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -54,7 +54,7 @@ export const HeaderUniversalBar = ({
         <li className={styles.universalBarMainLinkContainer}>
           <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
         </li>
-        {Children.map(childElements, (child, index) => {
+        {childElements.map((child, index) => {
           if (React.isValidElement(child)) {
             return (
               // eslint-disable-next-line react/no-array-index-key
