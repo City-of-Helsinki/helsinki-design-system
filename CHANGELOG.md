@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- Form validation
+- Changed form validation library to newer one
 
 #### Changed
 
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - Improve Stepper's a11y docs
-- Improve documentatino on problem solving
+- Improve documentation on problem solving
 
 #### Fixed
 
