@@ -38,9 +38,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Date input default values for min and max
 - Required field asterisk position to match the components
 
+
 ### Design
 
 - Sketch update 95.3
+
 
 ### Others
 - css linter added to improve css quality
