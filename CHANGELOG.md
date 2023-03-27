@@ -12,43 +12,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### React 
 
 #### Added
-
-- Changed form validation library to newer one
+- [FileInput] Supports defaultValue prop
+- Styles are linted for better quality CSS
 
 #### Changed
 
-- [Tag] Deprecate rectangular tag
-- [Navigation] Deprecation warnings for Navigation
+- [Tag] Deprecation warning for rectangular tag
+- [Navigation] Deprecation warnings for Navigation components
+- Storybook form validation library changed to a more stable one
+- License updated
 
 #### Fixed
 
-- [Dialog] fixed returning null is not allowed from useEffect
-- [NumberInput] Slow down number scrolling
+- [Dialog] Fixed console error about useEffect returning null
+- [NumberInput] Slow down number scrolling with mouse
+- Normalized CSS doesnt' affect elements outside components anymore
 
+### Core
+
+#### Added
+
+- License information added
+- Styles are linted for better quality CSS
 
 ### Documentation
 
+#### Added
+- [Tag] Deprecation warning for rectangular tag
+- [Navigation] Deprecation warning for Navigation
+
 #### Changed
 
-- Improve Stepper's a11y docs
-- Improve documentation on problem solving
+- Improve Stepper's accessibility documentation
+- Improve repository's developer documentation on problem solving
+- License updated
 
 #### Fixed
 
 - Date input default values for min and max
 - Required field asterisk position to match the components
 
+### Design tokens
+
+#### Added
+
+- License information added
 
 ### Design
 
 - Sketch update 95.3
-
-
-### Others
-- css linter added to improve css quality
-- fixed normalize css affecting elements outside the actual hds-react component
-- License updated and added in missing places
-
 
 ## [2.12.1] - February, 23, 2023
 
