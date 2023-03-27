@@ -48,11 +48,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improve repository's developer documentation on problem solving
 - License updated
 
-#### Fixed
-
-- Date input default values for min and max
-- Required field asterisk position to match the components
-
 ### Design tokens
 
 #### Added
