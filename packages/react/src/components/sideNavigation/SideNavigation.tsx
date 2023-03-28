@@ -85,7 +85,7 @@ export const SideNavigation = ({
 
   const mainLevels = childElements.map((child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
-      return cloneElement(child, { key: index });
+      return cloneElement(child, { key: index, index });
     }
     return null;
   });
