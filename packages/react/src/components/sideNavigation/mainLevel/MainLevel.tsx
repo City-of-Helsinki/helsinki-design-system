@@ -162,10 +162,11 @@ export const MainLevel = ({
 
   const childElements = getChildrenAsArray(children);
 
-  const subLevels = childElements.map((child) => {
+  const subLevels = childElements.map((child, childIndex) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
       return cloneElement(child, {
         mainLevelIndex: index,
+        key: childIndex,
       });
     }
     return null;
@@ -193,8 +194,6 @@ export const MainLevel = ({
     }
     setIsActiveParent(isActive);
   }, [activeParentLevel, index, setIsOpen, setIsActiveParent]);
-
-  console.log(id);
 
   return (
     <li
