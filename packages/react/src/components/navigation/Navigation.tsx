@@ -118,7 +118,6 @@ const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVar
   const navigationRow = getChildrenAsArray(children).find(
     (child) => isValidElement(child) && (child.type as FCWithName).componentName === 'NavigationRow',
   );
-
   return (isValidElement(navigationRow) && navigationRow?.props?.variant) || 'default';
 };
 
@@ -218,7 +217,7 @@ export const Navigation = ({
 
   const mobileActionsChildren = isValidElement(mobileActions) && mobileActions.props.children;
 
-  // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
+  // filter out the Navigatio nLanguageSelector, so that it can be rendered in the header instead of the mobile menu
   const [mobileLanguageSelector, mobileActionsWithoutLanguageSelector] = getComponentFromChildren(
     mobileActionsChildren,
     'NavigationLanguageSelector',
