@@ -140,7 +140,6 @@ export const SearchInput = <SuggestionItem,>({
   const [lastAction, updateLastAction] = useState<UseComboboxStateChangeTypes | typeof userEnterKeyAction>(undefined);
   const [internalValue, setInternalValue] = useState<string>('');
   const inputValue = value || internalValue;
-  const [scrollMenuTop, setScrollMenuTop] = useState<boolean>(false);
 
   const wasLastActionStateChangeEnterKey = () => {
     return lastAction === useCombobox.stateChangeTypes.InputKeyDownEnter;
@@ -217,20 +216,8 @@ export const SearchInput = <SuggestionItem,>({
     // @ts-ignore
     items: hasOptionGroups ? menuOptionProps.optionGroups.flatMap((group) => group.options) : suggestions,
     onStateChange(props) {
-      const {
-        ItemClick,
-        FunctionReset,
-        InputKeyDownEnter,
-        InputKeyDownArrowUp,
-        InputKeyDownArrowDown,
-      } = useCombobox.stateChangeTypes;
+      const { ItemClick, FunctionReset, InputKeyDownEnter } = useCombobox.stateChangeTypes;
       const handledChanges = [ItemClick, FunctionReset, InputKeyDownEnter] as UseComboboxStateChangeTypes[];
-      if (
-        (hasOptionGroups && props.type === InputKeyDownArrowUp && props.highlightedIndex === 0) ||
-        (props.type === InputKeyDownArrowDown && props.highlightedIndex === 0)
-      ) {
-        setScrollMenuTop(true);
-      }
       if (handledChanges.includes(props.type)) {
         // if props.type === ItemClick and the value of the clicked item matches
         // the value in the input element then props.inputValue does not exist.
@@ -296,16 +283,6 @@ export const SearchInput = <SuggestionItem,>({
       didMount.current = true;
     }
   }, [onChange, inputValue]);
-
-  /**
-   * Show also the first optionGroup label when the user navigates with arrow keys to the first option.
-   */
-  useEffect(() => {
-    if (hasOptionGroups && scrollMenuTop && menuRef.current) {
-      menuRef.current.scrollTo(0, 0);
-      setScrollMenuTop(false);
-    }
-  }, [hasOptionGroups, scrollMenuTop, menuRef]);
 
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
@@ -385,6 +362,7 @@ export const SearchInput = <SuggestionItem,>({
               ),
             })
           }
+          highlightedIndex={highlightedIndex}
         />
       </div>
       {helperText && <div className={styles.helperText}>{helperText}</div>}
