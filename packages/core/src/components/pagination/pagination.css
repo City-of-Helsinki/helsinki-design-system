@@ -77,7 +77,7 @@ we can not use this position for the actual button as it's in incorrect source o
 }
 
 .hds-pagination__item-link:focus, .hds-pagination__item-link:active {
-  outline: solid var(--color-coat-of-arms) 3px;
+  outline: solid var(--color-focus-outline) 3px;
   outline-offset: 1px;
 }
 

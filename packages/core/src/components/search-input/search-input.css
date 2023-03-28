@@ -12,7 +12,6 @@
   --input-border-color-focus: var(--color-black-90);
   --input-color-default: var(--color-black-90);
   --label-color-default: var(--color-black-90);
-  --focus-outline-color: var(--color-coat-of-arms);
 }
 
 /* LABEL */
@@ -56,7 +55,7 @@
 
 /* FOCUS OUTLINE */
 .hds-search-input .hds-search-input__input:not([readonly]):focus {
-  outline: var(--outline-width) solid var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--color-focus-outline);
   transform: translate3d(0, 0, 0);
 }
 
@@ -89,7 +88,7 @@
 }
 
 .hds-search-input__buttons .hds-search-input__button:focus {
-  outline: var(--outline-width) solid var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--color-focus-outline);
 }
 
 /* HELPER TEXT */

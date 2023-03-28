@@ -10,7 +10,6 @@
   --notification-border-width: var(--spacing-2-xs);
   --notification-icon-color: var(--color-info);
   --notification-color: var(--color-black-90);
-  --notification-focus-outline-color: var(--color-coat-of-arms);
   --notification-max-width-inline: none;
   --notification-max-width-toast: 21rem;
   --notification-z-index-inline: auto;
@@ -119,7 +118,7 @@
 }
 
 .hds-notification__close-button:focus {
-  box-shadow: 0 0 0 3px var(--notification-focus-outline-color);
+  box-shadow: 0 0 0 3px var(--color-focus-outline);
 }
 
 /* TOAST POSITIONS */

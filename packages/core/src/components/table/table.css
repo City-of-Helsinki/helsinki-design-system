@@ -3,7 +3,7 @@
 }
 
 .hds-table-container:focus {
-  outline: var(--color-coat-of-arms) 3px solid;
+  outline: var(--color-focus-outline) 3px solid;
 }
 
 .hds-table {
