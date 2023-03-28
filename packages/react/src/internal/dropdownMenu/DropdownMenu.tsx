@@ -128,6 +128,10 @@ type DropdownMenuProps<T> = {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   getItemProps(item: T, index: number, selected: boolean, disabled: boolean, virtualItem: VirtualItem | null): any;
   /**
+   * Index of the highlighted item
+   */
+  highlightedIndex: number;
+  /**
    * String to be highlighted in a item
    */
   highlightValue?: string;
@@ -153,6 +157,10 @@ type DropdownMenuProps<T> = {
    */
   open: boolean;
   /**
+   * Array of optionGroups with label String and Options. Used instead of options. Prints label before each group in list.
+   */
+  optionGroups?: OptionGroup<T>[];
+  /**
    * Data item field that represents the item label
    */
   optionLabelField: string;
@@ -160,10 +168,6 @@ type DropdownMenuProps<T> = {
    * Array of options that should be shown in the menu
    */
   options: T[];
-  /**
-   * Array of optionGroups with label String and Options. Used instead of options. Prints label before each group in list.
-   */
-  optionGroups?: OptionGroup<T>[];
   /**
    * Currently selected item
    */
@@ -183,15 +187,16 @@ type DropdownMenuProps<T> = {
 
 export const DropdownMenu = <T,>({
   getItemProps,
+  highlightedIndex,
   highlightValue,
   isOptionDisabled,
   menuProps,
   menuStyles,
   multiselect,
   open,
+  optionGroups,
   optionLabelField,
   options,
-  optionGroups,
   selectedItem,
   selectedItems,
   virtualizer,
@@ -200,18 +205,26 @@ export const DropdownMenu = <T,>({
   const listOptions: (VirtualItem | T)[] = isVirtualized ? virtualizer.virtualItems : options;
   const groupIndexRef = useRef<number>(0);
   const sanitizedOptionGroups = optionGroups ? optionGroups.filter((group) => group.options.length > 0) : [];
+  const firstOptionGroupContainerRef = useRef(null);
 
   const commonItemProps = {
-    isVirtualized,
-    optionLabelField,
-    multiselect,
-    selectedItems,
-    selectedItem,
-    isOptionDisabled,
     getItemProps,
+    highlightedIndex,
     highlightValue,
+    isOptionDisabled,
+    isVirtualized,
     menuStyles,
+    multiselect,
+    optionLabelField,
+    selectedItem,
+    selectedItems,
   };
+
+  React.useEffect(() => {
+    if (open && highlightedIndex === 0 && firstOptionGroupContainerRef.current) {
+      firstOptionGroupContainerRef.current.scrollIntoView();
+    }
+  }, [open, highlightedIndex]);
 
   return (
     <ul {...menuProps} className={classNames(menuStyles.menu)}>
@@ -220,7 +233,11 @@ export const DropdownMenu = <T,>({
           {sanitizedOptionGroups.length > 0 ? (
             sanitizedOptionGroups.map((optionGroup, groupIndex) => {
               return (
-                <li key={optionGroup.label} className={menuStyles.menuGroup}>
+                <li
+                  key={optionGroup.label}
+                  className={menuStyles.menuGroup}
+                  ref={groupIndex === 0 ? firstOptionGroupContainerRef : null}
+                >
                   <div className={menuStyles.menuGroupLabel}>
                     {optionGroup.icon && (
                       <span className={menuStyles.menuGroupLabelIcon} aria-hidden="true">
