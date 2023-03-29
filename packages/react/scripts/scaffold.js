@@ -2,7 +2,6 @@ const fs = require('fs');
 
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const path = require('path');
 const prettier = require('prettier');
 
 const esmInput = require('../config/esmInput');
@@ -14,13 +13,13 @@ const exitError = (msg) => {
 
 const logStep = (msg) => console.log(`${chalk.green('✓')} ${msg}`);
 
-const createFolder = (folderPath) => {
-  if (fs.existsSync(folderPath)) {
-    exitError(`component already exists in ${folderPath}!`);
+const createFolder = (path) => {
+  if (fs.existsSync(path)) {
+    exitError(`component already exists in ${path}!`);
   }
 
-  fs.mkdirSync(folderPath);
-  return folderPath;
+  fs.mkdirSync(path);
+  return path;
 };
 
 const createComponentFiles = (templatePath, destination, name) => {
@@ -83,24 +82,24 @@ const addESMInputs = (name, files) => {
         fs.writeFileSync(targetPath, formatted);
       });
   } catch (error) {
-    exitError(`Failed to add ESM inputs to esmInput.js: ${error}`);
+    exitError(`Failed to add to esmInput.js: ${error}`);
   }
 };
 
 const createCoreComponentFiles = (templatePath, destination, name) => {
   const files = fs.readdirSync(templatePath);
-  const nameHyphen = name.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
+  const nameHyphens = name.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
 
   const newFiles = files.map((file) => {
     const sourcePath = `${templatePath}${file}`;
-    const targetPath = `${destination}/${file.split('new-component').join(nameHyphen)}`;
+    const targetPath = `${destination}/${file.split('new-component').join(nameHyphens)}`;
 
     const data = fs
       .readFileSync(sourcePath, 'utf-8')
       .split('[-replace-name-capital-]')
       .join(name)
       .split('[-replace-name-hyphens-]')
-      .join(nameHyphen);
+      .join(nameHyphens);
 
     fs.writeFileSync(targetPath, data);
     return targetPath;
@@ -122,15 +121,15 @@ const addCoreExports = (name) => {
 
 const scaffoldCore = async (name) => {
   const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
-  const nameHyphen = nameCamel.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
+  const nameHyphens = nameCamel.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
 
-  const folderPath = createFolder(`../core/src/components/${nameHyphen}`);
-  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(folderPath)}`);
+  const path = createFolder(`../core/src/components/${nameHyphens}`);
+  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
 
-  const files = createCoreComponentFiles('../core/.templates/new-component/', folderPath, name);
+  const files = createCoreComponentFiles('../core/.templates/new-component/', path, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
-  const exportString = addCoreExports(nameHyphen);
+  const exportString = addCoreExports(nameHyphens);
   logStep(`${chalk.bold(`Added export to core/src/components/all.css:`)}\n\t${chalk.italic(exportString)}`);
 };
 
@@ -143,10 +142,10 @@ const scaffold = async () => {
   });
   const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
 
-  const folderPath = createFolder(`src/components/${nameCamel}`);
-  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(folderPath)}`);
+  const path = createFolder(`src/components/${nameCamel}`);
+  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
 
-  const files = createComponentFiles('.templates/new-component/', folderPath, name);
+  const files = createComponentFiles('.templates/new-component/', path, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
   const exportString = addExports(nameCamel);
@@ -158,7 +157,7 @@ const scaffold = async () => {
   const { createCoreComponent } = await inquirer.prompt({
     type: 'confirm',
     name: 'createCoreComponent',
-    message: 'Would you like to create a core component as well?',
+    message: 'Would you like to create a core component?',
   });
 
   if (createCoreComponent) {
