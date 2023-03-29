@@ -86,6 +86,53 @@ const addESMInputs = (name, files) => {
   }
 };
 
+const createCoreComponentFiles = (templatePath, destination, name) => {
+  const files = fs.readdirSync(templatePath);
+  const nameHyphen = name.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
+
+  const newFiles = files.map((file) => {
+    const sourcePath = `${templatePath}${file}`;
+    const targetPath = `${destination}/${file.split('new-component').join(nameHyphen)}`;
+
+    const data = fs
+      .readFileSync(sourcePath, 'utf-8')
+      .split('[-replace-name-capital-]')
+      .join(name)
+      .split('[-replace-name-hyphens-]')
+      .join(nameHyphen);
+
+    fs.writeFileSync(targetPath, data);
+    return targetPath;
+  });
+
+  return newFiles;
+};
+
+const addCoreExports = (name) => {
+  const exportString = `@import url("./${name}/${name}.css");\n`;
+  try {
+    fs.appendFileSync('../core/src/components/all.css', exportString, 'utf-8');
+  } catch (error) {
+    exitError(`Failed to add export to all.css: ${error}`);
+  }
+
+  return exportString;
+};
+
+const scaffoldCore = async (name) => {
+  const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
+  const nameHyphen = nameCamel.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
+
+  const path = createFolder(`../core/src/components/${nameHyphen}`);
+  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
+
+  const files = createCoreComponentFiles('../core/.templates/new-component/', path, name);
+  logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
+
+  const exportString = addCoreExports(nameHyphen);
+  logStep(`${chalk.bold(`Added export to core/src/components/all.css:`)}\n\t${chalk.italic(exportString)}`);
+};
+
 const scaffold = async () => {
   const { name } = await inquirer.prompt({
     type: 'input',
@@ -106,6 +153,16 @@ const scaffold = async () => {
 
   addESMInputs(name, files);
   logStep(`${chalk.bold(`Added input to rollup.config.js:`)}`);
+
+  const { createCoreComponent } = await inquirer.prompt({
+    type: 'confirm',
+    name: 'createCoreComponent',
+    message: 'Would you like to create a core component as well?',
+  });
+
+  if (createCoreComponent) {
+    await scaffoldCore(name);
+  }
 
   logStep(
     `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('yarn start')} to see your component in Storybook!`,
