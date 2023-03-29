@@ -46,4 +46,5 @@ const esmInput = {
   'components/ToggleButton/index': 'src/components/toggleButton/index.ts',
   'components/Tooltip/index': 'src/components/tooltip/index.ts',
 };
+
 module.exports = esmInput;

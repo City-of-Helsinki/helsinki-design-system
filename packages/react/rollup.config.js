@@ -13,7 +13,7 @@ import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
 
-import esmInput from './scripts/esmInput';
+const esmInput = require('./config/esmInput');
 
 const insertCssEsm = () => {
   return {
@@ -79,11 +79,11 @@ const getConfig = (format, extractCSS) => ({
     resolve(),
     ts(),
     format === 'esm' &&
-      babel({
-        babelHelpers: 'runtime',
-        exclude: 'node_modules/**',
-        extensions,
-      }),
+    babel({
+      babelHelpers: 'runtime',
+      exclude: 'node_modules/**',
+      extensions,
+    }),
     commonjs({
       include: ['../../node_modules/**', 'node_modules/**'],
     }),
@@ -111,9 +111,9 @@ const getConfig = (format, extractCSS) => ({
     extractCSS ? insertCssEsm() : undefined,
     extractCSS
       ? del({
-          targets: 'lib/tmp',
-          hook: 'closeBundle',
-        })
+        targets: 'lib/tmp',
+        hook: 'closeBundle',
+      })
       : undefined,
     format === 'cjs' ? insertCssCjs() : undefined,
   ],
