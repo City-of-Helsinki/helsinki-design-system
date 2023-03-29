@@ -2,6 +2,9 @@ const fs = require('fs');
 
 const chalk = require('chalk');
 const inquirer = require('inquirer');
+const prettier = require('prettier');
+
+const esmInput = require('../config/esmInput');
 
 const exitError = (msg) => {
   console.log(`${chalk.red.bold('Error:')} ${chalk.italic(msg)}`);
@@ -59,6 +62,30 @@ const addExports = (name) => {
   return exportString;
 };
 
+const addESMInputs = (name, files) => {
+  try {
+    const indexPath = files.find((file) => file.indexOf('index.ts') >= 1);
+    const targetPath = 'config/esmInput.js';
+    const newConfig = esmInput;
+    const key = `src/components/${name}/index`;
+
+    newConfig[key] = indexPath;
+
+    const exportString = `const esmInput = ${JSON.stringify(newConfig)};\nmodule.exports = esmInput;`;
+
+    prettier
+      .resolveConfigFile(indexPath)
+      .then((config) => prettier.resolveConfig(config))
+      .then((options) => {
+        const formatted = prettier.format(exportString, options);
+
+        fs.writeFileSync(targetPath, formatted);
+      });
+  } catch (error) {
+    exitError(`Failed to add ESM inputs to esmInput.js: ${error}`);
+  }
+};
+
 const scaffold = async () => {
   const { name } = await inquirer.prompt({
     type: 'input',
@@ -76,6 +103,9 @@ const scaffold = async () => {
 
   const exportString = addExports(nameCamel);
   logStep(`${chalk.bold(`Added export to src/components/index.ts:`)}\n\t${chalk.italic(exportString)}`);
+
+  addESMInputs(name, files);
+  logStep(`${chalk.bold(`Added input to rollup.config.js:`)}`);
 
   logStep(
     `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('yarn start')} to see your component in Storybook!`,
