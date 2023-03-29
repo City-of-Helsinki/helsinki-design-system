@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const chalk = require('chalk');
 const inquirer = require('inquirer');
+const path = require('path');
 const prettier = require('prettier');
 
 const esmInput = require('../config/esmInput');
@@ -13,13 +14,13 @@ const exitError = (msg) => {
 
 const logStep = (msg) => console.log(`${chalk.green('✓')} ${msg}`);
 
-const createFolder = (path) => {
-  if (fs.existsSync(path)) {
-    exitError(`component already exists in ${path}!`);
+const createFolder = (folderPath) => {
+  if (fs.existsSync(folderPath)) {
+    exitError(`component already exists in ${folderPath}!`);
   }
 
-  fs.mkdirSync(path);
-  return path;
+  fs.mkdirSync(folderPath);
+  return folderPath;
 };
 
 const createComponentFiles = (templatePath, destination, name) => {
@@ -77,7 +78,7 @@ const addESMInputs = (name, files) => {
       .resolveConfigFile(indexPath)
       .then((config) => prettier.resolveConfig(config))
       .then((options) => {
-        const formatted = prettier.format(exportString, options);
+        const formatted = prettier.format(exportString, { ...options, parser: 'babel' });
 
         fs.writeFileSync(targetPath, formatted);
       });
@@ -123,10 +124,10 @@ const scaffoldCore = async (name) => {
   const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
   const nameHyphen = nameCamel.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
 
-  const path = createFolder(`../core/src/components/${nameHyphen}`);
-  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
+  const folderPath = createFolder(`../core/src/components/${nameHyphen}`);
+  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(folderPath)}`);
 
-  const files = createCoreComponentFiles('../core/.templates/new-component/', path, name);
+  const files = createCoreComponentFiles('../core/.templates/new-component/', folderPath, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
   const exportString = addCoreExports(nameHyphen);
@@ -142,10 +143,10 @@ const scaffold = async () => {
   });
   const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
 
-  const path = createFolder(`src/components/${nameCamel}`);
-  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
+  const folderPath = createFolder(`src/components/${nameCamel}`);
+  logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(folderPath)}`);
 
-  const files = createComponentFiles('.templates/new-component/', path, name);
+  const files = createComponentFiles('.templates/new-component/', folderPath, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
   const exportString = addExports(nameCamel);
