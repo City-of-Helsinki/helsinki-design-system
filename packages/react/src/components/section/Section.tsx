@@ -23,11 +23,7 @@ export const Section = ({ children, className = '', color = 'plain', korosType =
       {withKoros && <Koros type={korosType} className={`${styles.koros} ${styles.topKoros} ${styles[korosType]}`} />}
       <div className={styles.content}>{children}</div>
       {withKoros && (
-        <Koros
-          flipHorizontal
-          type={korosType}
-          className={`${styles.koros} ${styles.bottomKoros} ${styles[korosType]}`}
-        />
+        <Koros flipVertical type={korosType} className={`${styles.koros} ${styles.bottomKoros} ${styles[korosType]}`} />
       )}
     </div>
   );
