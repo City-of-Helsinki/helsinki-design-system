@@ -102,7 +102,7 @@ export const StepByStep: FC<StepByStepPropsType> = ({
     <div className={wrapperClassName}>
       <header className={styles.header}>
         {titleComponent}
-        <section className={styles.description}>{helpText}</section>
+        <p className={styles.description}>{helpText}</p>
       </header>
       {React.createElement(
         numberedList ? 'ol' : 'ul',
