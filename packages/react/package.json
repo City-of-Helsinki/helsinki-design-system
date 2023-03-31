@@ -140,6 +140,7 @@
     "react-spring": "9.3.0",
     "react-use-measure": "2.0.1",
     "react-virtual": "2.10.4",
+    "uuid": "^9.0.0",
     "yup": "^1.0.2"
   },
   "resolutions": {

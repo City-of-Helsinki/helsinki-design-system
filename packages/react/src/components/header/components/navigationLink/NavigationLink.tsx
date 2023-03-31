@@ -1,7 +1,7 @@
 import React, { cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
-
 // import base styles
 import '../../../../styles/base.css';
+import { v4 as uuidv4 } from 'uuid';
 
 // import core base styles
 import 'hds-core';
@@ -181,9 +181,9 @@ export const NavigationLink = ({
           index={index}
           dynamicPosition={dynamicPosition}
         >
-          {dropdownLinks.map((child, childIndex) => {
+          {dropdownLinks.map((child) => {
             return cloneElement(child as React.ReactElement, {
-              key: childIndex,
+              key: uuidv4(),
             });
           })}
         </NavigationLinkDropdown>

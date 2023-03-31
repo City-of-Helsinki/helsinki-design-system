@@ -42,6 +42,7 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
 
 export const HeaderUniversalBar = ({
   ariaLabel,
+  className,
   children,
   id,
   primaryLinkHref,
@@ -52,7 +53,7 @@ export const HeaderUniversalBar = ({
   const childElements = getChildElementsEvenIfContainerInbetween(children);
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerUniversalBar}>
+    <nav role="navigation" aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
       <ul className={styles.headerUniversalBarList}>
         <li className={styles.universalBarMainLinkContainer}>
           <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
