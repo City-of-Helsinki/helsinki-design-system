@@ -8,7 +8,7 @@ exports[`<StepByStep /> spec renders the component 1`] = `
     <header
       class="header"
     >
-      <section
+      <p
         class="description"
       />
     </header>
