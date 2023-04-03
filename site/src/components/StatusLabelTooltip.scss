@@ -18,8 +18,8 @@
 
   li {
     align-items: center;
+    column-gap: 2px;
     display: flex;
-    grid-column-gap: 2px;
     justify-content: flex-start;
     width: 100%;
   }
