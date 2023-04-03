@@ -9,40 +9,8 @@
   padding: 0;
 }
 
-.hds-step-by-step__steps-container li {
-  list-style: none;
-}
-
 ol.hds-step-by-step__steps-container {
   --circle-size: 40px;
-}
-
-ol.hds-step-by-step__steps-container li:after {
-  --line-height: 1.3;
-
-  align-items: center;
-  content: counter(item);
-  counter-increment: item;
-  display: flex;
-  font-size: 1.25rem;
-  font-weight: 500;
-  justify-content: center;
-  line-height: var(--line-height);
-}
-
-ul.hds-step-by-step__steps-container {
-  --circle-size: 16px;
-}
-
-.hds-step-by-step__step-item {
-  background-color: var(--color-coat-of-arms-light);
-  margin: var(--spacing-l) 0;
-  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
-  position: relative;
-}
-
-.hds-step-by-step__step-item-title {
-  margin-top: 0;
 }
 
 .hds-step-by-step__step-item:before,
@@ -63,6 +31,35 @@ ul.hds-step-by-step__steps-container {
   transform: translateX(-100%);
   width: var(--circle-size);
   z-index: 2;
+}
+
+ol.hds-step-by-step__steps-container .hds-step-by-step__step-item:after {
+  --line-height: 1.3;
+
+  align-items: center;
+  content: counter(item);
+  counter-increment: item;
+  display: flex;
+  font-size: 1.25rem;
+  font-weight: 500;
+  justify-content: center;
+  line-height: var(--line-height);
+}
+
+ul.hds-step-by-step__steps-container {
+  --circle-size: 16px;
+}
+
+.hds-step-by-step__step-item {
+  background-color: var(--color-coat-of-arms-light);
+  list-style: none;
+  margin: var(--spacing-l) 0;
+  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
+  position: relative;
+}
+
+.hds-step-by-step__step-item__title {
+  margin-top: 0;
 }
 
 .hds-step-by-step__step-item:before {
