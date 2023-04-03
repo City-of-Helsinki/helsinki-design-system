@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { IconProps } from './Icon.interface';
 
 export { IconBell } from './IconBell';
@@ -68,6 +69,8 @@ export { IconOccupation } from './IconOccupation';
 export { IconPersonFemale } from './IconPersonFemale';
 export { IconPersonGenderless } from './IconPersonGenderless';
 export { IconPersonMale } from './IconPersonMale';
+=======
+>>>>>>> c7a328a78 (Updated icon library)
 export { IconPersonWheelchair } from './IconPersonWheelchair';
 export { IconPhone } from './IconPhone';
 export { IconSenior } from './IconSenior';
@@ -85,6 +88,7 @@ export { IconShoppingCart } from './IconShoppingCart';
 export { IconTicket } from './IconTicket';
 export { IconVaccine } from './IconVaccine';
 export { IconVirus } from './IconVirus';
+<<<<<<< HEAD
 export { IconMoneyBag } from './IconMoneyBag';
 export { IconMoneyBagFill } from './IconMoneyBagFill';
 export { IconScroll } from './IconScroll';
@@ -95,6 +99,8 @@ export { IconShield } from './IconShield';
 export { IconLightbulb } from './IconLightbulb';
 export { IconHammers } from './IconHammers';
 export { IconGraphColumns } from './IconGraphColumns';
+=======
+>>>>>>> c7a328a78 (Updated icon library)
 export { IconCamera } from './IconCamera';
 export { IconDisplay } from './IconDisplay';
 export { IconHeadphones } from './IconHeadphones';
@@ -134,6 +140,7 @@ export { IconVimeo } from './IconVimeo';
 export { IconWhatsapp } from './IconWhatsapp';
 export { IconYle } from './IconYle';
 export { IconYoutube } from './IconYoutube';
+<<<<<<< HEAD
 export { IconHome } from './IconHome';
 export { IconHomeSmoke } from './IconHomeSmoke';
 export { IconMenuDots } from './IconMenuDots';
@@ -315,3 +322,5 @@ export {IconWhatsapp} from './IconWhatsapp';
 export {IconYle} from './IconYle';
 export {IconYoutube} from './IconYoutube';
 >>>>>>> eec820958 (Updated icon library)
+=======
+>>>>>>> c7a328a78 (Updated icon library)

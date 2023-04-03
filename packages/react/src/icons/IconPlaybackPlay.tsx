@@ -5,7 +5,7 @@ interface IconProps {
   ariaLabel?: string;
   ariaLabelledby?: string;
   ariaHidden?: boolean;
-  className?: string,
+  className?: string;
   color?: string;
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   style?: React.CSSProperties;
