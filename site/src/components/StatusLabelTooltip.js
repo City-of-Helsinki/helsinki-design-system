@@ -12,7 +12,7 @@ const StatusLabelTooltip = () => {
   };
 
   return (
-    <Tooltip placement="right" className="status-label-tooltip" boxShadow>
+    <Tooltip placement="right-end" className="status-label-tooltip" boxShadow>
       <ul class="status-label-definitions">
         {Object.keys(content).map((key) => (
           <li>
