@@ -73,7 +73,7 @@ const StepComponent = ({
   links = [],
   headerLevel,
 }: StepType & { headerLevel: number }) => {
-  const titleComponent = title && React.createElement(`h${headerLevel}`, { className: styles.stepItem__title }, title);
+  const titleComponent = title && React.createElement(`h${headerLevel}`, { className: styles.stepItemTitle }, title);
 
   return (
     <li className={styles.stepItem}>

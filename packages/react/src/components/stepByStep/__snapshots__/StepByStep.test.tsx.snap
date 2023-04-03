@@ -19,7 +19,7 @@ exports[`<StepByStep /> spec renders the component 1`] = `
         class="stepItem"
       >
         <h3
-          class="stepItem__title"
+          class="stepItemTitle"
         >
           Vaiheen otsikko
         </h3>
@@ -56,7 +56,7 @@ exports[`<StepByStep /> spec renders the component 1`] = `
         class="stepItem"
       >
         <h3
-          class="stepItem__title"
+          class="stepItemTitle"
         >
           Vaiheen otsikko
         </h3>
