@@ -5,7 +5,7 @@ interface IconProps {
   ariaLabel?: string;
   ariaLabelledby?: string;
   ariaHidden?: boolean;
-  className?: string,
+  className?: string;
   color?: string;
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   style?: React.CSSProperties;
@@ -31,6 +31,11 @@ export const IconLayers = ({
     color={color}
     style={style}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M19 14.5L21 15.5L12 20L3 15.5L5 14.5L12.0005 18L19 14.5ZM19 11L21 12L12 16.5L3 12L5 11L12.0005 14.5L19 11ZM12 4L21 8.5L12 13L3 8.5L12 4ZM12.0005 6L7 8.50052L12.0005 11L17 8.50052L12.0005 6Z" fill="currentColor"></path>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M19 14.5L21 15.5L12 20L3 15.5L5 14.5L12.0005 18L19 14.5ZM19 11L21 12L12 16.5L3 12L5 11L12.0005 14.5L19 11ZM12 4L21 8.5L12 13L3 8.5L12 4ZM12.0005 6L7 8.50052L12.0005 11L17 8.50052L12.0005 6Z"
+      fill="currentColor"
+    ></path>
   </svg>
 );

@@ -5,7 +5,7 @@ interface IconProps {
   ariaLabel?: string;
   ariaLabelledby?: string;
   ariaHidden?: boolean;
-  className?: string,
+  className?: string;
   color?: string;
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   style?: React.CSSProperties;
@@ -31,6 +31,11 @@ export const IconDownload = ({
     color={color}
     style={style}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M5 15V20H19V15H21V22H3V15H5ZM13 2V14L16 11L17.5 12.5L12 18L6.5 12.5L8 11L11 14V2H13Z" fill="currentColor"></path>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M5 15V20H19V15H21V22H3V15H5ZM13 2V14L16 11L17.5 12.5L12 18L6.5 12.5L8 11L11 14V2H13Z"
+      fill="currentColor"
+    ></path>
   </svg>
 );
