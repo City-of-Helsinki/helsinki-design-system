@@ -18,7 +18,7 @@
 
   li {
     align-items: center;
-    column-gap: 2px;
+    column-gap: 0.3rem;
     display: flex;
     justify-content: flex-start;
     width: 100%;
@@ -34,8 +34,4 @@
   content: ":";
   display: inline;
   font-weight: bold;
-}
-
-.status-desc {
-  padding-left: 0.2rem;
 }
