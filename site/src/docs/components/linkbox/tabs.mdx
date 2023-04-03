@@ -5,16 +5,20 @@ title: 'Linkbox'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # Linkbox
 
-<StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-labeö-description">
+  <StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   Linkboxes are used to combine multiple elements into a single interactable element. While they are visually similar to HDS Cards, Linkboxes are always a single clickable link and they cannot contain other interactable elements.

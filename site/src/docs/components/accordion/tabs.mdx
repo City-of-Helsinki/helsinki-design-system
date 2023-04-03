@@ -5,16 +5,20 @@ title: 'Accordion'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout'
 import PageTabs from '../../../components/PageTabs';
 
 # Accordion
 
-<StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-labeö-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
     Accordions can be used to hide and reveal information. When used correctly, they are a good way to make a higher amount of information easier to digest for the user.
