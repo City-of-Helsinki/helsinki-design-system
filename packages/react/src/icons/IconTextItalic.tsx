@@ -5,7 +5,7 @@ interface IconProps {
   ariaLabel?: string;
   ariaLabelledby?: string;
   ariaHidden?: boolean;
-  className?: string,
+  className?: string;
   color?: string;
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   style?: React.CSSProperties;
@@ -31,6 +31,11 @@ export const IconTextItalic = ({
     color={color}
     style={style}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M16 4V6H13.75L12.25 18H14V20H8V18H10.25L11.75 6H10V4H16Z" fill="currentColor"></path>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M16 4V6H13.75L12.25 18H14V20H8V18H10.25L11.75 6H10V4H16Z"
+      fill="currentColor"
+    ></path>
   </svg>
 );
