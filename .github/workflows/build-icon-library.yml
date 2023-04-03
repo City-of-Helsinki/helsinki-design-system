@@ -37,7 +37,7 @@ jobs:
       - name: Copy react files to repo folders
         run: cp ./icon-library/react/* ./packages/react/src/icons
       - name: Lint react files
-        run: prettier --write \"./packages/react/src/icons/*.{ts,tsx}\"
+        run: npx prettier --write \"./packages/react/src/icons/*.{ts,tsx}\"
       - name: Remove icon library build directory
         run: rm -rf ./icon-library
       - name: Commit changed files
