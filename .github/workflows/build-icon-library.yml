@@ -21,6 +21,10 @@ jobs:
           API_KEY: ${{ secrets.HDS_ICON_KIT }}
           FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
           NODE_ID: '172:2478'
+      - name: Bump version in Changelog
+        run: |
+          PKG_VER=`node -pe "require('./packages/react/package.json').version"`
+          sed -i.bak -E "s/version [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/version ${PKG_VER}/" ./release/CHANGELOG.txt
       - name: Copy Changelog file
         run: cp ./release/CHANGELOG.txt ./icon-library
       - name: Create release zip file
