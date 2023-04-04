@@ -118,7 +118,6 @@ const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVar
   const navigationRow = getChildrenAsArray(children).find(
     (child) => isValidElement(child) && (child.type as FCWithName).componentName === 'NavigationRow',
   );
-
   return (isValidElement(navigationRow) && navigationRow?.props?.variant) || 'default';
 };
 
