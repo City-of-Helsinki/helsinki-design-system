@@ -1,5 +1,0 @@
-# Helsinki Design System, Icon kit, version 2.10.0
-
-## CHANGELOG
-
-No changes from the previous version
