@@ -76,7 +76,7 @@ export default {
   },
   args: { title: 'Helsinki Design System', korosType: 'basic', theme: 'light' },
   argTypes: {
-    korosType: { control: { type: 'radio', options: ['basic', 'beat', 'pulse', 'storm', 'wave'] } },
+    korosType: { control: { type: 'radio', options: ['basic', 'beat', 'pulse', 'wave', 'vibration'] } },
     theme: { control: { type: 'inline-radio', options: ['light', 'dark'] } },
     title: { control: { type: 'text' } },
   },
