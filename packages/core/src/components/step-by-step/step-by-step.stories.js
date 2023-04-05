@@ -12,7 +12,7 @@ export const NumberedStepByStep = () => `
     </header>
     <ol class="hds-step-by-step__steps-container">
       <li class="hds-step-by-step__step-item">
-        <h3 class="hds-step-by-step__step-item-title">Vaiheen otsikko</h3>
+        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
         <div>
           <p>Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.</p>
           <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Esimerkki painikkeesta</span></button></p>
@@ -20,7 +20,7 @@ export const NumberedStepByStep = () => `
         </div>
       </li>
       <li class="hds-step-by-step__step-item">
-        <h3 class="hds-step-by-step__step-item-title">Vaiheen otsikko</h3>
+        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
         <div>
           <p>Tähän voit lisätä tekstiä.</p>
         </div>
@@ -37,7 +37,7 @@ export const RegularStepByStep = () => `
     </header>
     <ul class="hds-step-by-step__steps-container">
       <li class="hds-step-by-step__step-item">
-        <h3 class="hds-step-by-step__step-item-title">Vaiheen otsikko</h3>
+        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
         <div>
           <p>Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.</p>
           <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Esimerkki painikkeesta</span></button></p>
@@ -45,7 +45,7 @@ export const RegularStepByStep = () => `
         </div>
       </li>
       <li class="hds-step-by-step__step-item">
-        <h3 class="hds-step-by-step__step-item-title">Vaiheen otsikko</h3>
+        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
         <div>
           <p>Tähän voit lisätä tekstiä.</p>
         </div>
@@ -58,7 +58,7 @@ export const RegularStepByStepWithoutHeader = () => `
   <div class="hds-step-by-step__container">
     <ul class="hds-step-by-step__steps-container">
       <li class="hds-step-by-step__step-item">
-        <h3 class="hds-step-by-step__step-item-title">Vaiheen otsikko</h3>
+        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
         <div>
           <p>Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.</p>
           <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Esimerkki painikkeesta</span></button></p>
@@ -66,7 +66,7 @@ export const RegularStepByStepWithoutHeader = () => `
         </div>
       </li>
       <li class="hds-step-by-step__step-item">
-        <h3 class="hds-step-by-step__step-item-title">Vaiheen otsikko</h3>
+        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
         <div>
           <p>Tähän voit lisätä tekstiä.</p>
         </div>

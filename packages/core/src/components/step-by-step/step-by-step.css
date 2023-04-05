@@ -1,26 +1,39 @@
-
 .hds-step-by-step__container {
   position: relative;
 }
 
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+.hds-step-by-step__container h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
 .hds-step-by-step__steps-container {
+  --title-font-size: var(--fontsize-heading-m);
+  --title-line-height: var(--lineheight-xl);
+
   counter-reset: item;
   margin: 0;
   padding: 0;
 }
 
 ol.hds-step-by-step__steps-container {
-  --circle-size: 40px;
+  --circle-size: 48px;
+  --step-left-padding: 96px;
 }
 
 .hds-step-by-step__step-item:before,
 .hds-step-by-step__step-item:after {
   box-sizing: border-box;
-  content: "";
+  content: '';
   display: block;
-  left: calc(var(--circle-size)*1.5);
+  left: calc(var(--circle-size) / 2 + var(--step-left-padding) / 2);
   position: absolute;
-  top: calc(var(--circle-size) / 2);
+  top: calc(var(--spacing-l) + (var(--title-font-size) * var(--title-line-height) / 2) - (var(--circle-size) / 2));
 }
 
 .hds-step-by-step__step-item:after {
@@ -46,20 +59,28 @@ ol.hds-step-by-step__steps-container .hds-step-by-step__step-item:after {
   line-height: var(--line-height);
 }
 
-ul.hds-step-by-step__steps-container {
-  --circle-size: 16px;
-}
-
 .hds-step-by-step__step-item {
   background-color: var(--color-coat-of-arms-light);
   list-style: none;
   margin: var(--spacing-l) 0;
-  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
+  padding: var(--spacing-l) var(--spacing-l) var(--spacing-l) var(--step-left-padding);
   position: relative;
 }
 
+ol.hds-step-by-step__steps-container .hds-step-by-step__step-item {
+  padding: var(--spacing-l) var(--spacing-l) var(--spacing-l) var(--step-left-padding);
+}
+
+ul.hds-step-by-step__steps-container {
+  --circle-size: 18px;
+  --step-left-padding: var(--spacing-5-xl);
+}
+
 .hds-step-by-step__step-item__title {
-  margin-top: 0;
+  font-size: var(--title-font-size);
+  font-weight: 500;
+  line-height: var(--title-line-height);
+  margin: 0 0 16px;
 }
 
 .hds-step-by-step__step-item:before {

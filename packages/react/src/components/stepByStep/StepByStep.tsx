@@ -52,7 +52,8 @@ type StepByStepPropsType = {
   numberedList?: boolean;
 
   /**
-   * Header level for the main heading. The steps' headers get a level of headerLevel+1
+   * Header level for the main heading.
+   * @default 2
    */
   headerLevel?: number;
 };
@@ -66,18 +67,10 @@ const getButtonOrLinkRenderer = (Tag) => ({ children, ...props }) => (
 const renderLink = getButtonOrLinkRenderer(Link);
 const renderButton = getButtonOrLinkRenderer(Button);
 
-const StepComponent = ({
-  title,
-  description,
-  buttons = [],
-  links = [],
-  headerLevel,
-}: StepType & { headerLevel: number }) => {
-  const titleComponent = title && React.createElement(`h${headerLevel}`, { className: styles.stepItemTitle }, title);
-
+const StepComponent = ({ title, description, buttons = [], links = [] }: StepType) => {
   return (
     <li className={styles.stepItem}>
-      {titleComponent}
+      <p className={styles.stepItemTitle}>{title}</p>
       <div className={styles.stepItem__description}>
         {description && <p>{description}</p>}
         {buttons.map(renderButton)}
@@ -107,7 +100,7 @@ export const StepByStep: FC<StepByStepPropsType> = ({
       {React.createElement(
         numberedList ? 'ol' : 'ul',
         { className: styles.stepsContainer },
-        steps.map((step) => <StepComponent {...step} headerLevel={headerLevel + 1} />),
+        steps.map((step) => <StepComponent {...step} />),
       )}
     </div>
   );

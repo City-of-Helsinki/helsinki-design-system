@@ -1,77 +1,15 @@
-
 .container {
   position: relative;
 }
 
 .stepsContainer {
-  counter-reset: item;
-  margin: 0;
-  padding: 0;
-}
-
-.stepItem:before,
-.stepItem:after {
-  box-sizing: border-box;
-  content: "";
-  display: block;
-  left: calc(var(--circle-size) * 1.5);
-  position: absolute;
-  top: calc(var(--circle-size) / 2);
-}
-
-// Counter
-.stepItem:after {
-  background-color: #fff;
-  border: 3px solid #000;
-  border-radius: 50%;
-  height: var(--circle-size);
-  transform: translateX(-100%);
-  width: var(--circle-size);
-  z-index: 2;
-}
-
-ol.stepsContainer {
-  --circle-size: 40px;
-
-  .stepItem:after {
-    align-items: center;
-    content: counter(item);
-    counter-increment: item;
-    display: flex;
-    font-size: 1.25rem;
-    font-weight: 500;
-    justify-content: center;
-    line-height: var(--line-height);
-
-    --line-height: 1.3;
-  }
-}
-
-ul.stepsContainer {
-  --circle-size: 16px;
+  composes: hds-step-by-step__steps-container from 'hds-core/lib/components/step-by-step/step-by-step.css';
 }
 
 .stepItem {
-  background-color: var(--color-coat-of-arms-light);
-  list-style: none;
-  margin: var(--spacing-l) 0;
-  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) calc(var(--circle-size) * 2);
-  position: relative;
+  composes: hds-step-by-step__step-item from 'hds-core/lib/components/step-by-step/step-by-step.css';
 }
 
 .stepItemTitle {
-  margin-top: 0;
-}
-
-// Line
-.stepItem:before {
-  background-color: #000;
-  height: calc(100% + var(--spacing-l));
-  transform: translateX(-50%) translateX(calc(-0.5 * var(--circle-size)));
-  width: 2px;
-  z-index: 1;
-}
-
-.stepItem:last-of-type:before {
-  display: none;
+  composes: hds-step-by-step__step-item__title from 'hds-core/lib/components/step-by-step/step-by-step.css';
 }
