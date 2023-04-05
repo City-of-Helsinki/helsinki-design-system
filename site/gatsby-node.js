@@ -15,6 +15,9 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         'hds-react': 'hds-react/lib',
         'stream': false,
       },
+      fallback: {
+        crypto: require.resolve('crypto-browserify'),
+      },
     },
   });
 };
