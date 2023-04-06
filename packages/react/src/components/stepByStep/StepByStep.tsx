@@ -52,6 +52,11 @@ type StepByStepPropsType = {
   numberedList?: boolean;
 
   /**
+   * Classname for the main heading.
+   */
+  headerClassName?: string;
+
+  /**
    * Header level for the main heading.
    * @default 2
    */
@@ -86,10 +91,12 @@ export const StepByStep: FC<StepByStepPropsType> = ({
   helpText,
   steps = [],
   numberedList = false,
+  headerClassName,
   headerLevel = 2,
 }) => {
   const wrapperClassName = classNames(styles.container, className);
-  const titleComponent = title && React.createElement(`h${headerLevel}`, { className: styles.title }, title);
+  const titleComponent =
+    title && React.createElement(`h${headerLevel}`, { className: classNames(styles.title, headerClassName) }, title);
 
   return (
     <div className={wrapperClassName}>
