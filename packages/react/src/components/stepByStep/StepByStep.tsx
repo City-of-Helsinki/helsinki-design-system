@@ -71,7 +71,7 @@ const StepComponent = ({ title, description, buttons = [], links = [] }: StepTyp
   return (
     <li className={styles.stepItem}>
       <p className={styles.stepItemTitle}>{title}</p>
-      <div className={styles.stepItem__description}>
+      <div>
         {description && <p>{description}</p>}
         {buttons.map(renderButton)}
         {links.map(renderLink)}
@@ -93,10 +93,10 @@ export const StepByStep: FC<StepByStepPropsType> = ({
 
   return (
     <div className={wrapperClassName}>
-      <header className={styles.header}>
+      <div>
         {titleComponent}
         <p className={styles.description}>{helpText}</p>
-      </header>
+      </div>
       {React.createElement(
         numberedList ? 'ol' : 'ul',
         { className: styles.stepsContainer },
