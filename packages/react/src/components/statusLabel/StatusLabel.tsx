@@ -1,6 +1,6 @@
 import React from 'react';
 /**
- * Note: default rectangular StatusLabel will be depricated in 3.0.0. 
+ * Note: default rectangular StatusLabel will be deprecated in 3.0.0. 
  * Rounded corder variant will be used as default instead.
  */
 // import base styles
