@@ -229,6 +229,7 @@ export const Accordion = ({
             tabIndex={0}
             onKeyPress={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
                 buttonProps.onClick();
               }
             }}
