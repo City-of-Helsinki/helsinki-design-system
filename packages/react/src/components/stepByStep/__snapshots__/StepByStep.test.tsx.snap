@@ -5,27 +5,23 @@ exports[`<StepByStep /> spec renders the component 1`] = `
   <div
     class="container"
   >
-    <header
-      class="header"
-    >
+    <div>
       <p
         class="description"
       />
-    </header>
+    </div>
     <ol
       class="stepsContainer"
     >
       <li
         class="stepItem"
       >
-        <h3
+        <p
           class="stepItemTitle"
         >
           Vaiheen otsikko
-        </h3>
-        <div
-          class="stepItem__description"
-        >
+        </p>
+        <div>
           <p>
             Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.
           </p>
@@ -55,14 +51,12 @@ exports[`<StepByStep /> spec renders the component 1`] = `
       <li
         class="stepItem"
       >
-        <h3
+        <p
           class="stepItemTitle"
         >
           Vaiheen otsikko
-        </h3>
-        <div
-          class="stepItem__description"
-        >
+        </p>
+        <div>
           <p>
             Tähän voit lisätä tekstiä.
           </p>
