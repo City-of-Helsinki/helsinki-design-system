@@ -36,13 +36,27 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Variations
 
-#### Rectangular
-
-<StatusLabel variant="rounded" type="alert">Deprecated</StatusLabel>
-
-#### Rounded
+#### Default
 
 StatusLabel comes in five (5) different types. One neutral and four (4) with different status colours.
+
+<PlaygroundPreview>
+  <StatusLabel>Neutral</StatusLabel>
+  <StatusLabel type="info" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Info
+  </StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Success
+  </StatusLabel>
+  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Alert
+  </StatusLabel>
+  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Error
+  </StatusLabel>
+</PlaygroundPreview>
+
+#### Rounded
 
 <PlaygroundPreview>
   <StatusLabel variant="rounded">Neutral</StatusLabel>
