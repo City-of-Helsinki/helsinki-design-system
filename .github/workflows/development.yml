@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - development
+      - master
 
 jobs:
   build-test:
