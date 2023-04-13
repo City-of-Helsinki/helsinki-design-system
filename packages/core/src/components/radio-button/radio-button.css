@@ -23,7 +23,6 @@
   --icon-color-unselected: transparent;
   --icon-color-hover: var(--color-bus-dark);
   --icon-color-disabled: var(--color-black-10);
-  --focus-outline-color: var(--color-coat-of-arms);
   --label-color: var(--color-black-90);
   --label-color-disabled: var(--color-black-40);
 
@@ -156,7 +155,7 @@
 
 /* background - focus */
 .hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label:before {
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  box-shadow: 0 0 0 var(--outline-width) var(--color-focus-outline);
   transform: translate3d(0, 0, 0);
 }
 

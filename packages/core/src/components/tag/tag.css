@@ -4,7 +4,6 @@
 .hds-tag {
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);
-  --tag-focus-outline-color: var(--color-coat-of-arms);
   --tag-font-size: var(--fontsize-body-s);
   --tag-padding: var(--spacing-2-xs);
   --tag-height: 32px;
@@ -22,7 +21,7 @@
 
 .hds-tag:focus,
 .hds-tag:focus-within {
-  box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
+  box-shadow: 0 0 0 3px var(--color-focus-outline);
 }
 
 .hds-tag[tabindex='0'] {
