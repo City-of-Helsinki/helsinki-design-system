@@ -184,6 +184,7 @@ export const LinkButton = () => (
     onClick={() => {
       window.open('/');
     }}
+    role="link"
   >
     Button used as a link
   </Button>
