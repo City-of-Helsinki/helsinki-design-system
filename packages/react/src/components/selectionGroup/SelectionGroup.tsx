@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { isValidElement, useEffect } from 'react';
 
 // import base styles
 import '../../styles/base.css';
@@ -7,6 +7,7 @@ import styles from './SelectionGroup.module.scss';
 import classNames from '../../utils/classNames';
 import { RequiredIndicator } from '../../internal/required-indicator/RequiredIndicator';
 import { Tooltip } from '../tooltip';
+import { getChildrenAsArray } from '../../utils/getChildren';
 
 export type Direction = 'vertical' | 'horizontal';
 
@@ -64,10 +65,12 @@ export const SelectionGroup = ({
   className,
   ...fieldSetProps
 }: SelectionGroupProps) => {
+  const childElements = getChildrenAsArray(children);
+
   useEffect(() => {
     let hasRadios = false;
     let hasCheckedRadios = false;
-    React.Children.forEach(children, (child) => {
+    childElements.forEach((child) => {
       const reactElement = child as React.ReactElement;
       const { displayName } = reactElement.type as React.FunctionComponent;
       if (displayName === 'RadioButton') {
@@ -95,9 +98,14 @@ export const SelectionGroup = ({
         </Tooltip>
       )}
       <div className={classNames(styles.items, styles[direction])}>
-        {React.Children.map(children, (child) => (
-          <div className={styles.item}>{child}</div>
-        ))}
+        {childElements.map(
+          (child) =>
+            isValidElement(child) && (
+              <div key={child.props.id} className={styles.item}>
+                {child}
+              </div>
+            ),
+        )}
       </div>
       {errorText && <div className={styles.errorText}>{errorText}</div>}
       {helperText && <div className={styles.helperText}>{helperText}</div>}
