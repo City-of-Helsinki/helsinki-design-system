@@ -121,6 +121,7 @@
     "@react-aria/visually-hidden": "3.8.0",
     "@types/cookie": "^0.4.1",
     "@typescript-eslint/parser": "^5.56.0",
+    "await-to-js": "^3.0.0",
     "cookie": "^0.4.1",
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
