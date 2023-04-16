@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import { UserManager } from 'oidc-client-ts';
@@ -13,7 +14,7 @@ export type InitTestResult = {
   userManager: UserManager;
 };
 
-export function createTestSuite() {
+export function createOidcClientTestSuite() {
   let oidcClient: OidcClient;
   let userManager: UserManager;
 

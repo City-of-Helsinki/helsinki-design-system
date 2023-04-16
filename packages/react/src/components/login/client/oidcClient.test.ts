@@ -1,9 +1,9 @@
 // eslint-disable-next-line jest/no-mocks-import
 import mockWindowLocation from '../__mocks__/mockWindowLocation';
-import { InitTestResult, createTestSuite } from '../testUtils/testUtil';
+import { InitTestResult, createOidcClientTestSuite } from '../testUtils/oidcClientTestUtil';
 import { LoginProps } from './oidcClient';
 
-const { initTests, waitForLoginToTimeout, cleanUp } = createTestSuite();
+const { initTests, waitForLoginToTimeout, cleanUp } = createOidcClientTestSuite();
 
 describe('oidcClient', () => {
   let testData: InitTestResult;
