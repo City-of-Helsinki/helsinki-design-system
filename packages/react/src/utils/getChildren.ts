@@ -6,8 +6,13 @@ import { FCWithName } from '../common/types';
  * Returns the children as a flat array with keys assigned to each child
  * @param children  Children
  */
-export const getChildrenAsArray = (children: React.ReactNode): React.ReactNode[] =>
-  Array.isArray(children) ? children : [children];
+export const getChildrenAsArray = (children: React.ReactNode): React.ReactNode[] => {
+  if (children === undefined) {
+    return [];
+  }
+
+  return Array.isArray(children) ? children : [children];
+};
 
 /**
  * Filters out a component from the children and returns it and the children without the filtered out component
