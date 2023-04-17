@@ -1,27 +1,26 @@
 @use "../../Header.module.scss" as header;
-@import "../../../../styles/common";
+@import "../../../../styles/common.scss";
 
 .languageSelector {
   display: flex;
   gap: var(--spacing-s);
-
 }
 
 .languageSelectorDropdownIcon {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
 }
 
 .languageSelectorDropdown {
+  align-items: flex-start;
   display: flex;
   flex-flow: column nowrap;
-  align-items: flex-start;
 }
 
 .item {
   appearance: none;
-  border: none;
   background: transparent;
+  border: none;
   cursor: pointer;
   line-height: var(--lineheight-l);
   white-space: nowrap;
@@ -31,6 +30,7 @@
 
 .activeItem {
   font-weight: 700;
+
   span {
     border-bottom: 2px solid;
   }

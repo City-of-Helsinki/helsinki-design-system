@@ -250,10 +250,6 @@ export const WithActionBar = (args) => {
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
         titleStyle={TitleStyleType.black}
-        onMenuButtonClick={(event) => {
-          // TODO
-          event.stopPropagation();
-        }}
       >
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Kielivalinnat</h3>

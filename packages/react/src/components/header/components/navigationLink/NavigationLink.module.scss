@@ -1,16 +1,16 @@
 @use "../../Header.module.scss" as header;
-@import "../../../../styles/common";
+@import "../../../../styles/common.scss";
 
 .navigationLink.navigationLink {
   --link-color: var(--color-black-90);
   --link-font-size: 14px;
   --link-visited-color: none;
 
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   line-height: var(--lineheight-l);
-  text-decoration: none;
   padding: 13px 0 15px;
+  text-decoration: none;
   word-wrap: break-word;
 
   &:hover,
@@ -30,8 +30,8 @@
   align-items: center;
   display: flex;
   height: 100%;
-  position: relative;
   justify-content: stretch;
+  position: relative;
 
   &.isNotLargeScreen {
     align-items: stretch;
@@ -64,13 +64,14 @@
     font-size: 20px;
     height: var(--action-bar-dropdown-menu-primary-item-height);
     line-height: var(--action-bar-dropdown-menu-primary-item-height);
+    padding: 0 0 0 16px;
   }
 
-  &.depth-0 { padding: 0 0 0 16px; }
   &.depth-1 { padding: 0 0 0 32px; }
   &.depth-2 { padding: 0 0 0 48px; }
   &.depth-3 { padding: 0 0 0 64px; }
 
   &:focus { border: none }
+
   @include header.element-focus-state;
 }

@@ -1,4 +1,4 @@
-@import "../../../../styles/common";
+@import "../../../../styles/common.scss";
 
 .headerNavigationMenu {
   max-height: 0;
@@ -11,9 +11,9 @@
 }
 
 .headerNavigationMenuList {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
 .headerNavigationMenuLinkWrapper {
@@ -22,8 +22,8 @@
 
 .headerNavigationMenuLinkContent {
   display: block;
-  position: relative;;
   min-height: var(--action-bar-dropdown-menu-primary-item-height);
+  position: relative;
 }
 
 .headerNavigationMenuLink.headerNavigationMenuLink {
@@ -40,20 +40,19 @@
   }
 
   &:focus {
+    border-color: transparent;
     outline: 3px solid var(--color-coat-of-arms);
     outline-offset: -3px;
-    border-color: transparent;
   }
 }
 
-
 .headerNavigationMenuDropdown {
-  position: relative;
   display: block;
-  width: 100%;
   left: 0;
+  position: relative;
   right: 0;
   top: auto;
+  width: 100%;
 }
 
 .headerNavigationMenuDropdownLink {

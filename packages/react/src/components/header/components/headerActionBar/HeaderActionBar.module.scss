@@ -1,6 +1,5 @@
-@use "../../../../styles/common";
-@use "../../../../styles/typography";
-
+@use "../../../../styles/common.scss";
+@use "../../../../styles/typography.scss";
 
 .headerActionBar {
   align-items: stretch;
@@ -17,9 +16,9 @@
 .headerActions {
   align-items: stretch;
   display: flex;
+  flex-grow: 1;
   gap: var(--action-bar-item-gutter);
   justify-content: flex-end;
-  flex-grow: 1;
 }
 
 .titleAndLogoContainer {
@@ -28,8 +27,8 @@
   cursor: pointer;
   display: flex;
   flex: 0 0 auto;
-  position: relative;
   outline: none;
+  position: relative;
   text-decoration: none;
   white-space: nowrap;
 
@@ -47,8 +46,8 @@
 
 .title {
   align-self: center;
-  padding: 4px;
   margin-top: -2px;
+  padding: 4px;
 
   .normal > & { @include typography.title-normal }
   .bold > & { @include typography.title-bold }

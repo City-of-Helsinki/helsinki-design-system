@@ -68,7 +68,6 @@
     "@types/uuid": "^9.0.1",
     "@types/yup": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "5.10.2",
-    "@typescript-eslint/parser": "5.41.0",
     "@wessberg/rollup-plugin-ts": "2.0.4",
     "babel-jest": "^26.0.1",
     "babel-plugin-require-context-hook": "1.0.0",

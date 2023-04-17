@@ -57,9 +57,11 @@
     @if $radius {
       border-radius: $radius;
     }
+    
     @if $offset {
       outline-offset: $offset;
     }
+
     outline: $width solid $color;
   }
 }
@@ -79,9 +81,11 @@
     @if $radius {
       border-radius: $radius;
     }
+    
     @if $offset {
       outline-offset: $offset;
     }
+
     outline: $width solid $color;
   }
 }

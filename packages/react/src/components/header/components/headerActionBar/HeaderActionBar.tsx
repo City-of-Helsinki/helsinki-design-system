@@ -142,5 +142,5 @@ export const HeaderActionBar: ComponentType<HeaderActionBarProps> = (props) => {
 };
 
 HeaderActionBar.defaultProps = {
-  titleStyle: 'normal',
+  titleStyle: TitleStyleType.normal,
 };

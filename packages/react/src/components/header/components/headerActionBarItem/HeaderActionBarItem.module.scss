@@ -1,9 +1,9 @@
-@use "../../../../styles/common";
+@use "../../../../styles/common.scss";
 
 button.actionBarItem {
   appearance: none;
-  border: none;
   background: transparent;
+  border: none;
   cursor: pointer;
 
   @include common.focusVisible(
@@ -16,24 +16,24 @@ button.actionBarItem {
 
 .actionBarItemIcon {
   display: block;
-  width: var(--icon-size);
   height: var(--icon-size);
   margin: 0 auto;
   padding: 0 8px;
+  width: var(--icon-size);
 
   & > svg {
     display: block;
-    width: auto;
     height: 100%;
+    width: auto;
   }
 }
 
 .actionBarItemLabel {
+  color: var(--action-bar-item-title-font-color);
   display: block;
+  font-size: var(--action-bar-item-title-font-size);
   margin: 0 auto;
   white-space: nowrap;
-  font-size: var(--action-bar-item-title-font-size);
-  color: var(--action-bar-item-title-font-color);
 
   & > svg {
     display: block;

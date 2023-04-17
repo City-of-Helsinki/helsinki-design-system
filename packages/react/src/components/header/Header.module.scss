@@ -1,5 +1,5 @@
-@use "../../styles/common";
-@use "../../styles/layout";
+@use "../../styles/common.scss";
+@use "../../styles/layout.scss";
 
 @mixin element-focus-state {
   @include common.focusVisible(
@@ -18,7 +18,6 @@
   --header-focus-outline-color: var(--color-coat-of-arms);
   --header-divider-color: var(--color-black-20);
   --header-z-index: 10;
-
   --action-bar-container-height: 88px;
   --action-bar-margin: var(--spacing-xs);
   --action-bar-section-gutter: 4px;
@@ -29,7 +28,6 @@
   --action-bar-item-gutter: 12px;
   --action-bar-item-title-font-size: 14px;
   --action-bar-item-title-font-color: var(--color-black-90);
-
   --logo-height: 56px;
   --icon-size: 24px;
 
