@@ -13,6 +13,7 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import { MainLevel } from './mainLevel/MainLevel';
 import { SubLevel } from './subLevel/SubLevel';
 import { useTheme } from '../../hooks/useTheme';
+import { getChildrenAsArray } from '../../utils/getChildren';
 
 export interface SideNavigationCustomTheme {
   '--side-navigation-background-color'?: string;
@@ -80,9 +81,11 @@ export const SideNavigation = ({
   const isMobile = useMobile();
   const shouldRenderMenu = !(isMobile && !mobileMenuOpen);
 
-  const mainLevels = React.Children.map(children, (child, index) => {
+  const childElements = getChildrenAsArray(children);
+
+  const mainLevels = childElements.map((child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
-      return cloneElement(child, { index });
+      return cloneElement(child, { key: index, index });
     }
     return null;
   });
