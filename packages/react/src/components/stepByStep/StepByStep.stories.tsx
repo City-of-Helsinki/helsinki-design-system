@@ -8,37 +8,37 @@ export default {
   args: {
     steps: [
       {
-        title: 'Vaiheen otsikko',
+        title: 'Step title',
         description:
-          'Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.',
+          "Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.",
         buttons: [
           {
-            children: 'Esimerkki painikkeesta',
+            children: 'Example button',
             href: 'https://hel.fi',
           },
         ],
         links: [
           {
-            children: 'Esimerkki lisätietolinkistä',
+            children: 'Example link',
             href: 'https://hel.fi',
           },
         ],
       },
       {
-        title: 'Vaiheen otsikko',
-        description: 'Tähän voit lisätä tekstiä.',
+        title: 'Step title',
+        description: 'You can put text here.',
       },
       {
-        title: 'Vaiheen otsikko',
-        description: 'Tähän voit lisätä tekstiä.',
+        title: 'Step title',
+        description: 'You can put text here.',
       },
       {
-        title: 'Vaiheen otsikko',
-        description: 'Tähän voit lisätä tekstiä.',
+        title: 'Step title',
+        description: 'You can put text here.',
       },
       {
-        title: 'Vaiheen otsikko',
-        description: 'Tähän voit lisätä tekstiä.',
+        title: 'Step title',
+        description: 'You can put text here.',
       },
     ],
   },
@@ -52,13 +52,13 @@ export default {
 export const NumberedStepByStep = (args) => <StepByStep numberedList {...args} />;
 
 NumberedStepByStep.args = {
-  title: 'Numeroitu vaiheistuskomponentti',
-  helpText: 'Numeroitu prosessi soveltuu hyvin tapauksiin, joissa vaiheiden järjestys on selkeä.',
+  title: 'Numbered step by step component',
+  helpText: 'Numbered component is suitable for case where the order of the steps is clear.',
 };
 
 export const RegularStepByStep = (args) => <StepByStep {...args} />;
 
 RegularStepByStep.args = {
-  title: 'Numeroimaton vaiheistuskomponentti',
-  helpText: 'Voit käyttää numeroimatonta prosessia silloin, kun vaiheiden järjestys on enemmän ohjeellinen.',
+  title: 'Numbered step by step component',
+  helpText: 'Use unnumbered component when the order of the steps is less important and they form more of a guideline.',
 };

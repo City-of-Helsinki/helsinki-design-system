@@ -7,22 +7,22 @@ export default {
 export const NumberedStepByStep = () => `
   <div class="hds-step-by-step__container">
     <header>
-      <h2>Numeroitu vaiheistuskomponentti</h2>
-      <p>Numeroitu prosessi soveltuu hyvin tapauksiin, joissa vaiheiden järjestys on selkeä.</p>
+      <h2>Numbered step by step component</h2>
+      <p>Numbered component is suitable for case where the order of the steps is clear.</p>
     </header>
     <ol class="hds-step-by-step__steps-container">
       <li class="hds-step-by-step__step-item">
-        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
+        <p class="hds-step-by-step__step-item__title">Step title</p>
         <div>
-          <p>Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.</p>
-          <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Esimerkki painikkeesta</span></button></p>
-          <p><a href="#" class="hds-link hds-link--medium">Esimerkki lisätietolinkistä</a></p>
+          <p>Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.</p>
+          <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Example button</span></button></p>
+          <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
         </div>
       </li>
       <li class="hds-step-by-step__step-item">
-        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
+        <p class="hds-step-by-step__step-item__title">Step title</p>
         <div>
-          <p>Tähän voit lisätä tekstiä.</p>
+          <p>You can put text here.</p>
         </div>
       </li>
     </ol>
@@ -32,22 +32,22 @@ export const NumberedStepByStep = () => `
 export const RegularStepByStep = () => `
   <div class="hds-step-by-step__container">
     <header>
-      <h2>Numeroimaton vaiheistuskomponentti</h2>
-      <p>Voit käyttää numeroimatonta prosessia silloin, kun vaiheiden järjestys on enemmän ohjeellinen.</p>
+      <h2>Unnumbered step by step component</h2>
+      <p>Unnumbered component is suitable for cases where the order of the steps is less important and they form more of a guideline.</p>
     </header>
     <ul class="hds-step-by-step__steps-container">
       <li class="hds-step-by-step__step-item">
-        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
+        <p class="hds-step-by-step__step-item__title">Step title</p>
         <div>
-          <p>Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.</p>
-          <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Esimerkki painikkeesta</span></button></p>
-          <p><a href="#" class="hds-link hds-link--medium">Esimerkki lisätietolinkistä</a></p>
+          <p>Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big picture of the whole process and it's steps easily..</p>
+          <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Example button</span></button></p>
+          <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
         </div>
       </li>
       <li class="hds-step-by-step__step-item">
-        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
+        <p class="hds-step-by-step__step-item__title">Step title</p>
         <div>
-          <p>Tähän voit lisätä tekstiä.</p>
+          <p>You can put text here.</p>
         </div>
       </li>
     </ul>
@@ -58,17 +58,17 @@ export const RegularStepByStepWithoutHeader = () => `
   <div class="hds-step-by-step__container">
     <ul class="hds-step-by-step__steps-container">
       <li class="hds-step-by-step__step-item">
-        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
+        <p class="hds-step-by-step__step-item__title">Step title</p>
         <div>
-          <p>Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.</p>
-          <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Esimerkki painikkeesta</span></button></p>
-          <p><a href="#" class="hds-link hds-link--medium">Esimerkki lisätietolinkistä</a></p>
+          <p>Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big picture of the whole process and it's steps easily..</p>
+          <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Example button</span></button></p>
+          <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
         </div>
       </li>
       <li class="hds-step-by-step__step-item">
-        <p class="hds-step-by-step__step-item__title">Vaiheen otsikko</p>
+        <p class="hds-step-by-step__step-item__title">Step title</p>
         <div>
-          <p>Tähän voit lisätä tekstiä.</p>
+          <p>You can put text here..</p>
         </div>
       </li>
     </ul>
