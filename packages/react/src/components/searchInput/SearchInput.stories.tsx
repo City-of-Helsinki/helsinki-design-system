@@ -49,6 +49,43 @@ const fruits = [
   'Strawberry',
   'Tangelo',
   'Tomato',
+].map((fruit) => ({ value: fruit }));
+
+const fruitsGrouped = [
+  'Apple',
+  'Apricot',
+  'Avocado',
+  'Banana',
+  'Blackberry',
+  'Blueberry',
+  'Cherry',
+  'Coconut',
+  'Cranberry',
+  'Date',
+  'Dragonfruit',
+  'Fig',
+  'Gooseberry',
+  'Grape',
+  'Honeyberry',
+  'Jackfruit',
+  'Kiwifruit',
+  'Lemon',
+  'Lime',
+  'Mango',
+  'Melon',
+  'Nectarine',
+  'Orange',
+  'Papaya',
+  'Passionfruit',
+  'Peach',
+  'Pear',
+  'Pineapple',
+  'Raspberry',
+  'Satsuma',
+  'Start fruit',
+  'Strawberry',
+  'Tangelo',
+  'Tomato',
 ].map((fruit) => ({ value: fruit, groupLabel: 'fruit' }));
 
 const cities = ['Helsinki', 'Turku', 'Rovaniemi', 'Oulu', 'Imatra', 'Joensuu'].map((city) => ({
@@ -56,7 +93,7 @@ const cities = ['Helsinki', 'Turku', 'Rovaniemi', 'Oulu', 'Imatra', 'Joensuu'].m
   groupLabel: 'city',
 }));
 
-const all = fruits.concat(cities);
+const all = fruitsGrouped.concat(cities);
 
 type SuggestionItemType = {
   value: string;

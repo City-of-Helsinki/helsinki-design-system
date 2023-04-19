@@ -176,7 +176,7 @@ export const SearchInput = <SuggestionItem,>({
         }
       : {
           options: suggestions,
-          optionGroups: suggestionGroups || [],
+          optionGroups: suggestionGroups,
         }),
   };
 
