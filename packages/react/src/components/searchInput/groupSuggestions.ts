@@ -26,7 +26,7 @@ export const createOptionGroups = (groupedOptions: Record<string, any>): any[] =
 /**
  * Creates option groups for SearchInput
  */
-export const createSsuggestionGroups = (options: any[]): any[] => {
+export const createSuggestionGroups = (options: any[]): any[] => {
   if (options?.length > 0 && options[0]?.groupLabel) {
     const groupedOptions = groupBy(options, (item: any) => {
       return item.groupLabel;
