@@ -3,7 +3,7 @@ import { useCombobox, UseComboboxStateChangeTypes } from 'downshift';
 
 // import base styles
 import '../../styles/base.css';
-
+import { createSsuggestionGroups } from './groupSuggestions';
 import styles from './SearchInput.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import { DropdownMenu } from '../../internal/dropdownMenu/DropdownMenu';
@@ -159,6 +159,8 @@ export const SearchInput = <SuggestionItem,>({
     wasSubmitted(),
   );
 
+  const suggestionGroups = createSsuggestionGroups(suggestions);
+
   const menuOptionProps = {
     ...(getSearchHistory
       ? {
@@ -172,9 +174,13 @@ export const SearchInput = <SuggestionItem,>({
           ],
           options: [],
         }
-      : { options: suggestions, optionGroups: [] }),
+      : {
+          options: suggestions,
+          optionGroups: suggestionGroups || [],
+        }),
   };
-  const hasOptionGroups = menuOptionProps.optionGroups.length > 0 && menuOptionProps.optionGroups[0].options;
+
+  const hasOptionGroups = menuOptionProps.optionGroups?.length > 0 && menuOptionProps.optionGroups[0]?.options;
   const allVisibleOptions = hasOptionGroups ? visibleSearchHistoryItems + visibleSuggestions : visibleSuggestions;
 
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);

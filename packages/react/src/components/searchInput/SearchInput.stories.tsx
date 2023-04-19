@@ -49,7 +49,19 @@ const fruits = [
   'Strawberry',
   'Tangelo',
   'Tomato',
-].map((fruit) => ({ value: fruit }));
+].map((fruit) => ({ value: fruit, groupLabel: 'fruit' }));
+
+const cities = ['Helsinki', 'Turku', 'Rovaniemi', 'Oulu', 'Imatra', 'Joensuu'].map((city) => ({
+  value: city,
+  groupLabel: 'city',
+}));
+
+const all = fruits.concat(cities);
+
+type SuggestionItemType = {
+  value: string;
+  label?: string;
+};
 
 const asynchronousSearchOperation = (inputValue: string, timeout = 0) => {
   return new Promise<Array<{ value: string }>>((resolve) => {
@@ -58,6 +70,17 @@ const asynchronousSearchOperation = (inputValue: string, timeout = 0) => {
     });
     setTimeout(() => {
       resolve(filteredItems);
+    }, timeout);
+  });
+};
+
+const asynchronousSearchOperationForGouped = (inputValue: string, timeout = 0) => {
+  return new Promise<Array<SuggestionItemType>>((resolve) => {
+    const filteredItems = all.filter((item) => {
+      return item.value.toLowerCase().indexOf(inputValue.toLowerCase()) > -1;
+    });
+    setTimeout(() => {
+      return resolve(filteredItems);
     }, timeout);
   });
 };
@@ -131,10 +154,6 @@ export const WithCustomSearchButton = (args) => {
 };
 
 export const WithSuggestions = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await asynchronousSearchOperation(inputValue);
     return suggestions;
@@ -160,11 +179,33 @@ WithSuggestions.args = {
   placeholder: 'Placeholder',
 };
 
-export const WithSuggestionsAndHighlighting = (args) => {
-  type SuggestionItemType = {
-    value: string;
+export const WithSuggestionGroups = (args) => {
+  const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
+    const suggestions = await asynchronousSearchOperationForGouped(inputValue);
+    return suggestions;
   };
 
+  const onSubmit = (value: string) => {
+    console.log('Submitted value:', value);
+  };
+
+  return (
+    <SearchInput<SuggestionItemType>
+      {...args}
+      suggestionLabelField="value"
+      getSuggestions={getSuggestions}
+      onSubmit={onSubmit}
+    />
+  );
+};
+WithSuggestionGroups.storyName = 'With Suggestion Groups';
+WithSuggestionGroups.args = {
+  label: 'Search for a fruit or a city',
+  helperText: 'Assistive text',
+  placeholder: 'Placeholder',
+};
+
+export const WithSuggestionsAndHighlighting = (args) => {
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await asynchronousSearchOperation(inputValue);
     return suggestions;
@@ -193,10 +234,6 @@ WithSuggestionsAndHighlighting.args = {
 };
 
 export const WithHistoryAndSuggestions = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await asynchronousSearchOperation(inputValue);
     return suggestions;
@@ -254,10 +291,6 @@ WithHistoryAndSuggestions.parameters = {
 };
 
 export const WithSuggestionsSpinner = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await longLastingAsynchronousSearchOperation(inputValue);
     return suggestions;
@@ -289,9 +322,6 @@ WithSuggestionsSpinner.args = {
 };
 
 export const WithDefaultValue = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
   const [searchValue, setSearchValue] = useState<string>(args.value);
 
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
