@@ -35,3 +35,29 @@ export const createSuggestionGroups = (options: any[]): any[] => {
   }
   return [];
 };
+
+/**
+ * Creates values for SearchInput story group
+ */
+export const createValuesGroups = (groupedOptions: Record<string, any>): any[] => {
+  const keys = Object.keys(groupedOptions);
+  return keys.map((key: string) => {
+    return {
+      groupLabel: key,
+      values: groupedOptions[key],
+    };
+  });
+};
+
+/**
+ * Prepares data for suggestion goups
+ */
+export const prepareSuggestionGroupsData = (options: any[]): any[] => {
+  if (options?.length > 0 && options[0]?.groupLabel) {
+    const groupedOptions = groupBy(options, (item: any) => {
+      return item.groupLabel;
+    });
+    return createValuesGroups(groupedOptions);
+  }
+  return [];
+};

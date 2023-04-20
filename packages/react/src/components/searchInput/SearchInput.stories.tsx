@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 
 import { SearchInput } from './SearchInput';
 import { Button } from '../button';
+import { prepareSuggestionGroupsData } from './groupSuggestions';
 
 export default {
   component: SearchInput,
@@ -93,7 +94,7 @@ const cities = ['Helsinki', 'Turku', 'Rovaniemi', 'Oulu', 'Imatra', 'Joensuu'].m
   groupLabel: 'city',
 }));
 
-const all = fruitsGrouped.concat(cities);
+const all = prepareSuggestionGroupsData(fruitsGrouped.concat(cities));
 
 type SuggestionItemType = {
   value: string;
@@ -113,9 +114,11 @@ const asynchronousSearchOperation = (inputValue: string, timeout = 0) => {
 
 const asynchronousSearchOperationForGouped = (inputValue: string, timeout = 0) => {
   return new Promise<Array<SuggestionItemType>>((resolve) => {
-    const filteredItems = all.filter((item) => {
-      return item.value.toLowerCase().indexOf(inputValue.toLowerCase()) > -1;
-    });
+    const filteredItems = all
+      .flatMap((item) => item.values)
+      .filter((item) => {
+        return item.value.toLowerCase().indexOf(inputValue.toLowerCase()) > -1;
+      });
     setTimeout(() => {
       return resolve(filteredItems);
     }, timeout);
