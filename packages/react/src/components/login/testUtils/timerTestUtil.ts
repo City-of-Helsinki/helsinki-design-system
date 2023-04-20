@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { waitFor } from '@testing-library/react';
 
+import { getLastMockCallArgs } from '../../../utils/testHelpers';
+
 export function createTimedPromise(response: unknown, delay = 1000) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -18,6 +20,7 @@ export async function advanceUntilListenerCalled(listener: jest.Mock, advanceTim
     jest.advanceTimersByTime(advanceTime);
     expect(listener).toBeCalledTimes(1);
   });
+  return getLastMockCallArgs(listener);
 }
 
 export function listenToPromise(promise: Promise<unknown>, listener = jest.fn()) {

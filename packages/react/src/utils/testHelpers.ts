@@ -23,3 +23,7 @@ export function filterMockCallArgs(func: jest.Mock | jest.SpyInstance, filter: (
     return filter(...call);
   });
 }
+
+export function hasListenerBeenCalled(listener: jest.Mock) {
+  return listener && getMockCalls(listener).length > 0;
+}
