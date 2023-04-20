@@ -11,7 +11,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { TabList } from './TabList';
 import { TabPanel } from './TabPanel';
 import { Tab } from './Tab';
-import { getChildrenAsArray } from '../../utils/getChildren';
+import { getChildElementsEvenIfContainerInbetween } from '../../utils/getChildren';
 
 export interface TabsCustomTheme {
   '--tablist-border-color'?: string;
@@ -49,7 +49,7 @@ export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme }:
   // custom theme class that is applied to the root element
   const customThemeClass = useTheme<TabsCustomTheme>(styles.tabs, theme);
 
-  const childElements = getChildrenAsArray(children);
+  const childElements = getChildElementsEvenIfContainerInbetween(children);
 
   /**
    * Get the TabList from children
