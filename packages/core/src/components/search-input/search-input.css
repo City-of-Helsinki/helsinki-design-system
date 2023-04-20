@@ -67,13 +67,13 @@
   display: flex;
   font-size: 1rem;
   justify-content: center;
-  margin-right: calc(var(--spacing-s) - var(--spacing-xs));
+  margin-right: calc(var(--spacing-s) - var(--spacing-xs) / 2);
   position: absolute;
   right: 0;
   top: 0;
 }
 
-.hds-search-input__buttons .hds-search-input__button {
+.hds-search-input__button {
   appearance: none;
   background: none;
   border: none;
@@ -82,9 +82,8 @@
   cursor: pointer;
   display: flex;
   font: inherit;
-  margin-left: var(--spacing-3-xs);
   outline: none;
-  padding: var(--spacing-xs);
+  padding: var(--spacing-xs) calc(var(--spacing-xs) / 2);
 }
 
 .hds-search-input__buttons .hds-search-input__button:focus {
