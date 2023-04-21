@@ -7,52 +7,32 @@ import styles from './StepByStep.module.scss';
 import { Link } from '../link';
 
 type StepLinkType = {
+  children: React.ReactNode;
   href: string;
   onClick?: MouseEventHandler;
-  children: React.ReactNode;
 };
 
 type StepButtonType = {
+  children: React.ReactNode;
   href?: string;
   onClick?: MouseEventHandler;
-  children: React.ReactNode;
 };
 
 type StepType = {
-  title: string;
+  buttons?: Array<StepButtonType>;
   description?: JSX.Element | string;
   links?: Array<StepLinkType>;
-  buttons?: Array<StepButtonType>;
+  title: string;
 };
 
 type StepByStepPropsType = {
   /**
-   * Additional class names to apply to the status label
+   * Additional class names to apply to the container element.
    */
   className?: string;
 
   /**
-   * Title text for the step by step component.
-   */
-  title?: string;
-
-  /**
-   * Help text for the step by stemp component. Displayed under the `title` property.
-   */
-  helpText?: string;
-
-  /**
-   * Steps for the step by step component.
-   */
-  steps: Array<StepType>;
-
-  /**
-   * Boolean indicating whether the steps are numbered.
-   */
-  numberedList?: boolean;
-
-  /**
-   * Classname for the main heading.
+   * Class name for the main heading.
    */
   headerClassName?: string;
 
@@ -61,6 +41,26 @@ type StepByStepPropsType = {
    * @default 2
    */
   headerLevel?: number;
+
+  /**
+   * Help text for the step by step component. Displayed under the `title` property.
+   */
+  helpText?: string;
+
+  /**
+   * Boolean indicating whether the steps are numbered.
+   */
+  numberedList?: boolean;
+
+  /**
+   * Steps for the step by step component.
+   */
+  steps: Array<StepType>;
+
+  /**
+   * Title text for the step by step component.
+   */
+  title?: string;
 };
 
 const getButtonOrLinkRenderer = (Tag) => ({ children, ...props }) => (
