@@ -17,16 +17,16 @@ export default {
             href: 'https://hel.fi',
           },
         ],
+      },
+      {
+        title: 'Step title',
+        description: 'You can put text here.',
         links: [
           {
             children: 'Example link',
             href: 'https://hel.fi',
           },
         ],
-      },
-      {
-        title: 'Step title',
-        description: 'You can put text here.',
       },
       {
         title: 'Step title',
@@ -53,12 +53,12 @@ export const NumberedStepByStep = (args) => <StepByStep numberedList {...args} /
 
 NumberedStepByStep.args = {
   title: 'Numbered step by step component',
-  helpText: 'Numbered component is suitable for case where the order of the steps is clear.',
+  helpText: 'Numbered component is suitable for cases where the order of the steps is important.',
 };
 
 export const RegularStepByStep = (args) => <StepByStep {...args} />;
 
 RegularStepByStep.args = {
   title: 'Numbered step by step component',
-  helpText: 'Use unnumbered component when the order of the steps is less important and they form more of a guideline.',
+  helpText: 'Use the unnumbered list when the order of the steps is less important and they form more of a guideline.',
 };
