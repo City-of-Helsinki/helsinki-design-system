@@ -1,27 +1,29 @@
-import React, { FC, MouseEventHandler } from 'react';
+import React, { FC } from 'react';
 
-import { Button } from '../button';
+// import base styles
+import '../../styles/base.css';
+
+import { Button, ButtonProps } from '../button';
 import classNames from '../../utils/classNames';
-import 'hds-core';
+import { Link, LinkProps } from '../link';
 import styles from './StepByStep.module.scss';
-import { Link } from '../link';
-
-type StepLinkType = {
-  children: React.ReactNode;
-  href: string;
-  onClick?: MouseEventHandler;
-};
-
-type StepButtonType = {
-  children: React.ReactNode;
-  href?: string;
-  onClick?: MouseEventHandler;
-};
 
 type StepType = {
-  buttons?: Array<StepButtonType>;
+  /**
+   * List of native button objects for the step.
+   */
+  buttons?: Array<ButtonProps>;
+  /**
+   * Step description.
+   */
   description?: JSX.Element | string;
-  links?: Array<StepLinkType>;
+  /**
+   * List of native link objects for the step.
+   */
+  links?: Array<LinkProps>;
+  /**
+   * Step title.
+   */
   title: string;
 };
 
