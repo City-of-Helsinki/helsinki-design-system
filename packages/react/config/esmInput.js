@@ -1,16 +1,12 @@
 const esmInput = {
-  index: 'src/index.ts',
-  'components/index': 'src/components/index.ts',
-  'icons/index': 'src/icons/index.ts',
-  'ssr/index': 'src/ssr/index.ts',
   'components/Accordion/index': 'src/components/accordion/index.ts',
   'components/Button/index': 'src/components/button/index.ts',
   'components/Card/index': 'src/components/card/index.ts',
   'components/Checkbox/index': 'src/components/checkbox/index.ts',
   'components/Columns/index': 'src/components/columns/index.ts',
-  'components/CookieConsent/index': 'src/components/cookieConsent/index.ts',
   'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
   'components/Container/index': 'src/components/container/index.ts',
+  'components/CookieConsent/index': 'src/components/cookieConsent/index.ts',
   'components/DateInput/index': 'src/components/dateInput/index.ts',
   'components/Dialog/index': 'src/components/dialog/index.ts',
   'components/ErrorSummary/index': 'src/components/errorSummary/index.ts',
@@ -45,6 +41,9 @@ const esmInput = {
   'components/TimeInput/index': 'src/components/timeInput/index.ts',
   'components/ToggleButton/index': 'src/components/toggleButton/index.ts',
   'components/Tooltip/index': 'src/components/tooltip/index.ts',
+  'components/index': 'src/components/index.ts',
+  'icons/index': 'src/icons/index.ts',
+  index: 'src/index.ts',
+  'ssr/index': 'src/ssr/index.ts',
 };
-
 module.exports = esmInput;

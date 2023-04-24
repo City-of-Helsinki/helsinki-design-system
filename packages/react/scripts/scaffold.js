@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 
 const chalk = require('chalk');
@@ -67,11 +69,12 @@ const addESMInputs = (name, files) => {
     const indexPath = files.find((file) => file.indexOf('index.ts') >= 1);
     const targetPath = 'config/esmInput.js';
     const newConfig = esmInput;
-    const key = `src/components/${name}/index`;
+    const key = `components/${name}/index`;
 
     newConfig[key] = indexPath;
 
-    const exportString = `const esmInput = ${JSON.stringify(newConfig)};\nmodule.exports = esmInput;`;
+    const sortedConfig = Object.fromEntries(Object.entries(newConfig).sort());
+    const exportString = `const esmInput = ${JSON.stringify(sortedConfig)};\nmodule.exports = esmInput;`;
 
     prettier
       .resolveConfigFile(indexPath)
