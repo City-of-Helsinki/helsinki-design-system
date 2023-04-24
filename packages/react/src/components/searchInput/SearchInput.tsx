@@ -290,10 +290,10 @@ export const SearchInput = <SuggestionItem,>({
    * Reset the ComboBox if input value is empty and dropdown is open
    */
   useEffect(() => {
-    if (internalValue.length === 0 && isOpen) {
+    if (!isControlledComponent && internalValue.length === 0 && isOpen) {
       reset();
     }
-  }, [internalValue, isOpen]);
+  }, [isControlledComponent, internalValue, isOpen]);
 
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
