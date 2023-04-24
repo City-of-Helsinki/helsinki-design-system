@@ -53,15 +53,34 @@ const createComponentFiles = (templatePath, destination, name) => {
   return newFiles;
 };
 
-const addExports = (name) => {
-  const exportString = `export * from './${name}';\n`;
+const addExports = (targetPath, string) => {
   try {
-    fs.appendFileSync('src/components/index.ts', exportString, 'utf-8');
+    const newExports = fs.readFileSync(targetPath, 'utf-8').split(';\n').filter(Boolean);
+
+    newExports.push(string);
+
+    const sortedExports = `${newExports.sort().join(';\n')};\n`;
+
+    fs.writeFileSync(targetPath, sortedExports);
   } catch (error) {
-    exitError(`Failed to add export to index.ts: ${error}`);
+    exitError(`Failed to add export to ${targetPath}: ${error}`);
   }
 
-  return exportString;
+  return string;
+};
+
+const addReactExports = (name) => {
+  const targetPath = 'src/components/index.ts';
+  const exportString = `export * from './${name}'`;
+
+  return addExports(targetPath, exportString);
+};
+
+const addCoreImports = (name) => {
+  const targetPath = '../core/src/components/all.css';
+  const exportString = `@import url("./${name}/${name}.css")`;
+
+  return addExports(targetPath, exportString);
 };
 
 const addESMInputs = (name, files) => {
@@ -111,17 +130,6 @@ const createCoreComponentFiles = (templatePath, destination, name) => {
   return newFiles;
 };
 
-const addCoreExports = (name) => {
-  const exportString = `@import url("./${name}/${name}.css");\n`;
-  try {
-    fs.appendFileSync('../core/src/components/all.css', exportString, 'utf-8');
-  } catch (error) {
-    exitError(`Failed to add export to all.css: ${error}`);
-  }
-
-  return exportString;
-};
-
 const scaffoldCore = async (name) => {
   const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
   const nameHyphens = nameCamel.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
@@ -132,7 +140,7 @@ const scaffoldCore = async (name) => {
   const files = createCoreComponentFiles('../core/.templates/new-component/', path, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
-  const exportString = addCoreExports(nameHyphens);
+  const exportString = addCoreImports(nameHyphens);
   logStep(`${chalk.bold(`Added export to core/src/components/all.css:`)}\n\t${chalk.italic(exportString)}`);
 };
 
@@ -151,7 +159,7 @@ const scaffold = async () => {
   const files = createComponentFiles('.templates/new-component/', path, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
-  const exportString = addExports(nameCamel);
+  const exportString = addReactExports(nameCamel);
   logStep(`${chalk.bold(`Added export to src/components/index.ts:`)}\n\t${chalk.italic(exportString)}`);
 
   addESMInputs(name, files);
