@@ -198,9 +198,11 @@ export const SearchInput = <SuggestionItem,>({
 
   const submitValue = (val?: string) => {
     const inputElementValue = inputRef.current?.value;
-    const valueToSubmit = val !== undefined ? val : inputElementValue;
-    onSubmit(valueToSubmit);
-    clearSuggestions();
+    const valueToSubmit = (val !== undefined ? val : inputElementValue).trim();
+    if (valueToSubmit.length > 0) {
+      onSubmit(valueToSubmit);
+      clearSuggestions();
+    }
   };
 
   const {
@@ -283,6 +285,15 @@ export const SearchInput = <SuggestionItem,>({
       didMount.current = true;
     }
   }, [onChange, inputValue]);
+
+  /**
+   * Reset the ComboBox if input value is empty and dropdown is open
+   */
+  useEffect(() => {
+    if (internalValue.length === 0 && isOpen) {
+      reset();
+    }
+  }, [internalValue, isOpen]);
 
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
