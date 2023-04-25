@@ -33,7 +33,7 @@ yarn start:react
 
 ## Adding a component
 
-To add a new component, use the scaffold helper. In the react package folder, run:
+To add a new component, use the scaffold helper. Helper will automatically create placeholder component and folder structure for given name. You can also optionally create a core component with the same name. Helper will also automatically set the required exports. In the react package folder, run:
 
 ```bash
 yarn scaffold
