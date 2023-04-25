@@ -52,7 +52,7 @@ jobs:
 
       - name: Store storybook as artifact
         if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: storybook-${{ github.sha }}
           path: |
@@ -93,7 +93,7 @@ jobs:
         run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: loki_images_${{ matrix.loki_configuration }}_${{ steps.sanitize_artifact_name.outputs.value }}
           path: .loki/difference/*.*
