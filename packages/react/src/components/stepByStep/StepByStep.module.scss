@@ -11,5 +11,5 @@
 }
 
 .stepItemTitle {
-  composes: hds-step-by-step__step-item__title from 'hds-core/lib/components/step-by-step/step-by-step.css';
+  composes: hds-step-by-step__step-item-title from 'hds-core/lib/components/step-by-step/step-by-step.css';
 }

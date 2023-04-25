@@ -76,7 +76,7 @@ ul.hds-step-by-step__steps-container {
   --step-left-padding: var(--spacing-5-xl);
 }
 
-.hds-step-by-step__step-item__title {
+.hds-step-by-step__step-item-title {
   font-size: var(--title-font-size);
   font-weight: 500;
   line-height: var(--title-line-height);
