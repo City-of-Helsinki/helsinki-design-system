@@ -1,6 +1,7 @@
 import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useMDXScope } from 'gatsby-plugin-mdx/context';
+// import { useMDXScope } from 'gatsby-plugin-mdx';
+import { useMDXComponents } from '@mdx-js/react'
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import sanitizeHtml from 'sanitize-html';
 import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
@@ -269,7 +270,7 @@ Editor.propTypes = {
 const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = (props) => {
-  const scopeComponents = useMDXScope();
+  const scopeComponents = useMDXComponents();
 
   const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
 

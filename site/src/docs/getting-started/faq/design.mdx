@@ -40,7 +40,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--header-font-size': 'var(--fontsize-heading-xs)',
     '--padding-vertical': 'var(--spacing-s)',
   }}>
-  In order to use the font in a design software, you need to have the font locally on your computer. Please refer to <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" openInExternalDomainAriaLabel="Opens a different website" href="https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/296058881/Using+Helsinki+Grotesk+fonts">the internal font documentation in Confluence</ExternalLink> and follow the desiger instructions. If you do not have access to Confluence, ask from your project’s city employee contact.
+  In order to use the font in a design software, you need to have the font locally on your computer. Please refer to <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" openInExternalDomainAriaLabel="Opens a different website" href="https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/296058881/Using+Helsinki+Grotesk+fonts">the internal font documentation in Confluence</ExternalLink> and follow the desiger instructions. If you do not have access to Confluence, ask from your project's city employee contact.
 </Accordion>
 
 <Accordion 
@@ -51,19 +51,23 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--padding-vertical': 'var(--spacing-s)',
   }}>
   <p>
-  Most often this is caused by large Sketch file sizes. Abstract recommends Sketch files to be below 50MB in size. If you files are larger than this, here are a couple of tips to reduce files' sizes:
+    Most often this is caused by large Sketch file sizes. Abstract recommends Sketch files to be below 50MB in size. If you files are larger than this, here are a couple of tips to reduce files' sizes:
+  </p>
   <ol>
-    <li><b>Reorganise your files.</b> This means creating multiple smaller files from one larger file. If many of your files use the same components, create one file to hold those components and use that file as a library. Read more about creating library files in the <ExternalLink
-      href="https://www.abstract.com/blog/the-designers-guide-to-sketch-libraries-in-abstract"
-      size="M"
-      openInNewTab
-      openInNewTabAriaLabel="Opens in a new tab"
-      openInExternalDomainAriaLabel="Opens a different website"
-    >Abstract’s documentation.</ExternalLink></li>
-    <li>In Sketch, use <b>File → Reduce File Size</b> feature. This uses multiple methods to reduce the file size.</li>
+    <li>
+      <b>Reorganise your files.</b>
+      This means creating multiple smaller files from one larger file. If many of your files use the same components, create one file to hold those components and use that file as a library. Read more about creating library files in the 
+      <ExternalLink
+        href="https://www.abstract.com/blog/the-designers-guide-to-sketch-libraries-in-abstract"
+        size="M"
+        openInNewTab
+        openInNewTabAriaLabel="Opens in a new tab"
+        openInExternalDomainAriaLabel="Opens a different website"
+      > Abstract's documentation.</ExternalLink>
+    </li>
+    <li>In Sketch, use <b>File Reduce File Size</b> feature. This uses multiple methods to reduce the file size.</li>
     <li><b>Check your images and compress them if needed.</b> Prefer .png and .jpeg file formats. Images are often the largest source of file sizes in Sketch projects.</li>
   </ol>
-  </p>
 </Accordion>
 
 <Accordion 
@@ -76,14 +80,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <p>
   Generally, only black and white typography is recommended in the City of Helsinki services. If your project needs to use other colours (e.g. brand colours) in typography, you will quickly find out that these colour variations are not available in the shared Sketch styles and Sketch does not allow you to change the text colour without breaking the link to the original style or symbol.
 
+  </p>
   In this case, you need to create your text style and replace the default one with that:
   <ol>
     <li>Create a text element and give it a style of the same size you need. E.g. if you need a heading M size text, use heading M black style.</li>
     <li>Change the colour of the inserted text.</li>
-    <li>Create a new text style for this modified text. You can do this by pressing the “Create” button in the “Appearance” side menu. Give it a descriptive name, e.g. “Heading M - 03 Bussi”</li>
+    <li>Create a new text style for this modified text. You can do this by pressing the “Create” button in the “Appearance” side menu. Give it a descriptive name, e.g. “Heading M - 03 Bussi”.</li>
     <li>Now you have a custom text style that you can use in HDS components. Just override the text style with your style in the “Overrides” side menu.</li>
   </ol>
-  </p>
 </Accordion>
 
 <Accordion 

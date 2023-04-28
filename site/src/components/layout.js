@@ -21,7 +21,7 @@ import './layout.scss';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
-const components = {
+export const components = {
   IconCheckCircleFill,
   IconCrossCircle,
   InternalLink,

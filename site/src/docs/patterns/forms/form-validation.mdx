@@ -4,7 +4,7 @@ title: 'Form validation'
 navTitle: 'Form validation'
 ---
 
-import { Link, StatusLabel } from 'hds-react';
+import { Link, IconCheck, IconError, Notification, StatusLabel } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
@@ -100,19 +100,19 @@ If the form control has an assistive text, it is displayed below the validation 
 <Image
   src="/images/patterns/form/validation/form-states-error@2x.png"
   alt="Form control error state"
-  style="max-width:376px;"
+  style={{ maxWidth: 376 }}
   viewable
 />
 
 <div
   class="guideline-do"
-  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth:600 }}
 >
-  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
     <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Do</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Keep it short</strong>
       <ul>
@@ -148,13 +148,13 @@ If the form control has an assistive text, it is displayed below the validation 
 
 <div
   class="guideline-dont"
-  style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);">
+  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
     <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Don't</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Use vague statements</strong> (for example “There has been an error”).
     </li>
@@ -187,7 +187,7 @@ Success message indicates that an inputted value has passed form validation. Suc
 <Image
   src="/images/patterns/form/validation/form-validation-message-success@2x.png"
   alt="Form control success state"
-  style="max-width:376px;"
+  style={{ maxWidth: 376 }}
   viewable
 />
 
@@ -205,7 +205,7 @@ Info message can be used to convey information to the user which otherwise could
 <Image
   src="/images/patterns/form/validation/form-validation-message-info-1@2x.png"
   alt="Info message example; the input value was edited"
-  style="max-width:376px;"
+  style={{ maxWidth: 376 }}
   viewable
 />
 <br />
@@ -215,7 +215,7 @@ inputted it.
 <Image
   src="/images/patterns/form/validation/form-validation-message-info-2@2x.png"
   alt="Info message example; the input was filled automatically"
-  style="max-width:376px;"
+  style={{ maxWidth:376 }}
   viewable
 />
 <br />
@@ -231,7 +231,7 @@ You can learn more about the error summary component in <Link href="/storybook/r
 <Image
   src="/images/patterns/form/validation/error-summary@2x.png"
   alt="Error summary component"
-  style="max-width:482px;"
+  style={{ maxWidth: 482 }}
   viewable
 />
 
@@ -246,7 +246,7 @@ The usage of the error summary component is triggered when the form is submitted
 <Image
   src="/images/patterns/form/validation/validation-pattern-example@2x.png"
   alt="Validation summary example"
-  style="max-width:432px;"
+  style={{ maxWidth: 432 }}
   viewable
 />
 
@@ -261,7 +261,7 @@ An example of this could be having two date inputs for setting a start and an en
 <Image
   src="/images/patterns/form/validation/multiple-fields-validation@2x.png"
   alt="Showing error messages of multiple input fields"
-  style="max-width:482px;"
+  style={{ maxWidth: 482 }}
   viewable
 />
 

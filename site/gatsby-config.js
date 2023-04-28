@@ -158,9 +158,6 @@ module.exports = {
             },
           },
         ],
-        defaultLayouts: {
-          default: require.resolve('./src/components/layout.js'),
-        },
       },
     },
     `gatsby-transformer-sharp`,
@@ -220,6 +217,9 @@ module.exports = {
         matomoPhpScript: 'tracker.php',
         requireCookieConsent: true,
       }
-    }
+    },
+    {
+      resolve: "gatsby-plugin-no-sourcemaps",
+    },
   ],
 };
