@@ -1,0 +1,222 @@
+---
+slug: '/patterns/navigation/building-navigation'
+title: 'Building navigation'
+navTitle: 'Building navigation'
+---
+
+import { Link } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+import InternalLink from '../../../components/InternalLink';
+import { Header, Navigation, Tabs, Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+
+# Building navigation
+
+<LeadParagraph>
+  Navigation components are crucial as they help users navigate through an application or website seamlessly.
+</LeadParagraph>
+
+## Principles
+
+Adhering to these principles can create an effective and user-friendly navigation component that enhances the overall user experience.
+
+<div
+  class="guideline-do"
+  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+>
+  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <strong>Do</strong>
+  </div>
+  <ul style="margin-bottom:0;">
+    <li>
+      <strong>Follow the documentation closely.</strong>
+      <ul style="margin-top:0;">
+        <li>Adhere to the guidelines, best practices, and examples provided in the documentation to ensure proper implementation of the navigation pattern.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Keep the user in mind.</strong>
+      <ul style="margin-top:0;">
+        <li>Consider the needs, preferences, and expectations of your target audience when implementing the navigation pattern.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Maintain consistency.</strong>
+      <ul style="margin-top:0;">
+        <li>Keep the design, interaction, and behavior of the navigation pattern consistent across different platforms and devices.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Test and iterate.</strong>
+      <ul style="margin-top:0;">
+        <li>Regularly test the navigation pattern with real users, gather feedback, and make improvements to ensure it meets user needs and expectations.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Pay attention to label lengths.</strong>
+      <ul style="margin-top:0;">
+        <li>Keep the as concise as possible.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Be responsive.</strong>
+      <ul style="margin-top:0;">
+        <li>
+           Make sure the navigation pattern works well on different devices and screen sizes.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Prioritize important elements.</strong>
+      <ul style="margin-top:0;">
+        <li>
+           Organize the navigation items hierarchically, highlighting the most important elements and grouping similar items together.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Customize responsibly.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          When customizing the navigation pattern, ensure that the changes do not negatively impact usability, accessibility, or consistency.
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div
+  class="guideline-dont"
+  style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+>
+  <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);">
+    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <strong>Don't</strong>
+  </div>
+  <ul style="margin-bottom:0;">
+    <li>
+      <strong>Don't sacrifice clarity for style.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          While it's essential to maintain a visually appealing design, prioritize clarity and usability when implementing the navigation pattern.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Don't disregard performance.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          ptimize the navigation pattern for performance by reducing file sizes, minimizing HTTP requests, and using efficient code.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Don't neglect mobile users.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          Do not assume all users are on desktop devices; ensure the navigation pattern works well on mobile devices and touchscreens.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Don't ignore feedback.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          Do not disregard user feedback or testing results when refining and improving the navigation pattern.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Don't overcomplicate.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          Avoid adding unnecessary elements, features, or interactions to the navigation pattern, which may confuse or overwhelm users.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Don't hardcode content.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          Avoid hardcoding content or URLs in the navigation pattern, as this may make future updates more difficult.
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+---
+
+## Recommended order of navigation components
+
+When implementing a navigation pattern, it's essential to consider the order of navigation components to ensure a logical, intuitive, and user-friendly experience.
+
+### 1. Header
+The header is placed at the very top of the page and serves as the primary navigation area for your website or application. It includes the City of Helsinki logo, site title, and main navigation menu. <strong>The Header component is a wrapper for the HDS header navigation components.</strong> This means you should put all the other header elements inside this component.
+
+The header's consistent placement and appearance across all pages make it easily recognizable and accessible to users, allowing them to navigate the site quickly and efficiently.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+    </Header.UniversalBar>
+  </Header>
+</PlaygroundPreview>
+
+<ul style="margin-bottom:0;">
+  <li>
+    The inner components <strong>should always</strong> be in this order:
+    <ol>
+      <li>Header.UniversalBar</li>
+      <li>Header.ActionBar</li>
+      <li>Header.NavigationBar</li>
+    </ol>
+  </li>
+  <li>
+    The learn more about the <strong>Header</strong> component, please refer to<InternalLink href="/components/header">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 2. Breadcrumbs
+Breadcrumbs are a secondary navigation component that helps users understand their current location within the site hierarchy and offers a simple way to navigate back to previous pages. Placed immediately below the header, breadcrumbs provide context and enhance usability by offering a clear path through the website or application.
+
+<ul style="margin-bottom:0;">
+  <li>
+    The learn more about the <strong>Breadcrumbs</strong> component, please refer to<InternalLink href="/components/breadcrumbs">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 3. Hero
+The hero section is an optional but highly recommended component that usually appears below the breadcrumbs. It serves as a visual and content-focused introduction to the page, typically including a large image, heading, and a call-to-action button or message. The hero section helps grab the user's attention and sets the tone for the rest of the page.
+
+<ul style="margin-bottom:0;">
+  <li>
+    The learn more about the <strong>Hero</strong> component, please refer to<InternalLink href="/components/hero">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 4. Main Content
+Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, and other design elements that guide users through the content. The main content area may also include additional navigation components, such as side navigation or tabs, to facilitate access to related content or functionality.
+
+<ul style="margin-bottom:0;">
+  <li>
+    The learn more about the <strong>heading hierarchy</strong>, please refer to<InternalLink href="/foundation/design-tokens/typography#heading-sizes">the Typography page.</InternalLink>
+  </li>
+  <li>
+    The learn more about the <strong>Side navigation</strong> component, please refer to<InternalLink href="/components/side-navigation">the component page.</InternalLink>
+  </li>
+  <li>
+    The learn more about the <strong>Tabs</strong> component, please refer to<InternalLink href="/components/tabs">the component page.</InternalLink>
+  </li>  
+</ul>
+
+### 5. Footer
+The footer is placed at the bottom of the site and includes supplementary information and links, such as contact details, legal information, social media icons, and secondary navigation elements. The footer helps users find additional resources and reinforces the overall site structure by providing a consistent and accessible navigation area on every page.
+
+AN IMAGE OF A WELL-WORKING PATTERN HERE or PLAYGROUND EXAMPLE WITH DUMMY CONTENT.
