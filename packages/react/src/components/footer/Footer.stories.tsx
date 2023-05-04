@@ -22,32 +22,42 @@ const Utilities = () => {
   const someLinks = () => {
     return [
       <Footer.NavigationLink
-        title="Link to Facebook"
-        aria-label="Link to Facebook"
+        title="Helsingin kaupungin Facebook-tili"
+        ariaLabel="Helsingin kaupungin Facebook-tili"
+        external
+        openInNewTab
         icon={<IconFacebook aria-hidden />}
         href="https://facebook.com"
       />,
       <Footer.NavigationLink
-        title="Link to Twitter"
-        aria-label="Link to Twitter"
+        title="Helsingin kaupungin Twitter-tili"
+        ariaLabel="Helsingin kaupungin Twitter-tili"
+        external
+        openInNewTab
         icon={<IconTwitter aria-hidden />}
         href="https://twitter.com"
       />,
       <Footer.NavigationLink
-        title="Link to Instagram"
-        aria-label="Link to Instagram"
+        title="Helsingin kaupungin Instagram-tili"
+        ariaLabel="Helsingin kaupungin Instagram-tili"
+        external
+        openInNewTab
         icon={<IconInstagram aria-hidden />}
         href="https://instagram.com"
       />,
       <Footer.NavigationLink
-        title="Link to Youtube"
-        aria-label="Link to Youtube"
+        title="Helsingin kaupungin Youtube-tili"
+        ariaLabel="Helsingin kaupungin Youtube-tili"
+        external
+        openInNewTab
         icon={<IconYoutube aria-hidden />}
         href="https://youtube.com"
       />,
       <Footer.NavigationLink
-        title="Link to Tiktok"
-        aria-label="Link to Tiktok"
+        title="Helsingin kaupungin Tiktok-tili"
+        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        external
+        openInNewTab
         icon={<IconTiktok aria-hidden />}
         href="https://tiktok.com"
       />,
@@ -107,7 +117,7 @@ const Base = () => (
         className="test"
         variant={FooterVariant.Base}
         separator
-        {...(index === 4 && { external: true })}
+        {...(index === 4 && { external: true, openInNewTab: true })}
       />
     ))}
   </Footer.Base>
@@ -265,35 +275,45 @@ export const Example = (args) => (
       soMeLinks={[
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
-          aria-label="Helsingin kaupungin Facebook-tili"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          external
+          openInNewTab
           icon={<IconFacebook aria-hidden="true" />}
           href="https://facebook.com/helsinginkaupunki/"
           variant={FooterVariant.Utility}
         />,
         <Footer.NavigationLink
           title="Helsingin kaupungin Twitter-tili"
-          aria-label="Helsingin kaupungin Twitter-tili"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          external
+          openInNewTab
           icon={<IconTwitter aria-hidden="true" />}
           href="https://twitter.com/helsinki"
           variant={FooterVariant.Utility}
         />,
         <Footer.NavigationLink
           title="Helsingin kaupungin Instagram-tili"
-          aria-label="Helsingin kaupungin Instagram-tili"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          external
+          openInNewTab
           icon={<IconInstagram aria-hidden="true" />}
           href="https://instagram.com/helsinki/"
           variant={FooterVariant.Utility}
         />,
         <Footer.NavigationLink
           title="Helsingin kaupungin LinkedIn-tili"
-          aria-label="Helsingin kaupungin LinkedIn-tili"
+          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          external
+          openInNewTab
           icon={<IconLinkedin aria-hidden="true" />}
           href="https://linkedin.com/company/city-of-helsinki"
           variant={FooterVariant.Utility}
         />,
         <Footer.NavigationLink
           title="Helsingin kaupungin Youtube-tili"
-          aria-label="Helsingin kaupungin Youtube-tili"
+          ariaLabel="Helsingin kaupungin Youtube-tili"
+          external
+          openInNewTab
           icon={<IconYoutube aria-hidden="true" />}
           href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
           variant={FooterVariant.Utility}
@@ -377,7 +397,7 @@ export const UtilityGroups = (args) => (
             <Footer.GroupHeading
               href="https://google.com"
               onClick={(e) => e.preventDefault()}
-              label="Main Page"
+              label="Group heading link"
               variant={FooterVariant.Utility}
             />
           }
@@ -388,7 +408,7 @@ export const UtilityGroups = (args) => (
                 key={subIndex}
                 href="https://google.com"
                 onClick={(e) => e.preventDefault()}
-                label="Sub page"
+                label="Group link"
                 variant={FooterVariant.Utility}
               />
             );
@@ -402,7 +422,9 @@ export const UtilityGroups = (args) => (
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          aria-label="Helsingin kaupungin Facebook-tili"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconFacebook aria-hidden="true" />}
           href="https://facebook.com/helsinginkaupunki/"
           variant={FooterVariant.Utility}
@@ -410,7 +432,9 @@ export const UtilityGroups = (args) => (
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          aria-label="Helsingin kaupungin Facebook-tili"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconFacebook aria-hidden="true" />}
           href="https://facebook.com/helsinginkaupunki/"
           variant={FooterVariant.Utility}
@@ -418,7 +442,9 @@ export const UtilityGroups = (args) => (
         <Footer.NavigationLink
           title="Helsingin kaupungin Twitter-tili"
           label="Twitter"
-          aria-label="Helsingin kaupungin Twitter-tili"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconTwitter aria-hidden="true" />}
           href="https://twitter.com/helsinki"
           variant={FooterVariant.Utility}
@@ -426,7 +452,9 @@ export const UtilityGroups = (args) => (
         <Footer.NavigationLink
           title="Helsingin kaupungin Instagram-tili"
           label="Instagram"
-          aria-label="Helsingin kaupungin Instagram-tili"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconInstagram aria-hidden="true" />}
           href="https://instagram.com/helsinki/"
           variant={FooterVariant.Utility}
@@ -472,9 +500,9 @@ export const CustomSection = (args) => (
     <Footer.Custom ariaLabel={footerCustomAriaLabel}>
       <Footer.GroupHeading label="Partners" id="partners" />
       <div aria-label="partners" style={{ display: 'flex', flexDirection: 'row', gap: '24px', marginTop: '8px' }}>
-        <Footer.NavigationLink href="www.google.com" label="Partner 1" />
-        <Footer.NavigationLink href="www.google.com" label="Partner 1" />
-        <Footer.NavigationLink href="www.google.com" label="Partner 1" />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
       </div>
     </Footer.Custom>
     <Base />
