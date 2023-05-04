@@ -33,10 +33,10 @@ export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionPro
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>{children}</div>
       {soMeLinks && (
         <section className={styles.soMe} {...soMeSectionProps}>
-          {soMeLinks.map((link) => {
+          {soMeLinks.map((link, index) => {
             if (isValidElement(link)) {
               /* Set variant to null just in case user set it. It should be null for SoMelinks so it doesn't mess with the styles. */
-              return cloneElement(link, { variant: null });
+              return cloneElement(link, { variant: null, key: index });
             }
             return null;
           })}
