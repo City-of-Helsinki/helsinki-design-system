@@ -100,7 +100,7 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
       {icon}
       {subItem && <IconAngleRight className={styles.subItemIcon} />}
       {label && <span>{label}</span>}
-      {external && (
+      {external && label && (
         <IconLinkExternal
           size={variant === FooterVariant.Base ? 'xs' : 's'}
           className={classNames(styles.icon, styles.verticalAlignSmallOrMediumIcon)}
