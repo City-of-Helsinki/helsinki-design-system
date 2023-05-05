@@ -50,8 +50,8 @@ export const NavigationLanguageSelector = ({ children, languages }: LanguageSele
         id="language-selection-more"
         iconClassName={classes.languageSelectorDropdownIcon}
         dropdownClassName={classes.languageSelectorDropdown}
-        label={<IconAngleDown />}
-        closeLabel={<IconAngleUp />}
+        label={<IconAngleDown aria-hidden />}
+        closeLabel={<IconAngleUp aria-hidden />}
         icon={IconGlobe}
         closeIcon={IconGlobe}
       >
