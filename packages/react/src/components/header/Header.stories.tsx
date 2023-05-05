@@ -6,7 +6,6 @@ import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniver
 import { HeaderActionBar, TitleStyleType } from './components/headerActionBar/HeaderActionBar';
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
-import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
 import { DropdownDirection } from './components/navigationLink/types';
 import { LanguageOption } from '../../context/languageContext';
 import { IconSearch, IconUser } from '../../icons';
@@ -39,14 +38,12 @@ const languages: LanguageOption[] = [
 
 export const Example = (args) => (
   <>
-    <StoryWIPAlert />
     <Header {...args}>Header</Header>
   </>
 );
 
 export const WithFullFeatures = (args) => (
   <>
-    <StoryWIPAlert />
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.NavigationLink href="#" label="Link 1" />
@@ -164,7 +161,6 @@ export const WithFullFeatures = (args) => (
 
 export const WithUniversalBar = (args) => (
   <>
-    <StoryWIPAlert />
     <Header {...args}>
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.NavigationLink href="#" label="Link 1" />
@@ -177,7 +173,6 @@ export const WithUniversalBar = (args) => (
 
 export const WithNavigationMenu = (args) => (
   <>
-    <StoryWIPAlert />
     <Header {...args}>
       <Header.NavigationMenu>
         <Header.NavigationLink
@@ -243,8 +238,6 @@ export const WithNavigationMenu = (args) => (
 export const WithActionBar = (args) => {
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <StoryWIPAlert />
-
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
