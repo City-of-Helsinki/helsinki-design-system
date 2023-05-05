@@ -102,9 +102,9 @@ const getLinkComponent = ({
     isNotLargeScreen,
   });
   const props = {
-    active: active ? true : undefined,
     className,
     href,
+    ...(active && { 'aria-selected': true }),
     ...rest,
   };
 
