@@ -48,8 +48,8 @@
 
 @media x-small-down {
   .links {
-    gap: var(--spacing-xs);
     flex-direction: column;
+    gap: var(--spacing-xs);
     justify-items: flex-start;
   }
 
@@ -58,6 +58,7 @@
     flex-direction: column;
   }
 }
+
 @media small-down {
   .divider {
     margin: 0 0 var(--spacing-xs);
@@ -72,6 +73,7 @@
   .link {
     gap: var(--spacing-xs);
   }
+
   .utilities {
     gap: var(--spacing-xs);
   }

@@ -2,7 +2,7 @@
 
 .navigation {
   display: flex;
-  gap: var(--spacing-xs) var(--spacing-m);
   flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-m);
   padding-bottom: var(--spacing-m);
 }

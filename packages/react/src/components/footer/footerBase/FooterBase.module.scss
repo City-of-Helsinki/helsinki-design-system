@@ -3,11 +3,12 @@
 
 .backToTopButton {
   @extend %footerItem;
+
   align-self: unset;
-  margin-left: auto;
   font-size: 20px;
   font-weight: bold;
   line-height: 30px;
+  margin-left: auto;
 }
 
 .base {
@@ -44,7 +45,6 @@
   display: flex;
 }
 
-
 @media x-small-down {
   .links {
     align-items: flex-start;
@@ -73,6 +73,7 @@
     margin-bottom: var(--spacing-xs);
     margin-top: var(--spacing-s);
   }
+
   .divider {
     margin: 0 0 var(--spacing-m);
   }
@@ -81,9 +82,9 @@
 @media large-up {
   .base {
     align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
   }
+
   .copyright {
     margin-left: var(--spacing-s);
   }

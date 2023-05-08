@@ -17,15 +17,16 @@
  */
 %footerItem {
   @extend %buttonReset;
-  align-self: start;
+  
   align-items: center;
+  align-self: start;
   color: inherit;
   display: flex;
+  font-size: var(--fontsize-body-l);
+  line-height: var(--lineheight-l);
   outline: none;
   position: relative;
   text-decoration: none;
-  font-size: var(--fontsize-body-l);
-  line-height: var(--lineheight-l);
 
   &:hover:not(:focus) {
     text-decoration: underline;
@@ -33,8 +34,8 @@
 
   &:focus {
     border-radius: var(--footer-focus-outline-border-radius);
-    outline-offset: 4px;
     outline: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
+    outline-offset: 4px;
   }
 }
 

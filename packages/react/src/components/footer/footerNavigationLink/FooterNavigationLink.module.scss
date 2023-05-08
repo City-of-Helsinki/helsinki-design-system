@@ -3,6 +3,7 @@
 
 .item {
   @extend %footerItem;
+  
   font-weight: normal;
   line-height: var(--lineheight-l);
 }
@@ -10,9 +11,9 @@
 .base {
   align-self: unset;
   font-size: var(--fontsize-body-s);
-  text-decoration: underline;
   font-weight: 500;
   margin: 0;
+  text-decoration: underline;
 }
 
 .icon {
@@ -52,7 +53,6 @@
 }
 
 @media small-down {
-
   .separator {
     display: none;
   }
@@ -62,14 +62,14 @@
   .utility, .navigation {
     font-size: var(--fontsize-body-m)
   }
+
   .separator:first-of-type {
     display: none;
   }
 }
 
 @media large-down {
-  .item:not(.base, .navigation, .utility) {
+  .item:not(.base):not(.navigation):not(.utility) {
     font-size: var(--fontsize-body-m);
   }
 }
-

@@ -1,9 +1,11 @@
-@import '../common';
+@import '../common.scss';
 
 .custom {
   padding-bottom: var(--spacing-m);
 }
+
 .divider {
   @extend %divider;
+  
   margin: 0 0 var(--spacing-m);
 }
