@@ -1,9 +1,13 @@
+import to from 'await-to-js';
+import { User } from 'oidc-client-ts';
+
 // eslint-disable-next-line jest/no-mocks-import
 import mockWindowLocation from '../__mocks__/mockWindowLocation';
 import { InitTestResult, createOidcClientTestSuite } from '../testUtils/oidcClientTestUtil';
 import { LoginProps } from './oidcClient';
+import { OidcClientError } from './oidcClientError';
 
-const { initTests, waitForLoginToTimeout, cleanUp } = createOidcClientTestSuite();
+const { initTests, waitForLoginToTimeout, cleanUp, setSignInResponse } = createOidcClientTestSuite();
 
 describe('oidcClient', () => {
   let testData: InitTestResult;
@@ -58,6 +62,42 @@ describe('oidcClient', () => {
           ui_locales: 'sv',
         },
       });
+    });
+  });
+  describe('.handleCallback()', () => {
+    it('should return the same user returned from signinRedirectCallback. Except state is converted to an object and userState is removed (by the oidc-client-ts)', async () => {
+      const { oidcClient } = await initTests({});
+      const mockedResponse = setSignInResponse();
+      const user = await oidcClient.handleCallback();
+      expect({ ...mockedResponse, state: {}, userState: undefined }).toMatchObject(user as User);
+    });
+    it('should return an error when user is invalid.', async () => {
+      const { oidcClient } = await initTests({});
+      setSignInResponse({ invalidUser: true });
+      const [error] = await to(oidcClient.handleCallback());
+      expect(error).toBeInstanceOf(Error);
+      expect((error as OidcClientError).isInvalidUserError).toBeTruthy();
+    });
+    it('should return an error when user is expired.', async () => {
+      const { oidcClient } = await initTests({});
+      setSignInResponse({ expiredUser: true });
+      const [error] = await to(oidcClient.handleCallback());
+      expect(error).toBeInstanceOf(Error);
+      expect((error as OidcClientError).isInvalidUserError).toBeTruthy();
+    });
+    it('should return an error when signinRedirectCallback throws', async () => {
+      const { oidcClient } = await initTests({});
+      const [error] = await to(oidcClient.handleCallback());
+      expect(error).toBeInstanceOf(Error);
+      expect((error as OidcClientError).isSignInError).toBeTruthy();
+    });
+    it('should set the user to sessionStorage', async () => {
+      const { oidcClient } = await initTests({});
+      const setSpy = jest.spyOn(Storage.prototype, 'setItem');
+      expect(setSpy).toHaveBeenCalledTimes(0);
+      setSignInResponse();
+      await oidcClient.handleCallback();
+      expect(setSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

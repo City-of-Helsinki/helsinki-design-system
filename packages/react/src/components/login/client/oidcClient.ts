@@ -1,4 +1,7 @@
-import { UserManager, UserManagerSettings, SigninRedirectArgs, WebStorageStateStore } from 'oidc-client-ts';
+import { UserManager, UserManagerSettings, SigninRedirectArgs, WebStorageStateStore, User } from 'oidc-client-ts';
+import to from 'await-to-js';
+
+import { OidcClientError } from './oidcClientError';
 
 export type LoginProps = {
   language?: string;
@@ -8,16 +11,22 @@ export type OidcClientProps = {
   userManagerSettings: Partial<UserManagerSettings>;
 };
 
+export type UserReturnType = User | null;
+
 export type OidcClient = {
+  /**
+   * Returns the client's UserManager
+   */
+  getUserManager: () => UserManager;
+  /**
+   * Handles the callback path and returns an user object - if user is valid
+   */
+  handleCallback: () => Promise<UserReturnType>;
   /**
    * Calls the authorization_endpoint with given parameters
    * Browser window is redirected, the returned promise never fulfills
    */
   login: (props?: LoginProps) => Promise<void>;
-  /**
-   * Returns the client's UserManager
-   */
-  getUserManager: () => UserManager;
 };
 
 const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
@@ -33,6 +42,23 @@ const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
     loadUserInfo: true,
   } as UserManagerSettings,
 });
+
+const isUserExpired = (user?: Partial<User> | null): boolean => {
+  if (!user) {
+    return true;
+  }
+  if (user.expired !== undefined) {
+    // user.expired is not always set.
+    return user.expired;
+  }
+  const expiresAtInSeconds = user.expires_at;
+  if (expiresAtInSeconds) {
+    return expiresAtInSeconds - Date.now() / 1000 <= 0;
+  }
+  return true;
+};
+
+const isValidUser = (user?: User | null): boolean => !!user && !isUserExpired(user) && !!user.access_token;
 
 export default function createOidcClient(props: OidcClientProps): OidcClient {
   const { userManagerSettings: userManagerSettingsFromProps, ...restProps } = props;
@@ -53,6 +79,18 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
   const userManager = new UserManager(combinedProps.userManagerSettings as UserManagerSettings);
 
   return {
+    getUserManager: () => userManager,
+    handleCallback: async () => {
+      const [callbackError, user] = await to(userManager.signinRedirectCallback());
+      const isReturnedUserValid = isValidUser(user);
+      if (callbackError || !isReturnedUserValid) {
+        const error = callbackError
+          ? new OidcClientError('SigninRedirectCallback returned an error', 'SIGNIN_ERROR', callbackError)
+          : new OidcClientError('SigninRedirectCallback returned invalid or expired user', 'INVALID_OR_EXPIRED_USER');
+        return Promise.reject(error);
+      }
+      return Promise.resolve(user);
+    },
     login: async (loginProps) => {
       const { extraQueryParams = {}, language, ...rest } = loginProps || {};
       if (language) {
@@ -63,6 +101,5 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
         ...rest,
       });
     },
-    getUserManager: () => userManager,
   };
 }
