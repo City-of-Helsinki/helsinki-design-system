@@ -2,8 +2,8 @@ export type SignalType = string;
 export type SignalNamespace = string;
 export type SignalPayload = Record<string, unknown>;
 export interface ConnectedModule {
-  connect: (beacon: Beacon) => string;
-  name: string;
+  connect: (beacon: Beacon) => void;
+  namespace: SignalNamespace;
 }
 export type SignalContext = ConnectedModule;
 export type Signal<T extends SignalPayload = SignalPayload> = {
@@ -25,15 +25,16 @@ export type Beacon = {
   emit: (signal: Signal) => void;
   emitAsync: (signal: Signal) => Promise<void>;
   addListener: (signalOrJustSignalType: SignalType | Signal, listener: SignalListener) => Disposer;
-  addSignalContext: (namespace: SignalNamespace, context: ConnectedModule) => Disposer;
+  addSignalContext: (context: ConnectedModule) => Disposer;
   getSignalContext: (namespace: SignalNamespace) => ConnectedModule | undefined;
+  getAllSignalContextsAsObject: () => Record<string, ConnectedModule>;
   clear: () => void;
 };
 
 export const LISTEN_TO_ALL_MARKER = '*';
 const NAMESPACE_SEPARATOR = ':';
 
-export function splitTypeAndNamespace(signalOrJustSignalType: SignalType | Signal): Signal {
+export function splitTypeAndNamespace(signalOrJustSignalType: SignalType | Signal, defaultNamespace = ''): Signal {
   if ((signalOrJustSignalType as Signal).namespace !== undefined) {
     return signalOrJustSignalType as Signal;
   }
@@ -43,12 +44,15 @@ export function splitTypeAndNamespace(signalOrJustSignalType: SignalType | Signa
   const splitted = (signalType as SignalType).split(NAMESPACE_SEPARATOR);
   return {
     type: splitted[0] || '',
-    namespace: splitted[1] || '',
+    namespace: splitted[1] || defaultNamespace,
   };
 }
 
 export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal): SignalTrigger {
-  const { type: listenToType, namespace: listenToNamespace } = splitTypeAndNamespace(signalOrJustSignalType);
+  const { type: listenToType, namespace: listenToNamespace } = splitTypeAndNamespace(
+    signalOrJustSignalType,
+    LISTEN_TO_ALL_MARKER,
+  );
   return (incomingSignal: Signal) => {
     // incoming signal should not determine what to trigger expect explicit type and namespace
     // so type cannot be empty or "*"
@@ -92,18 +96,18 @@ export function createBeacon(): Beacon {
     /* eslint-enable no-param-reassign */
   };
 
-  const copySignalAndAssignContext = (signalBody: Signal, namespace: SignalNamespace = LISTEN_TO_ALL_MARKER) => {
-    const singalTypeAndNamespace = splitTypeAndNamespace(signalBody);
-    const context = signalBody.context || contextMap.get(namespace) || undefined;
+  const copySignalAndAssignContext = (signalBody: Signal) => {
+    const signalTypeAndNamespace = splitTypeAndNamespace(signalBody, LISTEN_TO_ALL_MARKER);
+    const context = signalBody.context || contextMap.get(signalTypeAndNamespace.namespace) || undefined;
     return {
       ...signalBody,
-      ...singalTypeAndNamespace,
+      ...signalTypeAndNamespace,
       context,
     };
   };
 
   const triggerListeners = (signal: Signal) => {
-    const signalToSend = copySignalAndAssignContext(signal, signal.namespace);
+    const signalToSend = copySignalAndAssignContext(signal);
     listenerData.forEach((data) => {
       const { listener, trigger } = data;
       if (trigger(signalToSend)) {
@@ -134,7 +138,7 @@ export function createBeacon(): Beacon {
 
   const triggerAsyncListeners = async (signal: Signal) => {
     const list = Array.from(listenerData);
-    const signalToSend = copySignalAndAssignContext(signal, signal.namespace);
+    const signalToSend = copySignalAndAssignContext(signal);
     await asyncAwaitArray(list, async (data) => {
       const { listener, trigger } = data as StoredListenerData;
       if (trigger(signalToSend)) {
@@ -156,7 +160,7 @@ export function createBeacon(): Beacon {
     }
   };
 
-  return {
+  const beacon: Beacon = {
     emit: (signal) => {
       // prevent adding same twice!
       // if listener *:* emits *:any?
@@ -171,9 +175,7 @@ export function createBeacon(): Beacon {
       isSignalling = false;
     },
     emitAsync: async (signal) => {
-      // console.log('---emit async', signal);
       if (isAsyncSignalling) {
-        // console.log('---pending...', signal);
         asyncSignalQueue.push(signal);
         // this resolve handles loops where current listener is awaiting for pending
         // which does not fulfill after current is fulfilled.
@@ -191,11 +193,16 @@ export function createBeacon(): Beacon {
       contextMap.clear();
       signalQueue.length = 0;
     },
-    addSignalContext: (namespace: SignalNamespace, context: ConnectedModule) => {
+    addSignalContext: (context: ConnectedModule) => {
+      const { namespace } = context;
+      if (!namespace) {
+        throw new Error(`SignalContext ${namespace} has no namespace`);
+      }
       if (contextMap.has(namespace)) {
         throw new Error(`SignalContext ${namespace} already exists`);
       }
       contextMap.set(namespace, context);
+      context.connect(beacon);
       return () => {
         contextMap.delete(namespace);
       };
@@ -203,7 +210,15 @@ export function createBeacon(): Beacon {
     getSignalContext: (namespace: SignalNamespace) => {
       return contextMap.get(namespace);
     },
+    getAllSignalContextsAsObject: () => {
+      const obj = {};
+      contextMap.forEach((context, namespace) => {
+        obj[namespace] = context;
+      });
+      return obj;
+    },
   };
+  return beacon;
 }
 
 export function createSignal(
@@ -218,4 +233,11 @@ export function createSignal(
     payload,
     context,
   };
+}
+
+export function emitInitializationSignals(beacon: Beacon) {
+  const contexts = beacon.getAllSignalContextsAsObject();
+  Object.keys(contexts).forEach((namespace) => {
+    beacon.emit({ type: 'init', namespace, context: contexts[namespace] });
+  });
 }

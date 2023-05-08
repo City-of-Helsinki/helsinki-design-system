@@ -1,22 +1,23 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { waitFor } from '@testing-library/react';
-
-import { getAllMockCallArgs } from '../../../utils/testHelpers';
+import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
 import {
   Beacon,
+  ConnectedModule,
+  Disposer,
   LISTEN_TO_ALL_MARKER,
   Signal,
   SignalListener,
+  SignalNamespace,
   SignalType,
   createBeacon,
   createSignalTrigger,
+  emitInitializationSignals,
 } from './beacon';
 import {
   createTimedPromise,
   advanceUntilListenerCalled,
   advanceUntilPromiseResolved,
 } from '../testUtils/timerTestUtil';
-import { SignalNamespace } from './beacon';
+import { NamespacedBeacon, createNamespacedBeacon } from './signals';
 
 type CallDataWithTimestampAndId = {
   signalTypeAndNamespace: SignalType;
@@ -42,6 +43,21 @@ describe(`beacon`, () => {
       const signal = args[0] as Signal;
       return convertSignalToString(signal);
     });
+
+  const getContextFromArguments = (args: unknown[]) => {
+    const contextArgs = args.filter((arg) => {
+      return !!(arg && (arg as Signal).context);
+    }) as Signal[];
+    return contextArgs[0] && contextArgs[0].context;
+  };
+
+  const getLastContext = (listener: jest.Mock) => {
+    return getContextFromArguments(getLastMockCallArgs(listener));
+  };
+
+  const getAllContexts = (listener: jest.Mock) => {
+    return getAllMockCallArgs(listener).map(getContextFromArguments);
+  };
 
   const createListenerWithAsyncResponse = (
     listener: jest.Mock,
@@ -166,6 +182,37 @@ describe(`beacon`, () => {
   const triggersForOmegaSignalNamespaceAListener = [signalForListeningOmegaSignalsNamespaceA];
   const omegaSignalWithNamespaceAString = convertSignalToString(signalForListeningOmegaSignalsNamespaceA);
 
+  const createDummyContext = (namespace: SignalNamespace): ConnectedModule => {
+    return {
+      namespace,
+      connect: () => {
+        //
+      },
+    };
+  };
+
+  const createConnectedBeaconModule = (
+    namespace: SignalNamespace,
+  ): { listenTo: (signalOrJustType: SignalType) => Disposer; getListener: () => jest.Mock } & NamespacedBeacon &
+    ConnectedModule => {
+    const dedicatedBeacon = createNamespacedBeacon(namespace);
+    const listener = jest.fn();
+    return {
+      ...dedicatedBeacon,
+      listenTo: (signalOrJustType) => {
+        const wrappedListener: SignalListener = (signal) => {
+          listener({ ...signal }, namespace, getOrderNumber());
+        };
+        return dedicatedBeacon.addListener(signalOrJustType, wrappedListener);
+      },
+      namespace,
+      connect: (targetBeacon) => {
+        dedicatedBeacon.storeBeacon(targetBeacon);
+      },
+      getListener: () => listener,
+    };
+  };
+
   beforeEach(() => {
     jest.useFakeTimers();
     beacon = createBeacon();
@@ -234,6 +281,8 @@ describe(`beacon`, () => {
         listenerForEverythingInNamespaceA,
       );
       const disposeListenerForEverything = beacon.addListener(signalForListeningEverything, listenerForEverything);
+      const listenAnything = jest.fn();
+      const anythingDisposer = beacon.addListener('*', listenAnything);
 
       beacon.emit(triggersForEverythingListener[0]);
       beacon.emit(triggersForEverythingListener[1]);
@@ -432,6 +481,138 @@ describe(`beacon`, () => {
         'firstAddedListenerForAllA_omega:namespaceA',
         'secondAddedListenerForAllA_omega:namespaceA',
       ]);
+    });
+  });
+  describe(`Context and connected modules`, () => {
+    it(`addSignalContext() adds the module to the context map of the beacon and calls module.connect()`, async () => {
+      const connectedModule1 = createConnectedBeaconModule('module1');
+      const connectedModule2 = createConnectedBeaconModule('module2');
+      const connectedModule1Spy = jest.spyOn(connectedModule1, 'connect');
+      const connectedModule2Spy = jest.spyOn(connectedModule2, 'connect');
+      expect(beacon.getAllSignalContextsAsObject()).toMatchObject({});
+      beacon.addSignalContext(connectedModule1);
+      expect(beacon.getAllSignalContextsAsObject()).toMatchObject({ module1: connectedModule1 });
+      expect(beacon.getSignalContext(connectedModule1.namespace)).toBe(connectedModule1);
+      expect(beacon.getSignalContext(connectedModule2.namespace)).toBe(undefined);
+      expect(connectedModule1Spy).toHaveBeenCalledTimes(1);
+      expect(connectedModule1Spy).toHaveBeenLastCalledWith(beacon);
+      expect(connectedModule2Spy).toHaveBeenCalledTimes(0);
+
+      beacon.addSignalContext(connectedModule2);
+      expect(beacon.getAllSignalContextsAsObject()).toMatchObject({
+        module1: connectedModule1,
+        module2: connectedModule2,
+      });
+      expect(connectedModule2Spy).toHaveBeenLastCalledWith(beacon);
+      expect(connectedModule1Spy).toHaveBeenCalledTimes(1);
+      expect(connectedModule2Spy).toHaveBeenCalledTimes(1);
+      expect(beacon.getSignalContext(connectedModule1.namespace)).toBe(connectedModule1);
+      expect(beacon.getSignalContext(connectedModule2.namespace)).toBe(connectedModule2);
+    });
+    it(`addSignalContext() throws, if adding same namespace again`, async () => {
+      const connectedModule1 = createConnectedBeaconModule('module1');
+      beacon.addSignalContext(connectedModule1);
+      expect(() => beacon.addSignalContext(connectedModule1)).toThrow();
+    });
+    it(`a signal is emitted to all connected modules when emitInitializationSignals() is called`, async () => {
+      const connectedModule1 = createConnectedBeaconModule('module1');
+      const connectedModule2 = createConnectedBeaconModule('module2');
+      const connectedModule3 = createConnectedBeaconModule('module3');
+      const nonModuleListener = jest.fn();
+      wrapListenerWithIdAndOrderNum(signalForListeningEverything, 'nonModuleListener', nonModuleListener);
+      beacon.addSignalContext(connectedModule1);
+      beacon.addSignalContext(connectedModule2);
+      beacon.addSignalContext(connectedModule3);
+
+      connectedModule1.listenTo('init');
+      connectedModule2.listenTo('init');
+      connectedModule3.listenTo('init');
+      emitInitializationSignals(beacon);
+      expect(connectedModule1.getListener()).toHaveBeenCalledTimes(2);
+      expect(connectedModule2.getListener()).toHaveBeenCalledTimes(2);
+      expect(connectedModule3.getListener()).toHaveBeenCalledTimes(2);
+      expect(nonModuleListener).toHaveBeenCalledTimes(3);
+      const signalContextsFromListenerCalls = getAllContexts(nonModuleListener);
+      expect(signalContextsFromListenerCalls.includes(connectedModule1)).toBeTruthy();
+      expect(signalContextsFromListenerCalls.includes(connectedModule2)).toBeTruthy();
+      expect(signalContextsFromListenerCalls.includes(connectedModule3)).toBeTruthy();
+    });
+  });
+
+  describe(`When emitting sync or async signals, the signal.context is `, () => {
+    const syncListener = jest.fn();
+    const asyncListener = jest.fn();
+    const syncSignalType = 'sync';
+    const asyncSignalType = 'async';
+    const signalForListeningAllSyncSignals = { ...listenerForEverything, type: syncSignalType };
+    const signalForListeningAllAsyncSignals = { ...listenerForEverything, type: asyncSignalType };
+    it(`the given context, if any`, async () => {
+      wrapListenerWithIdAndOrderNum(signalForListeningAllSyncSignals, 'syncListener', syncListener);
+      wrapListenerWithIdAndOrderNum(signalForListeningAllAsyncSignals, 'asyncListener', asyncListener);
+      const context1 = createDummyContext('c1');
+      const context2 = createDummyContext('c2');
+
+      beacon.emit({ type: syncSignalType, context: context1 });
+      expect(syncListener).toHaveBeenCalledTimes(1);
+      expect(getLastContext(syncListener)).toBe(context1);
+
+      beacon.emit({ type: syncSignalType, context: context2 });
+      expect(syncListener).toHaveBeenCalledTimes(2);
+      expect(getLastContext(syncListener)).toBe(context2);
+
+      beacon.emit({ type: syncSignalType, context: undefined });
+      expect(syncListener).toHaveBeenCalledTimes(3);
+      expect(asyncListener).toHaveBeenCalledTimes(0);
+      expect(getLastContext(syncListener)).toBeUndefined();
+
+      await beacon.emitAsync({ type: asyncSignalType, context: context1 });
+      expect(asyncListener).toHaveBeenCalledTimes(1);
+      expect(getLastContext(asyncListener)).toBe(context1);
+
+      await beacon.emitAsync({ type: asyncSignalType, context: context2 });
+      expect(asyncListener).toHaveBeenCalledTimes(2);
+      expect(getLastContext(asyncListener)).toBe(context2);
+
+      await beacon.emitAsync({ type: asyncSignalType, context: undefined });
+      expect(asyncListener).toHaveBeenCalledTimes(3);
+      expect(syncListener).toHaveBeenCalledTimes(3);
+      expect(getLastContext(asyncListener)).toBeUndefined();
+    });
+    it(`the connected context, if it can be found with given namespace`, () => {
+      const context1 = createDummyContext('c1');
+      const connectedModule1 = createConnectedBeaconModule('module1');
+      const connectedModule2 = createConnectedBeaconModule('module2');
+      const connectedModule1Listener = connectedModule1.getListener();
+      const connectedModule2Listener = connectedModule2.getListener();
+      beacon.addSignalContext(connectedModule1);
+      beacon.addSignalContext(connectedModule2);
+      connectedModule1.listenTo('sync');
+      connectedModule2.listenTo('sync');
+      wrapListenerWithIdAndOrderNum(signalForListeningAllSyncSignals, 'syncListener', syncListener);
+
+      beacon.emit({ type: syncSignalType, context: context1 });
+      expect(syncListener).toHaveBeenCalledTimes(1);
+      expect(connectedModule1Listener).toHaveBeenCalledTimes(1);
+      expect(connectedModule2Listener).toHaveBeenCalledTimes(1);
+      expect(getLastContext(connectedModule1Listener)).toBe(context1);
+      expect(getLastContext(connectedModule2Listener)).toBe(context1);
+      expect(getLastContext(syncListener)).toBe(context1);
+
+      beacon.emit({ type: syncSignalType, namespace: connectedModule1.namespace });
+      expect(syncListener).toHaveBeenCalledTimes(2);
+      expect(connectedModule1Listener).toHaveBeenCalledTimes(1);
+      expect(connectedModule2Listener).toHaveBeenCalledTimes(2);
+      expect(getLastContext(connectedModule1Listener)).toBe(context1);
+      expect(getLastContext(connectedModule2Listener)).toBe(connectedModule1);
+      expect(getLastContext(syncListener)).toBe(connectedModule1);
+
+      beacon.emit({ type: syncSignalType, namespace: connectedModule2.namespace });
+      expect(syncListener).toHaveBeenCalledTimes(3);
+      expect(connectedModule1Listener).toHaveBeenCalledTimes(2);
+      expect(connectedModule2Listener).toHaveBeenCalledTimes(2);
+      expect(getLastContext(connectedModule1Listener)).toBe(connectedModule2);
+      expect(getLastContext(connectedModule2Listener)).toBe(connectedModule1);
+      expect(getLastContext(syncListener)).toBe(connectedModule2);
     });
   });
 });
