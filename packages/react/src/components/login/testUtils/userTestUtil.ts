@@ -46,7 +46,7 @@ export function createUser(userCreationProps: UserCreationProps = {}): User {
   const response = createSignInResponse(userCreationProps);
   const user = {
     ...response,
-    expired: false,
+    expired: userCreationProps.expiredUser,
   };
   return ({
     ...user,

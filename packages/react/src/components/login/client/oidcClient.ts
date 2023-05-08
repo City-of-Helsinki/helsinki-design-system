@@ -15,6 +15,10 @@ export type UserReturnType = User | null;
 
 export type OidcClient = {
   /**
+   * Returns user object or null
+   */
+  getUser: () => UserReturnType;
+  /**
    * Returns the client's UserManager
    */
   getUserManager: () => UserManager;
@@ -43,7 +47,28 @@ const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   } as UserManagerSettings,
 });
 
-const isUserExpired = (user?: Partial<User> | null): boolean => {
+export const getUserStoreKey = (settings: Partial<UserManagerSettings>): string =>
+  // "oidc" is the default prefix in oidc-client-ts
+  // "user" is the userStoreKey in oidc-client-ts
+  `oidc.user:${settings.authority}:${settings.client_id}`;
+
+export const getUserFromStorage = (
+  settings: Pick<UserManagerSettings, 'authority' | 'client_id'>,
+  storage: Storage = window.sessionStorage,
+): UserReturnType => {
+  const data = storage.getItem(getUserStoreKey(settings));
+  if (!data) {
+    return null;
+  }
+  try {
+    const user = User.fromStorageString(data);
+    return user;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const isUserExpired = (user?: Partial<User> | null): boolean => {
   if (!user) {
     return true;
   }
@@ -58,7 +83,7 @@ const isUserExpired = (user?: Partial<User> | null): boolean => {
   return true;
 };
 
-const isValidUser = (user?: User | null): boolean => !!user && !isUserExpired(user) && !!user.access_token;
+export const isValidUser = (user?: User | null): boolean => !!user && !isUserExpired(user) && !!user.access_token;
 
 export default function createOidcClient(props: OidcClientProps): OidcClient {
   const { userManagerSettings: userManagerSettingsFromProps, ...restProps } = props;
@@ -78,7 +103,15 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
 
   const userManager = new UserManager(combinedProps.userManagerSettings as UserManagerSettings);
 
+  const getUserFromStorageSyncronously = (): UserReturnType => {
+    const user = getUserFromStorage(combinedProps.userManagerSettings as UserManagerSettings, store);
+    return user || null;
+  };
+
   return {
+    getUser() {
+      return getUserFromStorageSyncronously();
+    },
     getUserManager: () => userManager,
     handleCallback: async () => {
       const [callbackError, user] = await to(userManager.signinRedirectCallback());
