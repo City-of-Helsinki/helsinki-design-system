@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement, Fragment } from 'react';
 
 // import base styles
 import '../../../styles/base.css';
@@ -8,6 +8,7 @@ import { Logo, LogoLanguage } from '../../logo';
 import { IconArrowUp } from '../../../icons';
 import getKeyboardFocusableElements from '../../../utils/getKeyboardFocusableElements';
 import { FooterNavigationLink } from '../footerNavigationLink/FooterNavigationLink';
+import { getChildrenAsArray } from '../../../utils/getChildren';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
@@ -71,6 +72,7 @@ export const FooterBase = ({
   showBackToTopButton = true,
   year = new Date().getFullYear(),
 }: FooterBaseProps) => {
+  const childElements = getChildrenAsArray(children);
   return (
     <div className={styles.base} aria-label={ariaLabel}>
       <hr className={styles.divider} aria-hidden />
@@ -95,7 +97,22 @@ export const FooterBase = ({
         </div>
       )}
       <div className={styles.baseActions}>
-        {children && <div className={styles.links}>{children}</div>}
+        {children && (
+          <div className={styles.links}>
+            {childElements.map((child, index) => {
+              if (React.isValidElement(child)) {
+                return (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Fragment key={index}>
+                    <span className={styles.separator}>|</span>
+                    {cloneElement(child)}
+                  </Fragment>
+                );
+              }
+              return null;
+            })}
+          </div>
+        )}
         {showBackToTopButton && (
           <button
             type="button"

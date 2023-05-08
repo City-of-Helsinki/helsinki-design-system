@@ -86,38 +86,38 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
             <div
               class="links"
             >
+              <span
+                class="separator"
+              >
+                |
+              </span>
               <a
                 class="item base"
               >
-                <span
-                  class="separator"
-                >
-                  |
-                </span>
                 <span>
                   Link 1
                 </span>
               </a>
+              <span
+                class="separator"
+              >
+                |
+              </span>
               <a
                 class="item base"
               >
-                <span
-                  class="separator"
-                >
-                  |
-                </span>
                 <span>
                   Link 2
                 </span>
               </a>
+              <span
+                class="separator"
+              >
+                |
+              </span>
               <a
                 class="item base"
               >
-                <span
-                  class="separator"
-                >
-                  |
-                </span>
                 <span>
                   Link 3
                 </span>

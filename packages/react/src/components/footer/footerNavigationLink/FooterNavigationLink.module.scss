@@ -1,5 +1,5 @@
 @import "../common.scss";
-@value small-down, medium-down, large-down from "../../../styles/breakpoints.scss";
+@value medium-down, large-down from "../../../styles/breakpoints.scss";
 
 .item {
   @extend %footerItem;
@@ -35,10 +35,6 @@
   font-size: var(--fontsize-body-l);
 }
 
-.separator {
-  margin-right: var(--spacing-xs);
-}
-
 .subItem.subItem {
   font-size: var(--fontsize-body-s);
   line-height: var(--lineheight-l)
@@ -52,19 +48,9 @@
   width: var(--spacing-xs);
 }
 
-@media small-down {
-  .separator {
-    display: none;
-  }
-}
-
 @media medium-down {
   .utility, .navigation {
     font-size: var(--fontsize-body-m)
-  }
-
-  .separator:first-of-type {
-    display: none;
   }
 }
 
