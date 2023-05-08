@@ -21,7 +21,7 @@ export type OidcClient = {
   /**
    * Handles the callback path and returns an user object - if user is valid
    */
-  handleCallback: () => Promise<UserReturnType>;
+  handleCallback: () => Promise<User>;
   /**
    * Calls the authorization_endpoint with given parameters
    * Browser window is redirected, the returned promise never fulfills

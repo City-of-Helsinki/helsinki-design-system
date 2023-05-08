@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { User } from 'oidc-client-ts';
 
 import { Button } from '../button/Button';
 import { LoginContextProvider, useOidcClient } from './index';
-import { OidcClientProps } from './client/oidcClient';
 import { Notification } from '../notification/Notification';
+import { OidcClientProps } from './client/oidcClient';
+import { LoginCallbackHandler } from './LoginCallbackHandler';
+import { OidcClientError } from './client/oidcClientError';
 
 export default {
   component: LoginContextProvider,
@@ -58,6 +61,30 @@ export const Example = () => {
   return (
     <LoginContextProvider loginProps={loginProps}>
       <LoginComponent />
+    </LoginContextProvider>
+  );
+};
+
+export const Callback = () => {
+  const [userOrError, setUserOrError] = useState<User | OidcClientError | undefined>(undefined);
+  const onSuccess = (user: User) => {
+    setUserOrError(user);
+  };
+  const onError = (error?: OidcClientError) => {
+    setUserOrError(error);
+  };
+  if (userOrError instanceof Error) {
+    return <p>Login failed!</p>;
+  }
+  if (userOrError) {
+    return <p>Welcome user, {(userOrError as User).profile.given_name}</p>;
+  }
+
+  return (
+    <LoginContextProvider loginProps={loginProps}>
+      <LoginCallbackHandler onSuccess={onSuccess} onError={onError}>
+        <div>Logging in...</div>
+      </LoginCallbackHandler>
     </LoginContextProvider>
   );
 };
