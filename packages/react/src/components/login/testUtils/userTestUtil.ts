@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
-import { SigninResponse, User } from 'oidc-client-ts';
+import { SigninResponse, User, UserManagerSettings } from 'oidc-client-ts';
+
+import { getUserStoreKey } from '../client/oidcClient';
 
 export type UserCreationProps = {
   invalidUser?: boolean;
@@ -54,4 +56,14 @@ export function createUser(userCreationProps: UserCreationProps = {}): User {
       return JSON.stringify(this);
     },
   } as unknown) as User;
+}
+
+export async function placeUserToStorage(
+  userManagerSettings: Partial<UserManagerSettings>,
+  userCreationProps?: UserCreationProps,
+) {
+  const { authority, client_id } = userManagerSettings;
+  const user = createUser(userCreationProps);
+  sessionStorage.setItem(getUserStoreKey({ authority, client_id }), user.toStorageString());
+  return user;
 }
