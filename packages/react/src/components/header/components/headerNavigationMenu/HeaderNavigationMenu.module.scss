@@ -2,23 +2,20 @@
   background-color: var(--color-white);
   border-bottom: 1px solid var(--color-black-20);
   display: flex;
-  height: 64px;
+  height: var(--layout-l);
   width: 100%;
+  padding: 0 var(--header-margin);
+  box-sizing: border-box;
 }
 
 .headerNavigationMenuList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--spacing-xs);
+  gap: var(--spacing-l);
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
-}
-
-.headerNavigationMenuLinkContainer {
-  margin-left: var(--spacing-xs);
-  margin-right: var(--spacing-xs);
 }
 
 .headerNavigationMenuLinkContent {
@@ -37,5 +34,6 @@
 
 .headerNavigationMenuLink.headerNavigationMenuLink {
   font-size: var(--fontsize-body-l);
-  padding: var(--spacing-s) var(--spacing-s) var(--spacing-s) 0;
+  padding: var(--spacing-s) 0 var(--spacing-s) 0;
+  margin: 0 calc(-1 * var(--header-focus-outline-width));
 }

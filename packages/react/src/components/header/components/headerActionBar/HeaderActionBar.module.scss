@@ -6,10 +6,11 @@
   border-bottom: 1px solid var(--header-divider-color);
   box-sizing: border-box;
   display: flex;
-  gap: var(--action-bar-section-12px);
+  gap: var(--action-bar-section-gutter);
   height: var(--action-bar-container-height);
   justify-content: space-between;
-  padding-left: var(--action-bar-margin);
+  padding-left: var(--header-margin);
+  padding-right: var(--header-margin);
   position: relative;
 }
 
@@ -58,5 +59,4 @@
   align-self: center;
   box-sizing: content-box;
   height: var(--logo-height);
-  padding: 12px 4px;
 }

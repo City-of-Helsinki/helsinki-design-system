@@ -18,6 +18,7 @@ $animation-close-delay: 150ms;
 
     .dropdownWrapper {
       max-height: 0;
+      min-width: 300px;
       padding-bottom: 0;
       transition-delay: $animation-duration + $animation-close-delay;
     }
@@ -48,11 +49,9 @@ $animation-close-delay: 150ms;
 
   .dropdown {
     background: white;
-    background: var(--color-black-5);
     border: 1px solid var(--color-black-10);
-    box-shadow: 0 0 20px rgb(0 0 0 / 0.1);
     margin-top: -1px;
-    padding: var(--spacing-s) var(--spacing-m);
+    padding: 0 var(--spacing-s);
     position: relative;
     right: 0;
     transform: translateY(-100%);

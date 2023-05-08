@@ -10,6 +10,7 @@
   flex-grow: 1;
   line-height: var(--lineheight-l);
   padding: 13px 0 15px;
+  margin: 0 calc(-1 * var(--header-focus-outline-width));
   text-decoration: none;
   word-wrap: break-word;
 

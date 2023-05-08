@@ -9,6 +9,7 @@ import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { DropdownDirection } from './components/navigationLink/types';
 import { LanguageOption } from '../../context/languageContext';
 import { IconSearch, IconUser } from '../../icons';
+import { Link } from '../link/Link';
 
 export default {
   component: Header,
@@ -61,8 +62,13 @@ export const WithFullFeatures = (args) => (
         menuButtonAriaLabel="Menu"
       >
         <Header.NavigationLanguageSelector languages={languages}>
-          <h3>Kielivalinnat</h3>
-          Infoteksti
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
         </Header.NavigationLanguageSelector>
 
         <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
@@ -245,8 +251,13 @@ export const WithActionBar = (args) => {
         titleStyle={TitleStyleType.black}
       >
         <Header.NavigationLanguageSelector languages={languages}>
-          <h3>Kielivalinnat</h3>
-          Infoteksti
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
         </Header.NavigationLanguageSelector>
 
         <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
