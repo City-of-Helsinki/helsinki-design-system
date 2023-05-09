@@ -114,6 +114,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
         const error = callbackError
           ? new OidcClientError('SigninRedirectCallback returned an error', 'SIGNIN_ERROR', callbackError)
           : new OidcClientError('SigninRedirectCallback returned invalid or expired user', 'INVALID_OR_EXPIRED_USER');
+        dedicatedBeacon.emitError(error);
         emitStateChange('NO_SESSION');
         return Promise.reject(error);
       }

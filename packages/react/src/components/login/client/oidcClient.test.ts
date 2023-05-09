@@ -14,6 +14,7 @@ import { OidcClientError } from './oidcClientError';
 import { createUser } from '../testUtils/userTestUtil';
 import { createConnectedBeaconModule, getListenerSignals } from '../testUtils/beaconTestUtil';
 import { stateChangeSignalType } from './signals';
+import { ErrorSignal } from '../beacon/signals';
 
 const {
   initTests,
@@ -250,6 +251,23 @@ describe('oidcClient', () => {
       });
       expect(emittedSignals[1].payload).toMatchObject({
         state: 'VALID_SESSION',
+        previousState: 'HANDLING_LOGIN_CALLBACK',
+      });
+    });
+    it('state changes twice when handleCallback is called and fails. Payloads have state changes and error', async () => {
+      const { oidcClient } = await initTests({ module: listenerModule });
+      setSignInResponse({ invalidUser: true });
+      const [error] = await to(oidcClient.handleCallback());
+      const emittedSignals = getListenerSignals(listenerModule.getListener());
+      expect(emittedSignals).toHaveLength(3);
+      expect(emittedSignals[0].payload).toMatchObject({
+        state: 'HANDLING_LOGIN_CALLBACK',
+        previousState: 'NO_SESSION',
+      });
+      expect((emittedSignals[1].payload as OidcClientError).isInvalidUserError).toBeTruthy();
+      expect(emittedSignals[1].payload).toBe(error);
+      expect(emittedSignals[2].payload).toMatchObject({
+        state: 'NO_SESSION',
         previousState: 'HANDLING_LOGIN_CALLBACK',
       });
     });

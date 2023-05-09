@@ -1,6 +1,6 @@
 export type SignalType = string;
 export type SignalNamespace = string;
-export type SignalPayload = Record<string, unknown>;
+export type SignalPayload = Record<string, unknown> | Error;
 export interface ConnectedModule {
   connect: (beacon: Beacon) => void;
   namespace: SignalNamespace;
