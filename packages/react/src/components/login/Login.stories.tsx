@@ -4,7 +4,7 @@ import { User } from 'oidc-client-ts';
 import { Button } from '../button/Button';
 import { LoginContextProvider, useOidcClient } from './index';
 import { Notification } from '../notification/Notification';
-import { OidcClientProps } from './client/oidcClient';
+import { OidcClientProps } from './client/index';
 import { LoginCallbackHandler } from './LoginCallbackHandler';
 import { OidcClientError } from './client/oidcClientError';
 

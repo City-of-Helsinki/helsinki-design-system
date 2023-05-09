@@ -2,7 +2,6 @@ import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelp
 import {
   Beacon,
   ConnectedModule,
-  Disposer,
   LISTEN_TO_ALL_MARKER,
   Signal,
   SignalListener,
@@ -17,7 +16,12 @@ import {
   advanceUntilListenerCalled,
   advanceUntilPromiseResolved,
 } from '../testUtils/timerTestUtil';
-import { NamespacedBeacon, createNamespacedBeacon } from './signals';
+import {
+  getListenerSignalTypes,
+  getAllContexts,
+  getLastContext,
+  createConnectedBeaconModule,
+} from '../testUtils/beaconTestUtil';
 
 type CallDataWithTimestampAndId = {
   signalTypeAndNamespace: SignalType;
@@ -38,25 +42,11 @@ describe(`beacon`, () => {
   // convert signals to comparable/human readable form so it is easier to compare
   const convertSignalToString = (signal: Signal) => `${signal.type}:${signal.namespace}`;
 
-  const getListenerSignalTypes = (listener: jest.Mock | SignalListener) =>
-    getAllMockCallArgs(listener as jest.Mock).map((args: unknown[]) => {
-      const signal = args[0] as Signal;
-      return convertSignalToString(signal);
-    });
-
   const getContextFromArguments = (args: unknown[]) => {
     const contextArgs = args.filter((arg) => {
       return !!(arg && (arg as Signal).context);
     }) as Signal[];
     return contextArgs[0] && contextArgs[0].context;
-  };
-
-  const getLastContext = (listener: jest.Mock) => {
-    return getContextFromArguments(getLastMockCallArgs(listener));
-  };
-
-  const getAllContexts = (listener: jest.Mock) => {
-    return getAllMockCallArgs(listener).map(getContextFromArguments);
   };
 
   const createListenerWithAsyncResponse = (
@@ -191,26 +181,8 @@ describe(`beacon`, () => {
     };
   };
 
-  const createConnectedBeaconModule = (
-    namespace: SignalNamespace,
-  ): { listenTo: (signalOrJustType: SignalType) => Disposer; getListener: () => jest.Mock } & NamespacedBeacon &
-    ConnectedModule => {
-    const dedicatedBeacon = createNamespacedBeacon(namespace);
-    const listener = jest.fn();
-    return {
-      ...dedicatedBeacon,
-      listenTo: (signalOrJustType) => {
-        const wrappedListener: SignalListener = (signal) => {
-          listener({ ...signal }, namespace, getOrderNumber());
-        };
-        return dedicatedBeacon.addListener(signalOrJustType, wrappedListener);
-      },
-      namespace,
-      connect: (targetBeacon) => {
-        dedicatedBeacon.storeBeacon(targetBeacon);
-      },
-      getListener: () => listener,
-    };
+  const createTestBeaconModule = (namespace: SignalNamespace) => {
+    return createConnectedBeaconModule(namespace, getOrderNumber);
   };
 
   beforeEach(() => {
@@ -485,8 +457,8 @@ describe(`beacon`, () => {
   });
   describe(`Context and connected modules`, () => {
     it(`addSignalContext() adds the module to the context map of the beacon and calls module.connect()`, async () => {
-      const connectedModule1 = createConnectedBeaconModule('module1');
-      const connectedModule2 = createConnectedBeaconModule('module2');
+      const connectedModule1 = createTestBeaconModule('module1');
+      const connectedModule2 = createTestBeaconModule('module2');
       const connectedModule1Spy = jest.spyOn(connectedModule1, 'connect');
       const connectedModule2Spy = jest.spyOn(connectedModule2, 'connect');
       expect(beacon.getAllSignalContextsAsObject()).toMatchObject({});
@@ -510,14 +482,14 @@ describe(`beacon`, () => {
       expect(beacon.getSignalContext(connectedModule2.namespace)).toBe(connectedModule2);
     });
     it(`addSignalContext() throws, if adding same namespace again`, async () => {
-      const connectedModule1 = createConnectedBeaconModule('module1');
+      const connectedModule1 = createTestBeaconModule('module1');
       beacon.addSignalContext(connectedModule1);
       expect(() => beacon.addSignalContext(connectedModule1)).toThrow();
     });
     it(`a signal is emitted to all connected modules when emitInitializationSignals() is called`, async () => {
-      const connectedModule1 = createConnectedBeaconModule('module1');
-      const connectedModule2 = createConnectedBeaconModule('module2');
-      const connectedModule3 = createConnectedBeaconModule('module3');
+      const connectedModule1 = createTestBeaconModule('module1');
+      const connectedModule2 = createTestBeaconModule('module2');
+      const connectedModule3 = createTestBeaconModule('module3');
       const nonModuleListener = jest.fn();
       wrapListenerWithIdAndOrderNum(signalForListeningEverything, 'nonModuleListener', nonModuleListener);
       beacon.addSignalContext(connectedModule1);
@@ -580,8 +552,8 @@ describe(`beacon`, () => {
     });
     it(`the connected context, if it can be found with given namespace`, () => {
       const context1 = createDummyContext('c1');
-      const connectedModule1 = createConnectedBeaconModule('module1');
-      const connectedModule2 = createConnectedBeaconModule('module2');
+      const connectedModule1 = createTestBeaconModule('module1');
+      const connectedModule2 = createTestBeaconModule('module2');
       const connectedModule1Listener = connectedModule1.getListener();
       const connectedModule2Listener = connectedModule2.getListener();
       beacon.addSignalContext(connectedModule1);

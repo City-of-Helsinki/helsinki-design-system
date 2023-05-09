@@ -67,3 +67,13 @@ export async function placeUserToStorage(
   sessionStorage.setItem(getUserStoreKey({ authority, client_id }), user.toStorageString());
   return user;
 }
+
+export function createUserAndPlaceUserToStorage(
+  userManagerSettings: Partial<UserManagerSettings>,
+  userCreationProps: UserCreationProps = {},
+) {
+  const user = createUser(userCreationProps);
+  const { authority, client_id } = userManagerSettings;
+  sessionStorage.setItem(getUserStoreKey({ authority, client_id }), user.toStorageString());
+  return user;
+}

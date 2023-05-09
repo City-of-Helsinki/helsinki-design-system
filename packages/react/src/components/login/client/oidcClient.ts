@@ -1,40 +1,9 @@
-import { UserManager, UserManagerSettings, SigninRedirectArgs, WebStorageStateStore, User } from 'oidc-client-ts';
+import { UserManager, UserManagerSettings, WebStorageStateStore, User } from 'oidc-client-ts';
 import to from 'await-to-js';
 
+import { OidcClientProps, OidcClient, oidcClientNamespace, UserReturnType, OidcClientState } from './index';
 import { OidcClientError } from './oidcClientError';
-import { ConnectedModule, SignalNamespace } from '../beacon/beacon';
-
-export type LoginProps = {
-  language?: string;
-} & SigninRedirectArgs;
-
-export type OidcClientProps = {
-  userManagerSettings: Partial<UserManagerSettings>;
-};
-
-export type UserReturnType = User | null;
-
-export interface OidcClient extends ConnectedModule {
-  /**
-   * Returns user object or null
-   */
-  getUser: () => UserReturnType;
-  /**
-   * Returns the client's UserManager
-   */
-  getUserManager: () => UserManager;
-  /**
-   * Handles the callback path and returns an user object - if user is valid
-   */
-  handleCallback: () => Promise<User>;
-  /**
-   * Calls the authorization_endpoint with given parameters
-   * Browser window is redirected, the returned promise never fulfills
-   */
-  login: (props?: LoginProps) => Promise<void>;
-}
-
-export const oidcClientNamespace: SignalNamespace = 'oidcClientName';
+import { createOidcClientBeacon } from './signals';
 
 const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   userManagerSettings: {
@@ -103,6 +72,17 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       userStore: new WebStorageStateStore({ store }),
     },
   };
+  let state: OidcClientState = 'NO_SESSION';
+  const dedicatedBeacon = createOidcClientBeacon();
+
+  const emitStateChange = (newState: OidcClientState) => {
+    if (state === newState) {
+      return;
+    }
+    const previousState = state;
+    state = newState;
+    dedicatedBeacon.emitStateChange({ state, previousState });
+  };
 
   const userManager = new UserManager(combinedProps.userManagerSettings as UserManagerSettings);
 
@@ -111,20 +91,33 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     return user || null;
   };
 
+  if (isValidUser(getUserFromStorageSyncronously())) {
+    state = 'VALID_SESSION';
+  }
+
   const oidcClient: OidcClient = {
+    connect: (beacon) => {
+      dedicatedBeacon.storeBeacon(beacon);
+    },
+    getState: () => {
+      return state;
+    },
     getUser() {
       return getUserFromStorageSyncronously();
     },
     getUserManager: () => userManager,
     handleCallback: async () => {
+      emitStateChange('HANDLING_LOGIN_CALLBACK');
       const [callbackError, user] = await to(userManager.signinRedirectCallback());
       const isReturnedUserValid = isValidUser(user);
       if (callbackError || !isReturnedUserValid) {
         const error = callbackError
           ? new OidcClientError('SigninRedirectCallback returned an error', 'SIGNIN_ERROR', callbackError)
           : new OidcClientError('SigninRedirectCallback returned invalid or expired user', 'INVALID_OR_EXPIRED_USER');
+        emitStateChange('NO_SESSION');
         return Promise.reject(error);
       }
+      emitStateChange('VALID_SESSION');
       return Promise.resolve(user);
     },
     login: async (loginProps) => {
@@ -132,15 +125,13 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       if (language) {
         extraQueryParams.ui_locales = language;
       }
+      emitStateChange('LOGGING_IN');
       return userManager.signinRedirect({
         extraQueryParams,
         ...rest,
       });
     },
     namespace: oidcClientNamespace,
-    connect: () => {
-      // no use yet.
-    },
   };
   return oidcClient;
 }

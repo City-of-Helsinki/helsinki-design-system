@@ -8,11 +8,20 @@ import {
   createOidcClientTestSuite,
   getDefaultOidcClientTestProps,
 } from '../testUtils/oidcClientTestUtil';
-import { LoginProps, getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
+import { LoginProps } from './index';
+import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
 import { createUser } from '../testUtils/userTestUtil';
+import { createConnectedBeaconModule, getListenerSignals } from '../testUtils/beaconTestUtil';
+import { stateChangeSignalType } from './signals';
 
-const { initTests, waitForLoginToTimeout, cleanUp, setSignInResponse } = createOidcClientTestSuite();
+const {
+  initTests,
+  waitForLoginToTimeout,
+  cleanUp,
+  setSignInResponse,
+  placeUserToStorage,
+} = createOidcClientTestSuite();
 
 describe('oidcClient', () => {
   let testData: InitTestResult;
@@ -202,6 +211,47 @@ describe('oidcClient', () => {
     });
     it('returns false, if user is not set', async () => {
       expect(isValidUser(undefined)).toBeFalsy();
+    });
+  });
+  describe('state changes should be emitted', () => {
+    let listenerModule: ReturnType<typeof createConnectedBeaconModule>;
+    beforeEach(async () => {
+      listenerModule = createConnectedBeaconModule('oidcClientTests');
+      listenerModule.listenTo('*:*');
+    });
+    it('state is NO_SESSION when valid user does not exist on init. No change is emitted.', async () => {
+      const { oidcClient } = await initTests({ module: listenerModule });
+      expect(oidcClient.getState()).toBe('NO_SESSION');
+      expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
+    });
+    it('state is VALID_SESSION when valid user does exist on init.  No change is emitted.', async () => {
+      placeUserToStorage();
+      const { oidcClient } = await initTests({ module: listenerModule });
+      expect(oidcClient.getState()).toBe('VALID_SESSION');
+      expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
+    });
+    it('state changes when login is called. Payload has state change', async () => {
+      await initTests({ module: listenerModule });
+      await waitForLoginToTimeout();
+      const emittedSignals = getListenerSignals(listenerModule.getListener());
+      expect(emittedSignals).toHaveLength(1);
+      expect(emittedSignals[0].type).toBe(stateChangeSignalType);
+      expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_IN', previousState: 'NO_SESSION' });
+    });
+    it('state changes twice when handleCallback is called and successful. Payloads have state changes', async () => {
+      const { oidcClient } = await initTests({ module: listenerModule });
+      setSignInResponse();
+      await oidcClient.handleCallback();
+      const emittedSignals = getListenerSignals(listenerModule.getListener());
+      expect(emittedSignals).toHaveLength(2);
+      expect(emittedSignals[0].payload).toMatchObject({
+        state: 'HANDLING_LOGIN_CALLBACK',
+        previousState: 'NO_SESSION',
+      });
+      expect(emittedSignals[1].payload).toMatchObject({
+        state: 'VALID_SESSION',
+        previousState: 'HANDLING_LOGIN_CALLBACK',
+      });
     });
   });
 });

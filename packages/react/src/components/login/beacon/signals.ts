@@ -19,9 +19,23 @@ export type NamespacedBeacon = {
 
 export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBeacon {
   let beacon: Beacon | undefined;
+  const pendingListenerCalls: Array<(actualBeacon: Beacon) => void> = [];
+  const addPendingListenerCall = (...args: Parameters<Beacon['addListener']>) => {
+    const disposerContainer = [() => undefined];
+    pendingListenerCalls.push((actualBeacon) => {
+      disposerContainer[0] = actualBeacon.addListener(...args);
+    });
+    return () => {
+      disposerContainer[0]();
+    };
+  };
   return {
     storeBeacon: (target) => {
       beacon = target;
+      pendingListenerCalls.forEach((call) => {
+        call(beacon);
+      });
+      pendingListenerCalls.length = 0;
     },
     emit: (signalType, payload) => {
       return beacon ? beacon.emit({ type: signalType, namespace, payload }) : undefined;
@@ -30,9 +44,6 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
       return beacon ? beacon.emitAsync({ type: signalType, namespace, payload }) : Promise.resolve(null);
     },
     addListener: (signalOrJustType, listener, excludeOwnNamespace = true) => {
-      if (!beacon) {
-        return () => undefined;
-      }
       const { type, namespace: namespaceToListen } = splitTypeAndNamespace(signalOrJustType, LISTEN_TO_ALL_MARKER);
       if (namespaceToListen === namespace) {
         return () => undefined;
@@ -46,6 +57,9 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
             return listener(signal);
           }
         : listener;
+      if (!beacon) {
+        return addPendingListenerCall({ type, namespace: namespaceToListen }, wrappedListener);
+      }
       return beacon.addListener({ type, namespace: namespaceToListen }, wrappedListener);
     },
   };

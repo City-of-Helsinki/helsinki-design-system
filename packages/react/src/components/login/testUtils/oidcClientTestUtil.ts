@@ -5,14 +5,21 @@ import { UserManager, OidcClient as OidcClientFromNpm, SigninResponse } from 'oi
 import fetchMock from 'jest-fetch-mock';
 import { waitFor } from '@testing-library/react';
 
-import createOidcClient, { OidcClient, OidcClientProps, LoginProps } from '../client/oidcClient';
+import { OidcClient, OidcClientProps, LoginProps } from '../client/index';
+import createOidcClient from '../client/oidcClient';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
-import { UserCreationProps, createSignInResponse } from './userTestUtil';
+import { UserCreationProps, createSignInResponse, createUserAndPlaceUserToStorage } from './userTestUtil';
+import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
 
 export type InitTestResult = {
   oidcClient: OidcClient;
   userManager: UserManager;
+  beacon?: Beacon;
+};
+
+export type InitTestProps = {
+  module?: ConnectedModule;
 };
 
 const authority = 'https://api.hel.fi/sso/openid';
@@ -48,6 +55,7 @@ export function mockSignInResponse(userManager: UserManager, userProps: UserCrea
 export function createOidcClientTestSuite() {
   let oidcClient: OidcClient;
   let userManager: UserManager;
+  let beacon: Beacon;
 
   const returnOpenIdConfiguration = () =>
     Promise.resolve({
@@ -75,7 +83,7 @@ export function createOidcClientTestSuite() {
   }
 
   const initTests = async (
-    testProps: unknown,
+    testProps: InitTestProps = {},
     additionalOidcClientProps?: Partial<OidcClientProps>,
   ): Promise<InitTestResult> => {
     const oidcClientProps = {
@@ -84,18 +92,31 @@ export function createOidcClientTestSuite() {
     };
     oidcClient = createOidcClient(oidcClientProps);
     userManager = oidcClient.getUserManager();
-    return { oidcClient, userManager };
+    if (testProps.module) {
+      beacon = createBeacon();
+      beacon.addSignalContext(testProps.module);
+      beacon.addSignalContext(oidcClient);
+    }
+    return { oidcClient, userManager, beacon };
   };
 
   const getOidcClient = () => oidcClient;
   const getUserManager = () => userManager;
+  const getBeacon = () => beacon;
 
   const cleanUp = () => {
+    if (beacon) {
+      beacon.clear();
+    }
     sessionStorage.clear();
     jest.restoreAllMocks();
   };
 
   const getDefaultOidcClientProps = () => defaultOidcClientTestProps;
+  const placeUserToStorage = (
+    userCreationProps?: UserCreationProps,
+    userManagerSettings = defaultOidcClientTestProps.userManagerSettings,
+  ) => createUserAndPlaceUserToStorage(userManagerSettings, userCreationProps);
 
   return {
     initTests,
@@ -103,9 +124,11 @@ export function createOidcClientTestSuite() {
     cleanUp,
     getOidcClient,
     getUserManager,
+    getBeacon,
     getDefaultOidcClientProps,
     setSignInResponse: (userProps?: UserCreationProps) => {
       return mockSignInResponse(userManager, userProps);
     },
+    placeUserToStorage,
   };
 }

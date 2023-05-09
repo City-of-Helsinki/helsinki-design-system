@@ -1,6 +1,7 @@
 import { useContext, useCallback, useState, useLayoutEffect } from 'react';
 
-import { isValidUser, OidcClient, UserReturnType } from './client/oidcClient';
+import { OidcClient, UserReturnType } from './client/index';
+import { isValidUser } from './client/oidcClient';
 import { LoginContext, LoginContextData } from './LoginContext';
 import { Signal, SignalListener } from './beacon/beacon';
 
