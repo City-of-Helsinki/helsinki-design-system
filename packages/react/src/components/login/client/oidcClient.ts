@@ -2,6 +2,7 @@ import { UserManager, UserManagerSettings, SigninRedirectArgs, WebStorageStateSt
 import to from 'await-to-js';
 
 import { OidcClientError } from './oidcClientError';
+import { ConnectedModule, SignalNamespace } from '../beacon/beacon';
 
 export type LoginProps = {
   language?: string;
@@ -13,7 +14,7 @@ export type OidcClientProps = {
 
 export type UserReturnType = User | null;
 
-export type OidcClient = {
+export interface OidcClient extends ConnectedModule {
   /**
    * Returns user object or null
    */
@@ -31,7 +32,9 @@ export type OidcClient = {
    * Browser window is redirected, the returned promise never fulfills
    */
   login: (props?: LoginProps) => Promise<void>;
-};
+}
+
+export const oidcClientNamespace: SignalNamespace = 'oidcClientName';
 
 const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   userManagerSettings: {
@@ -108,7 +111,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     return user || null;
   };
 
-  return {
+  const oidcClient: OidcClient = {
     getUser() {
       return getUserFromStorageSyncronously();
     },
@@ -134,5 +137,10 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
         ...rest,
       });
     },
+    namespace: oidcClientNamespace,
+    connect: () => {
+      // no use yet.
+    },
   };
+  return oidcClient;
 }

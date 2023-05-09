@@ -3,11 +3,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
 import { createOidcClientTestSuite, getDefaultOidcClientTestProps } from './oidcClientTestUtil';
+import { useBeacon } from '../hooks';
 import { OidcClientProps } from '../client/oidcClient';
 import { LoginContextProvider } from '../LoginContext';
+import { ConnectedModule, Signal, SignalNamespace } from '../beacon/beacon';
+import { NamespacedBeacon, createNamespacedBeacon } from '../beacon/signals';
+import { getAllMockCallArgs } from '../../../utils/testHelpers';
 import { UserCreationProps, placeUserToStorage } from './userTestUtil';
 
+export type ListenerData = { signal: Signal | undefined; id: string; orderNum: number; uuid: string | undefined };
+export type ListenerGetter = (id: string) => jest.Mock;
+
+type BeaconFuncs = ReturnType<typeof useBeacon>;
 export type HookTestUtil = ReturnType<typeof createHookTestEnvironment>;
+export type ListenerFactory = ReturnType<typeof createSignalListenerFactory>;
 
 type TestProps = {
   children: React.ReactNodeArray;
@@ -15,7 +24,60 @@ type TestProps = {
   userInStorage?: UserCreationProps;
 };
 
+const listenerFactoryNamespace = 'listenerFactory';
+
+export const useListenerFactory = (): ListenerFactory => {
+  const beacon = useBeacon();
+  return beacon.getModule(listenerFactoryNamespace) as ListenerFactory;
+};
+
+const createSignalListenerFactory = () => {
+  let count = 0;
+  const getOrderNumber = () => {
+    count += 1;
+    return count;
+  };
+  const listeners = new Map<string, jest.Mock>();
+  const getOrAdd = (id: string) => {
+    const exists = listeners.has(id);
+
+    const actualListener = exists ? (listeners.get(id) as jest.Mock) : jest.fn();
+    const identifiableListener = (signal: Signal, uuid?: string) => {
+      actualListener({ signal: { ...signal }, id, orderNum: getOrderNumber(), uuid });
+    };
+    if (!exists) {
+      listeners.set(id, actualListener);
+    }
+    return identifiableListener as jest.Mock;
+  };
+  const getListener = (id: string) => {
+    return listeners.get(id);
+  };
+  const getCalls = (id: string): ListenerData[] => {
+    const listener = getListener(id);
+    if (!listener) {
+      return [];
+    }
+    return getAllMockCallArgs(listener);
+  };
+  const reset = () => {
+    count = 0;
+    listeners.clear();
+  };
+  return {
+    namespace: listenerFactoryNamespace,
+    getCalls,
+    getOrAdd,
+    getListener,
+    reset,
+    connect: () => {
+      // just to make this compatible with modules
+    },
+  };
+};
+
 const elementIds = {
+  user: 'user-element',
   container: 'container-element',
   renderTimeSuffix: 'render-time',
   renderToggle: 'render-toggle-button',
@@ -73,13 +135,45 @@ const TestComponent = ({ waitForRenderToggle, children }: Pick<TestProps, 'child
 export function createHookTestEnvironment(
   { userInStorage, ...componentProps }: TestProps,
   additionalOidcClientProps?: Partial<OidcClientProps>,
+  modules: ConnectedModule[] = [],
 ) {
+  const listenerFactory = createSignalListenerFactory();
+
   const { cleanUp } = createOidcClientTestSuite();
+
+  const createModule = (namespace: SignalNamespace): NamespacedBeacon & ConnectedModule => {
+    const dedicatedBeacon = createNamespacedBeacon(namespace);
+    return {
+      ...dedicatedBeacon,
+      namespace,
+      connect: (targetBeacon) => {
+        dedicatedBeacon.storeBeacon(targetBeacon);
+      },
+    };
+  };
+
+  const helperModule = createModule('helper');
+
+  let beaconFuncs: BeaconFuncs | undefined;
+
+  const storeBeaconFuncs = (funcs: BeaconFuncs) => {
+    beaconFuncs = funcs;
+  };
+  const getBeaconFuncs = () => {
+    return beaconFuncs as BeaconFuncs;
+  };
 
   const afterEach = () => {
     jest.restoreAllMocks();
+    beaconFuncs = undefined;
     sessionStorage.clear();
     cleanUp();
+  };
+
+  const GetBeacon = ({ callback }: { callback: (beaconFuncs: BeaconFuncs) => void }) => {
+    const funcs = useBeacon();
+    callback(funcs);
+    return <p>Beacon is here</p>;
   };
 
   const oidcClientProps = { ...getDefaultOidcClientTestProps(), ...additionalOidcClientProps };
@@ -89,7 +183,8 @@ export function createHookTestEnvironment(
   }
 
   const { container } = render(
-    <LoginContextProvider loginProps={oidcClientProps}>
+    <LoginContextProvider loginProps={oidcClientProps} modules={[...modules, helperModule, listenerFactory]}>
+      <GetBeacon callback={storeBeaconFuncs} />
       <TestComponent {...componentProps} />
     </LoginContextProvider>,
   );
@@ -167,7 +262,10 @@ export function createHookTestEnvironment(
         });
       });
     },
+    getBeaconFuncs,
     afterEach,
     getElementJSON,
+    listenerFactory,
+    helperModule,
   };
 }
