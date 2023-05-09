@@ -16,10 +16,17 @@ export type NamespacedBeacon = {
   emitAsync: (signalType: SignalType, payload?: SignalPayload) => Promise<void | null | undefined>;
   addListener: (signalOrJustType: SignalType | Signal, listener: SignalListener, excludeOwn?: boolean) => Disposer;
   emitError: (errorPayload?: ErrorPayload) => void;
+  emitEvent: (eventType: EventType, data?: EventData) => Promise<void>;
 };
 export const errorSignalType = 'error' as const;
 export type ErrorPayload = Error;
 export type ErrorSignal = Signal & { type: typeof errorSignalType; payload: ErrorPayload };
+
+export const eventSignalType = 'event' as const;
+export type EventType = string;
+export type EventData = unknown;
+export type EventPayload = { type: EventType; data?: EventData };
+export type EventSignal = Signal & { type: typeof eventSignalType; payload: EventPayload };
 
 export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBeacon {
   let beacon: Beacon | undefined;
@@ -49,6 +56,10 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
     },
     emitError: (payload) => {
       return beacon ? beacon.emit({ type: errorSignalType, namespace, payload }) : undefined;
+    },
+    emitEvent: async (type, data) => {
+      const payload: EventPayload = { type, data };
+      return beacon ? beacon.emitAsync({ type: errorSignalType, namespace, payload }) : Promise.resolve(null);
     },
     addListener: (signalOrJustType, listener, excludeOwnNamespace = true) => {
       const { type, namespace: namespaceToListen } = splitTypeAndNamespace(signalOrJustType, LISTEN_TO_ALL_MARKER);
