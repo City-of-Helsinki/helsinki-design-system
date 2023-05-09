@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.14.0] - May, 9, 2023
+
+### React 
+
+#### Fixed
+
+- [Accordion] Prevent page scroll when accordion is opened with the spacebar
+
+#### Changed
+- [SelectionGroup] Refactor code using deprecating React.Children API
+- [SideNavigation] Refactor code using deprecating React.Children API
+- [Tabs] Refactor code using deprecating React.Children API
+
+### Core
+
+#### Fixed
+
+- [SearchInput] Fix icon placement when text size is increased by 200%
+
+### Documentation
+
+#### Fixed
+- [FileInput] Added missing import
+- Repository's README files updated to match current branch policy
+
+#### Changed
+- [StatusLabel] Rectangular variant marked as deprected
+- Refactor code using deprecating React.Children API
+
+### Design tokens
+
+#### Added
+
+- New token for focus color
+
+### Design
+
+#### Changed
+
+- [Tag] Rectangular version marked as deprecated
+
 ## [2.13.0] - March, 27, 2023
 
 ### React 
