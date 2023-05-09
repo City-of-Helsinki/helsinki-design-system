@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Accordion] Prevent page scroll when accordion is opened with the spacebar
+- [SearchInput] SearchInput uses hds-core's SearchInput styles instead of TextInput's
 
 #### Changed
 - [SelectionGroup] Refactor code using deprecating React.Children API
@@ -24,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [SearchInput] Fix icon placement when text size is increased by 200%
+- [SearchInput] Unified CSS with TextInput
 
 ### Documentation
 
