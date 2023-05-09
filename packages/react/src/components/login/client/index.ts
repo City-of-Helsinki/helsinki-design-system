@@ -1,10 +1,14 @@
-import { UserManager, UserManagerSettings, SigninRedirectArgs, User } from 'oidc-client-ts';
+import { UserManager, UserManagerSettings, SigninRedirectArgs, SignoutRedirectArgs, User } from 'oidc-client-ts';
 
 import { ConnectedModule, SignalNamespace } from '../beacon/beacon';
 
 export type LoginProps = {
   language?: string;
 } & SigninRedirectArgs;
+
+export type LogoutProps = {
+  language?: string;
+} & SignoutRedirectArgs;
 
 export type OidcClientProps = {
   userManagerSettings: Partial<UserManagerSettings>;
@@ -36,6 +40,11 @@ export interface OidcClient extends ConnectedModule {
    * Browser window is redirected, the returned promise never fulfills
    */
   login: (props?: LoginProps) => Promise<void>;
+  /**
+   * Calls the end_session_endpoint with given parameters
+   * Browser window is redirected, the returned promise never fulfills
+   */
+  logout: (props?: LogoutProps) => Promise<void>;
 }
 
 export const oidcClientNamespace: SignalNamespace = 'oidcClientName';

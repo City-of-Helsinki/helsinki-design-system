@@ -1,7 +1,15 @@
 import { UserManager, UserManagerSettings, WebStorageStateStore, User } from 'oidc-client-ts';
 import to from 'await-to-js';
 
-import { OidcClientProps, OidcClient, oidcClientNamespace, UserReturnType, OidcClientState } from './index';
+import {
+  OidcClientProps,
+  OidcClient,
+  oidcClientNamespace,
+  UserReturnType,
+  OidcClientState,
+  LoginProps,
+  LogoutProps,
+} from './index';
 import { OidcClientError } from './oidcClientError';
 import { createOidcClientBeacon } from './signals';
 
@@ -91,6 +99,17 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     return user || null;
   };
 
+  const convertLoginOrLogoutParams = <T extends LoginProps | LogoutProps>(propsToConvert: T): T => {
+    const { extraQueryParams = {}, language, ...rest } = propsToConvert || {};
+    if (language) {
+      extraQueryParams.ui_locales = language;
+    }
+    return {
+      extraQueryParams,
+      ...rest,
+    } as T;
+  };
+
   if (isValidUser(getUserFromStorageSyncronously())) {
     state = 'VALID_SESSION';
   }
@@ -122,15 +141,12 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       return Promise.resolve(user);
     },
     login: async (loginProps) => {
-      const { extraQueryParams = {}, language, ...rest } = loginProps || {};
-      if (language) {
-        extraQueryParams.ui_locales = language;
-      }
       emitStateChange('LOGGING_IN');
-      return userManager.signinRedirect({
-        extraQueryParams,
-        ...rest,
-      });
+      return userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps));
+    },
+    logout: async (logoutProps) => {
+      emitStateChange('LOGGING_OUT');
+      return userManager.signoutRedirect(convertLoginOrLogoutParams<LogoutProps>(logoutProps));
     },
     namespace: oidcClientNamespace,
   };

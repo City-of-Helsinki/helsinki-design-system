@@ -5,7 +5,7 @@ import { UserManager, OidcClient as OidcClientFromNpm, SigninResponse } from 'oi
 import fetchMock from 'jest-fetch-mock';
 import { waitFor } from '@testing-library/react';
 
-import { OidcClient, OidcClientProps, LoginProps } from '../client/index';
+import { OidcClient, OidcClientProps, LoginProps, LogoutProps } from '../client/index';
 import createOidcClient from '../client/oidcClient';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
@@ -82,6 +82,12 @@ export function createOidcClientTestSuite() {
     ).rejects.toThrow();
   }
 
+  // loginClient.logout redirects the browser.
+  // The returned promise is never resolved.
+  async function waitForLogoutToTimeout(logoutProps?: LogoutProps) {
+    await expect(() => waitFor(() => oidcClient.logout(logoutProps), { timeout: 1000 })).rejects.toThrow();
+  }
+
   const initTests = async (
     testProps: InitTestProps = {},
     additionalOidcClientProps?: Partial<OidcClientProps>,
@@ -121,6 +127,7 @@ export function createOidcClientTestSuite() {
   return {
     initTests,
     waitForLoginToTimeout,
+    waitForLogoutToTimeout,
     cleanUp,
     getOidcClient,
     getUserManager,

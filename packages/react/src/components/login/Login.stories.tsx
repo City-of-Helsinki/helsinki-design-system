@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { User } from 'oidc-client-ts';
 
 import { Button } from '../button/Button';
-import { LoginContextProvider, useOidcClient } from './index';
+import { LoginContextProvider, useAuthenticatedUser, useOidcClient } from './index';
 import { Notification } from '../notification/Notification';
 import { OidcClientProps } from './client/index';
 import { LoginCallbackHandler } from './LoginCallbackHandler';
@@ -36,7 +36,7 @@ const IFrameWarning = () => {
     return (
       <Notification type="error">
         <p>Login components should not be used in an iframe</p>
-        <Button onClick={openWindowInTop}>Open this story without and iframe</Button>
+        <Button onClick={openWindowInTop}>Open this story without an iframe</Button>
       </Notification>
     );
   }
@@ -48,11 +48,33 @@ const LoginComponent = () => {
   const onButtonClick = () => {
     oidcClient.login();
   };
+  return (
+    <div>
+      <p>You are not logged in!</p>
+      <Button onClick={onButtonClick}>Login</Button>
+    </div>
+  );
+};
 
+const LogoutComponent = () => {
+  const oidcClient = useOidcClient();
+  const onButtonClick = () => {
+    oidcClient.logout();
+  };
+  return (
+    <div>
+      <p>You are logged in!</p>
+      <Button onClick={onButtonClick}>Logout</Button>
+    </div>
+  );
+};
+
+const LoginOrLogout = () => {
+  const user = useAuthenticatedUser();
   return (
     <div>
       <IFrameWarning />
-      <Button onClick={onButtonClick}>Login</Button>
+      {user ? <LogoutComponent /> : <LoginComponent />}
     </div>
   );
 };
@@ -60,7 +82,7 @@ const LoginComponent = () => {
 export const Example = () => {
   return (
     <LoginContextProvider loginProps={loginProps}>
-      <LoginComponent />
+      <LoginOrLogout />
     </LoginContextProvider>
   );
 };
@@ -77,7 +99,12 @@ export const Callback = () => {
     return <p>Login failed!</p>;
   }
   if (userOrError) {
-    return <p>Welcome user, {(userOrError as User).profile.given_name}</p>;
+    return (
+      <div>
+        <p>Welcome user, {(userOrError as User).profile.given_name}</p>
+        <LogoutComponent />
+      </div>
+    );
   }
 
   return (

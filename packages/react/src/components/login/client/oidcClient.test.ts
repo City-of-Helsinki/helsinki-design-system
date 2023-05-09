@@ -8,17 +8,17 @@ import {
   createOidcClientTestSuite,
   getDefaultOidcClientTestProps,
 } from '../testUtils/oidcClientTestUtil';
-import { LoginProps } from './index';
+import { LoginProps, LogoutProps } from './index';
 import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
 import { createUser } from '../testUtils/userTestUtil';
 import { createConnectedBeaconModule, getListenerSignals } from '../testUtils/beaconTestUtil';
 import { stateChangeSignalType } from './signals';
-import { ErrorSignal } from '../beacon/signals';
 
 const {
   initTests,
   waitForLoginToTimeout,
+  waitForLogoutToTimeout,
   cleanUp,
   setSignInResponse,
   placeUserToStorage,
@@ -77,6 +77,53 @@ describe('oidcClient', () => {
           ui_locales: 'sv',
         },
       });
+    });
+  });
+  describe('.logout()', () => {
+    beforeEach(async () => {
+      testData = await initTests({});
+      const { oidcClient } = testData;
+      setSignInResponse();
+      await oidcClient.handleCallback();
+    });
+    it('should add given language to the logout url', async () => {
+      const { userManager } = testData;
+      const signoutRedirectSpy = jest.spyOn(userManager, 'signoutRedirect');
+      const loginParams = { language: 'sv' };
+      await waitForLogoutToTimeout(loginParams);
+      expect(signoutRedirectSpy).toHaveBeenCalledTimes(1);
+      expect(signoutRedirectSpy).toHaveBeenNthCalledWith(1, {
+        extraQueryParams: {
+          ui_locales: loginParams.language,
+        },
+      });
+      expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+    });
+    it('should pass other LogoutProps than "language" to signoutRedirect and convert "language" to an extraQueryParam', async () => {
+      const { userManager } = testData;
+      const signoutRedirectSpy = jest.spyOn(userManager, 'signoutRedirect');
+      const loginParams: LogoutProps = {
+        extraQueryParams: { extraParam1: 'extra' },
+        state: { stateValue: 2, path: '/logout' },
+        id_token_hint: 'id_token_hint',
+        post_logout_redirect_uri: 'post_logout_redirect_uri',
+      };
+      await waitForLogoutToTimeout({ ...loginParams, language: 'sv' });
+      expect(signoutRedirectSpy).toHaveBeenNthCalledWith(1, {
+        ...loginParams,
+        extraQueryParams: {
+          ...loginParams.extraQueryParams,
+          ui_locales: 'sv',
+        },
+      });
+    });
+    it('should remove the user from sessionStorage', async () => {
+      const userManagerProps = getDefaultOidcClientTestProps().userManagerSettings as UserManagerSettings;
+      const userFromStorage = getUserFromStorage(userManagerProps);
+      expect(userFromStorage).not.toBeNull();
+      await waitForLogoutToTimeout();
+      const userFromStorageAfterLogout = getUserFromStorage(userManagerProps);
+      expect(userFromStorageAfterLogout).toBeNull();
     });
   });
   describe('.handleCallback()', () => {
@@ -231,13 +278,22 @@ describe('oidcClient', () => {
       expect(oidcClient.getState()).toBe('VALID_SESSION');
       expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
     });
-    it('state changes when login is called. Payload has state change', async () => {
+    it('state changes when login is called. Payload has the state change', async () => {
       await initTests({ module: listenerModule });
       await waitForLoginToTimeout();
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(1);
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);
       expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_IN', previousState: 'NO_SESSION' });
+    });
+    it('state changes when logout is called. Payload has the state change', async () => {
+      placeUserToStorage();
+      await initTests({ module: listenerModule });
+      await waitForLogoutToTimeout();
+      const emittedSignals = getListenerSignals(listenerModule.getListener());
+      expect(emittedSignals).toHaveLength(1);
+      expect(emittedSignals[0].type).toBe(stateChangeSignalType);
+      expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_OUT', previousState: 'VALID_SESSION' });
     });
     it('state changes twice when handleCallback is called and successful. Payloads have state changes', async () => {
       const { oidcClient } = await initTests({ module: listenerModule });
