@@ -20,6 +20,7 @@ export type InitTestResult = {
 
 export type InitTestProps = {
   module?: ConnectedModule;
+  userProps?: UserCreationProps;
 };
 
 const authority = 'https://api.hel.fi/sso/openid';
@@ -37,7 +38,7 @@ export function getDefaultOidcClientTestProps(): OidcClientProps {
   return { ...defaultOidcClientTestProps };
 }
 
-function getPrivateUserManagerClient(userManager: UserManager): OidcClientFromNpm {
+export function getPrivateUserManagerClient(userManager: UserManager): OidcClientFromNpm {
   const client = ((userManager as unknown) as {
     _client: OidcClientFromNpm;
   })._client;
@@ -96,6 +97,10 @@ export function createOidcClientTestSuite() {
       ...defaultOidcClientTestProps,
       ...additionalOidcClientProps,
     };
+    const { userProps } = testProps;
+    if (userProps) {
+      createUserAndPlaceUserToStorage(oidcClientProps.userManagerSettings, userProps);
+    }
     oidcClient = createOidcClient(oidcClientProps);
     userManager = oidcClient.getUserManager();
     if (testProps.module) {

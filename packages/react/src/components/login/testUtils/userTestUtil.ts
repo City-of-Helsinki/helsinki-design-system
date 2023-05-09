@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { SigninResponse, User, UserManagerSettings } from 'oidc-client-ts';
+import { SigninResponse, User, UserManagerSettings, UserManager } from 'oidc-client-ts';
 
 import { getUserStoreKey } from '../client/oidcClient';
 
@@ -7,11 +7,31 @@ export type UserCreationProps = {
   invalidUser?: boolean;
   expiredUser?: boolean;
   scope?: SigninResponse['scope'];
+  signInResponseProps?: Partial<Exclude<SigninResponse, 'profile'>>;
+  signInResponseProfileProps?: Partial<SigninResponse['profile']>;
+};
+
+type PublicUserManagerEvents = {
+  _userUnloaded: {
+    raise: () => Promise<void>;
+  };
+  _userSignedOut: {
+    raise: () => Promise<void>;
+  };
+  _expiringTimer: {
+    raise: () => Promise<void>;
+  };
 };
 
 const tokenExpirationTimeInSeconds = 3600;
 
-export function createSignInResponse({ invalidUser, expiredUser, scope }: UserCreationProps): SigninResponse {
+export function createSignInResponse({
+  invalidUser,
+  expiredUser,
+  scope,
+  signInResponseProps,
+  signInResponseProfileProps,
+}: UserCreationProps): SigninResponse {
   const resposeScope = scope || 'openid profile';
   const nowAsSeconds = Math.round(Date.now() / 1000);
   const expires_in = expiredUser !== true ? tokenExpirationTimeInSeconds : -1;
@@ -32,6 +52,7 @@ export function createSignInResponse({ invalidUser, expiredUser, scope }: UserCr
       iat: nowAsSeconds,
       name: 'Test User',
       amr: ['validAmr'],
+      ...signInResponseProfileProps,
     },
     refresh_token: invalidUser !== true ? 'refresh_token' : '',
     scope: resposeScope,
@@ -41,6 +62,7 @@ export function createSignInResponse({ invalidUser, expiredUser, scope }: UserCr
     userState: {},
     expires_in,
     isOpenId: true,
+    ...signInResponseProps,
   };
 }
 
@@ -58,16 +80,6 @@ export function createUser(userCreationProps: UserCreationProps = {}): User {
   } as unknown) as User;
 }
 
-export async function placeUserToStorage(
-  userManagerSettings: Partial<UserManagerSettings>,
-  userCreationProps?: UserCreationProps,
-) {
-  const { authority, client_id } = userManagerSettings;
-  const user = createUser(userCreationProps);
-  sessionStorage.setItem(getUserStoreKey({ authority, client_id }), user.toStorageString());
-  return user;
-}
-
 export function createUserAndPlaceUserToStorage(
   userManagerSettings: Partial<UserManagerSettings>,
   userCreationProps: UserCreationProps = {},
@@ -76,4 +88,21 @@ export function createUserAndPlaceUserToStorage(
   const { authority, client_id } = userManagerSettings;
   sessionStorage.setItem(getUserStoreKey({ authority, client_id }), user.toStorageString());
   return user;
+}
+
+export function raiseUserUserManagerEvent(targetUserManager: UserManager, eventType: keyof PublicUserManagerEvents) {
+  const events = (targetUserManager.events as unknown) as PublicUserManagerEvents;
+  events[eventType].raise();
+}
+
+export function raiseUserUnloadedEvent(targetUserManager: UserManager) {
+  return raiseUserUserManagerEvent(targetUserManager, '_userUnloaded');
+}
+
+export function raiseUserSignedOutEvent(targetUserManager: UserManager) {
+  return raiseUserUserManagerEvent(targetUserManager, '_userSignedOut');
+}
+
+export function raiseTokenExpiringEvent(targetUserManager: UserManager) {
+  return raiseUserUserManagerEvent(targetUserManager, '_expiringTimer');
 }

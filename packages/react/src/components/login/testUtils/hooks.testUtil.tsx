@@ -4,12 +4,12 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
 import { createOidcClientTestSuite, getDefaultOidcClientTestProps } from './oidcClientTestUtil';
 import { useBeacon } from '../hooks';
-import { OidcClientProps } from '../client/oidcClient';
+import { OidcClientProps } from '../client/index';
 import { LoginContextProvider } from '../LoginContext';
 import { ConnectedModule, Signal, SignalNamespace } from '../beacon/beacon';
 import { NamespacedBeacon, createNamespacedBeacon } from '../beacon/signals';
 import { getAllMockCallArgs } from '../../../utils/testHelpers';
-import { UserCreationProps, placeUserToStorage } from './userTestUtil';
+import { UserCreationProps, createUserAndPlaceUserToStorage } from './userTestUtil';
 
 export type ListenerData = { signal: Signal | undefined; id: string; orderNum: number; uuid: string | undefined };
 export type ListenerGetter = (id: string) => jest.Mock;
@@ -179,7 +179,7 @@ export function createHookTestEnvironment(
   const oidcClientProps = { ...getDefaultOidcClientTestProps(), ...additionalOidcClientProps };
 
   if (userInStorage) {
-    placeUserToStorage(oidcClientProps.userManagerSettings, userInStorage);
+    createUserAndPlaceUserToStorage(oidcClientProps.userManagerSettings, userInStorage);
   }
 
   const { container } = render(
