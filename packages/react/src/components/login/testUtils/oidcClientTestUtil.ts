@@ -19,7 +19,7 @@ export type InitTestResult = {
 };
 
 export type InitTestProps = {
-  module?: ConnectedModule;
+  modules?: ConnectedModule[];
   userProps?: UserCreationProps;
 };
 
@@ -97,15 +97,17 @@ export function createOidcClientTestSuite() {
       ...defaultOidcClientTestProps,
       ...additionalOidcClientProps,
     };
-    const { userProps } = testProps;
+    const { userProps, modules } = testProps;
     if (userProps) {
       createUserAndPlaceUserToStorage(oidcClientProps.userManagerSettings, userProps);
     }
     oidcClient = createOidcClient(oidcClientProps);
     userManager = oidcClient.getUserManager();
-    if (testProps.module) {
+    if (modules) {
       beacon = createBeacon();
-      beacon.addSignalContext(testProps.module);
+      modules.forEach((module) => {
+        beacon.addSignalContext(module);
+      });
       beacon.addSignalContext(oidcClient);
     }
     return { oidcClient, userManager, beacon };

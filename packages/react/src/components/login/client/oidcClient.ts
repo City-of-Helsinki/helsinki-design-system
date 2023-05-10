@@ -1,4 +1,4 @@
-import { UserManager, UserManagerSettings, WebStorageStateStore, User } from 'oidc-client-ts';
+import { UserManager, UserManagerSettings, WebStorageStateStore, User, Log } from 'oidc-client-ts';
 import to from 'await-to-js';
 
 import {
@@ -9,9 +9,11 @@ import {
   OidcClientState,
   LoginProps,
   LogoutProps,
+  RenewalResult,
 } from './index';
 import { OidcClientError } from './oidcClientError';
-import { createOidcClientBeacon } from './signals';
+import { createOidcClientBeacon, OidcClientEvent } from './signals';
+import { createRenewalTrackingPromise } from '../utils/userRenewalPromise';
 
 const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   userManagerSettings: {
@@ -81,6 +83,14 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     },
   };
   let state: OidcClientState = 'NO_SESSION';
+  let renewPromise: Promise<RenewalResult> | undefined;
+  const isRenewing = () => !!renewPromise;
+
+  if (combinedProps.debug) {
+    Log.setLevel(Log.DEBUG);
+    Log.setLogger(console);
+  }
+
   const dedicatedBeacon = createOidcClientBeacon();
 
   const emitStateChange = (newState: OidcClientState) => {
@@ -90,6 +100,14 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     const previousState = state;
     state = newState;
     dedicatedBeacon.emitStateChange({ state, previousState });
+  };
+
+  const emitEvent = async (event: OidcClientEvent, user?: User) => {
+    return dedicatedBeacon.emitEvent(event, user);
+  };
+
+  const emitError = (error: OidcClientError) => {
+    return dedicatedBeacon.emitError(error);
   };
 
   const userManager = new UserManager(combinedProps.userManagerSettings as UserManagerSettings);
@@ -109,6 +127,41 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       ...rest,
     } as T;
   };
+
+  const createRenewalPromise = async (): Promise<RenewalResult> => {
+    const [err, user] = await to(createRenewalTrackingPromise(userManager));
+    return Promise.resolve([err ? new OidcClientError('Renew failed', 'RENEWAL_FAILED', err) : null, user as User]);
+  };
+
+  const handleUserRenewal = async ({ triggerSigninSilent = false }: { triggerSigninSilent?: boolean } = {}): Promise<
+    RenewalResult
+  > => {
+    if (isRenewing()) {
+      return renewPromise;
+    }
+    renewPromise = createRenewalPromise();
+    await emitEvent('USER_RENEWAL_STARTED');
+    if (triggerSigninSilent) {
+      const [signInError] = await to(userManager.signinSilent());
+      if (signInError) {
+        // raise error so renewPromise is fulfilled
+        // eslint-disable-next-line no-underscore-dangle
+        userManager.events._raiseSilentRenewError(signInError);
+      }
+    }
+    const [error, user] = await renewPromise;
+    if (error) {
+      emitError(error);
+    }
+    await emitEvent('USER_RENEWAL_COMPLETED', user || null);
+
+    renewPromise = undefined;
+    return Promise.resolve([error, user]);
+  };
+
+  userManager.events.addAccessTokenExpiring(async () => {
+    await handleUserRenewal();
+  });
 
   if (isValidUser(getUserFromStorageSyncronously())) {
     state = 'VALID_SESSION';
@@ -133,13 +186,14 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
         const error = callbackError
           ? new OidcClientError('SigninRedirectCallback returned an error', 'SIGNIN_ERROR', callbackError)
           : new OidcClientError('SigninRedirectCallback returned invalid or expired user', 'INVALID_OR_EXPIRED_USER');
-        dedicatedBeacon.emitError(error);
+        emitError(error);
         emitStateChange('NO_SESSION');
         return Promise.reject(error);
       }
       emitStateChange('VALID_SESSION');
       return Promise.resolve(user);
     },
+    isRenewing,
     login: async (loginProps) => {
       emitStateChange('LOGGING_IN');
       return userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps));
@@ -149,6 +203,9 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       return userManager.signoutRedirect(convertLoginOrLogoutParams<LogoutProps>(logoutProps));
     },
     namespace: oidcClientNamespace,
+    renewUser: async () => {
+      return handleUserRenewal({ triggerSigninSilent: true });
+    },
   };
   return oidcClient;
 }

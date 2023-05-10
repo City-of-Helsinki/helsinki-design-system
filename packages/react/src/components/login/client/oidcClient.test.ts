@@ -1,5 +1,6 @@
 import to from 'await-to-js';
 import { User, UserManagerSettings } from 'oidc-client-ts';
+import { waitFor } from '@testing-library/react';
 
 // eslint-disable-next-line jest/no-mocks-import
 import mockWindowLocation from '../__mocks__/mockWindowLocation';
@@ -8,12 +9,31 @@ import {
   createOidcClientTestSuite,
   getDefaultOidcClientTestProps,
 } from '../testUtils/oidcClientTestUtil';
-import { LoginProps, LogoutProps } from './index';
+import { LoginProps, LogoutProps, RenewalResult, UserReturnType } from './index';
 import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
-import { createUser } from '../testUtils/userTestUtil';
-import { createConnectedBeaconModule, getListenerSignals } from '../testUtils/beaconTestUtil';
-import { stateChangeSignalType } from './signals';
+import { createSignInResponse, createUser } from '../testUtils/userTestUtil';
+import {
+  createConnectedBeaconModule,
+  getAllErrorSignals,
+  getErrorSignals,
+  getListenerSignals,
+} from '../testUtils/beaconTestUtil';
+import { advanceUntilListenerCalled, createTimedPromise, listenToPromise } from '../testUtils/timerTestUtil';
+import { OidcClientEventSignal, createOidcClientEventTrigger, stateChangeSignalType } from './signals';
+import { createRenewalTestUtil } from '../testUtils/renewalTestUtil';
+import {
+  ErrorSignal,
+  EventPayload,
+  EventSignal,
+  NamespacedBeacon,
+  ScopedSignalListener,
+  createErrorTrigger,
+  errorSignalType,
+  eventSignalType,
+} from '../beacon/signals';
+import { Signal, SignalNamespace } from '../beacon/beacon';
+import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
 
 const {
   initTests,
@@ -268,18 +288,18 @@ describe('oidcClient', () => {
       listenerModule.listenTo('*:*');
     });
     it('state is NO_SESSION when valid user does not exist on init. No change is emitted.', async () => {
-      const { oidcClient } = await initTests({ module: listenerModule });
+      const { oidcClient } = await initTests({ modules: [listenerModule] });
       expect(oidcClient.getState()).toBe('NO_SESSION');
       expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
     });
     it('state is VALID_SESSION when valid user does exist on init.  No change is emitted.', async () => {
       placeUserToStorage();
-      const { oidcClient } = await initTests({ module: listenerModule });
+      const { oidcClient } = await initTests({ modules: [listenerModule] });
       expect(oidcClient.getState()).toBe('VALID_SESSION');
       expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
     });
     it('state changes when login is called. Payload has the state change', async () => {
-      await initTests({ module: listenerModule });
+      await initTests({ modules: [listenerModule] });
       await waitForLoginToTimeout();
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(1);
@@ -288,7 +308,7 @@ describe('oidcClient', () => {
     });
     it('state changes when logout is called. Payload has the state change', async () => {
       placeUserToStorage();
-      await initTests({ module: listenerModule });
+      await initTests({ modules: [listenerModule] });
       await waitForLogoutToTimeout();
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(1);
@@ -296,7 +316,7 @@ describe('oidcClient', () => {
       expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_OUT', previousState: 'VALID_SESSION' });
     });
     it('state changes twice when handleCallback is called and successful. Payloads have state changes', async () => {
-      const { oidcClient } = await initTests({ module: listenerModule });
+      const { oidcClient } = await initTests({ modules: [listenerModule] });
       setSignInResponse();
       await oidcClient.handleCallback();
       const emittedSignals = getListenerSignals(listenerModule.getListener());
@@ -311,7 +331,7 @@ describe('oidcClient', () => {
       });
     });
     it('state changes twice when handleCallback is called and fails. Payloads have state changes and error', async () => {
-      const { oidcClient } = await initTests({ module: listenerModule });
+      const { oidcClient } = await initTests({ modules: [listenerModule] });
       setSignInResponse({ invalidUser: true });
       const [error] = await to(oidcClient.handleCallback());
       const emittedSignals = getListenerSignals(listenerModule.getListener());
@@ -325,6 +345,270 @@ describe('oidcClient', () => {
       expect(emittedSignals[2].payload).toMatchObject({
         state: 'NO_SESSION',
         previousState: 'HANDLING_LOGIN_CALLBACK',
+      });
+    });
+  });
+  describe('User expiration and renewal', () => {
+    const listenerForEverything = jest.fn();
+    const moduleNamespaces = ['module1', 'module2', 'module3'];
+    const reEmittingModule = moduleNamespaces[1];
+
+    const storeToListener = (signal: Signal, module: NamespacedBeacon, info?: string) => {
+      listenerForEverything({ ...signal }, module.namespace, info);
+    };
+
+    const filterListenerCallsPerModule = (moduleName: SignalNamespace): Signal[] => {
+      const calls = getAllMockCallArgs(listenerForEverything);
+      const filtered = calls.filter((args: unknown[]) => {
+        return args[1] === moduleName;
+      });
+      return filtered.map((args: unknown[]) => {
+        return args[0] as Signal;
+      });
+    };
+
+    const listAllSignals = (): string[] => {
+      const calls = getAllMockCallArgs(listenerForEverything);
+      return calls.map((args: unknown[]) => {
+        const signal = args[0] as Signal;
+        const listenerNamespace = args[1] as SignalNamespace;
+        const type = signal.type === eventSignalType ? (signal as EventSignal).payload?.type : signal.type;
+        const error = signal.type === errorSignalType ? ((signal as ErrorSignal).payload as OidcClientError).type : '';
+        return `${error || type}:${signal.namespace}@${listenerNamespace}`;
+      });
+    };
+
+    const getResultsFromRenawalListeners = (
+      listener: jest.Mock,
+      usersOnly = false,
+    ): Array<OidcClientError | UserReturnType> => {
+      const calls = getAllMockCallArgs(listener);
+      return calls.map((args) => {
+        const errorOrUserTuple = args[0] as RenewalResult;
+        return usersOnly ? errorOrUserTuple[1] : errorOrUserTuple[1] || errorOrUserTuple[0];
+      });
+    };
+
+    const listAllUserRenewalCompletions = (): [User | null, SignalNamespace][] => {
+      const calls = getAllMockCallArgs(listenerForEverything);
+      const filtered = calls.filter((args: unknown[]) => {
+        const signal = args[0] as Signal;
+        const { payload } = signal as OidcClientEventSignal;
+        if (signal.type !== eventSignalType) {
+          return false;
+        }
+        if (!payload || payload.type !== 'USER_RENEWAL_COMPLETED') {
+          return false;
+        }
+        return true;
+      });
+      return filtered.map((args: unknown[]) => {
+        const signal = args[0] as Signal;
+        const payload = (signal as EventSignal).payload as EventPayload;
+        const namespace = args[1] as SignalNamespace;
+        return [payload ? (payload.data as User) : null, namespace];
+      });
+    };
+
+    const createModule = (namespace: SignalNamespace) => {
+      const beaconModule = createConnectedBeaconModule(namespace);
+      const renewalErrorListener: ScopedSignalListener = async (signal, module) => {
+        storeToListener(signal, module);
+      };
+      const renewalStartedListener: ScopedSignalListener = async (signal, module) => {
+        storeToListener(signal, module);
+        if ((signal as OidcClientEventSignal).payload.type === 'USER_RENEWAL_STARTED') {
+          await createTimedPromise('waiting 3000ms', 3000);
+          if (module.namespace === reEmittingModule) {
+            storeToListener({ type: 'RE_EMIT_RENEWAL', namespace: signal.namespace }, module);
+            await module.emitAsync('RE_EMIT_RENEWAL');
+          }
+          storeToListener({ type: 'RENEWAL_HANDLED', namespace: signal.namespace }, module);
+        }
+        if ((signal as OidcClientEventSignal).payload.type === 'USER_RENEWAL_COMPLETED') {
+          await createTimedPromise('waiting 1000ms', 1000);
+        }
+        return Promise.resolve();
+      };
+      beaconModule.addListener(createOidcClientEventTrigger(), renewalStartedListener);
+      beaconModule.addListener(createErrorTrigger(), renewalErrorListener);
+      return beaconModule;
+    };
+
+    const initRenewalTests = async (validResponse = true, createListeningModules = false) => {
+      const modules = createListeningModules
+        ? moduleNamespaces.map((namespace) => {
+            return createModule(namespace);
+          })
+        : [];
+      // this module listens all events, but only delays completion of the 'RE_EMIT_RENEWAL of module2
+      // making sure promises are awaited for
+      const reEmitListeningModule = createConnectedBeaconModule('re-emitter');
+      reEmitListeningModule.addListener('*:*', async (signal, module) => {
+        if (signal.type === 'RE_EMIT_RENEWAL' && signal.namespace === reEmittingModule) {
+          storeToListener({ type: 'RE_EMIT_STARTED', namespace: signal.namespace }, module);
+          await createTimedPromise({}, 2000);
+          storeToListener({ type: 'RE_EMIT_OVER', namespace: signal.namespace }, module);
+        } else {
+          storeToListener(signal, module);
+        }
+      });
+      const { init } = createRenewalTestUtil();
+
+      const refreshTokens = {
+        initial: 'initialToken',
+        renewed: 'renewedToken',
+      };
+      const response = validResponse
+        ? createSignInResponse({ signInResponseProps: { refresh_token: refreshTokens.renewed } })
+        : new Error('Failed');
+      const clientData = await initTests({
+        modules: createListeningModules ? [reEmitListeningModule, ...modules] : undefined,
+        userProps: { signInResponseProps: { refresh_token: refreshTokens.initial } },
+      });
+      const renewalFunctions = init({ userManager: clientData.userManager });
+
+      const fulfillmentListener = renewalFunctions.setListenerToRefreshResponse(response);
+      const waitForRefreshToEnd = async () => {
+        await advanceUntilListenerCalled(fulfillmentListener);
+      };
+      return {
+        ...clientData,
+        renewalFunctions,
+        waitForRefreshToEnd,
+        refreshTokens,
+        modules,
+      };
+    };
+    beforeEach(async () => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(async () => {
+      jest.runOnlyPendingTimers();
+      jest.useRealTimers();
+      jest.resetAllMocks();
+    });
+
+    // eventlisteners are called in the order listeners are assigned: re-emitter, module1, module2, module3
+    // new events are not emitted until all listeners of the initial event are fulfilled
+    // signals are mapped as <eventType or signalType>:<event emitter namespace>@<listener namespace>
+    const signalsWhenProcessIsSuccessful = [
+      'USER_RENEWAL_STARTED:oidcClient@re-emitter',
+      'USER_RENEWAL_STARTED:oidcClient@module1',
+      'RENEWAL_HANDLED:oidcClient@module1',
+      'USER_RENEWAL_STARTED:oidcClient@module2',
+      'RE_EMIT_RENEWAL:oidcClient@module2',
+      'RENEWAL_HANDLED:oidcClient@module2',
+      'USER_RENEWAL_STARTED:oidcClient@module3',
+      'RENEWAL_HANDLED:oidcClient@module3',
+      'RE_EMIT_STARTED:module2@re-emitter',
+      'RE_EMIT_OVER:module2@re-emitter',
+      'USER_RENEWAL_COMPLETED:oidcClient@re-emitter',
+      'USER_RENEWAL_COMPLETED:oidcClient@module1',
+      'USER_RENEWAL_COMPLETED:oidcClient@module2',
+      'USER_RENEWAL_COMPLETED:oidcClient@module3',
+    ];
+    // when it fails, error signals are also sent, before USER_RENEWAL_COMPLETED signal
+    const signalsWhenProcessIsFails = [
+      ...signalsWhenProcessIsSuccessful.slice(0, 10),
+      ...[
+        'RENEWAL_FAILED:oidcClient@re-emitter',
+        'RENEWAL_FAILED:oidcClient@module1',
+        'RENEWAL_FAILED:oidcClient@module2',
+        'RENEWAL_FAILED:oidcClient@module3',
+      ],
+      ...signalsWhenProcessIsSuccessful.slice(10),
+    ];
+
+    describe('Automatic renewal, when tokens are expiring, is handled and signals are emitted.', () => {
+      it('Events are emitted and listeners awaited until new ones sent. isRenewing() changes with the process.', async () => {
+        const { renewalFunctions, oidcClient, waitForRefreshToEnd, refreshTokens } = await initRenewalTests(true, true);
+        expect(oidcClient.isRenewing()).toBeFalsy();
+        const initialUser = oidcClient.getUser() as User;
+        renewalFunctions.raiseExpiringEvent();
+        await waitForRefreshToEnd();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeFalsy();
+        });
+        const reportedErrors = getAllErrorSignals(listenerForEverything);
+        expect(reportedErrors).toHaveLength(0);
+        const renewedUser = oidcClient.getUser() as User;
+        expect(renewedUser).not.toMatchObject(initialUser);
+        expect(renewedUser.refresh_token).toBe(refreshTokens.renewed);
+        expect(initialUser.refresh_token).toBe(refreshTokens.initial);
+        expect(listAllSignals()).toEqual(signalsWhenProcessIsSuccessful);
+        const allRenewResults = listAllUserRenewalCompletions();
+        expect(allRenewResults.filter(([user]) => user?.refresh_token === renewedUser.refresh_token)).toHaveLength(4);
+      });
+      it('Errors are handled and emitted.', async () => {
+        const { renewalFunctions, oidcClient, waitForRefreshToEnd, modules } = await initRenewalTests(false, true);
+        expect(oidcClient.isRenewing()).toBeFalsy();
+        const initialUser = oidcClient.getUser() as User;
+        renewalFunctions.raiseExpiringEvent();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeTruthy();
+        });
+        await waitForRefreshToEnd();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeFalsy();
+        });
+        const sameUser = oidcClient.getUser() as User;
+        expect(sameUser).toMatchObject(initialUser);
+        [...modules].forEach((mod) => {
+          const reportedErrors = getErrorSignals(filterListenerCallsPerModule(mod.namespace));
+          expect(reportedErrors).toHaveLength(1);
+          expect(((reportedErrors[0] as ErrorSignal).payload as OidcClientError).isRenewalError).toBeTruthy();
+        });
+        expect(listAllSignals()).toEqual(signalsWhenProcessIsFails);
+        const allRenewResults = listAllUserRenewalCompletions();
+        expect(allRenewResults.filter(([user]) => user === null)).toHaveLength(4);
+      });
+    });
+    describe('Manual renewal can be started with renewUser()', () => {
+      it('It is handled like the automatic renewal. Can be run. Returns user', async () => {
+        const { oidcClient, waitForRefreshToEnd, refreshTokens } = await initRenewalTests(true, true);
+        expect(oidcClient.isRenewing()).toBeFalsy();
+        const initialUser = oidcClient.getUser() as User;
+        const promise = oidcClient.renewUser();
+        const promiseListener = listenToPromise(promise);
+        await waitForRefreshToEnd();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeFalsy();
+        });
+        await advanceUntilListenerCalled(promiseListener);
+        const renewedUser = getResultsFromRenawalListeners(promiseListener, true)[0] as User;
+        expect(renewedUser).not.toMatchObject(initialUser);
+        expect(renewedUser.refresh_token).toBe(refreshTokens.renewed);
+        expect(initialUser.refresh_token).toBe(refreshTokens.initial);
+
+        expect(listAllSignals()).toEqual(signalsWhenProcessIsSuccessful);
+      });
+      it('If renewUser is called while automatic is in progress or vice versa, new process is not started.', async () => {
+        const { oidcClient, waitForRefreshToEnd, renewalFunctions } = await initRenewalTests(false, true);
+        expect(oidcClient.isRenewing()).toBeFalsy();
+        renewalFunctions.raiseExpiringEvent();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeTruthy();
+        });
+        const promise = oidcClient.renewUser();
+        const promise2 = oidcClient.renewUser();
+        const promiseListener = listenToPromise(promise);
+        const promiseListener2 = listenToPromise(promise2);
+        renewalFunctions.raiseExpiringEvent();
+        await waitForRefreshToEnd();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeFalsy();
+        });
+        await advanceUntilListenerCalled(promiseListener);
+        await advanceUntilListenerCalled(promiseListener2);
+        const allRenewResults = listAllUserRenewalCompletions();
+        expect(allRenewResults.filter(([user]) => user === null)).toHaveLength(4);
+        expect(listAllSignals()).toEqual(signalsWhenProcessIsFails);
+        const errorResult = getLastMockCallArgs(promiseListener)[0][0];
+        const errorResult2 = getLastMockCallArgs(promiseListener2)[0][0];
+        expect(errorResult).toBeInstanceOf(Error);
+        expect(errorResult === errorResult2).toBeTruthy();
       });
     });
   });
