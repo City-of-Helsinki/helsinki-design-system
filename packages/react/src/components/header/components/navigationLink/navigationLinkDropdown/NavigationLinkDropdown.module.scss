@@ -29,9 +29,8 @@
 
   .dropdownLink {
     font-size: var(--fontsize-body-m);
-    margin: 0;
-    padding: 10px var(--spacing-m) 14px var(--spacing-m);
     margin: calc(-1 * var(--header-focus-outline-width));
+    padding: 10px var(--spacing-m) 14px var(--spacing-m);
   }
 
   .dropdownLink:focus {
@@ -79,9 +78,9 @@
   box-sizing: content-box;
   display: block;
   height: 24px;
-  padding: 0px;
-  width: 24px;
   margin: 0 0 0 var(--spacing-s);
+  padding: 0;
+  width: 24px;
 
   &.isNotLargeScreen {
     background: transparent;
