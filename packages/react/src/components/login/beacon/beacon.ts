@@ -6,8 +6,8 @@ export interface ConnectedModule {
   namespace: SignalNamespace;
 }
 export type SignalContext = ConnectedModule;
-export type Signal<T extends SignalPayload = SignalPayload> = {
-  type: SignalType;
+export type Signal<P = SignalType, T extends SignalPayload = SignalPayload> = {
+  type: P;
   namespace?: SignalType;
   payload?: T;
   context?: ConnectedModule;

@@ -1,9 +1,9 @@
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
 import { SignalNamespace, ConnectedModule, Disposer, SignalListener, SignalType, Signal } from '../beacon/beacon';
-import { NamespacedBeacon, createNamespacedBeacon } from '../beacon/signals';
+import { NamespacedBeacon, createNamespacedBeacon, errorSignalType } from '../beacon/signals';
 
 type ConnectedBeaconModule = NamespacedBeacon &
-  ConnectedModule & { listenTo: (signalOrJustType: SignalType) => Disposer; getListener: () => jest.Mock };
+  ConnectedModule & { listenTo: (signalOrJustType: SignalType | Signal) => Disposer; getListener: () => jest.Mock };
 
 export function createConnectedBeaconModule(namespace: SignalNamespace, callStamper = Date.now): ConnectedBeaconModule {
   const dedicatedBeacon = createNamespacedBeacon(namespace);
@@ -53,6 +53,16 @@ export function getContextFromArguments(args: unknown[]) {
     return !!(arg && (arg as Signal).context);
   }) as Signal[];
   return contextArgs[0] && contextArgs[0].context;
+}
+
+export function getErrorSignals(signals: Signal[]) {
+  return signals.filter((signal) => {
+    return signal.type === errorSignalType;
+  });
+}
+
+export function getAllErrorSignals(listener: jest.Mock | SignalListener) {
+  return getErrorSignals(getListenerSignals(listener as jest.Mock));
 }
 
 export function getLastContext(listener: jest.Mock) {

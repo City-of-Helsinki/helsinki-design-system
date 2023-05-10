@@ -1,6 +1,7 @@
 import { UserManager, UserManagerSettings, SigninRedirectArgs, SignoutRedirectArgs, User } from 'oidc-client-ts';
 
 import { ConnectedModule, SignalNamespace } from '../beacon/beacon';
+import { OidcClientError } from './oidcClientError';
 
 export type LoginProps = {
   language?: string;
@@ -12,9 +13,12 @@ export type LogoutProps = {
 
 export type OidcClientProps = {
   userManagerSettings: Partial<UserManagerSettings>;
+  debug?: boolean;
 };
 
 export type UserReturnType = User | null;
+export type ErrorReturnType = OidcClientError | null;
+export type RenewalResult = [ErrorReturnType, UserReturnType];
 
 export type OidcClientState = 'NO_SESSION' | 'VALID_SESSION' | 'LOGGING_IN' | 'LOGGING_OUT' | 'HANDLING_LOGIN_CALLBACK';
 
@@ -36,6 +40,11 @@ export interface OidcClient extends ConnectedModule {
    */
   handleCallback: () => Promise<User>;
   /**
+   *
+   * Returns true if user renewal is in progress
+   */
+  isRenewing: () => boolean;
+  /**
    * Calls the authorization_endpoint with given parameters
    * Browser window is redirected, the returned promise never fulfills
    */
@@ -45,6 +54,12 @@ export interface OidcClient extends ConnectedModule {
    * Browser window is redirected, the returned promise never fulfills
    */
   logout: (props?: LogoutProps) => Promise<void>;
+  /**
+   *
+   * For manual user renewal.
+   * The Promise will never reject.
+   */
+  renewUser: () => Promise<RenewalResult>;
 }
 
-export const oidcClientNamespace: SignalNamespace = 'oidcClientName';
+export const oidcClientNamespace: SignalNamespace = 'oidcClient';

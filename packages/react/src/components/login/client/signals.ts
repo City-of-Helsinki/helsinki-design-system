@@ -1,5 +1,7 @@
+import { User } from 'oidc-client-ts';
+
 import { Beacon, Disposer, Signal, SignalListener, SignalNamespace } from '../beacon/beacon';
-import { NamespacedBeacon, createNamespacedBeacon } from '../beacon/signals';
+import { eventSignalType, EventSignal, NamespacedBeacon, createNamespacedBeacon } from '../beacon/signals';
 import { OidcClient, oidcClientNamespace, OidcClientState } from './index';
 
 export type StateChangeSignalPayload = { state: OidcClientState; previousState?: OidcClientState };
@@ -12,9 +14,24 @@ export type StateChangeSignal = {
 };
 export const stateChangeSignalType = 'stateChange' as const;
 
+export type OidcClientEvent = 'USER_RENEWAL_STARTED' | 'USER_RENEWAL_COMPLETED' | 'USER_RENEWAL_FAILED';
+export type OidcClientEventSignal = EventSignal & {
+  payload: {
+    type: OidcClientEvent;
+    data?: User | null;
+  };
+};
+
 export function createStateChangeTrigger(): Pick<Signal, 'namespace'> & { type: StateChangeSignalType } {
   return {
     type: stateChangeSignalType,
+    namespace: oidcClientNamespace,
+  };
+}
+
+export function createOidcClientEventTrigger(): Pick<Signal, 'namespace'> & { type: EventSignal['type'] } {
+  return {
+    type: eventSignalType,
     namespace: oidcClientNamespace,
   };
 }
