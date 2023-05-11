@@ -5,7 +5,7 @@ import { UserManager, OidcClient as OidcClientFromNpm, SigninResponse } from 'oi
 import fetchMock from 'jest-fetch-mock';
 import { waitFor } from '@testing-library/react';
 
-import { OidcClient, OidcClientProps, LoginProps, LogoutProps } from '../client/index';
+import { OidcClient, OidcClientProps, LoginProps, LogoutProps, oidcClientNamespace } from '../client/index';
 import createOidcClient from '../client/oidcClient';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
@@ -145,4 +145,33 @@ export function createOidcClientTestSuite() {
     },
     placeUserToStorage,
   };
+}
+
+export function createMockUserManager(userMock: jest.Mock): UserManager {
+  const endPoint = 'http://usermanager.com/userInfoEndPoint';
+
+  const manager = {
+    metadataService: {
+      getUserInfoEndpoint: async () => {
+        return Promise.resolve(endPoint);
+      },
+    },
+    getUser: userMock,
+  };
+
+  return (manager as unknown) as UserManager;
+}
+
+export function createMockOidcClient(stateMock: jest.Mock, userMock: jest.Mock): OidcClient {
+  const userManager = createMockUserManager(userMock);
+  const oidcClient: Partial<OidcClient> = {
+    namespace: oidcClientNamespace,
+    getUserManager: () => {
+      return userManager;
+    },
+    getState: stateMock,
+    connect: jest.fn(),
+  };
+
+  return oidcClient as OidcClient;
 }
