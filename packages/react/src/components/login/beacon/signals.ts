@@ -109,3 +109,12 @@ export function createTriggerForAllSignals(
     namespace,
   };
 }
+
+export function filterSignals(list: Signal[], filterProps: Partial<Signal>): Signal[] {
+  const props = Object.keys(filterProps);
+  return list.filter((signal) => {
+    return !props.find((key) => {
+      return filterProps[key] !== signal[key];
+    });
+  });
+}

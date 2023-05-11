@@ -7,6 +7,7 @@ import { Notification } from '../notification/Notification';
 import { OidcClientProps } from './client/index';
 import { LoginCallbackHandler } from './LoginCallbackHandler';
 import { OidcClientError } from './client/oidcClientError';
+import createSessionPoller from './sessionPoller/sessionPoller';
 
 export default {
   component: LoginContextProvider,
@@ -25,6 +26,8 @@ const loginProps: OidcClientProps = {
     scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev',
   },
 };
+
+const sessionPoller = createSessionPoller();
 
 const IFrameWarning = () => {
   const openWindowInTop = () => {
@@ -81,7 +84,7 @@ const LoginOrLogout = () => {
 
 export const Example = () => {
   return (
-    <LoginContextProvider loginProps={loginProps}>
+    <LoginContextProvider loginProps={loginProps} modules={[sessionPoller]}>
       <LoginOrLogout />
     </LoginContextProvider>
   );

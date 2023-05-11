@@ -2,7 +2,7 @@
 import fetchMock, { MockResponseInit } from 'jest-fetch-mock';
 import { waitFor } from '@testing-library/react';
 
-import { getLastMockCallArgs, hasListenerBeenCalled } from '../../../utils/testHelpers';
+import { getLastMockCallArgs, getMockCalls, hasListenerBeenCalled } from '../../../utils/testHelpers';
 import { listenToPromise } from './timerTestUtil';
 
 type FetchResponse = MockResponseInit | string | Error;
@@ -25,8 +25,8 @@ type RequestInfo = {
 
 export function createTimedFetchResponse(props: {
   response: FetchResponse;
-  requestListener: jest.Mock;
-  responseListener: jest.Mock;
+  requestListener: () => void;
+  responseListener: () => void;
   delay?: number;
 }): Promise<string | MockResponseInit> {
   const { response, requestListener, responseListener, delay = 1000 } = props;
@@ -99,6 +99,8 @@ export async function waitForFetchMockResultFulfillment(index: number, advanceTi
 export function createControlledFetchMockUtil(responders?: Responder[]) {
   const history: RequestInfo[] = [];
   let responderList = responders ? [...responders] : [];
+  const allRequestsListener = jest.fn();
+  const allResponsesListener = jest.fn();
 
   fetchMock.mockResponse(async (req) => {
     const responder = responderList.find((res) => {
@@ -118,8 +120,14 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
 
     const promise = createTimedFetchResponse({
       response,
-      requestListener: newRequestInfo.requestListener,
-      responseListener: newRequestInfo.responseListener,
+      requestListener: (...args: unknown[]) => {
+        allRequestsListener(...args);
+        newRequestInfo.requestListener(...args);
+      },
+      responseListener: (...args: unknown[]) => {
+        allResponsesListener(...args);
+        newRequestInfo.responseListener(...args);
+      },
       delay,
     });
 
@@ -276,6 +284,12 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
     getRequestCount: () => {
       return history.length;
     },
+    getRequestListenerCallCount: () => {
+      return getMockCalls(allRequestsListener).length;
+    },
+    getResponseListenerCallCount: () => {
+      return getMockCalls(allResponsesListener).length;
+    },
   };
 }
 
@@ -292,5 +306,5 @@ export async function waitForFetchMockRequestsToFinish(advanceTime = 0) {
 
 export async function getFetchMockResultsAfterAllFinished() {
   await waitForFetchMockRequestsToFinish();
-  return Promise.resolve(getFetchMockResults);
+  return Promise.resolve(getFetchMockResults());
 }

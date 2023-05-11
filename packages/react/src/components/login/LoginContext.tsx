@@ -56,6 +56,7 @@ export const LoginContextProvider = (props: ContextProps): React.ReactElement =>
     modules.forEach((module) => {
       beacon.addSignalContext(module);
     });
+    beacon.addSignalContext(oidcClient);
     emitInitializationSignals(beacon);
   }, []);
 

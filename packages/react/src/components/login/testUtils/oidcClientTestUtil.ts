@@ -23,6 +23,8 @@ export type InitTestProps = {
   userProps?: UserCreationProps;
 };
 
+export const userManagerEndPointPath = '/userInfoEndPoint';
+
 const authority = 'https://api.hel.fi/sso/openid';
 const client_id = 'test-client';
 const scope = 'openid profile';
@@ -148,7 +150,7 @@ export function createOidcClientTestSuite() {
 }
 
 export function createMockUserManager(userMock: jest.Mock): UserManager {
-  const endPoint = 'http://usermanager.com/userInfoEndPoint';
+  const endPoint = `http://usermanager.com${userManagerEndPointPath}`;
 
   const manager = {
     metadataService: {
