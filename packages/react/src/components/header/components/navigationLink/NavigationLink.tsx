@@ -49,6 +49,10 @@ export type NavigationLinkProps = Omit<
    * Additional class names to apply for the link element.
    */
   className?: string;
+  /**
+   * Aria-label for the dropdown button to describe closing the dropdown.
+   */
+  closeDropdownAriaButtonLabel?: string;
   wrapperClassName?: string;
   dropdownClassName?: string;
   dropdownLinkClassName?: string;
@@ -74,6 +78,10 @@ export type NavigationLinkProps = Omit<
    * Label for link.
    */
   label: string;
+  /**
+   * Aria-label for the dropdown button to describe opening the dropdown.
+   */
+  openDropdownAriaButtonLabel?: string;
   /**
    * Which sub navigation index is open.
    * @internal
@@ -125,6 +133,8 @@ export const NavigationLink = ({
   openSubNavIndex,
   setOpenSubNavIndex,
   depth = 0,
+  openDropdownAriaButtonLabel,
+  closeDropdownAriaButtonLabel,
   ...rest
 }: NavigationLinkProps) => {
   const { isNotLargeScreen } = useHeaderContext();
@@ -248,6 +258,8 @@ export const NavigationLink = ({
           depth={depth + 1}
           className={dropdownClassName}
           dynamicPosition={dynamicPosition}
+          openDropdownAriaButtonLabel={openDropdownAriaButtonLabel}
+          closeDropdownAriaButtonLabel={closeDropdownAriaButtonLabel}
         >
           {dropdownLinks.map((child) => {
             return cloneElement(child as React.ReactElement, {

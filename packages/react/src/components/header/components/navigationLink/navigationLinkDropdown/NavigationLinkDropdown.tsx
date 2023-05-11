@@ -20,6 +20,10 @@ export enum DropdownMenuPosition {
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   className?: string;
   /**
+   * Aria-label for the dropdown button to describe closing the dropdown.
+   */
+  closeDropdownAriaButtonLabel?: string;
+  /**
    * Direction for dropdown position.
    * @default DropdownMenuPosition.Right
    */
@@ -33,6 +37,10 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * Is dropdown open.
    */
   open: boolean;
+  /**
+   * Aria-label for the dropdown button to describe opening the dropdown.
+   */
+  openDropdownAriaButtonLabel?: string;
   /**
    * Function that is called when open value is changed.
    */
@@ -49,6 +57,8 @@ export const NavigationLinkDropdown = ({
   open,
   setOpen,
   depth = 0,
+  closeDropdownAriaButtonLabel,
+  openDropdownAriaButtonLabel,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const { isNotLargeScreen } = useHeaderContext();
@@ -61,6 +71,12 @@ export const NavigationLinkDropdown = ({
     : styles.dropdownMenu;
 
   const handleMenuButtonClick = () => setOpen(!open, NavigationLinkInteraction.Click);
+  const defaultOpenDropdownAriaLabel = 'Avaa alasvetovalikko.';
+  const defaultCloseDropdownAriaLabel = 'Sulje alasvetovalikko.';
+  const getDefaultButtonAriaLabel = () => {
+    if (open) return closeDropdownAriaButtonLabel || defaultCloseDropdownAriaLabel;
+    return openDropdownAriaButtonLabel || defaultOpenDropdownAriaLabel;
+  };
 
   const childElements = getChildElementsEvenIfContainersInbetween(children);
 
@@ -71,6 +87,7 @@ export const NavigationLinkDropdown = ({
         className={classNames(styles.button, { isNotLargeScreen }, depthClassName)}
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
+        aria-label={getDefaultButtonAriaLabel()}
       >
         <IconAngleDown className={chevronClasses} />
       </button>
