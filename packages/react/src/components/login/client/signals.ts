@@ -29,11 +29,25 @@ export function createStateChangeTrigger(): Pick<Signal, 'namespace'> & { type: 
   };
 }
 
+export function getOidcClientStateChangePayload(signal: Signal): StateChangeSignalPayload | null {
+  if (signal.type !== stateChangeSignalType || !signal.payload) {
+    return null;
+  }
+  return (signal as StateChangeSignal).payload;
+}
+
 export function createOidcClientEventTrigger(): Pick<Signal, 'namespace'> & { type: EventSignal['type'] } {
   return {
     type: eventSignalType,
     namespace: oidcClientNamespace,
   };
+}
+
+export function getOidcClientFromSignal(signal: Signal): OidcClient | null {
+  if (!signal.context || signal.context.namespace !== oidcClientNamespace) {
+    return null;
+  }
+  return signal.context as OidcClient;
 }
 
 export function addStateChangeSignalListener(beacon: Beacon, listener: (signal: StateChangeSignal) => void): Disposer {

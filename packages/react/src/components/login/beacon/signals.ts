@@ -100,3 +100,12 @@ export function createErrorTrigger(
     namespace,
   };
 }
+
+export function createTriggerForAllSignals(
+  namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
+): Pick<Signal, 'type' | 'namespace'> {
+  return {
+    type: LISTEN_TO_ALL_MARKER,
+    namespace,
+  };
+}
