@@ -37,12 +37,6 @@ const languages: LanguageOption[] = [
   { label: 'English', value: 'en' },
 ];
 
-export const Example = (args) => (
-  <>
-    <Header {...args}>Header</Header>
-  </>
-);
-
 export const WithFullFeatures = (args) => (
   <>
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
