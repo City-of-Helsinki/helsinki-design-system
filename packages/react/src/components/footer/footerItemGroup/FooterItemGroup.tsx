@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 
 // import base styles
 import '../../../styles/base.css';
@@ -11,8 +11,12 @@ export const FooterItemGroup = ({ children }: React.PropsWithChildren<Record<str
   return (
     <div className={styles.itemGroup}>
       {childrenAsArray.map((child) => {
-        const { subItem } = child.props;
-        return !subItem ? <h3 key={`h3-${child.key}`}>{child}</h3> : child;
+        if (isValidElement(child)) {
+          const { subItem } = child.props;
+          return !subItem ? <h3 key={`h3-${child.key}`}>{child}</h3> : child;
+        }
+
+        return null;
       })}
     </div>
   );

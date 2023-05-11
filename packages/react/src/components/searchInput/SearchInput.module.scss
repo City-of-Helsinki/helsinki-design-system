@@ -19,12 +19,12 @@
 }
 
 .buttons {
-  composes: hds-text-input__buttons from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-search-input__buttons from 'hds-core/lib/components/search-input/search-input.css';
 }
 
 .button {
   color: var(--dropdown-color-default);
-  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-search-input__button from 'hds-core/lib/components/search-input/search-input.css';
 
   &.hidden {
     @extend %hiddenFromScreen;

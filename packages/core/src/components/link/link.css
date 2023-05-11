@@ -20,7 +20,7 @@
 }
 
 .hds-link:focus {
-  border: 3px solid var(--color-coat-of-arms);
+  border: 3px solid var(--color-focus-outline);
   outline: none;
 }
 

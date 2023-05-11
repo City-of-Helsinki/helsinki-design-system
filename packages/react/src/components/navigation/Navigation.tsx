@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { isValidElement, useEffect, useState } from 'react';
 
 import styles from './Navigation.module.scss';
 import classNames from '../../utils/classNames';
@@ -92,12 +92,14 @@ export type NavigationProps = React.PropsWithChildren<{
  * @param {React.ReactElement[]} children
  * @param {boolean} authenticated
  */
-const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticated: boolean): React.ReactElement[] => {
+const rearrangeChildrenForMobile = (children: React.ReactNode[], authenticated: boolean): React.ReactNode[] => {
   const rearrangedChildren = [...children];
 
   // moves the component to the start of the array
   const moveComponentToTop = (name: string) => {
-    const index = rearrangedChildren.findIndex((item) => (item?.type as FCWithName)?.componentName === name);
+    const index = rearrangedChildren.findIndex(
+      (item) => isValidElement(item) && (item?.type as FCWithName)?.componentName === name,
+    );
     if (index > -1) {
       const component = rearrangedChildren.splice(index, 1)[0];
       rearrangedChildren.splice(0, 0, component);
@@ -114,9 +116,9 @@ const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticate
 
 const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVariant => {
   const navigationRow = getChildrenAsArray(children).find(
-    (child) => (child.type as FCWithName).componentName === 'NavigationRow',
+    (child) => isValidElement(child) && (child.type as FCWithName).componentName === 'NavigationRow',
   );
-  return navigationRow?.props?.variant || 'default';
+  return (isValidElement(navigationRow) && navigationRow?.props?.variant) || 'default';
 };
 
 /**
@@ -210,12 +212,14 @@ export const Navigation = ({
 
   // Mobile navigation actions
   const mobileActions = getChildrenAsArray(children).find(
-    (child) => (child.type as FCWithName).componentName === 'NavigationActions',
-  )?.props?.children;
+    (child) => isValidElement(child) && (child.type as FCWithName).componentName === 'NavigationActions',
+  );
+
+  const mobileActionsChildren = isValidElement(mobileActions) && mobileActions.props.children;
 
   // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
   const [mobileLanguageSelector, mobileActionsWithoutLanguageSelector] = getComponentFromChildren(
-    mobileActions,
+    mobileActionsChildren,
     'NavigationLanguageSelector',
   );
 

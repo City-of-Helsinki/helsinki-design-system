@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
@@ -270,13 +270,18 @@ const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = (props) => {
   const scopeComponents = useMDXScope();
-  const codeBlocks = React.Children.toArray(props.children).map(({ props }) => {
-    const childrenProps = props.children.props;
-    return {
-      code: childrenProps.children,
-      language: childrenProps.className && childrenProps.className.split('-')[1],
-    };
-  });
+
+  const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
+
+  const codeBlocks = childrenArray
+    .filter((child) => isValidElement(child))
+    .map(({ props }) => {
+      const childrenProps = props.children.props;
+      return {
+        code: childrenProps.children,
+        language: childrenProps.className && childrenProps.className.split('-')[1],
+      };
+    });
   const codeByLanguage = codeBlocks.reduce((acc, block) => {
     acc[block.language] = block.code;
     return acc;

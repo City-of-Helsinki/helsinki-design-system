@@ -25,7 +25,6 @@
   --icon-color-unselected: transparent;
   --icon-color-selected: var(--color-white);
   --icon-color-disabled: var(--color-white);
-  --focus-outline-color: var(--color-coat-of-arms);
   --label-color: var(--color-black-90);
   --label-color-disabled: var(--color-black-40);
   --icon-size: var(--spacing-m);
@@ -94,7 +93,7 @@
 }
 
 .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label:before {
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  box-shadow: 0 0 0 var(--outline-width) var(--color-focus-outline);
   transform: translate3d(0, 0, 0);
   transition: 85ms ease-out;
   transition-property: box-shadow, transform;
