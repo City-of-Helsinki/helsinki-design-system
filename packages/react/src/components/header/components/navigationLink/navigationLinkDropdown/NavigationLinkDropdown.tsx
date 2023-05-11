@@ -88,6 +88,7 @@ export const NavigationLinkDropdown = ({
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
         aria-label={getDefaultButtonAriaLabel()}
+        aria-expanded={open}
       >
         <IconAngleDown className={chevronClasses} />
       </button>

@@ -27,9 +27,17 @@ export type LinkProps = {
    */
   className?: string;
   /**
+   * Boolean for indicating whether the link has a dropdown menu.
+   */
+  hasDropdownLinks?: boolean;
+  /**
    * Hypertext Reference of the link.
    */
   href: string;
+  /**
+   * Boolean for indicating whether the link's dropdown menu is open.
+   */
+  isDropdownOpen?: boolean;
   /**
    * Label for link.
    */
@@ -102,8 +110,10 @@ const getLinkComponent = ({
   className: classNameProp,
   depth,
   active,
+  hasDropdownLinks,
+  isDropdownOpen,
   ...rest
-}: NavigationLinkProps) => {
+}: LinkProps) => {
   const { isNotLargeScreen } = useHeaderContext();
   const className = classNames(styles.navigationLink, styles[`depth-${depth}`], classNameProp, {
     active,
@@ -113,6 +123,7 @@ const getLinkComponent = ({
     className,
     href,
     ...(active && { 'aria-selected': true }),
+    ...(hasDropdownLinks && { 'aria-expanded': isDropdownOpen }),
     ...rest,
   };
 
@@ -226,6 +237,8 @@ export const NavigationLink = ({
     href,
     label,
     depth,
+    hasDropdownLinks: Boolean(dropdownLinks),
+    isDropdownOpen,
     ...rest,
   };
 
