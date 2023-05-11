@@ -8,7 +8,7 @@ import { listenToPromise } from './timerTestUtil';
 type FetchResponse = MockResponseInit | string | Error;
 type FetchPromiseResult = Error | null | Response | undefined;
 
-type Responder = {
+export type Responder = {
   path: string;
   defaultResponse?: FetchResponse;
   responses?: FetchResponse[];
@@ -43,6 +43,18 @@ export function createTimedFetchResponse(props: {
   });
 }
 
+export function getFetchMockCalls() {
+  return fetchMock.mock.calls;
+}
+
+export function getLastFetchMockCallArguments() {
+  return getLastMockCallArgs(fetchMock);
+}
+
+export function getFetchMockResults() {
+  return fetchMock.mock.results;
+}
+
 export async function waitForFetchMockResultIndexToExist(index: number, advanceTime = 0) {
   await waitFor(async () => {
     const mockResult = fetchMock.mock.results[index];
@@ -51,7 +63,8 @@ export async function waitForFetchMockResultIndexToExist(index: number, advanceT
       throw new Error(`No mock result at #${index}. There are ${fetchMock.mock.results.length} results.`);
     }
   });
-  return fetchMock.mock.results[index].value;
+  // return an array, because if the value is a promise, it is awaited for. Without advancing timers.
+  return [fetchMock.mock.results[index].value];
 }
 
 export async function waitForFetchMockCallIndexToExist(index: number, advanceTime = 0) {
@@ -66,25 +79,28 @@ export async function waitForFetchMockCallIndexToExist(index: number, advanceTim
 }
 
 export async function waitForFetchMockResultFulfillment(index: number, advanceTime = 0): Promise<FetchPromiseResult> {
-  const responsePromise = await waitForFetchMockResultIndexToExist(index, advanceTime);
-  if (!responsePromise) {
+  const [response] = await waitForFetchMockResultIndexToExist(index, advanceTime);
+  if (!response) {
     return Promise.resolve(new Error('no promise for waitForFetchMockResultFulfillment'));
   }
-  const listener = listenToPromise(responsePromise);
+  if (!response.then) {
+    return response;
+  }
+  const listener = listenToPromise(response);
   await waitFor(() => {
     if (!hasListenerBeenCalled(listener)) {
       jest.advanceTimersByTime(advanceTime || 100);
       throw new Error('Result is pending');
     }
   });
-  return getLastMockCallArgs(listener);
+  return getLastMockCallArgs(listener)[0];
 }
 
 export function createControlledFetchMockUtil(responders?: Responder[]) {
   const history: RequestInfo[] = [];
   let responderList = responders ? [...responders] : [];
 
-  fetchMock.mockResponse((req) => {
+  fetchMock.mockResponse(async (req) => {
     const responder = responderList.find((res) => {
       return req.url.includes(res.path);
     });
@@ -133,6 +149,7 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
   const getUnfinishedRequests = (list: RequestInfo[]) => {
     return list.filter((r) => !hasRequestFinished(r));
   };
+
   const getRequestResults = (list: RequestInfo[]): FetchResponse[] => {
     const finished = list.filter((r) => hasRequestFinished(r));
     return finished.map((req) => req.responseListener).map((listener) => getLastMockCallArgs(listener)[0]);
@@ -166,11 +183,13 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
       advanceTime = 0,
       jumpToEnd,
     }: { id?: string; advanceTime?: number; jumpToEnd?: boolean } = {}) => {
-      const targets = id ? getRequestsInfoById(id) : history;
+      let targets = id ? getRequestsInfoById(id) : history;
       const advanceByTime = jumpToEnd ? getBiggestDelay(targets) : advanceTime;
       await waitFor(() => {
         jest.advanceTimersByTime(advanceByTime || 100);
-
+        if (!targets.length && id) {
+          targets = getRequestsInfoById(id);
+        }
         if (!targets.length) {
           throw new Error('No request targets');
         }
@@ -184,10 +203,13 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
       advanceTime = 0,
       jumpToEnd,
     }: { id?: string; advanceTime?: number; jumpToEnd?: boolean } = {}) => {
-      const targets = id ? getRequestsInfoById(id) : history;
+      let targets = id ? getRequestsInfoById(id) : history;
       const advanceByTime = jumpToEnd ? getBiggestDelay(targets) : advanceTime;
       await waitFor(() => {
-        jest.advanceTimersByTime(advanceByTime);
+        jest.advanceTimersByTime(advanceByTime || 100);
+        if (!targets.length && id) {
+          targets = getRequestsInfoById(id);
+        }
         if (!targets.length) {
           throw new Error('No request targets');
         }
@@ -202,12 +224,16 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
     },
     setResponders: (newResponderList: Responder[]) => {
       responderList.length = 0;
-      responderList = newResponderList;
+      newResponderList.forEach((resp) => {
+        responderList.push(resp);
+      });
     },
     addResponse: (response: FetchResponse, id?: string) => {
       const idTargets = id ? responderList.filter((res) => res.id === id) : [];
       if (id && idTargets.length !== 1) {
-        throw new Error('No responder or too many responders with id to target addResponse()');
+        throw new Error(
+          `No responder or too many responders (${idTargets.length}) with id "${id}" to target addResponse().`,
+        );
       }
       if (!id && responderList.length !== 1) {
         throw new Error('No responder or too many responders to target addResponse()');
@@ -247,6 +273,9 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
         return waitForFetchMockCallIndexToExist(callStartCount + waitForNewCall, advanceTime);
       };
     },
+    getRequestCount: () => {
+      return history.length;
+    },
   };
 }
 
@@ -259,4 +288,9 @@ export async function waitForFetchMockRequestsToFinish(advanceTime = 0) {
       throw new Error(`Pending mock call...`);
     }
   });
+}
+
+export async function getFetchMockResultsAfterAllFinished() {
+  await waitForFetchMockRequestsToFinish();
+  return Promise.resolve(getFetchMockResults);
 }
