@@ -306,21 +306,24 @@ describe('oidcClient', () => {
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);
       expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_IN', previousState: 'NO_SESSION' });
     });
-    it('state changes when logout is called. Payload has the state change', async () => {
+    it('state changes when logout is called. Payload has the state change. USER_REMOVED event is emitted.', async () => {
       placeUserToStorage();
       await initTests({ modules: [listenerModule] });
       await waitForLogoutToTimeout();
       const emittedSignals = getListenerSignals(listenerModule.getListener());
-      expect(emittedSignals).toHaveLength(1);
+      expect(emittedSignals).toHaveLength(2);
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);
       expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_OUT', previousState: 'VALID_SESSION' });
+      expect(emittedSignals[1].type).toBe(eventSignalType);
+      expect(emittedSignals[1].payload).toMatchObject({ type: 'USER_REMOVED' });
     });
-    it('state changes twice when handleCallback is called and successful. Payloads have state changes', async () => {
+    it('state changes twice when handleCallback is called and successful. Payloads have state changes. USER_UPDATED event is emitted with user.', async () => {
       const { oidcClient } = await initTests({ modules: [listenerModule] });
-      setSignInResponse();
+      const signInResponseProfileProps = { name: 'updated user' };
+      setSignInResponse({ signInResponseProfileProps });
       await oidcClient.handleCallback();
       const emittedSignals = getListenerSignals(listenerModule.getListener());
-      expect(emittedSignals).toHaveLength(2);
+      expect(emittedSignals).toHaveLength(3);
       expect(emittedSignals[0].payload).toMatchObject({
         state: 'HANDLING_LOGIN_CALLBACK',
         previousState: 'NO_SESSION',
@@ -329,6 +332,10 @@ describe('oidcClient', () => {
         state: 'VALID_SESSION',
         previousState: 'HANDLING_LOGIN_CALLBACK',
       });
+      const payload = emittedSignals[2].payload as EventPayload;
+      const user = (emittedSignals[2].payload as EventPayload).data as User;
+      expect(payload.type).toBe('USER_UPDATED');
+      expect(user.profile.name).toBe(signInResponseProfileProps.name);
     });
     it('state changes twice when handleCallback is called and fails. Payloads have state changes and error', async () => {
       const { oidcClient } = await initTests({ modules: [listenerModule] });

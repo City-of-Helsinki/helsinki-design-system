@@ -154,13 +154,16 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       emitError(error);
     }
     await emitEvent('USER_UPDATED', user || null);
-
     renewPromise = undefined;
     return Promise.resolve([error, user]);
   };
 
   userManager.events.addAccessTokenExpiring(async () => {
     await handleUserRenewal();
+  });
+
+  userManager.events.addUserUnloaded(async () => {
+    await emitEvent('USER_REMOVED');
   });
 
   if (isValidUser(getUserFromStorageSyncronously())) {
@@ -191,6 +194,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
         return Promise.reject(error);
       }
       emitStateChange('VALID_SESSION');
+      await emitEvent('USER_UPDATED', user);
       return Promise.resolve(user);
     },
     isRenewing,
