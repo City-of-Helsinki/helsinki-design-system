@@ -25,7 +25,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 - Use accordions to allow the user to quickly glance at the information and then choose to open sections that are interesting to them.
 - **Accordions must be given a header that describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
-  - The `headerLevel` given to the Accordion should be higher than the header in the page content preceeding it (if there is one). Making the content semantically correct. For example if the Accordion is nested inside content with a header `h2` then the `headerLevel` for the Accordion should be 3.
+  - The `headingLevel` given to the Accordion should be higher than the header in the page content preceeding it (if there is one). Making the content semantically correct. For example if the Accordion is nested inside content with a header `h2` then the `headingLevel` for the Accordion should be 3.
   - Also the Accordion size variant should be chosen so that it nicely fits the content, not putting a really large sized Accordion deep in the page structure.
 - **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions.
   - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
