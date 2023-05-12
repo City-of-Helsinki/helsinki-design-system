@@ -55,9 +55,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - The purpose of the StepByStep component is to provide an easy overall picture of a process.
 - **Every step should have a title.**
 - Step description is optional. The description should be compact, preferably one sentence long and two at the maximum. This is because the steps should provide a quick way to understand the whole process and too long texts can hinder that experience.
-- A step can have a button as a call to action, e.g. making a phone call.
+- A step can have a button as a call to action, e.g. making a phone call. But a button should not direct to another site.
 - A step can have a link to provide additional information.
-- The button and the link should relate to the step's contents. We recommend having only one button or a link per step, but sometimes it could be reasonable to have two. Before adding a second button or a link, consider whether the step should be divided into two steps.
+- The button and the link should relate to the step's contents. We recommend having only one button or a link per step, but sometimes it could be reasonable to have two. Before adding a second button or a link, consider whether the step should be divided into two steps. If you add two buttons, make the second one `variant="secondary"`. 
 
 ### Variations
 
