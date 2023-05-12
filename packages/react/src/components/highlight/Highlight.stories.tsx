@@ -10,74 +10,78 @@ export default {
   },
 };
 
-const QuoteArgs = { text: 'Add an interesting quote here', type: 'quote', reference: 'First name Last name. Title.' };
-const HighlightArgs = {
+const customColor = '#00005e';
+
+const quoteArgs = { text: 'Add an interesting quote here', type: 'quote', reference: 'First name Last name. Title.' };
+
+const highlightArgs = {
   text:
     'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
 };
 
+
 export const DefaultHighlight = (args) => <Highlight {...args} />;
 DefaultHighlight.args = {
-  ...HighlightArgs,
+  ...highlightArgs,
 };
 
 export const HighlightSmall = (args) => <Highlight {...args} />;
 HighlightSmall.args = {
-  ...HighlightArgs,
+  ...highlightArgs,
   variant: 'small',
 };
 
 export const HighlightLarge = (args) => <Highlight {...args} />;
 HighlightLarge.args = {
-  ...HighlightArgs,
+  ...highlightArgs,
   variant: 'l',
 };
 
 export const HighlightCustomAccentColor = (args) => <Highlight {...args} />;
 HighlightCustomAccentColor.args = {
-  ...HighlightArgs,
+  ...highlightArgs,
   theme: {
-    '--accent-line-color': '#009246',
+    '--accent-line-color': customColor,
   },
 };
 
 export const HighlightCustomTextColor = (args) => <Highlight {...args} />;
 HighlightCustomTextColor.args = {
-  ...HighlightArgs,
+  ...highlightArgs,
   theme: {
-    '--text-color': '#009246',
+    '--text-color': customColor,
   },
 };
 
 export const DefaultQuote = (args) => <Highlight {...args} />;
 DefaultQuote.args = {
-  ...QuoteArgs,
+  ...quoteArgs,
 };
 
 export const QuoteLarge = (args) => <Highlight {...args} />;
 QuoteLarge.args = {
-  ...QuoteArgs,
+  ...quoteArgs,
   variant: 'l',
 };
 
 export const QuoteSmall = (args) => <Highlight {...args} />;
 QuoteSmall.args = {
-  ...QuoteArgs,
+  ...quoteArgs,
   variant: 's',
 };
 
 export const QuoteCustomAccentColor = (args) => <Highlight {...args} />;
 QuoteCustomAccentColor.args = {
-  ...QuoteArgs,
+  ...quoteArgs,
   theme: {
-    '--accent-line-color': '#009246',
+    '--accent-line-color': customColor,
   },
 };
 
 export const QuoteCustomTextColor = (args) => <Highlight {...args} />;
 QuoteCustomTextColor.args = {
-  ...QuoteArgs,
+  ...quoteArgs,
   theme: {
-    '--text-color': '#009246',
+    '--text-color': customColor,
   },
 };
