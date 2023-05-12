@@ -32,3 +32,10 @@ export async function advanceUntilPromiseResolved(promise: Promise<unknown>, adv
   const listener = listenToPromise(promise);
   await advanceUntilListenerCalled(listener, advanceTime);
 }
+
+export async function advanceUntilDoesNotThrow(func: () => unknown | Promise<unknown>, advanceTime = 200) {
+  await waitFor(() => {
+    jest.advanceTimersByTime(advanceTime);
+    expect(func).not.toThrow();
+  });
+}

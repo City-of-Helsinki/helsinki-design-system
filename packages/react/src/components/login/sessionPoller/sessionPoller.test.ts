@@ -19,19 +19,13 @@ import { isAbortError } from '../utils/abortFetch';
 import { HttpPoller, HttpPollerProps } from '../utils/httpPoller';
 import createSessionPoller, { SessionPoller, sessionPollerNamespace } from './sessionPoller';
 import { StateChangeSignalPayload, stateChangeSignalType } from '../client/signals';
+import { createMockTestUtil } from '../testUtils/mockTestUtil';
 import { SessionPollerError } from './sessionPollerError';
 
 type ResponseType = { returnedStatus: HttpStatusCode };
 
-const mockTrackers = new Map<string, jest.SpyInstance | jest.Mock>();
-
-const getMockTracker = (name: string) => {
-  return mockTrackers.get(name) as jest.Mock;
-};
-
-const getSpyTracker = (name: string) => {
-  return mockTrackers.get(name) as jest.SpyInstance;
-};
+const mockMapForHttpPoller = createMockTestUtil();
+const mockMapForAbort = createMockTestUtil();
 
 let mockCurrentHttpPoller: HttpPoller;
 const mockActualHttpPoller = jest.requireActual('../utils/httpPoller');
@@ -41,26 +35,15 @@ jest.mock('../utils/httpPoller', () => ({
     if (mockCurrentHttpPoller) {
       mockCurrentHttpPoller.stop();
     }
-    mockTrackers.set('httpPollerShouldPoll', jest.spyOn(props, 'shouldPoll'));
+    mockMapForHttpPoller.reset();
+    mockMapForHttpPoller.addSpy(props, 'shouldPoll');
     mockCurrentHttpPoller = mockActualHttpPoller.default(props) as HttpPoller;
-    mockTrackers.set('httpPollerStart', jest.spyOn(mockCurrentHttpPoller, 'start'));
-    mockTrackers.set('httpPollerStop', jest.spyOn(mockCurrentHttpPoller, 'stop'));
+    mockMapForHttpPoller.addSpy(mockCurrentHttpPoller, 'start');
+    mockMapForHttpPoller.addSpy(mockCurrentHttpPoller, 'stop');
     return mockCurrentHttpPoller;
   },
   isSuccessfulHttpResponse: (...args: unknown[]) => mockActualHttpPoller.isSuccessfulHttpResponse(...args),
 }));
-
-const getHttpPollerStartCalls = () => {
-  return getMockTracker('httpPollerStart').mock.calls;
-};
-
-const getHttpPollerStopCalls = () => {
-  return getMockTracker('httpPollerStop').mock.calls;
-};
-
-const getHttpPollerShouldPollCalls = () => {
-  return getMockTracker('httpPollerShouldPoll').mock.calls;
-};
 
 const mockActualAbortFetch = jest.requireActual('../utils/abortFetch');
 
@@ -68,14 +51,27 @@ jest.mock('../utils/abortFetch', () => ({
   __esModule: true,
   createFetchAborter: () => {
     const aborter = mockActualAbortFetch.createFetchAborter();
-    mockTrackers.set('abort', jest.spyOn(aborter, 'abort'));
-    mockTrackers.set('getSignal', jest.spyOn(aborter, 'getSignal'));
+    mockMapForAbort.reset();
+    mockMapForAbort.addSpy(aborter, 'abort');
+    mockMapForAbort.addSpy(aborter, 'getSignal');
     return aborter;
   },
   isAbortError: (error: Error) => {
     return mockActualAbortFetch.isAbortError(error);
   },
 }));
+
+const getHttpPollerStartCalls = () => {
+  return mockMapForHttpPoller.getCalls('start');
+};
+
+const getHttpPollerStopCalls = () => {
+  return mockMapForHttpPoller.getCalls('stop');
+};
+
+const getHttpPollerShouldPollCalls = () => {
+  return mockMapForHttpPoller.getCalls('shouldPoll');
+};
 
 describe(`sessionPoller`, () => {
   const validResponse = 'Ok';
@@ -243,6 +239,8 @@ describe(`sessionPoller`, () => {
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
     jest.clearAllMocks();
+    mockMapForHttpPoller.clear();
+    mockMapForAbort.clear();
   });
 
   afterAll(() => {
@@ -261,7 +259,7 @@ describe(`sessionPoller`, () => {
     const result = (await waitForFetchMockResultFulfillment(0)) as Response;
     const resultText = await result?.text();
     expect(resultText).toBe(validResponse);
-    expect(getSpyTracker('getSignal')).toHaveBeenCalledTimes(1);
+    expect(mockMapForAbort.getListener('getSignal')).toHaveBeenCalledTimes(1);
     await advanceUntilRequestEnds(2);
     const finishedRequests = await advanceUntilRequestEnds(3);
     expect(finishedRequests).toBe(4);
@@ -298,7 +296,7 @@ describe(`sessionPoller`, () => {
     await waitUntilRequestFinished();
     await advanceUntilRequestStarts();
     currentPoller.stop();
-    expect(getSpyTracker('abort')).toHaveBeenCalledTimes(1);
+    expect(mockMapForAbort.getListener('abort')).toHaveBeenCalledTimes(1);
     await waitUntilRequestFinished();
     const error = (await waitForFetchMockResultFulfillment(1)) as Error;
     expect(isAbortError(error)).toBeTruthy();
@@ -431,7 +429,7 @@ describe(`sessionPoller`, () => {
     // this will start and abort the poller
     emitOidcClientStateChange({ state: 'NO_SESSION', previousState: 'VALID_SESSION' });
     // one abort is done on initial stop, then on each stop
-    expect(getSpyTracker('abort')).toHaveBeenCalledTimes(3);
+    expect(mockMapForAbort.getListener('abort')).toHaveBeenCalledTimes(3);
     expect(getHttpPollerStopCalls()).toHaveLength(3);
     expect(getHttpPollerStartCalls()).toHaveLength(2);
   });
