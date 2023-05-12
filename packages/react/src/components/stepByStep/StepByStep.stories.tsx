@@ -10,7 +10,7 @@ export default {
       {
         title: 'Step title',
         description:
-          "Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.",
+          'Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and its steps easily.',
         buttons: [
           {
             children: 'Example button',

@@ -14,7 +14,7 @@ export const NumberedStepByStep = () => `
       <li class="hds-step-by-step__step-item">
         <p class="hds-step-by-step__step-item-title">Step title</p>
         <div>
-          <p>Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.</p>
+          <p>Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and its steps easily.</p>
           <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Example button</span></button></p>
         </div>
       </li>
@@ -39,7 +39,7 @@ export const RegularStepByStep = () => `
       <li class="hds-step-by-step__step-item">
         <p class="hds-step-by-step__step-item-title">Step title</p>
         <div>
-          <p>Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big picture of the whole process and it's steps easily..</p>
+          <p>Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big picture of the whole process and its steps easily..</p>
           <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Example button</span></button></p>
         </div>
       </li>
@@ -60,7 +60,7 @@ export const RegularStepByStepWithoutHeader = () => `
       <li class="hds-step-by-step__step-item">
         <p class="hds-step-by-step__step-item-title">Step title</p>
         <div>
-          <p>Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.</p>
+          <p>Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big picture of the whole process and its steps easily.</p>
           <p><button type="button" class="hds-button hds-button--primary"><span class="hds-button__label">Example button</span></button></p>
         </div>
       </li>
