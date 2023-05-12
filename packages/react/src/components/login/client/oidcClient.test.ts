@@ -397,7 +397,7 @@ describe('oidcClient', () => {
         if (signal.type !== eventSignalType) {
           return false;
         }
-        if (!payload || payload.type !== 'USER_RENEWAL_COMPLETED') {
+        if (!payload || payload.type !== 'USER_UPDATED') {
           return false;
         }
         return true;
@@ -425,7 +425,7 @@ describe('oidcClient', () => {
           }
           storeToListener({ type: 'RENEWAL_HANDLED', namespace: signal.namespace }, module);
         }
-        if ((signal as OidcClientEventSignal).payload.type === 'USER_RENEWAL_COMPLETED') {
+        if ((signal as OidcClientEventSignal).payload.type === 'USER_UPDATED') {
           await createTimedPromise('waiting 1000ms', 1000);
         }
         return Promise.resolve();
@@ -504,12 +504,12 @@ describe('oidcClient', () => {
       'RENEWAL_HANDLED:oidcClient@module3',
       'RE_EMIT_STARTED:module2@re-emitter',
       'RE_EMIT_OVER:module2@re-emitter',
-      'USER_RENEWAL_COMPLETED:oidcClient@re-emitter',
-      'USER_RENEWAL_COMPLETED:oidcClient@module1',
-      'USER_RENEWAL_COMPLETED:oidcClient@module2',
-      'USER_RENEWAL_COMPLETED:oidcClient@module3',
+      'USER_UPDATED:oidcClient@re-emitter',
+      'USER_UPDATED:oidcClient@module1',
+      'USER_UPDATED:oidcClient@module2',
+      'USER_UPDATED:oidcClient@module3',
     ];
-    // when it fails, error signals are also sent, before USER_RENEWAL_COMPLETED signal
+    // when it fails, error signals are also sent, before USER_UPDATED signal
     const signalsWhenProcessIsFails = [
       ...signalsWhenProcessIsSuccessful.slice(0, 10),
       ...[

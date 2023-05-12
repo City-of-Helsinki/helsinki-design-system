@@ -3,8 +3,8 @@ import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { User } from 'oidc-client-ts';
 
-import { Beacon, createBeacon, emitInitializationSignals } from '../beacon/beacon';
-import { errorSignalType, filterSignals, eventSignalType } from '../beacon/signals';
+import { Beacon, createBeacon } from '../beacon/beacon';
+import { errorSignalType, filterSignals, emitInitializationSignals, eventSignalType } from '../beacon/signals';
 import { OidcClient, OidcClientState, oidcClientNamespace } from '../client/index';
 import { createConnectedBeaconModule, getListenerSignals } from '../testUtils/beaconTestUtil';
 import {

@@ -9,8 +9,8 @@ import {
   SignalType,
   createBeacon,
   createSignalTrigger,
-  emitInitializationSignals,
 } from './beacon';
+import { emitInitializationSignals } from './signals';
 import {
   createTimedPromise,
   advanceUntilListenerCalled,

@@ -33,6 +33,7 @@ export type EventType = unknown;
 export type EventData = unknown;
 export type EventPayload = { type: EventType; data?: EventData };
 export type EventSignal = Signal<typeof eventSignalType, EventPayload>;
+export const initSignalType = 'init' as const;
 
 export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBeacon {
   let beacon: Beacon | undefined;
@@ -101,6 +102,24 @@ export function createErrorTrigger(
   };
 }
 
+export function createEventTrigger(
+  namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
+): Pick<Signal, 'namespace'> & { type: EventSignal['type'] } {
+  return {
+    type: eventSignalType,
+    namespace,
+  };
+}
+
+export function createInitSignalsTrigger(
+  namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
+): Pick<Signal, 'type' | 'namespace'> {
+  return {
+    type: initSignalType,
+    namespace,
+  };
+}
+
 export function createTriggerForAllSignals(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
 ): Pick<Signal, 'type' | 'namespace'> {
@@ -116,5 +135,19 @@ export function filterSignals(list: Signal[], filterProps: Partial<Signal>): Sig
     return !props.find((key) => {
       return filterProps[key] !== signal[key];
     });
+  });
+}
+
+export function getSignalEventPayload(signal: Signal): EventPayload | null {
+  if (signal.type !== eventSignalType || !signal.payload || !(signal as EventSignal).payload.type) {
+    return null;
+  }
+  return signal.payload as EventSignal;
+}
+
+export function emitInitializationSignals(beacon: Beacon) {
+  const contexts = beacon.getAllSignalContextsAsObject();
+  Object.keys(contexts).forEach((namespace) => {
+    beacon.emit({ type: initSignalType, namespace, context: contexts[namespace] });
   });
 }

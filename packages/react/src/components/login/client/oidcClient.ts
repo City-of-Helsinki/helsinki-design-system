@@ -153,7 +153,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     if (error) {
       emitError(error);
     }
-    await emitEvent('USER_RENEWAL_COMPLETED', user || null);
+    await emitEvent('USER_UPDATED', user || null);
 
     renewPromise = undefined;
     return Promise.resolve([error, user]);

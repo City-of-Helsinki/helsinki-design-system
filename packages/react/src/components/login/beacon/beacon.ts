@@ -13,7 +13,9 @@ export type Signal<P = SignalType, T extends SignalPayload = SignalPayload> = {
   context?: ConnectedModule;
 };
 export type SignalListener = (signal: Signal) => void | Promise<void>;
-export type SignalTrigger = (signal: Signal) => boolean;
+export type SignalTriggerProps = Pick<Signal, 'type' | 'namespace'>;
+export type SignalTrigger = (signal: SignalTriggerProps) => boolean;
+
 export type StoredListenerData = { listener: SignalListener; trigger: SignalTrigger };
 
 // add cleanup?
@@ -233,11 +235,4 @@ export function createSignal(
     payload,
     context,
   };
-}
-
-export function emitInitializationSignals(beacon: Beacon) {
-  const contexts = beacon.getAllSignalContextsAsObject();
-  Object.keys(contexts).forEach((namespace) => {
-    beacon.emit({ type: 'init', namespace, context: contexts[namespace] });
-  });
 }

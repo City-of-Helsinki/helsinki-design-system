@@ -14,7 +14,8 @@ export type StateChangeSignal = {
 };
 export const stateChangeSignalType = 'stateChange' as const;
 
-export type OidcClientEvent = 'USER_RENEWAL_STARTED' | 'USER_RENEWAL_COMPLETED' | 'USER_RENEWAL_FAILED';
+export type OidcClientEvent = 'USER_RENEWAL_STARTED' | 'USER_UPDATED' | 'USER_REMOVED';
+
 export type OidcClientEventSignal = EventSignal & {
   payload: {
     type: OidcClientEvent;
@@ -30,7 +31,7 @@ export function createStateChangeTrigger(): Pick<Signal, 'namespace'> & { type: 
 }
 
 export function getOidcClientStateChangePayload(signal: Signal): StateChangeSignalPayload | null {
-  if (signal.type !== stateChangeSignalType || !signal.payload) {
+  if (signal.type !== stateChangeSignalType || !signal.payload || signal.namespace !== oidcClientNamespace) {
     return null;
   }
   return (signal as StateChangeSignal).payload;
