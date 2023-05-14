@@ -1,11 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-import { UserManager, OidcClient as OidcClientFromNpm, SigninResponse } from 'oidc-client-ts';
+import { UserManager, OidcClient as OidcClientFromNpm, SigninResponse, User } from 'oidc-client-ts';
 import fetchMock from 'jest-fetch-mock';
 import { waitFor } from '@testing-library/react';
 
-import { OidcClient, OidcClientProps, LoginProps, LogoutProps, oidcClientNamespace } from '../client/index';
+import {
+  OidcClient,
+  OidcClientProps,
+  LoginProps,
+  LogoutProps,
+  oidcClientNamespace,
+  OidcClientState,
+} from '../client/index';
 import createOidcClient from '../client/oidcClient';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
@@ -164,16 +171,31 @@ export function createMockUserManager(userMock: jest.Mock): UserManager {
   return (manager as unknown) as UserManager;
 }
 
-export function createMockOidcClient(stateMock: jest.Mock, userMock: jest.Mock): OidcClient {
-  const userManager = createMockUserManager(userMock);
+export function createMockOidcClient() {
+  const getStateMock = jest.fn();
+  const getUserMock = jest.fn();
+  const userManager = createMockUserManager(getUserMock);
   const oidcClient: Partial<OidcClient> = {
     namespace: oidcClientNamespace,
     getUserManager: () => {
       return userManager;
     },
-    getState: stateMock,
+    getState: getStateMock,
+    getUser: getUserMock,
     connect: jest.fn(),
   };
 
-  return oidcClient as OidcClient;
+  const setGetStateReturnValue = (state: OidcClientState) => {
+    getStateMock.mockReturnValue(state);
+  };
+
+  const setGetUserReturnValue = (user: User | null) => {
+    getUserMock.mockReturnValue(user);
+  };
+
+  return {
+    oidcClient: oidcClient as OidcClient,
+    setGetStateReturnValue,
+    setGetUserReturnValue,
+  };
 }

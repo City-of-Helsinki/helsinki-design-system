@@ -44,13 +44,6 @@ export function createOidcClientEventTrigger(): Pick<Signal, 'namespace'> & { ty
   };
 }
 
-export function getOidcClientFromSignal(signal: Signal): OidcClient | null {
-  if (!signal.context || signal.context.namespace !== oidcClientNamespace) {
-    return null;
-  }
-  return signal.context as OidcClient;
-}
-
 export function addStateChangeSignalListener(beacon: Beacon, listener: (signal: StateChangeSignal) => void): Disposer {
   const trigger = createStateChangeTrigger();
   return beacon.addListener(trigger, listener as SignalListener);

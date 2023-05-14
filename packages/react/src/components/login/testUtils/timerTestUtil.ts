@@ -31,6 +31,7 @@ export function listenToPromise(promise: Promise<unknown>, listener = jest.fn())
 export async function advanceUntilPromiseResolved(promise: Promise<unknown>, advanceTime = 200) {
   const listener = listenToPromise(promise);
   await advanceUntilListenerCalled(listener, advanceTime);
+  return listener;
 }
 
 export async function advanceUntilDoesNotThrow(func: () => unknown | Promise<unknown>, advanceTime = 200) {
@@ -38,4 +39,23 @@ export async function advanceUntilDoesNotThrow(func: () => unknown | Promise<unk
     jest.advanceTimersByTime(advanceTime);
     expect(func).not.toThrow();
   });
+}
+
+export async function advanceUntilPromiseResolvedAndReturnValue(promise: Promise<unknown>, advanceTime = 200) {
+  const listener = await advanceUntilPromiseResolved(promise, advanceTime);
+  return getLastMockCallArgs(listener)[0];
+}
+
+export async function createAdvancingPromiseResolver(promise: Promise<unknown>, advanceTime = 200) {
+  return async () => {
+    await advanceUntilPromiseResolvedAndReturnValue(promise, advanceTime);
+  };
+}
+
+export function getPromiseResultLater(promise: Promise<unknown>, advanceTime = 200): () => Promise<unknown> {
+  const listener = listenToPromise(promise);
+  const getResult = async () => {
+    return getLastMockCallArgs(listener)[0] || advanceUntilListenerCalled(listener, advanceTime)[0];
+  };
+  return getResult;
 }

@@ -4,9 +4,13 @@ import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { User } from 'oidc-client-ts';
 
 import { Beacon, createBeacon } from '../beacon/beacon';
-import { errorSignalType, filterSignals, emitInitializationSignals, eventSignalType } from '../beacon/signals';
+import { emitInitializationSignals, eventSignalType } from '../beacon/signals';
 import { OidcClient, OidcClientState, oidcClientNamespace } from '../client/index';
-import { createConnectedBeaconModule, getListenerSignals } from '../testUtils/beaconTestUtil';
+import {
+  createConnectedBeaconModule,
+  createTestListenerModule,
+  getReceivedErrorSignals,
+} from '../testUtils/beaconTestUtil';
 import {
   createControlledFetchMockUtil,
   getFetchMockCalls,
@@ -95,17 +99,9 @@ describe(`sessionPoller`, () => {
   let currentBeacon: Beacon;
   let currentOidcClient: OidcClient;
   let listenerModule: ReturnType<typeof createConnectedBeaconModule>;
+  let mockOidcClientState: (state: OidcClientState) => void;
+  let mockUserManagerUser: (user: User | null) => void;
   const pollIntervalInMs = 50000;
-  const getStateMock = jest.fn();
-  const getUserMock = jest.fn();
-
-  const mockOidcClientState = (state: OidcClientState) => {
-    getStateMock.mockReturnValue(state);
-  };
-
-  const mockUserManagerUser = (user: User | null) => {
-    getUserMock.mockResolvedValue(user);
-  };
 
   const addPollResponse = ({ returnedStatus }: ResponseType) => {
     if (returnedStatus) {
@@ -124,6 +120,10 @@ describe(`sessionPoller`, () => {
     user?: User;
     responses: ResponseType[];
   }) => {
+    const { oidcClient, setGetStateReturnValue, setGetUserReturnValue } = createMockOidcClient();
+    currentOidcClient = oidcClient;
+    mockOidcClientState = setGetStateReturnValue;
+    mockUserManagerUser = setGetUserReturnValue;
     if (setValidSession || user) {
       mockOidcClientState('VALID_SESSION');
       mockUserManagerUser(user || createUser({}));
@@ -132,9 +132,7 @@ describe(`sessionPoller`, () => {
       addPollResponse(response);
     });
     currentPoller = createSessionPoller({ pollIntervalInMs });
-    listenerModule = createConnectedBeaconModule('sessionPollerListener');
-    listenerModule.listenTo(`*:${sessionPollerNamespace}`);
-    currentOidcClient = createMockOidcClient(getStateMock, getUserMock);
+    listenerModule = createTestListenerModule(sessionPollerNamespace, 'sessionPollerListener');
     currentBeacon = createBeacon();
     currentBeacon.addSignalContext(currentPoller);
     currentBeacon.addSignalContext(currentOidcClient);
@@ -214,11 +212,8 @@ describe(`sessionPoller`, () => {
     expect(getFetchMockCalls()).toHaveLength(fetchCount);
   };
 
-  const getEmittedErrors = (): SessionPollerError[] => {
-    const errorSignals = filterSignals(getListenerSignals(listenerModule.getListener()), { type: errorSignalType });
-    return errorSignals.map((signal) => {
-      return signal.payload as SessionPollerError;
-    });
+  const getEmittedErrors = () => {
+    return getReceivedErrorSignals<SessionPollerError>(listenerModule);
   };
 
   beforeAll(() => {

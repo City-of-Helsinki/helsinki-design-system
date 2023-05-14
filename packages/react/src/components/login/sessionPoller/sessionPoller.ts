@@ -5,9 +5,10 @@ import createHttpPoller from '../utils/httpPoller';
 import { createFetchAborter } from '../utils/abortFetch';
 import { Signal, ConnectedModule } from '../beacon/beacon';
 import { createNamespacedBeacon, createTriggerForAllSignals } from '../beacon/signals';
+import { getOidcClientFromSignal } from '../beacon/signalParsers';
 import { SessionPollerError } from './sessionPollerError';
 import { OidcClientState, oidcClientNamespace } from '../client/index';
-import { getOidcClientFromSignal, getOidcClientStateChangePayload } from '../client/signals';
+import { getOidcClientStateChangePayload } from '../client/signals';
 
 export interface SessionPoller extends ConnectedModule {
   start: () => void;
