@@ -9,7 +9,7 @@ import { OidcClient, OidcClientState, oidcClientNamespace } from '../client/inde
 import {
   createConnectedBeaconModule,
   createTestListenerModule,
-  getReceivedErrorSignals,
+  getReceivedErrorSignalPayloads,
 } from '../testUtils/beaconTestUtil';
 import {
   createControlledFetchMockUtil,
@@ -213,7 +213,7 @@ describe(`sessionPoller`, () => {
   };
 
   const getEmittedErrors = () => {
-    return getReceivedErrorSignals<SessionPollerError>(listenerModule);
+    return getReceivedErrorSignalPayloads<SessionPollerError>(listenerModule);
   };
 
   beforeAll(() => {

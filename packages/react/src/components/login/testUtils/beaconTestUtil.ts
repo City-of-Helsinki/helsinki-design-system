@@ -1,10 +1,21 @@
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
-import { SignalNamespace, ConnectedModule, Disposer, SignalListener, SignalType, Signal } from '../beacon/beacon';
+import {
+  SignalNamespace,
+  ConnectedModule,
+  Disposer,
+  SignalListener,
+  SignalType,
+  Signal,
+  Beacon,
+} from '../beacon/beacon';
 import {
   ErrorPayload,
+  EventPayload,
   NamespacedBeacon,
+  createEventTrigger,
   createNamespacedBeacon,
   errorSignalType,
+  eventSignalType,
   filterSignals,
 } from '../beacon/signals';
 
@@ -89,9 +100,24 @@ export function createTestListenerModule(
   return listenerModule;
 }
 
-export function getReceivedErrorSignals<T = ErrorPayload>(listenerModule: ConnectedBeaconModule): T[] {
+export function getReceivedErrorSignalPayloads<T = ErrorPayload>(listenerModule: ConnectedBeaconModule): T[] {
   const errorSignals = filterSignals(getListenerSignals(listenerModule.getListener()), { type: errorSignalType });
   return errorSignals.map((signal) => {
     return signal.payload as T;
   });
+}
+
+export function getReceivedEventSignalPayloads<T = EventPayload>(listenerModule: ConnectedBeaconModule): T[] {
+  const eventSignals = filterSignals(getListenerSignals(listenerModule.getListener()), { type: eventSignalType });
+  return eventSignals.map((signal) => {
+    return signal.payload as T;
+  });
+}
+
+export async function emitEvent(
+  beacon: Beacon,
+  namespace: Signal['namespace'],
+  eventPayload: EventPayload,
+): Promise<void> {
+  await beacon.emitAsync({ ...createEventTrigger(namespace), payload: eventPayload });
 }
