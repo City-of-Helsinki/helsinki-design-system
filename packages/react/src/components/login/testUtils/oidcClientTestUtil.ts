@@ -85,17 +85,37 @@ export function createOidcClientTestSuite() {
   // oidcClient.login redirects the browser.
   // The returned promise is never resolved.
   async function waitForLoginToTimeout(loginProps?: LoginProps) {
+    let promise: Promise<void>;
     await expect(() =>
-      waitFor(() => oidcClient.login(loginProps), {
-        timeout: 1000,
-      }),
+      waitFor(
+        () => {
+          if (!promise) {
+            promise = oidcClient.login(loginProps);
+          }
+          return promise;
+        },
+        {
+          timeout: 1000,
+        },
+      ),
     ).rejects.toThrow();
   }
 
   // loginClient.logout redirects the browser.
   // The returned promise is never resolved.
   async function waitForLogoutToTimeout(logoutProps?: LogoutProps) {
-    await expect(() => waitFor(() => oidcClient.logout(logoutProps), { timeout: 1000 })).rejects.toThrow();
+    let promise: Promise<void>;
+    await expect(() =>
+      waitFor(
+        () => {
+          if (!promise) {
+            promise = oidcClient.logout(logoutProps);
+          }
+          return promise;
+        },
+        { timeout: 1000 },
+      ),
+    ).rejects.toThrow();
   }
 
   const initTests = async (
