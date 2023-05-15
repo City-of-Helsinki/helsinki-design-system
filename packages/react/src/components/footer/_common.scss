@@ -18,6 +18,9 @@
 %footerItem {
   @extend %buttonReset;
   
+  --outline-offset: 2px;
+  --outline-offset-small: 1px;
+  
   align-items: center;
   align-self: start;
   color: inherit;
@@ -33,9 +36,10 @@
   }
 
   &:focus {
+    border: 0;
     border-radius: var(--footer-focus-outline-border-radius);
     outline: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
-    outline-offset: 4px;
+    outline-offset: var(--outline-offset);
   }
 }
 

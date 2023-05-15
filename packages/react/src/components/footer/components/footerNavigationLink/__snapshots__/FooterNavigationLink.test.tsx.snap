@@ -3,7 +3,7 @@
 exports[`<Footer.NavigationLink /> spec renders the base variant 1`] = `
 <DocumentFragment>
   <a
-    class="item base"
+    class="link linkM item base"
   >
     <span>
       Link
@@ -60,7 +60,7 @@ exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
           Bar
         </h2>
         <a
-          class="item"
+          class="link linkM item"
         >
           <span>
             Link
@@ -75,7 +75,7 @@ exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
 exports[`<Footer.NavigationLink /> spec renders the navigation variant 1`] = `
 <DocumentFragment>
   <a
-    class="item navigation"
+    class="link linkM item navigation"
   >
     <span>
       Link
@@ -87,7 +87,7 @@ exports[`<Footer.NavigationLink /> spec renders the navigation variant 1`] = `
 exports[`<Footer.NavigationLink /> spec renders the utility variant 1`] = `
 <DocumentFragment>
   <a
-    class="item utility"
+    class="link linkM item utility"
   >
     <span>
       Link

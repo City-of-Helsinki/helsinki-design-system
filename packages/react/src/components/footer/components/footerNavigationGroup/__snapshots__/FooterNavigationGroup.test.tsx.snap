@@ -63,21 +63,21 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
                 Main Page
               </a>
               <a
-                class="item"
+                class="link linkM item"
               >
                 <span>
                   Link 1
                 </span>
               </a>
               <a
-                class="item"
+                class="link linkM item"
               >
                 <span>
                   Link 2
                 </span>
               </a>
               <a
-                class="item"
+                class="link linkM item"
               >
                 <span>
                   Link 3

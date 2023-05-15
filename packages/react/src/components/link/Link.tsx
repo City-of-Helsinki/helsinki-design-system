@@ -7,7 +7,6 @@ import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
-import getLinkAriaLabel from '../../utils/getLinkAriaLabel';
 
 export type LinkProps = {
   /**
@@ -84,14 +83,17 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     }: LinkProps,
     ref: React.Ref<HTMLAnchorElement>,
   ) => {
-    const composedAriaLabel = getLinkAriaLabel(
-      ariaLabel,
-      getTextFromReactChildren(children),
-      openInNewTabAriaLabel,
-      openInExternalDomainAriaLabel,
-      external,
-      openInNewTab,
-    );
+    const composeAriaLabel = () => {
+      let childrenText = ariaLabel || getTextFromReactChildren(children);
+      const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+      const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
+
+      if (childrenText && childrenText.slice(-1) !== '.') {
+        childrenText = `${childrenText}.`;
+      }
+
+      return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
+    };
 
     const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
       L: 'l',
@@ -111,7 +113,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         href={href}
         style={style}
         {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-        {...((openInNewTab || external || ariaLabel) && { 'aria-label': composedAriaLabel })}
+        {...((openInNewTab || external || ariaLabel) && { 'aria-label': composeAriaLabel() })}
         ref={ref}
         {...rest}
       >

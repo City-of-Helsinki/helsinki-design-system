@@ -58,7 +58,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
             class="logoWrapper"
           >
             <a
-              class="item"
+              class="link linkM item"
               tabindex="0"
             >
               <svg
@@ -92,7 +92,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 |
               </span>
               <a
-                class="item base"
+                class="link linkM item base"
               >
                 <span>
                   Link 1
@@ -104,7 +104,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 |
               </span>
               <a
-                class="item base"
+                class="link linkM item base"
               >
                 <span>
                   Link 2
@@ -116,7 +116,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 |
               </span>
               <a
-                class="item base"
+                class="link linkM item base"
               >
                 <span>
                   Link 3

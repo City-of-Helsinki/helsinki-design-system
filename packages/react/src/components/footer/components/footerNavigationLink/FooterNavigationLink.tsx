@@ -4,9 +4,9 @@ import React from 'react';
 import '../../../../styles/base.css';
 
 import styles from './FooterNavigationLink.module.scss';
+import { Link } from '../../../link';
 import { MergeElementProps } from '../../../../common/types';
 import classNames from '../../../../utils/classNames';
-import getLinkAriaLabel from '../../../../utils/getLinkAriaLabel';
 import { IconAngleRight, IconLinkExternal } from '../../../../icons';
 import { FooterVariant } from '../../Footer.interface';
 
@@ -65,30 +65,16 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   icon,
   external = false,
   label,
-  openInNewTab = false,
-  openInExternalDomainAriaLabel,
-  openInNewTabAriaLabel,
   subItem = false,
   variant,
   ...rest
 }: FooterNavigationLinkProps<T>) => {
   const Item: React.ElementType = as;
-  const composedAriaLabel = getLinkAriaLabel(
-    ariaLabel,
-    label,
-    openInNewTabAriaLabel,
-    openInExternalDomainAriaLabel,
-    external,
-    openInNewTab,
-  );
 
   return (
-    // @ts-ignore
     <Item
       aria-label={ariaLabel}
       className={classNames(styles.item, subItem && styles.subItem, variant && styles[variant], className)}
-      {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-      {...((openInNewTab || external || ariaLabel) && { 'aria-label': composedAriaLabel })}
       {...rest}
     >
       {icon}
@@ -106,5 +92,5 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
 };
 
 FooterNavigationLink.defaultProps = {
-  as: 'a',
+  as: Link,
 };

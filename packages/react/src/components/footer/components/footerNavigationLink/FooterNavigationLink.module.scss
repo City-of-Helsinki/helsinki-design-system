@@ -4,8 +4,13 @@
 .item {
   @extend %footerItem;
   
+  --link-color: var(--footer-color);
+  --link-visited-color: none;
+  
+  color: var(--link-color);
   font-weight: normal;
   line-height: var(--lineheight-l);
+  text-decoration: none;
 }
 
 .base {
@@ -37,7 +42,8 @@
 
 .subItem.subItem {
   font-size: var(--fontsize-body-s);
-  line-height: var(--lineheight-l)
+  line-height: var(--lineheight-l);
+  outline-offset: var(--outline-offset-small);
 }
 
 .subItemIcon {
@@ -49,6 +55,10 @@
 }
 
 @media medium-down {
+  .item {
+    outline-offset: var(--outline-offset-small);
+  }
+
   .utility, .navigation {
     font-size: var(--fontsize-body-m)
   }
