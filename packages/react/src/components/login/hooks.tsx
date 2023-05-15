@@ -1,6 +1,6 @@
 import { useContext, useCallback, useState, useLayoutEffect } from 'react';
 
-import { OidcClient, UserReturnType } from './client/index';
+import { Amr, OidcClient, UserReturnType } from './client/index';
 import { isValidUser } from './client/oidcClient';
 import { LoginContext, LoginContextData } from './LoginContext';
 import { Signal, SignalListener } from './beacon/beacon';
@@ -53,4 +53,10 @@ export const useSignalListener = (listener: SignalListenerWithResponse): [Signal
     return disposer;
   }, [memoizedListener, addListener]);
   return [lastSignal];
+};
+
+export const useCachedAmr = (): Amr | undefined => {
+  const client = useOidcClient();
+  const [cachedAmr] = useState<Amr | undefined>(() => client.getAmr());
+  return cachedAmr;
 };
