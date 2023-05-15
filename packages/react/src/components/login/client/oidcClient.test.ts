@@ -107,7 +107,7 @@ describe('oidcClient', () => {
       await oidcClient.handleCallback();
     });
     it('should add given language to the logout url', async () => {
-      const { userManager } = testData;
+      const { oidcClient, userManager } = testData;
       const signoutRedirectSpy = jest.spyOn(userManager, 'signoutRedirect');
       const loginParams = { language: 'sv' };
       await waitForLogoutToTimeout(loginParams);
@@ -118,6 +118,7 @@ describe('oidcClient', () => {
         },
       });
       expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+      expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should pass other LogoutProps than "language" to signoutRedirect and convert "language" to an extraQueryParam', async () => {
       const { userManager } = testData;
@@ -152,6 +153,7 @@ describe('oidcClient', () => {
       const mockedResponse = setSignInResponse();
       const user = await oidcClient.handleCallback();
       expect({ ...mockedResponse, state: {}, userState: undefined }).toMatchObject(user as User);
+      expect(oidcClient.isAuthenticated()).toBeTruthy();
     });
     it('should return an error when user is invalid.', async () => {
       const { oidcClient } = await initTests({});
@@ -159,6 +161,7 @@ describe('oidcClient', () => {
       const [error] = await to(oidcClient.handleCallback());
       expect(error).toBeInstanceOf(Error);
       expect((error as OidcClientError).isInvalidUserError).toBeTruthy();
+      expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should return an error when user is expired.', async () => {
       const { oidcClient } = await initTests({});
@@ -166,6 +169,7 @@ describe('oidcClient', () => {
       const [error] = await to(oidcClient.handleCallback());
       expect(error).toBeInstanceOf(Error);
       expect((error as OidcClientError).isInvalidUserError).toBeTruthy();
+      expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should return an error when signinRedirectCallback throws', async () => {
       const { oidcClient } = await initTests({});
@@ -180,6 +184,21 @@ describe('oidcClient', () => {
       setSignInResponse();
       await oidcClient.handleCallback();
       expect(setSpy).toHaveBeenCalledTimes(1);
+      expect(oidcClient.isAuthenticated()).toBeTruthy();
+    });
+  });
+  describe('.isAuthenticated()', () => {
+    it('should return true when current user is valid', async () => {
+      const { oidcClient } = await initTests({ userProps: {} });
+      expect(oidcClient.isAuthenticated()).toBeTruthy();
+    });
+    it('should return true when current user is expired', async () => {
+      const { oidcClient } = await initTests({ userProps: { expiredUser: true } });
+      expect(oidcClient.isAuthenticated()).toBeFalsy();
+    });
+    it('should return true when user is does not exist', async () => {
+      const { oidcClient } = await initTests({});
+      expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
   });
   describe('.getUser()', () => {
@@ -534,6 +553,7 @@ describe('oidcClient', () => {
         expect(oidcClient.isRenewing()).toBeFalsy();
         const initialUser = oidcClient.getUser() as User;
         renewalFunctions.raiseExpiringEvent();
+        expect(oidcClient.isAuthenticated()).toBeTruthy();
         await waitForRefreshToEnd();
         await waitFor(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
@@ -547,8 +567,9 @@ describe('oidcClient', () => {
         expect(listAllSignals()).toEqual(signalsWhenProcessIsSuccessful);
         const allRenewResults = listAllUserRenewalCompletions();
         expect(allRenewResults.filter(([user]) => user?.refresh_token === renewedUser.refresh_token)).toHaveLength(4);
+        expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
-      it('Errors are handled and emitted.', async () => {
+      it('Errors are handled and emitted. Failed renewal does not invalidate user.', async () => {
         const { renewalFunctions, oidcClient, waitForRefreshToEnd, modules } = await initRenewalTests(false, true);
         expect(oidcClient.isRenewing()).toBeFalsy();
         const initialUser = oidcClient.getUser() as User;
@@ -570,6 +591,7 @@ describe('oidcClient', () => {
         expect(listAllSignals()).toEqual(signalsWhenProcessIsFails);
         const allRenewResults = listAllUserRenewalCompletions();
         expect(allRenewResults.filter(([user]) => user === null)).toHaveLength(4);
+        expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
     });
     describe('Manual renewal can be started with renewUser()', () => {

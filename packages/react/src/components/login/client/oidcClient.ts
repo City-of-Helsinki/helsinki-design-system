@@ -197,6 +197,10 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       await emitEvent('USER_UPDATED', user);
       return Promise.resolve(user);
     },
+    isAuthenticated: () => {
+      const target = getUserFromStorage(combinedProps.userManagerSettings as UserManagerSettings, store);
+      return !!target && isValidUser(target);
+    },
     isRenewing,
     login: async (loginProps) => {
       emitStateChange('LOGGING_IN');
