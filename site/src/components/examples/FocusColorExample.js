@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FocusColorExample = ({ color, background, style = {}, contentStyle = {}, children }) => (
   <div
-    aria-label="Visualized example"
+    aria-label="Visualized focus example"
     role="img"
     style={{
       fontSize: 'var(--fontsize-body-l)',
