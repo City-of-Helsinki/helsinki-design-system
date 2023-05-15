@@ -28,7 +28,6 @@
   --label-color-default: var(--color-black-90);
   --label-color-invalid: var(--color-black-90);
   --placeholder-color: var(--color-black-60);
-  --focus-outline-color: var(--color-coat-of-arms);
 }
 
 .hds-text-input .hds-text-input__input {
@@ -81,7 +80,7 @@
 }
 
 .hds-text-input__input-wrapper:focus-within .hds-text-input__input:not([readonly]) {
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  box-shadow: 0 0 0 var(--outline-width) var(--color-focus-outline);
   transform: translate3d(0, 0, 0);
   transition: 85ms ease-out;
   transition-property: box-shadow, transform;
@@ -294,5 +293,5 @@
 }
 
 .hds-text-input__button:focus {
-  outline: var(--outline-width) solid var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--color-focus-outline);
 }

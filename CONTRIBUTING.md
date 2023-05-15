@@ -4,7 +4,7 @@ Contributions are open even if you don't have a finished solution yet. HDS team 
 
 ## Sending a pull request
 
-Send pull requests to `master` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits for maintainers is also recommended.
+Send pull requests to `development` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits for maintainers is also recommended.
 
 1. Set up your local development environment by following the steps in [DEVELOPMENT.md](/DEVELOPMENT.md). Use short and descriptive commit messages e.g. "Add rotate property for Koros component".
 

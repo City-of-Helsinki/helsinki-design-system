@@ -5,6 +5,7 @@ import styles from './MainLevel.module.scss';
 import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';
+import { getChildrenAsArray } from '../../../utils/getChildren';
 
 type MainLevelCommonProps = {
   /**
@@ -159,10 +160,13 @@ export const MainLevel = ({
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpenMainLevels.includes(index as number));
   const [isActiveParent, setIsActiveParent] = useState<boolean>(false);
 
-  const subLevels = React.Children.map(children, (child) => {
+  const childElements = getChildrenAsArray(children);
+
+  const subLevels = childElements.map((child, childIndex) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
       return cloneElement(child, {
         mainLevelIndex: index,
+        key: childIndex,
       });
     }
     return null;

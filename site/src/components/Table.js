@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 
 const captionPrefix = '[';
 const captionSuffix = ']';
@@ -15,21 +15,25 @@ const Table = (props) => {
   const thead = (props.children || []).find(({ props }) => props.originalType === 'thead');
   const tbody = (props.children || []).find(({ props }) => props.originalType === 'tbody');
   const tbodyRows = tbody.props?.children || [];
-  const [rows, captionString] = React.Children.toArray(tbodyRows).reduce(
-    (acc, row, i, arr) => {
-      if (
-        i >= arr.length - 1 &&
-        row.props.children &&
-        row.props.children[0] &&
-        isCaption(row.props.children[0].props.children)
-      ) {
-        return [acc[0], row.props.children[0].props.children];
-      } else {
-        return [[...acc[0], row], acc[1]];
-      }
-    },
-    [[], ''],
-  );
+  const rowsArray = Array.isArray(tbodyRows) ? tbodyRows : [tbodyRows];
+
+  const [rows, captionString] = rowsArray
+    .filter((child) => isValidElement(child))
+    .reduce(
+      (acc, row, i, arr) => {
+        if (
+          i >= arr.length - 1 &&
+          row.props.children &&
+          row.props.children[0] &&
+          isCaption(row.props.children[0].props.children)
+        ) {
+          return [acc[0], row.props.children[0].props.children];
+        } else {
+          return [[...acc[0], row], acc[1]];
+        }
+      },
+      [[], ''],
+    );
 
   const tableChildrenWithoutCaption = [thead, { ...tbody, props: { ...tbody.props, children: rows } }];
   const [tableName, caption] = captionString ? resolveCaptionStrings(captionString) : [undefined, undefined];
