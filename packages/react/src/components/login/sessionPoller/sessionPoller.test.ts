@@ -428,4 +428,41 @@ describe(`sessionPoller`, () => {
     expect(getHttpPollerStopCalls()).toHaveLength(3);
     expect(getHttpPollerStartCalls()).toHaveLength(2);
   });
+  it('Polling is started and stopped when user is renewed. No need to poll with old tokens', async () => {
+    initTests({ setValidSession: true, responses: [successfulResponse, successfulResponse, successfulResponse] });
+    await waitFor(() => {
+      expect(getHttpPollerShouldPollCalls()).toHaveLength(0);
+      expect(getHttpPollerStartCalls()).toHaveLength(1);
+    });
+    await waitUntilRequestFinished();
+    await currentBeacon.emitAsync({
+      type: eventSignalType,
+      namespace: oidcClientNamespace,
+      payload: { type: 'USER_RENEWAL_STARTED' },
+    });
+    expect(getHttpPollerStopCalls()).toHaveLength(1);
+    await currentBeacon.emitAsync({
+      type: eventSignalType,
+      namespace: oidcClientNamespace,
+      payload: { type: 'USER_UPDATED', data: createUser() },
+    });
+    expect(getHttpPollerStartCalls()).toHaveLength(2);
+  });
+  it('Polling is not started again if renewal fails. No need to poll with old tokens', async () => {
+    initTests({ setValidSession: true, responses: [successfulResponse, successfulResponse, successfulResponse] });
+    await waitUntilRequestFinished();
+    expect(getHttpPollerStartCalls()).toHaveLength(1);
+    await currentBeacon.emitAsync({
+      type: eventSignalType,
+      namespace: oidcClientNamespace,
+      payload: { type: 'USER_RENEWAL_STARTED' },
+    });
+    expect(getHttpPollerStopCalls()).toHaveLength(1);
+    await currentBeacon.emitAsync({
+      type: eventSignalType,
+      namespace: oidcClientNamespace,
+      payload: { type: 'USER_UPDATED' },
+    });
+    expect(getHttpPollerStartCalls()).toHaveLength(1);
+  });
 });
