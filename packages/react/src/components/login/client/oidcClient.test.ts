@@ -1,5 +1,5 @@
 import to from 'await-to-js';
-import { User, UserManagerSettings } from 'oidc-client-ts';
+import { User, UserManagerSettings, SigninResponse } from 'oidc-client-ts';
 import { waitFor } from '@testing-library/react';
 
 // eslint-disable-next-line jest/no-mocks-import
@@ -11,7 +11,7 @@ import {
   createOidcClientTestSuite,
   getDefaultOidcClientTestProps,
 } from '../testUtils/oidcClientTestUtil';
-import { LoginProps, LogoutProps, RenewalResult, UserReturnType } from './index';
+import { LoginProps, LogoutProps, OidcClient, RenewalResult, UserReturnType } from './index';
 import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
 import { createSignInResponse, createUser } from '../testUtils/userTestUtil';
@@ -23,7 +23,7 @@ import {
 } from '../testUtils/beaconTestUtil';
 import { advanceUntilListenerCalled, createTimedPromise, listenToPromise } from '../testUtils/timerTestUtil';
 import { OidcClientEventSignal, createOidcClientEventTrigger, stateChangeSignalType } from './signals';
-import { createRenewalTestUtil } from '../testUtils/renewalTestUtil';
+import { createRenewalTestUtil, mockUserManagerRefreshResponse } from '../testUtils/renewalTestUtil';
 import {
   ErrorSignal,
   EventPayload,
@@ -297,6 +297,78 @@ describe('oidcClient', () => {
       ((initProps.userProps.signInResponseProfileProps as unknown) as Record<string, string>).amr = amrValue;
       const { oidcClient } = await initTests(initProps);
       expect(oidcClient.getAmr()).toBeUndefined();
+    });
+  });
+  describe('.getTokens()', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+    const verifyTokens = async (oidcClient: OidcClient, assumedTokens: Partial<SigninResponse>) => {
+      expect(assumedTokens).toMatchObject({
+        access_token: oidcClient.getToken('access'),
+        id_token: oidcClient.getToken('id'),
+        refresh_token: oidcClient.getToken('refresh'),
+      });
+    };
+    const signInResponseProps = {
+      access_token: 'initial access token',
+      id_token: 'initial id token',
+      refresh_token: 'initial refresh token',
+    };
+    const refreshSignInResponseProps = {
+      access_token: 'new access token',
+      id_token: 'new id token',
+      refresh_token: 'new refresh token',
+    };
+    it('returns a token of given type and renew updates them', async () => {
+      const { oidcClient, userManager } = await initTests({
+        userProps: { signInResponseProps },
+      });
+      verifyTokens(oidcClient, signInResponseProps);
+      const fulfillmentListener = mockUserManagerRefreshResponse(
+        userManager,
+        createSignInResponse({ signInResponseProps: refreshSignInResponseProps }),
+      );
+      oidcClient.renewUser();
+      const newAccessTokenPromise = oidcClient.getToken('access');
+      await advanceUntilListenerCalled(fulfillmentListener);
+      await waitFor(() => {
+        expect(oidcClient.isRenewing()).toBeFalsy();
+      });
+      verifyTokens(oidcClient, refreshSignInResponseProps);
+      const newAccessToken = await newAccessTokenPromise;
+      expect(newAccessToken).toBe(refreshSignInResponseProps.access_token);
+    });
+
+    it('handles errors too', async () => {
+      const { oidcClient, userManager } = await initTests({
+        userProps: { signInResponseProps },
+      });
+      verifyTokens(oidcClient, signInResponseProps);
+      const fulfillmentListener = mockUserManagerRefreshResponse(userManager, new Error('UPS'));
+      oidcClient.renewUser();
+      await advanceUntilListenerCalled(fulfillmentListener);
+      await waitFor(() => {
+        expect(oidcClient.isRenewing()).toBeFalsy();
+      });
+      verifyTokens(oidcClient, signInResponseProps);
+    });
+    it('returns undefined, if user is not valid', async () => {
+      const { oidcClient } = await initTests({
+        userProps: { expiredUser: true, signInResponseProps },
+      });
+      expect(await oidcClient.getToken('access')).toBeUndefined();
+      expect(await oidcClient.getToken('id')).toBeUndefined();
+      expect(await oidcClient.getToken('refresh')).toBeUndefined();
+    });
+    it('returns undefined, if user is not found', async () => {
+      const { oidcClient } = await initTests();
+      expect(await oidcClient.getToken('access')).toBeUndefined();
+      expect(await oidcClient.getToken('id')).toBeUndefined();
+      expect(await oidcClient.getToken('refresh')).toBeUndefined();
     });
   });
   describe('isUserExpired()', () => {

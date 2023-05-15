@@ -39,6 +39,14 @@ export interface OidcClient extends ConnectedModule {
    */
   getState: () => OidcClientState;
   /**
+   *
+   * Returns a token. Function is async, because token renewal might be in progress and current token might be outdated after that.
+   * If renewal was in progress, but failed, then old token is returned.
+   * Use isRenewing() and exported function getUserToken(user, tokenType) to get token syncronously and safely.
+   * The Promise will never reject.
+   */
+  getToken: (tokenType: 'access' | 'id' | 'refresh') => Promise<string | undefined>;
+  /**
    * Returns user object or null
    */
   getUser: () => UserReturnType;

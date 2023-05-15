@@ -69,6 +69,13 @@ export const isUserExpired = (user?: Partial<User> | null): boolean => {
 
 export const isValidUser = (user?: User | null): boolean => !!user && !isUserExpired(user) && !!user.access_token;
 
+export const pickUserToken = (user: UserReturnType, tokenType: Parameters<OidcClient['getToken']>[0]): string => {
+  if (!isValidUser(user)) {
+    return undefined;
+  }
+  return user[`${tokenType}_token`];
+};
+
 export default function createOidcClient(props: OidcClientProps): OidcClient {
   const { userManagerSettings: userManagerSettingsFromProps, ...restProps } = props;
   const { userManagerSettings: defaultUserManagerSettings, ...restDefaultProps } = getDefaultProps(
@@ -200,6 +207,13 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     getAmr,
     getState: () => {
       return state;
+    },
+    getToken: async (tokenType) => {
+      if (isRenewing()) {
+        await renewPromise;
+      }
+      const user = getUserFromStorageSyncronously();
+      return pickUserToken(user, tokenType);
     },
     getUser() {
       return getUserFromStorageSyncronously();
