@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Footer } from './Footer';
 import { IconFacebook, IconInstagram, IconLinkedin, IconTiktok, IconTwitter, IconYoutube } from '../../icons';
-import { FooterGroupHeading } from './footerGroupHeading/FooterGroupHeading';
-import { FooterNavigationLink } from './footerNavigationLink/FooterNavigationLink';
-import { FooterNavigationGroup } from './footerNavigationGroup/FooterNavigationGroup';
-import { FooterNavigation } from './footerNavigation/FooterNavigation';
-import { FooterUtilities } from './footerUtilities/FooterUtilities';
-import { FooterUtilityGroup } from './footerUtilityGroup/FooterUtilityGroup';
-import { FooterBase } from './footerBase/FooterBase';
-import { FooterCustom } from './footerCustom/FooterCustom';
+import { FooterGroupHeading } from './components/footerGroupHeading/FooterGroupHeading';
+import { FooterNavigationLink } from './components/footerNavigationLink/FooterNavigationLink';
+import { FooterNavigationGroup } from './components/footerNavigationGroup/FooterNavigationGroup';
+import { FooterNavigation } from './components/footerNavigation/FooterNavigation';
+import { FooterUtilities } from './components/footerUtilities/FooterUtilities';
+import { FooterUtilityGroup } from './components/footerUtilityGroup/FooterUtilityGroup';
+import { FooterBase } from './components/footerBase/FooterBase';
+import { FooterCustom } from './components/footerCustom/FooterCustom';
 import { FooterVariant } from './Footer.interface';
 
 const footerNavAriaLabel = 'Footer navigation items';
