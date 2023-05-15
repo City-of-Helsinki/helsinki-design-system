@@ -4,6 +4,8 @@ import { waitFor } from '@testing-library/react';
 
 // eslint-disable-next-line jest/no-mocks-import
 import mockWindowLocation from '../__mocks__/mockWindowLocation';
+// eslint-disable-next-line jest/no-mocks-import
+import { jwtWithHelloStringAmr, jwtWithHelloWorldArrayAmr } from '../__mocks__/jwtTokens';
 import {
   InitTestResult,
   createOidcClientTestSuite,
@@ -257,6 +259,44 @@ describe('oidcClient', () => {
         getDefaultOidcClientTestProps().userManagerSettings as UserManagerSettings,
       );
       expect(userFromStorage).toBeNull();
+    });
+  });
+  describe('getAmr()', () => {
+    const createUserProps = (idToken?: string) => ({
+      userProps: {
+        invalidUser: false,
+        signInResponseProps: {
+          id_token: idToken,
+        },
+        signInResponseProfileProps: {
+          amr: undefined,
+        },
+      },
+    });
+    it('returns the amr in user.profile, if found', async () => {
+      const { oidcClient } = await initTests({ userProps: { invalidUser: false } });
+      expect(oidcClient.getAmr()).toEqual(['validAmr']);
+    });
+    it('decodes the amr from user.id_token and returns it as an array', async () => {
+      const { oidcClient } = await initTests(createUserProps(jwtWithHelloWorldArrayAmr));
+      expect(oidcClient.getAmr()).toEqual(['hello', 'world']);
+    });
+    it('decodes the amr from user.id_token and returns it as an array, if it was a string originally', async () => {
+      const { oidcClient } = await initTests(createUserProps(jwtWithHelloStringAmr));
+      expect(oidcClient.getAmr()).toEqual(['hello']);
+    });
+    it('returns undefined, if token is malformed', async () => {
+      const { oidcClient } = await initTests(createUserProps('invalid'));
+      expect(oidcClient.getAmr()).toBeUndefined();
+    });
+    it('returns undefined, if amr has invalid value and id_token is not set ', async () => {
+      const amrValue = 'notAnArray';
+      const initProps = {
+        ...createUserProps(undefined),
+      };
+      ((initProps.userProps.signInResponseProfileProps as unknown) as Record<string, string>).amr = amrValue;
+      const { oidcClient } = await initTests(initProps);
+      expect(oidcClient.getAmr()).toBeUndefined();
     });
   });
   describe('isUserExpired()', () => {

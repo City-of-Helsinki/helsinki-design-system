@@ -1,5 +1,6 @@
 import { UserManager, UserManagerSettings, WebStorageStateStore, User, Log } from 'oidc-client-ts';
 import to from 'await-to-js';
+import jwtDecode from 'jwt-decode';
 
 import {
   OidcClientProps,
@@ -10,6 +11,7 @@ import {
   LoginProps,
   LogoutProps,
   RenewalResult,
+  Amr,
 } from './index';
 import { OidcClientError } from './oidcClientError';
 import { createOidcClientBeacon, OidcClientEvent } from './signals';
@@ -158,6 +160,27 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     return Promise.resolve([error, user]);
   };
 
+  const getAmr = (): Amr | undefined => {
+    const user = getUserFromStorageSyncronously();
+    if (!user || !user.id_token) {
+      return undefined;
+    }
+    if (user.profile && Array.isArray(user.profile.amr)) {
+      return user.profile.amr.length ? user.profile.amr : undefined;
+    }
+
+    try {
+      const decodedToken = jwtDecode<Record<string, string>>(user.id_token);
+      const { amr } = decodedToken;
+      if (!amr) {
+        return undefined;
+      }
+      return Array.isArray(amr) ? amr : [amr];
+    } catch (e) {
+      return undefined;
+    }
+  };
+
   userManager.events.addAccessTokenExpiring(async () => {
     await handleUserRenewal();
   });
@@ -174,6 +197,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     connect: (beacon) => {
       dedicatedBeacon.storeBeacon(beacon);
     },
+    getAmr,
     getState: () => {
       return state;
     },

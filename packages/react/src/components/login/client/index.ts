@@ -22,7 +22,18 @@ export type RenewalResult = [ErrorReturnType, UserReturnType];
 
 export type OidcClientState = 'NO_SESSION' | 'VALID_SESSION' | 'LOGGING_IN' | 'LOGGING_OUT' | 'HANDLING_LOGIN_CALLBACK';
 
+// User['profile']['amr'] has type of "unknown"
+export type Amr = string[];
+
 export interface OidcClient extends ConnectedModule {
+  /**
+   *
+   * Returns user's Amr values. Tunnistamo returns the amr as string, which oidc-client-ts rejects, because it violates the OIDC specification
+   * Keycloak returns proper value. This client has to support both.
+   * If amr is not found from the user.profile, the user.id_token is decrypted and that amr is returned.
+   * So cache the retured value instead of calling this function multiple times.
+   */
+  getAmr: () => Amr | undefined;
   /**
    * Returns current state
    */

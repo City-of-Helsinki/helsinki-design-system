@@ -129,6 +129,7 @@
     "downshift": "6.0.6",
     "hds-core": "3.0.0",
     "http-status-typed": "^1.0.1",
+    "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash.flatten": "^4.4.0",
     "lodash.get": "^4.4.2",
