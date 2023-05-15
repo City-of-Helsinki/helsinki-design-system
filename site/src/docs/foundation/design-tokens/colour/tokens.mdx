@@ -4,7 +4,7 @@ title: 'Colour tokens - Tokens'
 ---
 
 import TextAndColorExample from '../../../../components/examples/TextAndColorExample';
-import FocusExample from '../../../../components/examples/FocusExample';
+import FocusColorExample from '../../../../components/examples/FocusColorExample';
 
 import TabsLayout from './tabs.mdx';
 
@@ -68,12 +68,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | `--color-tram-light`               | `$color-tram-light`               | `#dff7eb` | <TextAndColorExample color="var(--color-tram-light)" name="Tram example" />                        |
 [Table 2:Brand colour variation tokens]|
 
-| CSS variable           | SASS variable         | HEX value | Example                                                                                         |
-| ---------------------- | --------------------- | --------- | ----------------------------------------------------------------------------------------------- |
-| `--color-info`         | `$color-info`         | `#0062b9` | <TextAndColorExample color="var(--color-info)" name="Info example" />                           |
-| `--color-success`      | `$color-success`      | `#007a64` | <TextAndColorExample color="var(--color-success)" name="Success example" />                     |
-| `--color-alert`        | `$color-alert`        | `#ffda07` | <TextAndColorExample color="var(--color-alert)" name="Alert example" />                         |
-| `--color-error`        | `$color-error`        | `#b01038` | <TextAndColorExample color="var(--color-error)" name="Error example" />                         |
+| CSS variable           | SASS variable         | HEX value | Example                                                                                                                                              |
+| ---------------------- | --------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-info`         | `$color-info`         | `#0062b9` | <TextAndColorExample color="var(--color-info)" name="Info example" />                                                                                |
+| `--color-success`      | `$color-success`      | `#007a64` | <TextAndColorExample color="var(--color-success)" name="Success example" />                                                                          |
+| `--color-alert`        | `$color-alert`        | `#ffda07` | <TextAndColorExample color="var(--color-alert)" name="Alert example" />                                                                              |
+| `--color-error`        | `$color-error`        | `#b01038` | <TextAndColorExample color="var(--color-error)" name="Error example" />                                                                              |
+| `--color-focus-outline`| `$color-focus-outline`| `#0072c6` | <FocusColorExample color="#0072c6"><TextAndColorExample style={{margin: 'auto'}} color="var(--color-info)" name="Info example" /></FocusColorExample>|
 [Table 3:UI colour tokens]|
 
 | CSS variable           | SASS variable         | HEX value | Example                                                                                         |
@@ -103,8 +104,3 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | `--color-black-5`      | `$color-black-5`      | `#f2f2f2` | <TextAndColorExample color="var(--color-black-5)" name="Black-5 example" />                     |
 | `--color-white`        | `$color-white`        | `#ffffff` | <TextAndColorExample color="var(--color-white)" name="White example" />                         |
 [Table 5:Grayscale tokens]|
-
-| CSS variable              | SASS variable         | HEX value | Example                                                                            |
-| ------------------------- | --------------------- | --------- | -----------------------------------------------------------------------------------|
-| `--color-focus-outline`   | `$color-focus-outline`| `#0072c6` | <FocusExample color="#0072c6"/>                                                    |
-[Table 6:Focus colour token]|

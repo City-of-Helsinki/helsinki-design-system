@@ -6,7 +6,7 @@ navTitle: 'Colour'
 
 import ColorExample from '../../../../components/examples/ColorExample';
 import ExternalLink from '../../../../components/ExternalLink';
-import FocusExample from '../../../../components/examples/FocusExample';
+import FocusColorExample from '../../../../components/examples/FocusColorExample';
 import InternalLink from '../../../../components/InternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -78,12 +78,13 @@ Brand colours also have dark, medium light and light variants. You can find thes
 
 Status colours are reserved exclusively for indicating valid, invalid, or informational states on the service.
 
-| Status name              | Usage                                                                                                   | Example message                             | Example                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Info                     | State which does not indicate clear success or failure but can be useful extra information to the user. | _"You have received new messages."_         | <ColorExample color="var(--color-info)" name="Info status colour example" />       |
-| Success                  | Positive state to inform user about success.                                                            | _"Form submit was successful!"_             | <ColorExample color="var(--color-success)" name="Success status colour example" /> |
-| Alert                    | Warning state to catch users attention but does not require immediate actions.                          | _"Loading is taking longer than expected."_ | <ColorExample color="var(--color-alert)" name="Alert status colour example" />     |
-| Error                    | Error state which requires users immediate action.                                                      | _"Form is missing critical information."_   | <ColorExample color="var(--color-error)" name="Error status colour example" />     |
+| Status name              | Usage                                                                                                   | Example message                             | Example                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Info                     | State which does not indicate clear success or failure but can be useful extra information to the user. | _"You have received new messages."_         | <ColorExample color="var(--color-info)" name="Info status colour example" />        |
+| Success                  | Positive state to inform user about success.                                                            | _"Form submit was successful!"_             | <ColorExample color="var(--color-success)" name="Success status colour example" />  |
+| Alert                    | Warning state to catch users attention but does not require immediate actions.                          | _"Loading is taking longer than expected."_ | <ColorExample color="var(--color-alert)" name="Alert status colour example" />      |
+| Error                    | Error state which requires users immediate action.                                                      | _"Form is missing critical information."_   | <ColorExample color="var(--color-error)" name="Error status colour example" />      |
+| Focus                    | Focus colour adds blue outline around the focused element.                                              |                                             | <FocusColorExample color="#0072c6" contentStyle={{height: '28px', width: '28px'}}/> |
 | [Table 2:Status colours] |
 
 #### Grayscale
@@ -94,12 +95,3 @@ Grayscale colours are neutral shades that can be used for all user interface pur
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | <ColorExample color="var(--color-black)" name="Black colour example" /> | <ColorExample color="var(--color-black-90)" name="Black-90 colour example" /> | <ColorExample color="var(--color-black-80)" name="Black-80 colour example" /> | <ColorExample color="var(--color-black-70)" name="Black-70 colour example" /> | <ColorExample color="var(--color-black-60)" name="Black-60 colour example" /> | <ColorExample color="var(--color-black-50)" name="Blac-50 colour example" /> | <ColorExample color="var(--color-black-40)" name="Black-40 colour example" /> | <ColorExample color="var(--color-black-30)" name="Black-30 colour example" /> | <ColorExample color="var(--color-black-20)" name="Black-20 colour example" /> | <ColorExample color="var(--color-black-10)" name="Black-10 colour example" /> | <ColorExample color="var(--color-black-5)" name="Black-5 colour example" /> | <ColorExample color="var(--color-white)" name="White colour example" /> |
 | [Table 3:Grayscale]                                                     |
-
-#### Focus Colour
-
-Focus colour indicates focus state and adds blue outline around the element.
-
-| Focus                                              |                                                                                    |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| <FocusExample color="var(--color-focus-outline)"/> | <FocusExample color="var(--color-focus-outline)" background="var(--color-engel)"/> |
-| [Table 4:Focus Colors]                             |
