@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/minus-circle-fill.svg");
-
-.hds-icon--minus-circle-fill {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

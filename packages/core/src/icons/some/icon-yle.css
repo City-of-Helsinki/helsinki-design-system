@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/some/yle.svg");
-
-.hds-icon--yle {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

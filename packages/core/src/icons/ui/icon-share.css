@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/share.svg");
-
-.hds-icon--share {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

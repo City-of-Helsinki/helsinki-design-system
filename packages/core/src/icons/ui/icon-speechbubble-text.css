@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/speechbubble-text.svg");
-
-.hds-icon--speechbubble-text {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

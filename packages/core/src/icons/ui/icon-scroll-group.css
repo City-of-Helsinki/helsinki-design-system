@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/scroll-group.svg");
-
-.hds-icon--scroll-group {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

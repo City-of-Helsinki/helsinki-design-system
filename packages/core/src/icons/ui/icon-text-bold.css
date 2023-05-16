@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/text-bold.svg");
-
-.hds-icon--text-bold {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

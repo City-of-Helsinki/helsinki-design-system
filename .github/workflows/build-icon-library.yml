@@ -31,6 +31,10 @@ jobs:
           API_KEY: ${{ secrets.HDS_ICON_KIT }}
           FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
           NODE_ID: '172:2478'
+      - name: Append React interface into index file
+        run: |
+          echo "export { IconProps } from './Icon.interface';\n" | \
+          cat - ./icon-library/react/tsx/index.ts > temp && mv temp ./icon-library/react/tsx/index.ts
       - name: Bump version in Changelog
         run: |
           PKG_VER=`node -pe "require('./packages/react/package.json').version"`
