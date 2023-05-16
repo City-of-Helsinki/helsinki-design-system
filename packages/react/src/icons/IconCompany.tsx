@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from '../../templates/Icon.module.css';
+
+import styles from './Icon.module.css';
 
 interface IconProps {
   ariaLabel?: string;
@@ -24,7 +25,7 @@ export const IconCompany = ({
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 25"
+    viewBox="0 0 24 24"
     aria-label={ariaLabel}
     aria-labelledby={ariaLabelledby}
     aria-hidden={ariaHidden}

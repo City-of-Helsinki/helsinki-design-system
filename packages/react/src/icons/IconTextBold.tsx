@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from '../../templates/Icon.module.css';
+
+import styles from './Icon.module.css';
 
 interface IconProps {
   ariaLabel?: string;
