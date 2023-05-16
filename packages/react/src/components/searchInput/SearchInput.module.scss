@@ -90,6 +90,21 @@
 }
 
 /**
+ * MENU GROUP
+ */
+.menuGroupOptions {
+  @extend %dropdownMenuGroupOptions;
+}
+
+.menuGroupLabel {
+  @extend %dropdownMenuGroupLabel;
+}
+
+.menuGroupLabelIcon {
+  @extend %dropdownMenuGroupLabelIcon;
+}
+
+/**
  * MENU ITEM
  */
 .menuItem {

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import isEqual from 'lodash.isequal';
 import { VirtualItem } from 'react-virtual';
 
 import { getIsInSelectedOptions } from '../../components/dropdown/dropdownUtils';
 import { IconCheck } from '../../icons';
 import classNames from '../../utils/classNames';
+
+export type OptionGroup<T> = {
+  icon?: React.ReactNode;
+  label: string;
+  options: T[];
+};
 
 type DropdownMenuItemProps = {
   /**
@@ -74,12 +80,57 @@ export const DropdownMenuItem = ({
   );
 };
 
+const ItemWrapper = ({
+  elementIndex,
+  isVirtualized,
+  data,
+  optionLabel,
+  options,
+  multiselect,
+  selectedItems,
+  selectedItem,
+  isOptionDisabled,
+  getItemProps,
+  highlightValue,
+  menuStyles,
+}) => {
+  let index = elementIndex;
+  let virtualItem: VirtualItem | null = null;
+
+  if (isVirtualized) {
+    ({ index } = data as VirtualItem);
+    virtualItem = data as VirtualItem;
+  }
+
+  const item = options[index];
+  const selected: boolean = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
+  const disabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
+  const itemProps = getItemProps(item, index, selected, disabled, virtualItem);
+
+  return (
+    <DropdownMenuItem
+      key={optionLabel}
+      disabled={disabled}
+      highlightValue={highlightValue}
+      itemProps={itemProps}
+      menuStyles={menuStyles}
+      multiselect={multiselect}
+      label={optionLabel}
+      selected={selected}
+    />
+  );
+};
+
 type DropdownMenuProps<T> = {
   /**
    * Getter function for item props
    */
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   getItemProps(item: T, index: number, selected: boolean, disabled: boolean, virtualItem: VirtualItem | null): any;
+  /**
+   * Index of the highlighted item
+   */
+  highlightedIndex: number;
   /**
    * String to be highlighted in a item
    */
@@ -105,6 +156,10 @@ type DropdownMenuProps<T> = {
    * Menu open state
    */
   open: boolean;
+  /**
+   * Array of optionGroups with label String and Options. Used instead of options. Prints label before each group in list.
+   */
+  optionGroups?: OptionGroup<T>[];
   /**
    * Data item field that represents the item label
    */
@@ -132,12 +187,14 @@ type DropdownMenuProps<T> = {
 
 export const DropdownMenu = <T,>({
   getItemProps,
+  highlightedIndex,
   highlightValue,
   isOptionDisabled,
   menuProps,
   menuStyles,
   multiselect,
   open,
+  optionGroups,
   optionLabelField,
   options,
   selectedItem,
@@ -146,42 +203,94 @@ export const DropdownMenu = <T,>({
 }: DropdownMenuProps<T>) => {
   const isVirtualized = !!virtualizer;
   const listOptions: (VirtualItem | T)[] = isVirtualized ? virtualizer.virtualItems : options;
+  const groupIndexRef = useRef<number>(0);
+  const sanitizedOptionGroups = optionGroups ? optionGroups.filter((group) => group.options.length > 0) : [];
+  const firstOptionGroupContainerRef = useRef(null);
+
+  const commonItemProps = {
+    getItemProps,
+    highlightedIndex,
+    highlightValue,
+    isOptionDisabled,
+    isVirtualized,
+    menuStyles,
+    multiselect,
+    optionLabelField,
+    selectedItem,
+    selectedItems,
+  };
+
+  React.useEffect(() => {
+    if (open && highlightedIndex === 0 && firstOptionGroupContainerRef.current) {
+      firstOptionGroupContainerRef.current.scrollIntoView();
+    }
+  }, [open, highlightedIndex]);
 
   return (
     <ul {...menuProps} className={classNames(menuStyles.menu)}>
       {open && (
         <>
-          {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}
-          {listOptions.map((data, _index) => {
-            let index = _index;
-            let virtualItem: VirtualItem | null = null;
+          {sanitizedOptionGroups.length > 0 ? (
+            sanitizedOptionGroups.map((optionGroup, groupIndex) => {
+              return (
+                <li
+                  key={optionGroup.label}
+                  className={menuStyles.menuGroup}
+                  ref={groupIndex === 0 ? firstOptionGroupContainerRef : null}
+                >
+                  <div className={menuStyles.menuGroupLabel}>
+                    {optionGroup.icon && (
+                      <span className={menuStyles.menuGroupLabelIcon} aria-hidden="true">
+                        {optionGroup.icon}
+                      </span>
+                    )}
+                    {optionGroup.label}
+                  </div>
+                  <ul className={menuStyles.menuGroupOptions}>
+                    {optionGroup.options.length &&
+                      optionGroup.options.map((data, _index) => {
+                        groupIndexRef.current = groupIndex === 0 && _index === 0 ? 0 : groupIndexRef.current + 1;
+                        const elementIndex = groupIndexRef.current;
+                        const optionLabel = data[optionLabelField];
 
-            if (isVirtualized) {
-              ({ index } = data as VirtualItem);
-              virtualItem = data as VirtualItem;
-            }
-
-            const item = options[index];
-            const optionLabel: string = item[optionLabelField];
-            const selected: boolean = multiselect
-              ? getIsInSelectedOptions(selectedItems, item)
-              : isEqual(selectedItem, item);
-            const disabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
-            const itemProps = getItemProps(item, index, selected, disabled, virtualItem);
-
-            return (
-              <DropdownMenuItem
-                key={optionLabel}
-                disabled={disabled}
-                highlightValue={highlightValue}
-                itemProps={itemProps}
-                menuStyles={menuStyles}
-                multiselect={multiselect}
-                label={optionLabel}
-                selected={selected}
-              />
-            );
-          })}
+                        return (
+                          <ItemWrapper
+                            key={optionLabel}
+                            {...{
+                              elementIndex,
+                              optionLabel,
+                              // @ts-ignore
+                              options: optionGroups.flatMap((group) => group.options),
+                              data,
+                              ...commonItemProps,
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </li>
+              );
+            })
+          ) : (
+            <>
+              {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}
+              {listOptions.map((data, _index) => {
+                const optionLabel = data[optionLabelField];
+                return (
+                  <ItemWrapper
+                    key={optionLabel}
+                    {...{
+                      elementIndex: _index,
+                      optionLabel,
+                      data,
+                      options,
+                      ...commonItemProps,
+                    }}
+                  />
+                );
+              })}
+            </>
+          )}
         </>
       )}
     </ul>
