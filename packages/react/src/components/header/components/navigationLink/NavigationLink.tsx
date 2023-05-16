@@ -17,7 +17,6 @@ import { useHeaderContext } from '../../HeaderContext';
 const classNames = styleBoundClassNames(styles);
 
 export type LinkProps = {
-  depth: number;
   /**
    * Indicator for active link. This is used in HeaderNavigationMenu.
    */
@@ -42,7 +41,15 @@ export type LinkProps = {
    * Label for link.
    */
   label: string;
+  /**
+   * Optional event handler for onMouseEnter.
+   */
   onMouseEnter?: MouseEventHandler;
+  /**
+   * Depth in nested dropdowns.
+   * @internal
+   */
+  depth: number;
 };
 
 export type NavigationLinkProps = Omit<
@@ -61,8 +68,17 @@ export type NavigationLinkProps = Omit<
    * Aria-label for the dropdown button to describe closing the dropdown.
    */
   closeDropdownAriaButtonLabel?: string;
+  /**
+   * Additional class name for the dropdown wrapper element.
+   */
   wrapperClassName?: string;
+  /**
+   * Additional class name for the dropdown element.
+   */
   dropdownClassName?: string;
+  /**
+   * Additional class name for the dropdown items.
+   */
   dropdownLinkClassName?: string;
   /**
    * Set the direction where the dropdown should appear. Use DropdownDirection.Dynamic for nested dropdowns as it sets the dropdown menu to the right but if there's no space it'll put it to the left.
@@ -100,7 +116,10 @@ export type NavigationLinkProps = Omit<
    * @internal
    */
   setOpenSubNavIndex?: (val: number) => void;
-
+  /**
+   * Depth in nested dropdowns.
+   * @internal
+   */
   depth?: number;
 };
 

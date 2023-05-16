@@ -14,6 +14,9 @@ import classes from './NavigationLanguageSelector.module.scss';
 import { useHeaderContext } from '../../HeaderContext';
 
 export type LanguageSelectorProps = PropsWithChildren<{
+  /**
+   * Array of languages as LanguageOption objects.
+   */
   languages: LanguageOption[];
 }>;
 

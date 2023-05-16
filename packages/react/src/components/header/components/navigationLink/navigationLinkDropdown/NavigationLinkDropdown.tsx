@@ -18,6 +18,9 @@ export enum DropdownMenuPosition {
   Right = 'right',
 }
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
+  /**
+   * Additional class names.
+   */
   className?: string;
   /**
    * Aria-label for the dropdown button to describe closing the dropdown.
@@ -45,7 +48,10 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * Function that is called when open value is changed.
    */
   setOpen: (isOpen: boolean, interaction: NavigationLinkInteraction) => void;
-
+  /**
+   * Depth in nested dropdowns.
+   * @internal
+   */
   depth: number;
 }>;
 

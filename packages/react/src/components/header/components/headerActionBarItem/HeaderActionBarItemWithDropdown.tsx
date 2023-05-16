@@ -8,13 +8,37 @@ import classes from './HeaderActionBarItemWithDropdown.module.scss';
 type DivAttributes = JSX.IntrinsicElements['div'];
 
 interface WithDropdownAttributes extends DivAttributes {
+  /**
+   * ID of the dropdown item.
+   */
   id: string;
+  /**
+   * Possibility to use a full-width version of the dropdown, for example in mobile use.
+   */
   fullWidth?: boolean;
+  /**
+   * Additional classname for the icon.
+   */
   iconClassName?: WithDropdownProps['className'];
+  /**
+   * Additional classname for the dropdown element.
+   */
   dropdownClassName?: WithDropdownProps['className'];
+  /**
+   * Label for the action bar item.
+   */
   label: string | JSX.Element;
+  /**
+   * Label for the action bar item when dropdown is open.
+   */
   closeLabel?: string | JSX.Element;
+  /**
+   * Icon for the action bar item.
+   */
   icon: ElementType;
+  /**
+   * Icon for the action bar item when dropdown is open.
+   */
   closeIcon?: ElementType;
 }
 
