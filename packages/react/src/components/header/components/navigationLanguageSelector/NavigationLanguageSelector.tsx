@@ -57,6 +57,7 @@ export const NavigationLanguageSelector = ({ children, languages }: LanguageSele
         closeLabel={<IconAngleUp aria-hidden />}
         icon={IconGlobe}
         closeIcon={IconGlobe}
+        fullWidth={isNotLargeScreen}
       >
         {isNotLargeScreen && languageNodes}
         {children}
