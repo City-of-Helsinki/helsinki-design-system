@@ -96,10 +96,6 @@ module.exports = {
             name: 'Cookies',
             link: '/patterns/cookies',
           },
-          {
-            name: 'Navigation',
-            link: '/patterns/navigation',
-          },
         ],
       },
       {
