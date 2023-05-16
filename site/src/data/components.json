@@ -364,6 +364,19 @@
     }
   },
   {
+    "name": "StepByStep",
+    "text": "StepByStep component is useful for visualising a process in steps.",
+    "linkboxAriaLabel": "StepByStep component",
+    "linkAriaLabel": "Go to the StepByStep component page",
+    "href": "/components/step-by-step",
+    "imgProps": {
+      "src": "/images/components/overview/stepbystep@2x.png",
+      "alt": "An illustration of the StepByStep component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
     "name": "Stepper",
     "text": "The stepper helps to see the progression and to navigate between form steps.",
     "linkboxAriaLabel": "Stepper component",
