@@ -38,7 +38,15 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
  */
 export const getChildElementsEvenIfContainersInbetween = (children: React.ReactNode): React.ReactNode[] => {
   const arrayChildren = [...getChildrenAsArray(children)];
-  const flattenChildren: React.ReactNode[] = flatten(arrayChildren);
+  const childrenHasContainer =
+    arrayChildren.length === 1 &&
+    React.isValidElement(arrayChildren[0]) &&
+    Boolean(arrayChildren[0].props.children) &&
+    (React.isValidElement(arrayChildren[0].props.children) || Array.isArray(arrayChildren[0].props.children));
 
-  return flattenChildren;
+  if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
+    return flatten(arrayChildren[0].props.children);
+  }
+
+  return flatten(arrayChildren);
 };
