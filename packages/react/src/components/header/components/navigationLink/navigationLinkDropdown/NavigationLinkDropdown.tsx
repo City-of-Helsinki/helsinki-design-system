@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import classNames from '../../../../../utils/classNames';
-import { getChildElementsEvenIfContainerInbetween } from '../../../../../utils/getChildren';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
 
 export enum NavigationLinkInteraction {
   Hover = 'hover',
@@ -53,7 +53,7 @@ export const NavigationLinkDropdown = ({
 
   const handleMenuButtonClick = () => setOpen(!open, NavigationLinkInteraction.Click);
 
-  const childElements = getChildElementsEvenIfContainerInbetween(children);
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
 
   return (
     <div className={styles.navigationLinkDropdownContainer}>

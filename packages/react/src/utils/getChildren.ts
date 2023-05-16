@@ -1,4 +1,5 @@
 import React, { isValidElement } from 'react';
+import flatten from 'lodash.flatten';
 
 import { FCWithName } from '../common/types';
 
@@ -35,17 +36,17 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
  * Get the child elements even if there is a parent container element.
  * @param children
  */
-export const getChildElementsEvenIfContainerInbetween = (children: React.ReactNode) => {
-  const arrayChildren = React.Children.toArray(children);
+export const getChildElementsEvenIfContainersInbetween = (children: React.ReactNode): React.ReactNode[] => {
+  const arrayChildren = [...getChildrenAsArray(children)];
   const childrenHasContainer =
     arrayChildren.length === 1 &&
     React.isValidElement(arrayChildren[0]) &&
     Boolean(arrayChildren[0].props.children) &&
     (React.isValidElement(arrayChildren[0].props.children) || Array.isArray(arrayChildren[0].props.children));
 
-  /* If there's a container element in between, we dig out the child elements from within. */
   if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
-    return React.Children.toArray(arrayChildren[0].props.children);
+    return flatten(arrayChildren[0].props.children);
   }
-  return arrayChildren;
+
+  return flatten(arrayChildren);
 };
