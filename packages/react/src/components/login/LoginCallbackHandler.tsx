@@ -11,15 +11,17 @@ type Props = {
 };
 
 export function LoginCallbackHandler({ children, onSuccess, onError }: Props): React.ReactElement | null {
-  const { handleCallback } = useOidcClient();
-
-  handleCallback()
-    .then((data) => {
-      onSuccess(data);
-    })
-    .catch((err) => {
-      onError(err);
-    });
-
+  const { handleCallback, getState } = useOidcClient();
+  // if this component is used inside a component that re-renders, for example after state change,
+  // then handleCallback would be called twice without state check
+  if (getState() === 'NO_SESSION') {
+    handleCallback()
+      .then((data) => {
+        onSuccess(data);
+      })
+      .catch((err) => {
+        onError(err);
+      });
+  }
   return <>{children}</>;
 }
