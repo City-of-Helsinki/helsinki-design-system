@@ -25,7 +25,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 - Use accordions to allow the user to quickly glance at the information and then choose to open sections that are interesting to them.
 - **Accordions must be given a header that describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
-  - The `headingLevel` given to the Accordion should be higher than the header in the page content preceeding it (if there is one). Making the content semantically correct. For example if the Accordion is nested inside content with a header `h2` then the `headingLevel` for the Accordion should be 3.
+  - The `headingLevel` given to the Accordion should be higher than the header in the page content preceeding it (if there is one). For example if the Accordion is nested inside content with a header `h2` then the `headingLevel` for the Accordion should be 3.
   - Also the Accordion size variant should be chosen so that it nicely fits the content, not putting a really large sized Accordion deep in the page structure.
 - **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions.
   - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
@@ -92,9 +92,7 @@ HDS Accordion includes three (3) size variants; small, default, and large. You c
 
 #### Accordions, heading elements and `headingLevel`-property
 
-When using multiple Accordions as a group with a common header or the page content has a header preceeding the Accordion(s) remember to use the `headingLevel` property accordingly.
-
-Keep in mind the basics of using the header elements, h1 being the most important header on the page down to h6 being the least important and give the Accordion a higher (semantically lower) `headingLevel` than the content's header the Accordion is nested in.
+When using multiple Accordions as a group with a common header or the page content has a header preceeding the Accordion(s) keep in mind the basics of using the header elements, h1 being the most important header on the page down to h6 being the least important and give the Accordion the proper `headingLevel` according to it's position.
 
 <PlaygroundPreview>
   <h5>Header element for the content in which the following Accordions are nested in. (Here this is an h5 element)</h5>
