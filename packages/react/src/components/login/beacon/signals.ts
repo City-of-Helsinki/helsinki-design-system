@@ -9,6 +9,7 @@ import {
   SignalType,
   splitTypeAndNamespace,
 } from './beacon';
+import { partiallyCompareObjects } from '../../../utils/partiallyCompareObjects';
 
 export type NamespacedBeacon = {
   storeBeacon: (target: Beacon) => void;
@@ -150,4 +151,28 @@ export function emitInitializationSignals(beacon: Beacon) {
   Object.keys(contexts).forEach((namespace) => {
     beacon.emit({ type: initSignalType, namespace, context: contexts[namespace] });
   });
+}
+
+export function compareSignals(signalOrJustType: SignalType | Partial<Signal>, signalToCheckFrom: Signal) {
+  const source =
+    typeof signalOrJustType === 'string'
+      ? splitTypeAndNamespace(signalOrJustType)
+      : ({ ...signalOrJustType } as Signal);
+
+  if (!source.type || source.type === LISTEN_TO_ALL_MARKER) {
+    source.type = signalToCheckFrom.type;
+  }
+
+  if (!source.namespace || source.namespace === LISTEN_TO_ALL_MARKER) {
+    source.namespace = signalToCheckFrom.namespace;
+  }
+
+  const convertToCompareableSignals = (signal: Signal): Exclude<Signal, 'context'> & { contextAsString?: string } => {
+    return { ...signal, context: undefined, contextAsString: signal.context ? signal.context.namespace : undefined };
+  };
+
+  if (!source.context) {
+    return partiallyCompareObjects(source, signalToCheckFrom);
+  }
+  return partiallyCompareObjects(convertToCompareableSignals(source), convertToCompareableSignals(signalToCheckFrom));
 }

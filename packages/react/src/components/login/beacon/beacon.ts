@@ -50,6 +50,10 @@ export function splitTypeAndNamespace(signalOrJustSignalType: SignalType | Signa
   };
 }
 
+export function joinTypeAndNamespace(signal: Partial<Signal>, defaultNamespace = '', defaultType = ''): string {
+  return `${signal.type || defaultType}${NAMESPACE_SEPARATOR}${signal.namespace || defaultNamespace}`;
+}
+
 export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal): SignalTrigger {
   const { type: listenToType, namespace: listenToNamespace } = splitTypeAndNamespace(
     signalOrJustSignalType,
