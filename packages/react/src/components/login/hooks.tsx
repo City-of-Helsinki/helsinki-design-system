@@ -32,7 +32,7 @@ export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'emit' | 'em
   };
 };
 
-export const useSignalListener = (listener: SignalListenerWithResponse): [Signal | undefined] => {
+export const useSignalListener = (listener: SignalListenerWithResponse): [Signal | undefined, () => void] => {
   const { addListener } = useContext(LoginContext);
   const [lastSignal, setLastSignal] = useState<Signal | undefined>();
   const memoizedListener = useCallback<SignalListener>(
@@ -47,13 +47,16 @@ export const useSignalListener = (listener: SignalListenerWithResponse): [Signal
     },
     [listener, setLastSignal],
   );
+  const memoizedReset = useCallback(() => {
+    setLastSignal(undefined);
+  }, [setLastSignal]);
   // not using useEffect or some signals might be missed,
   // because useEffect is ran after first render
   useLayoutEffect(() => {
     const disposer = addListener('*:*', memoizedListener);
     return disposer;
   }, [memoizedListener, addListener]);
-  return [lastSignal];
+  return [lastSignal, memoizedReset];
 };
 
 export const useCachedAmr = (): Amr | undefined => {
@@ -75,14 +78,14 @@ const useSignalTracking = (signalProps: Partial<Signal>, callback?: SignalListen
     }
     return false;
   }, []);
-  const lastSignal = useSignalListener(listener);
-  return hasCallback ? undefined : lastSignal;
+  const lastSignalAndReset = useSignalListener(listener);
+  return hasCallback ? undefined : lastSignalAndReset;
 };
 
-export const useSignalTrackingWithCallback = (signalProps: Partial<Signal>, callback?: SignalListener) => {
-  return useSignalTracking(signalProps, callback);
+export const useSignalTrackingWithCallback = (signalProps: Partial<Signal>, callback?: SignalListener): void => {
+  useSignalTracking(signalProps, callback);
 };
 
 export const useSignalTrackingWithReturnValue = (signalProps: Partial<Signal>) => {
-  return useSignalTracking(signalProps) as [Signal | undefined];
+  return useSignalTracking(signalProps) as ReturnType<typeof useSignalListener>;
 };

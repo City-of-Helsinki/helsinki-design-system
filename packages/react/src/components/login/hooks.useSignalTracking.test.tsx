@@ -18,6 +18,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     renderTimeSuffix: 'render-time',
     rerenderButton: 'test-specific-re-render-button',
     parent: 'parent-element',
+    resetButtonSuffix: 'reset-button',
   } as const;
 
   const componentIds = ['tester0', 'tester1', 'tester2', 'tester3'];
@@ -45,6 +46,15 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
 
   const getReceivedSignal = (index: number) => {
     return testUtil.getElementJSON(`${componentIds[index]}`) as Signal | Error;
+  };
+
+  const resetSignalListener = async (index: number) => {
+    const id = componentIds[index];
+    const startTime = testUtil.getRenderTime(id);
+    await act(async () => {
+      fireEvent.click(testUtil.getElementById(`${id}-${elementIds.resetButtonSuffix}`));
+    });
+    await testUtil.waitForComponentRerender(id, startTime);
   };
 
   const getReceivedSignalHistory = (index: number) => {
@@ -111,12 +121,21 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   };
 
   const TestSignalTrackingWithReturnValue = ({ id, trigger }: { id: string; trigger: SignalTriggerProps }) => {
-    const [currentSignal] = useSignalTrackingWithReturnValue(trigger);
+    const [currentSignal, reset] = useSignalTrackingWithReturnValue(trigger);
     const { type, namespace } = currentSignal || {};
     return (
       <div>
         <span id={`${id}`}>{JSON.stringify({ type, namespace })}</span>;
         <span id={`${id}-${elementIds.renderTimeSuffix}`}>{Date.now()}</span>
+        <button
+          type="button"
+          id={`${id}-${elementIds.resetButtonSuffix}`}
+          onClick={() => {
+            reset();
+          }}
+        >
+          Reset currentSignal
+        </button>
       </div>
     );
   };
@@ -332,6 +351,30 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       });
       await waitForRerender(3);
       expect(getReceivedSignal(3)).toEqual(triggerForListener3);
+    });
+    it('signal can be reset with the returned function. Component re-renders', async () => {
+      init({ type: 'returnValue' });
+      const { getBeaconFuncs } = testUtil;
+
+      await act(async () => {
+        await getBeaconFuncs().emitAsync(triggerForListener1And2);
+      });
+      await waitFor(() => {
+        expect(getReceivedSignal(1)).toEqual(triggerForListener1And2);
+        expect(getReceivedSignal(2)).toEqual(triggerForListener1And2);
+      });
+
+      await resetSignalListener(1);
+      await waitFor(() => {
+        expect(getReceivedSignal(1)).toEqual({});
+        expect(getReceivedSignal(2)).toEqual(triggerForListener1And2);
+      });
+
+      await resetSignalListener(2);
+      await waitFor(() => {
+        expect(getReceivedSignal(1)).toEqual({});
+        expect(getReceivedSignal(2)).toEqual({});
+      });
     });
   });
 });

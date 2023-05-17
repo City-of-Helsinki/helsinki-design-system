@@ -38,6 +38,15 @@ describe('useSignalListener hook', () => {
     return testUtil.getElementJSON(`${componentIds[index]}`) as Signal | Error;
   };
 
+  const resetSignalListener = async (index: number) => {
+    const id = componentIds[index];
+    const startTime = testUtil.getRenderTime(id);
+    await act(async () => {
+      fireEvent.click(testUtil.getElementById(`${id}-${elementIds.resetButtonSuffix}`));
+    });
+    await testUtil.waitForComponentRerender(id, startTime);
+  };
+
   const removeSignalListener = async (assumedStartCount) => {
     const getCurrentListenerCount = () => {
       return testUtil.getInnerHtmlAsNumber(elementIds.signalListenerCount);
@@ -70,12 +79,21 @@ describe('useSignalListener hook', () => {
       },
       [id, signalType],
     );
-    const [currentSignal] = useSignalListener(memoizedListener);
+    const [currentSignal, reset] = useSignalListener(memoizedListener);
     const { type, namespace } = currentSignal || {};
     return (
       <div>
         <span id={id}>{JSON.stringify({ type, namespace })}</span>;
         <span id={`${id}-${elementIds.renderTimeSuffix}`}>{Date.now()}</span>;
+        <button
+          type="button"
+          id={`${id}-reset-button`}
+          onClick={() => {
+            reset();
+          }}
+        >
+          Reset currentSignal
+        </button>
       </div>
     );
   };
@@ -152,6 +170,28 @@ describe('useSignalListener hook', () => {
       expect(getReceivedSignal(0)).toMatchObject(triggerForListenersIndex0Index1Index2);
       expect(getReceivedSignal(1)).toMatchObject(triggerForListenersIndex0Index1Index2);
       expect(getReceivedSignal(2)).toMatchObject(triggerForListenersIndex0Index1Index2);
+    });
+  });
+  it('signal can be reset with the returned function. Component re-renders', async () => {
+    init();
+    const { getBeaconFuncs } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    await waitFor(() => {
+      expect(getReceivedSignal(0)).toMatchObject(triggerForListenersIndex0Index1);
+      expect(getReceivedSignal(1)).toMatchObject(triggerForListenersIndex0Index1);
+    });
+    await resetSignalListener(0);
+    await waitFor(() => {
+      expect(getReceivedSignal(0)).toMatchObject({});
+      expect(getReceivedSignal(1)).toMatchObject(triggerForListenersIndex0Index1);
+    });
+    await resetSignalListener(1);
+    await waitFor(() => {
+      expect(getReceivedSignal(0)).toMatchObject({});
+      expect(getReceivedSignal(1)).toMatchObject({});
     });
   });
   it('listeners are removed when component unmounts', async () => {
