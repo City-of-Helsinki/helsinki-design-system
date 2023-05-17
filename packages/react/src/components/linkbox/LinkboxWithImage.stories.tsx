@@ -36,7 +36,7 @@ export const Default = () => (
   </div>
 );
 
-export const WithBorder = () => (
+export const border = () => (
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
       linkboxAriaLabel="Linkbox: HDS"
@@ -44,7 +44,7 @@ export const WithBorder = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withBorder
+      border
       imgProps={{ src: mediumImage, width: 384, height: 245 }}
     />
   </div>

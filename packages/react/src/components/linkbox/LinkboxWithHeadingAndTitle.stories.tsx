@@ -27,7 +27,7 @@ export const Default = () => (
   </div>
 );
 
-export const WithBorder = () => (
+export const border = () => (
   <div style={{ width: '320px' }}>
     <Linkbox
       linkboxAriaLabel="Linkbox: HDS"
@@ -35,7 +35,7 @@ export const WithBorder = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withBorder
+      border
     />
   </div>
 );

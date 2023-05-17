@@ -56,7 +56,7 @@ export type LinkboxProps = {
   /**
    * Boolean indicating whether the Linkbox contains a border or not. Defaults to false.
    */
-  withBorder?: boolean;
+  border?: boolean;
   /**
    * Size variant for the linkbox. Affects texts and paddings.
    */
@@ -78,7 +78,7 @@ export const Linkbox = ({
   openInNewTab = false,
   openInNewTabAriaLabel,
   text,
-  withBorder = false,
+  border = false,
   size = 'medium',
   ...rest
 }: LinkboxProps) => {
@@ -109,7 +109,7 @@ export const Linkbox = ({
       onClick={() => {
         linkRef.current.click();
       }}
-      className={classNames(styles.linkbox, withBorder && styles.withBorder, className)}
+      className={classNames(styles.linkbox, border && styles.border, className)}
       aria-label={composeAriaLabel(linkboxAriaLabel)}
     >
       {imgProps && <img {...imgProps} className={styles.image} alt="" />}
