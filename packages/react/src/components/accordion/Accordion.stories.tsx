@@ -35,6 +35,7 @@ WithoutCloseButton.storyName = 'Without close button';
 
 export const StackedAccordionCards = (args) => (
   <>
+    <h1>Stacked Accordions in Cards</h1>
     <Accordion {...args} card border style={{ maxWidth: '360px' }} />
     <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} />
     <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} />
