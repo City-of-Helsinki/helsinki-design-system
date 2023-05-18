@@ -1,3 +1,5 @@
+import { partiallyCompareObjects } from '../../../utils/partiallyCompareObjects';
+
 export type SignalType = string;
 export type SignalNamespace = string;
 export type SignalPayload = Record<string, unknown> | Error;
@@ -7,14 +9,14 @@ export interface ConnectedModule {
 }
 export type SignalContext = ConnectedModule;
 export type Signal<P = SignalType, T extends SignalPayload = SignalPayload> = {
-  type: P;
+  type?: P;
   namespace?: SignalType;
   payload?: T;
   context?: ConnectedModule;
 };
 export type SignalListener = (signal: Signal) => void | Promise<void>;
-export type SignalTriggerProps = Pick<Signal, 'type' | 'namespace'>;
-export type SignalTrigger = (signal: SignalTriggerProps) => boolean;
+export type SignalTriggerProps = Omit<Signal, 'context'> & { context?: Record<string, string> };
+export type SignalTrigger = (signal: Signal) => boolean;
 
 export type StoredListenerData = { listener: SignalListener; trigger: SignalTrigger };
 
@@ -54,22 +56,54 @@ export function joinTypeAndNamespace(signal: Partial<Signal>, defaultNamespace =
   return `${signal.type || defaultType}${NAMESPACE_SEPARATOR}${signal.namespace || defaultNamespace}`;
 }
 
+export function convertToCompareableSignals(signalOrJustType: SignalType | Partial<Signal>): SignalTriggerProps {
+  const source =
+    typeof signalOrJustType === 'string'
+      ? splitTypeAndNamespace(signalOrJustType)
+      : ({ ...signalOrJustType } as Signal);
+  // if source has context, it is a deep object with unnecessary key/values to compare.
+  // only important prop is namespace, so just pick that
+  if (!source.context) {
+    return (source as unknown) as SignalTriggerProps;
+  }
+  return { ...source, context: source.context ? { namespace: source.context.namespace } : undefined };
+}
+
+export function compareSignalTriggers(source: SignalTriggerProps, target: SignalTriggerProps) {
+  const copy = { ...source };
+  if (!source.type || source.type === LISTEN_TO_ALL_MARKER) {
+    copy.type = target.type;
+  }
+
+  if (!source.namespace || source.namespace === LISTEN_TO_ALL_MARKER) {
+    copy.namespace = target.namespace;
+  }
+  return partiallyCompareObjects(copy, target);
+}
+
+export function compareSignals(signalOrJustType: SignalType | Partial<Signal>, signalToCheckFrom: Signal) {
+  const source = convertToCompareableSignals(signalOrJustType);
+  // if source has no context, it is not compared to the target, so no need to convert it.
+  const target = source.context
+    ? convertToCompareableSignals(signalToCheckFrom)
+    : ((signalToCheckFrom as unknown) as SignalTriggerProps);
+  return compareSignalTriggers(source, target);
+}
+
 export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal): SignalTrigger {
-  const { type: listenToType, namespace: listenToNamespace } = splitTypeAndNamespace(
-    signalOrJustSignalType,
-    LISTEN_TO_ALL_MARKER,
-  );
+  const source = convertToCompareableSignals(signalOrJustSignalType);
   return (incomingSignal: Signal) => {
-    // incoming signal should not determine what to trigger expect explicit type and namespace
+    // incoming signal should not be generic, it must have type and namespace
     // so type cannot be empty or "*"
     const incomingTypeIsOk = incomingSignal.type && incomingSignal.type !== LISTEN_TO_ALL_MARKER;
     const incomingNamespaceIsOk = incomingSignal.namespace;
     if (!incomingTypeIsOk || !incomingNamespaceIsOk) {
       return false;
     }
-    const typeIsOk = listenToType === LISTEN_TO_ALL_MARKER || listenToType === incomingSignal.type;
-    const namespaceIsOk = listenToNamespace === LISTEN_TO_ALL_MARKER || listenToNamespace === incomingSignal.namespace;
-    return typeIsOk && namespaceIsOk;
+    const target = source.context
+      ? convertToCompareableSignals(incomingSignal)
+      : ((incomingSignal as unknown) as SignalTriggerProps);
+    return compareSignalTriggers(source, target);
   };
 }
 

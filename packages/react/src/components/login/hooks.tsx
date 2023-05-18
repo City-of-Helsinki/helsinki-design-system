@@ -3,8 +3,7 @@ import { useContext, useCallback, useState, useLayoutEffect, useRef } from 'reac
 import { Amr, OidcClient, UserReturnType } from './client/index';
 import { isValidUser } from './client/oidcClient';
 import { LoginContext, LoginContextData } from './LoginContext';
-import { Signal, SignalListener } from './beacon/beacon';
-import { compareSignals } from './beacon/signals';
+import { Signal, SignalListener, SignalTriggerProps, compareSignalTriggers } from './beacon/beacon';
 
 export type SignalListenerWithResponse = (signal: Signal) => boolean;
 
@@ -65,12 +64,12 @@ export const useCachedAmr = (): Amr | undefined => {
   return cachedAmr;
 };
 
-const useSignalTracking = (signalProps: Partial<Signal>, callback?: SignalListener) => {
-  const signalPropsRef = useRef(signalProps);
+const useSignalTracking = (signalProps: SignalTriggerProps, callback?: SignalListener) => {
+  const signalPropsRef = useRef<SignalTriggerProps>(signalProps);
   const callbackRef = useRef(callback);
   const hasCallback = !!callback;
   const listener = useCallback((signal: Signal) => {
-    if (compareSignals(signalPropsRef.current, signal)) {
+    if (compareSignalTriggers(signalPropsRef.current, (signal as unknown) as SignalTriggerProps)) {
       if (!hasCallback) {
         return true;
       }
@@ -82,10 +81,10 @@ const useSignalTracking = (signalProps: Partial<Signal>, callback?: SignalListen
   return hasCallback ? undefined : lastSignalAndReset;
 };
 
-export const useSignalTrackingWithCallback = (signalProps: Partial<Signal>, callback?: SignalListener): void => {
+export const useSignalTrackingWithCallback = (signalProps: SignalTriggerProps, callback?: SignalListener): void => {
   useSignalTracking(signalProps, callback);
 };
 
-export const useSignalTrackingWithReturnValue = (signalProps: Partial<Signal>) => {
+export const useSignalTrackingWithReturnValue = (signalProps: SignalTriggerProps) => {
   return useSignalTracking(signalProps) as ReturnType<typeof useSignalListener>;
 };
