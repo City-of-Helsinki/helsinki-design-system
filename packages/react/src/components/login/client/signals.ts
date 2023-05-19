@@ -60,3 +60,11 @@ export function createOidcClientBeacon(): NamespacedBeacon & {
     },
   };
 }
+
+export function isStateChangeSignal(signal: Signal) {
+  return signal.type === stateChangeSignalType;
+}
+
+export function getErrorSignalPayload(signal: Signal): StateChangeSignalPayload | null {
+  return (isStateChangeSignal(signal) && (signal.payload as StateChangeSignalPayload)) || null;
+}

@@ -9,7 +9,6 @@ import {
   SignalType,
   splitTypeAndNamespace,
 } from './beacon';
-import { partiallyCompareObjects } from '../../../utils/partiallyCompareObjects';
 
 export type NamespacedBeacon = {
   storeBeacon: (target: Beacon) => void;
@@ -143,7 +142,7 @@ export function getSignalEventPayload(signal: Signal): EventPayload | null {
   if (signal.type !== eventSignalType || !signal.payload || !(signal as EventSignal).payload.type) {
     return null;
   }
-  return signal.payload as EventSignal;
+  return signal.payload as EventPayload;
 }
 
 export function emitInitializationSignals(beacon: Beacon) {
@@ -153,26 +152,22 @@ export function emitInitializationSignals(beacon: Beacon) {
   });
 }
 
-export function compareSignals(signalOrJustType: SignalType | Partial<Signal>, signalToCheckFrom: Signal) {
-  const source =
-    typeof signalOrJustType === 'string'
-      ? splitTypeAndNamespace(signalOrJustType)
-      : ({ ...signalOrJustType } as Signal);
+export function isEventSignal(signal: Signal) {
+  return signal.type === eventSignalType;
+}
 
-  if (!source.type || source.type === LISTEN_TO_ALL_MARKER) {
-    source.type = signalToCheckFrom.type;
-  }
+export function getEventSignalPayload(signal: Signal): EventPayload | null {
+  return (isEventSignal(signal) && (signal.payload as EventPayload)) || null;
+}
 
-  if (!source.namespace || source.namespace === LISTEN_TO_ALL_MARKER) {
-    source.namespace = signalToCheckFrom.namespace;
-  }
+export function isErrorSignal(signal: Signal) {
+  return signal.type === errorSignalType;
+}
 
-  const convertToCompareableSignals = (signal: Signal): Exclude<Signal, 'context'> & { contextAsString?: string } => {
-    return { ...signal, context: undefined, contextAsString: signal.context ? signal.context.namespace : undefined };
-  };
+export function getErrorSignalPayload(signal: Signal): ErrorPayload | null {
+  return (isErrorSignal(signal) && (signal.payload as ErrorPayload)) || null;
+}
 
-  if (!source.context) {
-    return partiallyCompareObjects(source, signalToCheckFrom);
-  }
-  return partiallyCompareObjects(convertToCompareableSignals(source), convertToCompareableSignals(signalToCheckFrom));
+export function isInitSignal(signal: Signal) {
+  return signal.type === initSignalType;
 }

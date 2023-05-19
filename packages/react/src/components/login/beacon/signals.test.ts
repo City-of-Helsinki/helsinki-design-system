@@ -1,6 +1,6 @@
 import { createUser } from '../testUtils/userTestUtil';
-import { ConnectedModule, LISTEN_TO_ALL_MARKER, Signal, joinTypeAndNamespace } from './beacon';
-import { compareSignals, errorSignalType, eventSignalType } from './signals';
+import { compareSignals, ConnectedModule, LISTEN_TO_ALL_MARKER, Signal, joinTypeAndNamespace } from './beacon';
+import { errorSignalType, eventSignalType } from './signals';
 
 describe(`signals`, () => {
   describe(`compareSignals checks, if given source (argument #0) matches the given target (argument #0)`, () => {
