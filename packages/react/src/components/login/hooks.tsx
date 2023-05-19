@@ -3,7 +3,14 @@ import { useContext, useCallback, useState, useLayoutEffect, useRef } from 'reac
 import { Amr, OidcClient, UserReturnType } from './client/index';
 import { isValidUser } from './client/oidcClient';
 import { LoginContext, LoginContextData } from './LoginContext';
-import { Signal, SignalListener, SignalTriggerProps, compareSignalTriggers } from './beacon/beacon';
+import {
+  ConnectedModule,
+  Signal,
+  SignalListener,
+  SignalNamespace,
+  SignalTriggerProps,
+  compareSignalTriggers,
+} from './beacon/beacon';
 
 export type SignalListenerWithResponse = (signal: Signal) => boolean;
 
@@ -29,6 +36,11 @@ export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'emit' | 'em
     emitAsync,
     getModule,
   };
+};
+
+export const useConnectedModule = <T extends ConnectedModule>(namespace: SignalNamespace): T | null => {
+  const { getModule } = useBeacon();
+  return getModule<T>(namespace) || null;
 };
 
 export const useSignalListener = (listener: SignalListenerWithResponse): [Signal | undefined, () => void] => {

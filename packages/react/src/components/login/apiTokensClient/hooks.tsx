@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useBeacon, useOidcClient } from '../hooks';
+import { useConnectedModule, useOidcClient } from '../hooks';
 import { apiTokensClientNamespace, ApiTokenClient, TokenData } from './index';
 import { ApiTokensClientError } from './apiTokensClientError';
 
@@ -10,8 +10,7 @@ type UseApiTokensHookReturnType = {
 };
 
 export const useApiTokensClient = (): ApiTokenClient => {
-  const { getModule } = useBeacon();
-  const apiTokensClient = getModule<ApiTokenClient>(apiTokensClientNamespace);
+  const apiTokensClient = useConnectedModule<ApiTokenClient>(apiTokensClientNamespace);
   if (!apiTokensClient) {
     throw new Error('Cannot find apiTokensClient from LoginContext.');
   }
