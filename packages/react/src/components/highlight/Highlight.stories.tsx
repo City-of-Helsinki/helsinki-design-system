@@ -19,7 +19,6 @@ const highlightArgs = {
     'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
 };
 
-
 export const DefaultHighlight = (args) => <Highlight {...args} />;
 DefaultHighlight.args = {
   ...highlightArgs,
