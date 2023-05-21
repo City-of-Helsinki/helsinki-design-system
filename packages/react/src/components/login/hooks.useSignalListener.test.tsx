@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import { v4 } from 'uuid';
 
 import { SignalListenerWithResponse, useSignalListener } from './hooks';
 import { UserCreationProps } from './testUtils/userTestUtil';
-import { createHookTestEnvironment, HookTestUtil, useListenerFactory } from './testUtils/hooks.testUtil';
+import { createHookTestEnvironment, HookTestUtil, ListenerData, useListenerFactory } from './testUtils/hooks.testUtil';
 import { Signal, SignalType, createSignalTrigger } from './beacon/beacon';
 
 describe('useSignalListener hook', () => {
@@ -22,6 +23,7 @@ describe('useSignalListener hook', () => {
   const triggerForListenersIndex0Index1 = { type: 'first', namespace: namespace1 };
   const triggerForListenersIndex0Index1Index2 = { type: 'second', namespace: namespace1 };
   const triggerForListenersIndex0Index3 = { type: 'third', namespace: namespace2 };
+  let invertTriggersToChangeProps = false;
   let testUtil: HookTestUtil;
 
   const getComponentListener = (index: number) => {
@@ -65,20 +67,28 @@ describe('useSignalListener hook', () => {
     });
   };
 
-  const TestListenerFunctionalities = ({ id, signalType }: { id: string; signalType?: SignalType }) => {
+  const getLastListenerCall = (componentIndex: number): ListenerData => {
+    testUtil.listenerFactory.getOrAdd(componentIds[componentIndex]);
+    const calls = testUtil.listenerFactory.getCalls(componentIds[componentIndex]);
+    const lastIndex = calls.length - 1;
+    // argument #0 holds all listened data
+    return calls[lastIndex][0];
+  };
+
+  const TestListenerFunctionalities = ({ id, signalType }: { id: string; signalType: SignalType }) => {
     const listenerFactory = useListenerFactory();
-    const memoizedListener = useCallback<SignalListenerWithResponse>(
-      (signal) => {
+    const memoizedListener = useMemo<SignalListenerWithResponse>(() => {
+      const uuid = v4();
+      return (signal) => {
         const trigger = signalType ? createSignalTrigger(signalType) : () => true;
         if (!trigger(signal)) {
           return false;
         }
         const listener = listenerFactory.getOrAdd(id);
-        listener({ ...signal }, id);
+        listener({ ...signal }, uuid);
         return true;
-      },
-      [id, signalType],
-    );
+      };
+    }, [id, signalType]);
     const [currentSignal, reset] = useSignalListener(memoizedListener);
     const { type, namespace } = currentSignal || {};
     return (
@@ -103,12 +113,13 @@ describe('useSignalListener hook', () => {
     const removeListener = () => {
       setCount((n) => n - 1);
     };
+    const triggers = invertTriggersToChangeProps ? [...triggeringSignalTypes].reverse() : triggeringSignalTypes;
     return (
       <div>
-        {count > 0 && <TestListenerFunctionalities id={componentIds[0]} signalType={triggeringSignalTypes[0]} />}
-        {count > 1 && <TestListenerFunctionalities id={componentIds[1]} signalType={triggeringSignalTypes[1]} />}
-        {count > 2 && <TestListenerFunctionalities id={componentIds[2]} signalType={triggeringSignalTypes[2]} />}
-        {count > 3 && <TestListenerFunctionalities id={componentIds[3]} signalType={triggeringSignalTypes[3]} />}
+        {count > 0 && <TestListenerFunctionalities id={componentIds[0]} signalType={triggers[0]} />}
+        {count > 1 && <TestListenerFunctionalities id={componentIds[1]} signalType={triggers[1]} />}
+        {count > 2 && <TestListenerFunctionalities id={componentIds[2]} signalType={triggers[2]} />}
+        {count > 3 && <TestListenerFunctionalities id={componentIds[3]} signalType={triggers[3]} />}
         <button
           type="button"
           id={elementIds.removeSignalListenerButton}
@@ -129,6 +140,10 @@ describe('useSignalListener hook', () => {
       children: [<MultipleSignalListeners key="test" />],
     });
   };
+
+  afterEach(() => {
+    invertTriggersToChangeProps = false;
+  });
 
   it('returns last listened signal and re-renders only when listener returns true', async () => {
     init();
@@ -237,5 +252,68 @@ describe('useSignalListener hook', () => {
     // check last and first listener to make sure
     expect(getComponentListener(0)).toHaveBeenCalledTimes(8);
     expect(getComponentListener(3)).toHaveBeenCalledTimes(1);
+  });
+  it('listener function does not change during re-renders, when it is memoized properly.', async () => {
+    init();
+    const { getBeaconFuncs, waitForRerender } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    const firstCall = getLastListenerCall(0);
+    expect(firstCall.uuid).not.toBeUndefined();
+    expect(firstCall.id).toBe(componentIds[0]);
+    await waitForRerender();
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    const newCall = getLastListenerCall(0);
+    expect(newCall === firstCall).toBeFalsy();
+    expect(newCall.uuid).toBe(firstCall.uuid);
+
+    await removeSignalListener(4);
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    const lastCall = getLastListenerCall(0);
+    expect(lastCall === firstCall).toBeFalsy();
+    expect(lastCall.uuid).toBe(firstCall.uuid);
+    expect(lastCall.id).toBe(componentIds[0]);
+  });
+  it('listener function changes on unmount + re-mount.', async () => {
+    init();
+    const { getBeaconFuncs, toggleTestComponent } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    const firstCall = getLastListenerCall(0);
+    // unmount all
+    await toggleTestComponent();
+    // mount all
+    await toggleTestComponent();
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    const lastCall = getLastListenerCall(0);
+    expect(lastCall.uuid).not.toBe(firstCall.uuid);
+    expect(lastCall.id).toBe(componentIds[0]);
+  });
+  it('listener function changes when props change.', async () => {
+    init();
+    const { getBeaconFuncs } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListenersIndex0Index1);
+    });
+    const firstCall = getLastListenerCall(0);
+    invertTriggersToChangeProps = true;
+    await removeSignalListener(4);
+    act(() => {
+      emit(triggerForListenersIndex0Index3);
+    });
+    const lastCall = getLastListenerCall(0);
+    expect(lastCall.uuid).not.toBe(firstCall.uuid);
+    expect(lastCall.id).toBe(componentIds[0]);
   });
 });

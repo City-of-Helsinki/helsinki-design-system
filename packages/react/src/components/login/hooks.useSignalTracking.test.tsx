@@ -4,7 +4,13 @@ import { act } from 'react-dom/test-utils';
 import { v4 } from 'uuid';
 
 import { useSignalTrackingWithCallback, useSignalTrackingWithReturnValue } from './hooks';
-import { createHookTestEnvironment, HookTestUtil, useListenerFactory, RenderCounter } from './testUtils/hooks.testUtil';
+import {
+  createHookTestEnvironment,
+  HookTestUtil,
+  useListenerFactory,
+  RenderCounter,
+  ListenerData,
+} from './testUtils/hooks.testUtil';
 import { Signal, SignalTriggerProps } from './beacon/beacon';
 import { apiTokensClientNamespace } from './apiTokensClient';
 import { errorSignalType, eventSignalType } from './beacon/signals';
@@ -32,6 +38,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   const triggerForListener1And2 = { type: eventSignalType, namespace: apiTokensClientNamespace };
   const triggerForListener2 = { type: eventSignalType, namespace: oidcClientNamespace };
   const triggerForListener3 = { type: stateChangeSignalType, namespace: oidcClientNamespace };
+  let invertTriggersToChangeProps = false;
   let testUtil: HookTestUtil;
 
   const getComponentListener = (index: number) => {
@@ -84,6 +91,14 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
         throw new Error('Not removed yet');
       }
     });
+  };
+
+  const getLastListenerCall = (componentIndex: number): ListenerData => {
+    testUtil.listenerFactory.getOrAdd(componentIds[componentIndex]);
+    const calls = testUtil.listenerFactory.getCalls(componentIds[componentIndex]);
+    const lastIndex = calls.length - 1;
+    // argument #0 holds all listened data
+    return calls[lastIndex][0];
   };
 
   const TestSignalTrackingWithCallback = ({ id, trigger }: { id: string; trigger: SignalTriggerProps }) => {
@@ -147,12 +162,14 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       setChildCount((n) => n - 1);
     };
     const Component = type === 'callback' ? TestSignalTrackingWithCallback : TestSignalTrackingWithReturnValue;
+    const triggers = invertTriggersToChangeProps ? [...triggersPerComponent].reverse() : triggersPerComponent;
+
     return (
       <div>
-        {childCount > 0 && <Component trigger={triggersPerComponent[0]} id={componentIds[0]} />}
-        {childCount > 1 && <Component trigger={triggersPerComponent[1]} id={componentIds[1]} />}
-        {childCount > 2 && <Component trigger={triggersPerComponent[2]} id={componentIds[2]} />}
-        {childCount > 3 && <Component trigger={triggersPerComponent[3]} id={componentIds[3]} />}
+        {childCount > 0 && <Component trigger={triggers[0]} id={componentIds[0]} />}
+        {childCount > 1 && <Component trigger={triggers[1]} id={componentIds[1]} />}
+        {childCount > 2 && <Component trigger={triggers[2]} id={componentIds[2]} />}
+        {childCount > 3 && <Component trigger={triggers[3]} id={componentIds[3]} />}
         <button
           type="button"
           id={elementIds.removeSignalListenerButton}
@@ -183,6 +200,10 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       children: [<MultipleSignalTriggers type={type} key="test" />],
     });
   };
+
+  afterEach(() => {
+    invertTriggersToChangeProps = false;
+  });
 
   describe('useSignalTrackingWithCallback', () => {
     it('Calls the given callback, but does not re-render', async () => {
@@ -305,6 +326,69 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getComponentListener(0)).toHaveBeenCalledTimes(4);
       expect(getComponentListener(3)).toHaveBeenCalledTimes(1);
     });
+  });
+  it('listener function does not change during re-renders.', async () => {
+    init({ type: 'callback' });
+    const { getBeaconFuncs, waitForRerender } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListener0);
+    });
+    const firstCall = getLastListenerCall(0);
+    expect(firstCall.uuid).not.toBeUndefined();
+    expect(firstCall.id).toBe(componentIds[0]);
+    await waitForRerender();
+    act(() => {
+      emit(triggerForListener0);
+    });
+    const newCall = getLastListenerCall(0);
+    expect(newCall === firstCall).toBeFalsy();
+    expect(newCall.uuid).toBe(firstCall.uuid);
+
+    await removeSignalListener(4);
+    act(() => {
+      emit(triggerForListener0);
+    });
+    const lastCall = getLastListenerCall(0);
+    expect(lastCall === firstCall).toBeFalsy();
+    expect(lastCall.uuid).toBe(firstCall.uuid);
+    expect(lastCall.id).toBe(componentIds[0]);
+  });
+  it('listener function does not change on props change.', async () => {
+    init({ type: 'callback' });
+    const { getBeaconFuncs } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListener0);
+    });
+    const firstCall = getLastListenerCall(0);
+    invertTriggersToChangeProps = true;
+    await removeSignalListener(4);
+    act(() => {
+      emit(triggerForListener3);
+    });
+    const lastCall = getLastListenerCall(0);
+    expect(lastCall.uuid).toBe(firstCall.uuid);
+    expect(lastCall.id).toBe(componentIds[0]);
+  });
+  it('listener function changes only unmount + re-mount.', async () => {
+    init({ type: 'callback' });
+    const { getBeaconFuncs, toggleTestComponent } = testUtil;
+    const { emit } = getBeaconFuncs();
+    act(() => {
+      emit(triggerForListener0);
+    });
+    const firstCall = getLastListenerCall(0);
+    // unmount all
+    await toggleTestComponent();
+    // mount all
+    await toggleTestComponent();
+    act(() => {
+      emit(triggerForListener0);
+    });
+    const lastCall = getLastListenerCall(0);
+    expect(lastCall.uuid).not.toBe(firstCall.uuid);
+    expect(lastCall.id).toBe(componentIds[0]);
   });
   describe('useSignalTrackingWithReturnValue', () => {
     it('Re-renders everytime the trigger matches the signal', async () => {
