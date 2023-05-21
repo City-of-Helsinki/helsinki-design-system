@@ -269,3 +269,79 @@ export function createHookTestEnvironment(
     helperModule,
   };
 }
+
+export function getCommonListenerFunctions(
+  testUtil: HookTestUtil,
+  componentIds: string[],
+  testElementIds: Record<string, string>,
+) {
+  const getComponentListener = (index: number) => {
+    testUtil.listenerFactory.getOrAdd(componentIds[index]);
+    return testUtil.listenerFactory.getListener(componentIds[index]) as jest.Mock;
+  };
+
+  const getComponentListeners = () => {
+    return componentIds.map((id, index) => {
+      return getComponentListener(index);
+    });
+  };
+
+  const getReceivedSignal = (index: number) => {
+    return testUtil.getElementJSON(`${componentIds[index]}`) as Signal | Error;
+  };
+
+  const resetSignalListener = async (index: number) => {
+    const id = componentIds[index];
+    const startTime = testUtil.getRenderTime(id);
+    await act(async () => {
+      fireEvent.click(testUtil.getElementById(`${id}-${testElementIds.resetButtonSuffix}`));
+    });
+    await testUtil.waitForComponentRerender(id, startTime);
+  };
+
+  const getReceivedSignalHistory = (index: number) => {
+    const list = testUtil.getElementById(`${componentIds[index]}-history`);
+    const children = Array.from(list.childNodes);
+    return children.map((node) => {
+      return testUtil.getElementJSON('', node as HTMLElement) as Signal;
+    });
+  };
+
+  const getRenderTime = (index: number) =>
+    testUtil.getInnerHtmlAsNumber(`${componentIds[index]}-${testElementIds.renderTimeSuffix}`);
+
+  const removeSignalListener = async (assumedStartCount) => {
+    const getCurrentListenerCount = () => {
+      return testUtil.getInnerHtmlAsNumber(testElementIds.signalListenerCount);
+    };
+    const currentCount = getCurrentListenerCount();
+    if (assumedStartCount !== currentCount) {
+      throw new Error(
+        `removeSignalListener error with assumedStartCount${assumedStartCount} and currentCount ${currentCount}`,
+      );
+    }
+    fireEvent.click(testUtil.getElementById(testElementIds.removeSignalListenerButton));
+    await waitFor(() => {
+      if (getCurrentListenerCount() !== currentCount - 1) {
+        throw new Error('Not removed yet');
+      }
+    });
+  };
+  const getLastListenerCall = (componentIndex: number): ListenerData => {
+    testUtil.listenerFactory.getOrAdd(componentIds[componentIndex]);
+    const calls = testUtil.listenerFactory.getCalls(componentIds[componentIndex]);
+    const lastIndex = calls.length - 1;
+    // argument #0 holds all listened data
+    return calls[lastIndex][0];
+  };
+  return {
+    getComponentListener,
+    removeSignalListener,
+    getRenderTime,
+    getReceivedSignalHistory,
+    resetSignalListener,
+    getReceivedSignal,
+    getComponentListeners,
+    getLastListenerCall,
+  };
+}

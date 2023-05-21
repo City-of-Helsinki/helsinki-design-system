@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { waitFor, fireEvent } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { v4 } from 'uuid';
 
@@ -9,7 +9,7 @@ import {
   HookTestUtil,
   useListenerFactory,
   RenderCounter,
-  ListenerData,
+  getCommonListenerFunctions,
 } from './testUtils/hooks.testUtil';
 import { Signal, SignalTriggerProps } from './beacon/beacon';
 import { apiTokensClientNamespace } from './apiTokensClient';
@@ -40,66 +40,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   const triggerForListener3 = { type: stateChangeSignalType, namespace: oidcClientNamespace };
   let invertTriggersToChangeProps = false;
   let testUtil: HookTestUtil;
-
-  const getComponentListener = (index: number) => {
-    testUtil.listenerFactory.getOrAdd(componentIds[index]);
-    return testUtil.listenerFactory.getListener(componentIds[index]) as jest.Mock;
-  };
-  const getComponentListeners = () => {
-    return componentIds.map((id, index) => {
-      return getComponentListener(index);
-    });
-  };
-
-  const getReceivedSignal = (index: number) => {
-    return testUtil.getElementJSON(`${componentIds[index]}`) as Signal | Error;
-  };
-
-  const resetSignalListener = async (index: number) => {
-    const id = componentIds[index];
-    const startTime = testUtil.getRenderTime(id);
-    await act(async () => {
-      fireEvent.click(testUtil.getElementById(`${id}-${elementIds.resetButtonSuffix}`));
-    });
-    await testUtil.waitForComponentRerender(id, startTime);
-  };
-
-  const getReceivedSignalHistory = (index: number) => {
-    const list = testUtil.getElementById(`${componentIds[index]}-history`);
-    const children = Array.from(list.childNodes);
-    return children.map((node) => {
-      return testUtil.getElementJSON('', node as HTMLElement) as Signal;
-    });
-  };
-
-  const getRenderTime = (index: number) =>
-    testUtil.getInnerHtmlAsNumber(`${componentIds[index]}-${elementIds.renderTimeSuffix}`);
-
-  const removeSignalListener = async (assumedStartCount) => {
-    const getCurrentListenerCount = () => {
-      return testUtil.getInnerHtmlAsNumber(elementIds.signalListenerCount);
-    };
-    const currentCount = getCurrentListenerCount();
-    if (assumedStartCount !== currentCount) {
-      throw new Error(
-        `removeSignalListener error with assumedStartCount${assumedStartCount} and currentCount ${currentCount}`,
-      );
-    }
-    fireEvent.click(testUtil.getElementById(elementIds.removeSignalListenerButton));
-    await waitFor(() => {
-      if (getCurrentListenerCount() !== currentCount - 1) {
-        throw new Error('Not removed yet');
-      }
-    });
-  };
-
-  const getLastListenerCall = (componentIndex: number): ListenerData => {
-    testUtil.listenerFactory.getOrAdd(componentIds[componentIndex]);
-    const calls = testUtil.listenerFactory.getCalls(componentIds[componentIndex]);
-    const lastIndex = calls.length - 1;
-    // argument #0 holds all listened data
-    return calls[lastIndex][0];
-  };
+  let commonFuncs: ReturnType<typeof getCommonListenerFunctions>;
 
   const TestSignalTrackingWithCallback = ({ id, trigger }: { id: string; trigger: SignalTriggerProps }) => {
     const signalHistoryRef = useRef<Signal[]>([]);
@@ -199,6 +140,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     testUtil = createHookTestEnvironment({
       children: [<MultipleSignalTriggers type={type} key="test" />],
     });
+    commonFuncs = getCommonListenerFunctions(testUtil, componentIds, elementIds);
   };
 
   afterEach(() => {
@@ -209,6 +151,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     it('Calls the given callback, but does not re-render', async () => {
       init({ type: 'callback' });
       const { getBeaconFuncs, waitForComponentRerender } = testUtil;
+      const { getComponentListeners, getRenderTime, getReceivedSignalHistory } = commonFuncs;
 
       const listeners = getComponentListeners();
 
@@ -283,6 +226,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     });
     it('listeners are removed when component unmounts', async () => {
       init({ type: 'callback' });
+      const { getComponentListeners, removeSignalListener, getComponentListener } = commonFuncs;
       const { getBeaconFuncs } = testUtil;
       const { emit } = getBeaconFuncs();
       let triggerCount = 0;
@@ -330,6 +274,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   it('listener function does not change during re-renders.', async () => {
     init({ type: 'callback' });
     const { getBeaconFuncs, waitForRerender } = testUtil;
+    const { removeSignalListener, getLastListenerCall } = commonFuncs;
     const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListener0);
@@ -356,6 +301,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   });
   it('listener function does not change on props change.', async () => {
     init({ type: 'callback' });
+    const { getLastListenerCall, removeSignalListener } = commonFuncs;
     const { getBeaconFuncs } = testUtil;
     const { emit } = getBeaconFuncs();
     act(() => {
@@ -374,6 +320,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   it('listener function changes only unmount + re-mount.', async () => {
     init({ type: 'callback' });
     const { getBeaconFuncs, toggleTestComponent } = testUtil;
+    const { getLastListenerCall } = commonFuncs;
     const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListener0);
@@ -394,6 +341,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     it('Re-renders everytime the trigger matches the signal', async () => {
       init({ type: 'returnValue' });
       const { getBeaconFuncs } = testUtil;
+      const { getReceivedSignal, getRenderTime } = commonFuncs;
       const renderTimes = [getRenderTime(0), getRenderTime(1), getRenderTime(2), getRenderTime(3)];
 
       const verifyAndSetNewRenderTime = (index: number) => {
@@ -439,6 +387,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     it('signal can be reset with the returned function. Component re-renders', async () => {
       init({ type: 'returnValue' });
       const { getBeaconFuncs } = testUtil;
+      const { resetSignalListener, getReceivedSignal } = commonFuncs;
 
       await act(async () => {
         await getBeaconFuncs().emitAsync(triggerForListener1And2);
