@@ -254,6 +254,25 @@ import { Button } from 'hds-react';
 
 </Playground>
 
+#### Link button
+
+<Playground>
+
+  ```jsx
+  import { Button } from 'hds-react';
+
+  () => <Button role="link" onClick={() => { window.open('/') }}>Link to page</Button>
+  ```
+
+  ```html
+  <button role="link" type="button" class="hds-button hds-button--primary" onclick="window.open('/')">
+    <span class="hds-button__label">Link to page</span>
+  </button>
+  ```
+
+</Playground>
+
+
 ### Packages
 | Package           | Included                                                                                         | Storybook link                                                                                                  | Source link                                                                                                                                                 |
 | ----------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
