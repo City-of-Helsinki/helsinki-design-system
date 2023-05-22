@@ -1,6 +1,6 @@
 import { useContext, useCallback, useState, useLayoutEffect, useRef } from 'react';
 
-import { Amr, OidcClient, UserReturnType } from './client/index';
+import { Amr, OidcClient, UserReturnType, oidcClientNamespace } from './client/index';
 import { isValidUser } from './client/oidcClient';
 import { LoginContext, LoginContextData } from './LoginContext';
 import {
@@ -15,8 +15,8 @@ import {
 export type SignalListenerWithResponse = (signal: Signal) => boolean;
 
 export const useOidcClient = (): OidcClient => {
-  const { getOidcClient } = useContext(LoginContext);
-  return getOidcClient();
+  const { getModule } = useContext(LoginContext);
+  return getModule(oidcClientNamespace);
 };
 
 export const useAuthenticatedUser = (): UserReturnType => {
@@ -28,11 +28,10 @@ export const useAuthenticatedUser = (): UserReturnType => {
   return user;
 };
 
-export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'emit' | 'getModule'> => {
-  const { addListener, emit, getModule } = useContext(LoginContext);
+export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'getModule'> => {
+  const { addListener, getModule } = useContext(LoginContext);
   return {
     addListener,
-    emit,
     getModule,
   };
 };

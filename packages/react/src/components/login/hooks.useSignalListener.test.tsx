@@ -105,9 +105,8 @@ describe('useSignalListener hook', () => {
 
   it('returns last listened signal and re-renders only when listener returns true', async () => {
     init();
-    const { getBeaconFuncs } = testUtil;
+    const { emit } = testUtil;
     const { getComponentListeners, getReceivedSignal } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     const listeners = getComponentListeners();
     expect(listeners[0]).toHaveBeenCalledTimes(0);
     expect(listeners[1]).toHaveBeenCalledTimes(0);
@@ -147,9 +146,8 @@ describe('useSignalListener hook', () => {
   });
   it('signal can be reset with the returned function. Component re-renders', async () => {
     init();
-    const { getBeaconFuncs } = testUtil;
+    const { emit } = testUtil;
     const { resetSignalListener, getReceivedSignal } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListenersIndex0Index1);
     });
@@ -170,9 +168,8 @@ describe('useSignalListener hook', () => {
   });
   it('listeners are removed when component unmounts', async () => {
     init();
-    const { getBeaconFuncs } = testUtil;
+    const { emit } = testUtil;
     const { removeSignalListener, getComponentListeners, getComponentListener } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     let triggerCount = 0;
     let removeCount = 0;
     const triggerAllListeners = () => {
@@ -215,9 +212,8 @@ describe('useSignalListener hook', () => {
   });
   it('listener function does not change during re-renders, when it is memoized properly.', async () => {
     init();
-    const { getBeaconFuncs, waitForRerender } = testUtil;
+    const { emit, waitForRerender } = testUtil;
     const { removeSignalListener, getLastListenerCall } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListenersIndex0Index1);
     });
@@ -243,9 +239,8 @@ describe('useSignalListener hook', () => {
   });
   it('listener function changes on unmount + re-mount.', async () => {
     init();
-    const { getBeaconFuncs, toggleTestComponent } = testUtil;
+    const { emit, toggleTestComponent } = testUtil;
     const { getLastListenerCall } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListenersIndex0Index1);
     });
@@ -263,9 +258,8 @@ describe('useSignalListener hook', () => {
   });
   it('listener function changes when props change.', async () => {
     init();
-    const { getBeaconFuncs } = testUtil;
+    const { emit } = testUtil;
     const { removeSignalListener, getLastListenerCall } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListenersIndex0Index1);
     });

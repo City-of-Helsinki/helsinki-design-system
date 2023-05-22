@@ -1,6 +1,6 @@
 import React, { createContext, useMemo } from 'react';
 
-import { OidcClient, OidcClientProps } from './client/index';
+import { OidcClientProps } from './client/index';
 import createOidcClient from './client/oidcClient';
 import { createBeacon, Beacon, ConnectedModule, SignalNamespace } from './beacon/beacon';
 import { emitInitializationSignals } from './beacon/signals';
@@ -13,20 +13,12 @@ type ContextProps = {
 
 export type LoginContextData = {
   addListener: Beacon['addListener'];
-  emit: Beacon['emit'];
-  getOidcClient: () => OidcClient;
   getModule: <T extends ConnectedModule>(namespace: SignalNamespace) => T | null;
 };
 
 export const LoginContext = createContext<LoginContextData>({
   addListener: () => {
     throw new Error('LoginContext.addListener is not initialized');
-  },
-  emit: () => {
-    throw new Error('LoginContext.emit is not initialized');
-  },
-  getOidcClient: () => {
-    throw new Error('LoginContext.getOidcClient is not initialized');
   },
   getModule: () => {
     throw new Error('LoginContext.getModule is not initialized');
@@ -47,12 +39,11 @@ export const LoginContextProvider = (props: ContextProps): React.ReactElement =>
   }, []);
 
   useMemo(() => {
-    if (!modules) {
-      return;
+    if (modules) {
+      modules.forEach((module) => {
+        beacon.addSignalContext(module);
+      });
     }
-    modules.forEach((module) => {
-      beacon.addSignalContext(module);
-    });
     beacon.addSignalContext(oidcClient);
     emitInitializationSignals(beacon);
   }, []);
@@ -60,10 +51,6 @@ export const LoginContextProvider = (props: ContextProps): React.ReactElement =>
   const contextData: LoginContextData = {
     addListener: (signalOrJustSignalType, listener) => {
       return beacon.addListener(signalOrJustSignalType, listener);
-    },
-    emit: beacon.emit,
-    getOidcClient: () => {
-      return oidcClient;
     },
     getModule: <T extends ConnectedModule>(namespace: SignalNamespace) => {
       return beacon.getSignalContext(namespace) as T;

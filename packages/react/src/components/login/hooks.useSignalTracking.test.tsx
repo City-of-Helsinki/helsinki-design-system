@@ -149,7 +149,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   describe('useSignalTrackingWithCallback', () => {
     it('Calls the given callback, but does not re-render', async () => {
       init({ type: 'callback' });
-      const { getBeaconFuncs, waitForComponentRerender } = testUtil;
+      const { emit, waitForComponentRerender } = testUtil;
       const { getComponentListeners, getRenderTime, getReceivedSignalHistory } = commonFuncs;
 
       const listeners = getComponentListeners();
@@ -160,7 +160,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       const listener3FirstRenderTime = getRenderTime(3);
 
       await act(async () => {
-        getBeaconFuncs().emit(triggerForListener0);
+        emit(triggerForListener0);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(0);
@@ -169,7 +169,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(0)).toBe(listener0FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emit(triggerForListener1And2);
+        emit(triggerForListener1And2);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(1);
@@ -178,7 +178,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(1)).toBe(listener1FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emit(triggerForListener2);
+        emit(triggerForListener2);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(1);
@@ -187,7 +187,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(2)).toBe(listener2FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emit(triggerForListener3);
+        emit(triggerForListener3);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(1);
@@ -196,10 +196,10 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(3)).toBe(listener3FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emit(triggerForListener0);
-        getBeaconFuncs().emit(triggerForListener1And2);
-        getBeaconFuncs().emit(triggerForListener2);
-        getBeaconFuncs().emit(triggerForListener3);
+        emit(triggerForListener0);
+        emit(triggerForListener1And2);
+        emit(triggerForListener2);
+        emit(triggerForListener3);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(2);
       expect(listeners[1]).toHaveBeenCalledTimes(2);
@@ -226,8 +226,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     it('listeners are removed when component unmounts', async () => {
       init({ type: 'callback' });
       const { getComponentListeners, removeSignalListener, getComponentListener } = commonFuncs;
-      const { getBeaconFuncs } = testUtil;
-      const { emit } = getBeaconFuncs();
+      const { emit } = testUtil;
       let triggerCount = 0;
       let removeCount = 0;
       const triggerAllListeners = () => {
@@ -272,9 +271,8 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   });
   it('listener function does not change during re-renders.', async () => {
     init({ type: 'callback' });
-    const { getBeaconFuncs, waitForRerender } = testUtil;
+    const { emit, waitForRerender } = testUtil;
     const { removeSignalListener, getLastListenerCall } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListener0);
     });
@@ -301,8 +299,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   it('listener function does not change on props change.', async () => {
     init({ type: 'callback' });
     const { getLastListenerCall, removeSignalListener } = commonFuncs;
-    const { getBeaconFuncs } = testUtil;
-    const { emit } = getBeaconFuncs();
+    const { emit } = testUtil;
     act(() => {
       emit(triggerForListener0);
     });
@@ -318,9 +315,8 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   });
   it('listener function changes only unmount + re-mount.', async () => {
     init({ type: 'callback' });
-    const { getBeaconFuncs, toggleTestComponent } = testUtil;
+    const { emit, toggleTestComponent } = testUtil;
     const { getLastListenerCall } = commonFuncs;
-    const { emit } = getBeaconFuncs();
     act(() => {
       emit(triggerForListener0);
     });
@@ -339,7 +335,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   describe('useSignalTrackingWithReturnValue', () => {
     it('Re-renders everytime the trigger matches the signal', async () => {
       init({ type: 'returnValue' });
-      const { getBeaconFuncs } = testUtil;
+      const { emit } = testUtil;
       const { getReceivedSignal, getRenderTime } = commonFuncs;
       const renderTimes = [getRenderTime(0), getRenderTime(1), getRenderTime(2), getRenderTime(3)];
 
@@ -357,14 +353,14 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       };
 
       act(() => {
-        getBeaconFuncs().emit(triggerForListener0);
+        emit(triggerForListener0);
       });
       await waitForRerender(0);
       expect(getReceivedSignal(0)).toEqual(triggerForListener0);
       expect(getReceivedSignal(0)).toEqual(triggerForListener0);
 
       act(() => {
-        getBeaconFuncs().emit(triggerForListener1And2);
+        emit(triggerForListener1And2);
       });
       await waitForRerender(1);
       await waitForRerender(2);
@@ -372,24 +368,24 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getReceivedSignal(2)).toEqual(triggerForListener1And2);
 
       act(() => {
-        getBeaconFuncs().emit(triggerForListener2);
+        emit(triggerForListener2);
       });
       await waitForRerender(2);
       expect(getReceivedSignal(2)).toEqual(triggerForListener2);
 
       act(() => {
-        getBeaconFuncs().emit(triggerForListener3);
+        emit(triggerForListener3);
       });
       await waitForRerender(3);
       expect(getReceivedSignal(3)).toEqual(triggerForListener3);
     });
     it('signal can be reset with the returned function. Component re-renders', async () => {
       init({ type: 'returnValue' });
-      const { getBeaconFuncs } = testUtil;
+      const { emit } = testUtil;
       const { resetSignalListener, getReceivedSignal } = commonFuncs;
 
       act(() => {
-        getBeaconFuncs().emit(triggerForListener1And2);
+        emit(triggerForListener1And2);
       });
       await waitFor(() => {
         expect(getReceivedSignal(1)).toEqual(triggerForListener1And2);

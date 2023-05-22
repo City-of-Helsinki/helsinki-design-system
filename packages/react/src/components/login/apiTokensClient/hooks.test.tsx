@@ -222,8 +222,7 @@ describe('apiToken hooks testing', () => {
           const user = createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
           setUserReferenceToStorage(user.access_token);
           setApiTokensToStorage(apiTokens);
-          const { getBeaconFuncs } = init({ component: 'tokens', responses: [renewalResponse] });
-          const { emit } = getBeaconFuncs();
+          const { emit } = init({ component: 'tokens', responses: [renewalResponse] });
           expect(getTokensAreRenewing()).toBeFalsy();
           act(() => {
             emit({

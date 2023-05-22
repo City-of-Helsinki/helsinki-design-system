@@ -6,8 +6,7 @@ import { createOidcClientTestSuite, getDefaultOidcClientTestProps } from './oidc
 import { useBeacon } from '../hooks';
 import { OidcClientProps } from '../client/index';
 import { LoginContextProvider } from '../LoginContext';
-import { ConnectedModule, Signal, SignalNamespace } from '../beacon/beacon';
-import { NamespacedBeacon, createNamespacedBeacon } from '../beacon/signals';
+import { Beacon, ConnectedModule, Signal, SignalNamespace } from '../beacon/beacon';
 import { getAllMockCallArgs } from '../../../utils/testHelpers';
 import { UserCreationProps, createUserAndPlaceUserToStorage } from './userTestUtil';
 
@@ -142,13 +141,16 @@ export function createHookTestEnvironment(
 
   const cleanUp = noOidcClient ? jest.fn() : createOidcClientTestSuite().cleanUp;
 
-  const createModule = (namespace: SignalNamespace): NamespacedBeacon & ConnectedModule => {
-    const dedicatedBeacon = createNamespacedBeacon(namespace);
+  const createModule = (namespace: SignalNamespace): Pick<Beacon, 'emit'> & ConnectedModule => {
+    let beacon: Beacon;
+    const emit: Beacon['emit'] = (...args) => {
+      return beacon.emit(...args);
+    };
     return {
-      ...dedicatedBeacon,
+      emit,
       namespace,
       connect: (targetBeacon) => {
-        dedicatedBeacon.storeBeacon(targetBeacon);
+        beacon = targetBeacon;
       },
     };
   };
@@ -267,7 +269,7 @@ export function createHookTestEnvironment(
     afterEach,
     getElementJSON,
     listenerFactory,
-    helperModule,
+    emit: helperModule.emit,
   };
 }
 
