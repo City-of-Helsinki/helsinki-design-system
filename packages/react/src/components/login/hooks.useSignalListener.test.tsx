@@ -111,7 +111,7 @@ describe('useSignalListener hook', () => {
     const listeners = getComponentListeners();
     expect(listeners[0]).toHaveBeenCalledTimes(0);
     expect(listeners[1]).toHaveBeenCalledTimes(0);
-    act(() => {
+    await act(async () => {
       emit(triggerForListenersIndex0Index1);
     });
     expect(listeners[0]).toHaveBeenCalledTimes(1);
@@ -122,7 +122,6 @@ describe('useSignalListener hook', () => {
       expect(getReceivedSignal(0)).toMatchObject(triggerForListenersIndex0Index1);
       expect(getReceivedSignal(1)).toMatchObject(triggerForListenersIndex0Index1);
     });
-
     act(() => {
       emit({ type: `${triggerForListenersIndex0Index3.type}:${triggerForListenersIndex0Index3.namespace}` });
     });
@@ -134,7 +133,7 @@ describe('useSignalListener hook', () => {
       expect(getReceivedSignal(3)).toMatchObject(triggerForListenersIndex0Index3);
     });
     await act(async () => {
-      await emitAsync(triggerForListenersIndex0Index1Index2);
+      emitAsync(triggerForListenersIndex0Index1Index2);
     });
     expect(listeners[0]).toHaveBeenCalledTimes(3);
     expect(listeners[1]).toHaveBeenCalledTimes(2);

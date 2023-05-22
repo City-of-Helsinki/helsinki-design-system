@@ -137,7 +137,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     fetchCanceller.abort();
     const { access_token: accessToken } = user;
     renewing = true;
-    await dedicatedBeacon.emitEvent('API_TOKENS_RENEWAL_STARTED', null);
+    dedicatedBeacon.emitEvent('API_TOKENS_RENEWAL_STARTED', null);
     const result = await fetchApiToken({
       url,
       accessToken,
@@ -155,7 +155,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     tokens = { ...result };
     setUserReferenceToStorage(accessToken);
     setStoredTokens(tokens);
-    await dedicatedBeacon.emitEvent('API_TOKENS_UPDATED', tokens);
+    dedicatedBeacon.emitEvent('API_TOKENS_UPDATED', tokens);
     return Promise.resolve(tokens);
   };
 
@@ -167,7 +167,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
         fetch(user as User).catch(() => undefined);
       } else {
         tokens = storedTokens;
-        dedicatedBeacon.emitEvent('API_TOKENS_UPDATED', tokens).catch(() => undefined);
+        dedicatedBeacon.emitEvent('API_TOKENS_UPDATED', tokens);
       }
     } else if (tokens) {
       removeAllTokens();
@@ -219,7 +219,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     getTokens: () => tokens,
     clear: () => {
       fetchCanceller.abort();
-      dedicatedBeacon.emitEvent('API_TOKENS_REMOVED', null).catch(() => undefined);
+      dedicatedBeacon.emitEvent('API_TOKENS_REMOVED', null);
       removeAllTokens();
     },
     namespace: apiTokensClientNamespace,

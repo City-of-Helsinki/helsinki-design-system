@@ -21,7 +21,7 @@ import {
   getErrorSignals,
   getListenerSignals,
 } from '../testUtils/beaconTestUtil';
-import { advanceUntilListenerCalled, createTimedPromise, listenToPromise } from '../testUtils/timerTestUtil';
+import { advanceUntilListenerCalled, listenToPromise } from '../testUtils/timerTestUtil';
 import { OidcClientEventSignal, createOidcClientEventTrigger } from './signals';
 import { createRenewalTestUtil, mockUserManagerRefreshResponse } from '../testUtils/renewalTestUtil';
 import {
@@ -551,23 +551,22 @@ describe('oidcClient', () => {
 
     const createModule = (namespace: SignalNamespace) => {
       const beaconModule = createConnectedBeaconModule(namespace);
-      const renewalErrorListener: ScopedSignalListener = async (signal, module) => {
+      const renewalErrorListener: ScopedSignalListener = (signal, module) => {
         storeToListener(signal, module);
       };
-      const renewalStartedListener: ScopedSignalListener = async (signal, module) => {
+      const renewalStartedListener: ScopedSignalListener = (signal, module) => {
         storeToListener(signal, module);
         if ((signal as OidcClientEventSignal).payload.type === 'USER_RENEWAL_STARTED') {
-          await createTimedPromise('waiting 3000ms', 3000);
           if (module.namespace === reEmittingModule) {
             storeToListener({ type: 'RE_EMIT_RENEWAL', namespace: signal.namespace }, module);
-            await module.emitAsync('RE_EMIT_RENEWAL');
+            module.emitAsync('RE_EMIT_RENEWAL');
           }
           storeToListener({ type: 'RENEWAL_HANDLED', namespace: signal.namespace }, module);
         }
         if ((signal as OidcClientEventSignal).payload.type === 'USER_UPDATED') {
-          await createTimedPromise('waiting 1000ms', 1000);
+          //
         }
-        return Promise.resolve();
+        return undefined;
       };
       beaconModule.addListener(createOidcClientEventTrigger(), renewalStartedListener);
       beaconModule.addListener(createErrorTrigger(), renewalErrorListener);
@@ -583,10 +582,9 @@ describe('oidcClient', () => {
       // this module listens all events, but only delays completion of the 'RE_EMIT_RENEWAL of module2
       // making sure promises are awaited for
       const reEmitListeningModule = createConnectedBeaconModule('re-emitter');
-      reEmitListeningModule.addListener('*:*', async (signal, module) => {
+      reEmitListeningModule.addListener('*:*', (signal, module) => {
         if (signal.type === 'RE_EMIT_RENEWAL' && signal.namespace === reEmittingModule) {
           storeToListener({ type: 'RE_EMIT_STARTED', namespace: signal.namespace }, module);
-          await createTimedPromise({}, 2000);
           storeToListener({ type: 'RE_EMIT_OVER', namespace: signal.namespace }, module);
         } else {
           storeToListener(signal, module);
@@ -631,23 +629,24 @@ describe('oidcClient', () => {
 
     // eventlisteners are called in the order listeners are assigned: re-emitter, module1, module2, module3
     // new events are not emitted until all listeners of the initial event are fulfilled
-    // signals are mapped as <eventType or signalType>:<event emitter namespace>@<listener namespace>
+    // signals are mapped for output as <eventType or signalType>:<event emitter namespace>@<listener namespace>
     const signalsWhenProcessIsSuccessful = [
       'USER_RENEWAL_STARTED:oidcClient@re-emitter',
       'USER_RENEWAL_STARTED:oidcClient@module1',
       'RENEWAL_HANDLED:oidcClient@module1',
       'USER_RENEWAL_STARTED:oidcClient@module2',
       'RE_EMIT_RENEWAL:oidcClient@module2',
+      'RE_EMIT_STARTED:module2@re-emitter',
+      'RE_EMIT_OVER:module2@re-emitter',
       'RENEWAL_HANDLED:oidcClient@module2',
       'USER_RENEWAL_STARTED:oidcClient@module3',
       'RENEWAL_HANDLED:oidcClient@module3',
-      'RE_EMIT_STARTED:module2@re-emitter',
-      'RE_EMIT_OVER:module2@re-emitter',
       'USER_UPDATED:oidcClient@re-emitter',
       'USER_UPDATED:oidcClient@module1',
       'USER_UPDATED:oidcClient@module2',
       'USER_UPDATED:oidcClient@module3',
     ];
+
     // when it fails, error signals are also sent, before USER_UPDATED signal
     const signalsWhenProcessIsFails = [
       ...signalsWhenProcessIsSuccessful.slice(0, 10),

@@ -10,9 +10,16 @@ export type ApiTokensEventSignal = EventSignal & {
   };
 };
 
-export function createApiTokensChangeTrigger(): Pick<EventSignal, 'type' | 'namespace'> {
+export function createApiTokensChangeTrigger(
+  eventType?: ApiTokensClientEvent,
+): Pick<EventSignal, 'type' | 'namespace' | 'payload'> {
   return {
     type: eventSignalType,
     namespace: apiTokensClientNamespace,
+    payload: eventType
+      ? {
+          type: eventType,
+        }
+      : undefined,
   };
 }

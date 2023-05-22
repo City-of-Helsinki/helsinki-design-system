@@ -16,18 +16,18 @@ import {
 export type NamespacedBeacon = {
   storeBeacon: (target: Beacon) => void;
   emit: (signalType: SignalType, payload?: SignalPayload) => void;
-  emitAsync: (signalType: SignalType, payload?: SignalPayload) => Promise<void | null | undefined>;
+  emitAsync: (signalType: SignalType, payload?: SignalPayload) => void | null | undefined;
   addListener: (
     signalOrJustType: SignalType | Signal,
     listener: ScopedSignalListener,
     excludeOwn?: boolean,
   ) => Disposer;
   emitError: (errorPayload?: ErrorPayload) => void;
-  emitEvent: (eventType: EventType, data?: EventData) => Promise<void>;
+  emitEvent: (eventType: EventType, data?: EventData) => void;
   emitStateChange: (state: StateChangeType, previousState?: StateChangeType) => void;
   namespace: SignalNamespace;
 };
-export type ScopedSignalListener = (signal: Signal, module: NamespacedBeacon, beacon: Beacon) => void | Promise<void>;
+export type ScopedSignalListener = (signal: Signal, module: NamespacedBeacon, beacon: Beacon) => void;
 export const errorSignalType = 'error' as const;
 export type ErrorPayload = Error;
 export type ErrorSignal = Signal & { type: typeof errorSignalType; payload: ErrorPayload };
@@ -68,7 +68,7 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
       return beacon ? beacon.emit({ type: signalType, namespace, payload }) : undefined;
     },
     emitAsync(signalType, payload) {
-      return beacon ? beacon.emitAsync({ type: signalType, namespace, payload }) : Promise.resolve(null);
+      return beacon ? beacon.emitAsync({ type: signalType, namespace, payload }) : undefined;
     },
     emitError(payload) {
       return beacon ? beacon.emit({ type: errorSignalType, namespace, payload }) : undefined;
@@ -77,9 +77,9 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
       const payload: StateChangeSignalPayload = { state, previousState };
       return beacon ? beacon.emit({ type: stateChangeSignalType, namespace, payload }) : undefined;
     },
-    async emitEvent(type, data) {
+    emitEvent(type, data) {
       const payload: EventPayload = { type, data };
-      return beacon ? beacon.emitAsync({ type: eventSignalType, namespace, payload }) : Promise.resolve(null);
+      return beacon ? beacon.emit({ type: eventSignalType, namespace, payload }) : undefined;
     },
     addListener(signalOrJustType, listener, excludeOwnNamespace = true) {
       const { type, namespace: namespaceToListen } = splitTypeAndNamespace(signalOrJustType, LISTEN_TO_ALL_MARKER);
@@ -90,7 +90,7 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
       const wrappedListener: SignalListener = shouldFilterOwnEvents
         ? (signal) => {
             if (signal.namespace === namespace) {
-              return Promise.resolve();
+              return undefined;
             }
             return listener(signal, this, beacon);
           }

@@ -112,7 +112,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     dedicatedBeacon.emitStateChange(state, previousState);
   };
 
-  const emitEvent = async (event: OidcClientEvent, user?: User) => {
+  const emitEvent = (event: OidcClientEvent, user?: User) => {
     return dedicatedBeacon.emitEvent(event, user);
   };
 
@@ -150,7 +150,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       return renewPromise;
     }
     renewPromise = createRenewalPromise();
-    await emitEvent('USER_RENEWAL_STARTED');
+    emitEvent('USER_RENEWAL_STARTED');
     if (triggerSigninSilent) {
       const [signInError] = await to(userManager.signinSilent());
       if (signInError) {
@@ -163,7 +163,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     if (error) {
       emitError(error);
     }
-    await emitEvent('USER_UPDATED', user || null);
+    emitEvent('USER_UPDATED', user || null);
     renewPromise = undefined;
     return Promise.resolve([error, user]);
   };
@@ -194,7 +194,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
   });
 
   userManager.events.addUserUnloaded(async () => {
-    await emitEvent('USER_REMOVED');
+    emitEvent('USER_REMOVED');
   });
 
   if (isValidUser(getUserFromStorageSyncronously())) {

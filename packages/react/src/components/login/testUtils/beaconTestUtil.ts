@@ -114,10 +114,6 @@ export function getReceivedEventSignalPayloads<T = EventPayload>(listenerModule:
   });
 }
 
-export async function emitEvent(
-  beacon: Beacon,
-  namespace: Signal['namespace'],
-  eventPayload: EventPayload,
-): Promise<void> {
-  await beacon.emitAsync({ ...createEventTrigger(namespace), payload: eventPayload });
+export function emitEvent(beacon: Beacon, namespace: Signal['namespace'], eventPayload: EventPayload): void {
+  beacon.emit({ ...createEventTrigger(namespace), payload: eventPayload });
 }
