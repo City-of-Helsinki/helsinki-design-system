@@ -14,8 +14,9 @@ import {
   Amr,
 } from './index';
 import { OidcClientError } from './oidcClientError';
-import { createOidcClientBeacon, OidcClientEvent } from './signals';
+import { OidcClientEvent } from './signals';
 import { createRenewalTrackingPromise } from '../utils/userRenewalPromise';
+import { createNamespacedBeacon } from '../beacon/signals';
 
 const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   userManagerSettings: {
@@ -100,7 +101,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     Log.setLogger(console);
   }
 
-  const dedicatedBeacon = createOidcClientBeacon();
+  const dedicatedBeacon = createNamespacedBeacon(oidcClientNamespace);
 
   const emitStateChange = (newState: OidcClientState) => {
     if (state === newState) {
@@ -108,7 +109,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     }
     const previousState = state;
     state = newState;
-    dedicatedBeacon.emitStateChange({ state, previousState });
+    dedicatedBeacon.emitStateChange(state, previousState);
   };
 
   const emitEvent = async (event: OidcClientEvent, user?: User) => {
