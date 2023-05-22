@@ -43,9 +43,11 @@ export const Highlight = ({ theme, variant, type, text, reference }: HighlightPr
   const isQuote = type && type === 'quote';
 
   return (
-    <div className={classNames(styles.highlight, variant && styles[`size-${variant}`], customThemeClass)} role="region">
-      <div className={classNames(styles.text, isQuote && styles.quote)}>{text}</div>
-      {reference && <div className={styles.reference}>⁠{reference}</div>}
-    </div>
+    <figure className={classNames(styles.highlight, variant && styles[`size-${variant}`], customThemeClass)}>
+      <blockquote>
+        <p className={classNames(styles.text, isQuote && styles.quote)}>{text}</p>
+      </blockquote>
+      {reference && <figcaption className={styles.reference}>⁠{reference}</figcaption>}
+    </figure>
   );
 };

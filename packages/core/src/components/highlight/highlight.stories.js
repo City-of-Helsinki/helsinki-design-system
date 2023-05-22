@@ -10,53 +10,69 @@ const quoteReference = 'First name Last name. Title.';
 const customColor = '#00005e';
 
 export const DefaultHighlight = () => `
-  <div class="hds-highlight" role="region">
-    <div class="hds-highlight__text">${highlightText}</div>
-  </div>
+  <figure class="hds-highlight">
+    <blockquote>
+      <p class="hds-highlight__text">${highlightText}</p>
+    </blockquote>
+  </figure>
 `;
 
 export const HighlightLarge = () => `
-  <div class="hds-highlight hds-highlight--large" role="region">
-    <div class="hds-highlight__text">${highlightText}</div>
-  </div>
+  <figure class="hds-highlight hds-highlight--large">
+    <blockquote>
+      <p class="hds-highlight__text">${highlightText}</p>
+    </blockquote>
+  </figure>
 `;
 
 export const HighlightSmall = () => `
-  <div class="hds-highlight hds-highlight--small" role="region">
-    <div class="hds-highlight__text">${highlightText}</div>
-  </div>
+  <figure class="hds-highlight hds-highlight--small">
+    <blockquote>
+      <p class="hds-highlight__text">${highlightText}</p>
+    </blockquote>
+  </figure>
 `;
 
 export const HighlightCustomStyles = () => `
-  <div class="hds-highlight" role="region" style="--accent-line-color:${customColor};--text-color:${customColor}">
-    <div class="hds-highlight__text">${highlightText}</div>
-  </div>
+  <figure class="hds-highlight" style="--accent-line-color:${customColor};--text-color:${customColor}">
+    <blockquote>
+      <p class="hds-highlight__text">${highlightText}</p>
+    </blockquote>
+  </figure>
 `;
 
 export const DefaultQuote = () => `
-  <div class="hds-highlight" role="region">
-    <div class="hds-highlight__text hds-highlight__quote">${highlightText}</div>
-    <div class="hds-highlight__reference">${quoteReference}</div>
-  </div>
+  <figure class="hds-highlight">
+    <blockquote>
+      <p class="hds-highlight__text hds-highlight__quote">${quoteText}</p>
+    </blockquote>
+    <figcaption class="hds-highlight__reference">${quoteReference}</figcaption>
+  </figure>
 `;
 
 export const QuoteLarge = () => `
-  <div class="hds-highlight hds-highlight--large" role="region">
-    <div class="hds-highlight__text hds-highlight__quote">${quoteText}</div>
-    <div class="hds-highlight__reference">${quoteReference}</div>
-  </div>
+  <figure class="hds-highlight hds-highlight--large">
+    <blockquote>
+      <p class="hds-highlight__text hds-highlight__quote">${quoteText}</p>
+    </blockquote>
+    <figcaption class="hds-highlight__reference">${quoteReference}</figcaption>    
+  </figure>
 `;
 
 export const QuoteSmall = () => `
-  <div class="hds-highlight hds-highlight--small" role="region">
-    <div class="hds-highlight__text hds-highlight--small hds-highlight__quote">${quoteText}</div>
+  <figure class="hds-highlight hds-highlight--small">
+    <blockquote>
+      <p class="hds-highlight__text hds-highlight--small hds-highlight__quote">${quoteText}</p>
+    </blockquote>
     <div class="hds-highlight__reference">${quoteReference}</div>
-  </div>
+  </figure>
 `;
 
 export const QuoteCustomStyles = () => `
-  <div class="hds-highlight" role="region" style="--accent-line-color:${customColor};--text-color:${customColor}">
-    <div class="hds-highlight__text hds-highlight__quote">${quoteText}</div>
+  <figure class="hds-highlight" style="--accent-line-color:${customColor};--text-color:${customColor}">
+    <blockquote>
+      <div class="hds-highlight__text hds-highlight__quote">${quoteText}</div>
+    </blockquote>
     <div class="hds-highlight__reference">${quoteReference}</div>
-  </div>
-  `;
+  </figure>
+`;

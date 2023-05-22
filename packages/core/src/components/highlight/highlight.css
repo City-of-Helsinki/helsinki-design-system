@@ -17,14 +17,20 @@
   padding: 0;
   padding-left: var(--spacing-s);
   row-gap: var(--spacing-m);
+  width: var(--width);
+}
+
+.hds-highlight > blockquote {
+  margin: 0;
+  padding: 0;
 }
 
 .hds-highlight__text {
   color: var(--text-color);
   font-size: var(--fontsize-heading-m);
   line-height: var(--lineheight-m);
-  max-width: 100%;
-  width: var(--width);
+  margin: 0;
+  padding: 0;
 }
 
 .hds-highlight--small {

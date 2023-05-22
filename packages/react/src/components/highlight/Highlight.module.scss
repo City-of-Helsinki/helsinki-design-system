@@ -1,5 +1,10 @@
 .highlight {
   composes: hds-highlight from 'hds-core/lib/components/highlight/highlight.css';
+
+  & > blockquote  {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .text {

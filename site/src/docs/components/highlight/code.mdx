@@ -32,27 +32,39 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
   <div>
-    <div class="hds-highlight hds-highlight--large" role="region">
-      <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
-    </div>
-    <div class="hds-highlight" role="region">
-      <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
-    </div>
-    <div class="hds-highlight hds-highlight--small" role="region">
-      <div class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</div>
-    </div>
-    <div class="hds-highlight hds-highlight--large" role="region">
-      <div class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</div>
+    <figure class="hds-highlight hds-highlight--large">
+      <blockquote>
+        <p class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</p>
+      </blockquote>
+    </figure>
+    <figure class="hds-highlight">
+      <blockquote>
+        <p class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</p>
+      </blockquote>
+    </figure>
+    <figure class="hds-highlight hds-highlight--small">
+      <blockquote>
+        <p class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</p>
+      </blockquote>
+    </figure>
+    <figure class="hds-highlight hds-highlight--large">
+      <blockquote>
+        <p class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</p>
+      </blockquote>
+      <figcaption class="hds-highlight__reference">First name Last name. Title.</figcaption>    
+    </figure>
+    <figure class="hds-highlight">
+      <blockquote>
+        <p class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</p>
+      </blockquote>
+      <figcaption class="hds-highlight__reference">First name Last name. Title.</figcaption>
+    </figure>
+    <figure class="hds-highlight hds-highlight--small" role="region">
+      <blockquote>
+        <p class="hds-highlight__text hds-highlight--small hds-highlight__quote">Add an interesting quote here</p>
+      </blockquote>
       <div class="hds-highlight__reference">First name Last name. Title.</div>
-    </div>
-    <div class="hds-highlight" role="region">
-      <div class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</div>
-      <div class="hds-highlight__reference">First name Last name. Title.</div>
-    </div>
-    <div class="hds-highlight hds-highlight--small" role="region">
-      <div class="hds-highlight__text hds-highlight__quote">Add an interesting quote here</div>
-      <div class="hds-highlight__reference">First name Last name. Title.</div>
-    </div>
+    </figure>
   </div>
 ```
 
