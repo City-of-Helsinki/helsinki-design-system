@@ -4,7 +4,7 @@ import HttpStatusCode from 'http-status-typed';
 import createHttpPoller from '../utils/httpPoller';
 import { createFetchAborter } from '../utils/abortFetch';
 import { Signal, ConnectedModule } from '../beacon/beacon';
-import { createNamespacedBeacon, createTriggerForAllSignals, getSignalEventPayload } from '../beacon/signals';
+import { createNamespacedBeacon, createTriggerForAllSignals, getEventSignalPayload } from '../beacon/signals';
 import { getOidcClientFromSignal } from '../beacon/signalParsers';
 import { SessionPollerError } from './sessionPollerError';
 import { OidcClientState, oidcClientNamespace } from '../client/index';
@@ -43,7 +43,7 @@ export default function createSessionPoller(
     const previousState = currentState;
     const payload = getOidcClientStateChangePayload(signal);
     if (payload) {
-      currentState = payload.state;
+      currentState = payload.state as OidcClientState;
     } else if (!currentState) {
       const oidcClient = getOidcClientFromSignal(signal);
       if (oidcClient) {
@@ -106,7 +106,7 @@ export default function createSessionPoller(
   const oidcClientListener = (signal: Signal) => {
     storeUserManagerFromSignal(signal);
     const stateChanged = storeStateChangeFromSignal(signal);
-    const eventPayload = getSignalEventPayload(signal);
+    const eventPayload = getEventSignalPayload(signal);
     if (eventPayload) {
       if (eventPayload.type === 'USER_RENEWAL_STARTED') {
         stop();

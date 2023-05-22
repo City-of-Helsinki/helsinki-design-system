@@ -13,9 +13,8 @@ import {
 } from './testUtils/hooks.testUtil';
 import { Signal, SignalTriggerProps } from './beacon/beacon';
 import { apiTokensClientNamespace } from './apiTokensClient';
-import { errorSignalType, eventSignalType } from './beacon/signals';
+import { errorSignalType, eventSignalType, stateChangeSignalType } from './beacon/signals';
 import { oidcClientNamespace } from './client';
-import { stateChangeSignalType } from './client/signals';
 
 describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hooks', () => {
   const elementIds = {

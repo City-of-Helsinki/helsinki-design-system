@@ -4,7 +4,12 @@ import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { User } from 'oidc-client-ts';
 
 import { Beacon, createBeacon } from '../beacon/beacon';
-import { emitInitializationSignals, eventSignalType } from '../beacon/signals';
+import {
+  emitInitializationSignals,
+  eventSignalType,
+  StateChangeSignalPayload,
+  stateChangeSignalType,
+} from '../beacon/signals';
 import { OidcClient, OidcClientState, oidcClientNamespace } from '../client/index';
 import {
   createConnectedBeaconModule,
@@ -22,7 +27,6 @@ import { createUser } from '../testUtils/userTestUtil';
 import { isAbortError } from '../utils/abortFetch';
 import { HttpPoller, HttpPollerProps } from '../utils/httpPoller';
 import createSessionPoller, { SessionPoller, sessionPollerNamespace } from './sessionPoller';
-import { StateChangeSignalPayload, stateChangeSignalType } from '../client/signals';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
 import { SessionPollerError } from './sessionPollerError';
 

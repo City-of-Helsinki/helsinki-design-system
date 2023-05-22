@@ -13,7 +13,14 @@ import openIdConfiguration from './__mocks__/openIdConfiguration.json';
 import { createOidcClientTestSuite } from './testUtils/oidcClientTestUtil';
 import { oidcClientNamespace } from './client/index';
 import { ConnectedBeaconModule, createTestListenerModule, getListenerSignals } from './testUtils/beaconTestUtil';
-import { EventSignal, emitInitializationSignals, eventSignalType, initSignalType } from './beacon/signals';
+import {
+  EventSignal,
+  emitInitializationSignals,
+  eventSignalType,
+  initSignalType,
+  StateChangeSignalPayload,
+  stateChangeSignalType,
+} from './beacon/signals';
 import { LISTEN_TO_ALL_MARKER, SignalNamespace, createBeacon } from './beacon/beacon';
 import { ApiTokenClientProps, TokenData, apiTokensClientNamespace } from './apiTokensClient';
 import createSessionPoller, { sessionPollerNamespace } from './sessionPoller/sessionPoller';
@@ -24,7 +31,6 @@ import createApiTokenClient, {
 import { Responder, createControlledFetchMockUtil } from './testUtils/fetchMockTestUtil';
 import { createSignInResponse } from './testUtils/userTestUtil';
 import { mockUserManagerRefreshResponse } from './testUtils/renewalTestUtil';
-import { StateChangeSignalPayload, stateChangeSignalType } from './client/signals';
 import { advanceUntilListenerCalled, advanceUntilPromiseResolved, createTimedPromise } from './testUtils/timerTestUtil';
 import { createMockTestUtil } from './testUtils/mockTestUtil';
 import { HttpPoller, HttpPollerProps, isSuccessfulHttpResponse } from './utils/httpPoller';

@@ -35,6 +35,11 @@ export type EventPayload = { type: EventType; data?: EventData };
 export type EventSignal = Signal<typeof eventSignalType, EventPayload>;
 export const initSignalType = 'init' as const;
 
+export const stateChangeSignalType = 'stateChange' as const;
+export type StateChangeType = string;
+export type StateChangeSignalPayload = { state: StateChangeType; previousState?: StateChangeType };
+export type StateChangeSignal = Signal<typeof stateChangeSignalType, StateChangeSignalPayload>;
+
 export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBeacon {
   let beacon: Beacon | undefined;
   const pendingListenerCalls: Array<(actualBeacon: Beacon) => void> = [];
@@ -111,11 +116,20 @@ export function createEventTrigger(
   };
 }
 
-export function createInitSignalsTrigger(
+export function createInitTrigger(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
 ): Pick<Signal, 'type' | 'namespace'> {
   return {
     type: initSignalType,
+    namespace,
+  };
+}
+
+export function createStateChangeTrigger(
+  namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
+): Pick<Signal, 'type' | 'namespace'> {
+  return {
+    type: stateChangeSignalType,
     namespace,
   };
 }
@@ -138,11 +152,38 @@ export function filterSignals(list: Signal[], filterProps: Partial<Signal>): Sig
   });
 }
 
-export function getSignalEventPayload(signal: Signal): EventPayload | null {
-  if (signal.type !== eventSignalType || !signal.payload || !(signal as EventSignal).payload.type) {
+export function isEventSignal(signal: Signal) {
+  return signal.type === eventSignalType;
+}
+
+export function isErrorSignal(signal: Signal) {
+  return signal.type === errorSignalType;
+}
+
+export function isInitSignal(signal: Signal) {
+  return signal.type === initSignalType;
+}
+
+export function isStateChangeSignal(signal: Signal) {
+  return signal.type === stateChangeSignalType;
+}
+
+export function getEventSignalPayload(signal: Signal): EventPayload | null {
+  if (!isEventSignal(signal) || !signal.payload || !(signal as EventSignal).payload.type) {
     return null;
   }
   return signal.payload as EventPayload;
+}
+
+export function getStateChangeSignalPayload(signal: Signal): StateChangeSignalPayload | null {
+  if (!isStateChangeSignal(signal) || !signal.payload || !(signal as StateChangeSignal).payload.state) {
+    return null;
+  }
+  return signal.payload as StateChangeSignalPayload;
+}
+
+export function getErrorSignalPayload(signal: Signal): ErrorPayload | null {
+  return (isErrorSignal(signal) && (signal.payload as ErrorPayload)) || null;
 }
 
 export function emitInitializationSignals(beacon: Beacon) {
@@ -150,24 +191,4 @@ export function emitInitializationSignals(beacon: Beacon) {
   Object.keys(contexts).forEach((namespace) => {
     beacon.emit({ type: initSignalType, namespace, context: contexts[namespace] });
   });
-}
-
-export function isEventSignal(signal: Signal) {
-  return signal.type === eventSignalType;
-}
-
-export function getEventSignalPayload(signal: Signal): EventPayload | null {
-  return (isEventSignal(signal) && (signal.payload as EventPayload)) || null;
-}
-
-export function isErrorSignal(signal: Signal) {
-  return signal.type === errorSignalType;
-}
-
-export function getErrorSignalPayload(signal: Signal): ErrorPayload | null {
-  return (isErrorSignal(signal) && (signal.payload as ErrorPayload)) || null;
-}
-
-export function isInitSignal(signal: Signal) {
-  return signal.type === initSignalType;
 }

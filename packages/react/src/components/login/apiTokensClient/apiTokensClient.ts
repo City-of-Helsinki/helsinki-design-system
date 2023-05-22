@@ -8,8 +8,8 @@ import { Signal } from '../beacon/beacon';
 import {
   createEventTrigger,
   createNamespacedBeacon,
-  createInitSignalsTrigger,
-  getSignalEventPayload,
+  createInitTrigger,
+  getEventSignalPayload,
 } from '../beacon/signals';
 import { oidcClientNamespace } from '../client';
 import { OidcClientEvent } from '../client/signals';
@@ -175,7 +175,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
   };
 
   const oidcClientEventListener = async (signal: Signal): Promise<void> => {
-    const eventPayload = getSignalEventPayload(signal);
+    const eventPayload = getEventSignalPayload(signal);
     if (!eventPayload) {
       return Promise.resolve();
     }
@@ -212,7 +212,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
   };
 
   dedicatedBeacon.addListener(createEventTrigger(oidcClientNamespace), oidcClientEventListener);
-  dedicatedBeacon.addListener(createInitSignalsTrigger(oidcClientNamespace), oidcClientInitListener);
+  dedicatedBeacon.addListener(createInitTrigger(oidcClientNamespace), oidcClientInitListener);
 
   return {
     fetch,

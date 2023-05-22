@@ -3,7 +3,7 @@ import { User } from 'oidc-client-ts';
 import { UserReturnType, oidcClientNamespace, OidcClient } from '../client';
 import { isValidUser } from '../client/oidcClient';
 import { Signal } from './beacon';
-import { getSignalEventPayload } from './signals';
+import { getEventSignalPayload } from './signals';
 
 export function getOidcClientFromSignal(signal: Signal): OidcClient | null {
   if (!signal.context || signal.context.namespace !== oidcClientNamespace || !(signal.context as OidcClient).getUser) {
@@ -13,7 +13,7 @@ export function getOidcClientFromSignal(signal: Signal): OidcClient | null {
 }
 
 export function getValidUserFromSignal(signal: Signal): UserReturnType {
-  const payload = getSignalEventPayload(signal);
+  const payload = getEventSignalPayload(signal);
   if (payload && payload.data && isValidUser(payload.data as User)) {
     return payload.data as User;
   }

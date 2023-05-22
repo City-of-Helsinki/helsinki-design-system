@@ -22,7 +22,7 @@ import {
   getListenerSignals,
 } from '../testUtils/beaconTestUtil';
 import { advanceUntilListenerCalled, createTimedPromise, listenToPromise } from '../testUtils/timerTestUtil';
-import { OidcClientEventSignal, createOidcClientEventTrigger, stateChangeSignalType } from './signals';
+import { OidcClientEventSignal, createOidcClientEventTrigger } from './signals';
 import { createRenewalTestUtil, mockUserManagerRefreshResponse } from '../testUtils/renewalTestUtil';
 import {
   ErrorSignal,
@@ -33,6 +33,7 @@ import {
   createErrorTrigger,
   errorSignalType,
   eventSignalType,
+  stateChangeSignalType,
 } from '../beacon/signals';
 import { Signal, SignalNamespace } from '../beacon/beacon';
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
