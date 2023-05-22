@@ -37,6 +37,7 @@ import {
 } from '../beacon/signals';
 import { Signal, SignalNamespace } from '../beacon/beacon';
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
+import { waitForFetchMockRequestsToFinish } from '../testUtils/fetchMockTestUtil';
 
 const {
   initTests,
@@ -625,6 +626,7 @@ describe('oidcClient', () => {
       jest.runOnlyPendingTimers();
       jest.useRealTimers();
       jest.resetAllMocks();
+      await waitForFetchMockRequestsToFinish();
     });
 
     // eventlisteners are called in the order listeners are assigned: re-emitter, module1, module2, module3
@@ -722,7 +724,6 @@ describe('oidcClient', () => {
         expect(renewedUser).not.toMatchObject(initialUser);
         expect(renewedUser.refresh_token).toBe(refreshTokens.renewed);
         expect(initialUser.refresh_token).toBe(refreshTokens.initial);
-
         expect(listAllSignals()).toEqual(signalsWhenProcessIsSuccessful);
       });
       it('If renewUser is called while automatic is in progress or vice versa, new process is not started.', async () => {
@@ -736,7 +737,7 @@ describe('oidcClient', () => {
         const promise2 = oidcClient.renewUser();
         const promiseListener = listenToPromise(promise);
         const promiseListener2 = listenToPromise(promise2);
-        renewalFunctions.raiseExpiringEvent();
+
         await waitForRefreshToEnd();
         await waitFor(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
@@ -750,6 +751,8 @@ describe('oidcClient', () => {
         const errorResult2 = getLastMockCallArgs(promiseListener2)[0][0];
         expect(errorResult).toBeInstanceOf(Error);
         expect(errorResult === errorResult2).toBeTruthy();
+        renewalFunctions.removeListeners();
+        await waitForRefreshToEnd();
       });
     });
   });

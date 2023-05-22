@@ -189,11 +189,11 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     }
   };
 
-  userManager.events.addAccessTokenExpiring(async () => {
-    await handleUserRenewal();
+  userManager.events.addAccessTokenExpiring(() => {
+    handleUserRenewal();
   });
 
-  userManager.events.addUserUnloaded(async () => {
+  userManager.events.addUserUnloaded(() => {
     emitEvent('USER_REMOVED');
   });
 
