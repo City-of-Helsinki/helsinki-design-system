@@ -55,9 +55,14 @@ const components = {
     </h4>
   ),
   h5: (props) => (
-    <h4 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
+    <h5 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
       {props.children}
-    </h4>
+    </h5>
+  ),
+  h6: (props) => (
+    <h6 {...props} className={classNames('page-heading-6 heading-xxs', props.className)}>
+      {props.children}
+    </h6>
   ),
 };
 
