@@ -22,6 +22,7 @@ type TestProps = {
   children: React.ReactNodeArray;
   waitForRenderToggle?: boolean;
   userInStorage?: UserCreationProps;
+  noOidcClient?: boolean;
 };
 
 const listenerFactoryNamespace = 'listenerFactory';
@@ -76,7 +77,7 @@ const createSignalListenerFactory = () => {
   };
 };
 
-const elementIds = {
+export const elementIds = {
   user: 'user-element',
   container: 'container-element',
   renderTimeSuffix: 'render-time',
@@ -133,13 +134,13 @@ const TestComponent = ({ waitForRenderToggle, children }: Pick<TestProps, 'child
 };
 
 export function createHookTestEnvironment(
-  { userInStorage, ...componentProps }: TestProps,
+  { userInStorage, noOidcClient, ...componentProps }: TestProps,
   additionalOidcClientProps?: Partial<OidcClientProps>,
   modules: ConnectedModule[] = [],
 ) {
   const listenerFactory = createSignalListenerFactory();
 
-  const { cleanUp } = createOidcClientTestSuite();
+  const cleanUp = noOidcClient ? jest.fn() : createOidcClientTestSuite().cleanUp;
 
   const createModule = (namespace: SignalNamespace): NamespacedBeacon & ConnectedModule => {
     const dedicatedBeacon = createNamespacedBeacon(namespace);
