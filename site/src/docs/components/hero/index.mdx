@@ -49,9 +49,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Add emotion to the look and feel of the page.
 
 #### Functionalities
-- **Image:** There are both with-image and without-an-image options for Hero. When using a Hero with an image, choose an image that works well on all screen sizes.
+- **Image:** There are both with-image and without-an-image options for Hero. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the sides, while on mobile, it's below. Validate this for all screen sizes.
 - **Colour:** The background colour is recommended to be the primary colour of the colour palette selected for the site.
-- **Koro shapes:** There are six different koro shapes (basic, beat, calm, pulse, vibration and wave). The koro shape can also cover the Hero image at a 45-degree angle. To learn more about Koro shapes and their customization, refer to <InternalLink href="/components/koros">HDS Koros documentation</InternalLink>.
+- **Koro shapes:** Choose from six koro shapes (basic, beat, calm, pulse, vibration, and wave), which can be positioned at the bottom or over the Hero image at a 45-degree angle. To learn more about Koro shapes and their customization, refer to <InternalLink href="/components/koros">HDS Koros documentation</InternalLink>.
 - **Title and introduction (required):** The suitable total length of the title and introduction is circa 230 characters, including spaces. The intro ends with a period.
 - **CTA:** Buttons can also be added to the Hero component, and it is recommended to include, e.g. the most critical link of the page in the Hero component, if one is known. By default, use a button with a background colour (primary button style). On dark background colours, secondary button style can be used.
 
@@ -121,7 +121,7 @@ Use when you want to fill the background area with an image. Use an image that w
 
 #### Diagonal koro shape and image as a background
 
-Use when you want to create a dynamic Hero layout on your page. Use an image that works when the diagonal koro shape covers part of the image. Pay attention to how the image appereance varies on different Hero screen sizes.
+Use when you want to create a dynamic Hero layout on your page. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the sides, while on mobile, it's below. Validate this for all screen sizes.
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
@@ -149,7 +149,7 @@ Use when you want to create a dynamic Hero layout on your page. Use an image tha
 
 #### Wide bottom image
 
-Use when you want to emphasize the title and introduction text content over the image. Use an image that works when the diagonal koro shape covers part of the image. Pay attention to how the image appereance varies on different Hero screen sizes.
+Use when you want to emphasize the title and introduction text content over the image. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the right side, while on mobile, it's below. Validate this for all screen sizes.
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
