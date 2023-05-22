@@ -38,7 +38,7 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
 
   return (
     <button type="button" {...props} {...aria} className={buttonClassName} ref={ref}>
-      {IconClass && (
+      {IconClass && React.isValidElement(IconClass) && (
         <span className={classes.actionBarItemIcon}>
           <IconClass aria-hidden />
         </span>

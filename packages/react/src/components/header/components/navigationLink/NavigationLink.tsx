@@ -10,7 +10,7 @@ import styles from './NavigationLink.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
 import { NavigationLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './navigationLinkDropdown';
-import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
+import { useHeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { DropdownDirection } from './types';
 import { useHeaderContext } from '../../HeaderContext';
 
