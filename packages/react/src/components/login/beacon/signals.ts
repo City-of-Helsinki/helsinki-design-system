@@ -6,7 +6,10 @@ import {
   SignalListener,
   SignalNamespace,
   SignalPayload,
+  SignalTriggerProps,
   SignalType,
+  compareSignalTriggers,
+  convertToCompareableSignals,
   splitTypeAndNamespace,
 } from './beacon';
 
@@ -195,5 +198,92 @@ export function emitInitializationSignals(beacon: Beacon) {
   const contexts = beacon.getAllSignalContextsAsObject();
   Object.keys(contexts).forEach((namespace) => {
     beacon.emit({ type: initSignalType, namespace, context: contexts[namespace] });
+  });
+}
+
+/**
+ *
+ * trigger USER_REWENEWAL_START, API_TOKEN_RENEWAL_END, ERROR
+ * rejectOn:
+ */
+export function waitForSignals(
+  beacon: Beacon,
+  triggers: (SignalType | Partial<Signal>)[],
+  options: { allowSkipping?: boolean; strictOrder?: boolean; rejectOn?: (SignalType | Partial<Signal>)[] } = {
+    allowSkipping: true,
+    strictOrder: false,
+  },
+): Promise<Omit<Signal, 'context'>[]> {
+  return new Promise((resolve, reject) => {
+    const { strictOrder, rejectOn, allowSkipping } = options;
+    const compareableTriggers = triggers.map((trigger) => convertToCompareableSignals(trigger));
+    const compareableRejections =
+      rejectOn && rejectOn.length ? rejectOn.map((trigger) => convertToCompareableSignals(trigger)) : [];
+    const hits = [];
+    const disposerStorage = [() => undefined, false];
+
+    const isDisposed = () => disposerStorage[1];
+
+    const dispose = () => {
+      if (isDisposed()) {
+        return;
+      }
+      if (typeof disposerStorage[0] === 'function') {
+        disposerStorage[0]();
+      }
+      disposerStorage[0] = undefined;
+      disposerStorage[1] = true;
+    };
+
+    const causesRejection = (signal: SignalTriggerProps) => {
+      if (!rejectOn) {
+        return false;
+      }
+      return !!compareableRejections.find((rejectTrigger) => {
+        return compareSignalTriggers(rejectTrigger, signal);
+      });
+    };
+
+    const listener = (signal: Signal) => {
+      if (isDisposed()) {
+        return;
+      }
+      const compareableSignal = convertToCompareableSignals(signal);
+      if (causesRejection(compareableSignal)) {
+        dispose();
+        reject(new Error(`options.rejectOn includes ${compareableSignal.type}:${compareableSignal.namespace}`));
+        return;
+      }
+      const triggerIndex = compareableTriggers.findIndex((trigger) => {
+        return compareSignalTriggers(trigger, compareableSignal);
+      });
+
+      if (triggerIndex > -1) {
+        if (strictOrder && triggerIndex !== 0) {
+          dispose();
+          reject(
+            new Error(
+              `Signal ${compareableSignal.type}:${compareableSignal.namespace} emitted in wrong order #${hits.length} while strictOrder = true`,
+            ),
+          );
+          return;
+        }
+        if (triggerIndex !== 0) {
+          if (allowSkipping) {
+            compareableTriggers.splice(0, triggerIndex + 1);
+          } else {
+            compareableTriggers.splice(triggerIndex, 1);
+          }
+        } else {
+          compareableTriggers.shift();
+        }
+        hits.push(compareableSignal);
+        if (compareableTriggers.length === 0) {
+          dispose();
+          resolve(hits);
+        }
+      }
+    };
+    disposerStorage[0] = beacon.addListener(createTriggerForAllSignals(), listener);
   });
 }
