@@ -2,35 +2,37 @@
 
 exports[`<Highlight /> spec renders the Highlight 1`] = `
 <DocumentFragment>
-  <div
+  <figure
     class="highlight custom-theme-1"
-    role="region"
   >
-    <div
-      class="text"
-    >
-      You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.
-    </div>
-  </div>
+    <blockquote>
+      <p
+        class="text"
+      >
+        You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.
+      </p>
+    </blockquote>
+  </figure>
 </DocumentFragment>
 `;
 
 exports[`<Highlight /> spec renders the Quote 1`] = `
 <DocumentFragment>
-  <div
+  <figure
     class="highlight custom-theme-2"
-    role="region"
   >
-    <div
-      class="text quote"
-    >
-      Add an interesting quote here
-    </div>
-    <div
+    <blockquote>
+      <p
+        class="text quote"
+      >
+        Add an interesting quote here
+      </p>
+    </blockquote>
+    <figcaption
       class="reference"
     >
       ⁠First name Last name. Title.
-    </div>
-  </div>
+    </figcaption>
+  </figure>
 </DocumentFragment>
 `;
