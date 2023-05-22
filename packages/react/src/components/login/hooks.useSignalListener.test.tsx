@@ -107,7 +107,7 @@ describe('useSignalListener hook', () => {
     init();
     const { getBeaconFuncs } = testUtil;
     const { getComponentListeners, getReceivedSignal } = commonFuncs;
-    const { emit, emitAsync } = getBeaconFuncs();
+    const { emit } = getBeaconFuncs();
     const listeners = getComponentListeners();
     expect(listeners[0]).toHaveBeenCalledTimes(0);
     expect(listeners[1]).toHaveBeenCalledTimes(0);
@@ -133,7 +133,7 @@ describe('useSignalListener hook', () => {
       expect(getReceivedSignal(3)).toMatchObject(triggerForListenersIndex0Index3);
     });
     await act(async () => {
-      emitAsync(triggerForListenersIndex0Index1Index2);
+      emit(triggerForListenersIndex0Index1Index2);
     });
     expect(listeners[0]).toHaveBeenCalledTimes(3);
     expect(listeners[1]).toHaveBeenCalledTimes(2);

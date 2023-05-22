@@ -16,7 +16,6 @@ import {
 export type NamespacedBeacon = {
   storeBeacon: (target: Beacon) => void;
   emit: (signalType: SignalType, payload?: SignalPayload) => void;
-  emitAsync: (signalType: SignalType, payload?: SignalPayload) => void | null | undefined;
   addListener: (
     signalOrJustType: SignalType | Signal,
     listener: ScopedSignalListener,
@@ -66,9 +65,6 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
     },
     emit(signalType, payload) {
       return beacon ? beacon.emit({ type: signalType, namespace, payload }) : undefined;
-    },
-    emitAsync(signalType, payload) {
-      return beacon ? beacon.emitAsync({ type: signalType, namespace, payload }) : undefined;
     },
     emitError(payload) {
       return beacon ? beacon.emit({ type: errorSignalType, namespace, payload }) : undefined;

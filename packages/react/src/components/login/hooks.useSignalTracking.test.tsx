@@ -160,7 +160,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       const listener3FirstRenderTime = getRenderTime(3);
 
       await act(async () => {
-        getBeaconFuncs().emitAsync(triggerForListener0);
+        getBeaconFuncs().emit(triggerForListener0);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(0);
@@ -169,7 +169,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(0)).toBe(listener0FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emitAsync(triggerForListener1And2);
+        getBeaconFuncs().emit(triggerForListener1And2);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(1);
@@ -178,7 +178,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(1)).toBe(listener1FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emitAsync(triggerForListener2);
+        getBeaconFuncs().emit(triggerForListener2);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(1);
@@ -187,7 +187,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(2)).toBe(listener2FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emitAsync(triggerForListener3);
+        getBeaconFuncs().emit(triggerForListener3);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(1);
       expect(listeners[1]).toHaveBeenCalledTimes(1);
@@ -196,10 +196,10 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getRenderTime(3)).toBe(listener3FirstRenderTime);
 
       await act(async () => {
-        getBeaconFuncs().emitAsync(triggerForListener0);
-        getBeaconFuncs().emitAsync(triggerForListener1And2);
-        getBeaconFuncs().emitAsync(triggerForListener2);
-        getBeaconFuncs().emitAsync(triggerForListener3);
+        getBeaconFuncs().emit(triggerForListener0);
+        getBeaconFuncs().emit(triggerForListener1And2);
+        getBeaconFuncs().emit(triggerForListener2);
+        getBeaconFuncs().emit(triggerForListener3);
       });
       expect(listeners[0]).toHaveBeenCalledTimes(2);
       expect(listeners[1]).toHaveBeenCalledTimes(2);
@@ -357,14 +357,14 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       };
 
       act(() => {
-        getBeaconFuncs().emitAsync(triggerForListener0);
+        getBeaconFuncs().emit(triggerForListener0);
       });
       await waitForRerender(0);
       expect(getReceivedSignal(0)).toEqual(triggerForListener0);
       expect(getReceivedSignal(0)).toEqual(triggerForListener0);
 
       act(() => {
-        getBeaconFuncs().emitAsync(triggerForListener1And2);
+        getBeaconFuncs().emit(triggerForListener1And2);
       });
       await waitForRerender(1);
       await waitForRerender(2);
@@ -372,13 +372,13 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       expect(getReceivedSignal(2)).toEqual(triggerForListener1And2);
 
       act(() => {
-        getBeaconFuncs().emitAsync(triggerForListener2);
+        getBeaconFuncs().emit(triggerForListener2);
       });
       await waitForRerender(2);
       expect(getReceivedSignal(2)).toEqual(triggerForListener2);
 
       act(() => {
-        getBeaconFuncs().emitAsync(triggerForListener3);
+        getBeaconFuncs().emit(triggerForListener3);
       });
       await waitForRerender(3);
       expect(getReceivedSignal(3)).toEqual(triggerForListener3);
@@ -389,7 +389,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
       const { resetSignalListener, getReceivedSignal } = commonFuncs;
 
       act(() => {
-        getBeaconFuncs().emitAsync(triggerForListener1And2);
+        getBeaconFuncs().emit(triggerForListener1And2);
       });
       await waitFor(() => {
         expect(getReceivedSignal(1)).toEqual(triggerForListener1And2);

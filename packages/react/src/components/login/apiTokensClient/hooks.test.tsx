@@ -170,8 +170,8 @@ describe('apiToken hooks testing', () => {
 
     const TestController = (props: TestProps) => {
       const beacon = useBeacon();
-      const emitUserUpdatedSignal = async () => {
-        await (beacon as BeaconFuncs).emitAsync({
+      const emitUserUpdatedSignal = () => {
+        (beacon as BeaconFuncs).emit({
           ...createOidcClientEventTrigger(),
           payload: { type: 'USER_UPDATED', data: createUser({ signInResponseProps: { access_token: 'token2' } }) },
         });

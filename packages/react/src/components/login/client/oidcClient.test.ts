@@ -559,7 +559,7 @@ describe('oidcClient', () => {
         if ((signal as OidcClientEventSignal).payload.type === 'USER_RENEWAL_STARTED') {
           if (module.namespace === reEmittingModule) {
             storeToListener({ type: 'RE_EMIT_RENEWAL', namespace: signal.namespace }, module);
-            module.emitAsync('RE_EMIT_RENEWAL');
+            module.emit('RE_EMIT_RENEWAL');
           }
           storeToListener({ type: 'RENEWAL_HANDLED', namespace: signal.namespace }, module);
         }
@@ -636,11 +636,11 @@ describe('oidcClient', () => {
       'RENEWAL_HANDLED:oidcClient@module1',
       'USER_RENEWAL_STARTED:oidcClient@module2',
       'RE_EMIT_RENEWAL:oidcClient@module2',
-      'RE_EMIT_STARTED:module2@re-emitter',
-      'RE_EMIT_OVER:module2@re-emitter',
       'RENEWAL_HANDLED:oidcClient@module2',
       'USER_RENEWAL_STARTED:oidcClient@module3',
       'RENEWAL_HANDLED:oidcClient@module3',
+      'RE_EMIT_STARTED:module2@re-emitter',
+      'RE_EMIT_OVER:module2@re-emitter',
       'USER_UPDATED:oidcClient@re-emitter',
       'USER_UPDATED:oidcClient@module1',
       'USER_UPDATED:oidcClient@module2',

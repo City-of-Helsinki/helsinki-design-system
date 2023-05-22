@@ -439,13 +439,13 @@ describe(`sessionPoller`, () => {
       expect(getHttpPollerStartCalls()).toHaveLength(1);
     });
     await waitUntilRequestFinished();
-    await currentBeacon.emitAsync({
+    currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
       payload: { type: 'USER_RENEWAL_STARTED' },
     });
     expect(getHttpPollerStopCalls()).toHaveLength(1);
-    await currentBeacon.emitAsync({
+    currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
       payload: { type: 'USER_UPDATED', data: createUser() },
@@ -456,13 +456,13 @@ describe(`sessionPoller`, () => {
     initTests({ setValidSession: true, responses: [successfulResponse, successfulResponse, successfulResponse] });
     await waitUntilRequestFinished();
     expect(getHttpPollerStartCalls()).toHaveLength(1);
-    await currentBeacon.emitAsync({
+    currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
       payload: { type: 'USER_RENEWAL_STARTED' },
     });
     expect(getHttpPollerStopCalls()).toHaveLength(1);
-    await currentBeacon.emitAsync({
+    currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
       payload: { type: 'USER_UPDATED' },

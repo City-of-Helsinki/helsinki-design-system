@@ -14,7 +14,7 @@ export type Signal<P = SignalType, T extends SignalPayload = SignalPayload> = {
   payload?: T;
   context?: ConnectedModule;
 };
-export type SignalListener = (signal: Signal) => void | Promise<void>;
+export type SignalListener = (signal: Signal) => void;
 export type SignalTriggerProps = Omit<Signal, 'context'> & { context?: Record<string, string> };
 export type SignalTrigger = (signal: Signal) => boolean;
 
@@ -27,7 +27,6 @@ export type BeaconContext = Map<string, ConnectedModule>;
 
 export type Beacon = {
   emit: (signal: Signal) => void;
-  emitAsync: (signal: Signal) => Promise<void>;
   addListener: (signalOrJustSignalType: SignalType | Signal, listener: SignalListener) => Disposer;
   addSignalContext: (context: ConnectedModule) => Disposer;
   getSignalContext: (namespace: SignalNamespace) => ConnectedModule | undefined;
@@ -109,10 +108,8 @@ export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal)
 
 export function createBeacon(): Beacon {
   let isSignalling = false;
-  let isAsyncSignalling = false;
   const listenerData = new Set<StoredListenerData>();
   const signalQueue: Signal[] = [];
-  const asyncSignalQueue: Signal[] = [];
   const contextMap: BeaconContext = new Map();
 
   const addListener: Beacon['addListener'] = (
@@ -168,38 +165,6 @@ export function createBeacon(): Beacon {
     }
   };
 
-  const asyncAwaitArray = async (array: Array<unknown>, iterator: (argument: unknown) => Promise<unknown>) => {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const item of array) {
-      // eslint-disable-next-line no-await-in-loop
-      await iterator(item);
-    }
-  };
-
-  const triggerAsyncListeners = async (signal: Signal) => {
-    const list = Array.from(listenerData);
-    const signalToSend = copySignalAndAssignContext(signal);
-    await asyncAwaitArray(list, async (data) => {
-      const { listener, trigger } = data as StoredListenerData;
-      if (trigger(signalToSend)) {
-        await listener(signalToSend);
-      }
-    });
-    destroyEmittedSignal(signalToSend);
-  };
-
-  const sendAsyncQueued = async () => {
-    const list = [...asyncSignalQueue];
-    asyncSignalQueue.length = 0;
-    await asyncAwaitArray(list, async (signal) => {
-      await triggerAsyncListeners(signal as Signal);
-    });
-
-    if (asyncSignalQueue.length) {
-      await sendAsyncQueued();
-    }
-  };
-
   const beacon: Beacon = {
     emit: (signal) => {
       // prevent adding same twice!
@@ -213,19 +178,6 @@ export function createBeacon(): Beacon {
       signalQueue.push(signal);
       sendQueued();
       isSignalling = false;
-    },
-    emitAsync: async (signal) => {
-      if (isAsyncSignalling) {
-        asyncSignalQueue.push(signal);
-        // this resolve handles loops where current listener is awaiting for pending
-        // which does not fulfill after current is fulfilled.
-        return Promise.resolve();
-      }
-      isAsyncSignalling = true;
-      asyncSignalQueue.push(signal);
-      await sendAsyncQueued();
-      isAsyncSignalling = false;
-      return Promise.resolve();
     },
     addListener,
     clear: () => {

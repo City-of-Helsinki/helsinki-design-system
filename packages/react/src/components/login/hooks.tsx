@@ -28,12 +28,11 @@ export const useAuthenticatedUser = (): UserReturnType => {
   return user;
 };
 
-export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'emit' | 'emitAsync' | 'getModule'> => {
-  const { addListener, emit, emitAsync, getModule } = useContext(LoginContext);
+export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'emit' | 'getModule'> => {
+  const { addListener, emit, getModule } = useContext(LoginContext);
   return {
     addListener,
     emit,
-    emitAsync,
     getModule,
   };
 };

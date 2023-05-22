@@ -14,7 +14,6 @@ type ContextProps = {
 export type LoginContextData = {
   addListener: Beacon['addListener'];
   emit: Beacon['emit'];
-  emitAsync: Beacon['emitAsync'];
   getOidcClient: () => OidcClient;
   getModule: <T extends ConnectedModule>(namespace: SignalNamespace) => T | null;
 };
@@ -25,9 +24,6 @@ export const LoginContext = createContext<LoginContextData>({
   },
   emit: () => {
     throw new Error('LoginContext.emit is not initialized');
-  },
-  emitAsync: () => {
-    throw new Error('LoginContext.emitAsync is not initialized');
   },
   getOidcClient: () => {
     throw new Error('LoginContext.getOidcClient is not initialized');
@@ -66,7 +62,6 @@ export const LoginContextProvider = (props: ContextProps): React.ReactElement =>
       return beacon.addListener(signalOrJustSignalType, listener);
     },
     emit: beacon.emit,
-    emitAsync: beacon.emitAsync,
     getOidcClient: () => {
       return oidcClient;
     },
