@@ -54,6 +54,8 @@ jobs:
         run: cp ./icon-library/react/* ./packages/react/src/icons
       - name: Lint react files
         run: npx prettier --write './packages/react/src/icons/*.{ts,tsx}'
+      - name: Code analysis for react files
+        run: npx eslint -c './packages/react/.eslintrc.json' --ignore-path './packages/react/.eslintignore'  './packages/react/src/icons/*.{ts,tsx}'
       - name: Remove icon library build directory
         run: rm -rf ./icon-library
       - name: Commit changed files
