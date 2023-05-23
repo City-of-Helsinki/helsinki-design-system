@@ -110,6 +110,7 @@ export function createBeacon(): Beacon {
   let isSignalling = false;
   const listenerData = new Set<StoredListenerData>();
   const signalQueue: Signal[] = [];
+  const listenerQueue = new Set<StoredListenerData>();
   const contextMap: BeaconContext = new Map();
 
   const addListener: Beacon['addListener'] = (
@@ -118,9 +119,18 @@ export function createBeacon(): Beacon {
   ) => {
     const trigger = createSignalTrigger(signalOrJustSignalType);
     const data = { listener, trigger };
-    listenerData.add(data);
+    // If a listener is added while signalling and it is triggered by the
+    // currently emitted signal, a loop could be created.
+    // This can occur when using hooks and not memoizing listeners.
+    // Prevent adding listeners while emitting.
+    if (!isSignalling) {
+      listenerData.add(data);
+    } else {
+      listenerQueue.add(data);
+    }
     return () => {
       listenerData.delete(data);
+      listenerQueue.delete(data);
     };
   };
 
@@ -131,6 +141,16 @@ export function createBeacon(): Beacon {
     signal.namespace = undefined;
     signal.payload = undefined;
     /* eslint-enable no-param-reassign */
+  };
+
+  const handleListenerQueue = () => {
+    if (listenerQueue.size) {
+      listenerQueue.forEach((data) => {
+        listenerData.add(data);
+      });
+      return;
+    }
+    listenerQueue.clear();
   };
 
   const copySignalAndAssignContext = (signalBody: Signal) => {
@@ -177,6 +197,7 @@ export function createBeacon(): Beacon {
       isSignalling = true;
       signalQueue.push(signal);
       sendQueued();
+      handleListenerQueue();
       isSignalling = false;
     },
     addListener,

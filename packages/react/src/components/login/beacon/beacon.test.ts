@@ -2,6 +2,7 @@ import { getAllMockCallArgs } from '../../../utils/testHelpers';
 import {
   Beacon,
   ConnectedModule,
+  Disposer,
   LISTEN_TO_ALL_MARKER,
   Signal,
   SignalListener,
@@ -223,6 +224,99 @@ describe(`beacon`, () => {
       expect(listenerForEverything).toHaveBeenCalledTimes(4);
       expect(listenerForEverythingInNamespaceA).toHaveBeenCalledTimes(3);
       expect(listenerForChangeSignalsNamespaceA).toHaveBeenCalledTimes(3);
+    });
+    it(`Adding a listener while emitting adds it to a queue and the is added after emitting is over.`, () => {
+      const listenToAddSignals = jest.fn();
+      const listenersAddedWhileEmitting: jest.Mock[] = [];
+      const disposers: Disposer[] = [];
+      const addWhileEmitting: SignalListener = (signal) => {
+        const newListener = jest.fn();
+        const disposer = beacon.addListener('*:emitter', newListener);
+        listenToAddSignals({ ...signal });
+        listenersAddedWhileEmitting.push(newListener);
+        disposers.push(disposer);
+        // emit another signal at the same time
+        // to make sure listener is not active
+        beacon.emit({ type: 'added:emitter' });
+      };
+
+      beacon.addListener('add:emitter', addWhileEmitting);
+
+      beacon.emit({ type: 'add:emitter' });
+      expect(listenToAddSignals).toHaveBeenCalledTimes(1);
+      expect(listenersAddedWhileEmitting).toHaveLength(1);
+      expect(listenersAddedWhileEmitting[0]).toHaveBeenCalledTimes(0);
+
+      beacon.emit({ type: 'add:emitter' });
+      expect(listenToAddSignals).toHaveBeenCalledTimes(2);
+      expect(listenersAddedWhileEmitting).toHaveLength(2);
+      // two signals: add:emitter + added:emitter
+      expect(listenersAddedWhileEmitting[0]).toHaveBeenCalledTimes(2);
+      expect(listenersAddedWhileEmitting[1]).toHaveBeenCalledTimes(0);
+
+      beacon.emit({ type: 'dontadd:emitter' });
+      expect(listenToAddSignals).toHaveBeenCalledTimes(2);
+      expect(listenersAddedWhileEmitting).toHaveLength(2);
+      expect(listenersAddedWhileEmitting[0]).toHaveBeenCalledTimes(3);
+      expect(listenersAddedWhileEmitting[1]).toHaveBeenCalledTimes(1);
+
+      disposers[0]();
+      disposers[1]();
+
+      beacon.emit({ type: 'dontadd:emitter' });
+      expect(listenersAddedWhileEmitting[0]).toHaveBeenCalledTimes(3);
+      expect(listenersAddedWhileEmitting[1]).toHaveBeenCalledTimes(1);
+
+      beacon.emit({ type: 'add:emitter' });
+      expect(listenToAddSignals).toHaveBeenCalledTimes(3);
+      expect(listenersAddedWhileEmitting).toHaveLength(3);
+      expect(listenersAddedWhileEmitting[0]).toHaveBeenCalledTimes(3);
+      expect(listenersAddedWhileEmitting[1]).toHaveBeenCalledTimes(1);
+      expect(listenersAddedWhileEmitting[2]).toHaveBeenCalledTimes(0);
+    });
+    it(`The disposer of the listener that was added to the queue removes it. It wont be added after emit.`, () => {
+      const disposers: Disposer[] = [];
+      const listenAll = jest.fn();
+      const firstListener = jest.fn();
+      const secondListener = jest.fn();
+      const addFirstListener: SignalListener = (signal) => {
+        disposers[0] = beacon.addListener('*:emitter', firstListener);
+        beacon.emit({ type: 'addSecond:emitter' });
+        beacon.emit({ type: 'disposeFirst:emitter' });
+        listenAll(signal);
+      };
+      const addSecondListener: SignalListener = (signal) => {
+        disposers[1] = beacon.addListener('*:emitter', secondListener);
+        listenAll(signal);
+      };
+      const disposeFirstListener: SignalListener = (signal) => {
+        disposers[0]();
+        listenAll(signal);
+      };
+
+      beacon.addListener('addFirst:emitter', addFirstListener);
+      beacon.addListener('addSecond:emitter', addSecondListener);
+      beacon.addListener('disposeFirst:emitter', disposeFirstListener);
+
+      expect(listenAll).toHaveBeenCalledTimes(0);
+      expect(firstListener).toHaveBeenCalledTimes(0);
+      expect(secondListener).toHaveBeenCalledTimes(0);
+
+      beacon.emit({ type: 'addFirst:emitter' });
+      // listenAll catches addFirst, addSecond, disposeFirst
+      expect(listenAll).toHaveBeenCalledTimes(3);
+      expect(firstListener).toHaveBeenCalledTimes(0);
+      // even if second listener listens to all, it is not added until all signals are emitted.
+      expect(secondListener).toHaveBeenCalledTimes(0);
+      beacon.emit({ type: 'any:emitter' });
+      // secondListener catches only last
+      expect(secondListener).toHaveBeenCalledTimes(1);
+      disposers[1]();
+
+      beacon.emit({ type: 'last:emitter' });
+      expect(listenAll).toHaveBeenCalledTimes(3);
+      expect(firstListener).toHaveBeenCalledTimes(0);
+      expect(secondListener).toHaveBeenCalledTimes(1);
     });
   });
   describe(`emit() sends the signal and triggers listeners in the order listeners were added.`, () => {
