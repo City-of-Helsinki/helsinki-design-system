@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/graph-columns.svg");
+
+.hds-icon--graph-columns {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}
