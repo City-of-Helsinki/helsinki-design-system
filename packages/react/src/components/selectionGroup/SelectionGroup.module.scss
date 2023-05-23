@@ -1,4 +1,4 @@
-@import "../../styles/common";
+@import "../../styles/common.scss";
 
 .selectionGroup {
   --spacing-col: 1.25rem;
@@ -15,8 +15,15 @@
 }
 
 .label {
+  /* Normalize.css rule
+   * Remove the padding so developers are not caught out when they zero out
+   * `fieldset` elements in all browsers.
+   */
+
   @extend %inputLabel;
+
   margin-bottom: var(--spacing-row);
+  padding: 0;
 }
 
 .items {
@@ -28,6 +35,7 @@
   &.vertical {
     grid-auto-flow: row;
   }
+
   &.horizontal {
     grid-auto-flow: column;
   }
@@ -41,3 +49,6 @@
   composes: hds-selection-group__error-text from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
+.helperText {
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
+}

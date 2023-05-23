@@ -7,6 +7,168 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.14.0] - May, 9, 2023
+
+### React 
+
+#### Fixed
+
+- [Accordion] Prevent page scroll when accordion is opened with the spacebar
+- [SearchInput] SearchInput uses hds-core's SearchInput styles instead of TextInput's
+
+#### Changed
+- [SelectionGroup] Refactor code using deprecating React.Children API
+- [SideNavigation] Refactor code using deprecating React.Children API
+- [Tabs] Refactor code using deprecating React.Children API
+
+### Core
+
+#### Fixed
+
+- [SearchInput] Unified CSS with TextInput
+
+### Documentation
+
+#### Fixed
+- [FileInput] Added missing import
+- Repository's README files updated to match current branch policy
+
+#### Changed
+- [StatusLabel] Rectangular variant marked as deprected
+- Refactor code using deprecating React.Children API
+
+### Design tokens
+
+#### Added
+
+- New token for focus color
+
+### Design
+
+#### Changed
+
+- [Tag] Rectangular version marked as deprecated
+
+## [2.13.0] - March, 27, 2023
+
+### React 
+
+#### Added
+
+- [FileInput] Supports defaultValue prop
+- Styles are linted for better quality CSS
+
+#### Changed
+
+- [Tag] Deprecation warning for rectangular tag
+- [Navigation] Deprecation warnings for Navigation components
+- Storybook form validation library changed to a more stable one
+- License updated
+
+#### Fixed
+
+- [Dialog] Fixed console error about useEffect returning null
+- [NumberInput] Slow down number scrolling with mouse
+- Normalized CSS doesnt' affect elements outside components anymore
+
+### Core
+
+#### Added
+
+- License information added
+- Styles are linted for better quality CSS
+
+### Documentation
+
+#### Added
+- [Tag] Deprecation warning for rectangular tag
+- [Navigation] Deprecation warning for Navigation
+
+#### Changed
+
+- Improve Stepper's accessibility documentation
+- Improve repository's developer documentation on problem solving
+- License updated
+
+### Design tokens
+
+#### Added
+
+- License information added
+
+### Design
+
+- Sketch update 95.3
+
+## [2.12.1] - February, 23, 2023
+
+### React 
+
+#### Fixed
+
+- Added missing helper texts and tooltips
+
+### Documentation
+
+- Added documentation for helper texts and tooltips
+- Fixed version documentation
+
+## [2.12.0] - February, 21, 2023
+
+### React 
+
+#### Changed
+
+- [Checkbox] Support for tooltips
+- [Fieldset] Support for tooltips
+
+#### Fixed
+
+- [DateInput] Changed input type to textual so that even iOS users can write the date in addition of picking it from calendar
+- [Navigation] Fixed sizing 320px screens where title overlapped menu button
+
+### Documentation
+
+#### Added
+
+- Information about breaking changes and versioning in HDS
+
+#### Fixed
+
+- Date input default values for min and max
+- Required field asterisk position to match the components
+
+## [2.11.0] - February, 9, 2023
+
+### React 
+
+#### Changed
+
+- [CookieConsent] Updated missing Matomo cookies
+- [CookieConsent] Improved translations
+
+#### Fixed
+
+- Updated dependencies
+- [Dialog] Fixed background position jumping on some specific environments
+
+### Design
+
+#### Changed
+
+- Update Design kit to Sketch 95.2
+
+### Documentation
+
+#### Added
+
+- More component properties available in Storybook
+- FAQ section about keyboard focus on Safari
+
+#### Fixed
+
+- Fix broken links in documentation
+
 ## [2.10.0] - January, 10, 2023
 
 ### Core

@@ -18,19 +18,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { RadioButton } from 'hds-react';
+
+() => {
   const [selectedItem, setSelectedItem] = React.useState("2");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
-  return (
-    <>
+  return (<>
     <RadioButton id="radio1" name="example" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
     <RadioButton id="radio2" name="example" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
     <RadioButton disabled id="radio3" name="example-disabled" label="Label" value="3" checked={selectedItem === "3"} onChange={onChange}/>
-  </>
-  )
-}}
+    <RadioButton id="radio4" name="example-helper" label="Label" value="4" checked={selectedItem === "4"} onChange={onChange} helperText="Helper text"/>
+  </>)
+}
 ```
 
 ```html
@@ -59,7 +60,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { RadioButton, SelectionGroup } from 'hds-react';
+
+() => {
   const [selectedItem, setSelectedItem] = React.useState("1");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
@@ -72,7 +75,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
     </SelectionGroup>
   );
-}}
+}
 ```
 
 ```html
@@ -119,7 +122,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Properties
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-radiobutton--default">React Storybook.</Link>
 
-| Property              | Description                     | Values                                     | Default value  |
-| --------------------- | --------------------------------| ------------------------------------------ | -------------- |
-| `label`               | The label for the input.        | `string`                                   | -              |
+| Property              | Description                                                       | Values      | Default value  |
+| --------------------- | ------------------------------------------------------------------| -----------------------------|
+| `label`               | The label for the input.                                          | `string`    | -              |
+| `helperText`          | The helper text content that will be shown below the radiobutton. | `string`    | -              |
 [Table 1:RadioButton properties]|

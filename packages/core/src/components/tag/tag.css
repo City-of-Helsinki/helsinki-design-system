@@ -1,10 +1,9 @@
-@import "../../icons/icon.css";
-@import "../../icons/ui/icon-cross.css";
+@import url("../../icons/icon.css");
+@import url("../../icons/ui/icon-cross.css");
 
 .hds-tag {
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);
-  --tag-focus-outline-color: var(--color-coat-of-arms);
   --tag-font-size: var(--fontsize-body-s);
   --tag-padding: var(--spacing-2-xs);
   --tag-height: 32px;
@@ -15,18 +14,27 @@
   display: inline-flex;
   flex-direction: row-reverse;
   font-size: var(--tag-font-size);
-  min-height: var(--tag-height);
   line-height: var(--tag-height);
+  min-height: var(--tag-height);
   outline: none;
 }
 
 .hds-tag:focus,
 .hds-tag:focus-within {
-  box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
+  box-shadow: 0 0 0 3px var(--color-focus-outline);
 }
 
 .hds-tag[tabindex='0'] {
   cursor: pointer;
+}
+
+.hds-tag__label {
+  line-height: var(--lineheight-m);
+  padding: 0 var(--tag-padding);
+}
+
+.hds-tag__label:not(:only-child) {
+  padding: 0 var(--tag-padding) 0 0;
 }
 
 /* Rounded corners variant */
@@ -39,32 +47,23 @@
   --tag-font-size:  var(--fontsize-body-m);
   --tag-padding:    var(--spacing-s);
   --tag-height:     48px;
+
   border-radius:    24px;
   flex-direction:   row;
 }
 
 .hds-tag--rounded-corners > .hds-tag__label:not(:only-child) {
-  padding-right: 0;
   padding-left:  var(--tag-padding);
-}
-
-.hds-tag--rounded-corners > button {
-  padding-right: calc(var(--tag-padding) / 2);
-}
-
-/* Child nodes */
-.hds-tag__label {
-  line-height: var(--lineheight-m);
-  padding: 0 var(--tag-padding);
-}
-
-.hds-tag__label:not(:only-child) {
-  padding: 0 var(--tag-padding) 0 0;
+  padding-right: 0;
 }
 
 .hds-tag__delete-button {
- display: flex;
- outline: none;
+  display: flex;
+  outline: none;
+ }
+
+.hds-tag--rounded-corners .hds-tag__delete-button {
+  padding-right: calc(var(--tag-padding) / 2);
 }
 
 .hds-tag__delete-button .hds-icon {

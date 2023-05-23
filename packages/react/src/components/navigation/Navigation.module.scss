@@ -1,15 +1,24 @@
-@import "../../styles/common";
-@value x-small-only, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../styles/breakpoints.css";
+@import "../../styles/common.scss";
+@value x-small-only, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../styles/breakpoints.scss";
 
 @keyframes mobileMenuAnimation {
   from {
-    transform: translate3d(0, -10%, 0);
     opacity: 0.85;
+    transform: translate3d(0, -10%, 0);
   }
+
   to {
-    transform: translate3d(0, 0, 0);
     opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
+}
+
+/* BACKGROUND WRAPPER */
+
+.headerBackgroundWrapper {
+  background-color: var(--header-background-color);
+  position: relative;
+  z-index: var(--header-z-index);
 }
 
 .header {
@@ -50,27 +59,6 @@
     --header-color: var(--color-white);
     --header-focus-outline-color: var(--color-white);
   }
-}
-
-/* FIXED */
-
-.fixed {
-  left: 0;
-  position: fixed;
-  top: 0;
-
-  .mobileMenu {
-    max-height: calc(100vh - var(--header-height));
-    overflow-y: scroll;
-  }
-}
-
-/* BACKGROUND WRAPPER */
-
-.headerBackgroundWrapper {
-  background-color: var(--header-background-color);
-  position: relative;
-  z-index: var(--header-z-index);
 }
 
 /* HEADER CONTAINER */
@@ -119,14 +107,13 @@
   cursor: pointer;
   display: flex;
   font-size: var(--fontsize-heading-xxs);
-  line-height: var(--lineheight-l);
-  letter-spacing: 0.4px;
   font-weight: bold;
   height: calc(100% - var(--spacing-s) * 2);
+  letter-spacing: 0.4px;
+  line-height: var(--lineheight-l);
   outline: none;
   position: relative;
   text-decoration: none;
-  white-space: nowrap;
 
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
@@ -146,6 +133,7 @@
 // menu
 .mobileMenu {
   --header-focus-outline-color: var(--navigation-row-focus-outline-color);
+
   background-color: var(--mobile-menu-background-color);
   border-bottom: 1px solid var(--header-divider-color);
   color: var(--mobile-menu-color);
@@ -165,6 +153,7 @@
 // menu toggle
 .mobileMenuToggle {
   @extend %buttonReset;
+
   display: flex;
   margin: auto var(--spacing-xs) auto auto;
   padding: var(--spacing-3-xs);
@@ -173,6 +162,19 @@
     border-radius: var(--header-focus-outline-border-radius);
     box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);
     outline: none;
+  }
+}
+
+/* FIXED */
+
+.fixed {
+  left: 0;
+  position: fixed;
+  top: 0;
+
+  .mobileMenu {
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: scroll;
   }
 }
 
@@ -208,11 +210,12 @@
         .logo,
         > span {
           transition-duration: 225ms;
-          transition-timing-function: ease-out;
           transition-property: opacity, transform;
+          transition-timing-function: ease-out;
         }
 
         .logo {
+          height: 0;
           opacity: 0;
           pointer-events: none;
           transform: translate3d(0, -150%, 0);
@@ -236,8 +239,8 @@
 
     /* LOGO & TITLE FOCUS OUTLINE */
 
-    &:not(.menuOpen) .title:focus::after,
-    &.menuOpen .title:focus > span::after {
+    &:not(.menuOpen) .title:focus:after,
+    &.menuOpen .title:focus > span:after {
       border: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
       border-radius: var(--header-focus-outline-border-radius);
       box-sizing: border-box;
@@ -248,7 +251,7 @@
       width: calc(100% + var(--header-focus-outline-width) * 4);
     }
 
-    &.menuOpen .title:focus > span::after {
+    &.menuOpen .title:focus > span:after {
       left: 0;
       top: calc(var(--header-focus-outline-width) * -2);
     }
@@ -258,6 +261,10 @@
 @media small-down {
   .header.menuOpen .mobileMenu {
     animation: mobileMenuAnimation 225ms ease-out;
+  }
+
+  .title {
+    width: 100%;
   }
 }
 
@@ -273,7 +280,7 @@
   }
 
   // title focus outline
-  .title:focus::after {
+  .title:focus:after {
     border: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     border-radius: var(--header-focus-outline-border-radius);
     box-sizing: border-box;

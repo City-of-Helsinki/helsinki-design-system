@@ -9,6 +9,10 @@ export type NavigationDropdownProps = MenuButtonProps & {
   active?: boolean;
 };
 
+/**
+ * NavigationDropdown will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationDropdown = ({ label, children, ...rest }: NavigationDropdownProps) => (
   <MenuButton label={label} {...rest}>
     {children}

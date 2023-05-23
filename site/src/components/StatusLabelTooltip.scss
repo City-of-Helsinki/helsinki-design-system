@@ -1,0 +1,38 @@
+.status-label-description {
+  align-items: center;
+  display: flex;
+}
+
+.status-label-tooltip {
+  align-self: end;
+  margin-left: var(--spacing-xs);
+}
+
+.status-label-tooltip > section {
+  max-width: fit-content;
+}
+
+.status-label-definitions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    align-items: center;
+    column-gap: 0.3rem;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+}
+
+.status-name {
+  font-weight: bold;
+}
+
+.status-name:after {
+  content: ":";
+  display: inline;
+  font-weight: bold;
+}

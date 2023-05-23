@@ -4,6 +4,8 @@ title: 'Icon'
 ---
 
 import { StatusLabel } from 'hds-react';
+
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
@@ -11,10 +13,13 @@ import LeadParagraph from '../../../components/LeadParagraph';
 
 # Icon
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   Icons are used for providing visual cues and highlighting actions, denoting types and classes of information, and giving additional meaning to content.

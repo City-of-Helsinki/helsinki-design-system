@@ -21,17 +21,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div style={{maxWidth: '400px'}}>
-  <DateInput 
-    helperText="Use format D.M.YYYY"
-    id="date-input-example-1"
-    initialMonth={new Date()}
-    label="Choose a date"
-    language="en"
-    onChange={function noRefCheck(){}}
-    required
-  />
-</div>
+import { DateInput } from 'hds-react';
+
+() => (
+  <div style={{maxWidth: '400px'}}>
+    <DateInput
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-1"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck(){}}
+      required
+    />
+  </div>
+)
 ```
 
 </Playground>
@@ -41,18 +45,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div style={{maxWidth: '400px'}}>
-  <DateInput
-    disableConfirmation
-    helperText="Use format D.M.YYYY"
-    id="date-input-example-2"
-    initialMonth={new Date()}
-    label="Choose a date"
-    language="en"
-    onChange={function noRefCheck(){}}
-    required
-/>
-</div>
+import { DateInput } from 'hds-react';
+
+() => (
+  <div style={{maxWidth: '400px'}}>
+    <DateInput
+      disableConfirmation
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-2"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck(){}}
+      required
+  />
+  </div>
+)
 ```
 
 </Playground>
@@ -62,18 +70,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div style={{maxWidth: '400px'}}>
-  <DateInput
-    disableDatePicker
-    helperText="Use format D.M.YYYY"
-    id="date-input-example-3"
-    initialMonth={new Date()}
-    label="Choose a date"
-    language="en"
-    onChange={function noRefCheck(){}}
-    required
-  />
-</div>
+import { DateInput } from 'hds-react';
+
+() => (
+  <div style={{maxWidth: '400px'}}>
+    <DateInput
+      disableDatePicker
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-3"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck(){}}
+      required
+    />
+  </div>
+)
 ```
 
 </Playground>
@@ -83,39 +95,43 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div style={{maxWidth: '400px'}}>
-  <DateInput 
-    helperText="Use format D.M.YYYY"
-    id="date-input-example-4"
-    initialMonth={new Date()}
-    label="Choose a date"
-    language="en"
-    onChange={function noRefCheck(){}}
-    required
-    style={{marginBottom: 'var(--spacing-s)'}}
-  />
+import { DateInput } from 'hds-react';
 
-  <DateInput 
-    helperText="Käytä muotoa P.K.VVVV"
-    id="date-input-example-5"
-    initialMonth={new Date()}
-    label="Valitse päivämäärä"
-    language="fi"
-    onChange={function noRefCheck(){}}
-    required
-    style={{marginBottom: 'var(--spacing-s)'}}
-  />
+() => (
+  <div style={{maxWidth: '400px'}}>
+    <DateInput
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-4"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck(){}}
+      required
+      style={{marginBottom: 'var(--spacing-s)'}}
+    />
 
-  <DateInput 
-    helperText="Använd ett format D.M.ÅÅÅÅ"
-    id="date-input-example-6"
-    initialMonth={new Date()}
-    label="Välj ett datum"
-    language="sv"
-    onChange={function noRefCheck(){}}
-    required
-  />
-</div>
+    <DateInput
+      helperText="Käytä muotoa P.K.VVVV"
+      id="date-input-example-5"
+      initialMonth={new Date()}
+      label="Valitse päivämäärä"
+      language="fi"
+      onChange={function noRefCheck(){}}
+      required
+      style={{marginBottom: 'var(--spacing-s)'}}
+    />
+
+    <DateInput
+      helperText="Använd ett format D.M.ÅÅÅÅ"
+      id="date-input-example-6"
+      initialMonth={new Date()}
+      label="Välj ett datum"
+      language="sv"
+      onChange={function noRefCheck(){}}
+      required
+    />
+  </div>
+)
 ```
 
 </Playground>
@@ -132,19 +148,19 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 Also, note that this component is an input. All features supported by the HDS TextInput are also supported by this component. See <InternalLink href="/components/text-input">TextInput documentation page</InternalLink> for more information.
 
-| Property                                         | Description                                                    | Values                                       | Default value                                   |
-| ------------------------------------------------ | -------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
-| `helperText`                                     | Helper text to be displayed below the input.                   | `string`                                     | -                                               |
-| `errorText`                                      | Error text to be displayed below the input.                    | `string`                                     | -                                               |
-| `successText`                                    | Success text to be displayed below the input.                  | `string`                                     | -                                               |
-| `infoText`                                       | Info text to be displayed below the input.                     | `string`                                     | -                                               |
-| `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                               |
-| `label`                                          | A text label for the input.                                    | `string`                                     | -                                               |
-| `onChange`                                       | Callback fired when the state is changed.                      | `event`                                      | -                                               |
-| `language`                                       | Language of the date input.                                    | `string` (fi, en, sv)                        | en                                              |
-| `minDate`                                        | Minimum date to show in the datepicker calendar.               | `Date`                                       | Start of the month one year before current date |
-| `maxDate`                                        | Maximum date to show in the datepicker calendar.               | `Date`                                       | End of the month one year from current date.    |                                                 |
-| `isDateDisabledBy`                               | Disables date(s) based on conditional function.                | `function`                                   | -                                               |
-| `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                               |
-| `disableDatePicker`                              | If set to true, the date picker button is hidden.              | `boolean`                                    | false                                           |
-| `disableConfirmation`                            | If set to true, the date picker does not require confirmation. | `boolean`                                    | false                                           |
+| Property                                         | Description                                                    | Values                                       | Default value                                    |
+| ------------------------------------------------ | -------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------ |
+| `helperText`                                     | Helper text to be displayed below the input.                   | `string`                                     | -                                                |
+| `errorText`                                      | Error text to be displayed below the input.                    | `string`                                     | -                                                |
+| `successText`                                    | Success text to be displayed below the input.                  | `string`                                     | -                                                |
+| `infoText`                                       | Info text to be displayed below the input.                     | `string`                                     | -                                                |
+| `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                                |
+| `label`                                          | A text label for the input.                                    | `string`                                     | -                                                |
+| `onChange`                                       | Callback fired when the state is changed.                      | `event`                                      | -                                                |
+| `language`                                       | Language of the date input.                                    | `string` (fi, en, sv)                        | en                                               |
+| `minDate`                                        | Minimum date to show in the datepicker calendar.               | `Date`                                       | Start of the month ten years before current date |
+| `maxDate`                                        | Maximum date to show in the datepicker calendar.               | `Date`                                       | End of the month ten years from current date.    |
+| `isDateDisabledBy`                               | Disables date(s) based on conditional function.                | `function`                                   | -                                                |
+| `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                                |
+| `disableDatePicker`                              | If set to true, the date picker button is hidden.              | `boolean`                                    | false                                            |
+| `disableConfirmation`                            | If set to true, the date picker does not require confirmation. | `boolean`                                    | false                                            |

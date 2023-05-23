@@ -21,7 +21,7 @@ export const SelectionGroupExample = () => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
   return (
-    <SelectionGroup label="Selection group">
+    <SelectionGroup label="Selection group" helperText="Assistive text">
       <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
       <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
       <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />

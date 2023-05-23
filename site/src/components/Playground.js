@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
@@ -104,6 +104,12 @@ const sanitize = (code) => {
     ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
     : trimmedCode;
 };
+
+function transformCode(code) {
+  const importsIgnored = code.replace(/import\s*{\s*(\S+)(\s*,\s*\S+)*\s*}\s*from\s*'([^\s;]+)';?/g, '');
+  const renderAdded = `render(${importsIgnored})`;
+  return renderAdded;
+}
 
 const HtmlLivePreview = ({ code }) => {
   const sanitizedHtml = () => ({
@@ -264,13 +270,18 @@ const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = (props) => {
   const scopeComponents = useMDXScope();
-  const codeBlocks = React.Children.toArray(props.children).map(({ props }) => {
-    const childrenProps = props.children.props;
-    return {
-      code: childrenProps.children,
-      language: childrenProps.className && childrenProps.className.split('-')[1],
-    };
-  });
+
+  const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
+
+  const codeBlocks = childrenArray
+    .filter((child) => isValidElement(child))
+    .map(({ props }) => {
+      const childrenProps = props.children.props;
+      return {
+        code: childrenProps.children,
+        language: childrenProps.className && childrenProps.className.split('-')[1],
+      };
+    });
   const codeByLanguage = codeBlocks.reduce((acc, block) => {
     acc[block.language] = block.code;
     return acc;
@@ -299,7 +310,12 @@ export const PlaygroundBlock = (props) => {
 
           return (
             <TabPanel key={language}>
-              <LiveProvider code={sanitizedCode} scope={scopeComponents} language={language}>
+              <LiveProvider
+                code={sanitizedCode}
+                transformCode={(code) => `${transformCode(code)}`}
+                scope={scopeComponents}
+                language={language}
+                noInline={true}>
                 <div className="playground-block-content">
                   <PreviewComponent />
                   <EditorWithLive

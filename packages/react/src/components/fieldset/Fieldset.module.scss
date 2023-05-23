@@ -9,3 +9,20 @@
 .legend {
   composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
 }
+
+.helperText {
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
+}
+
+.legendWithTooltip {
+  align-items: center;
+  composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
+  display: flex;
+  grid-column-gap: var(--spacing-2-xs);
+  justify-content: flex-start;
+}
+
+.tooltipButton {
+  align-items: center;
+  display: flex;
+}

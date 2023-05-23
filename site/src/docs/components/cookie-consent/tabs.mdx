@@ -5,13 +5,17 @@ title: 'CookieConsent'
 
 import { StatusLabel, Notification } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # CookieConsent
 
-<StatusLabel type="alert">WIP</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="error">Draft</StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   The cookie compliance component informs users about cookie usage. This banner is shown when they visit a website or an

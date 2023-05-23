@@ -18,7 +18,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Dialog, Button } from 'hds-react';
+
+() => {
   const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
   const openInfoDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -58,7 +60,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </Dialog>
     </>
   )
-}}
+}
 ```
 
 </Playground>
@@ -67,7 +69,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Dialog, Button } from 'hds-react';
+
+() => {
   const confirmationDialogTarget = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
   const openConfirmationDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -109,7 +113,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </Dialog>
     </>
   )
-}}
+}
 ```
 
 </Playground>
@@ -118,7 +122,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Dialog, Button, IconAlertCircle } from 'hds-react';
+
+() => {
   const dangerDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
   const openDeleteDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -168,7 +174,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </Dialog>
     </>
   )
-}}
+}
 ```
 
 </Playground>
@@ -177,7 +183,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Dialog, Button, IconAlertCircle } from 'hds-react';
+
+() => {
   const termsDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
   const openTermsDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -273,7 +281,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </Dialog>
     </>
   )
-}}
+}
 ```
 
 </Playground>
@@ -282,7 +290,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Dialog, Button, TextInput, TextArea } from 'hds-react';
+
+() => {
   const customDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
   const openCustomDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -342,7 +352,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     </Dialog>
     </>
   )
-}}
+}
 ```
 
 </Playground>

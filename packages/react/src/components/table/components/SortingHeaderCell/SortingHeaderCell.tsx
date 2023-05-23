@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../../styles/base.css';
+
 import styles from '../../Table.module.scss';
 import {
   IconSort,
@@ -11,7 +12,7 @@ import {
   IconSortDescending,
 } from '../../../../icons';
 
-export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
+export type SortingHeaderCellProps = {
   ariaLabelSortButtonUnset: string;
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
@@ -21,7 +22,7 @@ export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   title: string;
   setSortingAndOrder: (colKey: string) => void;
   sortIconType: 'string' | 'other';
-};
+} & React.ComponentPropsWithoutRef<'th'>;
 
 type SortingIconProps = {
   ariaLabelSortButtonUnset: string;

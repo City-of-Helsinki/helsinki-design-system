@@ -18,41 +18,42 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<div style={{ maxWidth: '320px' }}>
-<TextInput
-  id="textinput"
-  label="Label"
-  placeholder="Placeholder"
-  helperText="Assistive text"
-  required
-/>
-<TextInput
-  id="textinput-invalid"
-  label="Label"
-  defaultValue="Text input value"
-  helperText="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  disabled
-/>
-<TextInput
-  id="textinput-invalid"
-  label="Label"
-  defaultValue="Text input value"
-  errorText="Error text"
-  helperText="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  invalid
-/>
-</div>
+import { TextInput } from 'hds-react';
+
+() => (
+  <div style={{ maxWidth: '320px' }}>
+    <TextInput
+      id="textinput"
+      label="Label"
+      placeholder="Placeholder"
+      helperText="Assistive text"
+      required
+    />
+    <TextInput
+      id="textinput-invalid"
+      label="Label"
+      defaultValue="Text input value"
+      helperText="Assistive text"
+      style={{marginTop: 'var(--spacing-s)'}}
+      disabled
+    />
+    <TextInput
+      id="textinput-invalid"
+      label="Label"
+      defaultValue="Text input value"
+      errorText="Error text"
+      helperText="Assistive text"
+      style={{marginTop: 'var(--spacing-s)'}}
+      invalid
+    />
+  </div>
+)
 ```
 
 ```html
 <div style="max-width:320px;">
   <div class="hds-text-input">
-    <label for="textinput-core" class="hds-text-input__label">
-      Label
-      <span class="hds-text-input__required">*</span>
-    </label>
+    <label for="textinput-core" class="hds-text-input__label">Label<span class="hds-text-input__required">*</span></label>
     <div class="hds-text-input__input-wrapper">
       <input id="textinput-core" class="hds-text-input__input" type="text" placeholder="Placeholder" required />
     </div>
@@ -88,13 +89,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<TextInput
-  id="textinput-readonly"
-  label="Label"
-  defaultValue="Read-only value"
-  helperText="Assistive text"
-  readOnly
-/>
+import { TextInput } from 'hds-react';
+
+() => (
+  <TextInput
+    id="textinput-readonly"
+    label="Label"
+    defaultValue="Read-only value"
+    helperText="Assistive text"
+    readOnly
+  />
+)
 ```
 
 ```html
@@ -115,14 +120,18 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<TextInput
-  id="textinput-tooltip"
-  label="Label"
-  placeholder="Placeholder"
-  tooltipLabel="Tooltip label"
-  tooltipButtonLabel="Tooltip button label"
-  tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
-/>
+import { TextInput } from 'hds-react';
+
+() => (
+  <TextInput
+    id="textinput-tooltip"
+    label="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+  />
+)
 ```
 
 </Playground>
@@ -140,7 +149,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | -------------------- | ---------------------------------------------------------------- | ----------- | ------------- |
 | `label`              | The label for the input.                                         | `ReactNode` | -             |
 | `errorText`          | The error text content that will be shown below the input.       | `string`    | -             |
-| `helperText`         | The error text content that will be shown below the input.       | `string`    | -             |
+| `helperText`         | The helper text content that will be shown below the input.      | `string`    | -             |
 | `hideLabel`          | Hides the label above the input.                                 | `boolean`   | false         |
 | `invalid`            | If set to true, the input will be displayed in an invalid state. | `boolean`   | false         |
 | `successText`        | The success text content that will be shown below the input.     | `string`    | -             |

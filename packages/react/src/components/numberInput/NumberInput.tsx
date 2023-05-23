@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import 'hds-core';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
+import useThrottledWheel from '../../hooks/useThrottledWheel';
+// import base styles
+import '../../styles/base.css';
 import styles from './NumberInput.module.scss';
 import { IconMinus, IconPlus } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
@@ -117,6 +119,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     const notifyScreenReaderStepperChangedValue = () => {
       setScreenReaderValue(String(inputRef.current.value));
     };
+    useThrottledWheel(inputRef);
 
     /**
      * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on

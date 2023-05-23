@@ -1,11 +1,12 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
 
-export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
+export type RadioButtonProps = {
   /**
    * If `true`, the component is checked
    */
@@ -18,6 +19,10 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
    * If `true`, the radio button will be disabled
    */
   disabled?: boolean;
+  /**
+   * The helper text content that will be shown below the input
+   */
+  helperText?: string;
   /**
    * The id of the input element
    */
@@ -38,7 +43,7 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
    * The value of the component
    */
   value?: string;
-};
+} & React.ComponentPropsWithoutRef<'input'>;
 
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   (
@@ -46,6 +51,7 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       checked = false,
       className = '',
       disabled = false,
+      helperText,
       id,
       label,
       onChange = () => null,
@@ -73,11 +79,17 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
           type="radio"
           disabled={disabled}
           checked={checked}
+          aria-describedby={helperText ? `${id}-helper` : null}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>
           {label}
         </label>
+        {helperText && (
+          <div className={styles.helperText} id={`${id}-helper`}>
+            {helperText}
+          </div>
+        )}
       </div>
     );
   },

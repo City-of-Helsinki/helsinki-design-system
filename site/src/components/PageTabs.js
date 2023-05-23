@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
 import { Tabs } from 'hds-react';
@@ -19,9 +19,11 @@ const pageTabComponentName = 'PageTab';
 
 const PageTabs = ({ pageContext, children }) => {
   const slug = pageContext.frontmatter.slug;
-  const mdxChildren = React.Children.toArray(children);
-  const tabList = mdxChildren.find((reactChild) => reactChild.type.componentName === pageTabListComponentName);
-  const tabPanel = mdxChildren.find((reactChild) => reactChild.type.componentName === pageTabPanelComponentName);
+
+  const mdxChildren = Array.isArray(children) ? children : [children];
+
+  const tabList = mdxChildren.find((reactChild) => isValidElement(reactChild) && reactChild.type.componentName === pageTabListComponentName);
+  const tabPanel = mdxChildren.find((reactChild) => isValidElement(reactChild) && reactChild.type.componentName === pageTabPanelComponentName);
   const tabs = tabList.props?.children.filter((reactChild) => reactChild.type.componentName === pageTabComponentName);
   const tabActiveIndex = tabs.findIndex((tab) => slug.endsWith(tab.props.href));
   const activeIndex = tabActiveIndex === -1 ? 0 : tabActiveIndex;

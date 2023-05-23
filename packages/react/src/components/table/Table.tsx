@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Table.module.scss';
 import { TableContainer } from './components/TableContainer';
 import { HeaderRow } from './components/HeaderRow';
@@ -51,7 +52,7 @@ export interface TableCustomTheme {
 
 type SelectedRow = string | number;
 
-export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
+export type TableProps = {
   /**
    * Aria-label for checkbox selection.
    * @default 'Rivin valinta'
@@ -193,7 +194,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    * Boolean indicating whether the table has alternating row colors zebra style.
    */
   zebra?: boolean;
-};
+} & React.ComponentPropsWithoutRef<'table'>;
 
 const processRows = (rows, order, sorting, cols) => {
   const sortingEnabled = cols.some((column) => {

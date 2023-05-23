@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Dialog /> spec renders the component 1`] = `
-<body>
+<body
+  class="dialogVisibleBodyWithHiddenScrollbars"
+>
   <div
-    class="hds-dialog-start-tab-barrier"
+    class="hds-dialog-tab-barrier"
     tabindex="0"
   />
   <div />
@@ -118,7 +120,7 @@ exports[`<Dialog /> spec renders the component 1`] = `
     />
   </div>
   <div
-    class="hds-dialog-end-tab-barrier"
+    class="hds-dialog-tab-barrier"
     tabindex="0"
   />
 </body>

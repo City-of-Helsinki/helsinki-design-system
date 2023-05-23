@@ -1,41 +1,42 @@
-@import "../button//button.css";
-@import "../../icons/icon.css";
-@import "../../icons/ui/icon-angle-right.css";
-@import "../../icons/ui/icon-angle-left.css";
+@import url("../button//button.css");
+@import url("../../icons/icon.css");
+@import url("../../icons/ui/icon-angle-right.css");
+@import url("../../icons/ui/icon-angle-left.css");
 
 .hds-pagination-container {
   text-align: center;
 }
 
 .hds-pagination {
+  display: inline-block; /* Allows centering */
   font-size: var(--fontsize-body-m);
   font-weight: bold;
-  display: inline-block; /* Allows centering */
-  position: relative; /* Enables position absolute for btn--next */
   line-height: var(--lineheight-l);
+  position: relative; /* Enables position absolute for btn--next */
   transform: scaleY(-1); /* Trick for flipping the list float direction from bottom to up */
+
   --active-page-background-color: var(--color-black);
   --link-height: 40px;
 }
 
 /* Invisible, floated pseudo-element for reserving space for the hds-pagination__button-next,
 we can not use this position for the actual button as it's in incorrect source order for tabbing */
-.hds-pagination::before {
+.hds-pagination:before {
   content: attr(data-next); /* Trick to keep floating element same size as btn--next */
   content: attr(data-next) / ''; /* Removes this pseudo-element from screen readers where supported */
   display: block;
   float: right; /* Floated pseudo-element wraps the inline ul around it */
+  line-height: 56px;
+  padding-left: 80px;
   speak: never; /* Removes this pseudo-element from screen readers where supported */
   visibility: hidden;
-  padding-left: 80px;
-  line-height: 56px;
 }
 
 .hds-pagination .hds-pagination__button-prev {
   float: left;
+  margin-right: 8px;
   transform: scaleY(-1); /* Flip the element back from upside down */
   white-space: nowrap;
-  margin-right: 8px;
 }
 
 .hds-pagination .hds-pagination__button-next {
@@ -49,26 +50,26 @@ we can not use this position for the actual button as it's in incorrect source o
 .hds-pagination__pages {
   display: inline-flex; /* inline-flex allows floating it based on floated buttons when there is no more space */
   flex-wrap: wrap; /* Allow wrapping of the li-elements */
-  justify-content: center; /* Center the li-elements */
-  transform: scaleY(-1); /* Flip the element back from upside down */
-  margin-bottom: 0;
-  padding: 0;
-  list-style: none;
-  margin-top: 8px;
   gap: var(--spacing-2-xs);
+  justify-content: center; /* Center the li-elements */
+  list-style: none;
+  margin-bottom: 0;
+  margin-top: 8px;
+  padding: 0;
+  transform: scaleY(-1); /* Flip the element back from upside down */
 }
 
 .hds-pagination__item-link {
-  border-radius: 21px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  text-decoration: none;
+  border-radius: 21px;
   color: var(--color-black-90);
+  display: flex;
   height: var(--link-height);
+  justify-content: center;
   min-width: 32px;
   padding-left: var(--spacing-3-xs);
   padding-right: var(--spacing-3-xs);
+  text-decoration: none;
 }
 
 .hds-pagination__item-link:hover {
@@ -76,13 +77,13 @@ we can not use this position for the actual button as it's in incorrect source o
 }
 
 .hds-pagination__item-link:focus, .hds-pagination__item-link:active {
-  outline: solid var(--color-coat-of-arms) 3px;
+  outline: solid var(--color-focus-outline) 3px;
   outline-offset: 1px;
 }
 
 .hds-pagination__item-link.hds-pagination__item-link--active {
-  color: var(--color-white);
   background-color: var(--active-page-background-color);
+  color: var(--color-white);
 }
 
 .hds-pagination__item-link.hds-pagination__item-link--active:hover {
@@ -90,10 +91,10 @@ we can not use this position for the actual button as it's in incorrect source o
 }
 
 .hds-pagination__item-ellipsis {
-  height: var(--link-height);
-  width: 40px;
-  display: flex;
-  justify-content: center;
   align-items: center;
   color: var(--color-black-90);
+  display: flex;
+  height: var(--link-height);
+  justify-content: center;
+  width: 40px;
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/face-neutral.svg);
+@svg-load icon url("../../svg/ui/face-neutral.svg");
 
 .hds-icon--face-neutral {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

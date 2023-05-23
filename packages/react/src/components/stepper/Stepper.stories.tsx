@@ -9,6 +9,7 @@ import { TextInput } from '../textInput';
 import { NumberInput } from '../numberInput';
 import { Card } from '../card';
 import { ErrorSummary } from '../errorSummary';
+import { FileInput } from '../fileInput/FileInput';
 
 export default {
   component: Stepper,
@@ -511,6 +512,52 @@ WithCustomTheme.parameters = {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const SimpleFormExample = (args) => {
+  const initialState = {
+    showErrorSummary: false,
+    activeStepIndex: 0,
+    steps: [
+      {
+        state: StepState.available,
+        label: 'First name',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Last name',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Age',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Files',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Review and send',
+      },
+    ],
+    fields: {
+      firstName: {
+        value: '',
+        visited: false,
+      },
+      lastName: {
+        value: '',
+        visited: false,
+      },
+      age: {
+        value: undefined,
+        visited: false,
+      },
+      files: {
+        value: null,
+        visited: false,
+      },
+    },
+  };
+  const lastStep = initialState.steps.length - 1;
+
   const activeStepIsValid = (state) => {
     if (state.activeStepIndex === 0) {
       // first name
@@ -526,7 +573,12 @@ export const SimpleFormExample = (args) => {
       return state.fields.age.value && state.fields.age.value.length > 0;
     }
 
-    return state.activeStepIndex === 3;
+    if (state.activeStepIndex === 3) {
+      // files
+      return state.fields.files.value && state.fields.files.value.length > 0;
+    }
+
+    return state.activeStepIndex === 4;
   };
 
   const weAreInLastAvailableStep = (state) => {
@@ -590,12 +642,12 @@ export const SimpleFormExample = (args) => {
             },
           };
         }
-        const activeStepIndex = action.payload === 3 ? 3 : action.payload + 1;
+        const activeStepIndex = action.payload === lastStep ? lastStep : action.payload + 1;
         return {
           showErrorSummary: state.showErrorSummary,
           activeStepIndex,
           steps: state.steps.map((step, index) => {
-            if (index === action.payload && index !== 3) {
+            if (index === action.payload && index !== lastStep) {
               // current one but not last one
               return {
                 state: StepState.completed,
@@ -656,47 +708,9 @@ export const SimpleFormExample = (args) => {
     }
   };
 
-  const initialState = {
-    showErrorSummary: false,
-    activeStepIndex: 0,
-    steps: [
-      {
-        state: StepState.available,
-        label: 'First name',
-      },
-      {
-        state: StepState.disabled,
-        label: 'Last name',
-      },
-      {
-        state: StepState.disabled,
-        label: 'Age',
-      },
-      {
-        state: StepState.disabled,
-        label: 'Review and send',
-      },
-    ],
-    fields: {
-      firstName: {
-        value: '',
-        visited: false,
-      },
-      lastName: {
-        value: '',
-        visited: false,
-      },
-      age: {
-        value: undefined,
-        visited: false,
-      },
-    },
-  };
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const lastStep = state.activeStepIndex === state.steps.length - 1;
-
+  const isLastStep = state.activeStepIndex === state.steps.length - 1;
   const errorRef = useRef(null);
 
   return (
@@ -735,12 +749,17 @@ export const SimpleFormExample = (args) => {
                   Error 1: <a href="#age">Please enter your age</a>
                 </li>
               )}
+              {state.activeStepIndex === 3 && (
+                <li>
+                  Error 1: <a href="#files">Please enter a file or files</a>
+                </li>
+              )}
             </ul>
           </ErrorSummary>
         </div>
       )}
-      {[0, 1, 2].includes(state.activeStepIndex) && (
-        <div style={{ height: '164px' }}>
+      {[0, 1, 2, 3].includes(state.activeStepIndex) && (
+        <div>
           {state.activeStepIndex === 0 && (
             <TextInput
               style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
@@ -795,25 +814,46 @@ export const SimpleFormExample = (args) => {
               onChange={(event) => dispatch({ type: 'changeField', fieldName: 'age', newValue: event.target.value })}
             />
           )}
+          {state.activeStepIndex === 3 && (
+            <FileInput
+              multiple
+              label="Select file(s)"
+              accept=".png,.jpg"
+              defaultValue={state.fields.files.value || null}
+              language="en"
+              invalid={
+                (!state.fields.files.value || state.fields.files.value.length === 0) &&
+                state.fields.files.visited === true
+              }
+              errorText={
+                (!state.fields.age.value || state.fields.age.value.length === 0) &&
+                state.fields.age.visited === true &&
+                'Please enter your age'
+              }
+              onChange={(event) => dispatch({ type: 'changeField', fieldName: 'files', newValue: event })}
+            />
+          )}
         </div>
       )}
-      {state.activeStepIndex === 3 && (
+      {state.activeStepIndex === 4 && (
         <div style={{ marginTop: 'var(--spacing-l)', marginBottom: 'var(--spacing-2-xl)' }}>
           <Card className="stepper-card" border heading="Review your basic information" headingAriaLevel={3}>
             <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
             <p style={{ margin: 0 }}>Last name: {state.fields.lastName.value}</p>
             <p style={{ margin: 0 }}>Age: {state.fields.age.value}</p>
+            <p style={{ margin: 0 }}>Files: {state.fields.files.value.map((file) => file.name).join(', ')}</p>
           </Card>
         </div>
       )}
 
       <div
         style={{
-          height: '100px',
+          height: '140px',
           display: 'flex',
           justifyContent: 'flex-start',
           alignItems: 'flex-start',
           gap: '24px',
+          marginTop: 'var(--spacing-xl',
         }}
       >
         <Button
@@ -832,7 +872,7 @@ export const SimpleFormExample = (args) => {
           Previous
         </Button>
         <Button
-          variant={lastStep ? 'primary' : 'secondary'}
+          variant={isLastStep ? 'primary' : 'secondary'}
           onClick={() => {
             if (state.showErrorSummary) {
               // focus to error summary label
@@ -841,9 +881,9 @@ export const SimpleFormExample = (args) => {
             dispatch({ type: 'completeStep', payload: state.activeStepIndex });
           }}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconRight={isLastStep ? undefined : <IconArrowRight />}
         >
-          {lastStep ? 'Send' : 'Next'}
+          {isLastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </form>
@@ -881,7 +921,7 @@ export const States = (args) => {
         <Step label="Paused" language="en" index={6} stepsTotal={9} state={StepState.paused} />
         <Step label="Paused + selected" language="en" selected index={7} stepsTotal={9} state={StepState.paused} />
         <div className={styles.step}>
-          <p>Small variant:</p>
+          <p style={{ fontSize: 'var(--fontsize-body-m)', lineHeight: 'var(--lineheight-l)' }}>Small variant:</p>
           <Step
             label="Available"
             language="en"

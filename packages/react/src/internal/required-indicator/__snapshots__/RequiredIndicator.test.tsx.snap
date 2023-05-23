@@ -5,7 +5,7 @@ exports[`<RequiredIndicator /> spec renders the component 1`] = `
   <span
     class="indicator"
   >
-     *
+    *
   </span>
 </DocumentFragment>
 `;

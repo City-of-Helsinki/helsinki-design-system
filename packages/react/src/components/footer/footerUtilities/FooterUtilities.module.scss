@@ -1,5 +1,5 @@
-@value small-down, small-only, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
-@import "../common";
+@import "../common.scss";
+@value small-down, small-only, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
 
 .divider {
   @extend %divider;

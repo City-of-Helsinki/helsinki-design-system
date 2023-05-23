@@ -1,4 +1,4 @@
-@value small-down, medium-up from "../../styles/breakpoints.css";
+@value small-down, medium-up from "../../styles/breakpoints.scss";
 
 .sideNavigation {
   --side-navigation-background-color: var(--color-white);
@@ -20,8 +20,8 @@
   --side-navigation-mobile-menu-z-index: 100;
 
   background-color: var(--side-navigation-background-color);
-  position: relative;
   box-sizing: border-box;
+  position: relative;
 
   @media medium-up {
     height: 100%;
@@ -35,19 +35,19 @@
 }
 
 .mainLevelList {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 
   @media small-down {
-    overflow: hidden;
     max-height: 0;
+    overflow: hidden;
 
     &.open {
-      max-height: none;
-      will-change: max-height;
       background-color: var(--side-navigation-background-color);
       border: var(--side-navigation-mobile-menu-border-width) solid var(--side-navigation-mobile-menu-border-color);
+      max-height: none;
+      will-change: max-height;
     }
   }
 

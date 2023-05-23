@@ -1,7 +1,21 @@
 {
   "extends": "stylelint-config-standard-scss",
+  "plugins": [
+		"stylelint-order"
+	],
   "rules": {
-    "selector-pseudo-element-colon-notation": "single",
-    "scss/at-import-partial-extension": "always"
+    "alpha-value-notation": "number",
+    "at-rule-no-unknown": null,
+    "function-no-unknown": null,
+    "keyframes-name-pattern": "([a-z][A-z]*)",
+    "order/properties-alphabetical-order": true,
+    "property-no-vendor-prefix": null,
+    "scss/at-import-partial-extension": "always",
+    "scss/at-mixin-pattern": "([a-z][A-z]*)",
+    "scss/dollar-variable-pattern": "([a-z][A-z]*)",
+    "scss/percent-placeholder-pattern": "([a-z][A-z]*)",
+    "selector-class-pattern": null,
+    "selector-not-notation": "simple",
+    "selector-pseudo-element-colon-notation": "single"
   }
 }

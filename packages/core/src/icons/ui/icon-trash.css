@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/trash.svg);
+@svg-load icon url("../../svg/ui/trash.svg");
 
 .hds-icon--trash {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -178,3 +178,14 @@ Playground.argTypes = {
     control: { type: 'radio' },
   },
 };
+
+export const LinkButton = () => (
+  <Button
+    onClick={() => {
+      window.open('/');
+    }}
+    role="link"
+  >
+    Button used as a link
+  </Button>
+);

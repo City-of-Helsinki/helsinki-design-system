@@ -1,7 +1,8 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import classNames from '../../utils/classNames';
 import { Koros, KorosType } from '../koros';
 import styles from './Section.module.css';

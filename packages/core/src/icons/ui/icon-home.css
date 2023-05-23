@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/home.svg);
+@svg-load icon url("../../svg/ui/home.svg");
 
 .hds-icon--home {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

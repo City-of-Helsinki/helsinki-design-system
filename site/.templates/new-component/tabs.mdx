@@ -1,0 +1,18 @@
+---
+slug: '/components/{newComponentPathName}/tabs'
+title: '{newComponent}'
+---
+
+import PageTabs from '../../../components/PageTabs';
+
+# {newComponent}
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>

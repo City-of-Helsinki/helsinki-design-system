@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Stepper.module.scss';
 import { Step, StepState } from './Step';
 import classNames from '../../utils/classNames';
@@ -90,7 +90,7 @@ export type StepperProps = {
    */
   renderCustomStepHeading?: (stepIndex: number, totalNumberOfSteps: number, label: string) => string;
   /**
-   * The index of the selected step
+   * The index of the selected step. Used to set the aria-current="step" attribute to the active step
    */
   selectedStep?: number;
   /**

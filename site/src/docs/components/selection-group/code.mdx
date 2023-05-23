@@ -18,20 +18,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { SelectionGroup, Checkbox } from 'hds-react';
+
+() => {
   const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
   return (
-    <SelectionGroup label="Vertical checkbox group">
+    <SelectionGroup label="Vertical checkbox group" helperText="Assistive text">
       <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
       <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
       <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
       <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
     </SelectionGroup>
   );
-}}
+}
 ```
 
 ```html
@@ -63,6 +65,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </div>
   </div>
+  <div class="helper-text">Assistive text</div>
 </fieldset>
 ```
 
@@ -73,7 +76,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { SelectionGroup, RadioButton } from 'hds-react';
+
+() => {
   const [selectedItem, setSelectedItem] = React.useState("1");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
@@ -86,7 +91,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
     </SelectionGroup>
   );
-}}
+}
 ```
 
 ```html
@@ -128,19 +133,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { SelectionGroup, Checkbox } from 'hds-react';
+
+() => {
   const [checkedItems, setCheckedItems] = React.useState({ "h-checkbox1": true, "h-checkbox2": true });
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
   return (
-    <SelectionGroup label="Horizontal checkbox group" direction="horizontal">
+    <SelectionGroup label="Horizontal checkbox group" direction="horizontal" helperText="Assistive text">
       <Checkbox id="h-checkbox1" name="h-checkbox1" label="Option" checked={checkedItems["h-checkbox1"]} onChange={onChange} />
       <Checkbox id="h-checkbox2" name="h-checkbox2" label="Option" checked={checkedItems["h-checkbox2"]} onChange={onChange} />
       <Checkbox id="h-checkbox3" name="h-checkbox3" label="Option" checked={checkedItems["h-checkbox3"]} onChange={onChange} />
     </SelectionGroup>
   );
-}}
+}
 ```
 
 ```html
@@ -166,6 +173,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </div>
   </div>
+  <div class="helper-text">Assistive text</div>
 </fieldset>
 ```
 
@@ -176,7 +184,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { SelectionGroup, RadioButton } from 'hds-react';
+
+() => {
   const [selectedItem, setSelectedItem] = React.useState("1");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
@@ -188,7 +198,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <RadioButton id="h-radio3" name="h-radio" value="3" label="Option" checked={selectedItem === "3"} onChange={onChange} />
     </SelectionGroup>
   );
-}}
+}
 ```
 
 ```html
@@ -229,8 +239,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Properties
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-selectiongroup--default">React Storybook.</Link>
 
-| Property    | Description                                                    | Values                      | Default value |
-| ----------- | -------------------------------------------------------------- | --------------------------- | ------------- |
-| `label`     | The label for the selection group.                             | `string`                    | -             |
-| `direction` | The direction in which child components should be rendered in. | `"vertical"` `"horizontal"` | `"vertical"`  |
+| Property    | Description                                                                 | Values                      | Default value |
+| ----------- | --------------------------------------------------------------------------- | --------------------------- | ------------- |
+| `label`     | The label for the selection group.                                          | `string`                    | -             |
+| `direction` | The direction in which child components should be rendered in.              | `"vertical"` `"horizontal"` | `"vertical"`  |
+| `helperText`| The help text content that will be shown below the selection group content. | `string`                    | -             |
 [Table 1:SelectionGroup properties]|

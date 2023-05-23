@@ -1,13 +1,14 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import classNames from '../../utils/classNames';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
-export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
+export type TextInputProps = {
   /**
    * Additional class names to apply to the text input
    */
@@ -112,7 +113,7 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    * Button click callback
    */
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
-};
+} & React.ComponentPropsWithoutRef<'input'>;
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Tabs.module.scss';
 import classNames from '../../utils/classNames';
 import { TabsContext } from './TabsContext';
@@ -10,6 +11,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { TabList } from './TabList';
 import { TabPanel } from './TabPanel';
 import { Tab } from './Tab';
+import { getChildElementsEvenIfContainerInbetween } from '../../utils/getChildren';
 
 export interface TabsCustomTheme {
   '--tablist-border-color'?: string;
@@ -47,24 +49,27 @@ export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme }:
   // custom theme class that is applied to the root element
   const customThemeClass = useTheme<TabsCustomTheme>(styles.tabs, theme);
 
+  const childElements = getChildElementsEvenIfContainerInbetween(children);
+
   /**
    * Get the TabList from children
    */
-  const tabList = React.Children.toArray(children).filter((child) => {
+  const tabList = childElements.filter((child) => {
     return React.isValidElement(child) && (child.type as FCWithName).componentName === 'TabList';
   });
 
   /**
    * Get TabPanels from children
    */
-  const tabPanels = React.Children.toArray(children)
+  const tabPanels = childElements
     .filter((child) => {
       return React.isValidElement(child) && (child.type as FCWithName).componentName === 'TabPanel';
     })
     .map((child, index) => {
       if (React.isValidElement(child)) {
         // Pass index prop to the TabPanel
-        return React.cloneElement(child, { index });
+        // eslint-disable-next-line react/no-array-index-key
+        return React.cloneElement(child, { index, key: index });
       }
       return child;
     });

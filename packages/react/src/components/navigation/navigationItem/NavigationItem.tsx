@@ -36,6 +36,10 @@ export type NavigationItemProps<Element extends React.ElementType = 'a'> = {
   as?: Element;
 } & MergeElementProps<Element, ItemProps | SupplementaryItemProps>;
 
+/**
+ * NavigationItem will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationItem = <T extends React.ElementType = 'a'>({
   active,
   as,

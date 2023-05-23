@@ -1,13 +1,16 @@
 .errorSummaryBody {
   font-size: var(--fontsize-body-s);
   line-height: 24px;
+
   ul {
     margin: 0;
     padding: 0 0 0 var(--spacing-s);
   }
+
   li {
     margin-bottom: 0.125rem;
   }
+
   a {
     color: var(--color-bus);
   }

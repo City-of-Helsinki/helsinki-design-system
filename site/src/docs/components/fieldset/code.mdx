@@ -19,8 +19,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-  <Fieldset heading="Child information" style={{ maxWidth: '400px' }}>
+import { Fieldset, TextInput } from 'hds-react';
+
+() => (<>
+  <Fieldset heading="Child information" style={{ maxWidth: '400px' }} helperText='Assistive text'>
     <TextInput id="first-name-child" name="first-name" label="First name" required />
     <TextInput id="last-name-child" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
     <TextInput
@@ -45,7 +47,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       style={{ marginTop: '12px' }}
     />
   </Fieldset>
-</>
+
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }} tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label">
+    <TextInput id="first-name-1" name="first-name" label="First name" />
+    <TextInput id="last-name-1" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number-1"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+
+</>)
 ```
 
 ```html
@@ -53,28 +68,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <fieldset class="hds-fieldset" style="max-width: 400px">
     <legend class="hds-fieldset-legend">Child information</legend>
     <div class="hds-text-input">
-      <label for="first-name-child-1" class="hds-text-input__label">
-        First name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="first-name-child-1" class="hds-text-input__label">First name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="first-name-child-1" name="first-name-child-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="last-name-child-1" class="hds-text-input__label">
-        Last name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="last-name-child-1" class="hds-text-input__label">Last name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="last-name-child-1" name="last-name-child-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="social-security-number-child-1" class="hds-text-input__label">
-        Social security number
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="social-security-number-child-1" class="hds-text-input__label">Social security number<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input
           id="social-security-number-child-1"
@@ -85,32 +91,24 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
         />
       </div>
     </div>
+    <div class="helper-text">Assistive text</div>
   </fieldset>
   <fieldset class="hds-fieldset" style="max-width: 400px;margin-top: var(--spacing-s);">
     <legend class="hds-fieldset-legend">Guardian information</legend>
     <div class="hds-text-input">
-      <label for="first-name-guardian-1" class="hds-text-input__label">
-        First name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="first-name-guardian-1" class="hds-text-input__label">First name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="first-name-guardian-1" name="first-name-guardian-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="last-name-guardian-1" class="hds-text-input__label">
-        Last name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="last-name-guardian-1" class="hds-text-input__label">Last name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="last-name-guardian-1" name="last-name-guardian-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="social-security-number-guardian-1" class="hds-text-input__label">
-        Social security number
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="social-security-number-guardian-1" class="hds-text-input__label">Social security number<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input
           id="social-security-number-guardian-1"
@@ -133,7 +131,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
+import { Fieldset, TextInput } from 'hds-react';
+
+() => (<>
   <Fieldset heading="Child information" border style={{ maxWidth: '400px' }}>
     <TextInput id="first-name-child-2" name="first-name" label="First name" required />
     <TextInput id="last-name-child-2" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
@@ -159,7 +159,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       style={{ marginTop: '12px' }}
     />
   </Fieldset>
-</>
+</>)
 ```
 
 ```html
@@ -167,28 +167,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px;">
     <legend class="hds-fieldset-legend">Child information</legend>
     <div class="hds-text-input">
-      <label for="first-name-child-3" class="hds-text-input__label">
-        First name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="first-name-child-3" class="hds-text-input__label">First name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="first-name-child-3" name="first-name-child-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="last-name-child-3" class="hds-text-input__label">
-        Last name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="last-name-child-3" class="hds-text-input__label">Last name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="last-name-child-3" name="last-name-child-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="social-security-number-child-3" class="hds-text-input__label">
-        Social security number
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="social-security-number-child-3" class="hds-text-input__label">Social security number<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input
           id="social-security-number-child-3"
@@ -203,28 +194,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px;margin-top: var(--spacing-s);">
     <legend class="hds-fieldset-legend">Guardian information</legend>
     <div class="hds-text-input">
-      <label for="first-name-guardian-3" class="hds-text-input__label">
-        First name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="first-name-guardian-3" class="hds-text-input__label">First name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="first-name-guardian-3" name="first-name-guardian-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="last-name-guardian-3" class="hds-text-input__label">
-        Last name
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="last-name-guardian-3" class="hds-text-input__label">Last name<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input id="last-name-guardian-3" name="last-name-guardian-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      <label for="social-security-number-guardian-3" class="hds-text-input__label">
-        Social security number
-        <span class="hds-text-input__required">*</span>
-      </label>
+      <label for="social-security-number-guardian-3" class="hds-text-input__label">Social security number<span class="hds-text-input__required">*</span></label>
       <div class="hds-text-input__input-wrapper">
         <input
           id="social-security-number-guardian-3"
@@ -253,7 +235,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-dropdowns-select--default">React Storybook.</Link>
 
-| Property  | Description                                            | Values    | Default value |
-| --------- | ------------------------------------------------------ | --------- | ------------- |
-| `heading` | Heading of the fieldset element.                       | `string`  | -             |
-| `border`  | If set to true, a border is drawn around the fieldset. | `boolean` | false         |
+| Property              | Description                                                          | Values    | Default value |
+| --------------------- | -------------------------------------------------------------------- | --------- | ------------- |
+| `heading`             | Heading of the fieldset element.                                     | `string`  | -             |
+| `border`              | If set to true, a border is drawn around the fieldset.               | `boolean` | false         |
+| `helperText`          | The help text content that will be shown below the fieldset content. | `string`  | -             |
+| `tooltipLabel`        | The aria-label text for the tooltip.                                 | `string`  | -             |
+| `tooltipButtonLabel`  | The aria-label text for the tooltip trigger button.                  | `string`  | -             |
+| `tooltipText`         | The text content of the tooltip.                                     | `string`  | -             |

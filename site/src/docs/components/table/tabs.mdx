@@ -5,16 +5,20 @@ title: 'Table'
 
 import { StatusLabel, Notification } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # Table
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
     Tables are used to present tabulated data to the user in a consistent manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.

@@ -1,11 +1,10 @@
-@import "../../icons/icon.css";
-@import "../../icons/ui/icon-search.css";
+@import url("../../icons/icon.css");
+@import url("../../icons/ui/icon-search.css");
 
 .hds-search-input {
   --border-width: 2px;
   --outline-width: 3px;
   --input-height: 56px;
-
   --helper-color-default: var(--color-black-60);
   --input-background-default: var(--color-white);
   --input-border-color-default: var(--color-black-50);
@@ -13,11 +12,6 @@
   --input-border-color-focus: var(--color-black-90);
   --input-color-default: var(--color-black-90);
   --label-color-default: var(--color-black-90);
-  --focus-outline-color: var(--color-coat-of-arms);
-}
-
-.hds-search-input .hds-search-input__input:hover {
-  transition: border-color 85ms ease-out;
 }
 
 /* LABEL */
@@ -35,6 +29,7 @@
   height: 100%;
   position: relative;
 }
+
 .hds-search-input .hds-search-input__input {
   -webkit-appearance: none;
   background-color: var(--input-background-default);
@@ -47,9 +42,12 @@
   padding: 0 var(--spacing-s);
   width: 100%;
 }
+
 .hds-search-input .hds-search-input__input:hover {
   border-color: var(--input-border-color-hover);
+  transition: border-color 85ms ease-out;
 }
+
 .hds-search-input .hds-search-input__input:focus {
   border-color: var(--input-border-color-focus);
   outline: none;
@@ -57,39 +55,39 @@
 
 /* FOCUS OUTLINE */
 .hds-search-input .hds-search-input__input:not([readonly]):focus {
-  outline: var(--outline-width) solid var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--color-focus-outline);
   transform: translate3d(0, 0, 0);
 }
 
 
 /* BUTTON */
 .hds-search-input__buttons {
-  position: absolute;
-  top: 0;
-  right: 0;
+  align-items: center;
   bottom: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: calc(var(--spacing-s) - var(--spacing-xs));
   font-size: 1rem;
+  justify-content: center;
+  margin-right: calc(var(--spacing-s) - var(--spacing-xs) / 2);
+  position: absolute;
+  right: 0;
+  top: 0;
 }
-.hds-search-input__buttons .hds-search-input__button {
+
+.hds-search-input__button {
   appearance: none;
   background: none;
   border: none;
   color: inherit;
-  cursor: pointer;
-  font: inherit;
   color: var(--dropdown-color-default);
-  outline: none;
+  cursor: pointer;
   display: flex;
-  margin-left: var(--spacing-3-xs);
-  padding: var(--spacing-xs);
+  font: inherit;
+  outline: none;
+  padding: var(--spacing-xs) calc(var(--spacing-xs) / 2);
 }
 
 .hds-search-input__buttons .hds-search-input__button:focus {
-  outline: var(--outline-width) solid var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--color-focus-outline);
 }
 
 /* HELPER TEXT */

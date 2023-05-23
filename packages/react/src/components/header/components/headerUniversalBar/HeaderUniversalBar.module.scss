@@ -1,0 +1,52 @@
+@value x-small-down, small-down from "../../../../styles/breakpoints.scss";
+
+.headerUniversalBar {
+  align-items: center;
+  background: var(--color-black-5);
+  box-sizing: border-box;
+  display: flex;
+  min-height: 48px;
+  padding: 0 var(--spacing-m);
+  width: 100%;
+}
+
+.headerUniversalBarList {
+  display: flex;
+  gap: 0 var(--spacing-l);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.universalBarMainLinkContainer {
+  display: flex;
+  flex: 1;
+  justify-self: start;
+}
+
+.universalBarSecondaryLinkContainer {
+  display: flex;
+  justify-self: end;
+}
+
+.universalBarSecondaryLinkContainer:last-child {
+  margin-right: 0;
+}
+
+.universalBarLink.universalBarLink {
+  font-size: var(--fontsize-body-m);
+}
+
+/* MEDIA */
+@media small-down {
+  .headerUniversalBarList {
+    gap: 0 var(--spacing-m);
+  }
+}
+
+@media x-small-down {
+  .universalBarLink.universalBarLink {
+    font-size: var(--fontsize-body-s);
+  }
+}

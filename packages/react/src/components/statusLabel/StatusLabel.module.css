@@ -25,3 +25,7 @@
 .error {
   composes: hds-status-label--error from 'hds-core/lib/components/status-label/status-label.css';
 }
+
+.rounded {
+  composes: hds-status-label--rounded-corners from 'hds-core/lib/components/status-label/status-label.css';
+}

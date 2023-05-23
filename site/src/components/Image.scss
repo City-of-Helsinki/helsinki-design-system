@@ -17,11 +17,8 @@
     border: 3px solid var(--color-coat-of-arms);
     box-sizing: border-box;
     content: "";
-    bottom: 0;
-    left: 0;
+    inset: 0;
     position: absolute;
-    top: 0;
-    right: 0;
   }
 }
 

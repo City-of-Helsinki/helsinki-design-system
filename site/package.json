@@ -2,7 +2,7 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "2.10.0",
+  "version": "2.14.0",
   "workspaces": {
     "nohoist": [
       "gatsby",
@@ -38,14 +38,17 @@
     "sass": "^1.49.9"
   },
   "devDependencies": {
+    "chalk": "4.0.0",
     "eslint-config-react-app": "^7.0.1",
-    "hds-core": "2.10.0",
-    "hds-design-tokens": "2.10.0",
-    "hds-react": "2.10.0",
+    "hds-core": "2.14.0",
+    "hds-design-tokens": "2.14.0",
+    "hds-react": "2.14.0",
+    "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",
-    "stylelint": "^14.8.3",
-    "stylelint-config-standard-scss": "^3.0.0"
+    "stylelint": "^15.1.0",
+    "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-order": "^6.0.2"
   },
   "resolutions": {
     "multer": "1.4.4-lts.1",
@@ -68,7 +71,8 @@
     "link-core": "rm -rf node_modules/hds-core/lib/* && cp -r ../packages/core/lib/* node_modules/hds-core/lib/",
     "lint:js": "eslint . --ext js",
     "lint:scss": "stylelint \"**/*.scss\"",
-    "lint": "yarn lint:js && yarn lint:scss"
+    "lint": "yarn lint:js && yarn lint:scss",
+    "scaffold": "node scripts/scaffold.js"
   },
   "repository": {
     "type": "git",

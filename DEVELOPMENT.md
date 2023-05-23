@@ -52,10 +52,10 @@ yarn start:react
 
 This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
 
-1. Get the latest updates from the `master` branch.
+1. Get the latest updates from the `development` branch. The `master` branch is only updated during the release process containing the latest released features while `development` branch has the latest features waiting for a new release. 
 
 ```bash
-git checkout master
+git checkout development
 git pull
 ```
 

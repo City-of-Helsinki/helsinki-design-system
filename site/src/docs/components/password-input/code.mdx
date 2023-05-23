@@ -19,12 +19,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<div
-style={{
-    maxWidth: '320px'
-}}
->
-  <PasswordInput
+import { PasswordInput } from 'hds-react';
+
+() => (
+  <div style={{maxWidth: '320px'}}>
+    <PasswordInput
       concealPasswordButtonAriaLabel="Hide password"
       helperText="Assistive text"
       id="password-input-1"
@@ -32,16 +31,14 @@ style={{
       label="Password"
       revealPasswordButtonAriaLabel="Show password"
       required
-  />
-</div>
+    />
+  </div>
+)
 ```
 
 ```html
 <div class="hds-text-input" style="max-width:320px;">
-  <label for="password-input-2" class="hds-text-input__label">
-    Password
-    <span class="hds-text-input__required">*</span>
-  </label>
+  <label for="password-input-2" class="hds-text-input__label">Password<span class="hds-text-input__required">*</span></label>
   <div class="hds-text-input__input-wrapper">
     <input
       id="password-input-2"
@@ -70,7 +67,9 @@ style={{
 
 
 ```jsx
-{() => {
+import { PasswordInput, Button, IconEyeCrossed, IconEye } from 'hds-react';
+
+() => {
   const [revealPassword, setRevealPassword] = React.useState(false);
   return (
     <div style={{ display: "grid", gridTemplateColumns: "320px 240px", gap: "var(--spacing-s)" }}>
@@ -94,7 +93,7 @@ style={{
       </div>
     </div>
   );
-}}
+}
 ```
 
 </Playground>

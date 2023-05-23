@@ -161,3 +161,12 @@ export const LoadingButtonExample = () => {
 <PlaygroundPreview style={{ marginTop: 'var(--spacing-m)' }}>
   <LoadingButtonExample />
 </PlaygroundPreview>
+
+#### Used as a link
+If the button is used as a link instead of an action, a `role="link"` attribute should be added to the button.
+
+<PlaygroundPreview>
+  <Button role="link" onClick={() => window.open('/')}>Button</Button>
+</PlaygroundPreview>
+
+

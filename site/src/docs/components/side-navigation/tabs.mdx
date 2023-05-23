@@ -5,16 +5,20 @@ title: 'SideNavigation'
 
 import { StatusLabel, Notification } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # SideNavigation
 
-<StatusLabel type="alert">Draft</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   A side navigation is an additional navigation element that is located at the left-hand side of the viewport. It provides an extra level of navigation and also can be helpful in situations where the traditional top navigation feels too clumsy. 

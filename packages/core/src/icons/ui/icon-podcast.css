@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/podcast.svg);
+@svg-load icon url("../../svg/ui/podcast.svg");
 
 .hds-icon--podcast {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

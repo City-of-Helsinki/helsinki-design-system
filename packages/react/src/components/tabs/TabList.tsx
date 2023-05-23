@@ -1,13 +1,15 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Tabs.module.scss';
 import classNames from '../../utils/classNames';
 import { FCWithName } from '../../common/types';
 import { TabsContext } from './TabsContext';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { getChildByIndex, isElementOutsideLeftEdge, isElementOutsideRightEdge } from './tabUtils';
+import { getChildrenAsArray } from '../../utils/getChildren';
 
 export type TabListProps = React.PropsWithChildren<{
   /**
@@ -30,12 +32,15 @@ export const TabList = ({ children, className, style = {} }: TabListProps) => {
   const [showNextButton, setShowNextButton] = useState(true);
   const [scrollValue, setScrollValue] = useState<number>(0);
 
+  const childElements = getChildrenAsArray(children);
+
   /**
    * Pass the index as prop to each tab element
    */
-  const tabs = React.Children.map(children, (child, index) => {
+  const tabs = childElements.map((child, index) => {
     if (React.isValidElement(child) && (child.type as FCWithName).componentName === 'Tab') {
-      return React.cloneElement(child, { index });
+      // eslint-disable-next-line react/no-array-index-key
+      return React.cloneElement(child, { index, key: index });
     }
     return null;
   });

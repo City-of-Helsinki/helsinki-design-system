@@ -49,6 +49,19 @@ yarn start
 
 **Note!** You may need to rerun `yarn build` if you make changes to config files or if other HDS packages are updated.
 
+### Commands
+
+| Command                            | Description                                               |
+| ---------------------------------- | --------------------------------------------------------- |
+| yarn                               | Install dependencies.                                     |
+| yarn build                         | Lints and builds documentation.                           |
+| yarn start                         | Starts the development server.                            |
+| yarn lint                          | Runs the linting.                                         |
+| yarn format                        | Format all code.                                          |
+| yarn serve                         | Serve production site.                                    |
+| yarn clean                         | Clear Gatsby cache.                                       |
+| yarn scaffold                      | Runs the scaffolding script for creating a new component. |
+
 ### Hosting in Github pages
 
 There might be a need to prefix asset and pages paths when the site is hosted in Github pages. This can be done by giving the pathPrefix as a command-line argument or by replacing the pathPrefix configuration in gatsby-config.js
@@ -61,3 +74,8 @@ PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
 ## Troubleshooting
 - **Site build fails with error #11903 COMPILATION or something similar**. Gatsby's cache might not be in sync with the source files due to a checkout (chancing branches, etc.)  
   **Solution:** Run `$(npm bin)/gatsby clean` or manually remove .cache folder to clean up cache files. Then try to run the build again.
+
+- **Development: A new local component is not available when trying to import from the hds-react in the site**:
+  1. Review that all component exports exist in hds-react package. Check the hds-react [DEVELOPMENT.md](../packages/react/DEVELOPMENT.md) for more information.
+  2. Remove old build folders from package-folders
+  3. Run ```bash yarn build``` in the root folder of the repository. This will build the local libraries into root node_modules as installed libraries.

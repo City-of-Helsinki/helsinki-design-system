@@ -1,12 +1,17 @@
-@import "../../../styles/common";
-@import "../../button/button.common";
-@import "../navigation.common";
-@value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.css";
+@import "../../../styles/common.scss";
+@import "../../button/button.common.scss";
+@import "../navigation.common.scss";
+
+// dropdown item styles
+@import "../navigationDropdown/NavigationDropdown.module";
+@import "../navigationDropdownLink/NavigationDropdownLink.module";
+@value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.scss";
 
 %item {
   @extend %button;
   @extend %size-small;
   @extend %fullWidth;
+
   text-decoration: none;
 }
 
@@ -31,6 +36,7 @@
 .supplementary {
   @extend %item;
   @extend %supplementary;
+
   --border-width: 3px;
 }
 
@@ -52,12 +58,9 @@
 
 .label {
   @extend %label;
+
   padding: 0;
 }
-
-// dropdown item styles
-@import "../navigationDropdown/NavigationDropdown.module.scss";
-@import "../navigationDropdownLink/NavigationDropdownLink.module.scss";
 
 .rowItem,
 .dropdownItem,
@@ -92,9 +95,12 @@
     &:focus {
       box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
     }
+
+    &:not(:first-child) {
+      margin-top: var(--spacing-2-xs);
+    }
   }
 
-  .rowItem,
   .dropdownItem,
   .dropdownLinkItem {
     &:not(:first-child) {
@@ -114,10 +120,10 @@
   }
 
   // focus outline
-  .rowItem:focus::before,
-  .dropdownItem:focus-within::before,
-  .dropdownLinkItem a:focus-within::before,
-  .dropdownLinkItem button:focus-within::before {
+  .rowItem:focus:before,
+  .dropdownItem:focus-within:before,
+  .dropdownLinkItem a:focus-within:before,
+  .dropdownLinkItem button:focus-within:before {
     border-radius: 0;
     box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
     content: '';
@@ -130,27 +136,28 @@
     width: 100%;
     z-index: 1;
   }
+
   .dropdownLinkItem a,
   .dropdownLinkItem button {
     position: relative;
   }
 
   // focus outline - active
-  .rowItem:active::before,
-  .rowItem.active::before,
-  .dropdownItem.active::before,
-  .dropdownLinkItem.active::before {
+  .rowItem:active:before,
+  .rowItem.active:before,
+  .dropdownItem.active:before,
+  .dropdownLinkItem.active:before {
     height: calc(100% - var(--item-focus-outline-height-adjust));
   }
 
   // active + hover styles
-  .rowItem:hover:not(:focus)::after,
-  .rowItem:active::after,
-  .rowItem.active::after,
-  .dropdownItem:hover:not(:focus-within)::after,
-  .dropdownItem.active::after,
-  .dropdownLinkItem:hover:not(:focus-within)::after,
-  .dropdownLinkItem.active::after {
+  .rowItem:active:after,
+  .rowItem:hover:not(:focus):after,
+  .rowItem.active:after,
+  .dropdownItem:hover:not(:focus-within):after,
+  .dropdownItem.active:after,
+  .dropdownLinkItem:hover:not(:focus-within):after,
+  .dropdownLinkItem.active:after {
     background-color: var(--item-active-color);
     bottom: 0;
     content: '';
@@ -165,8 +172,5 @@
     width: max-content;
   }
 
-  .dropdownItem:not(.icon) {
-    width: max-content;
-  }
 }
 

@@ -5,15 +5,15 @@
   }
 
   .columns > div {
-    width: calc(100% - 3em);
     margin-left: 1em;
+    width: calc(100% - 3em);
   }
 }
 
 @media all and (max-width: 768px) {
   .columns > div {
     display: block;
-    width: 100%;
     margin: 0;
+    width: 100%;
   }
 }

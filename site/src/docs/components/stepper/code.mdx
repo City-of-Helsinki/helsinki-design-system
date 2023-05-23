@@ -19,7 +19,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+
+() => {
   const commonReducer = (stepsTotal) => (state, action) => {
     switch (action.type) {
       case 'completeStep': {
@@ -127,7 +129,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </div>
   );
-}}
+}
 ```
 
 </Playground>
@@ -137,7 +139,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+
+() => {
   const commonReducer = (stepsTotal) => (state, action) => {
     switch (action.type) {
       case 'completeStep': {
@@ -251,7 +255,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </div>
   );
-}}
+}
 ```
 
 </Playground>
@@ -261,7 +265,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+
+() => {
   const commonReducer = (stepsTotal) => (state, action) => {
     switch (action.type) {
       case 'completeStep': {
@@ -371,7 +377,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </div>
   );
-}}
+}
 ```
 
 </Playground>
@@ -381,7 +387,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-{() => {
+import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+
+() => {
   const commonReducer = (stepsTotal) => (state, action) => {
     switch (action.type) {
       case 'completeStep': {
@@ -493,7 +501,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       </div>
     </div>
   );
-}}
+}
 ```
 
 </Playground>
@@ -503,37 +511,40 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<Stepper
-  language="en"
-  onStepClick={function noRefCheck(){}}
-  selectedStep={1}
-  steps={[
-    {
-      label: 'Completed',
-      state: StepState.completed
-    },
-    {
-      label: 'Current',
-      state: StepState.available
-    },
-    {
-      label: 'Available',
-      state: StepState.available
-    },
-    {
-      label: 'Needs attention',
-      state: StepState.attention
-    },
-    {
-      label: 'Paused',
-      state: StepState.paused
-    },
-    {
-      label: 'Disabled',
-      state: StepState.disabled
-    }
-  ]}
-/>
+import { Stepper } from 'hds-react';
+
+() => (
+  <Stepper
+    language="en"
+    onStepClick={function noRefCheck(){}}
+    selectedStep={1}
+    steps={[
+      {
+        label: 'Completed',
+        state: StepState.completed
+      },
+      {
+        label: 'Current',
+        state: StepState.available
+      },
+      {
+        label: 'Available',
+        state: StepState.available
+      },
+      {
+        label: 'Needs attention',
+        state: StepState.attention
+      },
+      {
+        label: 'Paused',
+        state: StepState.paused
+      },
+      {
+        label: 'Disabled',
+        state: StepState.disabled
+      }
+    ]}
+  />)
 ```
 
 </Playground>

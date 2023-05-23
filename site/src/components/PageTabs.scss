@@ -6,8 +6,8 @@
   position: relative;
 
   &:before {
-    bottom: 1px;
     border-bottom: 1px solid var(--page-border-color);
+    bottom: 1px;
     content: "";
     height: 1px;
     left: 0;

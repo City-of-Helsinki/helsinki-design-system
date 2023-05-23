@@ -28,6 +28,20 @@ $breakpoint-medium-above: $breakpoint-m + 1px;
   }
 }
 
+$breakpoint-large-above: $breakpoint-l + 1px;
+
+@mixin large-and-above-screen {
+  @media (min-width: $breakpoint-large-above) {
+    @content;
+  }
+}
+
+@mixin large-screen {
+  @media (max-width: $breakpoint-l) {
+    @content;
+  }
+}
+
 $breakpoint-x-large-above: $breakpoint-xl + 1px;
 
 @mixin x-large-and-above-screen {

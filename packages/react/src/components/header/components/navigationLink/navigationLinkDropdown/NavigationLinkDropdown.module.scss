@@ -1,0 +1,89 @@
+.navigationLinkDropdownContainer {
+  outline: none;
+}
+
+.chevron {
+  transition: transform 0.2s ease-in;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.hidden {
+  display: none;
+}
+
+.dropdownMenu {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black-20);
+  display: flex;
+  flex-direction: column;
+  left: -10px;
+  list-style: none;
+  min-width: 280px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+
+  .dropdownLink {
+    font-size: var(--fontsize-body-l);
+    margin: 0;
+    padding: 10px var(--spacing-s) 14px var(--spacing-s);
+  }
+
+  .activeLink:before {
+    border-left: 4px solid var(--color-black);
+    padding-left: var(--spacing-xs);
+  }
+
+  .dropdownLink:before {
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  .dropdownLink:hover:before {
+    border-left: 4px solid var(--color-black);
+    transition: border-left 100ms ease-in;
+  }
+}
+
+.left {
+  left: auto;
+  right: calc(100% + 2px);
+  top: -1px;
+}
+
+.right {
+  left: calc(100% + 2px);
+  right: auto;
+  top: -1px;
+}
+
+.button {
+  background-color: var(--color-black-5);
+  border: none;
+  box-sizing: content-box;
+  display: block;
+  height: 24px;
+  padding: 3px;
+  width: 24px;
+}
+
+.button:hover {
+  background-color: var(--color-black-20);
+  cursor: pointer;
+}
+
+.button:focus {
+  border: 3px solid var(--color-coat-of-arms);
+  margin: 0;
+  outline: none;
+  padding: 0;
+}

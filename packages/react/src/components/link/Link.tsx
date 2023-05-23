@@ -1,16 +1,14 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
 
-export type LinkProps = Omit<
-  React.ComponentPropsWithoutRef<'a'>,
-  'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
-> & {
+export type LinkProps = {
   /**
    * aria-label for providing detailed information for screen readers about a link text.
    */
@@ -18,7 +16,7 @@ export type LinkProps = Omit<
   /**
    * Link content
    */
-  children: string;
+  children: React.ReactNode;
   /**
    * Boolean indicating whether visited styles of the link are applied
    */
@@ -55,7 +53,10 @@ export type LinkProps = Omit<
    * Additional styles
    */
   style?: React.CSSProperties;
-};
+} & Omit<
+  React.ComponentPropsWithoutRef<'a'>,
+  'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
+>;
 
 type LinkToIconSizeMappingType = {
   L: 'l';

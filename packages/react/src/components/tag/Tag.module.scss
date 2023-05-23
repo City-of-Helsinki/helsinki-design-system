@@ -1,5 +1,5 @@
-@import "../../styles/common";
-@import "tag.common";
+@import "../../styles/common.scss";
+@import "tag.common.scss";
 
 .tag {
   @extend %tag;
@@ -22,6 +22,8 @@
 .deleteButton {
   @extend %buttonReset;
   @extend %deleteButton;
+
+  composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
 }
 
 .visuallyHidden {

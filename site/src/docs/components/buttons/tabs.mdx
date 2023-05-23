@@ -5,16 +5,20 @@ title: 'Button'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout'
 import PageTabs from '../../../components/PageTabs';
 
 # Button
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button

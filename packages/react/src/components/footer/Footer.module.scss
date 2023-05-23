@@ -1,4 +1,4 @@
-@value small-down, medium-up, large-up, x-large-up from "../../styles/breakpoints.css";
+@value small-down, medium-up, large-up, x-large-up from "../../styles/breakpoints.scss";
 
 $koros-heights: (
   'basic': 14px,
@@ -11,7 +11,6 @@ $koros-heights: (
 .footer {
   --footer-focus-outline-width: 3px;
   --footer-focus-outline-border-radius: 2px;
-
   --footer-background: var(--color-black-5);
   --footer-color: var(--color-black);
   --footer-divider-color: var(--color-black-20);
@@ -64,9 +63,9 @@ $koros-heights: (
 
 .title {
   font-size: var(--fontsize-heading-xxs);
-  line-height: var(--lineheight-l);
-  letter-spacing: 0.4px;
   font-weight: bold;
+  letter-spacing: 0.4px;
+  line-height: var(--lineheight-l);
 }
 
 @media small-down {

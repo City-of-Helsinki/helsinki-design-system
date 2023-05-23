@@ -1,24 +1,26 @@
-@import "../../icons/icon.css";
-@import "../../icons/ui/icon-link-external.css";
+@import url("../../icons/icon.css");
+@import url("../../icons/ui/icon-link-external.css");
 
 .hds-link {
   --link-visited-color: #551a8b;
   --link-color: var(--color-bus);
-  text-decoration: underline;
-  color: var(--link-color);
-  box-sizing: border-box;
+
   border: 3px solid transparent;
+  box-sizing: border-box;
+  color: var(--link-color);
+  text-decoration: underline;
 }
 
 .hds-link:visited {
   color: var(--link-visited-color);
 }
+
 .hds-link:visited svg g path { /* Fixes external link icon visited color for Safari */
   fill: var(--link-visited-color);
 }
 
 .hds-link:focus {
-  border: 3px solid var(--color-coat-of-arms);
+  border: 3px solid var(--color-focus-outline);
   outline: none;
 }
 
@@ -47,8 +49,8 @@
 }
 
 .hds-link--large {
-  font-size: 18px;
   display: block;
+  font-size: 18px;
   width: fit-content;
 }
 

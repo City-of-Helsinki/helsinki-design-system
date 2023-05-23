@@ -3,6 +3,10 @@ import React from 'react';
 import styles from './NavigationLanguageSelector.module.scss';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
 
+/**
+ * NavigationLanguageSelector will be removed in the next major release. Upcoming Header component will provide the replacement component.
+ * @deprecated
+ */
 export const NavigationLanguageSelector = ({ children, id = 'languageSelector', label, ...rest }: MenuButtonProps) => {
   React.useEffect(() => {
     React.Children.forEach(children, (child: React.ReactElement) => {

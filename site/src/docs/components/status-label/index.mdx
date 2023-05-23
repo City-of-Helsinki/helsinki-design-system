@@ -56,6 +56,24 @@ StatusLabel comes in five (5) different types. One neutral and four (4) with dif
   </StatusLabel>
 </PlaygroundPreview>
 
+#### Rounded
+
+<PlaygroundPreview>
+  <StatusLabel variant="rounded">Neutral</StatusLabel>
+  <StatusLabel variant="rounded" type="info" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Info
+  </StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Success
+  </StatusLabel>
+  <StatusLabel variant="rounded" type="alert" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Alert
+  </StatusLabel>
+  <StatusLabel variant="rounded" type="error" style={{ marginLeft: 'var(--spacing-s)' }}>
+    Error
+  </StatusLabel>
+</PlaygroundPreview>
+
 #### With an icon
 
 An icon can be used on the left side of the StatusLabel's text label. The icon should match with the text label and not be used only for visual purposes.
@@ -72,6 +90,24 @@ An icon can be used on the left side of the StatusLabel's text label. The icon s
     Alert
   </StatusLabel>
   <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconError />}>
+    Error
+  </StatusLabel>
+</PlaygroundPreview>
+
+#### Rounded with an icon
+
+<PlaygroundPreview>
+  <StatusLabel variant="rounded" iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
+  <StatusLabel variant="rounded" type="info" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconInfoCircle />}>
+    Info
+  </StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconCheckCircle />}>
+    Success
+  </StatusLabel>
+  <StatusLabel variant="rounded" type="alert" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconAlertCircle />}>
+    Alert
+  </StatusLabel>
+  <StatusLabel variant="rounded" type="error" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconError />}>
     Error
   </StatusLabel>
 </PlaygroundPreview>

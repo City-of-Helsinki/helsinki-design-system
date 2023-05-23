@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavigationLink /> spec renders the component 1`] = `
+<DocumentFragment>
+  <span
+    class="navigationLinkWrapper"
+  >
+    <a
+      class="link linkM navigationLink"
+      href="#"
+    >
+      Link
+    </a>
+  </span>
+</DocumentFragment>
+`;

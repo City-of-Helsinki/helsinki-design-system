@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Stepper.module.scss';
 import classNames from '../../utils/classNames';
 
@@ -14,7 +14,7 @@ export enum StepState {
   paused,
 }
 
-export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
+export type StepProps = {
   /**
    * Data test id of step
    */
@@ -59,7 +59,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
    * The total number of steps
    */
   stepsTotal: number;
-};
+} & React.ComponentPropsWithoutRef<'button'>;
 
 type Language = 'en' | 'fi' | 'sv' | string;
 

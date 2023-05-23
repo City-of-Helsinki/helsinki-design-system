@@ -1,21 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-console */
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
-import { FormikValues, useFormik } from 'formik';
-import * as Yup from 'yup';
-import { isBefore, parse, startOfDay } from 'date-fns';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import { CityOptionType, getCitites, isValidDate } from './validationUtils';
+import { CityOptionType, getCitites } from './validationUtils';
+import { defaultValues, FieldName, FormData, validationSchema } from './validationSchema';
 import {
   Button,
-  ErrorSummary,
-  TextInput,
   Checkbox,
-  SelectionGroup,
-  RadioButton,
-  TextArea,
   Combobox,
   DateInput,
+  ErrorSummary,
   PhoneInput,
+  RadioButton,
+  SelectionGroup,
+  TextArea,
+  TextInput,
 } from '../../components';
 
 import './validation.scss';
@@ -23,102 +23,41 @@ import './validation.scss';
 const cities = getCitites();
 
 export const Static = () => {
-  /**
-   * Form error state
-   */
-  const [hasErrors, setHasErrors] = useState<boolean>(false);
-  /**
-   * Ref to set dateInput field dirty to help with validation.
-   */
-  const dateInputIsDirty = useRef(false);
-
-  /**
-   * Initialize formik
-   */
-  const formik = useFormik({
-    // Set initial field values
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      city: '',
-      postalCode: '',
-      email: '',
-      registerPlate: '',
-      brand: '',
-      model: '',
-      parkingPeriod: 'continuous',
-      permitEndDate: '',
-      additionalRequests: '',
-      acceptTerms: false,
-      phoneNumber: '',
-    },
-    // Define Yup validation schema
-    validationSchema: Yup.object().shape({
-      firstName: Yup.string().required('Please enter your first name'),
-      lastName: Yup.string().required('Please enter your last name'),
-      city: Yup.string().required('Please select your city of residence'),
-      postalCode: Yup.string()
-        .matches(/^\d+$/, 'Postal code can only contain numbers')
-        .length(5, 'Postal code needs to contain 5 numbers')
-        .required('Please enter your postal code'),
-      email: Yup.string().email('Please check the email address format').required('Please enter your email address'),
-      registerPlate: Yup.string()
-        .matches(/^\w{2,3}-\d{1,3}$/, 'Register plate number must include 2-3 letters, a hyphen and 1-3 numbers.')
-        .required('Please enter a register plate number'),
-      brand: Yup.string().required('Please enter a vehicle brand'),
-      model: Yup.string().required('Please enter a vehicle model'),
-      parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
-      permitEndDate: Yup.string().when('parkingPeriod', {
-        is: 'temporary',
-        then: Yup.string()
-          .required('Please enter a permit end date')
-          .test('is-date', (value, { createError, path }) => {
-            if (!isValidDate(value)) {
-              return createError({
-                path,
-                message: 'Please enter a permit end date in DD.MM.YYYY format',
-              });
-            }
-
-            const selectedDate = parse(value, 'd.M.yyyy', new Date());
-
-            if (isBefore(selectedDate, startOfDay(new Date()))) {
-              return createError({
-                path,
-                message: 'Selected permit date is in the past. Please select a date that is in the future',
-              });
-            }
-            return true;
-          }),
-        otherwise: Yup.string(),
-      }),
-      acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
-      phoneNumber: Yup.string().matches(
-        /^[+][0-9]*$/,
-        'Please enter the phone number in international mobile phone number format.',
-      ),
-    }),
-    // Disable validation on field change
-    validateOnChange: false,
-    // Disable validation on field blur
-    validateOnBlur: false,
-    // Handle the form submit after validation
-    onSubmit: (values) => {
-      console.log('Form submitted:', values);
-    },
+  const {
+    getValues,
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>({
+    mode: 'onSubmit',
+    defaultValues,
+    shouldFocusError: false,
+    resolver: yupResolver(validationSchema),
   });
 
+  const handleChange = (fieldName: FieldName, value) => {
+    setValue(fieldName, value);
+  };
+
   /**
-   * Update the hasErrors state based on changes in validation errors
+   * Get the success message for a single field
    */
-  useEffect(() => {
-    setHasErrors(Object.values(formik.errors).length > 0 && Object.values(formik.touched).length > 0);
-  }, [formik.errors, formik.touched]);
+  const getSuccessMessage = (fieldName: FieldName) => {
+    if (fieldName === 'registerPlate') {
+      return getValues('registerPlate') && errors?.registerPlate === undefined
+        ? 'Register plate number is valid'
+        : undefined;
+    }
+    return undefined;
+  };
 
   /**
    * Get the focusable field id
    */
-  const getFocusableFieldId = (fieldName: string): string => {
+  const getFocusableFieldId = (fieldName: FieldName): string => {
     // For the city select element, focus the toggle button
     if (fieldName === 'city') {
       return `${fieldName}-toggle-button`;
@@ -129,41 +68,32 @@ export const Static = () => {
   /**
    * Handle form submit
    */
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Clear errors
-    setHasErrors(false);
-    // Validate
-    formik.validateForm().then(() => formik.submitForm());
+  const onSubmitHandler = (data) => {
+    console.log({ data });
+    reset();
   };
 
   /**
    * Render the error summary section
    */
   const renderErrorSummary = () =>
-    hasErrors ? (
+    Object.keys(errors).length > 0 ? (
       <ErrorSummary label="Form contains following errors" className="hds-example-form__error-summary" autofocus>
         <ul>
-          {Object.entries(formik.errors).map(([field, error], index) => (
-            <li key={error}>
-              Error {index + 1}: <a href={`#${getFocusableFieldId(field)}`}>{error}</a>
+          {Object.keys(errors).map((errorKey, index) => (
+            <li key={`error-${errorKey}`}>
+              Error {index + 1}:{' '}
+              <a href={`#${getFocusableFieldId(errorKey as FieldName)}`}>{errors[errorKey].message}</a>
             </li>
           ))}
         </ul>
       </ErrorSummary>
     ) : null;
 
-  /**
-   * Get the error message for a single field
-   */
-  const getErrorMessage = (fieldName: string) => {
-    return hasErrors && formik.errors[fieldName];
-  };
-
   return (
     <div className="hds-example-form">
       <h1 className="hds-example-form__main-title">Static form validation example</h1>
-      <form onSubmit={onSubmit} noValidate>
+      <form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
         <h2 className="hds-example-form__title">Residental parking permit application</h2>
         {renderErrorSummary()}
         <div className="hds-example-form__required-info">All fields marked with * are required</div>
@@ -172,28 +102,32 @@ export const Static = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <TextInput
+                {...register('firstName')}
+                onChange={(e) => {
+                  handleChange('firstName', e.currentTarget.value);
+                }}
                 id="firstName"
                 name="firstName"
                 label="First name"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.firstName}
-                invalid={!!getErrorMessage('firstName')}
-                errorText={getErrorMessage('firstName')}
+                invalid={!!errors.firstName?.message}
+                aria-invalid={!!errors.firstName?.message}
+                errorText={errors.firstName?.message}
                 autoComplete="given-name"
                 required
               />
             </div>
             <div className="hds-example-form__item">
               <TextInput
+                {...register('lastName')}
+                onChange={(e) => {
+                  handleChange('lastName', e.currentTarget.value);
+                }}
                 id="lastName"
                 name="lastName"
                 label="Last name"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.lastName}
-                invalid={!!getErrorMessage('lastName')}
-                errorText={getErrorMessage('lastName')}
+                invalid={!!errors.lastName?.message}
+                aria-invalid={!!errors.lastName?.message}
+                errorText={errors.lastName?.message}
                 autoComplete="family-name"
                 required
               />
@@ -207,28 +141,26 @@ export const Static = () => {
                 optionLabelField="label"
                 options={cities}
                 onChange={(selected: CityOptionType) => {
-                  formik.setFieldValue('city', selected ? selected.label : '');
+                  handleChange('city', selected ? selected.label : '');
                 }}
-                onBlur={() => {
-                  formik.handleBlur({ target: { name: 'city' } });
-                }}
-                defaultValue={{ label: formik.values.city }}
                 toggleButtonAriaLabel="Toggle"
-                invalid={!!getErrorMessage('city')}
-                error={getErrorMessage('city')}
+                invalid={!!errors.city?.message}
+                error={errors.city?.message}
                 required
               />
             </div>
             <div className="hds-example-form__item">
               <TextInput
+                {...register('postalCode')}
+                onChange={(e) => {
+                  handleChange('postalCode', e.currentTarget.value);
+                }}
                 id="postalCode"
                 name="postalCode"
                 label="Postal code"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.postalCode}
-                invalid={!!getErrorMessage('postalCode')}
-                errorText={getErrorMessage('postalCode')}
+                invalid={!!errors.postalCode?.message}
+                aria-invalid={!!errors.postalCode?.message}
+                errorText={errors.postalCode?.message}
                 autoComplete="postal-code"
                 required
               />
@@ -236,14 +168,16 @@ export const Static = () => {
           </div>
           <div className="hds-example-form__item">
             <TextInput
+              {...register('email')}
+              onChange={(e) => {
+                handleChange('email', e.currentTarget.value);
+              }}
               id="email"
               name="email"
               label="Email address"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              invalid={!!getErrorMessage('email')}
-              errorText={getErrorMessage('email')}
+              invalid={!!errors.email?.message}
+              aria-invalid={!!errors.email?.message}
+              errorText={errors.email?.message}
               autoComplete="email"
               required
               tooltipButtonLabel="Tooltip: Email address"
@@ -253,17 +187,19 @@ export const Static = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <PhoneInput
+                {...register('phoneNumber')}
+                onChange={(e) => {
+                  handleChange('phoneNumber', e.currentTarget.value);
+                }}
                 id="phoneNumber"
                 name="phoneNumber"
                 label="Phone number"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
                 pattern="[+][0-9]"
                 helperText="Use international mobile number format, e.g. +358401234567"
-                value={formik.values.phoneNumber}
-                invalid={!!getErrorMessage('phoneNumber')}
-                aria-invalid={!!getErrorMessage('phoneNumber')}
-                errorText={getErrorMessage('phoneNumber')}
+                invalid={!!errors.phoneNumber?.message}
+                aria-invalid={!!errors.phoneNumber?.message}
+                errorText={errors.phoneNumber?.message}
+                successText={getSuccessMessage('phoneNumber')}
               />
             </div>
           </div>
@@ -273,16 +209,19 @@ export const Static = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <TextInput
+                {...register('registerPlate')}
+                onChange={(e) => {
+                  handleChange('registerPlate', e.currentTarget.value);
+                }}
                 id="registerPlate"
                 name="registerPlate"
                 label="Register plate number"
                 placeholder="E.g. ABC-123"
                 helperText="Use format XXX-NNN"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.registerPlate}
-                invalid={!!getErrorMessage('registerPlate')}
-                errorText={getErrorMessage('registerPlate')}
+                invalid={!!errors.registerPlate?.message}
+                aria-invalid={!!errors.registerPlate?.message}
+                errorText={errors.registerPlate?.message}
+                successText={getSuccessMessage('registerPlate')}
                 required
               />
             </div>
@@ -290,29 +229,33 @@ export const Static = () => {
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
               <TextInput
+                {...register('brand')}
+                onChange={(e) => {
+                  handleChange('brand', e.currentTarget.value);
+                }}
                 id="brand"
                 name="brand"
                 label="Vehicle brand"
                 placeholder="E.g. Skoda"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.brand}
-                invalid={!!getErrorMessage('brand')}
-                errorText={getErrorMessage('brand')}
+                invalid={!!errors.brand?.message}
+                aria-invalid={!!errors.brand?.message}
+                errorText={errors.brand?.message}
                 required
               />
             </div>
             <div className="hds-example-form__item">
               <TextInput
+                {...register('model')}
+                onChange={(e) => {
+                  handleChange('model', e.currentTarget.value);
+                }}
                 id="model"
                 name="model"
                 label="Vehicle model"
                 placeholder="E.g. Octavia"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.model}
-                invalid={!!getErrorMessage('model')}
-                errorText={getErrorMessage('model')}
+                invalid={!!errors.model?.message}
+                aria-invalid={!!errors.model?.message}
+                errorText={errors.model?.message}
                 required
               />
             </div>
@@ -322,56 +265,46 @@ export const Static = () => {
           <h3 className="hds-example-form__section-title">Parking information</h3>
           <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
-              <SelectionGroup
-                label="Parking period"
-                direction="horizontal"
-                required
-                errorText={getErrorMessage('parkingPeriod')}
-              >
+              <SelectionGroup label="Parking period" direction="horizontal" required>
                 <RadioButton
+                  {...register('parkingPeriod')}
                   id="parkingPeriodContinuous"
                   name="parkingPeriod"
                   value="continuous"
                   label="Continuous"
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    formik.resetForm({ ...formik.values, permitEndDate: '' } as FormikValues);
+                  checked={watch('parkingPeriod') === 'continuous'}
+                  onChange={() => {
+                    handleChange('parkingPeriod', 'continuous');
+                    setValue('permitEndDate', '');
                   }}
-                  onBlur={formik.handleBlur}
-                  checked={formik.values.parkingPeriod === 'continuous'}
                 />
                 <RadioButton
+                  {...register('parkingPeriod')}
                   id="parkingPeriodTemporary"
                   name="parkingPeriod"
                   value="temporary"
                   label="Temporary"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  checked={formik.values.parkingPeriod === 'temporary'}
+                  checked={watch('parkingPeriod') === 'temporary'}
+                  onChange={() => handleChange('parkingPeriod', 'temporary')}
                 />
               </SelectionGroup>
             </div>
-            {formik.values.parkingPeriod === 'temporary' && (
+            {getValues('parkingPeriod') === 'temporary' && (
               <div className="hds-example-form__item">
                 <DateInput
+                  {...register('permitEndDate')}
                   id="permitEndDate"
                   name="permitEndDate"
                   label="Permit end date"
                   helperText="Use format DD.MM.YYYY"
                   minDate={new Date()}
-                  onChange={(value) => {
-                    dateInputIsDirty.current = true;
-                    formik.setFieldValue('permitEndDate', value || '');
+                  onChange={(e) => {
+                    handleChange('permitEndDate', e);
                   }}
-                  onBlur={() => {
-                    if (dateInputIsDirty.current) {
-                      formik.handleBlur({ target: { name: 'permitEndDate' } });
-                    }
-                  }}
-                  value={formik.values.permitEndDate}
-                  invalid={!!getErrorMessage('permitEndDate')}
-                  aria-invalid={!!getErrorMessage('permitEndDate')}
-                  errorText={getErrorMessage('permitEndDate')}
+                  value={getValues('permitEndDate')}
+                  invalid={!!errors.permitEndDate?.message}
+                  aria-invalid={!!errors.permitEndDate?.message}
+                  errorText={errors.permitEndDate?.message}
                   required
                   tooltipButtonLabel="Tooltip: Permit end date"
                   tooltipText="This is the last date you need the permit to be active. The permit will expire at the inputted date at 23:59 o'clock."
@@ -381,15 +314,14 @@ export const Static = () => {
           </div>
           <div className="hds-example-form__item">
             <TextArea
+              {...register('additionalRequests')}
+              onChange={(e) => {
+                handleChange('additionalRequests', e.currentTarget.value);
+              }}
               id="additionalRequests"
               name="additionalRequests"
               label="Additional requests"
               placeholder="E.g. Request for a parking space near a specific location"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.additionalRequests}
-              invalid={!!getErrorMessage('additionalRequests')}
-              errorText={getErrorMessage('additionalRequests')}
               tooltipButtonLabel="Tooltip: Additional requests"
               tooltipText="Here you may leave extra requests regarding the parking space. For example, you may request space near a specific location. If you have a large vehicle, you may request a larger space."
             />
@@ -398,14 +330,17 @@ export const Static = () => {
         <div className="hds-example-form__section">
           <div className="hds-example-form__item">
             <Checkbox
+              {...register('acceptTerms')}
               id="acceptTerms"
               name="acceptTerms"
               label="I have read and I accept the terms and conditions"
               required
-              checked={formik.values.acceptTerms === true}
-              errorText={getErrorMessage('acceptTerms')}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              aria-invalid={!!errors.acceptTerms?.message}
+              errorText={errors.acceptTerms?.message}
+              checked={watch('acceptTerms')}
+              onChange={(e) => {
+                handleChange('acceptTerms', e.target.checked);
+              }}
             />
             <div className="hds-example-form__terms">
               <span>Read the terms of service</span>

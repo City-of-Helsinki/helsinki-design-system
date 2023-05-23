@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
+import { Tooltip } from '../tooltip';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
-export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
+export type CheckboxProps = {
   /**
    * If `true`, the component is checked
    */
@@ -23,6 +26,10 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
    * The error text content that will be shown below the checkbox
    */
   errorText?: string;
+  /**
+   * The helper text content that will be shown below the checkbox
+   */
+  helperText?: string;
   /**
    * The id of the input element
    */
@@ -47,7 +54,19 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
    * The value of the component
    */
   value?: string;
-};
+  /**
+   * Tooltip text for the checkbox
+   */
+  tooltipText?: string;
+  /**
+   * Aria-label text for the tooltip
+   */
+  tooltipLabel?: string;
+  /**
+   * Aria-label text for the tooltip trigger button
+   */
+  tooltipButtonLabel?: string;
+} & React.ComponentPropsWithoutRef<'input'>;
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -56,12 +75,16 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       className,
       disabled = false,
       errorText,
+      helperText,
       id,
       indeterminate,
       label,
       onChange = () => null,
       style,
       value,
+      tooltipText,
+      tooltipLabel,
+      tooltipButtonLabel,
       ...rest
     }: CheckboxProps,
     ref: React.Ref<HTMLInputElement>,
@@ -86,6 +109,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       );
     }
 
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, undefined, undefined);
+
     return (
       <div className={classNames(styles.checkbox, className)} style={style}>
         <input
@@ -97,15 +122,25 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           disabled={disabled}
           checked={checked}
-          aria-describedby={errorText ? `${id}-error` : null}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>
           {label}
         </label>
+        {tooltipText && (
+          <Tooltip className={styles.tooltipButton} buttonLabel={tooltipButtonLabel} tooltipLabel={tooltipLabel}>
+            {tooltipText}
+          </Tooltip>
+        )}
         {errorText && (
           <div className={styles.errorText} id={`${id}-error`}>
             {errorText}
+          </div>
+        )}
+        {helperText && (
+          <div className={styles.helperText} id={`${id}-helper`}>
+            {helperText}
           </div>
         )}
       </div>

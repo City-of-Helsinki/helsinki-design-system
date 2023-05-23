@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules"
+  ],
+  "plugins": [
+		"stylelint-order"
+	],
+  "rules": {
+    "alpha-value-notation": "number",
+    "at-rule-no-unknown": null,
+    "function-no-unknown": null,
+    "keyframes-name-pattern": "([a-z][A-z]*)",
+    "order/properties-alphabetical-order": true,
+    "property-no-vendor-prefix": null,
+    "selector-class-pattern": null,
+    "selector-not-notation": "simple",
+    "selector-pseudo-element-colon-notation": "single"
+  }
+}

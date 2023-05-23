@@ -1,4 +1,4 @@
-@svg-load icon url(../../svg/ui/alert-circle-fill.svg);
+@svg-load icon url("../../svg/ui/alert-circle-fill.svg");
 
 .hds-selection-group {
   --spacing-col: 1.25rem;
@@ -15,11 +15,27 @@
 }
 
 .hds-selection-group__legend {
+  /*
+  * Normalized rules
+  * 1. Correct the text wrapping in Edge and IE.
+  *    `fieldset` elements in all browsers.
+  */
+  box-sizing: border-box; /* 1 */
   color: var(--label-color-default);
   display: block;
   font-size: var(--fontsize-body-m);
   font-weight: 500;
   margin-bottom: var(--spacing-row);
+
+  /*
+  * Normalized rules
+  * 1. Correct the text wrapping in Edge and IE.
+  * 2. Remove the padding so developers are not caught out when they zero out
+  *    `fieldset` elements in all browsers.
+  */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 2 */
+  white-space: normal; /* 1 */
 }
 
 .hds-selection-group__required {
@@ -47,22 +63,23 @@
 }
 
 .hds-selection-group__error-text {
-  position: relative;
   color: var(--color-error);
   display: block;
   font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  position: relative;
 }
-.hds-selection-group__error-text::before {
+
+.hds-selection-group__error-text:before {
   background: var(--color-error);
   content: '';
   height: var(--icon-size);
-  mask-image: svg-inline(icon);
+  left: 0;
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
   pointer-events: none;
   position: absolute;
-  left: 0;
   top: 0;
   width: var(--icon-size);
 }

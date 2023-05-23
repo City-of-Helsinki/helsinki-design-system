@@ -18,14 +18,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Koros type="basic" style={{marginBottom: 'var(--spacing-xs'}} aria-label="Basic koro example"/>
-<Koros type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros type="calm"/>
-</>
+import { Koros } from 'hds-react';
+
+() => (<>
+  <Koros type="basic" style={{marginBottom: 'var(--spacing-xs'}} aria-label="Basic koro example"/>
+  <Koros type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="calm"/>
+</>)
 ```
 
 ```html
@@ -114,14 +116,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-<>
-<Koros dense type="basic" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros dense type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros dense type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros dense type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros dense type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
-<Koros dense type="calm"/>
-</>
+import { Koros } from 'hds-react';
+
+() => (<>
+  <Koros dense type="basic" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="calm"/>
+</>)
 ```
 
 ```html
@@ -210,7 +214,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-{() => {
+import { Koros } from 'hds-react';
+
+() => {
   const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '100%' };
   return (
     <div
@@ -244,7 +250,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       />
     </div>
   );
-}}
+}
 ```
 
 ```html

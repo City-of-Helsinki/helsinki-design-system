@@ -4,7 +4,7 @@ import styles from './SubLevel.module.scss';
 import SideNavigationContext from '../SideNavigationContext';
 import classNames from '../../../utils/classNames';
 
-export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
+export type SubLevelProps = {
   /**
    * If `true`, the item will be marked as active
    */
@@ -33,7 +33,7 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
-};
+} & React.ComponentPropsWithoutRef<'a'>;
 
 export const SubLevel = ({ active, className, href, id, label, mainLevelIndex, onClick, style }: SubLevelProps) => {
   const { setActiveParentLevel, setMobileMenuOpen } = useContext(SideNavigationContext);

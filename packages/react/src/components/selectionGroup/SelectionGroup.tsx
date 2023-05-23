@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { isValidElement, useEffect } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './SelectionGroup.module.scss';
 import classNames from '../../utils/classNames';
 import { RequiredIndicator } from '../../internal/required-indicator/RequiredIndicator';
 import { Tooltip } from '../tooltip';
+import { getChildrenAsArray } from '../../utils/getChildren';
 
 export type Direction = 'vertical' | 'horizontal';
 
@@ -23,6 +25,10 @@ export type SelectionGroupProps = React.PropsWithChildren<
      * The error text content that will be shown below the selection group
      */
     errorText?: string;
+    /**
+     * The helper text content that will be shown below the radiobutton
+     */
+    helperText?: string;
     /**
      * If `true`, the label is displayed as required.
      */
@@ -50,6 +56,7 @@ export const SelectionGroup = ({
   label,
   direction = 'vertical',
   errorText,
+  helperText,
   required,
   tooltipLabel,
   tooltipButtonLabel,
@@ -58,10 +65,12 @@ export const SelectionGroup = ({
   className,
   ...fieldSetProps
 }: SelectionGroupProps) => {
+  const childElements = getChildrenAsArray(children);
+
   useEffect(() => {
     let hasRadios = false;
     let hasCheckedRadios = false;
-    React.Children.forEach(children, (child) => {
+    childElements.forEach((child) => {
       const reactElement = child as React.ReactElement;
       const { displayName } = reactElement.type as React.FunctionComponent;
       if (displayName === 'RadioButton') {
@@ -78,7 +87,6 @@ export const SelectionGroup = ({
       );
     }
   }, [children]);
-
   return (
     <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
       <legend className={styles.label}>
@@ -90,11 +98,17 @@ export const SelectionGroup = ({
         </Tooltip>
       )}
       <div className={classNames(styles.items, styles[direction])}>
-        {React.Children.map(children, (child) => (
-          <div className={styles.item}>{child}</div>
-        ))}
+        {childElements.map(
+          (child) =>
+            isValidElement(child) && (
+              <div key={child.props.id} className={styles.item}>
+                {child}
+              </div>
+            ),
+        )}
       </div>
       {errorText && <div className={styles.errorText}>{errorText}</div>}
+      {helperText && <div className={styles.helperText}>{helperText}</div>}
     </fieldset>
   );
 };
