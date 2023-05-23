@@ -1,0 +1,109 @@
+---
+slug: '/components/login/customisation'
+title: 'Login - Customisation'
+---
+
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Creating and connecting your own module
+
+If there is a need for a deeper connection to other modules, a custom module can be created. Modules can emit signals. Modules are not React-specific, just plain javascript.
+A module passed to the beacon must have the following properties:
+
+| Property                            | Description                                        |
+| ----------------------------------- | -------------------------------------------------- |
+| `namespace`                         | String. A unique namespace.                        |
+| `connect(beacon)`                   | Function called when module is added to the beacon |
+| [Table 1: custom module properties] |
+
+<PlaygroundPreview>
+
+```jsx
+import { createNamespacedBeacon, ConnectedModule } from 'hds-react';
+
+const createMyCustomModule = (): ConnectedModule => {
+  const customBeacon = createNamespacedBeacon('myModule');
+  const listener = (signal) => {
+    // this is listenening everything
+  };
+  return {
+    namespace: helperNamespace,
+    connect: (targetBeacon) => {
+      customBeacon.storeBeacon(targetBeacon);
+      customBeacon.addListener(createTriggerForAllSignalTypes(), listener);
+    },
+  };
+};
+```
+
+</PlaygroundPreview>
+
+### Connecting your module
+
+Modules are automatically connected to other modules when they are passed in the `modules` property of the LoginProvider.
+
+`Module.connect()` is called and when all modules are connected, an `init` signal is emitted for each module. This is done by the beacon.
+
+<PlaygroundPreview>
+
+```jsx
+import { createNamespacedBeacon, ConnectedModule } from 'hds-react';
+
+const myModule = createMyCustomModule()
+
+const providerProperties = {..., modules=[myModule]}
+
+<LoginProvider {...providerProperties}>
+  <Content />
+</LoginProvider>
+```
+
+</PlaygroundPreview>
+
+### Custom namespaced beacons for modules
+
+Modules must emit signals in their own namespace. Beacon has only one emit function. To make emitting easier, the `createNamespacedBeacon` returns a utility, where all emitted signals have pre-set namespace and there are emit functions for different signal types.
+
+This utility also handles cases, where listeners are added before the module is connected to the beacon.
+
+It also ignores signals from its own namespace, when listening to generic signals.
+
+| Name                                       | Description                                                                                                        | Return values               |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| `storeBeacon(beacon)`                      | Beacon. Call this from the `module.connect()`. Stores the beacon, so the module does not have to store it.         | none                        |
+| `emit(signal)`                             | calls beacon.emit, if the beacon is connected                                                                      | none                        |
+| `addListener(signalProps, listener)`       | Adds a listener for given signal props. Module's own signals are filtered out if the namespace is for all signals. | Disposer function           |
+| `emitError(payload)`                       | Emits an error with the given payload                                                                              | Context module or undefined |
+| `emitEvent(payload, data)`                 | Emits an event with the given type and data in the payload                                                         | Object                      |
+| `emitStateChange(state,previousState)`     | Emits a stateChange with the given state and previousState in the payload                                          | none                        |
+| [Table 2: custom beacon utility functions] |
+
+<PlaygroundPreview>
+
+```jsx
+import { createNamespacedBeacon, ConnectedModule } from 'hds-react';
+
+const createMyCustomModule = (): ConnectedModule => {
+  let state = 'none';
+  const customBeacon = createNamespacedBeacon('myModule');
+  const listener = (signal) => {
+    if (isErrorSignal) {
+      newState = 'error';
+      customBeacon.emitStateChange(newState, state);
+      state = newState;
+    }
+  };
+  return {
+    namespace: helperNamespace,
+    connect: (targetBeacon) => {
+      customBeacon.storeBeacon(targetBeacon);
+      customBeacon.addListener(createTriggerForAllSignalTypes(), listener);
+    },
+  };
+};
+```
+
+</PlaygroundPreview>

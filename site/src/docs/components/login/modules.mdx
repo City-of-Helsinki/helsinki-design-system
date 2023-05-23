@@ -1,0 +1,474 @@
+---
+slug: '/components/login/modules'
+title: 'Login - Modules'
+---
+
+import { Login } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Modules
+
+Usually just logging in is not enough. The user must be able to fetch data from backend servers. That cannot be done unless the user's access token is exchanged for api tokens. Api tokens are sent in the headers of backend requests to authenticate the user.
+HDS Login modules include also api token handling. It is an independent module, but it communicates with the Oidc client and updates automatically when the user logs in or is updated.
+
+In total, there are three modules to handle the user's needs: Oidc client for user data, Api tokens client for acquiring backend tokens and a Session poller for checking, if the user has a valid session at the Oidc provider. The modules emit signals which can be listened to and reacted to.
+
+All modules can be used without React and each other. But a user object is required to get api tokens and poll the session.
+
+### Oidc client
+
+The HDS Oidc client uses <ExternalLink href="https://github.com/authts/oidc-client-ts">oidc-client-ts</ExternalLink> to handle redirect URLs, token parsing and expiration. HDS Oidc client has the same <ExternalLink href="https://authts.github.io/oidc-client-ts/">settings</ExternalLink>, but different defaults.
+
+#### Settings
+
+| Property                               | Default value                                                                                                                      |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `userManagerSettings`                  | Required, but not all options. At least `authority`, `client_id` and `scope` must be set.                                          |
+| `debug`                                | Optional. If true, debugging is enabled in the oidc-client-ts instance with `Log.setLevel(Log.Debug)` and `Log.setLogger(console)` |
+| [Table 1: Settings of the Oidc client] |
+
+#### Default userManager settings
+
+| Property                                                    | Default value                      |
+| ----------------------------------------------------------- | ---------------------------------- |
+| `automaticSilentRenew`                                      | true                               |
+| `redirect_uri`                                              | window.origin + /callback          |
+| `silent_redirect_uri`                                       | window.origin + /silent_renew.html |
+| `post_logout_redirect_uri`                                  | window.origin + /                  |
+| `response_type`                                             | code                               |
+| `monitorSession`                                            | false                              |
+| `includeIdTokenInSilentRenew`                               | true                               |
+| `validateSubOnSilentRenew`                                  | false                              |
+| `loadUserInfo`                                              | true                               |
+| [Table 2: Default userManager settings of the Oidc client ] |
+
+These override the <ExternalLink href="https://github.com/authts/oidc-client-ts/blob/main/src/UserManagerSettings.ts">defaults of the oidc-client-ts</ExternalLink>
+
+#### Requirements
+
+Usage of the Oidc client requires
+
+- an OIDC provider
+- at least client id, authority, scope and registered callback URLs for it.
+- silent_renew.html for silent token renewal. This is a poorly documented feature in the oidc-client-ts. This file has a javascript snippet which communicates with the oidc provider "silently" in a hidden iframe.
+  More about <ExternalLink href="https://www.oauth.com/oauth2-servers/access-tokens/refreshing-access-tokens/">token renewal</ExternalLink>. An example can be found in <InternalLink href="/components/login/modules#silent-renew">Silent renew</InternalLink>.
+
+#### Methods
+
+| Property                              | Description                                                                                                                                                                                                                                                                                                                                                     | Return value                                  |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `getAmr`                              | Returns the user's amr value(s) as an array. Tunnistamo returns the amr as a string, which oidc-client-ts rejects because it violates the OIDC specification. Amr value is read from decrypted id_token.                                                                                                                                                        | `Amr` or `undefined`                          |
+| `getState`                            | State of the client. See <InternalLink size="M" href="/components/login/modules#states">Oidc client states</InternalLink>                                                                                                                                                                                                                                       | `NO_SESSION`                                  |
+| `getToken`                            | Returns a token. The function is async because token renewal might be in progress and the current token might be outdated after that. If renewal was in progress but failed, then the old token is returned. Use `isRenewing()` and exported function `getUserToken(user, tokenType)` to get the token synchronously and safely. The Promise will never reject. | `string` or `undefined`                       |
+| `getUser`                             | Returns a user object or null                                                                                                                                                                                                                                                                                                                                   | `User` or `null`                              |
+| `getUserManager`                      | Returns the UserManager                                                                                                                                                                                                                                                                                                                                         | `UserManager`                                 |
+| `handleCallback`                      | Handles the callback data and returns a user object - if the user is valid.                                                                                                                                                                                                                                                                                     | `Promise<User>` or `Promise<OidcClientError>` |
+| `isAuthenticated`                     | Returns true, if the user exists and the user object passes `isValidUser()` check                                                                                                                                                                                                                                                                               | `boolean`                                     |
+| `isRenewing`                          | Returns true, if the user renewal is in progress.                                                                                                                                                                                                                                                                                                               | `boolean`                                     |
+| `login`                               | Calls the `authorization_endpoint` with given parameters. The browser window is redirected and the returned promise fulfils only, if an error occurs when redirecting.                                                                                                                                                                                          | `Promise<never>`                              |
+| `logout`                              | Calls the `end_session_endpoint` with given parameters. The browser window is redirected so the returned promise never fulfils                                                                                                                                                                                                                                  | `Promise<never>`                              |
+| `renewUser`                           | For manual user renewal. The Promise will never reject.                                                                                                                                                                                                                                                                                                         | `Promise<User>`                               |
+| [Table 3: methods of the Oidc client] |
+
+#### Other exported utility functions
+
+| Property                                                | Description                                                   | Return value           |
+| ------------------------------------------------------- | ------------------------------------------------------------- | ---------------------- |
+| `getUserStoreKey`                                       | Returns the session storage key for the user data.            | `User` or `null`       |
+| `getUserFromStorage`                                    | Returns user data from session storage                        | `User` or `null`       |
+| `isUserExpired`                                         | Returns true, if the user is expired                          | `boolean`              |
+| `isValid`                                               | Returns true, if the user is not expired and has access token | `boolean`              |
+| `pickUserToken`                                         | Returns one of the user's tokens: `access`, `id` or `refresh` | `Token` or `undefined` |
+| `createOidcClient`                                      | Creates the Oidc client                                       | `OidcClient`           |
+| [Table 4: other Oidc client and user-related functions] |
+
+#### Signals
+
+State changes, errors and events are emitted as signals. See <InternalLink href="/components/login/signals#listening-to-signals">how to listen to signals.</InternalLink>
+
+The easiest way to listen to signals is to use <InternalLink href="/components/login/hooks#generic-hooks">hooks</InternalLink> for example `useSignalListenerWithReturnValue`:
+
+<PlaygroundPreview>
+
+```jsx
+import { useSignalListenerWithReturnValue, triggerForAllOidcClientSignals } from 'hds-react';
+
+const LogoutIndicator = ()=>{}
+  const [ lastSignal, reset ] = useSignalListenerWithReturnValue( triggerForAllOidcClientSignals );
+
+  if( isLoggingOutSignal( lastSignal ) ){
+    return (<p>Logging out....</p>);
+  }
+}
+```
+
+</PlaygroundPreview>
+
+#### State
+
+When the user does something, the Oidc client's state changes and the UI can indicate it by reacting to the state change signals. The simplest way to react to signals is <InternalLink href="/components/login/hooks">useOidcClientTracking</InternalLink>
+Current state can also be read with <InternalLink href="/components/login/modules#methods">oidcClient.getState()</InternalLink>
+
+There are utility functions for each state change. Use these to check, if the emitted signal contains that state.
+
+| State                         | Description                                      | Utility function to check the signal    |
+| ----------------------------- | ------------------------------------------------ | --------------------------------------- |
+| `NO_SESSION`                  | No valid user exists.                            | `isNoSessionSignal(signal)`             |
+| `LOGGING_IN`                  | State changes to this, when `login()` is called  | `isLoggingInSignal(signal)`             |
+| `HANDLING_LOGIN_CALLBACK`     | Return                                           | `isHandlingLoginCallbackSignal(signal)` |
+| `VALID_SESSION`               | User is found and is valid.                      | `isValidSessionSignal(signal)`          |
+| `LOGGING_OUT`                 | State changes to this, when `logout()` is called | `isLoggingOutSignal(signal)`            |
+| [Table 5: Oidc client states] |
+
+#### Error types
+
+Errors are rarely thrown, they are emitted as error signals, where the error object is in the signal payload. Errors are instances of the OidcClientError. It is an extended Error object with `type` property and multiple `.is...` getters for checking error types.
+The error object also contains the thrown error in `error.originalError` property
+
+| Error type                    | Description                                         | Error object property to check | Utility function to check the signal |
+| ----------------------------- | --------------------------------------------------- | ------------------------------ | ------------------------------------ |
+| `INVALID_OR_EXPIRED_USER`     | Returned user object is expired or invalid          | error.isInvalidUserError       | isInvalidUserErrorSignal(signal)     |
+| `SIGNIN_ERROR`                | Emitted when `handleCallback()` or `login()` failed | error.isSignInError            | isSigninErroSignal(signal)           |
+| `RENEWAL_FAILED`              | User renewal failed                                 | error.isRenewalError           | isRenewalErrorSignal(signal)         |
+| [Table 6: Oidc client errors] |
+
+#### Events
+
+The Oidc client emits also events when an action is complete or starting. The difference between state changes and events is the UI does not usually need to react to events.
+
+| Event type                    | Description                                                                                             | Utility function to check the signal |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `USER_UPDATED`                | User data has changed. Includes also changes to null, if login / renewal fails.                         | isUserUpdatedSignal(signal)          |
+| `USER_RENEWAL_STARTED`        | User is being renewed. Current access_token and api tokens may be invalid until the renewal is complete | isUserRenewalStartedSignal(signal)   |
+| `USER_REMOVED`                | User data was removed. Happens when user logs out or tokens expire.                                     | isUserRemovedSignal(signal)          |
+| [Table 7: Oidc client events] |
+
+#### Signal triggers
+
+Generic triggers for oidcClient signals. These trigger only, if the signal originated from the oidcClient.
+
+| Generic triggers                      | Required signal props to trigger the listener |
+| ------------------------------------- | --------------------------------------------- |
+| `triggerForAllOidcClientSignals`      | Oidc client namespace                         |
+| `triggerForAllOidcClientStateChanges` | Oidc client namespace and type `stateChange`  |
+| `triggerForAllOidcClientEvents`       | Oidc client namespace and type `event`        |
+| `triggerForAllOidcClientErrors`       | Oidc client namespace and type `error`        |
+| [Table 8: Oidc client triggers]       |
+
+State change triggers require the signal to have the Oidc client namespace and type `stateChange`.
+`Signal.payload.type` must contain one the <InternalLink href="/components/login/modules#states">states</InternalLink>.
+
+| State change triggers                        | Required signal props to trigger the listener |
+| -------------------------------------------- | --------------------------------------------- |
+| `loggingOutTrigger`                          | `payload.type` has a matching state           |
+| `loggingInTrigger`                           | `payload.type` has a matching state           |
+| `validSessionTrigger`                        | `payload.type` has a matching state           |
+| `noSessionTrigger`                           | `payload.type` has a matching state           |
+| [Table 9: Oidc client state change triggers] |
+
+Event triggers require the signal to have the Oidc client namespace and type `event`.
+`Signal.payload.type` contains one the <InternalLink href="/components/login/modules#events">events</InternalLink>.
+
+| Event triggers                         | Required signal props to trigger the listener |
+| -------------------------------------- | --------------------------------------------- |
+| `userRemovedTrigger`                   | `payload.type` has a matching event           |
+| `userRenewalStartedTrigger`            | `payload.type` has a matching event           |
+| `userUpdatedTrigger`                   | `payload.type` has a matching event           |
+| [Table 10: Oidc client event triggers] |
+
+Error triggers require the signal to have the Oidc client namespace and type `error`.
+`Signal.payload.type` contains one the <InternalLink href="/components/login/modules#errors">errors</InternalLink>.
+
+| Error triggers                         | Required signal props to trigger the listener |
+| -------------------------------------- | --------------------------------------------- |
+| `renewalErrorTrigger`                  | `payload.type` has a matching error           |
+| `invalidUserErrorTrigger`              | `payload.type` has a matching error           |
+| `signInErrorTrigger`                   | `payload.type` has a matching error           |
+| [Table 11: Oidc client error triggers] |
+
+### Getting signal payloads
+
+Sometimes the significant part of a signal is the payload. There are predefined payload getters for the Oidc client.
+If the given signal is not from Oidc client or is not the given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                 | Returns                                            |
+| ---------------------------------------------- | -------------------------------------------------- |
+| `getOidcClientStateChangePayload`              | `null` or `{state, previousState}`                 |
+| `getOidcClientEventPayload`                    | `null` or `{type, data}`. The data is usually user |
+| `getOidcClientErrorPayload`                    | `null` or `OidcClientError` object                 |
+| [Table 12: Oidc client signal payload getters] |
+
+<PlaygroundPreview>
+
+```jsx
+import {
+  useSignalListenerWithReturnValue,
+  triggerForAllOidcClientSignals,
+  getOidcClientStateChangePayload,
+  oidcClientStates,
+} from 'hds-react';
+
+const StateChangeIndicator = () => {
+  const [lastSignal, reset] = useSignalListenerWithReturnValue(triggerForAllOidcClientSignals);
+  const payload = lastSignal ? getOidcClientStateChangePayload(lastSignal) : null;
+  if (payload && payload.state === oidcClientStates.LOGGING_OUT) {
+    return <p>Logging out....</p>;
+  }
+};
+```
+
+</PlaygroundPreview>
+
+#### Hooks
+
+Oidc client hooks are listed in the <InternalLink href="/components/login/hooks#oidc-client-hooks">hooks</InternalLink> section.
+
+#### Silent renew
+
+The <ExternalLink href="https://github.com/authts/oidc-client-ts">oidc-client-ts</ExternalLink> uses `silent_renew.html `for user token renewal. Save this file to your server and place to url to settings as `silent_redirect_uri`.
+
+<PlaygroundPreview>
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Silent renewal</title>
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client-ts/2.2.2/browser/oidc-client-ts.min.js"
+      integrity="sha512-pt8b5O4w5Y9/xZpIhPN8Soo/YbC95SxHn0P/Mu39iYB2Ih/09TMS3Id5XPqve2f8DPC6voXOzgQNojCuqO6A4w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      var mgr = new oidc.UserManager({});
+      mgr.signinSilentCallback().catch(error => {
+        console.error('silent_renew.html error', error);
+      });
+    </script>
+  </body>
+</html>
+```
+
+</PlaygroundPreview>
+
+### Api tokens client
+
+The api tokens client listens to the Oidc client signals and waits until the user is authenticated and then fetches the api tokens. It retries if fetch fails and terminates when max retries are reached.
+When the user is expiring and renews, api tokens are also renewed automatically.
+
+#### Requirements
+
+URL where to get the tokens from. A user's access token is also required, so the user must be authenticated to fetch api tokens.
+
+#### Settings
+
+| Property                               | Description                                                    | Default value |
+| -------------------------------------- | -------------------------------------------------------------- | ------------- |
+| `url`                                  | Required. Url to the api tokens endpoint.                      | none          |
+| `maxRetries`                           | Optional. The number of max retries until fetching is stopped. | 4             |
+| `retryInterval`                        | Optional. Waiting time between failed requests.                | 500           |
+| [Table 13: Api tokens client settings] |
+
+#### Methods
+
+| Property                              | Description                                  | Return value      |
+| ------------------------------------- | -------------------------------------------- | ----------------- |
+| `fetch`                               | Fetches the tokens from the given uri        | `Promise<Tokens>` |
+| `getTokens`                           | Gets locally stored tokens                   | `Tokens`          |
+| `clear`                               | Cancels fetch and removes all data           | none              |
+| `isRenewing`                          | Returns true if tokens are currently fetched | `boolean`         |
+| [Table 14: Api tokens client methods] |
+
+#### Other exported utility functions
+
+| Property                                              | Description                                       | Return value       |
+| ----------------------------------------------------- | ------------------------------------------------- | ------------------ |
+| `getApiTokensFromStorage`                             | Gets the api tokens from session storage          | `Tokens` or `null` |
+| `removeApiTokensFromStorage`                          | Removes the api tokens from session storage       | none               |
+| `setApiTokensToStorage`                               | Sets the api tokens to storage                    | none               |
+| `getUserReferenceFromStorage`                         | Gets the user's access token used as reference    | `string`           |
+| `removeUserReferenceFromStorage`                      | Removes the user's access token used as reference | none               |
+| `setUserReferenceToStorage`                           | Sets the user's access token used as reference    | none               |
+| `createApiTokenClient`                                | Creates the client                                | `ApiTokensClient`  |
+| [Table 15: other Api tokens client related functions] |
+
+#### States
+
+Api tokens client has no state changes.
+
+#### Error types
+
+Returned errors are instances of the ApiTokensClientError. It is an extended Error object with type property and multiple .is... getters for checking error types. The error object also contains the thrown error in error.originalError property
+
+| Error type                           | Description                        | Error object property to check    | Utility function to check the signal        |
+| ------------------------------------ | ---------------------------------- | --------------------------------- | ------------------------------------------- |
+| `API_TOKEN_FETCH_FAILED`             | Fetch failed                       | error.isFetchError                | `isApiTokensFetchFailedErrorSignal(signal)` |
+| `INVALID_API_TOKENS`                 | Returned object is an invalid json | error.isInvalidTokensError        | `isInvalidApiTokensErrorSignal(signal)`     |
+| `INVALID_USER_FOR_API_TOKENS`        | User is not valid                  | error.isInvalidApiTokensUserError | `isInvalidApiTokensUserErrorSignal(signal)` |
+| [Table 16: Api tokens client errors] |
+
+#### Events
+
+The Api tokens client emits also events when an action is complete or starting.
+
+| Event type                           | Description                                                                      | Utility function to check the signal      |
+| ------------------------------------ | -------------------------------------------------------------------------------- | ----------------------------------------- |
+| `API_TOKENS_UPDATED`                 | Tokens have changed. Includes also changes to null.                              | `isApiTokensUpdatedSignal(signal)`        |
+| `API_TOKENS_RENEWAL_STARTED`         | Api tokens are renewed. Happens usually right after user renewal                 | `isApiTokensRenewalStartedSignal(signal)` |
+| `API_TOKENS_REMOVED`                 | Tokens have been removed. Happens usually when the user object has been removed. | `isApiTokensRemovedSignal(signal)`        |
+| [Table 17: Api tokens client events] |
+
+#### Signal triggers
+
+Triggers for Api tokens client signals. These trigger signals only originated from the apiTokensClient.
+
+| Generic triggers                       | Required signal props to trigger the listener |
+| -------------------------------------- | --------------------------------------------- |
+| `triggerForAllApiTokensClientSignals`  | Api tokens client namespace                   |
+| `triggerForAllApiTokensClientEvents`   | Api tokens client namespace and type `event`  |
+| `triggerForAllApiTokensClientErrors`   | Api tokens client namespace and type `error`  |
+| [Table 18: Api tokens client triggers] |
+
+Event triggers require the signal to have Api tokens client namespace and type `event`.
+`Signal.payload.type` contains one the <InternalLink href="/components/login/modules#events-1">events</InternalLink>.
+
+| Event triggers                               | Required signal props to trigger the listener |
+| -------------------------------------------- | --------------------------------------------- |
+| `apiTokensRemovedTrigger`                    | `payload.type` has a matching event           |
+| `apiTokensRenewalStartedTrigger`             | `payload.type` has a matching event           |
+| `apiTokensUpdatedTrigger`                    | `payload.type` has a matching event           |
+| [Table 19: Api tokens client event triggers] |
+
+Error triggers require the signal to have Api tokens client namespace and type `error`.
+`Signal.payload.type` contains one the <InternalLink href="/components/login/modules#errors-1">errors</InternalLink>.
+
+| Error triggers                               | Required signal props to trigger the listener |
+| -------------------------------------------- | --------------------------------------------- |
+| `invalidApiTokensErrorTrigger`               | `payload.type` has a matching error           |
+| `apiTokensFetchFailedErrorTrigger`           | `payload.type` has a matching error           |
+| `invalidApiTokensUserErrorTrigger`           | `payload.type` has a matching error           |
+| [Table 20: Api tokens client error triggers] |
+
+### Getting signal payloads
+
+Sometimes the significant part of a signal is the payload. There are predefined payload getters for the Api tokens client.
+If the given signal is not from Api tokens client or is not given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                       | Returns                                     |
+| ---------------------------------------------------- | ------------------------------------------- |
+| `getApiTokensClientEventPayload`                     | null or {type, data} data is usually tokens |
+| `getApiTokensClientErrorPayload`                     | null or ApiTokensError object               |
+| [Table 21: Api tokens client signal payload getters] |
+
+#### Hooks
+
+Api tokens client hooks are listed in the <InternalLink href="/components/login/hooks#api-tokens-client-hooks">hooks section</InternalLink>
+
+### Session poller
+
+The user's session could end outside of the current browser window. The Session poller calls the userinfo endpoint and notifies when it receives an unauthorized or forbidden response.
+Successes and other errors are ignored.
+
+#### Requirements
+
+Polling requires a user and the userManager from the Oidc client. The polling endpoint is fetched from userManager's metadata.
+
+#### Settings
+
+| Property                            | Description                           | Default value |
+| ----------------------------------- | ------------------------------------- | ------------- |
+| `pollIntervalInMs`                  | Optional. Waiting time between polls. | 60000ms       |
+| [Table 22: Session poller settings] |
+
+#### Methods
+
+| Property                           | Description                                                                                     | Return value |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- | ------------ |
+| `start`                            | Starts the polling. The first check is done after pollIntervalInMs is expired. Not immediately. |              |
+| `stop`                             | stops the polling and aborts current request, if any.                                           | `Tokens`     |
+| [Table 23: Session poller methods] |
+
+#### Other exported functions
+
+| Property                                   | Description        | Return value    |
+| ------------------------------------------ | ------------------ | --------------- |
+| `createSessionPoller`                      | Creates the poller | `SessionPoller` |
+| [Table 24: Other Session poller functions] |
+
+#### States
+
+Session poller has no state changes.
+
+#### Error types
+
+Returned errors are instances of the SessionPollerError. It is an extended Error object with type property and multiple .is... getters for checking error types. The error object also contains the thrown error in error.originalError property
+
+| Error type                                   | Description                                           | Error object property to check | Utility function to check the signal  |
+| -------------------------------------------- | ----------------------------------------------------- | ------------------------------ | ------------------------------------- |
+| `SESSION_ENDED`                              | Server returned forbidden or unauthorized status code | error.isSessionEnded           | isSessionEndedSignal(signal)          |
+| `SESSION_POLLING_FAILED`                     | Polling has failed and max retries have been reached  | error.isSessionPollingFailure  | isSessionPollingFailureSignal(signal) |
+| [Table 25: Other Session poller error types] |
+
+#### Events
+
+The Session poller emits also events when an action is complete or starting.
+
+| Event type                                   | Description          | Utility function to check the signal   |
+| -------------------------------------------- | -------------------- | -------------------------------------- |
+| `SESSION_POLLING_STARTED`                    | polling have started | `isSessionPollerStartedSignal(signal)` |
+| `SESSION_POLLING_STOPPED`                    | polling have stopped | `isSessionPollerStoppedSignal(signal)` |
+| [Table 26: Other Session poller event types] |
+
+#### Signal triggers
+
+Triggers for Session poller signals. These trigger signals only originated from the apiTokensClient.
+
+| Generic triggers                    | Required signal props to trigger the listener |
+| ----------------------------------- | --------------------------------------------- |
+| `triggerForAllSessionPollerSignals` | Session poller namespace                      |
+| `triggerForAllSessionPollerEvents`  | Session poller namespace and type `event`     |
+| `triggerForAllSessionPollerErrors`  | Session poller namespace and type `error`     |
+| [Table 27: Session poller triggers] |
+
+Event triggers require the signal to have Session poller namespace and type `event`.
+`Signal.payload.type` contains one the <InternalLink href="/components/login/modules#events-2">events</InternalLink>.
+
+| Event triggers                            | Required signal props to trigger the listener |
+| ----------------------------------------- | --------------------------------------------- |
+| `sessionPollingStoppedTrigger`            | `payload.type` has a matching event           |
+| `sessionPollingStartedTrigger`            | `payload.type` has a matching event           |
+| [Table 28: Session poller event triggers] |
+
+Error triggers require the signal to have Session poller namespace and type `error`.
+`Signal.payload.type` contains one the <InternalLink href="/components/login/modules#errors-2">errors</InternalLink>.
+
+| Error triggers                            | Required signal props to trigger the listener |
+| ----------------------------------------- | --------------------------------------------- |
+| `sessionEndedTrigger`                     | `payload.type` has a matching error           |
+| `sessionPollingFailedTrigger`             | `payload.type` has a matching error           |
+| [Table 29: Session poller error triggers] |
+
+### Getting signal payloads
+
+Sometimes the significant part of a signal is the payload. There are predefined payload getters for the Session poller.
+If the given signal is not from Session poller or is not given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                    | Returns                                     |
+| ------------------------------------------------- | ------------------------------------------- |
+| `getSessionPollerEventPayload`                    | null or {type, data} data is usually tokens |
+| `getSessionPollerErrorPayload`                    | null or SessionPollerError object           |
+| [Table 30: Session poller signal payload getters] |
+
+#### Hooks
+
+Session poller hooks are listed in the <InternalLink href="/components/login/hooks#session-poller-hooks">hooks section</InternalLink>
+
+## Custom modules
+
+Other modules can be added. More info in <InternalLink href="/components/login/customisation">custom modules</InternalLink>

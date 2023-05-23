@@ -1,0 +1,249 @@
+---
+slug: '/components/signals'
+title: 'Login - Signals'
+---
+
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+import ExternalLink from '../../../components/ExternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Signals
+
+Modules communicate with signals. A module emits signals and listener functions are triggered by them. Listener functions can be added by other modules or they can be standalone functions for example in React components.
+
+### Signal
+
+A signal is an object with the following properties:
+
+| Property                            | Description                                                                                                                                                                               | Value type |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `type`                              | Required. Type of the signal. Can be any string, but HDS emits `init`, `error`, `event` and `stateChange` signals                                                                         | `string`   |
+| `namespace`                         | Required. The namespace is the name of the module that emitted the signal.                                                                                                                | `string`   |
+| `payload`                           | Optional. The pyload contains metadata. For example type of the event. A payload can also be an Error object                                                                              | unknown    |
+| `context`                           | Optional. The emitting module instance. For example an Oidc client instance. This is not required, but if missing, the beacon will set it by finding the context with `signal.namespace`. | `object`   |
+| [Table 1: Signal object properties] |
+
+### Important
+
+Like in React, once a signal (event in React) is emitted, it is destroyed after all listeners have been called. Copy the object, if it is needed for later use.
+
+### Beacon
+
+The beacon is the controller of all signals and listeners. It emits all signals and connects all modules. It also stores all modules.
+A module is connected by calling `beacon.addContext(module)`. Beacon then calls `module.connect()` with the beacon as the only argument. After that, the module can listen to and emit signals.
+
+#### Beacon methods
+
+| Name                                | Arguments                                                                                      | Return values                               |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `emit(signal)`                      | A signal to emit                                                                               | none                                        |
+| `addListener(signalProps, trigger)` | Signal props that trigger the listener or ready-made trigger function                          | Disposer function that removes the listener |
+| `addSignalContext(module)`          | Adds a module and its context. The `connect` method of the added module is called immediately. | Disposer function to remove context         |
+| `getSignalContext(module)`          | Returns context for the given namespace                                                        | Context module or undefined                 |
+| `getAllSignalContextsAsObject()`    | Returns all stored contexts as on object of {[context.namespace]:context}                      | Object                                      |
+| `clear()`                           | Removes all data                                                                               | none                                        |
+| [Table 2: beacon methods]           |
+
+### Signal types and payloads
+
+| Signal type                          | Importable variable     | Payload                                                                                                                                    |
+| ------------------------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `event`                              | `eventSignalType`       | Usually `{type:event type}` indicating what kind of event is emitted. May also have `data` property containing for example User or Tokens. |
+| `error`                              | `errorSignalType`       | Payload is an error object. This way payload.type matches error.type.                                                                      |
+| `stateChange`                        | `stateChangeSignalType` | `{state, previousState}` New state and the previous state, if any                                                                          |
+| `init`                               | `initSignalType`        | Emitted when all modules are connected and everything is ready. Emitted only once. Note that modules may emit other signals before this.   |
+| [Table 3: signal types and payloads] |
+
+Custom modules may emit any other kind of signals with different payloads.
+
+### Emitting signals
+
+<PlaygroundPreview>
+
+```jsx
+const error  = new OidcClientError('Failed', oidcClientError.SIGNIN_ERROR),
+
+// this is the same as
+beacon.emit({
+  type: errorSignalType,
+  namespace: 'teamHDS',
+  payload: error,
+});
+
+// this
+beacon.emit(createErrorSignal('teamHDS', error));
+
+// and this - if custom, namespaced beacon is created for 'teamHDS'
+customBeacon.emitError(error);
+
+```
+
+</PlaygroundPreview>
+
+See also <InternalLink href="/components/login/customisation#custom-beacon-functions-for-modules">custom namespaced beacons</InternalLink>.
+
+### Listening to signals
+
+A signal listener is a function which receives one argument: the signal. A listener can listen to all signals or just one type or signal with a certain namespace.
+Listeners can be even more specific and listen to signals with certain payloads. In short, a listener can listen to any properties of the signal and is triggered when all properties match.
+
+The listener is called only if the emitted signal matches the given props.
+
+For example, if the trigger props (first argument) passed to `beacon.addListener(trigger, listener)` is `{ type:'error' }`, the listener (second argument) is called when the emitted signal has a matching type. It does not matter what other props the signal has.
+
+If the trigger props are `{ namespace:'myModule', payload:{type:'click'} }`, the emitted signal must have those properties with the same, exact values. Other properties are not checked.
+
+The trigger can also be a function. Internally all triggers are converted to functions.
+
+<PlaygroundPreview>
+
+```jsx
+const listener = (signal) => {
+  // do something with the signal.
+};
+// listen to all error signals
+const trigger = { type: 'error' };
+const disposer = beacon.addListener(trigger, listener);
+// the listener can be removed by calling the returned disposer
+disposer();
+```
+
+</PlaygroundPreview>
+Instead of writing signal types as strings, it is better to use predefined triggers:
+
+- <InternalLink href="/components/login/modules#signals">Oidc client triggers</InternalLink>
+- <InternalLink href="/components/login/modules#signals-1">Api tokens client triggers</InternalLink>
+- <InternalLink href="/components/login/modules#signals-2">Session poller triggers</InternalLink>
+- or call generic trigger creators
+
+### Generic triggers
+
+Generic `create...` functions create trigger functions from given props. Creator functions are not objects, so they can be used to create triggers for multiple namespaces, payloads and so on.
+
+| Trigger creator                                                  | Arguments                                                                                 | Default        |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------- |
+| `createTriggerPropsForAllSignals(namespace)`                     | namespace to listen to. If omitted listens to all signals                                 | all namespaces |
+| `createTriggerForAllNamespaces()`                                | Listens to all signals in any namespace.                                                  | none           |
+| `createStateChangeTriggerProps(namespace, state, previousState)` | namespace to listen to. Given state and previousState must also match. Both are optional. | all namespaces |
+| `createInitTriggerProps(namespace)`                              | namespace to listen to. Listens only to `init` signals                                    | all namespaces |
+| `createEventTriggerProps(namespace,type)`                        | namespace and payload.type to listen to. Listens only to `event` signals                  | all namespaces |
+| `createErrorTriggerProps(namespace,type)`                        | namespace and payload.type to listen to. Listens only to `error` signals                  | all namespaces |
+| [Table 4: Generic trigger creators]                              |
+
+<PlaygroundPreview>
+
+```jsx
+import createStateChangeTriggerProps from 'hds-react';
+const disposer = beacon.addListener(createStateChangeTriggerProps(), (signal) => {
+  // do something with the signal.
+});
+```
+
+</PlaygroundPreview>
+
+Ses also <InternalLink href="/components/login/hooks#hooks">hooks</InternalLink>.
+
+### Generic signal utility functions
+
+### Create
+
+Signals are easier to create with functions than manually setting all properties
+
+| Function                                                   | Description                                                                   |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `createErrorSignal(namespace, payload)`                    | Creates an error signal with the given namespace and error payload            |
+| `createEventSignal(namespace, payload)`                    | Creates an event signal with the given namespace and event payload            |
+| `createStateChangeSignal(namespace, state, previousState)` | Creates a stateChange signal with the given namespace and stateChange payload |
+| [Table 5: Generic signal creators]                         |
+
+### Check
+
+Check signal type or namespace with these utilities
+
+| Function                                | Description                                              |
+| --------------------------------------- | -------------------------------------------------------- |
+| `isErrorSignal(signal)`                 | Returns true if the given signal is an error signal      |
+| `isEventSignal(signal)`                 | Returns true if the given signal is an event signal      |
+| `isInitSignal(signal)`                  | Returns true if the given signal is an init signal       |
+| `isStateChangeSignal(signal)`           | Returns true if the given signal is a stateChange signal |
+| `isNamespacedSignal(signal, namespace)` | Returns true if the given signal has given namespace     |
+| [Table 6: Generic signal checks]        |
+
+### Get payloads
+
+Returns signal payload if the signal type is a match
+
+| Function                              | Description                                              |
+| ------------------------------------- | -------------------------------------------------------- |
+| `getErrorSignalPayload(signal)`       | Returns payload if the given signal is an error signal   |
+| `getEventSignalPayload(signal)`       | Returns true if the given signal is an event signal      |
+| `getStateChangeSignalPayload(signal)` | Returns true if the given signal is a stateChange signal |
+| [Table 7: Generic payloads getters]   |
+
+### Convert and filter
+
+| Function                                       | Description                                                                       |
+| ---------------------------------------------- | --------------------------------------------------------------------------------- |
+| `convertSignalToTrigger(signal)`               | Removes context from the signal, if property exists. Given signal is not mutated. |
+| `filterSignals(arrayOfSignals, matchingProps)` | Filters signals from the array. Returns signals which match given props.          |
+| [Table 8: Convert and filter signals]          |
+
+### waitForSignals
+
+The function returns a promise which is resolved, when given signal(s) have been detected. Or it rejects the promise when a signal in an optional rejection list is given.
+
+The function can be used for racing conditions, for example waiting for a user renewal success or error, whichever comes first.
+
+Or wait for a longer set of emitted signals from the start of user renewal to the end of api token renewal.
+
+The promise is created with `waitForSignals(beaconInstance, arrayOfTriggers, options )`
+
+When the promise is resolved, it returns an array of received signals. If it is rejected, an error is returned.
+
+| Argument                          | Type       | Description                                                                                                                                  | Default |
+| --------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `beaconInstance`                  | `Beacon`   | Beacon instance where listeners are added.                                                                                                   | none    |
+| `arrayOfTriggers`                 | `Object[]` | Array of signals/signal props to match. Each array signal is checked once and removed when it matches                                        | none    |
+| `options`                         | `Object `  | Optional                                                                                                                                     | none    |
+| `options.allowSkipping`           | `boolean`  | If true, and triggers are in order A, B, C, D and signal "C" is received. "A", "B", "C" are all removed from array and are not checked again | true    |
+| `options.strictOrder`             | `boolean`  | If true, signals are not tracked in strict order. If true and signals are received in the wrong order, the promise is rejected               | false   |
+| `options.rejectOn`                | `Object[]` | Array of signals/signal props, which cause promise rejection, if match is found                                                              | none    |
+| [Table 9: waitForSignals utility] |
+
+There is no timeout. The promise can be rejected by setting a custom signal type to `options.rejectOn` and emit a matching signal.
+
+<PlaygroundPreview>
+
+```jsx
+import { waitForSignals, userRenewalStartedTrigger } from 'hds-react';
+const createMyCustomModule = (): ConnectedModule => {
+  let beacon: Beacon | undefined;
+  const myCustomRejectSignal = { type: 'reject', namespace: 'myNamespace' };
+  const listener = (signal) => {
+    setTimeout(() => {
+      beacon.emit(myCustomRejectSignal);
+    }, 20000);
+    waitForSignals(beacon, [isUserUpdatedSignal], {
+      rejectOn: [isUserRemovedSignal, isRenewalErrorSignal, myCustomRejectSignal],
+    })
+      .then((signals) => {
+        //
+      })
+      .catch((error) => {
+        //
+      });
+  };
+  return {
+    namespace: helperNamespace,
+    connect: (targetBeacon) => {
+      beacon = targetBeacon;
+      beacon.addListener(userRenewalStartedTrigger, listener);
+    },
+  };
+};
+```
+
+</PlaygroundPreview>

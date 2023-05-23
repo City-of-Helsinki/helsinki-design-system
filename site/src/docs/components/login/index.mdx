@@ -1,0 +1,74 @@
+---
+slug: '/components/login'
+title: 'Login'
+navTitle: 'Login'
+---
+
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+import ExternalLink from '../../../components/ExternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Introduction
+
+HDS Login components include React components, context and hooks for handling user authorisation, api tokens and session polling. React is not a requirement to use the login modules, but currently, no plain javascript UI components exist.
+
+Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses <ExternalLink href="https://github.com/City-of-Helsinki/tunnistamo">Tunnistamo</ExternalLink>, but HDS login components can be used with any compatible OIDC provider.
+
+Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
+
+In the OIDC login process, the browser window is redirected to the OIDC provider. Authentication is fully handled by the server. That is why HDS does not provide login or registration forms.
+
+When the user has been authenticated, the OIDC server redirects back to the service. HDS provides components to handle authentication process initiation and responses.
+
+Components:
+
+- a login button with error handling
+- a callback handler for parsing the authentication response
+- React context which exposes user data and other modules to React hooks and components.
+- wrappers which conditionally render their children depending on authentication status.
+
+There is no component for logout. It is just a redirection link and any button can be used for it. No error handling is required.
+
+Detailed documentation can be found in the <InternalLink href="/components/login/components">components</InternalLink> section.
+
+## Requirements
+
+To use an OIDC provider you need a client id, authority and register callback URLs. Contact xxxx@hel.fi to register your application to Tunnistamo.
+
+## Important
+
+HDS Oidc client stores data in the session storage for security reasons. Session storage is not shared across browser windows or tabs, so the user must log in separately to each window.
+
+## Example Usage
+
+<PlaygroundPreview>
+
+```jsx
+// actual properties are omitted from this example to keep it simple
+const providerProperties = {...}
+
+const SayHelloIfUserExists = () => {
+  const user = useAuthenticatedUser();
+  if( user ) {
+    <p>Hello, { user.name }!</p>
+  } else {
+    <p>You are not logged in.</p>
+    <LoginButton errorText="Login failed. Try again!">Log in</LoginButton>
+  }
+}
+
+<LoginProvider {...providerProperties}>
+  <SayHelloIfUserExists />
+</LoginProvider>
+
+```
+
+</PlaygroundPreview>
+
+## Using without React
+
+When React is not used, the beacon and modules can be created and initialized with `createLoginSystem(props)`. Props are the same as passed to <InternalLink href="/components/login/components#loginprovider">LoginProvider</InternalLink>. The function returns a <InternalLink href="/components/login/signals#the-beacon">beacon</InternalLink> instance which holds all modules.
+There are dozens of utility functions to use without React. See <InternalLink href="/components/login/modules">modules</InternalLink> and <InternalLink href="/components/login/modules">signals</InternalLink>.

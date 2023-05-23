@@ -267,6 +267,14 @@
     }
   },
   {
+    "name": "Login",
+    "text": "Login related hooks and modules",
+    "linkboxAriaLabel": "Login component",
+    "linkAriaLabel": "Go to the Login component page",
+    "href": "/components/login",
+    "imgProps": { "src": "", "alt": "An illustration of the Login component.", "height": 180, "width": 280 }
+  },
+  {
     "name": "Logo",
     "text": "The logo is used to identify the service as an official City of Helsinki service.",
     "linkboxAriaLabel": "Logo component",

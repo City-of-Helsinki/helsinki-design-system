@@ -1,0 +1,169 @@
+---
+slug: '/components/login/hooks'
+title: 'Login - Hooks'
+---
+
+import { Login } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Hooks
+
+Hooks are the easiest way to listen to signals. Most hooks return the last triggered signal and re-renders the component. Re-rendering is done only if the listener returns true. So listeners added by hooks must return a boolean.
+
+Hooks dispose of the listeners when the component unmounts.
+
+### Generic hooks
+
+| Hook                                                    | Arguments                                                                                                                                                                                          | Return value                                                                                                                   |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `useSignalListener(listener)`                           | The listener function. There are no trigger props. The listener is always called when any signal is emitted in any namespace. The listener should return `true` if the component should re-render. | An array of `[Signal or undefined, ()=>void]`. Latter is a reset function which clears the signal and re-render the component. |
+| `useSignalTrackingWithReturnValue(triggerProps)`        | Signal props need to match the incoming signal to trigger re-rendering. The hook creates a trigger from the props and re-renders if trigger returns `true`.                                        | Same as above                                                                                                                  |
+| `useSignalTrackingWithCallback(triggerProps, callback)` | Signal props need to match the incoming signal to trigger the callback function. The hook never causes a re-render. The callback must do it.                                                       | none                                                                                                                           |
+| [Table 1: Generic signal listener hooks]                |
+
+**Important!** The listener passed to `useSignalListener` must be memoized or the hook will attach a new listener on each render because the props changed. The old one is disposed but to avoid unnecessary listeners, use memoization with `useMemo` or `useCallback`
+Note that all `triggerFor...` functions are constants and do not need memoization.
+
+`useSignalTrackingWithReturnValue` and `useSignalTrackingWithCallback` store their arguments to React refs, so memoization is not needed.
+
+The array returned by the `useSignalListener` and the `useSignalTrackingWithReturnValue` have the last signal, if any, and a reset function which clears the last signal. This can be used for tracking certain errors and then resetting the array, when the user has seen a notification about the error.
+
+Hooks cannot emit signals.
+
+<PlaygroundPreview>
+
+```jsx
+import {
+  useSignalListener,
+  useSignalListenerWithReturnValue,
+  triggerForAllSessionPollerErrors,
+  isSessionEndedSignal,
+} from 'hds-react';
+
+const ListenerComponent = () => {
+  const [ showDialog, setShowDialog ] = useState(false);
+    // listener function must be memoized when useSignalListener is used!
+  const myListener = useCallback(( signal )=>{
+    if( isSessionEndedSignal(signal) ){
+      setShowDialog(true)
+    }
+  },[]);
+  useSignalListener(myListener);
+  if ( showDialog ) {
+    return <Dialog ... />
+  }
+};
+
+const ListenerComponentWithReturnValue = () => {
+  const [showDialog, setShowDialog] = useState(false);
+  const [sessionEndedSignal] = useSignalTrackingWithReturnValue(triggerForAllSessionPollerErrors);
+  if(isSessionEndedSignal(sessionEndedSignal)){
+    setShowDialog(true)
+  }
+  if (showDialog) {
+    return <Dialog ... />
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Oidc client hooks
+
+| Hook                         | Description                                                                                                                                                  | Return value                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
+| `useOidcClient`              | Returns the Oidc client,                                                                                                                                     | `OidcClient`                                  |
+| `useAuthenticatedUser`       | Returns a user object, if it is valid and authenticated and passes <InternalLink href="/components/login/modules#methods">isValidUser()</InternalLink> check | `User` or `null`                              |
+| `useCachedAmr`               | Returns the user's amr value. It is cached because in some cases it must be decrypted from id_token.                                                         | `string[]`                                    |
+| `useOidcClientTracking`      | Returns an array of `[Signal, resetFunction, oidcClient instance]`. The hook forces the component using it to re-render each time the listener is triggered  | `[Signal or undefined, ()=>void, OidcClient]` |
+| [Table 2: Oidc client hooks] |
+
+<PlaygroundPreview>
+
+```jsx
+import { useOidcClient, useOidcClientTracking, useAuthenticatedUser, useCachedAmr } from 'hds-react';
+
+const OidcClientHooks = () => {
+  const client = useOidcClient();
+  const [lastSignal, reset, oidcClient] = useOidcClientTracking();
+  const user = useAuthenticatedUser();
+  const amr = useCachedAmr();
+  if (user) {
+    return <p>Your amr is: {amr ? amr[0] : 'none'}</p>;
+  } else {
+    return (
+      <Button
+        onClick={() => {
+          client.login();
+        }}
+      >
+        Log in!
+      </Button>
+    );
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Api tokens client hooks
+
+| Hook                               | Description                                                                                                                                                      | Return value                                       |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `useApiTokensClient`               | Returns the Api tokens client                                                                                                                                    | `ApiTokensClient`                                  |
+| `useApiTokens`                     | Returns functions for checking tokens and status of renewal                                                                                                      | `{getStoredApiTokens(), isRenewing()}`             |
+| `useApiTokensClientTracking`       | Returns an array of `[Signal, resetFunction, apiTokensClient instance]`. The hook forces the component using it to re-render each time the listener is triggered | `[Signal or undefined, ()=>void, ApiTokensClient]` |
+| [Table 3: Api tokens client hooks] |
+
+<PlaygroundPreview>
+
+```jsx
+import { useApiTokensClient, useApiTokens, useApiTokensClientTracking } from 'hds-react';
+
+const ApiTokensClientHooks = () => {
+  const client = useApiTokensClient();
+  const { getStoredApiTokens, isRenewing } = useApiTokens();
+  const [lastSignal, reset, apiTokensClient] = useApiTokensClientTracking();
+  if (isRenewing()) {
+    return <p>Your api tokens are renewed!</p>;
+  }
+  if (getStoredApiTokens()) {
+    return <p>You have api tokens!</p>;
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Session poller hooks
+
+| Hook                            | Description                                                                                                                                                    | Return value                                     |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `useSessionPoller`              | Returns the Session poller,                                                                                                                                    | `SessionPoller`                                  |
+| `useSessionPollerTracking`      | Returns an array of `[Signal, resetFunction, sessionPoller instance]`. The hook forces the component using it to re-render each time the listener is triggered | `[Signal or undefined, ()=>void, SessionPoller]` |
+| [Table 4: Session poller hooks] |
+
+<PlaygroundPreview>
+
+```jsx
+import { useSessionPoller, useSessionPollerTracking } from 'hds-react';
+
+const SessionPollerHooks = () => {
+  const poller = useSessionPoller();
+  const [lastSignal, reset, sessionPoller] = useSessionPollerTracking();
+  if (isSessionPollerStoppedSignal(lastSignal)) {
+    <Button
+      onClick={() => {
+        poller.start();
+      }}
+    >
+      Start polling!
+    </Button>;
+  }
+};
+```
+
+</PlaygroundPreview>

@@ -1,0 +1,21 @@
+---
+slug: '/components/login/tabs'
+title: 'Login'
+---
+
+import PageTabs from '../../../components/PageTabs';
+
+# Login
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Intro</PageTabs.Tab>
+    <PageTabs.Tab href="/components">Components</PageTabs.Tab>
+    <PageTabs.Tab href="/modules">Modules</PageTabs.Tab>
+    <PageTabs.Tab href="/signals">Signals</PageTabs.Tab>
+    <PageTabs.Tab href="/hooks">Hooks</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>

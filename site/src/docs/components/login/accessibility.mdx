@@ -1,0 +1,14 @@
+---
+slug: '/components/login/accessibility'
+title: 'Login - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+Currently the OIDC provider,Tunnistamo, does not inform users that they are being redirected and will redirected back.
+
+HDS LoginButton shows only errors and does not inform about the redirection, because Tunnistamo should do it.
