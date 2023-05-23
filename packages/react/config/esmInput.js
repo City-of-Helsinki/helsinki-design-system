@@ -1,5 +1,6 @@
 const esmInput = {
   'components/Accordion/index': 'src/components/accordion/index.ts',
+  'components/Breadcrumb/index': 'src/components/breadcrumb/index.ts',
   'components/Button/index': 'src/components/button/index.ts',
   'components/Card/index': 'src/components/card/index.ts',
   'components/Checkbox/index': 'src/components/checkbox/index.ts',
