@@ -151,8 +151,27 @@ const DefaultContent = (props: DefaultContentProps) => {
   const { title, text, buttonTheme } = props;
   const h1Text = title || 'Welcome to the hero story';
   const paragraphText = text || defaultText;
-  const blackButtonStyle = { '--background-color': '#000', '--color': '#fff', '--border-color': '#000' };
-  const whiteButtonStyle = { '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' };
+  const blackButtonStyle = {
+    '--background-color': '#000',
+    '--color': '#fff',
+    '--border-color': '#000',
+    '--color-focus': '#fff',
+    '--background-color-focus': '#000',
+    '--background-color-hover': '#fff',
+    '--background-color-hover-focus': '#fff',
+  };
+  const whiteButtonStyle = {
+    '--background-color': '#fff',
+    '--color': '#000',
+    '--border-color': '#fff',
+    '--color-focus': '#000',
+    '--color-hover': '#fff',
+    '--color-hover-focus': '#fff',
+    '--background-color-focus': '#fff',
+    '--background-color-hover': '#000',
+    '--border-color-hover': '#fff',
+    '--background-color-hover-focus': '#000',
+  };
   const buttonStyle = buttonTheme !== 'black' ? whiteButtonStyle : blackButtonStyle;
   return (
     <>
