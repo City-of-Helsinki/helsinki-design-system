@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
@@ -25,7 +25,7 @@ const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
 HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
 
-export function HeaderContextProvider({ children }: PropsWithChildren<HeaderContextType>) {
+export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const isNotLargeScreen = useMediaQueryLessThan('m');
   const [navigationContent, setNavigationContent] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ export function HeaderContextProvider({ children }: PropsWithChildren<HeaderCont
       <HeaderDispatchContext.Provider value={dispatchContext}>{children}</HeaderDispatchContext.Provider>
     </HeaderContext.Provider>
   );
-}
+};
 
 export function useHeaderContext() {
   const context = useContext(HeaderContext);

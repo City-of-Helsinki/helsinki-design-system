@@ -1,4 +1,4 @@
-import React, { ElementType, forwardRef } from 'react';
+import React, { cloneElement, forwardRef, ReactNode } from 'react';
 
 import classNames from '../../../../utils/classNames';
 import classes from './HeaderActionBarItem.module.scss';
@@ -7,43 +7,37 @@ type ButtonAttributes = JSX.IntrinsicElements['button'];
 
 export interface HeaderActionBarItemProps extends ButtonAttributes {
   /**
+   * Aria label for the item.
+   */
+  ariaLabel?: string;
+  /**
    * Icon for the action bar item.
    */
-  icon?: ElementType;
-
+  icon?: ReactNode;
   /**
    * Label for the action bar item.
    */
   label?: string | JSX.Element;
 }
 
-export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>((properties, ref) => {
-  const {
-    icon: IconClass,
-    label,
-    className,
-    'aria-label': ariaLabel,
-    'aria-expanded': ariaExpanded,
-    ...props
-  } = properties;
+export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
+  ({ icon, label, className, ariaLabel, ...rest }, ref) => {
+    const buttonClassName = classNames(classes.actionBarItem, className);
 
-  const buttonClassName = classNames(classes.actionBarItem, className);
-
-  const aria = {
-    'aria-label': ariaLabel || (typeof label === 'string' && label),
-    'aria-haspopup': true,
-  };
-
-  if (ariaExpanded) aria['aria-expanded'] = true;
-
-  return (
-    <button type="button" {...props} {...aria} className={buttonClassName} ref={ref}>
-      {IconClass && React.isValidElement(IconClass) && (
-        <span className={classes.actionBarItemIcon}>
-          <IconClass aria-hidden />
-        </span>
-      )}
-      {label && <span className={classes.actionBarItemLabel}>{label}</span>}
-    </button>
-  );
-});
+    return (
+      <button
+        type="button"
+        {...rest}
+        {...(ariaLabel && { 'aria-label': ariaLabel })}
+        aria-haspopup
+        className={buttonClassName}
+        ref={ref}
+      >
+        {icon && React.isValidElement(icon) && (
+          <span className={classes.actionBarItemIcon}>{cloneElement(icon, { 'aria-hidden': true })}</span>
+        )}
+        {label && <span className={classes.actionBarItemLabel}>{label}</span>}
+      </button>
+    );
+  },
+);

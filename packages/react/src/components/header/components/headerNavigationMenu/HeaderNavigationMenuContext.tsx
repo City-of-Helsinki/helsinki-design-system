@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 export type HeaderNavigationMenuContextProps = {
   /**
@@ -13,9 +13,7 @@ export type HeaderNavigationMenuContextProps = {
 
 const HeaderNavigationMenuContext = createContext<HeaderNavigationMenuContextProps>({});
 
-export const HeaderNavigationMenuContextProvider = ({
-  children,
-}: PropsWithChildren<HeaderNavigationMenuContextProps>) => {
+export const HeaderNavigationMenuContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [openIndex, setOpenIndex] = useState<number>(-1);
   const context: HeaderNavigationMenuContextProps = { openMainNavIndex: openIndex, setOpenMainNavIndex: setOpenIndex };
   return <HeaderNavigationMenuContext.Provider value={context}>{children}</HeaderNavigationMenuContext.Provider>;

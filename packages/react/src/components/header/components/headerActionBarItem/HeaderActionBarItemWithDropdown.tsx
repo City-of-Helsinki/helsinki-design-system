@@ -1,13 +1,11 @@
-import React, { ComponentType, ElementType, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { ElementType, useEffect, useRef, useState } from 'react';
 
 import { IconCross } from '../../../../icons';
 import { HeaderActionBarItem } from './HeaderActionBarItem';
 import classNames from '../../../../utils/classNames';
 import classes from './HeaderActionBarItemWithDropdown.module.scss';
 
-type DivAttributes = JSX.IntrinsicElements['div'];
-
-interface WithDropdownAttributes extends DivAttributes {
+type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
   /**
    * ID of the dropdown item.
    */
@@ -19,11 +17,11 @@ interface WithDropdownAttributes extends DivAttributes {
   /**
    * Additional classname for the icon.
    */
-  iconClassName?: WithDropdownProps['className'];
+  iconClassName?: string;
   /**
    * Additional classname for the dropdown element.
    */
-  dropdownClassName?: WithDropdownProps['className'];
+  dropdownClassName?: string;
   /**
    * Label for the action bar item.
    */
@@ -40,11 +38,10 @@ interface WithDropdownAttributes extends DivAttributes {
    * Icon for the action bar item when dropdown is open.
    */
   closeIcon?: ElementType;
-}
+}> &
+  React.ComponentPropsWithoutRef<'div'>;
 
-export type WithDropdownProps = PropsWithChildren<WithDropdownAttributes>;
-
-export const HeaderActionBarItemWithDropdown: ComponentType<WithDropdownProps> = (properties) => {
+export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemWithDropdownProps) => {
   const {
     id,
     children,

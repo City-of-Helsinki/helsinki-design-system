@@ -1,5 +1,4 @@
-import React, { MouseEventHandler, cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
-
+import React, { MouseEventHandler, cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 // import base styles
 import '../../../../styles/base.css';
 import { v4 as uuidv4 } from 'uuid';

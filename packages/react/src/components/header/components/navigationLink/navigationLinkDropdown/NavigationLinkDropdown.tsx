@@ -4,7 +4,6 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
-import { styleBoundClassNames } from '../../../../../utils/classNames';
 import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
