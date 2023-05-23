@@ -1,4 +1,4 @@
-@value large-up from "../../styles/breakpoints.css";
+@value large-up from "../../styles/breakpoints.scss";
 
 .hero {
   composes: hds-hero from 'hds-core/lib/components/hero/hero.css';
@@ -81,8 +81,9 @@
 }
 
 .contentColums {
-  composes: hds-hero--with-background__contentColumns from 'hds-core/lib/components/hero/hero.css';
+  composes: hds-hero--with-background__contentcolumns from 'hds-core/lib/components/hero/hero.css';
 }
+
 .emptyColumn {
   composes: hds-hero--with-background__empty-column from 'hds-core/lib/components/hero/hero.css';
 }
@@ -92,6 +93,7 @@
 .imageLeft {
   composes: hds-hero--image-left from 'hds-core/lib/components/hero/hero.css';
 }
+
 .imageRight {
   composes: hds-hero--image-right from 'hds-core/lib/components/hero/hero.css';
 }
@@ -103,6 +105,7 @@
 .korosContainerInwardKoros {
   composes: hds-hero__koros-container--inward-koros from 'hds-core/lib/components/hero/hero.css';
 }
+
 .korosContainerOverflowBottom {
   composes: hds-hero__koros-container--overflow-bottom from 'hds-core/lib/components/hero/hero.css';
 }
