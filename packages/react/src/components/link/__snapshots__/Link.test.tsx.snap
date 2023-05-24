@@ -22,11 +22,10 @@ exports[`<Link /> spec external link that is opened in to a new tab should not h
         fill-rule="evenodd"
       >
         <path
-          d="M0 0h24v24H0z"
-        />
-        <path
-          d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
+          clip-rule="evenodd"
+          d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
           fill="currentColor"
+          fill-rule="evenodd"
         />
       </g>
     </svg>
