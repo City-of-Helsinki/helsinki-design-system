@@ -15,6 +15,7 @@ import {
   createConnectedBeaconModule,
   createTestListenerModule,
   getReceivedErrorSignalPayloads,
+  getReceivedEventSignalPayloads,
 } from '../testUtils/beaconTestUtil';
 import {
   createControlledFetchMockUtil,
@@ -26,9 +27,10 @@ import { createMockOidcClient, userManagerEndPointPath } from '../testUtils/oidc
 import { createUser } from '../testUtils/userTestUtil';
 import { isAbortError } from '../utils/abortFetch';
 import { HttpPoller, HttpPollerProps } from '../utils/httpPoller';
-import createSessionPoller, { SessionPoller, sessionPollerNamespace } from './sessionPoller';
+import createSessionPoller, { SessionPoller, sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
 import { SessionPollerError } from './sessionPollerError';
+import { advanceUntilPromiseResolved, createTimedPromise } from '../testUtils/timerTestUtil';
 
 type ResponseType = { returnedStatus: HttpStatusCode };
 
@@ -197,7 +199,7 @@ describe(`sessionPoller`, () => {
     return currentResponseCount + 1;
   };
 
-  const gerFetchArgs = () => {
+  const getFetchArgs = () => {
     const args = getLastFetchMockCallArguments();
     return {
       url: args[0],
@@ -218,6 +220,9 @@ describe(`sessionPoller`, () => {
 
   const getEmittedErrors = () => {
     return getReceivedErrorSignalPayloads<SessionPollerError>(listenerModule);
+  };
+  const getEmittedEventTypes = () => {
+    return getReceivedEventSignalPayloads(listenerModule).map((payload) => payload.type);
   };
 
   beforeAll(() => {
@@ -265,6 +270,13 @@ describe(`sessionPoller`, () => {
     expect(getHttpPollerShouldPollCalls()).toHaveLength(4);
     expect(getHttpPollerStartCalls()).toHaveLength(1);
     expect(getHttpPollerStopCalls()).toHaveLength(0);
+    expect(getEmittedEventTypes().length).toBe(finishedRequests);
+    expect(getEmittedEventTypes()).toEqual([
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+    ]);
   });
 
   it('When user is not logged in, fetch calls are not done, as shouldPoll() returns false. ShouldPoll is called until stopped.', async () => {
@@ -287,6 +299,7 @@ describe(`sessionPoller`, () => {
     // 2 calls: one made when sessionPoller receives an oidcClient init event and user is not logged in.
     // and one made manually
     expect(getHttpPollerStopCalls()).toHaveLength(2);
+    expect(getEmittedEventTypes()).toEqual([sessionPollerEvents.SESSION_POLLING_STOPPED]);
   });
 
   it(".stop() aborts current fetch and stops the poller. Aborting won't trigger errors", async () => {
@@ -304,6 +317,11 @@ describe(`sessionPoller`, () => {
     expect(emittedErrors).toHaveLength(0);
     expect(getHttpPollerStartCalls()).toHaveLength(1);
     expect(getHttpPollerStopCalls()).toHaveLength(1);
+    expect(getEmittedEventTypes()).toEqual([
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STOPPED,
+    ]);
   });
 
   it('.stop() and start can be called multiple times', async () => {
@@ -342,13 +360,21 @@ describe(`sessionPoller`, () => {
     expect(startCount).toBe(4);
     expect(endCount).toBe(4);
     expect(getHttpPollerShouldPollCalls()).toHaveLength(4);
+    expect(getEmittedEventTypes()).toEqual([
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STOPPED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STOPPED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+    ]);
   });
 
   it("fetch url is picked from userManager's getUserInfoEndpoint(). abort signal and user's accessToken are in the header", async () => {
     const user = createUser({ signInResponseProps: { access_token: 'sessionToken' } });
     initTests({ user, responses: [successfulResponse] });
     await waitUntilRequestFinished();
-    const { url, options } = gerFetchArgs();
+    const { url, options } = getFetchArgs();
     expect(url.includes(endPointPath)).toBeTruthy();
     expect(options?.signal).not.toBeUndefined();
     const authorizationHeader = (options?.headers as Headers).get('authorization') as string;
@@ -378,6 +404,13 @@ describe(`sessionPoller`, () => {
     expect(emittedErrors[0].isSessionEnded).toBeTruthy();
     expect(emittedErrors[0].isSessionEnded).toBeTruthy();
     verifyPollingIsStopped({ assumedCurrentCount: 3 });
+    expect(getEmittedEventTypes()).toEqual([
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STOPPED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STOPPED,
+    ]);
   });
 
   it('when fetch fails and statusCode DOES NOT indicate an auth error, error signal is emitted, but polling is NOT stopped', async () => {
@@ -401,6 +434,13 @@ describe(`sessionPoller`, () => {
     const emittedErrors = getEmittedErrors();
     expect(emittedErrors).toHaveLength(1);
     expect(emittedErrors[0].isSessionPollingFailure).toBeTruthy();
+    expect(getEmittedEventTypes()).toEqual([
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+      sessionPollerEvents.SESSION_POLLING_STARTED,
+    ]);
+    await advanceUntilPromiseResolved(createTimedPromise(null, 5000000), 10000);
   });
 
   it('Polling is started and stopped with oidcClient events.', async () => {

@@ -20,6 +20,10 @@ export type SessionPollerOptions = {
 };
 
 export const sessionPollerNamespace = 'sessionPoller';
+export const sessionPollerEvents = {
+  SESSION_POLLING_STARTED: 'SESSION_POLLING_STARTED',
+  SESSION_POLLING_STOPPED: 'SESSION_POLLING_STOPPED',
+};
 
 export default function createSessionPoller(
   options: SessionPollerOptions = { pollIntervalInMs: 60000 },
@@ -64,11 +68,13 @@ export default function createSessionPoller(
     }
     const headers = new Headers();
     headers.append('authorization', `Bearer ${accessToken}`);
-    return fetch(uri, {
+    const fetchPromise = fetch(uri, {
       method: 'GET',
       headers,
       signal: fetchCanceller.getSignal(),
     });
+    dedicatedBeacon.emitEvent(sessionPollerEvents.SESSION_POLLING_STARTED);
+    return fetchPromise;
   };
 
   const shouldPoll = () => currentState === oidcClientStates.VALID_SESSION;
@@ -91,21 +97,31 @@ export default function createSessionPoller(
             sessionPollerErrors.SESSION_ENDED,
           ),
         );
+        dedicatedBeacon.emitEvent(sessionPollerEvents.SESSION_POLLING_STOPPED);
         return { keepPolling: false };
       }
       dedicatedBeacon.emitError(
         new SessionPollerError('User session poller failed', sessionPollerErrors.SESSION_POLLING_FAILED),
       );
-      return { keepPolling: shouldPoll() };
+      const shouldKeepPolling = shouldPoll();
+      if (!shouldKeepPolling) {
+        dedicatedBeacon.emitEvent(sessionPollerEvents.SESSION_POLLING_STOPPED);
+      }
+      return { keepPolling: shouldKeepPolling };
     },
   });
-
+  let isStarted = false;
   const start = () => {
     poller.start();
+    isStarted = true;
   };
   const stop = () => {
     fetchCanceller.abort();
     poller.stop();
+    if (isStarted) {
+      dedicatedBeacon.emitEvent(sessionPollerEvents.SESSION_POLLING_STOPPED);
+    }
+    isStarted = false;
   };
 
   const oidcClientListener = (signal: Signal) => {

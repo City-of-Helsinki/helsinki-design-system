@@ -24,7 +24,7 @@ import {
 } from './beacon/signals';
 import { LISTEN_TO_ALL_MARKER, SignalNamespace, createBeacon } from './beacon/beacon';
 import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from './apiTokensClient';
-import createSessionPoller, { sessionPollerNamespace } from './sessionPoller/sessionPoller';
+import createSessionPoller, { sessionPollerEvents, sessionPollerNamespace } from './sessionPoller/sessionPoller';
 import createApiTokenClient, {
   setApiTokensToStorage,
   setUserReferenceToStorage,
@@ -394,8 +394,11 @@ describe('Test all modules together', () => {
       ]);
       // api tokens are fetched. Oidc client requests are mock in the the client itself.
       expect(getRequestCount()).toBe(1);
-      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
-      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(11);
+      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([
+        initSignalType,
+        sessionPollerEvents.SESSION_POLLING_STOPPED,
+      ]);
+      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(12);
     });
     it("When user and user's tokens are already stored in sessionStorage, only polling starts", async () => {
       const { getReceivedSignalTypes } = await initAll({
@@ -466,7 +469,10 @@ describe('Test all modules together', () => {
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
       ]);
-      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
+      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([
+        initSignalType,
+        sessionPollerEvents.SESSION_POLLING_STOPPED,
+      ]);
       await renewAdvancer();
       await advanceUntilPromiseResolved(
         waitForSignals(beacon, [createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_UPDATED)]),
@@ -513,7 +519,10 @@ describe('Test all modules together', () => {
         initSignalType,
         apiTokensClientEvents.API_TOKENS_REMOVED,
       ]);
-      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
+      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([
+        initSignalType,
+        sessionPollerEvents.SESSION_POLLING_STOPPED,
+      ]);
 
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(1);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
