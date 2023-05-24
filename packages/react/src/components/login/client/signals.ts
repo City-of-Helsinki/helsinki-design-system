@@ -9,9 +9,7 @@ import {
   stateChangeSignalType,
   createStateChangeTrigger,
 } from '../beacon/signals';
-import { oidcClientNamespace } from './index';
-
-export type OidcClientEvent = 'USER_RENEWAL_STARTED' | 'USER_UPDATED' | 'USER_REMOVED';
+import { oidcClientNamespace, OidcClientEvent } from './index';
 
 export type OidcClientEventSignal = EventSignal & {
   payload: {

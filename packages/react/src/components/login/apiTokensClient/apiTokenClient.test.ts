@@ -49,7 +49,7 @@ import {
   getReceivedEventSignalPayloads,
 } from '../testUtils/beaconTestUtil';
 import { createMockOidcClient } from '../testUtils/oidcClientTestUtil';
-import { OidcClient, oidcClientNamespace } from '../client';
+import { OidcClient, oidcClientEvents, oidcClientNamespace } from '../client';
 import { ApiTokensEventSignal, createApiTokensChangeTrigger } from './signals';
 
 type ResponseType = {
@@ -455,7 +455,7 @@ describe(`apiTokenClient`, () => {
       expect(responses).toHaveLength(1);
       const currentEventCount = getEmittedEventPayloads().length;
       const renewalPromise = waitForSignals(currentBeacon, [createApiTokensChangeTrigger('API_TOKENS_REMOVED')]);
-      emitEvent(currentBeacon, oidcClientNamespace, { type: 'USER_REMOVED' });
+      emitEvent(currentBeacon, oidcClientNamespace, { type: oidcClientEvents.USER_REMOVED });
       await renewalPromise;
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads[currentEventCount].type).toBe('API_TOKENS_REMOVED');
@@ -474,7 +474,7 @@ describe(`apiTokenClient`, () => {
       expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
       const eventPromise = waitForSignals(currentBeacon, [createApiTokensChangeTrigger('API_TOKENS_UPDATED')]);
       emitEvent(currentBeacon, oidcClientNamespace, {
-        type: 'USER_UPDATED',
+        type: oidcClientEvents.USER_UPDATED,
         data: createUser({ signInResponseProps: { access_token: renewedAccessToken } }),
       });
       expect(apiTokenClient.isRenewing()).toBeTruthy();
@@ -497,7 +497,7 @@ describe(`apiTokenClient`, () => {
       expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
       const eventPromise = waitForSignals(currentBeacon, [createErrorTrigger()]);
       emitEvent(currentBeacon, oidcClientNamespace, {
-        type: 'USER_UPDATED',
+        type: oidcClientEvents.USER_UPDATED,
         data: null,
       });
       await advanceUntilPromiseResolved(eventPromise);
@@ -518,7 +518,7 @@ describe(`apiTokenClient`, () => {
       expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
       const eventPromise = waitForSignals(currentBeacon, [createErrorTrigger()]);
       emitEvent(currentBeacon, oidcClientNamespace, {
-        type: 'USER_UPDATED',
+        type: oidcClientEvents.USER_UPDATED,
         data: createUser({ signInResponseProps: { access_token: renewedAccessToken } }),
       });
       await advanceUntilPromiseResolved(eventPromise);
@@ -535,11 +535,11 @@ describe(`apiTokenClient`, () => {
     it('isRenewal() changes to true when USER_RENEWAL_STARTED signal is received and false when renewal is complete', async () => {
       const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit();
       emitEvent(currentBeacon, oidcClientNamespace, {
-        type: 'USER_RENEWAL_STARTED',
+        type: oidcClientEvents.USER_RENEWAL_STARTED,
       });
       expect(apiTokenClient.isRenewing()).toBeTruthy();
       emitEvent(currentBeacon, oidcClientNamespace, {
-        type: 'USER_UPDATED',
+        type: oidcClientEvents.USER_UPDATED,
         data: createUser({ signInResponseProps: { access_token: 'any token' } }),
       });
       await advanceUntilPromiseResolved(waitForSignals(currentBeacon, [createErrorTrigger()]));

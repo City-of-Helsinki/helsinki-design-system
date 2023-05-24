@@ -11,7 +11,7 @@ import apiTokens from './__mocks__/apiTokens.json';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from './__mocks__/openIdConfiguration.json';
 import { createOidcClientTestSuite } from './testUtils/oidcClientTestUtil';
-import { oidcClientNamespace, oidcClientStates } from './client/index';
+import { oidcClientEvents, oidcClientNamespace, oidcClientStates } from './client/index';
 import { ConnectedBeaconModule, createTestListenerModule, getListenerSignals } from './testUtils/beaconTestUtil';
 import {
   EventSignal,
@@ -383,7 +383,7 @@ describe('Test all modules together', () => {
         initSignalType,
         oidcClientStates.HANDLING_LOGIN_CALLBACK,
         oidcClientStates.VALID_SESSION,
-        'USER_UPDATED',
+        oidcClientEvents.USER_UPDATED,
       ]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         initSignalType,
@@ -452,7 +452,10 @@ describe('Test all modules together', () => {
       const renewAdvancer = createRefreshAdvancer();
       const renewPromise = oidcClient.renewUser();
 
-      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, 'USER_RENEWAL_STARTED']);
+      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
+        initSignalType,
+        oidcClientEvents.USER_RENEWAL_STARTED,
+      ]);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(1);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual(['API_TOKENS_UPDATED', initSignalType]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
@@ -461,8 +464,8 @@ describe('Test all modules together', () => {
       await waitFor(() => {
         expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
           initSignalType,
-          'USER_RENEWAL_STARTED',
-          'USER_UPDATED',
+          oidcClientEvents.USER_RENEWAL_STARTED,
+          oidcClientEvents.USER_UPDATED,
         ]);
       });
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
@@ -492,7 +495,7 @@ describe('Test all modules together', () => {
       expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
         initSignalType,
         oidcClientStates.LOGGING_OUT,
-        'USER_REMOVED',
+        oidcClientEvents.USER_REMOVED,
       ]);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([

@@ -11,8 +11,7 @@ import {
   createInitTrigger,
   getEventSignalPayload,
 } from '../beacon/signals';
-import { oidcClientNamespace } from '../client';
-import { OidcClientEvent } from '../client/signals';
+import { oidcClientEvents, oidcClientNamespace, OidcClientEvent } from '../client';
 import { getValidUserFromSignal } from '../beacon/signalParsers';
 import {
   FetchApiTokenOptions,
@@ -180,13 +179,13 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
       return Promise.resolve();
     }
     const type = eventPayload.type as OidcClientEvent;
-    if (type === 'USER_REMOVED') {
+    if (type === oidcClientEvents.USER_REMOVED) {
       fetchCanceller.abort();
       removeAllTokens();
       await dedicatedBeacon.emitEvent('API_TOKENS_REMOVED', null);
       renewing = false;
     }
-    if (type === 'USER_UPDATED') {
+    if (type === oidcClientEvents.USER_UPDATED) {
       const user = getValidUserFromSignal(signal);
       if (user) {
         const currentTokens = getStoredTokensForUser(user);
@@ -205,7 +204,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
         new ApiTokensClientError('Oidc client event has no valid user', 'INVALID_USER_FOR_API_TOKENS'),
       );
     }
-    if (type === 'USER_RENEWAL_STARTED') {
+    if (type === oidcClientEvents.USER_RENEWAL_STARTED) {
       renewing = true;
     }
     return Promise.resolve();

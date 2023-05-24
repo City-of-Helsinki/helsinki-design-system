@@ -7,7 +7,7 @@ import { Signal, ConnectedModule } from '../beacon/beacon';
 import { createNamespacedBeacon, createTriggerForAllSignals, getEventSignalPayload } from '../beacon/signals';
 import { getOidcClientFromSignal } from '../beacon/signalParsers';
 import { SessionPollerError } from './sessionPollerError';
-import { OidcClientState, oidcClientNamespace, oidcClientStates } from '../client/index';
+import { OidcClientState, oidcClientEvents, oidcClientNamespace, oidcClientStates } from '../client/index';
 import { getOidcClientStateChangePayload } from '../client/signals';
 
 export interface SessionPoller extends ConnectedModule {
@@ -108,18 +108,18 @@ export default function createSessionPoller(
     const stateChanged = storeStateChangeFromSignal(signal);
     const eventPayload = getEventSignalPayload(signal);
     if (eventPayload) {
-      if (eventPayload.type === 'USER_RENEWAL_STARTED') {
+      if (eventPayload.type === oidcClientEvents.USER_RENEWAL_STARTED) {
         stop();
       }
       if (
-        eventPayload.type === 'USER_UPDATED' &&
+        eventPayload.type === oidcClientEvents.USER_UPDATED &&
         eventPayload.data &&
         currentState === oidcClientStates.VALID_SESSION
       ) {
         start();
       }
     }
-    if (eventPayload && eventPayload.type === 'USER_UPDATED') {
+    if (eventPayload && eventPayload.type === oidcClientEvents.USER_UPDATED) {
       stop();
       return;
     }

@@ -20,6 +20,7 @@ export type UserReturnType = User | null;
 export type ErrorReturnType = OidcClientError | null;
 export type RenewalResult = [ErrorReturnType, UserReturnType];
 export type OidcClientState = keyof typeof oidcClientStates;
+export type OidcClientEvent = keyof typeof oidcClientEvents;
 
 // User['profile']['amr'] has type of "unknown"
 export type Amr = string[];
@@ -92,4 +93,10 @@ export const oidcClientStates = {
   LOGGING_IN: 'LOGGING_IN',
   LOGGING_OUT: 'LOGGING_OUT',
   HANDLING_LOGIN_CALLBACK: 'HANDLING_LOGIN_CALLBACK',
+} as const;
+
+export const oidcClientEvents = {
+  USER_UPDATED: 'USER_UPDATED',
+  USER_RENEWAL_STARTED: 'USER_RENEWAL_STARTED',
+  USER_REMOVED: 'USER_REMOVED',
 } as const;

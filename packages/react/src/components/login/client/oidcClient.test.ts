@@ -11,7 +11,15 @@ import {
   createOidcClientTestSuite,
   getDefaultOidcClientTestProps,
 } from '../testUtils/oidcClientTestUtil';
-import { LoginProps, LogoutProps, OidcClient, RenewalResult, UserReturnType, oidcClientStates } from './index';
+import {
+  LoginProps,
+  LogoutProps,
+  OidcClient,
+  RenewalResult,
+  UserReturnType,
+  oidcClientEvents,
+  oidcClientStates,
+} from './index';
 import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
 import { createSignInResponse, createUser } from '../testUtils/userTestUtil';
@@ -454,7 +462,7 @@ describe('oidcClient', () => {
         previousState: oidcClientStates.VALID_SESSION,
       });
       expect(emittedSignals[1].type).toBe(eventSignalType);
-      expect(emittedSignals[1].payload).toMatchObject({ type: 'USER_REMOVED' });
+      expect(emittedSignals[1].payload).toMatchObject({ type: oidcClientEvents.USER_REMOVED });
     });
     it('state changes twice when handleCallback is called and successful. Payloads have state changes. USER_UPDATED event is emitted with user.', async () => {
       const { oidcClient } = await initTests({ modules: [listenerModule] });
@@ -473,7 +481,7 @@ describe('oidcClient', () => {
       });
       const payload = emittedSignals[2].payload as EventPayload;
       const user = (emittedSignals[2].payload as EventPayload).data as User;
-      expect(payload.type).toBe('USER_UPDATED');
+      expect(payload.type).toBe(oidcClientEvents.USER_UPDATED);
       expect(user.profile.name).toBe(signInResponseProfileProps.name);
     });
     it('state changes twice when handleCallback is called and fails. Payloads have state changes and error', async () => {
@@ -543,7 +551,7 @@ describe('oidcClient', () => {
         if (signal.type !== eventSignalType) {
           return false;
         }
-        if (!payload || payload.type !== 'USER_UPDATED') {
+        if (!payload || payload.type !== oidcClientEvents.USER_UPDATED) {
           return false;
         }
         return true;
@@ -563,14 +571,14 @@ describe('oidcClient', () => {
       };
       const renewalStartedListener: ScopedSignalListener = (signal, module) => {
         storeToListener(signal, module);
-        if ((signal as OidcClientEventSignal).payload.type === 'USER_RENEWAL_STARTED') {
+        if ((signal as OidcClientEventSignal).payload.type === oidcClientEvents.USER_RENEWAL_STARTED) {
           if (module.namespace === reEmittingModule) {
             storeToListener({ type: 'RE_EMIT_RENEWAL', namespace: signal.namespace }, module);
             module.emit('RE_EMIT_RENEWAL');
           }
           storeToListener({ type: 'RENEWAL_HANDLED', namespace: signal.namespace }, module);
         }
-        if ((signal as OidcClientEventSignal).payload.type === 'USER_UPDATED') {
+        if ((signal as OidcClientEventSignal).payload.type === oidcClientEvents.USER_UPDATED) {
           //
         }
         return undefined;

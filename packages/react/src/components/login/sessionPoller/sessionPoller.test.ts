@@ -10,7 +10,7 @@ import {
   StateChangeSignalPayload,
   stateChangeSignalType,
 } from '../beacon/signals';
-import { OidcClient, OidcClientState, oidcClientNamespace, oidcClientStates } from '../client/index';
+import { OidcClient, OidcClientState, oidcClientEvents, oidcClientNamespace, oidcClientStates } from '../client/index';
 import {
   createConnectedBeaconModule,
   createTestListenerModule,
@@ -442,13 +442,13 @@ describe(`sessionPoller`, () => {
     currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
-      payload: { type: 'USER_RENEWAL_STARTED' },
+      payload: { type: oidcClientEvents.USER_RENEWAL_STARTED },
     });
     expect(getHttpPollerStopCalls()).toHaveLength(1);
     currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
-      payload: { type: 'USER_UPDATED', data: createUser() },
+      payload: { type: oidcClientEvents.USER_UPDATED, data: createUser() },
     });
     expect(getHttpPollerStartCalls()).toHaveLength(2);
   });
@@ -459,13 +459,13 @@ describe(`sessionPoller`, () => {
     currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
-      payload: { type: 'USER_RENEWAL_STARTED' },
+      payload: { type: oidcClientEvents.USER_RENEWAL_STARTED },
     });
     expect(getHttpPollerStopCalls()).toHaveLength(1);
     currentBeacon.emit({
       type: eventSignalType,
       namespace: oidcClientNamespace,
-      payload: { type: 'USER_UPDATED' },
+      payload: { type: oidcClientEvents.USER_UPDATED },
     });
     expect(getHttpPollerStartCalls()).toHaveLength(1);
   });

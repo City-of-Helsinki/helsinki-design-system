@@ -17,6 +17,7 @@ import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.test
 import { createOidcClientEventTrigger } from '../client/signals';
 import { useSignalTrackingWithReturnValue } from '../hooks';
 import { advanceUntilDoesNotThrow } from '../testUtils/timerTestUtil';
+import { oidcClientEvents } from '../client';
 
 describe('apiToken hooks testing', () => {
   // type ElementId = typeof elementIds[keyof typeof elementIds];
@@ -227,7 +228,10 @@ describe('apiToken hooks testing', () => {
           act(() => {
             emit({
               ...createOidcClientEventTrigger(),
-              payload: { type: 'USER_UPDATED', data: createUser({ signInResponseProps: { access_token: 'token2' } }) },
+              payload: {
+                type: oidcClientEvents.USER_UPDATED,
+                data: createUser({ signInResponseProps: { access_token: 'token2' } }),
+              },
             });
           });
           await waitUntilRequestStarted();
