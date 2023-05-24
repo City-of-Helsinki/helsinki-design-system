@@ -11,7 +11,7 @@ import {
   createOidcClientTestSuite,
   getDefaultOidcClientTestProps,
 } from '../testUtils/oidcClientTestUtil';
-import { LoginProps, LogoutProps, OidcClient, RenewalResult, UserReturnType } from './index';
+import { LoginProps, LogoutProps, OidcClient, RenewalResult, UserReturnType, oidcClientStates } from './index';
 import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
 import { createSignInResponse, createUser } from '../testUtils/userTestUtil';
@@ -422,13 +422,13 @@ describe('oidcClient', () => {
     });
     it('state is NO_SESSION when valid user does not exist on init. No change is emitted.', async () => {
       const { oidcClient } = await initTests({ modules: [listenerModule] });
-      expect(oidcClient.getState()).toBe('NO_SESSION');
+      expect(oidcClient.getState()).toBe(oidcClientStates.NO_SESSION);
       expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
     });
     it('state is VALID_SESSION when valid user does exist on init.  No change is emitted.', async () => {
       placeUserToStorage();
       const { oidcClient } = await initTests({ modules: [listenerModule] });
-      expect(oidcClient.getState()).toBe('VALID_SESSION');
+      expect(oidcClient.getState()).toBe(oidcClientStates.VALID_SESSION);
       expect(listenerModule.getListener()).toHaveBeenCalledTimes(0);
     });
     it('state changes when login is called. Payload has the state change', async () => {
@@ -437,7 +437,10 @@ describe('oidcClient', () => {
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(1);
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);
-      expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_IN', previousState: 'NO_SESSION' });
+      expect(emittedSignals[0].payload).toMatchObject({
+        state: oidcClientStates.LOGGING_IN,
+        previousState: oidcClientStates.NO_SESSION,
+      });
     });
     it('state changes when logout is called. Payload has the state change. USER_REMOVED event is emitted.', async () => {
       placeUserToStorage();
@@ -446,7 +449,10 @@ describe('oidcClient', () => {
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(2);
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);
-      expect(emittedSignals[0].payload).toMatchObject({ state: 'LOGGING_OUT', previousState: 'VALID_SESSION' });
+      expect(emittedSignals[0].payload).toMatchObject({
+        state: oidcClientStates.LOGGING_OUT,
+        previousState: oidcClientStates.VALID_SESSION,
+      });
       expect(emittedSignals[1].type).toBe(eventSignalType);
       expect(emittedSignals[1].payload).toMatchObject({ type: 'USER_REMOVED' });
     });
@@ -458,12 +464,12 @@ describe('oidcClient', () => {
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(3);
       expect(emittedSignals[0].payload).toMatchObject({
-        state: 'HANDLING_LOGIN_CALLBACK',
-        previousState: 'NO_SESSION',
+        state: oidcClientStates.HANDLING_LOGIN_CALLBACK,
+        previousState: oidcClientStates.NO_SESSION,
       });
       expect(emittedSignals[1].payload).toMatchObject({
-        state: 'VALID_SESSION',
-        previousState: 'HANDLING_LOGIN_CALLBACK',
+        state: oidcClientStates.VALID_SESSION,
+        previousState: oidcClientStates.HANDLING_LOGIN_CALLBACK,
       });
       const payload = emittedSignals[2].payload as EventPayload;
       const user = (emittedSignals[2].payload as EventPayload).data as User;
@@ -477,14 +483,14 @@ describe('oidcClient', () => {
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(3);
       expect(emittedSignals[0].payload).toMatchObject({
-        state: 'HANDLING_LOGIN_CALLBACK',
-        previousState: 'NO_SESSION',
+        state: oidcClientStates.HANDLING_LOGIN_CALLBACK,
+        previousState: oidcClientStates.NO_SESSION,
       });
       expect((emittedSignals[1].payload as OidcClientError).isInvalidUserError).toBeTruthy();
       expect(emittedSignals[1].payload).toBe(error);
       expect(emittedSignals[2].payload).toMatchObject({
-        state: 'NO_SESSION',
-        previousState: 'HANDLING_LOGIN_CALLBACK',
+        state: oidcClientStates.NO_SESSION,
+        previousState: oidcClientStates.HANDLING_LOGIN_CALLBACK,
       });
     });
   });

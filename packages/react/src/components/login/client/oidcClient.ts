@@ -12,6 +12,7 @@ import {
   LogoutProps,
   RenewalResult,
   Amr,
+  oidcClientStates,
 } from './index';
 import { OidcClientError } from './oidcClientError';
 import { OidcClientEvent } from './signals';
@@ -92,7 +93,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       userStore: new WebStorageStateStore({ store }),
     },
   };
-  let state: OidcClientState = 'NO_SESSION';
+  let state: OidcClientState = oidcClientStates.NO_SESSION;
   let renewPromise: Promise<RenewalResult> | undefined;
   const isRenewing = () => !!renewPromise;
 
@@ -198,7 +199,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
   });
 
   if (isValidUser(getUserFromStorageSyncronously())) {
-    state = 'VALID_SESSION';
+    state = oidcClientStates.VALID_SESSION;
   }
 
   const oidcClient: OidcClient = {
@@ -221,7 +222,7 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     },
     getUserManager: () => userManager,
     handleCallback: async () => {
-      emitStateChange('HANDLING_LOGIN_CALLBACK');
+      emitStateChange(oidcClientStates.HANDLING_LOGIN_CALLBACK);
       const [callbackError, user] = await to(userManager.signinRedirectCallback());
       const isReturnedUserValid = isValidUser(user);
       if (callbackError || !isReturnedUserValid) {
@@ -229,10 +230,10 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
           ? new OidcClientError('SigninRedirectCallback returned an error', 'SIGNIN_ERROR', callbackError)
           : new OidcClientError('SigninRedirectCallback returned invalid or expired user', 'INVALID_OR_EXPIRED_USER');
         emitError(error);
-        emitStateChange('NO_SESSION');
+        emitStateChange(oidcClientStates.NO_SESSION);
         return Promise.reject(error);
       }
-      emitStateChange('VALID_SESSION');
+      emitStateChange(oidcClientStates.VALID_SESSION);
       await emitEvent('USER_UPDATED', user);
       return Promise.resolve(user);
     },
@@ -242,11 +243,11 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     },
     isRenewing,
     login: async (loginProps) => {
-      emitStateChange('LOGGING_IN');
+      emitStateChange(oidcClientStates.LOGGING_IN);
       return userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps));
     },
     logout: async (logoutProps) => {
-      emitStateChange('LOGGING_OUT');
+      emitStateChange(oidcClientStates.LOGGING_OUT);
       return userManager.signoutRedirect(convertLoginOrLogoutParams<LogoutProps>(logoutProps));
     },
     namespace: oidcClientNamespace,

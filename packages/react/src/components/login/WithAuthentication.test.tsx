@@ -9,6 +9,7 @@ import { User } from './index';
 import { WithAuthentication } from './WithAuthentication';
 import { WithAuthenticatedUser } from './WithAuthenticatedUser';
 import { WithoutAuthenticatedUser } from './WithoutAuthenticatedUser';
+import { oidcClientStates } from './client';
 
 const elementIds = {
   userName: 'user-name-element',
@@ -103,7 +104,7 @@ describe('"WithAuth..." components render children conditionally', () => {
         expect(getElementById(container, id)).not.toBeNull();
       });
       expect(getRenderedContent(container, elementIds.userName)).toBe(signInResponseProfileProps.name);
-      expect(getRenderedContent(container, elementIds.state)).toBe('VALID_SESSION');
+      expect(getRenderedContent(container, elementIds.state)).toBe(oidcClientStates.VALID_SESSION);
       expect(getRenderedContent(container, elementIds.numbers)).toBe(String(numbers));
       expect(getRenderedContent(container, elementIds.strings)).toBe(strings.join(''));
     });

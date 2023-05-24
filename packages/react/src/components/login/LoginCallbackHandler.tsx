@@ -3,6 +3,7 @@ import { User } from 'oidc-client-ts';
 
 import { useOidcClient } from './hooks';
 import { OidcClientError } from './client/oidcClientError';
+import { oidcClientStates } from './client';
 
 type Props = {
   children: React.ReactNode | React.ReactNode[] | null;
@@ -14,7 +15,7 @@ export function LoginCallbackHandler({ children, onSuccess, onError }: Props): R
   const { handleCallback, getState } = useOidcClient();
   // if this component is used inside a component that re-renders, for example after state change,
   // then handleCallback would be called twice without state check
-  if (getState() === 'NO_SESSION') {
+  if (getState() === oidcClientStates.NO_SESSION) {
     handleCallback()
       .then((data) => {
         onSuccess(data);

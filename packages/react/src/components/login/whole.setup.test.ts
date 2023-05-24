@@ -11,7 +11,7 @@ import apiTokens from './__mocks__/apiTokens.json';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from './__mocks__/openIdConfiguration.json';
 import { createOidcClientTestSuite } from './testUtils/oidcClientTestUtil';
-import { oidcClientNamespace } from './client/index';
+import { oidcClientNamespace, oidcClientStates } from './client/index';
 import { ConnectedBeaconModule, createTestListenerModule, getListenerSignals } from './testUtils/beaconTestUtil';
 import {
   EventSignal,
@@ -365,7 +365,7 @@ describe('Test all modules together', () => {
       jest.advanceTimersByTime(1000000);
       expect(getRequestCount()).toBe(1);
       expect(getRequestsInfoById(openIdResponder.id as string)).toHaveLength(1);
-      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, 'LOGGING_IN']);
+      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, oidcClientStates.LOGGING_IN]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(7);
@@ -381,8 +381,8 @@ describe('Test all modules together', () => {
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(2);
       expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
         initSignalType,
-        'HANDLING_LOGIN_CALLBACK',
-        'VALID_SESSION',
+        oidcClientStates.HANDLING_LOGIN_CALLBACK,
+        oidcClientStates.VALID_SESSION,
         'USER_UPDATED',
       ]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
@@ -489,7 +489,11 @@ describe('Test all modules together', () => {
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(1);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(0);
       await waitForLogoutToTimeout();
-      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, 'LOGGING_OUT', 'USER_REMOVED']);
+      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
+        initSignalType,
+        oidcClientStates.LOGGING_OUT,
+        'USER_REMOVED',
+      ]);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         'API_TOKENS_UPDATED',

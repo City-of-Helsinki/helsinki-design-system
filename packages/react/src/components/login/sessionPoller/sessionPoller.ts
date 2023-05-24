@@ -7,7 +7,7 @@ import { Signal, ConnectedModule } from '../beacon/beacon';
 import { createNamespacedBeacon, createTriggerForAllSignals, getEventSignalPayload } from '../beacon/signals';
 import { getOidcClientFromSignal } from '../beacon/signalParsers';
 import { SessionPollerError } from './sessionPollerError';
-import { OidcClientState, oidcClientNamespace } from '../client/index';
+import { OidcClientState, oidcClientNamespace, oidcClientStates } from '../client/index';
 import { getOidcClientStateChangePayload } from '../client/signals';
 
 export interface SessionPoller extends ConnectedModule {
@@ -71,7 +71,7 @@ export default function createSessionPoller(
     });
   };
 
-  const shouldPoll = () => currentState === 'VALID_SESSION';
+  const shouldPoll = () => currentState === oidcClientStates.VALID_SESSION;
 
   const poller = createHttpPoller({
     pollIntervalInMs,
@@ -111,7 +111,11 @@ export default function createSessionPoller(
       if (eventPayload.type === 'USER_RENEWAL_STARTED') {
         stop();
       }
-      if (eventPayload.type === 'USER_UPDATED' && eventPayload.data && currentState === 'VALID_SESSION') {
+      if (
+        eventPayload.type === 'USER_UPDATED' &&
+        eventPayload.data &&
+        currentState === oidcClientStates.VALID_SESSION
+      ) {
         start();
       }
     }
@@ -119,9 +123,9 @@ export default function createSessionPoller(
       stop();
       return;
     }
-    if (stateChanged && currentState === 'VALID_SESSION') {
+    if (stateChanged && currentState === oidcClientStates.VALID_SESSION) {
       start();
-    } else if (currentState !== 'VALID_SESSION') {
+    } else if (currentState !== oidcClientStates.VALID_SESSION) {
       stop();
     }
   };

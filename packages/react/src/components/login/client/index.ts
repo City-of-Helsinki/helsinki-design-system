@@ -19,8 +19,7 @@ export type OidcClientProps = {
 export type UserReturnType = User | null;
 export type ErrorReturnType = OidcClientError | null;
 export type RenewalResult = [ErrorReturnType, UserReturnType];
-
-export type OidcClientState = 'NO_SESSION' | 'VALID_SESSION' | 'LOGGING_IN' | 'LOGGING_OUT' | 'HANDLING_LOGIN_CALLBACK';
+export type OidcClientState = keyof typeof oidcClientStates;
 
 // User['profile']['amr'] has type of "unknown"
 export type Amr = string[];
@@ -87,3 +86,10 @@ export interface OidcClient extends ConnectedModule {
 }
 
 export const oidcClientNamespace: SignalNamespace = 'oidcClient';
+export const oidcClientStates = {
+  NO_SESSION: 'NO_SESSION',
+  VALID_SESSION: 'VALID_SESSION',
+  LOGGING_IN: 'LOGGING_IN',
+  LOGGING_OUT: 'LOGGING_OUT',
+  HANDLING_LOGIN_CALLBACK: 'HANDLING_LOGIN_CALLBACK',
+} as const;

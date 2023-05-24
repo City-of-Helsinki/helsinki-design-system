@@ -10,7 +10,7 @@ import {
   StateChangeSignalPayload,
   stateChangeSignalType,
 } from '../beacon/signals';
-import { OidcClient, OidcClientState, oidcClientNamespace } from '../client/index';
+import { OidcClient, OidcClientState, oidcClientNamespace, oidcClientStates } from '../client/index';
 import {
   createConnectedBeaconModule,
   createTestListenerModule,
@@ -129,7 +129,7 @@ describe(`sessionPoller`, () => {
     mockOidcClientState = setGetStateReturnValue;
     mockUserManagerUser = setGetUserReturnValue;
     if (setValidSession || user) {
-      mockOidcClientState('VALID_SESSION');
+      mockOidcClientState(oidcClientStates.VALID_SESSION);
       mockUserManagerUser(user || createUser({}));
     }
     responses.forEach((response) => {
@@ -145,7 +145,7 @@ describe(`sessionPoller`, () => {
   };
 
   const emitOidcClientStateChange = (payload: StateChangeSignalPayload) => {
-    if (payload.state === 'VALID_SESSION') {
+    if (payload.state === oidcClientStates.VALID_SESSION) {
       mockUserManagerUser(createUser({}));
     } else {
       mockUserManagerUser(null);
@@ -232,7 +232,7 @@ describe(`sessionPoller`, () => {
   afterEach(async () => {
     currentPoller.stop();
     currentBeacon.clear();
-    mockOidcClientState('NO_SESSION');
+    mockOidcClientState(oidcClientStates.NO_SESSION);
     mockUserManagerUser(null);
     await cleanUp();
     jest.runOnlyPendingTimers();
@@ -407,7 +407,7 @@ describe(`sessionPoller`, () => {
     initTests({ setValidSession: false, responses: [successfulResponse, successfulResponse, successfulResponse] });
     // this will start the poller
     expect(getHttpPollerShouldPollCalls()).toHaveLength(0);
-    emitOidcClientStateChange({ state: 'VALID_SESSION', previousState: 'NO_SESSION' });
+    emitOidcClientStateChange({ state: oidcClientStates.VALID_SESSION, previousState: oidcClientStates.NO_SESSION });
     await waitFor(() => {
       expect(getHttpPollerStartCalls()).toHaveLength(1);
     });
@@ -418,15 +418,15 @@ describe(`sessionPoller`, () => {
     expect(responses).toHaveLength(1);
     expect(getHttpPollerShouldPollCalls()).toHaveLength(1);
     // this will stop the poller
-    emitOidcClientStateChange({ state: 'NO_SESSION', previousState: 'VALID_SESSION' });
+    emitOidcClientStateChange({ state: oidcClientStates.NO_SESSION, previousState: oidcClientStates.VALID_SESSION });
     // one is automatically done on start, one after state change
     expect(getHttpPollerStopCalls()).toHaveLength(2);
     verifyPollingIsStopped({ assumedCurrentCount: 1 });
     // this will start the poller
-    emitOidcClientStateChange({ state: 'VALID_SESSION', previousState: 'NO_SESSION' });
+    emitOidcClientStateChange({ state: oidcClientStates.VALID_SESSION, previousState: oidcClientStates.NO_SESSION });
     await waitUntilRequestStarted();
     // this will start and abort the poller
-    emitOidcClientStateChange({ state: 'NO_SESSION', previousState: 'VALID_SESSION' });
+    emitOidcClientStateChange({ state: oidcClientStates.NO_SESSION, previousState: oidcClientStates.VALID_SESSION });
     // one abort is done on initial stop, then on each stop
     expect(mockMapForAbort.getListener('abort')).toHaveBeenCalledTimes(3);
     expect(getHttpPollerStopCalls()).toHaveLength(3);
