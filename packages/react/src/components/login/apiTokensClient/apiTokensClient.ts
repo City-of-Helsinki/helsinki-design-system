@@ -3,7 +3,7 @@ import { User } from 'oidc-client-ts';
 
 import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import retryPollingUntilSuccessful from '../utils/httpPollerWithPromises';
-import { ApiTokensClientError } from './apiTokensClientError';
+import { ApiTokensClientError, apiTokensClientError } from './apiTokensClientError';
 import { Signal } from '../beacon/beacon';
 import {
   createEventTrigger,
@@ -48,7 +48,11 @@ async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData |
       return {};
     }
     return Promise.resolve(
-      new ApiTokensClientError('Network or CORS error occured', 'API_TOKEN_FETCH_FAILED', fetchError),
+      new ApiTokensClientError(
+        'Network or CORS error occured',
+        apiTokensClientError.API_TOKEN_FETCH_FAILED,
+        fetchError,
+      ),
     );
   }
 
@@ -57,14 +61,16 @@ async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData |
     return Promise.resolve(
       new ApiTokensClientError(
         `${message}.${fetchResponse.statusText} Status:${fetchResponse.status}`,
-        'API_TOKEN_FETCH_FAILED',
+        apiTokensClientError.API_TOKEN_FETCH_FAILED,
         fetchError,
       ),
     );
   }
   const [parseError, json] = await to(fetchResponse.json());
   if (parseError) {
-    return Promise.resolve(new ApiTokensClientError(parseError.message, 'INVALID_API_TOKENS', parseError));
+    return Promise.resolve(
+      new ApiTokensClientError(parseError.message, apiTokensClientError.INVALID_API_TOKENS, parseError),
+    );
   }
   return Promise.resolve(json as TokenData);
 }
@@ -202,7 +208,10 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
         return Promise.resolve();
       }
       dedicatedBeacon.emitError(
-        new ApiTokensClientError('Oidc client event has no valid user', 'INVALID_USER_FOR_API_TOKENS'),
+        new ApiTokensClientError(
+          'Oidc client event has no valid user',
+          apiTokensClientError.INVALID_USER_FOR_API_TOKENS,
+        ),
       );
     }
     if (type === oidcClientEvents.USER_RENEWAL_STARTED) {

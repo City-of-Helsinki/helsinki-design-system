@@ -16,7 +16,7 @@ import {
   oidcClientEvents,
   OidcClientEvent,
 } from './index';
-import { OidcClientError } from './oidcClientError';
+import { OidcClientError, oidcClientErrors } from './oidcClientError';
 import { createRenewalTrackingPromise } from '../utils/userRenewalPromise';
 import { createNamespacedBeacon } from '../beacon/signals';
 
@@ -142,7 +142,10 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
 
   const createRenewalPromise = async (): Promise<RenewalResult> => {
     const [err, user] = await to(createRenewalTrackingPromise(userManager));
-    return Promise.resolve([err ? new OidcClientError('Renew failed', 'RENEWAL_FAILED', err) : null, user as User]);
+    return Promise.resolve([
+      err ? new OidcClientError('Renew failed', oidcClientErrors.RENEWAL_FAILED, err) : null,
+      user as User,
+    ]);
   };
 
   const handleUserRenewal = async ({ triggerSigninSilent = false }: { triggerSigninSilent?: boolean } = {}): Promise<
@@ -228,8 +231,15 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
       const isReturnedUserValid = isValidUser(user);
       if (callbackError || !isReturnedUserValid) {
         const error = callbackError
-          ? new OidcClientError('SigninRedirectCallback returned an error', 'SIGNIN_ERROR', callbackError)
-          : new OidcClientError('SigninRedirectCallback returned invalid or expired user', 'INVALID_OR_EXPIRED_USER');
+          ? new OidcClientError(
+              'SigninRedirectCallback returned an error',
+              oidcClientErrors.SIGNIN_ERROR,
+              callbackError,
+            )
+          : new OidcClientError(
+              'SigninRedirectCallback returned invalid or expired user',
+              oidcClientErrors.INVALID_OR_EXPIRED_USER,
+            );
         emitError(error);
         emitStateChange(oidcClientStates.NO_SESSION);
         return Promise.reject(error);

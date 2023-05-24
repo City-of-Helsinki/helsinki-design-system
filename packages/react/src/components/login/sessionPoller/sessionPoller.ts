@@ -6,7 +6,7 @@ import { createFetchAborter } from '../utils/abortFetch';
 import { Signal, ConnectedModule } from '../beacon/beacon';
 import { createNamespacedBeacon, createTriggerForAllSignals, getEventSignalPayload } from '../beacon/signals';
 import { getOidcClientFromSignal } from '../beacon/signalParsers';
-import { SessionPollerError } from './sessionPollerError';
+import { SessionPollerError, sessionPollerErrors } from './sessionPollerError';
 import { OidcClientState, oidcClientEvents, oidcClientNamespace, oidcClientStates } from '../client/index';
 import { getOidcClientStateChangePayload } from '../client/signals';
 
@@ -86,11 +86,16 @@ export default function createSessionPoller(
         (returnedHttpStatus === HttpStatusCode.FORBIDDEN || returnedHttpStatus === HttpStatusCode.UNAUTHORIZED)
       ) {
         dedicatedBeacon.emitError(
-          new SessionPollerError('User session poller returned FORBIDDEN or UNAUTHORIZED', 'SESSION_ENDED'),
+          new SessionPollerError(
+            'User session poller returned FORBIDDEN or UNAUTHORIZED',
+            sessionPollerErrors.SESSION_ENDED,
+          ),
         );
         return { keepPolling: false };
       }
-      dedicatedBeacon.emitError(new SessionPollerError('User session poller failed', 'SESSION_POLLING_FAILED'));
+      dedicatedBeacon.emitError(
+        new SessionPollerError('User session poller failed', sessionPollerErrors.SESSION_POLLING_FAILED),
+      );
       return { keepPolling: shouldPoll() };
     },
   });

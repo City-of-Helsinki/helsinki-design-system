@@ -1,4 +1,9 @@
-export type SessionPollerErrorType = 'SESSION_ENDED' | 'SESSION_POLLING_FAILED';
+export type SessionPollerErrorType = keyof typeof sessionPollerErrors;
+
+export const sessionPollerErrors = {
+  SESSION_ENDED: 'SESSION_ENDED',
+  SESSION_POLLING_FAILED: 'SESSION_POLLING_FAILED',
+} as const;
 
 export class SessionPollerError extends Error {
   constructor(public message: string, public type: SessionPollerErrorType, public originalError?: Error | null) {
@@ -8,10 +13,10 @@ export class SessionPollerError extends Error {
   }
 
   get isSessionEnded() {
-    return this.type === 'SESSION_ENDED';
+    return this.type === sessionPollerErrors.SESSION_ENDED;
   }
 
   get isSessionPollingFailure() {
-    return this.type === 'SESSION_POLLING_FAILED';
+    return this.type === sessionPollerErrors.SESSION_POLLING_FAILED;
   }
 }

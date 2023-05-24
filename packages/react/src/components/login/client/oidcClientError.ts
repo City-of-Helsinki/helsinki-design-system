@@ -1,4 +1,9 @@
-export type OidcClientErrorType = 'INVALID_OR_EXPIRED_USER' | 'SIGNIN_ERROR' | 'RENEWAL_FAILED';
+export type OidcClientErrorType = keyof typeof oidcClientErrors;
+export const oidcClientErrors = {
+  INVALID_OR_EXPIRED_USER: 'INVALID_OR_EXPIRED_USER',
+  SIGNIN_ERROR: 'SIGNIN_ERROR',
+  RENEWAL_FAILED: 'RENEWAL_FAILED',
+} as const;
 
 export class OidcClientError extends Error {
   constructor(public message: string, public type: OidcClientErrorType, public originalError?: Error | null) {
@@ -8,14 +13,14 @@ export class OidcClientError extends Error {
   }
 
   get isInvalidUserError() {
-    return this.type === 'INVALID_OR_EXPIRED_USER';
+    return this.type === oidcClientErrors.INVALID_OR_EXPIRED_USER;
   }
 
   get isSignInError() {
-    return this.type === 'SIGNIN_ERROR';
+    return this.type === oidcClientErrors.SIGNIN_ERROR;
   }
 
   get isRenewalError() {
-    return this.type === 'RENEWAL_FAILED';
+    return this.type === oidcClientErrors.RENEWAL_FAILED;
   }
 }
