@@ -1,7 +1,5 @@
 import { eventSignalType, EventSignal } from '../beacon/signals';
-import { TokenData, apiTokensClientNamespace } from './index';
-
-export type ApiTokensClientEvent = 'API_TOKENS_RENEWAL_STARTED' | 'API_TOKENS_UPDATED' | 'API_TOKENS_REMOVED';
+import { ApiTokensClientEvent, TokenData, apiTokensClientNamespace } from './index';
 
 export type ApiTokensEventSignal = EventSignal & {
   payload: {

@@ -23,7 +23,7 @@ import {
   waitForSignals,
 } from './beacon/signals';
 import { LISTEN_TO_ALL_MARKER, SignalNamespace, createBeacon } from './beacon/beacon';
-import { ApiTokenClientProps, TokenData, apiTokensClientNamespace } from './apiTokensClient';
+import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from './apiTokensClient';
 import createSessionPoller, { sessionPollerNamespace } from './sessionPoller/sessionPoller';
 import createApiTokenClient, {
   setApiTokensToStorage,
@@ -373,7 +373,9 @@ describe('Test all modules together', () => {
     it('When login handleCallback is called and finished, apiTokens are fetched and session polling starts', async () => {
       const { getReceivedSignalTypes, oidcClient, beacon } = await initAll({});
       oidcClient.handleCallback();
-      await advanceUntilPromiseResolved(waitForSignals(beacon, [createApiTokensChangeTrigger('API_TOKENS_UPDATED')]));
+      await advanceUntilPromiseResolved(
+        waitForSignals(beacon, [createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_UPDATED)]),
+      );
       // session poller start is called twice:
       // once when state changes to VALID_SESSION
       // and when USER_UPDATED is received
@@ -387,8 +389,8 @@ describe('Test all modules together', () => {
       ]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         initSignalType,
-        'API_TOKENS_RENEWAL_STARTED',
-        'API_TOKENS_UPDATED',
+        apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED,
+        apiTokensClientEvents.API_TOKENS_UPDATED,
       ]);
       // api tokens are fetched. Oidc client requests are mock in the the client itself.
       expect(getRequestCount()).toBe(1);
@@ -407,7 +409,10 @@ describe('Test all modules together', () => {
       expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType]);
       // because apiTokens exist already and apiTokensClient listens on oidcClient, which also has user
       // API_TOKENS_UPDATED is emitted before init in this scenario.
-      expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual(['API_TOKENS_UPDATED', initSignalType]);
+      expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
+        apiTokensClientEvents.API_TOKENS_UPDATED,
+        initSignalType,
+      ]);
       expect(getRequestCount()).toBe(0);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
       // 6*init and one event
@@ -429,9 +434,9 @@ describe('Test all modules together', () => {
       await waitUntilRequestFinished({ id: apiTokensResponder.id });
       expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
-        'API_TOKENS_RENEWAL_STARTED',
+        apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED,
         initSignalType,
-        'API_TOKENS_UPDATED',
+        apiTokensClientEvents.API_TOKENS_UPDATED,
       ]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(1);
@@ -457,10 +462,15 @@ describe('Test all modules together', () => {
         oidcClientEvents.USER_RENEWAL_STARTED,
       ]);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(1);
-      expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual(['API_TOKENS_UPDATED', initSignalType]);
+      expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
+        apiTokensClientEvents.API_TOKENS_UPDATED,
+        initSignalType,
+      ]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
       await renewAdvancer();
-      await advanceUntilPromiseResolved(waitForSignals(beacon, [createApiTokensChangeTrigger('API_TOKENS_UPDATED')]));
+      await advanceUntilPromiseResolved(
+        waitForSignals(beacon, [createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_UPDATED)]),
+      );
       await waitFor(() => {
         expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
           initSignalType,
@@ -469,10 +479,10 @@ describe('Test all modules together', () => {
         ]);
       });
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
-        'API_TOKENS_UPDATED',
+        apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
-        'API_TOKENS_RENEWAL_STARTED',
-        'API_TOKENS_UPDATED',
+        apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED,
+        apiTokensClientEvents.API_TOKENS_UPDATED,
       ]);
 
       await renewPromise;
@@ -499,9 +509,9 @@ describe('Test all modules together', () => {
       ]);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
-        'API_TOKENS_UPDATED',
+        apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
-        'API_TOKENS_REMOVED',
+        apiTokensClientEvents.API_TOKENS_REMOVED,
       ]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
 

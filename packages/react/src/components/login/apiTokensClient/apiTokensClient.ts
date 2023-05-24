@@ -21,6 +21,7 @@ import {
   ApiTokenClientProps,
   ApiTokenClient,
   apiTokensClientNamespace,
+  apiTokensClientEvents,
 } from '.';
 
 async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData | ApiTokensClientError> {
@@ -136,7 +137,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     fetchCanceller.abort();
     const { access_token: accessToken } = user;
     renewing = true;
-    dedicatedBeacon.emitEvent('API_TOKENS_RENEWAL_STARTED', null);
+    dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED, null);
     const result = await fetchApiToken({
       url,
       accessToken,
@@ -154,7 +155,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     tokens = { ...result };
     setUserReferenceToStorage(accessToken);
     setStoredTokens(tokens);
-    dedicatedBeacon.emitEvent('API_TOKENS_UPDATED', tokens);
+    dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_UPDATED, tokens);
     return Promise.resolve(tokens);
   };
 
@@ -166,7 +167,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
         fetch(user as User).catch(() => undefined);
       } else {
         tokens = storedTokens;
-        dedicatedBeacon.emitEvent('API_TOKENS_UPDATED', tokens);
+        dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_UPDATED, tokens);
       }
     } else if (tokens) {
       removeAllTokens();
@@ -182,7 +183,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     if (type === oidcClientEvents.USER_REMOVED) {
       fetchCanceller.abort();
       removeAllTokens();
-      await dedicatedBeacon.emitEvent('API_TOKENS_REMOVED', null);
+      await dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
       renewing = false;
     }
     if (type === oidcClientEvents.USER_UPDATED) {
@@ -218,7 +219,7 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     getTokens: () => tokens,
     clear: () => {
       fetchCanceller.abort();
-      dedicatedBeacon.emitEvent('API_TOKENS_REMOVED', null);
+      dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
       removeAllTokens();
     },
     namespace: apiTokensClientNamespace,

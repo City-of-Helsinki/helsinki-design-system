@@ -8,6 +8,7 @@ import {
   API_TOKEN_SESSION_USER_REFERENCE_KEY,
   ApiTokenClient,
   ApiTokenClientProps,
+  apiTokensClientEvents,
   apiTokensClientNamespace,
 } from './index';
 import createApiTokenClient, {
@@ -198,8 +199,8 @@ describe(`apiTokenClient`, () => {
       await waitUntilRequestFinished();
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads).toHaveLength(2);
-      expect(eventPayloads[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
+      expect(eventPayloads[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloads[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
     }
     return apiTokenClient;
   };
@@ -379,7 +380,7 @@ describe(`apiTokenClient`, () => {
         const eventPayloads = getEmittedEventPayloads();
         // renewal events are #0 and #1
         expect(eventPayloads).toHaveLength(3);
-        expect(eventPayloads[2].type).toBe('API_TOKENS_REMOVED');
+        expect(eventPayloads[2].type).toBe(apiTokensClientEvents.API_TOKENS_REMOVED);
         expect(eventPayloads[2].data).toBeNull();
       });
     });
@@ -399,7 +400,7 @@ describe(`apiTokenClient`, () => {
       await waitFor(() => {
         const eventPayloads = getEmittedEventPayloads();
         expect(eventPayloads).toHaveLength(1);
-        expect(eventPayloads[0].type).toBe('API_TOKENS_UPDATED');
+        expect(eventPayloads[0].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
         expect(eventPayloads[0].data).toMatchObject(tokens);
       });
       expect(apiTokenClient.isRenewing()).toBeFalsy();
@@ -424,9 +425,9 @@ describe(`apiTokenClient`, () => {
       expect(getUserReferenceFromStorage()).toMatch((currentUser as User).access_token);
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads).toHaveLength(2);
-      expect(eventPayloads[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
+      expect(eventPayloads[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
       expect(eventPayloads[0].data).toBeNull();
-      expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
+      expect(eventPayloads[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
       expect(eventPayloads[1].data).toMatchObject(apiTokens);
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
@@ -454,11 +455,13 @@ describe(`apiTokenClient`, () => {
       expect(getEmittedInitSignals(apiTokensClientNamespace)).toHaveLength(1);
       expect(responses).toHaveLength(1);
       const currentEventCount = getEmittedEventPayloads().length;
-      const renewalPromise = waitForSignals(currentBeacon, [createApiTokensChangeTrigger('API_TOKENS_REMOVED')]);
+      const renewalPromise = waitForSignals(currentBeacon, [
+        createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_REMOVED),
+      ]);
       emitEvent(currentBeacon, oidcClientNamespace, { type: oidcClientEvents.USER_REMOVED });
       await renewalPromise;
       const eventPayloads = getEmittedEventPayloads();
-      expect(eventPayloads[currentEventCount].type).toBe('API_TOKENS_REMOVED');
+      expect(eventPayloads[currentEventCount].type).toBe(apiTokensClientEvents.API_TOKENS_REMOVED);
       expect(apiTokenClient.getTokens()).toBeNull();
     });
     it('tokens are renewed, if user is renewed', async () => {
@@ -470,9 +473,11 @@ describe(`apiTokenClient`, () => {
       expect(apiTokenClient.isRenewing()).toBeFalsy();
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads).toHaveLength(2);
-      expect(eventPayloads[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
-      const eventPromise = waitForSignals(currentBeacon, [createApiTokensChangeTrigger('API_TOKENS_UPDATED')]);
+      expect(eventPayloads[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloads[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
+      const eventPromise = waitForSignals(currentBeacon, [
+        createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_UPDATED),
+      ]);
       emitEvent(currentBeacon, oidcClientNamespace, {
         type: oidcClientEvents.USER_UPDATED,
         data: createUser({ signInResponseProps: { access_token: renewedAccessToken } }),
@@ -481,10 +486,10 @@ describe(`apiTokenClient`, () => {
       await advanceUntilPromiseResolved(eventPromise);
       const eventPayloadsAfter = getEmittedEventPayloads();
       expect(eventPayloadsAfter).toHaveLength(4);
-      expect(eventPayloadsAfter[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloadsAfter[1].type).toBe('API_TOKENS_UPDATED');
-      expect(eventPayloadsAfter[2].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloadsAfter[3].type).toBe('API_TOKENS_UPDATED');
+      expect(eventPayloadsAfter[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloadsAfter[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
+      expect(eventPayloadsAfter[2].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloadsAfter[3].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
       expect(apiTokenClient.getTokens()).toMatchObject(newTokens);
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
@@ -493,8 +498,8 @@ describe(`apiTokenClient`, () => {
       const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({ removeUserAfterInit: true });
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads).toHaveLength(2);
-      expect(eventPayloads[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
+      expect(eventPayloads[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloads[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
       const eventPromise = waitForSignals(currentBeacon, [createErrorTrigger()]);
       emitEvent(currentBeacon, oidcClientNamespace, {
         type: oidcClientEvents.USER_UPDATED,
@@ -514,8 +519,8 @@ describe(`apiTokenClient`, () => {
       });
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads).toHaveLength(2);
-      expect(eventPayloads[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloads[1].type).toBe('API_TOKENS_UPDATED');
+      expect(eventPayloads[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloads[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
       const eventPromise = waitForSignals(currentBeacon, [createErrorTrigger()]);
       emitEvent(currentBeacon, oidcClientNamespace, {
         type: oidcClientEvents.USER_UPDATED,
@@ -524,9 +529,9 @@ describe(`apiTokenClient`, () => {
       await advanceUntilPromiseResolved(eventPromise);
       const eventPayloadsAfter = getEmittedEventPayloads();
       expect(eventPayloadsAfter).toHaveLength(3);
-      expect(eventPayloadsAfter[0].type).toBe('API_TOKENS_RENEWAL_STARTED');
-      expect(eventPayloadsAfter[1].type).toBe('API_TOKENS_UPDATED');
-      expect(eventPayloadsAfter[2].type).toBe('API_TOKENS_RENEWAL_STARTED');
+      expect(eventPayloadsAfter[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloadsAfter[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
+      expect(eventPayloadsAfter[2].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
       const emittedErrors = getEmittedErrors();
       expect(emittedErrors).toHaveLength(1);
       expect(emittedErrors[0].isFetchError).toBeTruthy();
