@@ -22,7 +22,7 @@ export function getOidcClientStateChangePayload(signal: Signal): StateChangeSign
   if (signal.type !== stateChangeSignalType || !signal.payload || signal.namespace !== oidcClientNamespace) {
     return null;
   }
-  return (signal as StateChangeSignal).payload;
+  return (signal as StateChangeSignal).payload as StateChangeSignalPayload;
 }
 
 export function createOidcClientEventTrigger(): Pick<Signal, 'namespace'> & { type: EventSignal['type'] } {
@@ -39,10 +39,6 @@ export function addStateChangeSignalListener(beacon: Beacon, listener: (signal: 
 
 export function isStateChangeSignal(signal: Signal) {
   return signal.type === stateChangeSignalType;
-}
-
-export function getErrorSignalPayload(signal: Signal): StateChangeSignalPayload | null {
-  return (isStateChangeSignal(signal) && (signal.payload as StateChangeSignalPayload)) || null;
 }
 
 export function createOidcClientStateChangeSignal(payload: StateChangeSignalPayload): StateChangeSignal {

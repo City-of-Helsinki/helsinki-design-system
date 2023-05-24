@@ -36,6 +36,7 @@ import { isStateChangeSignal } from './client/signals';
 import { createSessionEndedSignalTrigger } from './sessionPoller/signals';
 import { IconSignout } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
+import { useSessionPoller } from './sessionPoller/hooks';
 
 export default {
   component: LoginContextProvider,
@@ -213,6 +214,15 @@ const RenewApiTokensButton = () => {
     }
   };
   return <Button onClick={onButtonClick}>Renew api tokens</Button>;
+};
+
+const StartSessionPollingButton = () => {
+  const poller = useSessionPoller();
+  const onButtonClick = () => {
+    poller.stop();
+    poller.start();
+  };
+  return <Button onClick={onButtonClick}>Poll session</Button>;
 };
 
 const UserData = ({ user }: { user: User }) => {
@@ -404,6 +414,7 @@ const AuthenticatedContent = ({ user }: { user: User }) => {
         <LogoutButton />
         <RenewUserButton />
         <RenewApiTokensButton />
+        <StartSessionPollingButton />
       </div>
     </Wrapper>
   );
