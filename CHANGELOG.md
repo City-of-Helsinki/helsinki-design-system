@@ -7,6 +7,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.15.0] - May, 25, 2023
+
+### React
+
+#### Added
+
+- [Breadcrumb] New Breadcurb component
+- [Hero] New Hero component
+- [StepByStep] New Step-by-step component
+
+- [Tooltip] Tooltips for status labels
+- New UI icons
+
+#### Fixed
+
+- [Accordion] Fixed accordion with borders
+
+### Core
+
+#### Added
+
+- [Breadcrumb] New Breadcurb component
+- [Hero] New Hero component
+- [StepByStep] New Step-by-step component
+
+- [Tooltip] Tooltips for status labels
+- New UI icons
+
+### Documentation
+
+#### Added
+
+- [Breadcrumb] Documentation for new Breadcurb component
+- [Hero] Documentation for new New Hero component
+- [StepByStep] Documentation for new New Step-by-step component
+
+- [Tooltip] Tooltip documentation for all status labels
+- Documentation for new UI icons
+
+#### Fixed
+
+- [Gatsby] Check and fix headers and their styles in Gatsby (H1-H6)
+- [Accordion] Improve accordion examples and documentation
+
+#### Changed
+
+- Improved docs for creating new react components
+
+### Design tokens
+
+#### Changed
+
+- Upgrade Sketch shared library files to version 96.3
+
 ## [2.14.0] - May, 9, 2023
 
 ### React 
