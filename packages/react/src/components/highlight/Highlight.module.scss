@@ -1,10 +1,9 @@
 .highlight {
   composes: hds-highlight from 'hds-core/lib/components/highlight/highlight.css';
+}
 
-  & > blockquote  {
-    margin: 0;
-    padding: 0;
-  }
+.highlightBlockquote {
+  composes: hds-blockquote from 'hds-core/lib/components/highlight/highlight.css';
 }
 
 .text {
