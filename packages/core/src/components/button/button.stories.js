@@ -137,3 +137,10 @@ export const Themes = () => `
     ${getLabel('Black')}
   </button>
 `;
+
+export const LinkButton = () => `
+  <button role="link" type="button" class="hds-button hds-button--primary" onclick="window.open('/')">
+    ${getLabel("Button used as a link")}
+  </button>
+`;
+

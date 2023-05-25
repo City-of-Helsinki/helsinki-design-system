@@ -1,5 +1,6 @@
 const esmInput = {
   'components/Accordion/index': 'src/components/accordion/index.ts',
+  'components/Breadcrumb/index': 'src/components/breadcrumb/index.ts',
   'components/Button/index': 'src/components/button/index.ts',
   'components/Card/index': 'src/components/card/index.ts',
   'components/Checkbox/index': 'src/components/checkbox/index.ts',
@@ -13,6 +14,7 @@ const esmInput = {
   'components/Fieldset/index': 'src/components/fieldset/index.ts',
   'components/FileInput/index': 'src/components/fileInput/index.ts',
   'components/Footer/index': 'src/components/footer/index.ts',
+  'components/Hero/index': 'src/components/hero/index.ts',
   'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
   'components/Koros/index': 'src/components/koros/index.ts',
   'components/Link/index': 'src/components/link/index.ts',

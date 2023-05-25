@@ -33,14 +33,29 @@ export const Large = (args) => <Accordion {...args} size="l" />;
 export const WithoutCloseButton = (args) => <Accordion {...args} closeButton={false} />;
 WithoutCloseButton.storyName = 'Without close button';
 
+export const StackedAccordionCards = (args) => (
+  <>
+    <h1>Stacked Accordions in Cards</h1>
+    <Accordion {...args} card border style={{ maxWidth: '360px' }} />
+    <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} />
+    <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} />
+  </>
+);
+
+StackedAccordionCards.storyName = 'Stacked cards';
+
 export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
 InitiallyOpen.storyName = 'Initially open';
 
 export const CardAccordion = (args) => (
   <>
+    <h2>Card</h2>
     <Accordion {...args} card />
+    <h2>Small card with border</h2>
     <Accordion {...args} card border size="s" />
+    <h2>Medium card with border</h2>
     <Accordion {...args} card border size="m" />
+    <h2>Large card with border</h2>
     <Accordion {...args} card border size="l" />
   </>
 );

@@ -4,31 +4,43 @@ title: 'Home page'
 customLayout: true
 ---
 
-import { Button, Container } from 'hds-react';
+import { Button, Container, Hero } from 'hds-react';
 import { navigate } from 'gatsby';
-import Hero from '../components/Hero';
 import Image from '../components/Image';
 import FrontPageLinksList from '../components/FrontPageLinkList';
 
 <Hero
-  title="Helsinki Design System"
-  text="The central digital experience resource of Helsinki Design Language. Guidelines, design assets and component
-      libraries for building a consistent and accessible digital brand across the city."
-  backgroundImageUrl="/images/homepage/amos58.jpg"
+  imageSrc="/images/homepage/amos58.jpg"
+  variant="imageBottom"
+  theme={{
+    '--background-color': 'var(--color-coat-of-arms)',
+    '--color': '#fff',
+  }}
 >
+  <Hero.Title>Helsinki Design System</Hero.Title>
+  <Hero.Text>
+    The central digital experience resource of Helsinki Design Language. Guidelines, design assets and component
+    libraries for building a consistent and accessible digital brand across the city.
+  </Hero.Text>
   <Button
     variant="primary"
-    className="front-page-hero-button"
     role="link"
     onClick={() => {
       navigate('/getting-started');
     }}
+    style={{ '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' }}
   >
     Getting started
   </Button>
 </Hero>
 
-<Container style={{ margin: '0 auto var(--spacing-layout-l)'}}>
+<Container style={{ margin: '0 auto var(--spacing-layout-l)' }}>
   <FrontPageLinksList />
-  <Image size="M" src="/images/getting-started/structure-graph.svg" alt="Helsinki Design System helps project in three different ways. Design with the foundations and the user interface kit. Develop with the components and patterns. Learn about the standards and guidelines." style="display:block;width:100%;min-width:600px;max-width:915px;margin:0 auto;" viewable />
+  <Image
+    size="M"
+    src="/images/getting-started/structure-graph.svg"
+    alt="Helsinki Design System helps project in three different ways. Design with the foundations and the user interface kit. Develop with the components and patterns. Learn about the standards and guidelines."
+    style="display:block;width:100%;min-width:600px;max-width:915px;margin:0 auto;"
+    viewable
+  />
 </Container>

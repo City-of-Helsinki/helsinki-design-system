@@ -90,6 +90,29 @@ import { Accordion } from 'hds-react';
 
 </Playground>
 
+#### Stacked Accordions
+
+<Playground>
+
+```jsx
+import { Accordion } from 'hds-react';
+
+() => (<>
+  <h5>Stacked Accordions</h5>
+  <Accordion size="s" headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+  <Accordion size="s" headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', borderTop: 0 }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+  <Accordion size="s" headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', borderTop: 0 }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</>)
+```
+
+</Playground>
+
 
 #### Custom accordion
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
-import { Koros } from './Koros';
+import { getShapeHeight, Koros } from './Koros';
 
 export default {
   component: Koros,
@@ -114,6 +114,27 @@ export const RotatedInContainer = () => {
 };
 
 export const CustomColor = () => <Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
+
+export const ExactFit = (args) => {
+  const korosProps = {
+    style: { fill: 'var(--color-coat-of-arms)' },
+    ...args,
+  };
+
+  const containerStyle = {
+    height: `${getShapeHeight(korosProps)}px`,
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  } as React.CSSProperties;
+
+  return (
+    <div style={containerStyle}>
+      <Koros {...korosProps} />
+    </div>
+  );
+};
 
 export const Playground = (args) => (
   <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate} />
