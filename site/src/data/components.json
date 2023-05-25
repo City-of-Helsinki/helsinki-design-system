@@ -156,6 +156,19 @@
     }
   },
   {
+    "name": "Hero",
+    "text": "Hero is used below the main navigation as the first content element.",
+    "linkboxAriaLabel": "Hero component",
+    "linkAriaLabel": "Go to the Hero component page",
+    "href": "/components/hero",
+    "imgProps": {
+      "src": "/images/components/overview/hero@2x.png",
+      "alt": "An illustration of the Hero component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
     "name": "Icon",
     "text": "Icons are used for providing visual cues and highlighting actions.",
     "linkboxAriaLabel": "Icon component",
