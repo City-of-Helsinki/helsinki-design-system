@@ -301,10 +301,15 @@ const getExtension = (path: string): string => {
 
 const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
   const extension: string = getExtension(file.name);
+  const fileType: string = file.type;
   const acceptedExtensions = accept.split(',').map((str) => str.trim());
+  const isMatchingType = !!acceptedExtensions.find(
+    (acceptExtension) => acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
+  );
   const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
 
   return (
+    isMatchingType ||
     hasMatchingFileExtension || {
       type: ValidationErrorType.accept,
       text: getAcceptErrorMessage(language, file, accept),
