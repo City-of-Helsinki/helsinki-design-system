@@ -15,10 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Breadcrumb] New Breadcrumb component
 - [Hero] New Hero component
-- [StepByStep] New Step-by-step component
+- [StepByStep] New StepByStep component
 
 - [Tooltip] Tooltips for status labels
-- New UI icons
+- [Icon] 16 new UI icons
 
 #### Fixed
 
@@ -26,7 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [StatusLabel] Marked default rectangular Status label deprecating. This will be removed in 3.0.0
+- [StatusLabel] Marked default rectangular StatusLabel as deprecated. This will be removed in 3.0.0
+- [Icon] New icon for link-external
 
 ### Core
 
@@ -34,27 +35,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Breadcrumb] New Breadcrumb component
 - [Hero] New Hero component
-- [StepByStep] New Step-by-step component
+- [StepByStep] New StepByStep component
 
-- [Tooltip] Tooltips for status labels
-- New UI icons
+- [Tooltip] Tooltips for StatusLabels
+- [Icon] 16 new UI icons
 
 #### Changed
 
-- [StatusLabel] Marked default rectangular Status label deprecating. This will be removed in 3.0.0
+- [StatusLabel] Marked default rectangular StatusLabel as deprecated. This will be removed in 3.0.0
+- [Icon] New icon for link-external
 
 ### Documentation
 
 #### Added
 
-- [Breadcrumb] Documentation for new Breadcrumb component
-- [Hero] Documentation for new New Hero component
-- [StepByStep] Documentation for new New Step-by-step component
+- [Breadcrumbs] Documentation for new Breadcrumbs component
+- [Hero] Documentation for new Hero component
+- [StepByStep] Documentation for new StepByStep component
 
 - [Tooltip] Tooltip documentation for all status labels
 - [Button] Added example of button as a link
-- Documentation for new UI icons
-
 
 #### Fixed
 
@@ -64,24 +64,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - Improved docs for creating new react components
-- External link icon updated
+- New and changed icons added to icon list
 
 ### Design kit
 
 #### Added
 
-- [Breadcrumb] New Breadcrumb component
-- [Hero] New Hero component
-- [Step-by-step] New Step-by-step component
-- [Icon] New UI icons
-
-### Design tokens
-
-- Design kit (no changes to tokens this time)
+- [Breadcrumbs] Breadcrumbs symbols for all HDS breakpoints
+- [Hero] Eight Hero symbols for all HDS breakpoints
+– [Icons] Added 16 new UI icons (arrow-right-dashed, bag-cogwheel, binoculars, cogwheels, collapse, graph-columns, hammers, history, lightbulb, money-bag, money-bag-fill, scroll, scroll-cogwheel, scroll-content, scroll-group, shield)
+- [Step-by-step] Step-by-step symbols for top, middle and bottom parts (two sizes: small & extra-large)
 
 #### Changed
 
-- Upgrade Sketch shared library files to version 96.3
+– [Accordion] Upgraded to Sketch version 96.3
+– [Buttons] Upgraded to Sketch version 96.3
+– [Cards] Upgraded to Sketch version 96.3
+– [Color] Upgraded to Sketch version 96.3
+– [Cookies] Upgraded to Sketch version 96.3
+– [Footer] Upgraded to Sketch version 96.3
+– [Form Components] Upgraded to Sketch version 96.3
+– [Grids and Breakpoints] Upgraded to Sketch version 96.3
+– [Icons] Upgraded to Sketch version 96.3
+– [Icons] New icon for link-external
+– [Koros] Upgraded to Sketch version 96.3
+– [Labels and Tags] Upgraded to Sketch version 96.3
+– [Links] Upgraded to Sketch version 96.3
+– [Loaders] Upgraded to Sketch version 96.3
+– [Logo] Upgraded to Sketch version 96.3
+– [Modals and Notifications] Upgraded to Sketch version 96.3
+– [Navigation] Upgraded to Sketch version 96.3
+– [Pagination] Upgraded to Sketch version 96.3
+– [Placeholders and templates] Upgraded to Sketch version 96.3
+– [Shadow] Upgraded to Sketch version 96.3
+– [Spacing] Upgraded to Sketch version 96.3
+– [Table] Upgraded to Sketch version 96.3
+– [Tabs] Upgraded to Sketch version 96.3
+– [Typography] Upgraded to Sketch version 96.3
+
+### Icon kit
+
+#### Added
+
+– [Icons] Added 16 new UI icons (arrow-right-dashed, bag-cogwheel, binoculars, cogwheels, collapse, graph-columns, hammers, history, lightbulb, money-bag, money-bag-fill, scroll, scroll-cogwheel, scroll-content, scroll-group, shield)
+
+#### Changed
+
+– [Icons] New icon for link-external
+
 
 ## [2.14.0] - May, 9, 2023
 
