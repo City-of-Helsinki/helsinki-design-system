@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Breadcrumb] New Breadcurb component
+- [Breadcrumb] New Breadcrumb component
 - [Hero] New Hero component
 - [StepByStep] New Step-by-step component
 
@@ -24,27 +24,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Accordion] Fixed accordion with borders
 
+#### Changed
+
+- [StatusLabel] Marked default rectangular Status label deprecating. This will be removed in 3.0.0
+
 ### Core
 
 #### Added
 
-- [Breadcrumb] New Breadcurb component
+- [Breadcrumb] New Breadcrumb component
 - [Hero] New Hero component
 - [StepByStep] New Step-by-step component
 
 - [Tooltip] Tooltips for status labels
 - New UI icons
 
+#### Changed
+
+- [StatusLabel] Marked default rectangular Status label deprecating. This will be removed in 3.0.0
+
 ### Documentation
 
 #### Added
 
-- [Breadcrumb] Documentation for new Breadcurb component
+- [Breadcrumb] Documentation for new Breadcrumb component
 - [Hero] Documentation for new New Hero component
 - [StepByStep] Documentation for new New Step-by-step component
 
 - [Tooltip] Tooltip documentation for all status labels
+- [Button] Added example of button as a link
 - Documentation for new UI icons
+
 
 #### Fixed
 
@@ -54,8 +64,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - Improved docs for creating new react components
+- External link icon updated
 
 ### Design tokens
+
+- Design kit (no changes to tokens this time)
 
 #### Changed
 
