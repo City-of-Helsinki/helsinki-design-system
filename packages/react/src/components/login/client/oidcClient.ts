@@ -34,11 +34,22 @@ const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   } as UserManagerSettings,
 });
 
+/**
+ * Returns the session storage key for the user data.
+ * @param settings
+ * @returns string
+ */
 export const getUserStoreKey = (settings: Partial<UserManagerSettings>): string =>
   // "oidc" is the default prefix in oidc-client-ts
   // "user" is the userStoreKey in oidc-client-ts
   `oidc.user:${settings.authority}:${settings.client_id}`;
 
+/**
+ * Gets user data from storage
+ * @param settings
+ * @param storage
+ * @returns
+ */
 export const getUserFromStorage = (
   settings: Pick<UserManagerSettings, 'authority' | 'client_id'>,
   storage: Storage = window.sessionStorage,
@@ -55,6 +66,11 @@ export const getUserFromStorage = (
   }
 };
 
+/**
+ * Checks is the user expired. Reads the expired and expires_at properties of the User object
+ * @param user
+ * @returns
+ */
 export const isUserExpired = (user?: Partial<User> | null): boolean => {
   if (!user) {
     return true;
@@ -70,8 +86,19 @@ export const isUserExpired = (user?: Partial<User> | null): boolean => {
   return true;
 };
 
+/**
+ * Returns true, if user is not expired and has an access token
+ * @param user
+ * @returns
+ */
 export const isValidUser = (user?: User | null): boolean => !!user && !isUserExpired(user) && !!user.access_token;
 
+/**
+ *
+ * @param user
+ * @param tokenType
+ * @returns
+ */
 export const pickUserToken = (user: UserReturnType, tokenType: Parameters<OidcClient['getToken']>[0]): string => {
   if (!isValidUser(user)) {
     return undefined;

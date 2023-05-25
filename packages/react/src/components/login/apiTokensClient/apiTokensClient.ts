@@ -74,7 +74,11 @@ async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData |
   }
   return Promise.resolve(json as TokenData);
 }
-
+/**
+ * Gets the api tokens from storage
+ * @param storage
+ * @returns
+ */
 export const getApiTokensFromStorage = (storage: Storage = window.sessionStorage): TokenData | null => {
   const tokensString = storage.getItem(API_TOKEN_SESSION_STORAGE_KEY);
   try {
@@ -84,14 +88,29 @@ export const getApiTokensFromStorage = (storage: Storage = window.sessionStorage
   }
 };
 
+/**
+ * Removes the api tokens from storage
+ * @param storage
+ */
 export const removeApiTokensFromStorage = (storage: Storage = window.sessionStorage) => {
   storage.removeItem(API_TOKEN_SESSION_STORAGE_KEY);
 };
 
+/**
+ * Sets the api tokens to storage
+ * @param tokenObj
+ * @param storage
+ */
 export const setApiTokensToStorage = (tokenObj: TokenData, storage: Storage = window.sessionStorage): void => {
   storage.setItem(API_TOKEN_SESSION_STORAGE_KEY, JSON.stringify(tokenObj));
 };
 
+/**
+ * Gets one api token from storage
+ * @param tokenKey
+ * @param storage
+ * @returns
+ */
 export const getApiTokenFromStorage = (
   tokenKey: string,
   storage: Storage = window.sessionStorage,
@@ -100,14 +119,28 @@ export const getApiTokenFromStorage = (
   return tokens ? tokens[tokenKey] : undefined;
 };
 
+/**
+ *  Removes the user reference to stored api tokens. Reference is the access token used when fetching api tokens
+ * @param storage
+ */
 export const removeUserReferenceFromStorage = (storage: Storage = window.sessionStorage) => {
   storage.removeItem(API_TOKEN_SESSION_USER_REFERENCE_KEY);
 };
 
+/**
+ * Stores user reference to stored api tokens. Reference should be the access token used when fetching api tokens
+ * @param reference
+ * @param storage
+ */
 export const setUserReferenceToStorage = (reference: string, storage: Storage = window.sessionStorage): void => {
   storage.setItem(API_TOKEN_SESSION_USER_REFERENCE_KEY, reference);
 };
 
+/**
+ * Returns the user reference to stored api tokens. Reference is the access token used when fetching api tokens
+ * @param storage
+ * @returns
+ */
 export const getUserReferenceFromStorage = (storage: Storage = window.sessionStorage): string | null => {
   return storage.getItem(API_TOKEN_SESSION_USER_REFERENCE_KEY);
 };
