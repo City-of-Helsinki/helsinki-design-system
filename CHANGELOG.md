@@ -66,6 +66,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved docs for creating new react components
 - External link icon updated
 
+### Design kit
+
+#### Added
+
+- [Breadcrumb] New Breadcrumb component
+- [Hero] New Hero component
+- [Step-by-step] New Step-by-step component
+- [Icon] New UI icons
+
 ### Design tokens
 
 - Design kit (no changes to tokens this time)
