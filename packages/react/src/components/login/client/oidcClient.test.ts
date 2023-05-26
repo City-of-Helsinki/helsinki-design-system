@@ -30,7 +30,7 @@ import {
   getListenerSignals,
 } from '../testUtils/beaconTestUtil';
 import { advanceUntilListenerCalled, listenToPromise } from '../testUtils/timerTestUtil';
-import { OidcClientEventSignal, createOidcClientEventTrigger } from './signals';
+import { OidcClientEventSignal, createOidcClientEventSignal } from './signals';
 import { createRenewalTestUtil, mockUserManagerRefreshResponse } from '../testUtils/renewalTestUtil';
 import {
   ErrorSignal,
@@ -38,7 +38,7 @@ import {
   EventSignal,
   NamespacedBeacon,
   ScopedSignalListener,
-  createErrorTrigger,
+  createErrorTriggerProps,
   errorSignalType,
   eventSignalType,
   stateChangeSignalType,
@@ -583,8 +583,8 @@ describe('oidcClient', () => {
         }
         return undefined;
       };
-      beaconModule.addListener(createOidcClientEventTrigger(), renewalStartedListener);
-      beaconModule.addListener(createErrorTrigger(), renewalErrorListener);
+      beaconModule.addListener(createOidcClientEventSignal(), renewalStartedListener);
+      beaconModule.addListener(createErrorTriggerProps(), renewalErrorListener);
       return beaconModule;
     };
 

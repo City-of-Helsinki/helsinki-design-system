@@ -7,20 +7,19 @@ import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { useApiTokens, useApiTokensClient } from './hooks';
 import { createUser, createUserAndPlaceUserToStorage, UserCreationProps } from '../testUtils/userTestUtil';
 import { ConnectedModule } from '../beacon/beacon';
-import { createTriggerForAllSignals } from '../beacon/signals';
+import { createTriggerPropsForAllSignals } from '../beacon/signals';
 import { ApiTokenClientProps, TokenData, apiTokensClientNamespace } from '.';
 import { Responder, createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
 import createApiTokenClient, { setApiTokensToStorage, setUserReferenceToStorage } from './apiTokensClient';
 // eslint-disable-next-line jest/no-mocks-import
 import apiTokens from '../__mocks__/apiTokens.json';
 import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';
-import { createOidcClientEventTrigger } from '../client/signals';
+import { createOidcClientEventSignal } from '../client/signals';
 import { useSignalTrackingWithReturnValue } from '../hooks';
 import { advanceUntilDoesNotThrow } from '../testUtils/timerTestUtil';
 import { oidcClientEvents } from '../client';
 
 describe('apiToken hooks testing', () => {
-  // type ElementId = typeof elementIds[keyof typeof elementIds];
   const elementIds = {
     clientNamespace: 'client-namespace-element',
     clientError: 'client-error-element',
@@ -97,7 +96,7 @@ describe('apiToken hooks testing', () => {
       const [error, tokens] = getStoredApiTokens();
       // this hook will cause this component to re-render on each change
       // if parent is re-rendered, this component is not.
-      useSignalTrackingWithReturnValue(createTriggerForAllSignals(apiTokensClientNamespace));
+      useSignalTrackingWithReturnValue(createTriggerPropsForAllSignals(apiTokensClientNamespace));
       return (
         <div>
           <span id={elementIds.tokens}>{tokens ? JSON.stringify(tokens) : ''}</span>
@@ -226,13 +225,12 @@ describe('apiToken hooks testing', () => {
           const { emit } = init({ component: 'tokens', responses: [renewalResponse] });
           expect(getTokensAreRenewing()).toBeFalsy();
           act(() => {
-            emit({
-              ...createOidcClientEventTrigger(),
-              payload: {
+            emit(
+              createOidcClientEventSignal({
                 type: oidcClientEvents.USER_UPDATED,
                 data: createUser({ signInResponseProps: { access_token: 'token2' } }),
-              },
-            });
+              }),
+            );
           });
           await waitUntilRequestStarted();
           expect(getTokensAreRenewing()).toBeTruthy();

@@ -4,7 +4,7 @@ import HttpStatusCode from 'http-status-typed';
 import createHttpPoller from '../utils/httpPoller';
 import { createFetchAborter } from '../utils/abortFetch';
 import { Signal, ConnectedModule } from '../beacon/beacon';
-import { createNamespacedBeacon, createTriggerForAllSignals, getEventSignalPayload } from '../beacon/signals';
+import { createNamespacedBeacon, createTriggerPropsForAllSignals, getEventSignalPayload } from '../beacon/signals';
 import { getOidcClientFromSignal } from '../beacon/signalParsers';
 import { SessionPollerError, sessionPollerErrors } from './sessionPollerError';
 import { OidcClientState, oidcClientEvents, oidcClientNamespace, oidcClientStates } from '../client/index';
@@ -19,11 +19,13 @@ export type SessionPollerOptions = {
   pollIntervalInMs: number;
 };
 
+export type SessionPollerEvent = keyof typeof sessionPollerEvents;
+
 export const sessionPollerNamespace = 'sessionPoller';
 export const sessionPollerEvents = {
   SESSION_POLLING_STARTED: 'SESSION_POLLING_STARTED',
   SESSION_POLLING_STOPPED: 'SESSION_POLLING_STOPPED',
-};
+} as const;
 
 export default function createSessionPoller(
   options: SessionPollerOptions = { pollIntervalInMs: 60000 },
@@ -151,7 +153,7 @@ export default function createSessionPoller(
     }
   };
 
-  dedicatedBeacon.addListener(createTriggerForAllSignals(oidcClientNamespace), oidcClientListener);
+  dedicatedBeacon.addListener(createTriggerPropsForAllSignals(oidcClientNamespace), oidcClientListener);
 
   const sessionPoller: SessionPoller = {
     namespace: sessionPollerNamespace,

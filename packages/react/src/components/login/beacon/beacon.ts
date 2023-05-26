@@ -55,7 +55,9 @@ export function joinTypeAndNamespace(signal: Partial<Signal>, defaultNamespace =
   return `${signal.type || defaultType}${NAMESPACE_SEPARATOR}${signal.namespace || defaultNamespace}`;
 }
 
-export function convertToCompareableSignals(signalOrJustType: SignalType | Partial<Signal>): SignalTriggerProps {
+export function convertToCompareableSignals(
+  signalOrJustType: SignalType | Partial<Signal> | SignalTriggerProps,
+): SignalTriggerProps {
   const source =
     typeof signalOrJustType === 'string'
       ? splitTypeAndNamespace(signalOrJustType)
@@ -89,7 +91,7 @@ export function compareSignals(signalOrJustType: SignalType | Partial<Signal>, s
   return compareSignalTriggers(source, target);
 }
 
-export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal): SignalTrigger {
+export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal | SignalTriggerProps): SignalTrigger {
   const source = convertToCompareableSignals(signalOrJustSignalType);
   return (incomingSignal: Signal) => {
     // incoming signal should not be generic, it must have type and namespace
@@ -232,18 +234,4 @@ export function createBeacon(): Beacon {
     },
   };
   return beacon;
-}
-
-export function createSignal(
-  type: SignalType,
-  namespace: SignalNamespace,
-  payload?: SignalPayload,
-  context?: SignalContext,
-): Signal {
-  return {
-    type,
-    namespace,
-    payload,
-    context,
-  };
 }

@@ -3,6 +3,7 @@ import {
   Disposer,
   LISTEN_TO_ALL_MARKER,
   Signal,
+  SignalContext,
   SignalListener,
   SignalNamespace,
   SignalPayload,
@@ -102,25 +103,63 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
   };
 }
 
-export function createErrorTrigger(
+// payload and context are conditionally added, so they can be used as triggers
+// if triggers have object[key], the value is checked
+export function createSignalOrTriggerProps(
+  type: SignalType,
+  namespace: SignalNamespace,
+  payload?: SignalPayload,
+  context?: SignalContext,
+): Signal {
+  return {
+    type,
+    namespace,
+    ...(payload && { payload }),
+    ...(context && { context }),
+  };
+}
+
+export function createErrorSignal(namespace: SignalNamespace, payload?: ErrorPayload): ErrorSignal {
+  return createSignalOrTriggerProps(errorSignalType, namespace, payload) as ErrorSignal;
+}
+
+export function createEventSignal(namespace: SignalNamespace, payload?: EventPayload): EventSignal {
+  return createSignalOrTriggerProps(eventSignalType, namespace, payload) as EventSignal;
+}
+
+export function createStateChangeSignal(
+  namespace: SignalNamespace,
+  payload?: StateChangeSignalPayload,
+): StateChangeSignal {
+  return createSignalOrTriggerProps(stateChangeSignalType, namespace, payload) as Signal<
+    typeof stateChangeSignalType,
+    StateChangeSignalPayload
+  >;
+}
+
+export function createErrorTriggerProps(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
-): Pick<Signal, 'namespace'> & { type: ErrorSignal['type'] } {
+  type?: string,
+): Pick<Signal, 'namespace'> & { type: ErrorSignal['type'] } & { payload?: { type: string } } {
   return {
     type: errorSignalType,
     namespace,
+    ...(type && { payload: { type } }),
   };
 }
 
-export function createEventTrigger(
+export function createEventTriggerProps(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
-): Pick<Signal, 'namespace'> & { type: EventSignal['type'] } {
+  type?: string,
+): Pick<Signal, 'namespace'> & { type: EventSignal['type'] } & { payload?: { type: string } } {
   return {
     type: eventSignalType,
     namespace,
+    ...(type && { payload: { type } }),
   };
 }
 
-export function createInitTrigger(
+export function createInitTriggerProps(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
 ): Pick<Signal, 'type' | 'namespace'> {
   return {
@@ -129,22 +168,51 @@ export function createInitTrigger(
   };
 }
 
-export function createStateChangeTrigger(
+export function createStateChangeTriggerProps(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
+  state?: string,
+  previousState?: string,
 ): Pick<Signal, 'type' | 'namespace'> {
+  const payload = state
+    ? {
+        ...(state && { state }),
+        ...(previousState && { previousState }),
+      }
+    : undefined;
   return {
     type: stateChangeSignalType,
     namespace,
+    ...(payload && { payload }),
   };
 }
 
-export function createTriggerForAllSignals(
+export function createTriggerPropsForAllSignals(
   namespace: SignalNamespace = LISTEN_TO_ALL_MARKER,
 ): Pick<Signal, 'type' | 'namespace'> {
   return {
     type: LISTEN_TO_ALL_MARKER,
     namespace,
   };
+}
+
+export function createTriggerForAllSignalTypes(): Pick<Signal, 'type'> {
+  return {
+    type: LISTEN_TO_ALL_MARKER,
+  };
+}
+
+export function createTriggerForAllNamespaces(): Pick<Signal, 'namespace'> {
+  return {
+    namespace: LISTEN_TO_ALL_MARKER,
+  };
+}
+
+export function convertSignalToTrigger(signal: Signal): SignalTriggerProps {
+  if (!Object.prototype.hasOwnProperty.call(signal, 'context')) {
+    return (signal as unknown) as SignalTriggerProps;
+  }
+  const { type, namespace, payload } = signal;
+  return { type, namespace, payload };
 }
 
 export function filterSignals(list: Signal[], filterProps: Partial<Signal>): Signal[] {
@@ -172,6 +240,10 @@ export function isStateChangeSignal(signal: Signal) {
   return signal.type === stateChangeSignalType;
 }
 
+export function isNamespacedSignal(signal: Signal, namespace: SignalNamespace) {
+  return signal.namespace === namespace;
+}
+
 export function getEventSignalPayload(signal: Signal): EventPayload | null {
   if (!isEventSignal(signal) || !signal.payload || !(signal as EventSignal).payload.type) {
     return null;
@@ -190,6 +262,24 @@ export function getErrorSignalPayload(signal: Signal): ErrorPayload | null {
   return (isErrorSignal(signal) && (signal.payload as ErrorPayload)) || null;
 }
 
+export function checkEventSignalPayload(signal: Signal, checker: (payload: EventPayload) => boolean): boolean {
+  const payload = getEventSignalPayload(signal);
+  return !!payload && checker(payload);
+}
+
+export function checkStateChangeSignalPayload(
+  signal: Signal,
+  checker: (payload: StateChangeSignalPayload) => boolean,
+): boolean {
+  const payload = getStateChangeSignalPayload(signal);
+  return !!payload && checker(payload);
+}
+
+export function checkErrorSignalPayload(signal: Signal, checker: (payload: ErrorPayload) => boolean): boolean {
+  const payload = getErrorSignalPayload(signal);
+  return !!payload && checker(payload);
+}
+
 export function emitInitializationSignals(beacon: Beacon) {
   const contexts = beacon.getAllSignalContextsAsObject();
   Object.keys(contexts).forEach((namespace) => {
@@ -197,11 +287,6 @@ export function emitInitializationSignals(beacon: Beacon) {
   });
 }
 
-/**
- *
- * trigger USER_REWENEWAL_START, API_TOKEN_RENEWAL_END, ERROR
- * rejectOn:
- */
 export function waitForSignals(
   beacon: Beacon,
   triggers: (SignalType | Partial<Signal>)[],
@@ -280,6 +365,6 @@ export function waitForSignals(
         }
       }
     };
-    disposerStorage[0] = beacon.addListener(createTriggerForAllSignals(), listener);
+    disposerStorage[0] = beacon.addListener(createTriggerPropsForAllSignals(), listener);
   });
 }

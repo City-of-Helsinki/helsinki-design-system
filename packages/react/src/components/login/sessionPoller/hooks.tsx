@@ -1,6 +1,6 @@
 import { useConnectedModule, useSignalTrackingWithReturnValue } from '../hooks';
 import { sessionPollerNamespace, SessionPoller } from './sessionPoller';
-import { createSessionPollerSignalTrigger } from './signals';
+import { triggerForAllSessionPollerSignals } from './signals';
 
 export const useSessionPoller = (): SessionPoller => {
   const sessionPoller = useConnectedModule<SessionPoller>(sessionPollerNamespace);
@@ -10,6 +10,6 @@ export const useSessionPoller = (): SessionPoller => {
   return sessionPoller;
 };
 
-export const useSessionPollerTracking = () => {
-  return useSignalTrackingWithReturnValue(createSessionPollerSignalTrigger());
+export const useSessionPollerErrorTracking = () => {
+  return useSignalTrackingWithReturnValue(triggerForAllSessionPollerSignals);
 };

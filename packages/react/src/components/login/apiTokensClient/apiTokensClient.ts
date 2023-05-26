@@ -6,9 +6,9 @@ import retryPollingUntilSuccessful from '../utils/httpPollerWithPromises';
 import { ApiTokensClientError, apiTokensClientError } from './apiTokensClientError';
 import { Signal } from '../beacon/beacon';
 import {
-  createEventTrigger,
+  createEventTriggerProps,
   createNamespacedBeacon,
-  createInitTrigger,
+  createInitTriggerProps,
   getEventSignalPayload,
 } from '../beacon/signals';
 import { oidcClientEvents, oidcClientNamespace, OidcClientEvent } from '../client';
@@ -253,8 +253,8 @@ export default function createApiTokenClient(props: ApiTokenClientProps): ApiTok
     return Promise.resolve();
   };
 
-  dedicatedBeacon.addListener(createEventTrigger(oidcClientNamespace), oidcClientEventListener);
-  dedicatedBeacon.addListener(createInitTrigger(oidcClientNamespace), oidcClientInitListener);
+  dedicatedBeacon.addListener(createEventTriggerProps(oidcClientNamespace), oidcClientEventListener);
+  dedicatedBeacon.addListener(createInitTriggerProps(oidcClientNamespace), oidcClientInitListener);
 
   return {
     fetch,

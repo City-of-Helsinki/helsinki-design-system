@@ -36,7 +36,7 @@ import { advanceUntilListenerCalled, advanceUntilPromiseResolved } from './testU
 import { createMockTestUtil } from './testUtils/mockTestUtil';
 import { HttpPoller, HttpPollerProps, isSuccessfulHttpResponse } from './utils/httpPoller';
 import { RetryingPollerProps } from './utils/httpPollerWithPromises';
-import { createApiTokensChangeTrigger } from './apiTokensClient/signals';
+import { createApiTokensClientEventTriggerProps } from './apiTokensClient/signals';
 
 type UserInScenarios = 'none' | 'valid' | 'invalid';
 type ApiTokensInScenarios = 'none' | 'forUser' | 'otherUser';
@@ -374,7 +374,9 @@ describe('Test all modules together', () => {
       const { getReceivedSignalTypes, oidcClient, beacon } = await initAll({});
       oidcClient.handleCallback();
       await advanceUntilPromiseResolved(
-        waitForSignals(beacon, [createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_UPDATED)]),
+        waitForSignals(beacon, [
+          createApiTokensClientEventTriggerProps({ type: apiTokensClientEvents.API_TOKENS_UPDATED }),
+        ]),
       );
       // session poller start is called twice:
       // once when state changes to VALID_SESSION
@@ -475,7 +477,9 @@ describe('Test all modules together', () => {
       ]);
       await renewAdvancer();
       await advanceUntilPromiseResolved(
-        waitForSignals(beacon, [createApiTokensChangeTrigger(apiTokensClientEvents.API_TOKENS_UPDATED)]),
+        waitForSignals(beacon, [
+          createApiTokensClientEventTriggerProps({ type: apiTokensClientEvents.API_TOKENS_UPDATED }),
+        ]),
       );
       await waitFor(() => {
         expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([

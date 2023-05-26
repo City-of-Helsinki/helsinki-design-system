@@ -12,7 +12,7 @@ import {
   ErrorPayload,
   EventPayload,
   NamespacedBeacon,
-  createEventTrigger,
+  createEventTriggerProps,
   createNamespacedBeacon,
   errorSignalType,
   eventSignalType,
@@ -115,5 +115,5 @@ export function getReceivedEventSignalPayloads<T = EventPayload>(listenerModule:
 }
 
 export function emitEvent(beacon: Beacon, namespace: Signal['namespace'], eventPayload: EventPayload): void {
-  beacon.emit({ ...createEventTrigger(namespace), payload: eventPayload });
+  beacon.emit({ ...createEventTriggerProps(namespace), payload: eventPayload });
 }

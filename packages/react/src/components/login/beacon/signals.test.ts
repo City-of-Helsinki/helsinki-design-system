@@ -9,7 +9,7 @@ import {
   createBeacon,
   splitTypeAndNamespace,
 } from './beacon';
-import { createErrorTrigger, errorSignalType, eventSignalType, waitForSignals } from './signals';
+import { createErrorTriggerProps, errorSignalType, eventSignalType, waitForSignals } from './signals';
 
 describe(`signals`, () => {
   describe(`compareSignals checks, if given source (argument #0) matches the given target (argument #0)`, () => {
@@ -145,7 +145,7 @@ describe(`signals`, () => {
       'signal1:*',
       'signal2:namespace1',
       { type: 'signal3', namespace: 'namespace2' },
-      createErrorTrigger('namespace3'),
+      createErrorTriggerProps('namespace3'),
     ];
     const fulfillingSignal = { type: 'fullfiller', namespace: 'X' };
     const signalListTypes = signalList.map((signal) => splitTypeAndNamespace(signal).type);
