@@ -48,15 +48,10 @@
   line-height: var(--lineheight-l);
 }
 
-.hds-highlight__quote {
-  font-style: italic;
-}
-
 .hds-highlight__quote:before,
 .hds-highlight__quote:after {
   content: '"';
   display: inline;  
-  font-style: italic;
 }
 
 .hds-highlight__reference {
