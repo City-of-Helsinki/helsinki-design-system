@@ -19,6 +19,7 @@ export type SignalTriggerProps = Omit<Signal, 'context'> & { context?: Record<st
 export type SignalTrigger = (signal: Signal) => boolean;
 
 export type StoredListenerData = { listener: SignalListener; trigger: SignalTrigger };
+export type SignalListenerSource = SignalType | Signal | SignalTrigger | SignalTriggerProps;
 
 // add cleanup?
 export type Disposer = () => void;
@@ -27,7 +28,7 @@ export type BeaconContext = Map<string, ConnectedModule>;
 
 export type Beacon = {
   emit: (signal: Signal) => void;
-  addListener: (signalOrJustSignalType: SignalType | Signal, listener: SignalListener) => Disposer;
+  addListener: (triggerOrSignalProps: SignalListenerSource, listener: SignalListener) => Disposer;
   addSignalContext: (context: ConnectedModule) => Disposer;
   getSignalContext: (namespace: SignalNamespace) => ConnectedModule | undefined;
   getAllSignalContextsAsObject: () => Record<string, ConnectedModule>;
@@ -115,11 +116,11 @@ export function createBeacon(): Beacon {
   const listenerQueue = new Set<StoredListenerData>();
   const contextMap: BeaconContext = new Map();
 
-  const addListener: Beacon['addListener'] = (
-    signalOrJustSignalType: SignalType | Signal,
-    listener: SignalListener,
-  ) => {
-    const trigger = createSignalTrigger(signalOrJustSignalType);
+  const addListener: Beacon['addListener'] = (triggerOrSignalProps, listener) => {
+    const trigger =
+      typeof triggerOrSignalProps === 'function'
+        ? (triggerOrSignalProps as SignalTrigger)
+        : createSignalTrigger(triggerOrSignalProps);
     const data = { listener, trigger };
     // If a listener is added while signalling and it is triggered by the
     // currently emitted signal, a loop could be created.

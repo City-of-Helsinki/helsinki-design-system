@@ -1,4 +1,4 @@
-import { useContext, useCallback, useState, useLayoutEffect, useRef } from 'react';
+import { useContext, useCallback, useState, useLayoutEffect, useRef, useMemo } from 'react';
 
 import { Amr, OidcClient, UserReturnType, oidcClientNamespace } from './client/index';
 import { isValidUser } from './client/oidcClient';
@@ -7,12 +7,12 @@ import {
   ConnectedModule,
   Signal,
   SignalListener,
+  SignalListenerSource,
   SignalNamespace,
+  SignalTrigger,
   SignalTriggerProps,
   compareSignalTriggers,
 } from './beacon/beacon';
-
-export type SignalListenerWithResponse = (signal: Signal) => boolean;
 
 export const useOidcClient = (): OidcClient => {
   const { getModule } = useContext(LoginContext);
@@ -41,7 +41,7 @@ export const useConnectedModule = <T extends ConnectedModule>(namespace: SignalN
   return getModule<T>(namespace) || null;
 };
 
-export const useSignalListener = (listener: SignalListenerWithResponse): [Signal | undefined, () => void] => {
+export const useSignalListener = (listener: SignalTrigger): [Signal | undefined, () => void] => {
   const { addListener } = useContext(LoginContext);
   const [lastSignal, setLastSignal] = useState<Signal | undefined>();
   const memoizedListener = useCallback<SignalListener>(
@@ -74,12 +74,19 @@ export const useCachedAmr = (): Amr | undefined => {
   return cachedAmr;
 };
 
-const useSignalTracking = (signalProps: SignalTriggerProps, callback?: SignalListener) => {
-  const signalPropsRef = useRef<SignalTriggerProps>(signalProps);
+const useSignalTracking = (signalProps: SignalListenerSource, callback?: SignalListener) => {
+  const trigger = useMemo<SignalTrigger>(() => {
+    if (typeof signalProps === 'function') {
+      return signalProps as SignalTrigger;
+    }
+    return (signal: Signal) => {
+      return compareSignalTriggers(signalProps as SignalTriggerProps, (signal as unknown) as SignalTriggerProps);
+    };
+  }, []);
   const callbackRef = useRef(callback);
   const hasCallback = !!callback;
   const listener = useCallback((signal: Signal) => {
-    if (compareSignalTriggers(signalPropsRef.current, (signal as unknown) as SignalTriggerProps)) {
+    if (trigger(signal)) {
       if (!hasCallback) {
         return true;
       }
@@ -91,10 +98,10 @@ const useSignalTracking = (signalProps: SignalTriggerProps, callback?: SignalLis
   return hasCallback ? undefined : lastSignalAndReset;
 };
 
-export const useSignalTrackingWithCallback = (signalProps: SignalTriggerProps, callback?: SignalListener): void => {
+export const useSignalTrackingWithCallback = (signalProps: SignalListenerSource, callback?: SignalListener): void => {
   useSignalTracking(signalProps, callback);
 };
 
-export const useSignalTrackingWithReturnValue = (signalProps: SignalTriggerProps) => {
+export const useSignalTrackingWithReturnValue = (signalProps: SignalListenerSource) => {
   return useSignalTracking(signalProps) as ReturnType<typeof useSignalListener>;
 };

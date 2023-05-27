@@ -11,7 +11,7 @@ import {
   RenderCounter,
   getCommonListenerFunctions,
 } from './testUtils/hooks.testUtil';
-import { Signal, SignalTriggerProps } from './beacon/beacon';
+import { Signal, SignalListenerSource, createSignalTrigger } from './beacon/beacon';
 import { apiTokensClientNamespace } from './apiTokensClient';
 import { errorSignalType, eventSignalType, stateChangeSignalType } from './beacon/signals';
 import { oidcClientNamespace } from './client';
@@ -30,7 +30,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   const triggersPerComponent = [
     { type: errorSignalType },
     { type: eventSignalType, namespace: apiTokensClientNamespace },
-    { type: eventSignalType },
+    createSignalTrigger({ type: eventSignalType }),
     { type: stateChangeSignalType, namespace: oidcClientNamespace },
   ];
   const triggerForListener0 = { type: errorSignalType, namespace: oidcClientNamespace };
@@ -41,7 +41,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
   let testUtil: HookTestUtil;
   let commonFuncs: ReturnType<typeof getCommonListenerFunctions>;
 
-  const TestSignalTrackingWithCallback = ({ id, trigger }: { id: string; trigger: SignalTriggerProps }) => {
+  const TestSignalTrackingWithCallback = ({ id, trigger }: { id: string; trigger: SignalListenerSource }) => {
     const signalHistoryRef = useRef<Signal[]>([]);
     const listenerFactory = useListenerFactory();
     const uuid = v4();
@@ -75,7 +75,7 @@ describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hoo
     );
   };
 
-  const TestSignalTrackingWithReturnValue = ({ id, trigger }: { id: string; trigger: SignalTriggerProps }) => {
+  const TestSignalTrackingWithReturnValue = ({ id, trigger }: { id: string; trigger: SignalListenerSource }) => {
     const [currentSignal, reset] = useSignalTrackingWithReturnValue(trigger);
     const { type, namespace } = currentSignal || {};
     return (

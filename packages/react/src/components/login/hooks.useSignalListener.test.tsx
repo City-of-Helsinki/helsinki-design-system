@@ -3,7 +3,7 @@ import { waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { v4 } from 'uuid';
 
-import { SignalListenerWithResponse, useSignalListener } from './hooks';
+import { useSignalListener } from './hooks';
 import { UserCreationProps } from './testUtils/userTestUtil';
 import {
   createHookTestEnvironment,
@@ -11,7 +11,7 @@ import {
   useListenerFactory,
   getCommonListenerFunctions,
 } from './testUtils/hooks.testUtil';
-import { SignalType, createSignalTrigger } from './beacon/beacon';
+import { createSignalTrigger, SignalTrigger, SignalListenerSource } from './beacon/beacon';
 
 describe('useSignalListener hook', () => {
   const elementIds = {
@@ -24,7 +24,8 @@ describe('useSignalListener hook', () => {
   const componentIds = ['tester0', 'tester1', 'tester2', 'tester3'];
   const namespace1 = 'namespace1';
   const namespace2 = 'namespace2';
-  const triggeringSignalTypes = ['*:*', `*:${namespace1}`, `second:${namespace1}`, `third:${namespace2}`];
+  const triggerFunction = createSignalTrigger(`third:${namespace2}`);
+  const triggeringSignalTypes = ['*:*', `*:${namespace1}`, `second:${namespace1}`, triggerFunction];
   const triggerForListenersIndex0Index1 = { type: 'first', namespace: namespace1 };
   const triggerForListenersIndex0Index1Index2 = { type: 'second', namespace: namespace1 };
   const triggerForListenersIndex0Index3 = { type: 'third', namespace: namespace2 };
@@ -32,12 +33,19 @@ describe('useSignalListener hook', () => {
   let testUtil: HookTestUtil;
   let commonFuncs: ReturnType<typeof getCommonListenerFunctions>;
 
-  const TestListenerFunctionalities = ({ id, signalType }: { id: string; signalType: SignalType }) => {
+  const TestListenerFunctionalities = ({
+    id,
+    signalTypeOrTrigger,
+  }: {
+    id: string;
+    signalTypeOrTrigger: SignalListenerSource;
+  }) => {
     const listenerFactory = useListenerFactory();
-    const memoizedListener = useMemo<SignalListenerWithResponse>(() => {
+    const memoizedListener = useMemo<SignalTrigger>(() => {
       const uuid = v4();
       return (signal) => {
-        const trigger = signalType ? createSignalTrigger(signalType) : () => true;
+        const trigger =
+          typeof signalTypeOrTrigger === 'function' ? signalTypeOrTrigger : createSignalTrigger(signalTypeOrTrigger);
         if (!trigger(signal)) {
           return false;
         }
@@ -45,7 +53,7 @@ describe('useSignalListener hook', () => {
         listener({ ...signal }, uuid);
         return true;
       };
-    }, [id, signalType]);
+    }, [id, signalTypeOrTrigger]);
     const [currentSignal, reset] = useSignalListener(memoizedListener);
     const { type, namespace } = currentSignal || {};
     return (
@@ -73,10 +81,10 @@ describe('useSignalListener hook', () => {
     const triggers = invertTriggersToChangeProps ? [...triggeringSignalTypes].reverse() : triggeringSignalTypes;
     return (
       <div>
-        {count > 0 && <TestListenerFunctionalities id={componentIds[0]} signalType={triggers[0]} />}
-        {count > 1 && <TestListenerFunctionalities id={componentIds[1]} signalType={triggers[1]} />}
-        {count > 2 && <TestListenerFunctionalities id={componentIds[2]} signalType={triggers[2]} />}
-        {count > 3 && <TestListenerFunctionalities id={componentIds[3]} signalType={triggers[3]} />}
+        {count > 0 && <TestListenerFunctionalities id={componentIds[0]} signalTypeOrTrigger={triggers[0]} />}
+        {count > 1 && <TestListenerFunctionalities id={componentIds[1]} signalTypeOrTrigger={triggers[1]} />}
+        {count > 2 && <TestListenerFunctionalities id={componentIds[2]} signalTypeOrTrigger={triggers[2]} />}
+        {count > 3 && <TestListenerFunctionalities id={componentIds[3]} signalTypeOrTrigger={triggers[3]} />}
         <button
           type="button"
           id={elementIds.removeSignalListenerButton}
