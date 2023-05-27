@@ -24,19 +24,20 @@ import createApiTokenClient from './apiTokensClient/apiTokensClient';
 import { useApiTokens, useApiTokensClient } from './apiTokensClient/hooks';
 import {
   EventPayload,
-  createTriggerForAllSignals,
+  createTriggerPropsForAllSignals,
   isErrorSignal,
   isEventSignal,
   isInitSignal,
-  createErrorTrigger,
   StateChangeSignalPayload,
+  isStateChangeSignal,
+  createErrorTriggerProps,
 } from './beacon/signals';
 import { Beacon, ConnectedModule, Signal, SignalListener } from './beacon/beacon';
-import { isStateChangeSignal } from './client/signals';
-import { createSessionEndedSignalTrigger } from './sessionPoller/signals';
+import { sessionEndedTrigger } from './sessionPoller/signals';
 import { IconSignout } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { useSessionPoller } from './sessionPoller/hooks';
+import { LoginButton } from './LoginButton';
 
 export default {
   component: LoginContextProvider,
@@ -68,7 +69,7 @@ function createSignalTracker(): ConnectedModule & {
     namespace: 'signalTracker',
     connect: (connectedBeacon) => {
       beacon = connectedBeacon;
-      beacon.addListener(createTriggerForAllSignals(), listener);
+      beacon.addListener(createTriggerPropsForAllSignals(), listener);
     },
     getHistory: () => {
       return history;
@@ -169,13 +170,16 @@ const Nav = () => {
   );
 };
 
-const LoginButton = () => {
+/*
+const LoginButtonOLD = () => {
   const oidcClient = useOidcClient();
   const onButtonClick = () => {
     oidcClient.login();
   };
   return <Button onClick={onButtonClick}>Log in</Button>;
 };
+
+*/
 
 const LogoutButton = () => {
   const oidcClient = useOidcClient();
@@ -191,7 +195,7 @@ const LoginComponent = () => {
       <Nav />
       <h1>Welcome to the login demo application!</h1>
       <p>Click button below, or in the navigation, to start the login process</p>
-      <LoginButton />
+      <LoginButton>Log in </LoginButton>
     </div>
   );
 };
@@ -320,7 +324,7 @@ const ApiTokenOutput = () => {
 };
 
 const NotifyIfSessionEnds = () => {
-  const [endSignal] = useSignalTrackingWithReturnValue(createSessionEndedSignalTrigger());
+  const [endSignal] = useSignalTrackingWithReturnValue(sessionEndedTrigger);
   const oidcClient = useOidcClient();
   if (!endSignal) {
     return null;
@@ -346,7 +350,7 @@ const NotifyIfErrorOccurs = () => {
     },
     [setHistory],
   );
-  useSignalTrackingWithCallback(createErrorTrigger(), listener);
+  useSignalTrackingWithCallback(createErrorTriggerProps(), listener);
 
   return (
     <ListContainer>
