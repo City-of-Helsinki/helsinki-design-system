@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { act } from '@testing-library/react';
 
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
-import { useApiTokens, useApiTokensClient } from './hooks';
+import { useApiTokens, useApiTokensClient, useApiTokensClientTracking } from './hooks';
 import { createUser, createUserAndPlaceUserToStorage, UserCreationProps } from '../testUtils/userTestUtil';
 import { ConnectedModule } from '../beacon/beacon';
-import { createTriggerPropsForAllSignals } from '../beacon/signals';
-import { ApiTokenClientProps, TokenData, apiTokensClientNamespace } from '.';
+import { createTriggerPropsForAllSignals, EventPayload, isErrorSignal } from '../beacon/signals';
+import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from '.';
 import { Responder, createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
 import createApiTokenClient, { setApiTokensToStorage, setUserReferenceToStorage } from './apiTokensClient';
 // eslint-disable-next-line jest/no-mocks-import
@@ -18,6 +18,8 @@ import { createOidcClientEventSignal } from '../client/signals';
 import { useSignalTrackingWithReturnValue } from '../hooks';
 import { advanceUntilDoesNotThrow } from '../testUtils/timerTestUtil';
 import { oidcClientEvents } from '../client';
+import { getApiTokensClientEventPayload } from './signals';
+import { apiTokensClientError, ApiTokensClientError } from './apiTokensClientError';
 
 describe('apiToken hooks testing', () => {
   const elementIds = {
@@ -26,6 +28,8 @@ describe('apiToken hooks testing', () => {
     tokens: 'tokens-element',
     tokensError: 'tokens-error-element',
     tokensIsRenewing: 'tokens-isRenewing-element',
+    lastSignal: 'last-signal-element',
+    error: 'error-element',
   } as const;
 
   type ResponseType = {
@@ -43,6 +47,7 @@ describe('apiToken hooks testing', () => {
     const renewedTokens = { newTokens: 'token' };
     const successfulResponse: ResponseType = { returnedStatus: HttpStatusCode.OK };
     const renewalResponse: ResponseType = { returnedStatus: HttpStatusCode.OK, body: JSON.stringify(renewedTokens) };
+    const errorResponse: ResponseType = { returnedStatus: HttpStatusCode.FORBIDDEN };
 
     const retryInterval = 20000;
     const defaultClientProps: ApiTokenClientProps = {
@@ -106,6 +111,28 @@ describe('apiToken hooks testing', () => {
       );
     };
 
+    const ErrorTracking = () => {
+      const [signal, , apiTokensClient] = useApiTokensClientTracking();
+      const error = signal && isErrorSignal(signal) ? (signal?.payload as ApiTokensClientError) : null;
+      const eventPayload = signal ? getApiTokensClientEventPayload(signal) : null;
+      // useRef to store last error and payload
+      const errorRef = useRef<ApiTokensClientError | undefined>(undefined);
+      const payloadRef = useRef<EventPayload | undefined>(undefined);
+      if (error) {
+        errorRef.current = error;
+      }
+      if (eventPayload) {
+        payloadRef.current = eventPayload;
+      }
+      return (
+        <div>
+          <span id={elementIds.lastSignal}>{payloadRef.current ? payloadRef.current.type : ''}</span>
+          <span id={elementIds.error}>{errorRef.current ? errorRef.current.type : ''}</span>
+          <span>Making sure client is found {apiTokensClient.namespace}</span>
+        </div>
+      );
+    };
+
     const init = ({
       component,
       userProps,
@@ -113,7 +140,7 @@ describe('apiToken hooks testing', () => {
       modules = [],
       noClient = false,
     }: {
-      component: 'client' | 'tokens';
+      component: 'client' | 'tokens' | 'errorTracking';
       userProps?: UserCreationProps;
       responses?: ResponseType[];
       modules?: ConnectedModule[];
@@ -129,11 +156,17 @@ describe('apiToken hooks testing', () => {
       if (!noClient) {
         modules.push(createApiTokenClient(defaultClientProps));
       }
+      const getComponent = () => {
+        if (component === 'errorTracking') {
+          return <ErrorTracking key={component} />;
+        }
+        return component === 'client' ? <Client key={component} /> : <Tokens key={component} />;
+      };
       testUtil = createHookTestEnvironment(
         {
           userInStorage: userProps,
           waitForRenderToggle: false,
-          children: [component === 'client' ? <Client key={component} /> : <Tokens key={component} />],
+          children: [getComponent()],
           noOidcClient: true,
         },
         {},
@@ -240,6 +273,54 @@ describe('apiToken hooks testing', () => {
           });
           expect(getTokens()).toMatchObject(renewedTokens);
         });
+      });
+    });
+    describe('useApiTokensClientTracking', () => {
+      it('tracks errors when fetching fails or api tokens are invalid', async () => {
+        const { getInnerHtml } = init({
+          component: 'errorTracking',
+          userProps: { invalidUser: false },
+          responses: [errorResponse],
+        });
+        // api tokens fetch starts immediately when client is created
+        // the hook is rendered after that, so first signals are missed
+        await waitUntilRequestStarted({ id: apiTokensResponder.id, advanceTime: 20 });
+        await waitUntilRequestFinished();
+        expect(getInnerHtml(elementIds.error)).toBe(apiTokensClientError.API_TOKEN_FETCH_FAILED);
+      });
+      it('tracks events when fetch succeeds', async () => {
+        const { getInnerHtml } = init({
+          component: 'errorTracking',
+          userProps: { invalidUser: false },
+        });
+        await waitUntilRequestStarted({ id: apiTokensResponder.id, advanceTime: 1000 });
+        await waitUntilRequestFinished();
+        expect(getInnerHtml(elementIds.lastSignal)).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
+        expect(getInnerHtml(elementIds.error)).toBe('');
+      });
+      it('Tracks renewal', async () => {
+        const user = createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
+        setUserReferenceToStorage(user.access_token);
+        setApiTokensToStorage(apiTokens);
+        const { emit, getInnerHtml } = init({
+          component: 'errorTracking',
+          responses: [{ returnedStatus: HttpStatusCode.OK, body: '"invalid{json' }],
+        });
+        act(() => {
+          emit(
+            createOidcClientEventSignal({
+              type: oidcClientEvents.USER_UPDATED,
+              data: createUser({ signInResponseProps: { access_token: 'token2' } }),
+            }),
+          );
+        });
+        await waitUntilRequestStarted();
+        expect(getInnerHtml(elementIds.lastSignal)).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+        await waitUntilRequestFinished();
+        await advanceUntilDoesNotThrow(() => {
+          expect(getTokensAreRenewing()).toBeFalsy();
+        });
+        expect(getInnerHtml(elementIds.error)).toBe(apiTokensClientError.INVALID_API_TOKENS);
       });
     });
   });

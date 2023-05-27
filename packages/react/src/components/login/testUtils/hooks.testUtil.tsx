@@ -265,6 +265,18 @@ export function createHookTestEnvironment(
         });
       });
     },
+    clickElement: async (id: string, renderTimeId?: string) => {
+      const currentRenderTime = renderTimeId ? getRenderTime(renderTimeId) : -1;
+      act(() => {
+        fireEvent.click(getElementById(id));
+      });
+      if (!renderTimeId) {
+        return Promise.resolve();
+      }
+      return waitFor(() => {
+        expect(getRenderTime(renderTimeId)).not.toBe(currentRenderTime);
+      });
+    },
     getBeaconFuncs,
     afterEach,
     getElementJSON,

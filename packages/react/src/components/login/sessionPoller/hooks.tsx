@@ -1,3 +1,4 @@
+import { Signal } from '../beacon/beacon';
 import { useConnectedModule, useSignalTrackingWithReturnValue } from '../hooks';
 import { sessionPollerNamespace, SessionPoller } from './sessionPoller';
 import { triggerForAllSessionPollerSignals } from './signals';
@@ -10,6 +11,7 @@ export const useSessionPoller = (): SessionPoller => {
   return sessionPoller;
 };
 
-export const useSessionPollerErrorTracking = () => {
-  return useSignalTrackingWithReturnValue(triggerForAllSessionPollerSignals);
+export const useSessionPollerTracking = (): [Signal | undefined, () => void, SessionPoller] => {
+  const poller = useSessionPoller();
+  return [...useSignalTrackingWithReturnValue(triggerForAllSessionPollerSignals), poller];
 };

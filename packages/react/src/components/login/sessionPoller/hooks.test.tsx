@@ -11,10 +11,10 @@ import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.test
 import createSessionPoller, { sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
 import { SessionPollerError, sessionPollerErrors } from './sessionPollerError';
 import { useSessionPoller, useSessionPollerTracking } from './hooks';
-import { getSessionPollerEventPayload } from './signals';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
 import { advanceUntilDoesNotThrow } from '../testUtils/timerTestUtil';
+import { getSessionPollerEventPayload } from './signals';
 
 describe('sessionPoller hooks testing', () => {
   const elementIds = {
@@ -85,7 +85,7 @@ describe('sessionPoller hooks testing', () => {
     };
 
     const SignalCheck = () => {
-      const [signal] = useSessionPollerErrorTracking();
+      const [signal, , sessionPoller] = useSessionPollerTracking();
       const error = signal && isErrorSignal(signal) ? (signal?.payload as SessionPollerError) : null;
       const eventPayload = signal ? getSessionPollerEventPayload(signal) : null;
       // useRef to store last error and payload
@@ -101,6 +101,7 @@ describe('sessionPoller hooks testing', () => {
         <div>
           <span id={elementIds.lastSignal}>{payloadRef.current ? payloadRef.current.type : ''}</span>
           <span id={elementIds.pollingError}>{errorRef.current ? errorRef.current.type : ''}</span>
+          <span>Making sure poller is found {sessionPoller.namespace}</span>
         </div>
       );
     };
@@ -180,7 +181,7 @@ describe('sessionPoller hooks testing', () => {
         expect(getInnerHtml(elementIds.clientError).length > 1).toBeTruthy();
       });
     });
-    describe('useSessionPollerErrorTracking', () => {
+    describe('useSessionPollerTracking', () => {
       it('tracks events and errors when polling fails', async () => {
         const { getInnerHtml } = init({
           component: 'signals',

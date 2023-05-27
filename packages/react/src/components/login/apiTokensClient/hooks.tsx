@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 
-import { useConnectedModule, useOidcClient } from '../hooks';
+import { useConnectedModule, useOidcClient, useSignalTrackingWithReturnValue } from '../hooks';
 import { apiTokensClientNamespace, ApiTokenClient, TokenData } from './index';
+import { triggerForAllApiTokensClientSignals } from './signals';
 import { ApiTokensClientError } from './apiTokensClientError';
+import { Signal } from '../beacon/beacon';
 
 type UseApiTokensHookReturnType = {
   getStoredApiTokens: () => [ApiTokensClientError | null, TokenData | null];
@@ -46,4 +48,9 @@ export const useApiTokens = (): UseApiTokensHookReturnType => {
     };
   }, [apiTokensClient]);
   return returnObj;
+};
+
+export const useApiTokensClientTracking = (): [Signal | undefined, () => void, ApiTokenClient] => {
+  const client = useApiTokensClient();
+  return [...useSignalTrackingWithReturnValue(triggerForAllApiTokensClientSignals), client];
 };

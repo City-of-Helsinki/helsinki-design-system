@@ -2,6 +2,7 @@ import { useContext, useCallback, useState, useLayoutEffect, useRef, useMemo } f
 
 import { Amr, OidcClient, UserReturnType, oidcClientNamespace } from './client/index';
 import { isValidUser } from './client/oidcClient';
+import { triggerForAllOidcClientSignals } from './client/signals';
 import { LoginContext, LoginContextData } from './LoginContext';
 import {
   ConnectedModule,
@@ -104,4 +105,9 @@ export const useSignalTrackingWithCallback = (signalProps: SignalListenerSource,
 
 export const useSignalTrackingWithReturnValue = (signalProps: SignalListenerSource) => {
   return useSignalTracking(signalProps) as ReturnType<typeof useSignalListener>;
+};
+
+export const useOidcClientTracking = (): [Signal | undefined, () => void, OidcClient] => {
+  const client = useOidcClient();
+  return [...useSignalTrackingWithReturnValue(triggerForAllOidcClientSignals), client];
 };
