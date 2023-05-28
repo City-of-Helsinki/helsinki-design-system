@@ -6,7 +6,6 @@ import {
   useOidcClient,
   useSignalListener,
   useConnectedModule,
-  useSignalTrackingWithReturnValue,
   useSignalTrackingWithCallback,
   useAuthenticatedUser,
   Profile,
@@ -33,11 +32,11 @@ import {
   createErrorTriggerProps,
 } from './beacon/signals';
 import { Beacon, ConnectedModule, Signal, SignalListener } from './beacon/beacon';
-import { sessionEndedTrigger } from './sessionPoller/signals';
 import { IconSignout } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { useSessionPoller } from './sessionPoller/hooks';
 import { LoginButton } from './LoginButton';
+import { SessionEndedHandler } from './SessionEndedHandler';
 
 export default {
   component: LoginContextProvider,
@@ -323,23 +322,6 @@ const ApiTokenOutput = () => {
   );
 };
 
-const NotifyIfSessionEnds = () => {
-  const [endSignal] = useSignalTrackingWithReturnValue(sessionEndedTrigger);
-  const oidcClient = useOidcClient();
-  if (!endSignal) {
-    return null;
-  }
-
-  return (
-    <ListContainer>
-      <h2>Session has ended!</h2>
-      <p>Your session ended on the server!</p>
-      <p>You will be logged out!</p>
-      <Button onClick={() => oidcClient.logout()}>Clear session here</Button>
-    </ListContainer>
-  );
-};
-
 const NotifyIfErrorOccurs = () => {
   const [history, setHistory] = useState<Signal[]>([]);
   const listener = useCallback(
@@ -412,7 +394,14 @@ const AuthenticatedContent = ({ user }: { user: User }) => {
   return (
     <Wrapper>
       <Nav />
-      <NotifyIfSessionEnds />
+      <SessionEndedHandler
+        content={{
+          title: 'Session has ended!',
+          text: 'Your session on the server has ended. You will be logged out in this window too.',
+          buttonText: 'Logout',
+          closeButtonLabelText: 'Logout',
+        }}
+      />
       <AuthorizedContent user={user} />
       <div className="buttons">
         <LogoutButton />

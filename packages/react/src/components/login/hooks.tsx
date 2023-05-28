@@ -14,6 +14,7 @@ import {
   SignalTriggerProps,
   compareSignalTriggers,
 } from './beacon/beacon';
+import { createErrorTriggerProps } from './beacon/signals';
 
 export const useOidcClient = (): OidcClient => {
   const { getModule } = useContext(LoginContext);
@@ -110,4 +111,8 @@ export const useSignalTrackingWithReturnValue = (signalProps: SignalListenerSour
 export const useOidcClientTracking = (): [Signal | undefined, () => void, OidcClient] => {
   const client = useOidcClient();
   return [...useSignalTrackingWithReturnValue(triggerForAllOidcClientSignals), client];
+};
+
+export const useErrorTracking = () => {
+  return useSignalTrackingWithReturnValue(createErrorTriggerProps());
 };
