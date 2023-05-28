@@ -193,7 +193,7 @@ const LoginComponent = () => {
       <Nav />
       <h1>Welcome to the login demo application!</h1>
       <p>Click button below, or in the navigation, to start the login process</p>
-      <LoginButton>Log in </LoginButton>
+      <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
     </div>
   );
 };

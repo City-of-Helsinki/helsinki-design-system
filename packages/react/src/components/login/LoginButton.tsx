@@ -1,32 +1,56 @@
 import React from 'react';
 
-import { useAuthenticatedUser, useOidcClient, useSignalTrackingWithReturnValue } from './hooks';
-import { triggerForAllOidcClientStateChanges, isLoggingInSignal } from './client/signals';
+import { useAuthenticatedUser, useOidcClient } from './client/hooks';
+import { useSignalTrackingWithReturnValue } from './beacon/hooks';
+import {
+  triggerForAllOidcClientStateChanges,
+  isLoggingInSignal,
+  triggerForAllOidcClientErrors,
+} from './client/signals';
 import { Button, ButtonProps } from '../button/Button';
 import { LoadingSpinner } from '../loadingSpinner';
+import { IconAlertCircleFill } from '../../icons/ui/IconAlertCircleFill';
+import styles from './LoginButton.module.css';
 
-type LoginButtonProps = { spinnerColor?: string } & ButtonProps;
+export type LoginButtonProps = { spinnerColor?: string; errorText: string } & ButtonProps;
 export function LoginButton({
-  spinnerColor = '#fff',
+  spinnerColor = 'var(--color-white)',
   children,
+  errorText,
   ...buttonProps
 }: LoginButtonProps): React.ReactElement | null {
   const { login } = useOidcClient();
   const user = useAuthenticatedUser();
   const [lastSignal] = useSignalTrackingWithReturnValue(triggerForAllOidcClientStateChanges);
+  const [loginError, resetLoginError] = useSignalTrackingWithReturnValue(triggerForAllOidcClientErrors);
   const isLoggingIn = isLoggingInSignal(lastSignal);
   if (user) {
     return null;
   }
+  const isActive = isLoggingIn && !loginError;
   // for some reason LoadingSpinner theme has no effect
-  const iconLeft = isLoggingIn ? (
+  const iconLeft = isActive ? (
     <LoadingSpinner small style={{ '--spinner-color': spinnerColor } as React.HTMLProps<HTMLDivElement>['style']} />
   ) : undefined;
-  const combinedButtonProps = { ...buttonProps, iconLeft, disabled: isLoggingIn, onClick: () => login() };
+  const combinedButtonProps = {
+    ...buttonProps,
+    iconLeft,
+    disabled: isActive,
+    onClick: () => {
+      resetLoginError();
+      login();
+    },
+  };
   return (
     <>
-      <div>
+      <div className={styles.container}>
         <Button {...combinedButtonProps}>{children}</Button>
+        {loginError && (
+          <div className={styles.loginError}>
+            <IconAlertCircleFill className={styles.icon} />
+            <span className={styles.text}>{errorText}</span>
+          </div>
+        )}
       </div>
     </>
   );
