@@ -86,7 +86,9 @@ describe('oidcClient', () => {
           ui_locales: loginParams.language,
         },
       });
-      expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+      await waitFor(() => {
+        expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+      });
     });
     it('should pass other LoginProps than "language" to signinRedirect and convert "language" to an extraQueryParam', async () => {
       const { userManager } = testData;
@@ -129,7 +131,9 @@ describe('oidcClient', () => {
           ui_locales: loginParams.language,
         },
       });
-      expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+      await waitFor(() => {
+        expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+      });
       expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should pass other LogoutProps than "language" to signoutRedirect and convert "language" to an extraQueryParam', async () => {
