@@ -2,8 +2,8 @@ import React from 'react';
 import { User } from 'oidc-client-ts';
 
 import { useAuthenticatedUser } from './hooks';
-import { UserCreationProps } from './testUtils/userTestUtil';
-import { createHookTestEnvironment, HookTestUtil } from './testUtils/hooks.testUtil';
+import { UserCreationProps } from '../testUtils/userTestUtil';
+import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';
 
 describe('useAuthenticatedUser hook', () => {
   const elementIds = {

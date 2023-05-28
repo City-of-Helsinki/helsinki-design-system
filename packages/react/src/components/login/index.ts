@@ -1,3 +1,3 @@
 export * from './LoginContext';
-export * from './hooks';
+export * from './client/hooks';
 export * from './types';

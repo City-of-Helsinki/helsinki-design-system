@@ -1,9 +1,6 @@
 import { useContext, useCallback, useState, useLayoutEffect, useRef, useMemo } from 'react';
 
-import { Amr, OidcClient, UserReturnType, oidcClientNamespace } from './client/index';
-import { isValidUser } from './client/oidcClient';
-import { triggerForAllOidcClientSignals } from './client/signals';
-import { LoginContext, LoginContextData } from './LoginContext';
+import { LoginContext, LoginContextData } from '../LoginContext';
 import {
   ConnectedModule,
   Signal,
@@ -13,22 +10,8 @@ import {
   SignalTrigger,
   SignalTriggerProps,
   compareSignalTriggers,
-} from './beacon/beacon';
-import { createErrorTriggerProps } from './beacon/signals';
-
-export const useOidcClient = (): OidcClient => {
-  const { getModule } = useContext(LoginContext);
-  return getModule(oidcClientNamespace);
-};
-
-export const useAuthenticatedUser = (): UserReturnType => {
-  const client = useOidcClient();
-  const user = client.getUser();
-  if (!isValidUser(user)) {
-    return null;
-  }
-  return user;
-};
+} from './beacon';
+import { createErrorTriggerProps } from './signals';
 
 export const useBeacon = (): Pick<LoginContextData, 'addListener' | 'getModule'> => {
   const { addListener, getModule } = useContext(LoginContext);
@@ -70,12 +53,6 @@ export const useSignalListener = (listener: SignalTrigger): [Signal | undefined,
   return [lastSignal, memoizedReset];
 };
 
-export const useCachedAmr = (): Amr | undefined => {
-  const client = useOidcClient();
-  const [cachedAmr] = useState<Amr | undefined>(() => client.getAmr());
-  return cachedAmr;
-};
-
 const useSignalTracking = (signalProps: SignalListenerSource, callback?: SignalListener) => {
   const trigger = useMemo<SignalTrigger>(() => {
     if (typeof signalProps === 'function') {
@@ -92,7 +69,9 @@ const useSignalTracking = (signalProps: SignalListenerSource, callback?: SignalL
       if (!hasCallback) {
         return true;
       }
-      callbackRef.current(signal);
+      if (callbackRef.current) {
+        callbackRef.current(signal);
+      }
     }
     return false;
   }, []);
@@ -106,11 +85,6 @@ export const useSignalTrackingWithCallback = (signalProps: SignalListenerSource,
 
 export const useSignalTrackingWithReturnValue = (signalProps: SignalListenerSource) => {
   return useSignalTracking(signalProps) as ReturnType<typeof useSignalListener>;
-};
-
-export const useOidcClientTracking = (): [Signal | undefined, () => void, OidcClient] => {
-  const client = useOidcClient();
-  return [...useSignalTrackingWithReturnValue(triggerForAllOidcClientSignals), client];
 };
 
 export const useErrorTracking = () => {

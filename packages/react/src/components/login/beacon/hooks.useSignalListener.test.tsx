@@ -4,14 +4,14 @@ import { act } from 'react-dom/test-utils';
 import { v4 } from 'uuid';
 
 import { useSignalListener } from './hooks';
-import { UserCreationProps } from './testUtils/userTestUtil';
+import { UserCreationProps } from '../testUtils/userTestUtil';
 import {
   createHookTestEnvironment,
   HookTestUtil,
   useListenerFactory,
   getCommonListenerFunctions,
-} from './testUtils/hooks.testUtil';
-import { createSignalTrigger, SignalTrigger, SignalListenerSource } from './beacon/beacon';
+} from '../testUtils/hooks.testUtil';
+import { createSignalTrigger, SignalTrigger, SignalListenerSource } from './beacon';
 
 describe('useSignalListener hook', () => {
   const elementIds = {

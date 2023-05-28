@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import { act, waitFor } from '@testing-library/react';
 
-import { useOidcClientTracking } from './hooks';
-import { createUser, createUserAndPlaceUserToStorage, UserCreationProps } from './testUtils/userTestUtil';
-import { createHookTestEnvironment, HookTestUtil, elementIds as testUtilElementIds } from './testUtils/hooks.testUtil';
-import { isErrorSignal, EventPayload } from './beacon/signals';
-import { oidcClientEvents, oidcClientStates } from './client';
-import { createOidcClientErrorSignal, createOidcClientEventSignal, getOidcClientEventPayload } from './client/signals';
-import { getDefaultOidcClientTestProps, mockSignInResponse } from './testUtils/oidcClientTestUtil';
-import { OidcClientError, oidcClientErrors } from './client/oidcClientError';
+import { useOidcClientTracking } from '../client/hooks';
+import { createUser, createUserAndPlaceUserToStorage, UserCreationProps } from '../testUtils/userTestUtil';
+import { createHookTestEnvironment, HookTestUtil, elementIds as testUtilElementIds } from '../testUtils/hooks.testUtil';
+import { isErrorSignal, EventPayload } from './signals';
+import { oidcClientEvents, oidcClientStates } from '../client';
+import { createOidcClientErrorSignal, createOidcClientEventSignal, getOidcClientEventPayload } from '../client/signals';
+import { getDefaultOidcClientTestProps, mockSignInResponse } from '../testUtils/oidcClientTestUtil';
+import { OidcClientError, oidcClientErrors } from '../client/oidcClientError';
 
 describe('useOidcClientTracking hook', () => {
   const elementIds = {

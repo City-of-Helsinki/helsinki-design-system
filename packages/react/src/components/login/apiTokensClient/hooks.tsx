@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { useConnectedModule, useOidcClient, useSignalTrackingWithReturnValue } from '../hooks';
+import { useConnectedModule, useSignalTrackingWithReturnValue } from '../beacon/hooks';
+import { useOidcClient } from '../client/hooks';
 import { apiTokensClientNamespace, ApiTokenClient, TokenData } from './index';
 import { triggerForAllApiTokensClientSignals } from './signals';
 import { ApiTokensClientError } from './apiTokensClientError';

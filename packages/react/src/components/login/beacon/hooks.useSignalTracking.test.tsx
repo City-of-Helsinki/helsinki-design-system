@@ -10,11 +10,11 @@ import {
   useListenerFactory,
   RenderCounter,
   getCommonListenerFunctions,
-} from './testUtils/hooks.testUtil';
-import { Signal, SignalListenerSource, createSignalTrigger } from './beacon/beacon';
-import { apiTokensClientNamespace } from './apiTokensClient';
-import { errorSignalType, eventSignalType, stateChangeSignalType } from './beacon/signals';
-import { oidcClientNamespace } from './client';
+} from '../testUtils/hooks.testUtil';
+import { Signal, SignalListenerSource, createSignalTrigger } from './beacon';
+import { apiTokensClientNamespace } from '../apiTokensClient';
+import { errorSignalType, eventSignalType, stateChangeSignalType } from './signals';
+import { oidcClientNamespace } from '../client';
 
 describe('useSignalTrackingWithCallback and useSignalTrackingWithReturnValue hooks', () => {
   const elementIds = {

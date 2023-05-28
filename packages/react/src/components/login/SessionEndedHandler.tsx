@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useErrorTracking, useOidcClient } from './hooks';
+import { useOidcClient } from './client/hooks';
+import { useErrorTracking } from './beacon/hooks';
 import { isSessionEndedSignal } from './sessionPoller/signals';
 import { Button } from '../button';
 import { Dialog, DialogProps } from '../dialog/Dialog';

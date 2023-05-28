@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { useCachedAmr } from './hooks';
-import { UserCreationProps } from './testUtils/userTestUtil';
-import { createHookTestEnvironment, HookTestUtil } from './testUtils/hooks.testUtil';
-import { Amr, OidcClient, oidcClientNamespace } from './client';
+import { UserCreationProps } from '../testUtils/userTestUtil';
+import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';
+import { Amr, OidcClient, oidcClientNamespace } from './index';
 
 describe('useCachedAmr hook', () => {
   const elementIds = {

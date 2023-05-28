@@ -4,7 +4,7 @@ import { RenderResult, render } from '@testing-library/react';
 import { createUserAndPlaceUserToStorage } from './testUtils/userTestUtil';
 import { getDefaultOidcClientTestProps } from './testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
-import { useOidcClient } from './hooks';
+import { useOidcClient } from './client/hooks';
 import { User } from './index';
 import { WithAuthentication } from './WithAuthentication';
 import { WithAuthenticatedUser } from './WithAuthenticatedUser';

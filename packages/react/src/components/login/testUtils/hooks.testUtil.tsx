@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
 import { createOidcClientTestSuite, getDefaultOidcClientTestProps } from './oidcClientTestUtil';
-import { useBeacon } from '../hooks';
+import { useBeacon } from '../beacon/hooks';
 import { OidcClientProps } from '../client/index';
 import { LoginContextProvider } from '../LoginContext';
 import { Beacon, ConnectedModule, Signal, SignalNamespace } from '../beacon/beacon';

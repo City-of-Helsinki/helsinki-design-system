@@ -1,5 +1,5 @@
 import { Signal } from '../beacon/beacon';
-import { useConnectedModule, useSignalTrackingWithReturnValue } from '../hooks';
+import { useConnectedModule, useSignalTrackingWithReturnValue } from '../beacon/hooks';
 import { sessionPollerNamespace, SessionPoller } from './sessionPoller';
 import { triggerForAllSessionPollerSignals } from './signals';
 

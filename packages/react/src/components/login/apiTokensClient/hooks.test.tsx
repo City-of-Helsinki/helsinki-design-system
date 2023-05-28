@@ -15,7 +15,7 @@ import createApiTokenClient, { setApiTokensToStorage, setUserReferenceToStorage 
 import apiTokens from '../__mocks__/apiTokens.json';
 import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';
 import { createOidcClientEventSignal } from '../client/signals';
-import { useSignalTrackingWithReturnValue } from '../hooks';
+import { useSignalTrackingWithReturnValue } from '../beacon/hooks';
 import { advanceUntilDoesNotThrow } from '../testUtils/timerTestUtil';
 import { oidcClientEvents } from '../client';
 import { getApiTokensClientEventPayload } from './signals';
