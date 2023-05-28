@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import {
   User,
@@ -9,6 +9,7 @@ import {
   useSignalTrackingWithCallback,
   useAuthenticatedUser,
   Profile,
+  useBeacon,
 } from './index';
 import { Button } from '../button/Button';
 import { Accordion } from '../accordion/Accordion';
@@ -30,6 +31,7 @@ import {
   StateChangeSignalPayload,
   isStateChangeSignal,
   createErrorTriggerProps,
+  createErrorSignal,
 } from './beacon/signals';
 import { Beacon, ConnectedModule, Signal, SignalListener } from './beacon/beacon';
 import { IconSignout } from '../../icons';
@@ -37,6 +39,7 @@ import { Tabs } from '../tabs/Tabs';
 import { useSessionPoller } from './sessionPoller/hooks';
 import { LoginButton } from './LoginButton';
 import { SessionEndedHandler } from './SessionEndedHandler';
+import { SessionPollerError, sessionPollerErrors } from './sessionPoller/sessionPollerError';
 
 export default {
   component: LoginContextProvider,
@@ -58,6 +61,7 @@ const loginProps: OidcClientProps = {
 
 function createSignalTracker(): ConnectedModule & {
   getHistory: () => Signal[];
+  emit: Beacon['emit'];
 } {
   let beacon: Beacon | undefined;
   const history: Signal[] = [];
@@ -69,6 +73,11 @@ function createSignalTracker(): ConnectedModule & {
     connect: (connectedBeacon) => {
       beacon = connectedBeacon;
       beacon.addListener(createTriggerPropsForAllSignals(), listener);
+    },
+    emit: (signal: Signal) => {
+      if (beacon) {
+        beacon.emit(signal);
+      }
     },
     getHistory: () => {
       return history;
@@ -107,7 +116,8 @@ const Wrapper = (props: React.PropsWithChildren<unknown>) => {
 const IFrameWarning = () => {
   const openWindowInTop = () => {
     if (window.top) {
-      window.top.location.href = `/iframe.html${window.location.search}`;
+      const path = window.location.href.split('?')[0];
+      window.top.location.href = `${path}/iframe.html${window.location.search}`;
     }
   };
   if (window.top !== window.self) {
@@ -169,17 +179,6 @@ const Nav = () => {
   );
 };
 
-/*
-const LoginButtonOLD = () => {
-  const oidcClient = useOidcClient();
-  const onButtonClick = () => {
-    oidcClient.login();
-  };
-  return <Button onClick={onButtonClick}>Log in</Button>;
-};
-
-*/
-
 const LogoutButton = () => {
   const oidcClient = useOidcClient();
   const onButtonClick = () => {
@@ -227,6 +226,19 @@ const StartSessionPollingButton = () => {
   };
   return <Button onClick={onButtonClick}>Poll session</Button>;
 };
+const SimulateSessionEndButton = () => {
+  const { getModule } = useBeacon();
+  const onButtonClick = () => {
+    const tracker = getModule(signalTracker.namespace) as ReturnType<typeof createSignalTracker>;
+    tracker.emit({
+      ...createErrorSignal(
+        sessionPoller.namespace,
+        new SessionPollerError('Simulation', sessionPollerErrors.SESSION_ENDED),
+      ),
+    });
+  };
+  return <Button onClick={onButtonClick}>Simulate session end</Button>;
+};
 
 const UserData = ({ user }: { user: User }) => {
   const profile = user.profile as Profile;
@@ -235,12 +247,18 @@ const UserData = ({ user }: { user: User }) => {
   const timezoneOffset = expiresAt.getTimezoneOffset();
   return (
     <div>
-      <p>Hi, {profile.given_name}!</p>
-      <p>Your fullname is {profile.name}.</p>
       <p>
-        Your email, {profile.email} is {profile.email_verified ? '' : 'not'} verified.
+        Hi, <strong>{profile.given_name}</strong>!
       </p>
-      <p>Your level of assurance is &quot;{profile.loa}&quot;.</p>
+      <p>
+        Your fullname is <strong>{profile.name}</strong>.
+      </p>
+      <p>
+        Your email, <strong>{profile.email}</strong>, is {profile.email_verified ? '' : 'not'} verified.
+      </p>
+      <p>
+        Your level of assurance is <strong>&quot;{profile.loa}&quot;</strong>.
+      </p>
       <p>
         Your tokens will expire{' '}
         {new Intl.DateTimeFormat('en-FI', { dateStyle: 'full', timeStyle: 'long', timeZone: 'GMT' }).format(expiresAt)}
@@ -269,7 +287,7 @@ const ChangeList = ({ list }: { list: Signal[] }) => {
     return `Unknown signal:${JSON.stringify(signal)}`;
   };
   if (list.length === 0) {
-    return <p>Nothing to react yet...</p>;
+    return <p>No signals...</p>;
   }
   return (
     <>
@@ -294,14 +312,6 @@ const ChangeList = ({ list }: { list: Signal[] }) => {
   );
 };
 
-const RenderCounter = () => {
-  const countRef = useRef(1);
-  useEffect(() => {
-    countRef.current += 1;
-  });
-  return <div>Component render count is {countRef.current}</div>;
-};
-
 const UserProfileOutput = ({ user }: { user: User }) => {
   return (
     <div>
@@ -316,7 +326,7 @@ const ApiTokenOutput = () => {
   const [, tokens] = getStoredApiTokens();
   return (
     <div>
-      <p>This is your api tokens object:</p>
+      <p>This are your api tokens:</p>
       <pre>{JSON.stringify(tokens, null, 2)}</pre>
     </div>
   );
@@ -327,7 +337,7 @@ const NotifyIfErrorOccurs = () => {
   const listener = useCallback(
     (signal) => {
       setHistory((current) => {
-        return [signal, ...current];
+        return [{ ...signal }, ...current];
       });
     },
     [setHistory],
@@ -338,7 +348,6 @@ const NotifyIfErrorOccurs = () => {
     <ListContainer>
       <h2>List of errors</h2>
       <ChangeList list={history} />
-      {history.length === 0 && <p>No errors</p>}
     </ListContainer>
   );
 };
@@ -357,7 +366,6 @@ const TrackAllSignals = () => {
     <ListContainer>
       <h2>Event log</h2>
       <ChangeList list={tracker.getHistory()} />
-      <RenderCounter />
     </ListContainer>
   );
 };
@@ -408,6 +416,7 @@ const AuthenticatedContent = ({ user }: { user: User }) => {
         <RenewUserButton />
         <RenewApiTokensButton />
         <StartSessionPollingButton />
+        <SimulateSessionEndButton />
       </div>
     </Wrapper>
   );
@@ -424,9 +433,11 @@ export const ExampleApplication = () => {
 
 export const Callback = () => {
   const [userOrError, setUserOrError] = useState<User | OidcClientError | undefined>(undefined);
+  const path = window.location.href.includes('iframe.html') ? '' : window.location.href.split('?')[0];
   const onSuccess = (user: User) => {
     const target = window.top || window.self;
-    target.location.href = `/iframe.html?path=/story/components-login--example-application`;
+
+    target.location.href = `${path}/iframe.html?path=/story/components-login--example-application`;
     setUserOrError(user);
   };
   const onError = (error?: OidcClientError) => {
@@ -439,10 +450,15 @@ export const Callback = () => {
         <LoginContextProvider loginProps={loginProps}>
           <p>Login failed!</p>
           <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
-          <a href="/iframe.html?path=/story/components-login--example-application">Go to the demo application</a>
+          <a href={`${path}/iframe.html?path=/story/components-login--example-application`}>
+            Go to the demo application
+          </a>
         </LoginContextProvider>
       </div>
     );
+  }
+  if (userOrError) {
+    return <div>Redirecting...</div>;
   }
 
   return (
