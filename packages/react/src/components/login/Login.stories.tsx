@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 
 import {
   User,
-  LoginContextProvider,
   useOidcClient,
   useSignalListener,
   useConnectedModule,
@@ -15,12 +14,10 @@ import { Button } from '../button/Button';
 import { Accordion } from '../accordion/Accordion';
 import { Navigation } from '../navigation/Navigation';
 import { Notification } from '../notification/Notification';
-import { OidcClientProps } from './client/index';
 import { LoginCallbackHandler } from './LoginCallbackHandler';
 import { WithAuthentication } from './WithAuthentication';
 import { OidcClientError } from './client/oidcClientError';
-import createSessionPoller from './sessionPoller/sessionPoller';
-import createApiTokenClient from './apiTokensClient/apiTokensClient';
+import { sessionPollerNamespace } from './sessionPoller/sessionPoller';
 import { useApiTokens, useApiTokensClient } from './apiTokensClient/hooks';
 import {
   EventPayload,
@@ -40,9 +37,10 @@ import { useSessionPoller } from './sessionPoller/hooks';
 import { LoginButton } from './LoginButton';
 import { SessionEndedHandler } from './SessionEndedHandler';
 import { SessionPollerError, sessionPollerErrors } from './sessionPoller/sessionPollerError';
+import { LoginProvider, LoginProviderProps } from './LoginProvider';
 
 export default {
-  component: LoginContextProvider,
+  component: LoginProvider,
   title: 'Components/Login',
   parameters: {
     controls: { expanded: true },
@@ -50,13 +48,15 @@ export default {
   args: {},
 };
 
-const loginProps: OidcClientProps = {
+const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
     authority: 'https://tunnistamo.dev.hel.ninja/',
     client_id: 'exampleapp-ui-dev',
     scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
     redirect_uri: `${window.origin}/callback/`,
   },
+  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
+  sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
 function createSignalTracker(): ConnectedModule & {
@@ -85,8 +85,6 @@ function createSignalTracker(): ConnectedModule & {
   };
 }
 
-const sessionPoller = createSessionPoller({ pollIntervalInMs: 10000 });
-const apiTokensClient = createApiTokenClient({ url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' });
 const signalTracker = createSignalTracker();
 
 const Wrapper = (props: React.PropsWithChildren<unknown>) => {
@@ -232,7 +230,7 @@ const SimulateSessionEndButton = () => {
     const tracker = getModule(signalTracker.namespace) as ReturnType<typeof createSignalTracker>;
     tracker.emit({
       ...createErrorSignal(
-        sessionPoller.namespace,
+        sessionPollerNamespace,
         new SessionPollerError('Simulation', sessionPollerErrors.SESSION_ENDED),
       ),
     });
@@ -424,10 +422,10 @@ const AuthenticatedContent = ({ user }: { user: User }) => {
 
 export const ExampleApplication = () => {
   return (
-    <LoginContextProvider loginProps={loginProps} modules={[sessionPoller, apiTokensClient, signalTracker]}>
+    <LoginProvider {...loginProviderProps} modules={[signalTracker]}>
       <IFrameWarning />
       <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
-    </LoginContextProvider>
+    </LoginProvider>
   );
 };
 
@@ -447,13 +445,13 @@ export const Callback = () => {
   if (userOrError instanceof Error) {
     return (
       <div>
-        <LoginContextProvider loginProps={loginProps}>
+        <LoginProvider {...loginProviderProps}>
           <p>Login failed!</p>
           <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
           <a href={`${path}/iframe.html?path=/story/components-login--example-application`}>
             Go to the demo application
           </a>
-        </LoginContextProvider>
+        </LoginProvider>
       </div>
     );
   }
@@ -462,10 +460,10 @@ export const Callback = () => {
   }
 
   return (
-    <LoginContextProvider loginProps={loginProps}>
+    <LoginProvider {...loginProviderProps}>
       <LoginCallbackHandler onSuccess={onSuccess} onError={onError}>
         <div>Logging in...</div>
       </LoginCallbackHandler>
-    </LoginContextProvider>
+    </LoginProvider>
   );
 };
