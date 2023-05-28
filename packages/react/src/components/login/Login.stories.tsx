@@ -201,8 +201,8 @@ const LoginComponent = () => {
 
 const RenewUserButton = () => {
   const oidcClient = useOidcClient();
-  const onButtonClick = () => {
-    oidcClient.renewUser();
+  const onButtonClick = async () => {
+    await oidcClient.renewUser().catch(() => undefined);
   };
   return <Button onClick={onButtonClick}>Renew user tokens</Button>;
 };
@@ -210,10 +210,10 @@ const RenewUserButton = () => {
 const RenewApiTokensButton = () => {
   const apiTokens = useApiTokensClient();
   const oidcClient = useOidcClient();
-  const onButtonClick = () => {
+  const onButtonClick = async () => {
     const user = oidcClient.getUser();
     if (user) {
-      apiTokens.fetch(user);
+      await apiTokens.fetch(user).catch(() => undefined);
     }
   };
   return <Button onClick={onButtonClick}>Renew api tokens</Button>;
