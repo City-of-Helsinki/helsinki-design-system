@@ -282,7 +282,11 @@ export default function createOidcClient(props: OidcClientProps): OidcClient {
     isRenewing,
     login: async (loginProps) => {
       emitStateChange(oidcClientStates.LOGGING_IN);
-      return userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps));
+      const [err] = await to(userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps)));
+      if (err) {
+        emitError(new OidcClientError('Login redirect failed', oidcClientErrors.SIGNIN_ERROR, err));
+      }
+      return Promise.resolve();
     },
     logout: async (logoutProps) => {
       emitStateChange(oidcClientStates.LOGGING_OUT);

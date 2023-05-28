@@ -83,16 +83,17 @@ export function createOidcClientTestSuite() {
   });
 
   // oidcClient.login redirects the browser.
-  // The returned promise is never resolved.
+  // The returned promise is never resolved - unless an error occurs.
+  // Always reject it here, no need for both fulfillments.
   async function waitForLoginToTimeout(loginProps?: LoginProps) {
     let promise: Promise<void>;
-    await expect(() =>
+    await expect(async () =>
       waitFor(
         () => {
           if (!promise) {
             promise = oidcClient.login(loginProps);
           }
-          return promise;
+          return Promise.reject(new Error('Login redirected'));
         },
         {
           timeout: 1000,

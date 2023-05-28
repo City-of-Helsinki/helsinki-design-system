@@ -21,6 +21,7 @@ import {
   StateChangeSignalPayload,
   stateChangeSignalType,
   waitForSignals,
+  errorSignalType,
 } from './beacon/signals';
 import { LISTEN_TO_ALL_MARKER, SignalNamespace, createBeacon } from './beacon/beacon';
 import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from './apiTokensClient';
@@ -365,10 +366,14 @@ describe('Test all modules together', () => {
       jest.advanceTimersByTime(1000000);
       expect(getRequestCount()).toBe(1);
       expect(getRequestsInfoById(openIdResponder.id as string)).toHaveLength(1);
-      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, oidcClientStates.LOGGING_IN]);
+      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
+        initSignalType,
+        oidcClientStates.LOGGING_IN,
+        errorSignalType,
+      ]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
-      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(7);
+      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(8);
     });
     it('When login handleCallback is called and finished, apiTokens are fetched and session polling starts', async () => {
       const { getReceivedSignalTypes, oidcClient, beacon } = await initAll({});
