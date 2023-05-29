@@ -47,7 +47,7 @@ export const FileInputExample = () => {
 - Dragging and dropping files can be allowed by using the `dragAndDrop` property.
 - The FileInput uses an info text element to inform the user about the status of the component. You can read more about the usage of the info text element in the <InternalLink href="/patterns/forms/form-validation#3-info-message">HDS Form validation pattern documentation page</InternalLink>.
 - The FileInput component resolves human-readable file size abbreviations based on a binary system. The file size texts are shown after the selected file name and in maxSize messages if maxSize validation is used.
-- The accept parameter only checks and allows selecting the correct file types according to the file extension(s) or file types and does not do any in-depth analysis. Any safety and/or other checks should be done on the receiving end if necessary.
+- The accept parameter only checks and allows correct file types according to the file extension(s) or file types, instead of doing any in-depth analysis.
 
 ### Variations
 
