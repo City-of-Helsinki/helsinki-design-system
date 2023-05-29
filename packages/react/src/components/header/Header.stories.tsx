@@ -181,7 +181,7 @@ export const Minimal = (args) => {
         <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
           <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
-
+        <hr style={{ order: 9 }} />
         <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>

@@ -60,3 +60,12 @@
   box-sizing: content-box;
   height: var(--logo-height);
 }
+
+hr {
+  height: 100%;
+  display: inline-block;
+  width: 0px;
+  margin: 0px 5px;
+  border: 0px;
+  border-left: 1px solid var(--color-black-20);
+}
