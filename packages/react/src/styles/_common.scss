@@ -86,6 +86,10 @@
       outline-offset: $offset;
     }
 
-    outline: $width solid $color;
+    > * {
+      outline: $width solid $color;
+      outline-offset: 4px;
+    }
+    outline: 0px solid $color;
   }
 }
