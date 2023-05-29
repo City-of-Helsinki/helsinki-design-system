@@ -1,9 +1,9 @@
 import { User } from 'oidc-client-ts';
 
-import { UserReturnType, oidcClientNamespace, OidcClient } from '../client';
-import { isValidUser } from '../client/oidcClient';
-import { Signal } from './beacon';
-import { getEventSignalPayload } from './signals';
+import { UserReturnType, oidcClientNamespace, OidcClient } from '.';
+import { isValidUser } from './oidcClient';
+import { Signal } from '../beacon/beacon';
+import { getEventSignalPayload } from '../beacon/signals';
 
 export function getOidcClientFromSignal(signal: Signal): OidcClient | null {
   if (!signal.context || signal.context.namespace !== oidcClientNamespace || !(signal.context as OidcClient).getUser) {

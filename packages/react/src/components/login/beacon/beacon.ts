@@ -21,7 +21,6 @@ export type SignalTrigger = (signal: Signal) => boolean;
 export type StoredListenerData = { listener: SignalListener; trigger: SignalTrigger };
 export type SignalListenerSource = SignalType | Signal | SignalTrigger | SignalTriggerProps;
 
-// add cleanup?
 export type Disposer = () => void;
 
 export type BeaconContext = Map<string, ConnectedModule>;

@@ -5,7 +5,7 @@ import createHttpPoller from '../utils/httpPoller';
 import { createFetchAborter } from '../utils/abortFetch';
 import { Signal, ConnectedModule } from '../beacon/beacon';
 import { createNamespacedBeacon, createTriggerPropsForAllSignals, getEventSignalPayload } from '../beacon/signals';
-import { getOidcClientFromSignal } from '../beacon/signalParsers';
+import { getOidcClientFromSignal } from '../client/signalParsers';
 import { SessionPollerError, sessionPollerErrors } from './sessionPollerError';
 import { OidcClientState, oidcClientEvents, oidcClientNamespace, oidcClientStates } from '../client/index';
 import { getOidcClientStateChangePayload } from '../client/signals';

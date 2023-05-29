@@ -12,7 +12,7 @@ import {
   getEventSignalPayload,
 } from '../beacon/signals';
 import { oidcClientEvents, oidcClientNamespace, OidcClientEvent } from '../client';
-import { getValidUserFromSignal } from '../beacon/signalParsers';
+import { getValidUserFromSignal } from '../client/signalParsers';
 import {
   FetchApiTokenOptions,
   TokenData,
