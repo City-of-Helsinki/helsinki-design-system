@@ -53,10 +53,18 @@ const loginProviderProps: LoginProviderProps = {
     authority: 'https://tunnistamo.dev.hel.ninja/',
     client_id: 'exampleapp-ui-dev',
     scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
-    redirect_uri: `${window.origin}/callback/`,
+    redirect_uri: `${window.origin}/callback`,
   },
   apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
+};
+
+const getIFramePath = () => {
+  let path = window.location.href.split('?')[0];
+  if (path.includes('.') && path.lastIndexOf('/') > -1) {
+    path = path.substring(0, path.lastIndexOf('/') + 1);
+  }
+  return `${path}iframe.html`;
 };
 
 function createSignalTracker(): ConnectedModule & {
@@ -114,8 +122,8 @@ const Wrapper = (props: React.PropsWithChildren<unknown>) => {
 const IFrameWarning = () => {
   const openWindowInTop = () => {
     if (window.top) {
-      const path = window.location.href.split('?')[0];
-      window.top.location.href = `${path}/iframe.html${window.location.search}`;
+      const path = getIFramePath();
+      window.top.location.href = `${path}${window.location.search}`;
     }
   };
   if (window.top !== window.self) {
@@ -431,11 +439,11 @@ export const ExampleApplication = () => {
 
 export const Callback = () => {
   const [userOrError, setUserOrError] = useState<User | OidcClientError | undefined>(undefined);
-  const path = window.location.href.includes('iframe.html') ? '' : window.location.href.split('?')[0];
+  const path = getIFramePath();
   const onSuccess = (user: User) => {
     const target = window.top || window.self;
 
-    target.location.href = `${path}/iframe.html?path=/story/components-login--example-application`;
+    target.location.href = `${path}?path=/story/components-login--example-application`;
     setUserOrError(user);
   };
   const onError = (error?: OidcClientError) => {
@@ -448,7 +456,7 @@ export const Callback = () => {
         <LoginProvider {...loginProviderProps}>
           <p>Login failed!</p>
           <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
-          <a href={`${path}/iframe.html?path=/story/components-login--example-application`}>
+          <a href={`${getIFramePath()}?path=/story/components-login--example-application`}>
             Go to the demo application
           </a>
         </LoginProvider>
