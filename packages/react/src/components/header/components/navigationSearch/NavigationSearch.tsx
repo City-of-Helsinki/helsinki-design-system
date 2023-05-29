@@ -12,9 +12,13 @@ export type NavigationSearchProps = {
    * Callback fired when the search input value is changed
    */
   onChange?: (inputValue: string) => void;
+  /**
+   * Label for the search element.
+   */
+  label: string | JSX.Element;
 };
 
-export const NavigationSearch: FC<NavigationSearchProps> = ({ onChange, onSubmit }) => {
+export const NavigationSearch: FC<NavigationSearchProps> = ({ onChange, onSubmit, label }) => {
   // search is always active in mobile
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -28,7 +32,7 @@ export const NavigationSearch: FC<NavigationSearchProps> = ({ onChange, onSubmit
 
   return (
     <div className={styles.searchContainer}>
-      <SearchInput label="Search" onSubmit={handleSubmit} onChange={setInputValue} />
+      <SearchInput label={label} onSubmit={handleSubmit} onChange={setInputValue} />
     </div>
   );
 };
