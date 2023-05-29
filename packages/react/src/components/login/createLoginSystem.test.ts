@@ -1,12 +1,11 @@
 import { LoginProviderProps } from './LoginProvider';
-import { apiTokensClientNamespace } from './apiTokensClient';
+import { apiTokensClientNamespace, ApiTokenClient } from './apiTokensClient';
 import { ConnectedModule } from './beacon/beacon';
 import { createEventSignal, createNamespacedBeacon, createTriggerForAllSignalTypes } from './beacon/signals';
 import { OidcClient, oidcClientNamespace, oidcClientStates } from './client';
 import { createLoginSystem } from './createLoginSystem';
 import { SessionPoller, sessionPollerNamespace } from './sessionPoller/sessionPoller';
 import { getDefaultOidcClientTestProps } from './testUtils/oidcClientTestUtil';
-import { ApiTokenClient } from './types';
 
 describe('createLoginSystem.ts', () => {
   const listener = jest.fn();

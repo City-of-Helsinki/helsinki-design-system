@@ -27,7 +27,7 @@ import { createMockOidcClient, userManagerEndPointPath } from '../testUtils/oidc
 import { createUser } from '../testUtils/userTestUtil';
 import { isAbortError } from '../utils/abortFetch';
 import { HttpPoller, HttpPollerProps } from '../utils/httpPoller';
-import createSessionPoller, { SessionPoller, sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
+import { createSessionPoller, SessionPoller, sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
 import { SessionPollerError } from './sessionPollerError';
 import { advanceUntilPromiseResolved, createTimedPromise } from '../testUtils/timerTestUtil';

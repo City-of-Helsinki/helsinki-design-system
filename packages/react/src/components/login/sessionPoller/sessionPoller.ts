@@ -27,9 +27,7 @@ export const sessionPollerEvents = {
   SESSION_POLLING_STOPPED: 'SESSION_POLLING_STOPPED',
 } as const;
 
-export default function createSessionPoller(
-  options: SessionPollerOptions = { pollIntervalInMs: 60000 },
-): SessionPoller {
+export function createSessionPoller(options: SessionPollerOptions = { pollIntervalInMs: 60000 }): SessionPoller {
   const { pollIntervalInMs } = options;
   const fetchCanceller = createFetchAborter();
   let userManager: UserManager | undefined;

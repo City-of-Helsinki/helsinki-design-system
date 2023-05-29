@@ -11,7 +11,8 @@ import {
   apiTokensClientEvents,
   apiTokensClientNamespace,
 } from './index';
-import createApiTokenClient, {
+import {
+  createApiTokenClient,
   getUserReferenceFromStorage,
   setApiTokensToStorage,
   setUserReferenceToStorage,

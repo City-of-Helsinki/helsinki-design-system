@@ -25,8 +25,9 @@ import {
 } from './beacon/signals';
 import { LISTEN_TO_ALL_MARKER, SignalNamespace, createBeacon } from './beacon/beacon';
 import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from './apiTokensClient';
-import createSessionPoller, { sessionPollerEvents, sessionPollerNamespace } from './sessionPoller/sessionPoller';
-import createApiTokenClient, {
+import { createSessionPoller, sessionPollerEvents, sessionPollerNamespace } from './sessionPoller/sessionPoller';
+import {
+  createApiTokenClient,
   setApiTokensToStorage,
   setUserReferenceToStorage,
 } from './apiTokensClient/apiTokensClient';

@@ -10,7 +10,7 @@ import { ConnectedModule } from '../beacon/beacon';
 import { createTriggerPropsForAllSignals, EventPayload, isErrorSignal } from '../beacon/signals';
 import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from '.';
 import { Responder, createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
-import createApiTokenClient, { setApiTokensToStorage, setUserReferenceToStorage } from './apiTokensClient';
+import { createApiTokenClient, setApiTokensToStorage, setUserReferenceToStorage } from './apiTokensClient';
 // eslint-disable-next-line jest/no-mocks-import
 import apiTokens from '../__mocks__/apiTokens.json';
 import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';

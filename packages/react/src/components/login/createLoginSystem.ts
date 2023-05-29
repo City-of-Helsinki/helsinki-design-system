@@ -1,10 +1,10 @@
 import { LoginProviderProps } from './LoginProvider';
-import createApiTokenClient from './apiTokensClient/apiTokensClient';
+import { createApiTokenClient } from './apiTokensClient/apiTokensClient';
 import { Beacon, createBeacon } from './beacon/beacon';
 import { emitInitializationSignals } from './beacon/signals';
 import { OidcClientProps } from './client';
-import createOidcClient from './client/oidcClient';
-import createSessionPoller from './sessionPoller/sessionPoller';
+import { createOidcClient } from './client/oidcClient';
+import { createSessionPoller } from './sessionPoller/sessionPoller';
 
 export function createLoginSystem(props: Exclude<LoginProviderProps, 'children'>): Beacon {
   const { userManagerSettings, apiTokensClientSettings, sessionPollerSettings, debug, modules } = props;

@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from 'react';
 
 import { OidcClientProps } from './client/index';
-import createOidcClient from './client/oidcClient';
+import { createOidcClient } from './client/oidcClient';
 import { createBeacon, Beacon, ConnectedModule, SignalNamespace } from './beacon/beacon';
 import { emitInitializationSignals } from './beacon/signals';
 

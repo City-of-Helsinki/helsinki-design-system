@@ -8,7 +8,7 @@ import { EventPayload, isErrorSignal } from '../beacon/signals';
 import { createControlledFetchMockUtil, Responder } from '../testUtils/fetchMockTestUtil';
 // eslint-disable-next-line jest/no-mocks-import
 import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';
-import createSessionPoller, { sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
+import { createSessionPoller, sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
 import { SessionPollerError, sessionPollerErrors } from './sessionPollerError';
 import { useSessionPoller, useSessionPollerTracking } from './hooks';
 // eslint-disable-next-line jest/no-mocks-import

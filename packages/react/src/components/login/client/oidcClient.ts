@@ -106,7 +106,7 @@ export const pickUserToken = (user: UserReturnType, tokenType: Parameters<OidcCl
   return user[`${tokenType}_token`];
 };
 
-export default function createOidcClient(props: OidcClientProps): OidcClient {
+export function createOidcClient(props: OidcClientProps): OidcClient {
   const { userManagerSettings: userManagerSettingsFromProps, ...restProps } = props;
   const { userManagerSettings: defaultUserManagerSettings, ...restDefaultProps } = getDefaultProps(
     window.location.origin,

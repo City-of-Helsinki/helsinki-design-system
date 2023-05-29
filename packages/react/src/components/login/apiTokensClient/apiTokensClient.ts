@@ -145,7 +145,7 @@ export const getUserReferenceFromStorage = (storage: Storage = window.sessionSto
   return storage.getItem(API_TOKEN_SESSION_USER_REFERENCE_KEY);
 };
 
-export default function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient {
+export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient {
   const { url, maxRetries, retryInterval } = props;
   const fetchCanceller = createFetchAborter();
 

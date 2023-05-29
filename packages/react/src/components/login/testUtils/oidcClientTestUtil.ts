@@ -13,7 +13,7 @@ import {
   oidcClientNamespace,
   OidcClientState,
 } from '../client/index';
-import createOidcClient from '../client/oidcClient';
+import { createOidcClient } from '../client/oidcClient';
 // eslint-disable-next-line jest/no-mocks-import
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
 import { UserCreationProps, createSignInResponse, createUserAndPlaceUserToStorage } from './userTestUtil';
