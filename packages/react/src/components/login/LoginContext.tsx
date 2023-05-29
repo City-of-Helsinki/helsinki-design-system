@@ -34,7 +34,6 @@ export const LoginContextProvider = (props: ContextProps): React.ReactElement =>
     const client = createOidcClient({
       ...loginProps,
     });
-    client.connect(beacon);
     return client;
   }, []);
 
