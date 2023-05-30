@@ -37,6 +37,6 @@ export const IconHome = ({
       clipRule="evenodd"
       d="M1 13L12 2L23 13L21.5 14.5L20 13V21H4V13L2.5 14.5L1 13ZM12 5L6 11V19L8.999 18.999L9 12H15L14.999 18.999L18 19V11L12 5ZM13 14H11L10.999 18.999H12.999L13 14Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );

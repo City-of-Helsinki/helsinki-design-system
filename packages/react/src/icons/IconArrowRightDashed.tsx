@@ -32,9 +32,9 @@ export const IconArrowRightDashed = ({
     color={color}
     style={style}
   >
-    <path d="M14 5.5L12.5 7L17.5 12L12.5 17L14 18.5L20.5 12L14 5.5Z" fill="currentColor"></path>
-    <path d="M15.5 13L16.5 12L15.5 11H14V13H15.5Z" fill="currentColor"></path>
-    <path d="M10 11H12V13H10V11Z" fill="currentColor"></path>
-    <path d="M8 13V11H6V13H8Z" fill="currentColor"></path>
+    <path d="M14 5.5L12.5 7L17.5 12L12.5 17L14 18.5L20.5 12L14 5.5Z" fill="currentColor" />
+    <path d="M15.5 13L16.5 12L15.5 11H14V13H15.5Z" fill="currentColor" />
+    <path d="M10 11H12V13H10V11Z" fill="currentColor" />
+    <path d="M8 13V11H6V13H8Z" fill="currentColor" />
   </svg>
 );

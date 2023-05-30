@@ -37,6 +37,6 @@ export const IconAngleLeft = ({
       clipRule="evenodd"
       d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );

@@ -37,6 +37,6 @@ export const IconUpload = ({
       clipRule="evenodd"
       d="M12 1.63605L17.6569 7.2929L16.2426 8.70712L13 5.46505V18H11V5.46505L7.75736 8.70712L6.34315 7.2929L12 1.63605ZM5 15V20H19V15H21V22H3V15H5Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );
