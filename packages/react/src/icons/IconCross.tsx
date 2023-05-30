@@ -37,6 +37,6 @@ export const IconCross = ({
       clipRule="evenodd"
       d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );

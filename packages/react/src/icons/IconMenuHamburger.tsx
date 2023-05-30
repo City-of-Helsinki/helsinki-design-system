@@ -37,6 +37,6 @@ export const IconMenuHamburger = ({
       clipRule="evenodd"
       d="M22 17V19H2V17H22ZM22 11V13H2V11H22ZM22 5V7H2V5H22Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );

@@ -37,6 +37,6 @@ export const IconArrowBottomRight = ({
       clipRule="evenodd"
       d="M18.0163 17.9986H9.01631V15.9986L14.5703 15.9983L6.00134 7.43054L7.41556 6.01633L16.0163 14.6163V8.99865H18.0163V17.9986Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );

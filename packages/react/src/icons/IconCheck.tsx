@@ -37,6 +37,6 @@ export const IconCheck = ({
       clipRule="evenodd"
       d="M21 7L10 18L4.5 12.5L6 11L10 15L19.5 5.5L21 7Z"
       fill="currentColor"
-    ></path>
+    />
   </svg>
 );

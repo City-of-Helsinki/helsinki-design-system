@@ -32,6 +32,6 @@ export const IconPlus = ({
     color={color}
     style={style}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M13 6V11H18V13H13V18H11V13H6V11H11V6H13Z" fill="currentColor"></path>
+    <path fillRule="evenodd" clipRule="evenodd" d="M13 6V11H18V13H13V18H11V13H6V11H11V6H13Z" fill="currentColor" />
   </svg>
 );
