@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, MouseEventHandler, ComponentType } from 'react';
+import React, { PropsWithChildren, MouseEventHandler } from 'react';
 
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
@@ -76,21 +76,20 @@ export type HeaderActionBarProps = PropsWithChildren<{
   onMenuButtonClick?: MouseEventHandler;
 }>;
 
-export const HeaderActionBar: ComponentType<HeaderActionBarProps> = (props) => {
-  const {
-    title,
-    titleStyle,
-    titleAriaLabel,
-    logoAriaLabel,
-    menuButtonAriaLabel,
-    titleUrl,
-    logoUrl,
-    onTitleClick,
-    onLogoClick,
-    onMenuButtonClick,
-    children,
-    className,
-  } = props;
+export const HeaderActionBar = ({
+  title,
+  titleStyle,
+  titleAriaLabel,
+  logoAriaLabel,
+  menuButtonAriaLabel,
+  titleUrl,
+  logoUrl,
+  onTitleClick,
+  onLogoClick,
+  onMenuButtonClick,
+  children,
+  className,
+}: HeaderActionBarProps) => {
   const language = useActiveLanguage();
   const handleClick = useCallbackIfDefined(onTitleClick);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);

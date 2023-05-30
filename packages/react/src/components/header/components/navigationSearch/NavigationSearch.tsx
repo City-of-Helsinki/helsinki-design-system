@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './NavigationSearch.module.scss';
 import { SearchInput } from '../../../searchInput';
@@ -18,7 +18,7 @@ export type NavigationSearchProps = {
   label: string | JSX.Element;
 };
 
-export const NavigationSearch: FC<NavigationSearchProps> = ({ onChange, onSubmit, label }) => {
+export const NavigationSearch = ({ onChange, onSubmit, label }: NavigationSearchProps) => {
   // search is always active in mobile
   const [inputValue, setInputValue] = useState<string>('');
 
