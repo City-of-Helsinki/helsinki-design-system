@@ -6,7 +6,6 @@ import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniver
 import { HeaderActionBar, TitleStyleType } from './components/headerActionBar/HeaderActionBar';
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
-import { DropdownDirection } from './components/navigationLink/types';
 import { LanguageOption } from '../../context/languageContext';
 import { IconSearch, IconUser } from '../../icons';
 import { Link } from '../link/Link';
@@ -80,7 +79,6 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -91,7 +89,6 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -106,7 +103,6 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -117,7 +113,6 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -126,16 +121,17 @@ export const WithFullFeatures = (args) => (
           ]}
         />
         <Header.NavigationLink href="#" label="Link 3" />
-        <Header.NavigationLink href="#" label="Link 3" />
-        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Link 4" />
+        <Header.NavigationLink href="#" label="Link 5" />
+        <Header.NavigationLink href="#" label="Link 6" />
+        <Header.NavigationLink href="#" label="Link 7" />
         <Header.NavigationLink
           href="#"
-          label="Link 2"
+          label="Link 8"
           dropdownLinks={[
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -146,7 +142,6 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,

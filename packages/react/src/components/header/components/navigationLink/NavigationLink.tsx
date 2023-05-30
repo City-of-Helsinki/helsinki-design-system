@@ -10,7 +10,6 @@ import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
 import { NavigationLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './navigationLinkDropdown';
 import { useHeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
-import { DropdownDirection } from './types';
 import { useHeaderContext } from '../../HeaderContext';
 import { MergeElementProps } from '../../../../common/types';
 
@@ -75,9 +74,10 @@ export type NavigationLinkProps<ReactElement> = {
    */
   closeDropdownAriaButtonLabel?: string;
   /**
-   * Additional class name for the dropdown wrapper element.
+   * Depth in nested dropdowns.
+   * @internal
    */
-  wrapperClassName?: string;
+  depth?: number;
   /**
    * Additional class name for the dropdown element.
    */
@@ -86,11 +86,6 @@ export type NavigationLinkProps<ReactElement> = {
    * Additional class name for the dropdown items.
    */
   dropdownLinkClassName?: string;
-  /**
-   * Set the direction where the dropdown should appear. Use DropdownDirection.Dynamic for nested dropdowns as it sets the dropdown menu to the right but if there's no space it'll put it to the left.
-   * @default DropdownDirection.Down;
-   */
-  dropdownDirection?: DropdownDirection;
   /**
    * Array of NavigationLink components to render in a dropdown. Can be used only inside navigation components.
    */
@@ -124,10 +119,9 @@ export type NavigationLinkProps<ReactElement> = {
    */
   setOpenSubNavIndex?: (val: number) => void;
   /**
-   * Depth in nested dropdowns.
-   * @internal
+   * Additional class name for the dropdown wrapper element.
    */
-  depth?: number;
+  wrapperClassName?: string;
 };
 
 export type HeaderNavigationLinkProps<ReactElement extends React.ElementType = 'a'> = MergeElementProps<
@@ -140,7 +134,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
   as: LinkComponent,
   className,
   wrapperClassName,
-  dropdownDirection = DropdownDirection.Down,
   dropdownClassName,
   dropdownLinks,
   dropdownLinkClassName,
@@ -163,7 +156,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
-  console.log(label, depth);
   const handleDynamicMenuPosition = (val: boolean) => {
     // Null position when false so if user resizes browser, the calculation is done again
     if (!val) setDynamicPosition(null);
@@ -184,8 +176,8 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
 
   // Handle dropdown open state by calling either internal state or context
   const handleDropdownOpen = (val: boolean, interaction?: NavigationLinkInteraction) => {
-    // Set menu position if needed and how menu was opened
-    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicMenuPosition(val);
+    // Set menu position on nested dropdowns to right or left depending on screen size
+    if (depth >= 1) handleDynamicMenuPosition(val);
     setDropdownOpenedBy(!val ? null : interaction);
     setDropdownOpen(val);
     // If sub navigation props given, call them
