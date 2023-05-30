@@ -49,7 +49,7 @@ jobs:
       - name: Copy react files to repo folders
         run: cp ./icon-library/react/* ./packages/react/src/icons
       - name: Install React package NPM dependencies
-        run: yarn install ./packages/react
+        run: (cd ./packages/react && yarn)
       - name: Lint React files
         run: npx prettier --write './packages/react/src/icons/*.{ts,tsx}'
       - name: Code analysis for React files
