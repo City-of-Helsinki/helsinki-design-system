@@ -45,6 +45,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "chalk": "4.0.0",
+    "crypto-browserify": "^3.11.0",
     "eslint-config-react-app": "^7.0.1",
     "hds-core": "3.0.0",
     "hds-design-tokens": "3.0.0",

@@ -13,7 +13,10 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       alias: {
         fs$: path.resolve(__dirname, 'src/fs.js'),
         'hds-react': 'hds-react/lib',
-        'stream': false,
+        stream: false,
+      },
+      fallback: {
+        crypto: require.resolve('crypto-browserify'),
       },
       fallback: {
         crypto: require.resolve('crypto-browserify'),
