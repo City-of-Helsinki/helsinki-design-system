@@ -90,6 +90,7 @@
       outline: $width solid $color;
       outline-offset: 4px;
     }
-    outline: 0px solid $color;
+
+    outline: 0 solid $color;
   }
 }
