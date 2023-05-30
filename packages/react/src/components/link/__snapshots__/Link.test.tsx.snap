@@ -12,22 +12,18 @@ exports[`<Link /> spec external link that is opened in to a new tab should not h
     Test link
     <svg
       aria-hidden="true"
+      aria-label="link-external"
       class="icon s icon verticalAlignSmallOrMediumIcon"
       role="img"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g
-        fill="none"
+      <path
+        clip-rule="evenodd"
+        d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+        fill="currentColor"
         fill-rule="evenodd"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </g>
+      />
     </svg>
   </a>
 </DocumentFragment>

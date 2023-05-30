@@ -53,23 +53,18 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="menu-hamburger"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M22 17V19H2V17H22ZM22 11V13H2V11H22ZM22 5V7H2V5H22Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </button>
         </div>
@@ -141,23 +136,18 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
                   >
                     <svg
                       aria-hidden="true"
+                      aria-label="signin"
                       class="icon s"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M21 2V22H8V17H10V20H19V4H10V7H8V2H21ZM12.5 7L17.5 12L12.5 17L11 15.5L13.5 12.999L2 13V11L13.499 10.999L11 8.5L12.5 7Z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <path
-                          d="M0 0h24v24H0z"
-                        />
-                        <path
-                          d="M21 2v20H8v-5h2v3h9V4h-9v3H8V2h13zm-8.5 5l5 5-5 5-1.5-1.5 2.5-2.501L2 13v-2l11.499-.001L11 8.5 12.5 7z"
-                          fill="currentColor"
-                        />
-                      </g>
+                      />
                     </svg>
                   </div>
                   <span
