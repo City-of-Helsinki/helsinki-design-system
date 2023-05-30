@@ -9,17 +9,12 @@ import {
   useAuthenticatedUser,
   Profile,
   useBeacon,
-} from './index';
-import { Button } from '../button/Button';
-import { Accordion } from '../accordion/Accordion';
-import { Navigation } from '../navigation/Navigation';
-import { Notification } from '../notification/Notification';
-import { LoginCallbackHandler } from './LoginCallbackHandler';
-import { WithAuthentication } from './WithAuthentication';
-import { OidcClientError } from './client/oidcClientError';
-import { sessionPollerNamespace } from './sessionPoller/sessionPoller';
-import { useApiTokens, useApiTokensClient } from './apiTokensClient/hooks';
-import {
+  LoginCallbackHandler,
+  WithAuthentication,
+  OidcClientError,
+  sessionPollerNamespace,
+  useApiTokens,
+  useApiTokensClient,
   EventPayload,
   createTriggerPropsForAllSignals,
   isErrorSignal,
@@ -29,15 +24,24 @@ import {
   isStateChangeSignal,
   createErrorTriggerProps,
   createErrorSignal,
-} from './beacon/signals';
-import { Beacon, ConnectedModule, Signal, SignalListener } from './beacon/beacon';
+  Beacon,
+  ConnectedModule,
+  Signal,
+  SignalListener,
+  useSessionPoller,
+  LoginButton,
+  SessionEndedHandler,
+  SessionPollerError,
+  sessionPollerErrors,
+  LoginProvider,
+  LoginProviderProps,
+} from './index';
+import { Button } from '../button/Button';
+import { Accordion } from '../accordion/Accordion';
+import { Navigation } from '../navigation/Navigation';
+import { Notification } from '../notification/Notification';
 import { IconSignout } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
-import { useSessionPoller } from './sessionPoller/hooks';
-import { LoginButton } from './LoginButton';
-import { SessionEndedHandler } from './SessionEndedHandler';
-import { SessionPollerError, sessionPollerErrors } from './sessionPoller/sessionPollerError';
-import { LoginProvider, LoginProviderProps } from './LoginProvider';
 
 export default {
   component: LoginProvider,
