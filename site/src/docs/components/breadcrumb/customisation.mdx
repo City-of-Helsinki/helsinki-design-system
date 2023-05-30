@@ -1,0 +1,90 @@
+---
+slug: '/components/breadcrumb/customisation'
+title: 'Breadcrumb - Customisation'
+---
+
+import { Breadcrumb } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+
+In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
+
+In React version, you can use the `theme` property to customise the component.
+
+See all available theme variables in the table below.
+
+| Theme variable                | Description                                                                          |
+| ----------------------------- | ------------------------------------------------------------------------------------ |
+| `--horizontal-margin-small`   | Horizontal margin on small screens (< 768px). Default is `--spacing-layout-2-xs`     |
+| `--horizontal-margin-medium`  | Horizontal margin on medium screens (>=768px). Default is `--spacing-layout-xs`      |
+| `--horizontal-margin-large`   | Horizontal margin on large screens (>= 992px). Default is `--spacing-layout-xs`      |
+| `--horizontal-margin-x-large` | Horizontal margin on xtra large screens (>= 1248px). Default is `--spacing-layout-s` |
+
+### Customisation example
+
+<Playground>
+
+```jsx
+<Breadcrumb
+  ariaLabel="Breadcrumb"
+  list={[
+    { title: 'Front page', path: '/' },
+    { title: 'Health and social services', path: '/path' },
+    { title: 'Senior services', path: '/path/2ndLevelPath' },
+    { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+    { title: 'Care options', path: null },
+  ]}
+  theme={{
+    '--horizontal-margin-small': 'var(--spacing-layout-s)',
+    '--horizontal-margin-medium': 'var(--spacing-layout-m)',
+    '--horizontal-margin-large': 'var(--spacing-layout-l)',
+    '--horizontal-margin-x-large': 'var(--spacing-layout-xl)',
+  }}
+/>
+```
+
+```html
+<style scoped>
+  .custom-theme {
+    --horizontal-margin-small: var(--spacing-layout-s);
+    --horizontal-margin-medium: var(--spacing-layout-m);
+    --horizontal-margin-large: var(--spacing-layout-l);
+    --horizontal-margin-x-large: var(--spacing-layout-xl);
+  }
+</style>
+<nav aria-label="Breadcrumb" class="hds-breadcrumb custom-theme">
+  <ol class="hds-breadcrumb__list hds-breadcrumb__list--desktop">
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/">Front page</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path">Health and social services</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path/2ndLevelPath">Senior services</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path/2ndLevelPath/3rdLevelPath">Informal care</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item hds-breadcrumb__list-item--active">
+      <span aria-current="true" class="Breadcrumb_active__02+NO">Care options</span>
+    </li>
+  </ol>
+  <div class="hds-breadcrumb__list hds-breadcrumb__list--mobile">
+    <span class="hds-icon hds-icon--angle-left hds-breadcrumb__back-arrow" aria-hidden="true"> </span>
+    <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path/2ndLevelPath/3rdLevelPath">Informal care</a>
+  </div>
+</nav>
+```
+
+</Playground>

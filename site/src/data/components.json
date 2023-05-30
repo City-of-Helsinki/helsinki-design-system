@@ -13,6 +13,19 @@
     }
   },
   {
+    "name": "Breadcrumb",
+    "text": "Breadcrumb provides links back to each previous page and shows the user's current location on a website.",
+    "linkboxAriaLabel": "Breadcrumb component",
+    "linkAriaLabel": "Go to the Breadcrumb component page",
+    "href": "/components/breadcrumb",
+    "imgProps": {
+      "src": "/images/components/overview/breadcrumbs@2x.png",
+      "alt": "An illustration of the Breadcrumb component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
     "name": "Button",
     "text": "Buttons are meant to make actions easily visible and understandable to the user.",
     "linkboxAriaLabel": "Button component",
@@ -138,6 +151,19 @@
     "imgProps": {
       "src": "/images/components/overview/footer@2x.png",
       "alt": "An illustration of the Footer component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
+    "name": "Hero",
+    "text": "Hero is used below the main navigation as the first content element.",
+    "linkboxAriaLabel": "Hero component",
+    "linkAriaLabel": "Go to the Hero component page",
+    "href": "/components/hero",
+    "imgProps": {
+      "src": "/images/components/overview/hero@2x.png",
+      "alt": "An illustration of the Hero component.",
       "height": 180,
       "width": 280
     }
