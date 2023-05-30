@@ -67,7 +67,7 @@
 }
 
 .right {
-  left: calc(100% + var(--spacing-xs));
+  left: calc(100%);
   right: auto;
   top: -1px;
 }
@@ -78,7 +78,7 @@
   box-sizing: content-box;
   display: block;
   height: 24px;
-  margin: 0 0 0 var(--spacing-s);
+  margin: 0 var(--spacing-xs) 0 var(--spacing-s);
   padding: 0;
   width: 24px;
 

@@ -279,6 +279,7 @@ export const NavigationLink = ({
           onMouseLeave: () => handleDropdownOpen(false),
         })}
       ref={containerRef}
+      onMouseEnter={() => handleDropdownOpen(true, NavigationLinkInteraction.Hover)}
     >
       {getLinkComponent(linkProps)}
       {dropdownLinks && (
