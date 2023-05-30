@@ -64,6 +64,6 @@ jobs:
           git commit -m 'Updated icon library'
           git push
       - name: create pull request
-        run: gh pr create -B master --title 'Icon library build' --body 'Created by Github action icon library'
+        run: gh pr create -B development --title 'Icon library build' --body 'Created by Github action icon library'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
