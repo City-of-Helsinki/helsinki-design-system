@@ -79,8 +79,8 @@ const waveHeights: Record<KorosType, [number, number]> = {
   basic: [14, 5],
   beat: [70, 24],
   pulse: [34, 12],
-  storm: [35, 12],
-  wave: [54, 18],
+  wave: [35, 12],
+  vibration: [54, 18],
   calm: [0, 0],
 };
 
