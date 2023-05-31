@@ -127,6 +127,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | <HDS.IconCalendar />                   | `calendar`                     | `IconCalendar`                   | Date                                         |
 | <HDS.IconCalendarClock />              | `calendar-clock`               | `IconCalendarClock`              | Date and time                                |
 | <HDS.IconCalendarCross />              | `calendar-cross`               | `IconCalendarCross`              | Remove date                                  |
+| <HDS.IconCalendarEvent />              | `calendar-event`                        | `IconCalendarEvent`              | Event                                        |
 | <HDS.IconCalendarPlus />               | `calendar-plus`                | `IconCalendarPlus`               | Add date                                     |
 | <HDS.IconCalendarRecurring />          | `calendar-recurring`           | `IconCalendarRecurring`          | Recurring date                               |
 | <HDS.IconChildren />                   | `children`                     | `IconChildren`                   | Children                                     |
@@ -137,7 +138,6 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | <HDS.IconDocument />                   | `document`                     | `IconDocument`                   | Document / PDF                               |
 | <HDS.IconEntrepreneur />               | `entrepreneur`                 | `IconEntrepreneur`               | Work status                                  |
 | <HDS.IconEnvelope />                   | `envelope`                     | `IconEnvelope`                   | Email address / message                      |
-| <HDS.IconEvent />                      | `event`                        | `IconEvent`                      | Event                                        |
 | <HDS.IconFamily />                     | `family`                       | `IconFamily`                     | Information about family                     |
 | <HDS.IconHammers />                    | `hammers`                      | `IconHammers`                    | Under construction                           |
 | <HDS.IconGlobe />                      | `globe`                        | `IconGlobe`                      | Web page address                             |
@@ -220,9 +220,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 | Icon                        | Core                | React                 | Common usage         |
 | --------------------------- | ------------------- | --------------------- | -------------------- |
+| <HDS.IconAtSign />          | `at`          | `IconAtSign`         | E-mail, mention user |
+| <HDS.IconEuroSign />        | `euro`        | `IconEuroSign`       |
 | <HDS.IconTicket />          | `ticket`            | `IconTicket`          |
-| <HDS.IconGlyphEuro />       | `glyph-euro`        | `IconGlyphEuro`       |
-| <HDS.IconGlyphAt />         | `glyph-at`          | `IconGlyphAt`         | E-mail, mention user |
 | <HDS.IconCake />            | `cake`              | `IconCake`            | Date of birth        |
 | <HDS.IconCoffeeCupSaucer /> | `coffee-cup-saucer` | `IconCoffeeCupSaucer` | Coffee               |
 | <HDS.IconKey />             | `key`               | `IconKey`             | Key                  |
@@ -247,7 +247,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | <HDS.IconTwitch />           | `twitch`    | `IconTwitch`    |
 | <HDS.IconTwitter />          | `twitter`   | `IconTwitter`   |
 | <HDS.IconVimeo />            | `vimeo`     | `IconVimeo`     |
-| <HDS.IconWhatsApp />         | `whatsapp`  | `IconWhatsApp`  |
+| <HDS.IconWhatsapp />         | `whatsapp`  | `IconWhatsapp`  |
 | <HDS.IconYle />              | `yle`       | `IconYle`       | Yle-tunnus account   |
 | <HDS.IconYoutube />          | `youtube`   | `IconYoutube`   |
 | [Table 8:Social media icons] |
