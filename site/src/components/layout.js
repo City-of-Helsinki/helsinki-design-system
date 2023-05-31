@@ -55,9 +55,14 @@ const components = {
     </h4>
   ),
   h5: (props) => (
-    <h4 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
+    <h5 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
       {props.children}
-    </h4>
+    </h5>
+  ),
+  h6: (props) => (
+    <h6 {...props} className={classNames('page-heading-6 heading-xxs', props.className)}>
+      {props.children}
+    </h6>
   ),
 };
 
@@ -186,7 +191,7 @@ const Layout = ({ children, pageContext }) => {
       <div className="page-header-title-badge">
         <img
           style={{ filter: 'invert(1)' }}
-          alt="HDS version number: 2.0.0"
+          alt="HDS version number: 2.15.0"
           src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=1a1a1a"
         />
       </div>

@@ -5,16 +5,20 @@ title: 'LoadingSpinner'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # LoadingSpinner
 
-<StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   Loading spinner is used for notifying users that their action is being processed or data retrieved from server.

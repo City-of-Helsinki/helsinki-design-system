@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+}
+
+.stepsContainer {
+  composes: hds-step-by-step__steps-container from 'hds-core/lib/components/step-by-step/step-by-step.css';
+}
+
+.stepItem {
+  composes: hds-step-by-step__step-item from 'hds-core/lib/components/step-by-step/step-by-step.css';
+}
+
+.stepItemTitle {
+  composes: hds-step-by-step__step-item-title from 'hds-core/lib/components/step-by-step/step-by-step.css';
+}

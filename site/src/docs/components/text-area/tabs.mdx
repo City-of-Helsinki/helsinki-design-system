@@ -5,16 +5,20 @@ title: 'TextArea'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # TextArea
 
-<StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
   A text area is a specialised version of the text input component. Text areas can be used for multiline answers.

@@ -1,0 +1,43 @@
+@value medium-up from "../../styles/breakpoints.scss";
+
+.breadcrumb {
+  composes: hds-breadcrumb from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.list {
+  composes: hds-breadcrumb__list from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.mobileList {
+  composes: hds-breadcrumb__list--mobile from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.desktopList {
+  composes: hds-breadcrumb__list--desktop from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.listItem {
+  composes: hds-breadcrumb__list-item from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.activeListItem {
+  composes: hds-breadcrumb__list-item--active from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.link {
+  composes: hds-breadcrumb__link from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.backArrow {
+  composes: hds-breadcrumb__back-arrow from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+.separator {
+  composes: hds-breadcrumb__separator from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+}
+
+/* icon is aligned differently in the svg itself */
+.separator.separator {
+  padding-left: 2px;
+  padding-right: 2px;
+}

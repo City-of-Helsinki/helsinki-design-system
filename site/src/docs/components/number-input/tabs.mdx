@@ -5,16 +5,20 @@ title: 'NumberInput'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # NumberInput
 
-<StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>
     A number input allows the user to enter numeric values. It also features optional steppers for increasing or decreasing the value by a set amount.

@@ -1,0 +1,18 @@
+---
+slug: '/components/hero/accessibility'
+title: 'Hero - Accessibility'
+---
+
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+
+- Heading levels must be in hierarchical order. `Hero.Title` is rendered as a `<h1>` element by default. It can be changed with the `headingLevel` property of the `Hero.Title`.
+- The hero component is not interactable and does not have a focus state.
+- If the Hero's CTA button is used as a link, remember to set 'role="link"' to the button.
+- Images in the hero component are hidden from assistive technologies and have an empty alt-text.
