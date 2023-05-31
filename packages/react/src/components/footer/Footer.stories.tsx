@@ -494,7 +494,10 @@ export const CustomSection = (args) => (
     <Utilities />
     <Footer.Custom ariaLabel={footerCustomAriaLabel}>
       <Footer.GroupHeading label="Partners" id="partners" />
-      <div aria-label="partners" style={{ display: 'flex', flexDirection: 'row', gap: '24px', marginTop: '8px' }}>
+      <div
+        aria-label="partners"
+        style={{ display: 'flex', flexDirection: 'row', gap: '12px 24px', flexWrap: 'wrap', marginTop: '8px' }}
+      >
         <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
         <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
         <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
