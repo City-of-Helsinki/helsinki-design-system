@@ -32,12 +32,12 @@
   --icon-size: 24px;
 
   @include layout.below-large {
-    --header-margin: var(--spacing-s);
     --action-bar-container-height: 74px;
     --logo-height: 48px;
   }
 
   @include layout.below-medium {
+    --header-margin: var(--spacing-s);
     --action-bar-container-height: 64px;
     --logo-height: 32px;
   }
