@@ -251,17 +251,16 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
           onMouseLeave: () => handleDropdownOpen(false),
         })}
       ref={containerRef}
-      onMouseEnter={() => handleDropdownOpen(true, NavigationLinkInteraction.Hover)}
+      {...(dropdownLinks &&
+        dropdownOpenedBy !== NavigationLinkInteraction.Click && {
+          onMouseEnter: () => handleDropdownOpen(true, NavigationLinkInteraction.Hover),
+        })}
     >
       <Item
         className={navigationLinkClassName}
         href={href}
         {...(active && { 'aria-selected': true })}
         {...(Boolean(dropdownLinks) && { 'aria-expanded': isDropdownOpen })}
-        {...(dropdownLinks &&
-          dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-            onMouseEnter: () => handleDropdownOpen(true, NavigationLinkInteraction.Hover),
-          })}
         {...rest}
       >
         {label}

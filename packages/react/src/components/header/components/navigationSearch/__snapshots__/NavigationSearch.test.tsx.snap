@@ -122,7 +122,7 @@ exports[`<Header.NavigationSearch /> spec renders the component 1`] = `
                   for="downshift-0-input"
                   id="downshift-1-label"
                 >
-                  Search
+                  Haku
                 </label>
                 <div
                   class="wrapper"

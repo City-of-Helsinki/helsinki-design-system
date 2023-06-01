@@ -18,12 +18,11 @@ describe('<NavigationLink /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should open dropdown when the button is clicked', async () => {
+  it('should open dropdown when the link is hovered', async () => {
     render(<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />, {
       wrapper: HeaderNavigationMenuWrapper,
     });
-
-    userEvent.click(screen.getByTestId('dropdown-button-0'));
+    userEvent.hover(screen.getByText('Link'));
     expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
   });
 
@@ -36,12 +35,12 @@ describe('<NavigationLink /> spec', () => {
       { wrapper: HeaderNavigationMenuWrapper },
     );
 
-    // Click the first main navigation link's dropdown button
-    userEvent.click(screen.getByTestId('dropdown-button-0'));
+    // Hover the first main navigation link
+    userEvent.hover(screen.getByText('Link 1'));
     expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
 
-    // Click the second main navigation link's dropdown button
-    userEvent.click(screen.getByTestId('dropdown-button-1'));
+    // Hoer the second main navigation link
+    userEvent.hover(screen.getByText('Link 2'));
 
     // Now the second dropdown should show
     expect(screen.getByTestId('dropdown-menu-1')).toBeVisible();
