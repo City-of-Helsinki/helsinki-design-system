@@ -1,4 +1,4 @@
-@value small-down, x-large-up from "../../styles/breakpoints.scss";
+@value small-down, x-small-down, x-large-up from "../../styles/breakpoints.scss";
 
 $koros-heights: (
   'basic': 14px,
@@ -9,12 +9,13 @@ $koros-heights: (
 );
 
 .footer {
-  --footer-focus-outline-width: 3px;
-  --footer-focus-outline-border-radius: 0px;
   --footer-background: var(--color-black-5);
   --footer-color: var(--color-black-90);
   --footer-divider-color: var(--color-black-20);
+  --footer-focus-outline-border-radius: 0px;
   --footer-focus-outline-color: var(--color-coat-of-arms);
+  --footer-focus-outline-width: 3px;
+  --footer-padding: var(--spacing-l) var(--spacing-m) 0;
 
   color: var(--footer-color);
 
@@ -52,7 +53,7 @@ $koros-heights: (
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: var(--spacing-l) var(--spacing-m) 0;
+  padding: var(--footer-padding);
 }
 
 .title {
@@ -60,6 +61,16 @@ $koros-heights: (
   font-weight: bold;
   letter-spacing: 0.4px;
   line-height: var(--lineheight-l);
+}
+
+@media x-small-down {
+  .footer {
+    --footer-padding: var(--spacing-m) var(--spacing-s) 0;
+  }
+
+  .footerSections {
+    padding: var(--footer-padding);
+  }
 }
 
 @media small-down {
