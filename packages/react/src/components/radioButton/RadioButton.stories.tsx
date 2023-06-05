@@ -30,7 +30,7 @@ export const SelectedDisabled = () => <RadioButton id="radio4" label="Label" che
 SelectedDisabled.storyName = 'Selected & disabled';
 
 export const Custom = () => {
-  const [radioValue, setRadioValue] = useState('foo');
+  const [radioValue, setRadioValue] = useState('');
   const options = ['foo', 'bar'];
 
   const customStyles = {
