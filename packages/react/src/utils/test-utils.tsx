@@ -20,3 +20,7 @@ export const HeaderNavigationMenuWrapper = ({ children }: PropsWithChildren<Reco
     <HeaderNavigationMenu>{children}</HeaderNavigationMenu>
   </Header>
 );
+
+export const SkipToContentLinkWrapper = ({ children }: PropsWithChildren<Record<string, unknown>>) => (
+  <div>{children}<p id="content"></p></div>
+);

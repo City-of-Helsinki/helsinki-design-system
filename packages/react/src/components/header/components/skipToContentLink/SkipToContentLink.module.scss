@@ -1,0 +1,29 @@
+/* SKIP TO CONTENT LINK*/
+
+.skipToContent {
+  --background-color: var(--color-white);
+  --text-color: var(--color-black-90);
+  --border-color: var(--color-black-90);
+  --border-width: 1px;
+  
+  height: 1px;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+
+  &:focus {
+    background-color: var(--background-color);
+    border: var(--border-width) solid var(--border-color);
+    color: var(--text-color);
+    height: auto;
+    left: 0;
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+    transition: all 0.25s ease-in;
+    width: auto;
+    z-index: 99;
+  }
+}
