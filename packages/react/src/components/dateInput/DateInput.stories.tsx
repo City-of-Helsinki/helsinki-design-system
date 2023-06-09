@@ -6,9 +6,11 @@ import isWeekend from 'date-fns/isWeekend';
 import isSameDay from 'date-fns/isSameDay';
 import { addMonths } from 'date-fns';
 
-import { DateInput } from '.';
+import { DateInput, DateInputProps } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
+
+import './DateInput.stories.scss';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
@@ -190,6 +192,7 @@ export const WithSelectedDisabledDates = (args) => {
     />
   );
 };
+
 WithSelectedDisabledDates.storyName = 'With selected disabled dates';
 WithSelectedDisabledDates.parameters = { loki: { skip: true } };
 
@@ -209,3 +212,27 @@ Success.args = {
   id: 'Success',
   successText: 'Date is valid',
 };
+
+export const WithCustomDayStyles = (args: DateInputProps) => {
+  const invalidClassName = 'date-picker__day--invalid';
+  const dateFormat = 'dd.M.yyyy';
+  const dateValue = new Date(2021, 10, 12);
+  const [value, setValue] = useState<string>(format(dateValue, dateFormat));
+  const helperText = `Returns a custom style for odd days in the date picker.`;
+  const setDateClassNames = (date: Date) => {
+    const day = date.getDate();
+    return day % 2 ? invalidClassName : undefined;
+  };
+
+  return (
+    <DateInput
+      {...args}
+      value={value}
+      onChange={setValue}
+      helperText={helperText}
+      setDateClassNames={setDateClassNames}
+    />
+  );
+};
+WithCustomDayStyles.storyName = 'With custom day styles';
+WithCustomDayStyles.parameters = { loki: { skip: true } };

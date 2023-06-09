@@ -19,6 +19,7 @@ export type DatePickerContextType = {
   onDayClick?: (date: Date, e: React.MouseEvent) => void;
   handleKeyboardNavigation: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
   handleMonthChange: (NextMonth: Date, event?: React.MouseEvent) => void;
+  setDateClassNames?: (date: Date) => string | undefined;
 };
 
 export const DatePickerContext = React.createContext<DatePickerContextType>(null);

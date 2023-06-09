@@ -58,6 +58,10 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    * Disables date(s) based on conditional function
    */
   isDateDisabledBy?: (date) => boolean;
+  /**
+   * Function to set class names for dates
+   */
+  setDateClassNames?: (date: Date) => string | undefined;
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -75,6 +79,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       minDate,
       maxDate,
       isDateDisabledBy,
+      setDateClassNames,
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -231,6 +236,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               open={showPicker}
               inputRef={inputRef}
               toggleButton={toggleButton}
+              setDateClassNames={setDateClassNames}
             />
           )}
         </TextInput>

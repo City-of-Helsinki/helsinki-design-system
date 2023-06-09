@@ -32,6 +32,7 @@ export const Day = ({ day }: DayProps) => {
     locale,
     onDayClick,
     handleKeyboardNavigation,
+    setDateClassNames,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
@@ -82,6 +83,7 @@ export const Day = ({ day }: DayProps) => {
       isSameDay(day, selectedDate) && styles['hds-datepicker__day--selected'],
       isDisabled && styles['hds-datepicker__day--disabled'],
       isDisabled && styles['hds-datepicker__day--outside'],
+      !isDisabled && setDateClassNames && setDateClassNames(day),
     ),
     'data-date': format(day, 'yyyy-MM-dd'),
   };

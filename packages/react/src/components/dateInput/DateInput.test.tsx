@@ -419,4 +419,32 @@ describe('<DateInput /> spec', () => {
     const nextMondayButton = container.querySelector('button[data-date="2021-01-04"]');
     expect(nextMondayButton).toHaveFocus();
   });
+
+  it('should return custom class for specific days', async () => {
+    const { container } = render(
+      <DateInput
+        id="date"
+        initialMonth={new Date('2021-01-01')}
+        label="Choose a date"
+        language="en"
+        setDateClassNames={(date: Date) => {
+          return date.getDate() % 2 ? 'custom-class' : undefined;
+        }}
+      />,
+    );
+
+    // Click the calendar button
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
+
+    const oddButton = container.querySelector('button[data-date="2021-01-01"]');
+    const evenButton = container.querySelector('button[data-date="2021-01-02"]');
+    const prevMonthLast = container.querySelector('span[data-date="2020-12-31"]');
+    const nextMonthFirst = container.querySelector('span[data-date="2021-02-01"]');
+    expect(oddButton).toHaveClass('custom-class');
+    expect(evenButton).not.toHaveClass('custom-class');
+    expect(prevMonthLast).not.toHaveClass('custom-class');
+    expect(nextMonthFirst).not.toHaveClass('custom-class');
+  });
 });

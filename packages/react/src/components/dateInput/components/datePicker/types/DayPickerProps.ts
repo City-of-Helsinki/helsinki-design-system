@@ -96,4 +96,8 @@ export interface DayPickerProps {
    * Calendar toggle button
    */
   toggleButton?: HTMLButtonElement | null;
+  /**
+   * Function to set class names for dates
+   */
+  setDateClassNames?: (date: Date) => string | undefined;
 }

@@ -50,6 +50,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     open,
     inputRef,
     toggleButton,
+    setDateClassNames,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -370,6 +371,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           onDayClick: handleDayClick,
           handleKeyboardNavigation,
           handleMonthChange,
+          setDateClassNames,
         }}
       >
         <div className={styles['hds-datepicker']} ref={datepickerRef}>
