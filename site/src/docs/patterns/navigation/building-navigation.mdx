@@ -9,7 +9,21 @@ import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
-import { Header, Navigation, Tabs, Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import {
+  Breadcrumb,
+  Button,
+  Header,
+  Hero,
+  Navigation,
+  SideNavigation,
+  Tabs,
+  Footer,
+  IconFacebook,
+  IconTwitter,
+  IconInstagram,
+  IconYoutube,
+  IconTiktok,
+} from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 
 # Building navigation
@@ -34,25 +48,37 @@ Adhering to these principles can create an effective and user-friendly navigatio
     <li>
       <strong>Follow the documentation closely.</strong>
       <ul style="margin-top:0;">
-        <li>Adhere to the guidelines, best practices, and examples provided in the documentation to ensure proper implementation of the navigation pattern.</li>
+        <li>
+          Adhere to the guidelines, best practices, and examples provided in the documentation to ensure proper
+          implementation of the navigation pattern.
+        </li>
       </ul>
     </li>
     <li>
       <strong>Keep the user in mind.</strong>
       <ul style="margin-top:0;">
-        <li>Consider the needs, preferences, and expectations of your target audience when implementing the navigation pattern.</li>
+        <li>
+          Consider the needs, preferences, and expectations of your target audience when implementing the navigation
+          pattern.
+        </li>
       </ul>
     </li>
     <li>
       <strong>Maintain consistency.</strong>
       <ul style="margin-top:0;">
-        <li>Keep the design, interaction, and behavior of the navigation pattern consistent across different platforms and devices.</li>
+        <li>
+          Keep the design, interaction, and behavior of the navigation pattern consistent across different platforms and
+          devices.
+        </li>
       </ul>
     </li>
     <li>
       <strong>Test and iterate.</strong>
       <ul style="margin-top:0;">
-        <li>Regularly test the navigation pattern with real users, gather feedback, and make improvements to ensure it meets user needs and expectations.</li>
+        <li>
+          Regularly test the navigation pattern with real users, gather feedback, and make improvements to ensure it
+          meets user needs and expectations.
+        </li>
       </ul>
     </li>
     <li>
@@ -64,16 +90,15 @@ Adhering to these principles can create an effective and user-friendly navigatio
     <li>
       <strong>Be responsive.</strong>
       <ul style="margin-top:0;">
-        <li>
-           Make sure the navigation pattern works well on different devices and screen sizes.
-        </li>
+        <li>Make sure the navigation pattern works well on different devices and screen sizes.</li>
       </ul>
     </li>
     <li>
       <strong>Prioritize important elements.</strong>
       <ul style="margin-top:0;">
         <li>
-           Organize the navigation items hierarchically, highlighting the most important elements and grouping similar items together.
+          Organize the navigation items hierarchically, highlighting the most important elements and grouping similar
+          items together.
         </li>
       </ul>
     </li>
@@ -81,7 +106,8 @@ Adhering to these principles can create an effective and user-friendly navigatio
       <strong>Customize responsibly.</strong>
       <ul style="margin-top:0;">
         <li>
-          When customizing the navigation pattern, ensure that the changes do not negatively impact usability, accessibility, or consistency.
+          When customizing the navigation pattern, ensure that the changes do not negatively impact usability,
+          accessibility, or consistency.
         </li>
       </ul>
     </li>
@@ -101,7 +127,8 @@ Adhering to these principles can create an effective and user-friendly navigatio
       <strong>Don't sacrifice clarity for style.</strong>
       <ul style="margin-top:0;">
         <li>
-          While it's essential to maintain a visually appealing design, prioritize clarity and usability when implementing the navigation pattern.
+          While it's essential to maintain a visually appealing design, prioritize clarity and usability when
+          implementing the navigation pattern.
         </li>
       </ul>
     </li>
@@ -109,7 +136,8 @@ Adhering to these principles can create an effective and user-friendly navigatio
       <strong>Don't disregard performance.</strong>
       <ul style="margin-top:0;">
         <li>
-          ptimize the navigation pattern for performance by reducing file sizes, minimizing HTTP requests, and using efficient code.
+          ptimize the navigation pattern for performance by reducing file sizes, minimizing HTTP requests, and using
+          efficient code.
         </li>
       </ul>
     </li>
@@ -117,23 +145,23 @@ Adhering to these principles can create an effective and user-friendly navigatio
       <strong>Don't neglect mobile users.</strong>
       <ul style="margin-top:0;">
         <li>
-          Do not assume all users are on desktop devices; ensure the navigation pattern works well on mobile devices and touchscreens.
+          Do not assume all users are on desktop devices; ensure the navigation pattern works well on mobile devices and
+          touchscreens.
         </li>
       </ul>
     </li>
     <li>
       <strong>Don't ignore feedback.</strong>
       <ul style="margin-top:0;">
-        <li>
-          Do not disregard user feedback or testing results when refining and improving the navigation pattern.
-        </li>
+        <li>Do not disregard user feedback or testing results when refining and improving the navigation pattern.</li>
       </ul>
     </li>
     <li>
       <strong>Don't overcomplicate.</strong>
       <ul style="margin-top:0;">
         <li>
-          Avoid adding unnecessary elements, features, or interactions to the navigation pattern, which may confuse or overwhelm users.
+          Avoid adding unnecessary elements, features, or interactions to the navigation pattern, which may confuse or
+          overwhelm users.
         </li>
       </ul>
     </li>
@@ -154,17 +182,25 @@ Adhering to these principles can create an effective and user-friendly navigatio
 
 When implementing a navigation pattern, it's essential to consider the order of navigation components to ensure a logical, intuitive, and user-friendly experience.
 
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
+  alt="An illustration of the recommended order of navigation components. The order is Header, Breadcrumbs, Hero, Main content and Footer."
+  style="max-width:480px;"
+  viewable
+/>
+
 ### 1. Header
-The header is placed at the very top of the page and serves as the primary navigation area for your website or application. It includes the City of Helsinki logo, site title, and main navigation menu. <strong>The Header component is a wrapper for the HDS header navigation components.</strong> This means you should put all the other header elements inside this component.
+
+The navigation components are placed at the very top of the page and serves as the primary navigation area for your website or application. <strong>The Header component is a wrapper for the HDS header navigation components.</strong> This means you should put all the other header sub components inside this component.
 
 The header's consistent placement and appearance across all pages make it easily recognizable and accessible to users, allowing them to navigate the site quickly and efficiently.
 
 <PlaygroundPreview>
   <Header>
     <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
+      <Header.NavigationLink href="#" label="Link 1" />
+      <Header.NavigationLink href="#" label="Link 2" />
+      <Header.NavigationLink href="#" label="Link 3" />
     </Header.UniversalBar>
   </Header>
 </PlaygroundPreview>
@@ -179,44 +215,308 @@ The header's consistent placement and appearance across all pages make it easily
     </ol>
   </li>
   <li>
-    The learn more about the <strong>Header</strong> component, please refer to<InternalLink href="/components/header">the component page.</InternalLink>
+    The learn more about the <strong>Header</strong> component, please refer to
+    <InternalLink href="/components/header">the component page.</InternalLink>
   </li>
 </ul>
 
 ### 2. Breadcrumbs
+
 Breadcrumbs are a secondary navigation component that helps users understand their current location within the site hierarchy and offers a simple way to navigate back to previous pages. Placed immediately below the header, breadcrumbs provide context and enhance usability by offering a clear path through the website or application.
+
+<PlaygroundPreview>
+  <Breadcrumb
+    ariaLabel="Breadcrumb"
+    list={[
+      { title: 'Front page', path: '/' },
+      { title: 'Health and social services', path: '/path' },
+      { title: 'Senior services', path: '/path/2ndLevelPath' },
+      { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+      { title: 'Care options', path: null },
+    ]}
+  ></Breadcrumb>
+</PlaygroundPreview>
 
 <ul style="margin-bottom:0;">
   <li>
-    The learn more about the <strong>Breadcrumbs</strong> component, please refer to<InternalLink href="/components/breadcrumbs">the component page.</InternalLink>
+    The learn more about the <strong>Breadcrumb</strong> component, please refer to
+    <InternalLink href="/components/breadcrumb">the component page.</InternalLink>
   </li>
 </ul>
 
 ### 3. Hero
+
 The hero section is an optional but highly recommended component that usually appears below the breadcrumbs. It serves as a visual and content-focused introduction to the page, typically including a large image, heading, and a call-to-action button or message. The hero section helps grab the user's attention and sets the tone for the rest of the page.
 
+<PlaygroundPreview>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    style={{
+      '--background-color': 'var(--color-coat-of-arms)',
+      '--color': '#fff',
+      '--koros-color': 'var(--background-color)',
+      '--diagonal-koros-position': '55%',
+      '--koros-height': '14px',
+    }}
+  >
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces.
+    </Hero.Text>
+    <Button
+      variant="primary"
+      role="link"
+      style={{ '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
 <ul style="margin-bottom:0;">
   <li>
-    The learn more about the <strong>Hero</strong> component, please refer to<InternalLink href="/components/hero">the component page.</InternalLink>
+    The learn more about the <strong>Hero</strong> component, please refer to
+    <InternalLink href="/components/hero">the component page.</InternalLink>
   </li>
 </ul>
 
-### 4. Main Content
-Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, and other design elements that guide users through the content. The main content area may also include additional navigation components, such as side navigation or tabs, to facilitate access to related content or functionality.
+### 4. Side navigation (optional)
+
+Side navigation can serve as a secondary navigation tool alongside the main navigation components at the top of a page. Side navigation is useful when the application or website has a complex or multi-layered hierarchy of information, where the top-level navigation isn't sufficient to provide a complete, comprehensive navigation experience.
+
+export const SideNavExample = () => {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
+    style={{
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
+    }}
+  >
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
+    >
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation"
+        toggleButtonLabel="Navigate to page"
+      >
+        <SideNavigation.MainLevel
+          id="#main-level-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            active={active === '/events'}
+            id="sub-level-1"
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            active={active === '/archive'}
+            id="sub-level-2"
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            active={active === '/new-event'}
+            id="sub-level-3"
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          id="main-level-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            active={active === '/map'}
+            id="sub-level-4"
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            active={active === '/edit-event-locations'}
+            id="sub-level-5"
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            active={active === '/new-location'}
+            id="sub-level-6"
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          active={active === '/settings'}
+          id="main-level-3"
+          label="Settings"
+          onClick={setActivePage}
+        />
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          openInNewTab
+          openInNewTabAriaLabel="Opens in a new tab."
+          openInExternalDomainAriaLabel="Opens a different website."
+          id="main-level-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
+        />
+      </SideNavigation>
+    </div>
+  </div>);
+};
+
+<PlaygroundPreview>
+  <SideNavExample />
+</PlaygroundPreview>
 
 <ul style="margin-bottom:0;">
   <li>
-    The learn more about the <strong>heading hierarchy</strong>, please refer to<InternalLink href="/foundation/design-tokens/typography#heading-sizes">the Typography page.</InternalLink>
+    The learn more about the <strong>SideNavigation</strong> component, please refer to
+    <InternalLink href="/components/side-navigation">the component page.</InternalLink>
   </li>
-  <li>
-    The learn more about the <strong>Side navigation</strong> component, please refer to<InternalLink href="/components/side-navigation">the component page.</InternalLink>
-  </li>
-  <li>
-    The learn more about the <strong>Tabs</strong> component, please refer to<InternalLink href="/components/tabs">the component page.</InternalLink>
-  </li>  
 </ul>
 
-### 5. Footer
+### 5. Tabs (optional)
+
+Tabs effectively complement top-level navigation by categorizing related content at the same hierarchy level. Ensure tabs are clearly labeled, selectable, and highlight when active. Arrange them logically, typically left-to-right. Tabs should supplement, not replace, top-level navigation.
+
+<PlaygroundPreview>
+  <Tabs>
+    <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
+      <Tabs.Tab>Daycare</Tabs.Tab>
+      <Tabs.Tab>Pre-school</Tabs.Tab>
+      <Tabs.Tab>Basic education</Tabs.Tab>
+      <Tabs.Tab>Upper secondary</Tabs.Tab>
+      <Tabs.Tab>University</Tabs.Tab>
+    </Tabs.TabList>
+    <Tabs.TabPanel>
+      Daytime care for people who cannot be fully independent, such as children or elderly people.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      A pre-school is an educational establishment offering early childhood education to children before they begin
+      compulsory education at primary school.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
+      responsible membership of society.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      Upper secondary school studies last three to four years, preparing the students for the matriculation examination.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      A high-level educational institution in which students study for degrees and academic research is done.
+    </Tabs.TabPanel>
+  </Tabs>
+</PlaygroundPreview>
+
+<ul style="margin-bottom:0;">
+  <li>
+    The learn more about the <strong>Tabs</strong> component, please refer to
+    <InternalLink href="/components/tabs">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 6. Main content
+
+Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, and other design elements that guide users through the content.
+
+<ul style="margin-bottom:0;">
+  <li>
+    The learn more about the <strong>heading hierarchy</strong>, please refer to
+    <InternalLink href="/foundation/design-tokens/typography#heading-sizes">the Typography page.</InternalLink>
+  </li>
+  <li>
+    The learn more about the <strong>SideNavigation</strong> component, please refer to
+    <InternalLink href="/components/side-navigation">the component page.</InternalLink>
+  </li>
+  <li>
+    The learn more about the <strong>Tabs</strong> component, please refer to
+    <InternalLink href="/components/tabs">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 7. Footer
+
 The footer is placed at the bottom of the site and includes supplementary information and links, such as contact details, legal information, social media icons, and secondary navigation elements. The footer helps users find additional resources and reinforces the overall site structure by providing a consistent and accessible navigation area on every page.
 
-AN IMAGE OF A WELL-WORKING PATTERN HERE or PLAYGROUND EXAMPLE WITH DUMMY CONTENT.
+<PlaygroundPreview>
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Utilities backToTopLabel="Back to top">
+      <Footer.SoMe>
+        <Footer.Item icon={<IconFacebook />} />
+        <Footer.Item icon={<IconTwitter />} />
+        <Footer.Item icon={<IconInstagram />} />
+        <Footer.Item icon={<IconYoutube />} />
+        <Footer.Item icon={<IconTiktok />} />
+      </Footer.SoMe>
+      <Footer.Item label="Contact us" />
+      <Footer.Item label="Give feedback" />
+    </Footer.Utilities>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+</PlaygroundPreview>
+
+### Focus order & keyboard navigation
+
+Building a correct focus order is essential to ensure accessibility and provide a good user experience for all users, including those using keyboard navigation or assistive technologies. It's crucial to test your focus order using a keyboard alone to ensure it works as expected.
+
+Focus order, or tab order, refers to the sequence in which interactive elements on a webpage or application receive focus when a user navigates using a keyboard. Here's a general guideline on how to build the focus order for keyboard navigation:
+
+#### Logical order
+
+Focus order should follow a logical and intuitive pattern, usually from left to right and top to bottom, mirroring the reading order in the majority of languages. This allows users to predict where the focus will go next, enhancing usability.
+
+#### Element priority
+
+Interactive elements such as links, buttons, and form fields should be given priority in the focus order. Non-interactive elements, like headers or paragraphs, usually don't need to be included unless they provide some functionality upon focus.
+
+#### Navigation consistency
+
+Keep the navigation consistent across different sections of your site or app.
+
+#### Skip links
+
+Implement "Skip to main content" or "Skip navigation" links at the beginning of the page to allow keyboard users to bypass lengthy navigation menus and reach the main content more quickly.
+
+#### Modal and popup focus
+
+When a modal or popup appears, the focus should shift to this new content and trap focus within it until it's closed. Once closed, focus should return to the element that triggered the modal.
+
+#### Use of ARIA roles
+
+Use ARIA roles to clearly denote different sections of your page. This helps assistive technologies understand your content and improve the focus order.
