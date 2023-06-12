@@ -10,7 +10,7 @@ import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { NavigationLink } from './components/navigationLink';
-import { SkipToTheme, SkipToContentLink } from './components/skipToContentLink';
+import { SkipToContentLink } from './components/skipToContentLink';
 
 export type HeaderProps = React.PropsWithChildren<{
   /**
@@ -29,13 +29,9 @@ export type HeaderProps = React.PropsWithChildren<{
    * 	Label for skip to content shortcut
    */
   skipToLabel?: string;
-  /**
-   * 	Label for skip to content shortcut
-   */
-  skipToTheme?: SkipToTheme;
 }>;
 
-export const Header = ({ children, className, id, skipToId, skipToLabel, skipToTheme }: HeaderProps) => {
+export const Header = ({ children, className, id, skipToId, skipToLabel }: HeaderProps) => {
   const isSmallScreen = useMediaQueryLessThan('m');
   const isMediumScreen = useMediaQueryLessThan('l');
   const context: HeaderContextProps = { isSmallScreen, isMediumScreen };
@@ -43,7 +39,7 @@ export const Header = ({ children, className, id, skipToId, skipToLabel, skipToT
   return (
     <HeaderContext.Provider value={context}>
       <header id={id} className={classNames(styles.header, className)}>
-        <SkipToContentLink skipTo={skipToId} label={skipToLabel} theme={skipToTheme} />
+        <SkipToContentLink skipTo={skipToId} label={skipToLabel} />
         <div className={styles.headerBackgroundWrapper}>{children}</div>
       </header>
     </HeaderContext.Provider>
