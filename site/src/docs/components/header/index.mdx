@@ -25,6 +25,18 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   </Header>
 </PlaygroundPreview>
 
+### With skip to content link
+
+<PlaygroundPreview>
+  <Header skipToId="#content" skipToLabel="Skip to content">
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
+  </Header>
+</PlaygroundPreview>
+
 ### Principles
 
 - **It is strongly recommended to always include the header component in your service.**
@@ -33,6 +45,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - HeaderNavigationBar is coming soon
 - HeaderActionBar is coming soon
 - The inner components should **always** be in this order: Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
+- **It is recomended to add a skip-to-content link to the header** At least if the header is very complex. Skip-to-content link makes navigating easier when using keyboard only.
 
 ### Variations
 

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SkipToContentLink /> spec it should show link when tab is pressed 1`] = `
+<DocumentFragment>
+  <a
+    class="skipToContent"
+    href="#content"
+  >
+    <span>
+      skip to content
+    </span>
+  </a>
+</DocumentFragment>
+`;
+
+exports[`<SkipToContentLink /> spec renders the component 1`] = `
+<DocumentFragment>
+  <a
+    class="skipToContent"
+    href="#content"
+  >
+    <span>
+      skip to content
+    </span>
+  </a>
+</DocumentFragment>
+`;

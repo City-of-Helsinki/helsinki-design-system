@@ -39,7 +39,7 @@ export const Header = ({ children, className, id, skipToId, skipToLabel }: Heade
   return (
     <HeaderContext.Provider value={context}>
       <header id={id} className={classNames(styles.header, className)}>
-        <SkipToContentLink skipTo={skipToId} label={skipToLabel} />
+        {skipToId && skipToLabel && <SkipToContentLink skipTo={skipToId} label={skipToLabel} />}
         <div className={styles.headerBackgroundWrapper}>{children}</div>
       </header>
     </HeaderContext.Provider>

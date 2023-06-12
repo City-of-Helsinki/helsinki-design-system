@@ -29,6 +29,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 </Playground>
 
+### With skip to content link
+<Playground>
+
+```jsx
+<>
+  <Header skipToId="#content" skipToLabel="Skip to content">
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
+  </Header>
+  <p id="content">
+    The main content.
+  </p>
+</>
+```
+</Playground>
+
+
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                         | Source link                                                                                                                                                                                                         |
@@ -40,10 +60,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-headeruniversalbar--default">React Storybook.</Link>
 
-| Property                    | Description                      | Values   | Default value |
-| --------------------------- | -------------------------------- | -------- | ------------- |
-| `className`                 | Additional class names to apply. | `string` | -             |
-| `id`                        | Id for the element.              | `string` | -             |
+| Property                    | Description                                        | Values   | Default value |
+| --------------------------- | -------------------------------------------------- | -------- | ------------- |
+| `className`                 | Additional class names to apply.                   | `string` | -             |
+| `id`                        | Id for the element.                                | `string` | -             |
+| `skipToId`                  | Id for the element for "skip to content" shortcut  | `string` | -             |
+| `skipToLabel`               | Text for the element for "skip to content" shortcut| `string` | -             |
 | [Table 1:Header properties] |
 
 | Property                                | Description                                                     | Values   | Default value        |

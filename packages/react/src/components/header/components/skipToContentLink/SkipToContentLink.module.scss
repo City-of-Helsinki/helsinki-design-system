@@ -1,9 +1,9 @@
 .skipToContent {
   --background-color: var(--color-white);
-  --text-color: var(--color-black);
-  --border-color: var(--color-bus);
-  --outline-color: var(--color-black);
-  --border-width: 3px;
+  --text-color: var(--color-black-90);
+  --outline-color: var(--color-focus-outline);
+  --outline-inner-color: var(--color-black-90);
+  --outline-width: 3px;
   --width: 213px;
   --height: 66px;
 
@@ -19,10 +19,11 @@
 
   &:focus {
     background-color: var(--background-color);
-    border: var(--border-width) solid var(--border-color);
+    font-family: var(--font-default);
+    font-weight: 500;
+    outline: var(--outline-color) solid var(--outline-width);
     height: var(--height);
     left: 0;
-    outline: transparent;
     position: absolute;
     text-decoration: none;
     top: 0;
@@ -30,13 +31,13 @@
     width: var(--width);
     z-index: 99;
 
-    & span {
+    & > span {
       align-items: center;
       color: var(--text-color);
       display: flex;
       height: calc(var(--height) - 2 * 6px);
       justify-content: center;
-      outline: var(--outline-color) solid var(--border-width);
+      outline: var(--outline-inner-color) solid var(--outline-width);
       width: calc(var(--width) - 2 * 6px);
     }
   }
