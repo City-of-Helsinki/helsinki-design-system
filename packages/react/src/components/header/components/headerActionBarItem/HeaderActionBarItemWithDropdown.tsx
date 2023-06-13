@@ -114,6 +114,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         label={iconLabel}
         icon={iconClass}
         aria-expanded={visible}
+        aria-label="language select"
       />
       <div className={classes.dropdownWrapper}>
         <aside tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
