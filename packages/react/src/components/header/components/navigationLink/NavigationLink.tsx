@@ -259,7 +259,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
       <Item
         className={navigationLinkClassName}
         href={href}
-        {...(active && { 'aria-selected': true })}
         {...(Boolean(dropdownLinks) && { 'aria-expanded': isDropdownOpen })}
         {...rest}
       >
