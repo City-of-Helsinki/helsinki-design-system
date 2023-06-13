@@ -27,7 +27,7 @@ const LanguageButton = ({ language }) => {
   const selectLanguage = withDefaultPrevented(() => setLanguage(language.value));
 
   return (
-    <button key={language.value} onClick={selectLanguage} type="button" className={className}>
+    <button key={language.value} lang={language.value} onClick={selectLanguage} type="button" className={className}>
       <span>{language.label}</span>
     </button>
   );
