@@ -1,0 +1,45 @@
+.skipLink {
+  --background-color: var(--color-white);
+  --text-color: var(--color-black-90);
+  --outline-color: var(--color-focus-outline);
+  --outline-inner-color: var(--color-black-90);
+  --outline-width: 3px;
+  --width: 213px;
+  --height: 66px;
+
+  align-items: center;
+  display: flex;
+  height: 1px;
+  justify-content: center;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+
+  &:focus {
+    background-color: var(--background-color);
+    font-family: var(--font-default);
+    font-weight: 500;
+    height: var(--height);
+    left: 5px;
+    outline: var(--outline-color) solid var(--outline-width);
+    position: absolute;
+    text-decoration: none;
+    top: 5px;
+    transition: all 0.25s ease-in;
+    width: var(--width);
+    z-index: 99;  
+  
+    & > span {
+      align-items: center;
+      color: var(--text-color);
+      display: flex;
+      height: calc(var(--height) - 2 * 6px);
+      justify-content: center;
+      outline: var(--outline-inner-color) solid var(--outline-width);
+      width: calc(var(--width) - 2 * 6px);    
+    }
+  }
+
+}
