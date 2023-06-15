@@ -1,3 +1,9 @@
-.date-picker__day--invalid {
-    background: hotpink;
+.odd--day,
+.odd--color {
+    background: var(--color-suomenlinna);
+}
+
+.even--day,
+.even--color {
+    background: var(--color-black-10);
 }

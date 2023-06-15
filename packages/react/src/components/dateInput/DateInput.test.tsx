@@ -442,9 +442,47 @@ describe('<DateInput /> spec', () => {
     const evenButton = container.querySelector('button[data-date="2021-01-02"]');
     const prevMonthLast = container.querySelector('span[data-date="2020-12-31"]');
     const nextMonthFirst = container.querySelector('span[data-date="2021-02-01"]');
+    const legend = container.querySelector('.hds-datepicker__legend');
+
     expect(oddButton).toHaveClass('custom-class');
     expect(evenButton).not.toHaveClass('custom-class');
     expect(prevMonthLast).not.toHaveClass('custom-class');
     expect(nextMonthFirst).not.toHaveClass('custom-class');
+    expect(legend).toBeFalsy();
+  });
+
+  it('should return custom legend', async () => {
+    const { container } = render(
+      <DateInput
+        id="date"
+        initialMonth={new Date('2021-01-01')}
+        label="Choose a date"
+        language="en"
+        setDateClassNames={(date: Date) => {
+          return date.getDate() % 2 ? 'odd' : 'even';
+        }}
+        legend={[
+          { key: 'odd', label: 'Todd' },
+          { key: 'even', label: 'Steven' },
+        ]}
+      />,
+    );
+
+    // Click the calendar button
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
+
+    const oddButton = container.querySelector('button[data-date="2021-01-01"]');
+    const evenButton = container.querySelector('button[data-date="2021-01-02"]');
+    const legend = container.querySelector('.hds-datepicker__legend');
+    const oddItem = legend?.querySelector(`.odd`);
+    const evenItem = legend?.querySelector(`.even`);
+
+    expect(oddButton).toHaveClass('odd');
+    expect(evenButton).toHaveClass('even');
+    expect(legend).toBeTruthy();
+    expect(oddItem).toHaveTextContent('Todd');
+    expect(evenItem).toHaveTextContent('Steven');
   });
 });

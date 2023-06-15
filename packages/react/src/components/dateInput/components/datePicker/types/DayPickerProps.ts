@@ -12,6 +12,14 @@ export type DayClickEventHandler = (day: Date, e: React.MouseEvent) => void;
 export type MonthChangeEventHandler = (month: Date, e: React.MouseEvent) => void;
 
 /**
+ * The props used for legend item.
+ */
+export type LegendItem = {
+  key: string;
+  label: string;
+};
+
+/**
  * The props used by the [[DayPicker]] component.
  */
 export interface DayPickerProps {
@@ -100,4 +108,8 @@ export interface DayPickerProps {
    * Function to set class names for dates
    */
   setDateClassNames?: (date: Date) => string | undefined;
+  /**
+   * Props for legend items
+   */
+  legend?: LegendItem[];
 }

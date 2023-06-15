@@ -17,6 +17,7 @@ import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
+import { Legend } from '../legend';
 import { Button } from '../../../button';
 import { IconCheck, IconCross } from '../../../../icons';
 import styles from './DatePicker.module.scss';
@@ -51,6 +52,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     inputRef,
     toggleButton,
     setDateClassNames,
+    legend,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -372,6 +374,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           handleKeyboardNavigation,
           handleMonthChange,
           setDateClassNames,
+          legend,
         }}
       >
         <div className={styles['hds-datepicker']} ref={datepickerRef}>
@@ -399,6 +402,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
               {closeButtonLabel}
             </Button>
           </div>
+          {legend && <Legend legend={legend} />}
         </div>
       </DatePickerContext.Provider>
     </div>

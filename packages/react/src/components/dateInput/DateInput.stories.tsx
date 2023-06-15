@@ -214,14 +214,14 @@ Success.args = {
 };
 
 export const WithCustomDayStyles = (args: DateInputProps) => {
-  const invalidClassName = 'date-picker__day--invalid';
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
   const helperText = `Returns a custom style for odd days in the date picker.`;
   const setDateClassNames = (date: Date) => {
     const day = date.getDate();
-    return day % 2 ? invalidClassName : undefined;
+    const className = day % 2 ? 'odd' : 'even';
+    return `${className}--day`;
   };
 
   return (
@@ -231,6 +231,10 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
       onChange={setValue}
       helperText={helperText}
       setDateClassNames={setDateClassNames}
+      legend={[
+        { key: 'odd', label: 'Odd' },
+        { key: 'even', label: 'Even' },
+      ]}
     />
   );
 };

@@ -238,3 +238,33 @@
     margin-left: var(--spacing-s);
   }
 }
+
+.hds-datepicker__legend {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--spacing-m);
+  justify-content: center;
+  margin: var(--spacing-m) 0 var(--spacing-xs);
+
+  @media small-up {
+    max-width: var(--table-width);
+  }
+}
+
+.hds-datepicker__legend-item {
+  align-items: center;
+  display: flex;
+  gap: var(--spacing-2-xs);
+
+  &--color {
+    height: 1rem;
+    width: 1rem;
+  }
+
+  &--title {
+    font-size: var(--fontsize-body-s);
+    line-height: var(--lineheight-l);
+  }
+}
+
+

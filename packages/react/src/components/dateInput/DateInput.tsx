@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { TextInput, TextInputProps } from '../textInput';
-import { DatePicker } from './components/datePicker';
+import { DatePicker, LegendItem } from './components/datePicker';
 import styles from './DateInput.module.scss';
 
 export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
@@ -62,6 +62,10 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    * Function to set class names for dates
    */
   setDateClassNames?: (date: Date) => string | undefined;
+  /**
+   * Legend items for the date picker
+   * */
+  legend?: LegendItem[];
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -80,6 +84,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       maxDate,
       isDateDisabledBy,
       setDateClassNames,
+      legend,
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -237,6 +242,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               inputRef={inputRef}
               toggleButton={toggleButton}
               setDateClassNames={setDateClassNames}
+              legend={legend}
             />
           )}
         </TextInput>
