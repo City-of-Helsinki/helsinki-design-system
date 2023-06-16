@@ -120,9 +120,10 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         icon={iconClass}
         aria-expanded={visible}
         aria-label={ariaLabel}
+        aria-controls={`${id}-dropdown`}
       />
       <div className={classes.dropdownWrapper}>
-        <aside tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
+        <aside id={`${id}-dropdown`} tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
           {children}
         </aside>
       </div>
