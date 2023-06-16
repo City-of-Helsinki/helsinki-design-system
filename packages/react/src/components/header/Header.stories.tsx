@@ -54,7 +54,7 @@ export const WithFullFeatures = (args) => (
         logoUrl="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
-        <Header.NavigationLanguageSelector languages={languages}>
+        <Header.NavigationLanguageSelector languages={languages} ariaLabel="Kielen valinta">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
             Selkosuomi
