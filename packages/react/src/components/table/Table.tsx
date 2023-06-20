@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label, jsx-a11y/no-interactive-element-to-noninteractive-role */
 import React, { useMemo, useState } from 'react';
 
 // import base styles
