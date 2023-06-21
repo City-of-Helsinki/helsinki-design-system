@@ -12,7 +12,7 @@ export type DayClickEventHandler = (day: Date, e: React.MouseEvent) => void;
 export type MonthChangeEventHandler = (month: Date, e: React.MouseEvent) => void;
 
 /**
- * The props used for legend item.
+ * @param {{ key: string, label: string }} Props for legend item
  */
 export type LegendItem = {
   key: string;
@@ -109,7 +109,8 @@ export interface DayPickerProps {
    */
   setDateClassNames?: (date: Date) => string | undefined;
   /**
-   * Props for legend items
+   * Legend items for datepicker
+   * @param {{ key: string, label: string }} LegendItem
    */
   legend?: LegendItem[];
 }

@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { TextInput, TextInputProps } from '../textInput';
-import { DatePicker, LegendItem } from './components/datePicker';
+import { DatePicker } from './components/datePicker';
 import styles from './DateInput.module.scss';
 
 export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
@@ -64,8 +64,12 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
   setDateClassNames?: (date: Date) => string | undefined;
   /**
    * Legend items for the date picker
+   * @param {{ key: string, label: string }} LegendItem
    * */
-  legend?: LegendItem[];
+  legend?: {
+    key: string;
+    label: string;
+  }[];
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
