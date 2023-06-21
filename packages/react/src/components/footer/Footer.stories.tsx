@@ -509,6 +509,6 @@ export const CustomSection = (args) => (
 
 export const Minimal = (args) => (
   <Footer {...args}>
-    <Footer.Base />
+    <Footer.Base backToTopLabel="Back to top" />
   </Footer>
 );
