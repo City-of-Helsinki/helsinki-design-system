@@ -10,8 +10,6 @@ import { DateInput, DateInputProps } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
 
-import './DateInput.stories.scss';
-
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
 const argTypes = {
@@ -217,7 +215,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
-  const helperText = `Returns a custom style for odd days in the date picker.`;
+  const helperText = `Returns a custom styles for odd/even days in the date picker.`;
   const setDateClassNames = (date: Date) => {
     const day = date.getDate();
     const className = day % 2 ? 'odd' : 'even';
@@ -225,17 +223,33 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   };
 
   return (
-    <DateInput
-      {...args}
-      value={value}
-      onChange={setValue}
-      helperText={helperText}
-      setDateClassNames={setDateClassNames}
-      legend={[
-        { key: 'odd', label: 'Odd' },
-        { key: 'even', label: 'Even' },
-      ]}
-    />
+    <>
+      <style>
+        {`
+          .odd--day,
+          .odd--color {
+              background: var(--color-suomenlinna);
+          }
+
+          .even--day,
+          .even--color {
+              background: var(--color-black-10);
+          }
+
+        `}
+      </style>
+      <DateInput
+        {...args}
+        value={value}
+        onChange={setValue}
+        helperText={helperText}
+        setDateClassNames={setDateClassNames}
+        legend={[
+          { key: 'odd', label: 'Odd' },
+          { key: 'even', label: 'Even' },
+        ]}
+      />
+    </>
   );
 };
 WithCustomDayStyles.storyName = 'With custom day styles';
