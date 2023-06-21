@@ -78,7 +78,7 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
       {...rest}
     >
       {icon}
-      {subItem && <IconAngleRight className={styles.subItemIcon} />}
+      {subItem && <IconAngleRight className={styles.subItemIcon} aria-hidden />}
       {label && <span>{label}</span>}
       {external && label && (
         <IconLinkExternal
