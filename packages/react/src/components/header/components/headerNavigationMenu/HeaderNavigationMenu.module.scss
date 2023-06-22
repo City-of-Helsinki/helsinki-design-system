@@ -33,7 +33,8 @@
 }
 
 .headerNavigationMenuLink.headerNavigationMenuLink {
+  border: 0;
   font-size: var(--fontsize-body-l);
-  margin: 0 calc(-1 * var(--header-focus-outline-width));
-  padding: var(--spacing-s) 0 var(--spacing-s) 0;
+  margin: var(--spacing-s) 0;
+  padding: 0;
 }
