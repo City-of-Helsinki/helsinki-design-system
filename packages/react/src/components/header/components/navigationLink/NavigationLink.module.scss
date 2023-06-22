@@ -8,7 +8,6 @@
 
   border: 0;
   display: flex;
-  flex-grow: 1;
   line-height: var(--lineheight-l);
   margin: 0;
   text-decoration: none;
@@ -37,7 +36,7 @@
   align-items: center;
   display: flex;
   height: 100%;
-  justify-content: stretch;
+  justify-content: space-between;
   position: relative;
 
   &.isNotLargeScreen {
