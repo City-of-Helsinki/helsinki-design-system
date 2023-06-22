@@ -1,0 +1,71 @@
+$animation-duration: 250ms;
+$animation-close-delay: 150ms;
+
+@layer actionBar {
+  .dropdownWrapper {
+    bottom: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    transform: translateY(100%) translateY(1px);
+    transition-duration: 0ms;
+    transition-property: max-height, padding-bottom;
+    z-index: 20;
+  }
+
+  .container {
+    display: contents;
+
+    .dropdownWrapper {
+      max-height: 0;
+      min-width: 300px;
+      padding-bottom: 0;
+      transition-delay: $animation-duration + $animation-close-delay;
+    }
+
+    &.visible .dropdownWrapper {
+      max-height: 1000vh;
+      padding-bottom: 20px;
+      transition-delay: 0ms;
+    }
+
+    &:not(.hasContent) {
+      display: none;
+    }
+
+    &:not(.fullWidth) {
+      display: flex;
+      position: relative;
+    }
+
+    &.fullWidth > .dropdownWrapper {
+      left: 0;
+    }
+  }
+
+  .icon {
+    display: block;
+  }
+
+  .dropdown {
+    background: white;
+    border: 1px solid var(--color-black-10);
+    margin-top: -1px;
+    padding: 0 var(--spacing-s);
+    position: relative;
+    right: 0;
+    transform: translateY(-100%);
+    transition: $animation-duration transform $animation-close-delay, 0ms visibility ($animation-duration + $animation-close-delay);
+    visibility: hidden;
+
+    &.fullWidth {
+      left: 0;
+    }
+
+    &.visible {
+      transform: translateY(0%);
+      transition: $animation-duration transform 0ms, 0ms visibility 0ms;
+      visibility: visible;
+    }
+  }
+}

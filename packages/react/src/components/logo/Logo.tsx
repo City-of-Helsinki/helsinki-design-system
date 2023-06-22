@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Logo.module.css';
 import classNames from '../../utils/classNames';
 
-export type LogoLanguage = 'fi' | 'sv' | 'ru';
+export type LogoLanguage = string;
 export type LogoSize = 'full' | 'small' | 'medium' | 'large';
 
 export type LogoProps = {

@@ -46,3 +46,51 @@
   font-weight: 500;
   margin-bottom: var(--spacing-3-xs);
 }
+
+
+/**
+ * Mixins
+ */
+
+@mixin withFocus($selector: focus, $color: var(--color-coat-of-arms), $width: 3px, $radius: false, $offset: false) {
+  &:#{selector} {
+    @if $radius {
+      border-radius: $radius;
+    }
+    
+    @if $offset {
+      outline-offset: $offset;
+    }
+
+    outline: $width solid $color;
+  }
+}
+
+/*
+ * Add an outline attribute for element's &:focus pseudo class
+ */
+@mixin focusOutline($color: var(--focus-outline-color), $width: var(--outline-width), $radius: false, $offset: false) {
+  @include withFocus(focus, $color, $width, $offset, $radius)
+}
+
+/*
+ * Add an outline attribute for element's &:focus-visible pseudo class
+ */
+@mixin focusVisible($color: var(--focus-outline-color), $width: var(--outline-width), $radius: false, $offset: false) {
+  &:focus-visible {
+    @if $radius {
+      border-radius: $radius;
+    }
+    
+    @if $offset {
+      outline-offset: $offset;
+    }
+
+    > * {
+      outline: $width solid $color;
+      outline-offset: 4px;
+    }
+
+    outline: 0 solid $color;
+  }
+}

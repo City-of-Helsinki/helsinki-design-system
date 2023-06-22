@@ -6,7 +6,6 @@
     "lib": ["es6", "dom", "dom.iterable"],
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "declaration": true,
