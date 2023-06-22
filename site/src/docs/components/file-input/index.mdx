@@ -105,8 +105,8 @@ If needed, the file input can be prefilled with pre-existing file(s). Useful, fo
 export const FileInputDefaultValue = () => {
   try {
     const [files, setFiles] = React.useState([
-      new window.File(['string content'], 'dummy.txt', { type: 'text/plain' }),
-      new window.File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
+      typeof window !== undefined ? new window.File(['string content'], 'dummy.txt', { type: 'text/plain' }) : null,
+      typeof window !== undefined ? new window.File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }) : null,
     ]);
     console.log('Selected files: ', files);
     return <FileInput multiple id="file-input-default-value" language="en" onChange={setFiles} defaultValue={files} />;

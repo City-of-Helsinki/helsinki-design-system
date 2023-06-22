@@ -1,6 +1,7 @@
 import React from 'react';
 import { getCriticalHdsRules, hdsStyles } from 'hds-react';
 import { renderToString } from 'react-dom/server';
+import Layout from './src/components/layout';
 
 export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
   const bodyHTML = renderToString(bodyComponent);
@@ -15,4 +16,9 @@ export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
   }
 
   return;
+}
+
+export const wrapPageElement = ({ element, props }) => {
+  if (props.location.pathname.includes("this-is-hds")) return null
+  return <Layout {...props}>{element}</Layout>
 }

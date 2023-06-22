@@ -1,6 +1,5 @@
 import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { useMDXScope } from 'gatsby-plugin-mdx';
 import { useMDXComponents } from '@mdx-js/react'
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import sanitizeHtml from 'sanitize-html';
