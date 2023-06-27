@@ -1,7 +1,7 @@
 import path from 'path';
 import { storiesOf } from "@storybook/html";
 
-import './all.css';
+import './icons.css';
 import './icon.css';
 
 const req = require.context('.', true, /(icon\b-+).+?.css$/);
