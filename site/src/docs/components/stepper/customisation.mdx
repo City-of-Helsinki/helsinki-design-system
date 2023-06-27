@@ -3,7 +3,8 @@ slug: '/components/stepper/customisation'
 title: 'Stepper - Customisation'
 ---
 
-import { Stepper } from 'hds-react';
+import { Stepper, StepState, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { useReducer } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -25,11 +26,13 @@ You can use the `theme` property to customise the component. See all available t
 | `--hds-stepper-focus-border-color`    | Colour of a step focus border.              |
 
 ### Customisation example
-<Playground>
+<Playground scope={{ Stepper, StepState, Button, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
-{() => {
+import { Stepper } from 'hds-react';
+
+() => {
   const commonReducer = (stepsTotal) => (state, action) => {
     switch (action.type) {
       case 'completeStep': {
@@ -148,7 +151,7 @@ You can use the `theme` property to customise the component. See all available t
       </div>
     </div>
   );
-}}
+}
 ```
 
 </Playground>

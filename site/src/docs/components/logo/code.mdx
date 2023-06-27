@@ -3,9 +3,7 @@ slug: '/components/logo/code'
 title: 'Logo - Code'
 ---
 
-import { Link, Logo } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Logo } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ Logo }}>
 
 ```jsx
 import { Logo } from 'hds-react';
@@ -30,7 +28,7 @@ import { Logo } from 'hds-react';
 </Playground>
 
 #### Size variants
-<Playground>
+<Playground scope={{ Logo }}>
 
 
 ```jsx

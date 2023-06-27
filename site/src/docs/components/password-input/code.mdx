@@ -3,10 +3,8 @@ slug: '/components/password-input/code'
 title: 'PasswordInput - Code'
 ---
 
-import { PasswordInput, IconEye, IconEyeCrossed, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
+import { Button, PasswordInput, IconEye, IconEyeCrossed } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ PasswordInput }}>
 
 
 ```jsx
@@ -63,7 +61,7 @@ import { PasswordInput } from 'hds-react';
 </Playground>
 
 #### With an external button
-<Playground>
+<Playground scope={{ PasswordInput, Button, IconEyeCrossed, IconEye }}>
 
 
 ```jsx

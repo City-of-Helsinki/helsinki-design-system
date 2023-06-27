@@ -3,8 +3,7 @@ slug: '/components/hero/customisation'
 title: 'Hero - Customisation'
 ---
 
-import { Hero } from 'hds-react';
-import Playground from '../../../components/Playground';
+import { Hero, Button } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -42,9 +41,12 @@ You can use the same properties as the <Link href="/components/koros/customisati
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Hero, Button }}>
 
 ```jsx
+import { Hero } from 'hds-react';
+
+() => (
 <Hero
   imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
   variant="imageBottom"
@@ -65,7 +67,7 @@ You can use the same properties as the <Link href="/components/koros/customisati
   >
     Call to action
   </Button>
-</Hero>
+</Hero>)
 ```
 
 ```html

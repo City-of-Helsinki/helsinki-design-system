@@ -21,11 +21,13 @@ You can use the `theme` property to customise the component. See all available t
 [Table 1:ToggleButton theme variables]|
 
 ### Customisation example
-<Playground>
+<Playground scope={{ ToggleButton }}>
 
 
 ```jsx
-{() => {
+import { ToggleButton } from 'hds-react';
+
+() => {
   const [checked, setChecked] = React.useState(true);
   return (
     <>
@@ -42,7 +44,7 @@ You can use the `theme` property to customise the component. See all available t
       />
     </>
   );
-}}
+}
 ```
 
 

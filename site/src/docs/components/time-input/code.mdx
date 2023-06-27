@@ -3,11 +3,8 @@ slug: '/components/time-input/code'
 title: 'TimeInput - Code'
 ---
 
-import { Link, TimeInput, Select } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { TimeInput, Select } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -16,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ TimeInput }}>
 
 ```jsx
 import { TimeInput } from 'hds-react';
@@ -38,7 +35,7 @@ import { TimeInput } from 'hds-react';
 </Playground>
 
 #### Using HDS Select for times
-<Playground>
+<Playground scope={{ Select }}>
 
 ```jsx
 import { Select } from 'hds-react';

@@ -2,9 +2,7 @@
 slug: '/components/fieldset/code'
 title: 'Fieldset - Code'
 ---
-import { Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Fieldset, TextInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground>
+<Playground scope={{ Fieldset, TextInput }}>
 
 
 ```jsx
@@ -127,7 +125,7 @@ import { Fieldset, TextInput } from 'hds-react';
 
 ### With border
 
-<Playground>
+<Playground scope={{ Fieldset, TextInput }}>
 
 
 ```jsx

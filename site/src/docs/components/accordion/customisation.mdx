@@ -4,7 +4,6 @@ title: 'Accordion - Customisation'
 ---
 
 import { Accordion } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -31,9 +30,12 @@ You can use the `theme` property to customise the component. See all available t
 
 
 ### Customisation example
-<Playground>
+<Playground scope={{ Accordion }}>
 
 ```jsx
+import { Accordion } from 'hds-react';
+
+() => (
 <Accordion
   card
   language="en"
@@ -57,6 +59,6 @@ You can use the `theme` property to customise the component. See all available t
   }}
 >
   In order to customise the accordion component, use the theme property.
-</Accordion>
+</Accordion>)
 ```
 </Playground>

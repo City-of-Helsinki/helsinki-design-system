@@ -167,14 +167,16 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   useEffect(() => {
     if (viewPortRef.current) {
       const textArea = getTextArea(viewPortRef.current);
-      textArea.setAttribute('aria-describedby', helperTextId);
-      textArea.setAttribute('tabIndex', '-1');
-      textArea.addEventListener('blur', (e) => {
-        // Set viewport focus on textarea Esc keypress (no related target)
-        if (viewPortRef.current && !e.relatedTarget) {
-          viewPortRef.current.focus();
-        }
-      });
+      if (textArea) {
+        textArea.setAttribute('aria-describedby', helperTextId);
+        textArea.setAttribute('tabIndex', '-1');
+        textArea.addEventListener('blur', (e) => {
+          // Set viewport focus on textarea Esc keypress (no related target)
+          if (viewPortRef.current && !e.relatedTarget) {
+            viewPortRef.current.focus();
+          }
+        });
+      }
     }
   }, [getTextArea, helperTextId]);
 
@@ -269,10 +271,10 @@ Editor.propTypes = {
 const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = (props) => {
-  const scopeComponents = useMDXComponents();
+  const mdxComponents = useMDXComponents();
+  const scopeComponents = {...mdxComponents, ...props.scope};
 
   const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
-
   const codeBlocks = childrenArray
     .filter((child) => isValidElement(child))
     .map(({ props }) => {
@@ -307,7 +309,6 @@ export const PlaygroundBlock = (props) => {
             ) : (
               <HtmlLivePreview code={sanitizedCode} />
             );
-
           return (
             <TabPanel key={language}>
               <LiveProvider

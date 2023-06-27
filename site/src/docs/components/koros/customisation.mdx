@@ -3,7 +3,7 @@ slug: '/components/koros/customisation'
 title: 'Koros - Customisation'
 ---
 
-import { Notification } from 'hds-react';
+import { Koros, Notification } from 'hds-react';
 
 import TabsLayout from './tabs.mdx';
 
@@ -24,10 +24,12 @@ In React version, you can either use the `style` or `className` properties to cu
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Koros }}>
 
 ```jsx
-<Koros style={{ fill: 'var(--color-coat-of-arms)' }} />
+import { Koros } from 'hds-react';
+() => (
+<Koros style={{ fill: 'var(--color-coat-of-arms)' }} />)
 ```
 
 ```html
