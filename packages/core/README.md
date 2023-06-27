@@ -25,7 +25,7 @@ hds-core/
     │       :
     │
     ├── icons/          # collection of HDS icon styles
-    │   ├── all.css               # bundled stylesheet including all icons
+    │   ├── icons.css               # bundled stylesheet including all icons
     │   ├── icon.css              # base styles for icons
     │   ├── icon-<icon name>.css  # individual icon stylesheet
     │   :
@@ -37,7 +37,7 @@ hds-core/
 
 ### Using the styles
 
-To import styles for all the core components, you'll need two stylesheets: `base.css` (the base styles and CSS variables) and `components/all.css`. If you use any of the icons, you'll also need `icons/all.css`. Do note that the `all.css`-files bundle all the components and icons into single stylesheets and thus are large in filesize.
+To import styles for all the core components, you'll need two stylesheets: `base.css` (the base styles and CSS variables) and `components/all.css`. If you use any of the icons, you'll also need `icons/icons.css`. Do note that the `components/all.css` bundles all the components and `icons/icons.css` bundles all the icons into single stylesheets and thus are large in filesize.
 
 Therefore, we do recommend that you use individual component and icon stylesheets instead of the bundled styles.
 
