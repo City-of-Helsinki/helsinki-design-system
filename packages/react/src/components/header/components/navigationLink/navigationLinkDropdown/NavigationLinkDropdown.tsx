@@ -85,8 +85,6 @@ export const NavigationLinkDropdown = ({
 
   const childElements = getChildElementsEvenIfContainersInbetween(children);
 
-  const childElements = getChildElementsEvenIfContainersInbetween(children);
-
   return (
     <>
       <button
