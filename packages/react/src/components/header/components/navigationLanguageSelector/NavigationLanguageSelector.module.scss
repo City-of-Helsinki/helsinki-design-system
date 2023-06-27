@@ -30,8 +30,6 @@
   line-height: var(--spacing-2-xl);
   padding: 0;
   white-space: nowrap;
-
-  @include header.element-focus-state;
 }
 
 .activeItem {
@@ -40,4 +38,14 @@
   span {
     border-bottom: 2px solid;
   }
+}
+
+.fullWidthForMobile {
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-black-20);
+  box-sizing: border-box;
+  display: flex;
+  height: var(--layout-l);
+  padding: 0 var(--header-margin);
+  width: 100%;
 }

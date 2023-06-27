@@ -68,6 +68,8 @@ export const WithFullFeatures = (args) => (
         </Header.ActionBarItem>
       </Header.ActionBar>
 
+      <Header.NavigationLanguageSelector languages={languages} fullWidthForMobile />
+
       <Header.NavigationMenu>
         <Header.NavigationLink
           href="#"
@@ -175,6 +177,8 @@ export const Minimal = (args) => {
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
+
+      <Header.NavigationLanguageSelector languages={languages} fullWidthForMobile />
 
       <Header.NavigationMenu>
         <Header.NavigationLink href="#" label="Link 1" />

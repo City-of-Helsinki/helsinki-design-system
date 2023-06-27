@@ -7,21 +7,23 @@ import {
   useSetLanguage,
 } from '../../../../context/languageContext';
 import classNames from '../../../../utils/classNames';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
 import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
 import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
 import classes from './NavigationLanguageSelector.module.scss';
-import { useHeaderContext } from '../../HeaderContext';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 
 export type LanguageSelectorProps = PropsWithChildren<{
   /**
    * Array of languages as LanguageOption objects.
    */
-  languages: LanguageOption[];
+  languages?: LanguageOption[];
   /**
    * Aria-label attribute for the dropdown button.
    */
   ariaLabel?: string;
+  fullWidthForMobile?: boolean;
 }>;
 
 const LanguageButton = ({ language }) => {
@@ -39,34 +41,49 @@ const LanguageButton = ({ language }) => {
 
 const renderLanguageNode = (language: LanguageOption) => <LanguageButton key={language.value} language={language} />;
 
-export const NavigationLanguageSelector = ({ children, languages, ariaLabel }: LanguageSelectorProps) => {
+export const NavigationLanguageSelector = ({
+  children,
+  languages,
+  ariaLabel,
+  fullWidthForMobile = false,
+}: LanguageSelectorProps) => {
   const setAvailableLanguages = useSetAvailableLanguages();
-  const { isNotLargeScreen } = useHeaderContext();
+  const { isNotLargeScreen, languageSelectorContent } = useHeaderContext();
+  const { setLanguageSelectorContent } = useSetHeaderContext();
 
-  useEffect(() => {
-    setAvailableLanguages(languages);
-  }, [languages]);
+  if (languages) {
+    useEffect(() => {
+      setAvailableLanguages(languages);
+    }, [languages]);
+  }
 
-  const languageNodes = languages.map(renderLanguageNode);
+  if (children) {
+    useEffect(() => {
+      setLanguageSelectorContent(getChildElementsEvenIfContainersInbetween(children));
+    }, [children]);
+  }
+
+  const languageNodes = languages ? languages.map(renderLanguageNode) : [];
 
   return (
-    <div className={classes.languageSelector}>
-      {!isNotLargeScreen && languageNodes}
+    fullWidthForMobile === isNotLargeScreen && (
+      <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
+        {languageNodes}
 
-      <HeaderActionBarItemWithDropdown
-        id="language-selection-more"
-        iconClassName={classes.languageSelectorDropdownIcon}
-        dropdownClassName={classes.languageSelectorDropdown}
-        label={<IconAngleDown aria-hidden />}
-        closeLabel={<IconAngleUp aria-hidden />}
-        icon={IconGlobe}
-        closeIcon={IconGlobe}
-        fullWidth={isNotLargeScreen}
-        ariaLabel={ariaLabel}
-      >
-        {isNotLargeScreen && languageNodes}
-        {children}
-      </HeaderActionBarItemWithDropdown>
-    </div>
+        <HeaderActionBarItemWithDropdown
+          id="language-selection-more"
+          iconClassName={classes.languageSelectorDropdownIcon}
+          dropdownClassName={classes.languageSelectorDropdown}
+          label={<IconAngleDown aria-hidden />}
+          closeLabel={<IconAngleUp aria-hidden />}
+          icon={IconGlobe}
+          closeIcon={IconGlobe}
+          fullWidth={isNotLargeScreen}
+          ariaLabel={ariaLabel}
+        >
+          {languageSelectorContent}
+        </HeaderActionBarItemWithDropdown>
+      </div>
+    )
   );
 };
