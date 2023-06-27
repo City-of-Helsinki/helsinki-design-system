@@ -46,38 +46,10 @@ Adhering to these principles can create an effective and user-friendly navigatio
   </div>
   <ul style="margin-bottom:0;">
     <li>
-      <strong>Follow the documentation closely.</strong>
+      <strong>Keep it as simple as possible.</strong>
       <ul style="margin-top:0;">
         <li>
-          Adhere to the guidelines, best practices, and examples provided in the documentation to ensure proper
-          implementation of the navigation pattern.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Keep the user in mind.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Consider the needs, preferences, and expectations of your target audience when implementing the navigation
-          pattern.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Maintain consistency.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Keep the design, interaction, and behavior of the navigation pattern consistent across different platforms and
-          devices.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Test and iterate.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Regularly test the navigation pattern with real users, gather feedback, and make improvements to ensure it
-          meets user needs and expectations.
+          Consider the information architecture and site hierarchy. Determine what the most crucial information is and how many levels are necessary.
         </li>
       </ul>
     </li>
@@ -88,27 +60,9 @@ Adhering to these principles can create an effective and user-friendly navigatio
       </ul>
     </li>
     <li>
-      <strong>Be responsive.</strong>
+      <strong>Check links.</strong>
       <ul style="margin-top:0;">
-        <li>Make sure the navigation pattern works well on different devices and screen sizes.</li>
-      </ul>
-    </li>
-    <li>
-      <strong>Prioritize important elements.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Organize the navigation items hierarchically, highlighting the most important elements and grouping similar
-          items together.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Customize responsibly.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          When customizing the navigation pattern, ensure that the changes do not negatively impact usability,
-          accessibility, or consistency.
-        </li>
+        <li>Ensure navigation links match their destination pages. If multiple links lead to the same page, use identical labels.</li>
       </ul>
     </li>
   </ul>
@@ -124,20 +78,19 @@ Adhering to these principles can create an effective and user-friendly navigatio
   </div>
   <ul style="margin-bottom:0;">
     <li>
+      <strong>Don't utilize the content area for navigation purposes.</strong>
+      <ul style="margin-top:0;">
+        <li>
+          Refrain from duplicating all the links present in the navigation into the content area, such as linkboxes.
+        </li>
+      </ul>
+    </li>
+    <li>
       <strong>Don't sacrifice clarity for style.</strong>
       <ul style="margin-top:0;">
         <li>
           While it's essential to maintain a visually appealing design, prioritize clarity and usability when
           implementing the navigation pattern.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Don't disregard performance.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Optimize the navigation pattern for performance by reducing file sizes, minimizing HTTP requests, and using
-          efficient code.
         </li>
       </ul>
     </li>
@@ -150,29 +103,6 @@ Adhering to these principles can create an effective and user-friendly navigatio
         </li>
       </ul>
     </li>
-    <li>
-      <strong>Don't ignore feedback.</strong>
-      <ul style="margin-top:0;">
-        <li>Do not disregard user feedback or testing results when refining and improving the navigation pattern.</li>
-      </ul>
-    </li>
-    <li>
-      <strong>Don't overcomplicate.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Avoid adding unnecessary elements, features, or interactions to the navigation pattern, which may confuse or
-          overwhelm users.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Don't hardcode content.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Avoid hardcoding content or URLs in the navigation pattern, as this may make future updates more difficult.
-        </li>
-      </ul>
-    </li>
   </ul>
 </div>
 
@@ -182,10 +112,21 @@ Adhering to these principles can create an effective and user-friendly navigatio
 
 When implementing a navigation pattern, it's essential to consider the order of navigation components to ensure a logical, intuitive, and user-friendly experience.
 
+### On a landing page
+
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
-  alt="An illustration of the recommended order of navigation components. The order is Header, Breadcrumbs, Hero, Main content and Footer."
+  alt="An illustration of the recommended order of navigation component on a landing page. The order is Header, Breadcrumbs, Hero, Main content and Footer."
   style="max-width:480px;"
+  viewable
+/>
+
+### On a regular page with side navigation
+
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-component-order-side-nav.png"
+  alt="An illustration of the recommended order of navigation components with side navigation. The order is Header, Breadcrumbs, Side navigation, Main content and Footer."
+  style="max-width:580px;"
   viewable
 />
 
@@ -207,11 +148,11 @@ The header's consistent placement and appearance across all pages make it easily
 
 <ul style="margin-bottom:0;">
   <li>
-    The inner components <strong>should always</strong> be in this order:
+    The inner components of the Header <strong>should always</strong> be in this order:
     <ol>
-      <li>Header.UniversalBar</li>
-      <li>Header.ActionBar</li>
-      <li>Header.NavigationBar</li>
+      <li>HeaderUniversalBar</li>
+      <li>HeaderActionBar</li>
+      <li>HeaderNavigationMenu</li>
     </ol>
   </li>
   <li>
@@ -246,7 +187,9 @@ Breadcrumbs are a secondary navigation component that helps users understand the
 
 ### 3. Hero
 
-The hero section is an optional but highly recommended component that usually appears below the breadcrumbs. It serves as a visual and content-focused introduction to the page, typically including a large image, heading, and a call-to-action button or message. The hero section helps grab the user's attention and sets the tone for the rest of the page.
+Hero is an optional but highly recommended component on <strong>landing pages</strong>. Use it only on landing pages, not on all pages. Hero's placement is below the breadcrumbs or the header.
+
+Hero serves as a visual and content-focused introduction to the page, typically including a large image, heading, and a call-to-action button or message. Hero helps grab the user's attention and sets the tone for the rest of the page.
 
 <PlaygroundPreview>
   <Hero
@@ -284,104 +227,100 @@ The hero section is an optional but highly recommended component that usually ap
 
 ### 4. Side navigation (optional)
 
-Side navigation can serve as a secondary navigation tool alongside the main navigation components at the top of a page. Side navigation is useful when the application or website has a complex or multi-layered hierarchy of information, where the top-level navigation isn't sufficient to provide a complete, comprehensive navigation experience.
+Side navigation can serve as a secondary navigation tool alongside the main navigation components at the top of a page. Do not use side navigation on landing pages that use the hero component to keep the navigation experience coherent and straightforward.
+
+Side navigation is helpful when the application or website has a complex or multi-layered hierarchy of information, where the top-level navigation isn't sufficient to provide a complete, comprehensive navigation experience.
+
+When you need to add page-specific navigation that is simple and one-layered, consider using the Tabs component instead of side navigation.
 
 export const SideNavExample = () => {
   const [active, setActive] = React.useState('/archive');
   const setActivePage = (e) => {
     e.preventDefault();
     setActive(e.target.getAttribute('href'));
-  }
-  return (<div
-    style={{
-      backgroundColor: '#f5f5f5',
-      display: 'grid',
-    }}
-  >
+  };
+  return (
     <div
       style={{
-        height: '100%',
-        maxWidth: '400px'
+        backgroundColor: '#f5f5f5',
+        display: 'grid',
       }}
     >
-      <SideNavigation
-        defaultOpenMainLevels={[]}
-        id="side-navigation"
-        toggleButtonLabel="Navigate to page"
+      <div
+        style={{
+          height: '100%',
+          maxWidth: '400px',
+        }}
       >
-        <SideNavigation.MainLevel
-          id="#main-level-1"
-          label="Events"
-        >
-          <SideNavigation.SubLevel
-            href="/events"
-            active={active === '/events'}
-            id="sub-level-1"
-            label="All events"
+        <SideNavigation defaultOpenMainLevels={[]} id="side-navigation" toggleButtonLabel="Navigate to page">
+          <SideNavigation.MainLevel id="#main-level-1" label="Events">
+            <SideNavigation.SubLevel
+              href="/events"
+              active={active === '/events'}
+              id="sub-level-1"
+              label="All events"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/archive"
+              active={active === '/archive'}
+              id="sub-level-2"
+              label="Archive"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/new-event"
+              active={active === '/new-event'}
+              id="sub-level-3"
+              label="Create a new event"
+              onClick={setActivePage}
+            />
+          </SideNavigation.MainLevel>
+          <SideNavigation.MainLevel id="main-level-2" label="Events on map">
+            <SideNavigation.SubLevel
+              href="/map"
+              active={active === '/map'}
+              id="sub-level-4"
+              label="Map"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/edit-event-locations"
+              active={active === '/edit-event-locations'}
+              id="sub-level-5"
+              label="Edit event locations"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/new-location"
+              active={active === '/new-location'}
+              id="sub-level-6"
+              label="Create a new location"
+              onClick={setActivePage}
+            />
+          </SideNavigation.MainLevel>
+          <SideNavigation.MainLevel
+            href="/settings"
+            active={active === '/settings'}
+            id="main-level-3"
+            label="Settings"
             onClick={setActivePage}
           />
-          <SideNavigation.SubLevel
-            href="/archive"
-            active={active === '/archive'}
-            id="sub-level-2"
-            label="Archive"
-            onClick={setActivePage}
+          <SideNavigation.MainLevel
+            external
+            href="https://tapahtumat.hel.fi/"
+            openInNewTab
+            openInNewTabAriaLabel="Opens in a new tab."
+            openInExternalDomainAriaLabel="Opens a different website."
+            id="main-level-4"
+            label="Tapahtumat.hel.fi"
+            openInExternalDomainAriaLabel="Opens a different website"
+            withDivider
           />
-          <SideNavigation.SubLevel
-            href="/new-event"
-            active={active === '/new-event'}
-            id="sub-level-3"
-            label="Create a new event"
-            onClick={setActivePage}
-          />
-        </SideNavigation.MainLevel>
-        <SideNavigation.MainLevel
-          id="main-level-2"
-          label="Events on map"
-        >
-          <SideNavigation.SubLevel
-            href="/map"
-            active={active === '/map'}
-            id="sub-level-4"
-            label="Map"
-            onClick={setActivePage}
-          />
-          <SideNavigation.SubLevel
-            href="/edit-event-locations"
-            active={active === '/edit-event-locations'}
-            id="sub-level-5"
-            label="Edit event locations"
-            onClick={setActivePage}
-          />
-          <SideNavigation.SubLevel
-            href="/new-location"
-            active={active === '/new-location'}
-            id="sub-level-6"
-            label="Create a new location"
-            onClick={setActivePage}
-          />
-        </SideNavigation.MainLevel>
-        <SideNavigation.MainLevel
-          href="/settings"
-          active={active === '/settings'}
-          id="main-level-3"
-          label="Settings"
-          onClick={setActivePage}
-        />
-        <SideNavigation.MainLevel
-          external
-          href="https://tapahtumat.hel.fi/"
-          openInNewTab
-          openInNewTabAriaLabel="Opens in a new tab."
-          openInExternalDomainAriaLabel="Opens a different website."
-          id="main-level-4"
-          label="Tapahtumat.hel.fi"
-          openInExternalDomainAriaLabel="Opens a different website"
-          withDivider
-        />
-      </SideNavigation>
+        </SideNavigation>
+      </div>
     </div>
-  </div>);
+  );
 };
 
 <PlaygroundPreview>
@@ -398,6 +337,8 @@ export const SideNavExample = () => {
 ### 5. Tabs (optional)
 
 Tabs effectively complement top-level navigation by categorizing related content at the same hierarchy level. Ensure tabs are clearly labeled, selectable, and highlight when active. Arrange them logically, typically left-to-right. Tabs should supplement, not replace, top-level navigation.
+
+Use tabs, when you need to add page-specific navigation that is simple and one-layered. If your website has a complex or multi-layered hierarchy of information, where the top-level navigation isn't sufficient to provide a complete navigation experience, consider using side navigation instead of tabs.
 
 <PlaygroundPreview>
   <Tabs>
@@ -491,32 +432,87 @@ The footer is placed at the bottom of the site and includes supplementary inform
   </Footer>
 </PlaygroundPreview>
 
-### Focus order & keyboard navigation
+## Minimum navigation pattern elements
+
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-min.png"
+  alt="An illustration of the minimum number of navigation elements on a landing page. The order is Header, Main content and Footer."
+  style="max-width:480px;"
+  viewable
+/>
+
+- Header
+- Main content
+- Footer
+
+## Maximum navigation pattern elements
+
+### Option 1: On a landing page
+
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
+  alt="An illustration of the maximum number of navigation elements on a landing page. The order is Header, Breadcrumbs, Hero, Main content and Footer."
+  style="max-width:480px;"
+  viewable
+/>
+
+- Header
+- Breadcrumbs
+- Hero
+- Main content
+- Footer
+
+### Option 2: On a regular page
+
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-max-option-2.png"
+  alt="An illustration of the maximum number of navigation elements on a landing page. The order is Header, Breadcrumbs, Hero, Main content and Footer."
+  style="max-width:480px;"
+  viewable
+/>
+
+- Header
+- Breadcrumbs
+- Side navigation
+- Tabs
+- Main content
+- Footer
+
+## Focus order & keyboard navigation
 
 Building a correct focus order is essential to ensure accessibility and provide a good user experience for all users, including those using keyboard navigation or assistive technologies. It's crucial to test your focus order using a keyboard alone to ensure it works as expected.
 
 Focus order, or tab order, refers to the sequence in which interactive elements on a webpage or application receive focus when a user navigates using a keyboard. Here's a general guideline on how to build the focus order for keyboard navigation:
 
-#### Logical order
+### Logical order
 
 Focus order should follow a logical and intuitive pattern, usually from left to right and top to bottom, mirroring the reading order in the majority of languages. This allows users to predict where the focus will go next, enhancing usability.
 
-#### Element priority
+#### Example of the order with HDS navigation elements
+
+1. Header
+2. Breadcrumbs
+3. Side navigation (including essential links if used concurrently)
+4. Tabs 
+5. Main content
+6. Footer
+
+### Use of ARIA roles
+
+Use ARIA roles to clearly denote different sections of your page. This helps assistive technologies understand your content and improve the focus order.
+
+### Element priority
 
 Interactive elements such as links, buttons, and form fields should be given priority in the focus order. Non-interactive elements, like headers or paragraphs, usually don't need to be included unless they provide some functionality upon focus.
 
-#### Navigation consistency
-
-Keep the navigation consistent across different sections of your site or app.
-
-#### Skip links
+### Skip links and "Back to top" links
 
 Implement "Skip to main content" or "Skip navigation" links at the beginning of the page to allow keyboard users to bypass lengthy navigation menus and reach the main content more quickly.
 
-#### Modal and popup focus
+"Back to top" links, accessible via keyboard navigation, simplify returning to the start of a page, especially valuable on lengthy pages.
+
+### Modal and popup focus
 
 When a modal or popup appears, the focus should shift to this new content and trap focus within it until it's closed. Once closed, focus should return to the element that triggered the modal.
 
-#### Use of ARIA roles
 
-Use ARIA roles to clearly denote different sections of your page. This helps assistive technologies understand your content and improve the focus order.
