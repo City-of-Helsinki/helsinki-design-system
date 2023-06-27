@@ -1,0 +1,61 @@
+@import "../../../../styles/common.scss";
+
+.headerNavigationMenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: 200ms max-height;
+}
+
+.mobileMenuOpen {
+  max-height: 100vh;
+}
+
+.headerNavigationMenuList {
+  list-style: none;
+  margin: 0;
+  margin-top: -1px;
+  padding: 0;
+}
+
+.headerNavigationMenuLinkWrapper {
+  flex-wrap: wrap;
+}
+
+.headerNavigationMenuLinkContent {
+  display: block;
+  min-height: var(--action-bar-dropdown-menu-primary-item-height);
+  position: relative;
+}
+
+.headerNavigationMenuLink.headerNavigationMenuLink {
+  border-bottom: 1px solid var(--color-black-20);
+  box-sizing: border-box;
+  height: var(--action-bar-dropdown-menu-primary-item-height);
+  line-height: var(--action-bar-dropdown-menu-primary-item-height);
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  &:not(:focus) {
+    border-color: transparent;
+  }
+
+  &:focus {
+    border-color: transparent;
+    outline: 3px solid var(--color-coat-of-arms);
+    outline-offset: -3px;
+  }
+}
+
+.headerNavigationMenuDropdown {
+  display: block;
+  left: 0;
+  position: relative;
+  right: 0;
+  top: auto;
+  width: 100%;
+}
+
+.headerNavigationMenuDropdownLink {
+  position: relative;
+}

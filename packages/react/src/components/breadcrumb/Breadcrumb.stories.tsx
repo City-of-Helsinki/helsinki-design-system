@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { DropdownDirection } from '../header/components/navigationLink';
 import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
 
@@ -38,7 +37,6 @@ export const ExampleInHeader = (args) => {
             <Header.NavigationLink
               href="#"
               label="Senior services"
-              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Informal care" active />,
@@ -49,7 +47,6 @@ export const ExampleInHeader = (args) => {
             <Header.NavigationLink
               href="#"
               label="Data and the rights of the client"
-              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Requesting client data" />,
                 <Header.NavigationLink href="#" label="Fees" />,

@@ -1,10 +1,10 @@
-import React, { cloneElement, useContext } from 'react';
+import React, { cloneElement } from 'react';
 
 // import core base styles
 import 'hds-core';
 import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
-import { HeaderContext } from '../../HeaderContext';
+import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 
@@ -45,8 +45,8 @@ export const HeaderUniversalBar = ({
   primaryLinkHref,
   primaryLinkText,
 }: HeaderUniversalBarProps) => {
-  const { isSmallScreen } = useContext(HeaderContext);
-  if (isSmallScreen) return null;
+  const { isNotLargeScreen } = useHeaderContext();
+  if (isNotLargeScreen) return null;
   const childElements = getChildElementsEvenIfContainersInbetween(children);
 
   return (

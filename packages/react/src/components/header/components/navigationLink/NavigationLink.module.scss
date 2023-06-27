@@ -1,32 +1,83 @@
+@use "../../Header.module.scss" as header;
+@import "../../../../styles/common.scss";
+
 .navigationLink.navigationLink {
-  --link-visited-color: none;
   --link-color: var(--color-black-90);
+  --link-font-size: 14px;
+  --link-visited-color: none;
+
+  border: 0;
+  display: flex;
+  line-height: var(--lineheight-l);
+  margin: 0;
+  text-decoration: none;
+  word-wrap: break-word;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    text-decoration-color: var(--color-black-90);
+  }
+
+  &:focus-visible {
+    border: 0;
+    outline: 3px solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
+  }
 }
 
 .active {
   font-weight: 700;
+  padding-left: var(--header-focus-outline-width);
 }
 
-.navigationLink:hover,
-.navigationLink:focus {
-  text-decoration: underline;
-  text-decoration-color: var(--color-black-90);
-}
 
 .navigationLinkWrapper {
   align-items: center;
   display: flex;
   height: 100%;
+  justify-content: space-between;
   position: relative;
 
-  .navigationLink {
-    --link-visited-color: none;
-    --link-color: var(--color-black-90);
+  &.isNotLargeScreen {
+    align-items: stretch;
+    border-top: 1px solid var(--color-black-20);
 
-    display: flex;
-    flex-grow: 1;
-    line-height: var(--lineheight-l);
-    text-decoration: none;
-    word-wrap: break-word;
+    &,
+    &:focus {
+      border-top-width: 1px;
+    }
+
+    ul {
+      border: none;
+    }
   }
+}
+
+
+.navigationLink.isNotLargeScreen{
+  align-self: center;
+  border: none;
+  box-sizing: border-box;
+  color: var(--color-black-90);
+  font-size: var(--link-font-size);
+  height: var(--action-bar-dropdown-menu-secondary-item-height);
+  line-height: var(--action-bar-dropdown-menu-secondary-item-height);
+  padding: 0;
+  word-wrap: break-word;
+
+  &.depth-0 {
+    font-size: 20px;
+    height: var(--action-bar-dropdown-menu-primary-item-height);
+    line-height: var(--action-bar-dropdown-menu-primary-item-height);
+    padding: 0 0 0 16px;
+  }
+
+  &.depth-1 { padding: 0 0 0 32px; }
+  &.depth-2 { padding: 0 0 0 48px; }
+  &.depth-3 { padding: 0 0 0 64px; }
+
+  &:focus { border: none }
+
+  @include header.element-focus-state;
 }

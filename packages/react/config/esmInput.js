@@ -15,6 +15,7 @@ const esmInput = {
   'components/FileInput/index': 'src/components/fileInput/index.ts',
   'components/Footer/index': 'src/components/footer/index.ts',
   'components/Hero/index': 'src/components/hero/index.ts',
+  'components/Header/index': 'src/components/header/index.ts',
   'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
   'components/Koros/index': 'src/components/koros/index.ts',
   'components/Link/index': 'src/components/link/index.ts',
