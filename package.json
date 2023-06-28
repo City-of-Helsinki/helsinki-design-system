@@ -25,6 +25,7 @@
   "resolutions": {
     "multer": "1.4.4-lts.1",
     "jpeg-js": "0.4.4",
-    "json5": "2.2.2"
+    "json5": "2.2.2",
+    "sanitize-html": "2.10.0"
   }
 }
