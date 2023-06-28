@@ -19,8 +19,8 @@
     "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes"
   },
   "devDependencies": {
-    "lerna": "^3.16.4",
-    "rimraf": "^4.1.3"
+    "lerna": "^7.0.1",
+    "rimraf": "^5.0.1"
   },
   "resolutions": {
     "multer": "1.4.4-lts.1",
