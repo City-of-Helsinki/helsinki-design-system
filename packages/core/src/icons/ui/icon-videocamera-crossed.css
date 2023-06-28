@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/videocamera-crossed.svg");
-
-.hds-icon--videocamera-crossed {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

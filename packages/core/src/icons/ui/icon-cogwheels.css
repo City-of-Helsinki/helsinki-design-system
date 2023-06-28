@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/cogwheels.svg");
-
-.hds-icon--cogwheels {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

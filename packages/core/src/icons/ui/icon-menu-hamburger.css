@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/menu-hamburger.svg");
-
-.hds-icon--menu-hamburger {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

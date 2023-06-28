@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/zoom-out.svg");
-
-.hds-icon--zoom-out {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

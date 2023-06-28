@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/info-circle.svg");
-
-.hds-icon--info-circle {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}
