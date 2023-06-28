@@ -2,7 +2,7 @@
 name: icon library
 
 on:
-  workflow_dispatch:
+  workflow_dispatch
 
 jobs:
   build-icon-library:
