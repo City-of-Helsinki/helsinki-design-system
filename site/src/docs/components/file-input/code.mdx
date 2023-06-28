@@ -69,7 +69,7 @@ import { FileInput } from 'hds-react';
 ```jsx
 import { FileInput } from 'hds-react';
 
-{() => {
+() => {
   const [files, setFiles] = React.useState([
     new File(['string content'], 'dummy.txt', { type: 'text/plain' }),
     new File(['string content with more text'], 'anotherDummy.txt', { type: 'text/plain' }),
@@ -82,7 +82,7 @@ import { FileInput } from 'hds-react';
     onChange={setFiles}
     defaultValue={files}
   />
-}}
+}
 ```
 
 </Playground>

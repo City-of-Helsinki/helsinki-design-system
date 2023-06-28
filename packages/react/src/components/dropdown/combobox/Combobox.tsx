@@ -97,6 +97,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     label,
     onBlur = () => null,
     onFocus = () => null,
+    optionKeyField,
     optionLabelField = 'label',
     options = [],
     placeholder,
@@ -517,6 +518,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
               toggleButtonRef.current.focus();
             }}
             onRemove={removeSelectedItem}
+            optionKeyField={optionKeyField || optionLabelField}
             optionLabelField={optionLabelField}
             removeButtonAriaLabel={props.selectedItemRemoveButtonAriaLabel}
             selectedItems={selectedItems}
@@ -622,6 +624,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           menuStyles={styles}
           multiselect={props.multiselect}
           open={isOpen}
+          optionKeyField={optionKeyField || optionLabelField}
           optionLabelField={optionLabelField}
           options={getFilteredItems}
           selectedItem={selectedItem}

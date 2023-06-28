@@ -1,0 +1,220 @@
+---
+slug: '/components/step-by-step/code'
+title: 'StepByStep - Code'
+---
+
+import { StepByStep } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Default
+
+<Playground>
+
+```jsx
+import { StepByStep } from 'hds-react';
+
+() => {
+  const steps = [
+    {
+      title: 'Step title',
+      description:
+        "Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.",
+      buttons: [
+        {
+          children: 'Example button',
+          href: 'https://hel.fi',
+        },
+      ],
+    },
+    {
+      title: 'Step title',
+      description: 'Step description.',
+      links: [
+        {
+          children: 'Example link',
+          href: 'https://hel.fi',
+        },
+      ],
+    },
+    {
+      title: 'Step title',
+      description: 'Step description.',
+    },
+  ];
+
+  return (
+    <StepByStep
+      title="Unnumbered step by step component"
+      helpText="Unnumbered component is suitable for cases where the order of the steps is less important and they form more of a guideline."
+      steps={steps}
+    />
+  );
+}
+```
+
+```html
+<div class="hds-step-by-step__container">
+  <div>
+    <h2>Unnumbered step by step component</h2>
+    <p>
+      Unnumbered component is suitable for cases where the order of the steps is less important and they form more of a
+      guideline.
+    </p>
+  </div>
+  <ul class="hds-step-by-step__steps-container">
+    <li class="hds-step-by-step__step-item">
+      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <div>
+        <p>
+          Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big
+          picture of the whole process and it's steps easily..
+        </p>
+        <p>
+          <button type="button" class="hds-button hds-button--primary">
+            <span class="hds-button__label">Example button</span>
+          </button>
+        </p>
+      </div>
+    </li>
+    <li class="hds-step-by-step__step-item">
+      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <div>
+        <p>Step description.</p>
+        <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
+      </div>
+    </li>
+    <li class="hds-step-by-step__step-item">
+      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <div>
+        <p>Step description.</p>
+      </div>
+    </li>
+  </ul>
+</div>
+```
+
+</Playground>
+
+#### Numbered list
+
+<Playground>
+
+```jsx
+import { StepByStep } from 'hds-react';
+
+() => {
+  const steps = [
+    {
+      title: 'Step title',
+      description:
+        "Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.",
+      buttons: [
+        {
+          children: 'Example button',
+          href: 'https://hel.fi',
+        },
+      ],
+    },
+    {
+      title: 'Step title',
+      description: 'Step description.',
+      links: [
+        {
+          children: 'Example link',
+          href: 'https://hel.fi',
+        },
+      ],
+    },
+    {
+      title: 'Step title',
+      description: 'Step description.',
+    },
+  ];
+
+  return (
+    <StepByStep
+      numberedList
+      title="Numbered step by step component"
+      helpText="Numbered list is suitable for case where the order of the steps is important."
+      steps={steps}
+    />
+  );
+}
+```
+
+```html
+<div class="hds-step-by-step__container">
+  <div>
+    <h2>Numbered step by step component</h2>
+    <p>Numbered list is suitable for case where the order of the steps is important.</p>
+  </div>
+  <ol class="hds-step-by-step__steps-container">
+    <li class="hds-step-by-step__step-item">
+      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <div>
+        <p>
+          Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole
+          process and it's steps easily.
+        </p>
+        <p>
+          <button type="button" class="hds-button hds-button--primary">
+            <span class="hds-button__label">Example button</span>
+          </button>
+        </p>
+      </div>
+    </li>
+    <li class="hds-step-by-step__step-item">
+      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <div>
+        <p>Step description.</p>
+        <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
+      </div>
+    </li>
+    <li class="hds-step-by-step__step-item">
+      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <div>
+        <p>Step description.</p>
+      </div>
+    </li>
+  </ol>
+</div>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                           | Source link                                                                                                                                                                                                              |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-stepbystep--regular-step-by-step">View in Storybook</Link>  | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/stepByStep">View source</ExternalLink>  |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-step-by-step--regular-step-by-step">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/step-by-step">View source</ExternalLink> |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-stepbystep--regular-step-by-step">React Storybook.</Link>
+
+| Property                        | Description                                               | Values            | Default value |
+| ------------------------------- | --------------------------------------------------------- | ----------------- | ------------- |
+| `className`                     | Additional class names to apply to the container element. | `string`          | -             |
+| `headerClassName`               | Class name for the main heading.                          | `string`          | -             |
+| `headerLevel`                   | Class name for the main heading.                          | `number`          | 2             |
+| `helpText`                      | Help text for the step by step component.                 | `string`          | -             |
+| `numberedList`                  | Boolean indicating whether the steps are numbered.        | `boolean`         | false         |
+| `steps`                         | Steps for the step by step component.                     | `Array<StepType>` | []            |
+| `title`                         | Title text for the step by step component.                | `string`          | -             |
+| [Table 1:StepByStep properties] |
+
+| Property                      | Description                                 | Values                     | Default value |
+| ----------------------------- | ------------------------------------------- | -------------------------- | ------------- | --- |
+| `buttons`                     | List of HDS button objects for the step. | `Array<ButtonProps>` | -             |
+| `description`                 | Step description.                           | `JSX.Element`, `string`    | -             |
+| `links`                       | List of HDS link objects for the step.   | `Array<LinkProps>` | -             |
+| `title`                       | Step title.                                 | `string`                   | -             |
+| [Table 1:StepType properties] |

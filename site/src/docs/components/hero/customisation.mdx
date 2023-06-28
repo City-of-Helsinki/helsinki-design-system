@@ -1,0 +1,117 @@
+---
+slug: '/components/hero/customisation'
+title: 'Hero - Customisation'
+---
+
+import { Hero } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+
+In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
+
+In React version, you can use the `theme` property to customise the component.
+
+See all available theme variables in the table below.
+
+| Theme variable                 | Description                                                                                          |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `--background-color`           | Background color. Default is `--color-white`                                                         |
+| `--color`                      | Text color. Default is `--color-black-90`                                                            |
+| `--image-position`             | How image is aligned if it does not fit the container. Default is `bottom right`                     |
+| `--koros-color`                | Color of the koros. Defaults to `--background-color`                                                 |
+| `--koros-height`               | Height of the koros. In React this defaults to the height of the koros shape                         |
+| `--diagonal-koros-position`    | How is angled koros positioned. This is applied to the css property `right`.Default is `right: 45%`. |
+| `--horizontal-padding-small`   | Horizontal padding on small screens (< 768px). Default is `--spacing-layout-2-xs`                    |
+| `--horizontal-padding-medium`  | Horizontal padding on medium screens (>=768px). Default is `--spacing-layout-xs`                     |
+| `--horizontal-padding-large`   | Horizontal padding on large screens (>= 992px). Default is `--spacing-layout-xs`                     |
+| `--horizontal-padding-x-large` | Horizontal padding on xtra large screens (>= 1248px). Default is `--spacing-layout-xs`               |
+
+In React version, you can use the `koros` property to customise the Koros component.
+
+You can use the same properties as the <Link href="/components/koros/customisation">Koros component</Link> and also an additional property `hide`.
+
+| Koros property | Description                          |
+| -------------- | ------------------------------------ |
+| `hide`         | If set to `true`, koros is not shown |
+
+### Customisation example
+
+<Playground>
+
+```jsx
+<Hero
+  imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+  variant="imageBottom"
+  theme={{
+    '--background-color': '#fff',
+  }}
+  koros={{ style: 'pulse', dense: true }}
+>
+  <Hero.Title>Hero title</Hero.Title>
+  <Hero.Text>
+    This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+    introduction is around 230 characters, including spaces. The intro ends with a period.
+  </Hero.Text>
+  <Button
+    variant="secondary"
+    role="link"
+    style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+  >
+    Call to action
+  </Button>
+</Hero>
+```
+
+```html
+<style scoped>
+  .custom-theme {
+    --koros-height: 5px;
+  }
+  .black-button.black-button {
+    --background-color: #000;
+    --color: #fff;
+    --border-color: #000;
+  }
+</style>
+<div class="hds-hero hds-hero--image-bottom custom-theme">
+  <div class="hds-hero__container">
+    <div class="hds-hero__content hds-hero__content--single-column">
+      <div class="hds-hero__card">
+        <h1 class="hds-hero__title">Hero title</h1>
+        <p class="hds-hero__text">
+          This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+          introduction is around 230 characters, including spaces. The intro ends with a period.
+        </p>
+        <button type="button" class="hds-button hds-button--secondary hds-button--theme-black black-button" role="link">
+          <span class="hds-button__label">Call to action</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="hds-hero__koros-and-image-container">
+    <div class="hds-hero__koros-container">
+      <div class="hds-koros" style="fill: var(--koros-color); transform: scaleY(-1);">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+          <defs>
+            <pattern id="koros_basic-1" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+              <path transform="scale(1.8)" d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"></path>
+            </pattern>
+          </defs>
+          <rect fill="url(#koros_basic-1)" width="100%" height="85"></rect>
+        </svg>
+      </div>
+    </div>
+    <div class="hds-hero__image-below-koros">
+      <img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />
+    </div>
+  </div>
+</div>
+```
+
+</Playground>

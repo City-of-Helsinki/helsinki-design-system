@@ -7,6 +7,154 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.15.0] - May, 25, 2023
+
+### React
+
+#### Added
+
+- [Breadcrumb] New Breadcrumb component
+- [Hero] New Hero component
+- [StepByStep] New StepByStep component
+
+- [Tooltip] Tooltips for status labels
+- [Icon] 16 new UI icons
+
+#### Fixed
+
+- [Accordion] Fixed accordion with borders
+
+#### Changed
+
+- [StatusLabel] Marked default rectangular StatusLabel as deprecated. This will be removed in 3.0.0
+- [Icon] New icon for link-external
+
+### Core
+
+#### Added
+
+- [Breadcrumb] New Breadcrumb component
+- [Hero] New Hero component
+- [StepByStep] New StepByStep component
+
+- [Tooltip] Tooltips for StatusLabels
+- [Icon] 16 new UI icons
+
+#### Changed
+
+- [StatusLabel] Marked default rectangular StatusLabel as deprecated. This will be removed in 3.0.0
+- [Icon] New icon for link-external
+
+### Documentation
+
+#### Added
+
+- [Breadcrumbs] Documentation for new Breadcrumbs component
+- [Hero] Documentation for new Hero component
+- [StepByStep] Documentation for new StepByStep component
+
+- [Tooltip] Tooltip documentation for all status labels
+- [Button] Added example of button as a link
+
+#### Fixed
+
+- [Gatsby] Check and fix headers and their styles in Gatsby (H1-H6)
+- [Accordion] Improve accordion examples and documentation
+
+#### Changed
+
+- Improved docs for creating new react components
+- New and changed icons added to icon list
+
+### Design kit
+
+#### Added
+
+- [Breadcrumbs] Breadcrumbs symbols for all HDS breakpoints
+- [Hero] Eight Hero symbols for all HDS breakpoints
+– [Icons] Added 16 new UI icons (arrow-right-dashed, bag-cogwheel, binoculars, cogwheels, collapse, graph-columns, hammers, history, lightbulb, money-bag, money-bag-fill, scroll, scroll-cogwheel, scroll-content, scroll-group, shield)
+- [Step-by-step] Step-by-step symbols for top, middle and bottom parts (two sizes: small & extra-large)
+
+#### Changed
+
+– [Accordion] Upgraded to Sketch version 96.3
+– [Buttons] Upgraded to Sketch version 96.3
+– [Cards] Upgraded to Sketch version 96.3
+– [Color] Upgraded to Sketch version 96.3
+– [Cookies] Upgraded to Sketch version 96.3
+– [Footer] Upgraded to Sketch version 96.3
+– [Form Components] Upgraded to Sketch version 96.3
+– [Grids and Breakpoints] Upgraded to Sketch version 96.3
+– [Icons] Upgraded to Sketch version 96.3
+– [Icons] New icon for link-external
+– [Koros] Upgraded to Sketch version 96.3
+– [Labels and Tags] Upgraded to Sketch version 96.3
+– [Links] Upgraded to Sketch version 96.3
+– [Loaders] Upgraded to Sketch version 96.3
+– [Logo] Upgraded to Sketch version 96.3
+– [Modals and Notifications] Upgraded to Sketch version 96.3
+– [Navigation] Upgraded to Sketch version 96.3
+– [Pagination] Upgraded to Sketch version 96.3
+– [Placeholders and templates] Upgraded to Sketch version 96.3
+– [Shadow] Upgraded to Sketch version 96.3
+– [Spacing] Upgraded to Sketch version 96.3
+– [Table] Upgraded to Sketch version 96.3
+– [Tabs] Upgraded to Sketch version 96.3
+– [Typography] Upgraded to Sketch version 96.3
+
+### Icon kit
+
+#### Added
+
+– [Icons] Added 16 new UI icons (arrow-right-dashed, bag-cogwheel, binoculars, cogwheels, collapse, graph-columns, hammers, history, lightbulb, money-bag, money-bag-fill, scroll, scroll-cogwheel, scroll-content, scroll-group, shield)
+
+#### Changed
+
+– [Icons] New icon for link-external
+
+
+## [2.14.0] - May, 9, 2023
+
+### React 
+
+#### Fixed
+
+- [Accordion] Prevent page scroll when accordion is opened with the spacebar
+- [SearchInput] SearchInput uses hds-core's SearchInput styles instead of TextInput's
+
+#### Changed
+- [SelectionGroup] Refactor code using deprecating React.Children API
+- [SideNavigation] Refactor code using deprecating React.Children API
+- [Tabs] Refactor code using deprecating React.Children API
+
+### Core
+
+#### Fixed
+
+- [SearchInput] Unified CSS with TextInput
+
+### Documentation
+
+#### Fixed
+- [FileInput] Added missing import
+- Repository's README files updated to match current branch policy
+
+#### Changed
+- [StatusLabel] Rectangular variant marked as deprected
+- Refactor code using deprecating React.Children API
+
+### Design tokens
+
+#### Added
+
+- New token for focus color
+
+### Design
+
+#### Changed
+
+- [Tag] Rectangular version marked as deprecated
+
 ## [2.13.0] - March, 27, 2023
 
 ### React 

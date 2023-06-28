@@ -307,8 +307,10 @@ const validateAccept = (language: Language, accept: string) => (file: File): tru
     (acceptExtension) => acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
   );
   const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
+
   return (
-    (!!fileType && (isMatchingType || hasMatchingFileExtension)) || {
+    isMatchingType ||
+    hasMatchingFileExtension || {
       type: ValidationErrorType.accept,
       text: getAcceptErrorMessage(language, file, accept),
     }
@@ -317,7 +319,7 @@ const validateAccept = (language: Language, accept: string) => (file: File): tru
 
 const validateMaxSize = (language: Language, maxSize: number) => (file: File): true | ValidationError => {
   return (
-    file.size < maxSize || {
+    file.size <= maxSize || {
       type: ValidationErrorType.maxSize,
       text: getMaxSizeErrorMessage(language, file, maxSize),
     }

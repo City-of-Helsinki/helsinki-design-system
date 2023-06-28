@@ -16,7 +16,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 export const RadioButtonExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState('1');
+  const [selectedItem, setSelectedItem] = React.useState('');
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
@@ -38,6 +38,14 @@ export const RadioButtonExample = () => {
         checked={selectedItem === '2'}
         onChange={onChange}
       />
+      <RadioButton
+        id="radio3"
+        name="example1"
+        label="None of the above"
+        value="3"
+        checked={selectedItem === '3'}
+        onChange={onChange}
+      />
     </>
   );
 };
@@ -50,7 +58,10 @@ export const RadioButtonExample = () => {
 
 - If the user can select more than one option from a list, use <InternalLink href="/components/checkbox">checkboxes</InternalLink> instead.
 - Radio button label should always clearly describe what will happen if the specific option is chosen. A good practice is to keep labels a maximum of three words long.
-- It is recommended to have a default option checked for radio button groups Radio button groups.
+- **It is not recommended to have a default option selected** because
+  - The user might not realise they’ve missed a question
+  - The user might submit a wrong answer
+- If an answer can be left empty, include a 'None of the abobe' or similar option if it's suitable.
 - When there are more than 4 options, consider switching to <InternalLink href="/components/dropdown">dropdown</InternalLink> component.
 - If the choices are not mutually exclusive, use <InternalLink href="/components/checkbox">checkboxes</InternalLink> component instead. Also see <InternalLink href="/foundation/guidelines/checkbox-radiobutton-toggle">guidelines for choosing between radiobuttons, checkboxes, and toggles.</InternalLink>
 - If Radio buttons are related to each other, use <InternalLink href="/components/selection-group">selection group</InternalLink> to achieve that.
@@ -60,14 +71,14 @@ export const RadioButtonExample = () => {
 #### Default
 
 export const DefaultRadioButtonExample = () => {
-  const [selectedItem2, setSelectedItem2] = React.useState('1');
+  const [selectedItem2, setSelectedItem2] = React.useState('');
   const onChange2 = (event) => {
     setSelectedItem2(event.target.value);
   };
   return (
     <>
       <RadioButton
-        id="radio3"
+        id="radio4"
         name="example2"
         label="Label"
         value="1"
@@ -75,14 +86,22 @@ export const DefaultRadioButtonExample = () => {
         onChange={onChange2}
       />
       <RadioButton
-        id="radio4"
+        id="radio5"
         name="example2"
         label="Label"
         value="2"
         checked={selectedItem2 === '2'}
         onChange={onChange2}
       />
-      <RadioButton id="radio5" name="example4-helper" label="Label" value="3" checked={selectedItem2 === "3"} onChange={onChange2} helperText="Assistive text"/>
+      <RadioButton
+        id="radio6"
+        name="example4-helper"
+        label="Label"
+        value="3"
+        checked={selectedItem2 === "3"}
+        onChange={onChange2}
+        helperText="Assistive text"
+      />
     </>
   );
 };
@@ -96,7 +115,7 @@ export const DefaultRadioButtonExample = () => {
 Related radio buttons can be grouped together with the Selection group component. See <InternalLink href="/components/selection-group">HDS selection group page</InternalLink> for full documentation.
 
 export const GroupExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState('1');
+  const [selectedItem, setSelectedItem] = React.useState('');
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };

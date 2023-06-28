@@ -1,0 +1,78 @@
+---
+slug: '/components/breadcrumb/code'
+title: 'Breadcrumb - Code'
+---
+
+import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+<Playground>
+
+```jsx
+<Breadcrumb
+  ariaLabel="Breadcrumb"
+  list={[
+    { title: 'Front page', path: '/' },
+    { title: 'Health and social services', path: '/path' },
+    { title: 'Senior services', path: '/path/2ndLevelPath' },
+    { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+    { title: 'Care options', path: null },
+  ]}
+></Breadcrumb>
+```
+
+```html
+<nav aria-label="Breadcrumb" class="hds-breadcrumb">
+  <ol class="hds-breadcrumb__list hds-breadcrumb__list--desktop">
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/">Front page</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path">Health and social services</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path/2ndLevelPath">Senior services</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item">
+      <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path/2ndLevelPath/3rdLevelPath">Informal care</a>
+      <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
+    </li>
+    <li class="hds-breadcrumb__list-item hds-breadcrumb__list-item--active">
+      <span aria-current="true" class="Breadcrumb_active__02+NO">Care options</span>
+    </li>
+  </ol>
+  <div class="hds-breadcrumb__list hds-breadcrumb__list--mobile">
+    <span class="hds-icon hds-icon--angle-left hds-breadcrumb__back-arrow" aria-hidden="true"> </span>
+    <a class="hds-link hds-link--medium hds-breadcrumb__link" href="/path/2ndLevelPath/3rdLevelPath">Informal care</a>
+  </div>
+</nav>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                               | Source link                                                                                                                                                                                                             |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-breadcrumb--example">View in Storybook</Link>   | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/breadcrumb">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-breadcrumb--breadcrumb">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/breadcrumb">View source</ExternalLink>  |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-breadcrumb--example">React Storybook.</Link>
+
+| Property    | Description                                                               | Values                 | Default value |
+| ----------- | ------------------------------------------------------------------------- | ---------------------- | ------------- |
+| `ariaLabel` | `aria-label` of the `<nav>` element created by the component              | `string`               | -             |
+| `list`      | Array of breadcrumb items. Each item is an object with `title` and `path` | `BreadcrumbListItem[]` | -             |

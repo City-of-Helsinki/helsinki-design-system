@@ -166,6 +166,7 @@ export const MainLevel = ({
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
       return cloneElement(child, {
         mainLevelIndex: index,
+        // eslint-disable-next-line react/no-array-index-key
         key: childIndex,
       });
     }

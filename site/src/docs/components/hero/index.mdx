@@ -1,0 +1,200 @@
+---
+slug: '/components/hero'
+title: 'Hero'
+navTitle: 'Hero '
+---
+
+import { Button, Hero, IconAngleRight, IconShare, IconTrash } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Hero
+    theme={{
+      '--background-color': 'var(--color-bus)',
+      '--color': '#fff',
+      '--koros-color': 'var(--color-bus)',
+    }}
+    koros={{ type: 'pulse', flipHorizontal: true }}
+  >
+    <Hero.Title>Hero without an image</Hero.Title>
+    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#fff', '--color': 'var(--color-bus)', '--border-color': '#fff' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+### Principles
+
+- Hero is primarily intended only for landing pages.
+- Hero is highly recommended to be **the first element below the main navigation**.
+
+#### Use the Hero component when you want to:
+
+- Lead the user quickly to the actual content of the service or page.
+- To make a visual impact.
+- Add emotion to the look and feel of the page.
+
+#### Functionalities
+- **Image:** There are both with-image and without-an-image options for Hero. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the sides, while on mobile, it's below. Validate this for all screen sizes.
+- **Colour:** The background colour is recommended to be the primary colour of the colour palette selected for the site.
+- **Koro shapes:** Choose from six koro shapes (basic, beat, calm, pulse, vibration, and wave), which can be positioned at the bottom or over the Hero image at a 45-degree angle. To learn more about Koro shapes and their customization, refer to <InternalLink href="/components/koros">HDS Koros documentation</InternalLink>.
+- **Title and introduction (required):** The suitable total length of the title and introduction is circa 230 characters, including spaces. The intro ends with a period.
+- **CTA:** Buttons can also be added to the Hero component, and it is recommended to include, e.g. the most critical link of the page in the Hero component, if one is known. By default, use a button with a background colour (primary button style). On dark background colours, secondary button style can be used.
+
+### React subcomponents
+
+Hero has two subcomponents: `Hero.Title` and `Hero.Text`
+
+#### Hero.Title
+
+`Hero.Title` is rendered as a `<h1>`. If hero is not the first element with a heading, then the heading level should be changed. The level can be set with the `headingLevel` property of the `Hero.Title`
+
+#### Hero.Text
+
+`Hero.Text` is rendered as a `<p>`.
+
+### Variations
+
+#### Image left or right
+
+Use when you want to support the title's message with an image. Don't use an image just for illustrative purposes.
+
+<PlaygroundPreview>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="imageRight"
+    theme={{ '--background-color': '#c2a251', '--color': '#000' }}
+  >
+    <Hero.Title>Hero image on the right</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Image as a background
+
+Use when you want to fill the background area with an image. Use an image that works when the title and intro container covers part of the image. 
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="backgroundImage"
+    theme={{
+      '--background-color': '#fff',
+    }}
+  >
+    <Hero.Title>Hero image as a background</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Diagonal koro shape and image as a background
+
+Use when you want to create a dynamic Hero layout on your page. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the sides, while on mobile, it's below. Validate this for all screen sizes.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    theme={{
+      '--background-color': 'var(--color-suomenlinna)',
+      '--color': '#000',
+      '--diagonal-koros-position': '43%',
+    }}
+  >
+    <Hero.Title>Hero with a diagonal koro shape</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Wide bottom image
+
+Use when you want to emphasize the title and introduction text content over the image. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the right side, while on mobile, it's below. Validate this for all screen sizes.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="imageBottom"
+    theme={{
+      '--background-color': '#fff',
+    }}
+  >
+    <Hero.Title>Hero image below the title</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### No image
+
+Use when you don't have a suitable image to support the title section's message – or in a situation – where you want to emphasize a visual piece of content right after the Hero component.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    theme={{
+      '--background-color': '#9fc9eb',
+      '--color': '#000',
+      '--koros-color': '#009246',
+      '--koros-height': '82px',
+    }}
+    koros={{ type: 'pulse' }}
+  >
+    <Hero.Title>Hero without an image</Hero.Title>
+    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
