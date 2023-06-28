@@ -181,6 +181,7 @@ export const NavigationLink = ({
         >
           {React.Children.map(dropdownLinks, (child, childIndex) => {
             return cloneElement(child as React.ReactElement, {
+              // eslint-disable-next-line react/no-array-index-key
               key: childIndex,
             });
           })}

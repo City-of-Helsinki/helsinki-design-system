@@ -30,7 +30,7 @@ export const SelectedDisabled = () => <RadioButton id="radio4" label="Label" che
 SelectedDisabled.storyName = 'Selected & disabled';
 
 export const Custom = () => {
-  const [radioValue, setRadioValue] = useState('foo');
+  const [radioValue, setRadioValue] = useState('');
   const options = ['foo', 'bar'];
 
   const customStyles = {
@@ -67,7 +67,7 @@ Custom.storyName = 'With custom styles';
 export const WithHelperText = () => <RadioButton id="radio-with-helper" label="Label" helperText="Assistive text" />;
 
 export const Playground = (args) => {
-  const [radioValue, setRadioValue] = useState(null);
+  const [radioValue, setRadioValue] = useState('');
   const options = ['foo', 'bar', 'baz'];
 
   const styles = {
