@@ -158,6 +158,11 @@ module.exports = {
             },
           },
         ],
+        mdxOptions: {
+          remarkPlugins: [
+            require(`remark-gfm`),
+          ],
+        },
       },
     },
     `gatsby-transformer-sharp`,
