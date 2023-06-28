@@ -40,7 +40,7 @@ jobs:
       - name: Bump version in Changelog
         run: |
           PKG_VER=`node -pe "require('./packages/react/package.json').version"`
-          sed -i.bak -E "s/version [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/version ${PKG_VER}/" ./release/icon-kit-template-CHANGELOG.txt
+          sed -i -E "s/version [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/version ${PKG_VER}/" ./release/icon-kit-template-CHANGELOG.txt
       - name: Copy Changelog file to icon library
         run: cp ./release/icon-kit-template-CHANGELOG.txt ./icon-library/CHANGELOG.txt
       - name: Create release zip file
