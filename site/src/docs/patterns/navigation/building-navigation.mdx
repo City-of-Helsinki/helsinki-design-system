@@ -126,12 +126,12 @@ When implementing a navigation pattern, it's essential to consider the order of 
 
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-component-order-side-nav.png"
-  alt="An illustration of the recommended order of navigation components with side navigation. The order is Header, Breadcrumbs, Side navigation, Main content and Footer."
+  alt="An illustration of the recommended order of navigation components with side navigation. The order is Header, Breadcrumbs, Side navigation including essential links if used concurrently, Main content and Footer."
   style="max-width:580px;"
   viewable
 />
 
-### 1. Header
+### 1. Header (required)
 
 The navigation components are placed at the very top of the page and serves as the primary navigation area for your website or application. <strong>The Header component is a wrapper for the HDS header navigation components.</strong> This means you should put all the other header sub components inside this component.
 
@@ -162,7 +162,7 @@ The header's consistent placement and appearance across all pages make it easily
   </li>
 </ul>
 
-### 2. Breadcrumbs
+### 2. Breadcrumbs (recommended)
 
 Breadcrumbs are a secondary navigation component that helps users understand their current location within the site hierarchy and offers a simple way to navigate back to previous pages. Placed immediately below the header, breadcrumbs provide context and enhance usability by offering a clear path through the website or application.
 
@@ -186,7 +186,7 @@ Breadcrumbs are a secondary navigation component that helps users understand the
   </li>
 </ul>
 
-### 3. Hero
+### 3. Hero (optional)
 
 Hero is an optional but highly recommended component on <strong>landing pages</strong>. Use it only on landing pages, not on all pages. Hero's placement is below the breadcrumbs or the header.
 
@@ -377,7 +377,7 @@ Use tabs, when you need to add page-specific navigation that is simple and one-l
   </li>
 </ul>
 
-### 6. Main content
+### 6. Main content (required)
 
 Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, and other design elements that guide users through the content.
 
@@ -396,7 +396,7 @@ Following the hero section, the main content area is where the primary informati
   </li>
 </ul>
 
-### 7. Footer
+### 7. Footer (required)
 
 The footer is placed at the bottom of the site and includes supplementary information and links, such as contact details, legal information, social media icons, and secondary navigation elements. The footer helps users find additional resources and reinforces the overall site structure by providing a consistent and accessible navigation area on every page.
 
@@ -437,47 +437,30 @@ The footer is placed at the bottom of the site and includes supplementary inform
 
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-min.png"
-  alt="An illustration of the minimum number of navigation elements on a landing page. The order is Header, Main content and Footer."
+  alt="An illustration of the minimum number of navigation elements: Header, Main content and Footer."
   style="max-width:480px;"
   viewable
 />
 
-- Header
-- Main content
-- Footer
+1. Header
+2. Main content
+3. Footer
 
 ## Maximum navigation pattern elements
 
-### Option 1: On a landing page
-
-<Image
-  src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
-  alt="An illustration of the maximum number of navigation elements on a landing page. The order is Header, Breadcrumbs, Hero, Main content and Footer."
-  style="max-width:480px;"
-  viewable
-/>
-
-- Header
-- Breadcrumbs
-- Hero
-- Main content
-- Footer
-
-### Option 2: On a regular page
-
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-max-option-2.png"
-  alt="An illustration of the maximum number of navigation elements on a landing page. The order is Header, Breadcrumbs, Hero, Main content and Footer."
-  style="max-width:480px;"
+  alt="An illustration of the maximum number of navigation elements: Header, Breadcrumbs, Side navigation including essential links if used concurrently, Tabs, Main content and Footer."
+  style="max-width:580px;"
   viewable
 />
 
-- Header
-- Breadcrumbs
-- Side navigation
-- Tabs
-- Main content
-- Footer
+1. Header
+2. Breadcrumbs
+3. Side navigation (including essential links if used concurrently)
+4. Tabs
+5. Main content
+6. Footer
 
 ## Focus order & keyboard navigation
 
