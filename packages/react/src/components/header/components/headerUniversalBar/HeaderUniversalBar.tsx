@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../../styles/base.css';
 import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
 import { useHeaderContext } from '../../HeaderContext';
@@ -41,7 +41,6 @@ export const HeaderUniversalBar = ({
   ariaLabel,
   className,
   children,
-  className,
   id,
   primaryLinkHref,
   primaryLinkText,

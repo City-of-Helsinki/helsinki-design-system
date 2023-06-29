@@ -10,8 +10,8 @@ import { HeaderActionBarItemWithDropdown } from './components/headerActionBarIte
 import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
 import { NavigationSearch } from './components/navigationSearch';
 import { LanguageProvider, LanguageProviderProps } from '../../context/languageContext';
-// Styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Header.module.scss';
 
 const classNames = styleBoundClassNames(styles);

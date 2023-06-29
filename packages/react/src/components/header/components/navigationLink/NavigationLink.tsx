@@ -1,10 +1,8 @@
 import React, { MouseEventHandler, cloneElement, useCallback, useEffect, useRef, useState } from 'react';
-// import base styles
-import '../../../../styles/base.css';
 import { v4 as uuidv4 } from 'uuid';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../../styles/base.css';
 import styles from './NavigationLink.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';

@@ -1,7 +1,8 @@
 import React, { Children, cloneElement, isValidElement, useEffect } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../../styles/base.css';
+
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';

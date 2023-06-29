@@ -1,7 +1,7 @@
 import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../../../styles/base.css';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import { useHeaderContext } from '../../../HeaderContext';
