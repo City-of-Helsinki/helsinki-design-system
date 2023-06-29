@@ -35,7 +35,7 @@ jobs:
           NODE_ID: '172:2478'
       - name: Append React interface into index file
         run: |
-          echo "export { IconProps } from './Icon.interface';\n" | \
+          echo -e "export { IconProps } from './Icon.interface';\n" | \
           cat - ./icon-library/react/tsx/index.ts > temp && mv temp ./icon-library/react/tsx/index.ts
       - name: Bump version in Changelog
         run: |
