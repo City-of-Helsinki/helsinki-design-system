@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Core
 
-####
+#### Changed
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
 
 ### Documentation
@@ -40,6 +40,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+### Design kit
+
+#### Added
+
+- [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 Alpha release purposes. The shared library file includes new Header and Side navigation symbols.
 
 ## [2.16.0] - June, 28, 2023
 
