@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.0.0-beta.0] - June, 29, 2023
+## [3.0.0-alpha.0] - June, 29, 2023
 
 ### React
 
 #### Added
-- [Header] New header components
+- [Header] New Header component to wrap all its child components
+- [Header.UniversalBar] Optional component to display useful quick links
+- [Header.ActionBar] Mandatory component to display service logo, language selection, search and user login
+- [Header.NavigationMenu] Mandatory component to display navigation links
 
 #### Changed
 - [LinkBox] Property name `withBorder` changed to `border`
@@ -33,7 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - [Header] Documentation - still a work in progress
-- [Button] Button as a link use case
 - Helpful tooltip to explain statuses
 
 #### Changed
