@@ -80,11 +80,11 @@
   top: -2.2em;
 }
 
-.koros.storm.topKoros {
+.koros.wave.topKoros {
   top: -2.3em;
 }
 
-.koros.wave.topKoros {
+.koros.vibration.topKoros {
   top: -3.4em;
 }
 
@@ -100,11 +100,11 @@
   bottom: -2.2em;
 }
 
-.koros.storm.bottomKoros {
+.koros.wave.bottomKoros {
   bottom: -2.3em;
 }
 
-.koros.wave.bottomKoros {
+.koros.vibration.bottomKoros {
   bottom: -3.4em;
 }
 
