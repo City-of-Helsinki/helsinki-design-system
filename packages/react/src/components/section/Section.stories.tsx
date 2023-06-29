@@ -83,8 +83,8 @@ export const Multiple = () => (
       {placeholderText}
     </Section>
     <Section />
-    <Section color="secondary" korosType="wave">
-      <h2 className="heading-l">Wave</h2>
+    <Section color="secondary" korosType="vibration">
+      <h2 className="heading-l">Vibration</h2>
       {placeholderText}
     </Section>
     <Section />
@@ -93,8 +93,8 @@ export const Multiple = () => (
       {placeholderText}
     </Section>
     <Section color="tertiary" />
-    <Section color="secondary" korosType="storm">
-      <h2 className="heading-l">Storm</h2>
+    <Section color="secondary" korosType="wave">
+      <h2 className="heading-l">Wave</h2>
       {placeholderText}
     </Section>
     <Section>This section has neither a heading or a koros.</Section>
@@ -129,7 +129,7 @@ Playground.args = {
 
 Playground.argTypes = {
   korosType: {
-    options: [null, 'basic', 'beat', 'pulse', 'wave', 'storm'],
+    options: [null, 'basic', 'beat', 'pulse', 'vibration', 'wave'],
     control: { type: 'radio' },
   },
   color: {
