@@ -32,6 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
 
+#### Deprecated
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
 ### Documentation
 
 #### Added
