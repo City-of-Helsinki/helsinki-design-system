@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.0] - June, 29, 2023
+
+### React
+
+#### Added
+- [Header] New header components
+
+#### Changed
+- [LinkBox] Property name `withBorder` changed to `border`
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+- Supported browserlist updated
+
+#### Deprecated
+- [Navigation] New Header component will be the replacement
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
+### Core
+
+####
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+### Documentation
+
+#### Added
+- [Header] Documentation - still a work in progress
+- [Button] Button as a link use case
+- Helpful tooltip to explain statuses
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
 ## [2.16.0] - June, 28, 2023
 
 ### React
