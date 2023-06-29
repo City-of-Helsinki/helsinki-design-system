@@ -1,7 +1,7 @@
 import './breadcrumb.css';
 import '../link/link.css';
-import '../../icons/ui/icon-angle-right.css';
-import '../../icons/ui/icon-angle-left.css';
+import '../../icons/icon-angle-right.css';
+import '../../icons/icon-angle-left.css';
 
 export default {
   title: 'Components/Breadcrumb',

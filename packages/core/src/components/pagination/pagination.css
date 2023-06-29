@@ -1,7 +1,7 @@
 @import url("../button//button.css");
 @import url("../../icons/icon.css");
-@import url("../../icons/ui/icon-angle-right.css");
-@import url("../../icons/ui/icon-angle-left.css");
+@import url("../../icons/icon-angle-right.css");
+@import url("../../icons/icon-angle-left.css");
 
 .hds-pagination-container {
   text-align: center;
