@@ -1,16 +1,7 @@
 import React from 'react';
 
+import { IconProps } from './Icon.interface';
 import styles from './Icon.module.css';
-
-interface IconProps {
-  ariaLabel?: string;
-  ariaLabelledby?: string;
-  ariaHidden?: boolean;
-  className?: string;
-  color?: string;
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
-  style?: React.CSSProperties;
-}
 
 export const IconCogwheels = ({
   ariaLabel = 'cogwheels',

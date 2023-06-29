@@ -1,15 +1,7 @@
 import React from 'react';
-import styles from '../../templates/Icon.module.css';
 
-interface IconProps {
-  ariaLabel?: string;
-  ariaLabelledby?: string;
-  ariaHidden?: boolean;
-  className?: string;
-  color?: string;
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
-  style?: React.CSSProperties;
-}
+import { IconProps } from './Icon.interface';
+import styles from './Icon.module.css';
 
 export const IconDownloadCloud = ({
   ariaLabel = 'download-cloud',
