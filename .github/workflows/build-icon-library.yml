@@ -10,11 +10,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.6.0
         with:
           node-version: '20.3.1'
           registry-url: 'https://registry.npmjs.org'
+
       - name: Run Glypfig
         run: |
           npx glypfig \
@@ -33,35 +35,47 @@ jobs:
           API_KEY: ${{ secrets.HDS_ICON_KIT }}
           FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
           NODE_ID: '172:2478'
+
       - name: Append React interface into index file
         run: |
           echo -e "export { IconProps } from './Icon.interface';\n" | \
           cat - ./icon-library/react/tsx/index.ts > temp && mv temp ./icon-library/react/tsx/index.ts
+
       - name: Bump version in Changelog
         run: |
           PKG_VER=`node -pe "require('./packages/react/package.json').version"`
           sed -i -E "s/version [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/version ${PKG_VER}/" ./release/icon-kit-template-CHANGELOG.txt
+
       - name: Copy Changelog file to icon library
         run: cp ./release/icon-kit-template-CHANGELOG.txt ./icon-library/CHANGELOG.txt
+
       - name: Create release zip file
         uses: TheDoctor0/zip-release@0.7.1
         with:
           filename: 'release/hds-icon-kit.zip'
           path: './icon-library'
+
       - name: Copy svg files to repo folders
         run: cp ./icon-library/svg/* ./packages/core/src/svg
+
       - name: Copy css files to repo folders
         run: cp ./icon-library/css/* ./packages/core/src/icons
+
       - name: Copy react files to repo folders
         run: cp ./icon-library/react/tsx/* ./packages/react/src/icons
+
       - name: Install React package NPM dependencies
         run: (cd ./packages/react && yarn)
+
       - name: Lint React files
         run: npx prettier --write './packages/react/src/icons/*.{ts,tsx}'
+
       - name: Code analysis for React files
-        run: npx eslint -c './packages/react/.eslintrc.json' --ignore-path './packages/react/.eslintignore' --fix  './packages/react/src/icons/*.{ts,tsx}'
+        run: npx eslint --debug -c './packages/react/.eslintrc.json' --ignore-path './packages/react/.eslintignore' --fix  './packages/react/src/icons/*.{ts,tsx}'
+
       - name: Remove icon library build directory
         run: rm -rf ./icon-library
+
       - name: Commit changed files
         run: |
           git config --global user.email "hds@hel.fi"
@@ -69,6 +83,7 @@ jobs:
           git add .
           git commit -m 'Updated icon library'
           git push
+
       - name: create pull request
         run: gh pr create -B development --title 'Icon library build' --body 'Created by Github action icon library'
         env:
