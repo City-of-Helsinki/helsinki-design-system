@@ -141,6 +141,12 @@ export type CommonSelectProps<OptionType> = LabelType & {
    */
   onFocus?: () => void;
   /**
+   * Sets the data item field that represents the item key. Key needs to be unique between items.
+   * E.g. an `optionKeyField` value of `'bar'` and a data item `{ foo: 'Label', bar: 'value' }`, would use `'value'` as the key in the menu for that specific item
+   * Uses value of `optionLabelField` by default.
+   */
+  optionKeyField?: string;
+  /**
    * Sets the data item field that represents the item label
    * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
    */
@@ -329,6 +335,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     label,
     onBlur = () => null,
     onFocus = () => null,
+    optionKeyField,
     optionLabelField = 'label',
     options = [],
     placeholder,
@@ -536,6 +543,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
               toggleButtonRef.current.focus();
             }}
             onRemove={removeSelectedItem}
+            optionKeyField={optionKeyField || optionLabelField}
             optionLabelField={optionLabelField}
             removeButtonAriaLabel={props.selectedItemRemoveButtonAriaLabel}
             selectedItems={selectedItems}
@@ -608,6 +616,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           menuStyles={styles}
           multiselect={props.multiselect}
           open={isOpen}
+          optionKeyField={optionKeyField || optionLabelField}
           optionLabelField={optionLabelField}
           options={options}
           selectedItem={selectedItem}

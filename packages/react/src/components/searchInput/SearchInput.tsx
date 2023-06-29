@@ -78,6 +78,12 @@ export type SearchInputProps<SuggestionItem> = {
    */
   style?: React.CSSProperties;
   /**
+   * Field of the SuggestionItem that represents the item key. Key needs to be unique between item.
+   * E.g. an `suggestionKeyField` value of `'bar'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would use `'value'` as the key in the menu for that specific item.
+   * Uses value of `suggestionLabelField` by default.
+   */
+  suggestionKeyField?: keyof SuggestionItem;
+  /**
    * Field of the SuggestionItem that represents the item label.
    * E.g. an `suggestionLabelField` value of `'foo'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would display `'Label'` in the menu for that specific suggestion.
    */
@@ -107,6 +113,7 @@ export const SearchInput = <SuggestionItem,>({
   searchButtonAriaLabel = 'Search',
   hideSearchButton = false,
   style,
+  suggestionKeyField,
   suggestionLabelField,
   visibleSuggestions = 8,
   onChange,
@@ -303,6 +310,7 @@ export const SearchInput = <SuggestionItem,>({
           highlightValue={highlightSuggestions && inputValue.length >= 3 && inputValue}
           menuStyles={styles}
           options={suggestions}
+          optionKeyField={`${String(suggestionKeyField || suggestionLabelField)}`}
           optionLabelField={`${String(suggestionLabelField)}`}
           menuProps={getMenuProps({
             style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleSuggestions },

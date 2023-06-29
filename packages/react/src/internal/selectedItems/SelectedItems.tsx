@@ -48,6 +48,10 @@ type SelectedItemsProps<OptionType> = {
    */
   onRemove: (selectedItem: OptionType) => void;
   /**
+   * Sets the data item field that represents the item key
+   */
+  optionKeyField: string;
+  /**
    * Sets the data item field that represents the item label
    */
   optionLabelField: string;
@@ -193,6 +197,7 @@ export const SelectedItems = <OptionType,>({
   hideItems = false,
   onClear,
   onRemove,
+  optionKeyField,
   optionLabelField,
   removeButtonAriaLabel,
   selectedItems,
@@ -242,12 +247,13 @@ export const SelectedItems = <OptionType,>({
         )}
       >
         {selectedItems.map((_selectedItem, index) => {
+          const selectedItemKey = _selectedItem[optionKeyField];
           const selectedItemLabel = _selectedItem[optionLabelField];
           const tagId = uniqueId('hds-tag-');
 
           return (
             <Tag
-              key={selectedItemLabel}
+              key={selectedItemKey}
               className={styles.tag}
               id={tagId}
               labelProps={{ 'aria-labelledby': `${dropdownId}-label ${tagId}-label` }}

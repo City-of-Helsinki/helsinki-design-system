@@ -106,6 +106,10 @@ type DropdownMenuProps<T> = {
    */
   open: boolean;
   /**
+   * Data item field that represents the item key
+   */
+  optionKeyField: string;
+  /**
    * Data item field that represents the item label
    */
   optionLabelField: string;
@@ -139,6 +143,7 @@ export const DropdownMenu = <T,>({
   multiselect,
   open,
   optionLabelField,
+  optionKeyField,
   options,
   selectedItem,
   selectedItems,
@@ -163,6 +168,7 @@ export const DropdownMenu = <T,>({
 
             const item = options[index];
             const optionLabel: string = item[optionLabelField];
+            const optionKey = item[optionKeyField];
             const selected: boolean = multiselect
               ? getIsInSelectedOptions(selectedItems, item)
               : isEqual(selectedItem, item);
@@ -171,7 +177,7 @@ export const DropdownMenu = <T,>({
 
             return (
               <DropdownMenuItem
-                key={optionLabel}
+                key={optionKey}
                 disabled={disabled}
                 highlightValue={highlightValue}
                 itemProps={itemProps}

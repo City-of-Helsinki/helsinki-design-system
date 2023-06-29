@@ -41,6 +41,7 @@ export const HeaderUniversalBar = ({
   ariaLabel,
   className,
   children,
+  className,
   id,
   primaryLinkHref,
   primaryLinkText,
