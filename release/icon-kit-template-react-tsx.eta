@@ -3,7 +3,7 @@ import React from 'react';
 import { IconProps } from './Icon.interface';
 import styles from './Icon.module.css';
 
-export const <%= it.componentName %> = ({
+export const <%= it.componentJSName %> = ({
   ariaLabel = '<%= it.iconName %>',
   ariaLabelledby,
   ariaHidden = true,
