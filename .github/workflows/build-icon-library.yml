@@ -28,6 +28,7 @@ jobs:
             --template tsx \
             --csspath './release/icon-kit-template-css.eta' \
             --jspath './release/icon-kit-template-react-tsx.eta' \
+            --cssprefix '' \
             --license './release/LICENSE.txt' \
             --pngscale 2.66 \
             --filter 'Size=S'
