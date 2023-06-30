@@ -54,8 +54,8 @@
 /* checkbox icon */
 .hds-checkbox .hds-checkbox__input:before {
   background-color: var(--icon-color-unselected);
-  height: var(--size);
   composes: hds-icon--icon-check from 'hds-core/lib/icons/icon-check.css';
+  height: var(--size);
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: calc(var(--size) * var(--icon-scale));
@@ -148,10 +148,10 @@
 
 .hds-checkbox__error-text:before {
   background: var(--color-error);
+  composes: hds-icon--icon-alert-circle-fill from 'hds-core/lib/icons/icon-alert-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
-  composes: hds-icon--icon-alert-circle-fill from 'hds-core/lib/icons/icon-alert-circle-fill.css';
   pointer-events: none;
   position: absolute;
   top: 0;

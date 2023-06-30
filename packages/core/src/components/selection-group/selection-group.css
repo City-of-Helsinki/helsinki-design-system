@@ -71,10 +71,10 @@
 
 .hds-selection-group__error-text:before {
   background: var(--color-error);
+  composes: hds-icon--alert-circle-fill from 'hds-core/lib/icons/alert-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
-  composes: hds-icon--alert-circle-fill from 'hds-core/lib/icons/alert-circle-fill.css';
   pointer-events: none;
   position: absolute;
   top: 0;
