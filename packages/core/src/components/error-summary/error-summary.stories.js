@@ -1,7 +1,7 @@
 import '../notification/notification.css';
 import './error-summary.css';
 import '../../icons/icon.css';
-import '../../icons/icon-alert-circle.css';
+import '../../icons/alert-circle.css';
 
 export default {
   title: 'Components/Error summary',

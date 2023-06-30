@@ -1,8 +1,8 @@
 import './button.css';
 import '../../icons/icon.css';
-import '../../icons/icon-share.css';
-import '../../icons/icon-angle-right.css';
-import '../../icons/icon-trash.css';
+import '../../icons/share.css';
+import '../../icons/angle-right.css';
+import '../../icons/trash.css';
 
 const getLabel = (label = 'Button') => `<span class="hds-button__label">${label}</span>`;
 

@@ -1,8 +1,8 @@
 @import url("../../icons/icon.css");
-@import url("../../icons/icon-alert-circle-fill.css");
-@import url("../../icons/icon-check-circle-fill.css");
-@import url("../../icons/icon-error-fill.css");
-@import url("../../icons/icon-info-circle-fill.css");
+@import url("../../icons/alert-circle-fill.css");
+@import url("../../icons/check-circle-fill.css");
+@import url("../../icons/error-fill.css");
+@import url("../../icons/info-circle-fill.css");
 
 .hds-notification {
   --notification-background-color: var(--color-info-light);
