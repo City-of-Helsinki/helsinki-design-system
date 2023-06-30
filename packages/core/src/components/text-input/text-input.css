@@ -233,8 +233,7 @@
   content: '';
   height: var(--icon-size);
   left: 0;
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  composes: hds-icon--alert-circle-fill from 'hds-core/lib/icons/alert-circle-fill.css';
   pointer-events: none;
   position: absolute;
   top: 0;
