@@ -6,9 +6,6 @@ on:
       prerelease_stage:
         description: 'alpha or beta'
         required: true
-  push:
-    branches:
-      - hds-1787-prerelease-script
 
 jobs:
   build-deploy:
