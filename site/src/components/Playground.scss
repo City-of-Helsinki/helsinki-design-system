@@ -19,6 +19,10 @@
   margin: -1px 0 var(--spacing-2-xl);
 }
 
+.no-preview {
+  border-top: 2px solid var(--playground-component-border-color);
+}
+
 .playground-block-preview {
   border: 2px solid var(--playground-component-border-color);
 
