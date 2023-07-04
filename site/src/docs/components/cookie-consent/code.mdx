@@ -3,7 +3,7 @@ slug: '/components/cookie-consent/code'
 title: 'CookieConsent - Code'
 ---
 
-import { Link } from 'hds-react';
+import { CookieModal, Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
@@ -16,12 +16,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Modal
 
-<Playground>
+<Playground scope={CookieModal}>
 
 ```jsx
 import { CookieModal } from 'hds-react';
 
-export const SimpleModalVersion = () => {
+() => {
   const [language, setLanguage] = React.useState('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource = {
@@ -63,8 +63,8 @@ export const SimpleModalVersion = () => {
       <CookieModal contentSource={contentSource} />
       <Application />
     </>
-  );
-};
+  )
+}
 ```
 
 ```html
@@ -202,8 +202,8 @@ export const PageVersion = () => {
     <main>
       <CookiePage contentSource={contentSource} />
     </main>
-  );
-};
+  )
+}
 ```
 
 <Link
