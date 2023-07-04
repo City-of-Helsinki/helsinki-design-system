@@ -28,6 +28,6 @@ jobs:
         run: yarn
 
       - name: release npm packages
-        run: yarn run testdrive -- --dist-tag ${{ github.event.inputs.prerelease_stage }}
+        run: yarn run testdrive --dist-tag ${{ github.event.inputs.prerelease_stage }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
