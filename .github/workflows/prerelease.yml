@@ -27,7 +27,19 @@ jobs:
       - name: install dependencies
         run: yarn
 
+      - name: build design tokens package
+        run: yarn build
+        working-directory: ./packages/design-tokens
+
+      - name: build core package
+        run: yarn build
+        working-directory: ./packages/core
+
+      - name: build react package
+        run: yarn build
+        working-directory: ./packages/react
+
       - name: release npm packages
-        run: yarn run testdrive --dist-tag ${{ github.event.inputs.prerelease_stage }}
+        run: yarn run release --dist-tag ${{ github.event.inputs.prerelease_stage }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

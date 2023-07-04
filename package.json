@@ -13,8 +13,6 @@
     "build:react": "lerna run --scope hds-react build",
     "build:site": "lerna run --scope site build",
     "clean": "lerna clean --yes && rimraf node_modules/ packages/core/lib packages/core/storybook-static packages/react/lib packages/react/storybook-static packages/design-tokens/lib site/.cache site/public",
-    "prerelease": "yarn run lerna publish from-package --yes —dist-tag $npm_config_stage",
-    "testdrive": "echo \"Hello, \"",
     "start:core": "lerna run --scope hds-core start",
     "start:react": "lerna run --scope hds-react start",
     "release": "lerna publish from-package --yes",
