@@ -9,6 +9,17 @@
   width: 1px;
 }
 
+.visually-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  max-height: 1px;
+  max-width: 1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
 .button-reset {
   background: none;
   border: none;
