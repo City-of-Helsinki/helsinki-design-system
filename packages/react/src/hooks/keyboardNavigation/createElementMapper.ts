@@ -147,6 +147,9 @@ export function createElementMapper(root: HTMLElement, selectors: Selectors): El
     if (!rootData) {
       return null;
     }
+    if (element === rootData.element) {
+      return [rootData];
+    }
     const path = findElementPath([rootData], element);
     const data = getArrayItemAtIndex(path, -1);
     if (!data || data.index === -1) {

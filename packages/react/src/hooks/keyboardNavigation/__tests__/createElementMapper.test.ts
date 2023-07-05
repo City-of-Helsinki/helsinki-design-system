@@ -2,6 +2,7 @@ import {
   ElementData,
   ElementMapper,
   ElementPath,
+  Selector,
   Selectors,
   getArrayItemAtIndex,
   getLastElementDataFromPath,
@@ -300,6 +301,47 @@ describe('createElementMapper', () => {
       expect(root2.element).toBe(dom);
       expect(root2.index).toBe(0);
       expect(root2 === root).toBeFalsy();
+    });
+  });
+  describe('Selectors are called with two args: current container.element and current ElementPath', () => {
+    it('Each selector is called once for each container', () => {
+      const containerElementsListener = jest.fn();
+      const focusableElementsListener = jest.fn();
+      const dom = createDOM(multiLevelDom);
+      const mapper = createElementMapper(dom, {
+        containerElements: (element, path) => {
+          containerElementsListener(element, path);
+          return (multiLevelDomSelectors.containerElements as Selector)(element, path);
+        },
+        focusableElements: (element, path) => {
+          focusableElementsListener(element, path);
+          return multiLevelDomSelectors.focusableElements(element, path);
+        },
+      });
+      const getElementListenerData = (listener: jest.Mock, element: HTMLElement) => {
+        return listener.mock.calls
+          .map((args: Parameters<Selector>, index) => {
+            if (args[0] === element) {
+              return [index, ...args];
+            }
+            return null;
+          })
+          .filter((d) => !!d) as Array<[number, HTMLElement, ElementPath]>;
+      };
+      mapper.refresh();
+      const checkElementDataCalls = (targetElement: HTMLElement) => {
+        const elementPath = mapper.getPath(targetElement);
+        const containerCalls = getElementListenerData(containerElementsListener, targetElement);
+        const focusableCalls = getElementListenerData(focusableElementsListener, targetElement);
+        expect(containerCalls).toHaveLength(1);
+        expect(focusableCalls).toHaveLength(1);
+        const [, , path] = containerCalls[0];
+        expect(path).toEqual(elementPath);
+      };
+      checkElementDataCalls(dom);
+      Array.from(dom.querySelectorAll('li')).forEach((el) => {
+        checkElementDataCalls(el);
+      });
     });
   });
 
