@@ -1,3 +1,7 @@
+@svg-load alertcirclefillicon url("../../svg/alert-circle-fill.svg");
+@svg-load checkicon url("../../svg/check.svg");
+@svg-load minusicon url("../../svg/minus.svg");
+
 .hds-checkbox {
   --size: 24px;
 
@@ -54,8 +58,8 @@
 /* checkbox icon */
 .hds-checkbox .hds-checkbox__input:before {
   background-color: var(--icon-color-unselected);
-  composes: hds-icon--icon-check from 'hds-core/lib/icons/icon-check.css';
   height: var(--size);
+  mask-image: svg-inline(checkicon);
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: calc(var(--size) * var(--icon-scale));
@@ -148,10 +152,10 @@
 
 .hds-checkbox__error-text:before {
   background: var(--color-error);
-  composes: hds-icon--icon-alert-circle-fill from 'hds-core/lib/icons/icon-alert-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
+  mask-image: svg-inline(alertcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -169,7 +173,7 @@
 /* checkbox icon - indeterminated */
 .hds-checkbox .hds-checkbox__input:not(:checked):indeterminate:before {
   background-color: var(--icon-color-selected);
-  composes: hds-icon--icon-minus from 'hds-core/lib/icons/icon-minus.css';
+  mask-image: svg-inline(minusicon);
   transform: scale(1);
 }
 

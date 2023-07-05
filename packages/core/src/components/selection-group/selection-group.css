@@ -1,3 +1,5 @@
+@svg-load alertcirclefillicon url("../../svg/alert-circle-fill.svg");
+
 .hds-selection-group {
   --spacing-col: 1.25rem;
   --spacing-row: var(--spacing-s);
@@ -71,10 +73,10 @@
 
 .hds-selection-group__error-text:before {
   background: var(--color-error);
-  composes: hds-icon--alert-circle-fill from 'hds-core/lib/icons/alert-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
+  mask-image: svg-inline(alertcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;

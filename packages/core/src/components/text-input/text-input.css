@@ -1,5 +1,8 @@
 @import url("../../utils/animations.css");
 
+@svg-load alertcirclefillicon url("../../svg/alert-circle-fill.svg");
+@svg-load checkcirclefillicon url("../../svg/check-circle-fill.svg");
+
 .hds-text-input {
   --border-width: 2px;
   --outline-width: 3px;
@@ -174,10 +177,10 @@
 .hds-text-input__error-text:before {
   animation: fadeIn 85ms ease-out;
   background: var(--icon-color-invalid);
-  composes: hds-icon--alert-circle-fill from 'hds-core/lib/icons/alert-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
+  mask-image: svg-inline(alertcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -202,10 +205,10 @@
 .hds-text-input__success-text:before {
   animation: fadeIn 85ms ease-out;
   background: var(--helper-color-success);
-  composes: hds-icon--check-circle-fill from 'hds-core/lib/icons/check-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
+  mask-image: svg-inline(checkcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -230,10 +233,10 @@
 .hds-text-input__info-text:before {
   animation: fadeIn 85ms ease-out;
   background: var(--helper-color-info-icon);
-  composes: hds-icon--alert-circle-fill from 'hds-core/lib/icons/alert-circle-fill.css';
   content: '';
   height: var(--icon-size);
   left: 0;
+  mask-image: svg-inline(alertcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;
