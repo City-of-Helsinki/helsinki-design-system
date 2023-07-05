@@ -20,11 +20,19 @@ export type ElementData = {
 
 export type ElementPath = ElementData[];
 
+export type NavigationOptions = {
+  next?: FocusableElement;
+  previous?: FocusableElement;
+  levelUp?: FocusableElement;
+  levelDown?: FocusableElement;
+};
+
 export type ElementMapper = {
   getPath: (element: HTMLElement) => ElementPath | null;
   getPathToFocusableByIndexes: (indexes: number[]) => ElementPath | null;
   getPathToContainerByIndexes: (indexes: number[]) => ElementPath;
   getRelatedFocusableElements: (container: ElementData) => FocusableElement[];
+  getNavigationOptions: (elementOrPath: HTMLElement | ElementPath, loop: boolean) => NavigationOptions;
   dispose: () => void;
   refresh: () => void;
   getRootData: () => ElementData | null;

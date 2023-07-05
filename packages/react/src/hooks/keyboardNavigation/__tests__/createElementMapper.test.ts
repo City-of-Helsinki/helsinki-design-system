@@ -138,6 +138,7 @@ describe('createElementMapper', () => {
           </li>
           <li class="level2">
             c1.c2
+            <span>Note: this container has no focusables. Child container is inaccessible</span>
             <ul>
               <li class="level3">
                 c1.c2.c0
@@ -219,7 +220,7 @@ describe('createElementMapper', () => {
     },
     'c1.c2.c0': {
       focusableCount: 2,
-      positionInParentElement: [0],
+      positionInParentElement: [1],
     },
     c2: {
       focusableCount: 3,
@@ -584,6 +585,156 @@ describe('createElementMapper', () => {
             expect(focusable).not.toBeNull();
           });
         }
+      });
+    });
+  });
+  describe('getNavigationOptions() returns adjacent elements in each direction of given focusable element (or ElementData)', () => {
+    let dom: HTMLDivElement;
+    let mapper: ElementMapper;
+    const elementsAndPaths: Record<string, [HTMLElement, ElementPath]> = {};
+
+    beforeAll(() => {
+      dom = createDOM(multiLevelDom);
+      mapper = createElementMapper(dom, multiLevelDomSelectors);
+      mapper.refresh();
+      const insertElementData = (elementId: string) => {
+        const path = getElementDataByPathId(mapper, elementId) as ElementPath;
+        const elementData = getLastElementDataFromPath(path) as ElementData;
+        const element = elementData.element as HTMLElement;
+        elementsAndPaths[elementId] = [element, path];
+        return elementData;
+      };
+      Object.keys(multiLevelDomPathData).forEach((elementId) => {
+        const elementData = insertElementData(elementId);
+        if (elementData.focusableElements) {
+          elementData.focusableElements.forEach((data) => {
+            insertElementData(`${elementId}.f${data.index}`);
+          });
+        }
+      });
+    });
+
+    /*
+        Visual map of the focusables. All are not shown
+        |-- root             
+            |-- [ c0.f0 ] --  [ c1.f0 ] --  [ c1.f0 ]  -- [ c1.f1 ] ----------------------------- [ c2.f0 ] -- [ c2.f1 ]
+                                                              |-- [ c1.c0.f0 ] -- [ c1.c1.f0 ] -X-  [ no c1.c2 focusales!]     
+                                                                                                          |-- [ c1.c2.c0.f0 ]  
+      */
+
+    it('If given path or element is not focusable, an empty object is returned', () => {
+      const root = mapper.getRootData() as ElementData;
+      expect(mapper.getNavigationOptions([root], false)).toEqual({});
+
+      const path = getElementDataByPathId(mapper, 'c1');
+      expect(mapper.getNavigationOptions(path, false)).toEqual({});
+      expect(mapper.getNavigationOptions([], false)).toEqual({});
+    });
+    it('Same object is returned, if argument is path to an html element or the html element', () => {
+      const [c0f1Element] = elementsAndPaths['c0.f1'];
+      const [c1f0Element, c1f0Path] = elementsAndPaths['c1.f0'];
+      const [c1f1Element] = elementsAndPaths['c1.f1'];
+      const [c1c0f0Element] = elementsAndPaths['c1.c0.f0'];
+
+      const expectedOptions = {
+        previous: c0f1Element,
+        next: c1f1Element,
+        levelDown: c1c0f0Element,
+        levelUp: undefined,
+      };
+
+      expect(mapper.getNavigationOptions(c1f0Path, false)).toEqual(expectedOptions);
+      expect(mapper.getNavigationOptions(c1f0Element, false)).toEqual(expectedOptions);
+    });
+    it(`"previous" / "next" are from the focusable container or its sibling containers' focusables. 
+        "levelUp" / "levelDown" are focusables from child (down) or parent (up) containers focusables`, () => {
+      const [c0f0] = elementsAndPaths['c0.f0'];
+      const [c0f1] = elementsAndPaths['c0.f1'];
+      const [c1f0] = elementsAndPaths['c1.f0'];
+      const [c1f1] = elementsAndPaths['c1.f1'];
+      const [c2f0] = elementsAndPaths['c2.f0'];
+      const [c2f1] = elementsAndPaths['c2.f1'];
+      const [c1c0f0] = elementsAndPaths['c1.c0.f0'];
+      const [c1c1f0] = elementsAndPaths['c1.c1.f0'];
+      const [c1c2c0f0] = elementsAndPaths['c1.c2.c0.f0'];
+      const [c1c2c0f1] = elementsAndPaths['c1.c2.c0.f1'];
+
+      expect(mapper.getNavigationOptions(c0f0, false)).toEqual({
+        previous: undefined,
+        next: c0f1,
+        levelDown: undefined,
+        levelUp: undefined,
+      });
+      expect(mapper.getNavigationOptions(c0f1, false)).toEqual({
+        previous: c0f0,
+        next: c1f0,
+        levelDown: undefined,
+        levelUp: undefined,
+      });
+      expect(mapper.getNavigationOptions(c1f0, false)).toEqual({
+        previous: c0f1,
+        next: c1f1,
+        levelDown: c1c0f0,
+        levelUp: undefined,
+      });
+      expect(mapper.getNavigationOptions(c1f1, false)).toEqual({
+        previous: c1f0,
+        next: c2f0,
+        levelDown: c1c0f0,
+        levelUp: undefined,
+      });
+      expect(mapper.getNavigationOptions(c2f0, false)).toEqual({
+        previous: c1f1,
+        next: c2f1,
+        levelDown: undefined,
+        levelUp: undefined,
+      });
+      expect(mapper.getNavigationOptions(c1c0f0, false)).toEqual({
+        previous: undefined,
+        next: c1c1f0,
+        levelDown: undefined,
+        levelUp: c1f1,
+      });
+      expect(mapper.getNavigationOptions(c1c1f0, false)).toEqual({
+        previous: c1c0f0,
+        next: undefined,
+        levelDown: undefined,
+        levelUp: c1f1,
+      });
+      expect(mapper.getNavigationOptions(c1c2c0f0, false)).toEqual({
+        previous: undefined,
+        next: c1c2c0f1,
+        levelDown: undefined,
+        levelUp: undefined,
+      });
+    });
+    it('If loop argument is true, then previous from first is last, and next from last is first. levelDown and levelUp do not loop.', () => {
+      const [c0f0Element] = elementsAndPaths['c0.f0'];
+      const [c0f1Element] = elementsAndPaths['c0.f1'];
+      const [c1f0Element] = elementsAndPaths['c1.f0'];
+      const [c1f1Element] = elementsAndPaths['c1.f1'];
+      const [c2f0Element] = elementsAndPaths['c2.f0'];
+      const [c1c0f0Element] = elementsAndPaths['c1.c0.f0'];
+      const [c1c1f0Element] = elementsAndPaths['c1.c1.f0'];
+      const [c3f0Element] = elementsAndPaths['c3.f0'];
+
+      expect(mapper.getNavigationOptions(c0f0Element, true)).toEqual({
+        previous: c3f0Element,
+        next: c0f1Element,
+        levelDown: undefined,
+        levelUp: undefined,
+      });
+      expect(mapper.getNavigationOptions(c1c1f0Element, true)).toEqual({
+        previous: c1c0f0Element,
+        next: c1c0f0Element,
+        levelDown: undefined,
+        levelUp: c1f1Element,
+      });
+      expect(mapper.getNavigationOptions(c1f1Element, true)).toEqual({
+        previous: c1f0Element,
+        next: c2f0Element,
+        levelDown: c1c0f0Element,
+        levelUp: undefined,
       });
     });
   });

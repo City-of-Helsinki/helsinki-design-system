@@ -6,6 +6,7 @@ import {
   ElementMapper,
   getArrayItemAtIndex,
   FocusableElement,
+  NavigationOptions,
 } from './index';
 
 function isElementVisibleOnScreen(element?: NodeOrElement) {
@@ -222,11 +223,92 @@ export function createElementMapper(root: HTMLElement, selectors: Selectors): El
     return list.map((data) => data.element).filter((el) => !!el) as FocusableElement[];
   };
 
+  const getRelatedFocusables = (pathToFocusable: ElementPath): FocusableElement[] => {
+    // (parent is index -2 on the path and -1 is the current element, the focusable)
+    // parent is the container holding the focusable
+    // grandparent is the container holding parent and it siblings
+    // related focusables are parent's and its sibling container's focusables.
+    const containerParent = getArrayItemAtIndex(pathToFocusable, -3) || getArrayItemAtIndex(pathToFocusable, -2);
+    if (!containerParent) {
+      return [];
+    }
+    return getRelatedFocusableElements(containerParent);
+  };
+
+  const getVerticalNavigationElements = (
+    pathToFocusable: ElementPath,
+  ): { levelUp?: FocusableElement; levelDown?: FocusableElement } => {
+    // if parent container has childContainers and there are focusables, then user can navigate down
+    // if parent's parent has focusables (other than current), then user can navigate up.
+    const parent = getArrayItemAtIndex(pathToFocusable, -2);
+    if (!parent) {
+      return {};
+    }
+    const firstContainerDown = parent.containerElements && parent.containerElements[0];
+    const levelDown = firstContainerDown && getRelatedFocusableElements(firstContainerDown)[0];
+
+    const grandParent = getArrayItemAtIndex(pathToFocusable, -3);
+    const closestFocusableUp = grandParent && getArrayItemAtIndex(grandParent.focusableElements, -1);
+
+    return {
+      levelDown,
+      levelUp: closestFocusableUp && closestFocusableUp.element,
+    };
+  };
+
+  const getNavigationOptions = (elementOrPath: HTMLElement | ElementPath, loop: boolean): NavigationOptions => {
+    const path = Array.isArray(elementOrPath) ? (elementOrPath as ElementPath) : getPath(elementOrPath as HTMLElement);
+    if (!path) {
+      return {};
+    }
+    const data = getArrayItemAtIndex(path, -1);
+    if (!data || !data.type || data.index === -1 || data.type !== 'focusable') {
+      return {};
+    }
+
+    const getNextIndex = (arr: unknown[], startIndex: number, loopIndex: boolean): number => {
+      if (startIndex === -1) {
+        return -1;
+      }
+      const { length } = arr;
+      const next = startIndex + 1;
+      if (next >= length) {
+        return loopIndex ? 0 : -1;
+      }
+      return next;
+    };
+    const getPreviousIndex = (arr: unknown[], startIndex: number, loopIndex: boolean): number => {
+      if (startIndex === -1) {
+        return -1;
+      }
+      const { length } = arr;
+      const previous = startIndex - 1;
+      if (previous < 0) {
+        return loopIndex ? length - 1 : -1;
+      }
+      return previous;
+    };
+
+    const focusableSiblings = getRelatedFocusables(path);
+    const currentElementIndex = focusableSiblings.findIndex((el) => el === data.element);
+    const next = focusableSiblings[getNextIndex(focusableSiblings, currentElementIndex, loop)];
+    const previous = focusableSiblings[getPreviousIndex(focusableSiblings, currentElementIndex, loop)];
+
+    const { levelDown, levelUp } = getVerticalNavigationElements(path);
+    return {
+      next,
+      previous,
+      levelUp,
+      levelDown,
+    };
+  };
+
   return {
     getPath,
     getPathToFocusableByIndexes,
     getPathToContainerByIndexes,
     getRelatedFocusableElements,
+    getNavigationOptions,
     dispose: () => {
       disposeData(rootData);
     },
