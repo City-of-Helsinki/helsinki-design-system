@@ -1,4 +1,4 @@
-import { ElementData, ElementMapper, Selectors, getArrayItemAtIndex } from '..';
+import { ElementData, ElementMapper, ElementPath, Selectors, getArrayItemAtIndex } from '..';
 import { createElementMapper } from '../createElementMapper';
 
 describe('createElementMapper', () => {
@@ -433,6 +433,39 @@ describe('createElementMapper', () => {
         expect(data.type).not.toBeUndefined();
         expect(data.focusableElements).toBeUndefined();
         expect(data.containerElements).toBeUndefined();
+      });
+    });
+  });
+  describe('getPath() returns an array of elementData objects', () => {
+    it('Returned array has elementData from root to the element', () => {
+      const dom = createDOM(multiLevelDom);
+      const mapper = createElementMapper(dom, multiLevelDomSelectors);
+      mapper.refresh();
+      const root = mapper.getRootData() as ElementData;
+
+      const checkPaths = (parentPath: ElementPath, elementData: ElementData) => {
+        const currentPath = [...parentPath, elementData];
+        const element = elementData.element as HTMLElement;
+        const path = mapper.getPath(element);
+        expect(path).toMatchObject(currentPath);
+        expect(getArrayItemAtIndex(path, -1)?.element).toMatchObject(element);
+        const { focusableElements, containerElements } = elementData;
+        if (focusableElements) {
+          focusableElements.forEach((focusableData) => {
+            const focusablePath = mapper.getPath(focusableData.element as HTMLElement) as ElementPath;
+            expect(focusablePath.length).toBe(currentPath.length + 1);
+            expect(focusablePath).toMatchObject([...currentPath, focusableData]);
+          });
+        }
+        if (containerElements) {
+          containerElements.forEach((containerData) => {
+            checkPaths(currentPath, containerData);
+          });
+        }
+      };
+      const containers = root.containerElements as ElementData[];
+      containers.forEach((data) => {
+        checkPaths([root], data);
       });
     });
   });

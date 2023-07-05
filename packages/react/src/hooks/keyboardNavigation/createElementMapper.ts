@@ -15,6 +15,12 @@ function isElementVisibleOnScreen(element?: NodeOrElement) {
   );
 }
 
+const untrackedElementData: ElementData = {
+  type: 'untracked',
+  index: -1,
+  element: undefined,
+};
+
 function addMappedElements(path: ElementPath, selectors: Selectors) {
   const targetData = getArrayItemAtIndex(path, -1);
   const element = targetData && targetData.element;
@@ -79,10 +85,69 @@ function disposeData(elementData: ElementData | null) {
   /* eslint-enable no-param-reassign */
 }
 
+export function returnValidElementData(data?: ElementData | null) {
+  return data && data.index > -1 && !!data.element ? data : null;
+}
+
+export function isValidPath(elementPath: ElementPath): boolean {
+  return !!returnValidElementData(getArrayItemAtIndex(elementPath, -1));
+}
+
+function isChild(parent: HTMLElement, assumedChildren: Array<NodeOrElement | null | undefined>) {
+  return assumedChildren.some((child) => {
+    return child && parent.contains(child as Node);
+  });
+}
+
+function findElementPath(searchPath: ElementPath, target: HTMLElement): ElementPath {
+  const startPoint = getArrayItemAtIndex(searchPath, -1);
+  if (!startPoint || !startPoint.element || !isChild(startPoint.element, [target])) {
+    return [{ ...untrackedElementData }];
+  }
+  const predicate = (data: ElementData) => data.element === target;
+  if (startPoint.focusableElements) {
+    const hit = startPoint.focusableElements.find(predicate);
+    if (hit) {
+      return [...searchPath, hit];
+    }
+  }
+  if (startPoint.containerElements) {
+    const hit = startPoint.containerElements.find(predicate);
+    if (hit) {
+      return [...searchPath, hit];
+    }
+    let foundPath: ElementPath | null = null;
+    startPoint.containerElements.some((data) => {
+      const results = findElementPath([...searchPath, data], target);
+      const endResult = getArrayItemAtIndex(results, -1);
+      if (endResult && endResult.element === target) {
+        foundPath = results;
+        return true;
+      }
+      return false;
+    });
+    return foundPath || [{ ...untrackedElementData }];
+  }
+  return [{ ...untrackedElementData }];
+}
+
 export function createElementMapper(root: HTMLElement, selectors: Selectors): ElementMapper {
   let rootData: ElementData | null = null;
 
+  const getPath = (element: HTMLElement) => {
+    if (!rootData) {
+      return null;
+    }
+    const path = findElementPath([rootData], element);
+    const data = getArrayItemAtIndex(path, -1);
+    if (!data || data.index === -1) {
+      return null;
+    }
+    return path;
+  };
+
   return {
+    getPath,
     dispose: () => {
       disposeData(rootData);
     },

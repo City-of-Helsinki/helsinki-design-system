@@ -21,6 +21,7 @@ export type ElementData = {
 export type ElementPath = ElementData[];
 
 export type ElementMapper = {
+  getPath: (element: HTMLElement) => ElementPath | null;
   dispose: () => void;
   refresh: () => void;
   getRootData: () => ElementData | null;
