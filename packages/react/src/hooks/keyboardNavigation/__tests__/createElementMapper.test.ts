@@ -1,4 +1,11 @@
-import { ElementData, ElementMapper, ElementPath, Selectors, getArrayItemAtIndex } from '..';
+import {
+  ElementData,
+  ElementMapper,
+  ElementPath,
+  Selectors,
+  getArrayItemAtIndex,
+  getLastElementDataFromPath,
+} from '..';
 import { createElementMapper } from '../createElementMapper';
 
 describe('createElementMapper', () => {
@@ -145,7 +152,7 @@ describe('createElementMapper', () => {
         c2
         <a class="level1">c2.f0</a>
         <a class="level1">c2.f1</a>
-        <a class="level1">c2.f3</a>
+        <a class="level1">c2.f2</a>
       </li>
       <li class="level1">
         c3
@@ -251,6 +258,25 @@ describe('createElementMapper', () => {
       return Array.from(el.querySelectorAll(`:scope > *.level${path.length - 1}`));
     },
   };
+
+  const getPathFromElementContent = (element?: HTMLElement) =>
+    element ? element.innerHTML.split('<')[0].replace(/[^.\w]/gi, '') : '';
+
+  const removeNonDigitsAndConvertToNumber = (str: string) => {
+    return parseInt(str.replace(/[^\d]/gi, ''), 10);
+  };
+
+  const getElementDataByPathId = (mapper: ElementMapper, elementPathId: string): ElementPath => {
+    if (elementPathId === 'root') {
+      const root = mapper.getRootData();
+      return root ? [root] : [];
+    }
+    const targetIsFocusable = elementPathId.includes('.f');
+    const indexes = elementPathId.split('.').map((d) => removeNonDigitsAndConvertToNumber(d));
+    const getter = targetIsFocusable ? mapper.getPathToFocusableByIndexes : mapper.getPathToContainerByIndexes;
+    return getter([0, ...indexes]) as ElementPath;
+  };
+
   describe('When mapper is created', () => {
     it('Nothing is mapped automatically', () => {
       const dom = createDOM(singleLevelDom);
@@ -303,9 +329,9 @@ describe('createElementMapper', () => {
         const ancestor = getArrayItemAtIndex(ancestors, -1);
         const element = elementData.element as HTMLElement;
         // get the c0.c1.f1... from element's text content
-        const elementPath = element?.innerHTML.split('<')[0].replace(/[^.\w]/gi, '');
+        const elementPath = getPathFromElementContent(element);
         // get index from the elementId
-        const index = parseInt(String(getArrayItemAtIndex(elementPath.split('.'), -1)).replace(/[^\d]/gi, ''), 10);
+        const index = removeNonDigitsAndConvertToNumber(String(getArrayItemAtIndex(elementPath.split('.'), -1)));
 
         // get the c0.c1.f1... from element data
         const elementPathFromAncestors = [...ancestors, elementData]
@@ -466,6 +492,98 @@ describe('createElementMapper', () => {
       const containers = root.containerElements as ElementData[];
       containers.forEach((data) => {
         checkPaths([root], data);
+      });
+    });
+  });
+  describe('getRelatedFocusableElements() returns focusable html elements', () => {
+    let dom: HTMLDivElement;
+    let mapper: ElementMapper;
+    beforeEach(() => {
+      dom = createDOM(multiLevelDom);
+      mapper = createElementMapper(dom, multiLevelDomSelectors);
+      mapper.refresh();
+    });
+    const getContainerData = (elementPathId: string) =>
+      getLastElementDataFromPath(getElementDataByPathId(mapper, elementPathId)) as ElementData;
+
+    it('Returned focusables are first picked from its immediate child containers or and then its own focusableElements ', () => {
+      const c0Focusables = mapper.getRelatedFocusableElements(getContainerData('c0'));
+      expect(c0Focusables).toHaveLength(multiLevelDomPathData.c0.focusableCount as number);
+
+      // c1 has own focusables and childContainers, but their lengths match
+      const c1 = getContainerData('c1');
+      const c1Focusables = mapper.getRelatedFocusableElements(c1);
+      expect(c1.focusableElements).toHaveLength(multiLevelDomPathData.c1.focusableCount as number);
+      expect(c1Focusables).toHaveLength(2);
+      expect(c1.focusableElements?.map((d) => d.element)).not.toEqual(c1Focusables);
+
+      // c2 has only own focusables
+      const c2 = getContainerData('c2');
+      const c2Focusables = mapper.getRelatedFocusableElements(c2);
+      expect(c2Focusables).toHaveLength(multiLevelDomPathData.c2.focusableCount as number);
+      expect(c2.focusableElements).toHaveLength(multiLevelDomPathData.c2.focusableCount as number);
+      expect(c2.focusableElements?.map((d) => d.element)).toEqual(c2Focusables);
+
+      // c3 has own focusables and childContainers
+      const c3 = getContainerData('c3');
+      const c3Focusables = mapper.getRelatedFocusableElements(c3);
+      expect(c3.focusableElements).toHaveLength(1);
+      expect(c1Focusables).toHaveLength(2);
+      expect(c3.focusableElements?.map((d) => d.element)).not.toEqual(c3Focusables);
+
+      const rootFocusables = mapper.getRelatedFocusableElements(getContainerData('root'));
+      // focusables are picked from root's containerElements
+      expect(rootFocusables).toHaveLength(
+        Number(multiLevelDomPathData.c0.focusableCount) +
+          Number(multiLevelDomPathData.c1.focusableCount) +
+          Number(multiLevelDomPathData.c2.focusableCount) +
+          Number(multiLevelDomPathData.c3.focusableCount),
+      );
+    });
+    it('Returns an empty array is element has no focusables', () => {
+      expect(mapper.getRelatedFocusableElements(getContainerData('c3.c2.c1'))).toHaveLength(0);
+      expect(mapper.getRelatedFocusableElements(getContainerData('c0.f1'))).toHaveLength(0);
+      expect(mapper.getRelatedFocusableElements({} as ElementData)).toHaveLength(0);
+    });
+  });
+  describe('getPathToContainerByIndexes() and getPathToFocusableByIndexes() return ElementPath defined by array of indexes', () => {
+    const verifyElementByIndexes = (mapper: ElementMapper, elementPathId: string) => {
+      if (elementPathId === 'root') {
+        const root = mapper.getRootData();
+        const indexPath = mapper.getPathToContainerByIndexes([0]);
+        expect(indexPath).toEqual([root]);
+        return root;
+      }
+      const indexPath = getElementDataByPathId(mapper, elementPathId);
+      const data = getLastElementDataFromPath(indexPath) as ElementData;
+      const elementPath = mapper.getPath(data.element as HTMLElement);
+      expect(indexPath).toHaveLength(elementPathId.split('.').length + 1);
+      expect(indexPath).toEqual(elementPath);
+      expect(getPathFromElementContent(data.element)).toBe(elementPathId);
+      return data;
+    };
+
+    it('The getPathToContainerByIndexes argument is an array of indexes which picks child containers by index.', () => {
+      const dom = createDOM(multiLevelDom);
+      const mapper = createElementMapper(dom, multiLevelDomSelectors);
+      mapper.refresh();
+      Object.keys(multiLevelDomPathData).forEach((key) => {
+        expect(verifyElementByIndexes(mapper, key)).not.toBeNull();
+      });
+    });
+    it('The getPathToFocusableByIndexes argument is an array of indexes which picks focusables by index.', () => {
+      const dom = createDOM(multiLevelDom);
+      const mapper = createElementMapper(dom, multiLevelDomSelectors);
+      mapper.refresh();
+
+      Object.keys(multiLevelDomPathData).forEach((key) => {
+        const container = verifyElementByIndexes(mapper, key);
+        if (container && container.focusableElements) {
+          container.focusableElements.forEach((data) => {
+            const focusable = verifyElementByIndexes(mapper, `${key}.f${data.index}`);
+            expect(focusable).not.toBeNull();
+          });
+        }
       });
     });
   });

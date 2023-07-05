@@ -1,4 +1,12 @@
-import { NodeOrElement, ElementData, ElementPath, Selectors, ElementMapper, getArrayItemAtIndex } from './index';
+import {
+  NodeOrElement,
+  ElementData,
+  ElementPath,
+  Selectors,
+  ElementMapper,
+  getArrayItemAtIndex,
+  FocusableElement,
+} from './index';
 
 function isElementVisibleOnScreen(element?: NodeOrElement) {
   if (!element || !(element as HTMLElement).getBoundingClientRect) {
@@ -146,8 +154,79 @@ export function createElementMapper(root: HTMLElement, selectors: Selectors): El
     return path;
   };
 
+  const collectDeepestFocusable = (parent: ElementData) => {
+    if (parent.containerElements) {
+      return parent.containerElements.reduce((currentList, container) => {
+        if (!container.focusableElements) {
+          return currentList;
+        }
+        return [...currentList, ...container.focusableElements];
+      }, [] as ElementData[]);
+    }
+    if (parent.focusableElements) {
+      return parent.focusableElements;
+    }
+    return [];
+  };
+
+  const getPathToContainerByIndexes = (indexes: number[]): ElementPath => {
+    // first index is always 0 and pointing to the root,
+    // so root must exists as first childContainers
+    let currentParent: ElementData | undefined = {
+      ...untrackedElementData,
+      containerElements: rootData ? [rootData] : undefined,
+    };
+    let notFound = false;
+    if (!indexes.length) {
+      return [untrackedElementData];
+    }
+    return indexes.map((index) => {
+      if (notFound || !currentParent) {
+        return untrackedElementData;
+      }
+      const containerCount = currentParent.containerElements ? currentParent.containerElements.length : 0;
+      const adjustedIndex = index < 0 ? containerCount + index : index;
+      const target = currentParent.containerElements && currentParent.containerElements[adjustedIndex];
+      if (!target || target.index !== adjustedIndex) {
+        notFound = true;
+        return untrackedElementData;
+      }
+      currentParent = target;
+      return target;
+    });
+  };
+
+  const getPathToFocusableByIndexes = (indexes: number[]): ElementPath | null => {
+    if (!indexes.length) {
+      return null;
+    }
+    const copy = [...indexes];
+    const last = copy.pop() as number;
+    const parentPath = getPathToContainerByIndexes(copy);
+    const parent = returnValidElementData(getArrayItemAtIndex(parentPath, -1));
+    if (!parent) {
+      return null;
+    }
+    const focusableCount = parent.focusableElements ? parent.focusableElements.length : 0;
+    const adjustedIndex = last < 0 ? focusableCount + last : last;
+    const focusable = returnValidElementData(parent.focusableElements && parent.focusableElements[adjustedIndex]);
+    if (focusable && focusable.index === adjustedIndex) {
+      parentPath.push(focusable);
+      return parentPath;
+    }
+    return null;
+  };
+
+  const getRelatedFocusableElements = (container: ElementData): FocusableElement[] => {
+    const list = collectDeepestFocusable(container);
+    return list.map((data) => data.element).filter((el) => !!el) as FocusableElement[];
+  };
+
   return {
     getPath,
+    getPathToFocusableByIndexes,
+    getPathToContainerByIndexes,
+    getRelatedFocusableElements,
     dispose: () => {
       disposeData(rootData);
     },

@@ -22,6 +22,9 @@ export type ElementPath = ElementData[];
 
 export type ElementMapper = {
   getPath: (element: HTMLElement) => ElementPath | null;
+  getPathToFocusableByIndexes: (indexes: number[]) => ElementPath | null;
+  getPathToContainerByIndexes: (indexes: number[]) => ElementPath;
+  getRelatedFocusableElements: (container: ElementData) => FocusableElement[];
   dispose: () => void;
   refresh: () => void;
   getRootData: () => ElementData | null;
@@ -33,4 +36,12 @@ export function getArrayItemAtIndex<T = unknown>(array: T[] | null | undefined, 
   }
   const targetIndex = index < 0 ? array.length + index : index;
   return array[targetIndex];
+}
+
+export function getElementDataFromPath(path: ElementPath | undefined | null, index: number) {
+  return getArrayItemAtIndex(path, index);
+}
+
+export function getLastElementDataFromPath(path: ElementPath | undefined | null) {
+  return getElementDataFromPath(path, -1);
 }
