@@ -93,7 +93,7 @@ import { CookieModal } from 'hds-react';
             <!-- TODO: add example how to loop cookie categories and groups -->
             <!-- consent category -->
             <div class="hds-cookie-consent__category">
-              <div class="title-with-checkbox">
+              <div class="hds-cookie-consent__title-with-checkbox">
                 <div class="hds-checkbox">
                   <input type="checkbox" id="checkbox-category" class="hds-checkbox__input" />
                   <label for="checkbox-category" class="hds-checkbox__label">Necessary cookies</label>
@@ -106,7 +106,7 @@ import { CookieModal } from 'hds-react';
 
                   <!-- consent group -->
                   <div class="hds-cookie-consent__consent-group">
-                    <div class="title-with-checkbox">
+                    <div class="hds-cookie-consent__title-with-checkbox">
                       <div class="hds-checkbox">
                         <input type="checkbox" id="checkbox-group" class="hds-checkbox__input" />
                         <label for="checkbox-group" class="hds-checkbox__label">Cookies related to basic functionalities</label>
@@ -168,8 +168,18 @@ import { CookieModal } from 'hds-react';
   openInNewTab
   openInNewTabAriaLabel="Opens in a new tab"
   href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version"
+  style={{ display: 'block', width: 'fit-content' }}
 >
-  View working modal demo in Storybook
+  View working React modal demo in Storybook
+</Link>
+
+<Link
+  openInNewTab
+  openInNewTabAriaLabel="Opens in a new tab"
+  href="/storybook/core/?path=/story/components-cookie-consent"
+  style={{ display: 'block', width: 'fit-content' }}
+>
+  View working Core modal demo in Storybook
 </Link>
 
 ### Rendered on a page

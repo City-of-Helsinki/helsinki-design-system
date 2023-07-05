@@ -206,7 +206,7 @@
   transform: translate3d(0, 0, 0);
 }
 
-.title-with-checkbox {
+.hds-cookie-consent__title-with-checkbox {
   color: var(--color-black);
   display: flex;
   font-weight: 500;
