@@ -1,6 +1,4 @@
 import './cookie-consent.css';
-import '../../icons/icon.css';
-import '../../icons/ui/icon-angle-right.css';
 
 export default {
   title: 'Components/Cookie consent'
