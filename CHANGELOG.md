@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.0.0-alpha.0] - June, 29, 2023
+## [3.0.0-alpha.0] - July, 6, 2023
 
 ### React
 
