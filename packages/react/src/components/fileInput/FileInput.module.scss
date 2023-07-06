@@ -61,7 +61,7 @@ $componentMaxWidth: 500px;
 }
 
 .fileInput {
-  @extend %hiddenFromScreen;
+  @extend %visually-hidden;
 }
 
 .fileList {

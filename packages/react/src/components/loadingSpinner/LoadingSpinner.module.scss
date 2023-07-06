@@ -46,7 +46,7 @@
 }
 
 .notificationArea {
-  @extend %hiddenFromScreen;
+  @extend %visually-hidden;
 }
 
 @keyframes spinner-rotation-animation {
