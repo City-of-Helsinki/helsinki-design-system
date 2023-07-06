@@ -202,4 +202,61 @@ describe('createFocusTracker', () => {
       expect(dom.ownerDocument.activeElement).toEqual(rootFocusables[3]);
     });
   });
+  describe('setFocusByIndexes(). Sets focus to given focusable by array of indexes. All indexes except last must point to containers', () => {
+    it('Returns true, if focus was set', async () => {
+      const target = getLinkElement();
+      expect(tracker.setFocusByIndexes([0, 0, 0])).toBeTruthy();
+      expect(dom.ownerDocument.activeElement).toEqual(target);
+      expect(tracker.getStoredFocusedElement()).toBe(target);
+
+      const button = getButtonElement();
+      tracker.setFocusByIndexes([0, 0, 1]);
+      expect(dom.ownerDocument.activeElement).toEqual(button);
+      expect(tracker.getStoredFocusedElement()).toBe(button);
+
+      const level2Indexes = [0, 1, 0, 0];
+      const level2Path = mapper.getPathToFocusableByIndexes(level2Indexes);
+      const level2Element = getArrayItemAtIndex(level2Path, -1)?.element;
+      expect(tracker.setFocusByIndexes(level2Indexes)).toBeTruthy();
+      expect(dom.ownerDocument.activeElement).toEqual(level2Element);
+      expect(tracker.getStoredFocusedElement()).toBe(level2Element);
+    });
+    it('Returns false, if focus was not set', async () => {
+      expect(tracker.setFocusByIndexes([])).toBeFalsy();
+      expect(tracker.setFocusByIndexes([0, 0])).toBeFalsy();
+      expect(tracker.setFocusByIndexes([0, 1, 0, 1])).toBeFalsy();
+    });
+  });
+  describe('setFocusToElementDataOrPath(). Sets focus according to the given ElementPath or partial ElementData', () => {
+    it('Returns true, if focus was set', async () => {
+      const linkElement = getLinkElement();
+      const linkPath = mapper.getPath(linkElement);
+      const linkElementData = { element: linkElement };
+
+      const level2Path = mapper.getPathToFocusableByIndexes([0, 1, 0, 0]);
+      const level2Element = getArrayItemAtIndex(level2Path, -1)?.element;
+      const level2ElementData = { element: level2Element };
+
+      expect(tracker.setFocusToElementDataOrPath(linkPath)).toBeTruthy();
+      expect(dom.ownerDocument.activeElement).toEqual(linkElement);
+      expect(tracker.getStoredFocusedElement()).toBe(linkElement);
+
+      expect(tracker.setFocusToElementDataOrPath(level2Path)).toBeTruthy();
+      expect(dom.ownerDocument.activeElement).toEqual(level2Element);
+      expect(tracker.getStoredFocusedElement()).toBe(level2Element);
+
+      expect(tracker.setFocusToElementDataOrPath(linkElementData)).toBeTruthy();
+      expect(dom.ownerDocument.activeElement).toEqual(linkElement);
+      expect(tracker.getStoredFocusedElement()).toBe(linkElement);
+
+      expect(tracker.setFocusToElementDataOrPath(level2ElementData)).toBeTruthy();
+      expect(dom.ownerDocument.activeElement).toEqual(level2Element);
+      expect(tracker.getStoredFocusedElement()).toBe(level2Element);
+    });
+    it('Returns false, if focus was not set', async () => {
+      expect(tracker.setFocusToElementDataOrPath([])).toBeFalsy();
+      expect(tracker.setFocusToElementDataOrPath({ element: dom as HTMLElement })).toBeFalsy();
+      expect(tracker.setFocusToElementDataOrPath([rootElementData])).toBeFalsy();
+    });
+  });
 });

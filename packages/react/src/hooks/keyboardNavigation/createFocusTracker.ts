@@ -115,5 +115,14 @@ export function createFocusTracker(elementMapper: ElementMapper, loop: boolean) 
     storeFocusedElement: (element: FocusableElement | null) => {
       return element ? setCurrentPathToFocusedElement({ element } as Partial<ElementData>) : false;
     },
+    setFocusByIndexes: (indexes: number[]) => {
+      const path = elementMapper.getPathToFocusableByIndexes(indexes);
+      setCurrentPathToFocusedElement(path);
+      return setFocusToCurrentElement();
+    },
+    setFocusToElementDataOrPath: (dataOrPath?: Partial<ElementData> | ElementPath | null) => {
+      setCurrentPathToFocusedElement(dataOrPath);
+      return setFocusToCurrentElement();
+    },
   };
 }
