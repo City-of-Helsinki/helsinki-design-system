@@ -8,11 +8,11 @@ import { MergeElementProps } from '../../../../common/types';
 import classNames from '../../../../utils/classNames';
 import { FooterVariant } from '../../Footer.interface';
 
-type ItemProps<Element> = React.PropsWithChildren<{
+type ItemProps<T> = React.PropsWithChildren<{
   /**
    * Element type
    */
-  as?: Element;
+  as?: T;
   /**
    * Hypertext Reference of the heading link.
    */
@@ -31,13 +31,10 @@ type ItemProps<Element> = React.PropsWithChildren<{
   variant?: FooterVariant.Navigation | FooterVariant.Utility;
 }>;
 
-export type FooterGroupHeadingProps<Element extends React.ElementType = 'a'> = MergeElementProps<
-  Element,
-  ItemProps<Element>
->;
+export type FooterGroupHeadingProps<T extends React.ElementType = 'a'> = MergeElementProps<T, ItemProps<T>>;
 
 export const FooterGroupHeading = <T extends React.ElementType = 'a'>({
-  as,
+  as: LinkComponent,
   children,
   className,
   href,
@@ -45,7 +42,19 @@ export const FooterGroupHeading = <T extends React.ElementType = 'a'>({
   variant,
   ...rest
 }: FooterGroupHeadingProps<T>) => {
-  const Item: React.ElementType = as || (href ? 'a' : 'span');
+  const Item = React.useMemo(() => {
+    if (LinkComponent) {
+      if (React.isValidElement(LinkComponent)) {
+        return LinkComponent.type;
+      }
+      return LinkComponent;
+    }
+    if (href) {
+      return 'a';
+    }
+    return 'span';
+  }, [LinkComponent, href]);
+
   return (
     <Item className={classNames(styles.heading, variant && styles[variant], className)} href={href} {...rest}>
       {label && label}

@@ -60,7 +60,7 @@ export type FooterNavigationLinkProps<Element extends React.ElementType = 'a'> =
 
 export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   ariaLabel,
-  as,
+  as: LinkComponent,
   className,
   icon,
   external = false,
@@ -69,7 +69,7 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   variant,
   ...rest
 }: FooterNavigationLinkProps<T>) => {
-  const Item: React.ElementType = as;
+  const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
 
   return (
     <Item

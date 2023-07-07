@@ -36,6 +36,7 @@ export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionPro
           {soMeLinks.map((link, index) => {
             if (isValidElement(link)) {
               /* Set variant to null just in case user set it. It should be null for SoMelinks so it doesn't mess with the styles. */
+              // eslint-disable-next-line react/no-array-index-key
               return cloneElement(link, { variant: null, key: index });
             }
             return null;

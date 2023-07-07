@@ -42,7 +42,8 @@ export const FooterUtilitiesWrapper = ({ children }: PropsWithChildren<Record<st
 
 export const HeaderWrapper = ({ children }: WrapperProps) => <Header>{children}</Header>;
 
-export const HeaderNavigationMenuWrapper = ({ children }: WrapperProps) => (  <Header>
+export const HeaderNavigationMenuWrapper = ({ children }: WrapperProps) => (
+  <Header>
     <Header.NavigationMenu>{children}</Header.NavigationMenu>
   </Header>
 );
