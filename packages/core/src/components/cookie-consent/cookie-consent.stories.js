@@ -37,7 +37,7 @@ export const Default = () => `
                 </div>
               </div>
               <p aria-hidden>Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability.</p>
-              <div class="visually-hidden">Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability.</div>
+              <div class="hiddenFromScreen">Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability.</div>
               <ul class="hds-cookie-consent__list">
                 <li>
 
@@ -51,7 +51,7 @@ export const Default = () => `
                     </div>
                     <div class="hds-cookie-consent__consent-group-content">
                       <p aria-hidden>Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.</p>
-                      <div class="visually-hidden">Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.</div>
+                      <div class="hiddenFromScreen">Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.</div>
                       <button type="button" class="hds-cookie-consent__accordion-button" aria-label="Show cookie information related to basic functionalities">
                         <span class="hds-icon hds-icon--angle-down hds-icon--size-s" aria-hidden="true"></span>
                       </button>
