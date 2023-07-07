@@ -272,7 +272,12 @@
     "linkboxAriaLabel": "Login component",
     "linkAriaLabel": "Go to the Login component page",
     "href": "/components/login",
-    "imgProps": { "src": "", "alt": "An illustration of the Login component.", "height": 180, "width": 280 }
+    "imgProps": {
+      "src": "/images/components/overview/headerlogin@2x.jpg",
+      "alt": "An illustration of the Login component.",
+      "height": 180,
+      "width": 280
+    }
   },
   {
     "name": "Logo",
