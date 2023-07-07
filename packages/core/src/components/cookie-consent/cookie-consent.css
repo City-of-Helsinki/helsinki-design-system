@@ -79,7 +79,7 @@
   transform: translate3d(0, 0, 0);
 }
 
-.hds-cookie-consent__category > p {
+.hds-cookie-consent__consent-category > p {
   margin-bottom: 0;
 }
 
@@ -104,6 +104,14 @@
 .hds-cookie-consent__container h3 + p {
   margin: 0;
   padding-bottom: var(--spacing-l);
+}
+
+.hds-cookie-consent__container .hds-cookie-consent__consent-category label {
+  font-size: var(--fontsize-heading-m);
+}
+
+.hds-cookie-consent__container .hds-cookie-consent__consent-group label {
+  font-size: var(--fontsize-heading-s);
 }
 
 .hds-cookie-consent__buttons {
@@ -169,7 +177,7 @@
   padding-left: var(--spacing-3-xs);
 }
 
-.hds-cookie-consent__category {
+.hds-cookie-consent__consent-category {
   display: flex;
   flex-direction: column;
   padding-bottom: var(--spacing-l);
