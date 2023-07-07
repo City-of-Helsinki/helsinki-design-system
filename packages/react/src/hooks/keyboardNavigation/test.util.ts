@@ -1,4 +1,4 @@
-import { Selectors, getArrayItemAtIndex } from '.';
+import { KeyboardTrackerProps, NodeSelector, Selectors, getArrayItemAtIndex } from '.';
 
 export const visibleElementBounds = {
   top: 1,
@@ -159,12 +159,25 @@ export const multiLevelDomPathData: Record<
   },
 };
 
+const multiLevelDomContainerSelector: NodeSelector = (el, path) => {
+  const parent = getArrayItemAtIndex(path, -1)?.element || el;
+  return parent.querySelectorAll(`:scope > ul > li.level${path.length}`);
+};
+const multiLevelDomFocusableSelector: NodeSelector = (el, path) => {
+  const className = `level${path.length - 1}`;
+  return el.querySelectorAll(`:scope > a.${className}, :scope > button.${className}`);
+};
+
 export const multiLevelDomSelectors: Selectors = {
   containerElements: (el, path) => {
-    const parent = getArrayItemAtIndex(path, -1)?.element || el;
-    return Array.from(parent.querySelectorAll(`:scope > ul > li.level${path.length}`));
+    return Array.from(multiLevelDomContainerSelector(el, path)) as HTMLElement[];
   },
   focusableElements: (el, path) => {
-    return Array.from(el.querySelectorAll(`:scope > *.level${path.length - 1}`));
+    return Array.from(multiLevelDomFocusableSelector(el, path)) as HTMLElement[];
   },
+};
+
+export const multiLevelDomSelectorsForKeyboardTracker: Partial<KeyboardTrackerProps> = {
+  focusableSelector: multiLevelDomFocusableSelector,
+  containerSelector: multiLevelDomContainerSelector,
 };

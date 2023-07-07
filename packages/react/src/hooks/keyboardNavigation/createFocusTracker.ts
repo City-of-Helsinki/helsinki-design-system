@@ -113,6 +113,9 @@ export function createFocusTracker(elementMapper: ElementMapper, loop: boolean) 
       return setFocusToCurrentElement();
     },
     storeFocusedElement: (element: FocusableElement | null) => {
+      if (getStoredFocusedElement() === element) {
+        return false;
+      }
       return element ? setCurrentPathToFocusedElement({ element } as Partial<ElementData>) : false;
     },
     setFocusByIndexes: (indexes: number[]) => {
@@ -123,6 +126,10 @@ export function createFocusTracker(elementMapper: ElementMapper, loop: boolean) 
     setFocusToElementDataOrPath: (dataOrPath?: Partial<ElementData> | ElementPath | null) => {
       setCurrentPathToFocusedElement(dataOrPath);
       return setFocusToCurrentElement();
+    },
+    storeValidPathToFocusedElement,
+    getCurrentFocusedElementData: () => {
+      return getArrayItemAtIndex(pathToCurrentFocusedElement, -1);
     },
   };
 }

@@ -320,5 +320,12 @@ export function createElementMapper(root: HTMLElement, selectors: Selectors): El
       rootData = mapAllElements(root, selectors);
     },
     getRootData: () => rootData,
+    isTrackedElement: (el: NodeOrElement | null) => {
+      if (!el) {
+        return false;
+      }
+      const path = getPath(el as HTMLElement);
+      return !!(path && isValidPath(path));
+    },
   };
 }
