@@ -27,5 +27,5 @@
 }
 
 .visuallyHidden {
-  @extend %visually-hidden;
+  @extend %hiddenFromScreen;
 }

@@ -31,7 +31,7 @@
 }
 
 .partialInputLabel {
-  @extend %visually-hidden;
+  @extend %hiddenFromScreen;
 }
 
 .partialInput, .divider {

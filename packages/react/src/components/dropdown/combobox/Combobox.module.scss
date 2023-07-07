@@ -33,7 +33,7 @@
   outline: none;
 
   &.hidden {
-    @extend %visually-hidden;
+    @extend %hiddenFromScreen;
   }
 }
 
@@ -67,7 +67,7 @@
   }
 
   &:not(:focus).hidden {
-    @extend %visually-hidden;
+    @extend %hiddenFromScreen;
   }
 
   // don't add additional right padding if toggle button is hidden
@@ -174,7 +174,7 @@
     flex-direction: row;
 
     &:not(:focus-within).hidden {
-      @extend %visually-hidden;
+      @extend %hiddenFromScreen;
     }
 
     .icon.adjustSpacingForIcon {

@@ -5,7 +5,7 @@
 }
 
 .hidden {
-  @extend %visually-hidden;
+  @extend %hiddenFromScreen;
 }
 
 .tooltipButton {
