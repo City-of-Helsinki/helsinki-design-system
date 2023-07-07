@@ -12,6 +12,15 @@
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
+  
+  hr {
+    border: 0;
+    border-left: 1px solid var(--color-black-20);
+    display: inline-block;
+    height: 100%;
+    margin: 0 5px;
+    width: 0;
+  }
 }
 
 .headerActions {
@@ -59,13 +68,4 @@
   align-self: center;
   box-sizing: content-box;
   height: var(--logo-height);
-}
-
-hr {
-  border: 0;
-  border-left: 1px solid var(--color-black-20);
-  display: inline-block;
-  height: 100%;
-  margin: 0 5px;
-  width: 0;
 }
