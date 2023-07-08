@@ -123,9 +123,9 @@ function resolveKeyboardCommand(event: KeyboardEvent, keyMap: KeyboardTrackerOpt
 
 export function createKeyboardTracker(target: HTMLElement, props: KeyboardTrackerProps) {
   const options = createOptions(props);
-  const { loop, onChange, selectors, autoFocusAfterUpdate } = options;
+  const { loop, onChange, selectors, autoFocusAfterUpdate, navigator } = options;
   const elementMapper = createElementMapper(target, selectors);
-  const focusTracker = createFocusTracker(elementMapper, loop);
+  const focusTracker = createFocusTracker(elementMapper, loop, navigator);
   let isFocused = false;
 
   const triggerOnChange = (type: EventType, path?: ElementPath | null) => {

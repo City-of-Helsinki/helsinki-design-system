@@ -7,6 +7,7 @@ import {
   ElementMapper,
   ElementPath,
   getArrayItemAtIndex,
+  KeyboardTrackerOptions,
 } from '.';
 
 function forceFocusToElement(element?: NodeOrElement) {
@@ -25,8 +26,13 @@ function forceFocusToElement(element?: NodeOrElement) {
   return document.activeElement === element;
 }
 
-export function createFocusTracker(elementMapper: ElementMapper, loop: boolean) {
+export function createFocusTracker(
+  elementMapper: ElementMapper,
+  loop: boolean,
+  externalNavigator?: KeyboardTrackerOptions['navigator'],
+) {
   let pathToCurrentFocusedElement: ElementPath | null = null;
+  const navigator = externalNavigator || elementMapper.getNavigationOptions;
   const storeValidPathToFocusedElement = (path?: ElementPath | null) => {
     if (!path) {
       pathToCurrentFocusedElement = null;
@@ -83,7 +89,7 @@ export function createFocusTracker(elementMapper: ElementMapper, loop: boolean) 
       );
       return element ? forceFocusToElement(element) : false;
     }
-    const directions = elementMapper.getNavigationOptions(pathToCurrentFocusedElement, loop);
+    const directions = navigator(pathToCurrentFocusedElement, loop);
     return forceFocusToElement(directions[direction]);
   };
 

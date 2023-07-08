@@ -28,6 +28,9 @@ describe('createFocusTracker', () => {
   const getButtonElement = () => mapper.getRelatedFocusableElements(rootElementData)[1];
 
   beforeEach(() => {
+    if (dom) {
+      document.body.removeChild(dom);
+    }
     dom = createDOM(multiLevelDom);
     mapper = createElementMapper(dom, multiLevelDomSelectors);
     tracker = createFocusTracker(mapper, false);
@@ -257,6 +260,42 @@ describe('createFocusTracker', () => {
       expect(tracker.setFocusToElementDataOrPath([])).toBeFalsy();
       expect(tracker.setFocusToElementDataOrPath({ element: dom as HTMLElement })).toBeFalsy();
       expect(tracker.setFocusToElementDataOrPath([rootElementData])).toBeFalsy();
+    });
+  });
+  describe('externalNavigator can be passed as a prop', () => {
+    const externalNavigatorListener = jest.fn();
+    const navigationOptions: NavigationOptions = {};
+    const externalNavigator: ElementMapper['getNavigationOptions'] = (elementOrPath, loop) => {
+      externalNavigatorListener(elementOrPath, loop);
+      return navigationOptions;
+    };
+    const loop = true;
+    beforeEach(() => {
+      tracker.reset();
+      tracker = createFocusTracker(mapper, loop, externalNavigator);
+    });
+    it('Given navigator replaces elementMapper navigator', async () => {
+      const linkElement = getLinkElement();
+      const linkPath = mapper.getPath(linkElement);
+
+      const level2Path = mapper.getPathToFocusableByIndexes([0, 1, 0, 0]);
+      const level2Element = getArrayItemAtIndex(level2Path, -1)?.element;
+
+      expect(tracker.setFocusToElement(linkElement)).toBeTruthy();
+      navigationOptions.next = level2Element;
+      tracker.next();
+      expect(externalNavigatorListener).toHaveBeenCalledTimes(1);
+      expect(externalNavigatorListener).toHaveBeenLastCalledWith(linkPath, loop);
+      expect(document.activeElement).toBe(level2Element);
+      // navigation functions do not change focused element data
+      // so set it manually:
+      tracker.setFocusToElement(level2Element);
+
+      navigationOptions.levelDown = linkElement;
+      tracker.levelDown();
+      expect(externalNavigatorListener).toHaveBeenCalledTimes(2);
+      expect(externalNavigatorListener).toHaveBeenLastCalledWith(level2Path, loop);
+      expect(document.activeElement).toBe(linkElement);
     });
   });
 });
