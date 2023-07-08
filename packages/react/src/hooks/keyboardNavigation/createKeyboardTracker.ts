@@ -262,6 +262,13 @@ export function createKeyboardTracker(target: HTMLElement, props: KeyboardTracke
     getFocusedElementPath: () => {
       return focusTracker.getPathToCurrentFocusedElement();
     },
+    setKeys: (newKeys: Partial<KeyboardTrackerOptions['keys']>) => {
+      options.keys = {
+        ...options.keys,
+        ...newKeys,
+      };
+      return options.keys;
+    },
   };
   return tracker;
 }

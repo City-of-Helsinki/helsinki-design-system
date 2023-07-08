@@ -48,6 +48,7 @@ export type KeyboardTracker = {
   getNavigationOptions: () => NavigationOptions;
   getFocusedElement: () => Element | null;
   getFocusedElementPath: () => ElementPath | null;
+  setKeys: (newKeys: Partial<KeyboardTrackerOptions['keys']>) => KeyboardTrackerOptions['keys'];
 };
 
 export type ElementData = {

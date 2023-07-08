@@ -354,6 +354,49 @@ describe('createKeyboardTracker', () => {
       testMoves('levelUp');
       testMoves('levelDown');
     });
+    it('setKeys() changes the keys ', () => {
+      const newKeys: KeyboardTrackerProps['keys'] = {
+        next: ['a', 'b'],
+        previous: ['c', 'd'],
+        levelDown: ['e', 'f'],
+        levelUp: ['1', '2'],
+      };
+      tracker.setKeys(newKeys);
+      const keyCounts: Partial<Record<EventType, number>> = { next: 0, previous: 0, levelUp: 0, levelDown: 0 };
+      const addCount = (direction: EventType) => {
+        (keyCounts[direction] as number) += 1;
+      };
+      const testMoves = (direction: EventType) => {
+        triggerKeyboardCommand(direction, newKeys, 0);
+        addCount(direction);
+        expect(checkFocusTrackerNavigationCalls(keyCounts)).toBeTruthy();
+
+        triggerKeyboardCommand(direction, newKeys, 1);
+        addCount(direction);
+        expect(checkFocusTrackerNavigationCalls(keyCounts)).toBeTruthy();
+      };
+      tracker.refresh();
+      testMoves('next');
+      testMoves('previous');
+      testMoves('levelUp');
+      testMoves('levelDown');
+      triggerKeyboardCommand('next', keys, 0);
+      triggerKeyboardCommand('previous', keys, 0);
+      triggerKeyboardCommand('levelUp', keys, 0);
+      triggerKeyboardCommand('levelDown', keys, 0);
+      expect(checkFocusTrackerNavigationCalls(keyCounts)).toBeTruthy();
+    });
+    it('setKeys() returns all keys and changes only passed keys', () => {
+      expect(tracker.setKeys({})).toEqual(keys);
+      const newNext = {
+        next: ['a', 'b'],
+      };
+      const newPrevious = {
+        previous: ['c', 'd'],
+      };
+      expect(tracker.setKeys(newNext)).toEqual({ ...keys, ...newNext });
+      expect(tracker.setKeys(newPrevious)).toEqual({ ...keys, ...newNext, ...newPrevious });
+    });
   });
   describe('setFocusedElementByIndex(). Function does not trigger "focusChange" events.', () => {
     it('Sets focus to a focusable element by array of indexes. Returns true, if focus was set to the element.', () => {
