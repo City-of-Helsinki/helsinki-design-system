@@ -4,6 +4,7 @@ import { KeyboardNavigation } from './KeyboardNavigation';
 import { Button } from '../button/Button';
 import { NumberInput } from '../numberInput/NumberInput';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
+import { KeyboardTrackerProps } from '../../hooks/keyboardNavigation';
 
 export default {
   component: KeyboardNavigation,
@@ -41,6 +42,19 @@ const StoryStyles = () => {
       }
       .buttons > * {
         margin-right: var(--spacing-xs);
+      }
+      .visibleFocusWithIn li:focus-within{
+        background: var(--color-black-10);
+      }
+      .visibleFocusWithIn li:focus-within > a{
+        border-color: var(--color-black-10);
+      }
+      .subNav{
+        flex-direction:row;
+        position: absolute;
+        top: 80px;
+        left:0;
+        background: var(--color-white);
       }
     `}
     </style>
@@ -289,23 +303,6 @@ export const MultiLevelExampleWithHook = () => {
   return (
     <div ref={ref}>
       <StoryStyles />
-      <style>
-        {`
-          .visibleFocusWithIn li:focus-within{
-            background: var(--color-black-10);
-          }
-          .visibleFocusWithIn li:focus-within > a{
-            border-color: var(--color-black-10);
-          }
-          .subNav{
-            flex-direction:row;
-            position: absolute;
-            top: 80px;
-            left:0;
-            background: var(--color-white);
-          }
-        `}
-      </style>
       <ul className="nav visibleFocusWithIn">
         {items.map((data, index) => {
           return (
@@ -507,6 +504,122 @@ export const CustomNavigatorWithHook = () => {
           );
         })}
       </ul>
+    </div>
+  );
+};
+
+export const ChangeKeysWithHook = () => {
+  let defaultKeys: KeyboardTrackerProps['keys'];
+  const [focusedIndex, setFocusedIndex] = useState([-1]);
+  const items = [0, 1, 2, 3];
+  const { ref, refresh } = useKeyboardNavigation({
+    containerSelector: ':scope > ul > li',
+    focusableSelector: ':scope > a, :scope > button',
+    onChange: (type, tracker) => {
+      if (type === 'dataUpdated' || type === 'focusChange') {
+        if (!defaultKeys) {
+          defaultKeys = tracker.setKeys({});
+        }
+        const newKeys: Partial<KeyboardTrackerProps['keys']> = {};
+        const navOpts = tracker.getNavigationOptions();
+        const currentElement = tracker.getFocusedElement();
+        if (!currentElement) {
+          return;
+        }
+        newKeys.next = navOpts.levelDown ? ['ArrowDown'] : ['ArrowRight', 'ArrowDown'];
+        newKeys.levelDown = navOpts.levelDown ? ['ArrowRight'] : undefined;
+        newKeys.levelUp = navOpts.levelUp ? ['ArrowLeft', 'Escape'] : undefined;
+        newKeys.previous = navOpts.levelUp ? ['ArrowUp'] : ['ArrowLeft', 'ArrowUp'];
+
+        tracker.setKeys({
+          ...defaultKeys,
+          ...newKeys,
+        });
+      }
+    },
+  });
+  const setFocusLevel0 = (index: number) => {
+    setFocusedIndex([focusedIndex[0] === index ? -1 : index, -1]);
+  };
+
+  useEffect(() => {
+    refresh();
+  }, [focusedIndex]);
+
+  return (
+    <div ref={ref}>
+      <StoryStyles />
+      <style>
+        {`
+          .verticalNav {
+            flex-direction:column;
+            border:0;
+          }
+          .verticalNav .nav {
+            border:0;
+          }
+          .verticalNav li {
+            display: flex;
+            flex-direction:row;
+            align-items: baseline;
+            position: relative;
+            margin-bottom: var(--spacing-xs);
+          }
+          .verticalNav .subNav {
+            position: relative;
+            inset: unset;
+            background: transparent;
+            padding: 0;
+          }
+          .verticalNav .subNav li {
+            padding: 0 0 0 var(--spacing-xs);
+            margin:0;
+          }
+          .verticalNav > li, .verticalNav .subNav a  {
+            border: 1px solid var(--color-black-50);
+          }
+        `}
+      </style>
+      <ul className="nav verticalNav visibleFocusWithIn">
+        {items.map((data, index) => {
+          return (
+            <li key={data}>
+              <a
+                tabIndex={0}
+                href="#nothing"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                {data}
+              </a>
+              <button type="button" onClick={() => setFocusLevel0(index)}>
+                {'\u203a'}
+              </button>
+              {focusedIndex[0] === index && (
+                <ul className="nav subNav">
+                  {[0, 1, 2].map((childData) => {
+                    return (
+                      <li key={`${data}.${childData}}`}>
+                        <a
+                          tabIndex={0}
+                          href="#nothing"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          {`${data}.${childData}`}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <p>You can navigate with arrow keys. If sub-menu is open, left and right arrow key behaviour changes.</p>
     </div>
   );
 };
