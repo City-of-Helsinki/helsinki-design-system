@@ -23,12 +23,14 @@ const StoryStyles = () => {
         display:flex;
         border: 1px solid var(--color-black);
         padding: var(--spacing-2-xs) 0;
+        position: relative;
       }
       .nav li {
         padding: var(--spacing-xs);
       }
       .nav li a {
         padding: var(--spacing-xs);
+        border: 1px solid var(--color-white);
       }
       a:focus, a:focus-visible {
         border: 1px solid var(--color-bus);
@@ -255,6 +257,121 @@ export const DynamicElementsWithHook = () => {
         <p>Once focused, you can navigate with arrow and tab keys.</p>
         <p>Focus is restored, when component updates.</p>
       </div>
+    </div>
+  );
+};
+
+export const MultiLevelExampleWithHook = () => {
+  const [focusedIndex, setFocusedIndex] = useState([-1, -1]);
+  const items = [0, 1, 2, 3, 4, 5];
+  const { ref, refresh } = useKeyboardNavigation({
+    containerSelector: ':scope > ul > li',
+    focusableSelector: ':scope > a, :scope > button',
+    keys: {
+      next: ['ArrowRight'],
+      previous: ['ArrowLeft'],
+      levelDown: ['PageDown', 'ArrowDown'],
+      levelUp: ['PageUp', 'Escape', 'ArrowUp'],
+    },
+    autoFocusAfterUpdate: true,
+  });
+  const setFocusLevel0 = (index: number) => {
+    setFocusedIndex([focusedIndex[0] === index ? -1 : index, -1]);
+  };
+  const setFocusLevel1 = (level0: number, level1: number) => {
+    setFocusedIndex([level0, focusedIndex[1] === level1 ? -1 : level1]);
+  };
+
+  useEffect(() => {
+    refresh();
+  }, [focusedIndex]);
+
+  return (
+    <div ref={ref}>
+      <StoryStyles />
+      <style>
+        {`
+          .visibleFocusWithIn li:focus-within{
+            background: var(--color-black-10);
+          }
+          .visibleFocusWithIn li:focus-within > a{
+            border-color: var(--color-black-10);
+          }
+          .subNav{
+            flex-direction:row;
+            position: absolute;
+            top: 80px;
+            left:0;
+            background: var(--color-white);
+          }
+        `}
+      </style>
+      <ul className="nav visibleFocusWithIn">
+        {items.map((data, index) => {
+          return (
+            <li key={data}>
+              <a
+                tabIndex={0}
+                href="#nothing"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Item {data}
+              </a>
+              <button type="button" onClick={() => setFocusLevel0(index)}>
+                {'\u203a'}
+              </button>
+              {focusedIndex[0] === index && (
+                <ul className="nav subNav">
+                  {[0, 1, 2].map((childData, subIndex) => {
+                    return (
+                      <li key={`${data}.${childData}}`}>
+                        <a
+                          tabIndex={0}
+                          href="#nothing"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          {`Item ${data}.${childData}`}
+                        </a>
+                        <button type="button" onClick={() => setFocusLevel1(index, subIndex)}>
+                          {'\u203a'}
+                          {'\u203a'}
+                        </button>
+                        {focusedIndex[1] === subIndex && (
+                          <ul className="nav subNav">
+                            {['a', 'b', 'c'].map((grandChildData) => {
+                              return (
+                                <li key={`${data}.${childData}.${grandChildData}}`}>
+                                  <a
+                                    tabIndex={0}
+                                    href="#nothing"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                    }}
+                                  >
+                                    {`Item  ${data}.${childData}.${grandChildData}`}
+                                  </a>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <p>Once focused, you can navigate horizontally with arrow left, arrow right and tab keys.</p>
+      <p>
+        Buttons open new menus. You can navigate vertically with arrow up, arrow down, page down, page up, tab and esc.
+      </p>
     </div>
   );
 };
