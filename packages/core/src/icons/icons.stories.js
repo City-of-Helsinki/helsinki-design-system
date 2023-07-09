@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/html";
 import './icons.css';
 import './icon.css';
 
-const req = require.context('.', true, /(icon\b-+).+?.css$/);
+const req = require.context('.', true, /^(?!icon).+?.css$/);
 
 req.keys().forEach((fileName) => {
   const story = storiesOf(`Icons/Icons`, module)
