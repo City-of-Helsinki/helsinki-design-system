@@ -16,6 +16,7 @@ const esmInput = {
   'components/Footer/index': 'src/components/footer/index.ts',
   'components/Hero/index': 'src/components/hero/index.ts',
   'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
+  'components/KeyboardNavigation/index': 'src/components/keyboardNavigation/index.ts',
   'components/Koros/index': 'src/components/koros/index.ts',
   'components/Link/index': 'src/components/link/index.ts',
   'components/Linkbbox/index': 'src/components/linkbox/index.ts',
