@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { KeyboardNavigation } from './KeyboardNavigation';
+import { KeyboardNavigation, useKeyboardNavigation, useFocusTrapper, KeyboardTrackerProps } from './index';
 import { Button } from '../button/Button';
 import { NumberInput } from '../numberInput/NumberInput';
-import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
-import { KeyboardTrackerProps } from '../../hooks/keyboardNavigation';
-import { useFocusTrapper } from '../../hooks/useFocusTrapper';
 
 export default {
   component: KeyboardNavigation,
