@@ -375,3 +375,138 @@ export const MultiLevelExampleWithHook = () => {
     </div>
   );
 };
+
+export const CustomNavigatorWithHook = () => {
+  const items = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const getId = (index: number, childIndex: number) => {
+    return `pos_${index}_${childIndex}`;
+  };
+  const getElement = (index: number, childIndex: number) => {
+    return document.getElementById(getId(index, childIndex)) || undefined;
+  };
+  const getPos = (element: HTMLElement): number[] => {
+    const id = element.getAttribute('id');
+    return id
+      ? id
+          .split('_')
+          .map((n) => parseInt(n, 10))
+          .slice(-2)
+      : [-1, -1];
+  };
+  const { ref } = useKeyboardNavigation({
+    navigator: (elementOrPath) => {
+      if (elementOrPath) {
+        const path = Array.isArray(elementOrPath) ? elementOrPath : [];
+        const data = path[path.length - 1];
+        if (data && data.element) {
+          const pos = getPos(data.element);
+          return {
+            next: getElement(pos[0], pos[1] + 1),
+            previous: getElement(pos[0], pos[1] - 1),
+            levelDown: getElement(pos[0] + 1, pos[1]),
+            levelUp: getElement(pos[0] - 1, pos[1]),
+          };
+        }
+      }
+      return {
+        next: undefined,
+        previous: undefined,
+        levelUp: undefined,
+        levelDown: undefined,
+      };
+    },
+    keys: {
+      next: ['ArrowRight'],
+      previous: ['ArrowLeft'],
+      levelDown: ['ArrowDown'],
+      levelUp: ['ArrowUp'],
+    },
+  });
+
+  const skip = (index: number, childIndex: number) => {
+    if (childIndex === 4 && index >= 4) {
+      return false;
+    }
+    if (index === 5) {
+      return false;
+    }
+    if (childIndex !== 2 && childIndex !== 6 && (index === 1 || index === 2)) {
+      return true;
+    }
+    if ((index === 4 || index === 5 || index === 7) && childIndex > 0 && childIndex < 8) {
+      return true;
+    }
+    if ((index === 6 || index === 7) && childIndex > 0 && childIndex < 8) {
+      return true;
+    }
+    if (index === 5 && childIndex > 0 && childIndex < 8) {
+      return true;
+    }
+
+    return false;
+  };
+
+  return (
+    <div ref={ref}>
+      <style>
+        {`
+          .nav {
+            list-style: none;
+            display:flex;
+            flex-direction:column;
+            position:relative;
+          }
+          .nav li {
+            display:flex;
+            position:relative;
+          }
+          .nav li a{
+            position:absolute;
+            padding:5px;
+            width:25px;
+            height:25px;
+            display: block;
+            border:1px solid var(--color-black);
+            color: var(--color-black);
+          }
+          .nav li a:focus, .nav li a:focus-visible{
+            background-color:#000;
+            outline:1px solid 000;
+            color: var(--color-white);
+          }
+        `}
+      </style>
+      <p>You can navigate with arrow keys. Navigation directions are re-calculated on every key press. </p>
+      <p>Tab key is not tracked, it changes focus according to browser&apos;s defaults.</p>
+      <ul className="nav">
+        {items.map((data) => {
+          return (
+            <li key={data}>
+              {items.map((childData) => {
+                if (skip(data, childData)) {
+                  return null;
+                }
+                const id = getId(data, childData);
+                return (
+                  <a
+                    key={id}
+                    id={id}
+                    tabIndex={0}
+                    href="#nothing"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    className={id}
+                    style={{ top: `${data * 42}px`, left: `${childData * 42}px` }}
+                  >
+                    {`${data}.${childData}`}
+                  </a>
+                );
+              })}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
