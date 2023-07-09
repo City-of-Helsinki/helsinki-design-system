@@ -13,6 +13,7 @@ import {
   KeyboardTrackerOptions,
   KeyboardTrackerProps,
   KeyboardTracker,
+  getArrayItemAtIndex,
 } from '.';
 
 const defaults: KeyboardTrackerOptions = {
@@ -236,7 +237,7 @@ export function createKeyboardTracker(target: HTMLElement, props: KeyboardTracke
       if (!Array.isArray(index)) {
         const rootElement = elementMapper.getRootData();
         const focusables = rootElement ? elementMapper.getRelatedFocusableElements(rootElement) : null;
-        return focusables ? focusTracker.setFocusToElement(focusables[index]) : false;
+        return focusables ? focusTracker.setFocusToElement(getArrayItemAtIndex(focusables, index)) : false;
       }
       return focusTracker.setFocusByIndexes(index);
     },

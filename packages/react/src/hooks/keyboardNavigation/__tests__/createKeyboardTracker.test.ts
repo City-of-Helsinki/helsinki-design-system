@@ -413,6 +413,13 @@ describe('createKeyboardTracker', () => {
       expect(tracker.getFocusedElement()).toBe(getFocusableElement(indexTo21));
       checkChangeListenerCalls(events);
     });
+    it('Negative index can be used', () => {
+      const positiveIndexTo01 = [0, 1];
+      const negativeIndexTo01 = [0, -1];
+      changeListener.mockClear();
+      expect(tracker.setFocusedElementByIndex([0, ...negativeIndexTo01])).toBeTruthy();
+      expect(tracker.getFocusedElement()).toBe(getFocusableElement(positiveIndexTo01));
+    });
     it('Returns false when element is not focused.', () => {
       changeListener.mockClear();
       // tracker's first index is always root (0)
@@ -428,6 +435,13 @@ describe('createKeyboardTracker', () => {
       expect(tracker.getFocusedElement()).toBe(getFocusableElement(indexTo01));
 
       expect(tracker.setFocusedElementByIndex(numberTo21)).toBeTruthy();
+      expect(tracker.getFocusedElement()).toBe(getFocusableElement(indexTo21));
+    });
+    it('Negative index can be used with single numbers', () => {
+      const indexTo21 = [2, 1];
+      const negativeNumberTo21 = -3;
+
+      expect(tracker.setFocusedElementByIndex(negativeNumberTo21)).toBeTruthy();
       expect(tracker.getFocusedElement()).toBe(getFocusableElement(indexTo21));
     });
   });
