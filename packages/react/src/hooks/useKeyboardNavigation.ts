@@ -5,6 +5,12 @@ import { KeyboardTracker, KeyboardTrackerProps } from './keyboardNavigation';
 
 type RefListener = (element: HTMLElement | null) => React.MutableRefObject<HTMLElement | null>;
 
+/**
+ * Hook for enabling keyboard navigation inside an element
+ * @param {KeyboardTrackerProps} trackerProps
+ * @returns
+ */
+
 export function useKeyboardNavigation(trackerProps: KeyboardTrackerProps = {}) {
   const observedElementRef = useRef<HTMLElement | null>(null);
   const tracker = useRef<KeyboardTracker | null>(null);

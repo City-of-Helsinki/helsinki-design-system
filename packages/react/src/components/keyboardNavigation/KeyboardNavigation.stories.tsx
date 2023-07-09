@@ -63,11 +63,11 @@ const onLinkClick = (e: React.MouseEvent) => {
   e.preventDefault();
 };
 
-export const Example = () => {
+export const Example = (args: KeyboardTrackerProps) => {
   return (
     <div>
       <StoryStyles />
-      <KeyboardNavigation>
+      <KeyboardNavigation {...args}>
         <ul className="nav">
           <li>
             <a href="/" onClick={onLinkClick} tabIndex={0}>
