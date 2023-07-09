@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { KeyboardNavigation } from './KeyboardNavigation';
 import { Button } from '../button/Button';
 import { NumberInput } from '../numberInput/NumberInput';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { KeyboardTrackerProps } from '../../hooks/keyboardNavigation';
+import { useFocusTrapper } from '../../hooks/useFocusTrapper';
 
 export default {
   component: KeyboardNavigation,
@@ -620,6 +621,78 @@ export const ChangeKeysWithHook = () => {
         })}
       </ul>
       <p>You can navigate with arrow keys. If sub-menu is open, left and right arrow key behaviour changes.</p>
+    </div>
+  );
+};
+
+export const WithFocusTrappingHook = () => {
+  const {
+    refForFirstTrapper,
+    refForLastTrapper,
+    disableElements,
+    enableElements,
+    getElementPosition,
+  } = useFocusTrapper({});
+  const keyboardTrackerOnChange = useCallback<Required<KeyboardTrackerProps>['onChange']>(
+    (type, tracker, path) => {
+      const item = path ? path[path.length - 1] : undefined;
+      const focusIsNotInTrackedElement = !item || (item && item.index === -1);
+      if (type === 'focusIn' && focusIsNotInTrackedElement) {
+        const position = item ? getElementPosition(item.element) : undefined;
+        tracker.setFocusedElementByIndex(position === 'last' ? -1 : 0);
+        // do not disable before setting index or focus is lost when disabled
+        // this will result in focusOut event
+        disableElements();
+      }
+      if (type === 'focusOut' && focusIsNotInTrackedElement) {
+        enableElements();
+      }
+    },
+    [enableElements, disableElements],
+  );
+  const { ref } = useKeyboardNavigation({
+    focusableSelector: 'li',
+    onChange: keyboardTrackerOnChange,
+  });
+
+  return (
+    <div>
+      <button type="button">Focusable button outside</button>
+      <div ref={ref}>
+        <StoryStyles />
+        <style>
+          {`
+          .hidden{
+            height: 0;
+             width: 0; 
+             overflow:hidden;
+            border:0;
+            opacity:0;
+          }
+        `}
+        </style>
+        <button ref={refForFirstTrapper} type="button" className="hidden">
+          First hidden focus trapper
+        </button>
+        <ul className="nav">
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+        <button ref={refForLastTrapper} type="button" className="hidden">
+          Last hidden focus trapper
+        </button>
+      </div>
+      <button type="button">Focusable button outside</button>
+      <p>This story demonstrates how to use keyboard navigation with elements which not not receive focus natively.</p>
+      <p>
+        It uses useFocusTrapper-hook and two invisible focusable elements. Those move focus to the elements that should
+        be usable with keyboard.
+      </p>
+      <p>
+        Users do not notice elements are not focusable. Hidden elements are disabled when focus is inside. This keeps
+        tab-key presses logical.
+      </p>
     </div>
   );
 };
