@@ -1,0 +1,15 @@
+---
+slug: '/components/keyboard-navigation/accessibility'
+title: 'KeyboardNavigation - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+
+- do not override native tab-key behaviour
+- do not use tab-key in 'keys' property

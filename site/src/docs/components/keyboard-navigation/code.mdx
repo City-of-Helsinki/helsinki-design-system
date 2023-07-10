@@ -1,0 +1,175 @@
+---
+slug: '/components/keyboard-navigation/code'
+title: 'KeyboardNavigation - Code'
+---
+
+import { KeyboardNavigation, useKeyboardNavigation } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+### Code examples
+
+#### Component usage
+
+<Playground>
+
+```jsx
+() => {
+  const ulStyle = {
+    listStyle: 'none',
+    display: 'flex',
+    border: '1px solid #000',
+    padding: '0',
+    position: 'relative',
+  };
+  const liStyle = {
+    padding: '10px',
+  };
+  return (
+    <KeyboardNavigation>
+      <ul style={ulStyle}>
+        <li style={liStyle}>
+          <a href="#" tabindex="0">
+            Item 1
+          </a>
+        </li>
+        <li style={liStyle}>
+          <a href="#" tabindex="0">
+            Item 2
+          </a>
+        </li>
+        <li style={liStyle}>
+          <a href="#" tabindex="0">
+            Item 3
+          </a>
+        </li>
+      </ul>
+    </KeyboardNavigation>
+  );
+};
+```
+
+</Playground>
+
+#### Hook usage
+
+<Playground>
+
+```jsx
+() => {
+  const { ref } = useKeyboardNavigation();
+  const ulStyle = {
+    listStyle: 'none',
+    display: 'flex',
+    border: '1px solid #000',
+    padding: '0',
+    position: 'relative',
+  };
+  const liStyle = {
+    padding: '10px',
+  };
+  return (
+    <div ref={ref}>
+      <ul style={ulStyle}>
+        <li style={liStyle}>
+          <a href="#" tabindex="0">
+            Item 1
+          </a>
+        </li>
+        <li style={liStyle}>
+          <a href="#" tabindex="0">
+            Item 2
+          </a>
+        </li>
+        <li style={liStyle}>
+          <a href="#" tabindex="0">
+            Item 3
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+};
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                     | Source link                                                                                                                                                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-keyboardnavigation--example">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/keyboardNavigation">View source</ExternalLink> |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-keyboardnavigation--example">React Storybook.</Link>
+
+#### Keys
+
+Keys define which way a key press commands the focus to move: `next`, `previous`, `levelDown`, `levelUp`
+Each key is an array of `KeyboardEvent` key codes.
+
+Default keys:
+
+- **next:** ['ArrowDown', 'ArrowRight']
+- **previous:** ['ArrowUp', 'ArrowLeft']
+- **levelDown:** ['']
+- **levelUp:** ['Escape']
+
+#### onChange callback
+
+When the focus changes, the callback is called with three arguments:
+
+- **event type:** `next`, `previous`, `focusIn`, `focusOut`, `focusChange`, `dataUpdated`, `levelDown`, `levelUp`;
+- **tracker:** the keyboard tracker instance
+- **path:** path to an element where the event occurred.
+
+#### Selectors, focusableSelector and containerSelector
+
+Selectors can be defined as `selectors` property with properties:
+
+- **containerElements:** returns container elements for the given parent
+- **focusableSelector:** returns focusable elements for the given parent
+
+Both functions are type `(parent: HTMLElement, path: ElementPath) => HTMLElement[];`
+
+Instead of `selectors`, you can define `focusableElements` and `containerSelector` which are both `string` or functions `(parent, path)=> NodeList`
+
+#### Navigator
+
+The `navigator` function returns elements for each direction: `next`, `previous`, `levelDown`, `levelUp`.
+It is called every time the navigation command is received. It is called with two arguments:
+
+- **elementOrPath:** path to the current element
+- **loop:** current `loop` value
+
+#### All properties
+
+| Property                                    | Description                                                               | Values                 | Default value |
+| ------------------------------------------- | ------------------------------------------------------------------------- | ---------------------- | ------------- |
+| `keys`                                      | Key codes for each direction                                              | `See above`            | `See above`   |
+| `loop`                                      | Does the navigation loop around the first and last focusable              | `boolean`              | `true`        |
+| `onChange`                                  | Callback fired when focus changes                                         | `function`             | -             |
+| `selectors`                                 | Selectors can be passed as a function which return array of HTML elements | ``                     | -             |
+| `autoFocusAfterUpdate`                      | If true, current focused element is re-focused after refresh() is called  | `boolean`              | `false`       |
+| `navigator`                                 | Function to override the default navigator                                | `function`             | -             |
+| `focusableSelector`                         | Function or string used as focusable element selector                     | `function` or `string` | -             |
+| `containerSelector`                         | Function or string used as container element selector                     | `function` or `string` | -             |
+| [Table 1: useKeyboardNavigation properties] |
+
+### Returned functions
+
+| Function                                   | Description                                                                             | Arguments                      | Return value        |
+| ------------------------------------------ | --------------------------------------------------------------------------------------- | ------------------------------ | ------------------- |
+| `dispose`                                  | Removes all data and references                                                         | -                              | -                   |
+| `setFocusedElementByIndex`                 | Sets focused element by the given index array or number. Negative numbers are accepted. | `number[]` or `number`         | `boolean`           |
+| `setFocusToElement`                        | Sets focus to the given element                                                         | `HTMLElement`                  | `boolean`           |
+| `setFocusToElementDataOrPath`              | Sets focus to the element found with ElementData or ElementPath                         | `ElementData` or `ElementPath` | `boolean`           |
+| `refresh`                                  | Remaps focusable elements and containers. Use when dom changes.                         | -                              | -                   |
+| `getNavigationOptions`                     | Returns navigation options from the currently focused element.                          | -                              | `NavigationOptions` |
+| `getFocusedElement`                        | Returns currently focused element                                                       | -                              | -                   |
+| `getFocusedElementPath`                    | Sets new keys to track when keys are pressed                                            | -                              | `ElementPath`       |
+| `setKeys`                                  | Returns ElementPath to currently focused element                                        | `Keys`                         | `Keys`              |
+| [Table 2: useKeyboardNavigation functions] |

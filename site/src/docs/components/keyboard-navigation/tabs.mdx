@@ -1,0 +1,30 @@
+---
+slug: '/components/keyboard-navigation/tabs'
+title: 'KeyboardNavigation'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+
+# KeyboardNavigation
+
+<StatusLabel type="info">Beta</StatusLabel>
+<StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Waiting for accessibility audit
+</StatusLabel>
+
+<LeadParagraph>
+  KeyboardNavigation makes any element navigational with a keyboard.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>

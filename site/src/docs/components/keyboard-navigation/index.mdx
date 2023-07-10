@@ -1,0 +1,88 @@
+---
+slug: '/components/keyboard-navigation'
+title: 'KeyboardNavigation'
+navTitle: 'KeyboardNavigation'
+---
+
+import { KeyboardNavigation } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+Preferred way enable keyboard navigation is to use the hook `useKeyboardNavigation`. The `KeyboardNavigation` component uses it and both use same properties. The component adds an extra div, which the hook does not add.
+
+### Example
+
+<PlaygroundPreview>
+  <KeyboardNavigation>
+    <ul style={{
+      listStyle: 'none',
+      display: 'flex',
+      border: '1px solid #000',
+      padding: '0',
+      position: 'relative',
+    }}>
+      <li style={{padding: '10px'}}>
+        <a href="#" tabindex="0">
+          Item 1
+        </a>
+      </li>
+      <li style={{padding: '10px'}}>
+        <a href="#" tabindex="0">
+          Item 2
+        </a>
+      </li>
+      <li style={{padding: '10px'}}>
+        <a href="#" tabindex="0">
+          Item 3
+        </a>
+      </li>
+    </ul>
+  </KeyboardNavigation>
+</PlaygroundPreview>
+
+### Principles
+
+- Keyboard navigation should not prevent native keyboard commands.
+- If natively unfocusable element is included by the selectors, the element will be modified to accept focus.
+- Elements not visible on screen are filtered out. Their bounding box must be inside the screen.
+
+### Functionalities
+- **Focusable elements:** By default all `<a>` elements inside the element passed to the component are selected as focusables
+- **Container elements:** By default the passed root element is the only container of focusable elements. Multiple containers need to be used only, if you have multi-level navigation with menus and submenus and may submenus of submenus. There is no limit how deep the navigational tree can be.
+
+### Selectors
+
+There are two kind of selectors: `focusableSelector` and `containerSelector`. Selector can be a function or a string. Both selectors are optional.
+
+### Function selectors
+
+If selector is a function, it receives two arguments: 
+- parent element. Usually the passed root element. In multilevel navigation, the parent element changes on each level.
+- path to the parent element. Path is an array of objects and it shows where in the navigational tree the parent element is.
+
+### String selectors
+String selectors are used with `container.querySelectorAll(selector)`. The `container` is the parent element, usually root element passed to the component or hook.
+
+### The focusableSelector
+Focusable elements are queried with `container.querySelectorAll(selector)`. Default selector is `a`.
+
+### The containerSelector
+If multiple containers are needed, set the `containerSelector` property. Otherwise there is no need for it. Container elements are also queried with `container.querySelectorAll(selector)`.
+
+### Focusable elements
+You can select any element to be focusable. `tabindex` attribute is set to `-1`, if element is not natively focusable. Note that by default Firefox and Safari on Mac do not allow keyboard focus even then. System preferences must be changed.
+
+### Container elements
+Container contains any number of focusables. All focusables in sibling containers are considered to be on same level.
+For example all `<li>` elements of a `<ul>` can be containers and each `<a>` in each list element can be navigated on the same level.
+
+### Multilevel containers
+If the `<li>` element also has a `<div>` as a subMenu container and it has `<span>` elements as focusables, then you should use following selectors:
+- containerSelector: `:scope > ul > li, :scope > div`
+- focusableSelector: `:scope a, :scope span`
+
+`:scope` should be used to limit selectors to certain level. 
