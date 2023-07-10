@@ -13,7 +13,7 @@
 
 ### Setting up local development environment
 
-1. If you are a member of the HDS team, you can clone the repository. Otherwise if you're a contributor for example, fork the repository from our Github repository.
+1. Clone the HDS repository.
 
 ```bash
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git

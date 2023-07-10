@@ -6,29 +6,31 @@ Contributions are open even if you don't have a finished solution yet. HDS team 
 
 Send pull requests to `development` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits for maintainers is also recommended.
 
-1. Set up your local development environment by following the steps in [DEVELOPMENT.md](/DEVELOPMENT.md). Use short and descriptive commit messages e.g. "Add rotate property for Koros component".
+1. [Fork the repository](https://github.com/City-of-Helsinki/helsinki-design-system/fork). Select yourself as the owner and press Create fork.
 
-2. Create a new branch with prefix `hds-<Ticket number>` if you have a ticket number, otherwise just use prefix `feature/` or `fix/` whichever is more approriate. When submitting large changes split them into light and coherent parts. This sometimes requires sending in multiple PRs.
+2. Set up your local development environment by following the steps in [DEVELOPMENT.md](/DEVELOPMENT.md), disregarding the cloning part.
+
+3. Create a new branch with prefix `hds-<Ticket number>` if you have a ticket number, otherwise just use prefix `feature/` or `fix/` whichever is more approriate. When submitting large changes split them into light and coherent parts. This sometimes requires sending in multiple PRs. Remember to use short and descriptive commit messages e.g. "Add rotate property for Koros component".
 
     * Feature – If you intend to change the public API or introduce a new feature.
 
     * Fix – If you intend to make a code change to solve a production issue.
 
-3. If you’ve added code that should be tested, add tests! Ensure the test suite passes and Jest snapshot tests are updated by running the following command. Also commit the updated snapshot tests. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
+4. If you’ve added code that should be tested, add tests! Ensure the test suite passes and Jest snapshot tests are updated by running the following command. Also commit the updated snapshot tests. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
 
 ```bash
 yarn test -- -u
 ```
 
-4. Lint your code. Tip: Lint runs automatically when you build.
+5. Lint your code. Tip: Lint runs automatically when you build.
 
 ```bash
 yarn test:lint
 ```
 
-5. Make a Pull Request on the [HDS Github website](https://github.com/City-of-Helsinki/helsinki-design-system/pulls). If you have a ticket number name the PR e.g. "HDS-1377: number input accessibility fix" so it will automatically link to the ticket. Please be sure to check the open PRs in case somebody is already working on a similar issue. Also to prevent overlapping work notify HDS team by Slack at #designsystem or via email hds@hel.fi.
+6. Make a Pull Request on the [HDS Github website](https://github.com/City-of-Helsinki/helsinki-design-system/pulls). If you have a ticket number name the PR e.g. "HDS-1377: number input accessibility fix" so it will automatically link to the ticket. Please be sure to check the open PRs in case somebody is already working on a similar issue. Also to prevent overlapping work notify HDS team by Slack at #designsystem or via email hds@hel.fi.
 
-6. HDS team will review the PR and either add it to the release queue, request changes to it or close it with an explanation. PRs are reviewed with the following quality criteria:
+7. HDS team will review the PR and either add it to the release queue, request changes to it or close it with an explanation. PRs are reviewed with the following quality criteria:
 
     * Accessibility
 
