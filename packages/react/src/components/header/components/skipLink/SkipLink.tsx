@@ -19,7 +19,7 @@ export const SkipLink = ({ skipTo, label }: SkipLinkProps) => {
 
   return (
     <a href={href} className={styles.skipLink}>
-      <span>{label}</span>
+      <span className={styles.skipLinkLabel}>{label}</span>
     </a>
   );
 };

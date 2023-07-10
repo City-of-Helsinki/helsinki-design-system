@@ -6,7 +6,9 @@ exports[`<SkipToContentLink /> spec it should show link when tab is pressed 1`] 
     class="skipLink"
     href="#content"
   >
-    <span>
+    <span
+      class="skipLinkLabel"
+    >
       skip to content
     </span>
   </a>
@@ -19,7 +21,9 @@ exports[`<SkipToContentLink /> spec renders the component 1`] = `
     class="skipLink"
     href="#content"
   >
-    <span>
+    <span
+      class="skipLinkLabel"
+    >
       skip to content
     </span>
   </a>

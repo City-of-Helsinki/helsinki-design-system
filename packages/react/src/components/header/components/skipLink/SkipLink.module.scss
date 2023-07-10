@@ -19,26 +19,28 @@
     --height: 60px;
   }
   
-  display: none;
+  display: flex;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  top: calc(-1 * var(--height));
 
   &:focus {
     align-items: center;
     background-color: var(--background-color);
-    display: flex;
     font-family: var(--font-default);
     font-weight: 500;
     height: var(--height);
     justify-content: center;
     left: 15px;
     outline: var(--outline-color) solid var(--outline-width);
-    position: absolute;
     text-decoration: none;
     top: var(--top);
-    transition: all 0.25s ease-in;
+    transition: all 0.15s ease-in;
     width: var(--width);
     z-index: 99;  
   
-    & > span {
+    & > span.skipLinkLabel {
       align-items: center;
       color: var(--text-color);
       display: flex;
