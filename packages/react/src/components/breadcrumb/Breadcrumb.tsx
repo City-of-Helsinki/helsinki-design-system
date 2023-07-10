@@ -1,6 +1,8 @@
 import React from 'react';
 
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
