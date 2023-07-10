@@ -56,7 +56,7 @@ describe('<Footer.UtilityGroup /> spec', () => {
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <>
-        <Footer.UtilityGroup ariaLabel="Utility links group">
+        <Footer.UtilityGroup>
           <Footer.GroupHeading
             href="https://google.com"
             onClick={(e) => e.preventDefault()}
@@ -76,7 +76,7 @@ describe('<Footer.UtilityGroup /> spec', () => {
             variant={FooterVariant.Utility}
           />
         </Footer.UtilityGroup>
-        <Footer.UtilityGroup key={6} ariaLabel="Social media links">
+        <Footer.UtilityGroup key={6}>
           <Footer.GroupHeading label="Social media" variant={FooterVariant.Utility} />
           <Footer.NavigationLink
             title="Helsingin kaupungin Facebook-tili"

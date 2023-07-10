@@ -9,7 +9,7 @@ import { Footer } from '../../Footer';
 describe('<Footer.Navigation /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
-      <FooterNavigation ariaLabel="Foo">
+      <FooterNavigation>
         <Footer.NavigationLink label="Link 1" />
         <Footer.NavigationLink label="Link 2" />
         <Footer.NavigationLink label="Link 3" />
@@ -20,7 +20,7 @@ describe('<Footer.Navigation /> spec', () => {
   });
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
-      <FooterNavigation ariaLabel="Foo">
+      <FooterNavigation>
         <Footer.NavigationLink label="Link 1" />
         <Footer.NavigationLink label="Link 2" />
         <Footer.NavigationLink label="Link 3" />

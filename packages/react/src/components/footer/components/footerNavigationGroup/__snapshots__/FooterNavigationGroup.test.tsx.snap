@@ -47,7 +47,7 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
         >
           Bar
         </h2>
-        <nav
+        <div
           class="navigation"
         >
           <div
@@ -85,7 +85,7 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
               </a>
             </div>
           </div>
-        </nav>
+        </div>
       </div>
     </div>
   </footer>

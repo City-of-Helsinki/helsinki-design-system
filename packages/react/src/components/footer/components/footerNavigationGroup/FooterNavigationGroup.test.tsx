@@ -29,7 +29,6 @@ describe('<Footer.NavigationGroup /> spec', () => {
         headingLink={
           <Footer.GroupHeading href="https://google.com" label="Main Page" variant={FooterVariant.Navigation} />
         }
-        ariaLabel="Navigation group"
       >
         <Footer.NavigationLink label="Link 1" />
         <Footer.NavigationLink label="Link 2" />

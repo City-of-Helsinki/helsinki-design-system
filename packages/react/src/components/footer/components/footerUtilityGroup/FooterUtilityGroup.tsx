@@ -8,10 +8,6 @@ import classNames from '../../../../utils/classNames';
 
 type FooterUtilityGroupProps = React.PropsWithChildren<{
   /**
-   * Description of the utility link group for screen readers.
-   */
-  ariaLabel?: string;
-  /**
    * Additional class names to apply.
    */
   className?: string;
@@ -32,9 +28,9 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
    */
   headingLink?: React.ReactNode;
 }>;
-export const FooterUtilityGroup = ({ ariaLabel, className, children, id, headingLink }: FooterUtilityGroupProps) => {
+export const FooterUtilityGroup = ({ className, children, id, headingLink }: FooterUtilityGroupProps) => {
   return (
-    <div aria-label={ariaLabel} id={id} className={classNames(styles.utilityGroup, className)}>
+    <div id={id} className={classNames(styles.utilityGroup, className)}>
       <div className={styles.utilityGroup}>
         {headingLink}
         {children}

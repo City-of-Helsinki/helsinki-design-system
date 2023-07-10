@@ -9,11 +9,6 @@ import classNames from '../../../../utils/classNames';
 
 type FooterNavigationGroupProps = React.PropsWithChildren<{
   /**
-   * Description of the navigation group
-   * for screen readers.
-   */
-  ariaLabel?: string;
-  /**
    * Additional class names to apply.
    */
   className?: string;
@@ -34,13 +29,7 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
    */
   headingLink: React.ReactNode;
 }>;
-export const FooterNavigationGroup = ({
-  ariaLabel,
-  className,
-  children,
-  id,
-  headingLink,
-}: FooterNavigationGroupProps) => {
+export const FooterNavigationGroup = ({ className, children, id, headingLink }: FooterNavigationGroupProps) => {
   // Show only main links in smaller screens
   const shouldRenderOnlyMainLinks = useMediaQueryLessThan('l');
 
@@ -48,7 +37,7 @@ export const FooterNavigationGroup = ({
   return shouldRenderOnlyMainLinks ? (
     <>{headingLink}</>
   ) : (
-    <div aria-label={ariaLabel} id={id} className={classNames(styles.navigationGroup, className)}>
+    <div id={id} className={classNames(styles.navigationGroup, className)}>
       <div className={styles.navigationGroupList}>
         {headingLink}
         {children}

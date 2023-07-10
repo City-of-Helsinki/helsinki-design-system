@@ -47,8 +47,7 @@ exports[`<Footer.Navigation /> spec renders the component 1`] = `
         >
           Bar
         </h2>
-        <nav
-          aria-label="Foo"
+        <div
           class="navigation"
         >
           <a
@@ -72,7 +71,7 @@ exports[`<Footer.Navigation /> spec renders the component 1`] = `
               Link 3
             </span>
           </a>
-        </nav>
+        </div>
       </div>
     </div>
   </footer>

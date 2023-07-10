@@ -8,10 +8,6 @@ import classNames from '../../../../utils/classNames';
 
 export type FooterUtilitiesProps = {
   /**
-   * Description of the navigation links for screen readers.
-   */
-  ariaLabel?: string;
-  /**
    * Children elements to render.
    */
   children: React.ReactNode;
@@ -26,9 +22,9 @@ export type FooterUtilitiesProps = {
   soMeSectionProps?: React.ComponentPropsWithoutRef<'section'>;
 };
 
-export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionProps }: FooterUtilitiesProps) => {
+export const FooterUtilities = ({ children, soMeLinks, soMeSectionProps }: FooterUtilitiesProps) => {
   return (
-    <div className={styles.utilities} aria-label={ariaLabel}>
+    <div className={styles.utilities}>
       <hr className={styles.divider} aria-hidden />
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>{children}</div>
       {soMeLinks && (

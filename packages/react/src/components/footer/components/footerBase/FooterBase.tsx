@@ -12,10 +12,6 @@ import { getChildrenAsArray } from '../../../../utils/getChildren';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
-   * Description of the base section for screen readers.
-   */
-  ariaLabel?: string;
-  /**
    * Label for the "Back to top" button
    */
   backToTopLabel?: string | React.ReactNode;
@@ -61,7 +57,6 @@ const handleBackToTop = (): void => {
 };
 
 export const FooterBase = ({
-  ariaLabel,
   backToTopLabel,
   children,
   copyrightHolder,
@@ -74,7 +69,7 @@ export const FooterBase = ({
 }: FooterBaseProps) => {
   const childElements = getChildrenAsArray(children);
   return (
-    <div className={styles.base} aria-label={ariaLabel}>
+    <div className={styles.base}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
         <FooterNavigationLink
