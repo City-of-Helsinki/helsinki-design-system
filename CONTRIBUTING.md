@@ -16,10 +16,28 @@ Send pull requests to `development` branch. Right now all pull requests are welc
 
     * Fix – If you intend to make a code change to solve a production issue.
 
-4. If you’ve added code that should be tested, add tests! Ensure the test suite passes and Jest snapshot tests are updated by running the following command. Also commit the updated snapshot tests. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
+4. When developing for the `hds-react` package: if you’ve added code that should be tested, add tests! HDS tests are usually simple rendering and functionality checks. Avoid excessive amount of mocking for simplicity's sake and testing for implementation details, i.e. don't test whether function `hideComponent` was called but rather that the component is not visible. This way there are no false negatives when the code is refactored by changing the function name for example, or false positives when the function breaks and doesn't hide the component.
 
+Ensure the test suite and regression tests pass. Remember commit the updated snapshot tests and loki reference images. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
+
+Run snapshot tests:
+```bash
+yarn test
+```
+
+Update jest snapshots:
 ```bash
 yarn test -- -u
+```
+
+Run loki tests:
+```bash
+yarn run visual-test
+```
+
+Update loki tests:
+```bash
+yarn run update-reference-images
 ```
 
 5. Lint your code. Tip: Lint runs automatically when you build.
