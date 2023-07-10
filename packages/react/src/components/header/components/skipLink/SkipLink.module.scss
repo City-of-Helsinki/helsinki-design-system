@@ -1,32 +1,39 @@
+@use "../../../../styles/layout.scss";
+
 .skipLink {
   --background-color: var(--color-white);
-  --text-color: var(--color-black-90);
+  --height: 66px;
+  --inner-outer-spacing: 6px;
   --outline-color: var(--color-focus-outline);
   --outline-inner-color: var(--color-black-90);
   --outline-width: 3px;
+  --text-color: var(--color-black-90);
+  --top: 10px;
   --width: 213px;
-  --height: 66px;
 
-  align-items: center;
-  display: flex;
-  height: 1px;
-  justify-content: center;
-  left: -10000px;
-  overflow: hidden;
-  position: absolute;
-  top: auto;
-  width: 1px;
+  @include layout.below-large {
+    --top: 2px;
+  }
+  
+  @include layout.below-medium {
+    --height: 60px;
+  }
+  
+  display: none;
 
   &:focus {
+    align-items: center;
     background-color: var(--background-color);
+    display: flex;
     font-family: var(--font-default);
     font-weight: 500;
     height: var(--height);
+    justify-content: center;
     left: 15px;
     outline: var(--outline-color) solid var(--outline-width);
     position: absolute;
     text-decoration: none;
-    top: 10px;
+    top: var(--top);
     transition: all 0.25s ease-in;
     width: var(--width);
     z-index: 99;  
@@ -35,10 +42,10 @@
       align-items: center;
       color: var(--text-color);
       display: flex;
-      height: calc(var(--height) - 2 * 6px);
+      height: calc(var(--height) - 2 * var(--inner-outer-spacing));
       justify-content: center;
       outline: var(--outline-inner-color) solid var(--outline-width);
-      width: calc(var(--width) - 2 * 6px);    
+      width: calc(var(--width) - 2 * var(--inner-outer-spacing));    
     }
   }
 

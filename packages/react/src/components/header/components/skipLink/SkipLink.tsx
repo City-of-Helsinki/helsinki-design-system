@@ -4,7 +4,7 @@ import React from 'react';
 import 'hds-core';
 import styles from './SkipLink.module.scss';
 
-export type SkipToProps = {
+export type SkipLinkProps = {
   /**
    * ID of the element which is reached by clicking "skip link" shortcut
    */
@@ -14,7 +14,7 @@ export type SkipToProps = {
    */
   label?: string;
 };
-export const SkipLink = ({ skipTo, label }: SkipToProps) => {
+export const SkipLink = ({ skipTo, label }: SkipLinkProps) => {
   const href = skipTo?.startsWith('#') ? skipTo : `#${skipTo}`;
 
   return (
