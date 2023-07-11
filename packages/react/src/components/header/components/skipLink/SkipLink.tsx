@@ -8,14 +8,14 @@ export type SkipLinkProps = {
   /**
    * ID of the element which is reached by clicking "skip link" shortcut
    */
-  skipTo?: string;
+  skipTo: string;
   /**
    * Label for skip link shortcut
    */
-  label?: string;
+  label: string;
 };
 export const SkipLink = ({ skipTo, label }: SkipLinkProps) => {
-  const href = skipTo?.startsWith('#') ? skipTo : `#${skipTo}`;
+  const href = skipTo.startsWith('#') ? skipTo : `#${skipTo}`;
 
   return (
     <a href={href} className={styles.skipLink}>
