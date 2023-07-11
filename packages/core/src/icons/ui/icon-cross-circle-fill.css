@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/cross-circle-fill.svg");
+
+.hds-icon--cross-circle-fill {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

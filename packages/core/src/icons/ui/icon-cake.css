@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/cake.svg");
+
+.hds-icon--cake {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

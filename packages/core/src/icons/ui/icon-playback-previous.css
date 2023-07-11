@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/playback-previous.svg");
+
+.hds-icon--playback-previous {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

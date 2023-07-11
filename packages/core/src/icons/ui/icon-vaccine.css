@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/vaccine.svg");
+
+.hds-icon--vaccine {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

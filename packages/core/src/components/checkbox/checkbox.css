@@ -24,7 +24,6 @@
   --label-color: var(--color-black-90);
   --label-color-disabled: var(--color-black-40);
   --icon-size: var(--spacing-m);
-
   display: flex;
   flex-wrap: wrap;
   min-height: var(--size);

@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/face-sad.svg");
+
+.hds-icon--face-sad {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

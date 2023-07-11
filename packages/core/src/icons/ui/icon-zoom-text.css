@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/zoom-text.svg");
+
+.hds-icon--zoom-text {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

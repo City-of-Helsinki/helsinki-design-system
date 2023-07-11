@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/signin.svg");
+
+.hds-icon--signin {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

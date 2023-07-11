@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/volume-plus.svg");
+
+.hds-icon--volume-plus {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/playback-play.svg");
+
+.hds-icon--playback-play {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

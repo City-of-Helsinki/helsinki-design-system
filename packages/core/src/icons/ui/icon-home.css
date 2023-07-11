@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/home.svg");
+
+.hds-icon--home {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

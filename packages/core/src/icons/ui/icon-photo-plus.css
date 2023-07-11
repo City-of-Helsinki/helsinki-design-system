@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/photo-plus.svg");
+
+.hds-icon--photo-plus {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

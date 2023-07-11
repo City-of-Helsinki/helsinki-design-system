@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/thumbs-down.svg");
+
+.hds-icon--thumbs-down {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

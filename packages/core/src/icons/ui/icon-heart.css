@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/heart.svg");
+
+.hds-icon--heart {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

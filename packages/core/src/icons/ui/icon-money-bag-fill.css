@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/money-bag-fill.svg");
+
+.hds-icon--money-bag-fill {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

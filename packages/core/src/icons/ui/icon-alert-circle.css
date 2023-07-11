@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/alert-circle.svg");
+
+.hds-icon--alert-circle {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

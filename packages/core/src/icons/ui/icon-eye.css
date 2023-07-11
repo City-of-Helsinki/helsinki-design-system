@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/eye.svg");
+
+.hds-icon--eye {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

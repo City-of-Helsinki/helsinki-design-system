@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/error-fill.svg");
+
+.hds-icon--error-fill {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

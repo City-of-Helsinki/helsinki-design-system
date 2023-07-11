@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/search.svg");
+
+.hds-icon--search {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

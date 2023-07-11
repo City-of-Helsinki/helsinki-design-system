@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/wifi-crossed.svg");
+
+.hds-icon--wifi-crossed {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/person-genderless.svg");
+
+.hds-icon--person-genderless {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

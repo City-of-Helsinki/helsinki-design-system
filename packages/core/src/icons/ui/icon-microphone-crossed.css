@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/microphone-crossed.svg");
+
+.hds-icon--microphone-crossed {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

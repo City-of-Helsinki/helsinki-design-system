@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/sliders.svg");
+
+.hds-icon--sliders {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

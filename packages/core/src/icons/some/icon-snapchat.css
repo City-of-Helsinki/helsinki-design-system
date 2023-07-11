@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/some/snapchat.svg");
+
+.hds-icon--snapchat {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

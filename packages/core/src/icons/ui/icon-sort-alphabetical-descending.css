@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/sort-alphabetical-descending.svg");
+
+.hds-icon--sort-alphabetical-descending {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

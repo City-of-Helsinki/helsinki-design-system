@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/minus.svg");
+
+.hds-icon--minus {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

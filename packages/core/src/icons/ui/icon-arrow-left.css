@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/arrow-left.svg");
+
+.hds-icon--arrow-left {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

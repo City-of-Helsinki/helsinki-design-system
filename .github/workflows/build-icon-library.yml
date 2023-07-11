@@ -50,6 +50,9 @@ jobs:
       - name: Copy Changelog file to icon library
         run: cp ./release/icon-kit-template-CHANGELOG.txt ./icon-library/CHANGELOG.txt
 
+      - name: Copy license file
+        run: cp ./release/icon-kit-template-LICENSE.txt ./icon-library/LICENSE.txt
+
       - name: Create release zip file
         uses: TheDoctor0/zip-release@0.7.1
         with:

@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/face-smile.svg");
+
+.hds-icon--face-smile {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

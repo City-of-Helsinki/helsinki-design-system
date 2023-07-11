@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/occupation.svg");
+
+.hds-icon--occupation {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

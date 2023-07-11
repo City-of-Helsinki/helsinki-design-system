@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/customer-bot-positive.svg");
+
+.hds-icon--customer-bot-positive {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

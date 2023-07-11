@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/arrow-right-dashed.svg");
+
+.hds-icon--arrow-right-dashed {
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}

@@ -1,0 +1,6 @@
+@svg-load icon url("../../svg/ui/save-diskette-fill.svg");
+
+.hds-icon--save-diskette-fill{
+  -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
+}
