@@ -1,0 +1,8 @@
+@import '../../common.scss';
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-m);
+  padding-bottom: var(--spacing-m);
+}

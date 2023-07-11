@@ -2,59 +2,122 @@ import React from 'react';
 
 import { Footer } from './Footer';
 import { IconFacebook, IconInstagram, IconLinkedin, IconTiktok, IconTwitter, IconYoutube } from '../../icons';
-import { FooterItem } from './footerItem/FooterItem';
-import { FooterItemGroup } from './footerItemGroup/FooterItemGroup';
-import { FooterNavigation } from './footerNavigation/FooterNavigation';
-import { FooterUtilities } from './footerUtilities/FooterUtilities';
-import { FooterSoMe } from './footerSoMe/FooterSoMe';
-import { FooterBase } from './footerBase/FooterBase';
+import { FooterGroupHeading } from './components/footerGroupHeading/FooterGroupHeading';
+import { FooterNavigationLink } from './components/footerNavigationLink/FooterNavigationLink';
+import { FooterNavigationGroup } from './components/footerNavigationGroup/FooterNavigationGroup';
+import { FooterNavigation } from './components/footerNavigation/FooterNavigation';
+import { FooterUtilities } from './components/footerUtilities/FooterUtilities';
+import { FooterUtilityGroup } from './components/footerUtilityGroup/FooterUtilityGroup';
+import { FooterBase } from './components/footerBase/FooterBase';
+import { FooterCustom } from './components/footerCustom/FooterCustom';
+import { FooterVariant } from './Footer.interface';
 
 const footerNavAriaLabel = 'Footer navigation items';
+const footerCustomAriaLabel = 'Custom area';
+const footerUtilityAriaLabel = 'Utility links';
+const footerBaseAriaLabel = 'Copyright information';
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
-const Utilities = () => (
-  <Footer.Utilities backToTopLabel="Back to top">
-    <Footer.SoMe>
-      <Footer.Item
-        title="Link to Facebook"
-        aria-label="Link to Facebook"
+const Utilities = () => {
+  const someLinks = () => {
+    return [
+      <Footer.NavigationLink
+        title="Helsingin kaupungin Facebook-tili"
+        ariaLabel="Helsingin kaupungin Facebook-tili"
+        external
+        openInNewTab
         icon={<IconFacebook aria-hidden />}
         href="https://facebook.com"
-      />
-      <Footer.Item
-        title="Link to Twitter"
-        aria-label="Link to Twitter"
+      />,
+      <Footer.NavigationLink
+        title="Helsingin kaupungin Twitter-tili"
+        ariaLabel="Helsingin kaupungin Twitter-tili"
+        external
+        openInNewTab
         icon={<IconTwitter aria-hidden />}
         href="https://twitter.com"
-      />
-      <Footer.Item
-        title="Link to Instagram"
-        aria-label="Link to Instagram"
+      />,
+      <Footer.NavigationLink
+        title="Helsingin kaupungin Instagram-tili"
+        ariaLabel="Helsingin kaupungin Instagram-tili"
+        external
+        openInNewTab
         icon={<IconInstagram aria-hidden />}
         href="https://instagram.com"
-      />
-      <Footer.Item
-        title="Link to Youtube"
-        aria-label="Link to Youtube"
+      />,
+      <Footer.NavigationLink
+        title="Helsingin kaupungin Youtube-tili"
+        ariaLabel="Helsingin kaupungin Youtube-tili"
+        external
+        openInNewTab
         icon={<IconYoutube aria-hidden />}
         href="https://youtube.com"
-      />
-      <Footer.Item
-        title="Link to Tiktok"
-        aria-label="Link to Tiktok"
+      />,
+      <Footer.NavigationLink
+        title="Helsingin kaupungin Tiktok-tili"
+        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        external
+        openInNewTab
         icon={<IconTiktok aria-hidden />}
         href="https://tiktok.com"
+      />,
+    ];
+  };
+  return (
+    <Footer.Utilities ariaLabel={footerUtilityAriaLabel} soMeLinks={someLinks()}>
+      <Footer.NavigationLink
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="Contact us"
+        variant={FooterVariant.Utility}
       />
-    </Footer.SoMe>
-    <Footer.Item href="https://google.com" onClick={(e) => e.preventDefault()} label="Contact us" />
-    <Footer.Item href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
-  </Footer.Utilities>
-);
+      <Footer.NavigationLink
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="Give feedback"
+        variant={FooterVariant.Utility}
+      />
+      <Footer.NavigationLink
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="Support"
+        variant={FooterVariant.Utility}
+      />
+      <Footer.NavigationLink
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="About"
+        variant={FooterVariant.Utility}
+      />
+      <Footer.NavigationLink
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="Github page"
+        external
+        openInNewTab
+        variant={FooterVariant.Utility}
+      />
+    </Footer.Utilities>
+  );
+};
 
 const Base = () => (
-  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+  <Footer.Base
+    copyrightHolder="Copyright"
+    copyrightText="All rights reserved"
+    backToTopLabel="Back to top"
+    ariaLabel={footerBaseAriaLabel}
+  >
     {createArray(5).map((index) => (
-      <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Link" />
+      <Footer.NavigationLink
+        key={index}
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="Link"
+        className="test"
+        variant={FooterVariant.Base}
+        {...(index === 4 && { external: true, openInNewTab: true })}
+      />
     ))}
   </Footer.Base>
 );
@@ -64,11 +127,13 @@ export default {
   title: 'Components/Footer',
   subcomponents: {
     FooterNavigation,
-    FooterItem,
-    FooterItemGroup,
+    FooterNavigationLink,
+    FooterNavigationGroup,
+    FooterGroupHeading,
     FooterUtilities,
-    FooterSoMe,
+    FooterUtilityGroup,
     FooterBase,
+    FooterCustom,
   },
   parameters: {
     controls: { expanded: true },
@@ -76,7 +141,7 @@ export default {
   },
   args: { title: 'Helsinki Design System', korosType: 'basic', theme: 'light' },
   argTypes: {
-    korosType: { control: { type: 'radio', options: ['basic', 'beat', 'pulse', 'wave', 'vibration'] } },
+    korosType: { control: { type: 'radio', options: ['basic', 'beat', 'calm', 'pulse', 'wave', 'vibration'] } },
     theme: { control: { type: 'inline-radio', options: ['light', 'dark'] } },
     title: { control: { type: 'text' } },
   },
@@ -84,21 +149,15 @@ export default {
 
 export const Default = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
-        <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Nav item" />
-      ))}
-    </Footer.Navigation>
-    <Utilities />
-    <Base />
-  </Footer>
-);
-
-export const Minimal = (args) => (
-  <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="minimal">
-      {createArray(4).map((index) => (
-        <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Nav item" />
+        <Footer.NavigationLink
+          key={index}
+          href="https://google.com"
+          onClick={(e) => e.preventDefault()}
+          label="Nav item"
+          variant={FooterVariant.Navigation}
+        />
       ))}
     </Footer.Navigation>
     <Utilities />
@@ -116,9 +175,15 @@ NoNav.storyName = 'No navigation';
 
 export const CustomTheme = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
-        <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Nav item" />
+        <Footer.NavigationLink
+          key={index}
+          href="https://google.com"
+          onClick={(e) => e.preventDefault()}
+          label="Nav item"
+          variant={FooterVariant.Navigation}
+        />
       ))}
     </Footer.Navigation>
     <Utilities />
@@ -144,22 +209,27 @@ CustomTheme.argTypes = {
 
 export const Sitemap = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="sitemap">
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(4).map((index) => (
-        <Footer.ItemGroup key={index}>
+        <Footer.NavigationGroup
+          key={index}
+          headingLink={
+            <Footer.GroupHeading href="https://yourpath.com" label="Main Page" variant={FooterVariant.Navigation} />
+          }
+        >
           {createArray(6).map((subIndex) => {
-            const subItem = subIndex !== 0;
             return (
-              <Footer.Item
+              <Footer.NavigationLink
                 key={subIndex}
-                subItem={subItem}
                 href="https://google.com"
                 onClick={(e) => e.preventDefault()}
-                label={subItem ? 'Sub page' : 'Main Page'}
+                label="Sub page"
+                variant={FooterVariant.Navigation}
+                subItem
               />
             );
           })}
-        </Footer.ItemGroup>
+        </Footer.NavigationGroup>
       ))}
     </Footer.Navigation>
     <Utilities />
@@ -169,67 +239,276 @@ export const Sitemap = (args) => (
 
 export const Example = (args) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
-    <Footer.Navigation navigationAriaLabel="Nostoja palveluista">
-      <Footer.Item href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
-      <Footer.Item href="https://palvelukartta.hel.fi/" label="Palvelut kartalla" />
-      <Footer.Item href="https://hel.fi/yritystenhelsinki" label="Yritysten Helsinki" />
-      <Footer.Item href="https://hel.fi/rekry/fi" label="Avoimet työpaikat" />
-      <Footer.Item href="https://helsinkikanava.fi/fi_FI/" label="Videoita kaupungista" />
-      <Footer.Item href="https://helmet.fi/" label="Kirjastot verkossa" />
-      <Footer.Item href="https://reittiopas.fi/" label="Reittiopas" />
+    <Footer.Navigation ariaLabel="Nostoja palveluista">
+      <Footer.NavigationLink
+        href="https://asiointi.hel.fi/wps/portal/login?locale=fi"
+        label="Sähköinen asiointi"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://palvelukartta.hel.fi/"
+        label="Palvelut kartalla"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://hel.fi/yritystenhelsinki"
+        label="Yritysten Helsinki"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://hel.fi/rekry/fi"
+        label="Avoimet työpaikat"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://helsinkikanava.fi/fi_FI/"
+        label="Videoita kaupungista"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink href="https://helmet.fi/" label="Kirjastot verkossa" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink href="https://reittiopas.fi/" label="Reittiopas" variant={FooterVariant.Navigation} />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Sivun alkuun">
-      <Footer.SoMe soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}>
-        <Footer.Item
+    <Footer.Utilities
+      ariaLabel={footerUtilityAriaLabel}
+      soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}
+      soMeLinks={[
+        <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
-          aria-label="Helsingin kaupungin Facebook-tili"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          external
+          openInNewTab
           icon={<IconFacebook aria-hidden="true" />}
           href="https://facebook.com/helsinginkaupunki/"
-        />
-        <Footer.Item
+          variant={FooterVariant.Utility}
+        />,
+        <Footer.NavigationLink
           title="Helsingin kaupungin Twitter-tili"
-          aria-label="Helsingin kaupungin Twitter-tili"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          external
+          openInNewTab
           icon={<IconTwitter aria-hidden="true" />}
           href="https://twitter.com/helsinki"
-        />
-        <Footer.Item
+          variant={FooterVariant.Utility}
+        />,
+        <Footer.NavigationLink
           title="Helsingin kaupungin Instagram-tili"
-          aria-label="Helsingin kaupungin Instagram-tili"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          external
+          openInNewTab
           icon={<IconInstagram aria-hidden="true" />}
           href="https://instagram.com/helsinki/"
-        />
-        <Footer.Item
+          variant={FooterVariant.Utility}
+        />,
+        <Footer.NavigationLink
           title="Helsingin kaupungin LinkedIn-tili"
-          aria-label="Helsingin kaupungin LinkedIn-tili"
+          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          external
+          openInNewTab
           icon={<IconLinkedin aria-hidden="true" />}
           href="https://linkedin.com/company/city-of-helsinki"
-        />
-        <Footer.Item
+          variant={FooterVariant.Utility}
+        />,
+        <Footer.NavigationLink
           title="Helsingin kaupungin Youtube-tili"
-          aria-label="Helsingin kaupungin Youtube-tili"
+          ariaLabel="Helsingin kaupungin Youtube-tili"
+          external
+          openInNewTab
           icon={<IconYoutube aria-hidden="true" />}
           href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
-        />
-      </Footer.SoMe>
-      <Footer.Item
+          variant={FooterVariant.Utility}
+        />,
+      ]}
+    >
+      <Footer.NavigationLink
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
         label="Yhteystiedot"
+        variant={FooterVariant.Utility}
       />
-      <Footer.Item
+      <Footer.NavigationLink
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
         label="Anna ja lue palautetta"
+        variant={FooterVariant.Utility}
       />
-      <Footer.Item href="https://hel.fi/kanslia/neuvonta-fi" label="Chat-neuvonta" />
+      <Footer.NavigationLink
+        href="https://hel.fi/kanslia/neuvonta-fi"
+        label="Chat-neuvonta"
+        variant={FooterVariant.Utility}
+      />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Helsingin kaupunki" copyrightText="Kaikki oikeudet pidetään">
-      <Footer.Item
+    <Footer.Base
+      copyrightHolder="Helsingin kaupunki"
+      copyrightText="Kaikki oikeudet pidetään"
+      backToTopLabel="Sivun alkuun"
+      ariaLabel={footerBaseAriaLabel}
+    >
+      <Footer.NavigationLink
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
         label="Tietoa palvelusta"
+        variant={FooterVariant.Base}
       />
-      <Footer.Item
+      <Footer.NavigationLink
         href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/saavutettavuus/saavutettavuus-helfi-sivustolla/"
         label="Saavutettavuusseloste"
+        variant={FooterVariant.Base}
       />
     </Footer.Base>
+  </Footer>
+);
+
+export const UtilityGroups = (args) => (
+  <Footer footerProps={{ lang: 'fi' }} {...args}>
+    <Footer.Navigation ariaLabel="Nostoja palveluista">
+      <Footer.NavigationLink
+        href="https://asiointi.hel.fi/wps/portal/login?locale=fi"
+        label="Sähköinen asiointi"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://palvelukartta.hel.fi/"
+        label="Palvelut kartalla"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://hel.fi/yritystenhelsinki"
+        label="Yritysten Helsinki"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://hel.fi/rekry/fi"
+        label="Avoimet työpaikat"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink
+        href="https://helsinkikanava.fi/fi_FI/"
+        label="Videoita kaupungista"
+        variant={FooterVariant.Navigation}
+      />
+      <Footer.NavigationLink href="https://helmet.fi/" label="Kirjastot verkossa" variant={FooterVariant.Navigation} />
+      <Footer.NavigationLink href="https://reittiopas.fi/" label="Reittiopas" variant={FooterVariant.Navigation} />
+    </Footer.Navigation>
+    <Footer.Utilities ariaLabel={footerUtilityAriaLabel}>
+      {createArray(3).map((index) => (
+        <Footer.UtilityGroup
+          key={index}
+          headingLink={
+            <Footer.GroupHeading
+              href="https://google.com"
+              onClick={(e) => e.preventDefault()}
+              label="Group heading link"
+              variant={FooterVariant.Utility}
+            />
+          }
+        >
+          {createArray(6).map((subIndex) => {
+            return (
+              <Footer.NavigationLink
+                key={subIndex}
+                href="https://google.com"
+                onClick={(e) => e.preventDefault()}
+                label="Group link"
+                variant={FooterVariant.Utility}
+              />
+            );
+          })}
+        </Footer.UtilityGroup>
+      ))}
+      <Footer.UtilityGroup
+        key={6}
+        headingLink={<Footer.GroupHeading label="Social media" variant={FooterVariant.Utility} />}
+      >
+        <Footer.NavigationLink
+          title="Helsingin kaupungin Facebook-tili"
+          label="Facebook"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconFacebook aria-hidden="true" />}
+          href="https://facebook.com/helsinginkaupunki/"
+          variant={FooterVariant.Utility}
+        />
+        <Footer.NavigationLink
+          title="Helsingin kaupungin Facebook-tili"
+          label="Facebook"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconFacebook aria-hidden="true" />}
+          href="https://facebook.com/helsinginkaupunki/"
+          variant={FooterVariant.Utility}
+        />
+        <Footer.NavigationLink
+          title="Helsingin kaupungin Twitter-tili"
+          label="Twitter"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconTwitter aria-hidden="true" />}
+          href="https://twitter.com/helsinki"
+          variant={FooterVariant.Utility}
+        />
+        <Footer.NavigationLink
+          title="Helsingin kaupungin Instagram-tili"
+          label="Instagram"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconInstagram aria-hidden="true" />}
+          href="https://instagram.com/helsinki/"
+          variant={FooterVariant.Utility}
+        />
+      </Footer.UtilityGroup>
+    </Footer.Utilities>
+    <Footer.Base
+      copyrightHolder="Helsingin kaupunki"
+      copyrightText="Kaikki oikeudet pidetään"
+      backToTopLabel="Sivun alkuun"
+      ariaLabel={footerBaseAriaLabel}
+    >
+      <Footer.NavigationLink
+        href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
+        label="Tietoa palvelusta"
+        variant={FooterVariant.Base}
+      />
+      <Footer.NavigationLink
+        href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/saavutettavuus/saavutettavuus-helfi-sivustolla/"
+        label="Saavutettavuusseloste"
+        variant={FooterVariant.Base}
+      />
+    </Footer.Base>
+  </Footer>
+);
+
+export const CustomSection = (args) => (
+  <Footer {...args}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
+      {createArray(8).map((index) => (
+        <Footer.NavigationLink
+          key={index}
+          href="https://google.com"
+          onClick={(e) => e.preventDefault()}
+          label="Nav item"
+          variant={FooterVariant.Navigation}
+        />
+      ))}
+    </Footer.Navigation>
+    <Utilities />
+    <Footer.Custom ariaLabel={footerCustomAriaLabel}>
+      <Footer.GroupHeading label="Partners" id="partners" />
+      <div
+        aria-label="partners"
+        style={{ display: 'flex', flexDirection: 'row', gap: '12px 24px', flexWrap: 'wrap', marginTop: '8px' }}
+      >
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" external openInNewTab />
+      </div>
+    </Footer.Custom>
+    <Base />
+  </Footer>
+);
+
+export const Minimal = (args) => (
+  <Footer {...args}>
+    <Footer.Base backToTopLabel="Back to top" />
   </Footer>
 );
