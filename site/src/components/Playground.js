@@ -290,7 +290,8 @@ export const PlaygroundBlock = (props) => {
   const setCodeByLanguage = (language) => (code) => {
     setCodeByLanguageState({ ...codeByLanguageState, [language]: code });
   };
-
+  const blockContentClassName = props.noPreview ? "playground-block-content no-preview" : "playground-block-content"
+ 
   return (
     <div className="playground-block">
       <Tabs>
@@ -316,8 +317,8 @@ export const PlaygroundBlock = (props) => {
                 scope={scopeComponents}
                 language={language}
                 noInline={true}>
-                <div className="playground-block-content">
-                  <PreviewComponent />
+                <div className={blockContentClassName}>
+                {!props.noPreview && <PreviewComponent />}
                   <EditorWithLive
                     initialCode={sanitize(code)}
                     language={language}
@@ -351,4 +352,5 @@ PlaygroundBlock.propTypes = {
     PropTypes.objectOf(CodeBlockShape),
     PropTypes.node,
   ]),
+  noPreview: PropTypes.bool
 };
