@@ -12,16 +12,14 @@ import PageTabs from '../../../components/PageTabs';
 
 # CookieConsent
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="error">Draft</StatusLabel>
   <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  The cookie compliance component informs users about cookie usage. This banner is shown when they visit a website or an
-  application for the first time.
-</LeadParagraph>
+<LeadParagraph>The cookie compliance component informs users about cookie usage. This banner is shown when they visit a website or an
+  application for the first time.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>

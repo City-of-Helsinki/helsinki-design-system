@@ -12,15 +12,13 @@ import PageTabs from '../../../components/PageTabs';
 
 # Tabs
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
   <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Tabs are used to help the user browse and navigate between information contents that have a relation.
-</LeadParagraph>
+<LeadParagraph>Tabs are used to help the user browse and navigate between information contents that have a relation.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>

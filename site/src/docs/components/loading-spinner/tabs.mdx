@@ -12,15 +12,13 @@ import PageTabs from '../../../components/PageTabs';
 
 # LoadingSpinner
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
   <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Loading spinner is used for notifying users that their action is being processed or data retrieved from server.
-</LeadParagraph>
+<LeadParagraph>Loading spinner is used for notifying users that their action is being processed or data retrieved from server.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
