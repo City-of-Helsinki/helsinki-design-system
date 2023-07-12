@@ -1,7 +1,7 @@
 import React from 'react';
 
 // import core base styles
-import 'hds-core';
+import '../../../../styles/base.css';
 import styles from './SkipLink.module.scss';
 
 export type SkipLinkProps = {
