@@ -13,12 +13,16 @@ export type SkipLinkProps = {
    * Label for skip link shortcut
    */
   label: string;
+  /**
+   * Aria label for skip link shortcut (alternative text for screen reader)
+   */
+  ariaLabel?: string;
 };
-export const SkipLink = ({ skipTo, label }: SkipLinkProps) => {
+export const SkipLink = ({ skipTo, label, ariaLabel }: SkipLinkProps) => {
   const href = skipTo.startsWith('#') ? skipTo : `#${skipTo}`;
 
   return (
-    <a href={href} className={styles.skipLink}>
+    <a href={href} aria-label={ariaLabel} className={styles.skipLink}>
       <span className={styles.skipLinkLabel}>{label}</span>
     </a>
   );
