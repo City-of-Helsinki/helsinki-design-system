@@ -84,7 +84,7 @@ Adhering to these principles can create an effective and user-friendly navigatio
       <strong>Don't utilize the content area for navigation purposes.</strong>
       <ul style="margin-top:0;">
         <li>
-          Refrain from duplicating all the links present in the navigation into the content area, such as linkboxes.
+          Refrain from duplicating all the links present in the navigation into the content area. Use only content-relevant navigation links on specific pages.
         </li>
       </ul>
     </li>
@@ -117,8 +117,8 @@ When implementing a navigation pattern, it's essential to consider the order of 
 
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
-  alt="An illustration of the recommended order of navigation component on a landing page. The order is Header, Breadcrumbs, Hero, Main content and Footer."
-  style="max-width:480px;"
+  alt="An illustration of the recommended order of navigation component on a landing page, for desktop and mobile screens. The order is Header, Breadcrumbs, Hero, Main content and Footer."
+  style="max-width:580px;"
   viewable
 />
 
@@ -126,8 +126,8 @@ When implementing a navigation pattern, it's essential to consider the order of 
 
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-component-order-side-nav.png"
-  alt="An illustration of the recommended order of navigation components with side navigation. The order is Header, Breadcrumbs, Side navigation including essential links if used concurrently, Main content and Footer."
-  style="max-width:580px;"
+  alt="An illustration of the recommended order of navigation components with side navigation, for desktop and mobile screens. The order is Header, Breadcrumbs, Side navigation including essential links if used concurrently, Main content and Footer."
+  style="max-width:600px;"
   viewable
 />
 
@@ -379,7 +379,9 @@ Use tabs, when you need to add page-specific navigation that is simple and one-l
 
 ### 6. Main content (required)
 
-Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, and other design elements that guide users through the content.
+Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, links and other design elements, such as linkboxes, images, cards, that guide users through the content.
+
+<strong>Help the user to focus on a single topic, providing only relevant links in the content area</strong>.
 
 <ul style="margin-bottom:0;">
   <li>
@@ -387,12 +389,16 @@ Following the hero section, the main content area is where the primary informati
     <InternalLink href="/foundation/design-tokens/typography#heading-sizes">the Typography page.</InternalLink>
   </li>
   <li>
-    The learn more about the <strong>SideNavigation</strong> component, please refer to
-    <InternalLink href="/components/side-navigation">the component page.</InternalLink>
+    The learn more about the <strong>Card</strong> component, please refer to
+    <InternalLink href="/components/card">the component page.</InternalLink>
   </li>
   <li>
-    The learn more about the <strong>Tabs</strong> component, please refer to
-    <InternalLink href="/components/tabs">the component page.</InternalLink>
+    The learn more about the <strong>Link</strong> component, please refer to
+    <InternalLink href="/components/link">the component page.</InternalLink>
+  </li>
+  <li>
+    The learn more about the <strong>Linkbox</strong> component, please refer to
+    <InternalLink href="/components/linkbox">the component page.</InternalLink>
   </li>
 </ul>
 
@@ -435,32 +441,18 @@ The footer is placed at the bottom of the site and includes supplementary inform
 
 ## Minimum navigation pattern elements
 
+Always try to minimize navigation elements to clarify service structure and avoid burdening users with irrelevant options. HDS recommends using the minimum navigation pattern when possible.
+
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-min.png"
-  alt="An illustration of the minimum number of navigation elements: Header, Main content and Footer."
-  style="max-width:480px;"
+  alt="An illustration of the minimum number of navigation elements, for desktop and mobile screens: Header, Main content and Footer."
+  style="max-width:580px;"
   viewable
 />
 
 1. Header
 2. Main content
 3. Footer
-
-## Maximum navigation pattern elements
-
-<Image
-  src="/images/patterns/navigation/examples/navigation-pattern-max-option-2.png"
-  alt="An illustration of the maximum number of navigation elements: Header, Breadcrumbs, Side navigation including essential links if used concurrently, Tabs, Main content and Footer."
-  style="max-width:580px;"
-  viewable
-/>
-
-1. Header
-2. Breadcrumbs
-3. Side navigation (including essential links if used concurrently)
-4. Tabs
-5. Main content
-6. Footer
 
 ## Focus order & keyboard navigation
 
