@@ -32,7 +32,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - The only mandatory component inside the header is HeaderActionBar. Other components may be used if needed.
 - HeaderNavigationBar is coming soon
 - HeaderActionBar is coming soon
-- The inner components should **always** be in this order: Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
+- The inner components should **always** be in this order: Header.SkipLink, Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
 
 ### Variations
 
@@ -63,3 +63,9 @@ Coming soon!
 #### With navigation bar
 
 Coming soon!
+
+#### With skip link
+
+- Using the Header.SkipLink component is optional. Use the skip link component to help keyboard-only users skip to the main content on a page.
+- See Example for Header.SkipLink <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-skip-link">in Storybook</Link>
+- The Header.SkipLink supports ariaLabel which gives possibility to define more informative text for screen readers

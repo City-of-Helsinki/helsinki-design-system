@@ -1,0 +1,54 @@
+@use "../../../../styles/layout.scss";
+
+.skipLink {
+  --background-color: var(--color-white);
+  --height: 66px;
+  --inner-outer-spacing: 6px;
+  --outline-color: var(--color-focus-outline);
+  --outline-inner-color: var(--color-black-90);
+  --outline-width: 3px;
+  --text-color: var(--color-black-90);
+  --top: 10px;
+  --width: 213px;
+
+  @include layout.below-large {
+    --top: 2px;
+  }
+  
+  @include layout.below-medium {
+    --height: 60px;
+  }
+  
+  display: flex;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  top: calc(-1 * (var(--height) + var(--top)));
+
+  &:focus {
+    align-items: center;
+    background-color: var(--background-color);
+    font-family: var(--font-default);
+    font-weight: 500;
+    height: var(--height);
+    justify-content: center;
+    left: 15px;
+    outline: var(--outline-color) solid var(--outline-width);
+    text-decoration: none;
+    top: var(--top);
+    transition: all 0.15s ease-in;
+    width: var(--width);
+    z-index: 99;  
+  
+    & > .skipLinkLabel {
+      align-items: center;
+      color: var(--text-color);
+      display: flex;
+      height: calc(var(--height) - 2 * var(--inner-outer-spacing));
+      justify-content: center;
+      outline: var(--outline-inner-color) solid var(--outline-width);
+      width: calc(var(--width) - 2 * var(--inner-outer-spacing));    
+    }
+  }
+
+}
