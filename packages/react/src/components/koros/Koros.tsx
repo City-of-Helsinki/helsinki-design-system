@@ -18,9 +18,9 @@ export type KorosProps = {
    */
   dense?: boolean;
   /**
-   * Whether the component should be flipped horizontally
+   * Whether the component should be flipped vertically
    */
-  flipHorizontal?: boolean;
+  flipVertical?: boolean;
   /**
    * A property to rotate Koros
    */
@@ -92,7 +92,7 @@ export const getShapeHeight = ({ dense = false, type = 'basic' }: Pick<KorosProp
 
 export const Koros = ({
   dense = false,
-  flipHorizontal = false,
+  flipVertical = false,
   type = 'basic',
   rotate,
   className = '',
@@ -100,7 +100,7 @@ export const Koros = ({
 }: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
-  const cssTransforms: string[] = [flipHorizontal && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
+  const cssTransforms: string[] = [flipVertical && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
     (t) => !!t,
   );
   return (

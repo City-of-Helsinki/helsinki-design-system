@@ -178,7 +178,7 @@ export const Dense = () => `
 `;
 
 export const Flipped = () => `
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosBasicFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -191,7 +191,7 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosBeatFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -207,7 +207,7 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosPulseFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -223,7 +223,7 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosVibrationFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -239,7 +239,7 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosWaveFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">

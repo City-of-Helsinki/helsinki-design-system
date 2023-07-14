@@ -106,8 +106,8 @@ const DemoPage = () => {
                 Visit hds.hel.fi
               </Button>
             </div>
-            <Koros className="hero-koros hero-koros-rotated" flipHorizontal rotate="45deg" />
-            <Koros className="hero-koros hero-koros-horizontal" flipHorizontal />
+            <Koros className="hero-koros hero-koros-rotated" flipVertical rotate="45deg" />
+            <Koros className="hero-koros hero-koros-vertical" flipVertical />
           </div>
         </div>
         <div
