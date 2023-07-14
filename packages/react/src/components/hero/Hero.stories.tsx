@@ -432,7 +432,7 @@ PlaygroundForKoros.argTypes = {
   },
   flipVertical: {
     control: 'boolean',
-    description: 'Flip koros horizontally. Most variants override this setting.',
+    description: 'Flip koros vertically. Most variants override this setting.',
     ...getKorosPropertyDescriptionAsSummary(),
   },
   ...createVariantArg('diagonalKoros'),
