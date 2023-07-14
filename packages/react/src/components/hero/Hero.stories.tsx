@@ -283,7 +283,7 @@ WithoutImageKorosOverlay.argTypes = {
     '--color': '#fff',
     '--koros-color': '#000',
   }),
-  ...createKorosArg({ flipHorizontal: true }),
+  ...createKorosArg({ flipVertical: true }),
   ...createVariantArg('noImage'),
   ...createCenteredContentArg(false),
 };
@@ -430,7 +430,7 @@ PlaygroundForKoros.argTypes = {
     ...korosPosition,
     ...getThemePropertyDescriptionAsSummary('--diagonal-koros-position'),
   },
-  flipHorizontal: {
+  flipVertical: {
     control: 'boolean',
     description: 'Flip koros horizontally. Most variants override this setting.',
     ...getKorosPropertyDescriptionAsSummary(),

@@ -136,9 +136,7 @@ export const ExactFit = (args) => {
   );
 };
 
-export const Playground = (args) => (
-  <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />
-);
+export const Playground = (args) => <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />;
 
 Playground.parameters = {
   previewTabs: {
