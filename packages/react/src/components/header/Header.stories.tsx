@@ -224,3 +224,39 @@ export const WithSkipLink = (args) => {
     </Header>
   );
 };
+
+export const WithSkipLinkInDropdown = (args) => {
+  return (
+    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleUrl="https://hel.fi"
+        titleStyle={TitleStyleType.black}
+      >
+        <Header.NavigationLanguageSelector languages={languages}>
+          <Header.SkipLink skipTo="#content2" label="Skip Languages" />
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
+        </Header.NavigationLanguageSelector>
+
+        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+          <h3>Kirjautumisvalinnat</h3>
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+
+      <Header.SkipLink skipTo="#content3" label="Skip Navigation" />
+
+      <Header.NavigationMenu>
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
+    </Header>
+  );
+};

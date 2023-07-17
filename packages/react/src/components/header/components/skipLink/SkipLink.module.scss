@@ -20,11 +20,12 @@
   }
   
   display: flex;
+  height: 1px;
+  overflow: hidden;
   position: absolute;
   width: 1px;
-  height: 1px;
   top: calc(-1 * (var(--height) + var(--top)));
-
+  
   &:focus {
     align-items: center;
     background-color: var(--background-color);
