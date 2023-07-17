@@ -5,14 +5,18 @@ title: 'Highlight'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # Highlight
 
-<StatusLabel type="alert" variant="rounded">Beta</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel type="alert" variant="rounded">Beta</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>Highlight component allows lifting an excerpt from a longer text for emphasis. Highlight supports two types: highlight (default) and quotation. The Quote element has a reference to the quote source. The Highlight element is an excerpt from the text without the source information.</LeadParagraph>
 
