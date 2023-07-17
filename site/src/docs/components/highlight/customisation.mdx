@@ -1,0 +1,48 @@
+---
+slug: '/components/highlight/customisation'
+title: 'Highlight - Customisation'
+---
+
+import { Highlight } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+In Core version, you can either use the `style` attributes in the HTML to customise the component.
+
+In React version, you can use the `theme` property to customise the component.
+
+See all available theme and style variables in the table below.
+
+| Theme variable                           | Description                                     |
+| ---------------------------------------- | ----------------------------------------------- |
+| `--accent-line-color`                    | Colour of the highlight's accent line.          |
+| `--text-color`                           | Colour of the highlight's text                  |
+
+
+### Customisation example
+<Playground>
+
+```jsx
+<Highlight
+  text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."
+  theme={{
+    '--accent-line-color': '#009246',
+    '--text-color': '#0000bf'
+  }}
+/>
+```
+
+```html
+  <figure class="hds-highlight" style="--accent-line-color:#009246;--text-color:#0000bf">
+    <blockquote class="hds-blockquote">
+      <p class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</p>
+    </blockquote class="hds-blockquote">
+  </figure>
+```
+
+</Playground>
