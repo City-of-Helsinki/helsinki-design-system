@@ -4,6 +4,7 @@ title: 'Colour tokens - Tokens'
 ---
 
 import TextAndColorExample from '../../../../components/examples/TextAndColorExample';
+import FocusColorExample from '../../../../components/examples/FocusColorExample';
 
 import TabsLayout from './tabs.mdx';
 
@@ -67,21 +68,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | `--color-tram-light`               | `$color-tram-light`               | `#dff7eb` | <TextAndColorExample color="var(--color-tram-light)" name="Tram example" />                        |
 [Table 2:Brand colour variation tokens]|
 
+| CSS variable           | SASS variable         | HEX value | Example                                                                                                                             |
+| ---------------------- | --------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-info`         | `$color-info`         | `#0062b9` | <TextAndColorExample color="var(--color-info)" name="Info example" />                                                               |
+| `--color-success`      | `$color-success`      | `#007a64` | <TextAndColorExample color="var(--color-success)" name="Success example" />                                                         |
+| `--color-alert`        | `$color-alert`        | `#ffda07` | <TextAndColorExample color="var(--color-alert)" name="Alert example" />                                                             |
+| `--color-error`        | `$color-error`        | `#b01038` | <TextAndColorExample color="var(--color-error)" name="Error example" />                                                             |
+| `--color-focus-outline`| `$color-focus-outline`| `#0072c6` | <FocusColorExample color="var(--color-focus-outline)"><TextAndColorExample color="var(--color-focus-outline)"/></FocusColorExample> |
+[Table 3:UI colour tokens]|
+
 | CSS variable           | SASS variable         | HEX value | Example                                                                                         |
 | ---------------------- | --------------------- | --------- | ----------------------------------------------------------------------------------------------- |
-| `--color-info`         | `$color-info`         | `#0062b9` | <TextAndColorExample color="var(--color-info)" name="Info example" />                           |
 | `--color-info-dark`    | `$color-info-dark`    | `#004f94` | <TextAndColorExample color="var(--color-info-dark)" name="Info dark variant example" />         |
 | `--color-info-light`   | `$color-info-light`   | `#e5eff8` | <TextAndColorExample color="var(--color-info-light)" name="Info light variant example" />       |
-| `--color-success`      | `$color-success`      | `#007a64` | <TextAndColorExample color="var(--color-success)" name="Success example" />                     |
 | `--color-success-dark` | `$color-success-dark` | `#006250` | <TextAndColorExample color="var(--color-success-dark)" name="Success dark variant example" />   |
 | `--color-success-light`| `$color-success-light`| `#e2f5f3` | <TextAndColorExample color="var(--color-success-light)" name="Success light variant example" /> |
-| `--color-alert`        | `$color-alert`        | `#ffda07` | <TextAndColorExample color="var(--color-alert)" name="Alert example" />                         |
 | `--color-alert-dark`   | `$color-alert-dark`   | `#d18200` | <TextAndColorExample color="var(--color-alert-dark)" name="Alert dark variant example" />       |
 | `--color-alert-light`  | `$color-alert-light`  | `#fff4b4` | <TextAndColorExample color="var(--color-alert-light)" name="Alert light variant example" />     |
-| `--color-error`        | `$color-error`        | `#b01038` | <TextAndColorExample color="var(--color-error)" name="Error example" />                         |
 | `--color-error-dark`   | `$color-error-dark`   | `#8d0d2d` | <TextAndColorExample color="var(--color-error-dark)" name="Error dark variant example" />       |
 | `--color-error-light`  | `$color-error-light`  | `#f6e2e6` | <TextAndColorExample color="var(--color-error-light)" name="Error light variant example" />     |
-[Table 3:Brand colour tokens]|
+[Table 4:UI colour variation tokens]|
 
 | CSS variable           | SASS variable         | HEX value | Example                                                                                         |
 | ---------------------- | --------------------- | --------- | ----------------------------------------------------------------------------------------------- |
@@ -97,4 +103,4 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | `--color-black-10`     | `$color-black-10`     | `#e6e6e6` | <TextAndColorExample color="var(--color-black-10)" name="Black-10 example" />                   |
 | `--color-black-5`      | `$color-black-5`      | `#f2f2f2` | <TextAndColorExample color="var(--color-black-5)" name="Black-5 example" />                     |
 | `--color-white`        | `$color-white`        | `#ffffff` | <TextAndColorExample color="var(--color-white)" name="White example" />                         |
-[Table 4:Grayscale tokens]|
+[Table 5:Grayscale tokens]|
