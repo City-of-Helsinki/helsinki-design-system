@@ -1,7 +1,7 @@
 @import url("../../utils/animations.css");
 
-@svg-load icon url("../../svg/ui/alert-circle-fill.svg");
-@svg-load successicon url("../../svg/ui/check-circle-fill.svg");
+@svg-load alertcirclefillicon url("../../svg/alert-circle-fill.svg");
+@svg-load checkcirclefillicon url("../../svg/check-circle-fill.svg");
 
 .hds-text-input {
   --border-width: 2px;
@@ -180,8 +180,7 @@
   content: '';
   height: var(--icon-size);
   left: 0;
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  mask-image: svg-inline(alertcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -209,8 +208,7 @@
   content: '';
   height: var(--icon-size);
   left: 0;
-  -webkit-mask-image: svg-inline(successicon);
-  mask-image: svg-inline(successicon);
+  mask-image: svg-inline(checkcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -238,8 +236,7 @@
   content: '';
   height: var(--icon-size);
   left: 0;
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  mask-image: svg-inline(alertcirclefillicon);
   pointer-events: none;
   position: absolute;
   top: 0;

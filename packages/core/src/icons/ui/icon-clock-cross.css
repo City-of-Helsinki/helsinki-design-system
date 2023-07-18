@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/clock-cross.svg");
-
-.hds-icon--clock-cross {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

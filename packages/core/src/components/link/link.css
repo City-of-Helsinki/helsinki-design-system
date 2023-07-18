@@ -1,5 +1,5 @@
 @import url("../../icons/icon.css");
-@import url("../../icons/ui/icon-link-external.css");
+@import url("../../icons/link-external.css");
 
 .hds-link {
   --link-visited-color: #551a8b;

@@ -110,24 +110,18 @@ exports[`<Footer /> spec renders the component 1`] = `
               Ylös
               <svg
                 aria-hidden="true"
+                aria-label="arrow-up"
                 class="icon s"
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g
-                  fill="none"
+                <path
+                  clip-rule="evenodd"
+                  d="M12 3.5L18.5 10L17 11.5L13 7.5V20H11V7.5L7 11.5L5.5 10L12 3.5Z"
+                  fill="currentColor"
                   fill-rule="evenodd"
-                >
-                  <rect
-                    height="24"
-                    width="24"
-                  />
-                  <polygon
-                    fill="currentColor"
-                    points="12 3.5 18.5 10 17 11.5 13 7.5 13 20 11 20 11 7.5 7 11.5 5.5 10"
-                  />
-                </g>
+                />
               </svg>
             </button>
           </div>

@@ -1,5 +1,5 @@
 @import url("../../icons/icon.css");
-@import url("../../icons/ui/icon-cross.css");
+@import url("../../icons/cross.css");
 
 .hds-tag {
   --tag-background: var(--color-black-10);

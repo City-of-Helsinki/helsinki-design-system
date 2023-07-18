@@ -53,23 +53,18 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="menu-hamburger"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M22 17V19H2V17H22ZM22 11V13H2V11H22ZM22 5V7H2V5H22Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </button>
         </div>
@@ -129,23 +124,18 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
                 </span>
                 <svg
                   aria-hidden="true"
+                  aria-label="angle-down"
                   class="icon s"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g
-                    fill="none"
+                  <path
+                    clip-rule="evenodd"
+                    d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                    fill="currentColor"
                     fill-rule="evenodd"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                      fill="currentColor"
-                    />
-                  </g>
+                  />
                 </svg>
               </button>
               <div

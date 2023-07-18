@@ -1,0 +1,4 @@
+.hds-icon--<%= it.componentCSSName %> {
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+}

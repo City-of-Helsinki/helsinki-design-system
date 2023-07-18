@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/eye-crossed.svg");
-
-.hds-icon--eye-crossed {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

@@ -1,0 +1,4 @@
+.hds-icon--angle-down {
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+}

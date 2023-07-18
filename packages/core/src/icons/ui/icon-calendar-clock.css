@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/calendar-clock.svg");
-
-.hds-icon--calendar-clock {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

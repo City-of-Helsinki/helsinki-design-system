@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/angle-right.svg");
-
-.hds-icon--angle-right {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

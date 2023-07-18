@@ -69,7 +69,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "link-react": "rm -rf node_modules/hds-react/* && cp -r ../packages/react/lib/* node_modules/hds-react/",
     "link-core": "rm -rf node_modules/hds-core/lib/* && cp -r ../packages/core/lib/* node_modules/hds-core/lib/",
-    "lint:js": "eslint . --ext js",
+    "lint:js": "yarn eslint . --ext js",
     "lint:scss": "stylelint \"**/*.scss\"",
     "lint": "yarn lint:js && yarn lint:scss",
     "scaffold": "node scripts/scaffold.js"
