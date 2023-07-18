@@ -2,10 +2,11 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 
 // import base styles
 import '../../../../../styles/base.css';
-
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
+import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
 
 export enum NavigationLinkInteraction {
   Hover = 'hover',
@@ -16,6 +17,14 @@ export enum DropdownMenuPosition {
   Right = 'right',
 }
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
+  /**
+   * Additional class names.
+   */
+  className?: string;
+  /**
+   * Aria-label for the dropdown button to describe closing the dropdown.
+   */
+  closeDropdownAriaButtonLabel?: string;
   /**
    * Direction for dropdown position.
    * @default DropdownMenuPosition.Right
@@ -31,53 +40,79 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    */
   open: boolean;
   /**
+   * Aria-label for the dropdown button to describe opening the dropdown.
+   */
+  openDropdownAriaButtonLabel?: string;
+  /**
    * Function that is called when open value is changed.
    */
   setOpen: (isOpen: boolean, interaction: NavigationLinkInteraction) => void;
+  /**
+   * Depth in nested dropdowns.
+   * @internal
+   */
+  depth: number;
 }>;
 
 export const NavigationLinkDropdown = ({
   children,
   dynamicPosition = DropdownMenuPosition.Right,
+  className,
   index,
   open,
   setOpen,
+  depth = 0,
+  closeDropdownAriaButtonLabel,
+  openDropdownAriaButtonLabel,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
+  const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const ref = useRef<HTMLUListElement>(null);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
+  const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = dynamicPosition
     ? classNames(styles.dropdownMenu, styles[dynamicPosition])
     : styles.dropdownMenu;
 
   const handleMenuButtonClick = () => setOpen(!open, NavigationLinkInteraction.Click);
+  const defaultOpenDropdownAriaLabel = 'Avaa alasvetovalikko.';
+  const defaultCloseDropdownAriaLabel = 'Sulje alasvetovalikko.';
+  const getDefaultButtonAriaLabel = () => {
+    if (open) return closeDropdownAriaButtonLabel || defaultCloseDropdownAriaLabel;
+    return openDropdownAriaButtonLabel || defaultOpenDropdownAriaLabel;
+  };
+
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
 
   return (
-    <div className={styles.navigationLinkDropdownContainer}>
+    <>
       <button
         type="button"
-        className={styles.button}
+        className={classNames(styles.button, { isNotLargeScreen }, depthClassName)}
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
+        aria-label={getDefaultButtonAriaLabel()}
+        aria-expanded={open}
       >
         <IconAngleDown className={chevronClasses} />
       </button>
       <ul
-        className={dropdownDirectionClass}
+        className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
         {...(!open && { style: { display: 'none' } })}
         data-testid={`dropdown-menu-${index}`}
         ref={ref}
       >
-        {React.Children.map(children, (child, childIndex) => {
+        {childElements.map((child, childIndex) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
+            <li key={`link-dropdown-${index}-${childIndex}`}>
               {isValidElement(child)
                 ? cloneElement(child as React.ReactElement, {
                     index: childIndex,
                     openSubNavIndex,
                     setOpenSubNavIndex,
+                    depth,
                     className: child.props.active
                       ? classNames(styles.dropdownLink, styles.activeLink)
                       : styles.dropdownLink,
@@ -87,7 +122,7 @@ export const NavigationLinkDropdown = ({
           );
         })}
       </ul>
-    </div>
+    </>
   );
 };
 NavigationLinkDropdown.componentName = 'HDSNavigationLinkDropdown';

@@ -60,3 +60,15 @@ export const useMediaQueryLessThan = (breakpoint: Breakpoint) =>
  */
 export const useMediaQueryGreaterThan = (breakpoint: Breakpoint) =>
   useMediaQuery(() => isEqualOrGreaterThan(breakpointValues[breakpoint], getWindowInnerWidth()));
+
+export const getCurrentMediaBreakpoint = () => {
+  let key;
+  let val;
+  const width = getWindowInnerWidth();
+  const entries = Object.entries(breakpointValues);
+  // eslint-disable-next-line no-cond-assign
+  while (([key, val] = entries.pop())) {
+    if (val < width) return key;
+  }
+  return null;
+};

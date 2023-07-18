@@ -17,7 +17,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
-  <Linkbox linkboxAriaLabel="Linkbox: Helsinki Design System" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
+  <Linkbox linkboxAriaLabel="Linkbox: Helsinki Design System" linkAriaLabel="HDS" href="https://hds.hel.fi" border>
     <div style={{ height: '106px' }} />
   </Linkbox>
 </PlaygroundPreview>
@@ -56,7 +56,7 @@ The default empty Linkbox variant can be used to build Linkboxes with custom con
       linkboxAriaLabel="Linkbox: Helsinki Design System"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
-      withBorder
+      border
     >
       <div style={{ height: '106px' }} />
     </Linkbox>
@@ -94,7 +94,7 @@ Additionally, HDS offers styling for basic heading and body text inside the Link
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withBorder
+      border
     />
   </div>
   <div style={{ maxWidth: '320px', marginTop: 'var(--spacing-s)' }}>
@@ -121,7 +121,7 @@ Depending on the link type the icon is either an arrow or an external link icon.
       href="https://hds.hel.fi"
       heading="Internal link"
       text="This link points to a page belonging to the same website as the current page."
-      withBorder
+      border
     />
   </div>
   <div style={{ maxWidth: '320px', marginTop: 'var(--spacing-s)' }}>
@@ -133,7 +133,7 @@ Depending on the link type the icon is either an arrow or an external link icon.
       text="This link points to another page."
       openInExternalDomainAriaLabel="Opens a different website."
       external
-      withBorder
+      border
     />
   </div>
   <div style={{ maxWidth: '320px', marginTop: 'var(--spacing-s)' }}>
@@ -147,7 +147,7 @@ Depending on the link type the icon is either an arrow or an external link icon.
       text="This link points to another page and opens in a new tab."
       openInExternalDomainAriaLabel="Opens a different website."
       external
-      withBorder
+      border
     />
   </div>
 </PlaygroundPreview>

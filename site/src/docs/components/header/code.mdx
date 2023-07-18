@@ -1,0 +1,55 @@
+---
+slug: '/components/header/code'
+title: 'Header - Code'
+---
+
+import { Header } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Default
+
+<Playground>
+
+```jsx
+<Header>
+  <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+    <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.NavigationLink href="#">Link</Header.NavigationLink>
+  </Header.UniversalBar>
+</Header>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                         | Source link                                                                                                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--example">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                      | -                                                                                                                                                                                                                   |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-headeruniversalbar--default">React Storybook.</Link>
+
+| Property                    | Description                      | Values   | Default value |
+| --------------------------- | -------------------------------- | -------- | ------------- |
+| `className`                 | Additional class names to apply. | `string` | -             |
+| `id`                        | Id for the element.              | `string` | -             |
+| [Table 1:Header properties] |
+
+| Property                                | Description                                                     | Values   | Default value        |
+| --------------------------------------- | --------------------------------------------------------------- | -------- | -------------------- |
+| `ariaLabel`                             | aria-label for describing universal bar for the screen readers. | `string` | -                    |
+| `className`                             | Additional class names to apply.                                | `string` | -                    |
+| `primaryLinkHref`                       | Hypertext reference for the primary link.                       | `string` | `https://hel.fi`     |
+| `primaryLinkText`                       | Link text for the primary link                                  | `string` | `Helsingin kaupunki` |
+| [Table 2:Header.UniversalBar properties] |

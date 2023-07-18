@@ -1,13 +1,12 @@
-import React, { Children, cloneElement, useContext } from 'react';
+import React, { cloneElement } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
-
 import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
-import { HeaderContext } from '../../HeaderContext';
+import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import { getChildElementsEvenIfContainerInbetween } from '../../../../utils/getChildren';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
@@ -28,25 +27,27 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
   id?: string;
   /**
    * Hypertext reference of the primary link.
+   * @default 'https://hel.fi'
    */
-  primaryLinkHref: string;
+  primaryLinkHref?: string;
   /**
    * Link text for the primary link.
+   * @default 'Helsingin kaupunki'
    */
-  primaryLinkText: string;
+  primaryLinkText?: string;
 }>;
 
 export const HeaderUniversalBar = ({
   ariaLabel,
-  children,
   className,
+  children,
   id,
   primaryLinkHref,
   primaryLinkText,
 }: HeaderUniversalBarProps) => {
-  const { isSmallScreen } = useContext(HeaderContext);
-  if (isSmallScreen) return null;
-  const childElements = getChildElementsEvenIfContainerInbetween(children);
+  const { isNotLargeScreen } = useHeaderContext();
+  if (isNotLargeScreen) return null;
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
 
   return (
     <nav role="navigation" aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
@@ -54,7 +55,7 @@ export const HeaderUniversalBar = ({
         <li className={styles.universalBarMainLinkContainer}>
           <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
         </li>
-        {Children.map(childElements, (child, index) => {
+        {childElements.map((child, index) => {
           if (React.isValidElement(child)) {
             return (
               // eslint-disable-next-line react/no-array-index-key

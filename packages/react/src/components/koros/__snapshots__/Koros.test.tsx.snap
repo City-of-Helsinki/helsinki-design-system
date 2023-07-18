@@ -127,7 +127,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     </svg>
   </div>
   <div
-    class="koros wave"
+    class="koros vibration"
   >
     <svg
       aria-hidden="true"
@@ -138,7 +138,7 @@ exports[`<Koros /> spec renders the component 1`] = `
       <defs>
         <pattern
           height="85"
-          id="koros_wave-5"
+          id="koros_vibration-5"
           patternUnits="userSpaceOnUse"
           width="106"
           x="0"
@@ -151,14 +151,14 @@ exports[`<Koros /> spec renders the component 1`] = `
         </pattern>
       </defs>
       <rect
-        fill="url(#koros_wave-5)"
+        fill="url(#koros_vibration-5)"
         height="85"
         width="100%"
       />
     </svg>
   </div>
   <div
-    class="koros storm"
+    class="koros wave"
   >
     <svg
       aria-hidden="true"
@@ -169,7 +169,7 @@ exports[`<Koros /> spec renders the component 1`] = `
       <defs>
         <pattern
           height="85"
-          id="koros_storm-6"
+          id="koros_wave-6"
           patternUnits="userSpaceOnUse"
           width="106"
           x="0"
@@ -182,7 +182,7 @@ exports[`<Koros /> spec renders the component 1`] = `
         </pattern>
       </defs>
       <rect
-        fill="url(#koros_storm-6)"
+        fill="url(#koros_wave-6)"
         height="85"
         width="100%"
       />

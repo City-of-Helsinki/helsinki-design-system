@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer.Utilities /> spec renders the component 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer koros-basic theme-light"
+  >
+    <div
+      class="koros basic koros basic"
+    >
+      <svg
+        aria-hidden="true"
+        height="85"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            height="85"
+            id="koros_basic-1"
+            patternUnits="userSpaceOnUse"
+            width="106"
+            x="0"
+            y="0"
+          >
+            <path
+              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+              transform="scale(5.3)"
+            />
+          </pattern>
+        </defs>
+        <rect
+          fill="url(#koros_basic-1)"
+          height="85"
+          width="100%"
+        />
+      </svg>
+    </div>
+    <div
+      class="footerContent"
+    >
+      <div
+        class="footerSections"
+      >
+        <h2
+          class="title"
+        >
+          Bar
+        </h2>
+        <div
+          class="utilities"
+        >
+          <hr
+            aria-hidden="true"
+            class="divider"
+          />
+          <div
+            class="links widerLinks"
+          >
+            <a
+              class="link linkM item"
+              href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
+            >
+              <span>
+                Yhteystiedot
+              </span>
+            </a>
+            <a
+              class="link linkM item"
+              href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
+            >
+              <span>
+                Anna ja lue palautetta
+              </span>
+            </a>
+            <a
+              class="link linkM item"
+              href="https://hel.fi/kanslia/neuvonta-fi"
+            >
+              <span>
+                Chat-neuvonta
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;

@@ -26,9 +26,9 @@ export const Beat = () => <Koros type="beat" />;
 
 export const Pulse = () => <Koros type="pulse" />;
 
-export const Wave = () => <Koros type="wave" />;
+export const Vibration = () => <Koros type="vibration" />;
 
-export const Storm = () => <Koros type="storm" />;
+export const Wave = () => <Koros type="wave" />;
 
 export const Calm = () => <Koros type="calm" />;
 
@@ -40,39 +40,39 @@ export const Dense = () => (
     <br />
     <Koros dense type="pulse" />
     <br />
-    <Koros dense type="wave" />
+    <Koros dense type="vibration" />
     <br />
-    <Koros dense type="storm" />
+    <Koros dense type="wave" />
   </>
 );
 
 export const Flipped = (args) => (
   <>
-    <Koros flipHorizontal={args.flipHorizontal} />
+    <Koros flipVertical={args.flipVertical} />
     <br />
     <br />
-    <Koros type="beat" flipHorizontal={args.flipHorizontal} />
+    <Koros type="beat" flipVertical={args.flipVertical} />
     <br />
     <br />
-    <Koros type="pulse" flipHorizontal={args.flipHorizontal} />
+    <Koros type="pulse" flipVertical={args.flipVertical} />
     <br />
     <br />
-    <Koros type="wave" flipHorizontal={args.flipHorizontal} />
+    <Koros type="vibration" flipVertical={args.flipVertical} />
     <br />
     <br />
-    <Koros type="storm" flipHorizontal={args.flipHorizontal} />
+    <Koros type="wave" flipVertical={args.flipVertical} />
   </>
 );
 
 Flipped.args = {
-  flipHorizontal: true,
+  flipVertical: true,
 };
 
-export const Rotated = (args) => <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate} />;
+export const Rotated = (args) => <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />;
 
 Rotated.args = {
   type: 'basic',
-  flipHorizontal: false,
+  flipVertical: false,
   rotate: '45deg',
 };
 
@@ -136,9 +136,7 @@ export const ExactFit = (args) => {
   );
 };
 
-export const Playground = (args) => (
-  <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate} />
-);
+export const Playground = (args) => <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />;
 
 Playground.parameters = {
   previewTabs: {
@@ -153,13 +151,13 @@ Playground.parameters = {
 
 Playground.args = {
   type: 'basic',
-  flipHorizontal: false,
+  flipVertical: false,
   rotate: '',
 };
 
 Playground.argTypes = {
   type: {
-    options: ['basic', 'beat', 'pulse', 'wave', 'storm'],
+    options: ['basic', 'beat', 'pulse', 'vibration', 'wave'],
     control: { type: 'radio' },
   },
 };

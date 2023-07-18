@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { ComponentType, FC } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
-import styles from './Header.module.scss';
-import classNames from '../../utils/classNames';
-import { HeaderContext, HeaderContextProps } from './HeaderContext';
-import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
+import { styleBoundClassNames } from '../../utils/classNames';
+import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
+import { HeaderActionBar } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { NavigationLink } from './components/navigationLink';
+import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
+import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
+import { NavigationSearch } from './components/navigationSearch';
+import { SkipLink } from './components/skipLink';
+import { LanguageProvider, LanguageProviderProps } from '../../context/languageContext';
+// import base styles
+import '../../styles/base.css';
+import styles from './Header.module.scss';
 
-export type HeaderProps = React.PropsWithChildren<{
+const classNames = styleBoundClassNames(styles);
+
+type HeaderAttributes = JSX.IntrinsicElements['header'];
+
+export interface HeaderNodeProps extends HeaderAttributes {
   /**
    * Additional class names to apply to the header.
    */
@@ -20,21 +28,54 @@ export type HeaderProps = React.PropsWithChildren<{
    * ID of the header element.
    */
   id?: string;
-}>;
+}
 
-export const Header = ({ children, className, id }: HeaderProps) => {
-  const isSmallScreen = useMediaQueryLessThan('m');
-  const isMediumScreen = useMediaQueryLessThan('l');
-  const context: HeaderContextProps = { isSmallScreen, isMediumScreen };
+export interface HeaderProps extends HeaderNodeProps {
+  onDidChangeLanguage?: (string) => void;
+}
+
+const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...props }) => {
+  const { isNotLargeScreen } = useHeaderContext();
+  const headerClassNames = classNames('hds-header', styles.header, className, { isNotLargeScreen });
   return (
-    <HeaderContext.Provider value={context}>
-      <header id={id} className={classNames(styles.header, className)}>
-        <div className={styles.headerBackgroundWrapper}>{children}</div>
-      </header>
-    </HeaderContext.Provider>
+    <header className={headerClassNames} {...props}>
+      <div className={styles.headerBackgroundWrapper}>{children}</div>
+    </header>
+  );
+};
+
+interface HeaderInterface extends FC<HeaderProps> {
+  UniversalBar: typeof HeaderUniversalBar;
+  ActionBar: typeof HeaderActionBar;
+  NavigationMenu: typeof HeaderNavigationMenu;
+  ActionBarItem: typeof HeaderActionBarItemWithDropdown;
+  NavigationLink: typeof NavigationLink;
+  NavigationLanguageSelector: typeof NavigationLanguageSelector;
+  NavigationSearch: typeof NavigationSearch;
+  SkipLink: typeof SkipLink;
+}
+
+export const Header: HeaderInterface = ({
+  onDidChangeLanguage,
+  defaultLanguage,
+  ...props
+}: HeaderProps & LanguageProviderProps) => {
+  return (
+    <HeaderContextProvider>
+      <LanguageProvider onDidChangeLanguage={onDidChangeLanguage} defaultLanguage={defaultLanguage}>
+        <HeaderNode {...props} />
+      </LanguageProvider>
+    </HeaderContextProvider>
   );
 };
 
 Header.UniversalBar = HeaderUniversalBar;
+Header.ActionBar = HeaderActionBar;
 Header.NavigationMenu = HeaderNavigationMenu;
+
+Header.ActionBarItem = HeaderActionBarItemWithDropdown;
 Header.NavigationLink = NavigationLink;
+
+Header.NavigationLanguageSelector = NavigationLanguageSelector;
+Header.NavigationSearch = NavigationSearch;
+Header.SkipLink = SkipLink;

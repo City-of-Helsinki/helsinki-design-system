@@ -297,9 +297,9 @@ const Layout = ({ children, pageContext }) => {
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
-            <Footer.Item label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
-            <Footer.Item label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
-            <Footer.Item label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
+            <Footer.NavigationLink label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
+            <Footer.NavigationLink label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+            <Footer.NavigationLink label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
       </div>

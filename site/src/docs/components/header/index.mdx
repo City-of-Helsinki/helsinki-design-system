@@ -1,0 +1,71 @@
+---
+slug: '/components/header'
+title: 'Header'
+navTitle: 'Header'
+---
+
+import { Header } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Header>
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
+  </Header>
+</PlaygroundPreview>
+
+### Principles
+
+- **It is strongly recommended to always include the header component in your service.**
+- The Header component is a wrapper for the HDS header navigation components. This means you should put all the other header elements inside this component.
+- The only mandatory component inside the header is HeaderActionBar. Other components may be used if needed.
+- HeaderNavigationBar is coming soon
+- HeaderActionBar is coming soon
+- The inner components should **always** be in this order: Header.SkipLink, Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
+
+### Variations
+
+#### With universal bar
+
+- Using the Header.UniversalBar component is optional. Use it only if you have contemporary or frequently visited and useful links.
+- Put the Header.UniversalBar component inside the<InternalLink href="/components/header">HDS Header component</InternalLink>.
+- The first link should always direct to the webpage of City of Helsinki.
+- Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word. Use the <InternalLink href="/components/navigation-link">navigation link component</InternalLink> for secondary links.
+- Always position the Header.UniversalBar to the top of the page. Keep the bar in place so the user can always easily locate it. It is recommended to include the Header.UniversalBar on every page of the service.
+- It's recommended to pass an ariaLabel prop for the Header.UniversalBar to describe it for the screen readers, e.g. "Quick links".
+- The Header.UniversalBar component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. On smaller screens (576px and down) the Header.UniversalBar will not be displayed on the page and its contents should be found inside the HeaderNavigationMenu component.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
+  </Header>
+</PlaygroundPreview>
+
+#### With action bar
+
+Coming soon!
+
+#### With navigation bar
+
+Coming soon!
+
+#### With skip link
+
+- Using the Header.SkipLink component is optional. Use the skip link component to help keyboard-only users skip to the main content on a page.
+- See Example for Header.SkipLink <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-skip-link">in Storybook</Link>
+- The Header.SkipLink supports ariaLabel which gives possibility to define more informative text for screen readers

@@ -1,0 +1,42 @@
+@use "../../../../styles/common.scss";
+
+button.actionBarItem {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  @include common.focusVisible(
+    var(--header-focus-outline-color),
+    var(--header-focus-outline-width),
+    var(--header-focus-outline-border-radius),
+    calc(-1 * var(--header-focus-outline-width))
+  );
+}
+
+.actionBarItemIcon {
+  display: block;
+  height: var(--icon-size);
+  margin: 0 auto;
+  padding: 0 8px;
+  width: var(--icon-size);
+
+  & > svg {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+}
+
+.actionBarItemLabel {
+  color: var(--action-bar-item-title-font-color);
+  display: block;
+  font-size: var(--action-bar-item-title-font-size);
+  margin: 0 auto;
+  white-space: nowrap;
+
+  & > svg {
+    display: block;
+  }
+}

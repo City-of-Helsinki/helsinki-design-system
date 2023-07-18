@@ -52,34 +52,34 @@ export const Pulse = () => `
   </div>
 `;
 
-export const Wave = () => `
+export const Vibration = () => `
   <div class="hds-koros">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosWave" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <pattern id="korosVibration" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
         <polygon
           transform="scale(5.3)"
           points="0,800 20,800 20,0 9.8,10.1 0,0 "
         />
         </pattern>
       </defs>
-      <rect fill="url(#korosWave)" width="100%" height="85" />
+      <rect fill="url(#korosVibration)" width="100%" height="85" />
     </svg>
   </div>
 `;
 
-export const Storm = () => `
+export const Wave = () => `
   <div class="hds-koros">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosStorm" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <pattern id="korosWave" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
         <path
           transform="scale(5.3)"
           d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z"
         />
         </pattern>
       </defs>
-      <rect fill="url(#korosStorm)" width="100%" height="85" />
+      <rect fill="url(#korosWave)" width="100%" height="85" />
     </svg>
   </div>
 `;
@@ -149,14 +149,14 @@ export const Dense = () => `
   <div class="hds-koros">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosWave" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+        <pattern id="korosVibration" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
         <polygon
           transform="scale(1.8)"
           points="0,800 20,800 20,0 9.8,10.1 0,0 "
         />
         </pattern>
       </defs>
-      <rect fill="url(#korosWave)" width="100%" height="85" />
+      <rect fill="url(#korosVibration)" width="100%" height="85" />
     </svg>
   </div>
   
@@ -165,20 +165,20 @@ export const Dense = () => `
   <div class="hds-koros">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosStorm" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+        <pattern id="korosWave" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
         <path
           transform="scale(1.8)"
           d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z"
         />
         </pattern>
       </defs>
-      <rect fill="url(#korosStorm)" width="100%" height="85" />
+      <rect fill="url(#korosWave)" width="100%" height="85" />
     </svg>
   </div>
 `;
 
 export const Flipped = () => `
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosBasicFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -191,7 +191,7 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosBeatFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -207,7 +207,7 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosPulseFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -223,33 +223,33 @@ export const Flipped = () => `
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosWaveFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <pattern id="korosVibrationFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
         <polygon
           transform="scale(5.3)"
           points="0,800 20,800 20,0 9.8,10.1 0,0 "
         />
         </pattern>
       </defs>
-      <rect fill="url(#korosWaveFlipped)" width="100%" height="85" />
+      <rect fill="url(#korosVibrationFlipped)" width="100%" height="85" />
     </svg>
   </div>
 
   <br /><br />
 
-  <div class="hds-koros hds-koros--flip-horizontal">
+  <div class="hds-koros hds-koros--flip-vertical">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosStormFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <pattern id="korosWaveFlipped" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
         <path
           transform="scale(5.3)"
           d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z"
         />
         </pattern>
       </defs>
-      <rect fill="url(#korosStormFlipped)" width="100%" height="85" />
+      <rect fill="url(#korosWaveFlipped)" width="100%" height="85" />
     </svg>
   </div>
 `;

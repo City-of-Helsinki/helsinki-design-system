@@ -7,7 +7,7 @@ import '../../styles/base.css';
 import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';
 
-export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave' | 'calm';
+export type KorosType = 'basic' | 'beat' | 'pulse' | 'wave' | 'vibration' | 'calm';
 
 type RotateDegrees = '45deg' | '90deg' | '135deg' | '180deg' | '225deg' | '270deg' | '315deg';
 
@@ -18,9 +18,9 @@ export type KorosProps = {
    */
   dense?: boolean;
   /**
-   * Whether the component should be flipped horizontally
+   * Whether the component should be flipped vertically
    */
-  flipHorizontal?: boolean;
+  flipVertical?: boolean;
   /**
    * A property to rotate Koros
    */
@@ -50,8 +50,8 @@ const getSVG = (dense: boolean, type: string, patternName: string): React.SVGPro
       />
     ),
     pulse: <path transform={transform} d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z" />,
-    storm: <path transform={transform} d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z" />,
-    wave: <polygon transform={transform} points="0,800 20,800 20,0 9.8,10.1 0,0 " />,
+    wave: <path transform={transform} d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z" />,
+    vibration: <polygon transform={transform} points="0,800 20,800 20,0 9.8,10.1 0,0 " />,
     calm: <path transform={transform} d="M788 0.279785H0V109.739H788V0.279785Z" />,
   };
 
@@ -79,8 +79,8 @@ const waveHeights: Record<KorosType, [number, number]> = {
   basic: [14, 5],
   beat: [70, 24],
   pulse: [34, 12],
-  storm: [35, 12],
-  wave: [54, 18],
+  wave: [35, 12],
+  vibration: [54, 18],
   calm: [0, 0],
 };
 
@@ -92,7 +92,7 @@ export const getShapeHeight = ({ dense = false, type = 'basic' }: Pick<KorosProp
 
 export const Koros = ({
   dense = false,
-  flipHorizontal = false,
+  flipVertical = false,
   type = 'basic',
   rotate,
   className = '',
@@ -100,7 +100,7 @@ export const Koros = ({
 }: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
-  const cssTransforms: string[] = [flipHorizontal && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
+  const cssTransforms: string[] = [flipVertical && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
     (t) => !!t,
   );
   return (
