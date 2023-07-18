@@ -9,7 +9,7 @@ import { NavigationLink } from './components/navigationLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
 import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
 import { NavigationSearch } from './components/navigationSearch';
-import { SkipLink } from './components/skipLink';
+import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from '../../context/languageContext';
 // import base styles
 import '../../styles/base.css';

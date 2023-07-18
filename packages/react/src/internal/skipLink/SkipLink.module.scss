@@ -1,4 +1,4 @@
-@use "../../../../styles/layout.scss";
+@use "../../styles/layout.scss";
 
 .skipLink {
   --background-color: var(--color-white);
@@ -9,6 +9,7 @@
   --outline-width: 3px;
   --text-color: var(--color-black-90);
   --top: 10px;
+  --left: 15px;
   --width: 213px;
 
   @include layout.below-large {
@@ -32,7 +33,7 @@
     font-weight: 500;
     height: var(--height);
     justify-content: center;
-    left: 15px;
+    left: var(--left);
     outline: var(--outline-color) solid var(--outline-width);
     text-decoration: none;
     top: var(--top);
