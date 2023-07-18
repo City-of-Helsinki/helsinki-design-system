@@ -14,17 +14,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 Customising icons is rather simple. Use the `size` property to control size and the `color` property to control colour.
 
 ### Customisation example
-<Playground>
+<Playground scope={{ IconFaceSmile }}>
 
 
 ```jsx
+import { IconFaceSmile } from 'hds-react';
+
+() => (
 <>
 <IconFaceSmile size="xs" color="var(--color-bus)" aria-hidden="true" />
 <IconFaceSmile size="s" color="var(--color-brick)" aria-hidden="true" />
 <IconFaceSmile size="m" color="var(--color-coat-of-arms)" aria-hidden="true" />
 <IconFaceSmile size="l" color="var(--color-tram)" aria-hidden="true" />
 <IconFaceSmile size="xl" color="var(--color-metro)" aria-hidden="true" />
-</>
+</>)
 ```
 
 ```html

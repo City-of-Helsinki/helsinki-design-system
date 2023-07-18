@@ -32,11 +32,13 @@ You can use the `theme` property to customise the component. See all available t
 | `--side-navigation-mobile-menu-z-index`               | Z-index value of an opened mobile side navigation menu                 |
 
 ### Customisation example
-<Playground>
+<Playground scope={{ SideNavigation }}>
 
 
 ```jsx
-{() => {
+import { SideNavigation } from 'hds-react';
+
+() => {
   const [active, setActive] = React.useState('/archive');
   const setActivePage = (e) => {
     e.preventDefault();
@@ -148,7 +150,7 @@ You can use the `theme` property to customise the component. See all available t
       </SideNavigation>
     </div>
   </div>)
-}}
+}
 ```
 
 </Playground>

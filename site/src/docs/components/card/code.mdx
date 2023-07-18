@@ -3,9 +3,7 @@ slug: '/components/card/code'
 title: 'Card - Code'
 ---
 
-import { Button, Card, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Button, Card } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Empty
 
-<Playground>
+<Playground scope={{ Card }}>
 
 
 ```jsx
@@ -42,7 +40,7 @@ import { Card } from 'hds-react';
 
 #### With heading and body text
 
-<Playground>
+<Playground scope={{ Card }}>
 
 
 ```jsx
@@ -90,7 +88,7 @@ import { Card } from 'hds-react';
 
 #### Using with other HDS components
 
-<Playground>
+<Playground scope={{ Card, Button }}>
 
 
 ```jsx

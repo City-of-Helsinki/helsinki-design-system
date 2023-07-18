@@ -13,9 +13,7 @@ import PageTabs from '../../../../components/PageTabs';
 
 <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
 
-<LeadParagraph>
-    Typography tokens are used to define typographic style of headings, body text, and HDS components.
-</LeadParagraph>
+<LeadParagraph>  Typography tokens are used to define typographic style of headings, body text, and HDS components.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -24,5 +22,3 @@ import PageTabs from '../../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

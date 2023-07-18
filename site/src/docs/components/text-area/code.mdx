@@ -3,9 +3,7 @@ slug: '/components/text-area/code'
 title: 'TextArea - Code'
 ---
 
-import { Link, TextArea } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { TextArea } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ TextArea }}>
 
 ```jsx
 import { TextArea } from 'hds-react';
@@ -86,7 +84,7 @@ import { TextArea } from 'hds-react';
 </Playground>
 
 #### With a tooltip
-<Playground>
+<Playground scope={{ TextArea }}>
 
 ```jsx
 import { TextArea } from 'hds-react';

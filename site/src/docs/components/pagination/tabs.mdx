@@ -12,17 +12,13 @@ import PageTabs from '../../../components/PageTabs';
 
 # Pagination
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  The pagination component allows the user to navigate between pages when content is split into several pages.
-</LeadParagraph>
+<LeadParagraph>The pagination component allows the user to navigate between pages when content is split into several pages.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

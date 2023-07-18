@@ -12,17 +12,13 @@ import PageTabs from '../../../components/PageTabs';
 
 # Dialog
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Dialogs initiate a conversation between the service and the user. They are used when an input or a confirmation is needed from the user or when important information needs to be conveyed.
-</LeadParagraph>
+<LeadParagraph>Dialogs initiate a conversation between the service and the user. They are used when an input or a confirmation is needed from the user or when important information needs to be conveyed.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

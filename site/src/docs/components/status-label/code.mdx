@@ -3,9 +3,7 @@ slug: '/components/status-label/code'
 title: 'StatusLabel - Code'
 ---
 
-import { StatusLabel } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ StatusLabel }}>
 
 ```jsx
 import { StatusLabel } from 'hds-react';
@@ -54,7 +52,7 @@ import { StatusLabel } from 'hds-react';
 </Playground>
 
 #### Rounded
-<Playground>
+<Playground scope={{ StatusLabel }}>
 
 ```jsx
 import { StatusLabel } from 'hds-react';
@@ -93,7 +91,7 @@ import { StatusLabel } from 'hds-react';
 </Playground>
 
 #### With an icon
-<Playground>
+<Playground scope={{ StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError }}>
 
 
 ```jsx
@@ -138,7 +136,7 @@ import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconErro
 </Playground>
 
 #### Rounded with an icon
-<Playground>
+<Playground scope={{ StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError }}>
 
 
 ```jsx

@@ -3,9 +3,8 @@ slug: '/components/side-navigation/code'
 title: 'SideNavigation - Code'
 ---
 
-import { SideNavigation, IconHome, IconMap, IconCogwheel, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
+import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,13 +14,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ SideNavigation, useState }}>
 
 ```jsx
 import { SideNavigation } from 'hds-react';
 
 () => {
-  const [active, setActive] = React.useState('/archive');
+  const [active, setActive] = useState('/archive');
   const setActivePage = (e) => {
     e.preventDefault();
     setActive(e.target.getAttribute('href'));
@@ -122,14 +121,14 @@ import { SideNavigation } from 'hds-react';
 </Playground>
 
 #### With icons
-<Playground>
+<Playground scope={{ SideNavigation, useState, IconHome, IconMap, IconCogwheel }}>
 
 
 ```jsx
 import { SideNavigation } from 'hds-react';
 
 () => {
-  const [active, setActive] = React.useState('/archive');
+  const [active, setActive] = useState('/archive');
   const setActivePage = (e) => {
     e.preventDefault();
     setActive(e.target.getAttribute('href'));

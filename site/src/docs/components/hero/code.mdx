@@ -3,9 +3,7 @@ slug: '/components/hero/code'
 title: 'Hero - Code'
 ---
 
-import { Button, Hero, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Button, Hero } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Diagonal koros
 
-<Playground>
+<Playground scope={{ Hero, Button }}>
 
 ```jsx
 <Hero

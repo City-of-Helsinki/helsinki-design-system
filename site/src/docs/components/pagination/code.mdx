@@ -2,11 +2,8 @@
 slug: '/components/pagination/code'
 title: 'Pagination - Code'
 ---
+import { Pagination } from 'hds-react';
 import { useState } from 'react';
-import { withPrefix } from 'gatsby';
-export { Link, Pagination } from 'hds-react';
-import Playground from '../../../components/Playground';
-import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Basic
-<Playground>
+<Playground scope={{ Pagination, useState }}>
 
 ```jsx
 import { Pagination } from 'hds-react';
@@ -105,7 +102,7 @@ import { Pagination } from 'hds-react';
 </Playground>
 
 #### With truncation
-<Playground>
+<Playground scope={{ Pagination, useState }}>
 
 ```jsx
 import { Pagination } from 'hds-react';
@@ -194,7 +191,7 @@ import { Pagination } from 'hds-react';
 </Playground>
 
 #### Without previous and next buttons
-<Playground>
+<Playground scope={{ Pagination, useState }}>
 
 ```jsx
 import { Pagination } from 'hds-react';

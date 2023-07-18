@@ -4,9 +4,8 @@ title: 'Stepper - Code'
 ---
 
 import { useReducer } from 'react';
-import { Button, Stepper, StepState, IconArrowLeft, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Button, Stepper, StepState, IconArrowLeft, IconArrowRight } from 'hds-react';
+
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
 
 ```jsx
 import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
@@ -135,7 +134,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### Small
-<Playground>
+<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
@@ -261,7 +260,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### With a step heading
-<Playground>
+<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
@@ -383,7 +382,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### Overflow
-<Playground>
+<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
@@ -507,7 +506,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### Step states
-<Playground>
+<Playground scope={{ Stepper, StepState }}>
 
 
 ```jsx

@@ -3,9 +3,7 @@ slug: '/components/breadcrumb/code'
 title: 'Breadcrumb - Code'
 ---
 
-import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Breadcrumb, IconDocument, IconEnvelope, IconPhone, IconPhoto } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +12,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Code examples
 
-<Playground>
+<Playground scope={{ Breadcrumb }}>
 
 ```jsx
 <Breadcrumb

@@ -23,14 +23,17 @@ In React version, you can either use the `style` or `className` properties to cu
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Logo }}>
 
 ```jsx
+import { Logo } from 'hds-react';
+
+() => (
 <>
   <Logo language="fi" size="small" style={{ color: 'var(--color-bus)', marginRight: 'var(--spacing-xs)' }} />
   <Logo language="fi" size="medium" style={{ color: 'var(--color-tram)', marginRight: 'var(--spacing-xs)' }} />
   <Logo language="fi" size="large" style={{ color: 'var(--color-metro)' }} />
-</>
+</>)
 ```
 
 </Playground>

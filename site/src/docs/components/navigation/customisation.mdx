@@ -28,10 +28,13 @@ You can use the `theme` property to customise the component. See all available t
 
 
 ### Customisation example
-<Playground>
+<Playground scope={{ Navigation }}>
 
 
 ```jsx
+import { Navigation } from 'hds-react';
+
+() => (
 <Navigation
     theme={{
       '--header-background-color': 'var(--color-bus)',
@@ -63,7 +66,7 @@ You can use the `theme` property to customise the component. See all available t
       <Navigation.Item label="Item" />
       <Navigation.Item label="Item" />
     </Navigation.Row>
-  </Navigation>
+  </Navigation>)
 ```
 
 </Playground>

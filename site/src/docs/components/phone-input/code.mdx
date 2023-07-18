@@ -3,10 +3,8 @@ slug: '/components/phone-input/code'
 title: 'PhoneInput - Code'
 ---
 
-import { Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
+import { PhoneInput, Combobox } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ PhoneInput }}>
 
 
 ```jsx
@@ -53,7 +51,7 @@ import { PhoneInput } from 'hds-react';
 </Playground>
 
 ####  With a country code selection
-<Playground>
+<Playground scope={{ PhoneInput, Combobox }}>
 
 
 ```jsx

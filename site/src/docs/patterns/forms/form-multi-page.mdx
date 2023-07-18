@@ -4,16 +4,15 @@ title: 'Multi-page forms'
 navTitle: 'Multi-page forms'
 ---
 
+import { IconCheck, IconError } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
 
 # Multi-page forms
 
-<LeadParagraph>
-  Filling a long form can be a daunting task for the user. One way to make a long form seem less like a chore is by
-  dividing the form into separate steps that are shown one page at a time.
-</LeadParagraph>
+<LeadParagraph>Filling a long form can be a daunting task for the user. One way to make a long form seem less like a chore is by
+  dividing the form into separate steps that are shown one page at a time.</LeadParagraph>
 
 ## Principles
 
@@ -60,19 +59,19 @@ HDS multi-page forms feature two separate headings; the main heading and the ste
 <Image
   src="/images/patterns/form/multi-page/multi-page-form-headings@2x.png"
   alt="Form headings example"
-  style="max-width:768px;"
+  style={{ maxWidth: 768 }}
   viewable
 />
 
 <div
   class="guideline-do"
-  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
     <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Do</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
         The step heading <em>must</em> include the number of the current step and the total number of steps.
@@ -102,7 +101,7 @@ The navigation is offered in Default and Small sizes. The small size omits the s
 <Image
   src="/images/patterns/form/multi-page/multi-page-form-navigation@2x.png"
   alt="Form navigation example"
-  style="max-width:768px;"
+  style={{ maxWidth: 768 }}
   viewable
 />
 
@@ -112,12 +111,12 @@ HDS provides pre-defined states for form steps. The following table lists all al
 
 | Image                                                                                                                                        | Name            | Usage                                                                                    |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------------- |
-| <Image src="/images/patterns/form/multi-page/state-available@2x.png" alt="Available form step" style="max-width:32px;" viewable />           | Available       | The step is available and the user can navigate to it. The step has not been filled yet. |
-| <Image src="/images/patterns/form/multi-page/state-selected@2x.png" alt="Selected form step" style="max-width:36px;" viewable />             | Selected        | The step is currently active but has not been submitted yet.                             |
-| <Image src="/images/patterns/form/multi-page/state-filled@2x.png" alt="Filled form step" style="max-width:32px;" viewable />                 | Filled          | The step has been filled successfully.                                                   |
-| <Image src="/images/patterns/form/multi-page/state-disabled@2x.png" alt="Disabled form step" style="max-width:32px;" viewable />             | Disabled        | The step is not available yet due to previous step not filled yet.                       |
-| <Image src="/images/patterns/form/multi-page/state-attention@2x.png" alt="Form step demanding attention" style="max-width:32px;" viewable /> | Needs attention | The step demands user's attention. E.g. it has been changed by another user.             |
-| <Image src="/images/patterns/form/multi-page/state-paused@2x.png" alt="Paused form step" style="max-width:32px;" viewable />                 | Paused          | The step progress has been paused. E.g. waiting for a review from officials.             |
+| <Image src="/images/patterns/form/multi-page/state-available@2x.png" alt="Available form step" style={{ maxWidth: 32 }} viewable />           | Available       | The step is available and the user can navigate to it. The step has not been filled yet. |
+| <Image src="/images/patterns/form/multi-page/state-selected@2x.png" alt="Selected form step" style={{ maxWidth: 36 }} viewable />             | Selected        | The step is currently active but has not been submitted yet.                             |
+| <Image src="/images/patterns/form/multi-page/state-filled@2x.png" alt="Filled form step" style={{ maxWidth: 32 }} viewable />                 | Filled          | The step has been filled successfully.                                                   |
+| <Image src="/images/patterns/form/multi-page/state-disabled@2x.png" alt="Disabled form step" style={{ maxWidth: 32 }} viewable />             | Disabled        | The step is not available yet due to previous step not filled yet.                       |
+| <Image src="/images/patterns/form/multi-page/state-attention@2x.png" alt="Form step demanding attention" style={{ maxWidth: 32 }} viewable /> | Needs attention | The step demands user's attention. E.g. it has been changed by another user.             |
+| <Image src="/images/patterns/form/multi-page/state-paused@2x.png" alt="Paused form step" style={{ maxWidth: 32 }} viewable />                 | Paused          | The step progress has been paused. E.g. waiting for a review from officials.             |
 | [Table 1:Available form step states and their uses]                                                                                          |
 
 ### 3. Form area
@@ -129,19 +128,19 @@ To learn more about how to construct form in the City of Helsinki services, plea
 <Image
   src="/images/patterns/form/multi-page/multi-page-form-form-area@2x.png"
   alt="Form area example"
-  style="max-width:768px;"
+  style={{ maxWidth: 768 }}
   viewable
 />
 
 <div
   class="guideline-do"
-  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
     <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Do</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       If your form description includes important instructions, you <strong>must</strong> include them on the every step
       of the form. Do not expect the user to remember instructions from earlier pages.
@@ -157,20 +156,20 @@ To make the error handling as easy as possible for the user, please follow these
 
 <div
   class="guideline-do"
-  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
     <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Do</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       Use one of the form validation patterns listed in
       <InternalLink href="/patterns/forms/form-validation"> HDS Form validation documentation</InternalLink>
     </li>
     <li>
       <strong>Do validation separately for each step/page.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>Always validate all inputs of the page when the user tries to leave the page.</li>
         <li>The main benefit of this is that the user only needs to worry about errors on the current page.</li>
       </ul>
@@ -180,20 +179,20 @@ To make the error handling as easy as possible for the user, please follow these
 
 <div
   class="guideline-dont"
-  style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);">
+  <div class="guideline-dont-label" style={{ color: 'var(--color-error)' , marginBottom: 'var(--spacing-s)' }}>
     <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Don't</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Do not let the user leave pages that have erroneous fields.</strong> Always validate input and guide the
       user to fix the errors before navigating to other steps.
     </li>
     <li>
       Avoid situations where choices in steps could cause errors in other steps. Steps should be completely independent.
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>
           If this is necessary, make sure the user is well informed that attention is needed in earlier steps. Use HDS
           <InternalLink href="/components/notification"> Inline Notification</InternalLink> for this.
