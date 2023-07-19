@@ -4,6 +4,7 @@
   --status-label-height: 32px;
 
   background-color: var(--status-label-background);
+  border-radius: 20px;
   color: var(--status-label-color);
   display: inline-block;
   font-size: var(--fontsize-body-s);
@@ -42,8 +43,4 @@
 .hds-status-label--error {
   --status-label-background: var(--color-error);
   --status-label-color: var(--color-white);
-}
-
-.hds-status-label--rounded-corners {
-  border-radius: 20px;
 }
