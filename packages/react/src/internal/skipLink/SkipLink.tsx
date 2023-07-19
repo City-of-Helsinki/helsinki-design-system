@@ -14,23 +14,23 @@ export interface SkipLinkTheme {
 
 export type SkipLinkProps = {
   /**
-   * ID of the element which is reached by clicking "skip link" shortcut
+   * Aria label for skip link shortcut (alternative text for screen reader)
    */
-  skipTo: string;
+  ariaLabel?: string;
   /**
    * Label for skip link shortcut
    */
   label: string;
   /**
-   * Aria label for skip link shortcut (alternative text for screen reader)
+   * ID of the element which is reached by clicking "skip link" shortcut
    */
-  ariaLabel?: string;
+  skipTo: string;
   /**
    * Custom styling for skip link (current only position)
    */
   theme?: SkipLinkTheme;
 };
-export const SkipLink = ({ skipTo, label, ariaLabel, theme }: SkipLinkProps) => {
+export const SkipLink = ({ ariaLabel, label, skipTo, theme }: SkipLinkProps) => {
   const href = skipTo.startsWith('#') ? skipTo : `#${skipTo}`;
   const customThemeClass = useTheme<SkipLinkTheme>(styles.skipLink, theme);
 
