@@ -81,7 +81,7 @@
 }
 
 .contentColums {
-  composes: hds-hero--with-background__contentcolumns from 'hds-core/lib/components/hero/hero.css';
+  composes: hds-hero--with-background__content-columns from 'hds-core/lib/components/hero/hero.css';
 }
 
 .emptyColumn {
