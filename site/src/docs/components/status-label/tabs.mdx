@@ -13,8 +13,8 @@ import PageTabs from '../../../components/PageTabs';
 # StatusLabel
 
 <div class="status-label-description">
-  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  <StatusLabel type="info">Stable</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
     Accessible
   </StatusLabel>
   <StatusLabelTooltip/>
@@ -23,10 +23,6 @@ import PageTabs from '../../../components/PageTabs';
 <LeadParagraph>
     Status labels can be used to highlight different statuses or items to the user. Status labels cannot be interacted with and they are only meant to convey relevant information.
 </LeadParagraph>
-
-<Notification label="Breaking change" className="siteNotification" type="alert">
-  The default rectangular status labels are deprecated. The rounded cornered variant will replace the default rectangular StatusLabel in the next major release.
-</Notification>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
