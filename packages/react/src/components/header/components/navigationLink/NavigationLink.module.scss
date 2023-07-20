@@ -12,7 +12,6 @@
   margin: 0;
   text-decoration: none;
   word-wrap: break-word;
-  display: inline-block;
 
   &:hover {
     text-decoration: underline;
@@ -22,6 +21,7 @@
   &:focus-visible {
     border: none;
     outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width)
   }
 }
 
