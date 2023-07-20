@@ -21,8 +21,8 @@
 
   &:focus-visible {
     border: none;
-    outline: 3px solid var(--color-coat-of-arms);
-    outline-offset: 3px
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
   }
 }
 
