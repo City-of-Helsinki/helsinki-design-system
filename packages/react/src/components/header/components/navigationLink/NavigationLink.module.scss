@@ -12,17 +12,17 @@
   margin: 0;
   text-decoration: none;
   word-wrap: break-word;
+  display: inline-block;
 
-  &:hover,
-  &:focus {
+  &:hover {
     text-decoration: underline;
     text-decoration-color: var(--color-black-90);
   }
 
   &:focus-visible {
-    border: 0;
+    border: none;
     outline: 3px solid var(--color-coat-of-arms);
-    outline-offset: var(--header-focus-outline-width);
+    outline-offset: 3px
   }
 }
 
