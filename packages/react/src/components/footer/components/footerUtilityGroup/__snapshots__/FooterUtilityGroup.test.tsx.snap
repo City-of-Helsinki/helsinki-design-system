@@ -100,7 +100,7 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                 </span>
                 <a
                   aria-label="Helsingin kaupungin Facebook-tili"
-                  class="link linkM item"
+                  class="link linkM item utility"
                   href="https://facebook.com/helsinginkaupunki/"
                   title="Helsingin kaupungin Facebook-tili"
                 >
@@ -125,7 +125,7 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                 </a>
                 <a
                   aria-label="Helsingin kaupungin Facebook-tili"
-                  class="link linkM item"
+                  class="link linkM item utility"
                   href="https://facebook.com/helsinginkaupunki/"
                   title="Helsingin kaupungin Facebook-tili"
                 >

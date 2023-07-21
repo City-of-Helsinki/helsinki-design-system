@@ -51,21 +51,21 @@ exports[`<Footer.Navigation /> spec renders the component 1`] = `
           class="navigation"
         >
           <a
-            class="link linkM item"
+            class="link linkM item navigation"
           >
             <span>
               Link 1
             </span>
           </a>
           <a
-            class="link linkM item"
+            class="link linkM item navigation"
           >
             <span>
               Link 2
             </span>
           </a>
           <a
-            class="link linkM item"
+            class="link linkM item navigation"
           >
             <span>
               Link 3
