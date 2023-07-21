@@ -1,2 +1,2 @@
 export * from './Footer';
-export * from './Footer.interface';
+export { FooterTheme, FooterCustomTheme } from './Footer.interface';

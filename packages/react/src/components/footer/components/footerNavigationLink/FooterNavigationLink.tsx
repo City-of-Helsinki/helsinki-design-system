@@ -28,6 +28,10 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   icon?: React.ReactNode;
   /**
+   * The label for the item.
+   */
+  label?: string;
+  /**
    * Boolean indicating whether the link will open in new tab or not.
    */
   openInNewTab?: boolean;
@@ -40,15 +44,13 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   openInExternalDomainAriaLabel?: string;
   /**
-   * The label for the item.
-   */
-  label?: string;
-  /**
    * Set this if this item appears in footer navigation group.
+   * @internal
    */
   subItem?: boolean;
   /**
-   * Internal variant to change styles based on context.
+   * Defines the FooterNavigationLink variant.
+   * @internal
    */
   variant?: FooterVariant.Navigation | FooterVariant.Utility | FooterVariant.Base;
 }>;

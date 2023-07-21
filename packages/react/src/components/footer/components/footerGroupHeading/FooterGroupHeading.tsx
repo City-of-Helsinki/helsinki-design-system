@@ -27,6 +27,7 @@ type ItemProps<T> = React.PropsWithChildren<{
   label?: string | React.ReactNode;
   /**
    * Internal variant to change styles based on context.
+   * @internal
    */
   variant?: FooterVariant.Navigation | FooterVariant.Utility;
 }>;

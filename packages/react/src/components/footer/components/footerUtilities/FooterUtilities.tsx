@@ -1,10 +1,12 @@
-import React, { cloneElement, isValidElement } from 'react';
+import React, { cloneElement, Fragment, isValidElement } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
 
 import styles from './FooterUtilities.module.scss';
 import classNames from '../../../../utils/classNames';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
+import { FooterVariant } from '../../Footer.interface';
 
 export type FooterUtilitiesProps = {
   /**
@@ -23,10 +25,24 @@ export type FooterUtilitiesProps = {
 };
 
 export const FooterUtilities = ({ children, soMeLinks, soMeSectionProps }: FooterUtilitiesProps) => {
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
     <div className={styles.utilities}>
       <hr className={styles.divider} aria-hidden />
-      <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>{children}</div>
+      <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>
+        {childElements.map((child, childIndex) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={childIndex}>
+              {isValidElement(child)
+                ? cloneElement(child as React.ReactElement, {
+                    variant: FooterVariant.Utility,
+                  })
+                : child}
+            </Fragment>
+          );
+        })}
+      </div>
       {soMeLinks && (
         <section className={styles.soMe} {...soMeSectionProps}>
           {soMeLinks.map((link, index) => {
