@@ -13,7 +13,7 @@ import {
   Koros,
   Logo,
   Link,
-  RoundedTag,
+  Tag,
   Table,
 } from 'hds-react';
 
@@ -248,27 +248,27 @@ const DemoPage = () => {
           <h3 className="heading-l">The Helsinki Design System was created to unify the user experience</h3>
           <div className="info-page-box-grid timeline">
             <div className="grid-box">
-              <RoundedTag className="box-tag">May 26, 2020</RoundedTag>
+              <Tag className="box-tag">May 26, 2020</Tag>
               <div className="box-heading">HDS Alpha</div>
               <div className="box-text">Setting up the processes after a proof of concept.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag className="box-tag">October 29, 2020</RoundedTag>
+              <Tag className="box-tag">October 29, 2020</Tag>
               <div className="box-heading">HDS Beta</div>
               <div className="box-text">Providing a foundation of the library components.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag className="box-tag">May 3, 2021</RoundedTag>
+              <Tag className="box-tag">May 3, 2021</Tag>
               <div className="box-heading">HDS 1.0.0</div>
               <div className="box-text">Official support, continuous development, a city-wide acknowledged tool.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag className="box-tag">June 27, 2022</RoundedTag>
+              <Tag className="box-tag">June 27, 2022</Tag>
               <div className="box-heading">HDS 2.0.0</div>
               <div className="box-text">Design update for the entire component library.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag
+              <Tag
                 className="box-tag alert"
                 theme={{
                   '--tag-background': 'var(--color-alert)',
@@ -276,7 +276,7 @@ const DemoPage = () => {
                 }}
               >
                 Coming soon
-              </RoundedTag>
+              </Tag>
               <div className="box-heading">HDS 3.0.0</div>
               <div className="box-text">New navigation components and a navigation pattern.</div>
             </div>

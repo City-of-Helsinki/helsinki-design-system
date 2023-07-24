@@ -3,7 +3,7 @@ slug: '/components/tag/code'
 title: 'Tag - Code'
 ---
 
-import { Link, Tag, RoundedTag as RoundedTagComponent, LargeRoundedTag } from 'hds-react';
+import { Link, Tag } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
@@ -134,160 +134,42 @@ import { Tag } from 'hds-react';
 
 </Playground>
 
-#### Rounded default
+#### Large deletable
 <Playground>
 
 ```jsx
-import { RoundedTagComponent } from 'hds-react';
+import { Tag } from 'hds-react';
 
 () => (<>
-  <RoundedTagComponent
-    aria-label="Category: News"
-  >
-    News
-  </RoundedTagComponent>
-
-  <RoundedTagComponent
-    aria-label="Category: Announcements"
-    style={{ marginLeft: 'var(--spacing-s)' }}
-  >
-    Announcements
-  </RoundedTagComponent>
-</>)
-```
-
-```html
-<div>
-<div class="hds-tag hds-tag--rounded-corners" tabindex="0" onclick="" aria-label="Category: News">
-  <span class="hds-tag__label">News</span>
-</div>
-
-<div class="hds-tag hds-tag--rounded-corners" tabindex="0" onclick="" aria-label="Category: Announcements" style="margin-left:var(--spacing-xs);">
-  <span class="hds-tag__label">Announcements</span>
-</div>
-</div>
-```
-
-</Playground>
-
-#### Rounded clickable
-<Playground>
-
-```jsx
-import { RoundedTagComponent } from 'hds-react';
-
-() => (<>
-  <RoundedTagComponent
-    role="link"
-    onClick={() => {}}
-    aria-label="Move to category: News"
-  >
-    News
-  </RoundedTagComponent>
-
-  <RoundedTagComponent
-    role="link"
-    onClick={() => {}}
-    aria-label="Move to category: Announcements"
-    style={{ marginLeft: 'var(--spacing-s)' }}
-  >
-    Announcements
-  </RoundedTagComponent>
-</>)
-```
-
-```html
-<div>
-<div class="hds-tag hds-tag--rounded-corners" role="link" tabindex="0" onclick="" aria-label="Move to category: News">
-    <span class="hds-tag__label">News</span>
-</div>
-
-<div class="hds-tag hds-tag--rounded-corners" role="link" tabindex="0" onclick="" aria-label="Move to category: Announcements" style="margin-left:var(--spacing-xs);">
-  <span class="hds-tag__label">Announcements</span>
-</div>
-</div>
-```
-
-</Playground>
-
-#### Rounded deletable
-<Playground>
-
-```jsx
-import { RoundedTagComponent } from 'hds-react';
-
-() => (<>
-  <RoundedTagComponent
+  <Tag
+    size="l"
     onDelete={() => {}}
     deleteButtonAriaLabel="Delete filter: News"
   >
     News
-  </RoundedTagComponent>
+  </Tag>
 
-  <RoundedTagComponent
+  <Tag
+    size="l"
     onDelete={() => {}}
     deleteButtonAriaLabel="Delete filter: Announcements"
     style={{ marginLeft: 'var(--spacing-s)' }}
   >
     Announcements
-  </RoundedTagComponent>
+  </Tag>
 </>)
 ```
 
 ```html
 <div>
-<div class="hds-tag hds-tag--rounded-corners">
+<div class="hds-tag hds-tag--large">
   <span class="hds-tag__label" aria-hidden="true">News</span>
   <button type="button" aria-label="Delete filter: News" class="hds-tag__delete-button button-reset">
       <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
   </button>
 </div>
 
-<div class="hds-tag hds-tag--rounded-corners" style="margin-left:var(--spacing-xs);">
-  <span class="hds-tag__label" aria-hidden="true">Announcements</span>
-  <button type="button" aria-label="Delete filter: Announcements" class="hds-tag__delete-button button-reset">
-      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
-  </button>
-</div>
-</div>
-```
-
-</Playground>
-
-#### Large rounded deletable
-<Playground>
-
-```jsx
-import { LargeRoundedTag } from 'hds-react';
-
-() => (<>
-  <LargeRoundedTag
-    onDelete={() => {}}
-    deleteButtonAriaLabel="Delete filter: News"
-  >
-    News
-  </LargeRoundedTag>
-
-  <LargeRoundedTag
-    onDelete={() => {}}
-    deleteButtonAriaLabel="Delete filter: Announcements"
-    style={{ marginLeft: 'var(--spacing-s)' }}
-  >
-    Announcements
-  </LargeRoundedTag>
-</>)
-```
-
-```html
-<div>
-<div class="hds-tag hds-tag--rounded-corners hds-tag--rounded-corners-large">
-  <span class="hds-tag__label" aria-hidden="true">News</span>
-  <button type="button" aria-label="Delete filter: News" class="hds-tag__delete-button button-reset">
-      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
-  </button>
-</div>
-
-<div class="hds-tag hds-tag--rounded-corners hds-tag--rounded-corners-large" style="margin-left:var(--spacing-xs);">
+<div class="hds-tag hds-tag--large" style="margin-left:var(--spacing-xs);">
   <span class="hds-tag__label" aria-hidden="true">Announcements</span>
   <button type="button" aria-label="Delete filter: Announcements" class="hds-tag__delete-button button-reset">
       <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
@@ -315,5 +197,6 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `onClick`               | Callback function fired when the tag is clicked. If set, the tag will be clickable.                                            | `function`          | -             |
 | `onDelete`              | Callback function fired when the delete icon is clicked. If set, a delete button will be shown.                                | `function`          | -             |
 | `role`                  | Sets the role of the tag when it's clickable. Uses 'link' by default.                                                          | `"button"` `"link"` | `"link"`      |
+| `size`                  | Sets the size of the Tag.                                                                                                      | `"m"` `"l"`         | `"m"`         |
 | `srOnlyLabel`           | Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag. | `string`            | -             |
 [Table 1:Tag properties]|
