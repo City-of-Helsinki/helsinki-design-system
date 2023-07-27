@@ -30,6 +30,7 @@
   --action-bar-item-title-font-color: var(--color-black-90);
   --logo-height: 56px;
   --icon-size: 24px;
+  --header-max-width: 1440px;
 
   @include layout.below-large {
     --action-bar-container-height: 74px;
@@ -51,6 +52,7 @@
   background-color: var(--navigation-row-background-color);
   color: var(--header-color);
   position: relative;
+  max-width: var(--header-max-width);
   width: 100%;
 }
 
