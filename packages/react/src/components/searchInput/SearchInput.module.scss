@@ -27,7 +27,7 @@
   composes: hds-search-input__button from 'hds-core/lib/components/search-input/search-input.css';
 
   &.hidden {
-    @extend %hiddenFromScreen;
+    @extend %visually-hidden;
   }
 
   &:focus {
@@ -64,7 +64,7 @@
   }
 
   &:not(:focus).hidden {
-    @extend %hiddenFromScreen;
+    @extend %visually-hidden;
   }
 
   // don't add additional right padding if toggle button is hidden
