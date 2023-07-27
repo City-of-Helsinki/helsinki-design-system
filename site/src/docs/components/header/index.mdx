@@ -33,6 +33,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - HeaderNavigationBar is coming soon
 - HeaderActionBar is coming soon
 - The inner components should **always** be in this order: Header.SkipLink, Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
+- 
 
 ### Variations
 
@@ -63,6 +64,12 @@ Coming soon!
 #### With navigation bar
 
 Coming soon!
+
+### With navigation language selector
+
+- Using the Header.NavigationLanguageSelector is optional. Use the navigation language selector to define site languages. 
+- Header has onDidChangeLanguage function, where user can define a callback function which gets the selected language key (value) as parameter.
+- See Example for Header.NavigationLanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link>
 
 #### With skip link
 
