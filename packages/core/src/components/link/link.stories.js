@@ -23,11 +23,11 @@ InternalLinks.storyName = 'Internal links';
 
 export const ExternalLinks = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small" aria-label="External link size small. Opens in external domain">
-    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
+    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-icon" aria-hidden="true"></i></a>
   <br/>
   <br/>
   <a href="https://hds.hel.fi" class="hds-link hds-link--medium" aria-label="External link size medium. Opens in external domain">
-    External link size medium<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
+    External link size medium<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-medium-icon" aria-hidden="true"></i></a>
   <br/>
   <br/>
   <a href="https://hds.hel.fi" class="hds-link hds-link--large" aria-label="External link size large. Opens in external domain">
@@ -39,7 +39,7 @@ ExternalLinks.storyName = 'External links';
 
 export const openInNewTabLink = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--medium" rel="noopener" target="_blank" aria-label="Link that opens in a new tab. Opens in a new tab. Opens in external domain">
-    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i>
+    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-medium-icon" aria-hidden="true"></i>
   </a>
 `
 
@@ -53,12 +53,12 @@ visitedStylesDisabled.storyName = 'Link without visited styles';
 
 const smallLink = `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small" aria-label="Inline link. Opens in external domain">
-    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
+    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-icon" aria-hidden="true"></i></a>
 `
 
 const mediumLink = `
   <a href="https://hds.hel.fi" class="hds-link hds-link--medium" aria-label="Inline link. Opens in external domain">
-    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
+    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-icon" aria-hidden="true"></i></a>
 `
 
 export const inlineLinks = () => `

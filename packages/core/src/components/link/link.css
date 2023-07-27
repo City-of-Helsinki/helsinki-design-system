@@ -28,12 +28,16 @@
   outline: none;
 }
 
-.hds-link .vertical-align-small-or-medium-icon {
+.hds-link .vertical-align-medium-icon {
   vertical-align: sub;
 }
 
 .hds-link .vertical-align-big-icon {
   vertical-align: middle;
+}
+
+.hds-link .vertical-align-small-icon {
+  vertical-align: text-top;
 }
 
 .hds-link--disable-visited-styles:visited {
