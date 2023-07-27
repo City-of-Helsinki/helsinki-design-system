@@ -219,7 +219,7 @@ export const MinimalWithLocalization = (args) => {
   };
 
   const languageChangedAction2 = (lg: string) => setLang(lg);
-  
+
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction2}>
       <Header.ActionBar
