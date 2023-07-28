@@ -1,10 +1,16 @@
 .headerNavigationMenu {
   background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-black-20);
   box-sizing: border-box;
   display: flex;
   height: var(--layout-l);
+  margin: 0 auto;
+  max-width: var(--header-max-width);
   padding: 0 var(--header-margin);
+  width: 100%;
+}
+
+.headerNavigationMenuContainer {
+  border-bottom: 1px solid var(--header-divider-color);
   width: 100%;
 }
 

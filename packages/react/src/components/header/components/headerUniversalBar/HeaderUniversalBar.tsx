@@ -10,10 +10,6 @@ import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/get
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing universal bar.
-   */
-  ariaLabel?: string;
-  /**
    * Additional class names to apply.
    */
   className?: string;
@@ -38,7 +34,6 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
 }>;
 
 export const HeaderUniversalBar = ({
-  ariaLabel,
   className,
   children,
   id,
@@ -50,25 +45,27 @@ export const HeaderUniversalBar = ({
   const childElements = getChildElementsEvenIfContainersInbetween(children);
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
-      <ul className={styles.headerUniversalBarList}>
-        <li className={styles.universalBarMainLinkContainer}>
-          <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
-        </li>
-        {childElements.map((child, index) => {
-          if (React.isValidElement(child)) {
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
-                {cloneElement(child as React.ReactElement, {
-                  className: classNames(child.props.className, styles.universalBarLink),
-                })}
-              </li>
-            );
-          }
-          return null;
-        })}
-      </ul>
-    </nav>
+    <div className={styles.headerUniversalBarContainer}>
+      <div id={id} className={classNames(styles.headerUniversalBar, className)}>
+        <ul className={styles.headerUniversalBarList}>
+          <li className={styles.universalBarMainLinkContainer}>
+            <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
+          </li>
+          {childElements.map((child, index) => {
+            if (React.isValidElement(child)) {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
+                  {cloneElement(child as React.ReactElement, {
+                    className: classNames(child.props.className, styles.universalBarLink),
+                  })}
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </div>
+    </div>
   );
 };

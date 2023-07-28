@@ -3,12 +3,13 @@
 
 .headerActionBar {
   align-items: stretch;
-  border-bottom: 1px solid var(--header-divider-color);
   box-sizing: border-box;
   display: flex;
   gap: var(--action-bar-section-gutter);
   height: var(--action-bar-container-height);
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--header-max-width);
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
@@ -21,6 +22,11 @@
     margin: 0 5px;
     width: 0;
   }
+}
+
+.headerActionBarContainer {
+  border-bottom: 1px solid var(--header-divider-color);
+  width: 100%;
 }
 
 .headerActions {

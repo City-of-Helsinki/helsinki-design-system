@@ -66,18 +66,17 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
     setNavigationContent(navigationContent);
   }, [children]);
 
-  /* On medium screen return null for now. Later when ActionBar's first version is done,
-  we could see if this component with its contents (altered for medium screens) could be
-  sent to HeaderContext and used in ActionBar? */
   if (isNotLargeScreen) return null;
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
-      <ul className={styles.headerNavigationMenuList}>
-        <HeaderNavigationMenuContextProvider>
-          <HeaderNavigationMenuContent />
-        </HeaderNavigationMenuContextProvider>
-      </ul>
-    </nav>
+    <div className={styles.headerNavigationMenuContainer}>
+      <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
+        <ul className={styles.headerNavigationMenuList}>
+          <HeaderNavigationMenuContextProvider>
+            <HeaderNavigationMenuContent />
+          </HeaderNavigationMenuContextProvider>
+        </ul>
+      </nav>
+    </div>
   );
 };
