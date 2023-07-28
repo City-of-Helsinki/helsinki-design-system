@@ -2,13 +2,17 @@
 
 exports[`<HeaderNavigationMenu /> spec renders the component 1`] = `
 <DocumentFragment>
-  <nav
-    class="headerNavigationMenu"
-    role="navigation"
+  <div
+    class="headerNavigationMenuContainer"
   >
-    <ul
-      class="headerNavigationMenuList"
-    />
-  </nav>
+    <nav
+      class="headerNavigationMenu"
+      role="navigation"
+    >
+      <ul
+        class="headerNavigationMenuList"
+      />
+    </nav>
+  </div>
 </DocumentFragment>
 `;
