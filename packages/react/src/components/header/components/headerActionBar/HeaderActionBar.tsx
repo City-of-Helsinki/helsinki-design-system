@@ -124,7 +124,7 @@ export const HeaderActionBar = ({
       <div className={classNames(styles.headerActionBar, className)}>
         <LinkItem {...logoProps}>
           {logoProps?.href ? (
-            <span>
+            <span className={styles.logoWrapper}>
               <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
             </span>
           ) : (
