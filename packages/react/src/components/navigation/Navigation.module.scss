@@ -75,7 +75,7 @@
 
 .skipToContent {
   &:not(:focus) {
-    @extend %visually-hidden;
+    @extend %visuallyHidden;
   }
 
   &:focus {

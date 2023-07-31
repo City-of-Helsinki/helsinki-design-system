@@ -68,7 +68,7 @@
     text-transform: uppercase;
 
     &-vhidden {
-      @extend %visually-hidden;
+      @extend %visuallyHidden;
     }
   }
 }
@@ -139,7 +139,7 @@
     position: absolute;
 
     &-vhidden {
-      @extend %visually-hidden;
+      @extend %visuallyHidden;
     }
   }
 }
