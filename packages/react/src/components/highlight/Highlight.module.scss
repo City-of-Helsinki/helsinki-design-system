@@ -37,7 +37,7 @@
   composes: hds-highlight__reference from 'hds-core/lib/components/highlight/highlight.css';
   
   &:before {
-    content: '-';
+    content: '—';
     display: inline;
     font-size: inherit;
     line-height: inherit;  

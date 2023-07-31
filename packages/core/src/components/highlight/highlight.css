@@ -60,7 +60,7 @@
 }
 
 .hds-highlight__reference:before {
-  content: '-';
+  content: '—';
   display: inline;
   font-size: inherit;
   line-height: inherit;  
