@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { Header } from './Header';
@@ -178,6 +178,85 @@ export const Minimal = (args) => {
         </Header.ActionBarItem>
         <hr style={{ order: 9 }} />
         <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+          <h3>Kirjautumisvalinnat</h3>
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+
+      <Header.NavigationMenu>
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
+    </Header>
+  );
+};
+
+export const MinimalWithLocalization = (args) => {
+  const [lang, setLang] = useState<string>('fi');
+
+  const translations = {
+    en: {
+      'header-title': 'Helsinki city',
+      'header-aria-label': 'Helsinki city',
+      'header-login': 'Login',
+      'header-search': 'Search',
+      'header-menu-title': 'Other languages',
+    },
+    fi: {
+      'header-title': 'Helsingin kaupunki',
+      'header-aria-label': 'Helsingin kaupunki',
+      'header-login': 'Kirjaudu',
+      'header-search': 'Haku',
+      'header-menu-title': 'Tietoa muilla kielillä',
+    },
+    sv: {
+      'header-title': 'Helsingfors Stad',
+      'header-aria-label': 'Helsingfors Stad',
+      'header-login': 'Logga in',
+      'header-search': 'Sök',
+      'header-menu-title': 'Andra språk',
+    },
+  };
+
+  const languageChangedAction2 = (lg: string) => setLang(lg);
+
+  return (
+    <Header {...args} onDidChangeLanguage={languageChangedAction2}>
+      <Header.ActionBar
+        title={translations[lang]['header-title']}
+        titleAriaLabel={translations[lang]['header-aria-label']}
+        titleUrl="https://hel.fi"
+        titleStyle={TitleStyleType.black}
+      >
+        <Header.NavigationLanguageSelector languages={languages}>
+          <h3>{translations[lang]['header-menu-title']}</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
+        </Header.NavigationLanguageSelector>
+
+        <Header.ActionBarItem
+          fullWidth
+          label={translations[lang]['header-search']}
+          icon={IconSearch}
+          id="action-bar-search"
+        >
+          <Header.NavigationSearch
+            onChange={searchChangeAction}
+            onSubmit={searchSubmitAction}
+            label={translations[lang]['header-search']}
+          />
+        </Header.ActionBarItem>
+        <hr style={{ order: 9 }} />
+        <Header.ActionBarItem
+          label={translations[lang]['header-login']}
+          icon={IconUser}
+          style={{ order: 10 }}
+          id="action-bar-login"
+        >
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
