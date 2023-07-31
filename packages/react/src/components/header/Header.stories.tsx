@@ -244,7 +244,11 @@ export const MinimalWithLocalization = (args) => {
           icon={IconSearch}
           id="action-bar-search"
         >
-          <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
+          <Header.NavigationSearch
+            onChange={searchChangeAction}
+            onSubmit={searchSubmitAction}
+            label={translations[lang]['header-search']}
+          />
         </Header.ActionBarItem>
         <hr style={{ order: 9 }} />
         <Header.ActionBarItem
