@@ -26,10 +26,6 @@
   margin-left: var(--spacing-3-xs);
 }
 
-.verticalAlignSmallOrMediumIcon {
-  composes: vertical-align-small-or-medium-icon from 'hds-core/lib/components/link/link.css';
-}
-
 .navigation {
   align-items: center;
   font-size: var(--fontsize-body-l);
