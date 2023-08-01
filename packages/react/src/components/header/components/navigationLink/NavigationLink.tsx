@@ -244,14 +244,10 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
   return (
     <span
       className={navigationWrapperLinkClassName}
-      {...(dropdownLinks &&
-        dropdownOpenedBy === NavigationLinkInteraction.Hover && {
-          onMouseLeave: () => handleDropdownOpen(false),
-        })}
       ref={containerRef}
       {...(dropdownLinks &&
         dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-          onMouseEnter: () => handleDropdownOpen(true, NavigationLinkInteraction.Hover),
+          onClick: () => handleDropdownOpen(true, NavigationLinkInteraction.Click),
         })}
     >
       <Item
