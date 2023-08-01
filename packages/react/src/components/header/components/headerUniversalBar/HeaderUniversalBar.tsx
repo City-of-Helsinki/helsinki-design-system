@@ -10,6 +10,10 @@ import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/get
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
+   * aria-label for describing universal bar.
+   */
+  ariaLabel?: string;
+  /**
    * Additional class names to apply.
    */
   className?: string;
@@ -34,6 +38,7 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
 }>;
 
 export const HeaderUniversalBar = ({
+  ariaLabel,
   className,
   children,
   id,
@@ -46,7 +51,7 @@ export const HeaderUniversalBar = ({
 
   return (
     <div className={styles.headerUniversalBarContainer}>
-      <div id={id} className={classNames(styles.headerUniversalBar, className)}>
+      <nav id={id} className={classNames(styles.headerUniversalBar, className)} aria-label={ariaLabel}>
         <ul className={styles.headerUniversalBarList}>
           <li className={styles.universalBarMainLinkContainer}>
             <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
@@ -65,7 +70,7 @@ export const HeaderUniversalBar = ({
             return null;
           })}
         </ul>
-      </div>
+      </nav>
     </div>
   );
 };
