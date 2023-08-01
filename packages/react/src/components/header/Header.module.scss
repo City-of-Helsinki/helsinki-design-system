@@ -5,12 +5,15 @@
   --header-background-color: var(--color-white);
   --header-color: var(--color-black-90);
   --header-height: var(--spacing-4-xl);
+  --header-color: var(--color-black);  
   --header-focus-outline-width: 3px;
   --header-focus-outline-border-radius: 0;
   --header-focus-outline-color: var(--color-coat-of-arms);
   --header-divider-color: var(--color-black-20);
   --header-z-index: 10;
   --header-margin: var(--spacing-m);
+  --header-max-width: 1440px;
+  --header-background-color: var(--color-white);
   --action-bar-container-height: 88px;
   --action-bar-section-gutter: var(--spacing-s);
   --action-bar-dropdown-menu-caret-width: 64px;
@@ -19,10 +22,23 @@
   --action-bar-button-size: 64px;
   --action-bar-item-gutter: 12px;
   --action-bar-item-title-font-size: 14px;
-  --action-bar-item-title-font-color: var(--color-black-90);
+  --color-grey-60: #666;
+  --color-grey-90: #333;
+  --action-bar-item-title-font-color: var(--header-color);
+  --language-selector-item-font-color: var(--header-color);
+  --navigation-link-font-color: var(--header-color);
+  --navigation-background-color: var(--header-background-color);
+  --navigation-border-color: var(--color-black-20);
+  --navigation-link-active-color: var(--color-black-90);
+  --navigation-link-hover-color: var(--color-black-90);
+  --universal-bar-background-color: var(--color-white);
+  --navigation-link-button-background-color: var(--color-white);
+  --navigation-link-dropdown-background-color: var(--color-white);
+  --language-selector-dropdown-background-color: var(--color-white);
   --logo-height: 56px;
   --icon-size: 24px;
-  --header-max-width: 1440px;
+  --header-item-border-color: var(--color-black-20);
+  --header-item-hover-color: var(--color-black-20);
 
   @include layout.below-large {
     --action-bar-container-height: 74px;
@@ -41,10 +57,24 @@
     --logo-height: 32px;
   }
 
+  &.darkTheme {
+    --header-color: var(--color-white);    
+    --header-focus-outline-color: var(--color-white);
+    --header-background-color: var(--color-grey-90);
+    --navigation-border-color: var(--color-white);
+    --navigation-link-active-color: var(--color-white);
+    --navigation-link-hover-color: var(--color-white);
+    --universal-bar-background-color: var(--color-grey-60);
+    --navigation-link-button-background-color: var(--color-grey-60);
+    --navigation-link-dropdown-background-color: var(--color-grey-90);
+    --language-selector-dropdown-background-color: var(--color-grey-60);
+  }
+
   background-color: var(--header-background-color);
   color: var(--header-color);
   position: relative;
   width: 100%;
+
 }
 
 /* BACKGROUND WRAPPER */
