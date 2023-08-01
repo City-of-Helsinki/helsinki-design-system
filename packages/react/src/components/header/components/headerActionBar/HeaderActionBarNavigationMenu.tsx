@@ -13,7 +13,7 @@ export const HeaderActionBarNavigationMenu = () => {
   if (!hasNavigationContent || !isNotLargeScreen) return null;
 
   return (
-    <nav role="navigation" className={className}>
+    <nav className={className}>
       <ul className={styles.headerNavigationMenuList}>
         <HeaderNavigationMenuContextProvider>
           <HeaderNavigationMenuContent />
