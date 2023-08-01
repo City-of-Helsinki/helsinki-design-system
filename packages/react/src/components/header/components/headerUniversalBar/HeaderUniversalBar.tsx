@@ -10,7 +10,7 @@ import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/get
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing universal bar.
+   * aria-label for describing UniversalBar.
    */
   ariaLabel?: string;
   /**
@@ -35,6 +35,10 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
    * @default 'Helsingin kaupunki'
    */
   primaryLinkText?: string;
+  /**
+   * ARIA role to describe the contents.
+   */
+  role?: string;
 }>;
 
 export const HeaderUniversalBar = ({
@@ -44,6 +48,7 @@ export const HeaderUniversalBar = ({
   id,
   primaryLinkHref,
   primaryLinkText,
+  role,
 }: HeaderUniversalBarProps) => {
   const { isNotLargeScreen } = useHeaderContext();
   if (isNotLargeScreen) return null;
@@ -51,7 +56,7 @@ export const HeaderUniversalBar = ({
 
   return (
     <div className={styles.headerUniversalBarContainer}>
-      <nav id={id} className={classNames(styles.headerUniversalBar, className)} aria-label={ariaLabel}>
+      <div role={role} aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
         <ul className={styles.headerUniversalBarList}>
           <li className={styles.universalBarMainLinkContainer}>
             <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
@@ -70,7 +75,7 @@ export const HeaderUniversalBar = ({
             return null;
           })}
         </ul>
-      </nav>
+      </div>
     </div>
   );
 };

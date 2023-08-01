@@ -31,7 +31,7 @@ export const NavigationSearch = ({ onChange, onSubmit, label }: NavigationSearch
   };
 
   return (
-    <div className={styles.searchContainer}>
+    <div className={styles.searchContainer} role="search">
       <SearchInput label={label} onSubmit={handleSubmit} onChange={setInputValue} />
     </div>
   );
