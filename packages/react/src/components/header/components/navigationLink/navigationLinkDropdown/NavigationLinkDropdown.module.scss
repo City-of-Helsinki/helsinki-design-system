@@ -1,5 +1,5 @@
 .button {
-  background-color: var(--color-black-5);
+  background-color: var(--navigation-link-button-background-color);
   border: none;
   box-sizing: content-box;
   display: block;
@@ -27,7 +27,7 @@
   }
 
   &:focus-visible {
-    outline: 3px solid var(--color-coat-of-arms);
+    outline: 3px solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 }
@@ -45,8 +45,8 @@
 }
 
 .dropdownMenu {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-black-20);
+  background-color: var(--navigation-link-dropdown-background-color);
+  border: 1px solid var(--navigation-border-color);
   display: flex;
   flex-direction: column;
   left: calc(-1 * var(--header-margin));
@@ -67,7 +67,7 @@
     }
 
     &:focus-visible {
-      outline: 3px solid var(--color-coat-of-arms);
+      outline: 3px solid var(--header-focus-outline-color);
       outline-offset: var(--header-focus-outline-width);
     }
 

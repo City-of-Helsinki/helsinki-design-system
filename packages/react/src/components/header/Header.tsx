@@ -32,6 +32,10 @@ export interface HeaderNodeProps extends HeaderAttributes {
    * ID of the header element.
    */
   id?: string;
+  /**
+   * theme of the header element.
+   */
+  theme?: 'light' | 'dark';
 }
 
 export interface HeaderProps extends HeaderNodeProps {
@@ -40,7 +44,11 @@ export interface HeaderProps extends HeaderNodeProps {
 
 const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, className, ...props }) => {
   const { isNotLargeScreen } = useHeaderContext();
-  const headerClassNames = classNames('hds-header', styles.header, className, { isNotLargeScreen });
+  const { theme } = props;
+
+  const headerClassNames = classNames('hds-header', styles.header, theme && styles[`${theme}Theme`], className, {
+    isNotLargeScreen,
+  });
   return (
     <header className={headerClassNames} {...props} aria-label={ariaLabel}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>

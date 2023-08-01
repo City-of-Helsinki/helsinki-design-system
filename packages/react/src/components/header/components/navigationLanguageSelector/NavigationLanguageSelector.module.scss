@@ -21,6 +21,7 @@
   align-items: flex-start;
   display: flex;
   flex-flow: column nowrap;
+  background-color: var(--language-selector-dropdown-background-color);
 
   > * {
     line-height: var(--lineheight-l);
@@ -33,6 +34,7 @@
   appearance: none;
   background: transparent;
   border: none;
+  color: var(--language-selector-item-font-color);
   cursor: pointer;
   line-height: var(--lineheight-l);
   padding: 0;
