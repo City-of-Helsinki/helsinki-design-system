@@ -13,15 +13,14 @@
   text-decoration: none;
   word-wrap: break-word;
 
-  &:hover,
-  &:focus {
+  &:hover {
     text-decoration: underline;
     text-decoration-color: var(--color-black-90);
   }
 
   &:focus-visible {
-    border: 0;
-    outline: 3px solid var(--color-coat-of-arms);
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
     outline-offset: var(--header-focus-outline-width);
   }
 }

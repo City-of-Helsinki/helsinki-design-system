@@ -69,3 +69,9 @@
   box-sizing: content-box;
   height: var(--logo-height);
 }
+
+.logoWrapper {
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
