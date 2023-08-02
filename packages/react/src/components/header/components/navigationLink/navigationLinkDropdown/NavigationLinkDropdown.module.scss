@@ -57,9 +57,10 @@
   top: 100%;
   z-index: 1;
 
-  li > span {
+  // REMOVE ME / PUT INSIDE A CLASS SO I DONT AFFECT MOBILE
+  /* li > span {
     padding: 0 var(--spacing-xs) 0 0;
-  }
+  } */
 
   .dropdownLink {
     font-size: var(--fontsize-body-m);
@@ -94,6 +95,9 @@
   .activeLink:before {
     border-left: 4px solid var(--color-black);
     padding-left: var(--spacing-xs);
+  }
+  .button {
+    margin: 0 var(--spacing-xs) 0 var(--spacing-s);
   }
 }
 

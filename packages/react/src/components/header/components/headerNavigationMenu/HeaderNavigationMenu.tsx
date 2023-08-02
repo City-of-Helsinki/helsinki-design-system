@@ -38,6 +38,7 @@ const renderHeaderNavigationMenuItem = (child, index) => {
     dropdownLinkClassName: styles.headerNavigationMenuDropdownLinkMobile,
     dropdownClassName: styles.headerNavigationMenuDropdownMobile,
     wrapperClassName: styles.headerNavigationMenuLinkWrapperMobile,
+    dropdownButtonClassName: styles.headerNavigationMenuDropdownButtonMobile,
     className: classNames(child.props.className, styles.headerNavigationMenuLinkMobile),
     index,
   });

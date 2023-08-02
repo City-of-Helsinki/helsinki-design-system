@@ -26,6 +26,10 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    */
   closeDropdownAriaButtonLabel?: string;
   /**
+   * Additional class names for the dropdown button.
+   */
+  dropdownButtonClassName?: string;
+  /**
    * Direction for dropdown position.
    * @default DropdownMenuPosition.Right
    */
@@ -64,6 +68,7 @@ export const NavigationLinkDropdown = ({
   depth = 0,
   closeDropdownAriaButtonLabel,
   openDropdownAriaButtonLabel,
+  dropdownButtonClassName,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const { isNotLargeScreen } = useHeaderContext();
@@ -84,12 +89,12 @@ export const NavigationLinkDropdown = ({
   };
 
   const childElements = getChildElementsEvenIfContainersInbetween(children);
-
+  console.log(dropdownButtonClassName);
   return (
     <>
       <button
         type="button"
-        className={classNames(styles.button, { isNotLargeScreen }, depthClassName)}
+        className={classNames(styles.button, { isNotLargeScreen }, depthClassName, dropdownButtonClassName)}
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
         aria-label={getDefaultButtonAriaLabel()}
@@ -116,6 +121,7 @@ export const NavigationLinkDropdown = ({
                     className: child.props.active
                       ? classNames(styles.dropdownLink, styles.activeLink)
                       : styles.dropdownLink,
+                    dropdownButtonClassName,
                   })
                 : child}
             </li>
