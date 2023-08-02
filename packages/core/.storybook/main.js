@@ -8,8 +8,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-backgrounds',
     '@storybook/addon-viewport',
-    '@storybook/addon-storysource',
-    'storybook-preset-inline-svg'
+    '@storybook/addon-storysource'
   ],
   staticDirs: ['../src/fonts'],
   webpackFinal: async (config) => {
@@ -20,13 +19,8 @@ module.exports = {
         rules: [
           ...config.module.rules, 
           {
-            test: /\.svg$/,
-            resourceQuery: /svgr/,
-            use: [
-              {
-                loader: "@svgr/webpack",
-              },
-            ],
+            test: /.svg$/,
+            use: ['svg-url-loader'],
           }
       ] },
     };
