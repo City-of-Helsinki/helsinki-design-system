@@ -1,5 +1,5 @@
 .button {
-  background-color: var(--navigation-link-button-background-color);
+  background-color: var(--nav-button-background-color);
   border: none;
   box-sizing: content-box;
   display: block;
@@ -10,7 +10,7 @@
 
   &.isNotLargeScreen {
     background: transparent;
-    border-left: 1px solid var(--color-black-20);
+    border-left: 1px solid var(--nav-button-hover-background-color);
     box-sizing: border-box;
     flex: 0 0 var(--action-bar-dropdown-menu-caret-width);
     height: var(--action-bar-dropdown-menu-secondary-item-height);
@@ -22,7 +22,7 @@
   }
 
   &:hover {
-    background-color: var(--color-black-20);
+    background-color: var(--nav-button-hover-background-color);
     cursor: pointer;
   }
 
@@ -45,8 +45,8 @@
 }
 
 .dropdownMenu {
-  background-color: var(--navigation-link-dropdown-background-color);
-  border: 1px solid var(--navigation-border-color);
+  background-color: var(--nav-link-dropdown-background-color);
+  border: 1px solid var(--nav-border-color);
   display: flex;
   flex-direction: column;
   left: calc(-1 * var(--header-margin));
