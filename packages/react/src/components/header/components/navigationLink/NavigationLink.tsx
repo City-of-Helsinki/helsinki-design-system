@@ -196,7 +196,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
       }
     }
   };
-  console.log(dropdownButtonClassName);
 
   const closeDropdown = () => {
     setDropdownOpen(false);
