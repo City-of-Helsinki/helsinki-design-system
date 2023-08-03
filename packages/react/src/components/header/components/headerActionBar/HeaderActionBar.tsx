@@ -121,24 +121,26 @@ export const HeaderActionBar = ({
 
   return (
     <>
-      <div className={classNames(styles.headerActionBar, className)}>
-        <LinkItem {...logoProps}>
-          {logoProps?.href ? (
-            <span className={styles.logoWrapper}>
+      <div className={styles.headerActionBarContainer}>
+        <div className={classNames(styles.headerActionBar, className)}>
+          <LinkItem {...logoProps}>
+            {logoProps?.href ? (
+              <span className={styles.logoWrapper}>
+                <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
+              </span>
+            ) : (
               <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
-            </span>
-          ) : (
-            <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
-          )}
-        </LinkItem>
-        {title && (
-          <LinkItem {...titleProps}>
-            <span className={classNames(styles.title)}>{title}</span>
+            )}
           </LinkItem>
-        )}
-        <div className={styles.headerActions}>
-          {children}
-          <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+          {title && (
+            <LinkItem {...titleProps}>
+              <span className={classNames(styles.title)}>{title}</span>
+            </LinkItem>
+          )}
+          <div className={styles.headerActions}>
+            {children}
+            <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+          </div>
         </div>
       </div>
       <HeaderActionBarNavigationMenu />

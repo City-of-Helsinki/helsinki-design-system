@@ -10,8 +10,9 @@
   )
 }
 
-
 .header {
+  --header-background-color: var(--color-white);
+  --header-color: var(--color-black-90);
   --header-height: var(--spacing-4-xl);
   --header-focus-outline-width: 3px;
   --header-focus-outline-border-radius: 0;
@@ -49,10 +50,9 @@
     --logo-height: 32px;
   }
 
-  background-color: var(--navigation-row-background-color);
+  background-color: var(--header-background-color);
   color: var(--header-color);
   position: relative;
-  max-width: var(--header-max-width);
   width: 100%;
 }
 
