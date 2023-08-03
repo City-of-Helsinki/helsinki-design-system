@@ -452,7 +452,3 @@ export const WithSkipLink = (args) => {
     </Header>
   );
 };
-
-WithSkipLink.args = {
-  theme: 'dark',
-};
