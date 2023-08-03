@@ -413,7 +413,3 @@ export const MinimalWithLocalization = (args) => {
     </Header>
   );
 };
-
-WithSkipLink.args = {
-  theme: 'dark',
-};
