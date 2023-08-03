@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
 
 export const DEFAULT_LANGUAGE = 'fi';
 
@@ -9,7 +9,7 @@ export type LanguageOption = {
 };
 export type LanguageContextType = {
   activeLanguage: LanguageType;
-  availableLanguages: Array<LanguageType>;
+  availableLanguages: Array<LanguageOption>;
 };
 
 export type LanguageDispatchContextType = {
@@ -32,26 +32,24 @@ const LanguageDispatchContext = createContext<LanguageDispatchContextType>({
 
 export function LanguageProvider({ children, defaultLanguage, onDidChangeLanguage }: LanguageProviderProps) {
   const [activeLanguage, setActiveLanguage] = useState(defaultLanguage);
-  const [languageOptions, setAvailableLanguages] = useState<LanguageOption[]>([]);
-  const availableLanguages = useRef<LanguageType[]>([]);
-
-  useEffect(() => {
-    availableLanguages.current = languageOptions.map((option) => option.value);
-  }, [languageOptions]);
+  const [languageOptions, setLanguageOptions] = useState<LanguageOption[]>([]);
 
   useEffect(() => {
     if (onDidChangeLanguage) onDidChangeLanguage(activeLanguage);
   }, [activeLanguage]);
 
   const setLanguage = (language: LanguageType) => {
-    if (availableLanguages.current.indexOf(language) === -1)
+    if (languageOptions.map((option) => option.value).indexOf(language) === -1)
       throw new TypeError('Language not found in available languages');
     setActiveLanguage(language);
+  };
+  const setAvailableLanguages = (languages: LanguageOption[]) => {
+    setLanguageOptions(languages);
   };
 
   const languageContextValue = {
     activeLanguage,
-    availableLanguages: availableLanguages.current,
+    availableLanguages: languageOptions,
   };
 
   return (
@@ -92,4 +90,13 @@ export function useSetLanguage() {
 export function useSetAvailableLanguages() {
   const { setAvailableLanguages } = useContext(LanguageDispatchContext);
   return setAvailableLanguages;
+}
+
+/**
+ * Hook for getting available languages
+ * @returns
+ */
+export function useAvailableLanguages() {
+  const { availableLanguages } = useContext(LanguageContext);
+  return availableLanguages;
 }

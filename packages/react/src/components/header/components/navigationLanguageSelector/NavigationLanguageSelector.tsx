@@ -2,6 +2,7 @@ import React, { PropsWithChildren, useEffect } from 'react';
 
 import {
   LanguageOption,
+  useAvailableLanguages,
   useActiveLanguage,
   useSetAvailableLanguages,
   useSetLanguage,
@@ -23,23 +24,28 @@ export type LanguageSelectorProps = PropsWithChildren<{
    * Aria-label attribute for the dropdown button.
    */
   ariaLabel?: string;
+  /**
+   * Mobile mode.
+   */
   fullWidthForMobile?: boolean;
 }>;
 
-const LanguageButton = ({ language }) => {
+const LanguageButton = ({ value, label }: LanguageOption) => {
   const activeLanguage = useActiveLanguage();
   const setLanguage = useSetLanguage();
-  const className = classNames(classes.item, { [classes.activeItem]: activeLanguage === language.value });
-  const selectLanguage = withDefaultPrevented(() => setLanguage(language.value));
+  const className = classNames(classes.item, { [classes.activeItem]: activeLanguage === value });
+  const selectLanguage = withDefaultPrevented(() => setLanguage(value));
 
   return (
-    <button key={language.value} lang={language.value} onClick={selectLanguage} type="button" className={className}>
-      <span>{language.label}</span>
+    <button key={value} lang={value} onClick={selectLanguage} type="button" className={className}>
+      <span>{label}</span>
     </button>
   );
 };
 
-const renderLanguageNode = (language: LanguageOption) => <LanguageButton key={language.value} language={language} />;
+const renderLanguageNode = (language: LanguageOption) => {
+  return <LanguageButton key={language.value} value={language.value} label={language.label} />;
+};
 
 export const NavigationLanguageSelector = ({
   children,
@@ -51,7 +57,9 @@ export const NavigationLanguageSelector = ({
   const { isNotLargeScreen, languageSelectorContent } = useHeaderContext();
   const { setLanguageSelectorContent } = useSetHeaderContext();
 
-  if (languages) {
+  const isInActionBar = !fullWidthForMobile;
+  const isRender = !languages;
+  if (!isRender) {
     useEffect(() => {
       setAvailableLanguages(languages);
     }, [languages]);
@@ -63,27 +71,31 @@ export const NavigationLanguageSelector = ({
     }, [children]);
   }
 
-  const languageNodes = languages ? languages.map(renderLanguageNode) : [];
+  const languageNodes = (languages || useAvailableLanguages()).map(renderLanguageNode);
 
   return (
-    fullWidthForMobile === isNotLargeScreen && (
-      <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
+    (isRender && isNotLargeScreen !== isInActionBar && (
+      <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: !isInActionBar })}>
         {languageNodes}
 
-        <HeaderActionBarItemWithDropdown
-          id="language-selection-more"
-          iconClassName={classes.languageSelectorDropdownIcon}
-          dropdownClassName={classes.languageSelectorDropdown}
-          label={<IconAngleDown aria-hidden />}
-          closeLabel={<IconAngleUp aria-hidden />}
-          icon={IconGlobe}
-          closeIcon={IconGlobe}
-          fullWidth={isNotLargeScreen}
-          ariaLabel={ariaLabel}
-        >
-          {languageSelectorContent}
-        </HeaderActionBarItemWithDropdown>
+        {languageNodes ? (
+          <HeaderActionBarItemWithDropdown
+            id="language-selection-more"
+            iconClassName={classes.languageSelectorDropdownIcon}
+            dropdownClassName={classes.languageSelectorDropdown}
+            label={<IconAngleDown aria-hidden />}
+            closeLabel={<IconAngleUp aria-hidden />}
+            icon={IconGlobe}
+            closeIcon={IconGlobe}
+            fullWidth={isNotLargeScreen}
+            ariaLabel={ariaLabel}
+          >
+            {languageSelectorContent}
+          </HeaderActionBarItemWithDropdown>
+        ) : (
+          <></>
+        )}
       </div>
-    )
+    )) || <></>
   );
 };

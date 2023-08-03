@@ -5,6 +5,7 @@ import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { useActiveLanguage } from '../../../../context/languageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
+import { NavigationLanguageSelector } from '../navigationLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
@@ -141,17 +142,14 @@ export const HeaderActionBar = ({
               <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
             )}
           </LinkItem>
-          {title && (
-            <LinkItem {...titleProps}>
-              <span className={classNames(styles.title)}>{title}</span>
-            </LinkItem>
-          )}
-          <div className={styles.headerActions}>
-            {children}
-            <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
-          </div>
+        )}
+        <div className={styles.headerActions}>
+          <NavigationLanguageSelector />
+          {children}
+          <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
         </div>
       </div>
+      <NavigationLanguageSelector fullWidthForMobile />
       <HeaderActionBarNavigationMenu />
     </>
   );
