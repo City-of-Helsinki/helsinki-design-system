@@ -21,6 +21,10 @@ type HeaderAttributes = JSX.IntrinsicElements['header'];
 
 export interface HeaderNodeProps extends HeaderAttributes {
   /**
+   * aria-label for describing Footer.
+   */
+  ariaLabel?: string;
+  /**
    * Additional class names to apply to the header.
    */
   className?: string;
@@ -34,11 +38,11 @@ export interface HeaderProps extends HeaderNodeProps {
   onDidChangeLanguage?: (string) => void;
 }
 
-const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...props }) => {
+const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, className, ...props }) => {
   const { isNotLargeScreen } = useHeaderContext();
   const headerClassNames = classNames('hds-header', styles.header, className, { isNotLargeScreen });
   return (
-    <header className={headerClassNames} {...props}>
+    <header className={headerClassNames} {...props} aria-label={ariaLabel}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>
     </header>
   );
