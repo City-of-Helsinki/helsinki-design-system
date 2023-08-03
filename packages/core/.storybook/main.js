@@ -10,19 +10,5 @@ module.exports = {
     '@storybook/addon-viewport',
     '@storybook/addon-storysource'
   ],
-  staticDirs: ['../src/fonts'],
-  webpackFinal: async (config) => {
-    return {
-      ...config,
-      module: { 
-        ...config.module, 
-        rules: [
-          ...config.module.rules, 
-          {
-            test: /.svg$/,
-            use: ['svg-url-loader'],
-          }
-      ] },
-    };
-  },  
+  staticDirs: ['../src/fonts']
 };

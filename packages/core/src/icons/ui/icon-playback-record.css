@@ -1,6 +1,4 @@
-@svg-load icon url("../../svg/ui/playback-record.svg");
-
 .hds-icon--playback-record {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpolygon points='0 24 0 0 24 0 24 24'/%3E %3Ccircle cx='12' cy='12' r='6' fill='currentColor'/%3E %3C/g%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpolygon points='0 24 0 0 24 0 24 24'/%3E %3Ccircle cx='12' cy='12' r='6' fill='currentColor'/%3E %3C/g%3E %3C/svg%3E");
 }
