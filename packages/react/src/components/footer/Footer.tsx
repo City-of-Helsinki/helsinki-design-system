@@ -19,6 +19,10 @@ import { useTheme } from '../../hooks/useTheme';
 
 export type FooterProps = React.PropsWithChildren<{
   /**
+   * aria-label for describing Footer.
+   */
+  ariaLabel?: string;
+  /**
    * Additional class names to apply to the footer
    */
   className?: string;
@@ -41,6 +45,7 @@ export type FooterProps = React.PropsWithChildren<{
 }>;
 
 export const Footer = ({
+  ariaLabel,
   children,
   className,
   footerProps,
@@ -61,6 +66,7 @@ export const Footer = ({
         customThemeClass,
         className,
       )}
+      aria-label={ariaLabel}
     >
       <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
       <div className={styles.footerContent}>

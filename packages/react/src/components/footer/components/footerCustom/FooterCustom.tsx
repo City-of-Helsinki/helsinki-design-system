@@ -8,6 +8,10 @@ import classNames from '../../../../utils/classNames';
 
 export type FooterCustomProps = React.PropsWithChildren<{
   /**
+   * aria-label for describing Footer.Custom.
+   */
+  ariaLabel?: string;
+  /**
    * Additional class names to apply.
    */
   className?: string;
@@ -15,11 +19,15 @@ export type FooterCustomProps = React.PropsWithChildren<{
    * ID of the navigation element.
    */
   id?: string;
+  /**
+   * ARIA role to describe the contents.
+   */
+  role?: string;
 }>;
 
-export const FooterCustom = ({ children, className, id }: FooterCustomProps) => {
+export const FooterCustom = ({ ariaLabel, children, className, id, role }: FooterCustomProps) => {
   return (
-    <div className={classNames(styles.custom, className)} id={id}>
+    <div className={classNames(styles.custom, className)} id={id} aria-label={ariaLabel} role={role}>
       <hr className={styles.divider} aria-hidden />
       {children}
     </div>

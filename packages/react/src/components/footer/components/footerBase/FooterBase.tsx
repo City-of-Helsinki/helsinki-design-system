@@ -13,6 +13,10 @@ import { FooterVariant } from '../../Footer.interface';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
+   * aria-label for describing Footer.Base.
+   */
+  ariaLabel?: string;
+  /**
    * Label for the "Back to top" button
    */
   backToTopLabel?: string | React.ReactNode;
@@ -38,6 +42,10 @@ export type FooterBaseProps = React.PropsWithChildren<{
    */
   onBackToTopClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   /**
+   * ARIA role to describe the contents.
+   */
+  role?: string;
+  /**
    * Whether the "Back to top" button should be shown
    */
   showBackToTopButton?: boolean;
@@ -58,6 +66,7 @@ const handleBackToTop = (): void => {
 };
 
 export const FooterBase = ({
+  ariaLabel,
   backToTopLabel,
   children,
   copyrightHolder,
@@ -65,12 +74,13 @@ export const FooterBase = ({
   logoHref,
   logoLanguage = 'fi',
   onBackToTopClick,
+  role,
   showBackToTopButton = true,
   year = new Date().getFullYear(),
 }: FooterBaseProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
-    <div className={styles.base}>
+    <div className={styles.base} aria-label={ariaLabel} role={role}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
         <FooterNavigationLink
