@@ -1,6 +1,4 @@
-@svg-load icon url("../../svg/ui/graph-columns.svg");
-
 .hds-icon--graph-columns {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath clip-rule='evenodd' d='M15.857 9.333H21V20h-5.143V9.333zM9.43 4h5.142v16H9.43V4zM3 12h5.143v8H3v-8z' fill='currentColor'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath clip-rule='evenodd' d='M15.857 9.333H21V20h-5.143V9.333zM9.43 4h5.142v16H9.43V4zM3 12h5.143v8H3v-8z' fill='currentColor'/%3E%3C/g%3E%3C/svg%3E");
 }

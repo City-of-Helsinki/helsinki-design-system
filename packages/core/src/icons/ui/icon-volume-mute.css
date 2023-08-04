@@ -1,6 +1,4 @@
-@svg-load icon url("../../svg/ui/volume-mute.svg");
-
 .hds-icon--volume-mute {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' role='img' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath fill='currentColor' d='M15 2.5v19L9.273 17H6a5 5 0 01-.14-9.998L9.273 7 15 2.5zm-2 4.311l-3 2.115v6.147l3 2.115V6.811zM22.5 8.5L24 10l-2 2 2 2-1.5 1.5-2-2-2 2L17 14l2-2-2-2 1.5-1.5 2 2 2-2zM8 9H6.027L5.915 9a3 3 0 00-.027 5.997L6 15h2V9z'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' role='img' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath fill='currentColor' d='M15 2.5v19L9.273 17H6a5 5 0 01-.14-9.998L9.273 7 15 2.5zm-2 4.311l-3 2.115v6.147l3 2.115V6.811zM22.5 8.5L24 10l-2 2 2 2-1.5 1.5-2-2-2 2L17 14l2-2-2-2 1.5-1.5 2 2 2-2zM8 9H6.027L5.915 9a3 3 0 00-.027 5.997L6 15h2V9z'/%3E%3C/g%3E%3C/svg%3E");
 }
