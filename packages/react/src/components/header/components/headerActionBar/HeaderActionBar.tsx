@@ -142,11 +142,16 @@ export const HeaderActionBar = ({
               <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
             )}
           </LinkItem>
-        )}
-        <div className={styles.headerActions}>
-          <NavigationLanguageSelector />
-          {children}
-          <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+          {title && (
+            <LinkItem {...titleProps}>
+              <span className={classNames(styles.title)}>{title}</span>
+            </LinkItem>
+          )}
+          <div className={styles.headerActions}>
+            <NavigationLanguageSelector />
+            {children}
+            <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+          </div>
         </div>
       </div>
       <NavigationLanguageSelector fullWidthForMobile />
