@@ -11,7 +11,19 @@
 
 .headerNavigationMenuContainer {
   border-bottom: 1px solid var(--header-divider-color);
+}
+
+.headerNavigationMenuDropdownMobile {
+  display: block;
+  left: 0;
+  position: relative;
+  right: 0;
+  top: auto;
   width: 100%;
+}
+
+.headerNavigationMenuDropdownButtonMobile.headerNavigationMenuDropdownButtonMobile {
+  margin: 0 0 0 var(--spacing-s);
 }
 
 .headerNavigationMenuList {
@@ -38,9 +50,43 @@
   }
 }
 
+.headerNavigationMenuLinkContentMobile {
+  display: block;
+  min-height: var(--action-bar-dropdown-menu-primary-item-height);
+  position: relative;
+}
+
+.headerNavigationMenuDropdownLinkMobile {
+  position: relative;
+}
+
 .headerNavigationMenuLink.headerNavigationMenuLink {
   border: 0;
   font-size: var(--fontsize-body-l);
   margin: var(--spacing-s) 0;
   padding: 0;
+}
+
+.headerNavigationMenuLinkMobile.headerNavigationMenuLinkMobile {
+  border-bottom: 1px solid var(--color-black-20);
+  box-sizing: border-box;
+  height: var(--action-bar-dropdown-menu-primary-item-height);
+  line-height: var(--action-bar-dropdown-menu-primary-item-height);
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  &:not(:focus) {
+    border-color: transparent;
+  }
+
+  &:focus {
+    border-color: transparent;
+    outline: 3px solid var(--color-coat-of-arms);
+    outline-offset: -3px;
+  }
+}
+
+.headerNavigationMenuLinkWrapperMobile {
+  flex-wrap: wrap;
 }

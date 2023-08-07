@@ -24,28 +24,41 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   id?: string;
 }>;
 
-const activeLinkClassName = classNames(
-  styles.headerNavigationMenuLinkContent,
-  styles.headerNavigationMenuLinkContentActive,
-);
-
 const renderHeaderNavigationMenuItem = (child, index) => {
-  const linkContainerClasses = child.props.active ? activeLinkClassName : styles.headerNavigationMenuLinkContent;
-  const className = classNames(child.props.className, styles.headerNavigationMenuLink);
-  const node = cloneElement(child as React.ReactElement, {
-    className,
+  const { isNotLargeScreen } = useHeaderContext();
+  const linkContentClass = isNotLargeScreen
+    ? styles.headerNavigationMenuLinkContentMobile
+    : styles.headerNavigationMenuLinkContent;
+
+  const activeLinkClassName = classNames(linkContentClass, styles.headerNavigationMenuLinkContentActive);
+  const linkContainerClasses = child.props.active && !isNotLargeScreen ? activeLinkClassName : linkContentClass;
+
+  // Pass several className props downwards
+  const mobileNode = cloneElement(child as React.ReactElement, {
+    dropdownLinkClassName: styles.headerNavigationMenuDropdownLinkMobile,
+    dropdownClassName: styles.headerNavigationMenuDropdownMobile,
+    wrapperClassName: styles.headerNavigationMenuLinkWrapperMobile,
+    dropdownButtonClassName: styles.headerNavigationMenuDropdownButtonMobile,
+    className: classNames(child.props.className, styles.headerNavigationMenuLinkMobile),
     index,
   });
 
+  const desktopNode = cloneElement(child as React.ReactElement, {
+    className: classNames(child.props.className, styles.headerNavigationMenuLink),
+    index,
+  });
+
+  const node = isNotLargeScreen ? mobileNode : desktopNode;
+
   return (
     // eslint-disable-next-line react/no-array-index-key
-    <li key={index} className={styles.headerNavigationMenuLinkContainer}>
+    <li key={index}>
       <span className={linkContainerClasses}>{node}</span>
     </li>
   );
 };
 
-const HeaderNavigationMenuContent = () => {
+export const HeaderNavigationMenuContent = () => {
   const { navigationContent } = useHeaderContext();
   return (
     <>

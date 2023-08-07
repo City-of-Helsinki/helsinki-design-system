@@ -57,10 +57,6 @@
   top: 100%;
   z-index: 1;
 
-  li > span {
-    padding: 0 var(--spacing-xs) 0 0;
-  }
-
   .dropdownLink {
     font-size: var(--fontsize-body-m);
     margin: var(--spacing-xs) var(--spacing-m) var(--spacing-xs) var(--header-margin);
@@ -94,6 +90,10 @@
   .activeLink:before {
     border-left: 4px solid var(--color-black);
     padding-left: var(--spacing-xs);
+  }
+
+  .button {
+    margin: 0 var(--spacing-xs) 0 var(--spacing-s);
   }
 }
 

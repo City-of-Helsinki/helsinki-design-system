@@ -77,6 +77,10 @@ export type NavigationLinkProps<ReactElement> = {
    */
   depth?: number;
   /**
+   * Additional class name for the dropdown button.
+   */
+  dropdownButtonClassName?: string;
+  /**
    * Additional class name for the dropdown element.
    */
   dropdownClassName?: string;
@@ -143,6 +147,7 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
   depth = 0,
   openDropdownAriaButtonLabel,
   closeDropdownAriaButtonLabel,
+  dropdownButtonClassName,
   ...rest
 }: HeaderNavigationLinkProps<T>) => {
   const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
@@ -268,6 +273,7 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
           dynamicPosition={dynamicPosition}
           openDropdownAriaButtonLabel={openDropdownAriaButtonLabel}
           closeDropdownAriaButtonLabel={closeDropdownAriaButtonLabel}
+          dropdownButtonClassName={dropdownButtonClassName}
         >
           {dropdownLinks.map((child) => {
             return cloneElement(child as React.ReactElement, {
