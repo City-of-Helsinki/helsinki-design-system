@@ -1,4 +1,4 @@
-import React, { ElementType, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { IconCross } from '../../../../icons';
 import { HeaderActionBarItem } from './HeaderActionBarItem';
@@ -33,11 +33,11 @@ type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
   /**
    * Icon for the action bar item.
    */
-  icon: ElementType;
+  icon: JSX.Element;
   /**
    * Icon for the action bar item when dropdown is open.
    */
-  closeIcon?: ElementType;
+  closeIcon?: JSX.Element;
   /**
    * Aria-label attribute for the dropdown button.
    */
