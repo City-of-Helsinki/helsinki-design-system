@@ -87,8 +87,8 @@ export const NavigationLanguageSelector = ({
             dropdownClassName={classes.languageSelectorDropdown}
             label={<IconAngleDown aria-hidden />}
             closeLabel={<IconAngleUp aria-hidden />}
-            icon={IconGlobe}
-            closeIcon={IconGlobe}
+            icon={<IconGlobe aria-hidden />}
+            closeIcon={<IconGlobe aria-hidden />}
             fullWidth={isNotLargeScreen}
             ariaLabel={ariaLabel}
           >
