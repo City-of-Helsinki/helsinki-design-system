@@ -4,6 +4,7 @@
 .languageSelector {
   display: flex;
   gap: var(--spacing-s);
+  justify-content: space-between;
 }
 
 .languageSelectorDropdownIcon {
@@ -40,8 +41,13 @@
   }
 }
 
+.languageNodes {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
 .fullWidthForMobile {
-  background-color: var(--color-white);
+  background-color: var(--color-silver-light);
   border-bottom: 1px solid var(--color-black-20);
   box-sizing: border-box;
   display: flex;

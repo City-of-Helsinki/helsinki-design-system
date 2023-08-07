@@ -78,7 +78,7 @@ export const NavigationLanguageSelector = ({
   return (
     (show && (
       <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: !isInActionBar })}>
-        {languageNodes}
+        <div className={classNames(classes.languageNodes)}>{languageNodes}</div>
 
         {languageSelectorContent && Array.isArray(languageSelectorContent) && languageSelectorContent.length ? (
           <HeaderActionBarItemWithDropdown
