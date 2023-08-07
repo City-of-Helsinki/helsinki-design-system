@@ -26,6 +26,7 @@ export type LanguageSelectorProps = PropsWithChildren<{
   ariaLabel?: string;
   /**
    * Mobile mode.
+   * @internal
    */
   fullWidthForMobile?: boolean;
 }>;
@@ -72,13 +73,14 @@ export const NavigationLanguageSelector = ({
   }
 
   const languageNodes = (languages || useAvailableLanguages()).map(renderLanguageNode);
+  const show = isRender && isNotLargeScreen !== isInActionBar && Array.isArray(languageNodes) && languageNodes.length;
 
   return (
-    (isRender && isNotLargeScreen !== isInActionBar && (
+    (show && (
       <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: !isInActionBar })}>
         {languageNodes}
 
-        {languageNodes ? (
+        {languageSelectorContent && Array.isArray(languageSelectorContent) && languageSelectorContent.length ? (
           <HeaderActionBarItemWithDropdown
             id="language-selection-more"
             iconClassName={classes.languageSelectorDropdownIcon}
