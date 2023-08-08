@@ -24,8 +24,7 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   id?: string;
 }>;
 
-const renderHeaderNavigationMenuItem = (child, index) => {
-  const { isNotLargeScreen } = useHeaderContext();
+const renderHeaderNavigationMenuItem = (child, index, isNotLargeScreen) => {
   const linkContentClass = isNotLargeScreen
     ? styles.headerNavigationMenuLinkContentMobile
     : styles.headerNavigationMenuLinkContent;
@@ -59,12 +58,12 @@ const renderHeaderNavigationMenuItem = (child, index) => {
 };
 
 export const HeaderNavigationMenuContent = () => {
-  const { navigationContent } = useHeaderContext();
+  const { isNotLargeScreen, navigationContent } = useHeaderContext();
   return (
     <>
       {Children.map(navigationContent, (child, index) => {
         if (!isValidElement(child)) return null;
-        return renderHeaderNavigationMenuItem(child, index);
+        return renderHeaderNavigationMenuItem(child, index, isNotLargeScreen);
       })}
     </>
   );
