@@ -63,7 +63,7 @@ export const WithFullFeatures = (args) => (
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+        <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
@@ -167,11 +167,11 @@ export const Minimal = (args) => {
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+        <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
         </Header.ActionBarItem>
         <hr style={{ order: 9 }} />
-        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+        <Header.ActionBarItem label="Kirjaudu" icon={<IconUser />} style={{ order: 10 }} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
@@ -234,7 +234,7 @@ export const MinimalWithLocalization = (args) => {
         <Header.ActionBarItem
           fullWidth
           label={translations[lang]['header-search']}
-          icon={IconSearch}
+          icon={<IconSearch />}
           id="action-bar-search"
         >
           <Header.NavigationSearch
@@ -246,7 +246,7 @@ export const MinimalWithLocalization = (args) => {
         <hr style={{ order: 9 }} />
         <Header.ActionBarItem
           label={translations[lang]['header-login']}
-          icon={IconUser}
+          icon={<IconUser />}
           style={{ order: 10 }}
           id="action-bar-login"
         >
@@ -278,7 +278,7 @@ export const WithSkipLink = (args) => {
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+        <Header.ActionBarItem label="Kirjaudu" icon={<IconUser />} style={{ order: 10 }} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
