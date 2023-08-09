@@ -115,23 +115,6 @@ export default {
   },
 };
 
-export const Default = (args) => (
-  <Footer {...args}>
-    <Footer.Navigation>
-      {createArray(8).map((index) => (
-        <Footer.NavigationLink
-          key={index}
-          href="https://google.com"
-          onClick={(e) => e.preventDefault()}
-          label="Nav item"
-        />
-      ))}
-    </Footer.Navigation>
-    <Utilities />
-    <Base />
-  </Footer>
-);
-
 export const NoNav = (args) => (
   <Footer {...args}>
     <Utilities />

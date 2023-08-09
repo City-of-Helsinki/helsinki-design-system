@@ -10,6 +10,10 @@ import { FooterVariant } from '../../Footer.interface';
 
 export type FooterUtilitiesProps = {
   /**
+   * aria-label for describing Footer.Utilities.
+   */
+  ariaLabel?: string;
+  /**
    * Children elements to render.
    */
   children: React.ReactNode;
@@ -22,12 +26,16 @@ export type FooterUtilitiesProps = {
    * Can be used to pass aria attributes that describes the SoMe section to screen reader users.
    */
   soMeSectionProps?: React.ComponentPropsWithoutRef<'section'>;
+  /**
+   * ARIA role to describe the contents.
+   */
+  role?: string;
 };
 
-export const FooterUtilities = ({ children, soMeLinks, soMeSectionProps }: FooterUtilitiesProps) => {
+export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionProps, role }: FooterUtilitiesProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
-    <div className={styles.utilities}>
+    <div className={styles.utilities} aria-label={ariaLabel} role={role}>
       <hr className={styles.divider} aria-hidden />
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>
         {childElements.map((child, childIndex) => {

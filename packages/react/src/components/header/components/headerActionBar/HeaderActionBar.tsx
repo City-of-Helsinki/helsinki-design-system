@@ -19,6 +19,10 @@ export enum TitleStyleType {
 
 export type HeaderActionBarProps = PropsWithChildren<{
   /**
+   * aria-label for describing ActionBar.
+   */
+  ariaLabel?: string;
+  /**
    * Additional class names to apply.
    */
   className?: string;
@@ -74,6 +78,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    * the default menu toggling function.
    */
   onMenuButtonClick?: MouseEventHandler;
+  /**
+   * ARIA role to describe the contents.
+   */
+  role?: string;
 }>;
 
 export const HeaderActionBar = ({
@@ -89,6 +97,8 @@ export const HeaderActionBar = ({
   onMenuButtonClick,
   children,
   className,
+  ariaLabel,
+  role,
 }: HeaderActionBarProps) => {
   const language = useActiveLanguage();
   const handleClick = useCallbackIfDefined(onTitleClick);
@@ -122,7 +132,7 @@ export const HeaderActionBar = ({
   return (
     <>
       <div className={styles.headerActionBarContainer}>
-        <div className={classNames(styles.headerActionBar, className)}>
+        <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
           <LinkItem {...logoProps}>
             {logoProps?.href ? (
               <span className={styles.logoWrapper}>

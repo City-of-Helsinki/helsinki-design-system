@@ -108,6 +108,7 @@ exports[`<Header.NavigationSearch /> spec renders the component 1`] = `
           >
             <div
               class="searchContainer"
+              role="search"
             >
               <div
                 class="root"
