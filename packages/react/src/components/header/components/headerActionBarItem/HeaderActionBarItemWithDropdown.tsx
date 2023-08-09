@@ -42,6 +42,10 @@ type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
    * Aria-label attribute for the dropdown button.
    */
   ariaLabel?: string;
+  /**
+   * Positions the label right side of the icon.
+   */
+  labelOnRight?: boolean;
 }> &
   React.ComponentPropsWithoutRef<'div'>;
 
@@ -58,6 +62,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     icon,
     closeIcon = IconCross,
     ariaLabel,
+    labelOnRight,
     ...props
   } = properties;
   const dropdownContentElementRef = useRef<HTMLElement>(null);
@@ -121,6 +126,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         aria-expanded={visible}
         aria-label={ariaLabel}
         aria-controls={`${id}-dropdown`}
+        labelOnRight={labelOnRight}
       />
       <div className={classes.dropdownWrapper}>
         <aside id={`${id}-dropdown`} tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>

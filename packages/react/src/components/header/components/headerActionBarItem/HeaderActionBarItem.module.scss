@@ -30,8 +30,8 @@ button.actionBarItem {
 }
 
 .actionBarItemLabel {
-  color: var(--action-bar-item-title-font-color);
   display: block;
+  color: var(--action-bar-item-title-font-color);
   font-size: var(--action-bar-item-title-font-size);
   margin: 0 auto;
   white-space: nowrap;
@@ -39,4 +39,8 @@ button.actionBarItem {
   & > svg {
     display: block;
   }
+}
+
+.labelOnRight {
+  display: inline-block;
 }

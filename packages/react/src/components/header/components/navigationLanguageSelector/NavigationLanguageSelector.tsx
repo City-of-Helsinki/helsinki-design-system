@@ -91,6 +91,7 @@ export const NavigationLanguageSelector = ({
             closeIcon={<IconGlobe aria-hidden />}
             fullWidth={isNotLargeScreen}
             ariaLabel={ariaLabel}
+            labelOnRight
           >
             {languageSelectorContent}
           </HeaderActionBarItemWithDropdown>
