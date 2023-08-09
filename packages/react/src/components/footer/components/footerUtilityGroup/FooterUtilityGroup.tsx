@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Fragment, cloneElement, isValidElement } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
 
 import styles from './FooterUtilityGroup.module.scss';
 import classNames from '../../../../utils/classNames';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
+import { FooterVariant } from '../../Footer.interface';
 
 type FooterUtilityGroupProps = React.PropsWithChildren<{
   /**
@@ -22,18 +24,33 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
    * headingLink={<Footer.GroupHeading
             href="https://yourpath.com"
             label="Main Page"
-            variant={FooterVariant.Utility}
           />}
     ```
    */
   headingLink?: React.ReactNode;
 }>;
 export const FooterUtilityGroup = ({ className, children, id, headingLink }: FooterUtilityGroupProps) => {
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
     <div id={id} className={classNames(styles.utilityGroup, className)}>
       <div className={styles.utilityGroup}>
-        {headingLink}
-        {children}
+        {isValidElement(headingLink)
+          ? cloneElement(headingLink as React.ReactElement, {
+              variant: FooterVariant.Utility,
+            })
+          : headingLink}
+        {childElements.map((child, childIndex) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={childIndex}>
+              {isValidElement(child)
+                ? cloneElement(child as React.ReactElement, {
+                    variant: FooterVariant.Utility,
+                  })
+                : child}
+            </Fragment>
+          );
+        })}
       </div>
     </div>
   );

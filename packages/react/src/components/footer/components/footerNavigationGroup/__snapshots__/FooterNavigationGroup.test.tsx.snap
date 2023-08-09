@@ -50,41 +50,27 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
         <div
           class="navigation"
         >
-          <div
-            class="navigationGroup"
+          <a
+            class="link linkM item navigation"
           >
-            <div
-              class="navigationGroupList"
-            >
-              <a
-                class="heading navigation"
-                href="https://google.com"
-              >
-                Main Page
-              </a>
-              <a
-                class="link linkM item"
-              >
-                <span>
-                  Link 1
-                </span>
-              </a>
-              <a
-                class="link linkM item"
-              >
-                <span>
-                  Link 2
-                </span>
-              </a>
-              <a
-                class="link linkM item"
-              >
-                <span>
-                  Link 3
-                </span>
-              </a>
-            </div>
-          </div>
+            <span>
+              Link 1
+            </span>
+          </a>
+          <a
+            class="link linkM item navigation"
+          >
+            <span>
+              Link 2
+            </span>
+          </a>
+          <a
+            class="link linkM item navigation"
+          >
+            <span>
+              Link 3
+            </span>
+          </a>
         </div>
       </div>
     </div>

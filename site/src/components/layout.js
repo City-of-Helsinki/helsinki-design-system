@@ -296,7 +296,17 @@ const Layout = ({ children, pageContext }) => {
           )}
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
-          <Footer.Base copyrightHolder="Copyright">
+          <Footer.Navigation>
+            {uiMenuLinks.map(({ name, link, uiId }) => (
+              <Footer.NavigationLink
+                key={uiId}
+                label={name}
+                to={link}
+                as={GatsbyLink}
+              />
+            ))}
+          </Footer.Navigation>
+          <Footer.Base copyrightHolder="Copyright" backToTopLabel="Back to top">
             <Footer.NavigationLink label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
             <Footer.NavigationLink label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
             <Footer.NavigationLink label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { cloneElement, Fragment, isValidElement } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
 
+import { FooterVariant } from '../../Footer.interface';
 import { useMediaQueryLessThan } from '../../../../hooks/useMediaQuery';
 import styles from './FooterNavigationGroup.module.scss';
 import classNames from '../../../../utils/classNames';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 
 type FooterNavigationGroupProps = React.PropsWithChildren<{
   /**
@@ -23,7 +25,6 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
    * headingLink={<Footer.GroupHeading
             href="https://yourpath.com"
             label="Main Page"
-            variant={FooterVariant.Navigation}
           />}
     ```
    */
@@ -32,15 +33,37 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
 export const FooterNavigationGroup = ({ className, children, id, headingLink }: FooterNavigationGroupProps) => {
   // Show only main links in smaller screens
   const shouldRenderOnlyMainLinks = useMediaQueryLessThan('l');
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
+
+  const renderHeading = () => {
+    if (isValidElement(headingLink)) {
+      return cloneElement(headingLink as React.ReactElement, {
+        variant: FooterVariant.Navigation,
+      });
+    }
+    return headingLink;
+  };
 
   // Return headingLink inside a Fragment to avoid erronous return type 'Element | { headingLink: ReactNode; }'.
   return shouldRenderOnlyMainLinks ? (
-    <>{headingLink}</>
+    <>{renderHeading()}</>
   ) : (
     <div id={id} className={classNames(styles.navigationGroup, className)}>
       <div className={styles.navigationGroupList}>
-        {headingLink}
-        {children}
+        {renderHeading()}
+        {childElements.map((child, childIndex) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={childIndex}>
+              {isValidElement(child)
+                ? cloneElement(child as React.ReactElement, {
+                    variant: FooterVariant.Navigation,
+                    subItem: true,
+                  })
+                : child}
+            </Fragment>
+          );
+        })}
       </div>
     </div>
   );

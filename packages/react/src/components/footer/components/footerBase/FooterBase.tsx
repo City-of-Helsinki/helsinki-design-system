@@ -1,4 +1,4 @@
-import React, { cloneElement, Fragment } from 'react';
+import React, { cloneElement, Fragment, isValidElement } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
@@ -8,7 +8,8 @@ import { Logo, LogoLanguage } from '../../../logo';
 import { IconArrowUp } from '../../../../icons';
 import getKeyboardFocusableElements from '../../../../utils/getKeyboardFocusableElements';
 import { FooterNavigationLink } from '../footerNavigationLink/FooterNavigationLink';
-import { getChildrenAsArray } from '../../../../utils/getChildren';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
+import { FooterVariant } from '../../Footer.interface';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
@@ -67,7 +68,7 @@ export const FooterBase = ({
   showBackToTopButton = true,
   year = new Date().getFullYear(),
 }: FooterBaseProps) => {
-  const childElements = getChildrenAsArray(children);
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
     <div className={styles.base}>
       <hr className={styles.divider} aria-hidden />
@@ -95,12 +96,14 @@ export const FooterBase = ({
         {children && (
           <div className={styles.links}>
             {childElements.map((child, index) => {
-              if (React.isValidElement(child)) {
+              if (isValidElement(child)) {
                 return (
                   // eslint-disable-next-line react/no-array-index-key
                   <Fragment key={index}>
                     <span className={styles.separator}>|</span>
-                    {cloneElement(child)}
+                    {cloneElement(child as React.ReactElement, {
+                      variant: FooterVariant.Base,
+                    })}
                   </Fragment>
                 );
               }
