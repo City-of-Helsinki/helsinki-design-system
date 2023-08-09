@@ -47,7 +47,7 @@ export const Highlight = ({ theme, variant, type, text, reference }: HighlightPr
       <blockquote className={styles.highlightBlockquote}>
         <p className={classNames(styles.text, isQuote && styles.quote)}>{text}</p>
       </blockquote>
-      {reference && <figcaption className={styles.reference}>⁠{reference}</figcaption>}
+      {reference && <figcaption className={styles.reference}>&#8212;⁠{reference}</figcaption>}
     </figure>
   );
 };

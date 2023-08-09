@@ -58,10 +58,3 @@
   font-size: var(--fontsize-heading-xs);
   line-height: var(--lineheight-m);
 }
-
-.hds-highlight__reference:before {
-  content: '\2014';
-  display: inline;
-  font-size: inherit;
-  line-height: inherit;  
-}

@@ -1,4 +1,5 @@
 import './highlight.css';
+import './highlight-em-dash.css';
 
 export default {
   title: 'Components/Highlight',

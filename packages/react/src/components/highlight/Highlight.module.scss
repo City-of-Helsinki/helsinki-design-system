@@ -35,11 +35,4 @@
 
 .reference {
   composes: hds-highlight__reference from 'hds-core/lib/components/highlight/highlight.css';
-  
-  &:before {
-    content: '\2014';
-    display: inline;
-    font-size: inherit;
-    line-height: inherit;  
-  }
 }
