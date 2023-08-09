@@ -2,7 +2,7 @@ import React, { isValidElement, useEffect, useState } from 'react';
 
 import styles from './Navigation.module.scss';
 import classNames from '../../utils/classNames';
-import { Logo, LogoLanguage } from '../logo';
+import { Logo } from '../logo';
 import { NavigationContext, NavigationContextProps } from './NavigationContext';
 import { NavigationRow } from './navigationRow/NavigationRow';
 import { NavigationItem } from './navigationItem/NavigationItem';
@@ -35,10 +35,9 @@ export type NavigationProps = React.PropsWithChildren<{
    */
   id?: string;
   /**
-   * The language of the Helsinki-logo
-   * @default 'fi'
+   * Logo to use
    */
-  logoLanguage?: LogoLanguage;
+  logo: React.ReactElement<typeof Logo>;
   /**
    * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling
    * @default false
@@ -124,20 +123,20 @@ const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVar
 /**
  * Wrapper component for header content
  * @param children
- * @param logoLanguage
+ * @param logo
  * @param onTitleClick
  * @param title
  * @param titleAriaLabel
  * @param titleUrl
  * @param mobileMenuOpen
  */
-const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl }) => {
+const HeaderWrapper = ({ children, logo, onTitleClick, title, titleAriaLabel, titleUrl }) => {
   const isTitleLink = titleUrl || onTitleClick;
 
   const renderLogoAndTitle = () => {
     return (
       <>
-        <Logo className={styles.logo} language={logoLanguage} aria-hidden />
+        {logo}
         {title && <span>{title}</span>}
       </>
     );
@@ -179,7 +178,7 @@ export const Navigation = ({
   className,
   fixed = false,
   id,
-  logoLanguage = 'fi',
+  logo,
   menuOpen = false,
   menuToggleAriaLabel,
   onMenuToggle,
@@ -230,7 +229,7 @@ export const Navigation = ({
   const mobileMenuChildren = rearrangeChildrenForMobile(mobileMenuItems, authenticated);
 
   // props for the header wrapper component
-  const headerWrapperProps = { logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl };
+  const headerWrapperProps = { logo, onTitleClick, title, titleAriaLabel, titleUrl };
 
   return (
     <NavigationContext.Provider value={context}>

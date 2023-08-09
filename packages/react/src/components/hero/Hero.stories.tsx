@@ -6,6 +6,7 @@ import { Button } from '../button/Button';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 import { Navigation } from '../navigation/Navigation';
 import { Section } from '../section/Section';
+import { Logo, logoFi } from '../logo';
 
 export default {
   component: Hero,
@@ -190,7 +191,12 @@ const DefaultContent = (props: DefaultContentProps) => {
 };
 
 const NavigationComponent = () => (
-  <Navigation menuToggleAriaLabel="Menu" skipTo="#content" skipToContentLabel="Skip to main content">
+  <Navigation
+    menuToggleAriaLabel="Menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to main content"
+    logo={<Logo src={logoFi} />}
+  >
     {/* NAVIGATION ROW */}
     <Navigation.Row ariaLabel="Main navigation">
       <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />

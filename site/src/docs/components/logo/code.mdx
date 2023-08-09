@@ -3,7 +3,8 @@ slug: '/components/logo/code'
 title: 'Logo - Code'
 ---
 
-import { Logo } from 'hds-react';
+import { Link, Logo, logoFi, logoSv, logoRu } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,12 +17,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground scope={{ Logo }}>
 
 ```jsx
-import { Logo } from 'hds-react';
+import { Logo, logoFi, logoSv, logoRu } from 'hds-react';
 
 () => (<>
-  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="sv" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="ru" size="medium" />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoRu} size="medium" />
 </>)
 ```
 
@@ -35,9 +36,9 @@ import { Logo } from 'hds-react';
 import { Logo } from 'hds-react';
 
 () => (<>
-  <Logo language="fi" size="small" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="fi" size="large" />
+  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoFi} size="large" />
 </>)
 ```
 
@@ -55,5 +56,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property              | Description                     | Values                                     | Default value  |
 | --------------------- | --------------------------------| ------------------------------------------ | -------------- |
-| `language`            | Language of the logo.           | `"fi"`, `"sv"`, `"en"`                     | `"fi"`         |
+| `src`                 | Src of the logo. Can be base64-encoded, locally imported image or a URL.      | `"https://your.image.here"`                     | `""`         |
 | `size`                | Size of the logo.               | `"small"`, `"medium"`, `"large"`, `"full"` | `"full"`       |

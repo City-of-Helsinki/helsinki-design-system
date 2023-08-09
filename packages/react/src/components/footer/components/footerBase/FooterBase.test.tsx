@@ -6,6 +6,7 @@ import { FooterBase } from './FooterBase';
 import { FooterWrapper } from '../../../../utils/test-utils';
 import { Footer } from '../../Footer';
 import { FooterVariant } from '../../Footer.interface';
+import { Logo } from '../../../logo';
 
 describe('<Footer.Base /> spec', () => {
   const mockDate = new Date(2020, 1, 1);
@@ -24,7 +25,9 @@ describe('<Footer.Base /> spec', () => {
 
   it('renders the component', () => {
     const { asFragment } = render(
-      <FooterBase>
+      <FooterBase
+        logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
+      >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
         <Footer.Link label="Link 3" variant={FooterVariant.Base} />
@@ -38,7 +41,12 @@ describe('<Footer.Base /> spec', () => {
 
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
-      <FooterBase copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Ylös">
+      <FooterBase
+        copyrightHolder="Copyright"
+        copyrightText="All rights reserved"
+        backToTopLabel="Ylös"
+        logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
+      >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
         <Footer.Link label="Link 3" variant={FooterVariant.Base} />
@@ -71,7 +79,10 @@ describe('<Footer.Base /> spec', () => {
           Top link
         </a>
         <FooterWrapper>
-          <FooterBase backToTopLabel="Test label" />
+          <FooterBase
+            backToTopLabel="Test label"
+            logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
+          />
         </FooterWrapper>
       </>,
     );

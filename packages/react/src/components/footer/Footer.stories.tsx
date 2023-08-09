@@ -10,6 +10,7 @@ import { FooterUtilities } from './components/footerUtilities/FooterUtilities';
 import { FooterUtilityGroup } from './components/footerUtilityGroup/FooterUtilityGroup';
 import { FooterBase } from './components/footerBase/FooterBase';
 import { FooterCustom } from './components/footerCustom/FooterCustom';
+import { Logo, logoFi } from '../logo';
 
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
@@ -76,7 +77,12 @@ const Utilities = () => {
 };
 
 const Base = () => (
-  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+  <Footer.Base
+    copyrightHolder="Copyright"
+    copyrightText="All rights reserved"
+    backToTopLabel="Back to top"
+    logo={<Logo src={logoFi} size="medium" />}
+  >
     {createArray(5).map((index) => (
       <Footer.Link
         key={index}
@@ -248,6 +254,7 @@ export const Example = (args) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
+      logo={<Logo src={logoFi} size="medium" />}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -339,6 +346,7 @@ export const UtilityGroups = (args) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
+      logo={<Logo src={logoFi} size="medium" />}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -377,6 +385,6 @@ export const CustomSection = (args) => (
 
 export const Minimal = (args) => (
   <Footer {...args}>
-    <Footer.Base backToTopLabel="Back to top" />
+    <Footer.Base backToTopLabel="Back to top" logo={<Logo src={logoFi} size="medium" />} />
   </Footer>
 );
