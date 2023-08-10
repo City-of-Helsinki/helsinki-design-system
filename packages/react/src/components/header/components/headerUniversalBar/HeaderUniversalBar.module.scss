@@ -2,7 +2,6 @@
 
 .headerUniversalBar {
   align-items: center;
-  background: var(--universal-bar-background-color);
   box-sizing: border-box;
   display: flex;
   margin: 0 auto;
@@ -13,7 +12,7 @@
 }
 
 .headerUniversalBarContainer {
-  background: var(--color-black-5);
+  background: var(--universal-bar-background-color);
   width: 100%;
 }
 

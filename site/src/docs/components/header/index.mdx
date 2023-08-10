@@ -45,7 +45,6 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Always position the Header.UniversalBar to the top of the page. Keep the bar in place so the user can always easily locate it. It is recommended to include the Header.UniversalBar on every page of the service.
 - It's recommended to pass an ariaLabel prop for the Header.UniversalBar to describe it for the screen readers, e.g. "Quick links".
 - The Header.UniversalBar component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. On smaller screens (576px and down) the Header.UniversalBar will not be displayed on the page and its contents should be found inside the HeaderNavigationMenu component.
-- Header supports two themes: light (default) and dark. See example for light theme <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link> and for dark theme <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-dark-theme">in Storybook</Link>
 
 <PlaygroundPreview>
   <Header>
@@ -76,3 +75,8 @@ Coming soon!
 - Using the Header.SkipLink component is optional. Use the skip link component to help keyboard-only users skip to the main content on a page.
 - See example for Header.SkipLink <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-skip-link">in Storybook</Link>
 - The Header.SkipLink supports ariaLabel which gives possibility to define more informative text for screen readers
+
+#### With theme
+
+- Header supports two themes: light (default) and dark. See example for light theme <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link> and for dark theme <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-dark-theme">in Storybook</Link>
+

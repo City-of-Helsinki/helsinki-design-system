@@ -32,9 +32,10 @@
   --nav-button-background-color: var(--color-black-5);
   --nav-button-hover-background-color: var(--color-black-5);
   --nav-search-color: var(--header-color);
-  --universal-bar-background-color: var(--color-white);
+  --universal-bar-background-color: var(--color-black-5);
   --logo-height: 56px;
   --icon-size: 24px;
+  --drop-down-icon-color: var(--color-black);
 
   @include layout.below-large {
     --action-bar-container-height: 74px;
@@ -53,7 +54,7 @@
     --logo-height: 32px;
   }
 
-  &.darkTheme {
+  &.theme-dark {
     --color-focus-outline: var(--color-white);
     --header-color: var(--color-white);    
     --header-focus-outline-color: var(--color-white);
@@ -66,6 +67,7 @@
     --lang-selector-dropdown-background-color: var(--color-black-60);
     --nav-button-background-color: var(--color-black-60);
     --nav-button-hover-background-color: var(--color-black-60);
+    --nav-drop-down-icon-color: var(--color-white);
   }
 
   background-color: var(--header-background-color);
