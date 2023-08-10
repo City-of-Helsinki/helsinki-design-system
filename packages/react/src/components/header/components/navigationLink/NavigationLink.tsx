@@ -19,7 +19,7 @@ export type LinkProps = {
    */
   active?: boolean;
   /**
-   * Additional class names to apply.
+   * Additional class names to apply to the link.
    */
   className?: string;
   /**
@@ -55,7 +55,7 @@ export type NavigationLinkProps<ReactElement> = {
    */
   active?: boolean;
   /**
-   * Element type to use instead of the default HDS Link.
+   * Element or component to use instead of the default HDS Link.
    * @default Link
    * @example
    * ```ts
@@ -121,7 +121,7 @@ export type NavigationLinkProps<ReactElement> = {
    */
   setOpenSubNavIndex?: (val: number) => void;
   /**
-   * Additional class name for the dropdown wrapper element.
+   * Additional class name for the NavigationLink wrapper element.
    */
   wrapperClassName?: string;
 };

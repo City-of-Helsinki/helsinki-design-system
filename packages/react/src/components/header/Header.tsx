@@ -21,7 +21,7 @@ type HeaderAttributes = JSX.IntrinsicElements['header'];
 
 export interface HeaderNodeProps extends HeaderAttributes {
   /**
-   * aria-label for describing Footer.
+   * Aria-label for describing Header.
    */
   ariaLabel?: string;
   /**

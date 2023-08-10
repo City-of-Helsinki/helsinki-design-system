@@ -39,6 +39,7 @@ const languages: LanguageOption[] = [
 export const WithFullFeatures = (args) => (
   <>
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.NavigationLink href="#" label="Link 1" />
         <Header.NavigationLink href="#" label="Link 2" />
@@ -48,9 +49,9 @@ export const WithFullFeatures = (args) => (
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
+        titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
-        logoUrl="https://hel.fi"
+        logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
         <Header.NavigationLanguageSelector languages={languages} ariaLabel="Kielen valinta">
@@ -156,7 +157,8 @@ export const WithFullFeatures = (args) => (
 export const Minimal = (args) => {
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
+      <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleHref="https://hel.fi">
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
@@ -215,10 +217,11 @@ export const MinimalWithLocalization = (args) => {
 
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction2}>
+      <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.ActionBar
         title={translations[lang]['header-title']}
         titleAriaLabel={translations[lang]['header-aria-label']}
-        titleUrl="https://hel.fi"
+        titleHref="https://hel.fi"
       >
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>
@@ -248,35 +251,6 @@ export const MinimalWithLocalization = (args) => {
           icon={<IconUser />}
           id="action-bar-login"
         >
-          <h3>Kirjautumisvalinnat</h3>
-        </Header.ActionBarItem>
-      </Header.ActionBar>
-
-      <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
-      </Header.NavigationMenu>
-    </Header>
-  );
-};
-
-export const WithSkipLink = (args) => {
-  return (
-    <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
-        <Header.NavigationLanguageSelector languages={languages}>
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com">
-            Viittomakieli
-          </Link>
-        </Header.NavigationLanguageSelector>
-
-        <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>

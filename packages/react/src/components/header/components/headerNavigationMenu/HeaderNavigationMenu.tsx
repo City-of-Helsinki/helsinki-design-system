@@ -11,7 +11,7 @@ import styles from './HeaderNavigationMenu.module.scss';
 
 export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing universal bar.
+   * Aria-label for describing universal bar.
    */
   ariaLabel?: string;
   /**
