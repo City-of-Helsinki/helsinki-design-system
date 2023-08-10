@@ -35,7 +35,7 @@
   --universal-bar-background-color: var(--color-black-5);
   --logo-height: 56px;
   --icon-size: 24px;
-  --drop-down-icon-color: var(--color-black);
+  --nav-drop-down-icon-color: var(--color-black);
 
   @include layout.below-large {
     --action-bar-container-height: 74px;
