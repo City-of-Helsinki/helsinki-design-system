@@ -7,7 +7,8 @@
   margin: 0 0 0 var(--spacing-s);
   padding: 0;
   width: 24px;
-
+  color: var(--nav-drop-down-icon-color);
+  
   &.isNotLargeScreen {
     background: transparent;
     border-left: 1px solid var(--nav-button-hover-background-color);

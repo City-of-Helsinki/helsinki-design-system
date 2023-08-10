@@ -46,7 +46,7 @@ const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, class
   const { isNotLargeScreen } = useHeaderContext();
   const { theme } = props;
 
-  const headerClassNames = classNames('hds-header', styles.header, theme && styles[`${theme}Theme`], className, {
+  const headerClassNames = classNames('hds-header', styles.header, theme && styles[`theme-${theme}`], className, {
     isNotLargeScreen,
   });
   return (
