@@ -261,13 +261,137 @@ import { Footer } from 'hds-react';
 
 </Playground>
 
+#### Custom NavigationLink
+
+- The Footer.NavigationLink component has the `as` prop which you can use to use your own navigation link instead of our Footer.NavigationLink, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
+
+<Playground>
+
+```jsx
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Link } from 'gatsby';
+
+() => (
+  <Footer title="Helsinki Design System">
+    <Footer.Navigation>
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.NavigationLink as={Link} label="Item" />
+    </Footer.Navigation>
+    <Footer.Utilities
+      soMeLinks={[
+        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
+        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
+        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
+        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
+        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
+      ]}
+    >
+      <Footer.NavigationLink as={Link} label="Contact us" />
+      <Footer.NavigationLink as={Link} label="Give feedback" />
+    </Footer.Utilities>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+      <Footer.NavigationLink as={Link} label="Link" />
+      <Footer.NavigationLink as={Link} label="Link" />
+      <Footer.NavigationLink as={Link} label="Link" />
+    </Footer.Base>
+  </Footer>
+)
+```
+
+</Playground>
+
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                         | Source link                                                                                                                                                                                                         |
 | ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-footer--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/footer">View source</ExternalLink> |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-footer--example">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/footer">View source</ExternalLink> |
 | **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                      | -                                                                                                                                                                                                                   |
 
 ### Properties
 
-The Footer component consists of multiple components that all have their own properties. Refer to the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-footer--default">React Storybook</Link> to see properties of all Footer components.
+| Property                    | Description                       | Values   | Default value |
+| --------------------------- | --------------------------------- | -------- | ------------- |
+| `ariaLabel`                 | Aria-label for describing footer. | `string` | -             |
+| `className`                 | Additional class names to apply.  | `string` | -             |
+| `footerProps`                        | Additional props for the `<footer` element.               | `Object` | -             |
+| `korosType`                        | Koros type to use in the footer.               | `KorosType` | `"basic"`             |
+| `theme`                        | Footer theme.               | `"light` `"dark"` `FooterCustomTheme` | `"light"`             |
+| `title`                        | Service name.               | `string` | -             |
+| [Table 1:Footer properties] |
+
+| Property                                 | Description                               | Values   | Default value |
+| ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                              | Aria-label for describing the navigation.   | `string` | -             |
+| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
+| [Table 2:Footer.Navigation properties] |
+
+| Property                             | Description                                        | Values          | Default value |
+| ------------------------------------ | -------------------------------------------------- | --------------- | ------------- |
+| `ariaLabel`                          | Aria-label for describing the link. | `string`        | -             |
+| `as`                              | Element or component to use instead of the default HDS Link.                            | `Element`        | <InternalLink href="/components/">`Link`</InternalLink>             |
+| `external`                             | Boolean indicating whether the link will lead user to external domain.     | `boolean`        | `false`             |
+| `href`                                     | Hypertext Reference of the link.                                            | `string`                    | -                                                       |
+| `icon`                              | Icon which will display on the left side of the label.                            | `ReactNode`        | -             |
+| `label`                              | Label for the link.                            | `string`        | -             |
+| `openInNewTab`                             | Boolean indicating whether the link will open in new tab.     | `boolean`        | `false`             |
+| `openInNewTabAriaLabel`                             | Aria-label for opening link in a new tab.     | `string`        | -            |
+| `openInExternalDomainAriaLabel`                             | Aria-label for opening link in an external domain.     | `string`        | -            |
+| [Table 3:Footer.NavigationLink properties] |
+
+| Property                                  | Description                         | Values                 | Default value |
+| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
+| `className`                               | Additional classNames for the element. | `string`               | -             |
+| `id`                                    | ID for the element.                  | `string`            | -             |
+| `headingLink`                                   | Footer.GroupHeading component to display at the top of the group. On smaller screens only this will be displayed.      | `Footer.GroupHeading` | -             |
+| [Table 4:Footer.NavigationGroup properties] |
+
+| Property                                  | Description                         | Values                 | Default value |
+| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
+| `as`                              | Element or component to use instead of the default native link or `<span>` when `href` is omitted.                           | `Element`        | `a` `span`             |
+| `href`                                     | Hypertext Reference of the link. If omitted, heading will be a `<span>`element instead of `<a>`.                                         | `string`                    | -                                                       |
+| `id`                                    | ID for the element.                  | `string`            | -             |
+| `label`                              | Label for the heading.                            | `string`        | -             |
+| [Table 5:Footer.GroupHeading properties] |
+
+| Property                                 | Description                               | Values   | Default value |
+| ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                              | Aria-label for describing the utilities.   | `string` | -             |
+| `soMeLinks`                                   |  Array of Footer.NavigationLinks to display in the social media section.       | `[Footer.NavigationLink]` | -             |
+| `soMeSectionProps`                                   |  Additional props for the native `<section>` element which hold the `soMeLinks`.       | `Object` | -             |
+| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
+| [Table 6:Footer.Utilities properties] |
+
+| Property                                  | Description                         | Values                 | Default value |
+| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
+| `className`                               | Additional classNames for the element. | `string`               | -             |
+| `id`                                    | ID for the element.                  | `string`            | -             |
+| `headingLink`                                   | Footer.GroupHeading component to display at the top of the group.      | `Footer.GroupHeading` | -             |
+| [Table 7:Footer.UtilityGroup properties] |
+
+| Property                                  | Description                         | Values                 | Default value |
+| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
+| `ariaLabel`                              | Aria-label for describing the custom area.   | `string` | -             |
+| `className`                               | Additional classNames for the element. | `string`               | -             |
+| `id`                                    | ID for the element.                  | `string`            | -             |
+| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
+| [Table 8:Footer.Custom properties] |
+
+| Property                              | Description                                            | Values                                        | Default value |
+| ------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------- |
+| `ariaLabel`                           | Aria-label for describing the element.                   | `string`                                      | -             |
+| `backToTopLabel`                           | Label for the "Back to top" button.                       | `string` `ReactNode`                                      | -             |
+| `copyrightHolder`                           | Text to be displayed next to the copyright symbol.                       | `string` `ReactNode`                                      | -             |
+| `copyrightText`                           | Text to be displayed after the copyright holder text.                       | `string` `ReactNode`                                      | -             |
+| `logoHref`                             | Link for the logo.                                      | `string`                                      | -             |
+| `logoLanguage`                             | Language of the Helsinki logo.                                      | `"fi"` `"sv"` `"ru"`                                       | -             |
+| `onBackToTopClick`                       | Callback fired when the "Back to top" button is clicked.                               | `function`                                      | -             |
+| `role`                                | ARIA role to describe the contents.                    | `string`                                      | -             |
+| `showBackToTopButton`                                | Boolean for whether the "Back to top" button should be shown.                    | `boolean`                                      | -             |
+| `year`                                | The year for copyright text. This can be useful in automated tests.                    | `string`                                      | -             |
+| [Table 9:Footer.Base properties] |
