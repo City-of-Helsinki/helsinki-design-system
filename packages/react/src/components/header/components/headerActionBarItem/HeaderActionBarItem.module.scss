@@ -6,6 +6,7 @@ button.actionBarItem {
   border: none;
   cursor: pointer;
   padding: 0;
+  height: 100%;
 
   @include common.focusVisible(
     var(--header-focus-outline-color),
