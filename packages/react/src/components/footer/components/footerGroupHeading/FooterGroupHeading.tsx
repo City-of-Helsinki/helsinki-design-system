@@ -10,7 +10,7 @@ import { FooterVariant } from '../../Footer.interface';
 
 type ItemProps<T> = React.PropsWithChildren<{
   /**
-   * Element type
+   * Element or component to use instead of the default native link.
    */
   as?: T;
   /**

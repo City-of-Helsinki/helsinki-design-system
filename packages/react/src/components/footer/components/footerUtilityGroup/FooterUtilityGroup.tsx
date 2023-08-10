@@ -22,9 +22,9 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
    * @example
    * ```ts
    * headingLink={<Footer.GroupHeading
-            href="https://yourpath.com"
-            label="Main Page"
-          />}
+        href="https://yourpath.com"
+        label="Main Page"
+      />}
     ```
    */
   headingLink?: React.ReactNode;
