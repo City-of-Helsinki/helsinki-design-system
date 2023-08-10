@@ -1,4 +1,5 @@
 @use "../../styles/layout.scss";
+@import "../../styles/common.scss";
 
 .skipLink {
   --background-color: var(--color-white);
@@ -19,6 +20,11 @@
   @include layout.below-medium {
     --height: 60px;
   }
+
+  &:not(:focus) {
+    @extend %visuallyHidden;
+  }
+
   
   display: flex;
   height: 1px;
