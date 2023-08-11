@@ -58,7 +58,6 @@ export const NavigationLanguageSelector = ({
   const { isNotLargeScreen, languageSelectorContent } = useHeaderContext();
   const { setLanguageSelectorContent } = useSetHeaderContext();
 
-  const isInActionBar = !fullWidthForMobile;
   const isRender = !languages;
   if (!isRender) {
     useEffect(() => {
@@ -73,11 +72,16 @@ export const NavigationLanguageSelector = ({
   }
 
   const languageNodes = (languages || useAvailableLanguages()).map(renderLanguageNode);
-  const show = isRender && isNotLargeScreen !== isInActionBar && Array.isArray(languageNodes) && languageNodes.length;
+  // when its not large screen fullWidthForMobile -version can be used
+  const show =
+    isRender &&
+    ((isNotLargeScreen && fullWidthForMobile) || (!isNotLargeScreen && !fullWidthForMobile)) &&
+    Array.isArray(languageNodes) &&
+    languageNodes.length;
 
   return (
     (show && (
-      <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: !isInActionBar })}>
+      <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
         <div className={classNames(classes.languageNodes)}>{languageNodes}</div>
 
         {languageSelectorContent && Array.isArray(languageSelectorContent) && languageSelectorContent.length ? (
