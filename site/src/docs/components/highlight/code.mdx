@@ -23,12 +23,12 @@ import { Highlight } from 'hds-react';
 
 () => (
   <>
-    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." size="l"/>
     <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
-    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
-    <Highlight text="Add an interesting quote here" variant="l" type="quote" reference="First name Last name. Title."/>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." size="s"/>
+    <Highlight text="Add an interesting quote here" size="l" type="quote" reference="First name Last name. Title."/>
     <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
-    <Highlight text="Add an interesting quote here" variant="s" type="quote" reference="First name Last name. Title."/>
+    <Highlight text="Add an interesting quote here" size="s" type="quote" reference="First name Last name. Title."/>
   </>
 )
 ```
@@ -153,5 +153,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | Property  | Description                     | Values                        | Default value |
 | --------- | ------------------------------- | ----------------------------- | ------------- |
 | `text`    | Text for the Highlight/quote    | -                             | -             |
-| `variant` | Highlight variant               | `"s"` `"m"` `"l"`             | `"m"`         | 
+| `size` | Highlight size               | `"s"` `"m"` `"l"`             | `"m"`         | 
 | `type`    | Type of the Highlight           | `"highlight"` `"quote"`       | `"highlight"` |

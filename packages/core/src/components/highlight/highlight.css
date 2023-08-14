@@ -1,10 +1,10 @@
 .hds-highlight {
   --accent-line-color: var(--color-bus);
   --text-color: var(--color-black-90);
-  --variant-width-s: 264px;
-  --variant-width-m: 536px;
-  --variant-width-l: 680px;
-  --width: var(--variant-width-m);
+  --size-width-s: 264px;
+  --size-width-m: 536px;
+  --size-width-l: 680px;
+  --width: var(--size-width-m);
   --margin: var(--spacing-m) 0;
 
   border-left: 8px solid var(--accent-line-color);
@@ -35,12 +35,12 @@
 
 .hds-highlight--small {
   --margin: var(--spacing-s) 0;
-  --width: var(--variant-width-s);
+  --width: var(--size-width-s);
 }
 
 .hds-highlight--large {
   --margin: var(--spacing-l) 0;
-  --width: var(--variant-width-l);
+  --width: var(--size-width-l);
 }
 
 .hds-highlight--large .hds-highlight__text {

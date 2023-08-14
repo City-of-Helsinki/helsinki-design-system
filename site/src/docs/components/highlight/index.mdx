@@ -25,9 +25,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Principles
 
-- Highlights are designed to capture users' attention. ** Therefore, they should be used sparingly. **
+- Highlights are designed to capture users' attention. **Therefore, they should be used sparingly.**
 - Use the prop `type="quote"` to transform the highlight text into a quote with an optional reference, though we strongly recomend adding a reference to a quote.
-- Pay attention to accessibility when using custom text or accent line colour. ** Use sufficient colour contrast ** so the content is clearly distinguishable from the surrounding area.
+- Pay attention to accessibility when using custom text or accent line colour. **Use sufficient colour contrast** so the content is clearly distinguishable from the surrounding area.
 - Quote and Highlight adds vertical margin before and after actual content.
 
 ### Type variations
@@ -46,8 +46,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ##### Large
 <PlaygroundPreview>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
-  <Highlight text="Add an interesting quote here" variant="l" type="quote" reference="First name Last name. Title."/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." size="l"/>
+  <Highlight text="Add an interesting quote here" size="l" type="quote" reference="First name Last name. Title."/>
 </PlaygroundPreview>
 
 #### Default
@@ -58,8 +58,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Small
 <PlaygroundPreview>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
-  <Highlight text="Add an interesting quote here" variant="s" type="quote" reference="First name Last name. Title."/>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." size="s"/>
+  <Highlight text="Add an interesting quote here" size="s" type="quote" reference="First name Last name. Title."/>
 </PlaygroundPreview>
 
 ### Theming
