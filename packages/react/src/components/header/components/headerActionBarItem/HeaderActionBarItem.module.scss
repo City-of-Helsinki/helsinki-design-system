@@ -6,21 +6,20 @@ button.actionBarItem {
   border: none;
   cursor: pointer;
   padding: 0;
-  height: 100%;
+  align-self: center;
 
-  @include common.focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  );
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
+  }
 }
 
 .actionBarItemIcon {
   display: block;
   height: var(--icon-size);
   margin: 0 auto;
-  padding: 0 8px;
+  padding: 3px 8px 0px 5px;
   width: var(--icon-size);
 
   & > svg {

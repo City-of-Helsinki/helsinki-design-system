@@ -77,6 +77,4 @@
   &.depth-3 { padding: 0 0 0 64px; }
 
   &:focus { border: none }
-
-  @include header.element-focus-state;
 }

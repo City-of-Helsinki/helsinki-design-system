@@ -51,13 +51,6 @@
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
   }
-
-  @include common.focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  );
 }
 
 .title {

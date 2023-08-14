@@ -10,6 +10,7 @@
 .languageSelectorDropdownIcon {
   align-items: center;
   margin-top: 1px;
+  padding-top: 3px;
 }
 
 .languageSelectorDropdown {
@@ -31,6 +32,13 @@
   line-height: var(--spacing-2-xl);
   padding: 0;
   white-space: nowrap;
+  align-self: center;
+
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
+  }
 }
 
 .activeItem {
