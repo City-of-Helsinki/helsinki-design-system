@@ -3,9 +3,8 @@ slug: '/components/highlight/code'
 title: 'Highlight - Code'
 ---
 
-import { Button, Highlight, Link } from 'hds-react';
+import { Highlight, Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Highlight and quote sizes
 
-<Playground>
+<Playground scope={{ Highlight }}>
 
 
 ```jsx
@@ -73,7 +72,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### With custom accent line color
 
-<Playground>
+<Playground scope={{ Highlight }}>
 
 
 ```jsx
@@ -102,7 +101,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### With custom text color
 
-<Playground>
+<Playground scope={{ Highlight }}>
 
 
 ```jsx
