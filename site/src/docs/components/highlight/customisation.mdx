@@ -27,13 +27,17 @@ See all available theme and style variables in the table below.
 <Playground>
 
 ```jsx
-<Highlight
-  text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."
-  theme={{
-    '--accent-line-color': '#009246',
-    '--text-color': '#0000bf'
-  }}
-/>
+import { Highlight } from 'hds-react';
+
+() => (
+  <Highlight
+    text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."
+    theme={{
+      '--accent-line-color': '#009246',
+      '--text-color': '#0000bf'
+    }}
+  />
+)
 ```
 
 ```html

@@ -19,14 +19,18 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
-  <Highlight text="Add an interesting quote here" variant="l" type="quote" reference="First name Last name. Title."/>
-  <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
-  <Highlight text="Add an interesting quote here" variant="s" type="quote" reference="First name Last name. Title."/>
-</>
+import { Highlight } from 'hds-react';
+
+() => (
+  <>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="l"/>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." variant="s"/>
+    <Highlight text="Add an interesting quote here" variant="l" type="quote" reference="First name Last name. Title."/>
+    <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
+    <Highlight text="Add an interesting quote here" variant="s" type="quote" reference="First name Last name. Title."/>
+  </>
+)
 ```
 
 ```html
@@ -76,10 +80,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." theme={{'--accent-line-color':'#00005e'}}/>
-  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--accent-line-color':'#00005e'}}/>
-</>
+import { Highlight } from 'hds-react';
+
+() => (
+  <>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." theme={{'--accent-line-color':'#00005e'}}/>
+    <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--accent-line-color':'#00005e'}}/>
+  </>
+)
 ```
 ```html
   <div>
@@ -105,10 +113,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 
 ```jsx
-<>
-  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."  theme={{'--text-color':'#00005e'}}/>
-  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--text-color':'#00005e'}}/>
-</>
+import { Highlight } from 'hds-react';
+
+() => (
+  <>
+    <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."  theme={{'--text-color':'#00005e'}}/>
+    <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--text-color':'#00005e'}}/>
+  </>
+)
 ```
 ```html
   <div>
