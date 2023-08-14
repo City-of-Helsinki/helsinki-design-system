@@ -1,12 +1,12 @@
 @use "../../../../styles/common.scss";
 
 button.actionBarItem {
+  align-self: center;
   appearance: none;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
-  align-self: center;
 
   &:focus-visible {
     border: none;
@@ -19,7 +19,7 @@ button.actionBarItem {
   display: block;
   height: var(--icon-size);
   margin: 0 auto;
-  padding: 3px 8px 0px 5px;
+  padding: 3px 8px 0 5px;
   width: var(--icon-size);
 
   & > svg {
@@ -30,8 +30,8 @@ button.actionBarItem {
 }
 
 .actionBarItemLabel {
-  display: block;
   color: var(--action-bar-item-title-font-color);
+  display: block;
   font-size: var(--action-bar-item-title-font-size);
   margin: 0 auto;
   white-space: nowrap;

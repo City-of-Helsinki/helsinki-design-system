@@ -25,6 +25,7 @@
 }
 
 .item {
+  align-self: center;
   appearance: none;
   background: transparent;
   border: none;
@@ -32,7 +33,6 @@
   line-height: var(--spacing-2-xl);
   padding: 0;
   white-space: nowrap;
-  align-self: center;
 
   &:focus-visible {
     border: none;
