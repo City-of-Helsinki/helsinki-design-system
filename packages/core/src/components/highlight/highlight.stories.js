@@ -1,5 +1,4 @@
 import './highlight.css';
-import './highlight-em-dash.css';
 
 export default {
   title: 'Components/Highlight',
@@ -47,7 +46,7 @@ export const DefaultQuote = () => `
     <blockquote class="hds-blockquote">
       <p class="hds-highlight__text hds-highlight__quote">${quoteText}</p>
     </blockquote class="hds-blockquote">
-    <figcaption class="hds-highlight__reference">${quoteReference}</figcaption>
+    <figcaption class="hds-highlight__reference">&#8212${quoteReference}</figcaption>
   </figure>
 `;
 
@@ -56,7 +55,7 @@ export const QuoteLarge = () => `
     <blockquote class="hds-blockquote">
       <p class="hds-highlight__text hds-highlight__quote">${quoteText}</p>
     </blockquote class="hds-blockquote">
-    <figcaption class="hds-highlight__reference">${quoteReference}</figcaption>    
+    <figcaption class="hds-highlight__reference">&#8212${quoteReference}</figcaption>    
   </figure>
 `;
 
@@ -65,7 +64,7 @@ export const QuoteSmall = () => `
     <blockquote class="hds-blockquote">
       <p class="hds-highlight__text hds-highlight--small hds-highlight__quote">${quoteText}</p>
     </blockquote class="hds-blockquote">
-    <figcaption class="hds-highlight__reference">${quoteReference}</figcaption>
+    <figcaption class="hds-highlight__reference">&#8212${quoteReference}</figcaption>
   </figure>
 `;
 
@@ -74,6 +73,6 @@ export const QuoteCustomStyles = () => `
     <blockquote class="hds-blockquote">
       <p class="hds-highlight__text hds-highlight__quote">${quoteText}</p>
     </blockquote class="hds-blockquote">
-    <figcaption class="hds-highlight__reference">${quoteReference}</figcaption>
+    <figcaption class="hds-highlight__reference">&#8212${quoteReference}</figcaption>
   </figure>
 `;

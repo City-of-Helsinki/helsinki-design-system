@@ -26,7 +26,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Principles
 
 - Highlights are designed to capture users' attention. **Therefore, they should be used sparingly.**
-- Use the prop `type="quote"` to transform the highlight text into a quote with an optional reference, though we strongly recomend adding a reference to a quote.
+- With the React component you can use the prop `type="quote"` to transform the highlight text into a quote with an optional reference, though we strongly recommend adding a reference to a quote. With the core version remember to insert the em-dash character — (HTML code `&#8212`) before the reference text. In React component the dash is handled automatically.
 - Pay attention to accessibility when using custom text or accent line colour. **Use sufficient colour contrast** so the content is clearly distinguishable from the surrounding area.
 - Quote and Highlight adds vertical margin before and after actual content.
 
@@ -38,6 +38,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </PlaygroundPreview>
 
 ##### Quote
+**In Core package** remember to insert the em-dash character — (HTML code `&#8212`) before the reference text.
 <PlaygroundPreview>
   <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
 </PlaygroundPreview>
