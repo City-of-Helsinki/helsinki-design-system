@@ -3,7 +3,7 @@ import React, { PropsWithChildren, MouseEventHandler } from 'react';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
-import { useActiveLanguage } from '../../../../context/languageContext';
+import { useActiveLanguage } from '../../LanguageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { NavigationLanguageSelector } from '../navigationLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';

@@ -4,7 +4,7 @@ import { axe } from 'jest-axe';
 
 import { HeaderActionBar } from '.';
 import { HeaderWrapper } from '../../../../utils/test-utils';
-import { DEFAULT_LANGUAGE, LanguageOption } from '../../../../context/languageContext';
+import { DEFAULT_LANGUAGE, LanguageOption } from '../LanguageContext';
 import { Header } from '../../Header';
 
 const languages: LanguageOption[] = [

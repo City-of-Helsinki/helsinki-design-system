@@ -6,7 +6,7 @@ import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniver
 import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
-import { LanguageOption } from '../../context/languageContext';
+import { LanguageOption } from './LanguageContext';
 import { IconSearch, IconUser } from '../../icons';
 import { Link } from '../link/Link';
 

@@ -1,2 +1,2 @@
 export * from './Header';
-export { LanguageOption } from '../../context/languageContext';
+export { LanguageOption } from './LanguageContext';

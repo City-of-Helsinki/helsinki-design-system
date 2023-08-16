@@ -6,7 +6,7 @@ import {
   useActiveLanguage,
   useSetAvailableLanguages,
   useSetLanguage,
-} from '../../../../context/languageContext';
+} from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
