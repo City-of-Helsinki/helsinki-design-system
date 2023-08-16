@@ -25,12 +25,6 @@
 
 .quote {
   composes: hds-highlight__quote from 'hds-core/lib/components/highlight/highlight.css';
-
-  &:before,
-  &:after {
-    content: '"';
-    display: inline;  
-  }
 }
 
 .reference {
