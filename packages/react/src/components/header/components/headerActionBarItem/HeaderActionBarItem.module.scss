@@ -19,7 +19,7 @@ button.actionBarItem {
   display: block;
   height: var(--icon-size);
   margin: 0 auto;
-  padding: 3px 8px 0 5px;
+  padding: 3px 0 0 0;
   width: var(--icon-size);
 
   & > svg {

@@ -11,6 +11,9 @@
   align-items: center;
   margin-top: 1px;
   padding-top: 3px;
+  &:focus-visible {
+    outline-offset: 0px;
+  }
 }
 
 .languageSelectorDropdown {
@@ -19,7 +22,7 @@
   flex-flow: column nowrap;
 
   > * {
-    line-height: var(--spacing-2-xl);
+    line-height: var(--lineheight-l);
     margin: 0;
   }
 }
@@ -30,7 +33,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  line-height: var(--spacing-2-xl);
+  line-height: var(--lineheight-l);
   padding: 0;
   white-space: nowrap;
 

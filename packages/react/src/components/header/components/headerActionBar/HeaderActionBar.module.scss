@@ -51,6 +51,12 @@
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
   }
+
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
+  }
 }
 
 .title {
