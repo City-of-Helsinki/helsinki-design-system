@@ -129,7 +129,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         labelOnRight={labelOnRight}
       />
       <div className={classes.dropdownWrapper}>
-        <aside id={`${id}-dropdown`} tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
+        <aside id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
           {children}
         </aside>
       </div>
