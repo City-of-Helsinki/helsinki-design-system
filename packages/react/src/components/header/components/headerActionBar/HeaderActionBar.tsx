@@ -13,8 +13,8 @@ import styles from './HeaderActionBar.module.scss';
 const classNames = styleBoundClassNames(styles);
 
 export enum TitleStyleType {
-  normal = 'normal',
-  bold = 'bold',
+  Normal = 'normal',
+  Bold = 'bold',
 }
 
 export type HeaderActionBarProps = PropsWithChildren<{
