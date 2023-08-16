@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import { Header } from './Header';
 import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniversalBar';
-import { HeaderActionBar, TitleStyleType } from './components/headerActionBar/HeaderActionBar';
+import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { LanguageOption } from '../../context/languageContext';
@@ -49,7 +49,6 @@ export const WithFullFeatures = (args) => (
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.normal}
         logoAriaLabel="Service logo"
         logoUrl="https://hel.fi"
         menuButtonAriaLabel="Menu"
@@ -157,12 +156,7 @@ export const WithFullFeatures = (args) => (
 export const Minimal = (args) => {
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.black}
-      >
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
@@ -226,7 +220,6 @@ export const MinimalWithLocalization = (args) => {
         title={translations[lang]['header-title']}
         titleAriaLabel={translations[lang]['header-aria-label']}
         titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.black}
       >
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>
@@ -274,12 +267,7 @@ export const WithSkipLink = (args) => {
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.black}
-      >
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">

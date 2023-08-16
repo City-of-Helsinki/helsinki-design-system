@@ -3,7 +3,7 @@
 
 .navigationLink.navigationLink {
   --link-color: var(--color-black-90);
-  --link-font-size: 14px;
+  --link-font-size: var(--fontsize-body-s);
   --link-visited-color: none;
 
   border: 0;
@@ -66,7 +66,7 @@
   word-wrap: break-word;
 
   &.depth-0 {
-    font-size: 20px;
+    font-size: var(--fontsize-body-xl);
     height: var(--action-bar-dropdown-menu-primary-item-height);
     line-height: var(--action-bar-dropdown-menu-primary-item-height);
     padding: 0 0 0 16px;

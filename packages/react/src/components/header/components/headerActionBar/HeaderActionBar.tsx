@@ -14,7 +14,6 @@ const classNames = styleBoundClassNames(styles);
 export enum TitleStyleType {
   normal = 'normal',
   bold = 'bold',
-  black = 'black',
 }
 
 export type HeaderActionBarProps = PropsWithChildren<{
