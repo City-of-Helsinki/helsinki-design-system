@@ -11,9 +11,6 @@
   align-items: center;
   margin-top: 1px;
   padding-top: 3px;
-  &:focus-visible {
-    outline-offset: 0px;
-  }
 }
 
 .languageSelectorDropdown {
@@ -65,4 +62,8 @@
   height: var(--layout-l);
   padding: 0 var(--header-margin);
   width: 100%;
+}
+
+.fullWidthForMobile .languageSelectorDropdownIcon:focus-visible {
+  outline-offset: 0px;
 }
