@@ -129,6 +129,9 @@ export const HeaderActionBar = ({
     titleProps.onClick = handleClick;
   }
 
+  const childrenLeft = children.filter((item) => !item.props.fixedRightPosition);
+  const childrenRight = children.filter((item) => !!item.props.fixedRightPosition);
+
   return (
     <>
       <div className={styles.headerActionBarContainer}>
@@ -149,8 +152,14 @@ export const HeaderActionBar = ({
           )}
           <div className={styles.headerActions}>
             <NavigationLanguageSelector />
-            {children}
+            {childrenLeft}
             <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+            {childrenRight.length > 0 && (
+              <>
+                <hr />
+                {childrenRight}
+              </>
+            )}
           </div>
         </div>
       </div>

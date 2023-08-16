@@ -26,6 +26,10 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
    * Positions the label right side of the icon.
    */
   labelOnRight?: boolean;
+  /**
+   * Fix the item position to the right side of the action bar.
+   */
+  fixedRightPosition?: boolean;
 }
 
 export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(

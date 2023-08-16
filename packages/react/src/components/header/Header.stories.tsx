@@ -170,8 +170,7 @@ export const Minimal = (args) => {
         <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
         </Header.ActionBarItem>
-        <hr style={{ order: 9 }} />
-        <Header.ActionBarItem label="Kirjaudu" icon={<IconUser />} style={{ order: 10 }} id="action-bar-login">
+        <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
@@ -243,11 +242,10 @@ export const MinimalWithLocalization = (args) => {
             label={translations[lang]['header-search']}
           />
         </Header.ActionBarItem>
-        <hr style={{ order: 9 }} />
         <Header.ActionBarItem
           label={translations[lang]['header-login']}
+          fixedRightPosition
           icon={<IconUser />}
-          style={{ order: 10 }}
           id="action-bar-login"
         >
           <h3>Kirjautumisvalinnat</h3>
@@ -278,7 +276,7 @@ export const WithSkipLink = (args) => {
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem label="Kirjaudu" icon={<IconUser />} style={{ order: 10 }} id="action-bar-login">
+        <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
