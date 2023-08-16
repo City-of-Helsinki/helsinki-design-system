@@ -41,9 +41,9 @@ export const WithFullFeatures = (args) => (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Uutiset" />
+        <Header.NavigationLink href="#" label="Asioi verkossa" />
+        <Header.NavigationLink href="#" label="Anna palautetta" />
       </Header.UniversalBar>
 
       <Header.ActionBar
@@ -72,80 +72,70 @@ export const WithFullFeatures = (args) => (
       <Header.NavigationMenu>
         <Header.NavigationLink
           href="#"
-          label="Link 1"
+          label="Sosiaali- ja terveyspalvelut"
           onClick={(event) => event.preventDefault()}
           active
           dropdownLinks={[
             <Header.NavigationLink
               href="#"
-              label="Test"
+              label="Terveydenhoito"
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Hammashoito" />,
+                <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
               ]}
             />,
             <Header.NavigationLink
               href="#"
-              label="Test"
+              label="Senioripalvelut"
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Viriketoiminta" />,
+                <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
               ]}
             />,
           ]}
         />
         <Header.NavigationLink
           href="#"
-          label="Link 2"
+          label="Kasvatus ja koulutus"
           dropdownLinks={[
             <Header.NavigationLink
               href="#"
-              label="Test"
+              label="Kasvatus"
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+                <Header.NavigationLink href="#" label="Esiopetus" />,
               ]}
             />,
             <Header.NavigationLink
               href="#"
-              label="Test"
+              label="Koulutus"
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Perusopetus" />,
+                <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+                <Header.NavigationLink href="#" label="Työväenopistot" />,
               ]}
             />,
           ]}
         />
-        <Header.NavigationLink href="#" label="Link 3" />
-        <Header.NavigationLink href="#" label="Link 4" />
-        <Header.NavigationLink href="#" label="Link 5" />
-        <Header.NavigationLink href="#" label="Link 6" />
-        <Header.NavigationLink href="#" label="Link 7" />
         <Header.NavigationLink
           href="#"
-          label="Link 8"
+          label="Yritykset ja työ"
           dropdownLinks={[
             <Header.NavigationLink
               href="#"
-              label="Test"
+              label="Työnantajat"
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Yritykset" />,
+                <Header.NavigationLink href="#" label="Yrittäjät" />,
               ]}
             />,
             <Header.NavigationLink
               href="#"
-              label="Test"
-              dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-              ]}
+              label="Työntekijät"
+              dropdownLinks={[<Header.NavigationLink href="#" label="Avoimet työpaikat" />]}
             />,
           ]}
         />
@@ -178,9 +168,9 @@ export const Minimal = (args) => {
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Sosiaali- ja terveyspalvelut" />
+        <Header.NavigationLink href="#" label="Kasvatus ja koulutus" />
+        <Header.NavigationLink href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
   );
@@ -256,9 +246,9 @@ export const MinimalWithLocalization = (args) => {
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Sosiaali- ja terveyspalvelut" />
+        <Header.NavigationLink href="#" label="Kasvatus ja koulutus" />
+        <Header.NavigationLink href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
   );

@@ -17,10 +17,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <Header>
-    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+      <Header.NavigationLink href="#" label="Uutiset" />
+      <Header.NavigationLink href="#" label="Asioi verkossa" />
+      <Header.NavigationLink href="#" label="Anna palautetta" />
     </Header.UniversalBar>
     <Header.ActionBar
       title="Helsingin kaupunki"
@@ -41,19 +41,54 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <Header.NavigationMenu>
       <Header.NavigationLink
         href="#"
-        label="Link 1"
+        label="Sosiaali- ja terveyspalvelut"
         onClick={(event) => event.preventDefault()}
+        active
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Terveydenhoito"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Hammashoito" />,
+              <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Viriketoiminta" />,
+              <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
       />
       <Header.NavigationLink
         href="#"
-        label="Link 2"
-        onClick={(event) => event.preventDefault()}
+        label="Kasvatus ja koulutus"
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Kasvatus"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+              <Header.NavigationLink href="#" label="Esiopetus" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Perusopetus" />,
+              <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+              <Header.NavigationLink href="#" label="Työväenopistot" />,
+            ]}
+          />,
+        ]}
       />
-      <Header.NavigationLink
-        href="#"
-        label="Link 3"
-        onClick={(event) => event.preventDefault()}
-      />
+      <Header.NavigationLink href="#" label="Asuminen" />
     </Header.NavigationMenu>
   </Header>
 </PlaygroundPreview>
@@ -124,54 +159,54 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <Header.NavigationMenu>
       <Header.NavigationLink
         href="#"
-        label="Link 1"
+        label="Sosiaali- ja terveyspalvelut"
         onClick={(event) => event.preventDefault()}
         active
         dropdownLinks={[
           <Header.NavigationLink
             href="#"
-            label="Nested link 1"
+            label="Terveydenhoito"
             active
             dropdownLinks={[
-              <Header.NavigationLink href="#" label="Deep link 1" />,
-              <Header.NavigationLink href="#" label="Deep link 2" />,
-              <Header.NavigationLink href="#" label="Deep link 3" />,
+              <Header.NavigationLink href="#" label="Hammashoito" />,
+              <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
             ]}
           />,
           <Header.NavigationLink
             href="#"
-            label="Nested link 2"
+            label="Senioripalvelut"
             dropdownLinks={[
-              <Header.NavigationLink href="#" label="Deep link 1" />,
-              <Header.NavigationLink href="#" label="Deep link 2" />,
+              <Header.NavigationLink href="#" label="Viriketoiminta" />,
+              <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
             ]}
           />,
         ]}
       />
       <Header.NavigationLink
         href="#"
-        label="Link 2"
+        label="Kasvatus ja koulutus"
         dropdownLinks={[
           <Header.NavigationLink
             href="#"
-            label="Nested link 1"
+            label="Kasvatus"
             active
             dropdownLinks={[
-              <Header.NavigationLink href="#" label="Deep link 1" />,
-              <Header.NavigationLink href="#" label="Deep link 2" />,
+              <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+              <Header.NavigationLink href="#" label="Esiopetus" />,
             ]}
           />,
           <Header.NavigationLink
             href="#"
-            label="Nested link 2"
+            label="Koulutus"
             dropdownLinks={[
-              <Header.NavigationLink href="#" label="Deep link 1" />,
-              <Header.NavigationLink href="#" label="Deep link 2" />,
+              <Header.NavigationLink href="#" label="Perusopetus" />,
+              <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+              <Header.NavigationLink href="#" label="Työväenopistot" />,
             ]}
           />,
         ]}
       />
-      <Header.NavigationLink href="#" label="Link 3" />
+      <Header.NavigationLink href="#" label="Asuminen" />
     </Header.NavigationMenu>
   </Header>
 </PlaygroundPreview>
@@ -185,9 +220,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <Header>
-    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#" label="F.A.Q" />
-      <Header.NavigationLink href="#" label="User guide" />
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+      <Header.NavigationLink href="#" label="Uutiset" />
+      <Header.NavigationLink href="#" label="Asioi verkossa" />
+      <Header.NavigationLink href="#" label="Anna palautetta" />
     </Header.UniversalBar>
     <Header.ActionBar
       title="Helsingin kaupunki"

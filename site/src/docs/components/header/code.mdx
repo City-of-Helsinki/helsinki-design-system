@@ -41,9 +41,9 @@ import { Header, IconSearch } from 'hds-react';
       <Header onDidChangeLanguage={languageChangedAction}>
         <Header.SkipLink skipTo="#content" label="Skip To Content" />
         <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-          <Header.NavigationLink href="#" label="Link 1" />
-          <Header.NavigationLink href="#" label="Link 2" />
-          <Header.NavigationLink href="#" label="Link 3" />
+          <Header.NavigationLink href="#" label="Uutiset" />
+          <Header.NavigationLink href="#" label="Asioi verkossa" />
+          <Header.NavigationLink href="#" label="Anna palautetta" />
         </Header.UniversalBar>
 
         <Header.ActionBar
@@ -67,54 +67,54 @@ import { Header, IconSearch } from 'hds-react';
         <Header.NavigationMenu>
           <Header.NavigationLink
             href="#"
-            label="Link 1"
+            label="Sosiaali- ja terveyspalvelut"
             onClick={(event) => event.preventDefault()}
             active
             dropdownLinks={[
               <Header.NavigationLink
                 href="#"
-                label="Nested link 1"
+                label="Terveydenhoito"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Deep link 1" />,
-                  <Header.NavigationLink href="#" label="Deep link 2" />,
-                  <Header.NavigationLink href="#" label="Deep link 3" />,
+                  <Header.NavigationLink href="#" label="Hammashoito" />,
+                  <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
                 ]}
               />,
               <Header.NavigationLink
                 href="#"
-                label="Nested link 2"
+                label="Senioripalvelut"
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Deep link 1" />,
-                  <Header.NavigationLink href="#" label="Deep link 2" />,
+                  <Header.NavigationLink href="#" label="Viriketoiminta" />,
+                  <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
                 ]}
               />,
             ]}
           />
           <Header.NavigationLink
             href="#"
-            label="Link 2"
+            label="Kasvatus ja koulutus"
             dropdownLinks={[
               <Header.NavigationLink
                 href="#"
-                label="Nested link 1"
+                label="Kasvatus"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Deep link 1" />,
-                  <Header.NavigationLink href="#" label="Deep link 2" />,
+                  <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+                  <Header.NavigationLink href="#" label="Esiopetus" />,
                 ]}
               />,
               <Header.NavigationLink
                 href="#"
-                label="Nested link 2"
+                label="Koulutus"
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Deep link 1" />,
-                  <Header.NavigationLink href="#" label="Deep link 2" />,
+                  <Header.NavigationLink href="#" label="Perusopetus" />,
+                  <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+                  <Header.NavigationLink href="#" label="Työväenopistot" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink href="#" label="Link 3" />
+          <Header.NavigationLink href="#" label="Asuminen" />
         </Header.NavigationMenu>
       </Header>
       <div id="content" />
@@ -141,9 +141,9 @@ import { Link } from 'gatsby';
       <Header>
         <Header.SkipLink skipTo="#content" label="Skip To Content" />
         <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-          <Header.NavigationLink href="#" label="Link 1" />
-          <Header.NavigationLink href="#" label="Link 2" />
-          <Header.NavigationLink href="#" label="Link 3" />
+          <Header.NavigationLink href="#" label="Uutiset" />
+          <Header.NavigationLink href="#" label="Asioi verkossa" />
+          <Header.NavigationLink href="#" label="Anna palautetta" />
         </Header.UniversalBar>
 
         <Header.ActionBar
@@ -158,28 +158,27 @@ import { Link } from 'gatsby';
           <Header.NavigationLink
             as={Link}
             href="#"
-            label="Link 1"
+            label="Sosiaali- ja terveyspalvelut"
             onClick={(event) => event.preventDefault()}
             active
             dropdownLinks={[
               <Header.NavigationLink
                 as={Link}
                 href="#"
-                label="Nested link 1"
+                label="Terveydenhoito"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 1" />,
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 2" />,
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 3" />,
+                  <Header.NavigationLink as={Link} href="#" label="Hammashoito" />,
+                  <Header.NavigationLink as={Link} href="#" label="Julkinen terveydenhoito" />,
                 ]}
               />,
               <Header.NavigationLink
                 as={Link}
                 href="#"
-                label="Nested link 2"
+                label="Senioripalvelut"
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 1" />,
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 2" />,
+                  <Header.NavigationLink as={Link} href="#" label="Viriketoiminta" />,
+                  <Header.NavigationLink as={Link} href="#" label="Kuntouttavat palvelut" />,
                 ]}
               />,
             ]}
@@ -187,30 +186,31 @@ import { Link } from 'gatsby';
           <Header.NavigationLink
             as={Link}
             href="#"
-            label="Link 2"
+            label="Kasvatus ja koulutus"
             dropdownLinks={[
               <Header.NavigationLink
                 as={Link}
                 href="#"
-                label="Nested link 1"
+                label="Kasvatus"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 1" />,
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 2" />,
+                  <Header.NavigationLink as={Link} href="#" label="Varhaiskasvatus" />,
+                  <Header.NavigationLink as={Link} href="#" label="Esiopetus" />,
                 ]}
               />,
               <Header.NavigationLink
                 as={Link}
                 href="#"
-                label="Nested link 2"
+                label="Koulutus"
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 1" />,
-                  <Header.NavigationLink as={Link} href="#" label="Deep link 2" />,
+                  <Header.NavigationLink as={Link} href="#" label="Perusopetus" />,
+                  <Header.NavigationLink as={Link} href="#" label="Toisen asteen koulutus" />,
+                  <Header.NavigationLink as={Link} href="#" label="Työväenopistot" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink as={Link} href="#" label="Link 3" />
+          <Header.NavigationLink as={Link} href="#" label="Asuminen" />
         </Header.NavigationMenu>
       </Header>
       <div id="content" />
