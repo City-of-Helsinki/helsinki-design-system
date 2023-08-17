@@ -5,14 +5,18 @@ title: 'Header'
 
 import { StatusLabel, Notification } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # Header
 
-<StatusLabel type="error">Draft</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel type="error">Draft</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>The Header component is located at the top of the page above the main body content. It provides a place for levels of primary navigation and site-wide actions.</LeadParagraph>
 
