@@ -16,11 +16,6 @@
 
 .size-l  {
   composes: hds-highlight--large from 'hds-core/lib/components/highlight/highlight.css';
-
-  & > .text {
-    font-size: var(--fontsize-heading-l);
-    line-height: var(--lineheight-l);
-  }
 }
 
 .quote {
