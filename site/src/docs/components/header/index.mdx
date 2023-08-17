@@ -17,6 +17,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <Header>
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
     <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
       <Header.NavigationLink href="#" label="Uutiset" />
       <Header.NavigationLink href="#" label="Asioi verkossa" />
@@ -103,6 +104,57 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Variations
 
+#### With skip link
+
+Use the Header.SkipLink component to help keyboard-only users skip to the main content on a page.
+- Using the Header.SkipLink component is optional but we recommend using it if you have any other header components beside the ActionBar.
+- The Header.SkipLink supports `ariaLabel` prop which gives possibility to define more informative text for screen readers.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+    </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
+
+#### With universal bar
+
+Header.UniversalBar is aimed to provide easy access for frequently visited and useful links, e.g. feedback and news.
+- Using the Header.UniversalBar component is optional.
+- If the primary link information is provided, it should direct to the webpage of City of Helsinki.
+- Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
+- On smaller screens (768px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+      <Header.NavigationLink href="#" label="Uutiset" />
+      <Header.NavigationLink href="#" label="Asioi verkossa" />
+      <Header.NavigationLink href="#" label="Anna palautetta" />
+    </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    />
+  </Header>
+</PlaygroundPreview>
+
 #### With action bar
 
 Header.ActionBar is the section that makes your service recognizeable. It provides the logo, name of the service and language selection, search and login features when needed.
@@ -125,6 +177,46 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
         { label: 'Svenska', value: 'sv' },
         { label: 'English', value: 'en' },
       ]} />
+      <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+        <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
+
+##### With navigation language selector
+
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.NavigationLanguageSelector component is subject to change, mainly regarding how the dropdown offering additional languages is going to look and work.
+</Notification>
+
+Header.NavigationLanguageSelector offers the languages for the whole service. It is recommended to offer full Finnish, Swedish and English versions. Other languages can be added based on the need and target audience of the service. Smaller subset of content can be separated from fully translated content.
+- Using the Header.NavigationLanguageSelector is optional. 
+- The Header.NavigationLanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
+- The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
+- See example for Header.NavigationLanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal-with-localization">in Storybook</Link>
+- On smaller screens (768px and down) the Header.NavigationLanguageSelector moves under the Header.ActionBar.
+
+##### With search
+
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.NavigationSearch component is subject to change, mainly regarding how the dropdown is going to look and work.
+</Notification>
+
+The Header.NavigationSearch component is to be used for whole site wide search.
+- Using the Header.NavigationSearch is optional. It uses the <InternalLink href="/components/search-input">HDS SearchInput component</InternalLink>.
+- The input value can be obtained via `onChange` callback prop as the input value changes, or `onSubmit` callback prop which is called when the search icon is pressed.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
       <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
         <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
@@ -208,96 +300,5 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
       />
       <Header.NavigationLink href="#" label="Asuminen" />
     </Header.NavigationMenu>
-  </Header>
-</PlaygroundPreview>
-
-#### With universal bar
-
-Header.UniversalBar is aimed to provide easy access for frequently visited and useful links, e.g. feedback and news.
-- Using the Header.UniversalBar component is optional.
-- If the primary link information is provided, it should direct to the webpage of City of Helsinki.
-- Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
-- On smaller screens (768px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
-
-<PlaygroundPreview>
-  <Header>
-    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-      <Header.NavigationLink href="#" label="Uutiset" />
-      <Header.NavigationLink href="#" label="Asioi verkossa" />
-      <Header.NavigationLink href="#" label="Anna palautetta" />
-    </Header.UniversalBar>
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      menuButtonAriaLabel="Menu"
-    />
-  </Header>
-</PlaygroundPreview>
-
-#### With navigation language selector
-
-<Notification label="A work in progress!" className="siteNotification">
-  The Header.NavigationLanguageSelector component is subject to change, mainly regarding how the dropdown offering additional languages is going to look and work.
-</Notification>
-
-Header.NavigationLanguageSelector offers the languages for the whole service. It is recommended to offer full Finnish, Swedish and English versions. Other languages can be added based on the need and target audience of the service. Smaller subset of content can be separated from fully translated content.
-- Using the Header.NavigationLanguageSelector is optional. 
-- The Header.NavigationLanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
-- The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
-- See example for Header.NavigationLanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal-with-localization">in Storybook</Link>
-- On smaller screens (768px and down) the Header.NavigationLanguageSelector moves under the Header.ActionBar.
-
-#### With skip link
-
-Use the Header.SkipLink component to help keyboard-only users skip to the main content on a page.
-- Using the Header.SkipLink component is optional but we recommend using it if you have any other header components beside the ActionBar.
-- The Header.SkipLink supports `ariaLabel` prop which gives possibility to define more informative text for screen readers.
-
-<PlaygroundPreview>
-  <Header>
-    <Header.SkipLink skipTo="#content" label="Skip To Content" />
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      menuButtonAriaLabel="Menu"
-    >
-      <Header.NavigationLanguageSelector languages={[
-        { label: 'Suomi', value: 'fi' },
-        { label: 'Svenska', value: 'sv' },
-        { label: 'English', value: 'en' },
-      ]} />
-    </Header.ActionBar>
-  </Header>
-</PlaygroundPreview>
-
-#### With search
-
-<Notification label="A work in progress!" className="siteNotification">
-  The Header.NavigationSearch component is subject to change, mainly regarding how the dropdown is going to look and work.
-</Notification>
-
-The Header.NavigationSearch component is to be used for whole site wide search.
-- Using the Header.NavigationSearch is optional. It uses the <InternalLink href="/components/search-input">HDS SearchInput component</InternalLink>.
-- The input value can be obtained via `onChange` callback prop as the input value changes, or `onSubmit` callback prop which is called when the search icon is pressed.
-
-<PlaygroundPreview>
-  <Header>
-    <Header.SkipLink skipTo="#content" label="Skip To Content" />
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      menuButtonAriaLabel="Menu"
-    >
-      <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
-        <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
-      </Header.ActionBarItem>
-    </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
