@@ -27,13 +27,13 @@ DefaultHighlight.args = {
 export const HighlightSmall = (args) => <Highlight {...args} />;
 HighlightSmall.args = {
   ...highlightArgs,
-  variant: 'small',
+  size: 'small',
 };
 
 export const HighlightLarge = (args) => <Highlight {...args} />;
 HighlightLarge.args = {
   ...highlightArgs,
-  variant: 'l',
+  size: 'l',
 };
 
 export const HighlightCustomAccentColor = (args) => <Highlight {...args} />;
@@ -60,13 +60,13 @@ DefaultQuote.args = {
 export const QuoteLarge = (args) => <Highlight {...args} />;
 QuoteLarge.args = {
   ...quoteArgs,
-  variant: 'l',
+  size: 'l',
 };
 
 export const QuoteSmall = (args) => <Highlight {...args} />;
 QuoteSmall.args = {
   ...quoteArgs,
-  variant: 's',
+  size: 's',
 };
 
 export const QuoteCustomAccentColor = (args) => <Highlight {...args} />;

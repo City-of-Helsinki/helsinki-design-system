@@ -35,7 +35,7 @@ exports[`<Highlight /> spec renders the Quote 1`] = `
     <figcaption
       class="reference"
     >
-      ⁠First name Last name. Title.
+      —⁠First name Last name. Title.
     </figcaption>
   </figure>
 </DocumentFragment>

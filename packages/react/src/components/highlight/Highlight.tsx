@@ -12,7 +12,7 @@ export interface HighlightTheme {
 }
 
 export type HighlightType = 'highlight' | 'quote';
-export type HighlightVariant = 's' | 'm' | 'l';
+export type HighlightSize = 's' | 'm' | 'l';
 
 export type HighlightProps = {
   /**
@@ -22,7 +22,7 @@ export type HighlightProps = {
   /**
    * Highlight size. Currently highlight comes in three sizes
    */
-  variant?: HighlightVariant;
+  size?: HighlightSize;
   /**
    * Highlight type
    */
@@ -37,17 +37,17 @@ export type HighlightProps = {
   reference?: string;
 };
 
-export const Highlight = ({ theme, variant, type, text, reference }: HighlightProps) => {
+export const Highlight = ({ theme, size, type, text, reference }: HighlightProps) => {
   // custom theme
   const customThemeClass = useTheme<HighlightTheme>(styles.highlight, theme || {});
   const isQuote = type && type === 'quote';
 
   return (
-    <figure className={classNames(styles.highlight, variant && styles[`size-${variant}`], customThemeClass)}>
+    <figure className={classNames(styles.highlight, size && styles[`size-${size}`], customThemeClass)}>
       <blockquote className={styles.highlightBlockquote}>
         <p className={classNames(styles.text, isQuote && styles.quote)}>{text}</p>
       </blockquote>
-      {reference && <figcaption className={styles.reference}>⁠{reference}</figcaption>}
+      {reference && <figcaption className={styles.reference}>&#8212;⁠{reference}</figcaption>}
     </figure>
   );
 };

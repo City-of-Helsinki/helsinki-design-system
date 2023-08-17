@@ -16,30 +16,12 @@
 
 .size-l  {
   composes: hds-highlight--large from 'hds-core/lib/components/highlight/highlight.css';
-
-  & > .text {
-    font-size: var(--fontsize-heading-l);
-    line-height: var(--lineheight-l);
-  }
 }
 
 .quote {
   composes: hds-highlight__quote from 'hds-core/lib/components/highlight/highlight.css';
-
-  &:before,
-  &:after {
-    content: '"';
-    display: inline;  
-  }
 }
 
 .reference {
   composes: hds-highlight__reference from 'hds-core/lib/components/highlight/highlight.css';
-  
-  &:before {
-    content: '-';
-    display: inline;
-    font-size: inherit;
-    line-height: inherit;  
-  }
 }

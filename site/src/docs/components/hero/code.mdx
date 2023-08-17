@@ -17,27 +17,31 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground scope={{ Hero, Button }}>
 
 ```jsx
-<Hero
-  imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
-  variant="diagonalKoros"
-  theme={{
-    '--background-color': '#f5a3c7',
-    '--color': '#000',
-  }}
->
-  <Hero.Title>Hero title</Hero.Title>
-  <Hero.Text>
-    This is an introduction text. The length is circa two sentences. The suitable total length of the title and
-    introduction is around 230 characters, including spaces. The intro ends with a period.
-  </Hero.Text>
-  <Button
-    variant="secondary"
-    role="link"
-    style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+import { Fieldset, TextInput } from 'hds-react';
+
+() => (
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    theme={{
+      '--background-color': '#f5a3c7',
+      '--color': '#000',
+    }}
   >
-    Call to action
-  </Button>
-</Hero>
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+)
 ```
 
 ```html
