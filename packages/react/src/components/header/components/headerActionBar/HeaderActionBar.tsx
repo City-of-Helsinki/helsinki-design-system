@@ -129,8 +129,12 @@ export const HeaderActionBar = ({
     titleProps.onClick = handleClick;
   }
 
-  const childrenLeft = children.filter((item) => !item.props.fixedRightPosition);
-  const childrenRight = children.filter((item) => !!item.props.fixedRightPosition);
+  const childrenLeft = Array.isArray(children)
+    ? children.filter((item) => React.isValidElement(item) && !item.props.fixedRightPosition)
+    : [];
+  const childrenRight = Array.isArray(children)
+    ? children.filter((item) => React.isValidElement(item) && !!item.props.fixedRightPosition)
+    : [];
 
   return (
     <>

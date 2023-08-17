@@ -33,8 +33,12 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
 }
 
 export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
-  ({ icon, label, labelOnRight, className, ariaLabel, ariaControls, ...rest }, ref) => {
-    const buttonClassName = classNames(classes.actionBarItem, className);
+  ({ icon, label, labelOnRight, fixedRightPosition, className, ariaLabel, ariaControls, ...rest }, ref) => {
+    const buttonClassName = classNames({
+      [classes.actionBarItem]: true,
+      [className]: true,
+      [classes.fixedRightPosition]: fixedRightPosition,
+    });
     const iconClassName = classNames({ [classes.actionBarItemIcon]: true, [classes.labelOnRight]: labelOnRight });
     const labelClassName = classNames({ [classes.actionBarItemLabel]: true, [classes.labelOnRight]: labelOnRight });
 
