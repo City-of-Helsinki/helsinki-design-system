@@ -133,7 +133,7 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
 
 Header.UniversalBar is aimed to provide easy access for frequently visited and useful links, e.g. feedback and news.
 - Using the Header.UniversalBar component is optional.
-- If the primary link information is provided, it should direct to the webpage of City of Helsinki.
+- If the primary link information is provided, it should direct to the webpage of City of Helsinki. We recommend using it if your service is outside the <ExternalLink href="https://www.hel.fi/fi">hel.fi</ExternalLink> domain in order to provide a quick and easy access to the City of Helsinki web page.
 - Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
 - On smaller screens (768px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
@@ -159,6 +159,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
 
 Header.ActionBar is the section that makes your service recognizeable. It provides the logo, name of the service and language selection, search and login features when needed.
 - **You should always include the Header.ActionBar component in your Header**.
+- The component provides two different service name styles via the `titleStyle` prop: `TitleStyleType.Normal`, which is the default, and `TitleStyleType.Bold`. We recommend to have a maximum of 22 character (including spaces) for title name regardless of which style is used.
 - On smaller screens (768px and down) the Header.ActionBar undergoes some visual changes:
   - The contents of Header.NavigationMenu and Header.UniversalBar, if you have provided either of them, will move inside Header.ActionBar's menu.
   - The Header.NavigationLanguageSelector moves under the ActionBar.
