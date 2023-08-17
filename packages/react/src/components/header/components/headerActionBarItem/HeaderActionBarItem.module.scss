@@ -19,7 +19,7 @@ button.actionBarItem {
   display: block;
   height: var(--icon-size);
   margin: 0 auto;
-  padding: 3px 0 0 0;
+  padding: 3px 0 0;
   width: var(--icon-size);
 
   & > svg {
@@ -45,4 +45,6 @@ button.actionBarItem {
   display: inline-block;
 }
 
-.fixedRightPosition {}
+.fixedRightPosition {
+  display: block;
+}
