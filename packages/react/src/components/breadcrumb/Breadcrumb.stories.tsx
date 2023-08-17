@@ -3,7 +3,7 @@ import React from 'react';
 import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
 import { Link } from '../link';
-import { LanguageOption } from '../../context/languageContext';
+import { LanguageOption } from '../header/LanguageContext';
 
 export default {
   component: Breadcrumb,
