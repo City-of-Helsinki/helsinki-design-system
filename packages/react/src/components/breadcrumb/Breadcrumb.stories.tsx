@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
+import { Link } from '../link';
+import { LanguageOption } from '../../context/languageContext';
 
 export default {
   component: Breadcrumb,
@@ -21,12 +23,37 @@ export default {
   },
 };
 
+const languages: LanguageOption[] = [
+  { label: 'Suomi', value: 'fi' },
+  { label: 'Svenska', value: 'sv' },
+  { label: 'English', value: 'en' },
+];
+
 export const Example = (args) => <Breadcrumb {...args} />;
 
 export const ExampleInHeader = (args) => {
   return (
     <Header>
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleUrl="https://hel.fi"
+        titleStyle={Header.TitleStyleType.normal}
+        logoAriaLabel="Service logo"
+        logoUrl="https://hel.fi"
+        menuButtonAriaLabel="Menu"
+      >
+        <Header.NavigationLanguageSelector languages={languages} ariaLabel="Kielen valinta">
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
+        </Header.NavigationLanguageSelector>
+      </Header.ActionBar>
       <Header.NavigationMenu>
         <Header.NavigationLink
           href="#"

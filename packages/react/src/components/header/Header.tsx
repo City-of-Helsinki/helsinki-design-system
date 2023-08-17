@@ -3,7 +3,7 @@ import React, { ComponentType, FC } from 'react';
 import { styleBoundClassNames } from '../../utils/classNames';
 import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
-import { HeaderActionBar } from './components/headerActionBar';
+import { HeaderActionBar, TitleStyleType } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { NavigationLink } from './components/navigationLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
@@ -51,6 +51,7 @@ const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, class
 interface HeaderInterface extends FC<HeaderProps> {
   UniversalBar: typeof HeaderUniversalBar;
   ActionBar: typeof HeaderActionBar;
+  TitleStyleType: typeof TitleStyleType;
   NavigationMenu: typeof HeaderNavigationMenu;
   ActionBarItem: typeof HeaderActionBarItemWithDropdown;
   NavigationLink: typeof NavigationLink;
@@ -75,6 +76,7 @@ export const Header: HeaderInterface = ({
 
 Header.UniversalBar = HeaderUniversalBar;
 Header.ActionBar = HeaderActionBar;
+Header.TitleStyleType = TitleStyleType;
 Header.NavigationMenu = HeaderNavigationMenu;
 
 Header.ActionBarItem = HeaderActionBarItemWithDropdown;

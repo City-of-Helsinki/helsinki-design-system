@@ -112,7 +112,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
-    <div {...props} id={id} className={className} ref={containerElementRef} aria-haspopup onBlur={handleBlur}>
+    <div {...props} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
       <HeaderActionBarItem
         className={iconClassName}
         onClick={handleButtonClick}
@@ -120,9 +120,10 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         icon={iconClass}
         aria-expanded={visible}
         aria-label={ariaLabel}
+        aria-controls={`${id}-dropdown`}
       />
       <div className={classes.dropdownWrapper}>
-        <aside tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
+        <aside id={`${id}-dropdown`} tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
           {children}
         </aside>
       </div>

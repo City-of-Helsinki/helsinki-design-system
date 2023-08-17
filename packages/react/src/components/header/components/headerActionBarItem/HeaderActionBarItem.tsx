@@ -11,6 +11,10 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
    */
   ariaLabel?: string;
   /**
+   * Id of controlled dropdown menu.
+   */
+  ariaControls?: string;
+  /**
    * Icon for the action bar item.
    */
   icon?: ReactNode;
@@ -21,7 +25,7 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
 }
 
 export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
-  ({ icon, label, className, ariaLabel, ...rest }, ref) => {
+  ({ icon, label, className, ariaLabel, ariaControls, ...rest }, ref) => {
     const buttonClassName = classNames(classes.actionBarItem, className);
 
     return (
@@ -29,7 +33,7 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
         type="button"
         {...rest}
         {...(ariaLabel && { 'aria-label': ariaLabel })}
-        aria-haspopup
+        {...(ariaControls && { 'aria-controls': ariaControls })}
         className={buttonClassName}
         ref={ref}
       >

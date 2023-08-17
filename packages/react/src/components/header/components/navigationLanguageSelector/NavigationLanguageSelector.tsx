@@ -18,6 +18,10 @@ export type LanguageSelectorProps = PropsWithChildren<{
    * Array of languages as LanguageOption objects.
    */
   languages: LanguageOption[];
+  /**
+   * Aria-label attribute for the dropdown button.
+   */
+  ariaLabel?: string;
 }>;
 
 const LanguageButton = ({ language }) => {
@@ -35,7 +39,7 @@ const LanguageButton = ({ language }) => {
 
 const renderLanguageNode = (language: LanguageOption) => <LanguageButton key={language.value} language={language} />;
 
-export const NavigationLanguageSelector = ({ children, languages }: LanguageSelectorProps) => {
+export const NavigationLanguageSelector = ({ children, languages, ariaLabel }: LanguageSelectorProps) => {
   const setAvailableLanguages = useSetAvailableLanguages();
   const { isNotLargeScreen } = useHeaderContext();
 
@@ -58,7 +62,7 @@ export const NavigationLanguageSelector = ({ children, languages }: LanguageSele
         icon={IconGlobe}
         closeIcon={IconGlobe}
         fullWidth={isNotLargeScreen}
-        ariaLabel="select language"
+        ariaLabel={ariaLabel}
       >
         {isNotLargeScreen && languageNodes}
         {children}
