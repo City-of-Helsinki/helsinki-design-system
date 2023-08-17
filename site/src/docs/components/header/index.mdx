@@ -4,7 +4,7 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header, IconSearch } from 'hds-react';
+import { Header, IconSearch, Notification } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
@@ -105,8 +105,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### With action bar
 
+Header.ActionBar is the section that makes your service recognizeable. It provides the logo, name of the service and language selection, search and login features when needed.
 - **You should always include the Header.ActionBar component in your Header**.
-- The Header.ActionBar component provides the service logo, name and possibly language selection, search and log in features.
 - On smaller screens (768px and down) the Header.ActionBar undergoes some visual changes:
   - The contents of Header.NavigationMenu and Header.UniversalBar, if you have provided either of them, will move inside Header.ActionBar's menu.
   - The Header.NavigationLanguageSelector moves under the ActionBar.
@@ -133,9 +133,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </PlaygroundPreview>
 
 #### With navigation menu
+The Header.NavigationMenu is enables users to navigate to different pages of the service. The navigation menu supports up to 3 levels of page hierarchy. For more levels and recommendations, see also Navigation pattern.
 - The Header.NavigationMenu component should come after [the Header.ActionBar component](#with-action-bar).
 - Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word. See also our <InternalLink href="/components/header/accessibility">accessibility notes</InternalLink> about navigation menu's hierarchy.
-- The component supports up to 2 levels of nested links. 
 - On smaller screens (768px and down) the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
 <PlaygroundPreview>
@@ -213,7 +213,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### With universal bar
 
-- Using the Header.UniversalBar component is optional. Use it to provide frequently visited and useful links.
+Header.UniversalBar is aimed to provide easy access for frequently visited and useful links, e.g. feedback and news.
+- Using the Header.UniversalBar component is optional.
 - If the primary link information is provided, it should direct to the webpage of City of Helsinki.
 - Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
 - On smaller screens (768px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
@@ -238,14 +239,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### With navigation language selector
 
-- Using the Header.NavigationLanguageSelector is optional. Use the navigation language selector to define site languages. 
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.NavigationLanguageSelector component is subject to change, mainly regarding how the dropdown offering additional languages is going to look and work.
+</Notification>
+
+Header.NavigationLanguageSelector offers the languages for the whole service. It is recommended to offer full Finnish, Swedish and English versions. Other languages can be added based on the need and target audience of the service. Smaller subset of content can be separated from fully translated content.
+- Using the Header.NavigationLanguageSelector is optional. 
+- The Header.NavigationLanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
 - The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
 - See example for Header.NavigationLanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal-with-localization">in Storybook</Link>
 - On smaller screens (768px and down) the Header.NavigationLanguageSelector moves under the Header.ActionBar.
 
 #### With skip link
 
-- Using the Header.SkipLink component is optional. Use the skip link component to help keyboard-only users skip to the main content on a page.
+Use the Header.SkipLink component to help keyboard-only users skip to the main content on a page.
+- Using the Header.SkipLink component is optional but we recommend using it if you have any other header components beside the ActionBar.
 - The Header.SkipLink supports `ariaLabel` prop which gives possibility to define more informative text for screen readers.
 
 <PlaygroundPreview>
@@ -268,6 +276,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </PlaygroundPreview>
 
 #### With search
+
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.NavigationSearch component is subject to change, mainly regarding how the dropdown is going to look and work.
+</Notification>
+
+The Header.NavigationSearch component is to be used for whole site wide search.
 - Using the Header.NavigationSearch is optional. It uses the <InternalLink href="/components/search-input">HDS SearchInput component</InternalLink>.
 - The input value can be obtained via `onChange` callback prop as the input value changes, or `onSubmit` callback prop which is called when the search icon is pressed.
 
