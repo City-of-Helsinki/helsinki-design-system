@@ -14,9 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 - [Highlight] New component for quotes and text highlights
 
-#### Fixed
-- Updated package dependencies
-
 ### Core
 
 #### Added
@@ -31,6 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 - Improved docs for creating new react components
 - Updated contributing guide
+
+#### Fixed
+- Updated package dependencies
 
 ### Design kit
 
