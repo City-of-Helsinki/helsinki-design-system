@@ -1,6 +1,4 @@
-@svg-load icon url("../../svg/ui/text-italic.svg");
-
 .hds-icon--text-italic {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='24' height='24'/%3E %3Cpath fill='currentColor' d='M16,4 L16,6 L13.75,6 L12.25,18 L14,18 L14,20 L8,20 L8,18 L10.25,18 L11.75,6 L10,6 L10,4 L16,4 Z'/%3E %3C/g%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='24' height='24'/%3E %3Cpath fill='currentColor' d='M16,4 L16,6 L13.75,6 L12.25,18 L14,18 L14,20 L8,20 L8,18 L10.25,18 L11.75,6 L10,6 L10,4 L16,4 Z'/%3E %3C/g%3E %3C/svg%3E");
 }

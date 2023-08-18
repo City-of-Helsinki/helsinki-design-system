@@ -4,7 +4,6 @@ title: 'Footer - Customisation'
 ---
 
 import { Footer } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -24,9 +23,12 @@ You can use the `theme` property to customise the component. See all available t
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Footer }}>
 
 ```jsx
+import { Footer } from 'hds-react';
+
+() => (
 <Footer
   title="Helsinki Design System"
   footerAriaLabel="HDS Footer"
@@ -50,7 +52,7 @@ You can use the `theme` property to customise the component. See all available t
     <Footer.Item label="Link" />
     <Footer.Item label="Link" />
   </Footer.Base>
-</Footer>
+</Footer>)
 ```
 
 </Playground>

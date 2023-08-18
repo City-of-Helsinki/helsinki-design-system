@@ -3,8 +3,7 @@ slug: '/components/dialog/customisation'
 title: 'Dialog - Customisation'
 ---
 
-import { Button, IconInfoCircle } from 'hds-react';
-import Playground from '../../../components/Playground';
+import { Button, Dialog, IconInfoCircle } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -22,10 +21,12 @@ You can use the `theme` property to customise the component. See all available t
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Button, Dialog, IconInfoCircle }}>
 
 ```jsx
-{() => {
+import { Button, Dialog, IconInfoCircle } from 'hds-react';
+
+() => {
   const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
   const openInfoDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -67,8 +68,8 @@ You can use the `theme` property to customise the component. See all available t
         </Dialog.ActionButtons>
       </Dialog>
     </>
-  );
-}}
+  )
+}
 ```
 
 </Playground>

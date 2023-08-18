@@ -4,7 +4,6 @@ title: 'Card - Customisation'
 ---
 
 import { Card } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -29,10 +28,13 @@ See all available theme variables in the table below.
 
 
 ### Customisation example
-<Playground>
+<Playground scope={{ Card }}>
 
 
 ```jsx
+import { Card } from 'hds-react';
+
+() => (
 <Card
   border
   heading="Customised card"
@@ -45,7 +47,7 @@ See all available theme variables in the table below.
     '--padding-horizontal': 'var(--spacing-l)',
     '--padding-vertical': 'var(--spacing-m)'
   }}
-/>
+/>)
 ```
 
 ```html

@@ -42,4 +42,5 @@ export * from './timeInput';
 export * from './toggleButton';
 export * from './tooltip';
 export * from './hero';
+export * from './highlight';
 export * from './breadcrumb';

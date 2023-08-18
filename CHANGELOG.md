@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.17.0] - Aug, 18, 2023
+
+### React
+
+#### Added
+- [Highlight] New component for quotes and text highlights
+
+### Core
+
+#### Added
+- [Highlight] New component for quotes and text highlights
+
+### Documentation
+
+#### Added
+- [Highlight] Documentation for new Highlight component
+- Document tokens for focus colours
+
+#### Changed
+- Improved docs for creating new react components
+- Updated contributing guide
+
+#### Fixed
+- Updated package dependencies
+
+### Design kit
+
+#### Added
+- Figma API icon library export script
+
+
 ## [2.16.0] - June, 28, 2023
 
 ### React

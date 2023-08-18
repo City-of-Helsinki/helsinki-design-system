@@ -24,10 +24,13 @@ See all available theme variables in the table below.
 | `--tag-focus-outline-color`           | Colour of the tag focus border.             |
 
 ### Customisation example
-<Playground>
+<Playground scope={{ Tag }}>
 
 
 ```jsx
+import { Tag } from 'hds-react';
+
+() => (
 <Tag
   onClick={function noRefCheck(){}}
   theme={{
@@ -37,7 +40,7 @@ See all available theme variables in the table below.
   }}
 >
   Americum
-</Tag>
+</Tag>)
 ```
 
 

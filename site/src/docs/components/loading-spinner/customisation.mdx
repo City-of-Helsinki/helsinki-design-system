@@ -4,7 +4,6 @@ title: 'LoadingSpinner - Customisation'
 ---
 
 import { LoadingSpinner } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -27,10 +26,13 @@ See all available theme variables in the table below.
 | `--spinner-color-stage3`                 | The third spinner colour (when the `multicolor` is set to true)  |
 
 ### Customisation example
-<Playground>
+<Playground scope={{ LoadingSpinner }}>
 
 
 ```jsx
+import { LoadingSpinner } from 'hds-react';
+
+() => (
 <>
 <LoadingSpinner
   theme={{
@@ -46,7 +48,7 @@ See all available theme variables in the table below.
     '--spinner-color-stage3': 'var(--color-metro)'
   }}
 />
-</>
+</>)
 ```
 
 ```html

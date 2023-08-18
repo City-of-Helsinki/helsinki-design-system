@@ -3,11 +3,8 @@ slug: '/components/dropdown/code'
 title: 'Dropdown - Code'
 ---
 
-import { Combobox, IconUser, Link, Select } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Combobox, IconUser, Select } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -16,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Select (single selection)
-<Playground>
+<Playground scope={{ Select, IconUser }}>
 
 
 ```jsx
@@ -61,7 +58,7 @@ import { Select, IconUser } from 'hds-react';
 </Playground>
 
 ### Select (multi-selection)
-<Playground>
+<Playground scope={{ Select }}>
 
 
 ```jsx
@@ -89,7 +86,7 @@ import { Select } from 'hds-react';
 </Playground>
 
 ### Combobox (single selection)
-<Playground>
+<Playground scope={{ Combobox, IconUser }}>
 
 
 ```jsx
@@ -155,7 +152,7 @@ import { Combobox, IconUser } from 'hds-react';
 </Playground>
 
 ### Combobox (multi-selection)
-<Playground>
+<Playground scope={{ Combobox }}>
 
 
 ```jsx

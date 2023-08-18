@@ -1,6 +1,4 @@
-@svg-load icon url("../../svg/ui/signout.svg");
-
 .hds-icon--signout {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' role='img' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath d='M16 2v5h-2V4H5v16h9v-3h2v5H3V2h13zm2 5l5 5-5 5-1.5-1.5 2.5-2.501L8 13v-2l10.999-.001L16.5 8.5 18 7z' fill='currentColor'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' role='img' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath d='M16 2v5h-2V4H5v16h9v-3h2v5H3V2h13zm2 5l5 5-5 5-1.5-1.5 2.5-2.501L8 13v-2l10.999-.001L16.5 8.5 18 7z' fill='currentColor'/%3E%3C/g%3E%3C/svg%3E");
 }

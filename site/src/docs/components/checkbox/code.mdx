@@ -3,10 +3,8 @@ slug: '/components/checkbox/code'
 title: 'Checkbox - Code'
 ---
 
-import { SelectionGroup, Link } from 'hds-react';
-
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { useReducer } from 'react';
+import { Checkbox, Fieldset, SelectionGroup } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Checkbox with label
-<Playground>
+<Playground scope={{ Checkbox }}>
 
 ```jsx
 import { Checkbox } from 'hds-react';
@@ -70,7 +68,7 @@ import { Checkbox } from 'hds-react';
 </Playground>
 
 #### Checkbox group
-<Playground>
+<Playground scope={{ Checkbox, SelectionGroup }}>
 
 ```jsx
 import { Checkbox, SelectionGroup } from 'hds-react';
@@ -126,7 +124,7 @@ import { Checkbox, SelectionGroup } from 'hds-react';
 </Playground>
 
 #### Indeterminate
-<Playground>
+<Playground scope={{ Checkbox, Fieldset, useReducer }}>
 
 ```jsx
 import { Checkbox, Fieldset } from 'hds-react';

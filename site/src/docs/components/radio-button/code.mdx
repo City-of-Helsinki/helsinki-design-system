@@ -3,9 +3,8 @@ slug: '/components/radio-button/code'
 title: 'RadioButton - Code'
 ---
 
-import { Link, RadioButton, SelectionGroup } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { RadioButton, SelectionGroup } from 'hds-react';
+import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,13 +14,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ RadioButton, useState }}>
 
 ```jsx
 import { RadioButton } from 'hds-react';
 
 () => {
-  const [selectedItem, setSelectedItem] = React.useState("2");
+  const [selectedItem, setSelectedItem] = useState("2");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
@@ -56,14 +55,14 @@ import { RadioButton } from 'hds-react';
 </Playground>
 
 #### Group
-<Playground>
+<Playground scope={{ RadioButton, SelectionGroup, useState }}>
 
 
 ```jsx
 import { RadioButton, SelectionGroup } from 'hds-react';
 
 () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = useState("1");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };

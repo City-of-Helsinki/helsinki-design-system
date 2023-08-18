@@ -12,17 +12,13 @@ import PageTabs from '../../../components/PageTabs';
 
 # PasswordInput
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  A password field is a foundational input field component that the user can interact with and specifically input password data.
-</LeadParagraph>
+<LeadParagraph>A password field is a foundational input field component that the user can interact with and specifically input password data.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

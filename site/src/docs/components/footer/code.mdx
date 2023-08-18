@@ -3,9 +3,8 @@ slug: '/components/footer/code'
 title: 'Footer - Code'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples
 
 #### Default
-<Playground>
+<Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok }}>
 
 
 ```jsx
@@ -60,7 +59,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
 
 
 ### Color variations
-<Playground>
+<Playground scope={{ Footer }}>
 
 
 ```jsx
@@ -105,7 +104,7 @@ import { Footer } from 'hds-react';
 </Playground>
 
 ### Navigation section variations
-<Playground>
+<Playground scope={{ Footer }}>
 
 
 ```jsx

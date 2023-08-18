@@ -12,17 +12,13 @@ import PageTabs from '../../../components/PageTabs';
 
 # Notification
 
-<div class="status-label-description">
+<div className="status-label-description">
   <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Notifications are used to present timely information to the user. HDS offers two types of notifications for different use cases.
-</LeadParagraph>
+<LeadParagraph>Notifications are used to present timely information to the user. HDS offers two types of notifications for different use cases.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -32,5 +28,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

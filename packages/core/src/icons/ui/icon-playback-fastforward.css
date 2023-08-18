@@ -1,6 +1,4 @@
-@svg-load icon url("../../svg/ui/playback-fastforward.svg");
-
 .hds-icon--playback-fastforward {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpolygon points='0 24 0 0 24 0 24 24'/%3E %3Cpath fill='currentColor' d='M5,5 L13,12 L5,19 L5,5 Z M13,5 L21,12 L13,19 L13,5 Z'/%3E %3C/g%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpolygon points='0 24 0 0 24 0 24 24'/%3E %3Cpath fill='currentColor' d='M5,5 L13,12 L5,19 L5,5 Z M13,5 L21,12 L13,19 L13,5 Z'/%3E %3C/g%3E %3C/svg%3E");
 }
