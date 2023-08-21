@@ -12,13 +12,10 @@ import {
   IconError,
   Notification,
   TextInput,
-  Link,
   StatusLabel,
 } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
-import InternalLink from '../../../components/InternalLink';
-import Playground from '../../../components/Playground';
 
 # Form validation
 
@@ -257,70 +254,68 @@ The usage of the error summary component is triggered when the form is submitted
 ```jsx
 import { Button, ErrorSummary, TextInput } from 'hds-react';
 
-{
-  () => {
-    const [formValues, setFormValues] = React.useState({});
-    const [formErrors, setFormErrors] = React.useState({});
-    const [isSubmitted, setIsSubmitted] = React.useState(false);
-    const errorList = Object.entries(formErrors);
+() => {
+  const [formValues, setFormValues] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({});
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const errorList = Object.entries(formErrors);
 
-    const validate = (values) => {
-      const errors = {
-        ...(values['firstName'] ? {} : { firstName: 'Please enter your first name' }),
-        ...(values['lastName'] ? {} : { lastName: 'Please enter your last name' }),
-      };
-      setFormErrors(errors);
+  const validate = (values) => {
+    const errors = {
+      ...(values['firstName'] ? {} : { firstName: 'Please enter your first name' }),
+      ...(values['lastName'] ? {} : { lastName: 'Please enter your last name' }),
     };
+    setFormErrors(errors);
+  };
 
-    const onSubmit = (e) => {
-      e.preventDefault();
-      setIsSubmitted(true);
-    };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
 
-    React.useEffect(() => {
-      validate(formValues);
-    }, [formValues]);
+  React.useEffect(() => {
+    validate(formValues);
+  }, [formValues]);
 
-    return (
-      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
-        {isSubmitted && errorList.length > 0 && (
-          <ErrorSummary autofocus label="Form contains following errors">
-            {errorList.map(([key, value], index) => (
-              <li key={key}>
-                {`Error ${index + 1}: `}
-                <a href={`#validationExample-${key}`}>{value}</a>
-              </li>
-            ))}
-          </ErrorSummary>
-        )}
-        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
-          <TextInput
-            id="validationExample-firstName"
-            name="firstName"
-            label="First name"
-            onBlur={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
-            invalid={!!formErrors['firstName']}
-            errorText={formErrors['firstName']}
-            required
-          />
-          <TextInput
-            id="validationExample-lastName"
-            name="lastName"
-            label="Last name"
-            onBlur={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
-            invalid={!!formErrors['lastName']}
-            errorText={formErrors['lastName']}
-            required
-          />
-        </div>
-        <div style={{ marginTop: 'var(--spacing-m)' }}>
-          <Button onClick={onSubmit} type="button">
-            Submit
-          </Button>
-        </div>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+      {isSubmitted && errorList.length > 0 && (
+        <ErrorSummary autofocus label="Form contains following errors">
+          {errorList.map(([key, value], index) => (
+            <li key={key}>
+              {`Error ${index + 1}: `}
+              <a href={`#validationExample-${key}`}>{value}</a>
+            </li>
+          ))}
+        </ErrorSummary>
+      )}
+      <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+        <TextInput
+          id="validationExample-firstName"
+          name="firstName"
+          label="First name"
+          onBlur={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
+          invalid={!!formErrors['firstName']}
+          errorText={formErrors['firstName']}
+          required
+        />
+        <TextInput
+          id="validationExample-lastName"
+          name="lastName"
+          label="Last name"
+          onBlur={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
+          invalid={!!formErrors['lastName']}
+          errorText={formErrors['lastName']}
+          required
+        />
+      </div>
+      <div style={{ marginTop: 'var(--spacing-m)' }}>
+        <Button onClick={onSubmit} type="button">
+          Submit
+        </Button>
+      </div>
+    </form>
+  )
 }
 ```
 
@@ -339,76 +334,74 @@ An example of this could be having two date inputs for setting a start and an en
 ```jsx
 import { Button, ErrorSummary, DateInput } from 'hds-react';
 
-{
-  () => {
-    const [formValues, setFormValues] = React.useState({});
-    const [formErrors, setFormErrors] = React.useState({});
-    const [isSubmitted, setIsSubmitted] = React.useState(false);
-    const errorList = Object.entries(formErrors);
+() => {
+  const [formValues, setFormValues] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({});
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const errorList = Object.entries(formErrors);
 
-    const isSameOrAfter = (dateA, dateB) => dateA && dateB && dateA.valueOf() >= dateB.valueOf();
+  const isSameOrAfter = (dateA, dateB) => dateA && dateB && dateA.valueOf() >= dateB.valueOf();
 
-    const validate = (values) => {
-      const startDate = values['startDate'];
-      const endDate = values['endDate'];
-      const errors = {
-        ...(!startDate || isSameOrAfter(startDate, endDate) ? { startDate: 'Start date must be before end date' } : {}),
-        ...(!endDate || isSameOrAfter(startDate, endDate) ? { endDate: 'End date must be after start date' } : {}),
-      };
-      setFormErrors(errors);
+  const validate = (values) => {
+    const startDate = values['startDate'];
+    const endDate = values['endDate'];
+    const errors = {
+      ...(!startDate || isSameOrAfter(startDate, endDate) ? { startDate: 'Start date must be before end date' } : {}),
+      ...(!endDate || isSameOrAfter(startDate, endDate) ? { endDate: 'End date must be after start date' } : {}),
     };
-
-    const onSubmit = (e) => {
-      e.preventDefault();
-      setIsSubmitted(true);
-    };
-
-    React.useEffect(() => {
-      validate(formValues);
-    }, [formValues]);
-
-    return (
-      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
-        {isSubmitted && errorList.length > 0 && (
-          <ErrorSummary autofocus label="Form contains following errors">
-            {errorList.map(([key, value], index) => (
-              <li key={key}>
-                {`Error ${index + 1}: `}
-                <a href={`#dateValidationExample-${key}`}>{value}</a>
-              </li>
-            ))}
-          </ErrorSummary>
-        )}
-        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
-          <DateInput
-            id="dateValidationExample-startDate"
-            name="startDate"
-            label="Start date"
-            onChange={(date) => setFormValues({ ...formValues, startDate: date })}
-            invalid={!!formErrors['startDate']}
-            errorText={formErrors['startDate']}
-            required
-            disableConfirmation
-          />
-          <DateInput
-            id="dateValidationExample-endDate"
-            name="endDate"
-            label="End date"
-            onChange={(date) => setFormValues({ ...formValues, endDate: date })}
-            invalid={!!formErrors['endDate']}
-            errorText={formErrors['endDate']}
-            required
-            disableConfirmation
-          />
-        </div>
-        <div style={{ marginTop: 'var(--spacing-m)' }}>
-          <Button onClick={onSubmit} type="button">
-            Submit
-          </Button>
-        </div>
-      </form>
-    );
+    setFormErrors(errors);
   };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
+
+  React.useEffect(() => {
+    validate(formValues);
+  }, [formValues]);
+
+  return (
+    <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+      {isSubmitted && errorList.length > 0 && (
+        <ErrorSummary autofocus label="Form contains following errors">
+          {errorList.map(([key, value], index) => (
+            <li key={key}>
+              {`Error ${index + 1}: `}
+              <a href={`#dateValidationExample-${key}`}>{value}</a>
+            </li>
+          ))}
+        </ErrorSummary>
+      )}
+      <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+        <DateInput
+          id="dateValidationExample-startDate"
+          name="startDate"
+          label="Start date"
+          onChange={(date) => setFormValues({ ...formValues, startDate: date })}
+          invalid={!!formErrors['startDate']}
+          errorText={formErrors['startDate']}
+          required
+          disableConfirmation
+        />
+        <DateInput
+          id="dateValidationExample-endDate"
+          name="endDate"
+          label="End date"
+          onChange={(date) => setFormValues({ ...formValues, endDate: date })}
+          invalid={!!formErrors['endDate']}
+          errorText={formErrors['endDate']}
+          required
+          disableConfirmation
+        />
+      </div>
+      <div style={{ marginTop: 'var(--spacing-m)' }}>
+        <Button onClick={onSubmit} type="button">
+          Submit
+        </Button>
+      </div>
+    </form>
+  )
 }
 ```
 
