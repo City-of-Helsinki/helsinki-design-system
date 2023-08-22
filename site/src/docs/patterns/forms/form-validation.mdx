@@ -280,43 +280,48 @@ import { Button, ErrorSummary, TextInput } from 'hds-react';
     }, [formValues]);
     console.log(formErrors);
     return (
-      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
-        {isSubmitted && errorList.length > 0 && (
-          <ErrorSummary autofocus label="Form contains following errors">
-            {errorList.map(([key, value], index) => (
-              <li key={key}>
-                {`Error ${index + 1}: `}
-                <a href={`#validationExample-${key}`}>{value}</a>
-              </li>
-            ))}
-          </ErrorSummary>
-        )}
-        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
-          <TextInput
-            id="validationExample-firstName"
-            name="firstName"
-            label="First name"
-            onChange={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
-            invalid={!!formErrors['firstName']}
-            errorText={formErrors['firstName']}
-            required
-          />
-          <TextInput
-            id="validationExample-lastName"
-            name="lastName"
-            label="Last name"
-            onChange={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
-            invalid={!!formErrors['lastName']}
-            errorText={formErrors['lastName']}
-            required
-          />
-        </div>
-        <div style={{ marginTop: 'var(--spacing-m)' }}>
-          <Button onClick={onSubmit} type="button">
-            Submit
-          </Button>
-        </div>
-      </form>
+      <>
+        <h4>Live example</h4>
+        <p>Test how the hybrid validation works by pressing Submit which causes validation errors to show about missing inputs. The validation errors disappear immediately after input has changed.</p>
+        
+        <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+          {isSubmitted && errorList.length > 0 && (
+            <ErrorSummary autofocus label="Form contains following errors">
+              {errorList.map(([key, value], index) => (
+                <li key={key}>
+                  {`Error ${index + 1}: `}
+                  <a href={`#validationExample-${key}`}>{value}</a>
+                </li>
+              ))}
+            </ErrorSummary>
+          )}
+          <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+            <TextInput
+              id="validationExample-firstName"
+              name="firstName"
+              label="First name"
+              onChange={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
+              invalid={!!formErrors['firstName']}
+              errorText={formErrors['firstName']}
+              required
+            />
+            <TextInput
+              id="validationExample-lastName"
+              name="lastName"
+              label="Last name"
+              onChange={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
+              invalid={!!formErrors['lastName']}
+              errorText={formErrors['lastName']}
+              required
+            />
+          </div>
+          <div style={{ marginTop: 'var(--spacing-m)' }}>
+            <Button onClick={onSubmit} type="button">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </>
     );
   }
 ```
@@ -347,6 +352,7 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
   const validate = (values) => {
     const startDate = values['startDate'];
     const endDate = values['endDate'];
+    if (startDate == null & endDate == null) return null;
     const errors = {
       ...(!startDate || isSameOrAfter(startDate, endDate) ? { startDate: 'Start date must be before end date' } : {}),
       ...(!endDate || isSameOrAfter(startDate, endDate) ? { endDate: 'End date must be after start date' } : {}),
@@ -363,46 +369,50 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
     validate(formValues);
   }, [formValues]);
 
-  return (
-    <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
-      {isSubmitted && errorList.length > 0 && (
-        <ErrorSummary autofocus label="Form contains following errors">
-          {errorList.map(([key, value], index) => (
-            <li key={key}>
-              {`Error ${index + 1}: `}
-              <a href={`#dateValidationExample-${key}`}>{value}</a>
-            </li>
-          ))}
-        </ErrorSummary>
-      )}
-      <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
-        <DateInput
-          id="dateValidationExample-startDate"
-          name="startDate"
-          label="Start date"
-          onChange={(date) => setFormValues({ ...formValues, startDate: date })}
-          invalid={!!formErrors['startDate']}
-          errorText={formErrors['startDate']}
-          required
-          disableConfirmation
-        />
-        <DateInput
-          id="dateValidationExample-endDate"
-          name="endDate"
-          label="End date"
-          onChange={(date) => setFormValues({ ...formValues, endDate: date })}
-          invalid={!!formErrors['endDate']}
-          errorText={formErrors['endDate']}
-          required
-          disableConfirmation
-        />
-      </div>
-      <div style={{ marginTop: 'var(--spacing-m)' }}>
-        <Button onClick={onSubmit} type="button">
-          Submit
-        </Button>
-      </div>
-    </form>
+  return ( 
+    <>
+      <h4>Live example</h4>
+      <p>Check the how the validation behaves by selecting end date before the start date or vice versa.</p>   
+      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+        {isSubmitted && errorList.length > 0 && (
+          <ErrorSummary autofocus label="Form contains following errors">
+            {errorList.map(([key, value], index) => (
+              <li key={key}>
+                {`Error ${index + 1}: `}
+                <a href={`#dateValidationExample-${key}`}>{value}</a>
+              </li>
+            ))}
+          </ErrorSummary>
+        )}
+        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+          <DateInput
+            id="dateValidationExample-startDate"
+            name="startDate"
+            label="Start date"
+            onChange={(date) => setFormValues({ ...formValues, startDate: date })}
+            invalid={!!formErrors['startDate']}
+            errorText={formErrors['startDate']}
+            required
+            disableConfirmation
+          />
+          <DateInput
+            id="dateValidationExample-endDate"
+            name="endDate"
+            label="End date"
+            onChange={(date) => setFormValues({ ...formValues, endDate: date })}
+            invalid={!!formErrors['endDate']}
+            errorText={formErrors['endDate']}
+            required
+            disableConfirmation
+          />
+        </div>
+        <div style={{ marginTop: 'var(--spacing-m)' }}>
+          <Button onClick={onSubmit} type="button">
+            Submit
+          </Button>
+        </div>
+      </form>
+    </>
   )
 }
 ```
