@@ -247,7 +247,8 @@ The usage of the error summary component is triggered when the form is submitted
 2. The focus is moved from the form submit button to the error summary heading.
 3. The error summary is populated with a list of errors found in the form. Errors are in the same order as they appear in the form. For each error, a running number and an error description are provided. The error description also acts as an anchor link.
 4. The user can use the error description anchor link to quickly jump and focus each of the erroneous inputs.
-5. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
+5. The error validation check happens immediately after the input value changes.
+6. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
 
 <Playground scope={{ Button, ErrorSummary, TextInput }} >
 
@@ -255,68 +256,69 @@ The usage of the error summary component is triggered when the form is submitted
 import { Button, ErrorSummary, TextInput } from 'hds-react';
 
 () => {
-  const [formValues, setFormValues] = React.useState({});
-  const [formErrors, setFormErrors] = React.useState({});
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const errorList = Object.entries(formErrors);
+    const [formValues, setFormValues] = React.useState({});
+    const [formErrors, setFormErrors] = React.useState({});
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const errorList = Object.entries(formErrors);
 
-  const validate = (values) => {
-    const errors = {
-      ...(values['firstName'] ? {} : { firstName: 'Please enter your first name' }),
-      ...(values['lastName'] ? {} : { lastName: 'Please enter your last name' }),
+    const validate = (values, onlyValidationErrors) => {
+      const errors = {
+        ...((!values['firstName'] && !onlyValidationErrors) || (!values['firstName'] && onlyValidationErrors && 'firstName' in formErrors) ? { firstName: 'Please enter your first name' } : {}),
+       ...((!values['lastName'] && !onlyValidationErrors) || (!values['lastName'] && onlyValidationErrors && 'lastName' in formErrors) ? { lastName: 'Please enter your last name' } : {}),
+      };
+      setFormErrors(errors);
     };
-    setFormErrors(errors);
-  };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-  };
+    const onSubmit = (e) => {
+      e.preventDefault();
+      validate(formValues);
+      setIsSubmitted(true);
+    };
 
-  React.useEffect(() => {
-    validate(formValues);
-  }, [formValues]);
-
-  return (
-    <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
-      {isSubmitted && errorList.length > 0 && (
-        <ErrorSummary autofocus label="Form contains following errors">
-          {errorList.map(([key, value], index) => (
-            <li key={key}>
-              {`Error ${index + 1}: `}
-              <a href={`#validationExample-${key}`}>{value}</a>
-            </li>
-          ))}
-        </ErrorSummary>
-      )}
-      <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
-        <TextInput
-          id="validationExample-firstName"
-          name="firstName"
-          label="First name"
-          onBlur={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
-          invalid={!!formErrors['firstName']}
-          errorText={formErrors['firstName']}
-          required
-        />
-        <TextInput
-          id="validationExample-lastName"
-          name="lastName"
-          label="Last name"
-          onBlur={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
-          invalid={!!formErrors['lastName']}
-          errorText={formErrors['lastName']}
-          required
-        />
-      </div>
-      <div style={{ marginTop: 'var(--spacing-m)' }}>
-        <Button onClick={onSubmit} type="button">
-          Submit
-        </Button>
-      </div>
-    </form>
-  )
-}
+    React.useEffect(() => {
+      if (Object.keys(formErrors).length > 0) validate(formValues, true);
+    }, [formValues]);
+    console.log(formErrors);
+    return (
+      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+        {isSubmitted && errorList.length > 0 && (
+          <ErrorSummary autofocus label="Form contains following errors">
+            {errorList.map(([key, value], index) => (
+              <li key={key}>
+                {`Error ${index + 1}: `}
+                <a href={`#validationExample-${key}`}>{value}</a>
+              </li>
+            ))}
+          </ErrorSummary>
+        )}
+        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+          <TextInput
+            id="validationExample-firstName"
+            name="firstName"
+            label="First name"
+            onChange={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
+            invalid={!!formErrors['firstName']}
+            errorText={formErrors['firstName']}
+            required
+          />
+          <TextInput
+            id="validationExample-lastName"
+            name="lastName"
+            label="Last name"
+            onChange={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
+            invalid={!!formErrors['lastName']}
+            errorText={formErrors['lastName']}
+            required
+          />
+        </div>
+        <div style={{ marginTop: 'var(--spacing-m)' }}>
+          <Button onClick={onSubmit} type="button">
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
+  }
 ```
 
 </Playground>
