@@ -21,7 +21,7 @@
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+    outline: var(--header-focus-outline-width) solid var(--color-focus-outline);
     outline-offset: var(--header-focus-outline-width);
   }
 }

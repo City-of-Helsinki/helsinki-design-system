@@ -7,6 +7,19 @@ import { Header } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
+export const theme = {
+  '--color-focus-outline': 'grey',
+  '--header-color': 'black',
+  '--actionbar-background-color': '#ffe977',
+  '--navigation-background-color': 'white',
+  '--nav-link-hover-color': 'black',
+  '--universal-bar-background-color': '#ffe977',
+  '--navigation-link-button-background-color': 'blue',
+  '--nav-button-background-color': 'white',
+  '--nav-button-hover-background-color': 'brown',
+  '--nav-drop-down-icon-color': 'red',
+};
+
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
@@ -71,6 +84,26 @@ import { Header } from 'hds-react';
 
 </Playground>
 
+
+<Playground scope={{ Header }}>
+
+```jsx
+import { Header } from 'hds-react';
+
+() => (
+  <>
+    <Header theme={theme}>
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+    </Header>
+  </>
+)
+```
+
+</Playground>
 
 ### Packages
 

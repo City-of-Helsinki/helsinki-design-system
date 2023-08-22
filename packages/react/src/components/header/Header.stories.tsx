@@ -411,3 +411,55 @@ export const WithSkipLink = (args) => {
     </Header>
   );
 };
+
+export const WithCustomTheme = (args) => {
+  return (
+    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleUrl="https://hel.fi"
+        titleStyle={TitleStyleType.black}
+      >
+        <Header.NavigationLanguageSelector languages={languages}>
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
+        </Header.NavigationLanguageSelector>
+
+        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+          <h3>Kirjautumisvalinnat</h3>
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+
+      <Header.NavigationMenu>
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
+    </Header>
+  );
+};
+WithCustomTheme.args = {
+  theme: {
+    '--header-color': 'black',
+    '--header-base-background-color': 'white',
+    '--header-focus-outline-color': 'red',
+    '--actionbar-background-color': 'var(--color-engel)',
+    '--navigation-background-color': 'white',
+    '--nav-border-color': 'pink',
+    '--nav-link-hover-color': 'red',
+    '--universal-bar-background-color': 'violet',
+    '--navigation-link-button-background-color': 'blue',
+    '--nav-link-dropdown-background-color': 'pink',
+    '--lang-selector-dropdown-background-color': 'white',
+    '--nav-button-background-color': 'white',
+    '--nav-button-hover-background-color': 'brown',
+    '--nav-drop-down-icon-color': 'red',
+  },
+};

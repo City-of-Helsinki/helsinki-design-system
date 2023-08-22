@@ -4,11 +4,21 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header } from 'hds-react';
+import { Header, IconSearch, IconUser } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+export const theme = {
+  '--color-focus-outline': 'grey',
+  '--header-color': 'black',
+  '--actionbar-background-color': '#ffe977',
+  '--navigation-background-color': 'white',
+  '--nav-link-hover-color': 'black',
+  '--universal-bar-background-color': '#ffe977'
+};
 
 ## Usage
 
@@ -78,6 +88,7 @@ Coming soon!
 #### Colour variations
 
 - Header offers two variations with different backgrounds - one with white and one with black (default) text elements.  Use variation that achieves better contrast with the brand background colour of your choice.
+- When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
 <PlaygroundPreview>
     <Header theme="light">
@@ -94,6 +105,19 @@ Coming soon!
     </Header>
     <br />
     <Header theme="dark">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+      <Header.NavigationMenu>
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
+    </Header>
+    <br />
+    <Header theme={theme}>
       <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
         <Header.NavigationLink href="#">Link</Header.NavigationLink>
         <Header.NavigationLink href="#">Link</Header.NavigationLink>
