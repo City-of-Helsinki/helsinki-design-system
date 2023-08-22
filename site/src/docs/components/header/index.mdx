@@ -101,8 +101,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - The only mandatory component inside the header is HeaderActionBar. Other components may be used if needed.
 - The inner components should **always** be in this order: Header.SkipLink, Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
 - Try to keep the order of actions (language select, search, log in) consistent in navigation. Do not change the default order without a good reason.
+- To better understand how the navigation elements work and how they should be combined, see also <InternalLink href="/patterns/navigation">Navigation pattern.</InternalLink>
 
 ### Variations
+
+Variations are presented in the same order that they should be declared in inside the Header component.
+- [With Header.SkipLink](#with-skip-link)
+- [With Header.UniversalBar](#with-universal-bar)
+- [With Header.ActionBar](#with-action-bar)
+  - [With Header.NavigationLanguageSelector](#with-navigation-language-selector) inside the action bar
+  - [With Header.Search](#with-search) inside the action bar
+- [With Header.NavigationMenu](#with-search)
 
 #### With skip link
 
