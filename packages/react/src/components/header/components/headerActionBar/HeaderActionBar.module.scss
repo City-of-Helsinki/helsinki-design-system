@@ -5,7 +5,7 @@
   align-items: stretch;
   box-sizing: border-box;
   display: flex;
-  gap: var(--action-bar-section-gutter);
+  gap: calc(var(--header-margin) / 2);
   height: var(--action-bar-container-height);
   justify-content: space-between;
   margin: 0 auto;
@@ -62,7 +62,7 @@
 .title {
   align-self: center;
   margin-top: -2px;
-  padding: 4px;
+  padding: 1px;
 
   .normal > & { @include typography.title-normal }
   .bold > & { @include typography.title-bold }
