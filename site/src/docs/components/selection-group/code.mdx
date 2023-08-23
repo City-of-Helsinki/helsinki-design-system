@@ -3,9 +3,8 @@ slug: '/components/selection-group/code'
 title: 'SelectionGroup - Code'
 ---
 
-import { Link, SelectionGroup, Checkbox, RadioButton } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { SelectionGroup, Checkbox, RadioButton } from 'hds-react';
+import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,13 +14,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Vertical group (Checkbox)
-<Playground>
+<Playground scope={{ SelectionGroup, Checkbox, useState }}>
 
 ```jsx
 import { SelectionGroup, Checkbox } from 'hds-react';
 
 () => {
-  const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
+  const [checkedItems, setCheckedItems] = useState({ "v-checkbox1": true, "v-checkbox2": true });
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
@@ -72,14 +71,14 @@ import { SelectionGroup, Checkbox } from 'hds-react';
 </Playground>
 
 #### Vertical group (RadioButton)
-<Playground>
+<Playground scope={{ SelectionGroup, RadioButton, useState }}>
 
 
 ```jsx
 import { SelectionGroup, RadioButton } from 'hds-react';
 
 () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = useState("1");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
@@ -129,14 +128,14 @@ import { SelectionGroup, RadioButton } from 'hds-react';
 </Playground>
 
 #### Horizontal group (Checkbox)
-<Playground>
+<Playground scope={{ SelectionGroup, Checkbox, useState }}>
 
 
 ```jsx
 import { SelectionGroup, Checkbox } from 'hds-react';
 
 () => {
-  const [checkedItems, setCheckedItems] = React.useState({ "h-checkbox1": true, "h-checkbox2": true });
+  const [checkedItems, setCheckedItems] = useState({ "h-checkbox1": true, "h-checkbox2": true });
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
@@ -180,14 +179,14 @@ import { SelectionGroup, Checkbox } from 'hds-react';
 </Playground>
 
 #### Horizontal group (RadioButton)
-<Playground>
+<Playground scope={{ SelectionGroup, RadioButton, useState }}>
 
 
 ```jsx
 import { SelectionGroup, RadioButton } from 'hds-react';
 
 () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = useState("1");
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };

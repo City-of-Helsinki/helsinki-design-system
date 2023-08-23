@@ -9,21 +9,16 @@ import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
-import InternalLink from '../../../components/InternalLink';
 
 # Stepper
 
 <div class="status-label-description">
   <StatusLabel type="alert">Beta</StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  If a form is divided into multiple pages or steps, the Form progress component helps the user to understand the progression and to navigate between form steps.
-</LeadParagraph>
+<LeadParagraph>If a form is divided into multiple pages or steps, the Form progress component helps the user to understand the progression and to navigate between form steps.</LeadParagraph>
 
 <Notification label="Note about multi-page forms!" className="siteNotification">
   This documentation page is about HDS multi-page stepper component. If you are looking for documentation about building multi-page forms, please refer to <InternalLink href="/patterns/forms/form-multi-page">HDS multi-page form pattern documentation page</InternalLink>.
@@ -38,5 +33,3 @@ import InternalLink from '../../../components/InternalLink';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

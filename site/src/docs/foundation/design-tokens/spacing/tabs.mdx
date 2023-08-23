@@ -13,9 +13,7 @@ import PageTabs from '../../../../components/PageTabs';
 
 <StatusLabel type="info">Stable</StatusLabel>
 
-<LeadParagraph>
-  Spacing tokens are used for positioning elements on the page layout and in components.
-</LeadParagraph>
+<LeadParagraph>Spacing tokens are used for positioning elements on the page layout and in components.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -24,5 +22,3 @@ import PageTabs from '../../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

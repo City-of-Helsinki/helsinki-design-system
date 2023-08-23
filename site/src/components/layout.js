@@ -31,8 +31,8 @@ const components = {
   PlaygroundPreview,
   pre: SyntaxHighlighter,
   table: Table,
-  thead: Table.Thead,
-  tbody: Table.Tbody,
+  thead: Table.Head,
+  tbody: Table.Body,
   th: Table.Th,
   h1: (props) => (
     <h1 {...props} className={classNames('page-heading-1 heading-xl-mobile', props.className)}>

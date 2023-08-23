@@ -15,7 +15,7 @@ const StatusLabelTooltip = () => {
     <Tooltip placement="right-end" className="status-label-tooltip" boxShadow>
       <ul class="status-label-definitions">
         {Object.keys(content).map((key) => (
-          <li>
+          <li key={key}>
             <span class="status-name">{key}</span><span>{content[key]}</span>
           </li>
         ))}

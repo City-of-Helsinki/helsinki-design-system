@@ -14,15 +14,11 @@ import PageTabs from '../../../components/PageTabs';
 
 <div class="status-label-description">
   <StatusLabel type="alert">Draft</StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  The Footer component is located at the bottom of the page below the main body content. It provides a place for secondary navigation, site-wide actions, and additional information.
-</LeadParagraph>
+<LeadParagraph>The Footer component is located at the bottom of the page below the main body content. It provides a place for secondary navigation, site-wide actions, and additional information.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

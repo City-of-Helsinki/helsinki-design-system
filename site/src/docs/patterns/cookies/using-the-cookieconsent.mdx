@@ -13,10 +13,8 @@ import InternalLink from '../../../components/InternalLink';
 
 <StatusLabel type="error">Draft</StatusLabel>
 
-<LeadParagraph>
-  HDS offers a consistent way of informing the user about cookies and, if needed, asking for consent. The CookieConsent
-  component is used for this. This page describes how the component is used.
-</LeadParagraph>
+<LeadParagraph>HDS offers a consistent way of informing the user about cookies and, if needed, asking for consent. The CookieConsent
+  component is used for this. This page describes how the component is used.</LeadParagraph>
 
 If you are looking for technical documentation about the CookieConsent component, please refer to <InternalLink href="/components/cookie-consent">the component page.</InternalLink>
 
@@ -26,19 +24,19 @@ If you are looking for an explanation about gathering and categorising cookies, 
 
 <div
   class="guideline-do"
-  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
     <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Do</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
         The cookie consent banner must be shown if the user has not accepted or denied the optional cookies of the
         service.
       </strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>
           If cookies have changed since the last time the user accepted or denied them, the consent must be shown again.
         </li>
@@ -52,7 +50,7 @@ If you are looking for an explanation about gathering and categorising cookies, 
     </li>
     <li>
       <strong>Make sure that cookie consent is the first item in the page tab order.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>The cookie consent banner is automatically positioned to the bottom of the viewport.</li>
       </ul>
     </li>
@@ -64,13 +62,13 @@ If you are looking for an explanation about gathering and categorising cookies, 
 
 <div
   class="guideline-dont"
-  style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
 >
-  <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);">
+  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
     <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Don't</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       The cookie consent banner should not prevent the user from using the web page. Never use an overlay behind the
       banner or otherwise restrict the use of the site.

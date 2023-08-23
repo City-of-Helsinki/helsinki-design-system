@@ -3,9 +3,7 @@ slug: '/components/search-input/code'
 title: 'SearchInput - Code'
 ---
 
-import { SearchInput, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { SearchInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ SearchInput }}>
 
 ```jsx
 import { SearchInput } from 'hds-react';
@@ -60,7 +58,7 @@ import { SearchInput } from 'hds-react';
 </Playground>
 
 #### With suggestions
-<Playground>
+<Playground scope={{ SearchInput }}>
 
 
 ```jsx
@@ -95,7 +93,7 @@ import { SearchInput } from 'hds-react';
 </Playground>
 
 #### With suggestions and highlighting
-<Playground>
+<Playground scope={{ SearchInput }}>
 
 
 ```jsx

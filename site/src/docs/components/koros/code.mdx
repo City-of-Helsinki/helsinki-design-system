@@ -3,9 +3,7 @@ slug: '/components/koros/code'
 title: 'Koros - Code'
 ---
 
-import { Koros, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Koros } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ Koros }}>
 
 ```jsx
 import { Koros } from 'hds-react';
@@ -113,7 +111,7 @@ import { Koros } from 'hds-react';
 </Playground>
 
 #### Dense
-<Playground>
+<Playground scope={{ Koros }}>
 
 ```jsx
 import { Koros } from 'hds-react';
@@ -211,7 +209,7 @@ import { Koros } from 'hds-react';
 </Playground>
 
 ### Angled
-<Playground>
+<Playground scope={{ Koros }}>
 
 ```jsx
 import { Koros } from 'hds-react';

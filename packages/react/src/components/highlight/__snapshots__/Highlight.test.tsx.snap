@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Highlight /> spec renders the Highlight 1`] = `
+<DocumentFragment>
+  <figure
+    class="highlight custom-theme-1"
+  >
+    <blockquote
+      class="highlightBlockquote"
+    >
+      <p
+        class="text"
+      >
+        You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.
+      </p>
+    </blockquote>
+  </figure>
+</DocumentFragment>
+`;
+
+exports[`<Highlight /> spec renders the Quote 1`] = `
+<DocumentFragment>
+  <figure
+    class="highlight custom-theme-2"
+  >
+    <blockquote
+      class="highlightBlockquote"
+    >
+      <p
+        class="text quote"
+      >
+        Add an interesting quote here
+      </p>
+    </blockquote>
+    <figcaption
+      class="reference"
+    >
+      —⁠First name Last name. Title.
+    </figcaption>
+  </figure>
+</DocumentFragment>
+`;

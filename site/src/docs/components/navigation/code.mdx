@@ -3,8 +3,7 @@ slug: '/components/navigation/code'
 title: 'Navigation - Code'
 ---
 
-import { Link, Navigation } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
+import { Navigation } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default (2 rows)
-<Playground>
+<Playground scope={{ Navigation }}>
 
 
 ```jsx
@@ -42,7 +41,7 @@ import { Navigation } from 'hds-react';
 </Playground>
 
 #### Small (1 row)
-<Playground>
+<Playground scope={{ Navigation }}>
 
 
 ```jsx
@@ -67,7 +66,7 @@ import { Navigation } from 'hds-react';
 </Playground>
 
 #### Navigation actions
-<Playground>
+<Playground scope={{ Navigation }}>
 
 
 ```jsx
@@ -96,7 +95,7 @@ import { Navigation } from 'hds-react';
 </Playground>
 
 #### Colour variations
-<Playground>
+<Playground scope={{ Navigation }}>
 
 
 ```jsx

@@ -14,15 +14,11 @@ import PageTabs from '../../../components/PageTabs';
 
 <div class="status-label-description">
   <StatusLabel type="info">Stable</StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-    Accordions can be used to hide and reveal information. When used correctly, they are a good way to make a higher amount of information easier to digest for the user.
-</LeadParagraph>
+<LeadParagraph>Accordions can be used to hide and reveal information. When used correctly, they are a good way to make a higher amount of information easier to digest for the user.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

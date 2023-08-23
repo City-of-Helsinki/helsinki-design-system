@@ -3,6 +3,8 @@ slug: '/components/pagination/customisation'
 title: 'Pagination - Customisation'
 ---
 
+import { Pagination } from 'hds-react';
+import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -24,31 +26,31 @@ See all available theme variables in the table below.
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Pagination, useState }}>
 
 ```jsx
-{
-  () => {
-    const [pageIndex, setPageIndex] = useState(0);
-    const theme = {
-      '--active-page-background-color': 'var(--color-bus)',
-    };
-    return (
-      <Pagination
-        language="en"
-        onChange={(event, index) => {
-          event.preventDefault();
-          setPageIndex(index);
-        }}
-        pageCount={9}
-        pageHref={() => '#'}
-        pageIndex={pageIndex}
-        paginationAriaLabel="Pagination 1"
-        siblingCount={9}
-        theme={theme}
-      />
-    );
+import { Pagination } from 'hds-react';
+
+() => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const theme = {
+    '--active-page-background-color': 'var(--color-bus)',
   };
+  return (
+    <Pagination
+      language="en"
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      pageCount={9}
+      pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel="Pagination 1"
+      siblingCount={9}
+      theme={theme}
+    />
+  )
 }
 ```
 

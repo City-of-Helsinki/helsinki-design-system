@@ -12,9 +12,7 @@ import PageTabs from '../../../components/PageTabs';
 # Header
 
 <StatusLabel type="alert">WIP</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
 
 <LeadParagraph>The header component is a wrapper for all navigation elements.</LeadParagraph>
 
@@ -31,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

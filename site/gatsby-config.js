@@ -158,8 +158,10 @@ module.exports = {
             },
           },
         ],
-        defaultLayouts: {
-          default: require.resolve('./src/components/layout.js'),
+        mdxOptions: {
+          remarkPlugins: [
+            require(`remark-gfm`),
+          ],
         },
       },
     },
@@ -220,6 +222,9 @@ module.exports = {
         matomoPhpScript: 'tracker.php',
         requireCookieConsent: true,
       }
-    }
+    },
+    {
+      resolve: "gatsby-plugin-no-sourcemaps",
+    },
   ],
 };

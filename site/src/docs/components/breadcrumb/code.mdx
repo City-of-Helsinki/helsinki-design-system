@@ -3,9 +3,7 @@ slug: '/components/breadcrumb/code'
 title: 'Breadcrumb - Code'
 ---
 
-import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Breadcrumb, IconDocument, IconEnvelope, IconPhone, IconPhoto } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,19 +12,23 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Code examples
 
-<Playground>
+<Playground scope={{ Breadcrumb }}>
 
 ```jsx
-<Breadcrumb
-  ariaLabel="Breadcrumb"
-  list={[
-    { title: 'Front page', path: '/' },
-    { title: 'Health and social services', path: '/path' },
-    { title: 'Senior services', path: '/path/2ndLevelPath' },
-    { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
-    { title: 'Care options', path: null },
-  ]}
-></Breadcrumb>
+import { Breadcrumb } from 'hds-react';
+
+() => (
+  <Breadcrumb
+    ariaLabel="Breadcrumb"
+    list={[
+      { title: 'Front page', path: '/' },
+      { title: 'Health and social services', path: '/path' },
+      { title: 'Senior services', path: '/path/2ndLevelPath' },
+      { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+      { title: 'Care options', path: null },
+    ]}
+  />
+)
 ```
 
 ```html

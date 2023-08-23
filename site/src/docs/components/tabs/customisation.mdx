@@ -20,11 +20,13 @@ You can use the `theme` property to customise the component. See all available t
 | `--tab-active-border-color`           | Colour of the active tab indicator.         |
 
 ### Customisation example
-<Playground>
+<Playground scope={{ Tabs }}>
 
 
 ```jsx
-{() => {
+import { Tabs } from 'hds-react';
+
+() => {
   const theme = {
     '--tab-color': 'var(--color-black-90)',
     '--tab-active-border-color': 'var(--color-metro)',
@@ -58,7 +60,7 @@ You can use the `theme` property to customise the component. See all available t
       </Tabs.TabPanel>
     </Tabs>
   );
-}}
+}
 ```
 
 

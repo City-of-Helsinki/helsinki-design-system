@@ -4,7 +4,6 @@ title: 'Footer - Customisation'
 ---
 
 import { Footer } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -24,7 +23,7 @@ You can use the `theme` property to customise the component. See all available t
 
 ### Colour customisation example
 
-<Playground>
+<Playground scope={{ Footer }}>
 
 ```jsx
 import { Footer } from 'hds-react';
@@ -60,7 +59,7 @@ import { Footer } from 'hds-react';
 
 ### Custom section
 
-<Playground>
+<Playground scope={{ Footer }}>
 
 ```jsx
 import { Footer } from 'hds-react';

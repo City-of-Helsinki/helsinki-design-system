@@ -1,0 +1,78 @@
+---
+slug: '/components/highlight'
+title: 'Highlight'
+navTitle: 'Highlight'
+---
+
+import { Highlight } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices tincidunt nunc, porttitor pretium enim vestibulum eget. Suspendisse ac tempor ante. Nullam at convallis ex. Integer mattis sagittis interdum. Suspendisse viverra sit amet mauris non interdum. In porttitor tempus diam vel venenatis. Aenean elementum sem vitae tempus tempor. </p>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." />
+  <p>Sed quis massa elementum, pulvinar lacus at, efficitur velit. Nam nec ornare augue. Aliquam pellentesque dictum nisl, a commodo arcu dapibus id.</p>
+  <Highlight type="quote" text="Add an interesting quote here" reference="First name Last name. Title."/>
+  <p>Sed mollis mauris nec dui condimentum pulvinar. Suspendisse vitae aliquet nisi. Donec libero ipsum, fermentum ut augue id, scelerisque lobortis orci.</p>
+</PlaygroundPreview>
+
+### Principles
+
+- Highlights are designed to capture users' attention. **Therefore, they should be used sparingly.**
+- With the React component you can use the prop `type="quote"` to transform the highlight text into a quote with an optional reference, though we strongly recommend adding a reference to a quote. With the core version remember to insert the em-dash character — (HTML code `&#8212`) before the reference text. In React component the dash is handled automatically.
+- Pay attention to accessibility when using custom text or accent line colour. **Use sufficient colour contrast** so the content is clearly distinguishable from the surrounding area.
+- Quote and Highlight adds vertical margin before and after actual content.
+
+### Type variations
+
+##### Highlight 
+<PlaygroundPreview>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
+</PlaygroundPreview>
+
+##### Quote
+**In Core package** remember to insert the em-dash character — (HTML code `&#8212`) before the reference text.
+<PlaygroundPreview>
+  <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
+</PlaygroundPreview>
+
+### Size variations
+
+##### Large
+<PlaygroundPreview>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." size="l"/>
+  <Highlight text="Add an interesting quote here" size="l" type="quote" reference="First name Last name. Title."/>
+</PlaygroundPreview>
+
+#### Default
+<PlaygroundPreview>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."/>
+  <Highlight text="Add an interesting quote here" type="quote" reference="First name Last name. Title."/>
+</PlaygroundPreview>
+
+#### Small
+<PlaygroundPreview>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to." size="s"/>
+  <Highlight text="Add an interesting quote here" size="s" type="quote" reference="First name Last name. Title."/>
+</PlaygroundPreview>
+
+### Theming
+
+#### Custom accent line colour
+<PlaygroundPreview>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."  theme={{'--accent-line-color':'#00005e'}}/>
+  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--accent-line-color':'#00005e'}}/>
+</PlaygroundPreview>
+
+#### Custom text colour
+<PlaygroundPreview>
+  <Highlight text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."  theme={{'--text-color':'#00005e'}}/>
+  <Highlight text="Add an interesting quote here" reference="First name Last name. Title." type="quote"  theme={{'--text-color':'#00005e'}}/>
+</PlaygroundPreview>

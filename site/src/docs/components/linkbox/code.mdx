@@ -3,9 +3,8 @@ slug: '/components/linkbox/code'
 title: 'Linkbox - Code'
 ---
 
-import { Link, Linkbox } from 'hds-react';
+import { Linkbox } from 'hds-react';
 import { withPrefix } from "gatsby"
-import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Empty
-<Playground>
+<Playground scope={{ Linkbox }}>
 
 ```jsx
 import { Linkbox } from 'hds-react';
@@ -44,7 +43,7 @@ import { Linkbox } from 'hds-react';
 </Playground>
 
 ### With heading and body text
-<Playground>
+<Playground scope={{ Linkbox }}>
 
 
 ```jsx
@@ -89,7 +88,7 @@ import { Linkbox } from 'hds-react';
 </Playground>
 
 ### Internal and external Linkboxes
-<Playground>
+<Playground scope={{ Linkbox }}>
 
 
 ```jsx
@@ -141,7 +140,7 @@ import { Linkbox } from 'hds-react';
 </Playground>
 
 ### With image
-<Playground>
+<Playground scope={{ Linkbox, withPrefix }}>
 
 ```jsx
 import { Linkbox } from 'hds-react';
@@ -165,7 +164,7 @@ import { Linkbox } from 'hds-react';
 </Playground>
 
 ### Linkbox size variants
-<Playground>
+<Playground scope={{ Linkbox, withPrefix }}>
 
 ```jsx
 import { Linkbox } from 'hds-react';

@@ -3,7 +3,8 @@ slug: '/components/radio-button/customisation'
 title: 'RadioButton - Customisation'
 ---
 
-import { Notification, RadioButton } from 'hds-react';
+import { RadioButton, Notification } from 'hds-react';
+import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -38,50 +39,50 @@ See all available theme variables in the table below.
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ RadioButton, useState }}>
 
 ```jsx
-{
-  () => {
-    const [selectedItem, setSelectedItem] = React.useState('2');
-    const onChange = (event) => {
-      setSelectedItem(event.target.value);
-    };
-    const style = {
-      '--size': '36px',
-      '--icon-scale': 0.65,
-      '--border-width': '3px',
-      '--outline-width': '4px',
-      '--border-color-selected': 'var(--color-tram)',
-      '--border-color-selected-hover': 'var(--color-tram-dark)',
-      '--border-color-selected-focus': 'var(--color-coat-of-arms)',
-      '--icon-color-selected': 'var(--color-tram)',
-      '--icon-color-hover': 'var(--color-tram-dark)',
-      '--focus-outline-color': 'var(--color-coat-of-arms)',
-    };
-    return (
-      <>
-        <RadioButton
-          id="radio1"
-          name="example"
-          label="Label"
-          value="1"
-          checked={selectedItem === '1'}
-          style={style}
-          onChange={onChange}
-        />
-        <RadioButton
-          id="radio2"
-          name="example"
-          label="Label"
-          value="2"
-          checked={selectedItem === '2'}
-          style={style}
-          onChange={onChange}
-        />
-      </>
-    );
+import { RadioButton } from 'hds-react';
+
+() => {
+  const [selectedItem, setSelectedItem] = useState('2');
+  const onChange = (event) => {
+    setSelectedItem(event.target.value);
   };
+  const style = {
+    '--size': '36px',
+    '--icon-scale': 0.65,
+    '--border-width': '3px',
+    '--outline-width': '4px',
+    '--border-color-selected': 'var(--color-tram)',
+    '--border-color-selected-hover': 'var(--color-tram-dark)',
+    '--border-color-selected-focus': 'var(--color-coat-of-arms)',
+    '--icon-color-selected': 'var(--color-tram)',
+    '--icon-color-hover': 'var(--color-tram-dark)',
+    '--focus-outline-color': 'var(--color-coat-of-arms)',
+  };
+  return (
+    <>
+      <RadioButton
+        id="radio1"
+        name="example"
+        label="Label"
+        value="1"
+        checked={selectedItem === '1'}
+        style={style}
+        onChange={onChange}
+      />
+      <RadioButton
+        id="radio2"
+        name="example"
+        label="Label"
+        value="2"
+        checked={selectedItem === '2'}
+        style={style}
+        onChange={onChange}
+      />
+    </>
+  )
 }
 ```
 

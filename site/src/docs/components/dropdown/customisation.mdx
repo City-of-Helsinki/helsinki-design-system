@@ -4,7 +4,6 @@ title: 'Dropdown - Customisation'
 ---
 
 import { IconUser, Select } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -54,10 +53,12 @@ You can use the `theme` property to customise the component. See all available t
 
 
 ### Customisation example
-<Playground>
+<Playground scope={{ IconUser, Select }}>
 
 ```jsx
-{() => {
+import { Select, IconUser } from 'hds-react';
+
+() => {
   const options = [{ label: 'Plutonium' }, { label: 'Americium' }, { label: 'Copernicium' }, { label: 'Berkelium' }];
   return (
     <>
@@ -109,7 +110,7 @@ You can use the `theme` property to customise the component. See all available t
       />
     </>
   )
-}}
+}
 ```
 
 </Playground>

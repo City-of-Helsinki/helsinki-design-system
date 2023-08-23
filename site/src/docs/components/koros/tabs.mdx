@@ -7,22 +7,17 @@ import { StatusLabel } from 'hds-react';
 
 import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
-import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 
 # Koros
 
 <div class="status-label-description">
   <StatusLabel type="info">Stable</StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Koros, also known as Wave motifs, are part of the visual identity of City of Helsinki. The Koros can be used as visual elements, for example as part of the hero image or the footer and as a divider of content in the user interface.
-</LeadParagraph>
+<LeadParagraph>Koros, also known as Wave motifs, are part of the visual identity of City of Helsinki. The Koros can be used as visual elements, for example as part of the hero image or the footer and as a divider of content in the user interface.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +28,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

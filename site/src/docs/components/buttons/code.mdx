@@ -3,9 +3,7 @@ slug: '/components/buttons/code'
 title: 'Button - Code'
 ---
 
-import { Button, IconTrash, IconAngleRight, Notification, IconShare, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Button, IconTrash, IconAngleRight, Notification, IconShare, IconSaveDisketteFill } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Primary
 
-<Playground>
+<Playground scope={{ Button }}>
 
   ```jsx
   import { Button } from 'hds-react';
@@ -35,7 +33,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Secondary
 
-<Playground>
+<Playground scope={{ Button }}>
 
   ```jsx
   import { Button } from 'hds-react';
@@ -54,10 +52,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Supplementary
 
-<Playground>
+<Playground scope={{ Button, IconTrash }}>
 
   ```jsx
-  import { Button } from 'hds-react';
+  import { Button, IconTrash } from 'hds-react';
 
   () => (
     <Button variant="supplementary" iconLeft={<IconTrash />}>
@@ -78,10 +76,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Icon button
 
-<Playground>
+<Playground scope={{ Button, IconShare, IconAngleRight }}>
 
   ```jsx
-  import { Button } from 'hds-react';
+  import { Button, IconShare, IconAngleRight } from 'hds-react';
 
   () => (
     <div>
@@ -119,7 +117,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Small button
 
-<Playground>
+<Playground scope={{ Button }}>
 
 
   ```jsx
@@ -159,11 +157,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Utility button
 
-<Playground>
+<Playground scope={{ Button, IconSaveDisketteFill, IconTrash }}>
 
 
 ```jsx
-import { Button } from 'hds-react';
+import { Button, IconSaveDisketteFill, IconTrash} from 'hds-react';
 
 () => (
   <div>
@@ -198,11 +196,11 @@ import { Button } from 'hds-react';
 
 #### Loading button
 
-<Playground>
+<Playground scope={{ Button, Notification }}>
 
 
   ```jsx
-  import { Button } from 'hds-react';
+  import { Button, Notification } from 'hds-react';
 
   () => {
     const [isLoading, setIsLoading] = React.useState(false);
@@ -256,7 +254,7 @@ import { Button } from 'hds-react';
 
 #### Link button
 
-<Playground>
+<Playground scope={{ Button }}>
 
   ```jsx
   import { Button } from 'hds-react';

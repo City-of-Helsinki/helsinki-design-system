@@ -4,9 +4,7 @@ title: 'Table - Code'
 ---
 
 import { useState } from 'react';
-import { Link, Table } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Table } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -17,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground>
+<Playground scope={{ Table }}>
 
 ```jsx
 import { Table } from 'hds-react';
@@ -157,7 +155,7 @@ import { Table } from 'hds-react';
 
 #### Vertical headers
 
-<Playground>
+<Playground scope={{ Table }}>
 
 ```jsx
 import { Table } from 'hds-react';
@@ -269,7 +267,7 @@ import { Table } from 'hds-react';
 
 #### Zebra rows
 
-<Playground>
+<Playground scope={{ Table }}>
 
 ```jsx
 import { Table } from 'hds-react';
@@ -406,7 +404,7 @@ import { Table } from 'hds-react';
 
 #### Vertical lines
 
-<Playground>
+<Playground scope={{ Table }}>
 
 ```jsx
 import { Table } from 'hds-react';
@@ -508,7 +506,7 @@ import { Table } from 'hds-react';
 
 #### Dense tables
 
-<Playground>
+<Playground scope={{ Table }}>
 
 ```jsx
 import { Table } from 'hds-react';
@@ -595,7 +593,7 @@ import { Table } from 'hds-react';
 
 #### Sorting
 
-<Playground>
+<Playground scope={{ Table }}>
 
 ```jsx
 import { Table } from 'hds-react';
@@ -649,7 +647,7 @@ import { Table } from 'hds-react';
 
 #### Selecting rows
 
-<Playground>
+<Playground scope={{ Table, useState }}>
 
 ```jsx
 import { Table } from 'hds-react';

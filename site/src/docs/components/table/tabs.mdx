@@ -14,15 +14,11 @@ import PageTabs from '../../../components/PageTabs';
 
 <div class="status-label-description">
   <StatusLabel type="info">Stable</StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-    Tables are used to present tabulated data to the user in a consistent manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.
-</LeadParagraph>
+<LeadParagraph>  Tables are used to present tabulated data to the user in a consistent manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.</LeadParagraph>
 
 <Notification label="More table features are coming!" className="siteNotification">
   HDS Tables are work in progress. The current feature set will serve most projects but later we are also looking into adding more features such as single row actions (edit, delete), expandable rows and supporting more HDS components inside tables.
@@ -37,5 +33,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

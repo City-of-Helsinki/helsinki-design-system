@@ -6,6 +6,7 @@ navTitle: 'Colour'
 
 import ColorExample from '../../../../components/examples/ColorExample';
 import ExternalLink from '../../../../components/ExternalLink';
+import FocusColorExample from '../../../../components/examples/FocusColorExample';
 import InternalLink from '../../../../components/InternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -33,6 +34,7 @@ The design system uses a colour theme that includes:
 - **Secondary and Tertiary colours:** these provide more ways for accenting select UI elements and distinguishing your service. The secondary and tertiary colours should be applied sparingly and with intent.
 - **UI colours:** the common colours for feedback (error, warning, success, info).
 - **Grayscale:** neutral colour shades.
+- **Focus colours:** the common colours for focus.
 
 The colour palette also provides lighter and darker variants for the base colours.
 
@@ -76,12 +78,13 @@ Brand colours also have dark, medium light and light variants. You can find thes
 
 Status colours are reserved exclusively for indicating valid, invalid, or informational states on the service.
 
-| Status name              | Usage                                                                                                   | Example message                             | Example                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Info                     | State which does not indicate clear success or failure but can be useful extra information to the user. | _"You have received new messages."_         | <ColorExample color="var(--color-info)" name="Info status colour example" />       |
-| Success                  | Positive state to inform user about success.                                                            | _"Form submit was successful!"_             | <ColorExample color="var(--color-success)" name="Success status colour example" /> |
-| Alert                    | Warning state to catch users attention but does not require immediate actions.                          | _"Loading is taking longer than expected."_ | <ColorExample color="var(--color-alert)" name="Alert status colour example" />     |
-| Error                    | Error state which requires users immediate action.                                                      | _"Form is missing critical information."_   | <ColorExample color="var(--color-error)" name="Error status colour example" />     |
+| Status name              | Usage                                                                                                   | Example message                             | Example                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Info                     | State which does not indicate clear success or failure but can be useful extra information to the user. | _"You have received new messages."_         | <ColorExample color="var(--color-info)" name="Info status colour example" />                           |
+| Success                  | Positive state to inform user about success.                                                            | _"Form submit was successful!"_             | <ColorExample color="var(--color-success)" name="Success status colour example" />                     |
+| Alert                    | Warning state to catch users attention but does not require immediate actions.                          | _"Loading is taking longer than expected."_ | <ColorExample color="var(--color-alert)" name="Alert status colour example" />                         |
+| Error                    | Error state which requires users immediate action.                                                      | _"Form is missing critical information."_   | <ColorExample color="var(--color-error)" name="Error status colour example" />                         |
+| Focus                    | Indication for active selected element which helps users navigating the page with a keyboard.           |                                             | <FocusColorExample color="var(--color-focus-outline)" contentStyle={{height: '28px', width: '28px'}}/> |
 | [Table 2:Status colours] |
 
 #### Grayscale

@@ -4,7 +4,6 @@ title: 'StepByStep - Code'
 ---
 
 import { StepByStep } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground>
+<Playground scope={{ StepByStep }}>
 
 ```jsx
 import { StepByStep } from 'hds-react';
@@ -73,8 +72,7 @@ import { StepByStep } from 'hds-react';
       <p class="hds-step-by-step__step-item-title">Step title</p>
       <div>
         <p>
-          Here you can describe what's going on in the step for the user. Keep the text compact so the user gets the big
-          picture of the whole process and it's steps easily..
+          Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.
         </p>
         <p>
           <button type="button" class="hds-button hds-button--primary">
@@ -104,7 +102,7 @@ import { StepByStep } from 'hds-react';
 
 #### Numbered list
 
-<Playground>
+<Playground scope={{ StepByStep }}>
 
 ```jsx
 import { StepByStep } from 'hds-react';
