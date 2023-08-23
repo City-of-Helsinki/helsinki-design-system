@@ -1,6 +1,6 @@
 {
   "name": "hds-core",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "description": "Core styles for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "@storybook/manager-webpack5": "^6.5.16",
     "copyfiles": "2.2.0",
     "cssnano": "4.1.10",
-    "hds-design-tokens": "2.16.0",
+    "hds-design-tokens": "2.17.0",
     "normalize.css": "8.0.1",
     "postcss": "8.2.15",
     "postcss-cli": "8.3.1",
