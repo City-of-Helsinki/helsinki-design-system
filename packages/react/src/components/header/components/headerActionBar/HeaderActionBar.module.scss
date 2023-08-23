@@ -5,7 +5,7 @@
   align-items: stretch;
   box-sizing: border-box;
   display: flex;
-  gap: var(--action-bar-section-gutter);
+  gap: calc(var(--header-margin) / 2);
   height: var(--action-bar-container-height);
   justify-content: space-between;
   margin: 0 auto;
@@ -48,22 +48,21 @@
   text-decoration: none;
   white-space: nowrap;
 
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
+  }
+
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
   }
-
-  @include common.focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  );
 }
 
 .title {
   align-self: center;
   margin-top: -2px;
-  padding: 4px;
+  padding: 1px;
 
   .normal > & { @include typography.title-normal }
   .bold > & { @include typography.title-bold }

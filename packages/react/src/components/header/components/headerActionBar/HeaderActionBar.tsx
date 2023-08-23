@@ -3,8 +3,9 @@ import React, { PropsWithChildren, MouseEventHandler } from 'react';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
-import { useActiveLanguage } from '../../../../context/languageContext';
+import { useActiveLanguage } from '../../LanguageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
+import { NavigationLanguageSelector } from '../navigationLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
@@ -128,6 +129,13 @@ export const HeaderActionBar = ({
     titleProps.onClick = handleClick;
   }
 
+  const childrenLeft = Array.isArray(children)
+    ? children.filter((item) => React.isValidElement(item) && !item.props.fixedRightPosition)
+    : [children];
+  const childrenRight = Array.isArray(children)
+    ? children.filter((item) => React.isValidElement(item) && !!item.props.fixedRightPosition)
+    : [];
+
   return (
     <>
       <div className={styles.headerActionBarContainer}>
@@ -147,11 +155,19 @@ export const HeaderActionBar = ({
             </LinkItem>
           )}
           <div className={styles.headerActions}>
-            {children}
+            <NavigationLanguageSelector />
+            {childrenLeft}
             <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+            {childrenRight.length > 0 && (
+              <>
+                <hr />
+                {childrenRight}
+              </>
+            )}
           </div>
         </div>
       </div>
+      <NavigationLanguageSelector fullWidthForMobile />
       <HeaderActionBarNavigationMenu />
     </>
   );

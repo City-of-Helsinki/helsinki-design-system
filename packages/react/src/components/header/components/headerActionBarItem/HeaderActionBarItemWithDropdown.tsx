@@ -1,4 +1,4 @@
-import React, { ElementType, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { IconCross } from '../../../../icons';
 import { HeaderActionBarItem } from './HeaderActionBarItem';
@@ -33,15 +33,23 @@ type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
   /**
    * Icon for the action bar item.
    */
-  icon: ElementType;
+  icon: JSX.Element;
   /**
    * Icon for the action bar item when dropdown is open.
    */
-  closeIcon?: ElementType;
+  closeIcon?: JSX.Element;
   /**
    * Aria-label attribute for the dropdown button.
    */
   ariaLabel?: string;
+  /**
+   * Positions the label right side of the icon.
+   */
+  labelOnRight?: boolean;
+  /**
+   * Fix the item position to the right side of the action bar.
+   */
+  fixedRightPosition?: boolean;
 }> &
   React.ComponentPropsWithoutRef<'div'>;
 
@@ -58,6 +66,8 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     icon,
     closeIcon = IconCross,
     ariaLabel,
+    labelOnRight,
+    fixedRightPosition,
     ...props
   } = properties;
   const dropdownContentElementRef = useRef<HTMLElement>(null);
@@ -121,9 +131,11 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         aria-expanded={visible}
         aria-label={ariaLabel}
         aria-controls={`${id}-dropdown`}
+        labelOnRight={labelOnRight}
+        fixedRightPosition={fixedRightPosition}
       />
       <div className={classes.dropdownWrapper}>
-        <aside id={`${id}-dropdown`} tabIndex={0} className={dropdownClassName} ref={dropdownContentElementRef}>
+        <aside id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
           {children}
         </aside>
       </div>

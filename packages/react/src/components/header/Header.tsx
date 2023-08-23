@@ -10,7 +10,7 @@ import { HeaderActionBarItemWithDropdown } from './components/headerActionBarIte
 import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
 import { NavigationSearch } from './components/navigationSearch';
 import { SkipLink } from '../../internal/skipLink';
-import { LanguageProvider, LanguageProviderProps } from '../../context/languageContext';
+import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 // import base styles
 import '../../styles/base.css';
 import styles from './Header.module.scss';

@@ -22,11 +22,25 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
    * Label for the action bar item.
    */
   label?: string | JSX.Element;
+  /**
+   * Positions the label right side of the icon.
+   */
+  labelOnRight?: boolean;
+  /**
+   * Fix the item position to the right side of the action bar.
+   */
+  fixedRightPosition?: boolean;
 }
 
 export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
-  ({ icon, label, className, ariaLabel, ariaControls, ...rest }, ref) => {
-    const buttonClassName = classNames(classes.actionBarItem, className);
+  ({ icon, label, labelOnRight, fixedRightPosition, className, ariaLabel, ariaControls, ...rest }, ref) => {
+    const buttonClassName = classNames({
+      [classes.actionBarItem]: true,
+      [className]: true,
+      [classes.fixedRightPosition]: fixedRightPosition,
+    });
+    const iconClassName = classNames({ [classes.actionBarItemIcon]: true, [classes.labelOnRight]: labelOnRight });
+    const labelClassName = classNames({ [classes.actionBarItemLabel]: true, [classes.labelOnRight]: labelOnRight });
 
     return (
       <button
@@ -38,9 +52,9 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
         ref={ref}
       >
         {icon && React.isValidElement(icon) && (
-          <span className={classes.actionBarItemIcon}>{cloneElement(icon, { 'aria-hidden': true })}</span>
+          <span className={iconClassName}>{cloneElement(icon, { 'aria-hidden': true })}</span>
         )}
-        {label && <span className={classes.actionBarItemLabel}>{label}</span>}
+        {label && <span className={labelClassName}>{label}</span>}
       </button>
     );
   },

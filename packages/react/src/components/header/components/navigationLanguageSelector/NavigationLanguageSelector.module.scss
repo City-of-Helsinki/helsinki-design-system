@@ -4,11 +4,17 @@
 .languageSelector {
   display: flex;
   gap: var(--spacing-s);
+  justify-content: space-between;
 }
 
 .languageSelectorDropdownIcon {
   align-items: center;
-  display: inline-flex;
+  margin-top: 1px;
+  padding-top: 3px;
+
+  &:focus-visible {
+    outline-offset: 0;
+  }
 }
 
 .languageSelectorDropdown {
@@ -17,21 +23,26 @@
   flex-flow: column nowrap;
 
   > * {
-    line-height: var(--spacing-2-xl);
+    line-height: var(--lineheight-l);
     margin: 0;
   }
 }
 
 .item {
+  align-self: center;
   appearance: none;
   background: transparent;
   border: none;
   cursor: pointer;
-  line-height: var(--spacing-2-xl);
+  line-height: var(--lineheight-l);
   padding: 0;
   white-space: nowrap;
 
-  @include header.element-focus-state;
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline-offset: var(--header-focus-outline-width);
+  }
 }
 
 .activeItem {
@@ -40,4 +51,23 @@
   span {
     border-bottom: 2px solid;
   }
+}
+
+.languageNodes {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+.fullWidthForMobile {
+  background-color: var(--color-silver-light);
+  border-bottom: 1px solid var(--color-black-20);
+  box-sizing: border-box;
+  display: flex;
+  height: var(--spacing-layout-m);
+  padding: 0 var(--header-margin);
+  width: 100%;
+}
+
+.fullWidthForMobile .languageSelectorDropdownIcon:focus-visible {
+  outline-offset: 0;
 }

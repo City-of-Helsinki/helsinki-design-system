@@ -4,7 +4,7 @@ import { axe } from 'jest-axe';
 
 import { HeaderActionBar } from '.';
 import { HeaderWrapper } from '../../../../utils/test-utils';
-import { DEFAULT_LANGUAGE, LanguageOption } from '../../../../context/languageContext';
+import { DEFAULT_LANGUAGE, LanguageOption } from '../../LanguageContext';
 import { Header } from '../../Header';
 
 const languages: LanguageOption[] = [
@@ -48,7 +48,7 @@ describe('<HeaderActionBar /> spec', () => {
       return title;
     };
 
-    render(<HeaderWithActionBar onDidChangeLanguage={handleLanguageChange} />);
+    render(HeaderWithActionBar({ onDidChangeLanguage: handleLanguageChange }));
 
     expect(handleLanguageChange.mock.calls.length).toBe(1);
     expect(handleLanguageChange.mock.calls[0][0]).toBe(DEFAULT_LANGUAGE);

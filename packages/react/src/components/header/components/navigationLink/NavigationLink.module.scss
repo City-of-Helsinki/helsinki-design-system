@@ -39,8 +39,7 @@
   position: relative;
 
   &.isNotLargeScreen {
-    align-items: stretch;
-    border-top: 1px solid var(--color-black-20);
+    width: 100%;
 
     &,
     &:focus {
@@ -60,23 +59,17 @@
   box-sizing: border-box;
   color: var(--color-black-90);
   font-size: var(--link-font-size);
-  height: var(--action-bar-dropdown-menu-secondary-item-height);
-  line-height: var(--action-bar-dropdown-menu-secondary-item-height);
   padding: 0;
   word-wrap: break-word;
 
   &.depth-0 {
     font-size: var(--fontsize-body-xl);
-    height: var(--action-bar-dropdown-menu-primary-item-height);
-    line-height: var(--action-bar-dropdown-menu-primary-item-height);
-    padding: 0 0 0 16px;
+    margin-left: 16px;
   }
 
-  &.depth-1 { padding: 0 0 0 32px; }
-  &.depth-2 { padding: 0 0 0 48px; }
-  &.depth-3 { padding: 0 0 0 64px; }
+  &.depth-1 { margin-left: 32px; }
+  &.depth-2 { margin-left: 48px; }
+  &.depth-3 { margin-left: 64px; }
 
   &:focus { border: none }
-
-  @include header.element-focus-state;
 }

@@ -1,15 +1,6 @@
 @use "../../styles/common.scss";
 @use "../../styles/layout.scss";
 
-@mixin element-focus-state {
-  @include common.focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  )
-}
-
 .header {
   --header-background-color: var(--color-white);
   --header-color: var(--color-black-90);
