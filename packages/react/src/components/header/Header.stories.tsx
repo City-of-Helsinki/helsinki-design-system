@@ -426,7 +426,6 @@ export const WithFullFeaturesCustomTheme = (args) => (
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.normal}
         logoAriaLabel="Service logo"
         logoUrl="https://hel.fi"
         menuButtonAriaLabel="Menu"
