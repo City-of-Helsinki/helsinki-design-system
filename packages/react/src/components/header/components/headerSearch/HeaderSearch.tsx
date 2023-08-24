@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import styles from './NavigationSearch.module.scss';
+import styles from './HeaderSearch.module.scss';
 import { SearchInput } from '../../../searchInput';
 
 export type NavigationSearchProps = {
@@ -18,7 +18,7 @@ export type NavigationSearchProps = {
   label: string | JSX.Element;
 };
 
-export const NavigationSearch = ({ onChange, onSubmit, label }: NavigationSearchProps) => {
+export const HeaderSearch = ({ onChange, onSubmit, label }: NavigationSearchProps) => {
   // search is always active in mobile
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -37,4 +37,4 @@ export const NavigationSearch = ({ onChange, onSubmit, label }: NavigationSearch
   );
 };
 
-NavigationSearch.displayName = 'NavigationSearch';
+HeaderSearch.displayName = 'HeaderSearch';

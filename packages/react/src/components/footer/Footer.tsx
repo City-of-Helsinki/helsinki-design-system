@@ -9,7 +9,7 @@ import classNames from '../../utils/classNames';
 import { FooterNavigation } from './components/footerNavigation/FooterNavigation';
 import { FooterNavigationGroup } from './components/footerNavigationGroup/FooterNavigationGroup';
 import { FooterGroupHeading } from './components/footerGroupHeading/FooterGroupHeading';
-import { FooterNavigationLink } from './components/footerNavigationLink/FooterNavigationLink';
+import { FooterLink } from './components/footerLink/FooterLink';
 import { FooterUtilities } from './components/footerUtilities/FooterUtilities';
 import { FooterUtilityGroup } from './components/footerUtilityGroup/FooterUtilityGroup';
 import { FooterBase } from './components/footerBase/FooterBase';
@@ -84,7 +84,7 @@ export const Footer = ({
 Footer.Navigation = FooterNavigation;
 Footer.NavigationGroup = FooterNavigationGroup;
 Footer.GroupHeading = FooterGroupHeading;
-Footer.NavigationLink = FooterNavigationLink;
+Footer.Link = FooterLink;
 Footer.Utilities = FooterUtilities;
 Footer.UtilityGroup = FooterUtilityGroup;
 Footer.Base = FooterBase;

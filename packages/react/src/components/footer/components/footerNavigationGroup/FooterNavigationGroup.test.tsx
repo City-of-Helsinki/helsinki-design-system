@@ -15,9 +15,9 @@ describe('<Footer.NavigationGroup /> spec', () => {
           <Footer.GroupHeading href="https://google.com" label="Main Page" variant={FooterVariant.Navigation} />
         }
       >
-        <Footer.NavigationLink label="Link 1" />
-        <Footer.NavigationLink label="Link 2" />
-        <Footer.NavigationLink label="Link 3" />
+        <Footer.Link label="Link 1" />
+        <Footer.Link label="Link 2" />
+        <Footer.Link label="Link 3" />
       </FooterNavigationGroup>,
       { wrapper: FooterNavigationWrapper },
     );
@@ -30,9 +30,9 @@ describe('<Footer.NavigationGroup /> spec', () => {
           <Footer.GroupHeading href="https://google.com" label="Main Page" variant={FooterVariant.Navigation} />
         }
       >
-        <Footer.NavigationLink label="Link 1" />
-        <Footer.NavigationLink label="Link 2" />
-        <Footer.NavigationLink label="Link 3" />
+        <Footer.Link label="Link 1" />
+        <Footer.Link label="Link 2" />
+        <Footer.Link label="Link 3" />
       </FooterNavigationGroup>,
       { wrapper: FooterNavigationWrapper },
     );

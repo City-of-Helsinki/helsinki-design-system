@@ -512,9 +512,9 @@ const DemoPage = () => {
       </Container>
       <Footer id="page-footer" className="page-footer" title="Helsinki Design System">
         <Footer.Base copyrightHolder="Copyright">
-          <Footer.NavigationLink variant={FooterVariant.Base} label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
-          <Footer.NavigationLink variant={FooterVariant.Base} label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
-          <Footer.NavigationLink variant={FooterVariant.Base} label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
+          <Footer.Link variant={FooterVariant.Base} label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
+          <Footer.Link variant={FooterVariant.Base} label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+          <Footer.Link variant={FooterVariant.Base} label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
         </Footer.Base>
       </Footer>
     </>

@@ -5,10 +5,10 @@ import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
 import { HeaderActionBar, TitleStyleType } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
-import { NavigationLink } from './components/navigationLink';
+import { HeaderLink } from './components/headerLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
-import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
-import { NavigationSearch } from './components/navigationSearch';
+import { HeaderLanguageSelector } from './components/headerLanguageSelector';
+import { HeaderSearch } from './components/headerSearch';
 import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 // import base styles
@@ -54,9 +54,9 @@ interface HeaderInterface extends FC<HeaderProps> {
   TitleStyleType: typeof TitleStyleType;
   NavigationMenu: typeof HeaderNavigationMenu;
   ActionBarItem: typeof HeaderActionBarItemWithDropdown;
-  NavigationLink: typeof NavigationLink;
-  NavigationLanguageSelector: typeof NavigationLanguageSelector;
-  NavigationSearch: typeof NavigationSearch;
+  Link: typeof HeaderLink;
+  LanguageSelector: typeof HeaderLanguageSelector;
+  Search: typeof HeaderSearch;
   SkipLink: typeof SkipLink;
 }
 
@@ -80,8 +80,8 @@ Header.TitleStyleType = TitleStyleType;
 Header.NavigationMenu = HeaderNavigationMenu;
 
 Header.ActionBarItem = HeaderActionBarItemWithDropdown;
-Header.NavigationLink = NavigationLink;
+Header.Link = HeaderLink;
 
-Header.NavigationLanguageSelector = NavigationLanguageSelector;
-Header.NavigationSearch = NavigationSearch;
+Header.LanguageSelector = HeaderLanguageSelector;
+Header.Search = HeaderSearch;
 Header.SkipLink = SkipLink;

@@ -2,16 +2,16 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { NavigationSearch } from './NavigationSearch';
+import { HeaderSearch } from './HeaderSearch';
 import { NavigationWrapper } from '../../../../utils/test-utils';
 
-describe('<Header.NavigationSearch /> spec', () => {
+describe('<Header.HeaderSearch /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationSearch label="Haku" />, { wrapper: NavigationWrapper });
+    const { asFragment } = render(<HeaderSearch label="Haku" />, { wrapper: NavigationWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<NavigationSearch label="Haku" />, { wrapper: NavigationWrapper });
+    const { container } = render(<HeaderSearch label="Haku" />, { wrapper: NavigationWrapper });
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

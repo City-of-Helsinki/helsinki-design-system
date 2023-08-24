@@ -15,7 +15,7 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
    */
   ariaLabel?: string;
   /**
-   * Children are expected to be NavigationLink components or a container with NavigationLink components inside.
+   * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
    */
   children?: React.ReactNode;
   /**

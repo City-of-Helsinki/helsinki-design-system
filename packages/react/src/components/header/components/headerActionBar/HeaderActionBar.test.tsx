@@ -21,7 +21,7 @@ const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
   return (
     <Header onDidChangeLanguage={onDidChangeLanguage}>
       <Header.ActionBar title="Otsake">
-        <Header.NavigationLanguageSelector languages={languages} />
+        <Header.LanguageSelector languages={languages} />
       </Header.ActionBar>
     </Header>
   );

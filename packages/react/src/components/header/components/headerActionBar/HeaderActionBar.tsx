@@ -5,7 +5,7 @@ import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { useActiveLanguage } from '../../LanguageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
-import { NavigationLanguageSelector } from '../navigationLanguageSelector';
+import { HeaderLanguageSelector } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
@@ -145,7 +145,7 @@ export const HeaderActionBar = ({
             </LinkItem>
           )}
           <div className={styles.headerActions}>
-            <NavigationLanguageSelector />
+            <HeaderLanguageSelector />
             {childrenLeft}
             <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
             {childrenRight.length > 0 && (
@@ -157,7 +157,7 @@ export const HeaderActionBar = ({
           </div>
         </div>
       </div>
-      <NavigationLanguageSelector fullWidthForMobile />
+      <HeaderLanguageSelector fullWidthForMobile />
       <HeaderActionBarNavigationMenu />
     </>
   );

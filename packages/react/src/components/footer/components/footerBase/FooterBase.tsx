@@ -7,7 +7,7 @@ import styles from './FooterBase.module.scss';
 import { Logo, LogoLanguage } from '../../../logo';
 import { IconArrowUp } from '../../../../icons';
 import getKeyboardFocusableElements from '../../../../utils/getKeyboardFocusableElements';
-import { FooterNavigationLink } from '../footerNavigationLink/FooterNavigationLink';
+import { FooterLink } from '../footerLink/FooterLink';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
 
@@ -83,11 +83,7 @@ export const FooterBase = ({
     <div className={styles.base} aria-label={ariaLabel} role={role}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
-        <FooterNavigationLink
-          tabIndex={0}
-          icon={<Logo size="medium" language={logoLanguage} aria-hidden />}
-          href={logoHref}
-        />
+        <FooterLink tabIndex={0} icon={<Logo size="medium" language={logoLanguage} aria-hidden />} href={logoHref} />
       </div>
       {(copyrightHolder || copyrightText) && (
         <div className={styles.copyright}>

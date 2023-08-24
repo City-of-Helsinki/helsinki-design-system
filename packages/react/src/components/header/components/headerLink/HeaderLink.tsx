@@ -3,10 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 // import base styles
 import '../../../../styles/base.css';
-import styles from './NavigationLink.module.scss';
+import styles from './HeaderLink.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
-import { NavigationLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './navigationLinkDropdown';
+import { HeaderLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './headerLinkDropdown';
 import { useHeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { useHeaderContext } from '../../HeaderContext';
 import { MergeElementProps } from '../../../../common/types';
@@ -89,7 +89,7 @@ export type NavigationLinkProps<ReactElement> = {
    */
   dropdownLinkClassName?: string;
   /**
-   * Array of NavigationLink components to render in a dropdown. Can be used only inside navigation components.
+   * Array of HeaderLink components to render in a dropdown. Can be used only inside navigation components.
    */
   dropdownLinks?: Array<React.ReactElement>;
   /**
@@ -131,7 +131,7 @@ export type HeaderNavigationLinkProps<ReactElement extends React.ElementType = '
   NavigationLinkProps<ReactElement>
 >;
 
-export const NavigationLink = <T extends React.ElementType = 'a'>({
+export const HeaderLink = <T extends React.ElementType = 'a'>({
   active,
   as: LinkComponent,
   className,
@@ -241,7 +241,7 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
     styles[`depth-${depth}`],
     wrapperClassName,
   );
-  const navigationLinkClassName = classNames(styles.navigationLink, styles[`depth-${depth}`], className, {
+  const navigationLinkClassName = classNames(styles.headerLink, styles[`depth-${depth}`], className, {
     active,
     isNotLargeScreen,
   });
@@ -264,7 +264,7 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
         {label}
       </Item>
       {dropdownLinks && (
-        <NavigationLinkDropdown
+        <HeaderLinkDropdown
           open={isDropdownOpen}
           setOpen={handleDropdownOpen}
           index={index}
@@ -283,13 +283,13 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
               dropdownLinkClassName,
             });
           })}
-        </NavigationLinkDropdown>
+        </HeaderLinkDropdown>
       )}
     </span>
   );
 };
 
-NavigationLink.defaultProps = {
+HeaderLink.defaultProps = {
   as: Link,
   href: '#',
 };

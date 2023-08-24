@@ -18,7 +18,7 @@ export type FooterUtilitiesProps = {
    */
   children: React.ReactNode;
   /**
-   * List of Footer.NavigationLink components to display in the social media section.
+   * List of Link components to display in the social media section.
    */
   soMeLinks?: React.ReactNode[];
   /**

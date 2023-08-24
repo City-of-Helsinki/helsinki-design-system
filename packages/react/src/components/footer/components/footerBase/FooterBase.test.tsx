@@ -25,9 +25,9 @@ describe('<Footer.Base /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
       <FooterBase>
-        <Footer.NavigationLink label="Link 1" variant={FooterVariant.Base} />
-        <Footer.NavigationLink label="Link 2" variant={FooterVariant.Base} />
-        <Footer.NavigationLink label="Link 3" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 1" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 2" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 3" variant={FooterVariant.Base} />
       </FooterBase>,
       {
         wrapper: FooterWrapper,
@@ -39,9 +39,9 @@ describe('<Footer.Base /> spec', () => {
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <FooterBase copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Ylös">
-        <Footer.NavigationLink label="Link 1" variant={FooterVariant.Base} />
-        <Footer.NavigationLink label="Link 2" variant={FooterVariant.Base} />
-        <Footer.NavigationLink label="Link 3" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 1" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 2" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 3" variant={FooterVariant.Base} />
       </FooterBase>,
       {
         wrapper: FooterWrapper,

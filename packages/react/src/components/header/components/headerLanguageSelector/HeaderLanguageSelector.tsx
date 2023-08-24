@@ -12,7 +12,7 @@ import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/get
 import { withDefaultPrevented } from '../../../../utils/useCallback';
 import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
 import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
-import classes from './NavigationLanguageSelector.module.scss';
+import classes from './HeaderLanguageSelector.module.scss';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 
 export type LanguageSelectorProps = PropsWithChildren<{
@@ -48,7 +48,7 @@ const renderLanguageNode = (language: LanguageOption) => {
   return <LanguageButton key={language.value} value={language.value} label={language.label} />;
 };
 
-export const NavigationLanguageSelector = ({
+export const HeaderLanguageSelector = ({
   children,
   languages,
   ariaLabel,

@@ -3,7 +3,7 @@ import React from 'react';
 // import base styles
 import '../../../../styles/base.css';
 
-import styles from './FooterNavigationLink.module.scss';
+import styles from './FooterLink.module.scss';
 import { Link } from '../../../link';
 import { MergeElementProps } from '../../../../common/types';
 import classNames from '../../../../utils/classNames';
@@ -54,18 +54,15 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   subItem?: boolean;
   /**
-   * Defines the FooterNavigationLink variant.
+   * Defines the FooterLink variant.
    * @internal
    */
   variant?: FooterVariant.Navigation | FooterVariant.Utility | FooterVariant.Base;
 }>;
 
-export type FooterNavigationLinkProps<Element extends React.ElementType = 'a'> = MergeElementProps<
-  Element,
-  ItemProps<Element>
->;
+export type FooterLinkProps<Element extends React.ElementType = 'a'> = MergeElementProps<Element, ItemProps<Element>>;
 
-export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
+export const FooterLink = <T extends React.ElementType = 'a'>({
   ariaLabel,
   as: LinkComponent,
   className,
@@ -75,7 +72,7 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   subItem = false,
   variant,
   ...rest
-}: FooterNavigationLinkProps<T>) => {
+}: FooterLinkProps<T>) => {
   const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
 
   return (
@@ -94,6 +91,6 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   );
 };
 
-FooterNavigationLink.defaultProps = {
+FooterLink.defaultProps = {
   as: Link,
 };
