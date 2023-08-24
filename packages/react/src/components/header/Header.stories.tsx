@@ -166,7 +166,6 @@ export const WithFullFeaturesDarkTheme = (args) => (
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.normal}
         logoAriaLabel="Service logo"
         logoUrl="https://hel.fi"
         menuButtonAriaLabel="Menu"
@@ -309,12 +308,7 @@ export const Minimal = (args) => {
 export const MinimalWithDarkTheme = (args) => {
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.black}
-      >
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
@@ -457,12 +451,7 @@ export const WithSkipLinkInDarkMode = (args) => {
   return (
     <Header {...args} theme="dark" onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.black}
-      >
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">

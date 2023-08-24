@@ -76,7 +76,35 @@ Coming soon!
 - See example for Header.SkipLink <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-skip-link">in Storybook</Link>
 - The Header.SkipLink supports ariaLabel which gives possibility to define more informative text for screen readers
 
-#### With theme
+#### Colour variations
 
-- Header supports two themes: light (default) and dark. See example for light theme <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link> and for dark theme <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-dark-theme">in Storybook</Link>
+- Header offers two variations with different backgrounds - one with white and one with black (default) text elements.  Use variation that achieves better contrast with the brand background colour of your choice.
+
+<PlaygroundPreview>
+    <Header theme="light">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+      <Header.NavigationMenu>
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
+    </Header>
+    <br />
+    <Header theme="dark">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+      <Header.NavigationMenu>
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
+    </Header>
+</PlaygroundPreview>
 

@@ -15,19 +15,68 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground>
+<Playground scope={{ Header }}>
 
 ```jsx
-<Header>
-  <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-    <Header.NavigationLink href="#">Link</Header.NavigationLink>
-    <Header.NavigationLink href="#">Link</Header.NavigationLink>
-    <Header.NavigationLink href="#">Link</Header.NavigationLink>
-  </Header.UniversalBar>
-</Header>
+import { Header } from 'hds-react';
+
+() => (
+  <>
+    <Header>
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+    </Header>
+  </>
+)
 ```
 
 </Playground>
+
+#### Colour variations
+
+<Playground scope={{ Header }}>
+
+```jsx
+import { Header } from 'hds-react';
+
+() => (
+  <>
+    <Header theme="light">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+    </Header>
+  </>
+)
+```
+
+</Playground>
+
+<Playground scope={{ Header }}>
+
+```jsx
+import { Header } from 'hds-react';
+
+() => (
+  <>
+    <Header theme="dark">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+    </Header>
+  </>
+)
+```
+
+</Playground>
+
 
 ### Packages
 
@@ -44,7 +93,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | --------------------------- | -------------------------------- | -------------- | ------------- |
 | `className`                 | Additional class names to apply. | `string`       | -             |
 | `id`                        | Id for the element.              | `string`       | -             |
-| `theme`                     | Header theme                     | `light`|`dark` | `light`       |
+| `theme`                     | Header theme                     | `light`,`dark` | `light`       |
 | [Table 1:Header properties] |
 
 | Property                                | Description                                                     | Values   | Default value        |
