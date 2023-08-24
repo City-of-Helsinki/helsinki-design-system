@@ -221,6 +221,49 @@ import { Link } from 'gatsby';
 
 </Playground>
 
+#### Colour variations
+
+<Playground scope={{ Header }}>
+
+```jsx
+import { Header } from 'hds-react';
+
+() => (
+  <>
+    <Header theme="light">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+    </Header>
+  </>
+)
+```
+
+</Playground>
+
+<Playground scope={{ Header }}>
+
+```jsx
+import { Header } from 'hds-react';
+
+() => (
+  <>
+    <Header theme="dark">
+      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      </Header.UniversalBar>
+    </Header>
+  </>
+)
+```
+
+</Playground>
+
+
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                         | Source link                                                                                                                                                                                                         |

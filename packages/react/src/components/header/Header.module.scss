@@ -21,7 +21,7 @@
   --action-bar-dropdown-menu-secondary-item-height: 48px;
   --action-bar-button-size: 64px;
   --action-bar-item-gutter: 12px;
-  --action-bar-item-title-font-size: 14px;
+  --action-bar-item-title-font-size: var(--fontsize-body-s);
   --action-bar-item-title-font-color: var(--header-color);
   --lang-selector-item-font-color: var(--header-color);
   --lang-selector-dropdown-background-color: var(--color-white);
