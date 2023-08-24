@@ -11,13 +11,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Creating and connecting your own module
 
 If there is a need for a deeper connection to other modules, a custom module can be created. Modules can emit signals. Modules are not React-specific, just plain javascript.
-A module passed to the beacon must have the following properties:
+A module passed to the <InternalLink href="/components/login/api/#beacon">Beacon</InternalLink> must have the following properties:
 
-| Property                            | Description                                        |
-| ----------------------------------- | -------------------------------------------------- |
-| `namespace`                         | String. A unique namespace.                        |
-| `connect(beacon)`                   | Function called when module is added to the beacon |
-| [Table 1: custom module properties] |
+| Property                            | Description                                             |
+| ----------------------------------- | ------------------------------------------------------- |
+| `connect(beacon)`                   | Function called when a module is added to the `Beacon`. |
+| `namespace`                         | String. A unique namespace.                             |
+| [Table 1: Custom module properties] |
 
 <PlaygroundPreview>
 
@@ -27,7 +27,7 @@ import { createNamespacedBeacon, ConnectedModule } from 'hds-react';
 const createMyCustomModule = (): ConnectedModule => {
   const customBeacon = createNamespacedBeacon('myModule');
   const listener = (signal) => {
-    // this is listenening everything
+    // This is listenening everything
   };
   return {
     namespace: helperNamespace,
@@ -43,9 +43,9 @@ const createMyCustomModule = (): ConnectedModule => {
 
 ### Connecting your module
 
-Modules are automatically connected to other modules when they are passed in the `modules` property of the LoginProvider.
+Modules are automatically connected to other modules when they are passed in the `modules` property of the <InternalLink href="/components/login/usage/#loginprovider">LoginProvider</InternalLink>.
 
-`Module.connect()` is called and when all modules are connected, an `init` signal is emitted for each module. This is done by the beacon.
+`Module.connect()` is called and when all modules are connected, an `init` signal is emitted for each module. This is done by the `Beacon`.
 
 <PlaygroundPreview>
 
@@ -65,21 +65,21 @@ const providerProperties = {..., modules=[myModule]}
 
 ### Custom namespaced beacons for modules
 
-Modules must emit signals in their own namespace. Beacon has only one emit function. To make emitting easier, the `createNamespacedBeacon` returns a utility, where all emitted signals have pre-set namespace and there are emit functions for different signal types.
+Modules must emit signals in their namespace. Beacon has only one emit function. To make emitting easier, the `createNamespacedBeacon` returns a utility where all emitted signals have a pre-set namespace and there are emit functions for different signal types.
 
-This utility also handles cases, where listeners are added before the module is connected to the beacon.
+This utility also handles cases where listeners are added before the module is connected to the `Beacon`.
 
-It also ignores signals from its own namespace, when listening to generic signals.
+It also ignores signals from its namespace when listening to generic signals.
 
-| Name                                       | Description                                                                                                        | Return values               |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | --------------------------- |
-| `storeBeacon(beacon)`                      | Beacon. Call this from the `module.connect()`. Stores the beacon, so the module does not have to store it.         | none                        |
-| `emit(signal)`                             | calls beacon.emit, if the beacon is connected                                                                      | none                        |
-| `addListener(signalProps, listener)`       | Adds a listener for given signal props. Module's own signals are filtered out if the namespace is for all signals. | Disposer function           |
-| `emitError(payload)`                       | Emits an error with the given payload                                                                              | Context module or undefined |
-| `emitEvent(payload, data)`                 | Emits an event with the given type and data in the payload                                                         | Object                      |
-| `emitStateChange(state,previousState)`     | Emits a stateChange with the given state and previousState in the payload                                          | none                        |
-| [Table 2: custom beacon utility functions] |
+| Name                                       | Description                                                                                                        | Return values                 |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| `addListener(signalProps, listener)`       | Adds a listener for given signal props. Module's own signals are filtered out if the namespace is for all signals. | A disposer function           |
+| `emit(signal)`                             | Calls the `beacon.emit`, if the `Beacon` is connected.                                                             | none                          |
+| `emitError(payload)`                       | Emits an error with the given payload.                                                                             | Context module or `undefined` |
+| `emitEvent(payload, data)`                 | Emits an event with the given type and data in the payload.                                                        | `Object`                      |
+| `emitStateChange(state,previousState)`     | Emits a `stateChange` with the given state and `previousState` in the payload.                                     | none                          |
+| `storeBeacon(beacon)`                      | `Beacon`. Call this from the `module.connect()`. Stores the beacon, so the module does not have to store it.       | none                          |
+| [Table 2: Custom beacon utility functions] |
 
 <PlaygroundPreview>
 
@@ -104,6 +104,62 @@ const createMyCustomModule = (): ConnectedModule => {
     },
   };
 };
+```
+
+</PlaygroundPreview>
+
+### Emitting signals
+
+The following example is for custom modules because components cannot emit signals.
+
+<PlaygroundPreview>
+
+```jsx
+// Beacon is not imported, this example assumes it is in the scope
+
+const error  = new OidcClientError('Failed', oidcClientError.SIGNIN_ERROR),
+
+// This is the same as
+beacon.emit({
+  type: errorSignalType,
+  namespace: 'teamHDS',
+  payload: error,
+});
+
+// This
+beacon.emit(createErrorSignal('teamHDS', error));
+
+// and this - if custom, namespaced beacon is created for 'teamHDS'
+customBeacon.emitError(error);
+
+```
+
+</PlaygroundPreview>
+
+#### Listening to signals
+
+A signal listener is a function that receives one argument: the signal. A listener can listen to all signals or just one type of signal with a certain namespace.
+Listeners can be even more specific and listen to signals with certain payloads. In short, a listener can listen to any properties of the signal and is triggered when all properties match.
+
+The listener is called only if the emitted signal matches the given props.
+
+For example, if the trigger props (the first argument) passed to `beacon.addListener(trigger, listener)` is `{ type:'error' }`, the listener (second argument) is called when the emitted signal has a matching type. It does not matter what other props the signal has.
+
+If the trigger props are `{ namespace:'myModule', payload:{type:'click'} }`, the emitted signal must have those properties with the same, exact values. Other properties are not checked.
+
+The trigger can also be a function. Internally all triggers are converted to functions.
+
+<PlaygroundPreview>
+
+```jsx
+const listener = (signal) => {
+  // Do something with the signal.
+};
+// Listen to all error signals
+const trigger = { type: 'error' };
+const disposer = beacon.addListener(trigger, listener);
+// The listener can be removed by calling the returned disposer
+disposer();
 ```
 
 </PlaygroundPreview>

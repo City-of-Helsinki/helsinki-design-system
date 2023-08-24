@@ -120,7 +120,7 @@ export const getApiTokenFromStorage = (
 };
 
 /**
- *  Removes the user reference to stored api tokens. Reference is the access token used when fetching api tokens
+ *  Removes the user reference from stored api tokens. Reference is the access token used when fetching api tokens
  * @param storage
  */
 export const removeUserReferenceFromStorage = (storage: Storage = window.sessionStorage) => {

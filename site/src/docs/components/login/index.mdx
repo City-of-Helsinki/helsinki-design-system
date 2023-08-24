@@ -8,55 +8,73 @@ import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
+export const UsagePageAnchorLink = ({ anchor, children }) => {
+  return (
+    <AnchorLink path="/components/login/usage" anchor={anchor}>
+      {children}
+    </AnchorLink>
+  );
+};
+
+export const ApiPageAnchorLink = ({ anchor, children }) => {
+  return (
+    <AnchorLink path="/components/login/api" anchor={anchor}>
+      {children}
+    </AnchorLink>
+  );
+};
+
 ## Introduction
 
-HDS Login components include React components, context and hooks for handling user authorisation, api tokens and session polling. React is not a requirement to use the login modules, but currently, no plain javascript UI components exist.
+HDS Login components include React context, components and hooks for handling user authorisation, API tokens and session polling. React is not a requirement, but currently, no plain JavaScript UI components exist.
 
-Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses <ExternalLink href="https://github.com/City-of-Helsinki/tunnistamo">Tunnistamo</ExternalLink>, but HDS login components can be used with any compatible OIDC provider.
-
-Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
+Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses <ExternalLink href="https://github.com/City-of-Helsinki/tunnistamo">Tunnistamo</ExternalLink>, but HDS login components can be used with any compatible OIDC provider. Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
 
 In the OIDC login process, the browser window is redirected to the OIDC provider. Authentication is fully handled by the server. That is why HDS does not provide login or registration forms.
 
-When the user has been authenticated, the OIDC server redirects back to the service. HDS provides components to handle authentication process initiation and responses.
+When the user has been authenticated, the OIDC server redirects back to the service. HDS provides components to handle the authentication process initiation and responses.
 
-Components:
+### Requirements
 
-- a login button with error handling
-- a callback handler for parsing the authentication response
-- React context which exposes user data and other modules to React hooks and components.
-- wrappers which conditionally render their children depending on authentication status.
+Your service must be registered with an OIDC provider, like Tunnistamo.
 
-There is no component for logout. It is just a redirection link and any button can be used for it. No error handling is required.
+To use the OIDC provider with login components, you need
 
-Detailed documentation can be found in the <InternalLink href="/components/login/components">components</InternalLink> section.
+- Client id.
+- Authority.
+- URL of the OIDC provider.
 
-## Requirements
+### Important
 
-To use an OIDC provider you need a client id, authority and register callback URLs. Contact xxxx@hel.fi to register your application to Tunnistamo.
+The HDS <UsagePageAnchorLink>Oidc client</UsagePageAnchorLink> stores data in session storage for security reasons. Session storage is not shared across browser windows or tabs, so the user must log in separately for each window.
 
-## Important
+HDS Login components cannot support SSR at the moment because of the session storage requirement.
 
-HDS Oidc client stores data in the session storage for security reasons. Session storage is not shared across browser windows or tabs, so the user must log in separately to each window.
+Silent session renewal requires a <UsagePageAnchorLink anchor="silent-renewal">dedicated HTML file</UsagePageAnchorLink> that redirects to the OIDC provider "silently" in an iframe.
 
-## Example Usage
+### Example Usage
 
 <PlaygroundPreview>
 
 ```jsx
-// actual properties are omitted from this example to keep it simple
+// Actual properties are omitted from this example to keep it simple
 const providerProperties = {...}
 
 const SayHelloIfUserExists = () => {
   const user = useAuthenticatedUser();
-  if( user ) {
-    <p>Hello, { user.name }!</p>
+  if ( user ) {
+    return <p>Hello, { user.name }!</p>
   } else {
-    <p>You are not logged in.</p>
-    <LoginButton errorText="Login failed. Try again!">Log in</LoginButton>
+    return (
+      <>
+        <p>You are not logged in.</p>
+        <LoginButton errorText="Login failed. Try again!">Log in</LoginButton>
+      </>
+    )
   }
 }
 
@@ -68,7 +86,67 @@ const SayHelloIfUserExists = () => {
 
 </PlaygroundPreview>
 
-## Using without React
+### Components
 
-When React is not used, the beacon and modules can be created and initialized with `createLoginSystem(props)`. Props are the same as passed to <InternalLink href="/components/login/components#loginprovider">LoginProvider</InternalLink>. The function returns a <InternalLink href="/components/login/signals#the-beacon">beacon</InternalLink> instance which holds all modules.
-There are dozens of utility functions to use without React. See <InternalLink href="/components/login/modules">modules</InternalLink> and <InternalLink href="/components/login/modules">signals</InternalLink>.
+HDS Login components include
+
+- A React context that exposes user data and other modules to React hooks and components.
+- Login buttons with error handling.
+- A callback handler for parsing the authentication response.
+- Wrappers that conditionally render their children depending on authentication status.
+
+There is no component for logout. It is just a redirection link and any button can be used for it. No error handling is required.
+
+Detailed documentation can be found in the <UsagePageAnchorLink anchor="components">components section</UsagePageAnchorLink> of the <UsagePageAnchorLink anchor="usage">Usage page</UsagePageAnchorLink>.
+
+### Hooks
+
+HDS Login hooks enable to
+
+- Check login status.
+- Get user data.
+- Add listeners.
+- Login and logout.
+- Get API tokens.
+- Get modules.
+
+Detailed documentation is in the <UsagePageAnchorLink anchor="oidc-client-hooks">hooks section</UsagePageAnchorLink> of the <UsagePageAnchorLink anchor="usage">Usage page</UsagePageAnchorLink>.
+
+### Modules
+
+There are three modules to handle the user's needs:
+
+- <UsagePageAnchorLink>Oidc client</UsagePageAnchorLink> for user data.
+- <UsagePageAnchorLink>Api tokens client</UsagePageAnchorLink> for acquiring backend tokens.
+- <UsagePageAnchorLink>Session poller</UsagePageAnchorLink> for checking if the user's session is still valid at the Oidc
+  provider.
+
+If a module is not needed, it can be dropped with settings. <InternalLink href="/components/login/customisation">Custom modules</InternalLink> can also be added. All modules can be used without React and without each other. But a valid user object is required to get API tokens and poll the session.
+
+Modules emit <UsagePageAnchorLink>signals</UsagePageAnchorLink> to communicate with other modules. For example, the <UsagePageAnchorLink anchor="api-tokens-client">Api tokens client module</UsagePageAnchorLink> refreshes its tokens when user tokens in the <UsagePageAnchorLink anchor="oidc-client">Oidc client module</UsagePageAnchorLink> have been refreshed.
+
+Detailed information is in the <UsagePageAnchorLink anchor="modules">modules section</UsagePageAnchorLink> of the <UsagePageAnchorLink anchor="usage">Usage page</UsagePageAnchorLink>.
+
+#### Oidc client module
+
+This module handles the login process and parses tokens from the login response. It also renews tokens and handles token storage and removal. Logout is also handled by this module.
+
+#### Api tokens client module
+
+This module exchanges the user's tokens for API tokens. API tokens are used for querying data from backend servers. The module renews the tokens if the user's tokens change.
+
+#### Session poller module
+
+This module polls the user's session from the Oidc provider and signals an error if polling returns an unauthorized response. If you have logged in with the same user in multiple browser windows, this module detects when the user is logged out in any browser window.
+
+#### Custom modules
+
+Other modules can be added. Detailed information is in the <InternalLink href="/components/login/customisation">custom modules section</InternalLink>.
+
+### Signals
+
+Modules communicate with signals. A module emits signals and listener functions are triggered by them. Listeners can be added by modules, components or plain Javascript. Components can listen to signals with hooks.
+
+The signal emitter is called a <ApiPageAnchorLink>Beacon</ApiPageAnchorLink>. Usually, only error signals should be monitored. Data updates are handled automatically.
+
+Detailed information is in the <UsagePageAnchorLink anchor="signals">signals section</UsagePageAnchorLink> of the <UsagePageAnchorLink anchor="usage">Usage page</UsagePageAnchorLink>.

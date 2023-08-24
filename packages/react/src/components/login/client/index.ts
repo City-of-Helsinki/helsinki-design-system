@@ -60,7 +60,7 @@ export interface OidcClient extends ConnectedModule {
   handleCallback: () => Promise<User>;
   /**
    *
-   * Returns true, if user exists and user object passes isValid() check
+   * Returns true, if user exists and user object passes isValidUser() check
    */
   isAuthenticated: () => boolean;
   /**

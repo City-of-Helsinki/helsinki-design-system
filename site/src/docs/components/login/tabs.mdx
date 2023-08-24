@@ -3,19 +3,29 @@ slug: '/components/login/tabs'
 title: 'Login'
 ---
 
+import { StatusLabel } from 'hds-react';
+
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
+import LeadParagraph from '../../../components/LeadParagraph';
 import PageTabs from '../../../components/PageTabs';
 
 # Login
 
+<div className="status-label-description">
+  <StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
+  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip />
+</div>
+
+<LeadParagraph>Login components include React components, context and hooks for handling user authorisation, api tokens and session polling.</LeadParagraph>
+
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
     <PageTabs.Tab href="/">Intro</PageTabs.Tab>
-    <PageTabs.Tab href="/components">Components</PageTabs.Tab>
-    <PageTabs.Tab href="/modules">Modules</PageTabs.Tab>
-    <PageTabs.Tab href="/signals">Signals</PageTabs.Tab>
-    <PageTabs.Tab href="/hooks">Hooks</PageTabs.Tab>
-    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/api">API</PageTabs.Tab>
     <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
