@@ -7,19 +7,6 @@ import { Header } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
-export const theme = {
-  '--color-focus-outline': 'grey',
-  '--header-color': 'black',
-  '--actionbar-background-color': '#ffe977',
-  '--navigation-background-color': 'white',
-  '--nav-link-hover-color': 'black',
-  '--universal-bar-background-color': '#ffe977',
-  '--navigation-link-button-background-color': 'blue',
-  '--nav-button-background-color': 'white',
-  '--nav-button-hover-background-color': 'brown',
-  '--nav-drop-down-icon-color': 'red',
-};
-
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
@@ -92,7 +79,21 @@ import { Header } from 'hds-react';
 
 () => (
   <>
-    <Header theme={theme}>
+    <Header theme={{
+      '--color-focus-outline': '#bd2f00',
+      '--header-color': '#000',
+      '--actionbar-background-color': '#ffe977',
+      '--navigation-background-color': '#fff',
+      '--nav-border-color': '#000',
+      '--nav-link-hover-color': '#000',
+      '--universal-bar-background-color': '#ffe977',
+      '--navigation-link-button-background-color': '#666',
+      '--nav-link-dropdown-background-color': '#fff',
+      '--nav-button-background-color': '#666',
+      '--nav-button-hover-background-color': '#999',
+      '--nav-drop-down-icon-color': '#000',
+      '--header-base-background-color': 'transparent',
+    }}>
       <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
         <Header.NavigationLink href="#">Link</Header.NavigationLink>
         <Header.NavigationLink href="#">Link</Header.NavigationLink>
@@ -116,11 +117,11 @@ import { Header } from 'hds-react';
 
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-headeruniversalbar--default">React Storybook.</Link>
 
-| Property                    | Description                      | Values         | Default value |
-| --------------------------- | -------------------------------- | -------------- | ------------- |
-| `className`                 | Additional class names to apply. | `string`       | -             |
-| `id`                        | Id for the element.              | `string`       | -             |
-| `theme`                     | Header theme.                    | `light`,`dark` | `light`       |
+| Property                    | Description                      | Values                                | Default value |
+| --------------------------- | -------------------------------- | ------------------------------------- | ------------- |
+| `className`                 | Additional class names to apply. | `string`                              | -             |
+| `id`                        | Id for the element.              | `string`                              | -             |
+| `theme`                     | Header theme.                    | `light`, `dark`, `HeaderCustomTheme`  | `light`       |
 | [Table 1:Header properties] |
 
 | Property                                | Description                                                     | Values   | Default value        |
