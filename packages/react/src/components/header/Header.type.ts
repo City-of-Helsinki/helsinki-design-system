@@ -1,12 +1,14 @@
 export type HeaderTheme = 'light' | 'dark' | HeaderCustomTheme;
 
+/**
+ * Header theme color variables for custom theming
+ * --header-base-background-color: if there´s need for transparent etc. background for header container, default is white
+ */
 export interface HeaderCustomTheme {
   '--color-focus-outline'?: string;
   '--header-color'?: string;
-  '--header-base-background-color'?: string;
   '--actionbar-background-color'?: string;
   '--navigation-background-color'?: string;
-  '--drop-down-background-color'?: string;
   '--nav-border-color'?: string;
   '--nav-link-hover-color'?: string;
   '--universal-bar-background-color'?: string;
@@ -16,4 +18,5 @@ export interface HeaderCustomTheme {
   '--nav-button-background-color'?: string;
   '--nav-button-hover-background-color'?: string;
   '--nav-drop-down-icon-color'?: string;
+  '--header-base-background-color'?: string;
 }

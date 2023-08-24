@@ -121,6 +121,9 @@ export type NavigationLinkProps<ReactElement> = {
    */
   setOpenSubNavIndex?: (val: number) => void;
   /**
+   *
+   */
+  /**
    * Additional class name for the dropdown wrapper element.
    */
   wrapperClassName?: string;
