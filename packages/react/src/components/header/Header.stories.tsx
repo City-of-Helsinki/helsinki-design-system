@@ -64,7 +64,7 @@ export const WithFullFeatures = (args) => (
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
@@ -159,7 +159,7 @@ export const Minimal = (args) => {
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
         </Header.ActionBarItem>
         <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">

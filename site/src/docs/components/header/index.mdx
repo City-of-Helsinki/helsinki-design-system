@@ -4,8 +4,7 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header, IconSearch, Notification } from 'hds-react';
-import PlaygroundPreview from '../../../components/Playground';
+import { Header, IconBell, IconSearch, Notification } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 
@@ -35,7 +34,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
         { label: 'Svenska', value: 'sv' },
         { label: 'English', value: 'en' },
       ]} />
-      <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
     </Header.ActionBar>
@@ -187,7 +186,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
         { label: 'Svenska', value: 'sv' },
         { label: 'English', value: 'en' },
       ]} />
-      <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+      <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
         <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
     </Header.ActionBar>
@@ -215,6 +214,7 @@ Header.NavigationLanguageSelector offers the languages for the whole service. It
 
 The Header.NavigationSearch component is to be used for whole site wide search.
 - Using the Header.NavigationSearch is optional. It uses the <InternalLink href="/components/search-input">HDS SearchInput component</InternalLink>.
+- The Header.NavigationSearch needs to be inside [Header.ActionBarItem](#actionbaritem). Notice that the ActionBarItem is what is displayed on the ActionBar, and the children inside it are what's in the dropdown.
 - The input value can be obtained via `onChange` callback prop as the input value changes, or `onSubmit` callback prop which is called when the search icon is pressed.
 
 <PlaygroundPreview>
@@ -227,10 +227,88 @@ The Header.NavigationSearch component is to be used for whole site wide search.
       logoHref="https://hel.fi"
       menuButtonAriaLabel="Menu"
     >
-      <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+      <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
         <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
     </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
+
+##### ActionBarItem
+The Header.ActionBarItem is a generic component for displaying icon buttons on the action bar, optionally accompanied with dropdowns.
+- The Header.ActionBarItem extends native button element's attributes.
+- The item can be positioned behind a dividing line, setting it apart from the rest of the items with the prop `fixedRightPosition`. This is mainly reserved for log in button.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+      <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell/>} id="action-bar-notifications">
+        <p>Ei uusi ilmoituksia.</p>
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.NavigationLink
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        active
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Terveydenhoito"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Hammashoito" />,
+              <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Viriketoiminta" />,
+              <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink
+        href="#"
+        label="Kasvatus ja koulutus"
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Kasvatus"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+              <Header.NavigationLink href="#" label="Esiopetus" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Perusopetus" />,
+              <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+              <Header.NavigationLink href="#" label="Työväenopistot" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink href="#" label="Asuminen" />
+    </Header.NavigationMenu>
   </Header>
 </PlaygroundPreview>
 
@@ -254,7 +332,7 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
         { label: 'Svenska', value: 'sv' },
         { label: 'English', value: 'en' },
       ]} />
-      <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+      <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
         <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
     </Header.ActionBar>

@@ -7,15 +7,19 @@ type ButtonAttributes = JSX.IntrinsicElements['button'];
 
 export interface HeaderActionBarItemProps extends ButtonAttributes {
   /**
-   * Aria label for the item.
-   */
-  ariaLabel?: string;
-  /**
    * Id of controlled dropdown menu.
    */
   ariaControls?: string;
   /**
-   * Icon for the action bar item.
+   * Aria label for the item.
+   */
+  ariaLabel?: string;
+  /**
+   * Fix the item position to the right side of the action bar.
+   */
+  fixedRightPosition?: boolean;
+  /**
+   * Icon element for the action bar item.
    */
   icon?: ReactNode;
   /**
@@ -23,13 +27,10 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
    */
   label?: string | JSX.Element;
   /**
-   * Positions the label right side of the icon.
+   * Positions the label to the right side of the icon.
+   * @internal
    */
   labelOnRight?: boolean;
-  /**
-   * Fix the item position to the right side of the action bar.
-   */
-  fixedRightPosition?: boolean;
 }
 
 export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
