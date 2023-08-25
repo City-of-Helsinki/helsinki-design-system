@@ -144,6 +144,7 @@ export const WithFullFeatures = (args) => (
 export const WithFullFeaturesDarkTheme = (args) => (
   <>
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.NavigationLink href="#" label="Link 1" />
         <Header.NavigationLink href="#" label="Link 2" />
@@ -294,42 +295,6 @@ export const Minimal = (args) => {
   );
 };
 
-export const MinimalWithDarkTheme = (args) => {
-  return (
-    <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
-        <Header.NavigationLanguageSelector languages={languages}>
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com">
-            Viittomakieli
-          </Link>
-        </Header.NavigationLanguageSelector>
-
-        <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
-          <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
-        </Header.ActionBarItem>
-        <hr style={{ order: 9 }} />
-        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
-          <h3>Kirjautumisvalinnat</h3>
-        </Header.ActionBarItem>
-      </Header.ActionBar>
-
-      <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
-      </Header.NavigationMenu>
-    </Header>
-  );
-};
-
-MinimalWithDarkTheme.args = {
-  theme: 'dark',
-};
-
 export const MinimalWithLocalization = (args) => {
   const [lang, setLang] = useState<string>('fi');
 
@@ -403,35 +368,6 @@ export const MinimalWithLocalization = (args) => {
         <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
         <Header.Link href="#" label="Kasvatus ja koulutus" />
         <Header.Link href="#" label="Asuminen" />
-      </Header.NavigationMenu>
-    </Header>
-  );
-};
-
-export const WithSkipLinkInDarkMode = (args) => {
-  return (
-    <Header {...args} theme="dark" onDidChangeLanguage={languageChangedAction}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
-        <Header.NavigationLanguageSelector languages={languages}>
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com">
-            Viittomakieli
-          </Link>
-        </Header.NavigationLanguageSelector>
-
-        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
-          <h3>Kirjautumisvalinnat</h3>
-        </Header.ActionBarItem>
-      </Header.ActionBar>
-
-      <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
       </Header.NavigationMenu>
     </Header>
   );
