@@ -11,7 +11,7 @@
   
   &.isNotLargeScreen {
     background: transparent;
-    border-left: 1px solid var(--nav-button-hover-background-color);
+    border-left: 1px solid var(--nav-button-background-color);
     box-sizing: border-box;
     flex: 0 0 var(--action-bar-dropdown-menu-caret-width);
     height: var(--action-bar-dropdown-menu-secondary-item-height);
