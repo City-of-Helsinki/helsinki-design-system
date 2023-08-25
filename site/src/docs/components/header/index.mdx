@@ -5,7 +5,6 @@ navTitle: 'Header'
 ---
 
 import { Header } from 'hds-react';
-import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 
@@ -18,9 +17,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <Header>
     <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#" label="Link" />
+      <Header.NavigationLink href="#" label="Link" />
+      <Header.NavigationLink href="#" label="Link" />
     </Header.UniversalBar>
   </Header>
 </PlaygroundPreview>
@@ -49,9 +48,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <Header>
     <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#" label="Link" />
+      <Header.NavigationLink href="#" label="Link" />
+      <Header.NavigationLink href="#" label="Link" />
     </Header.UniversalBar>
   </Header>
 </PlaygroundPreview>
@@ -83,9 +82,9 @@ Coming soon!
 <PlaygroundPreview>
     <Header theme="light">
       <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#" label="Link" />
+      <Header.NavigationLink href="#" label="Link" />
+      <Header.NavigationLink href="#" label="Link" />
       </Header.UniversalBar>
       <Header.NavigationMenu>
         <Header.NavigationLink href="#" label="Link 1" />
