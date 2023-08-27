@@ -6,6 +6,10 @@ import { OidcClientProps } from './client';
 import { createOidcClient } from './client/oidcClient';
 import { createSessionPoller } from './sessionPoller/sessionPoller';
 
+/**
+ * For vanilla js usage. Creates and initialises beacon and modules
+ * @param props Exclude<LoginProviderProps, 'children'>
+ */
 export function createLoginSystem(props: Exclude<LoginProviderProps, 'children'>): Beacon {
   const { userManagerSettings, apiTokensClientSettings, sessionPollerSettings, debug, modules } = props;
   const loginProps: OidcClientProps = {

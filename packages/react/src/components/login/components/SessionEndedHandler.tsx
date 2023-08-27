@@ -21,6 +21,10 @@ export type SessionEndedHandlerProps = {
   dialogProps?: Partial<DialogProps>;
 };
 
+/**
+ * SessionEndedHandler listens to the session-ended signal. The component shows an HDS Dialog and forces the user to log out. This component can be placed anywhere inside the LoginProvider.
+ * @param props SessionEndedHandlerProps
+ */
 export function SessionEndedHandler(
   props: React.PropsWithChildren<SessionEndedHandlerProps>,
 ): React.ReactElement | null {

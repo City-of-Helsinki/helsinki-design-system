@@ -15,6 +15,11 @@ export type LoginProviderProps = {
   modules?: ConnectedModule[];
 };
 
+/**
+ * LoginProvider creates a React context and initialises all modules.
+ * @param props LoginProviderProps
+ * @returns
+ */
 export const LoginProvider = ({
   userManagerSettings,
   apiTokensClientSettings,

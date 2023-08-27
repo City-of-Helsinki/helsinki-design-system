@@ -5,13 +5,21 @@ import { useOidcClient } from '../client/hooks';
 import { OidcClientError, oidcClientErrors } from '../client/oidcClientError';
 import { oidcClientStates } from '../client';
 
-type Props = {
+type LoginCallbackHandlerProps = {
   children: React.ReactNode | React.ReactNode[] | null;
   onSuccess: (user: User) => void;
   onError: (error?: OidcClientError) => void;
 };
 
-export function LoginCallbackHandler({ children, onSuccess, onError }: Props): React.ReactElement | null {
+/**
+ * LoginCallbackHandler handles the response when the OIDC server redirects the browser back to the given callback route.
+ * @param props LoginCallbackHandlerProps
+ */
+export function LoginCallbackHandler({
+  children,
+  onSuccess,
+  onError,
+}: LoginCallbackHandlerProps): React.ReactElement | null {
   const { handleCallback, getState, getUser } = useOidcClient();
   // if this component is used inside a component that re-renders, for example after state change,
   // then handleCallback would be called twice without state check

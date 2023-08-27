@@ -41,6 +41,10 @@ export function createChildrenWithUser(children: ChildrenTypes, user: User): Rea
   });
 }
 
+/**
+ * Renders its children only, if the user is authenticated
+ * @param props React.PropsWithChildren<unknown>
+ */
 export function WithAuthenticatedUser(props: React.PropsWithChildren<unknown>): React.ReactElement | null {
   const AuthorisedComponent = (authProps: React.PropsWithChildren<{ user: User }>) => {
     return <>{createChildrenWithUser(props.children, authProps.user)}</>;

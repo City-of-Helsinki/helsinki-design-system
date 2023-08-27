@@ -13,6 +13,10 @@ import { IconAlertCircleFill } from '../../../icons/ui/IconAlertCircleFill';
 import styles from './LoginButton.module.scss';
 
 export type LoginButtonProps = { spinnerColor?: string; errorText: string } & ButtonProps;
+/**
+ * LoginButton handles the redirection to the OIDC server and also errors if the server rejects the request for OpenID configuration.
+ * @param props LoginButtonProps
+ */
 export function LoginButton({
   spinnerColor = 'var(--color-white)',
   children,
