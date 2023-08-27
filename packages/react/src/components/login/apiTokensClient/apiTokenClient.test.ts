@@ -406,7 +406,7 @@ describe(`apiTokenClient`, () => {
       });
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
-    it('and user does not match the api token reference, tokens are cleared and fetched. User reference is stored. API_TOKENS_UPDATED and API_TOKENS_RENEWAL_STARTED events are emitted.', async () => {
+    it('and user does not match the api token reference, tokens are cleared and fetched. Appropriate events are emitted.', async () => {
       const removeSpy = jest.spyOn(Storage.prototype, 'removeItem');
       const tokens = { token: 'a token' };
       const userAccessToken = 'an access token';

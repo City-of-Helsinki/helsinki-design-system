@@ -1,25 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginButton the button text is rendered and click calls oidcClient.login() 1`] = `
+exports[`LoginButton the button text is rendered 1`] = `
 <button
-  aria-disabled="true"
   class="button danger theme-default size-default"
-  disabled=""
   type="button"
 >
-  <div
-    aria-hidden="true"
-    class="icon"
-  >
-    <div
-      class="loadingSpinner small"
-      style="--spinner-color: var(--color-white);"
-    >
-      <div />
-      <div />
-      <div />
-    </div>
-  </div>
   <span
     class="label"
   >

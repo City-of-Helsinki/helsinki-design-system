@@ -53,12 +53,15 @@ describe('LoginButton', () => {
     return jest.spyOn(oidcClient.getUserManager(), 'signinRedirect').mockResolvedValue(promise as Promise<void>);
   };
 
-  it('the button text is rendered and click calls oidcClient.login()', async () => {
+  it('the button text is rendered', async () => {
+    renderComponent();
+    expect(getButtonElement()).toMatchSnapshot();
+  });
+  it('Click calls oidcClient.login() and error is not visible', async () => {
     renderComponent();
     const spy = spyOnOidcClientLogin(false);
     fireEvent.click(getButtonElement());
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(getButtonElement()).toMatchSnapshot();
     expect(getErrorElement).toThrow();
   });
   it('when error occurs the error text is shown', async () => {

@@ -218,7 +218,7 @@ describe('oidcClient', () => {
     });
   });
   describe('.getUser()', () => {
-    it('returns user from sessionStorage. Or null if not found. Function is syncronous and works like asyncronous userManager.getUser()', async () => {
+    it('returns user from sessionStorage syncronously.', async () => {
       const { oidcClient } = await initTests({});
       const getSpy = jest.spyOn(Storage.prototype, 'getItem');
       expect(getSpy).toHaveBeenCalledTimes(0);
@@ -357,7 +357,7 @@ describe('oidcClient', () => {
       expect(newAccessToken).toBe(refreshSignInResponseProps.access_token);
     });
 
-    it('handles errors too', async () => {
+    it('error responses are handled without throwing new errors.', async () => {
       const { oidcClient, userManager } = await initTests({
         userProps: { signInResponseProps },
       });
@@ -468,7 +468,7 @@ describe('oidcClient', () => {
       expect(emittedSignals[1].type).toBe(eventSignalType);
       expect(emittedSignals[1].payload).toMatchObject({ type: oidcClientEvents.USER_REMOVED });
     });
-    it('state changes twice when handleCallback is called and successful. Payloads have state changes. USER_UPDATED event is emitted with user.', async () => {
+    it('state changes twice when handleCallback is called and successful. USER_UPDATED event is emitted with user.', async () => {
       const { oidcClient } = await initTests({ modules: [listenerModule] });
       const signInResponseProfileProps = { name: 'updated user' };
       setSignInResponse({ signInResponseProfileProps });
@@ -701,10 +701,9 @@ describe('oidcClient', () => {
         expect(allRenewResults.filter(([user]) => user?.refresh_token === renewedUser.refresh_token)).toHaveLength(4);
         expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
-      it('Errors are handled and emitted. Failed renewal does not invalidate user.', async () => {
+      it('Errors are handled and emitted.', async () => {
         const { renewalFunctions, oidcClient, waitForRefreshToEnd, modules } = await initRenewalTests(false, true);
         expect(oidcClient.isRenewing()).toBeFalsy();
-        const initialUser = oidcClient.getUser() as User;
         renewalFunctions.raiseExpiringEvent();
         await waitFor(() => {
           expect(oidcClient.isRenewing()).toBeTruthy();
@@ -713,8 +712,6 @@ describe('oidcClient', () => {
         await waitFor(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
         });
-        const sameUser = oidcClient.getUser() as User;
-        expect(sameUser).toMatchObject(initialUser);
         [...modules].forEach((mod) => {
           const reportedErrors = getErrorSignals(filterListenerCallsPerModule(mod.namespace));
           expect(reportedErrors).toHaveLength(1);
@@ -725,9 +722,24 @@ describe('oidcClient', () => {
         expect(allRenewResults.filter(([user]) => user === null)).toHaveLength(4);
         expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
+      it('Failed renewal does not invalidate user.', async () => {
+        const { renewalFunctions, oidcClient, waitForRefreshToEnd } = await initRenewalTests(false, true);
+        expect(oidcClient.isRenewing()).toBeFalsy();
+        const initialUser = oidcClient.getUser() as User;
+        renewalFunctions.raiseExpiringEvent();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeTruthy();
+        });
+        await waitForRefreshToEnd();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeFalsy();
+        });
+        expect(oidcClient.getUser()).toMatchObject(initialUser);
+        expect(oidcClient.isAuthenticated()).toBeTruthy();
+      });
     });
     describe('Manual renewal can be started with renewUser()', () => {
-      it('It is handled like the automatic renewal. Can be run. Returns user', async () => {
+      it('It is handled like the automatic renewal', async () => {
         const { oidcClient, waitForRefreshToEnd, refreshTokens } = await initRenewalTests(true, true);
         expect(oidcClient.isRenewing()).toBeFalsy();
         const initialUser = oidcClient.getUser() as User;

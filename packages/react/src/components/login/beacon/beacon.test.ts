@@ -134,15 +134,17 @@ describe(`beacon`, () => {
     jest.clearAllMocks();
   });
 
-  describe(`createSignalTrigger creates a function which returns boolean indicating is the trigger listening the passed signal.`, () => {
-    it(`Triggers with type "*" and namespace "*" listen to all signal types in any namespace. Except illegal values: empty or * type or empty namespace`, async () => {
+  describe(`createSignalTrigger creates a function returning a boolean`, () => {
+    it(`Triggers with type "*" and namespace "*" listen to all signal types in any namespace.`, async () => {
       const trigger = createSignalTrigger('*:*');
       expect(trigger({ type: 'signalType', namespace: 'signalNamespace' })).toBeTruthy();
       expect(trigger({ type: 'signalType', namespace: 'any' })).toBeTruthy();
       expect(trigger({ type: 'any', namespace: 'any' })).toBeTruthy();
       expect(trigger({ type: 'any', namespace: '*' })).toBeTruthy();
       expect(trigger({ type: 'signalType', namespace: '*' })).toBeTruthy();
-
+    });
+    it(`Triggers with type "*" and namespace "*" does not listen to signals with empty or * type or empty namespace`, async () => {
+      const trigger = createSignalTrigger('*:*');
       expect(trigger({ type: 'signalType', namespace: '' })).toBeFalsy();
       expect(trigger({ type: '', namespace: 'any' })).toBeFalsy();
       expect(trigger({ type: '*', namespace: 'any' })).toBeFalsy();
@@ -156,12 +158,14 @@ describe(`beacon`, () => {
       expect(trigger({ type: 'signalType', namespace: 'any' })).toBeFalsy();
       expect(trigger({ type: 'signalType', namespace: '*' })).toBeFalsy();
     });
-    it(`Trigger with a certain signal type and namespace "*" listens to all signals of that type in any namespace. Except illegal values: empty or * type or empty namespace`, async () => {
+    it(`Trigger with a certain signal type and namespace "*" listens to all signals of that type in any namespace.`, async () => {
       const trigger = createSignalTrigger('signalType:*');
       expect(trigger({ type: 'signalType', namespace: 'signalNamespace' })).toBeTruthy();
       expect(trigger({ type: 'signalType', namespace: 'any' })).toBeTruthy();
       expect(trigger({ type: 'signalType', namespace: '*' })).toBeTruthy();
-
+    });
+    it(`Trigger with a certain signal type and namespace "*" does not listen empty or * type or empty namespace`, async () => {
+      const trigger = createSignalTrigger('signalType:*');
       expect(trigger({ type: 'signalType', namespace: '' })).toBeFalsy();
       expect(trigger({ type: 'any', namespace: 'any' })).toBeFalsy();
       expect(trigger({ type: '', namespace: 'any' })).toBeFalsy();
