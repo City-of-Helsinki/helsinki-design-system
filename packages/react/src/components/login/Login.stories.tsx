@@ -197,17 +197,6 @@ const LogoutButton = () => {
   return <Button onClick={onButtonClick}>Log out</Button>;
 };
 
-const LoginComponent = () => {
-  return (
-    <div>
-      <Nav />
-      <h1>Welcome to the login demo application!</h1>
-      <p>Click button below, or in the navigation, to start the login process</p>
-      <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
-    </div>
-  );
-};
-
 const RenewUserButton = () => {
   const oidcClient = useOidcClient();
   const onButtonClick = async () => {
@@ -408,31 +397,42 @@ const AuthorizedContent = ({ user }: { user: User }) => {
   );
 };
 
-const AuthenticatedContent = ({ user }: { user: User }) => {
-  return (
-    <Wrapper>
-      <Nav />
-      <SessionEndedHandler
-        content={{
-          title: 'Session has ended!',
-          text: 'Your session on the server has ended. You will be logged out in this window too.',
-          buttonText: 'Logout',
-          closeButtonLabelText: 'Logout',
-        }}
-      />
-      <AuthorizedContent user={user} />
-      <div className="buttons">
-        <LogoutButton />
-        <RenewUserButton />
-        <RenewApiTokensButton />
-        <StartSessionPollingButton />
-        <SimulateSessionEndButton />
-      </div>
-    </Wrapper>
-  );
-};
-
 export const ExampleApplication = () => {
+  const AuthenticatedContent = ({ user }: { user: User }) => {
+    return (
+      <Wrapper>
+        <Nav />
+        <SessionEndedHandler
+          content={{
+            title: 'Session has ended!',
+            text: 'Your session on the server has ended. You will be logged out in this window too.',
+            buttonText: 'Logout',
+            closeButtonLabelText: 'Logout',
+          }}
+        />
+        <AuthorizedContent user={user} />
+        <div className="buttons">
+          <LogoutButton />
+          <RenewUserButton />
+          <RenewApiTokensButton />
+          <StartSessionPollingButton />
+          <SimulateSessionEndButton />
+        </div>
+      </Wrapper>
+    );
+  };
+
+  const LoginComponent = () => {
+    return (
+      <div>
+        <Nav />
+        <h1>Welcome to the login demo application!</h1>
+        <p>Click button below, or in the navigation, to start the login process</p>
+        <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
+      </div>
+    );
+  };
+
   return (
     <LoginProvider {...loginProviderProps} modules={[signalTracker]}>
       <IFrameWarning />
@@ -457,13 +457,9 @@ export const Callback = () => {
   if (userOrError instanceof Error) {
     return (
       <div>
-        <LoginProvider {...loginProviderProps}>
-          <p>Login failed!</p>
-          <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
-          <a href={`${getIFramePath()}?path=/story/components-login--example-application`}>
-            Go to the demo application
-          </a>
-        </LoginProvider>
+        <p>Login failed!</p>
+        <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
+        <a href={`${getIFramePath()}?path=/story/components-login--example-application`}>Go to the demo application</a>
       </div>
     );
   }

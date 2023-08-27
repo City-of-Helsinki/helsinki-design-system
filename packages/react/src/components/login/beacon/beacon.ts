@@ -55,15 +55,15 @@ export function joinTypeAndNamespace(signal: Partial<Signal>, defaultNamespace =
   return `${signal.type || defaultType}${NAMESPACE_SEPARATOR}${signal.namespace || defaultNamespace}`;
 }
 
-export function convertToCompareableSignals(
+export function convertToComparableSignals(
   signalOrJustType: SignalType | Partial<Signal> | SignalTriggerProps,
 ): SignalTriggerProps {
   const source =
     typeof signalOrJustType === 'string'
       ? splitTypeAndNamespace(signalOrJustType)
       : ({ ...signalOrJustType } as Signal);
-  // if source has context, it is a deep object with unnecessary key/values to compare.
-  // only important prop is namespace, so just pick that
+  // If source has context, it is a deep object with unnecessary key/values to compare.
+  // Only important prop is the namespace, so just pick that
   if (!source.context) {
     return (source as unknown) as SignalTriggerProps;
   }
@@ -83,18 +83,18 @@ export function compareSignalTriggers(source: SignalTriggerProps, target: Signal
 }
 
 export function compareSignals(signalOrJustType: SignalType | Partial<Signal>, signalToCheckFrom: Signal) {
-  const source = convertToCompareableSignals(signalOrJustType);
-  // if source has no context, it is not compared to the target, so no need to convert it.
+  const source = convertToComparableSignals(signalOrJustType);
+  // If source has no context, it is not compared to the target, so no need to convert it.
   const target = source.context
-    ? convertToCompareableSignals(signalToCheckFrom)
+    ? convertToComparableSignals(signalToCheckFrom)
     : ((signalToCheckFrom as unknown) as SignalTriggerProps);
   return compareSignalTriggers(source, target);
 }
 
 export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal | SignalTriggerProps): SignalTrigger {
-  const source = convertToCompareableSignals(signalOrJustSignalType);
+  const source = convertToComparableSignals(signalOrJustSignalType);
   return (incomingSignal: Signal) => {
-    // incoming signal should not be generic, it must have type and namespace
+    // Incoming signal should not be generic, it must have type and namespace
     // so type cannot be empty or "*"
     const incomingTypeIsOk = incomingSignal.type && incomingSignal.type !== LISTEN_TO_ALL_MARKER;
     const incomingNamespaceIsOk = incomingSignal.namespace;
@@ -102,7 +102,7 @@ export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal 
       return false;
     }
     const target = source.context
-      ? convertToCompareableSignals(incomingSignal)
+      ? convertToComparableSignals(incomingSignal)
       : ((incomingSignal as unknown) as SignalTriggerProps);
     return compareSignalTriggers(source, target);
   };
@@ -124,7 +124,9 @@ export function createBeacon(): Beacon {
     // If a listener is added while signalling and it is triggered by the
     // currently emitted signal, a loop could be created.
     // This can occur when using hooks and not memoizing listeners.
-    // Prevent adding listeners while emitting.
+    // Prevention system is almost impossible to create, because cannot prevent all signals during emitting
+    // and very hard to build logic for preventing signals that may trigger listeners already triggered.
+    // For now, just document the problem.
     if (!isSignalling) {
       listenerData.add(data);
     } else {
@@ -189,9 +191,6 @@ export function createBeacon(): Beacon {
 
   const beacon: Beacon = {
     emit: (signal) => {
-      // prevent adding same twice!
-      // if listener *:* emits *:any?
-      // current signal list
       if (isSignalling) {
         signalQueue.push(signal);
         return;

@@ -64,9 +64,8 @@ export function createApiTokensClientEventSignal({
   return createEventSignal(apiTokensClientNamespace, payload) as ApiTokensEventSignal;
 }
 
-/** event triggers */
-// makes no sense to check, if data (tokens) match.
-// If "data" key exists in payload, it is checked and won't trigger if is not exact match.
+// Makes no sense to check, if data (tokens) match, because actual values of the tokens are not important in signals.
+// So adding "data" to an api tokens trigger is useless, so this function won't add it.
 // data === null, can be checked manually if needed
 export function createApiTokensClientEventTriggerProps({
   type,

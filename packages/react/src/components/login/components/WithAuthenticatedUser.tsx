@@ -5,20 +5,8 @@ import { User } from '../types';
 import { getChildrenAsArray } from '../../../utils/getChildren';
 
 type Props = { user: User };
-type ChildrenTypes =
-  | React.FC<Props>
-  | React.FC<Props>[]
-  | React.ReactElement<Props>
-  | React.ReactElement<Props>[]
-  | JSX.Element
-  | JSX.Element[]
-  | React.ReactNode
-  | React.ReactNode[]
-  | null
-  | string
-  | number;
 
-export function createChildrenWithUser(children: ChildrenTypes, user: User): React.ReactNode[] {
+export function createChildrenWithUser(children: React.ReactNode | null, user: User): React.ReactNode[] {
   const renderChild = (child: React.FunctionComponentElement<unknown> | React.ReactElement, key: string) => {
     return React.cloneElement(child, { key, ...child.props, user });
   };

@@ -10,7 +10,7 @@ import {
   SignalTriggerProps,
   SignalType,
   compareSignalTriggers,
-  convertToCompareableSignals,
+  convertToComparableSignals,
   splitTypeAndNamespace,
 } from './beacon';
 
@@ -297,9 +297,9 @@ export function waitForSignals(
 ): Promise<Omit<Signal, 'context'>[]> {
   return new Promise((resolve, reject) => {
     const { strictOrder, rejectOn, allowSkipping } = options;
-    const compareableTriggers = triggers.map((trigger) => convertToCompareableSignals(trigger));
+    const compareableTriggers = triggers.map((trigger) => convertToComparableSignals(trigger));
     const compareableRejections =
-      rejectOn && rejectOn.length ? rejectOn.map((trigger) => convertToCompareableSignals(trigger)) : [];
+      rejectOn && rejectOn.length ? rejectOn.map((trigger) => convertToComparableSignals(trigger)) : [];
     const hits = [];
     const disposerStorage = [() => undefined, false];
 
@@ -329,7 +329,7 @@ export function waitForSignals(
       if (isDisposed()) {
         return;
       }
-      const compareableSignal = convertToCompareableSignals(signal);
+      const compareableSignal = convertToComparableSignals(signal);
       if (causesRejection(compareableSignal)) {
         dispose();
         reject(new Error(`options.rejectOn includes ${compareableSignal.type}:${compareableSignal.namespace}`));
