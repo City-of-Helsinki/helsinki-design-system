@@ -1,11 +1,11 @@
 // components
-export * from './LoginProvider';
-export * from './LoginButton';
-export * from './LoginCallbackHandler';
-export * from './WithAuthenticatedUser';
-export * from './WithAuthentication';
-export * from './WithoutAuthenticatedUser';
-export * from './SessionEndedHandler';
+export * from './components/LoginProvider';
+export * from './components/LoginButton';
+export * from './components/LoginCallbackHandler';
+export * from './components/WithAuthenticatedUser';
+export * from './components/WithAuthentication';
+export * from './components/WithoutAuthenticatedUser';
+export * from './components/SessionEndedHandler';
 
 // hooks
 export * from './client/hooks';

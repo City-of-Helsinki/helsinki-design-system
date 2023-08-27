@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { LoginContextProvider } from './LoginContext';
-import { OidcClientProps } from './client/index';
-import { createSessionPoller, SessionPollerOptions } from './sessionPoller/sessionPoller';
-import { createApiTokenClient } from './apiTokensClient/apiTokensClient';
-import { ConnectedModule } from './beacon/beacon';
-import { ApiTokenClientProps } from './apiTokensClient';
+import { OidcClientProps } from '../client/index';
+import { createSessionPoller, SessionPollerOptions } from '../sessionPoller/sessionPoller';
+import { createApiTokenClient } from '../apiTokensClient/apiTokensClient';
+import { ConnectedModule } from '../beacon/beacon';
+import { ApiTokenClientProps } from '../apiTokensClient';
 
 export type LoginProviderProps = {
   userManagerSettings: OidcClientProps['userManagerSettings'];

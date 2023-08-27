@@ -5,7 +5,7 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { createOidcClientTestSuite, getDefaultOidcClientTestProps } from './oidcClientTestUtil';
 import { useBeacon } from '../beacon/hooks';
 import { OidcClientProps } from '../client/index';
-import { LoginContextProvider } from '../LoginContext';
+import { LoginContextProvider } from '../components/LoginContext';
 import { Beacon, ConnectedModule, Signal, SignalNamespace } from '../beacon/beacon';
 import { getAllMockCallArgs } from '../../../utils/testHelpers';
 import { UserCreationProps, createUserAndPlaceUserToStorage } from './userTestUtil';

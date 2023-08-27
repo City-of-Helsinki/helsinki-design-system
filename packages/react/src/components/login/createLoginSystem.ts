@@ -1,4 +1,4 @@
-import { LoginProviderProps } from './LoginProvider';
+import { LoginProviderProps } from './components/LoginProvider';
 import { createApiTokenClient } from './apiTokensClient/apiTokensClient';
 import { Beacon, createBeacon } from './beacon/beacon';
 import { emitInitializationSignals } from './beacon/signals';

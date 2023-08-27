@@ -1,16 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { getDefaultOidcClientTestProps } from './testUtils/oidcClientTestUtil';
+import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
 import { LoginCallbackHandler } from './LoginCallbackHandler';
-import { Beacon, ConnectedModule } from './beacon/beacon';
-import { OidcClient, OidcClientState, oidcClientStates } from './client';
-import { getLastMockCallArgs } from '../../utils/testHelpers';
-import { isValidUser } from './client/oidcClient';
-import { triggerForAllOidcClientSignals } from './client/signals';
-import { createUser } from './testUtils/userTestUtil';
-import { OidcClientError } from './client/oidcClientError';
+import { Beacon, ConnectedModule } from '../beacon/beacon';
+import { OidcClient, OidcClientState, oidcClientStates } from '../client';
+import { getLastMockCallArgs } from '../../../utils/testHelpers';
+import { isValidUser } from '../client/oidcClient';
+import { triggerForAllOidcClientSignals } from '../client/signals';
+import { createUser } from '../testUtils/userTestUtil';
+import { OidcClientError } from '../client/oidcClientError';
 
 const loginProps = getDefaultOidcClientTestProps();
 const onError = jest.fn();

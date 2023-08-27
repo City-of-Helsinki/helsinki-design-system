@@ -1,15 +1,15 @@
 import React from 'react';
 import { RenderResult, render } from '@testing-library/react';
 
-import { createUserAndPlaceUserToStorage } from './testUtils/userTestUtil';
-import { getDefaultOidcClientTestProps } from './testUtils/oidcClientTestUtil';
+import { createUserAndPlaceUserToStorage } from '../testUtils/userTestUtil';
+import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
-import { useOidcClient } from './client/hooks';
-import { User } from './index';
+import { useOidcClient } from '../client/hooks';
+import { User } from '../index';
 import { WithAuthentication } from './WithAuthentication';
 import { WithAuthenticatedUser } from './WithAuthenticatedUser';
 import { WithoutAuthenticatedUser } from './WithoutAuthenticatedUser';
-import { oidcClientStates } from './client';
+import { oidcClientStates } from '../client';
 
 const elementIds = {
   userName: 'user-name-element',

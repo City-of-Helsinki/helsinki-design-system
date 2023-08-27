@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { useAuthenticatedUser, useOidcClient } from './client/hooks';
-import { useSignalTrackingWithReturnValue } from './beacon/hooks';
+import { useAuthenticatedUser, useOidcClient } from '../client/hooks';
+import { useSignalTrackingWithReturnValue } from '../beacon/hooks';
 import {
   triggerForAllOidcClientStateChanges,
   isLoggingInSignal,
   triggerForAllOidcClientErrors,
-} from './client/signals';
-import { Button, ButtonProps } from '../button/Button';
-import { LoadingSpinner } from '../loadingSpinner';
-import { IconAlertCircleFill } from '../../icons/ui/IconAlertCircleFill';
-import styles from './LoginButton.module.css';
+} from '../client/signals';
+import { Button, ButtonProps } from '../../button/Button';
+import { LoadingSpinner } from '../../loadingSpinner';
+import { IconAlertCircleFill } from '../../../icons/ui/IconAlertCircleFill';
+import styles from './LoginButton.module.scss';
 
 export type LoginButtonProps = { spinnerColor?: string; errorText: string } & ButtonProps;
 export function LoginButton({

@@ -1,4 +1,4 @@
-import { LoginProviderProps } from './LoginProvider';
+import { LoginProviderProps } from './components/LoginProvider';
 import { apiTokensClientNamespace, ApiTokenClient } from './apiTokensClient';
 import { ConnectedModule } from './beacon/beacon';
 import { createEventSignal, createNamespacedBeacon, createTriggerForAllSignalTypes } from './beacon/signals';

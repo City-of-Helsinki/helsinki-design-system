@@ -1,6 +1,6 @@
 import { useContext, useCallback, useState, useLayoutEffect, useRef, useMemo } from 'react';
 
-import { LoginContext, LoginContextData } from '../LoginContext';
+import { LoginContext, LoginContextData } from '../components/LoginContext';
 import {
   ConnectedModule,
   Signal,

@@ -1,7 +1,7 @@
 import { User } from 'oidc-client-ts';
 import React from 'react';
 
-import { useAuthenticatedUser } from './client/hooks';
+import { useAuthenticatedUser } from '../client/hooks';
 
 export function WithAuthentication({
   AuthorisedComponent,

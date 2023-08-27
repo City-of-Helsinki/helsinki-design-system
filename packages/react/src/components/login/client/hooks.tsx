@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { Amr, OidcClient, UserReturnType, oidcClientNamespace } from './index';
 import { isValidUser } from './oidcClient';
 import { triggerForAllOidcClientSignals } from './signals';
-import { LoginContext } from '../LoginContext';
+import { LoginContext } from '../components/LoginContext';
 import { useSignalTrackingWithReturnValue } from '../beacon/hooks';
 import { Signal } from '../beacon/beacon';
 

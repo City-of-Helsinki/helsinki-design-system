@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { useOidcClient } from './client/hooks';
-import { useErrorTracking } from './beacon/hooks';
-import { isSessionEndedSignal } from './sessionPoller/signals';
-import { Button } from '../button';
-import { Dialog, DialogProps } from '../dialog/Dialog';
+import { useOidcClient } from '../client/hooks';
+import { useErrorTracking } from '../beacon/hooks';
+import { isSessionEndedSignal } from '../sessionPoller/signals';
+import { Button } from '../../button';
+import { Dialog, DialogProps } from '../../dialog/Dialog';
 
 export type SessionEndedHandlerProps = {
   content: {

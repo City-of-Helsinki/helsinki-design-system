@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { getDefaultOidcClientTestProps } from './testUtils/oidcClientTestUtil';
+import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
 import { LoginButton, LoginButtonProps } from './LoginButton';
-import { Beacon, ConnectedModule } from './beacon/beacon';
-import { OidcClient, oidcClientNamespace } from './client';
-import { advanceUntilDoesNotThrow, createTimedPromise } from './testUtils/timerTestUtil';
+import { Beacon, ConnectedModule } from '../beacon/beacon';
+import { OidcClient, oidcClientNamespace } from '../client';
+import { advanceUntilDoesNotThrow, createTimedPromise } from '../testUtils/timerTestUtil';
 
 const loginProps = getDefaultOidcClientTestProps();
 

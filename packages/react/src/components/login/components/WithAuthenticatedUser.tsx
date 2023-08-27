@@ -1,8 +1,8 @@
 import React, { isValidElement } from 'react';
 
 import { WithAuthentication } from './WithAuthentication';
-import { User } from './types';
-import { getChildrenAsArray } from '../../utils/getChildren';
+import { User } from '../types';
+import { getChildrenAsArray } from '../../../utils/getChildren';
 
 type Props = { user: User };
 type ChildrenTypes =

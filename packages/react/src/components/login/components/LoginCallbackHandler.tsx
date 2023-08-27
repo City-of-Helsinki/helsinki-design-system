@@ -1,9 +1,9 @@
 import React from 'react';
 import { User } from 'oidc-client-ts';
 
-import { useOidcClient } from './client/hooks';
-import { OidcClientError, oidcClientErrors } from './client/oidcClientError';
-import { oidcClientStates } from './client';
+import { useOidcClient } from '../client/hooks';
+import { OidcClientError, oidcClientErrors } from '../client/oidcClientError';
+import { oidcClientStates } from '../client';
 
 type Props = {
   children: React.ReactNode | React.ReactNode[] | null;

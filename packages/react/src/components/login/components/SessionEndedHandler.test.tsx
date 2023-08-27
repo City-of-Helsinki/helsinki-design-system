@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, act, waitFor, screen, fireEvent } from '@testing-library/react';
 
-import { getDefaultOidcClientTestProps } from './testUtils/oidcClientTestUtil';
+import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
 import { SessionEndedHandler, SessionEndedHandlerProps } from './SessionEndedHandler';
-import { Beacon, ConnectedModule } from './beacon/beacon';
-import { createSessionPollerErrorSignal } from './sessionPoller/signals';
-import { SessionPollerError, sessionPollerErrors } from './sessionPoller/sessionPollerError';
-import { OidcClient, oidcClientNamespace } from './client';
+import { Beacon, ConnectedModule } from '../beacon/beacon';
+import { createSessionPollerErrorSignal } from '../sessionPoller/signals';
+import { SessionPollerError, sessionPollerErrors } from '../sessionPoller/sessionPollerError';
+import { OidcClient, oidcClientNamespace } from '../client';
 
 const loginProps = getDefaultOidcClientTestProps();
 const content: SessionEndedHandlerProps['content'] = {
