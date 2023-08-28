@@ -170,8 +170,6 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
 
   useLayoutEffect(() => {
     const size = containerRef?.current?.getBoundingClientRect();
-    // eslint-disable-next-line no-console
-    console.log('MENU SIZE', size);
     setMenuSize(size);
   }, []);
 
