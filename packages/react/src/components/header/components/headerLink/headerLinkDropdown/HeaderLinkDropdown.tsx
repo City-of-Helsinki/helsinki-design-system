@@ -57,7 +57,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    */
   depth: number;
   /**
-   *
+   * Function that return dropdown direction.
    */
   getPosition: () => DropdownMenuPosition;
 }>;
