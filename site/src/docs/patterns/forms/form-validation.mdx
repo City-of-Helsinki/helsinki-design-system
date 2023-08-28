@@ -261,13 +261,20 @@ import { Button, ErrorSummary, TextInput } from 'hds-react';
     const [isSubmitted, setIsSubmitted] = React.useState(false);
     const errorList = Object.entries(formErrors);
 
-    const validate = (values, onlyValidationErrors) => {
+    const getFieldError = (fieldName, formData, errorData) => {
+      return errorData ? !formData[fieldName] && errorData[fieldName] : !formData[fieldName];
+    }
+
+    const validate = (values, currentErrors) => {
+      const hasFirstNameError = getFieldError('firstName', values, currentErrors);
+      const hasLastNameError = getFieldError('lastName', values, currentErrors);
+
       const errors = {
-        ...((!values['firstName'] && !onlyValidationErrors) || (!values['firstName'] && onlyValidationErrors && 'firstName' in formErrors) ? { firstName: 'Please enter your first name' } : {}),
-       ...((!values['lastName'] && !onlyValidationErrors) || (!values['lastName'] && onlyValidationErrors && 'lastName' in formErrors) ? { lastName: 'Please enter your last name' } : {}),
+        ...(hasFirstNameError ? { firstName: 'Please enter your first name' } : {}),
+        ...(hasLastNameError ? { lastName: 'Please enter your last name' } : {}),
       };
       setFormErrors(errors);
-    };
+    }
 
     const onSubmit = (e) => {
       e.preventDefault();
@@ -278,7 +285,7 @@ import { Button, ErrorSummary, TextInput } from 'hds-react';
     React.useEffect(() => {
       if (Object.keys(formErrors).length > 0) validate(formValues, true);
     }, [formValues]);
-    console.log(formErrors);
+    
     return (
       <>
         <h4>Live example</h4>
@@ -347,12 +354,13 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const errorList = Object.entries(formErrors);
 
-  const isSameOrAfter = (dateA, dateB) => dateA && dateB && dateA.valueOf() >= dateB.valueOf();
+  const isSameOrAfter = (dateA, dateB) => dateA && dateB && dateA >= dateB;
 
   const validate = (values) => {
     const startDate = values['startDate'];
     const endDate = values['endDate'];
     if (startDate == null & endDate == null) return null;
+
     const errors = {
       ...(!startDate || isSameOrAfter(startDate, endDate) ? { startDate: 'Start date must be before end date' } : {}),
       ...(!endDate || isSameOrAfter(startDate, endDate) ? { endDate: 'End date must be after start date' } : {}),
@@ -389,7 +397,7 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
             id="dateValidationExample-startDate"
             name="startDate"
             label="Start date"
-            onChange={(date) => setFormValues({ ...formValues, startDate: date })}
+            onChange={(dateString, date) => setFormValues({ ...formValues, startDate: date })}
             invalid={!!formErrors['startDate']}
             errorText={formErrors['startDate']}
             required
@@ -399,7 +407,7 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
             id="dateValidationExample-endDate"
             name="endDate"
             label="End date"
-            onChange={(date) => setFormValues({ ...formValues, endDate: date })}
+            onChange={(dateString, date) => setFormValues({ ...formValues, endDate: date })}
             invalid={!!formErrors['endDate']}
             errorText={formErrors['endDate']}
             required
