@@ -78,29 +78,27 @@ import { Header } from 'hds-react';
 import { Header } from 'hds-react';
 
 () => (
-  <>
-    <Header theme={{
-      '--color-focus-outline': '#bd2f00',
-      '--header-color': '#000',
-      '--actionbar-background-color': '#ffe977',
-      '--navigation-background-color': '#fff',
-      '--nav-border-color': '#000',
-      '--nav-link-hover-color': '#000',
-      '--universal-bar-background-color': '#ffe977',
-      '--navigation-link-button-background-color': '#666',
-      '--nav-link-dropdown-background-color': '#fff',
-      '--nav-button-background-color': '#666',
-      '--nav-button-hover-background-color': '#999',
-      '--nav-drop-down-icon-color': '#000',
-      '--header-base-background-color': 'transparent',
-    }}>
-      <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      </Header.UniversalBar>
-    </Header>
-  </>
+  <Header theme={{
+    '--color-focus-outline': '#bd2f00',
+    '--header-color': '#000',
+    '--actionbar-background-color': '#ffe977',
+    '--navigation-background-color': '#fff',
+    '--nav-border-color': '#000',
+    '--nav-link-hover-color': '#000',
+    '--universal-bar-background-color': '#ffe977',
+    '--navigation-link-button-background-color': '#666',
+    '--nav-link-dropdown-background-color': '#fff',
+    '--nav-button-background-color': '#666',
+    '--nav-button-hover-background-color': '#999',
+    '--nav-drop-down-icon-color': '#000',
+    '--header-base-background-color': 'transparent',
+  }}>
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    </Header.UniversalBar>
+  </Header>
 )
 ```
 
