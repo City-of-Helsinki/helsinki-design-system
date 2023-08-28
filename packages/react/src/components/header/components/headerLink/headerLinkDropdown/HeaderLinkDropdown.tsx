@@ -93,7 +93,7 @@ export const HeaderLinkDropdown = ({
   };
   const getClassName = () => {
     const position = getPosition();
-    if (open) return classNames(styles.chevron, styles.chevronOpen);
+    if (open) return classNames(styles.chevron, styles.chevronOpen, depth > 1 && styles[`direction-${position}`]);
     if (depth > 1 && DropdownMenuPosition.Left.toString() === position)
       return classNames(styles.chevron, styles.chevronLeft);
     if (depth > 1) return classNames(styles.chevron, styles.chevronRight);
