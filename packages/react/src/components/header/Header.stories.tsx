@@ -169,7 +169,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+        <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
