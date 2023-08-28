@@ -39,8 +39,12 @@ button.button {
   transition: transform 0.2s ease-in;
 }
 
-.chevronOpen:not(.direction-right, .direction-left) {
+.chevronOpen {
   transform: rotate(180deg);
+  &.direction-right,
+  &.direction-left {
+    transform: rotate(0deg);
+  }
 }
 
 .chevronRight {
