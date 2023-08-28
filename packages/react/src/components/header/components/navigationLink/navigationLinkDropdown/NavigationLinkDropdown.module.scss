@@ -39,8 +39,9 @@
 
 .chevronOpen {
   transform: rotate(180deg);
-  &.direction-right,
-  &.direction-left {
+
+  &.direction-left,
+  &.direction-right {
     transform: rotate(0deg);
   }
 }
