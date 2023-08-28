@@ -37,7 +37,7 @@
   transition: transform 0.2s ease-in;
 }
 
-.chevronOpen {
+.chevronOpen:not(.direction-right, .direction-left) {
   transform: rotate(180deg);
 }
 
