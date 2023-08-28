@@ -41,6 +41,14 @@
   transform: rotate(180deg);
 }
 
+.chevronRight {
+  transform: rotate(-90deg);
+}
+
+.chevronLeft {
+  transform: rotate(90deg);
+}
+
 .hidden {
   display: none;
 }
