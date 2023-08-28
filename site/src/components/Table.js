@@ -22,12 +22,8 @@ const Table = (props) => {
     .filter((child) => isValidElement(child))
     .reduce(
       (acc, row, i, arr) => {
-        if (
-          i >= arr.length - 1 &&
-          row.props.children &&
-          row.props.children[0] &&
-          isCaption(row.props.children[0].props.children)
-        ) {
+        if ( i === arr.length - 1 && isCaption(row.props.children?.[0].props.children))
+         {
           return [acc[0], row.props.children[0].props.children];
         } else {
           return [[...acc[0], row], acc[1]];
