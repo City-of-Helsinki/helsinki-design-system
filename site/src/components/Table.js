@@ -12,8 +12,9 @@ const resolveCaptionStrings = (captionString) => {
 };
 
 const Table = (props) => {
-  const thead = props.children[0].type.name === 'TableHead' ? props.children[0] : [];
-  const tbody = props.children[1].type.name === 'TableBody' ? props.children[1] : []
+  // TableHead and body can't be identified by type.name because it doesn't exist in prod build.
+  const thead = props.children[0];
+  const tbody = props.children[1];
   const tbodyRows = tbody.props?.children || [];
   const rowsArray = Array.isArray(tbodyRows) ? tbodyRows : [tbodyRows];
 
