@@ -79,7 +79,6 @@ export const HeaderLinkDropdown = ({
   const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const ref = useRef<HTMLUListElement>(null);
-  // const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = dynamicPosition
     ? classNames(styles.dropdownMenu, styles[dynamicPosition])
