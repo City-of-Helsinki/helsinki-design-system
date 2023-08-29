@@ -32,6 +32,10 @@
   top: calc(-1 * (var(--height) + var(--top)));
   width: 1px;
 
+  &:focus-visible {
+    outline-offset: unset;
+  }
+
   &:focus {
     align-items: center;
     background-color: var(--background-color);
