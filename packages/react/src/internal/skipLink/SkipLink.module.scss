@@ -33,7 +33,7 @@
   width: 1px;
 
   &:focus-visible {
-    outline-offset: unset;
+    outline-offset: 0;
   }
 
   &:focus {
