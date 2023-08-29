@@ -1,3 +1,4 @@
+@use "../../Header.module.scss" as header;
 @use "../../../../styles/common.scss";
 @use "./_typography.scss";
 
@@ -51,7 +52,7 @@
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 
