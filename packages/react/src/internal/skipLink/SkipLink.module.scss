@@ -35,7 +35,7 @@
   &:not(:focus) {
     @extend %visuallyHidden;
   &:focus-visible {
-    outline-offset: unset;
+    outline-offset: 0;
   }
 
   &:focus {
