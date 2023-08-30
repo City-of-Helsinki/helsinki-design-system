@@ -1,7 +1,7 @@
 @use "../../Header.module.scss" as header;
 @import "../../../../styles/common.scss";
 
-.navigationLink.navigationLink {
+.headerLink.headerLink {
   --link-color: var(--color-black-90);
   --link-font-size: var(--fontsize-body-s);
   --link-visited-color: none;
@@ -53,7 +53,7 @@
 }
 
 
-.navigationLink.isNotLargeScreen{
+.headerLink.isNotLargeScreen{
   align-self: center;
   border: none;
   box-sizing: border-box;

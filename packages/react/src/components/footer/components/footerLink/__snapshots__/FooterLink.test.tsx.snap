@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Footer.NavigationLink /> spec renders the base variant 1`] = `
+exports[`<Link /> spec renders the base variant 1`] = `
 <DocumentFragment>
   <a
     class="link linkM item base"
@@ -12,7 +12,7 @@ exports[`<Footer.NavigationLink /> spec renders the base variant 1`] = `
 </DocumentFragment>
 `;
 
-exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
+exports[`<Link /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
     class="footer koros-basic theme-light"
@@ -72,7 +72,7 @@ exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
 </DocumentFragment>
 `;
 
-exports[`<Footer.NavigationLink /> spec renders the navigation variant 1`] = `
+exports[`<Link /> spec renders the navigation variant 1`] = `
 <DocumentFragment>
   <a
     class="link linkM item navigation"
@@ -84,7 +84,7 @@ exports[`<Footer.NavigationLink /> spec renders the navigation variant 1`] = `
 </DocumentFragment>
 `;
 
-exports[`<Footer.NavigationLink /> spec renders the utility variant 1`] = `
+exports[`<Link /> spec renders the utility variant 1`] = `
 <DocumentFragment>
   <a
     class="link linkM item utility"

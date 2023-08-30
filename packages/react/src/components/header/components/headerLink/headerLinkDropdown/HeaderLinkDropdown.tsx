@@ -2,7 +2,7 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 
 // import base styles
 import '../../../../../styles/base.css';
-import styles from './NavigationLinkDropdown.module.scss';
+import styles from './HeaderLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
@@ -58,7 +58,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   depth: number;
 }>;
 
-export const NavigationLinkDropdown = ({
+export const HeaderLinkDropdown = ({
   children,
   dynamicPosition = DropdownMenuPosition.Right,
   className,
@@ -131,4 +131,4 @@ export const NavigationLinkDropdown = ({
     </>
   );
 };
-NavigationLinkDropdown.componentName = 'HDSNavigationLinkDropdown';
+HeaderLinkDropdown.componentName = 'HDSNavigationLinkDropdown';

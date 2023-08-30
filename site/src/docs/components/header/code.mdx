@@ -41,9 +41,9 @@ import { Header, IconSearch } from 'hds-react';
       <Header onDidChangeLanguage={languageChangedAction}>
         <Header.SkipLink skipTo="#content" label="Skip To Content" />
         <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-          <Header.NavigationLink href="#" label="Uutiset" />
-          <Header.NavigationLink href="#" label="Asioi verkossa" />
-          <Header.NavigationLink href="#" label="Anna palautetta" />
+          <Header.Link href="#" label="Uutiset" />
+          <Header.Link href="#" label="Asioi verkossa" />
+          <Header.Link href="#" label="Anna palautetta" />
         </Header.UniversalBar>
 
         <Header.ActionBar
@@ -54,10 +54,10 @@ import { Header, IconSearch } from 'hds-react';
           logoHref="https://hel.fi"
           menuButtonAriaLabel="Menu"
         >
-          <Header.NavigationLanguageSelector languages={languages} />
+          <Header.LanguageSelector languages={languages} />
 
           <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
-            <Header.NavigationSearch
+            <Header.Search
               label="Hae palvelusta"
               onChange={searchChangeAction}
               onSubmit={searchSubmitAction}
@@ -65,56 +65,56 @@ import { Header, IconSearch } from 'hds-react';
           </Header.ActionBarItem>
         </Header.ActionBar>
         <Header.NavigationMenu>
-          <Header.NavigationLink
+          <Header.Link
             href="#"
             label="Sosiaali- ja terveyspalvelut"
             onClick={(event) => event.preventDefault()}
             active
             dropdownLinks={[
-              <Header.NavigationLink
+              <Header.Link
                 href="#"
                 label="Terveydenhoito"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Hammashoito" />,
-                  <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+                  <Header.Link href="#" label="Hammashoito" />,
+                  <Header.Link href="#" label="Julkinen terveydenhoito" />,
                 ]}
               />,
-              <Header.NavigationLink
+              <Header.Link
                 href="#"
                 label="Senioripalvelut"
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Viriketoiminta" />,
-                  <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+                  <Header.Link href="#" label="Viriketoiminta" />,
+                  <Header.Link href="#" label="Kuntouttavat palvelut" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink
+          <Header.Link
             href="#"
             label="Kasvatus ja koulutus"
             dropdownLinks={[
-              <Header.NavigationLink
+              <Header.Link
                 href="#"
                 label="Kasvatus"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
-                  <Header.NavigationLink href="#" label="Esiopetus" />,
+                  <Header.Link href="#" label="Varhaiskasvatus" />,
+                  <Header.Link href="#" label="Esiopetus" />,
                 ]}
               />,
-              <Header.NavigationLink
+              <Header.Link
                 href="#"
                 label="Koulutus"
                 dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Perusopetus" />,
-                  <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
-                  <Header.NavigationLink href="#" label="Työväenopistot" />,
+                  <Header.Link href="#" label="Perusopetus" />,
+                  <Header.Link href="#" label="Toisen asteen koulutus" />,
+                  <Header.Link href="#" label="Työväenopistot" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink href="#" label="Asuminen" />
+          <Header.Link href="#" label="Asuminen" />
         </Header.NavigationMenu>
       </Header>
       <div id="content" />
@@ -127,7 +127,7 @@ import { Header, IconSearch } from 'hds-react';
 
 #### Custom NavigationLink
 
-The Header.NavigationLink component has the `as` prop which you can use to use your own navigation link instead of our Header.NavigationLink, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
+The Header.Link component has the `as` prop which you can use to use your own navigation link instead of our Header.Link, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
 
 <Playground scope={{ Header, IconSearch, Link }}>
 
@@ -141,9 +141,9 @@ import { Link } from 'gatsby';
       <Header>
         <Header.SkipLink skipTo="#content" label="Skip To Content" />
         <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-          <Header.NavigationLink href="#" label="Uutiset" />
-          <Header.NavigationLink href="#" label="Asioi verkossa" />
-          <Header.NavigationLink href="#" label="Anna palautetta" />
+          <Header.Link href="#" label="Uutiset" />
+          <Header.Link href="#" label="Asioi verkossa" />
+          <Header.Link href="#" label="Anna palautetta" />
         </Header.UniversalBar>
 
         <Header.ActionBar
@@ -155,62 +155,62 @@ import { Link } from 'gatsby';
           menuButtonAriaLabel="Menu"
         />
         <Header.NavigationMenu>
-          <Header.NavigationLink
+          <Header.Link
             as={Link}
             href="#"
             label="Sosiaali- ja terveyspalvelut"
             onClick={(event) => event.preventDefault()}
             active
             dropdownLinks={[
-              <Header.NavigationLink
+              <Header.Link
                 as={Link}
                 href="#"
                 label="Terveydenhoito"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Hammashoito" />,
-                  <Header.NavigationLink as={Link} href="#" label="Julkinen terveydenhoito" />,
+                  <Header.Link as={Link} href="#" label="Hammashoito" />,
+                  <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
                 ]}
               />,
-              <Header.NavigationLink
+              <Header.Link
                 as={Link}
                 href="#"
                 label="Senioripalvelut"
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Viriketoiminta" />,
-                  <Header.NavigationLink as={Link} href="#" label="Kuntouttavat palvelut" />,
+                  <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+                  <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink
+          <Header.Link
             as={Link}
             href="#"
             label="Kasvatus ja koulutus"
             dropdownLinks={[
-              <Header.NavigationLink
+              <Header.Link
                 as={Link}
                 href="#"
                 label="Kasvatus"
                 active
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Varhaiskasvatus" />,
-                  <Header.NavigationLink as={Link} href="#" label="Esiopetus" />,
+                  <Header.Link as={Link} href="#" label="Varhaiskasvatus" />,
+                  <Header.Link as={Link} href="#" label="Esiopetus" />,
                 ]}
               />,
-              <Header.NavigationLink
+              <Header.Link
                 as={Link}
                 href="#"
                 label="Koulutus"
                 dropdownLinks={[
-                  <Header.NavigationLink as={Link} href="#" label="Perusopetus" />,
-                  <Header.NavigationLink as={Link} href="#" label="Toisen asteen koulutus" />,
-                  <Header.NavigationLink as={Link} href="#" label="Työväenopistot" />,
+                  <Header.Link as={Link} href="#" label="Perusopetus" />,
+                  <Header.Link as={Link} href="#" label="Toisen asteen koulutus" />,
+                  <Header.Link as={Link} href="#" label="Työväenopistot" />,
                 ]}
               />,
             ]}
           />
-          <Header.NavigationLink as={Link} href="#" label="Asuminen" />
+          <Header.Link as={Link} href="#" label="Asuminen" />
         </Header.NavigationMenu>
       </Header>
       <div id="content" />
@@ -282,14 +282,14 @@ import { Link } from 'gatsby';
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------ | ------------- |
 | `children`                                             | Additional languages to display in the dropdown.       | `JSX.Element`      | -             |
 | `languages`                                            | Array of languages to display in the Header.ActionBar. | `[LanguageOption]` | -             |
-| [Table 6:Header.NavigationLanguageSelector properties] |
+| [Table 6:Header.LanguageSelector properties] |
 
 | Property                                     | Description                                    | Values                         | Default value |
 | -------------------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
 | `label`                                      | Label for the search input.                    | `string` `JSX.Element`         | -             |
 | `onChange`                                   | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
 | `onSubmit`                                   | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
-| [Table 7:Header.NavigationSearch properties] |
+| [Table 7:Header.Search properties] |
 
 | Property                                     | Description                                    | Values                         | Default value |
 | -------------------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
@@ -310,16 +310,16 @@ import { Link } from 'gatsby';
 | ------------------------------------------ | --------------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------- |
 | `active`                                   | Set the link as the current page, giving it proper styles.                  | `boolean`                   | -                                                       |
 | `ariaLabel`                                | Aria-label for describing NavigationLink.                                   | `string`                    | -                                                       |
-| `as`                                       | Element or component to use instead of Header.NavigationLink.               | `Element`                    | <InternalLink href="/components/">`Link`</InternalLink> |
+| `as`                                       | Element or component to use instead of Header.Link.               | `Element`                    | <InternalLink href="/components/">`Link`</InternalLink> |
 | `className`                                | Additional classNames to apply to the link.                                 | `string`                    | -                                                       |
 | `closeDropdownAriaButtonLabel`             | Aria-label for the dropdown button to describe the closing of the dropdown. | `string`                    | -                                                       |
 | `dropdownButtonClassName`                  | Additional classNames to apply to the dropdown button.                      | `string`                    | -                                                       |
 | `dropdownClassName`                        | Additional classNames to apply to the dropdown menu.                        | `string`                    | -                                                       |
 | `dropdownLinkClassName`                    | Additional classNames to apply to the dropdown links.                       | `string`                    | -                                                       |
-| `dropdownLinks`                            | Array of NavigationLink components to render in a dropdown.                 | `[<Header.NavigationLink>]` | -                                                       |
+| `dropdownLinks`                            | Array of NavigationLink components to render in a dropdown.                 | `[<Header.Link>]` | -                                                       |
 | `href`                                     | Hypertext Reference of the link.                                            | `string`                    | -                                                       |
 | `label`                                    | Label for the link.                                                         | `string`                    | -                                                       |
 | `id`                                       | ID for the link.                                                            | `string`                    | -                                                       |
 | `openDropdownAriaButtonLabel`              | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`                    | -                                                       |
 | `wrapperClassName`                         | Additional classNames for the element wrapping the link.                    | `string`                    | -                                                       |
-| [Table 10:Header.NavigationLink properties] |
+| [Table 10:Header.Link properties] |

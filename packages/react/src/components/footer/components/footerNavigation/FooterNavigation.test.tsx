@@ -10,9 +10,9 @@ describe('<Footer.Navigation /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
       <FooterNavigation>
-        <Footer.NavigationLink label="Link 1" />
-        <Footer.NavigationLink label="Link 2" />
-        <Footer.NavigationLink label="Link 3" />
+        <Footer.Link label="Link 1" />
+        <Footer.Link label="Link 2" />
+        <Footer.Link label="Link 3" />
       </FooterNavigation>,
       { wrapper: FooterWrapper },
     );
@@ -21,9 +21,9 @@ describe('<Footer.Navigation /> spec', () => {
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <FooterNavigation>
-        <Footer.NavigationLink label="Link 1" />
-        <Footer.NavigationLink label="Link 2" />
-        <Footer.NavigationLink label="Link 3" />
+        <Footer.Link label="Link 1" />
+        <Footer.Link label="Link 2" />
+        <Footer.Link label="Link 3" />
       </FooterNavigation>,
       { wrapper: FooterWrapper },
     );

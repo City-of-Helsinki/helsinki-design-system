@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Header.NavigationSearch /> spec renders the component 1`] = `
+exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
     class="header theme-light"

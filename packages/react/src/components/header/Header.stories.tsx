@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { Header } from './Header';
 import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniversalBar';
 import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
-import { NavigationLink } from './components/navigationLink/NavigationLink';
+import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { LanguageOption } from './LanguageContext';
 import { IconSearch, IconUser } from '../../icons';
@@ -17,7 +17,7 @@ export default {
     HeaderUniversalBar,
     HeaderNavigationMenu,
     HeaderActionBar,
-    NavigationLink,
+    HeaderLink,
   },
   parameters: {
     controls: { expanded: true },
@@ -41,9 +41,9 @@ export const WithFullFeatures = (args) => (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <Header.NavigationLink href="#" label="Uutiset" />
-        <Header.NavigationLink href="#" label="Asioi verkossa" />
-        <Header.NavigationLink href="#" label="Anna palautetta" />
+        <Header.Link href="#" label="Uutiset" />
+        <Header.Link href="#" label="Asioi verkossa" />
+        <Header.Link href="#" label="Anna palautetta" />
       </Header.UniversalBar>
 
       <Header.ActionBar
@@ -54,7 +54,7 @@ export const WithFullFeatures = (args) => (
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
-        <Header.NavigationLanguageSelector languages={languages} ariaLabel="Kielen valinta">
+        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
             Selkosuomi
@@ -62,80 +62,77 @@ export const WithFullFeatures = (args) => (
           <Link external href="www.example.com">
             Viittomakieli
           </Link>
-        </Header.NavigationLanguageSelector>
+        </Header.LanguageSelector>
 
         <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-          <Header.NavigationSearch label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
+          <Header.Search label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.NavigationLink
+        <Header.Link
           href="#"
           label="Sosiaali- ja terveyspalvelut"
           onClick={(event) => event.preventDefault()}
           active
           dropdownLinks={[
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Terveydenhoito"
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Hammashoito" />,
-                <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+                <Header.Link href="#" label="Hammashoito" />,
+                <Header.Link href="#" label="Julkinen terveydenhoito" />,
               ]}
             />,
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Senioripalvelut"
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Viriketoiminta" />,
-                <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+                <Header.Link href="#" label="Viriketoiminta" />,
+                <Header.Link href="#" label="Kuntouttavat palvelut" />,
               ]}
             />,
           ]}
         />
-        <Header.NavigationLink
+        <Header.Link
           href="#"
           label="Kasvatus ja koulutus"
           dropdownLinks={[
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Kasvatus"
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
-                <Header.NavigationLink href="#" label="Esiopetus" />,
+                <Header.Link href="#" label="Varhaiskasvatus" />,
+                <Header.Link href="#" label="Esiopetus" />,
               ]}
             />,
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Koulutus"
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Perusopetus" />,
-                <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
-                <Header.NavigationLink href="#" label="Työväenopistot" />,
+                <Header.Link href="#" label="Perusopetus" />,
+                <Header.Link href="#" label="Toisen asteen koulutus" />,
+                <Header.Link href="#" label="Työväenopistot" />,
               ]}
             />,
           ]}
         />
-        <Header.NavigationLink
+        <Header.Link
           href="#"
           label="Yritykset ja työ"
           dropdownLinks={[
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Työnantajat"
               active
-              dropdownLinks={[
-                <Header.NavigationLink href="#" label="Yritykset" />,
-                <Header.NavigationLink href="#" label="Yrittäjät" />,
-              ]}
+              dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
             />,
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Työntekijät"
-              dropdownLinks={[<Header.NavigationLink href="#" label="Avoimet työpaikat" />]}
+              dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
             />,
           ]}
         />
@@ -149,7 +146,7 @@ export const Minimal = (args) => {
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleHref="https://hel.fi">
-        <Header.NavigationLanguageSelector languages={languages}>
+        <Header.LanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
             Selkosuomi
@@ -157,10 +154,10 @@ export const Minimal = (args) => {
           <Link external href="www.example.com">
             Viittomakieli
           </Link>
-        </Header.NavigationLanguageSelector>
+        </Header.LanguageSelector>
 
         <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-          <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
+          <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
         </Header.ActionBarItem>
         <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
@@ -168,9 +165,9 @@ export const Minimal = (args) => {
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Sosiaali- ja terveyspalvelut" />
-        <Header.NavigationLink href="#" label="Kasvatus ja koulutus" />
-        <Header.NavigationLink href="#" label="Asuminen" />
+        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
   );
@@ -213,7 +210,7 @@ export const MinimalWithLocalization = (args) => {
         titleAriaLabel={translations[lang]['header-aria-label']}
         titleHref="https://hel.fi"
       >
-        <Header.NavigationLanguageSelector languages={languages}>
+        <Header.LanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>
           <Link external href="www.example.com">
             Selkosuomi
@@ -221,7 +218,7 @@ export const MinimalWithLocalization = (args) => {
           <Link external href="www.example.com">
             Viittomakieli
           </Link>
-        </Header.NavigationLanguageSelector>
+        </Header.LanguageSelector>
 
         <Header.ActionBarItem
           fullWidth
@@ -229,7 +226,7 @@ export const MinimalWithLocalization = (args) => {
           icon={<IconSearch />}
           id="action-bar-search"
         >
-          <Header.NavigationSearch
+          <Header.Search
             onChange={searchChangeAction}
             onSubmit={searchSubmitAction}
             label={translations[lang]['header-search']}
@@ -246,9 +243,9 @@ export const MinimalWithLocalization = (args) => {
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Sosiaali- ja terveyspalvelut" />
-        <Header.NavigationLink href="#" label="Kasvatus ja koulutus" />
-        <Header.NavigationLink href="#" label="Asuminen" />
+        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
   );

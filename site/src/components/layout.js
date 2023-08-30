@@ -298,7 +298,7 @@ const Layout = ({ children, pageContext }) => {
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Navigation>
             {uiMenuLinks.map(({ name, link, uiId }) => (
-              <Footer.NavigationLink
+              <Footer.Link
                 key={uiId}
                 label={name}
                 to={link}
@@ -307,9 +307,9 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Footer.Navigation>
           <Footer.Base copyrightHolder="Copyright" backToTopLabel="Back to top">
-            <Footer.NavigationLink label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
-            <Footer.NavigationLink label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
-            <Footer.NavigationLink label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
+            <Footer.Link label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
+            <Footer.Link label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+            <Footer.Link label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
       </div>

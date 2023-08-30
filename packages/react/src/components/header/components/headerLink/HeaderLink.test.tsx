@@ -3,23 +3,23 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { NavigationLink } from './NavigationLink';
+import { HeaderLink } from './HeaderLink';
 import { HeaderNavigationMenuWrapper } from '../../../../utils/test-utils';
 
-describe('<NavigationLink /> spec', () => {
+describe('<HeaderLink /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationLink href="#" label="Link" />);
+    const { asFragment } = render(<HeaderLink href="#" label="Link" />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<NavigationLink href="#" label="Link" />);
+    const { container } = render(<HeaderLink href="#" label="Link" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
   it('should not open dropdown when the link is hovered', async () => {
-    render(<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />, {
+    render(<HeaderLink href="#" label="Link" dropdownLinks={[<HeaderLink href="#" label="Test" />]} />, {
       wrapper: HeaderNavigationMenuWrapper,
     });
     userEvent.hover(screen.getByText('Link'));
@@ -27,7 +27,7 @@ describe('<NavigationLink /> spec', () => {
   });
 
   it('should open dropdown when the link is clicked', async () => {
-    render(<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />, {
+    render(<HeaderLink href="#" label="Link" dropdownLinks={[<HeaderLink href="#" label="Test" />]} />, {
       wrapper: HeaderNavigationMenuWrapper,
     });
     userEvent.click(screen.getByText('Link'));
@@ -37,8 +37,8 @@ describe('<NavigationLink /> spec', () => {
   it('should have only one main dropdown active', async () => {
     render(
       <>
-        <NavigationLink href="#" label="Link 1" dropdownLinks={[<NavigationLink href="#" label="Link 1 nested" />]} />
-        <NavigationLink href="#" label="Link 2" dropdownLinks={[<NavigationLink href="#" label="Link 2 nested" />]} />
+        <HeaderLink href="#" label="Link 1" dropdownLinks={[<HeaderLink href="#" label="Link 1 nested" />]} />
+        <HeaderLink href="#" label="Link 2" dropdownLinks={[<HeaderLink href="#" label="Link 2 nested" />]} />
       </>,
       { wrapper: HeaderNavigationMenuWrapper },
     );

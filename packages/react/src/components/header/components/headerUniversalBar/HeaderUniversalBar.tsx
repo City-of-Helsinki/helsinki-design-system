@@ -3,7 +3,7 @@ import React, { cloneElement } from 'react';
 // import base styles
 import '../../../../styles/base.css';
 import styles from './HeaderUniversalBar.module.scss';
-import { NavigationLink } from '../navigationLink';
+import { HeaderLink } from '../headerLink/HeaderLink';
 import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
@@ -18,7 +18,7 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
-   * Children are expected to be NavigationLink components or a container with NavigationLink components inside.
+   * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
    */
   children?: React.ReactNode;
   /**
@@ -57,7 +57,7 @@ export const HeaderUniversalBar = ({
       <div role={role} aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
         <ul className={styles.headerUniversalBarList}>
           <li className={styles.universalBarMainLinkContainer}>
-            <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
+            <HeaderLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
           </li>
           {childElements.map((child, index) => {
             if (React.isValidElement(child)) {

@@ -22,31 +22,31 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
 () => (
   <Footer title="Helsinki Design System">
     <Footer.Navigation>
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
-      <Footer.NavigationLink label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
+      <Link label="Item" />
     </Footer.Navigation>
     <Footer.Utilities
       soMeLinks={[
-        <Footer.NavigationLink title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
-        <Footer.NavigationLink title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
-        <Footer.NavigationLink title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
-        <Footer.NavigationLink title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
-        <Footer.NavigationLink title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
+        <Link title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
+        <Link title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
+        <Link title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
+        <Link title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
+        <Link title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
       ]}
     >
-      <Footer.NavigationLink label="Contact us" />
-      <Footer.NavigationLink label="Give feedback" />
+      <Link label="Contact us" />
+      <Link label="Give feedback" />
     </Footer.Utilities>
     <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-      <Footer.NavigationLink label="Link" />
-      <Footer.NavigationLink label="Link" />
-      <Footer.NavigationLink label="Link" />
+      <Link label="Link" />
+      <Link label="Link" />
+      <Link label="Link" />
     </Footer.Base>
   </Footer>
 )
@@ -67,33 +67,33 @@ import { Footer } from 'hds-react';
   <>
     <Footer title="Helsinki Design System">
       <Footer.Navigation>
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
       </Footer.Navigation>
       <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
+        <Link label="Link" />
+        <Link label="Link" />
+        <Link label="Link" />
       </Footer.Base>
     </Footer>
     <br />
     <Footer title="Helsinki Design System" theme="dark">
       <Footer.Navigation>
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
       </Footer.Navigation>
       <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
-        <Footer.NavigationLink label="Link" />
+        <Link label="Link" />
+        <Link label="Link" />
+        <Link label="Link" />
       </Footer.Base>
     </Footer>
   </>
@@ -113,14 +113,14 @@ import { Footer } from 'hds-react';
   <>
     <Footer title="Default">
       <Footer.Navigation>
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
-        <Footer.NavigationLink label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
+        <Link label="Item" />
       </Footer.Navigation>
     </Footer>
     <br />
@@ -133,12 +133,12 @@ import { Footer } from 'hds-react';
               onClick={(e) => e.preventDefault()}
               label="Item"
             />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
-            <Footer.NavigationLink label="Sub item" />
+            <Link label="Sub item" />
+            <Link label="Sub item" />
+            <Link label="Sub item" />
+            <Link label="Sub item" />
+            <Link label="Sub item" />
+            <Link label="Sub item" />
           </Footer.NavigationGroup>
         ))}
       </Footer.Navigation>
@@ -162,7 +162,7 @@ import { Footer } from 'hds-react';
   <>
     <Footer title="Default">
       <Footer.Utilities soMeLinks={[
-        <Footer.NavigationLink
+        <Link
           title="Helsingin kaupungin Facebook-tili"
           ariaLabel="Helsingin kaupungin Facebook-tili"
           external
@@ -170,7 +170,7 @@ import { Footer } from 'hds-react';
           icon={<IconFacebook aria-hidden />}
           href="https://facebook.com"
         />,
-        <Footer.NavigationLink
+        <Link
           title="Helsingin kaupungin Twitter-tili"
           ariaLabel="Helsingin kaupungin Twitter-tili"
           external
@@ -178,7 +178,7 @@ import { Footer } from 'hds-react';
           icon={<IconTwitter aria-hidden />}
           href="https://twitter.com"
         />,
-        <Footer.NavigationLink
+        <Link
           title="Helsingin kaupungin Instagram-tili"
           ariaLabel="Helsingin kaupungin Instagram-tili"
           external
@@ -186,7 +186,7 @@ import { Footer } from 'hds-react';
           icon={<IconInstagram aria-hidden />}
           href="https://instagram.com"
         />,
-        <Footer.NavigationLink
+        <Link
           title="Helsingin kaupungin Youtube-tili"
           ariaLabel="Helsingin kaupungin Youtube-tili"
           external
@@ -194,7 +194,7 @@ import { Footer } from 'hds-react';
           icon={<IconYoutube aria-hidden />}
           href="https://youtube.com"
         />,
-        <Footer.NavigationLink
+        <Link
           title="Helsingin kaupungin Tiktok-tili"
           ariaLabel="Helsingin kaupungin Tiktok-tili"
           external
@@ -203,10 +203,10 @@ import { Footer } from 'hds-react';
           href="https://tiktok.com"
         />,
       ]}>
-        <Footer.NavigationLink onClick={(e) => e.preventDefault()} label="Contact us" />
-        <Footer.NavigationLink onClick={(e) => e.preventDefault()} label="Give feedback" />
-        <Footer.NavigationLink onClick={(e) => e.preventDefault()} label="Support" />
-        <Footer.NavigationLink onClick={(e) => e.preventDefault()} label="About" />
+        <Link onClick={(e) => e.preventDefault()} label="Contact us" />
+        <Link onClick={(e) => e.preventDefault()} label="Give feedback" />
+        <Link onClick={(e) => e.preventDefault()} label="Support" />
+        <Link onClick={(e) => e.preventDefault()} label="About" />
       </Footer.Utilities>
     </Footer>
     <br />
@@ -219,9 +219,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
         </Footer.UtilityGroup>
         <Footer.UtilityGroup
           headingLink={<Footer.GroupHeading
@@ -229,9 +229,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
         </Footer.UtilityGroup>
         <Footer.UtilityGroup
           headingLink={<Footer.GroupHeading
@@ -239,9 +239,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
         </Footer.UtilityGroup>
         <Footer.UtilityGroup
           headingLink={<Footer.GroupHeading
@@ -249,9 +249,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
-          <Footer.NavigationLink label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
+          <Link label="Link" />
         </Footer.UtilityGroup>
       </Footer.Utilities>
     </Footer>

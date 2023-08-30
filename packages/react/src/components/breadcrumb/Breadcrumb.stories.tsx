@@ -44,7 +44,7 @@ export const ExampleInHeader = (args) => {
         logoUrl="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
-        <Header.NavigationLanguageSelector languages={languages} ariaLabel="Kielen valinta">
+        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
             Selkosuomi
@@ -52,36 +52,36 @@ export const ExampleInHeader = (args) => {
           <Link external href="www.example.com">
             Viittomakieli
           </Link>
-        </Header.NavigationLanguageSelector>
+        </Header.LanguageSelector>
       </Header.ActionBar>
       <Header.NavigationMenu>
-        <Header.NavigationLink
+        <Header.Link
           href="#"
           label="Health and social services"
           onClick={(event) => event.preventDefault()}
           active
           dropdownLinks={[
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Senior services"
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Informal care" active />,
-                <Header.NavigationLink href="#" label="Senior centres" />,
-                <Header.NavigationLink href="#" label="Home care" />,
+                <Header.Link href="#" label="Informal care" active />,
+                <Header.Link href="#" label="Senior centres" />,
+                <Header.Link href="#" label="Home care" />,
               ]}
             />,
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Data and the rights of the client"
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Requesting client data" />,
-                <Header.NavigationLink href="#" label="Fees" />,
+                <Header.Link href="#" label="Requesting client data" />,
+                <Header.Link href="#" label="Fees" />,
               ]}
             />,
           ]}
         />
-        <Header.NavigationLink href="#" label="Child and family services" />
+        <Header.Link href="#" label="Child and family services" />
       </Header.NavigationMenu>
       <Breadcrumb
         {...args}

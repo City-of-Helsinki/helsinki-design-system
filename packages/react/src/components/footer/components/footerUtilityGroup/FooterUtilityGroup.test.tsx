@@ -18,13 +18,13 @@ describe('<Footer.UtilityGroup /> spec', () => {
             label="Main Page"
             variant={FooterVariant.Utility}
           />
-          <Footer.NavigationLink
+          <Footer.Link
             href="https://google.com"
             onClick={(e) => e.preventDefault()}
             label="Sub page"
             variant={FooterVariant.Utility}
           />
-          <Footer.NavigationLink
+          <Footer.Link
             href="https://google.com"
             onClick={(e) => e.preventDefault()}
             label="Sub page"
@@ -33,14 +33,14 @@ describe('<Footer.UtilityGroup /> spec', () => {
         </Footer.UtilityGroup>
         <Footer.UtilityGroup key={6}>
           <Footer.GroupHeading label="Social media" variant={FooterVariant.Utility} />
-          <Footer.NavigationLink
+          <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
             icon={<IconFacebook aria-hidden="true" />}
             href="https://facebook.com/helsinginkaupunki/"
           />
-          <Footer.NavigationLink
+          <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
@@ -63,13 +63,13 @@ describe('<Footer.UtilityGroup /> spec', () => {
             label="Main Page"
             variant={FooterVariant.Utility}
           />
-          <Footer.NavigationLink
+          <Footer.Link
             href="https://google.com"
             onClick={(e) => e.preventDefault()}
             label="Sub page"
             variant={FooterVariant.Utility}
           />
-          <Footer.NavigationLink
+          <Footer.Link
             href="https://google.com"
             onClick={(e) => e.preventDefault()}
             label="Sub page"
@@ -78,14 +78,14 @@ describe('<Footer.UtilityGroup /> spec', () => {
         </Footer.UtilityGroup>
         <Footer.UtilityGroup key={6}>
           <Footer.GroupHeading label="Social media" variant={FooterVariant.Utility} />
-          <Footer.NavigationLink
+          <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
             icon={<IconFacebook aria-hidden="true" />}
             href="https://facebook.com/helsinginkaupunki/"
           />
-          <Footer.NavigationLink
+          <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"

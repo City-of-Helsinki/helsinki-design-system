@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<NavigationLink /> spec renders the component 1`] = `
+exports[`<HeaderLink /> spec renders the component 1`] = `
 <DocumentFragment>
   <span
     class="navigationLinkWrapper depth-0"
   >
     <a
-      class="link linkM navigationLink depth-0"
+      class="link linkM headerLink depth-0"
       href="#"
     >
       Link

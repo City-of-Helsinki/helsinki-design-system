@@ -2,32 +2,32 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { FooterNavigationLink } from './FooterNavigationLink';
+import { FooterLink } from './FooterLink';
 import { FooterWrapper } from '../../../../utils/test-utils';
 import { FooterVariant } from '../../Footer.interface';
 
-describe('<Footer.NavigationLink /> spec', () => {
+describe('<Link /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<FooterNavigationLink label="Link" />, { wrapper: FooterWrapper });
+    const { asFragment } = render(<FooterLink label="Link" />, { wrapper: FooterWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<FooterNavigationLink label="Link" />, { wrapper: FooterWrapper });
+    const { container } = render(<FooterLink label="Link" />, { wrapper: FooterWrapper });
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
   it('renders the utility variant', () => {
-    const { asFragment } = render(<FooterNavigationLink label="Link" variant={FooterVariant.Utility} />);
+    const { asFragment } = render(<FooterLink label="Link" variant={FooterVariant.Utility} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders the navigation variant', () => {
-    const { asFragment } = render(<FooterNavigationLink label="Link" variant={FooterVariant.Navigation} />);
+    const { asFragment } = render(<FooterLink label="Link" variant={FooterVariant.Navigation} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders the base variant', () => {
-    const { asFragment } = render(<FooterNavigationLink label="Link" variant={FooterVariant.Base} />);
+    const { asFragment } = render(<FooterLink label="Link" variant={FooterVariant.Base} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
