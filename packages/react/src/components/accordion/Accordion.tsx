@@ -250,7 +250,7 @@ export const Accordion = ({
         className={classNames(
           styles.accordionContent,
           card && styles.card,
-          closeButton && styles.contentWithCloseButton,
+          !closeButton && styles.contentWithoutCloseButton,
         )}
         aria-labelledby={`${accordionId}-heading`}
       >

@@ -44,7 +44,17 @@ export const StackedAccordionCards = (args) => (
 
 StackedAccordionCards.storyName = 'Stacked cards';
 
-export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
+export const InitiallyOpen = (args) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <Accordion {...args} initiallyOpen size="s" />
+    <Accordion {...args} initiallyOpen size="m" />
+    <Accordion {...args} initiallyOpen size="l" />
+    <Accordion {...args} initiallyOpen card border size="s" />
+    <Accordion {...args} initiallyOpen card border size="m" />
+    <Accordion {...args} initiallyOpen card border size="l" />
+  </div>
+);
+
 InitiallyOpen.storyName = 'Initially open';
 
 export const CardAccordion = (args) => (

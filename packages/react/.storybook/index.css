@@ -80,7 +80,7 @@ body {
 .password-input--external-show-password-button,
 .date-input--external-clear-value-button {
   display: grid;
-  grid-template-columns: 400px 200px;
+  grid-template-columns: 400px 220px;
   gap: 20px;
   align-items: center;
 }
