@@ -13,65 +13,55 @@ import styles from './HeaderActionBar.module.scss';
 const classNames = styleBoundClassNames(styles);
 
 export enum TitleStyleType {
-  normal = 'normal',
-  bold = 'bold',
+  Normal = 'normal',
+  Bold = 'bold',
 }
 
 export type HeaderActionBarProps = PropsWithChildren<{
   /**
-   * aria-label for describing ActionBar.
+   * Aria-label for describing ActionBar.
    */
   ariaLabel?: string;
   /**
    * Additional class names to apply.
    */
   className?: string;
-
   /**
    * Service name that is displayed next to the Helsinki logo.
    */
   title: string;
-
   /**
-   * Service name that is displayed next to the Helsinki logo.
+   * Style for title.
    */
   titleStyle?: TitleStyleType;
-
   /**
    * The aria-label for the title describing the service to screen reader users.
    */
   titleAriaLabel?: string;
-
   /**
    * The aria-label for the logo to screen reader users.
    */
   logoAriaLabel?: string;
-
   /**
    * The aria-label for the menu button to screen reader users.
    */
   menuButtonAriaLabel?: string;
-
   /**
-   * URL to navigate to when the title is clicked
+   * Link for the title.
    */
-  titleUrl?: string;
-
+  titleHref?: string;
   /**
-   * URL to navigate to when the logo is clicked
+   * Link for the logo.
    */
-  logoUrl?: string;
-
+  logoHref?: string;
   /**
-   * Callback fired when the title is clicked
+   * Callback fired when the title is clicked.
    */
   onTitleClick?: MouseEventHandler;
-
   /**
-   * Callback fired when the logo is clicked
+   * Callback fired when the logo is clicked.
    */
   onLogoClick?: MouseEventHandler;
-
   /**
    * Callback fired when the menu button is clicked.
    * Call event.stopPropagation() to disable calling
@@ -90,8 +80,8 @@ export const HeaderActionBar = ({
   titleAriaLabel,
   logoAriaLabel,
   menuButtonAriaLabel,
-  titleUrl,
-  logoUrl,
+  titleHref,
+  logoHref,
   onTitleClick,
   onLogoClick,
   onMenuButtonClick,
@@ -108,7 +98,7 @@ export const HeaderActionBar = ({
 
   const logoProps: LinkProps = {
     'aria-label': logoAriaLabel,
-    href: logoUrl,
+    href: logoHref,
     className: classNames(styles.titleAndLogoContainer, styles.logo),
     onClick: handleLogoClick,
     onKeyPress: handleLogoKeyPress,
@@ -116,7 +106,7 @@ export const HeaderActionBar = ({
 
   const titleProps: LinkProps = {
     'aria-label': titleAriaLabel,
-    href: titleUrl,
+    href: titleHref,
     className: classNames(styles.titleAndLogoContainer, styles.title, styles[titleStyle]),
     onClick: onTitleClick,
     onKeyPress: handleLogoKeyPress,
@@ -174,5 +164,5 @@ export const HeaderActionBar = ({
 };
 
 HeaderActionBar.defaultProps = {
-  titleStyle: TitleStyleType.normal,
+  titleStyle: TitleStyleType.Normal,
 };

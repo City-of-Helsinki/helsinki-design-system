@@ -14,19 +14,19 @@ export interface SkipLinkTheme {
 
 export type SkipLinkProps = {
   /**
-   * Aria label for skip link shortcut (alternative text for screen reader)
+   * aria-label for describing SkipLink for screen readers.
    */
   ariaLabel?: string;
   /**
-   * Label for skip link shortcut
+   * Label for the SkipLink.
    */
   label: string;
   /**
-   * ID of the element which is reached by clicking "skip link" shortcut
+   * ID of the element where the SkipLink jumps to.
    */
   skipTo: string;
   /**
-   * Custom styling for skip link (current only position)
+   * Custom styling for SkipLink.
    */
   theme?: SkipLinkTheme;
 };

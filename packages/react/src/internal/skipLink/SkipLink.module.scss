@@ -1,4 +1,5 @@
 @use "../../styles/layout.scss";
+@import "../../styles/common.scss";
 
 .skipLink {
   --background-color: var(--color-white);
@@ -25,6 +26,10 @@
   position: absolute;
   top: calc(-1 * (var(--height) + var(--top)));
   width: 1px;
+
+  &:not(:focus) {
+    @extend %visuallyHidden;
+  }
 
   &:focus {
     align-items: center;

@@ -16,7 +16,12 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   ariaLabel?: string;
   /**
-   * Element type
+   * Element or component to use instead of the default link.
+   * @default Link
+   * @example
+   * ```ts
+   * as={CustomLink}
+   * ```
    */
   as?: Element;
   /**
@@ -24,7 +29,7 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   external?: boolean;
   /**
-   * Icon placed on the left side of the item label
+   * Icon placed on the left side of the item label.
    */
   icon?: React.ReactNode;
   /**
@@ -32,15 +37,15 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   label?: string;
   /**
-   * Boolean indicating whether the link will open in new tab or not.
+   * Boolean indicating whether the link will open in new tab.
    */
   openInNewTab?: boolean;
   /**
-   * The aria-label for opening link in a new tab
+   * The aria-label for opening link in a new tab.
    */
   openInNewTabAriaLabel?: string;
   /**
-   * The aria-label for opening link in an external domain
+   * The aria-label for opening link in an external domain.
    */
   openInExternalDomainAriaLabel?: string;
   /**

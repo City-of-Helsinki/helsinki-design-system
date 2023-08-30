@@ -3,7 +3,8 @@ slug: '/components/header/code'
 title: 'Header - Code'
 ---
 
-import { Header } from 'hds-react';
+import { Link } from 'gatsby';
+import { Header, IconSearch } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -13,18 +14,209 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Code examples
 
-#### Default
+#### With all the components
 
-<Playground>
+<Playground scope={{ Header, IconSearch }}>
 
 ```jsx
-<Header>
-  <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-    <Header.NavigationLink href="#">Link</Header.NavigationLink>
-    <Header.NavigationLink href="#">Link</Header.NavigationLink>
-    <Header.NavigationLink href="#">Link</Header.NavigationLink>
-  </Header.UniversalBar>
-</Header>
+import { Header, IconSearch } from 'hds-react';
+
+() => {
+  const languages = [
+    { label: 'Suomi', value: 'fi' },
+    { label: 'Svenska', value: 'sv' },
+    { label: 'English', value: 'en' },
+  ];
+  const languageChangedAction = (lang) => {
+    console.log('Language changed to: ', lang);
+  };
+  const searchSubmitAction = (search) => {
+    console.log('Search submit: ', search);
+  };
+  const searchChangeAction = (search) => {
+    console.log('Searching: ', search);
+  };
+  return (
+    <>
+      <Header onDidChangeLanguage={languageChangedAction}>
+        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+        <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+          <Header.NavigationLink href="#" label="Uutiset" />
+          <Header.NavigationLink href="#" label="Asioi verkossa" />
+          <Header.NavigationLink href="#" label="Anna palautetta" />
+        </Header.UniversalBar>
+
+        <Header.ActionBar
+          title="Helsingin kaupunki"
+          titleAriaLabel="Helsingin kaupunki"
+          titleHref="https://hel.fi"
+          logoAriaLabel="Service logo"
+          logoHref="https://hel.fi"
+          menuButtonAriaLabel="Menu"
+        >
+          <Header.NavigationLanguageSelector languages={languages} />
+
+          <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
+            <Header.NavigationSearch
+              label="Hae palvelusta"
+              onChange={searchChangeAction}
+              onSubmit={searchSubmitAction}
+            />
+          </Header.ActionBarItem>
+        </Header.ActionBar>
+        <Header.NavigationMenu>
+          <Header.NavigationLink
+            href="#"
+            label="Sosiaali- ja terveyspalvelut"
+            onClick={(event) => event.preventDefault()}
+            active
+            dropdownLinks={[
+              <Header.NavigationLink
+                href="#"
+                label="Terveydenhoito"
+                active
+                dropdownLinks={[
+                  <Header.NavigationLink href="#" label="Hammashoito" />,
+                  <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+                ]}
+              />,
+              <Header.NavigationLink
+                href="#"
+                label="Senioripalvelut"
+                dropdownLinks={[
+                  <Header.NavigationLink href="#" label="Viriketoiminta" />,
+                  <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.NavigationLink
+            href="#"
+            label="Kasvatus ja koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink
+                href="#"
+                label="Kasvatus"
+                active
+                dropdownLinks={[
+                  <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+                  <Header.NavigationLink href="#" label="Esiopetus" />,
+                ]}
+              />,
+              <Header.NavigationLink
+                href="#"
+                label="Koulutus"
+                dropdownLinks={[
+                  <Header.NavigationLink href="#" label="Perusopetus" />,
+                  <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+                  <Header.NavigationLink href="#" label="Työväenopistot" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.NavigationLink href="#" label="Asuminen" />
+        </Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
+  )
+}
+```
+
+</Playground>
+
+#### Custom NavigationLink
+
+The Header.NavigationLink component has the `as` prop which you can use to use your own navigation link instead of our Header.NavigationLink, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
+
+<Playground scope={{ Header, IconSearch, Link }}>
+
+```jsx
+import { Header, IconSearch } from 'hds-react';
+import { Link } from 'gatsby';
+
+() => {
+  return (
+    <>
+      <Header>
+        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+        <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+          <Header.NavigationLink href="#" label="Uutiset" />
+          <Header.NavigationLink href="#" label="Asioi verkossa" />
+          <Header.NavigationLink href="#" label="Anna palautetta" />
+        </Header.UniversalBar>
+
+        <Header.ActionBar
+          title="Helsingin kaupunki"
+          titleAriaLabel="Helsingin kaupunki"
+          titleHref="https://hel.fi"
+          logoAriaLabel="Service logo"
+          logoHref="https://hel.fi"
+          menuButtonAriaLabel="Menu"
+        />
+        <Header.NavigationMenu>
+          <Header.NavigationLink
+            as={Link}
+            href="#"
+            label="Sosiaali- ja terveyspalvelut"
+            onClick={(event) => event.preventDefault()}
+            active
+            dropdownLinks={[
+              <Header.NavigationLink
+                as={Link}
+                href="#"
+                label="Terveydenhoito"
+                active
+                dropdownLinks={[
+                  <Header.NavigationLink as={Link} href="#" label="Hammashoito" />,
+                  <Header.NavigationLink as={Link} href="#" label="Julkinen terveydenhoito" />,
+                ]}
+              />,
+              <Header.NavigationLink
+                as={Link}
+                href="#"
+                label="Senioripalvelut"
+                dropdownLinks={[
+                  <Header.NavigationLink as={Link} href="#" label="Viriketoiminta" />,
+                  <Header.NavigationLink as={Link} href="#" label="Kuntouttavat palvelut" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.NavigationLink
+            as={Link}
+            href="#"
+            label="Kasvatus ja koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink
+                as={Link}
+                href="#"
+                label="Kasvatus"
+                active
+                dropdownLinks={[
+                  <Header.NavigationLink as={Link} href="#" label="Varhaiskasvatus" />,
+                  <Header.NavigationLink as={Link} href="#" label="Esiopetus" />,
+                ]}
+              />,
+              <Header.NavigationLink
+                as={Link}
+                href="#"
+                label="Koulutus"
+                dropdownLinks={[
+                  <Header.NavigationLink as={Link} href="#" label="Perusopetus" />,
+                  <Header.NavigationLink as={Link} href="#" label="Toisen asteen koulutus" />,
+                  <Header.NavigationLink as={Link} href="#" label="Työväenopistot" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.NavigationLink as={Link} href="#" label="Asuminen" />
+        </Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
+  )
+}
 ```
 
 </Playground>
@@ -33,23 +225,101 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                         | Source link                                                                                                                                                                                                         |
 | ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--example">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
 | **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                      | -                                                                                                                                                                                                                   |
 
 ### Properties
 
-Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-headeruniversalbar--default">React Storybook.</Link>
-
-| Property                    | Description                      | Values   | Default value |
-| --------------------------- | -------------------------------- | -------- | ------------- |
-| `className`                 | Additional class names to apply. | `string` | -             |
-| `id`                        | Id for the element.              | `string` | -             |
+| Property                    | Description                       | Values   | Default value |
+| --------------------------- | --------------------------------- | -------- | ------------- |
+| `ariaLabel`                 | Aria-label for describing header. | `string` | -             |
+| `className`                 | Additional class names to apply.  | `string` | -             |
+| `id`                        | Id for the element.               | `string` | -             |
 | [Table 1:Header properties] |
 
-| Property                                | Description                                                     | Values   | Default value        |
-| --------------------------------------- | --------------------------------------------------------------- | -------- | -------------------- |
-| `ariaLabel`                             | aria-label for describing universal bar for the screen readers. | `string` | -                    |
-| `className`                             | Additional class names to apply.                                | `string` | -                    |
-| `primaryLinkHref`                       | Hypertext reference for the primary link.                       | `string` | `https://hel.fi`     |
-| `primaryLinkText`                       | Link text for the primary link                                  | `string` | `Helsingin kaupunki` |
-| [Table 2:Header.UniversalBar properties] |
+| Property                             | Description                                        | Values          | Default value |
+| ------------------------------------ | -------------------------------------------------- | --------------- | ------------- |
+| `ariaLabel`                          | Aria-label for describing SkipLink in more detail. | `string`        | -             |
+| `label`                              | Label for the SkipLink.                            | `string`        | -             |
+| `skipTo`                             | Id of the element where the SkipLink jumps to.     | `string`        | -             |
+| `theme`                              | Custom styling for SkipLink.                       | `SkipLinkTheme` | -             |
+| [Table 2:Header.SkipLink properties] |
+
+| Property                                 | Description                               | Values   | Default value |
+| ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                              | Aria-label for describing UniversalBar.   | `string` | -             |
+| `className`                              | Additional class names to apply.          | `string` | -             |
+| `primaryLinkHref`                        | Hypertext reference for the primary link. | `string` | -             |
+| `primaryLinkText`                        | Link text for the primary link            | `string` | -             |
+| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
+| [Table 3:Header.UniversalBar properties] |
+
+| Property                              | Description                                            | Values                                        | Default value |
+| ------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------- |
+| `ariaLabel`                           | Aria-label for describing ActionBar.                   | `string`                                      | -             |
+| `className`                           | Additional class names to apply.                       | `string`                                      | -             |
+| `logoAriaLabel`                       | Aria-label for the logo.                               | `string`                                      | -             |
+| `logoHref`                             | URL for the logo.                                      | `string`                                      | -             |
+| `menuButtonAriaLabel`                 | Aria-label for the menu button.                        | `string`                                      | -             |
+| `onTitleClick`                        | Callback function for when the title is clicked.       | `MouseEventHandler`                           | -             |
+| `onLogoClick`                         | Callback function for when the logo is clicked.        | `MouseEventHandler`                           | -             |
+| `onMenuButtonClick`                   | Callback function for when the menu button is clicked. | `MouseEventHandler`                           | -             |
+| `title`                               | Service name.                                          | `string`                                      | -             |
+| `titleAriaLabel`                      | Aria-label for the title.                              | `string`                                      | -             |
+| `titleStyle`                          | Style for the service name.                            | `TitleStyleType.Normal` `TitleStyleType.Bold` | `Normal`      |
+| `titleHref`                            | URL for the title.                                     | `string`                                      | -             |
+| `role`                                | ARIA role to describe the contents.                    | `string`                                      | -             |
+| [Table 4:Header.ActionBar properties] |
+
+| Property                                  | Description                         | Values                 | Default value |
+| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
+| `ariaLabel`                               | Aria-label for describing the item. | `string`               | -             |
+| `icon`                                    | Icon for the item.                  | `ReactNode`            | -             |
+| `label`                                   | Label for the action bar item.      | `string` `JSX.Element` | -             |
+| [Table 5:Header.ActionBarItem properties] |
+
+| Property                                               | Description                                            | Values             | Default value |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------ | ------------- |
+| `children`                                             | Additional languages to display in the dropdown.       | `JSX.Element`      | -             |
+| `languages`                                            | Array of languages to display in the Header.ActionBar. | `[LanguageOption]` | -             |
+| [Table 6:Header.NavigationLanguageSelector properties] |
+
+| Property                                     | Description                                    | Values                         | Default value |
+| -------------------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
+| `label`                                      | Label for the search input.                    | `string` `JSX.Element`         | -             |
+| `onChange`                                   | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
+| `onSubmit`                                   | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
+| [Table 7:Header.NavigationSearch properties] |
+
+| Property                                     | Description                                    | Values                         | Default value |
+| -------------------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
+| `ariaLabel`                                  | Aria-label for describing the item. | `string` | -             |
+| `ariaControls`                               | Id of the controlled dropdown element. | `string` | -             |
+| `fixedRightPosition`                         | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line.                    | `boolean`         | `false`             |
+| `icon`                                         | Icon for the item.                | `ReactNode` | -             |
+| `label`                                      | Label for the item.                    | `string` `JSX.Element`         | -             |
+| [Table 8:Header.ActionBarItem properties] |
+
+| Property                                   | Description                               | Values   | Default value |
+| ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
+| `id`                                       | ID for the NavigationMenu.                | `string` | -             |
+| [Table 9:Header.NavigationMenu properties] |
+
+| Property                                   | Description                                                                 | Values                      | Default value                                           |
+| ------------------------------------------ | --------------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------- |
+| `active`                                   | Set the link as the current page, giving it proper styles.                  | `boolean`                   | -                                                       |
+| `ariaLabel`                                | Aria-label for describing NavigationLink.                                   | `string`                    | -                                                       |
+| `as`                                       | Element or component to use instead of Header.NavigationLink.               | `Element`                    | <InternalLink href="/components/">`Link`</InternalLink> |
+| `className`                                | Additional classNames to apply to the link.                                 | `string`                    | -                                                       |
+| `closeDropdownAriaButtonLabel`             | Aria-label for the dropdown button to describe the closing of the dropdown. | `string`                    | -                                                       |
+| `dropdownButtonClassName`                  | Additional classNames to apply to the dropdown button.                      | `string`                    | -                                                       |
+| `dropdownClassName`                        | Additional classNames to apply to the dropdown menu.                        | `string`                    | -                                                       |
+| `dropdownLinkClassName`                    | Additional classNames to apply to the dropdown links.                       | `string`                    | -                                                       |
+| `dropdownLinks`                            | Array of NavigationLink components to render in a dropdown.                 | `[<Header.NavigationLink>]` | -                                                       |
+| `href`                                     | Hypertext Reference of the link.                                            | `string`                    | -                                                       |
+| `label`                                    | Label for the link.                                                         | `string`                    | -                                                       |
+| `id`                                       | ID for the link.                                                            | `string`                    | -                                                       |
+| `openDropdownAriaButtonLabel`              | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`                    | -                                                       |
+| `wrapperClassName`                         | Additional classNames for the element wrapping the link.                    | `string`                    | -                                                       |
+| [Table 10:Header.NavigationLink properties] |

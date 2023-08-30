@@ -17,15 +17,15 @@ export type FooterBaseProps = React.PropsWithChildren<{
    */
   ariaLabel?: string;
   /**
-   * Label for the "Back to top" button
+   * Label for the "Back to top" button.
    */
   backToTopLabel?: string | React.ReactNode;
   /**
-   * Text to be displayed next to the copyright symbol
+   * Text to be displayed next to the copyright symbol.
    */
   copyrightHolder?: React.ReactNode;
   /**
-   * Text to be displayed after the copyright holder text
+   * Text to be displayed after the copyright holder text.
    */
   copyrightText?: React.ReactNode;
   /**
@@ -33,12 +33,12 @@ export type FooterBaseProps = React.PropsWithChildren<{
    */
   logoHref?: string;
   /**
-   * The language of the Helsinki-logo
+   * The language of the Helsinki-logo.
    * @default 'fi'
    */
   logoLanguage?: LogoLanguage;
   /**
-   * Callback fired when the "Back to top" button is clicked
+   * Callback fired when the "Back to top" button is clicked.
    */
   onBackToTopClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   /**
@@ -46,7 +46,7 @@ export type FooterBaseProps = React.PropsWithChildren<{
    */
   role?: string;
   /**
-   * Whether the "Back to top" button should be shown
+   * Whether the "Back to top" button should be shown.
    */
   showBackToTopButton?: boolean;
   /**

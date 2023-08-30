@@ -4,8 +4,7 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header } from 'hds-react';
-import PlaygroundPreview from '../../../components/Playground';
+import { Header, IconBell, IconSearch, Notification } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 
@@ -17,61 +16,377 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <Header>
-    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+      <Header.NavigationLink href="#" label="Uutiset" />
+      <Header.NavigationLink href="#" label="Asioi verkossa" />
+      <Header.NavigationLink href="#" label="Anna palautetta" />
     </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+        <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.NavigationLink
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        active
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Terveydenhoito"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Hammashoito" />,
+              <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Viriketoiminta" />,
+              <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink
+        href="#"
+        label="Kasvatus ja koulutus"
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Kasvatus"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+              <Header.NavigationLink href="#" label="Esiopetus" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Perusopetus" />,
+              <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+              <Header.NavigationLink href="#" label="Työväenopistot" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink href="#" label="Asuminen" />
+    </Header.NavigationMenu>
   </Header>
 </PlaygroundPreview>
 
 ### Principles
 
-- **It is strongly recommended to always include the header component in your service.**
+- **It is strongly recommended to always include the header component on every page in your service.**
 - The Header component is a wrapper for the HDS header navigation components. This means you should put all the other header elements inside this component.
 - The only mandatory component inside the header is HeaderActionBar. Other components may be used if needed.
-- HeaderNavigationBar is coming soon
-- HeaderActionBar is coming soon
 - The inner components should **always** be in this order: Header.SkipLink, Header.UniversalBar, HeaderActionBar and HeaderNavigationBar.
+- Try to keep the order of actions (language select, search, log in) consistent in navigation. Do not change the default order without a good reason.
+- To better understand how the navigation elements work and how they should be combined, see also <InternalLink href="/patterns/navigation">Navigation pattern.</InternalLink>
 
 ### Variations
 
-#### With universal bar
+Variations are presented in the same order that they should be declared in inside the Header component.
+- [With Header.SkipLink](#with-skip-link)
+- [With Header.UniversalBar](#with-universal-bar)
+- [With Header.ActionBar](#with-action-bar)
+  - [With Header.NavigationLanguageSelector](#with-navigation-language-selector) inside the action bar
+  - [With Header.Search](#with-search) inside the action bar
+- [With Header.NavigationMenu](#with-search)
 
-- Using the Header.UniversalBar component is optional. Use it only if you have contemporary or frequently visited and useful links.
-- Put the Header.UniversalBar component inside the<InternalLink href="/components/header">HDS Header component</InternalLink>.
-- The first link should always direct to the webpage of City of Helsinki.
-- Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word. Use the <InternalLink href="/components/navigation-link">navigation link component</InternalLink> for secondary links.
-- Always position the Header.UniversalBar to the top of the page. Keep the bar in place so the user can always easily locate it. It is recommended to include the Header.UniversalBar on every page of the service.
-- It's recommended to pass an ariaLabel prop for the Header.UniversalBar to describe it for the screen readers, e.g. "Quick links".
-- The Header.UniversalBar component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. On smaller screens (576px and down) the Header.UniversalBar will not be displayed on the page and its contents should be found inside the HeaderNavigationMenu component.
+#### With skip link
+
+Use the Header.SkipLink component to help keyboard-only users skip to the main content on a page.
+- Using the Header.SkipLink component is optional but we recommend using it if you have any other header components beside the ActionBar.
+- The Header.SkipLink supports `ariaLabel` prop which gives possibility to define more informative text for screen readers.
 
 <PlaygroundPreview>
   <Header>
-    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
-      <Header.NavigationLink href="#">Link</Header.NavigationLink>
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+    </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
+
+#### With universal bar
+
+Header.UniversalBar is aimed to provide easy access for frequently visited and useful links, e.g. feedback and news.
+- Using the Header.UniversalBar component is optional.
+- If the primary link information is provided, it should direct to the webpage of City of Helsinki. We recommend using it if your service is outside the <ExternalLink href="https://www.hel.fi/fi">hel.fi</ExternalLink> domain in order to provide a quick and easy access to the City of Helsinki web page.
+- Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
+- On smaller screens (768px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+      <Header.NavigationLink href="#" label="Uutiset" />
+      <Header.NavigationLink href="#" label="Asioi verkossa" />
+      <Header.NavigationLink href="#" label="Anna palautetta" />
     </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    />
   </Header>
 </PlaygroundPreview>
 
 #### With action bar
 
-Coming soon!
+Header.ActionBar is the section that makes your service recognizeable. It provides the logo, name of the service and language selection, search and login features when needed.
+- **You should always include the Header.ActionBar component in your Header**.
+- The component provides two different service name styles via the `titleStyle` prop: `TitleStyleType.Normal`, which is the default, and `TitleStyleType.Bold`. We recommend to have a maximum of 22 character (including spaces) for title name regardless of which style is used.
+- On smaller screens (768px and down) the Header.ActionBar undergoes some visual changes:
+  - The contents of Header.NavigationMenu and Header.UniversalBar, if you have provided either of them, will move inside Header.ActionBar's menu.
+  - The Header.NavigationLanguageSelector moves under the ActionBar.
+  
+<PlaygroundPreview>
+  <Header>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+      <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
+        <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
 
-#### With navigation bar
+##### With navigation language selector
 
-Coming soon!
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.NavigationLanguageSelector component is subject to change, mainly regarding how the dropdown offering additional languages is going to look and work.
+</Notification>
 
-#### With navigation language selector
-
-- Using the Header.NavigationLanguageSelector is optional. Use the navigation language selector to define site languages. 
-- Header has <code>onDidChangeLanguage</code> function, where user can define a callback function which gets the selected language key (value) as parameter.
+Header.NavigationLanguageSelector offers the languages for the whole service. It is recommended to offer full Finnish, Swedish and English versions. Other languages can be added based on the need and target audience of the service. Smaller subset of content can be separated from fully translated content.
+- Using the Header.NavigationLanguageSelector is optional. 
+- The Header.NavigationLanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
+- The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
 - See example for Header.NavigationLanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal-with-localization">in Storybook</Link>
+- On smaller screens (768px and down) the Header.NavigationLanguageSelector moves under the Header.ActionBar.
 
-#### With skip link
+##### With search
 
-- Using the Header.SkipLink component is optional. Use the skip link component to help keyboard-only users skip to the main content on a page.
-- See example for Header.SkipLink <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-skip-link">in Storybook</Link>
-- The Header.SkipLink supports ariaLabel which gives possibility to define more informative text for screen readers
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.NavigationSearch component is subject to change, mainly regarding how the dropdown is going to look and work.
+</Notification>
+
+The Header.NavigationSearch component is to be used for whole site wide search.
+- Using the Header.NavigationSearch is optional. It uses the <InternalLink href="/components/search-input">HDS SearchInput component</InternalLink>.
+- The Header.NavigationSearch needs to be inside [Header.ActionBarItem](#actionbaritem). Notice that the ActionBarItem is what is displayed on the ActionBar, and the children inside it are what's in the dropdown.
+- The input value can be obtained via `onChange` callback prop as the input value changes, or `onSubmit` callback prop which is called when the search icon is pressed.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
+        <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
+
+##### ActionBarItem
+The Header.ActionBarItem is a generic component for displaying icon buttons on the action bar, optionally accompanied with dropdowns.
+- The Header.ActionBarItem extends native button element's attributes.
+- The item can be positioned behind a dividing line, setting it apart from the rest of the items with the prop `fixedRightPosition`. This is mainly reserved for log in button.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+      <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell/>} id="action-bar-notifications">
+        <p>Ei uusi ilmoituksia.</p>
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.NavigationLink
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        active
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Terveydenhoito"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Hammashoito" />,
+              <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Viriketoiminta" />,
+              <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink
+        href="#"
+        label="Kasvatus ja koulutus"
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Kasvatus"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+              <Header.NavigationLink href="#" label="Esiopetus" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Perusopetus" />,
+              <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+              <Header.NavigationLink href="#" label="Työväenopistot" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+</PlaygroundPreview>
+
+#### With navigation menu
+The Header.NavigationMenu is enables users to navigate to different pages of the service. The navigation menu supports up to 3 levels of page hierarchy. For more levels and recommendations, see also Navigation pattern.
+- The Header.NavigationMenu component should come after [the Header.ActionBar component](#with-action-bar).
+- Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word. See also our <InternalLink href="/components/header/accessibility">accessibility notes</InternalLink> about navigation menu's hierarchy.
+- On smaller screens (768px and down) the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.NavigationLanguageSelector languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]} />
+      <Header.ActionBarItem label="Haku" icon={<IconSearch/>} id="action-bar-search">
+        <Header.NavigationSearch label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.NavigationLink
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        active
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Terveydenhoito"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Hammashoito" />,
+              <Header.NavigationLink href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Viriketoiminta" />,
+              <Header.NavigationLink href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink
+        href="#"
+        label="Kasvatus ja koulutus"
+        dropdownLinks={[
+          <Header.NavigationLink
+            href="#"
+            label="Kasvatus"
+            active
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Varhaiskasvatus" />,
+              <Header.NavigationLink href="#" label="Esiopetus" />,
+            ]}
+          />,
+          <Header.NavigationLink
+            href="#"
+            label="Koulutus"
+            dropdownLinks={[
+              <Header.NavigationLink href="#" label="Perusopetus" />,
+              <Header.NavigationLink href="#" label="Toisen asteen koulutus" />,
+              <Header.NavigationLink href="#" label="Työväenopistot" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.NavigationLink href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+</PlaygroundPreview>

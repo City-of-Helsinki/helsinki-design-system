@@ -23,23 +23,25 @@ export type FooterProps = React.PropsWithChildren<{
    */
   ariaLabel?: string;
   /**
-   * Additional class names to apply to the footer
+   * Additional class names to apply to the footer.
    */
   className?: string;
   /**
-   * Props that will be passed to the native `<footer>` element
+   * Props that will be passed to the native `<footer>` element.
    */
   footerProps?: React.ComponentPropsWithoutRef<'footer'>;
   /**
-   * Koros type to use in the footer
+   * Koros type to use in the footer.
+   * @default 'basic'
    */
   korosType?: KorosType;
   /**
-   * Defines the footer theme
+   * Defines the footer theme.
+   * @default 'light'
    */
   theme?: FooterTheme;
   /**
-   * The title of the service shown on top of the the footer
+   * The title of the service shown on top of the the footer.
    */
   title?: React.ReactNode;
 }>;

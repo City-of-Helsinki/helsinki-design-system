@@ -19,13 +19,13 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
    */
   id?: string;
   /**
-   * FooterGroupHeading component to display at the top of the group. On smaller screens only this will be displayed.
+   * Footer.GroupHeading component to display at the top of the group. On smaller screens only this will be displayed.
    * @example
    * ```ts
    * headingLink={<Footer.GroupHeading
-            href="https://yourpath.com"
-            label="Main Page"
-          />}
+        href="https://yourpath.com"
+        label="Main Page"
+      />}
     ```
    */
   headingLink: React.ReactNode;
