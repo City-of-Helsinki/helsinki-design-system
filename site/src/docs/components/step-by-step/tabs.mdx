@@ -5,6 +5,7 @@ title: 'StepByStep'
 
 import { StatusLabel } from 'hds-react';
 
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import PageTabs from '../../../components/PageTabs';
 
@@ -13,6 +14,7 @@ import PageTabs from '../../../components/PageTabs';
 <div class="status-label-description">
   <StatusLabel type="alert">Beta</StatusLabel>
   <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip/>
 </div>
 
 <LeadParagraph>StepByStep component is useful for visualising a process in steps. The component supports numbered list for cases where the steps must be completed in a specific order, and unnumbered list for cases where the steps are more of a guideline.</LeadParagraph>

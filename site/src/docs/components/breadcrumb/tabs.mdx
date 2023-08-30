@@ -12,8 +12,11 @@ import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 
 # Breadcrumb
 
-<StatusLabel type="alert">Beta</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel type="alert">Beta</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
 <LeadParagraph>Breadcrumb is a navigational element that provides links back to each previous page the user navigated through and
   shows the user's current location on a website.</LeadParagraph>
