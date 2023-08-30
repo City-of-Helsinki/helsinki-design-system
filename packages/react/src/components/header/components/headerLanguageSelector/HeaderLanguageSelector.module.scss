@@ -1,4 +1,4 @@
-@use "../../Header.module.scss" as header;
+@use "../../Header.module.scss";
 @import "../../../../styles/common.scss";
 
 .languageSelector {
@@ -29,7 +29,8 @@
   }
 }
 
-.item {
+button.item,
+[type="button"].item {
   align-self: center;
   appearance: none;
   background: transparent;
