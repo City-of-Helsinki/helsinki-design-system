@@ -193,7 +193,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
   </Header>
 </PlaygroundPreview>
 
-##### With navigation language selector
+##### With language selector
 
 <Notification label="A work in progress!" className="siteNotification">
   The Header.LanguageSelector component is subject to change, mainly regarding how the dropdown offering additional languages is going to look and work.
@@ -393,32 +393,32 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
 
 #### Colour variations
 
-- Header offers two variations with different backgrounds - one with white and one with black (default) text elements.  Use variation that achieves better contrast with the brand background colour of your choice.
+Header offers two variations with different backgrounds - one with white and one with black (default) text elements.  Use variation that achieves better contrast with the brand background colour of your choice.
 
 <PlaygroundPreview>
     <Header theme="light">
       <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.NavigationLink href="#" label="Link" />
-      <Header.NavigationLink href="#" label="Link" />
-      <Header.NavigationLink href="#" label="Link" />
+        <Header.Link href="#" label="Uutiset" />
+        <Header.Link href="#" label="Asioi verkossa" />
+        <Header.Link href="#" label="Anna palautetta" />
       </Header.UniversalBar>
       <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
     <br />
     <Header theme="dark">
       <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
-        <Header.NavigationLink href="#">Link</Header.NavigationLink>
+        <Header.Link href="#" label="Link" />
+        <Header.Link href="#" label="Link" />
+        <Header.Link href="#" label="Link" />
       </Header.UniversalBar>
       <Header.NavigationMenu>
-        <Header.NavigationLink href="#" label="Link 1" />
-        <Header.NavigationLink href="#" label="Link 2" />
-        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
 </PlaygroundPreview>
