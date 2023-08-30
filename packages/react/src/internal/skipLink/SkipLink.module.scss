@@ -34,6 +34,8 @@
 
   &:not(:focus) {
     @extend %visuallyHidden;
+  }
+  
   &:focus-visible {
     outline-offset: 0;
   }
