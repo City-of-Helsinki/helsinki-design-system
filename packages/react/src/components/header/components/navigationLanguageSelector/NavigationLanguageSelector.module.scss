@@ -19,9 +19,9 @@
 
 .languageSelectorDropdown {
   align-items: flex-start;
+  background-color: var(--lang-selector-dropdown-background-color);
   display: flex;
   flex-flow: column nowrap;
-  background-color: var(--lang-selector-dropdown-background-color);
 
   > * {
     line-height: var(--lineheight-l);
