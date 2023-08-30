@@ -5,6 +5,7 @@
 .headerActionBar {
   align-items: stretch;
   box-sizing: border-box;
+  color: var(--header-color);
   display: flex;
   gap: calc(var(--header-margin) / 2);
   height: var(--action-bar-container-height);
@@ -14,7 +15,6 @@
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
-  color: var(--header-color);
   
   hr {
     border: 0;
