@@ -154,12 +154,12 @@ export const WithFullFeaturesDarkTheme = (args) => (
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
+        titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
-        logoUrl="https://hel.fi"
+        logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
-        <Header.NavigationLanguageSelector languages={languages}>
+        <Header.NavigationLanguageSelector languages={languages} ariaLabel="Kielen valinta">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
             Selkosuomi
@@ -169,7 +169,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
           </Link>
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem fullWidth label="Haku" icon={<IconSearch />} id="action-bar-search">
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.NavigationSearch label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
