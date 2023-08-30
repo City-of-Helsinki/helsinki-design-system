@@ -21,11 +21,6 @@
     --height: 60px;
   }
 
-  &:not(:focus) {
-    @extend %visuallyHidden;
-  }
-
-  
   display: flex;
   height: 1px;
   position: absolute;
