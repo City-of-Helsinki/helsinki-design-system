@@ -56,6 +56,11 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * @internal
    */
   depth: number;
+  /**
+   * Function that return dropdown direction.
+   * @internal
+   */
+  getPosition: () => DropdownMenuPosition;
 }>;
 
 export const NavigationLinkDropdown = ({
@@ -69,12 +74,12 @@ export const NavigationLinkDropdown = ({
   closeDropdownAriaButtonLabel,
   openDropdownAriaButtonLabel,
   dropdownButtonClassName,
+  getPosition,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const ref = useRef<HTMLUListElement>(null);
-  const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = dynamicPosition
     ? classNames(styles.dropdownMenu, styles[dynamicPosition])
@@ -86,6 +91,14 @@ export const NavigationLinkDropdown = ({
   const getDefaultButtonAriaLabel = () => {
     if (open) return closeDropdownAriaButtonLabel || defaultCloseDropdownAriaLabel;
     return openDropdownAriaButtonLabel || defaultOpenDropdownAriaLabel;
+  };
+  const getClassName = () => {
+    const position = getPosition();
+    if (open) return classNames(styles.chevron, styles.chevronOpen, depth > 1 && styles[`direction-${position}`]);
+    if (depth > 1 && DropdownMenuPosition.Left.toString() === position)
+      return classNames(styles.chevron, styles.chevronLeft);
+    if (depth > 1) return classNames(styles.chevron, styles.chevronRight);
+    return classNames(styles.chevron);
   };
 
   const childElements = getChildElementsEvenIfContainersInbetween(children);
@@ -100,7 +113,7 @@ export const NavigationLinkDropdown = ({
         aria-label={getDefaultButtonAriaLabel()}
         aria-expanded={open}
       >
-        <IconAngleDown className={chevronClasses} />
+        <IconAngleDown className={getClassName()} />
       </button>
       <ul
         className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
