@@ -221,75 +221,12 @@ import { Link } from 'gatsby';
 
 </Playground>
 
-#### Colour variations
+#### Dark theme
 
-<Playground scope={{ Header }}>
-
-```jsx
-import { Header } from 'hds-react';
-
-() => (
-  <Header theme="light">
-    <Header.SkipLink skipTo="#content" label="Skip To Content" />
-    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.Link href="#" label="Uutiset" />
-      <Header.Link href="#" label="Asioi verkossa" />
-      <Header.Link href="#" label="Anna palautetta" />
-    </Header.UniversalBar>
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleAriaLabel="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      menuButtonAriaLabel="Menu"
-    />
-    <Header.NavigationMenu>
-      <Header.Link
-        as={Link}
-        href="#"
-        label="Sosiaali- ja terveyspalvelut"
-        onClick={(event) => event.preventDefault()}
-        active
-        dropdownLinks={[
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Terveydenhoito"
-            active
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Hammashoito" />,
-              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
-            ]}
-          />,
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Senioripalvelut"
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
-              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
-            ]}
-          />,
-        ]}
-      />
-      <Header.Link
-        as={Link}
-        href="#"
-        label="Kasvatus ja koulutus"
-      />
-      <Header.Link as={Link} href="#" label="Asuminen" />
-    </Header.NavigationMenu>
-  </Header>
-)
-```
-
-</Playground>
-
-<Playground scope={{ Header }}>
+<Playground scope={{ Header, IconSearch }}>
 
 ```jsx
-import { Header } from 'hds-react';
+import { Header, IconSearch } from 'hds-react';
 
 () => (
   <Header theme="dark">
@@ -306,7 +243,19 @@ import { Header } from 'hds-react';
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
       menuButtonAriaLabel="Menu"
-    />
+    
+    >
+      <Header.LanguageSelector
+        languages={[
+          { label: 'Suomi', value: 'fi' },
+          { label: 'Svenska', value: 'sv' },
+          { label: 'English', value: 'en' },
+        ]}
+      />
+      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+        <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
     <Header.NavigationMenu>
       <Header.Link
         as={Link}
