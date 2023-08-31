@@ -1,7 +1,6 @@
 @use "../../../Header.module.scss";
 
-button.button,
-[type="button"].button {
+button.button {
   background-color: var(--nav-button-background-color);
   border: none;
   box-sizing: content-box;
