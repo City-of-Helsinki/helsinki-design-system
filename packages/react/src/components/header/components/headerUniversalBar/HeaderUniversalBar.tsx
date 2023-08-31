@@ -1,10 +1,10 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useEffect } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
 import styles from './HeaderUniversalBar.module.scss';
 import { HeaderLink } from '../headerLink/HeaderLink';
-import { useHeaderContext } from '../../HeaderContext';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 
@@ -51,6 +51,12 @@ export const HeaderUniversalBar = ({
   const { isNotLargeScreen } = useHeaderContext();
   if (isNotLargeScreen) return null;
   const childElements = getChildElementsEvenIfContainersInbetween(children);
+  const { setUniversalContent } = useSetHeaderContext();
+
+  useEffect(() => {
+    const universalContent = getChildElementsEvenIfContainersInbetween(children);
+    setUniversalContent(universalContent);
+  }, [children]);
 
   return (
     <div className={styles.headerUniversalBarContainer}>

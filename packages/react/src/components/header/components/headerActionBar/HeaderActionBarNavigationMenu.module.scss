@@ -1,6 +1,7 @@
 @import "../../../../styles/common.scss";
 
 .headerNavigationMenu {
+  background-color: var(--color-silver-light);
   max-height: 0;
   overflow: hidden;
   transition: 200ms max-height;
@@ -8,15 +9,6 @@
 
 .mobileMenuOpen {
   max-height: 100vh;
-
-  ul {
-    li {
-      align-items: center;
-      border-top: 1px solid var(--color-black-20);
-      display: flex;
-      min-height: var(--action-bar-dropdown-menu-primary-item-height);
-    }
-  }
 }
 
 .headerNavigationMenuList {
@@ -24,4 +16,29 @@
   margin: 0;
   margin-top: -1px;
   padding: 0;
+}
+
+.navigation {
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-black-20);
+
+  ul li {
+    align-items: center;
+    border-top: 1px solid var(--color-black-20);
+    display: flex;
+    min-height: var(--action-bar-dropdown-menu-primary-item-height);
+  }
+}
+
+.universalList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m) 0;
+  list-style: none;
+  margin-bottom: 43px;
+  padding: 0;
+
+  .universalLink.universalLink {
+    font-size: var(--fontsize-body-m);
+  }
 }
