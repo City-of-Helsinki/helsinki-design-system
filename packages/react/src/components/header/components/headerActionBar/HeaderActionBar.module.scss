@@ -1,3 +1,4 @@
+@use "../../Header.module.scss";
 @use "../../../../styles/common.scss";
 @use "./_typography.scss";
 
@@ -13,6 +14,7 @@
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
+  color: var(--header-color);
   
   hr {
     border: 0;
@@ -50,7 +52,7 @@
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 

@@ -160,7 +160,13 @@
     "text": "Header is a wrapper component for all navigation elements.",
     "linkboxAriaLabel": "Header component",
     "linkAriaLabel": "Go to the Header component page",
-    "href": "/components/header"
+    "href": "/components/header",
+    "imgProps": {
+      "src": "/images/components/overview/header@2x.png",
+      "alt": "An illustration of the Header component.",
+      "height": 180,
+      "width": 280
+    }
   },
   {
     "name": "Hero",

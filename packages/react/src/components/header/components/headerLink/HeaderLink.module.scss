@@ -1,4 +1,4 @@
-@use "../../Header.module.scss" as header;
+@use "../../Header.module.scss";
 @import "../../../../styles/common.scss";
 
 .headerLink.headerLink {
@@ -8,6 +8,7 @@
 
   border: 0;
   display: flex;
+  color: var(--nav-link-font-color);
   line-height: var(--lineheight-l);
   margin: 0;
   text-decoration: none;
@@ -15,12 +16,12 @@
 
   &:hover {
     text-decoration: underline;
-    text-decoration-color: var(--color-black-90);
+    text-decoration-color: var(--nav-link-hover-color);
   }
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 }
@@ -57,7 +58,7 @@
   align-self: center;
   border: none;
   box-sizing: border-box;
-  color: var(--color-black-90);
+  color: var(--nav-link-font-color);
   font-size: var(--link-font-size);
   padding: 0;
   word-wrap: break-word;

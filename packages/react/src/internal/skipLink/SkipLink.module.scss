@@ -20,7 +20,7 @@
   @include layout.below-medium {
     --height: 60px;
   }
-  
+
   display: flex;
   height: 1px;
   position: absolute;
@@ -29,6 +29,10 @@
 
   &:not(:focus) {
     @extend %visuallyHidden;
+  }
+  
+  &:focus-visible {
+    outline-offset: 0;
   }
 
   &:focus {

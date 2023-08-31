@@ -1,3 +1,4 @@
+@use "../../Header.module.scss";
 @use "../../../../styles/common.scss";
 
 button.actionBarItem {
@@ -5,12 +6,13 @@ button.actionBarItem {
   appearance: none;
   background: transparent;
   border: none;
+  color: var(--header-color);
   cursor: pointer;
   padding: 0;
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 }

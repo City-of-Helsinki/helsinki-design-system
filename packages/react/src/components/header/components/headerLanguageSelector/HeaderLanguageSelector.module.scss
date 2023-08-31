@@ -1,4 +1,4 @@
-@use "../../Header.module.scss" as header;
+@use "../../Header.module.scss";
 @import "../../../../styles/common.scss";
 
 .languageSelector {
@@ -21,6 +21,7 @@
   align-items: flex-start;
   display: flex;
   flex-flow: column nowrap;
+  background-color: var(--lang-selector-dropdown-background-color);
 
   > * {
     line-height: var(--lineheight-l);
@@ -28,11 +29,13 @@
   }
 }
 
-.item {
+button.item,
+[type="button"].item {
   align-self: center;
   appearance: none;
   background: transparent;
   border: none;
+  color: var(--lang-selector-item-font-color);
   cursor: pointer;
   line-height: var(--lineheight-l);
   padding: 0;
@@ -40,7 +43,7 @@
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--color-coat-of-arms);
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 }

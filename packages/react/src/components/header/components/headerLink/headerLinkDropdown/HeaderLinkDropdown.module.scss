@@ -1,5 +1,7 @@
-.button {
-  background-color: var(--color-black-5);
+@use "../../../Header.module.scss";
+
+button.button {
+  background-color: var(--nav-button-background-color);
   border: none;
   box-sizing: content-box;
   display: block;
@@ -7,10 +9,11 @@
   margin: 0 0 0 var(--spacing-s);
   padding: 0;
   width: 24px;
-
+  color: var(--nav-drop-down-icon-color);
+  
   &.isNotLargeScreen {
     background: transparent;
-    border-left: 1px solid var(--color-black-20);
+    border-left: 1px solid var(--nav-button-background-color);
     box-sizing: border-box;
     flex: 0 0 var(--action-bar-dropdown-menu-caret-width);
     height: var(--action-bar-dropdown-menu-secondary-item-height);
@@ -22,12 +25,12 @@
   }
 
   &:hover {
-    background-color: var(--color-black-20);
+    background-color: var(--nav-button-hover-background-color);
     cursor: pointer;
   }
 
   &:focus-visible {
-    outline: 3px solid var(--color-coat-of-arms);
+    outline: 3px solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
 }
@@ -45,8 +48,8 @@
 }
 
 .dropdownMenu {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-black-20);
+  background-color: var(--nav-link-dropdown-background-color);
+  border: 1px solid var(--nav-border-color);
   display: flex;
   flex-direction: column;
   left: calc(-1 * var(--header-margin));
@@ -67,7 +70,7 @@
     }
 
     &:focus-visible {
-      outline: 3px solid var(--color-coat-of-arms);
+      outline: 3px solid var(--header-focus-outline-color);
       outline-offset: var(--header-focus-outline-width);
     }
 
