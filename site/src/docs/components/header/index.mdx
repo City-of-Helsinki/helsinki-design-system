@@ -419,7 +419,11 @@ Header supports also custom theming — See variables in code tab.
 When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
 <PlaygroundPreview>
-  <div className="header-block-z-index13">
+  <div style={{
+    "margin-bottom": "1rem",
+    position: "relative",
+    "z-index": "13"
+  }}>
     <Header theme="light">
       <Header.ActionBar
         title="Helsingin kaupunki"
@@ -470,7 +474,11 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
       </Header.NavigationMenu>
     </Header>
   </div>
-  <div className="header-block-z-index12">
+  <div style={{
+    "margin-bottom": "1rem",
+    position: "relative",
+    "z-index": "12"
+  }}>
     <Header theme="dark">
       <Header.ActionBar
         title="Helsingin kaupunki"
@@ -521,7 +529,10 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
       </Header.NavigationMenu>
     </Header>
   </div>
-  <div className="header-block-z-index11">
+  <div style={{
+    position: "relative",
+    "z-index": "11"
+  }}>
     <Header theme={{
       '--color-focus-outline': '#0072c6',
       '--header-color': '#000',
