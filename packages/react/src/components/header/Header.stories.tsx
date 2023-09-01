@@ -359,3 +359,126 @@ export const MinimalWithLocalization = (args) => {
     </Header>
   );
 };
+
+export const WithFullFeaturesCustomTheme = (args) => (
+  <>
+    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+        <Header.Link href="#" label="Uutiset" />
+        <Header.Link href="#" label="Asioi verkossa" />
+        <Header.Link href="#" label="Anna palautetta" />
+      </Header.UniversalBar>
+
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleHref="https://hel.fi"
+        logoAriaLabel="Service logo"
+        logoHref="https://hel.fi"
+        menuButtonAriaLabel="Menu"
+      >
+        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
+        </Header.LanguageSelector>
+
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+          <Header.Search label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+
+      <Header.NavigationMenu>
+        <Header.Link
+          href="#"
+          label="Sosiaali- ja terveyspalvelut"
+          onClick={(event) => event.preventDefault()}
+          active
+          dropdownLinks={[
+            <Header.Link
+              href="#"
+              label="Terveydenhoito"
+              active
+              dropdownLinks={[
+                <Header.Link href="#" label="Hammashoito" />,
+                <Header.Link href="#" label="Julkinen terveydenhoito" />,
+              ]}
+            />,
+            <Header.Link
+              href="#"
+              label="Senioripalvelut"
+              dropdownLinks={[
+                <Header.Link href="#" label="Viriketoiminta" />,
+                <Header.Link href="#" label="Kuntouttavat palvelut" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link
+          href="#"
+          label="Kasvatus ja koulutus"
+          dropdownLinks={[
+            <Header.Link
+              href="#"
+              label="Kasvatus"
+              active
+              dropdownLinks={[
+                <Header.Link href="#" label="Varhaiskasvatus" />,
+                <Header.Link href="#" label="Esiopetus" />,
+              ]}
+            />,
+            <Header.Link
+              href="#"
+              label="Koulutus"
+              dropdownLinks={[
+                <Header.Link href="#" label="Perusopetus" />,
+                <Header.Link href="#" label="Toisen asteen koulutus" />,
+                <Header.Link href="#" label="Työväenopistot" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link
+          href="#"
+          label="Yritykset ja työ"
+          dropdownLinks={[
+            <Header.Link
+              href="#"
+              label="Työnantajat"
+              active
+              dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
+            />,
+            <Header.Link
+              href="#"
+              label="Työntekijät"
+              dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
+            />,
+          ]}
+        />
+      </Header.NavigationMenu>
+    </Header>
+  </>
+);
+
+WithFullFeaturesCustomTheme.args = {
+  theme: {
+    '--color-focus-outline': 'var(--color-metro-dark)',
+    '--header-color': '#000',
+    '--actionbar-background-color': 'var(--color-engel)',
+    '--nav-background-color': 'var(--color-engel-light)',
+    '--nav-border-color': '#000',
+    '--nav-link-hover-color': '#000',
+    '--universal-bar-background-color': 'var(--color-black-60)',
+    '--nav-link-button-background-color': 'var(--color-black-60)',
+    '--nav-link-dropdown-background-color': '#fff',
+    '--nav-button-background-color': 'var(--color-black-60)',
+    '--nav-button-hover-background-color': 'var(--color-black-40)',
+    '--nav-drop-down-icon-color': '#000',
+    '--header-background-color': 'transparent',
+  },
+};

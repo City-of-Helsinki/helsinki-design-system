@@ -14,6 +14,7 @@
   --header-max-width: 1440px;
   --header-item-border-color: var(--color-black-20);
   --header-item-hover-color: var(--color-black-20);
+  --actionbar-background-color: var(--color-white);
   --action-bar-container-height: 88px;
   --action-bar-section-gutter: var(--spacing-s);
   --action-bar-dropdown-menu-caret-width: 64px;
@@ -36,6 +37,7 @@
   --logo-height: 56px;
   --icon-size: 24px;
   --nav-drop-down-icon-color: var(--color-black);
+  --nav-background-color:var(--color-white);
 
   @include layout.below-large {
     --action-bar-container-height: 74px;
@@ -68,6 +70,8 @@
     --nav-button-background-color: var(--color-black-60);
     --nav-button-hover-background-color: var(--color-black-60);
     --nav-drop-down-icon-color: var(--color-white);
+    --actionbar-background-color: var(--color-black-80);
+    --nav-background-color: var(--color-black-80);
   }
 
   background-color: var(--header-background-color);

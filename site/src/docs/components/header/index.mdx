@@ -415,6 +415,8 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
 #### Colour variations
 
 Header offers two variations with different backgrounds - one with white and one with black (default) text elements. Use variation that achieves better contrast with the brand background colour of your choice.
+Header supports also custom theming — See variables in code tab.
+When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
 <PlaygroundPreview>
   <Header theme="light">
@@ -468,6 +470,70 @@ Header offers two variations with different backgrounds - one with white and one
   </Header>
   <br />
   <Header theme="dark">
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.LanguageSelector
+        languages={[
+          { label: 'Suomi', value: 'fi' },
+          { label: 'Svenska', value: 'sv' },
+          { label: 'English', value: 'en' },
+        ]}
+      />
+      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+        <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.Link
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        dropdownLinks={[
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Terveydenhoito"
+            active
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Hammashoito" />,
+              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.Link href="#" label="Kasvatus ja koulutus" />
+      <Header.Link href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+  <br />
+  <Header theme={{
+    '--color-focus-outline': '#0072c6',
+    '--header-color': '#000',
+    '--actionbar-background-color': '#ffe977',
+    '--nav-background-color': '#fff9db',
+    '--nav-border-color': '#000',
+    '--nav-link-hover-color': '#000',
+    '--universal-bar-background-color': '#666',
+    '--nav-link-button-background-color': '#666',
+    '--nav-link-dropdown-background-color': '#fff',
+    '--nav-button-background-color': '#666',
+    '--nav-button-hover-background-color': '#444',
+    '--nav-drop-down-icon-color': '#000',
+    '--header-background-color': 'transparent',
+  }}>
     <Header.ActionBar
       title="Helsingin kaupunki"
       titleHref="https://hel.fi"

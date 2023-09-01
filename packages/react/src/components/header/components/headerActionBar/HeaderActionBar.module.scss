@@ -27,6 +27,7 @@
 }
 
 .headerActionBarContainer {
+  background-color: var(--actionbar-background-color);
   border-bottom: 1px solid var(--header-divider-color);
   width: 100%;
 }

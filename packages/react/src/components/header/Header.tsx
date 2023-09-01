@@ -11,9 +11,11 @@ import { HeaderLanguageSelector } from './components/headerLanguageSelector';
 import { HeaderSearch } from './components/headerSearch';
 import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
+import { HeaderCustomTheme } from './Header.type';
 // import base styles
 import '../../styles/base.css';
 import styles from './Header.module.scss';
+import { useTheme } from '../../hooks/useTheme';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -35,7 +37,7 @@ export interface HeaderNodeProps extends HeaderAttributes {
   /**
    * theme of the header element.
    */
-  theme?: 'light' | 'dark';
+  theme?: HeaderCustomTheme;
 }
 
 export interface HeaderProps extends HeaderNodeProps {
@@ -46,9 +48,17 @@ const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, class
   const { isNotLargeScreen } = useHeaderContext();
   const { theme } = props;
 
-  const headerClassNames = classNames('hds-header', styles.header, theme && styles[`theme-${theme}`], className, {
-    isNotLargeScreen,
-  });
+  const customThemeClass = useTheme<HeaderCustomTheme>(styles.header, theme);
+  const headerClassNames = classNames(
+    'hds-header',
+    styles.header,
+    theme && styles[`theme-${theme}`],
+    className,
+    customThemeClass,
+    {
+      isNotLargeScreen,
+    },
+  );
   return (
     <header className={headerClassNames} {...props} aria-label={ariaLabel}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>
