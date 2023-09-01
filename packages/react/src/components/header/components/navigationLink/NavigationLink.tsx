@@ -1,12 +1,4 @@
-import React, {
-  MouseEventHandler,
-  cloneElement,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { MouseEventHandler, cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 // import base styles
@@ -169,12 +161,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
   const { openMainNavIndex, setOpenMainNavIndex } = useHeaderNavigationMenuContext();
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
-  const [menuSize, setMenuSize] = useState<DOMRect>(undefined);
-
-  useLayoutEffect(() => {
-    const size = containerRef?.current?.getBoundingClientRect();
-    setMenuSize(size);
-  }, []);
 
   const handleDynamicMenuPosition = (val: boolean) => {
     // Null position when false so if user resizes browser, the calculation is done again
@@ -192,19 +178,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
         setDynamicPosition(position);
       }
     }
-  };
-
-  const getPosition = () => {
-    // eslint-disable-next-line no-lonely-if
-    if (menuSize) {
-      // Calculate which side has more space for the menu
-      const { x: leftPosition, width } = menuSize;
-      const rightPosition = leftPosition + width;
-      const position1 =
-        leftPosition > window.innerWidth - rightPosition ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
-      return position1;
-    }
-    return undefined;
   };
 
   // Handle dropdown open state by calling either internal state or context
@@ -304,7 +277,6 @@ export const NavigationLink = <T extends React.ElementType = 'a'>({
           openDropdownAriaButtonLabel={openDropdownAriaButtonLabel}
           closeDropdownAriaButtonLabel={closeDropdownAriaButtonLabel}
           dropdownButtonClassName={dropdownButtonClassName}
-          getPosition={getPosition}
         >
           {dropdownLinks.map((child) => {
             return cloneElement(child as React.ReactElement, {
