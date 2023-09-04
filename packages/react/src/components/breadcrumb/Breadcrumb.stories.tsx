@@ -83,15 +83,7 @@ export const ExampleInHeader = (args) => {
         />
         <Header.Link href="#" label="Child and family services" />
       </Header.NavigationMenu>
-      <Breadcrumb
-        {...args}
-        theme={{
-          '--horizontal-margin-small': '0',
-          '--horizontal-margin-medium': 'var(--spacing-m)',
-          '--horizontal-margin-large': 'var(--spacing-xs)',
-          '--horizontal-margin-x-large': 'var(--spacing-xs)',
-        }}
-      />
+      <Breadcrumb {...args} />
     </Header>
   );
 };
