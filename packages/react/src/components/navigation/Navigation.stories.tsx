@@ -9,6 +9,7 @@ import { NavigationSearch } from './navigationSearch/NavigationSearch';
 import { NavigationLanguageSelector } from './navigationLanguageSelector/NavigationLanguageSelector';
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
 import { IconSignout } from '../../icons';
+import { Logo, logoFi, logoSv } from '../logo';
 
 type LanguageOption = {
   label: string;
@@ -50,7 +51,7 @@ export default {
 
 export const Default = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => (
   // @ts-ignore
-  <Navigation {...args}>
+  <Navigation {...args} logo={<Logo src={logoFi} aria-hidden="true" />}>
     {/* NAVIGATION ROW */}
     <Navigation.Row ariaLabel="Main navigation">
       <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
@@ -98,7 +99,7 @@ export const Default = ({ searchLabel, searchPlaceholder, authenticated, userNam
 export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
   return (
     // @ts-ignore
-    <Navigation {...args}>
+    <Navigation {...args} logo={<Logo src={logoFi} aria-hidden="true" />}>
       {/* NAVIGATION ROW */}
       <Navigation.Row variant="inline" ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
@@ -145,7 +146,7 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
 export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
   return (
     // @ts-ignore
-    <Navigation {...args}>
+    <Navigation {...args} logo={<Logo src={logoFi} aria-hidden="true" />}>
       {/* NAVIGATION ROW */}
       <Navigation.Row ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
@@ -327,14 +328,14 @@ export const Example = ({ userName, ...args }) => {
   const [active, setActive] = useState<string>();
 
   // show helsingfors logo if swedish is selected as the language
-  const logoLanguage = language === 'sv' ? 'sv' : 'fi';
+  const logoSrc = language === 'sv' ? logoSv : logoFi;
 
   return (
     <>
       {/* @ts-ignore */}
       <Navigation
         {...args}
-        logoLanguage={logoLanguage}
+        logo={<Logo src={logoSrc} aria-hidden="true" />}
         title={i18n.title[language]}
         titleAriaLabel={i18n.titleAria[language]}
         skipToContentLabel={i18n.skip[language]}
@@ -428,7 +429,7 @@ export const Example = ({ userName, ...args }) => {
 export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
   return (
     // @ts-ignore
-    <Navigation {...args}>
+    <Navigation {...args} logo={<Logo src={logoFi} aria-hidden="true" />}>
       {/* NAVIGATION ROW */}
       <Navigation.Row ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
@@ -494,7 +495,7 @@ export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, u
 
 export const WithoutTitleUrl = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => (
   // @ts-ignore
-  <Navigation {...args}>
+  <Navigation {...args} logo={<Logo src={logoFi} aria-hidden="true" />}>
     {/* NAVIGATION ROW */}
     <Navigation.Row ariaLabel="Main navigation">
       <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />

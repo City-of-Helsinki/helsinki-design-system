@@ -4,6 +4,7 @@ import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
 import { Link } from '../link';
 import { LanguageOption } from '../header/LanguageContext';
+import { Logo, logoFi } from '../logo';
 
 export default {
   component: Breadcrumb,
@@ -38,10 +39,10 @@ export const ExampleInHeader = (args) => {
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
-        titleUrl="https://hel.fi"
-        titleStyle={Header.TitleStyleType.normal}
+        titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
-        logoUrl="https://hel.fi"
+        logoHref="https://hel.fi"
+        logo={<Logo src={logoFi} />}
         menuButtonAriaLabel="Menu"
       >
         <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">

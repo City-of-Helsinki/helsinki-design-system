@@ -3,7 +3,6 @@ import React, { PropsWithChildren, MouseEventHandler } from 'react';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
-import { useActiveLanguage } from '../../LanguageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { HeaderLanguageSelector } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
@@ -51,7 +50,11 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   titleHref?: string;
   /**
-   * Link for the logo.
+   * Logo to use
+   */
+  logo: React.ReactElement<typeof Logo>;
+  /**
+   * URL to navigate to when the logo is clicked
    */
   logoHref?: string;
   /**
@@ -82,6 +85,7 @@ export const HeaderActionBar = ({
   menuButtonAriaLabel,
   titleHref,
   logoHref,
+  logo,
   onTitleClick,
   onLogoClick,
   onMenuButtonClick,
@@ -90,7 +94,6 @@ export const HeaderActionBar = ({
   ariaLabel,
   role,
 }: HeaderActionBarProps) => {
-  const language = useActiveLanguage();
   const handleClick = useCallbackIfDefined(onTitleClick);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
@@ -131,13 +134,7 @@ export const HeaderActionBar = ({
       <div className={styles.headerActionBarContainer}>
         <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
           <LinkItem {...logoProps}>
-            {logoProps?.href ? (
-              <span className={styles.logoWrapper}>
-                <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
-              </span>
-            ) : (
-              <Logo className={styles.logo} language={language} dataTestId="action-bar-logo" aria-hidden />
-            )}
+            {logoProps?.href ? <span className={styles.logoWrapper}>{logo}</span> : logo}
           </LinkItem>
           {title && (
             <LinkItem {...titleProps}>

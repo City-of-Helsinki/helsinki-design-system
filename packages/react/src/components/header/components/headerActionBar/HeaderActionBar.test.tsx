@@ -6,6 +6,7 @@ import { HeaderActionBar } from '.';
 import { HeaderWrapper } from '../../../../utils/test-utils';
 import { DEFAULT_LANGUAGE, LanguageOption } from '../../LanguageContext';
 import { Header } from '../../Header';
+import { Logo } from '../../../logo';
 
 const languages: LanguageOption[] = [
   { label: 'Suomi', value: 'fi' },
@@ -20,7 +21,7 @@ const getLanguageLabelByValue: StrFn = (val) => languages.find((obj) => obj.valu
 const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
   return (
     <Header onDidChangeLanguage={onDidChangeLanguage}>
-      <Header.ActionBar title="Otsake">
+      <Header.ActionBar title="Otsake" logo={<Logo src="dummySrc" title="title" dataTestId="action-bar-logo" />}>
         <Header.LanguageSelector languages={languages} />
       </Header.ActionBar>
     </Header>
@@ -29,12 +30,24 @@ const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
 
 describe('<HeaderActionBar /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<HeaderActionBar title="Test" />, { wrapper: HeaderWrapper });
+    const { asFragment } = render(
+      <HeaderActionBar
+        title="Test"
+        logo={<Logo aria-hidden="true" src="dummySrc" title="title" dataTestId="action-bar-logo" />}
+      />,
+      { wrapper: HeaderWrapper },
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<HeaderActionBar title="Test" />, { wrapper: HeaderWrapper });
+    const { container } = render(
+      <HeaderActionBar
+        title="Test"
+        logo={<Logo aria-hidden="true" src="dummySrc" title="title" dataTestId="action-bar-logo" />}
+      />,
+      { wrapper: HeaderWrapper },
+    );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
@@ -42,13 +55,7 @@ describe('<HeaderActionBar /> spec', () => {
   it('has a language context that correctly dispatches language change events', () => {
     const handleLanguageChange = jest.fn();
 
-    const getLogoTitle = () => {
-      const logoElement = screen.getByTestId('action-bar-logo');
-      const title = logoElement.getAttribute('title');
-      return title;
-    };
-
-    render(HeaderWithActionBar({ onDidChangeLanguage: handleLanguageChange }));
+    render(<HeaderWithActionBar onDidChangeLanguage={handleLanguageChange} />);
 
     expect(handleLanguageChange.mock.calls.length).toBe(1);
     expect(handleLanguageChange.mock.calls[0][0]).toBe(DEFAULT_LANGUAGE);
@@ -61,11 +68,9 @@ describe('<HeaderActionBar /> spec', () => {
     fireEvent.click(svButtonSpan);
     expect(handleLanguageChange.mock.calls.length).toBe(2);
     expect(handleLanguageChange.mock.calls[1][0]).toBe('sv');
-    expect(getLogoTitle()).toBe('Helsingfors stad');
 
     fireEvent.click(defaultLanguageButton);
     expect(handleLanguageChange.mock.calls.length).toBe(3);
     expect(handleLanguageChange.mock.calls[2][0]).toBe(DEFAULT_LANGUAGE);
-    expect(getLogoTitle()).toBe('Helsingin kaupunki');
   });
 });

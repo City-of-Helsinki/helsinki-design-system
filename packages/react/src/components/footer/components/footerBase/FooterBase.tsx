@@ -4,7 +4,7 @@ import React, { cloneElement, Fragment, isValidElement } from 'react';
 import '../../../../styles/base.css';
 
 import styles from './FooterBase.module.scss';
-import { Logo, LogoLanguage } from '../../../logo';
+import { Logo } from '../../../logo';
 import { IconArrowUp } from '../../../../icons';
 import getKeyboardFocusableElements from '../../../../utils/getKeyboardFocusableElements';
 import { FooterLink } from '../footerLink/FooterLink';
@@ -33,10 +33,9 @@ export type FooterBaseProps = React.PropsWithChildren<{
    */
   logoHref?: string;
   /**
-   * The language of the Helsinki-logo.
-   * @default 'fi'
+   * Logo to use
    */
-  logoLanguage?: LogoLanguage;
+  logo: React.ReactElement<typeof Logo>;
   /**
    * Callback fired when the "Back to top" button is clicked.
    */
@@ -71,8 +70,8 @@ export const FooterBase = ({
   children,
   copyrightHolder,
   copyrightText,
+  logo,
   logoHref,
-  logoLanguage = 'fi',
   onBackToTopClick,
   role,
   showBackToTopButton = true,
@@ -83,7 +82,7 @@ export const FooterBase = ({
     <div className={styles.base} aria-label={ariaLabel} role={role}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
-        <FooterLink tabIndex={0} icon={<Logo size="medium" language={logoLanguage} aria-hidden />} href={logoHref} />
+        <FooterLink tabIndex={0} icon={logo} href={logoHref} />
       </div>
       {(copyrightHolder || copyrightText) && (
         <div className={styles.copyright}>

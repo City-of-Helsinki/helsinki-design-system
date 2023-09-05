@@ -9,6 +9,7 @@ import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { LanguageOption } from './LanguageContext';
 import { IconSearch, IconUser } from '../../icons';
 import { Link } from '../link/Link';
+import { Logo, logoFi, logoFiDark, logoSv } from '../logo';
 
 export default {
   component: Header,
@@ -28,7 +29,19 @@ export default {
   },
 };
 
-const languageChangedAction = action('language:onChange');
+const languageChangedAction = () => {
+  action('language:onChange');
+};
+
+const logoSrcFromLanguage = (lang: string) => {
+  switch (lang) {
+    case 'sv':
+      return logoSv;
+    default:
+      return logoFi;
+  }
+};
+
 const searchSubmitAction = action('search:onSubmit');
 const searchChangeAction = action('search:onChange');
 
@@ -52,6 +65,7 @@ export const WithFullFeatures = (args) => (
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
+        logo={<Logo src={logoFi} />}
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
@@ -159,6 +173,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
         titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
+        logo={<Logo src={logoFiDark} />}
         menuButtonAriaLabel="Menu"
       >
         <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
@@ -256,7 +271,12 @@ export const Minimal = (args) => {
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleHref="https://hel.fi">
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleHref="https://hel.fi"
+        logo={<Logo src={logoFi} />}
+      >
         <Header.LanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
@@ -286,6 +306,7 @@ export const Minimal = (args) => {
 
 export const MinimalWithLocalization = (args) => {
   const [lang, setLang] = useState<string>('fi');
+  const [logoSrc, setLogoSrc] = useState<string>(logoFi);
 
   const translations = {
     en: {
@@ -311,7 +332,10 @@ export const MinimalWithLocalization = (args) => {
     },
   };
 
-  const languageChangedAction2 = (lg: string) => setLang(lg);
+  const languageChangedAction2 = (lg: string) => {
+    setLang(lg);
+    setLogoSrc(logoSrcFromLanguage(lg));
+  };
 
   return (
     <Header {...args} onDidChangeLanguage={languageChangedAction2}>
@@ -320,6 +344,7 @@ export const MinimalWithLocalization = (args) => {
         title={translations[lang]['header-title']}
         titleAriaLabel={translations[lang]['header-aria-label']}
         titleHref="https://hel.fi"
+        logo={<Logo src={logoSrc} />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>

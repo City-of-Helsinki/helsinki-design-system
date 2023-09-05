@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Logo } from './Logo';
+import { Logo, logoFi, logoSv, logoRu } from './Logo';
 
 export default {
   component: Logo,
@@ -10,20 +10,20 @@ export default {
   },
 };
 
-export const Playground = (args) => <Logo language={args.language} size={args.size} />;
+export const Playground = (args) => <Logo {...args} />;
 
 Playground.args = {
-  language: 'fi',
   size: 'full',
+  src: logoFi,
 };
 
 Playground.argTypes = {
-  language: {
-    options: ['fi', 'sv', 'ru'],
-    control: { type: 'radio' },
-  },
   size: {
     options: ['full', 'small', 'medium', 'large'],
+    control: { type: 'radio' },
+  },
+  src: {
+    options: [logoFi, logoSv, logoRu],
     control: { type: 'radio' },
   },
 };
