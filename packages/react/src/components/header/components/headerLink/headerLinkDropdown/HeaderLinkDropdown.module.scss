@@ -41,19 +41,6 @@ button.button {
 
 .chevronOpen {
   transform: rotate(180deg);
-
-  &.direction-left,
-  &.direction-right {
-    transform: rotate(0deg);
-  }
-}
-
-.chevronRight {
-  transform: rotate(-90deg);
-}
-
-.chevronLeft {
-  transform: rotate(90deg);
 }
 
 .hidden {

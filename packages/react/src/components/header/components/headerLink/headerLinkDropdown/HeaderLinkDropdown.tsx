@@ -3,7 +3,7 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 // import base styles
 import '../../../../../styles/base.css';
 import styles from './HeaderLinkDropdown.module.scss';
-import { IconAngleDown } from '../../../../../icons';
+import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../../icons';
 import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
@@ -56,11 +56,6 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * @internal
    */
   depth: number;
-  /**
-   * Function that return dropdown direction.
-   * @internal
-   */
-  getPosition: () => DropdownMenuPosition;
 }>;
 
 export const HeaderLinkDropdown = ({
@@ -74,12 +69,12 @@ export const HeaderLinkDropdown = ({
   closeDropdownAriaButtonLabel,
   openDropdownAriaButtonLabel,
   dropdownButtonClassName,
-  getPosition,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const ref = useRef<HTMLUListElement>(null);
+  const chevronClassName = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = dynamicPosition
     ? classNames(styles.dropdownMenu, styles[dynamicPosition])
@@ -93,16 +88,15 @@ export const HeaderLinkDropdown = ({
     return openDropdownAriaButtonLabel || defaultOpenDropdownAriaLabel;
   };
 
-  const getChevronClassName = () => {
-    const position = getPosition();
-    if (open) return classNames(styles.chevron, styles.chevronOpen, depth > 1 && styles[`direction-${position}`]);
-    if (depth > 1 && DropdownMenuPosition.Left.toString() === position)
-      return classNames(styles.chevron, styles.chevronLeft);
-    if (depth > 1) return classNames(styles.chevron, styles.chevronRight);
-    return classNames(styles.chevron);
-  };
-
   const childElements = getChildElementsEvenIfContainersInbetween(children);
+
+  const renderIcon = () => {
+    if (depth > 1 && dynamicPosition === DropdownMenuPosition.Right)
+      return <IconAngleRight className={chevronClassName} />;
+    if (depth > 1 && dynamicPosition === DropdownMenuPosition.Left)
+      return <IconAngleLeft className={chevronClassName} />;
+    return <IconAngleDown className={chevronClassName} />;
+  };
 
   return (
     <>
@@ -114,7 +108,7 @@ export const HeaderLinkDropdown = ({
         aria-label={getDefaultButtonAriaLabel()}
         aria-expanded={open}
       >
-        <IconAngleDown className={getChevronClassName()} />
+        {renderIcon()}
       </button>
       <ul
         className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
