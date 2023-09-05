@@ -4,7 +4,7 @@ title: 'Logo'
 navTitle: 'Logo'
 ---
 
-import { Logo } from 'hds-react';
+import { Logo, logoFi, logoSv, logoRu, logoFiDark, logoSvDark, logoRuDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,38 +14,41 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Logo language="fi" size="medium" />
+  <Logo src={logoFi} size="medium" alt="logo"/>
 </PlaygroundPreview>
 
-The logo is used to identify the site or application as an official City of Helsinki service.
+The logo is used to identify the site or application.
 See the <InternalLink size="M" href="/foundation/visual-assets/logo">logo visual asset documentation</InternalLink> for more information about principles of using the City of Helsinki logo.
 
 ### Principles
 
-- Logo is automatically included in HDS Navigation and HDS Footer (not yet released) components. **Use the Logo component sparingly in other parts of the service.**
+- Logo should be used in HDS Header and HDS Footer components. **Use the Logo component sparingly in other parts of the service.**
 - **You should include the service name next to the logo.** This helps the user more easily identify which city service they are currently using.
-- HDS Logo component includes translations for both Finnish and Swedish. **Use translation depending on the locale the user has chosen.** Swedish and Scandinavian languages use the `sv` variant while other languages use `fi` variant.
+- The Logo component does not include translations itself but localization can be achieved by changing the logo src accordingly.
+- The src is user-replaceable. If Helsinki logo is not used, only Logo component is needed to be imported and the src given as url, data-url or locally imported image.
 - The Logo component should act as a link to the main page of the service.
-- This component is solely for the City of Helsinki logo. Do not use this component for logos of other parties.
 
 ### Variations
 
 #### Default
 
-The Helsinki logo component is offered in three (3) languages.
+The Helsinki logo included is offered in three (3) languages and their dark-mode variants (light-coloured to be visible on top of dark background).
 
 <PlaygroundPreview>
-  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}}/>
-  <Logo language="sv" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="ru" size="medium" />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} />
+  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} />
+  <Logo src={logoRuDark} size="medium" style={{background: "black"}} />
 </PlaygroundPreview>
 
 #### Sizes
 
-The component includes three (3) size variants to fit the context.
+The component includes three (3) size variants to fit the context. If omitted, the logo uses all available space.
 
 <PlaygroundPreview>
-  <Logo language="fi" size="small" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo language="fi" size="large" />
+  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo src={logoFi} size="large" />
 </PlaygroundPreview>

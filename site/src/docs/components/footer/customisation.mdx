@@ -3,7 +3,7 @@ slug: '/components/footer/customisation'
 title: 'Footer - Customisation'
 ---
 
-import { Footer } from 'hds-react';
+import { Footer, Logo, logoFi } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -23,10 +23,10 @@ You can use the `theme` property to customise the component. See all available t
 
 ### Colour customisation example
 
-<Playground scope={{ Footer }}>
+<Playground scope={{ Footer, Logo, logoFi }}>
 
 ```jsx
-import { Footer } from 'hds-react';
+import { Footer, Logo, logoFi } from 'hds-react';
 
 () => (
   <Footer
@@ -39,17 +39,22 @@ import { Footer } from 'hds-react';
     }}
   >
     <Footer.Navigation>
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
     </Footer.Navigation>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-      <Link label="Link" />
-      <Link label="Link" />
-      <Link label="Link" />
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
     </Footer.Base>
   </Footer>
 )
@@ -59,10 +64,10 @@ import { Footer } from 'hds-react';
 
 ### Custom section
 
-<Playground scope={{ Footer }}>
+<Playground scope={{ Footer, Logo, logoFi }}>
 
 ```jsx
-import { Footer } from 'hds-react';
+import { Footer, Logo, logoFi } from 'hds-react';
 
 () => (
   <Footer
@@ -74,15 +79,20 @@ import { Footer } from 'hds-react';
         aria-label="partners"
         style={{ display: 'flex', flexDirection: 'row', gap: '12px 24px', flexWrap: 'wrap', marginTop: '8px' }}
       >
-        <Link label="Partner 1" external openInNewTab />
-        <Link label="Partner 1" external openInNewTab />
-        <Link label="Partner 1" external openInNewTab />
+        <Footer.Link label="Partner 1" external openInNewTab />
+        <Footer.Link label="Partner 1" external openInNewTab />
+        <Footer.Link label="Partner 1" external openInNewTab />
       </div>
     </Footer.Custom>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-      <Link label="Link" />
-      <Link label="Link" />
-      <Link label="Link" />
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
     </Footer.Base>
   </Footer>
 )

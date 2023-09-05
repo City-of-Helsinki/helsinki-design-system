@@ -4,7 +4,7 @@ title: 'Header - Code'
 ---
 
 import { Link } from 'gatsby';
-import { Header, IconSearch } from 'hds-react';
+import { Header, IconSearch, Logo, logoFi } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -16,10 +16,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### With all the components
 
-<Playground scope={{ Header, IconSearch }}>
+<Playground scope={{ Header, IconSearch, Logo, logoFi }}>
 
 ```jsx
-import { Header, IconSearch } from 'hds-react';
+import { Header, IconSearch, Logo, logoFi } from 'hds-react';
 
 () => {
   const languages = [
@@ -52,6 +52,7 @@ import { Header, IconSearch } from 'hds-react';
           titleHref="https://hel.fi"
           logoAriaLabel="Service logo"
           logoHref="https://hel.fi"
+          logo={<Logo src={logoFi} />}
           menuButtonAriaLabel="Menu"
         >
           <Header.LanguageSelector languages={languages} />
@@ -131,7 +132,7 @@ import { Header, IconSearch } from 'hds-react';
 
 The Header.Link component has the `as` prop which you can use to use your own navigation link instead of our Header.Link, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
 
-<Playground scope={{ Header, IconSearch, Link }}>
+<Playground scope={{ Header, IconSearch, Link, Logo, logoFi }}>
 
 ```jsx
 import { Header, IconSearch } from 'hds-react';
@@ -154,6 +155,7 @@ import { Link } from 'gatsby';
           titleHref="https://hel.fi"
           logoAriaLabel="Service logo"
           logoHref="https://hel.fi"
+          logo={<Logo src={logoFi} />}
           menuButtonAriaLabel="Menu"
         />
         <Header.NavigationMenu>
@@ -344,6 +346,7 @@ import { Header, IconSearch } from 'hds-react';
 | `className`                           | Additional class names to apply.                       | `string`                                      | -             |
 | `logoAriaLabel`                       | Aria-label for the logo.                               | `string`                                      | -             |
 | `logoHref`                             | URL for the logo.                                      | `string`                                      | -             |
+| `logo`                             | Logo component.                                      | `Logo`                                      | -             |
 | `menuButtonAriaLabel`                 | Aria-label for the menu button.                        | `string`                                      | -             |
 | `onTitleClick`                        | Callback function for when the title is clicked.       | `MouseEventHandler`                           | -             |
 | `onLogoClick`                         | Callback function for when the logo is clicked.        | `MouseEventHandler`                           | -             |

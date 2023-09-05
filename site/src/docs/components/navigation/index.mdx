@@ -4,7 +4,7 @@ title: 'Navigation'
 navTitle: 'Navigation'
 ---
 
-import { Navigation } from 'hds-react';
+import { Logo, logoFi, Navigation } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -19,6 +19,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     menuToggleAriaLabel="menu"
     skipTo="#content"
     skipToContentLabel="Skip to content"
+    logo={<Logo src={logoFi} size="large" />}
   >
     <Navigation.Row>
       <Navigation.Item label="Item" active />
@@ -52,6 +53,7 @@ The default navigation includes a separate line for navigation menu links. There
     menuToggleAriaLabel="menu"
     skipTo="#content"
     skipToContentLabel="Skip to content"
+    logo={<Logo src={logoFi} size="large" />}
   >
     <Navigation.Row>
       <Navigation.Item label="Item" active />
@@ -74,6 +76,7 @@ A service can opt to use smaller, 1 row navigation if 2 row navigation is too he
     menuToggleAriaLabel="menu"
     skipTo="#content"
     skipToContentLabel="Skip to content"
+    logo={<Logo src={logoFi} size="large" />}
   >
     <Navigation.Row variant="inline">
       <Navigation.Item label="Item" active />
@@ -93,6 +96,7 @@ HDS Navigation component supports many commonly used features out of the box. Th
     menuToggleAriaLabel="menu"
     skipTo="#content"
     skipToContentLabel="Skip to content"
+    logo={<Logo src={logoFi} size="large" />}
   >
     <Navigation.Actions>
       <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
@@ -116,6 +120,7 @@ HDS Navigation offers two variations with different background colours - one wit
     menuToggleAriaLabel="menu"
     skipTo="#content"
     skipToContentLabel="Skip to content"
+    logo={<Logo src={logoFi} size="large" />}
   >
     <Navigation.Row variant="inline">
       <Navigation.Item label="Item" active />

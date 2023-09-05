@@ -3,7 +3,7 @@ slug: '/components/logo/customisation'
 title: 'Logo - Customisation'
 ---
 
-import { Logo, Notification } from 'hds-react';
+import { Logo, Notification, logoFi } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -17,23 +17,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Customisation properties
 
-In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
-
-In React version, you can either use the `style` or `className` properties to customise the component.
+You can either use the `style` or `className` properties to customise the component.
 
 ### Customisation example
 
-<Playground scope={{ Logo }}>
+<Playground scope={{ Logo, logoFi }}>
 
 ```jsx
-import { Logo } from 'hds-react';
 
-() => (
+import { Logo, logoFi } from 'hds-react';
+
 <>
-  <Logo language="fi" size="small" style={{ color: 'var(--color-bus)', marginRight: 'var(--spacing-xs)' }} />
-  <Logo language="fi" size="medium" style={{ color: 'var(--color-tram)', marginRight: 'var(--spacing-xs)' }} />
-  <Logo language="fi" size="large" style={{ color: 'var(--color-metro)' }} />
-</>)
+  <Logo src={logoFi} size="small" style={{ color: 'var(--color-bus)', marginRight: 'var(--spacing-xs)' }} />
+  <Logo src={logoFi} size="medium" style={{ color: 'var(--color-tram)', marginRight: 'var(--spacing-xs)' }} />
+  <Logo src={logoFi} size="large" style={{ color: 'var(--color-metro)' }} />
+</>
 ```
 
 </Playground>

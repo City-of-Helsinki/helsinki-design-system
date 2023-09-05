@@ -3,7 +3,7 @@ slug: '/components/footer/code'
 title: 'Footer - Code'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, logoFi, logoFiDark } from 'hds-react';
 
 import TabsLayout from './tabs.mdx';
 
@@ -14,39 +14,44 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples
 
 #### Default
-<Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok }}>
+<Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, logoFi }}>
 
 ```jsx
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, logoFi } from 'hds-react';
 
 () => (
   <Footer title="Helsinki Design System">
     <Footer.Navigation>
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
-      <Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
     </Footer.Navigation>
     <Footer.Utilities
       soMeLinks={[
-        <Link title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
-        <Link title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
-        <Link title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
-        <Link title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
-        <Link title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
+        <Footer.Link title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
+        <Footer.Link title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
+        <Footer.Link title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
+        <Footer.Link title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
+        <Footer.Link title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
       ]}
     >
-      <Link label="Contact us" />
-      <Link label="Give feedback" />
+      <Footer.Link label="Contact us" />
+      <Footer.Link label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-      <Link label="Link" />
-      <Link label="Link" />
-      <Link label="Link" />
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
     </Footer.Base>
   </Footer>
 )
@@ -58,42 +63,52 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
 
 
 ### Color variations
-<Playground scope={{ Footer }}>
+<Playground scope={{ Footer, Logo, logoFi, logoFiDark }}>
 
 ```jsx
-import { Footer } from 'hds-react';
+import { Footer, Logo, logoFi, logoFiDark } from 'hds-react';
 
 () => (
   <>
     <Footer title="Helsinki Design System">
       <Footer.Navigation>
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
       </Footer.Navigation>
-      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-        <Link label="Link" />
-        <Link label="Link" />
-        <Link label="Link" />
+      <Footer.Base
+        copyrightHolder="Copyright"
+        copyrightText="All rights reserved"
+        backToTopLabel="Back to top"
+        logo={<Logo src={logoFi} size="medium" />}
+      >
+        <Footer.Link label="Link" />
+        <Footer.Link label="Link" />
+        <Footer.Link label="Link" />
       </Footer.Base>
     </Footer>
     <br />
     <Footer title="Helsinki Design System" theme="dark">
       <Footer.Navigation>
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
       </Footer.Navigation>
-      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-        <Link label="Link" />
-        <Link label="Link" />
-        <Link label="Link" />
+      <Footer.Base
+        copyrightHolder="Copyright"
+        copyrightText="All rights reserved"
+        backToTopLabel="Back to top"
+        logo={<Logo src={logoFiDark} size="medium" />}
+      >
+        <Footer.Link label="Link" />
+        <Footer.Link label="Link" />
+        <Footer.Link label="Link" />
       </Footer.Base>
     </Footer>
   </>
@@ -113,14 +128,14 @@ import { Footer } from 'hds-react';
   <>
     <Footer title="Default">
       <Footer.Navigation>
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
-        <Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
+        <Footer.Link label="Item" />
       </Footer.Navigation>
     </Footer>
     <br />
@@ -133,12 +148,12 @@ import { Footer } from 'hds-react';
               onClick={(e) => e.preventDefault()}
               label="Item"
             />
-            <Link label="Sub item" />
-            <Link label="Sub item" />
-            <Link label="Sub item" />
-            <Link label="Sub item" />
-            <Link label="Sub item" />
-            <Link label="Sub item" />
+            <Footer.Link label="Sub item" />
+            <Footer.Link label="Sub item" />
+            <Footer.Link label="Sub item" />
+            <Footer.Link label="Sub item" />
+            <Footer.Link label="Sub item" />
+            <Footer.Link label="Sub item" />
           </Footer.NavigationGroup>
         ))}
       </Footer.Navigation>
@@ -153,16 +168,16 @@ import { Footer } from 'hds-react';
 
 #### Utility section variations
 
-<Playground scope={{ Footer }}>
+<Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok }}>
 
 ```jsx
-import { Footer } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
 
 () => (
   <>
     <Footer title="Default">
       <Footer.Utilities soMeLinks={[
-        <Link
+        <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           ariaLabel="Helsingin kaupungin Facebook-tili"
           external
@@ -170,7 +185,7 @@ import { Footer } from 'hds-react';
           icon={<IconFacebook aria-hidden />}
           href="https://facebook.com"
         />,
-        <Link
+        <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
           ariaLabel="Helsingin kaupungin Twitter-tili"
           external
@@ -178,7 +193,7 @@ import { Footer } from 'hds-react';
           icon={<IconTwitter aria-hidden />}
           href="https://twitter.com"
         />,
-        <Link
+        <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
           ariaLabel="Helsingin kaupungin Instagram-tili"
           external
@@ -194,7 +209,7 @@ import { Footer } from 'hds-react';
           icon={<IconYoutube aria-hidden />}
           href="https://youtube.com"
         />,
-        <Link
+        <Footer.Link
           title="Helsingin kaupungin Tiktok-tili"
           ariaLabel="Helsingin kaupungin Tiktok-tili"
           external
@@ -203,10 +218,10 @@ import { Footer } from 'hds-react';
           href="https://tiktok.com"
         />,
       ]}>
-        <Link onClick={(e) => e.preventDefault()} label="Contact us" />
-        <Link onClick={(e) => e.preventDefault()} label="Give feedback" />
-        <Link onClick={(e) => e.preventDefault()} label="Support" />
-        <Link onClick={(e) => e.preventDefault()} label="About" />
+        <Footer.Link onClick={(e) => e.preventDefault()} label="Contact us" />
+        <Footer.Link onClick={(e) => e.preventDefault()} label="Give feedback" />
+        <Footer.Link onClick={(e) => e.preventDefault()} label="Support" />
+        <Footer.Link onClick={(e) => e.preventDefault()} label="About" />
       </Footer.Utilities>
     </Footer>
     <br />
@@ -219,9 +234,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Link label="Link" />
-          <Link label="Link" />
-          <Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
         </Footer.UtilityGroup>
         <Footer.UtilityGroup
           headingLink={<Footer.GroupHeading
@@ -229,9 +244,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Link label="Link" />
-          <Link label="Link" />
-          <Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
         </Footer.UtilityGroup>
         <Footer.UtilityGroup
           headingLink={<Footer.GroupHeading
@@ -239,9 +254,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Link label="Link" />
-          <Link label="Link" />
-          <Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
         </Footer.UtilityGroup>
         <Footer.UtilityGroup
           headingLink={<Footer.GroupHeading
@@ -249,9 +264,9 @@ import { Footer } from 'hds-react';
             label="Group"
           />}
         >
-          <Link label="Link" />
-          <Link label="Link" />
-          <Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
+          <Footer.Link label="Link" />
         </Footer.UtilityGroup>
       </Footer.Utilities>
     </Footer>
@@ -261,44 +276,49 @@ import { Footer } from 'hds-react';
 
 </Playground>
 
-#### Custom NavigationLink
+#### Custom Link
 
-- The Footer.NavigationLink component has the `as` prop which you can use to use your own navigation link instead of our Footer.NavigationLink, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
+- The Footer.Link component has the `as` prop which you can use to use your own navigation link instead of our Footer.Link, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
 
-<Playground>
+<Playground scope={{ Footer, Logo, logoFi, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok }}>
 
 ```jsx
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Footer, Logo, logoFi, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
 import { Link } from 'gatsby';
 
 () => (
   <Footer title="Helsinki Design System">
     <Footer.Navigation>
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
-      <Footer.NavigationLink as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
+      <Footer.Link as={Link} label="Item" />
     </Footer.Navigation>
     <Footer.Utilities
       soMeLinks={[
-        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
-        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
-        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
-        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
-        <Footer.NavigationLink as={Link} title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
+        <Footer.Link as={Link} title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
+        <Footer.Link as={Link} title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
+        <Footer.Link as={Link} title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
+        <Footer.Link as={Link} title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
+        <Footer.Link as={Link} title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
       ]}
     >
-      <Footer.NavigationLink as={Link} label="Contact us" />
-      <Footer.NavigationLink as={Link} label="Give feedback" />
+      <Footer.Link as={Link} label="Contact us" />
+      <Footer.Link as={Link} label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
-      <Footer.NavigationLink as={Link} label="Link" />
-      <Footer.NavigationLink as={Link} label="Link" />
-      <Footer.NavigationLink as={Link} label="Link" />
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
+      <Footer.Link as={Link} label="Link" />
+      <Footer.Link as={Link} label="Link" />
+      <Footer.Link as={Link} label="Link" />
     </Footer.Base>
   </Footer>
 )
@@ -342,7 +362,7 @@ import { Link } from 'gatsby';
 | `openInNewTab`                             | Boolean indicating whether the link will open in new tab.     | `boolean`        | `false`             |
 | `openInNewTabAriaLabel`                             | Aria-label for opening link in a new tab.     | `string`        | -            |
 | `openInExternalDomainAriaLabel`                             | Aria-label for opening link in an external domain.     | `string`        | -            |
-| [Table 3:Footer.NavigationLink properties] |
+| [Table 3:Footer.Link properties] |
 
 | Property                                  | Description                         | Values                 | Default value |
 | ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
@@ -389,7 +409,7 @@ import { Link } from 'gatsby';
 | `copyrightHolder`                           | Text to be displayed next to the copyright symbol.                       | `string` `ReactNode`                                      | -             |
 | `copyrightText`                           | Text to be displayed after the copyright holder text.                       | `string` `ReactNode`                                      | -             |
 | `logoHref`                             | Link for the logo.                                      | `string`                                      | -             |
-| `logoLanguage`                             | Language of the Helsinki logo.                                      | `"fi"` `"sv"` `"ru"`                                       | -             |
+| `logo`                             | Logo component to use.                                      | `Logo`                                       | -             |
 | `onBackToTopClick`                       | Callback fired when the "Back to top" button is clicked.                               | `function`                                      | -             |
 | `role`                                | ARIA role to describe the contents.                    | `string`                                      | -             |
 | `showBackToTopButton`                                | Boolean for whether the "Back to top" button should be shown.                    | `boolean`                                      | -             |

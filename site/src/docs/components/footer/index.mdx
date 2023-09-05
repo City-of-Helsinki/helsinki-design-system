@@ -4,7 +4,7 @@ title: 'Footer'
 navTitle: 'Footer'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant, Logo, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -37,7 +37,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       <Footer.Link label="Contact us"  />
       <Footer.Link label="Give feedback"  />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -63,7 +68,7 @@ The Footer consists of four possible sections: navigation, utility, custom and b
 - **Navigation section (recommended)** contains the name of the service and footer navigation. See the [Navigation section variations](#navigation-section-variations) for more information about customising the footer navigation.
 - **Utility section (optional)** contains links and actions not listed in main navigation, for example, social media icons, and links to contact info, feedback, or back to top. See the [Utility section variations](#utility-section-variations) for more information.
 - **Custom section (optional)** is for any content that you wish to include in the footer that doesn't fit elsewhere. You can put whatever you wish there but we recommend to keep the styling consistent with the rest of the Footer.
-- **Base section (recommended)** contains the Helsinki framed logo and is used for supplementary information, for example copyright information and links to other meta information, e.g. accessibility statement, privacy policy, terms of use, etc.
+- **Base section (recommended)** contains the logo and is used for supplementary information, for example copyright information and links to other meta information, e.g. accessibility statement, privacy policy, terms of use, etc.
 
 #### Default
 
@@ -71,7 +76,7 @@ The default footer uses the black text colour variant and includes three section
 
 - The navigation section shows the service name and navigation. Navigation is optimised for up to eight menu items.
 - Utility section is optimised to display up to three action links and five social media icons. An icon can be added to action links.
-- Base section includes the Helsinki framed logo, text for copyright or other meta information. The base section is optimised for up to five supplementary links, depending on link length.
+- Base section includes the logo, text for copyright or other meta information. The base section is optimised for up to five supplementary links, depending on link length.
 
 <PlaygroundPreview>
   <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
@@ -97,7 +102,12 @@ The default footer uses the black text colour variant and includes three section
       <Footer.Link label="Contact us" />
       <Footer.Link label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -119,7 +129,12 @@ The Footer component supports light and dark themes.
       <Footer.Link label="Item" />
       <Footer.Link label="Item" />
     </Footer.Navigation>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" />}
+    >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -135,7 +150,12 @@ The Footer component supports light and dark themes.
       <Footer.Link label="Item" />
       <Footer.Link label="Item" />
     </Footer.Navigation>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFiDark} size="medium" />}
+    >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
