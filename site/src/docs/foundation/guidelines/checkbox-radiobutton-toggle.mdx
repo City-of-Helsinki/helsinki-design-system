@@ -35,7 +35,7 @@ Radio buttons have a lower cognitive load than dropdown menus because they make 
 **Example use:** Binary choices like "Yes" or "No", age group or other similar choices that exclude other options.
 
 export const RadioButtonExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = React.useState('');
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
