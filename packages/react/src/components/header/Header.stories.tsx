@@ -9,7 +9,7 @@ import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { LanguageOption } from './LanguageContext';
 import { IconSearch, IconUser } from '../../icons';
 import { Link } from '../link/Link';
-import { Logo, logoFi, logoFiDark, logoSv } from '../logo';
+import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 
 export default {
   component: Header,
@@ -33,12 +33,18 @@ const languageChangedAction = () => {
   action('language:onChange');
 };
 
-const logoSrcFromLanguage = (lang: string) => {
+const logoSrcFromLanguage = (lang: string, theme: string) => {
   switch (lang) {
     case 'sv':
-      return logoSv;
+      if (theme === 'light') {
+        return logoSv;
+      }
+      return logoSvDark;
     default:
-      return logoFi;
+      if (theme === 'light') {
+        return logoFi;
+      }
+      return logoFiDark;
   }
 };
 
@@ -275,7 +281,7 @@ export const Minimal = (args) => {
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
-        logo={<Logo src={logoFi} />}
+        logo={<Logo src={logoSrcFromLanguage('fi', args.theme)} />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
@@ -306,7 +312,6 @@ export const Minimal = (args) => {
 
 export const MinimalWithLocalization = (args) => {
   const [lang, setLang] = useState<string>('fi');
-  const [logoSrc, setLogoSrc] = useState<string>(logoFi);
 
   const translations = {
     en: {
@@ -332,19 +337,18 @@ export const MinimalWithLocalization = (args) => {
     },
   };
 
-  const languageChangedAction2 = (lg: string) => {
-    setLang(lg);
-    setLogoSrc(logoSrcFromLanguage(lg));
+  const languageChangedStateAction = (language: string) => {
+    setLang(language);
   };
 
   return (
-    <Header {...args} onDidChangeLanguage={languageChangedAction2}>
+    <Header {...args} onDidChangeLanguage={languageChangedStateAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.ActionBar
         title={translations[lang]['header-title']}
         titleAriaLabel={translations[lang]['header-aria-label']}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrc} />}
+        logo={<Logo src={logoSrcFromLanguage(lang, args.theme)} />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>
