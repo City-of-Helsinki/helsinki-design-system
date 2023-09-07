@@ -33,7 +33,7 @@ const languageChangedAction = () => {
   action('language:onChange');
 };
 
-const logoSrcFromLanguage = (lang: string, theme: string) => {
+const logoSrcFromLanguageAndTheme = (lang: string, theme: string) => {
   switch (lang) {
     case 'sv':
       if (theme === 'light') {
@@ -281,7 +281,7 @@ export const Minimal = (args) => {
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguage('fi', args.theme)} />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
@@ -348,7 +348,7 @@ export const MinimalWithLocalization = (args) => {
         title={translations[lang]['header-title']}
         titleAriaLabel={translations[lang]['header-aria-label']}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguage(lang, args.theme)} />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>
