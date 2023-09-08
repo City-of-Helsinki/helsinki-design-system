@@ -81,10 +81,13 @@ Adhering to these principles can create an effective and user-friendly navigatio
   </div>
   <ul style="margin-bottom:0;">
     <li>
-      <strong>Don't utilize the content area for navigation purposes.</strong>
+      <strong>Minimize redundancy in the content area</strong>
       <ul style="margin-top:0;">
         <li>
-          Refrain from duplicating all the links present in the navigation into the content area. Use only content-relevant navigation links on specific pages.
+          Avoid duplicating all navigation links in the content area; use content-relevant navigation links on specific pages.
+        </li>
+        <li>
+          Exception: On landing pages consider utilizing the content area for navigation for mobile usage.
         </li>
       </ul>
     </li>
@@ -228,11 +231,28 @@ Hero serves as a visual and content-focused introduction to the page, typically 
 
 ### 4. Side navigation (optional)
 
-Side navigation can serve as a secondary navigation tool alongside the main navigation components at the top of a page. Do not use side navigation on landing pages that use the hero component to keep the navigation experience coherent and straightforward.
+Side navigation can complement the primary navigation components at the top of a page, offering users an additional way to navigate your application or website.
 
-Side navigation is helpful when the application or website has a complex or multi-layered hierarchy of information, where the top-level navigation isn't sufficient to provide a complete, comprehensive navigation experience.
+- Don't use side navigation on landing pages with the hero component. This approach maintains a coherent and straightforward navigation experience for users arriving on these pages.
+- For page-specific navigation that is simple and one-layered, consider using the Tabs component as an alternative to side navigation. Tabs can be a more intuitive choice in such cases.
 
-When you need to add page-specific navigation that is simple and one-layered, consider using the Tabs component instead of side navigation.
+
+#### Navigation Hierarchy in Main and Side Navigation
+
+Effective navigation levels hierarchy is essential for user-friendly interfaces. To ensure clarity and usability in your navigation design, consider the following guidelines:
+
+**Main Navigation Levels:** 1 - 3
+- Use the main navigation for the 1st to 3rd levels of your navigation hierarchy. These top-level categories provide users with a clear overview of your application's or website's structure.
+
+**Side Navigation Levels:** 2 - 5
+- Side navigation is most effective when utilized for the 2nd to 5th levels of your navigation hierarchy. This tier allows for more detailed access to sub-sections and features, enhancing the user's ability to explore content within specific categories.
+
+**Overlapping Levels:** 
+- Avoid more than one (1) overlapping level between the main and side navigation. Overlapping items can increase cognitive load on users as they need to process redundant information from multiple menus.
+
+**Caution:** Avoid exceeding a total of 5 navigation levels when combining main and side navigation. An overly complex hierarchy can confuse users and hinder their ability to find information effectively.
+
+
 
 export const SideNavExample = () => {
   const [active, setActive] = React.useState('/archive');
