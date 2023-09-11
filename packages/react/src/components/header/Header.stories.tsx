@@ -23,7 +23,9 @@ export default {
     controls: { expanded: true },
     layout: 'fullscreen',
   },
-  args: {},
+  args: {
+    theme: 'light',
+  },
 };
 
 const languageChangedAction = action('language:onChange');
