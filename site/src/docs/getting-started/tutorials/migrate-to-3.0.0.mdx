@@ -1,0 +1,63 @@
+---
+slug: '/getting-started/tutorials/migrate-to-3.0.0'
+title: 'Migrate to 3.0.0'
+navTitle: 'Migrate to 3.0.0'
+---
+
+import ExternalLink from '../../../components/ExternalLink';
+import LeadParagraph from '../../../components/LeadParagraph';
+import InternalLink from '../../../components/InternalLink';
+
+# Migrate to version 3.0.0
+This guide helps you to start using HDS version 3.0.0. 
+
+## Breaking changes
+This major release contains some breaking changes. Pay attention to these when you update your project to use the new version.
+
+### Navigation replaced with Header
+Old navigation was removed as previously informed. The aim is to provide more flexible navigation solution that supports also larger sites and is consistent with hel.fi-styles.
+This new navigation is not updated automatically, you need to switch to it manually as the name of the component is different.
+
+If you wish to make it as similar to previous navigation, you only need ActionBar-subcomponent.
+
+The navigation was rewritten to fix bugs, make it more modular, provide support for larger sites and unify the styles.
+
+- <InternalLink size="M" href="/components/header">Header component</InternalLink>
+- <InternalLink size="M" href="/patterns/navigation-pattern">Navigation pattern</InternalLink>
+
+### New footer
+Footer is refactored and the new version is more modular. The new component also is named footer, so check that needed properties are set correctly.
+
+- <InternalLink size="M" href="/components/footer">Footer component</InternalLink>
+### Deprecated rectangular tags and statuslabels
+Rectangular tags and status labels are deprecated and removed. This helps to better separate buttons from tags.
+
+### External link icon position adjusted
+The position of the external link is adjusted to better match common practices. This moves the icon bit more up, which can affect the line height.
+
+## Other important updates
+
+### Focus color
+New focus color token has been added. Currently the default focus color is still Coat of Arms, but token enables changing the color according to the needs.
+Components are updated to use the new token instead of hardcoded value.
+
+### Radio button should not have default value
+The documentation and examples are updated so that the radio button should not have default value. 
+This change helps form validation as it is possible to catch if the user has not selected the item. It also helps to avoid accidental values, if the user does not notice the default value.
+As the radio button itself does not allow removing the value once chosen, it is recommended to provide a separate button to clear the selection.
+
+## For designers
+
+### Sketch
+Sketch library is updated to version 98.2. Please update your files accordingly.
+
+To start using the version 3 ...
+
+### Figma
+There is a brand new Figma library available. The licences are checked and provided separately, but if you're already working in Figma, feel free to use the new design system library.
+It will be available with Helsinki licenses and a community file.
+
+- <ExternalLink size="M">HDS Figma library in City of Helsinki organization</ExternalLink>
+- <ExternalLink size="M">HDS Figma community file</ExternalLink>
+
+## For developers
