@@ -6,9 +6,8 @@ import '../../../../styles/base.css';
 import styles from './HeaderLink.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
-import { HeaderLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './headerLinkDropdown';
-import { useHeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
-import { useHeaderContext } from '../../HeaderContext';
+import { HeaderLinkDropdown, DropdownMenuPosition } from './headerLinkDropdown';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import { MergeElementProps } from '../../../../common/types';
 import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
 
@@ -108,6 +107,10 @@ export type NavigationLinkProps<ReactElement> = {
    */
   label: string;
   /**
+   * Callback fired when the dropdown button is clicked.
+   */
+  onDropdownButtonClick?: () => void;
+  /**
    * Aria-label for the dropdown button to describe opening the dropdown.
    */
   openDropdownAriaButtonLabel?: string;
@@ -149,14 +152,15 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   openDropdownAriaButtonLabel,
   closeDropdownAriaButtonLabel,
   dropdownButtonClassName,
+  onDropdownButtonClick,
   ...rest
 }: HeaderNavigationLinkProps<T>) => {
   const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
   const { isNotLargeScreen } = useHeaderContext();
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | NavigationLinkInteraction>(null);
   const [dynamicPosition, setDynamicPosition] = useState<null | DropdownMenuPosition>(null);
-  const { openMainNavIndex, setOpenMainNavIndex } = useHeaderNavigationMenuContext();
+  const { openMainNavIndex } = useHeaderContext();
+  const { setOpenMainNavIndex } = useSetHeaderContext();
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
@@ -180,9 +184,11 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   }, []);
 
   // Handle dropdown open state by calling either internal state or context
-  const handleDropdownOpen = (val: boolean, interaction?: NavigationLinkInteraction) => {
-    setDropdownOpenedBy(!val ? null : interaction);
-    setDropdownOpen(val);
+  const handleDropdownOpen = (val: boolean) => {
+    if (!isNotLargeScreen) {
+      setDropdownOpen(val);
+    }
+    if (onDropdownButtonClick) onDropdownButtonClick();
     // If sub navigation props given, call them
     if (isSubNavLink && index !== undefined) {
       setOpenSubNavIndex(val ? index : -1);
@@ -197,10 +203,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
     }
   };
 
-  const closeDropdown = () => {
-    setDropdownOpen(false);
-    setDropdownOpenedBy(null);
-  };
+  const closeDropdown = () => setDropdownOpen(false);
 
   useEffect(() => {
     // If sub navigation index is not provided, we need to react to main nav context changes.
@@ -247,14 +250,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   });
 
   return (
-    <span
-      className={navigationWrapperLinkClassName}
-      ref={containerRef}
-      {...(dropdownLinks &&
-        dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-          onClick: () => handleDropdownOpen(true, NavigationLinkInteraction.Click),
-        })}
-    >
+    <span className={navigationWrapperLinkClassName} ref={containerRef}>
       <Item
         className={navigationLinkClassName}
         href={href}

@@ -28,41 +28,25 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   className?: string;
   /**
-   * Service name that is displayed next to the Helsinki logo.
+   * Label for front page link in mobile navigation menu.
    */
-  title: string;
-  /**
-   * Style for title.
-   */
-  titleStyle?: TitleStyleType;
-  /**
-   * The aria-label for the title describing the service to screen reader users.
-   */
-  titleAriaLabel?: string;
-  /**
-   * The aria-label for the logo to screen reader users.
-   */
-  logoAriaLabel?: string;
-  /**
-   * The aria-label for the menu button to screen reader users.
-   */
-  menuButtonAriaLabel?: string;
-  /**
-   * Link for the title.
-   */
-  titleHref?: string;
+  frontPageLabel: string;
   /**
    * Logo to use
    */
   logo: React.ReactElement<typeof Logo>;
   /**
-   * URL to navigate to when the logo is clicked
+   * The aria-label for the logo to screen reader users.
+   */
+  logoAriaLabel?: string;
+  /**
+   * Link for the logo.
    */
   logoHref?: string;
   /**
-   * Callback fired when the title is clicked.
+   * The aria-label for the menu button to screen reader users.
    */
-  onTitleClick?: MouseEventHandler;
+  menuButtonAriaLabel?: string;
   /**
    * Callback fired when the logo is clicked.
    */
@@ -74,9 +58,29 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   onMenuButtonClick?: MouseEventHandler;
   /**
+   * Callback fired when the title is clicked.
+   */
+  onTitleClick?: MouseEventHandler;
+  /**
    * ARIA role to describe the contents.
    */
   role?: string;
+  /**
+   * Service name that is displayed next to the Helsinki logo.
+   */
+  title: string;
+  /**
+   * The aria-label for the title describing the service to screen reader users.
+   */
+  titleAriaLabel?: string;
+  /**
+   * Link for the title.
+   */
+  titleHref: string;
+  /**
+   * Style for title.
+   */
+  titleStyle?: TitleStyleType;
 }>;
 
 export const HeaderActionBar = ({
@@ -95,6 +99,7 @@ export const HeaderActionBar = ({
   className,
   ariaLabel,
   role,
+  frontPageLabel,
 }: HeaderActionBarProps) => {
   const handleClick = useCallbackIfDefined(onTitleClick);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
@@ -159,12 +164,17 @@ export const HeaderActionBar = ({
           </div>
         </div>
       </div>
+      <HeaderActionBarNavigationMenu
+        frontPageLabel={frontPageLabel}
+        titleHref={titleHref}
+        logo={logo}
+        logoProps={logoProps}
+      />
       {componentExists && (
         <HeaderLanguageSelectorConsumer {...lsProps} fullWidthForMobile>
           {languageSelectorChildren}
         </HeaderLanguageSelectorConsumer>
       )}
-      <HeaderActionBarNavigationMenu logo={logo} logoProps={logoProps} />
     </>
   );
 };

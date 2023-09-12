@@ -53,24 +53,15 @@
   }
 }
 
-
 .headerLink.isNotLargeScreen{
   align-self: center;
   border: none;
   box-sizing: border-box;
   color: var(--nav-link-font-color);
-  font-size: var(--link-font-size);
+  font-size: var(--fontsize-body-xl);
+  margin-left: var(--nav-mobile-margin-left);
   padding: 0;
   word-wrap: break-word;
-
-  &.depth-0 {
-    font-size: var(--fontsize-body-xl);
-    margin-left: 16px;
-  }
-
-  &.depth-1 { margin-left: 32px; }
-  &.depth-2 { margin-left: 48px; }
-  &.depth-3 { margin-left: 64px; }
 
   &:focus { border: none }
 }

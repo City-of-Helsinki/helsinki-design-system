@@ -193,7 +193,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
 - Using the Header.UniversalBar component is optional.
 - If the primary link information is provided, it should direct to the webpage of City of Helsinki. We recommend using it if your service is outside the <ExternalLink href="https://www.hel.fi/fi">hel.fi</ExternalLink> domain in order to provide a quick and easy access to the City of Helsinki web page.
 - Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
-- On smaller screens (768px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
+- Under large sized screens (992px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
 <PlaygroundPreview>
   <Header>
@@ -222,7 +222,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
 
 - **You should always include the Header.ActionBar component in your Header**.
 - The component provides two different service name styles via the `titleStyle` prop: `TitleStyleType.Normal`, which is the default, and `TitleStyleType.Bold`. We recommend to have a maximum of 22 character (including spaces) for title name regardless of which style is used.
-- On smaller screens (768px and down) the Header.ActionBar undergoes some visual changes:
+- Under large sized screens (992px and down) the Header.ActionBar undergoes some visual changes:
   - The contents of Header.NavigationMenu and Header.UniversalBar, if you have provided either of them, will move inside Header.ActionBar's menu.
   - The Header.LanguageSelector moves under the ActionBar.
 
@@ -273,7 +273,7 @@ Header.LanguageSelector offers the languages for the whole service. It is recomm
 - The Header.LanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
 - The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
 - See example for Header.LanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal-with-localization">in Storybook</Link>
-- On smaller screens (768px and down) the Header.LanguageSelector moves under the Header.ActionBar.
+- Under large sized screens (992px and down) the Header.LanguageSelector moves under the Header.ActionBar.
 
 ##### With search
 
@@ -406,7 +406,7 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
 
 - The Header.NavigationMenu component should come after [the Header.ActionBar component](#with-action-bar).
 - Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word. See also our <InternalLink href="/components/header/accessibility">accessibility notes</InternalLink> about navigation menu's hierarchy.
-- On smaller screens (768px and down) the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
+- Under large sized screens (992px and down) the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
 <PlaygroundPreview>
   <Header

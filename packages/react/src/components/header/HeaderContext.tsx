@@ -13,6 +13,10 @@ export type HeaderContextType = {
   languageSelectorContent?: React.ReactNode;
   hasUniversalContent?: boolean;
   universalContent?: React.ReactNode;
+  /**
+   * Which main navigation link with dropdowns is open.
+   */
+  openMainNavIndex?: number;
 };
 
 export type HeaderDispatchContextType = {
@@ -20,6 +24,7 @@ export type HeaderDispatchContextType = {
   setLanguageSelectorContent?: (children: React.ReactNode) => void;
   setMobileMenuOpen?: (state: boolean) => void;
   setUniversalContent?: (children: React.ReactNode) => void;
+  setOpenMainNavIndex?: (arg: number) => void;
 };
 
 const HeaderContext = createContext<HeaderContextType>({
@@ -32,16 +37,18 @@ const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
   setLanguageSelectorContent() {}, // eslint-disable-line @typescript-eslint/no-empty-function
   setMobileMenuOpen() {}, // eslint-disable-line @typescript-eslint/no-empty-function
   setUniversalContent() {}, // eslint-disable-line @typescript-eslint/no-empty-function
+  setOpenMainNavIndex() {}, // eslint-disable-line @typescript-eslint/no-empty-function
 });
 HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
 
 export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const isNotLargeScreen = useMediaQueryLessThan('m');
+  const isNotLargeScreen = useMediaQueryLessThan('l');
   const [navigationContent, setNavigationContent] = useState(null);
   const [languageSelectorContent, setLanguageSelectorContent] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [universalContent, setUniversalContent] = useState(null);
+  const [openMainNavIndex, setOpenMainNavIndex] = useState<number>(-1);
 
   useEffect(() => setMobileMenuOpen(false), [isNotLargeScreen]);
 
@@ -55,12 +62,14 @@ export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) =
     languageSelectorContent,
     hasUniversalContent,
     universalContent,
+    openMainNavIndex,
   };
   const dispatchContext: HeaderDispatchContextType = {
     setNavigationContent,
     setLanguageSelectorContent,
     setMobileMenuOpen,
     setUniversalContent,
+    setOpenMainNavIndex,
   };
 
   return (
