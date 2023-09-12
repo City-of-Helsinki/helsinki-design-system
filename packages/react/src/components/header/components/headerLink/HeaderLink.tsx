@@ -161,16 +161,17 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
   const getDropdownPosition = () => {
-    let position;
     // On SSR just set the menu on the right
-    if (window === undefined) position = DropdownMenuPosition.Right;
-    else if (containerRef.current != null) {
+    if (window === undefined) {
+      return DropdownMenuPosition.Right;
+    }
+    if (containerRef.current != null) {
+      /* Calculate does right side have enough space for dropdown. If not, put it to the left. */
       const { x: leftPosition, width } = containerRef.current.getBoundingClientRect();
       const rightPosition = leftPosition + width;
-      position =
-        leftPosition > window.innerWidth - rightPosition ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
+      return leftPosition > window.innerWidth - rightPosition ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
     }
-    return position;
+    return DropdownMenuPosition.Right;
   };
 
   useIsomorphicLayoutEffect(() => {
@@ -269,7 +270,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
           index={index}
           depth={depth + 1}
           className={dropdownClassName}
-          dynamicPosition={dynamicPosition}
+          position={dynamicPosition}
           openDropdownAriaButtonLabel={openDropdownAriaButtonLabel}
           closeDropdownAriaButtonLabel={closeDropdownAriaButtonLabel}
           dropdownButtonClassName={dropdownButtonClassName}
