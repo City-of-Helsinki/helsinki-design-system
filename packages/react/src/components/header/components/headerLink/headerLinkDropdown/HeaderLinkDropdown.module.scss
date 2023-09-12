@@ -4,12 +4,12 @@ button.button {
   background-color: var(--nav-button-background-color);
   border: none;
   box-sizing: content-box;
+  color: var(--nav-drop-down-icon-color);
   display: block;
   height: 24px;
   margin: 0 0 0 var(--spacing-s);
   padding: 0;
   width: 24px;
-  color: var(--nav-drop-down-icon-color);
   
   &.isNotLargeScreen {
     background: transparent;

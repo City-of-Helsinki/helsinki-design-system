@@ -3,7 +3,7 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 // import base styles
 import '../../../../../styles/base.css';
 import styles from './HeaderLinkDropdown.module.scss';
-import { IconAngleDown } from '../../../../../icons';
+import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../../icons';
 import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
@@ -33,7 +33,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * Direction for dropdown position.
    * @default DropdownMenuPosition.Right
    */
-  dynamicPosition?: DropdownMenuPosition;
+  position?: DropdownMenuPosition;
   /**
    * Element index given by parent mapping.
    * @internal
@@ -60,7 +60,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
 
 export const HeaderLinkDropdown = ({
   children,
-  dynamicPosition = DropdownMenuPosition.Right,
+  position = DropdownMenuPosition.Right,
   className,
   index,
   open,
@@ -74,11 +74,9 @@ export const HeaderLinkDropdown = ({
   const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const ref = useRef<HTMLUListElement>(null);
-  const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
+  const chevronClassName = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const depthClassName = styles[`depth-${depth - 1}`];
-  const dropdownDirectionClass = dynamicPosition
-    ? classNames(styles.dropdownMenu, styles[dynamicPosition])
-    : styles.dropdownMenu;
+  const dropdownDirectionClass = position ? classNames(styles.dropdownMenu, styles[position]) : styles.dropdownMenu;
 
   const handleMenuButtonClick = () => setOpen(!open, NavigationLinkInteraction.Click);
   const defaultOpenDropdownAriaLabel = 'Avaa alasvetovalikko.';
@@ -90,6 +88,12 @@ export const HeaderLinkDropdown = ({
 
   const childElements = getChildElementsEvenIfContainersInbetween(children);
 
+  const renderIcon = () => {
+    if (depth > 1 && position === DropdownMenuPosition.Right) return <IconAngleRight className={chevronClassName} />;
+    if (depth > 1 && position === DropdownMenuPosition.Left) return <IconAngleLeft className={chevronClassName} />;
+    return <IconAngleDown className={chevronClassName} />;
+  };
+
   return (
     <>
       <button
@@ -100,7 +104,7 @@ export const HeaderLinkDropdown = ({
         aria-label={getDefaultButtonAriaLabel()}
         aria-expanded={open}
       >
-        <IconAngleDown className={chevronClasses} />
+        {renderIcon()}
       </button>
       <ul
         className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}

@@ -10,6 +10,7 @@ import { HeaderLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } f
 import { useHeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { useHeaderContext } from '../../HeaderContext';
 import { MergeElementProps } from '../../../../common/types';
+import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -159,28 +160,27 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
-  const handleDynamicMenuPosition = (val: boolean) => {
-    // Null position when false so if user resizes browser, the calculation is done again
-    if (!val) setDynamicPosition(null);
-    // In case of SSR just set the menu to the right
-    else if (val && window === undefined) setDynamicPosition(DropdownMenuPosition.Right);
-    else {
-      // eslint-disable-next-line no-lonely-if
-      if (containerRef.current) {
-        // Calculate which side has more space for the menu
-        const { x: leftPosition, width } = containerRef.current.getBoundingClientRect();
-        const rightPosition = leftPosition + width;
-        const position =
-          leftPosition > window.innerWidth - rightPosition ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
-        setDynamicPosition(position);
-      }
+  const getDropdownPosition = () => {
+    // On SSR just set the menu on the right
+    if (window === undefined) {
+      return DropdownMenuPosition.Right;
     }
+    if (containerRef.current != null) {
+      /* Calculate does right side have enough space for dropdown. If not, put it to the left. */
+      const { x: leftPosition, width } = containerRef.current.getBoundingClientRect();
+      const rightPosition = leftPosition + width;
+      return leftPosition > window.innerWidth - rightPosition ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
+    }
+    return DropdownMenuPosition.Right;
   };
+
+  useIsomorphicLayoutEffect(() => {
+    // Dynamic dropdown position calculation is only needed on first level of nested links
+    if (depth === 1) setDynamicPosition(getDropdownPosition());
+  }, []);
 
   // Handle dropdown open state by calling either internal state or context
   const handleDropdownOpen = (val: boolean, interaction?: NavigationLinkInteraction) => {
-    // Set menu position on nested dropdowns to right or left depending on screen size
-    if (depth >= 1) handleDynamicMenuPosition(val);
     setDropdownOpenedBy(!val ? null : interaction);
     setDropdownOpen(val);
     // If sub navigation props given, call them
@@ -270,7 +270,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
           index={index}
           depth={depth + 1}
           className={dropdownClassName}
-          dynamicPosition={dynamicPosition}
+          position={dynamicPosition}
           openDropdownAriaButtonLabel={openDropdownAriaButtonLabel}
           closeDropdownAriaButtonLabel={closeDropdownAriaButtonLabel}
           dropdownButtonClassName={dropdownButtonClassName}
