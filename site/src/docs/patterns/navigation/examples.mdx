@@ -18,7 +18,42 @@ import InternalLink from '../../../components/InternalLink';
   Explore our collection of navigation patterns from the City of Helsinki's digital services. These examples demonstrate the effective implementation of user-centric design principles, resulting in accessible and efficient navigation experiences.
 </LeadParagraph>
 
-## Hel.fi
+## Simplicity in Action: The Maunula House website
+
+The Helsinki residents’ very own<ExternalLink href="https://maunulatalo.hel.fi/">Maunula House's website</ExternalLink>, serves as an excellent illustration of minimal navigation pattern elements usage. It has all the required components Header, Content and Footer. It provides simple and low hierarchy navigation pattern.
+
+Always try to minimize navigation elements to clarify service structure and avoid burdening users with irrelevant options. HDS recommends using the minimum navigation pattern whenever feasible, as it enhances user experience and aids in effective content exploration.
+
+1. Header
+2. Main content
+3. Footer
+
+<Image
+  src="/images/patterns/navigation/examples/maunulatalo-minimum-navigation-pattern-structure.png"
+  alt="A screenshot of the Maunula-talo website with minimum number of navigation elements: Header, Main content and Footer."
+  style="max-width:580px;"
+  viewable
+/>
+
+## Navigational Balance: The Helsinki Finnish Adult Education Centre Website
+
+The <ExternalLink href="https://tyovaenopisto.hel.fi/">Helsinki Finnish Adult Education Centre website</ExternalLink>, which has a balance with its navigation pattern elements. This well-structured website includes all the necessary components and integrates 1–3 navigation levels. Notably, it features navigation links within the content area, enhancing the user experience, particularly for mobile users.
+
+This thoughtful approach optimizes navigation without overwhelming users. By incorporating a medium navigation pattern with navigational links in the content area, the website ensures accessibility and ease of use.
+
+1. Header
+2. Breadcrumbs
+3. Main content
+4. Footer
+
+<Image
+  src="/images/patterns/navigation/examples/tyovaenopisto-medium-navigation-pattern-structure.png"
+  alt="A screenshot of the Helsinki Finnish Adult Education Centre Website with medium number of navigation elements: Header, Breadcrumbs, Main content and Footer."
+  style="max-width:580px;"
+  viewable
+/>
+
+## Exploring multi-level navigation: Hel.fi website
 
 The<ExternalLink href="https://hel.fi">hel.fi website</ExternalLink>, the official web portal for the City of Helsinki, employs a well-working navigation pattern to guide users through its comprehensive array of services and information. This effective navigation pattern is characterized by the following key elements:
 
@@ -27,7 +62,7 @@ The<ExternalLink href="https://hel.fi">hel.fi website</ExternalLink>, the offici
       <strong>Consistent header:</strong> The website features a consistent header across all pages, containing the City of Helsinki logo, a search bar, and the main navigation menu. This helps users quickly access important sections and maintain orientation throughout their browsing experience.
     </li>
     <li>
-      <strong>Clear main menu: </strong> The main menu is organized into logical categories, with concise and unambiguous labels that accurately represent the content within each section. This intuitive categorization simplifies navigation and helps users find the information they seek with ease.
+      <strong>Clear main menu:</strong> The main menu is organized into logical categories, with concise and unambiguous labels that accurately represent the content within each section. This intuitive categorization simplifies navigation and helps users find the information they seek with ease.
     </li>
     <li>
       <strong>Responsive design:</strong> The hel.fi website is designed to be responsive, adapting to various screen sizes and devices. This ensures a seamless experience for users, regardless of the device they are using, making the navigation pattern accessible to a wide audience.
@@ -50,5 +85,25 @@ The<ExternalLink href="https://hel.fi">hel.fi website</ExternalLink>, the offici
   src="/images/patterns/navigation/examples/hel.fi-navigation-pattern-structure-health.png"
   alt="A screenshot showing hel.fi landing page structure, including Header, Breadcrumbs, Hero, Content area and Footer in the recommended order."
   style="max-width:430px;"
+  viewable
+/>
+
+### Hel.fi sub-page
+
+The hel.fi website is one of the largest public services for City of Helsinki and stands as a good example of complex multi-level navigation pattern. Here's how the sub-page navigation pattern works:
+- **Header:** The website features `Header.ActionBar` with a hamburger mega-menu along the horizontal `Header.NavigationMenu`. This provides robust support for the first navigation level in large-scalee website but it is not recommended for small ones.
+- **Navigation menu:** The horizontal `Header.NavigationMenu` features levels 1–3 in hel.fi sub page. It has concise and unambiguous labels, ensuring that users can easily access key sections of the website.
+- **Side navigation:** The side navigation is supporting lower navigation levels 2–4. Side navigation usage ensures seamless navigation hierarchy in multi-level websites.
+
+1. Header
+2. Breadcrumbs
+3. Side navigation
+4. Main content
+5. Footer
+
+<Image
+  src="/images/patterns/navigation/examples/hel.fi-subpage-navigation-pattern-structure.png"
+  alt="A screenshot showing hel.fi sub page structure including Header, Breadcrumbs, Side Navigation, Content area and Footer in the recommended order."
+  style="max-width:580px;"
   viewable
 />
