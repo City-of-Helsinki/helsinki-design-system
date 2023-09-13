@@ -34,11 +34,11 @@
   * 1. Change the font styles in all browsers.
   * 2. Remove the margin in Firefox and Safari.
   */
-  line-height: 1.15; /* 1 */
+  line-height: var(--lineheight-l); /* 1 */
   margin: 0; /* 2 */
   min-height: var(--min-size);
   min-width: var(--min-size);
-  padding: 0 var(--spacing-2-xs);
+  padding: calc(var(--spacing-s) - var(--border-width)) calc(var(--spacing-m) - var(--border-width));
   position: relative;
 
   /*
@@ -176,13 +176,14 @@
 input[type="submit"].hds-button,
 .hds-button__label {
   font-weight: inherit;
-  line-height: 1.25em;
-  padding: var(--spacing-s);
+}
+
+.hds-button__label {
+  padding: 0 var(--spacing-2-xs);
 }
 
 input[type="submit"].hds-button {
   cursor: pointer;
-  padding: var(--spacing-s) var(--spacing-l);
 }
 
 /* submit input */
@@ -190,51 +191,10 @@ input[type="submit"].hds-button:focus-visible {
   box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
 }
 
-/* no icons */
-.hds-button__label:only-child {
-  margin: 0 var(--spacing-2-xs);
-}
-
 input[type="submit"].hds-button--small,
-.hds-button--small .hds-button__label {
-  line-height: var(--lineheight-s);
-  padding: var(--spacing-2-xs) var(--spacing-xs);
-}
-
-
-/* supplementary with right icon */
-.hds-button--supplementary .hds-button__label:first-child {
-  padding-right: var(--spacing-2-xs);
-}
-
-/* no icons */
-.hds-button--small .hds-button__label:only-child {
-  margin: 0 var(--spacing-xs);
-}
-
-/* supplementary with left icon */
-.hds-button--supplementary .hds-icon + .hds-button__label:last-child {
-  padding-left: var(--spacing-2-xs);
-}
-
-/* supplementary with both icons */
-.hds-button--supplementary .hds-icon + .hds-button__label:not(:last-child) {
-  padding-left: var(--spacing-2-xs);
-  padding-right: var(--spacing-2-xs);
-}
-
-/* SMALL */
 .hds-button--small {
-  padding: 0;
-}
-
-input[type="submit"].hds-button--small {
-  padding: var(--spacing-2-xs) var(--spacing-m);
-}
-
-/* both icons */
-.hds-button--small .hds-button__label:not(:first-of-type):not(:last-of-type) {
-  padding: var(--spacing-2-xs) var(--spacing-2-xs);
+  line-height: var(--lineheight-s);
+  padding: calc(var(--spacing-2-xs) - var(--border-width)) calc(var(--spacing-s) - var(--border-width));
 }
 
 /* FULL WIDTH */
@@ -248,43 +208,7 @@ input[type="submit"].hds-button--small {
 /* left */
 .hds-button .hds-icon {
   height: var(--spacing-m);
-  margin-left: var(--spacing-s);
   width: var(--spacing-m);
-}
-
-/* right */
-.hds-button__label ~ .hds-icon {
-  margin: 0 var(--spacing-s) 0 0;
-}
-
-/* left - small */
-.hds-button--small .hds-icon {
-  margin-left: var(--spacing-2-xs);
-}
-
-/* right - small */
-.hds-button .hds-button--small .hds-button__label ~ .hds-icon {
-  margin: 0 var(--spacing-2-xs) 0 0;
-}
-
-/* both icons - left */
-.hds-button .hds-icon:first-of-type:not(:last-of-type) {
-  margin: 0 0 0 var(--spacing-2-xs);
-}
-
-/* both icons - right */
-.hds-button .hds-icon:last-of-type:not(:first-of-type) {
-  margin: 0 var(--spacing-2-xs) 0 0;
-}
-
-/* both icons - left - small */
-.hds-button--small .hds-icon:first-child:not(:last-of-type) {
-  margin: 0 0 0 var(--spacing-2-xs);
-}
-
-/* both icons - right - small */
-.hds-button--small .hds-icon:last-child:not(:first-of-type) {
-  margin: 0 var(--spacing-2-xs) 0 0;
 }
 
 /* PRIMARY */

@@ -7,6 +7,10 @@
   --content-font-size: var(--fontsize-body-m);
   --content-line-height: var(--lineheight-l);
 
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+
   &:not(.card) {
     border-bottom: 1px solid var(--border-color);
   }
@@ -19,6 +23,10 @@
 
   &.border {
     border: 2px solid var(--border-color);
+  }
+
+  .closeButton {
+    align-self: flex-end;
   }
 }
 
@@ -33,7 +41,7 @@
   line-height: var(--header-line-height);
   padding-bottom: var(--padding-vertical);
   padding-top: var(--padding-vertical);
-  position: relative;
+  width: 100%;
 
   & > div {
     flex: 1 1 auto;
@@ -49,8 +57,8 @@
   --button-size: 28px;
   --padding-horizontal: var(--spacing-2-xs);
 
-  & .closeButton div {
-    margin-right: var(--spacing-4-xs);
+  & .closeButton {
+    padding: var(--spacing-4-xs);
   }
 }
 
@@ -63,8 +71,8 @@
   --button-size: 36px;
   --padding-horizontal: var(--spacing-m);
 
-  & .closeButton div {
-    margin-right: 6px;
+  & .closeButton {
+    padding: var(--spacing-4-xs);
   }
 }
 
@@ -77,28 +85,22 @@
   --button-size: 52px;
   --padding-horizontal: var(--spacing-l);
 
-  & .closeButton div {
-    margin-right: var(--spacing-xs);
+  & .closeButton {
+    padding: var(--spacing-2-xs);
   }
 }
 
 .accordionContent {
+  align-items: flex-start;
   color: var(--content-font-color);
+  display: flex;
+  flex-direction: column;
   font-size: var(--content-font-size);
   line-height: var(--content-line-height);
-  padding-bottom: var(--spacing-m);
-  position: relative;
-
-  .closeButton {
-    bottom: 0;
-    color: var(--content-font-color);
-    position: absolute;
-    right: 0;
-  }
 }
 
-.contentWithCloseButton {
-  padding-bottom: 44px;
+.contentWithoutCloseButton {
+  padding-bottom: var(--padding-vertical);
 }
 
 .headingContainer {

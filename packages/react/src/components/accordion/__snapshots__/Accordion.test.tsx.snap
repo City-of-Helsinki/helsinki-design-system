@@ -46,7 +46,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
     </div>
     <div
       aria-labelledby="accordion-1-heading"
-      class="accordionContent contentWithCloseButton"
+      class="accordionContent"
       id="accordion-1-content"
       role="region"
       style="display: none;"
