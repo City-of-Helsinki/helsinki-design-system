@@ -24,7 +24,7 @@ exports[`<Navigation /> spec renders the component 1`] = `
             class="title"
           >
             <img
-              alt=""
+              alt="Helsingin kaupunki"
               class="logo"
               src="dummySrc"
             />
@@ -71,7 +71,7 @@ exports[`<Navigation /> spec renders the component 1`] = `
             class="title"
           >
             <img
-              alt=""
+              alt="Helsingin kaupunki"
               class="logo"
               src="dummySrc"
             />
@@ -114,7 +114,7 @@ exports[`<Navigation /> spec renders the component with titleUrl 1`] = `
             href="hds.hel.fi"
           >
             <img
-              alt=""
+              alt="Helsingin kaupunki"
               class="logo"
               src="dummySrc"
             />
@@ -162,7 +162,7 @@ exports[`<Navigation /> spec renders the component with titleUrl 1`] = `
             href="hds.hel.fi"
           >
             <img
-              alt=""
+              alt="Helsingin kaupunki"
               class="logo"
               src="dummySrc"
             />

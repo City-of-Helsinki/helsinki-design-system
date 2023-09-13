@@ -18,12 +18,10 @@ exports[`<HeaderActionBar /> spec renders the component 1`] = `
             class="titleAndLogoContainer logo"
           >
             <img
-              alt=""
-              aria-hidden="true"
+              alt="Helsingin kaupunki"
               class="logo"
               data-testid="action-bar-logo"
               src="dummySrc"
-              title="title"
             />
           </span>
           <span

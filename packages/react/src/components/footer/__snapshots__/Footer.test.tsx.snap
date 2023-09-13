@@ -62,8 +62,7 @@ exports[`<Footer /> spec renders the component 1`] = `
               tabindex="0"
             >
               <img
-                alt="logo"
-                aria-hidden="true"
+                alt="Helsingin kaupunki"
                 class="logo medium"
                 src="dummyPath"
                 title="Helsingin kaupunki"
