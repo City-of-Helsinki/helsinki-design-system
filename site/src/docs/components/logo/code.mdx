@@ -20,12 +20,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from 'hds-react';
 
 () => (<>
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} />
-  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} />
-  <Logo src={logoRuDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
+  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
+  <Logo src={logoRuDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
 </>)
 ```
 
@@ -39,9 +39,9 @@ import { Logo, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from
 import { Logo, logoFi } from 'hds-react';
 
 () => (<>
-  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoFi} size="large" />
+  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size="large" alt="Helsingin kaupunki" />
 </>)
 ```
 

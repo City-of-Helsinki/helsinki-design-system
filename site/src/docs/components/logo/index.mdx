@@ -27,6 +27,7 @@ See the <InternalLink size="M" href="/foundation/visual-assets/logo">logo visual
 - The Logo component does not include translations itself but localization can be achieved by changing the logo src accordingly.
 - The src is user-replaceable. If Helsinki logo is not used, only Logo component is needed to be imported and the src given as url, data-url or locally imported image.
 - The Logo component should act as a link to the main page of the service.
+- Unless the Logo is hidden from the screen-readers by giving it the ariaHidden property, it should be given an alt attribute as a description. 
 
 ### Variations
 
@@ -35,12 +36,12 @@ See the <InternalLink size="M" href="/foundation/visual-assets/logo">logo visual
 The Helsinki logo included is offered in three (3) languages and their dark-mode variants (light-coloured to be visible on top of dark background).
 
 <PlaygroundPreview>
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} />
-  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} />
-  <Logo src={logoRuDark} size="medium" style={{background: "black"}} />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} alt="Helsingin kaupunki" />
+  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} alt="Helsingin kaupunki" />
+  <Logo src={logoRuDark} size="medium" style={{background: "black"}} alt="Helsingin kaupunki" />
 </PlaygroundPreview>
 
 #### Sizes
@@ -48,7 +49,7 @@ The Helsinki logo included is offered in three (3) languages and their dark-mode
 The component includes three (3) size variants to fit the context. If omitted, the logo uses all available space.
 
 <PlaygroundPreview>
-  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
-  <Logo src={logoFi} size="large" />
+  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size="large" alt="Helsingin kaupunki" />
 </PlaygroundPreview>

@@ -13,7 +13,7 @@ export const NavigationWrapper = ({ children }: WrapperProps) => (
     skipTo="#content"
     skipToContentLabel="Skip to content"
     title="Foo"
-    logo={<Logo src="dummySrc" />}
+    logo={<Logo src="dummySrc" alt="Helsingin kaupunki" />}
   >
     {children}
   </Navigation>

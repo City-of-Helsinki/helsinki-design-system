@@ -71,7 +71,7 @@ export const WithFullFeatures = (args) => (
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
-        logo={<Logo src={logoFi} />}
+        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
@@ -179,7 +179,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
         titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
-        logo={<Logo src={logoFiDark} />}
+        logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
         <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
@@ -281,7 +281,7 @@ export const Minimal = (args) => {
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>Tietoa muilla kielillä</h3>
@@ -348,7 +348,7 @@ export const MinimalWithLocalization = (args) => {
         title={translations[lang]['header-title']}
         titleAriaLabel={translations[lang]['header-aria-label']}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang]['header-title']} />}
       >
         <Header.LanguageSelector languages={languages}>
           <h3>{translations[lang]['header-menu-title']}</h3>

@@ -195,7 +195,7 @@ const NavigationComponent = () => (
     menuToggleAriaLabel="Menu"
     skipTo="#content"
     skipToContentLabel="Skip to main content"
-    logo={<Logo src={logoFi} />}
+    logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
   >
     {/* NAVIGATION ROW */}
     <Navigation.Row ariaLabel="Main navigation">

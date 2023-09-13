@@ -81,7 +81,7 @@ const Base = () => (
     copyrightHolder="Copyright"
     copyrightText="All rights reserved"
     backToTopLabel="Back to top"
-    logo={<Logo src={logoFi} size="medium" />}
+    logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
   >
     {createArray(5).map((index) => (
       <Footer.Link
@@ -254,7 +254,7 @@ export const Example = (args) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
-      logo={<Logo src={logoFi} size="medium" />}
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -346,7 +346,7 @@ export const UtilityGroups = (args) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
-      logo={<Logo src={logoFi} size="medium" />}
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -385,6 +385,6 @@ export const CustomSection = (args) => (
 
 export const Minimal = (args) => (
   <Footer {...args}>
-    <Footer.Base backToTopLabel="Back to top" logo={<Logo src={logoFi} size="medium" />} />
+    <Footer.Base backToTopLabel="Back to top" logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />} />
   </Footer>
 );

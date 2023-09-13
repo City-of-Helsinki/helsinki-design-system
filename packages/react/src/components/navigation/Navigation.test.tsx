@@ -13,7 +13,7 @@ describe('<Navigation /> spec', () => {
         skipTo="#content"
         skipToContentLabel="Skip to content"
         title="Foo"
-        logo={<Logo src="dummySrc" />}
+        logo={<Logo src="dummySrc" alt="Helsingin kaupunki" />}
       />,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -26,7 +26,7 @@ describe('<Navigation /> spec', () => {
         skipTo="#content"
         skipToContentLabel="Skip to content"
         title="Foo"
-        logo={<Logo src="dummySrc" />}
+        logo={<Logo src="dummySrc" alt="Helsingin kaupunki" />}
       />,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -38,7 +38,7 @@ describe('<Navigation /> spec', () => {
         skipTo="#content"
         skipToContentLabel="Skip to content"
         title="Foo"
-        logo={<Logo src="dummySrc" />}
+        logo={<Logo src="dummySrc" alt="Helsingin kaupunki" />}
       />,
     );
     const results = await axe(container);

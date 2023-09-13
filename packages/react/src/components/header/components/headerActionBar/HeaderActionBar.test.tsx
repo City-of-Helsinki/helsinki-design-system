@@ -21,7 +21,10 @@ const getLanguageLabelByValue: StrFn = (val) => languages.find((obj) => obj.valu
 const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
   return (
     <Header onDidChangeLanguage={onDidChangeLanguage}>
-      <Header.ActionBar title="Otsake" logo={<Logo src="dummySrc" title="title" dataTestId="action-bar-logo" />}>
+      <Header.ActionBar
+        title="Otsake"
+        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+      >
         <Header.LanguageSelector languages={languages} />
       </Header.ActionBar>
     </Header>
@@ -33,7 +36,7 @@ describe('<HeaderActionBar /> spec', () => {
     const { asFragment } = render(
       <HeaderActionBar
         title="Test"
-        logo={<Logo aria-hidden="true" src="dummySrc" title="title" dataTestId="action-bar-logo" />}
+        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
       />,
       { wrapper: HeaderWrapper },
     );
@@ -44,7 +47,7 @@ describe('<HeaderActionBar /> spec', () => {
     const { container } = render(
       <HeaderActionBar
         title="Test"
-        logo={<Logo aria-hidden="true" src="dummySrc" title="title" dataTestId="action-bar-logo" />}
+        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
       />,
       { wrapper: HeaderWrapper },
     );

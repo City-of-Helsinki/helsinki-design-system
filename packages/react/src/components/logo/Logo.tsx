@@ -23,11 +23,31 @@ export const logoRuDark =
 
 export type LogoSize = 'full' | 'small' | 'medium' | 'large';
 
-export type LogoProps = {
+interface LogoHidden {
+  /**
+   * Aria hidden property
+   */
+  ariaHidden: true;
   /**
    * Alt text to apply to the logo
    */
-  alt?: string;
+  alt?: never | '';
+}
+
+interface LogoShown {
+  /**
+   * Aria hidden property
+   */
+  ariaHidden?: never | false;
+  /**
+   * Alt text to apply to the logo
+   */
+  alt: string;
+}
+
+type LogoHiddenOrShown = LogoHidden | LogoShown;
+
+export type LogoProps = LogoHiddenOrShown & {
   /**
    * Additional class names to apply to the logo
    */
@@ -57,8 +77,10 @@ export type LogoProps = {
 
 /* & React.ComponentPropsWithoutRef<'svg'>; */
 
-export const Logo = ({ alt = '', className, dataTestId, size = 'full', style, src, ...rest }: LogoProps) => {
+export const Logo = ({ ariaHidden, alt, className, dataTestId, size = 'full', style, src, ...rest }: LogoProps) => {
   const props = {
+    'aria-hidden': ariaHidden,
+    alt,
     src,
     size,
     className: classNames(styles.logo, size !== 'full' && styles[size], className),

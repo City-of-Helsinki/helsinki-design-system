@@ -15,6 +15,8 @@ export const Playground = (args) => <Logo {...args} />;
 Playground.args = {
   size: 'full',
   src: logoFi,
+  alt: 'Helsingin kaupunki',
+  ariaHidden: false,
 };
 
 Playground.argTypes = {
@@ -24,6 +26,10 @@ Playground.argTypes = {
   },
   src: {
     options: [logoFi, logoSv, logoRu],
+    control: { type: 'radio' },
+  },
+  ariaHidden: {
+    options: [true, false],
     control: { type: 'radio' },
   },
 };

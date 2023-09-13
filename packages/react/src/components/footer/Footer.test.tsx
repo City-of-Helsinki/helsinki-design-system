@@ -13,7 +13,7 @@ describe('<Footer /> spec', () => {
           copyrightHolder="Copyright"
           copyrightText="All rights reserved"
           backToTopLabel="Ylös"
-          logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
+          logo={<Logo alt="Helsingin kaupunki" size="medium" title="Helsingin kaupunki" src="dummyPath" />}
         />
       </Footer>,
     );

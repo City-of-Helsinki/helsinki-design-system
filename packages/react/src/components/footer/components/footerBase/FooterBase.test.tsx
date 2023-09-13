@@ -25,9 +25,7 @@ describe('<Footer.Base /> spec', () => {
 
   it('renders the component', () => {
     const { asFragment } = render(
-      <FooterBase
-        logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
-      >
+      <FooterBase logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}>
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
         <Footer.Link label="Link 3" variant={FooterVariant.Base} />
@@ -45,7 +43,7 @@ describe('<Footer.Base /> spec', () => {
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Ylös"
-        logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
+        logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
       >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
@@ -81,7 +79,7 @@ describe('<Footer.Base /> spec', () => {
         <FooterWrapper>
           <FooterBase
             backToTopLabel="Test label"
-            logo={<Logo alt="logo" size="medium" aria-hidden="true" title="Helsingin kaupunki" src="dummyPath" />}
+            logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
           />
         </FooterWrapper>
       </>,

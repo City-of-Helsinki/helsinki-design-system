@@ -42,7 +42,7 @@ export const ExampleInHeader = (args) => {
         titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
-        logo={<Logo src={logoFi} />}
+        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
         <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
