@@ -198,7 +198,7 @@ const languages: LanguageOption[] = [
 ];
 
 const NavigationComponent = () => (
-  <Header>
+  <Header languages={languages}>
     <Header.SkipLink skipTo="#content" label="Skip to main content" />
     <Header.ActionBar
       title="Helsingin kaupunki"
@@ -209,7 +209,7 @@ const NavigationComponent = () => (
       menuButtonAriaLabel="Menu"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
     >
-      <Header.LanguageSelector ariaLabel="Kielen valinta" languages={languages} />
+      <Header.LanguageSelector ariaLabel="Kielen valinta" />
     </Header.ActionBar>
     <Header.NavigationMenu>
       <Header.Link href="#" label="Link" active onClick={(e) => e.preventDefault()} />

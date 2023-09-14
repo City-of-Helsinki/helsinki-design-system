@@ -1,12 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 
-import {
-  LanguageOption,
-  useAvailableLanguages,
-  useActiveLanguage,
-  useSetAvailableLanguages,
-  useSetLanguage,
-} from '../../LanguageContext';
+import { LanguageOption, useAvailableLanguages, useActiveLanguage, useSetLanguage } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
@@ -16,10 +10,6 @@ import classes from './HeaderLanguageSelector.module.scss';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 
 export type LanguageSelectorProps = PropsWithChildren<{
-  /**
-   * Array of languages as LanguageOption objects.
-   */
-  languages?: LanguageOption[];
   /**
    * Aria-label attribute for the dropdown button.
    */
@@ -48,22 +38,9 @@ const renderLanguageNode = (language: LanguageOption) => {
   return <LanguageButton key={language.value} value={language.value} label={language.label} />;
 };
 
-export const HeaderLanguageSelector = ({
-  children,
-  languages,
-  ariaLabel,
-  fullWidthForMobile = false,
-}: LanguageSelectorProps) => {
-  const setAvailableLanguages = useSetAvailableLanguages();
+export const HeaderLanguageSelector = ({ children, ariaLabel, fullWidthForMobile = false }: LanguageSelectorProps) => {
   const { isNotLargeScreen, languageSelectorContent } = useHeaderContext();
   const { setLanguageSelectorContent } = useSetHeaderContext();
-
-  const isRender = !languages;
-  if (!isRender) {
-    useEffect(() => {
-      setAvailableLanguages(languages);
-    }, [languages]);
-  }
 
   if (children) {
     useEffect(() => {
@@ -71,10 +48,9 @@ export const HeaderLanguageSelector = ({
     }, [children]);
   }
 
-  const languageNodes = (languages || useAvailableLanguages()).map(renderLanguageNode);
+  const languageNodes = useAvailableLanguages().map(renderLanguageNode);
   // when its not large screen fullWidthForMobile -version can be used
   const show =
-    isRender &&
     ((isNotLargeScreen && fullWidthForMobile) || (!isNotLargeScreen && !fullWidthForMobile)) &&
     Array.isArray(languageNodes) &&
     languageNodes.length;

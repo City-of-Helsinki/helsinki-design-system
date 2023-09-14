@@ -40,9 +40,7 @@ export interface HeaderNodeProps extends HeaderAttributes {
   theme?: HeaderTheme;
 }
 
-export interface HeaderProps extends HeaderNodeProps {
-  onDidChangeLanguage?: (string) => void;
-}
+export interface HeaderProps extends HeaderNodeProps, LanguageProviderProps {}
 
 const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, className, ...props }) => {
   const { isNotLargeScreen } = useHeaderContext();
@@ -78,14 +76,14 @@ interface HeaderInterface extends FC<HeaderProps> {
   SkipLink: typeof SkipLink;
 }
 
-export const Header: HeaderInterface = ({
-  onDidChangeLanguage,
-  defaultLanguage,
-  ...props
-}: HeaderProps & LanguageProviderProps) => {
+export const Header: HeaderInterface = ({ onDidChangeLanguage, defaultLanguage, languages, ...props }: HeaderProps) => {
   return (
     <HeaderContextProvider>
-      <LanguageProvider onDidChangeLanguage={onDidChangeLanguage} defaultLanguage={defaultLanguage}>
+      <LanguageProvider
+        onDidChangeLanguage={onDidChangeLanguage}
+        defaultLanguage={defaultLanguage}
+        languages={languages}
+      >
         <HeaderNode {...props} />
       </LanguageProvider>
     </HeaderContextProvider>

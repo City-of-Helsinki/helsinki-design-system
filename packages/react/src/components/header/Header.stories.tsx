@@ -59,7 +59,7 @@ const languages: LanguageOption[] = [
 
 export const WithFullFeatures = (args) => (
   <>
-    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+    <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.Link href="#" label="Uutiset" />
@@ -76,7 +76,7 @@ export const WithFullFeatures = (args) => (
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+        <Header.LanguageSelector ariaLabel="Kielen valinta">
           <h3>Muut kielet</h3>
           <Link href="www.example.com" size="S" lang="de">
             Deutsch
@@ -187,7 +187,7 @@ export const WithFullFeatures = (args) => (
 
 export const WithFullFeaturesDarkTheme = (args) => (
   <>
-    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+    <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.Link href="#" label="Uutiset" />
@@ -204,7 +204,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
         logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+        <Header.LanguageSelector ariaLabel="Kielen valinta">
           <h3>Muut kielet</h3>
           <Link href="www.example.com" size="S" lang="de">
             Deutsch
@@ -320,7 +320,7 @@ WithFullFeaturesDarkTheme.args = {
 export const Minimal = (args) => {
   return (
     <>
-      <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
         <Header.SkipLink skipTo="#content" label="Skip To Content" />
         <Header.ActionBar
           title="Helsingin kaupunki"
@@ -328,7 +328,7 @@ export const Minimal = (args) => {
           titleHref="https://hel.fi"
           logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
         >
-          <Header.LanguageSelector languages={languages}>
+          <Header.LanguageSelector>
             <h3>Tietoa muilla kielillä</h3>
             <Link external href="www.example.com" size="S" lang="fi">
               Selkosuomi
@@ -390,7 +390,7 @@ export const MinimalWithLocalization = (args) => {
 
   return (
     <>
-      <Header {...args} onDidChangeLanguage={languageChangedStateAction}>
+      <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
         <Header.SkipLink skipTo="#content" label="Skip To Content" />
         <Header.ActionBar
           title={translations[lang]['header-title']}
@@ -398,7 +398,7 @@ export const MinimalWithLocalization = (args) => {
           titleHref="https://hel.fi"
           logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang]['header-title']} />}
         >
-          <Header.LanguageSelector languages={languages}>
+          <Header.LanguageSelector>
             <h3>{translations[lang]['header-menu-title']}</h3>
             <Link external href="www.example.com" size="S" lang="fi">
               Selkosuomi
@@ -443,7 +443,7 @@ export const MinimalWithLocalization = (args) => {
 
 export const WithFullFeaturesCustomTheme = (args) => (
   <>
-    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+    <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.Link href="#" label="Uutiset" />
@@ -460,7 +460,7 @@ export const WithFullFeaturesCustomTheme = (args) => (
         logo={<Logo src={logoSrcFromLanguageAndTheme('fi', 'custom')} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+        <Header.LanguageSelector ariaLabel="Kielen valinta">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
