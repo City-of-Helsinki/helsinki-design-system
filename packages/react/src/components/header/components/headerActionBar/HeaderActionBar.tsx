@@ -1,14 +1,15 @@
-import React, { PropsWithChildren, MouseEventHandler } from 'react';
+import React, { PropsWithChildren, MouseEventHandler, useMemo } from 'react';
 
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
-import { HeaderLanguageSelector } from '../headerLanguageSelector';
+import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -129,7 +130,10 @@ export const HeaderActionBar = ({
   const childrenRight = Array.isArray(children)
     ? children.filter((item) => React.isValidElement(item) && !!item.props.fixedRightPosition)
     : [];
-
+  const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(children);
+  const languageSelectorChildren = useMemo(() => {
+    return lsChildren ? getChildElementsEvenIfContainersInbetween(lsChildren) : null;
+  }, [lsChildren]);
   return (
     <>
       <div className={styles.headerActionBarContainer}>
@@ -141,7 +145,9 @@ export const HeaderActionBar = ({
             </LinkItem>
           )}
           <div className={styles.headerActions}>
-            <HeaderLanguageSelector />
+            {componentExists && (
+              <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
+            )}
             {childrenLeft}
             <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
             {childrenRight.length > 0 && (
@@ -153,7 +159,11 @@ export const HeaderActionBar = ({
           </div>
         </div>
       </div>
-      <HeaderLanguageSelector fullWidthForMobile />
+      {componentExists && (
+        <HeaderLanguageSelectorConsumer {...lsProps} fullWidthForMobile>
+          {languageSelectorChildren}
+        </HeaderLanguageSelectorConsumer>
+      )}
       <HeaderActionBarNavigationMenu logo={logo} logoProps={logoProps} />
     </>
   );
