@@ -69,7 +69,6 @@ export type LogoProps = LogoHiddenOrShown & {
    * Title for the logo
    */
   title?: string;
-  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
@@ -81,11 +80,4 @@ export const Logo = ({ alt, className, dataTestId, size = 'full', style, ...rest
   const props = {
     alt,
     size,
-    className: classNames(styles.logo, size !== 'full' && styles[size], className),
-    style,
-    'data-testid': dataTestId,
-    ...rest,
-  };
-
-  return <img alt={alt} {...props} />;
 };
