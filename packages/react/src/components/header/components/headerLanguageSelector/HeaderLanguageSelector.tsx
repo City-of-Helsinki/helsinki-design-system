@@ -27,7 +27,7 @@ type LanguageSelectorConsumerProps = LanguageSelectorProps & {
   fullWidthForMobile?: boolean;
 };
 
-const LanguageButton = ({ value, label }: LanguageOption) => {
+export const LanguageButton = ({ value, label }: LanguageOption) => {
   const activeLanguage = useActiveLanguage();
   const setLanguage = useSetLanguage();
   const className = classNames(classes.item, { [classes.activeItem]: activeLanguage === value });
