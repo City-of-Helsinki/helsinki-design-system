@@ -90,7 +90,7 @@ const DemoPage = () => {
           <div className="hero">
             <div className="hero-content">
               <div className="hero-content-shape" />
-              <Logo src={logoFi} ariaHidden className="info-page-hero-logo" />
+              <Logo src={logoFi} aria-hidden className="info-page-hero-logo" />
               <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
               <p className="hero-text">
                 The Helsinki Design System focuses on usability and accessibility. It aims to improve the quality and

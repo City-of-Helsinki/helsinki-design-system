@@ -16,7 +16,7 @@ Playground.args = {
   size: 'full',
   src: logoFi,
   alt: 'Helsingin kaupunki',
-  ariaHidden: false,
+  'aria-hidden': false,
 };
 
 Playground.argTypes = {
@@ -28,7 +28,7 @@ Playground.argTypes = {
     options: [logoFi, logoSv, logoRu],
     control: { type: 'radio' },
   },
-  ariaHidden: {
+  'aria-hidden': {
     options: [true, false],
     control: { type: 'radio' },
   },

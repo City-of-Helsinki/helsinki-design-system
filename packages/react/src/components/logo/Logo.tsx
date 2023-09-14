@@ -27,7 +27,7 @@ interface LogoHidden {
   /**
    * Aria hidden property
    */
-  ariaHidden: true;
+  'aria-hidden': true;
   /**
    * Alt text to apply to the logo
    */
@@ -38,7 +38,7 @@ interface LogoShown {
   /**
    * Aria hidden property
    */
-  ariaHidden?: never | false;
+  'aria-hidden'?: false;
   /**
    * Alt text to apply to the logo
    */
@@ -77,11 +77,9 @@ export type LogoProps = LogoHiddenOrShown & {
 
 /* & React.ComponentPropsWithoutRef<'svg'>; */
 
-export const Logo = ({ ariaHidden, alt, className, dataTestId, size = 'full', style, src, ...rest }: LogoProps) => {
+export const Logo = ({ alt, className, dataTestId, size = 'full', style, ...rest }: LogoProps) => {
   const props = {
-    'aria-hidden': ariaHidden,
     alt,
-    src,
     size,
     className: classNames(styles.logo, size !== 'full' && styles[size], className),
     style,
