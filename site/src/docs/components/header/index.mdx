@@ -15,7 +15,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Header>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
     <Header.SkipLink skipTo="#content" label="Skip To Content" />
     <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
       <Header.Link href="#" label="Uutiset" />
@@ -30,25 +36,35 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
-      >
+      <Header.LanguageSelector>
         <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
-        <Link href="www.example.com" size="S" lang="es">Español</Link>
-        <Link href="www.example.com" size="S" lang="fr">Français</Link>
-        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
+        <Link href="www.example.com" size="S" lang="de">
+          Deutsch
+        </Link>
+        <Link href="www.example.com" size="S" lang="es">
+          Español
+        </Link>
+        <Link href="www.example.com" size="S" lang="fr">
+          Français
+        </Link>
+        <Link href="www.example.com" size="S" lang="ru">
+          Pусский
+        </Link>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Viittomakieli
+        </Link>
         <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          MyHelsinki.fi
+        </Link>
         <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          InfoFinland.fi
+        </Link>
       </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
@@ -139,7 +155,13 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
 - The Header.SkipLink supports `ariaLabel` prop which gives possibility to define more informative text for screen readers.
 
 <PlaygroundPreview>
-  <Header>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
     <Header.SkipLink skipTo="#content" label="Skip To Content" />
     <Header.ActionBar
       title="Helsingin kaupunki"
@@ -149,16 +171,14 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
-      >
+      <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+        <Link external href="www.example.com" size="S">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S">
+          Viittomakieli
+        </Link>
       </Header.LanguageSelector>
     </Header.ActionBar>
   </Header>
@@ -207,7 +227,13 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
   - The Header.LanguageSelector moves under the ActionBar.
 
 <PlaygroundPreview>
-  <Header>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
     <Header.ActionBar
       title="Helsingin kaupunki"
       titleHref="https://hel.fi"
@@ -216,16 +242,14 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
-      >
+      <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+        <Link external href="www.example.com" size="S">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S">
+          Viittomakieli
+        </Link>
       </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
@@ -291,7 +315,13 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
 - The item can be positioned behind a dividing line, setting it apart from the rest of the items with the prop `fixedRightPosition`. This is mainly reserved for log in button.
 
 <PlaygroundPreview>
-  <Header>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
     <Header.ActionBar
       title="Helsingin kaupunki"
       titleHref="https://hel.fi"
@@ -300,16 +330,14 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
-      >
+      <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+        <Link external href="www.example.com" size="S">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S">
+          Viittomakieli
+        </Link>
       </Header.LanguageSelector>
       <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell />} id="action-bar-notifications">
         <p>Ei uusi ilmoituksia.</p>
@@ -381,7 +409,13 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
 - On smaller screens (768px and down) the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
 <PlaygroundPreview>
-  <Header>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
     <Header.ActionBar
       title="Helsingin kaupunki"
       titleHref="https://hel.fi"
@@ -390,25 +424,35 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
-      >
+      <Header.LanguageSelector>
         <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
-        <Link href="www.example.com" size="S" lang="es">Español</Link>
-        <Link href="www.example.com" size="S" lang="fr">Français</Link>
-        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
+        <Link href="www.example.com" size="S" lang="de">
+          Deutsch
+        </Link>
+        <Link href="www.example.com" size="S" lang="es">
+          Español
+        </Link>
+        <Link href="www.example.com" size="S" lang="fr">
+          Français
+        </Link>
+        <Link href="www.example.com" size="S" lang="ru">
+          Pусский
+        </Link>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Viittomakieli
+        </Link>
         <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          MyHelsinki.fi
+        </Link>
         <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          InfoFinland.fi
+        </Link>
       </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
@@ -478,12 +522,21 @@ Header supports also custom theming — See variables in code tab.
 When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
 <PlaygroundPreview>
-  <div style={{
-    "margin-bottom": "1rem",
-    position: "relative",
-    "z-index": "13"
-  }}>
-    <Header theme="light">
+  <div
+    style={{
+      'margin-bottom': '1rem',
+      position: 'relative',
+      'z-index': '13',
+    }}
+  >
+    <Header
+      theme="light"
+      languages={[
+        { label: 'Suomi', value: 'fi' },
+        { label: 'Svenska', value: 'sv' },
+        { label: 'English', value: 'en' },
+      ]}
+    >
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleHref="https://hel.fi"
@@ -492,13 +545,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector
-          languages={[
-            { label: 'Suomi', value: 'fi' },
-            { label: 'Svenska', value: 'sv' },
-            { label: 'English', value: 'en' },
-          ]}
-        />
+        <Header.LanguageSelector />
         <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
           <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
         </Header.ActionBarItem>
@@ -534,11 +581,13 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
       </Header.NavigationMenu>
     </Header>
   </div>
-  <div style={{
-    "margin-bottom": "1rem",
-    position: "relative",
-    "z-index": "12"
-  }}>
+  <div
+    style={{
+      'margin-bottom': '1rem',
+      position: 'relative',
+      'z-index': '12',
+    }}
+  >
     <Header theme="dark">
       <Header.ActionBar
         title="Helsingin kaupunki"
@@ -590,25 +639,29 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
       </Header.NavigationMenu>
     </Header>
   </div>
-  <div style={{
-    position: "relative",
-    "z-index": "11"
-  }}>
-    <Header theme={{
-      '--color-focus-outline': 'var(--color-metro-dark)',
-      '--header-color': 'var(--color-black)',
-       '--header-focus-outline-color': 'var(--color-metro-dark)',
-      '--actionbar-background-color': 'var(--color-engel)',
-      '--nav-background-color': 'var(--color-engel-light)',
-      '--nav-border-color': 'var(--color-black)',
-      '--nav-link-hover-color': 'var(--color-black)',
-      '--universal-bar-background-color': 'var(--color-black-20)',
-      '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
-      '--nav-button-background-color': 'var(--color-black-20)',
-      '--nav-button-hover-background-color': 'var(--color-black-40)',
-      '--nav-drop-down-icon-color': 'var(--color-black)',
-      '--header-background-color': 'transparent',
-    }}>
+  <div
+    style={{
+      position: 'relative',
+      'z-index': '11',
+    }}
+  >
+    <Header
+      theme={{
+        '--color-focus-outline': 'var(--color-metro-dark)',
+        '--header-color': 'var(--color-black)',
+        '--header-focus-outline-color': 'var(--color-metro-dark)',
+        '--actionbar-background-color': 'var(--color-engel)',
+        '--nav-background-color': 'var(--color-engel-light)',
+        '--nav-border-color': 'var(--color-black)',
+        '--nav-link-hover-color': 'var(--color-black)',
+        '--universal-bar-background-color': 'var(--color-black-20)',
+        '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
+        '--nav-button-background-color': 'var(--color-black-20)',
+        '--nav-button-hover-background-color': 'var(--color-black-40)',
+        '--nav-drop-down-icon-color': 'var(--color-black)',
+        '--header-background-color': 'transparent',
+      }}
+    >
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleHref="https://hel.fi"
@@ -658,7 +711,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         <Header.Link href="#" label="Asuminen" />
       </Header.NavigationMenu>
     </Header>
-   </div> 
+  </div>
 </PlaygroundPreview>
 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-dark-theme">view full header with dark theme example in Storybook</Link>.
