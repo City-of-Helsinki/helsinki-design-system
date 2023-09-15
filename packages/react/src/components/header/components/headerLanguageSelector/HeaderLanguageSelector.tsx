@@ -14,6 +14,14 @@ type LanguageSelectorComponentProps = {
    * Aria-label attribute for the dropdown button.
    */
   ariaLabel?: string;
+  /**
+   * Heading for the list of languages inside the dropdown
+   */
+  languageHeading?: string;
+  /**
+   * Function for sorting language options into primary and secondary.
+   */
+  sortLanguageOptions?: (options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]];
 };
 
 export type LanguageSelectorProps = PropsWithChildren<LanguageSelectorComponentProps>;
@@ -44,6 +52,17 @@ const renderLanguageNode = (language: LanguageOption) => {
   return <LanguageButton key={language.value} value={language.value} label={language.label} />;
 };
 
+const defaultLanguageSorter: LanguageSelectorProps['sortLanguageOptions'] = (options, selectedLanguage) => {
+  const hasPrimaryLanguages = options.findIndex((option) => typeof option.isPrimary !== 'undefined') > -1;
+  const selectedOption = options.find((option) => option.value === selectedLanguage);
+  if (hasPrimaryLanguages && selectedOption.isPrimary !== true) {
+    return [[selectedOption], options.filter((option) => option.value !== selectedOption.value)];
+  }
+  return hasPrimaryLanguages
+    ? [options.filter((option) => !!option.isPrimary), options.filter((option) => !option.isPrimary)]
+    : [options, []];
+};
+
 export function HeaderLanguageSelector(props: LanguageSelectorProps) {
   // This is a dummy component used for passing language selector props and children.
   // Those are extracted in <HeaderActionBar /> and rendered with <HeaderLanguageSelectorConsumer />
@@ -57,23 +76,40 @@ HeaderLanguageSelector.componentName = 'HeaderLanguageSelector';
 export const HeaderLanguageSelectorConsumer = ({
   children,
   ariaLabel,
+  languageHeading,
+  sortLanguageOptions = defaultLanguageSorter,
   fullWidthForMobile = false,
 }: LanguageSelectorConsumerProps) => {
   const { isNotLargeScreen } = useHeaderContext();
-  const languageNodes = useAvailableLanguages().map(renderLanguageNode);
+  const languages = useAvailableLanguages();
+  const activeLanguage = useActiveLanguage();
+
+  const [primaryLanguages, secondaryLanguages] = sortLanguageOptions(languages, activeLanguage);
+  const primaryLanguageNodes = primaryLanguages.map(renderLanguageNode);
   // when its not large screen fullWidthForMobile -version can be used
-  const show =
-    ((isNotLargeScreen && fullWidthForMobile) || (!isNotLargeScreen && !fullWidthForMobile)) &&
-    Array.isArray(languageNodes) &&
-    languageNodes.length > 0;
+  const show = (isNotLargeScreen && fullWidthForMobile) || (!isNotLargeScreen && !fullWidthForMobile);
+
+  const SecondaryLanguages = () => {
+    if (secondaryLanguages.length === 0) {
+      return null;
+    }
+    return (
+      <>
+        {languageHeading && <h3>{languageHeading}</h3>}
+        {secondaryLanguages.map(renderLanguageNode)}
+      </>
+    );
+  };
 
   if (!show) {
     return null;
   }
+  const hasChildren = children && Array.isArray(children) && children.length > 0;
+  const hasSecondaryLanguages = secondaryLanguages.length > 0;
   return (
     <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
-      <div className={classNames(classes.languageNodes)}>{languageNodes}</div>
-      {children && Array.isArray(children) && children.length ? (
+      <div className={classNames(classes.languageNodes)}>{primaryLanguageNodes}</div>
+      {(hasChildren || hasSecondaryLanguages) && (
         <HeaderActionBarItemWithDropdown
           id="language-selection-more"
           iconClassName={classes.languageSelectorDropdownIcon}
@@ -86,10 +122,9 @@ export const HeaderLanguageSelectorConsumer = ({
           ariaLabel={ariaLabel}
           labelOnRight
         >
+          <SecondaryLanguages />
           {children}
         </HeaderActionBarItemWithDropdown>
-      ) : (
-        <></>
       )}
     </div>
   );

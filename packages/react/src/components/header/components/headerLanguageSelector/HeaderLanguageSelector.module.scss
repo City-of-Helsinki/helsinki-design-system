@@ -1,5 +1,6 @@
 @use "../../Header.module.scss";
 @import '../../../../styles/common.scss';
+@import '../../../../styles/common.scss';
 
 .languageSelector {
   display: flex;
@@ -47,7 +48,6 @@
 
 button.item,
 [type='button'].item {
-  align-self: center;
   appearance: none;
   background: transparent;
   border: none;
