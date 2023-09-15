@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import classNames from '../../../utils/classNames';
-import styles from './NavigationItem.module.scss';
-import { NavigationContext } from '../NavigationContext';
-import { MergeElementProps } from '../../../common/types';
+import classNames from '../../../../utils/classNames';
+import { MergeElementProps } from '../../../../common/types';
+import { useMobile } from '../../../../hooks/useMobile';
+import styles from './LanguageSwitcherItem.module.scss';
 
 type ItemProps = {
   /**
@@ -19,7 +19,7 @@ type ItemProps = {
    */
   label?: React.ReactNode;
   /**
-   * Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component
+   * Defines the button variant in mobile view.
    */
   variant?: 'primary' | 'secondary';
 };
@@ -29,18 +29,14 @@ type SupplementaryItemProps = Omit<ItemProps, 'variant'> & {
   icon: React.ReactNode;
 };
 
-export type NavigationItemProps<Element extends React.ElementType = 'a'> = {
+export type LanguageSwitcherItemProps<Element extends React.ElementType = 'a'> = {
   /**
    * Element type
    */
   as?: Element;
 } & MergeElementProps<Element, ItemProps | SupplementaryItemProps>;
 
-/**
- * NavigationItem will be removed in the next major release. Upcoming Header component will provide the replacement component.
- * @deprecated
- */
-export const NavigationItem = <T extends React.ElementType = 'a'>({
+export const LanguageSwitcherItem = <T extends React.ElementType = 'a'>({
   active,
   as,
   children,
@@ -49,8 +45,8 @@ export const NavigationItem = <T extends React.ElementType = 'a'>({
   label,
   variant,
   ...rest
-}: NavigationItemProps<T>) => {
-  const { isMobile } = useContext(NavigationContext);
+}: LanguageSwitcherItemProps<T>) => {
+  const isMobile = useMobile();
   const Item: React.ElementType = as;
 
   return (
@@ -69,6 +65,6 @@ export const NavigationItem = <T extends React.ElementType = 'a'>({
   );
 };
 
-NavigationItem.defaultProps = {
+LanguageSwitcherItem.defaultProps = {
   as: 'a',
 };

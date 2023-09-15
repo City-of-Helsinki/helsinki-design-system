@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  
+
   & > :first-child {
     margin-right: var(--common-spacing);
   }
@@ -107,18 +107,28 @@
   top: var(--common-spacing);
 }
 
-.languageSelectorOverride {
+.languageDropdown {
   position: relative;
   right: unset;
+
+  button {
+    padding-top: 0;
+  }
+
+  &#{&} {
+    --menu-button-focus-outline-color: var(--header-focus-outline-color);
+
+    > div {
+      left: 0;
+      right: unset;
+    }
+  }
 }
 
-.languageSelectorOverride > button {
-  padding-top: 0;
-}
-
-.languageSelectorOverride > button + div {
-  left: 0;
-  right: unset;
+@media (max-width: 768px) {
+  .languageDropdown {
+    position: absolute;
+  }
 }
 
 .mainContent,
