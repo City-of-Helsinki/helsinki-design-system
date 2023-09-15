@@ -59,19 +59,48 @@ The documentation and examples are updated so that the radio button should not h
 This change helps form validation as it is possible to catch if the user has not selected the item. It also helps to avoid accidental values, if the user does not notice the default value.
 As the radio button itself does not allow removing the value once chosen, it is recommended to provide a separate button to clear the selection.
 
-## For designers
-
-### Sketch
+## Instructions for designers using Sketch
 Sketch library is updated to version 98.2. Please update your Sketch and files accordingly.
 
-To start using the version 3 in Sketch...
+To avoid accidental symbol replacements with version 3.0.0, there is a new Abstract project and library files. 
+When you are ready to move to the new version, follow the next steps.
 
-### Figma
+### Prerequisites
+- Abstract contributor rights in City of Helsinki Abstract
+- Basic knowledge of using HDS in Abstract, see <InternalLink size="M" href="/getting-started/tutorials/abstract-tutorial/">Abstract basics</InternalLink>
+- <ExternalLink size="M" openInNewTab="true" href="https://github.com/sonburn/symbol-swapper">Symbol swapper-plugin for Sketch</ExternalLink> installed.
+
+### Swapping library files
+To use the HDS library from the version 3.x project, you need to swap the linked files. This needs to be done for all project files that wish to start using 3.0.0.
+
+1. Link new library files to the Abstract project.
+2. Open the project file in Sketch from Abstract.
+3. From plugins menu, open Symbol Swapper - Symbol Swap libraries.
+4. Choose the right replacement file for all linked libraries.
+5. Choose Swap symbols with same id.
+6. Swap.
+7. Save and commit to Abstract.
+8. Remove old versions of the library files from Abstract.
+
+### Swapping symbols
+When you wish to replace old navigation or footer with new ones, you can swap symbols. Swap libraries before you swap separate symbols.
+
+1. Open the project file in Sketch from Abstract.
+2. Select symbols you wish to swap.
+3. From plugins menu, open Symbol Swapper - Symbol Swap selections.
+4. Select new symbol source
+5. For navigation and footer choose let me choose
+6. Select symbol version you wish to use
+7. Use default settings for replacing and removing.
+8. Swap.
+9. Save and commit to Abstract.
+
+### Instructions for start using Figma
 There is a brand new Figma library available. The licences are checked and provided separately, but if you're already working in Figma, feel free to use the new design system library.
 It will be available with Helsinki licenses and a community file.
 
-- <ExternalLink size="M" openInNewTab>HDS Figma library in City of Helsinki organization</ExternalLink>
-- <ExternalLink size="M" openInNewTab>HDS Figma community file</ExternalLink>
+- <ExternalLink size="M" openInNewTab="true">HDS Figma library in City of Helsinki organization</ExternalLink>
+- <ExternalLink size="M" openInNewTab="true">HDS Figma community file</ExternalLink>
 
 ## For developers
 There are also some updates on the dependencies. Make sure to update also those with running command <code>yarn</code>.
