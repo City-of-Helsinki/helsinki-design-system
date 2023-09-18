@@ -4,7 +4,7 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header, IconBell, IconSearch, Notification } from 'hds-react';
+import { Header, IconBell, IconSearch, Notification, Logo, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 
@@ -27,6 +27,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
@@ -132,6 +133,7 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
@@ -169,6 +171,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     />
   </Header>
@@ -193,6 +196,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
@@ -246,6 +250,7 @@ The Header.Search component is to be used for whole site wide search.
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
@@ -271,6 +276,7 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
@@ -356,6 +362,7 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
@@ -437,6 +444,7 @@ Header offers two variations with different backgrounds - one with white and one
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
@@ -487,6 +495,7 @@ Header offers two variations with different backgrounds - one with white and one
       titleHref="https://hel.fi"
       logoAriaLabel="Service logo"
       logoHref="https://hel.fi"
+      logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector
