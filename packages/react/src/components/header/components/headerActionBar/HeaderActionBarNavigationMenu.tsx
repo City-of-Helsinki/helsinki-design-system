@@ -1,6 +1,6 @@
-import React, { cloneElement, isValidElement, useEffect, useState } from 'react';
+import React, { cloneElement, isValidElement, MouseEventHandler, useEffect, useRef, useState } from 'react';
 
-import { useHeaderContext } from '../../HeaderContext';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { getChildrenAsArray } from '../../../../utils/getChildren';
@@ -45,6 +45,8 @@ type DropdownLinkProps = {
   frontPageLabel: string;
   // eslint-disable-next-line react/no-unused-prop-types
   onClick?: (link?: React.ReactElement | string) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onLinkClick?: MouseEventHandler<HTMLAnchorElement>;
   titleHref?: string;
 };
 const PreviousDropdownLink = ({ link, frontPageLabel, onClick, titleHref }: DropdownLinkProps) => {
@@ -61,7 +63,7 @@ const PreviousDropdownLink = ({ link, frontPageLabel, onClick, titleHref }: Drop
   );
 };
 
-const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref }: DropdownLinkProps) => {
+const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref, onLinkClick }: DropdownLinkProps) => {
   const className = styles.activeMobileLink;
   const activeLink = link ? (
     cloneElement(link, {
@@ -69,9 +71,10 @@ const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref }: DropdownLin
       className,
       dropdownButtonClassName: styles.hideDropdownButton,
       wrapperClassName: styles.mobileLinkWrapper,
+      onClick: onLinkClick,
     })
   ) : (
-    <HeaderLink id={id} label={frontPageLabel} href={titleHref} className={className} />
+    <HeaderLink id={id} label={frontPageLabel} href={titleHref} className={className} onClick={onLinkClick} />
   );
   return (
     <li className={styles.activeListItem}>
@@ -83,8 +86,9 @@ const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref }: DropdownLin
 type MenuLinksProps = {
   links: React.ReactNode[];
   onDropdownButtonClick: (link) => void;
+  onLinkClick: (link) => void;
 };
-const MenuLinks = ({ links, onDropdownButtonClick }: MenuLinksProps) => {
+const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps) => {
   return (
     <>
       {links.map((child, index) => {
@@ -101,6 +105,7 @@ const MenuLinks = ({ links, onDropdownButtonClick }: MenuLinksProps) => {
                 className: classNames(child.props.className, styles.mobileLink),
                 index,
                 onDropdownButtonClick: () => onDropdownButtonClick(child),
+                onClick: () => onLinkClick(child),
               })}
             </span>
           </li>
@@ -158,19 +163,16 @@ export const HeaderActionBarNavigationMenu = ({
   logo,
   logoProps,
 }: HeaderActionBarNavigationMenuProps) => {
-  const {
-    hasNavigationContent,
-    navigationContent,
-    isNotLargeScreen,
-    mobileMenuOpen,
-    hasUniversalContent,
-    universalContent,
-  } = useHeaderContext();
+  const { navigationContent, mobileMenuOpen, hasUniversalContent, universalContent } = useHeaderContext();
+  const { setMobileMenuOpen } = useSetHeaderContext();
   // State for which link menu is open but not necessarily active. Needed for browsing the menu.
   const [openMainLinks, setOpenMainLinks] = useState<React.ReactElement[]>([]);
+  // State for the link with dropdowns that the user is opening. Needed for rendering next menu and to show its data while animating.
   const [openingLink, setOpeningLink] = useState<React.ReactElement | string>(null);
+  // State for the wide wrapping element's position. Value is also used as a class for animation.
   const [position, setPosition] = useState<Position>('left0');
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const navContainerRef = useRef<HTMLDivElement>();
   const isOpeningLinkFromBefore = (link) => !!openMainLinks[openMainLinks.indexOf(link)];
   const currentActiveLinkId = 'current-active-link';
   const isOpeningFrontPageLinks = typeof openingLink === 'string' && openingLink === titleHref;
@@ -193,7 +195,7 @@ export const HeaderActionBarNavigationMenu = ({
     if (mainLevelActiveLink) {
       const mainLinkElement = mainLevelActiveLink as React.ReactElement;
       const activeLinks = findActiveLinks(cloneElement(mainLinkElement));
-      const activeMainLinks = activeLinks.filter((link) => link.props.active);
+      const activeMainLinks = activeLinks.filter((link) => link.props.dropdownLinks);
       const correctMenuPosition = {
         0: 'left0',
         1: 'left100',
@@ -218,7 +220,7 @@ export const HeaderActionBarNavigationMenu = ({
     }
   }, [openingLink]);
 
-  if (!hasNavigationContent || !isNotLargeScreen) return null;
+  if (!mobileMenuOpen) return null;
 
   const goDeeper = (link: React.ReactElement) => {
     setOpeningLink(link);
@@ -248,17 +250,25 @@ export const HeaderActionBarNavigationMenu = ({
     }
     setIsAnimating(false);
 
+    // If the animation was related to moving menus, set the focus to the currently active page link
     if (e.propertyName === 'transform' && e.target.firstChild.nodeName === 'SECTION') {
-      // If the animation was related to moving menus, set the focus to the currently active page link
       const linkElement = await getIsElementLoaded(`#${currentActiveLinkId}`);
+
       linkElement.focus();
-      // Set non-visible sections as hidden so they are not focusable
     }
+  };
+
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
     <div className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}>
-      <div className={classNames(styles.navigationWrapper, styles[position])} onTransitionEnd={animationsDone}>
+      <div
+        className={classNames(styles.navigationWrapper, styles[position])}
+        onTransitionEnd={animationsDone}
+        ref={navContainerRef}
+      >
         {/* Previous menu links */}
         {openMainLinks.length >= 1 && (
           <NavigationSection
@@ -266,12 +276,21 @@ export const HeaderActionBarNavigationMenu = ({
             aria-hidden
             className={isAnimating ? styles.visible : styles.hidden}
           >
-            <ActiveDropdownLink link={previousDropdownLink} frontPageLabel={frontPageLabel} titleHref={titleHref} />
-            <MenuLinks links={previousMenuLinks} onDropdownButtonClick={goDeeper} />
+            <ActiveDropdownLink
+              link={previousDropdownLink}
+              frontPageLabel={frontPageLabel}
+              titleHref={titleHref}
+              onLinkClick={handleLinkClick}
+            />
+            <MenuLinks links={previousMenuLinks} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
           </NavigationSection>
         )}
         {/* Currently open links */}
-        <NavigationSection universalLinks={universalLinks} aria-hidden={isRenderingDeepestMenu}>
+        <NavigationSection
+          universalLinks={universalLinks}
+          aria-hidden={isRenderingDeepestMenu}
+          className={!isRenderingDeepestMenu ? styles.visible : styles.hidden}
+        >
           {openMainLinks.length > 0 && (
             <PreviousDropdownLink
               link={!isRenderingDeepestMenu ? previousDropdownLink : previousDropdownLink}
@@ -281,12 +300,13 @@ export const HeaderActionBarNavigationMenu = ({
             />
           )}
           <ActiveDropdownLink
-            id={!isRenderingDeepestMenu ? currentActiveLinkId : undefined}
+            id={!isRenderingDeepestMenu && !isAnimating ? currentActiveLinkId : undefined}
             link={!isRenderingDeepestMenu ? currentlyActiveMainLink : previousDropdownLink}
             frontPageLabel={frontPageLabel}
             titleHref={titleHref}
+            onLinkClick={handleLinkClick}
           />
-          <MenuLinks links={menuLinks} onDropdownButtonClick={goDeeper} />
+          <MenuLinks links={menuLinks} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
         </NavigationSection>
         {/* Next links. Rendered at the deepest level. */}
         {!openingLink && (
@@ -306,8 +326,9 @@ export const HeaderActionBarNavigationMenu = ({
               link={currentlyActiveMainLink}
               frontPageLabel={frontPageLabel}
               titleHref={titleHref}
+              onLinkClick={handleLinkClick}
             />
-            <MenuLinks links={menuLinks} onDropdownButtonClick={goDeeper} />
+            <MenuLinks links={menuLinks} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
           </NavigationSection>
         )}
         {/* Render the menu animating into view for better UX. */}
@@ -323,8 +344,17 @@ export const HeaderActionBarNavigationMenu = ({
               titleHref={titleHref}
               onClick={goBack}
             />
-            <ActiveDropdownLink link={openingLink} frontPageLabel={frontPageLabel} titleHref={titleHref} />
-            <MenuLinks links={openingLink.props.dropdownLinks} onDropdownButtonClick={goDeeper} />
+            <ActiveDropdownLink
+              link={openingLink}
+              frontPageLabel={frontPageLabel}
+              titleHref={titleHref}
+              onLinkClick={handleLinkClick}
+            />
+            <MenuLinks
+              links={openingLink.props.dropdownLinks}
+              onDropdownButtonClick={goDeeper}
+              onLinkClick={handleLinkClick}
+            />
           </NavigationSection>
         )}
       </div>

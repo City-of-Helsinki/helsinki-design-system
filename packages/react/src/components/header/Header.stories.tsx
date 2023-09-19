@@ -296,9 +296,10 @@ export const WithFullFeaturesDarkTheme = (args) => (
           dropdownLinks={[
             <Header.Link
               href="#"
+              active
               label="Terveydenhoito"
               dropdownLinks={[
-                <Header.Link href="#" label="Hammashoito" />,
+                <Header.Link active href="#" label="Hammashoito" />,
                 <Header.Link href="#" label="Julkinen terveydenhoito" />,
               ]}
             />,

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, MouseEventHandler, useMemo } from 'react';
+import React, { PropsWithChildren, MouseEventHandler, RefObject, createRef, useEffect, useMemo } from 'react';
 
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
@@ -10,8 +10,58 @@ import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
+import { useHeaderContext } from '../../HeaderContext';
 
 const classNames = styleBoundClassNames(styles);
+
+enum TabBarrierPosition {
+  top = 'top',
+  bottom = 'bottom',
+}
+
+type TabBarrierProps = {
+  id: string;
+  tabIndex: number;
+  'aria-hidden': boolean;
+};
+
+const defaultBarrierProps: Partial<TabBarrierProps> = {
+  tabIndex: 0,
+  'aria-hidden': true,
+};
+
+const findFocusableDialogElements = (dialogElement: HTMLElement): NodeList =>
+  dialogElement.querySelectorAll('a, button, textarea, input[type="text"], select');
+
+const focusToActionBar = (position: TabBarrierPosition, dialogElement?: HTMLElement) => {
+  if (dialogElement) {
+    const focusableElements = findFocusableDialogElements(dialogElement);
+    if (focusableElements.length) {
+      (focusableElements[
+        position === TabBarrierPosition.top ? 0 : focusableElements.length - 1
+      ] as HTMLElement).focus();
+    }
+  }
+};
+
+const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element => {
+  /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
+  return <div {...defaultBarrierProps} onFocus={onFocus} />;
+};
+
+const addDocumentTabBarrier = (position: TabBarrierPosition, dialogElement?: HTMLElement): HTMLDivElement => {
+  const element = document.createElement('div');
+  element.className = 'hds-actionbar-tab-barrier';
+  element.tabIndex = defaultBarrierProps.tabIndex;
+  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
+  element.addEventListener('focus', () => focusToActionBar(position, dialogElement));
+  if (position === TabBarrierPosition.top) {
+    document.body.insertBefore(element, document.body.firstChild);
+  } else {
+    document.body.appendChild(element);
+  }
+  return element;
+};
 
 export enum TitleStyleType {
   Normal = 'normal',
@@ -52,12 +102,6 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   onLogoClick?: MouseEventHandler;
   /**
-   * Callback fired when the menu button is clicked.
-   * Call event.stopPropagation() to disable calling
-   * the default menu toggling function.
-   */
-  onMenuButtonClick?: MouseEventHandler;
-  /**
    * Callback fired when the title is clicked.
    */
   onTitleClick?: MouseEventHandler;
@@ -94,7 +138,6 @@ export const HeaderActionBar = ({
   logo,
   onTitleClick,
   onLogoClick,
-  onMenuButtonClick,
   children,
   className,
   ariaLabel,
@@ -105,6 +148,26 @@ export const HeaderActionBar = ({
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
+  const { mobileMenuOpen } = useHeaderContext();
+  const actionBarRef: RefObject<HTMLInputElement> = createRef();
+
+  useEffect(() => {
+    // When mobile menu is open, set up tab barriers to prevent keyboard navigation to content outside action bar and menu.
+    if (mobileMenuOpen && actionBarRef !== undefined) {
+      addDocumentTabBarrier(TabBarrierPosition.top, actionBarRef.current);
+      addDocumentTabBarrier(TabBarrierPosition.bottom, actionBarRef.current);
+
+      return () => {
+        const barriers = document.querySelectorAll('.hds-actionbar-tab-barrier');
+        barriers.forEach((element) => {
+          element.remove();
+        });
+      };
+    }
+
+    // Returning null from useEffect is prohibited, but undefined is fine
+    return undefined;
+  }, [actionBarRef, mobileMenuOpen]);
 
   const logoProps: LinkProps = {
     'aria-label': logoAriaLabel,
@@ -141,7 +204,10 @@ export const HeaderActionBar = ({
   }, [lsChildren]);
   return (
     <>
-      <div className={styles.headerActionBarContainer}>
+      {mobileMenuOpen && (
+        <ContentTabBarrier onFocus={() => focusToActionBar(TabBarrierPosition.bottom, actionBarRef.current)} />
+      )}
+      <div className={styles.headerActionBarContainer} ref={actionBarRef}>
         <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
           <HeaderActionBarLogo logo={logo} logoProps={logoProps} />
           {title && (
@@ -154,7 +220,7 @@ export const HeaderActionBar = ({
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
             {childrenLeft}
-            <HeaderActionBarMenuItem onClick={onMenuButtonClick} ariaLabel={menuButtonAriaLabel} />
+            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} />
             {childrenRight.length > 0 && (
               <>
                 <hr />
@@ -163,17 +229,20 @@ export const HeaderActionBar = ({
             )}
           </div>
         </div>
+        <HeaderActionBarNavigationMenu
+          frontPageLabel={frontPageLabel}
+          titleHref={titleHref}
+          logo={logo}
+          logoProps={logoProps}
+        />
       </div>
-      <HeaderActionBarNavigationMenu
-        frontPageLabel={frontPageLabel}
-        titleHref={titleHref}
-        logo={logo}
-        logoProps={logoProps}
-      />
       {componentExists && (
         <HeaderLanguageSelectorConsumer {...lsProps} fullWidthForMobile>
           {languageSelectorChildren}
         </HeaderLanguageSelectorConsumer>
+      )}
+      {mobileMenuOpen && (
+        <ContentTabBarrier onFocus={() => focusToActionBar(TabBarrierPosition.top, actionBarRef.current)} />
       )}
     </>
   );
