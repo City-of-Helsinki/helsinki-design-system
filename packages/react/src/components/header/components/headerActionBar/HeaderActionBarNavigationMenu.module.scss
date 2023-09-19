@@ -70,7 +70,7 @@
     flex-grow: 1;
     font-size: var(--fontsize-heading-m);
     margin: 0;
-    padding: 24px 16px;
+    padding: var(--spacing-m) var(--spacing-s);
     text-decoration: underline;
 
     &:hover {
@@ -92,7 +92,7 @@
     align-items: center;
     display: flex;
     min-height: auto;
-    padding: 24px var(--nav-mobile-margin-left) 0 var(--nav-mobile-margin-left);
+    padding: var(--spacing-m) var(--nav-mobile-margin-left) 0 var(--nav-mobile-margin-left);
 
     .previousButton {
       align-items: center;

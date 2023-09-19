@@ -1,4 +1,12 @@
-import React, { cloneElement, isValidElement, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import React, {
+  cloneElement,
+  isValidElement,
+  MouseEventHandler,
+  TransitionEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
@@ -138,8 +146,7 @@ function findActiveLinks(obj) {
 
 function getActiveMainLevelLink(links) {
   return getChildrenAsArray(links).find((link) => {
-    if (isValidElement(link) && link.props.active) return link;
-    return null;
+    return isValidElement(link) && link.props.active;
   });
 }
 
@@ -173,7 +180,6 @@ export const HeaderActionBarNavigationMenu = ({
   const [position, setPosition] = useState<Position>('left0');
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const navContainerRef = useRef<HTMLDivElement>();
-  const isOpeningLinkFromBefore = (link) => !!openMainLinks[openMainLinks.indexOf(link)];
   const currentActiveLinkId = 'current-active-link';
   const isOpeningFrontPageLinks = typeof openingLink === 'string' && openingLink === titleHref;
   const isUserInDropdownTree = openMainLinks.length > 1;
@@ -188,6 +194,11 @@ export const HeaderActionBarNavigationMenu = ({
     : navigationContent;
   const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
   const isRenderingDeepestMenu = position === 'left200';
+  const isOpeningLinkFromBefore = (link: React.ReactElement | string) => {
+    // When typeof string, it's the front page. That's handled elsewhere.
+    if (typeof link === 'string') return false;
+    return !!openMainLinks.includes(link);
+  };
 
   useIsomorphicLayoutEffect(() => {
     // Set active main links with dropdowns if any
@@ -232,7 +243,8 @@ export const HeaderActionBarNavigationMenu = ({
     setIsAnimating(true);
   };
 
-  const animationsDone = async (e) => {
+  const animationsDone = async (e: TransitionEvent) => {
+    const targetElement = e.target as HTMLElement;
     // If user was opening a dropdown, set the active open link
     if (openingLink && !isOpeningFrontPageLinks) {
       let newLinks = [];
@@ -251,7 +263,7 @@ export const HeaderActionBarNavigationMenu = ({
     setIsAnimating(false);
 
     // If the animation was related to moving menus, set the focus to the currently active page link
-    if (e.propertyName === 'transform' && e.target.firstChild.nodeName === 'SECTION') {
+    if (e.propertyName === 'transform' && targetElement.firstChild.nodeName === 'SECTION') {
       const linkElement = await getIsElementLoaded(`#${currentActiveLinkId}`);
 
       linkElement.focus();
