@@ -82,6 +82,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   frontPageLabel: string;
   /**
+   * Aria-label for describing opening main navigation links into view in mobile navigation menu.
+   */
+  openFrontPageLinksAriaLabel?: string;
+  /**
    * Logo to use
    */
   logo: React.ReactElement<typeof Logo>;
@@ -143,6 +147,7 @@ export const HeaderActionBar = ({
   ariaLabel,
   role,
   frontPageLabel,
+  openFrontPageLinksAriaLabel,
 }: HeaderActionBarProps) => {
   const handleClick = useCallbackIfDefined(onTitleClick);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
@@ -234,6 +239,7 @@ export const HeaderActionBar = ({
           titleHref={titleHref}
           logo={logo}
           logoProps={logoProps}
+          openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
         />
       </div>
       {componentExists && (

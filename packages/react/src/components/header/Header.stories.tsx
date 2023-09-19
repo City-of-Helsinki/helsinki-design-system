@@ -133,6 +133,7 @@ export const WithFullFeatures = (args) => (
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
+        openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
       >
         <Header.LanguageSelector ariaLabel="Kielen valinta" languageHeading="Muut kielet">
           <h3>Tietoa muilla kielillä</h3>

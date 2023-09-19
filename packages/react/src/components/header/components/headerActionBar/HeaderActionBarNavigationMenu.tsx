@@ -46,22 +46,31 @@ const NavigationSection = ({ children, className, universalLinks, ...rest }: Nav
   );
 };
 
-type DropdownLinkProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  id?: string;
+type PreviousDropdownLinkProps = {
   link: React.ReactElement;
   frontPageLabel: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  onClick?: (link?: React.ReactElement | string) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
-  onLinkClick?: MouseEventHandler<HTMLAnchorElement>;
   titleHref?: string;
+  openFrontPageLinksAriaLabel?: string;
+  onClick?: (link?: React.ReactElement | string) => void;
 };
-const PreviousDropdownLink = ({ link, frontPageLabel, onClick, titleHref }: DropdownLinkProps) => {
-  const previousLabel = link ? link.props.label : frontPageLabel;
+const PreviousDropdownLink = ({
+  link,
+  frontPageLabel,
+  onClick,
+  titleHref,
+  openFrontPageLinksAriaLabel,
+}: PreviousDropdownLinkProps) => {
+  // When the link is not an object with props, this should point to front page.
+  const previousLabel = link?.props.label || frontPageLabel;
+  const previousAriaLabel = link?.props.openDropdownAriaButtonLabel || openFrontPageLinksAriaLabel;
   return (
     <li className={styles.previousListItem}>
-      <button type="button" className={styles.previousLinkWrapper} onClick={() => onClick(link || titleHref)}>
+      <button
+        type="button"
+        className={styles.previousLinkWrapper}
+        onClick={() => onClick(link || titleHref)}
+        aria-label={previousAriaLabel}
+      >
         <span className={styles.previousButton}>
           <IconAngleLeft className={styles.backIcon} />
         </span>
@@ -71,7 +80,14 @@ const PreviousDropdownLink = ({ link, frontPageLabel, onClick, titleHref }: Drop
   );
 };
 
-const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref, onLinkClick }: DropdownLinkProps) => {
+type ActiveDropdownLinkProps = {
+  link: React.ReactElement;
+  frontPageLabel: string;
+  titleHref?: string;
+  id?: string;
+  onLinkClick?: MouseEventHandler<HTMLAnchorElement>;
+};
+const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref, onLinkClick }: ActiveDropdownLinkProps) => {
   const className = styles.activeMobileLink;
   const activeLink = link ? (
     cloneElement(link, {
@@ -163,12 +179,14 @@ type HeaderActionBarNavigationMenuProps = {
    * Logo properties
    */
   logoProps: LinkProps;
+  openFrontPageLinksAriaLabel?: string;
 };
 export const HeaderActionBarNavigationMenu = ({
   frontPageLabel,
   titleHref,
   logo,
   logoProps,
+  openFrontPageLinksAriaLabel,
 }: HeaderActionBarNavigationMenuProps) => {
   const { navigationContent, mobileMenuOpen, hasUniversalContent, universalContent } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
@@ -309,6 +327,7 @@ export const HeaderActionBarNavigationMenu = ({
               frontPageLabel={frontPageLabel}
               titleHref={titleHref}
               onClick={goBack}
+              openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
             />
           )}
           <ActiveDropdownLink
@@ -332,6 +351,7 @@ export const HeaderActionBarNavigationMenu = ({
               frontPageLabel={frontPageLabel}
               titleHref={titleHref}
               onClick={goBack}
+              openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
             />
             <ActiveDropdownLink
               id={isRenderingDeepestMenu ? currentActiveLinkId : undefined}
@@ -355,6 +375,7 @@ export const HeaderActionBarNavigationMenu = ({
               frontPageLabel={frontPageLabel}
               titleHref={titleHref}
               onClick={goBack}
+              openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
             />
             <ActiveDropdownLink
               link={openingLink}
