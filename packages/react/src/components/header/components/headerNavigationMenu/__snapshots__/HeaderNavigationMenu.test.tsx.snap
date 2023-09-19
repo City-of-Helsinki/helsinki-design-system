@@ -7,7 +7,6 @@ exports[`<HeaderNavigationMenu /> spec renders the component 1`] = `
   >
     <nav
       class="headerNavigationMenu"
-      role="navigation"
     >
       <ul
         class="headerNavigationMenuList"
