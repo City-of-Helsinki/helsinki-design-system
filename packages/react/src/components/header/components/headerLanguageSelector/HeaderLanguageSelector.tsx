@@ -72,13 +72,10 @@ export const HeaderLanguageSelector = ({
   }
 
   const languageNodes = (languages || useAvailableLanguages()).map(renderLanguageNode);
-  const isSingleLanguage = languageNodes.length === 1;
-
   // when its not large screen fullWidthForMobile -version can be used
   const show =
     isRender &&
     ((isNotLargeScreen && fullWidthForMobile) || (!isNotLargeScreen && !fullWidthForMobile)) &&
-    !isSingleLanguage &&
     Array.isArray(languageNodes) &&
     languageNodes.length;
 
