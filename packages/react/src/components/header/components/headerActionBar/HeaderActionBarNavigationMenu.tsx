@@ -4,9 +4,23 @@ import { HeaderNavigationMenuContextProvider } from '../headerNavigationMenu/Hea
 import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
+import parentStyles from './HeaderActionBar.module.scss';
 import { HeaderNavigationMenuContent } from '../headerNavigationMenu';
+import { Logo } from '../../../logo';
+import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 
-export const HeaderActionBarNavigationMenu = () => {
+type HeaderActionBarNavigationMenuProps = {
+  /**
+   * Logo to use
+   */
+  logo: React.ReactElement<typeof Logo>;
+  /**
+   * Logo properties
+   */
+  logoProps: LinkProps;
+};
+
+export const HeaderActionBarNavigationMenu = ({ logo, logoProps }: HeaderActionBarNavigationMenuProps) => {
   const {
     hasNavigationContent,
     isNotLargeScreen,
@@ -42,6 +56,9 @@ export const HeaderActionBarNavigationMenu = () => {
           })}
         </ul>
       )}
+      <LinkItem {...logoProps} className={styles.logoLink}>
+        {logoProps?.href ? <span className={parentStyles.logoWrapper}>{logo}</span> : logo}
+      </LinkItem>
     </div>
   );
 };
