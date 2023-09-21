@@ -4,16 +4,14 @@ import { HeaderNavigationMenuContextProvider } from '../headerNavigationMenu/Hea
 import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
-import parentStyles from './HeaderActionBar.module.scss';
 import { HeaderNavigationMenuContent } from '../headerNavigationMenu';
-import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 
 type HeaderActionBarNavigationMenuProps = {
   /**
    * Logo to use
    */
-  logo: React.ReactElement<typeof Logo>;
+  logo: JSX.Element;
   /**
    * Logo properties
    */
@@ -57,7 +55,7 @@ export const HeaderActionBarNavigationMenu = ({ logo, logoProps }: HeaderActionB
         </ul>
       )}
       <LinkItem {...logoProps} className={styles.logoLink}>
-        {logoProps?.href ? <span className={parentStyles.logoWrapper}>{logo}</span> : logo}
+        {logo}
       </LinkItem>
     </div>
   );

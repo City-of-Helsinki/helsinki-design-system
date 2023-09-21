@@ -155,7 +155,10 @@ export const HeaderActionBar = ({
         </div>
       </div>
       <HeaderLanguageSelector fullWidthForMobile />
-      <HeaderActionBarNavigationMenu logo={logo} logoProps={logoProps} />
+      <HeaderActionBarNavigationMenu
+        logo={logoProps?.href ? <span className={styles.logoWrapper}>{logo}</span> : logo}
+        logoProps={logoProps}
+      />
     </>
   );
 };
