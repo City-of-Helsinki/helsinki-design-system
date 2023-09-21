@@ -18,7 +18,7 @@ This major release contains some breaking changes. Pay attention to these when y
 Old navigation was removed as previously informed. The aim is to provide more flexible navigation solution that supports also larger sites and is consistent with hel.fi-styles.
 This new navigation is not updated automatically, you need to switch to it manually as the name of the component is different.
 
-If you wish to make it as similar to previous navigation, you only need ActionBar-subcomponent.
+If you wish to make it as similar to previous navigation, you only need <InternalLink size="M" href="/components/header/#with-action-bar"> ActionBar-subcomponent.</InternalLink>
 
 The navigation was rewritten to fix bugs, make it more modular, provide support for larger sites and unify the styles.
 
@@ -26,21 +26,20 @@ The navigation was rewritten to fix bugs, make it more modular, provide support 
 - <InternalLink size="M" href="/patterns/navigation/building-navigation/">Navigation pattern</InternalLink>
 
 ### New footer
-Footer has been refactored and the new version is more modular. The new component also is named footer, so check that needed properties are set correctly.
+Footer has been refactored and the new version is more modular. The new component also is named footer, so check that needed properties and sub components are set correctly.
 
 - <InternalLink size="M" href="/components/footer">Footer component</InternalLink>
 
-### Deprecated rectangular tags and statuslabels
-Rectangular tags and status labels have been deprecated and removed. Use rounded version instead.
-This helps to better separate buttons from tags.
+### Deprecated rectangular variants for tags and status labels
+Rectangular tag and status label variants have been deprecated and removed. The default value is now rounded. 
+For StatusLabel, variant property with value "rounded" has been removed. For Tag, RoundedTag and RoundedLargeTag subcomponents have been removed. Size can be selected as a property and both sizes are rounded by default. 
 - <InternalLink size="M" href="/components/tag">Tag component</InternalLink>
 - <InternalLink size="M" href="/components/status-label">Status label component</InternalLink>
-
 
 ### External link icon position adjusted
 The position of the external link is adjusted to better match common practices. This moves the icon bit more up, which can affect the line height.
 
-### Properties changes
+### Property changes
 - LinkBox property name 'withBorder' has been changed to 'border'.
 - Koro functionality flipHorizontal has been renamed to flipVertical to better reflect the actual behaviour.
 - Koro shapes had mixed up names in English. Wave was changed to Vibration and Storm to Wave.
@@ -48,11 +47,11 @@ The position of the external link is adjusted to better match common practices. 
 ## Other important updates
 
 ### Focus color
-New focus color token has been added. Currently the default focus color is still Coat of Arms, but token enables changing the color according to the needs.
-Components are updated to use the new token instead of hardcoded value.
+Focus color token has been added. Currently the default focus color is still Coat of Arms, but token enables changing the color according to the needs.
+Components are updated to use the new token instead of hardcoded value. While this change was released already in an earlier version, updating to 3.0.0 is a good opprotunity to make this change. 
 
 ### Media query hooks
-There are new hooks <code>useMediaQueryLessThan</code> and <code>useMediaQueryGreaterThan</code> to ease the use of media queries in React.
+There are hooks <code>useMediaQueryLessThan</code> and <code>useMediaQueryGreaterThan</code> to ease the use of media queries in React. While this change was released already in an earlier version, updating to 3.0.0 is a good opprotunity to make this change.
 
 ### Radio button should not have default value
 The documentation and examples are updated so that the radio button should not have default value. 
@@ -104,4 +103,4 @@ It will be available with Helsinki licenses and a community file.
 - <ExternalLink size="M" openInNewTab="true">HDS Figma community file</ExternalLink>
 
 ## For developers
-There are also some updates on the dependencies. Make sure to update also those with running command <code>yarn</code>.
+There are also some updates on the dependencies. Make sure to dependencies get updated with running command <code>yarn</code>.
