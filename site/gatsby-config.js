@@ -107,6 +107,10 @@ module.exports = {
             link: '/about',
           },
           {
+            name: 'Releases',
+            link: '/about/releases',
+          },
+          {
             name: 'Accessibility',
             link: '/about/accessibility',
           },
