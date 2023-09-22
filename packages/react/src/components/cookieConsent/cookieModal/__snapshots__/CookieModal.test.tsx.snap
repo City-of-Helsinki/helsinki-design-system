@@ -35,7 +35,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
               data-testid="cookie-consent-language-switcher"
             >
               <div
-                class="menuButton languageSelectorOverride"
+                class="menuButton languageDropdown"
               >
                 <button
                   aria-controls="cookie-consent-language-selector-menu"

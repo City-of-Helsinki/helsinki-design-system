@@ -273,19 +273,6 @@
     }
   },
   {
-    "name": "Navigation",
-    "text": "A navigation component is the main way to navigate and locate in the service.",
-    "linkboxAriaLabel": "Navigation component",
-    "linkAriaLabel": "Go to the Navigation component page",
-    "href": "/components/navigation",
-    "imgProps": {
-      "src": "/images/components/overview/navigation@2x.png",
-      "alt": "An illustration of the Navigation component.",
-      "height": 180,
-      "width": 280
-    }
-  },
-  {
     "name": "Notification",
     "text": "Notifications are used to present timely information to the user.",
     "linkboxAriaLabel": "Notification component",

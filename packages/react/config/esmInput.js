@@ -23,7 +23,6 @@ const esmInput = {
   'components/Linkbbox/index': 'src/components/linkbox/index.ts',
   'components/LoadingSpinner/index': 'src/components/loadingSpinner/index.ts',
   'components/Logo/index': 'src/components/logo/index.ts',
-  'components/Navigation/index': 'src/components/navigation/index.ts',
   'components/Notification/index': 'src/components/notification/index.ts',
   'components/NumberInput/index': 'src/components/numberInput/index.ts',
   'components/Pagination/index': 'src/components/pagination/index.ts',

@@ -10,7 +10,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, logoFi } from 'hds-react';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -83,9 +83,9 @@ const generateUiIdFromPath = (path, prefix) => {
     !path && path === '/'
       ? 'home'
       : path
-          .split('/')
-          .filter((str) => !!str)
-          .join('-');
+        .split('/')
+        .filter((str) => !!str)
+        .join('-');
   return `${prefix}-${pathStr}`;
 };
 
@@ -164,10 +164,10 @@ const Layout = ({ children, pageContext }) => {
   const subMenuLinksFromPages =
     currentMenuItem && currentMenuItem.link
       ? allPages
-          .filter(isNavPage)
-          .filter(isLinkParentForPage(currentMenuItem.link, 2))
-          .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
-          .sort(sortByPageTitle)
+        .filter(isNavPage)
+        .filter(isLinkParentForPage(currentMenuItem.link, 2))
+        .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
+        .sort(sortByPageTitle)
       : [];
 
   const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
@@ -212,23 +212,22 @@ const Layout = ({ children, pageContext }) => {
         ]}
       />
       <div className="page text-body">
-        <Navigation
+        <Header
           id="page-header"
           className="pageHeader"
-          title={<NavigationTitle />}
-          titleAriaLabel="Helsinki: Helsinki Design System"
-          titleUrl={siteUrl}
-          onTitleClick={(event) => {
-            event.preventDefault();
-            navigate('/');
-          }}
-          menuToggleAriaLabel="menu"
-          skipTo={`#${contentId}`}
-          skipToContentLabel="Skip to content"
         >
-          <Navigation.Row ariaLabel="Site navigation">
+          <Header.SkipLink skipTo={`#${contentId}`} label="Skip to content" />
+          <Header.ActionBar
+            title={<NavigationTitle />}
+            titleAriaLabel="Helsinki: Helsinki Design System"
+            titleHref={siteUrl}
+            logoHref={siteUrl}
+            logoAriaLabel="City of Helsinki Logo"
+            logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+          />
+          <Header.NavigationMenu>
             {uiMenuLinks.map(({ name, link, uiId }) => (
-              <Navigation.Item
+              <Header.Link
                 active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
                 key={uiId}
                 label={name}
@@ -236,8 +235,8 @@ const Layout = ({ children, pageContext }) => {
                 as={GatsbyLink}
               />
             ))}
-          </Navigation.Row>
-        </Navigation>
+          </Header.NavigationMenu>
+        </Header>
         <div className={customLayout ? undefined : 'page-content'}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
@@ -262,12 +261,12 @@ const Layout = ({ children, pageContext }) => {
                       {...(hasSubLevels
                         ? {}
                         : {
-                            href: prefixedLink,
-                            onClick: (e) => {
-                              e.preventDefault();
-                              navigate(link);
-                            },
-                          })}
+                          href: prefixedLink,
+                          onClick: (e) => {
+                            e.preventDefault();
+                            navigate(link);
+                          },
+                        })}
                     >
                       {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
