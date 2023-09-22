@@ -77,12 +77,33 @@ export const WithFullFeatures = (args) => (
         menuButtonAriaLabel="Menu"
       >
         <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+          <h3>Muut kielet</h3>
+          <Link href="www.example.com" size="S" lang="de">
+            Deutsch
+          </Link>
+          <Link href="www.example.com" size="S" lang="es">
+            Español
+          </Link>
+          <Link href="www.example.com" size="S" lang="fr">
+            Français
+          </Link>
+          <Link href="www.example.com" size="S" lang="ru">
+            Pусский
+          </Link>
           <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
+          <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
           </Link>
-          <Link external href="www.example.com">
+          <Link external href="www.example.com" size="S" lang="fi">
             Viittomakieli
+          </Link>
+          <h3>Matkailijoille</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
+            MyHelsinki.fi
+          </Link>
+          <h3>Maahanmuuttajille</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
+            InfoFinland.fi
           </Link>
         </Header.LanguageSelector>
 
@@ -183,12 +204,33 @@ export const WithFullFeaturesDarkTheme = (args) => (
         menuButtonAriaLabel="Menu"
       >
         <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+          <h3>Muut kielet</h3>
+          <Link href="www.example.com" size="S" lang="de">
+            Deutsch
+          </Link>
+          <Link href="www.example.com" size="S" lang="es">
+            Español
+          </Link>
+          <Link href="www.example.com" size="S" lang="fr">
+            Français
+          </Link>
+          <Link href="www.example.com" size="S" lang="ru">
+            Pусский
+          </Link>
           <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
+          <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
           </Link>
-          <Link external href="www.example.com">
+          <Link external href="www.example.com" size="S" lang="fi">
             Viittomakieli
+          </Link>
+          <h3>Matkailijoille</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
+            MyHelsinki.fi
+          </Link>
+          <h3>Maahanmuuttajille</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
+            InfoFinland.fi
           </Link>
         </Header.LanguageSelector>
 

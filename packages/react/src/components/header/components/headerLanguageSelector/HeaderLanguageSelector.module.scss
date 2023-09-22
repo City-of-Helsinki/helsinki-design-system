@@ -1,5 +1,5 @@
 @use "../../Header.module.scss";
-@import "../../../../styles/common.scss";
+@import '../../../../styles/common.scss';
 
 .languageSelector {
   display: flex;
@@ -24,13 +24,29 @@
   flex-flow: column nowrap;
 
   > * {
+    align-items: center;
+    display: flex;
+    font-size: var(--fontsize-body-m);
     line-height: var(--lineheight-l);
     margin: 0;
+  }
+
+  > h3 {
+    border-bottom: solid 1px var(--header-divider-color);
+
+    &:not(:first-of-type) {
+      border-top: solid 1px var(--header-divider-color);
+    }
+  }
+
+  > a {
+    color: var(--lang-selector-item-font-color);
+    text-decoration: none;
   }
 }
 
 button.item,
-[type="button"].item {
+[type='button'].item {
   align-self: center;
   appearance: none;
   background: transparent;
