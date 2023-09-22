@@ -36,7 +36,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Muut kielet</h3>
+        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
+        <Link href="www.example.com" size="S" lang="es">Español</Link>
+        <Link href="www.example.com" size="S" lang="fr">Français</Link>
+        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
+        <h3>Matkailijoille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
+        <h3>Maahanmuuttajille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+      </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
@@ -142,7 +155,11 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+      </Header.LanguageSelector>
     </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
@@ -205,7 +222,11 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+      </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
@@ -285,7 +306,11 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+      </Header.LanguageSelector>
       <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell />} id="action-bar-notifications">
         <p>Ei uusi ilmoituksia.</p>
       </Header.ActionBarItem>
@@ -371,7 +396,20 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Muut kielet</h3>
+        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
+        <Link href="www.example.com" size="S" lang="es">Español</Link>
+        <Link href="www.example.com" size="S" lang="fr">Français</Link>
+        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
+        <h3>Matkailijoille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
+        <h3>Maahanmuuttajille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+      </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
@@ -453,7 +491,20 @@ Header offers two variations with different backgrounds - one with white and one
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Muut kielet</h3>
+        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
+        <Link href="www.example.com" size="S" lang="es">Español</Link>
+        <Link href="www.example.com" size="S" lang="fr">Français</Link>
+        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
+        <h3>Matkailijoille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
+        <h3>Maahanmuuttajille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+      </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
@@ -504,7 +555,20 @@ Header offers two variations with different backgrounds - one with white and one
           { label: 'Svenska', value: 'sv' },
           { label: 'English', value: 'en' },
         ]}
-      />
+      >
+        <h3>Muut kielet</h3>
+        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
+        <Link href="www.example.com" size="S" lang="es">Español</Link>
+        <Link href="www.example.com" size="S" lang="fr">Français</Link>
+        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
+        <h3>Matkailijoille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
+        <h3>Maahanmuuttajille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+      </Header.LanguageSelector>
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
       </Header.ActionBarItem>
