@@ -84,6 +84,10 @@ import { Notification, Button } from 'hds-react';
 () => {
   const [open, setOpen] = useState(false)
   const [autoCloseOpen, setAutoCloseOpen] = useState(false)
+  const showButtonRef = React.useRef(null)
+  const showAutoCloseButtonRef = React.useRef(null)
+  const onClose = () => {
+    setOpen(false);
     if(showButtonRef.current) {
       showButtonRef.current.focus();
     }

@@ -24,6 +24,7 @@
   --label-color: var(--color-black-90);
   --label-color-disabled: var(--color-black-40);
   --icon-size: var(--spacing-m);
+
   display: flex;
   flex-wrap: wrap;
   min-height: var(--size);
@@ -44,7 +45,7 @@
 .hds-checkbox .hds-checkbox__input:before,
 .hds-checkbox .hds-checkbox__label:before,
 .hds-checkbox .hds-checkbox__label:after {
-  content: "";
+  content: '';
   left: 0;
   position: absolute;
   top: 0;
@@ -62,7 +63,6 @@
   width: var(--size);
   z-index: 1;
 }
-
 
 /* focus outline */
 .hds-checkbox .hds-checkbox__label:before {

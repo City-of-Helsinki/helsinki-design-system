@@ -66,10 +66,12 @@ export const Icons = () => `
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}
   </button>
+
   <button type="button" class="hds-button hds-button--primary">
     ${getLabel()}
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
+
   <button type="button" class="hds-button hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}
@@ -83,10 +85,12 @@ export const Icons = () => `
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}
   </button>
+
   <button type="button" class="hds-button hds-button--small hds-button--primary">
     ${getLabel()}
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
+  
   <button type="button" class="hds-button hds-button--small hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}

@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/question-circle-fill.svg");
-
-.hds-icon--question-circle-fill {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

@@ -15,7 +15,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 #### Default
 <Playground scope={{ Tabs }}>
 
+```jsx
 import { Tabs } from 'hds-react';
+
+() => (
+  <Tabs>
     <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
       <Tabs.Tab>Daycare</Tabs.Tab>
       <Tabs.Tab>Pre-school</Tabs.Tab>
