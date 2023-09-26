@@ -474,135 +474,191 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
 #### Colour variations
 
 Header offers two variations with different backgrounds - one with white and one with black (default) text elements. Use variation that achieves better contrast with the brand background colour of your choice.
+Header supports also custom theming — See variables in code tab.
+When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
 <PlaygroundPreview>
-  <Header theme="light">
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
-      menuButtonAriaLabel="Menu"
-    >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
+  <div style={{
+    "margin-bottom": "1rem",
+    position: "relative",
+    "z-index": "13"
+  }}>
+    <Header theme="light">
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleHref="https://hel.fi"
+        logoAriaLabel="Service logo"
+        logoHref="https://hel.fi"
+        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+        menuButtonAriaLabel="Menu"
       >
-        <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
-        <Link href="www.example.com" size="S" lang="es">Español</Link>
-        <Link href="www.example.com" size="S" lang="fr">Français</Link>
-        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
-        <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
-        <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
-      </Header.LanguageSelector>
-      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-        <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
-      </Header.ActionBarItem>
-    </Header.ActionBar>
-    <Header.NavigationMenu>
-      <Header.Link
-        href="#"
-        label="Sosiaali- ja terveyspalvelut"
-        dropdownLinks={[
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Terveydenhoito"
-            active
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Hammashoito" />,
-              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
-            ]}
-          />,
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Senioripalvelut"
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
-              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
-            ]}
-          />,
-        ]}
-      />
-      <Header.Link href="#" label="Kasvatus ja koulutus" />
-      <Header.Link href="#" label="Asuminen" />
-    </Header.NavigationMenu>
-  </Header>
-  <br />
-  <Header theme="dark">
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
-      menuButtonAriaLabel="Menu"
-    >
-      <Header.LanguageSelector
-        languages={[
-          { label: 'Suomi', value: 'fi' },
-          { label: 'Svenska', value: 'sv' },
-          { label: 'English', value: 'en' },
-        ]}
+        <Header.LanguageSelector
+          languages={[
+            { label: 'Suomi', value: 'fi' },
+            { label: 'Svenska', value: 'sv' },
+            { label: 'English', value: 'en' },
+          ]}
+        />
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+          <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+      <Header.NavigationMenu>
+        <Header.Link
+          href="#"
+          label="Sosiaali- ja terveyspalvelut"
+          dropdownLinks={[
+            <Header.Link
+              as={Link}
+              href="#"
+              label="Terveydenhoito"
+              active
+              dropdownLinks={[
+                <Header.Link as={Link} href="#" label="Hammashoito" />,
+                <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+              ]}
+            />,
+            <Header.Link
+              as={Link}
+              href="#"
+              label="Senioripalvelut"
+              dropdownLinks={[
+                <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+                <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
+      </Header.NavigationMenu>
+    </Header>
+  </div>
+  <div style={{
+    "margin-bottom": "1rem",
+    position: "relative",
+    "z-index": "12"
+  }}>
+    <Header theme="dark">
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleHref="https://hel.fi"
+        logoAriaLabel="Service logo"
+        logoHref="https://hel.fi"
+        logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
+        menuButtonAriaLabel="Menu"
       >
-        <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
-        <Link href="www.example.com" size="S" lang="es">Español</Link>
-        <Link href="www.example.com" size="S" lang="fr">Français</Link>
-        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
-        <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
-        <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
-      </Header.LanguageSelector>
-      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-        <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
-      </Header.ActionBarItem>
-    </Header.ActionBar>
-    <Header.NavigationMenu>
-      <Header.Link
-        href="#"
-        label="Sosiaali- ja terveyspalvelut"
-        dropdownLinks={[
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Terveydenhoito"
-            active
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Hammashoito" />,
-              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
-            ]}
-          />,
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Senioripalvelut"
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
-              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
-            ]}
-          />,
-        ]}
-      />
-      <Header.Link href="#" label="Kasvatus ja koulutus" />
-      <Header.Link href="#" label="Asuminen" />
-    </Header.NavigationMenu>
-  </Header>
+        <Header.LanguageSelector
+          languages={[
+            { label: 'Suomi', value: 'fi' },
+            { label: 'Svenska', value: 'sv' },
+            { label: 'English', value: 'en' },
+          ]}
+        />
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+          <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+      <Header.NavigationMenu>
+        <Header.Link
+          href="#"
+          label="Sosiaali- ja terveyspalvelut"
+          dropdownLinks={[
+            <Header.Link
+              as={Link}
+              href="#"
+              label="Terveydenhoito"
+              active
+              dropdownLinks={[
+                <Header.Link as={Link} href="#" label="Hammashoito" />,
+                <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+              ]}
+            />,
+            <Header.Link
+              as={Link}
+              href="#"
+              label="Senioripalvelut"
+              dropdownLinks={[
+                <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+                <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
+      </Header.NavigationMenu>
+    </Header>
+  </div>
+  <div style={{
+    position: "relative",
+    "z-index": "11"
+  }}>
+    <Header theme={{
+      '--color-focus-outline': 'var(--color-metro-dark)',
+      '--header-color': 'var(--color-black)',
+       '--header-focus-outline-color': 'var(--color-metro-dark)',
+      '--actionbar-background-color': 'var(--color-engel)',
+      '--nav-background-color': 'var(--color-engel-light)',
+      '--nav-border-color': 'var(--color-black)',
+      '--nav-link-hover-color': 'var(--color-black)',
+      '--universal-bar-background-color': 'var(--color-black-20)',
+      '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
+      '--nav-button-background-color': 'var(--color-black-20)',
+      '--nav-button-hover-background-color': 'var(--color-black-40)',
+      '--nav-drop-down-icon-color': 'var(--color-black)',
+      '--header-background-color': 'transparent',
+    }}>
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleHref="https://hel.fi"
+        logoAriaLabel="Service logo"
+        logoHref="https://hel.fi"
+        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+        menuButtonAriaLabel="Menu"
+      >
+        <Header.LanguageSelector
+          languages={[
+            { label: 'Suomi', value: 'fi' },
+            { label: 'Svenska', value: 'sv' },
+            { label: 'English', value: 'en' },
+          ]}
+        />
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+          <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+      <Header.NavigationMenu>
+        <Header.Link
+          href="#"
+          label="Sosiaali- ja terveyspalvelut"
+          dropdownLinks={[
+            <Header.Link
+              as={Link}
+              href="#"
+              label="Terveydenhoito"
+              active
+              dropdownLinks={[
+                <Header.Link as={Link} href="#" label="Hammashoito" />,
+                <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+              ]}
+            />,
+            <Header.Link
+              as={Link}
+              href="#"
+              label="Senioripalvelut"
+              dropdownLinks={[
+                <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+                <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link href="#" label="Kasvatus ja koulutus" />
+        <Header.Link href="#" label="Asuminen" />
+      </Header.NavigationMenu>
+    </Header>
+   </div> 
 </PlaygroundPreview>
 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-dark-theme">view full header with dark theme example in Storybook</Link>.

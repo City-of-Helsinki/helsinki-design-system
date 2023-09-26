@@ -305,7 +305,11 @@ const Layout = ({ children, pageContext }) => {
               />
             ))}
           </Footer.Navigation>
-          <Footer.Base copyrightHolder="Copyright" backToTopLabel="Back to top">
+          <Footer.Base
+            copyrightHolder="Copyright"
+            backToTopLabel="Back to top"
+            logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+          >
             <Footer.Link label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
             <Footer.Link label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
             <Footer.Link label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
