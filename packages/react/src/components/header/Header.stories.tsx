@@ -36,12 +36,12 @@ const languageChangedAction = () => {
 const logoSrcFromLanguageAndTheme = (lang: string, theme: string) => {
   switch (lang) {
     case 'sv':
-      if (theme === 'light') {
+      if (theme === 'light' || theme === 'custom') {
         return logoSv;
       }
       return logoSvDark;
     default:
-      if (theme === 'light') {
+      if (theme === 'light' || theme === 'custom') {
         return logoFi;
       }
       return logoFiDark;
@@ -181,6 +181,7 @@ export const WithFullFeatures = (args) => (
         />
       </Header.NavigationMenu>
     </Header>
+    <div id="content" />
   </>
 );
 
@@ -308,6 +309,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
         />
       </Header.NavigationMenu>
     </Header>
+    <div id="content" />
   </>
 );
 
@@ -317,38 +319,41 @@ WithFullFeaturesDarkTheme.args = {
 
 export const Minimal = (args) => {
   return (
-    <Header {...args} onDidChangeLanguage={languageChangedAction}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
-      >
-        <Header.LanguageSelector languages={languages}>
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com">
-            Viittomakieli
-          </Link>
-        </Header.LanguageSelector>
+    <>
+      <Header {...args} onDidChangeLanguage={languageChangedAction}>
+        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+        <Header.ActionBar
+          title="Helsingin kaupunki"
+          titleAriaLabel="Helsingin kaupunki"
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
+        >
+          <Header.LanguageSelector languages={languages}>
+            <h3>Tietoa muilla kielillä</h3>
+            <Link external href="www.example.com" size="S" lang="fi">
+              Selkosuomi
+            </Link>
+            <Link external href="www.example.com" size="S" lang="fi">
+              Viittomakieli
+            </Link>
+          </Header.LanguageSelector>
 
-        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-          <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
-        </Header.ActionBarItem>
-        <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
-          <h3>Kirjautumisvalinnat</h3>
-        </Header.ActionBarItem>
-      </Header.ActionBar>
+          <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+            <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
+          </Header.ActionBarItem>
+          <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
+            <h3>Kirjautumisvalinnat</h3>
+          </Header.ActionBarItem>
+        </Header.ActionBar>
 
-      <Header.NavigationMenu>
-        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
-        <Header.Link href="#" label="Kasvatus ja koulutus" />
-        <Header.Link href="#" label="Asuminen" />
-      </Header.NavigationMenu>
-    </Header>
+        <Header.NavigationMenu>
+          <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
+          <Header.Link href="#" label="Kasvatus ja koulutus" />
+          <Header.Link href="#" label="Asuminen" />
+        </Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
   );
 };
 
@@ -384,51 +389,187 @@ export const MinimalWithLocalization = (args) => {
   };
 
   return (
-    <Header {...args} onDidChangeLanguage={languageChangedStateAction}>
+    <>
+      <Header {...args} onDidChangeLanguage={languageChangedStateAction}>
+        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+        <Header.ActionBar
+          title={translations[lang]['header-title']}
+          titleAriaLabel={translations[lang]['header-aria-label']}
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang]['header-title']} />}
+        >
+          <Header.LanguageSelector languages={languages}>
+            <h3>{translations[lang]['header-menu-title']}</h3>
+            <Link external href="www.example.com" size="S" lang="fi">
+              Selkosuomi
+            </Link>
+            <Link external href="www.example.com" size="S" lang="fi">
+              Viittomakieli
+            </Link>
+          </Header.LanguageSelector>
+
+          <Header.ActionBarItem
+            fullWidth
+            label={translations[lang]['header-search']}
+            icon={<IconSearch />}
+            id="action-bar-search"
+          >
+            <Header.Search
+              onChange={searchChangeAction}
+              onSubmit={searchSubmitAction}
+              label={translations[lang]['header-search']}
+            />
+          </Header.ActionBarItem>
+          <Header.ActionBarItem
+            label={translations[lang]['header-login']}
+            fixedRightPosition
+            icon={<IconUser />}
+            id="action-bar-login"
+          >
+            <h3>Kirjautumisvalinnat</h3>
+          </Header.ActionBarItem>
+        </Header.ActionBar>
+
+        <Header.NavigationMenu>
+          <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
+          <Header.Link href="#" label="Kasvatus ja koulutus" />
+          <Header.Link href="#" label="Asuminen" />
+        </Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
+  );
+};
+
+export const WithFullFeaturesCustomTheme = (args) => (
+  <>
+    <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+        <Header.Link href="#" label="Uutiset" />
+        <Header.Link href="#" label="Asioi verkossa" />
+        <Header.Link href="#" label="Anna palautetta" />
+      </Header.UniversalBar>
+
       <Header.ActionBar
-        title={translations[lang]['header-title']}
-        titleAriaLabel={translations[lang]['header-aria-label']}
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang]['header-title']} />}
+        logoAriaLabel="Service logo"
+        logoHref="https://hel.fi"
+        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', 'custom')} alt="Helsingin kaupunki" />}
+        menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector languages={languages}>
-          <h3>{translations[lang]['header-menu-title']}</h3>
-          <Link external href="www.example.com">
+        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
           </Link>
-          <Link external href="www.example.com">
+          <Link external href="www.example.com" size="S" lang="fi">
             Viittomakieli
+          </Link>
+          <h3>Matkailijoille</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
+            MyHelsinki.fi
+          </Link>
+          <h3>Maahanmuuttajille</h3>
+          <Link external href="www.example.com" size="S" lang="fi">
+            InfoFinland.fi
           </Link>
         </Header.LanguageSelector>
 
-        <Header.ActionBarItem
-          fullWidth
-          label={translations[lang]['header-search']}
-          icon={<IconSearch />}
-          id="action-bar-search"
-        >
-          <Header.Search
-            onChange={searchChangeAction}
-            onSubmit={searchSubmitAction}
-            label={translations[lang]['header-search']}
-          />
-        </Header.ActionBarItem>
-        <Header.ActionBarItem
-          label={translations[lang]['header-login']}
-          fixedRightPosition
-          icon={<IconUser />}
-          id="action-bar-login"
-        >
-          <h3>Kirjautumisvalinnat</h3>
+        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
+          <Header.Search label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
-        <Header.Link href="#" label="Kasvatus ja koulutus" />
-        <Header.Link href="#" label="Asuminen" />
+        <Header.Link
+          href="#"
+          label="Sosiaali- ja terveyspalvelut"
+          onClick={(event) => event.preventDefault()}
+          active
+          dropdownLinks={[
+            <Header.Link
+              href="#"
+              label="Terveydenhoito"
+              active
+              dropdownLinks={[
+                <Header.Link href="#" label="Hammashoito" />,
+                <Header.Link href="#" label="Julkinen terveydenhoito" />,
+              ]}
+            />,
+            <Header.Link
+              href="#"
+              label="Senioripalvelut"
+              dropdownLinks={[
+                <Header.Link href="#" label="Viriketoiminta" />,
+                <Header.Link href="#" label="Kuntouttavat palvelut" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link
+          href="#"
+          label="Kasvatus ja koulutus"
+          dropdownLinks={[
+            <Header.Link
+              href="#"
+              label="Kasvatus"
+              active
+              dropdownLinks={[
+                <Header.Link href="#" label="Varhaiskasvatus" />,
+                <Header.Link href="#" label="Esiopetus" />,
+              ]}
+            />,
+            <Header.Link
+              href="#"
+              label="Koulutus"
+              dropdownLinks={[
+                <Header.Link href="#" label="Perusopetus" />,
+                <Header.Link href="#" label="Toisen asteen koulutus" />,
+                <Header.Link href="#" label="Työväenopistot" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.Link
+          href="#"
+          label="Yritykset ja työ"
+          dropdownLinks={[
+            <Header.Link
+              href="#"
+              label="Työnantajat"
+              active
+              dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
+            />,
+            <Header.Link
+              href="#"
+              label="Työntekijät"
+              dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
+            />,
+          ]}
+        />
       </Header.NavigationMenu>
     </Header>
-  );
+    <div id="content" />
+  </>
+);
+
+WithFullFeaturesCustomTheme.args = {
+  theme: {
+    '--color-focus-outline': 'var(--color-metro-dark)',
+    '--header-color': 'var(--color-black)',
+    '--header-focus-outline-color': 'var(--color-metro-dark)',
+    '--actionbar-background-color': 'var(--color-engel)',
+    '--nav-background-color': 'var(--color-engel-light)',
+    '--nav-border-color': 'var(--color-black)',
+    '--nav-link-hover-color': 'var(--color-black)',
+    '--universal-bar-background-color': 'var(--color-black-20)',
+    '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
+    '--nav-button-background-color': 'var(--color-black-20)',
+    '--nav-button-hover-background-color': 'var(--color-black-40)',
+    '--nav-drop-down-icon-color': 'var(--color-black)',
+    '--header-background-color': 'transparent',
+  },
 };

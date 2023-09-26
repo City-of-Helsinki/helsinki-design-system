@@ -58,7 +58,7 @@ button.button {
   padding: 0;
   position: absolute;
   top: 100%;
-  z-index: 1;
+  z-index: calc(var(--header-z-index) + 1);
 
   .dropdownLink {
     font-size: var(--fontsize-body-m);
