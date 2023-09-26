@@ -19,19 +19,20 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
             height="85"
             id="koros_basic-1"
             patternUnits="userSpaceOnUse"
-            width="106"
+            width="96"
             x="0"
             y="0"
           >
             <path
-              d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-              transform="scale(5.3)"
+              d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z"
+              transform="scale(3)"
             />
           </pattern>
         </defs>
         <rect
           fill="url(#koros_basic-1)"
           height="85"
+          style="shape-rendering: crispEdges;"
           width="100%"
         />
       </svg>

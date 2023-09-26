@@ -50,7 +50,7 @@ const getKoros = (flipped, pulse) => {
 const image = `<img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />`;
 
 export const ImageBottom = () => `
-  <div class="hds-hero hds-hero--image-bottom" style="--koros-height:14px;">
+  <div class="hds-hero hds-hero--image-bottom" style="--koros-height:15px;">
     <div class="hds-hero__container">
       <div class="hds-hero__content hds-hero__content--single-column">
         ${card}
@@ -81,12 +81,12 @@ export const DiagonalKoros = () => `
       Heights of different koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
     */
     .responsive-koros{
-      --koros-height: 14px;
-    }  
+      --koros-height: 15px;
+    }
     @media only screen and (min-width: 992px){
       .responsive-koros{
         --koros-height: auto;
-      }  
+      }
     }
   </style>
   <div class="hds-hero custom-theme hds-hero--diagonal-koros">
@@ -148,7 +148,7 @@ export const WithoutImageKorosOverlay = () => `
       --background-color: #9fc9eb;
       --color: #000;
       --koros-color: #9fc9eb;
-      --koros-height: 14px;
+      --koros-height: 15px;
     }
   </style>
   <div class="container">
@@ -177,7 +177,7 @@ export const ImageRight = () => `
       --background-color: #c2a251;
       --color: #000;
       --koros-color: var(--background-color);
-      --koros-height: 14px;
+      --koros-height: 15px;
     }
   </style>
   <div class="hds-hero custom-theme hds-hero--image-right">
@@ -205,7 +205,7 @@ export const ImageLeft = () => `
       --background-color: #c2a251;
       --color: #000;
       --koros-color: var(--background-color);
-      --koros-height: 14px;
+      --koros-height: 15px;
     }
   </style>
   <div class="hds-hero custom-theme hds-hero--image-left">
@@ -238,7 +238,7 @@ export const BackgroundImage = () => `
       --color: #000;
       --bottom-koros-color: #ccc;
       --top-koros-color: var(--background-color);
-      --koros-height: 14px;
+      --koros-height: 15px;
     }
   </style>
   <div class="container">
