@@ -45,7 +45,7 @@
 .hds-checkbox .hds-checkbox__input:before,
 .hds-checkbox .hds-checkbox__label:before,
 .hds-checkbox .hds-checkbox__label:after {
-  content: '';
+  content: "";
   left: 0;
   position: absolute;
   top: 0;
@@ -63,6 +63,7 @@
   width: var(--size);
   z-index: 1;
 }
+
 
 /* focus outline */
 .hds-checkbox .hds-checkbox__label:before {

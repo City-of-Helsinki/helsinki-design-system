@@ -418,7 +418,7 @@ PlaygroundForKoros.argTypes = {
     description: 'Koros type',
     control: {
       type: 'select',
-      options: ['basic', 'beat', 'pulse', 'wave', 'vibration', 'calm'],
+      options: ['basic', 'beat', 'pulse', 'storm', 'wave', 'calm'],
     },
     ...getKorosPropertyDescriptionAsSummary(),
   },
