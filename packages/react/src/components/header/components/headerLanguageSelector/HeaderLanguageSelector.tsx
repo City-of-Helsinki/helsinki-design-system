@@ -53,7 +53,7 @@ const renderLanguageNode = (language: LanguageOption) => {
 };
 
 const defaultLanguageSorter: LanguageSelectorProps['sortLanguageOptions'] = (options, selectedLanguage) => {
-  const hasPrimaryLanguages = options.findIndex((option) => typeof option.isPrimary !== 'undefined') > -1;
+  const hasPrimaryLanguages = options.some((option) => typeof option.isPrimary !== 'undefined');
   const selectedOption = options.find((option) => option.value === selectedLanguage);
   if (hasPrimaryLanguages && selectedOption.isPrimary !== true) {
     return [[selectedOption], options.filter((option) => option.value !== selectedOption.value)];
