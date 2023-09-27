@@ -115,9 +115,9 @@ type MenuLinksProps = {
 const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps) => {
   return (
     <>
-      {links.map((child, index) => {
-        if (!isValidElement(child)) return null;
-        return (
+      {links
+        .filter((child) => isValidElement(child))
+        .map((child: React.ReactElement, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <span className={styles.mobileNavigationLink}>
@@ -133,8 +133,7 @@ const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps
               })}
             </span>
           </li>
-        );
-      })}
+        ))}
     </>
   );
 };

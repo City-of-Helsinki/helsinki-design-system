@@ -67,10 +67,8 @@
   }
 
   .activeMobileLink.activeMobileLink {
-    flex-grow: 1;
     font-size: var(--fontsize-heading-m);
-    margin: 0;
-    padding: var(--spacing-m) var(--spacing-s);
+    margin: var(--spacing-m) var(--spacing-s);
     text-decoration: underline;
 
     &:hover {
