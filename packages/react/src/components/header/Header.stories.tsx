@@ -498,10 +498,10 @@ export const ManualLanguageSorting = (args) => {
     },
   };
 
-  const languageChangedAction2 = (lg: string) => setLang(lg);
+  const languageChangedStateAction = (lang: string) => setLang(lang);
   const onlyPrimaryLanguages = languages.filter((option) => option.isPrimary);
   return (
-    <Header {...args} onDidChangeLanguage={languageChangedAction2} languages={onlyPrimaryLanguages}>
+    <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={onlyPrimaryLanguages}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.ActionBar
         title={translations[lang]['header-title']}
@@ -576,9 +576,9 @@ export const ManualLanguageOptions = (args) => {
     },
   };
 
-  const languageChangedAction2 = (lg: string) => setLang(lg);
+  const languageChangedStateAction = (lang: string) => setLang(lang);
   return (
-    <Header {...args} onDidChangeLanguage={languageChangedAction2} languages={languages}>
+    <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
       <Header.ActionBar
         title={translations[lang]['header-title']}
