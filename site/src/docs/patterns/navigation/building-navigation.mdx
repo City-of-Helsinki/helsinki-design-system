@@ -57,15 +57,15 @@ Adhering to these principles can create an effective and user-friendly navigatio
       </ul>
     </li>
     <li>
-      <strong>Pay attention to label lengths.</strong>
+      <strong>Pay attention to label lengths and links.</strong>
       <ul style="margin-top:0;">
-        <li>Keep the as concise as possible.</li>
+        <li>Keep them as concise as possible and ensure navigation links match their destination pages. If multiple links lead to the same page, use identical labels.</li>
       </ul>
     </li>
     <li>
-      <strong>Check links.</strong>
+      <strong>Prioritise mobile users.</strong>
       <ul style="margin-top:0;">
-        <li>Ensure navigation links match their destination pages. If multiple links lead to the same page, use identical labels.</li>
+        <li>Design your navigation system with a 'mobile-first' mindset and ensure seamless functionality on mobile devices and touchscreens.</li>
       </ul>
     </li>
   </ul>
@@ -97,15 +97,6 @@ Adhering to these principles can create an effective and user-friendly navigatio
         <li>
           While it's essential to maintain a visually appealing design, prioritize clarity and usability when
           implementing the navigation pattern.
-        </li>
-      </ul>
-    </li>
-    <li>
-      <strong>Don't neglect mobile users.</strong>
-      <ul style="margin-top:0;">
-        <li>
-          Do not assume all users are on desktop devices; ensure the navigation pattern works well on mobile devices and
-          touchscreens.
         </li>
       </ul>
     </li>
@@ -355,49 +346,7 @@ export const SideNavExample = () => {
   </li>
 </ul>
 
-### 5. Tabs (optional)
-
-Tabs effectively complement top-level navigation by categorizing related content at the same hierarchy level. Ensure tabs are clearly labeled, selectable, and highlight when active. Arrange them logically, typically left-to-right. Tabs should supplement, not replace, top-level navigation.
-
-Use tabs, when you need to add page-specific navigation that is simple and one-layered. If your website has a complex or multi-layered hierarchy of information, where the top-level navigation isn't sufficient to provide a complete navigation experience, consider using side navigation instead of tabs.
-
-<PlaygroundPreview>
-  <Tabs>
-    <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
-      <Tabs.Tab>Daycare</Tabs.Tab>
-      <Tabs.Tab>Pre-school</Tabs.Tab>
-      <Tabs.Tab>Basic education</Tabs.Tab>
-      <Tabs.Tab>Upper secondary</Tabs.Tab>
-      <Tabs.Tab>University</Tabs.Tab>
-    </Tabs.TabList>
-    <Tabs.TabPanel>
-      Daytime care for people who cannot be fully independent, such as children or elderly people.
-    </Tabs.TabPanel>
-    <Tabs.TabPanel>
-      A pre-school is an educational establishment offering early childhood education to children before they begin
-      compulsory education at primary school.
-    </Tabs.TabPanel>
-    <Tabs.TabPanel>
-      The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
-      responsible membership of society.
-    </Tabs.TabPanel>
-    <Tabs.TabPanel>
-      Upper secondary school studies last three to four years, preparing the students for the matriculation examination.
-    </Tabs.TabPanel>
-    <Tabs.TabPanel>
-      A high-level educational institution in which students study for degrees and academic research is done.
-    </Tabs.TabPanel>
-  </Tabs>
-</PlaygroundPreview>
-
-<ul style="margin-bottom:0;">
-  <li>
-    The learn more about the <strong>Tabs</strong> component, please refer to
-    <InternalLink href="/components/tabs">the component page.</InternalLink>
-  </li>
-</ul>
-
-### 6. Main content (required)
+### 5. Main content (required)
 
 Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, links and other design elements, such as linkboxes, images, cards, that guide users through the content.
 
@@ -422,7 +371,7 @@ Following the hero section, the main content area is where the primary informati
   </li>
 </ul>
 
-### 7. Footer (required)
+### 6. Footer (required)
 
 The footer is placed at the bottom of the site and includes supplementary information and links, such as contact details, legal information, social media icons, and secondary navigation elements. The footer helps users find additional resources and reinforces the overall site structure by providing a consistent and accessible navigation area on every page.
 
