@@ -498,7 +498,7 @@ export const ManualLanguageSorting = (args) => {
     },
   };
 
-  const languageChangedStateAction = (lang: string) => setLang(lang);
+  const languageChangedStateAction = (language: string) => setLang(language);
   const onlyPrimaryLanguages = languages.filter((option) => option.isPrimary);
   return (
     <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={onlyPrimaryLanguages}>
@@ -576,7 +576,7 @@ export const ManualLanguageOptions = (args) => {
     },
   };
 
-  const languageChangedStateAction = (lang: string) => setLang(lang);
+  const languageChangedStateAction = (language: string) => setLang(language);
   return (
     <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
       <Header.SkipLink skipTo="#content" label="Skip To Content" />
