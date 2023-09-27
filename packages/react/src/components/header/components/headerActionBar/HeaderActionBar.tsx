@@ -30,12 +30,12 @@ const defaultBarrierProps: Partial<TabBarrierProps> = {
   'aria-hidden': true,
 };
 
-const findFocusableDialogElements = (dialogElement: HTMLElement): NodeList =>
-  dialogElement.querySelectorAll('a, button, textarea, input[type="text"], select');
+const findFocusableElementsWithin = (element: HTMLElement): NodeList =>
+  element.querySelectorAll('a, button, textarea, input[type="text"], select');
 
-const focusToActionBar = (position: TabBarrierPosition, dialogElement?: HTMLElement) => {
-  if (dialogElement) {
-    const focusableElements = findFocusableDialogElements(dialogElement);
+const focusToActionBar = (position: TabBarrierPosition, element?: HTMLElement) => {
+  if (element) {
+    const focusableElements = findFocusableElementsWithin(element);
     if (focusableElements.length) {
       (focusableElements[
         position === TabBarrierPosition.top ? 0 : focusableElements.length - 1
@@ -49,12 +49,12 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
 };
 
-const addDocumentTabBarrier = (position: TabBarrierPosition, dialogElement?: HTMLElement): HTMLDivElement => {
+const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLElement): HTMLDivElement => {
   const element = document.createElement('div');
   element.className = 'hds-actionbar-tab-barrier';
   element.tabIndex = defaultBarrierProps.tabIndex;
   element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
-  element.addEventListener('focus', () => focusToActionBar(position, dialogElement));
+  element.addEventListener('focus', () => focusToActionBar(position, actionBar));
   if (position === TabBarrierPosition.top) {
     document.body.insertBefore(element, document.body.firstChild);
   } else {
