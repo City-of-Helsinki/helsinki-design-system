@@ -134,7 +134,7 @@ export const HeaderActionBar = ({
       <div className={styles.headerActionBarContainer}>
         <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
           <LinkItem {...logoProps}>
-            {logoProps?.href ? <span className={styles.logoWrapper}>{logo}</span> : logo}
+            <span className={styles.logoWrapper}>{logo}</span>
           </LinkItem>
           {title && (
             <LinkItem {...titleProps}>
@@ -155,10 +155,7 @@ export const HeaderActionBar = ({
         </div>
       </div>
       <HeaderLanguageSelector fullWidthForMobile />
-      <HeaderActionBarNavigationMenu
-        logo={logoProps?.href ? <span className={styles.logoWrapper}>{logo}</span> : logo}
-        logoProps={logoProps}
-      />
+      <HeaderActionBarNavigationMenu logo={<span className={styles.logoWrapper}>{logo}</span>} logoProps={logoProps} />
     </>
   );
 };
