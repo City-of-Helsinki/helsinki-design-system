@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, MouseEventHandler, RefObject, createRef, useEffect, useMemo } from 'react';
+import React, { PropsWithChildren, MouseEventHandler, useEffect, useMemo, useRef } from 'react';
 
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
@@ -30,12 +30,23 @@ const defaultBarrierProps: Partial<TabBarrierProps> = {
   'aria-hidden': true,
 };
 
-const findFocusableElementsWithin = (element: HTMLElement): NodeList =>
-  element.querySelectorAll('a, button, textarea, input[type="text"], select');
+const elementIsInViewport = (element: Element) => {
+  const { top, left, bottom, right } = element.getBoundingClientRect();
+  const { innerHeight, innerWidth } = window;
+
+  return top > 0 && left > 0 && bottom < innerHeight && right < innerWidth;
+};
+
+const findFocusableElementsWithin = (element: HTMLElement) => {
+  const focusable = element.querySelectorAll('a, button, textarea, input[type="text"], select');
+
+  return Array.from(focusable).filter((item) => elementIsInViewport(item));
+};
 
 const focusToActionBar = (position: TabBarrierPosition, element?: HTMLElement) => {
   if (element) {
     const focusableElements = findFocusableElementsWithin(element);
+
     if (focusableElements.length) {
       (focusableElements[
         position === TabBarrierPosition.top ? 0 : focusableElements.length - 1
@@ -154,7 +165,7 @@ export const HeaderActionBar = ({
   const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
   const { mobileMenuOpen } = useHeaderContext();
-  const actionBarRef: RefObject<HTMLInputElement> = createRef();
+  const actionBarRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
     // When mobile menu is open, set up tab barriers to prevent keyboard navigation to content outside action bar and menu.
