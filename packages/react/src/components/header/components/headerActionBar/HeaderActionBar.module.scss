@@ -70,9 +70,11 @@
   .normal > & {
     @include typography.title-normal;
   }
+
   .bold > & {
     @include typography.title-bold;
   }
+
   .black > & {
     @include typography.title-black;
   }
