@@ -5,7 +5,8 @@ import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { HeaderNavigationMenuContent } from '../headerNavigationMenu';
-import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
+import { LinkProps } from '../../../../internal/LinkItem';
+import HeaderActionBarLogo from './HeaderActionBarLogo';
 
 type HeaderActionBarNavigationMenuProps = {
   /**
@@ -54,9 +55,13 @@ export const HeaderActionBarNavigationMenu = ({ logo, logoProps }: HeaderActionB
           })}
         </ul>
       )}
-      <LinkItem {...logoProps} className={styles.logoLink}>
-        {logo}
-      </LinkItem>
+      <HeaderActionBarLogo
+        logoProps={{
+          ...logoProps,
+          className: classNames(logoProps.className, styles.logoLink),
+        }}
+        logo={logo}
+      />
     </div>
   );
 };

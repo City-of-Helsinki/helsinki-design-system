@@ -44,9 +44,7 @@
 }
 
 .logoLink {
-  box-sizing: content-box;
-  display: flex;
-  height: calc(var(--logo-height) * 1.5);
+  height: calc(var(--logo-height) * 1.5) !important;
   justify-content: center;
   margin-bottom: var(--spacing-m);
 }
