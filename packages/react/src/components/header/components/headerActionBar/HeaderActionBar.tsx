@@ -31,6 +31,8 @@ const defaultBarrierProps: Partial<TabBarrierProps> = {
   'aria-hidden': true,
 };
 
+const ACTIONBAR_TAB_BARRIER_CLASS_NAME = 'hds-actionbar-tab-barrier';
+
 const findFocusableElementsWithin = (element: HTMLElement) => {
   const elements = element.querySelectorAll('a, button, textarea, input[type="text"], select');
 
@@ -54,9 +56,9 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
 };
 
-const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLElement): HTMLDivElement => {
+const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLElement): (() => void) => {
   const element = document.createElement('div');
-  element.className = 'hds-actionbar-tab-barrier';
+  element.className = ACTIONBAR_TAB_BARRIER_CLASS_NAME;
   element.tabIndex = defaultBarrierProps.tabIndex;
   element['aria-hidden'] = defaultBarrierProps['aria-hidden'];
   element.addEventListener('focus', () => focusToActionBar(position, actionBar));
@@ -65,7 +67,8 @@ const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLEle
   } else {
     document.body.appendChild(element);
   }
-  return element;
+
+  return () => element.remove();
 };
 
 export enum TitleStyleType {
@@ -164,14 +167,12 @@ export const HeaderActionBar = ({
   useEffect(() => {
     // When mobile menu is open, set up tab barriers to prevent keyboard navigation to content outside action bar and menu.
     if (mobileMenuOpen && actionBarRef !== undefined) {
-      addDocumentTabBarrier(TabBarrierPosition.top, actionBarRef.current);
-      addDocumentTabBarrier(TabBarrierPosition.bottom, actionBarRef.current);
+      const removeTopTabBarrier = addDocumentTabBarrier(TabBarrierPosition.top, actionBarRef.current);
+      const removeBottomTabBarrier = addDocumentTabBarrier(TabBarrierPosition.bottom, actionBarRef.current);
 
       return () => {
-        const barriers = document.querySelectorAll('.hds-actionbar-tab-barrier');
-        barriers.forEach((element) => {
-          element.remove();
-        });
+        removeTopTabBarrier();
+        removeBottomTabBarrier();
       };
     }
 
