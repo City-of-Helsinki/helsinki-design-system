@@ -58,7 +58,7 @@ const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLEle
   const element = document.createElement('div');
   element.className = 'hds-actionbar-tab-barrier';
   element.tabIndex = defaultBarrierProps.tabIndex;
-  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
+  element['aria-hidden'] = defaultBarrierProps['aria-hidden'];
   element.addEventListener('focus', () => focusToActionBar(position, actionBar));
   if (position === TabBarrierPosition.top) {
     document.body.insertBefore(element, document.body.firstChild);
