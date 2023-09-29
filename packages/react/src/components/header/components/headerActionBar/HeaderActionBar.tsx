@@ -6,6 +6,7 @@ import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
+import { elementIsInViewport } from '../../../../utils/elementIsInViewport';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
@@ -28,13 +29,6 @@ type TabBarrierProps = {
 const defaultBarrierProps: Partial<TabBarrierProps> = {
   tabIndex: 0,
   'aria-hidden': true,
-};
-
-const elementIsInViewport = (element: Element) => {
-  const { top, left, bottom, right } = element.getBoundingClientRect();
-  const { innerHeight, innerWidth } = window;
-
-  return top > 0 && left > 0 && bottom < innerHeight && right < innerWidth;
 };
 
 const findFocusableElementsWithin = (element: HTMLElement) => {
