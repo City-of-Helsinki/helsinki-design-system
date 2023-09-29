@@ -6,7 +6,7 @@ import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
-import { elementIsInViewport } from '../../../../utils/elementIsInViewport';
+import { elementIsFocusable } from '../../../../utils/elementIsFocusable';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
@@ -32,9 +32,9 @@ const defaultBarrierProps: Partial<TabBarrierProps> = {
 };
 
 const findFocusableElementsWithin = (element: HTMLElement) => {
-  const focusable = element.querySelectorAll('a, button, textarea, input[type="text"], select');
+  const elements = element.querySelectorAll('a, button, textarea, input[type="text"], select');
 
-  return Array.from(focusable).filter((item) => elementIsInViewport(item));
+  return Array.from(elements).filter((item) => elementIsFocusable(item as HTMLElement));
 };
 
 const focusToActionBar = (position: TabBarrierPosition, element?: HTMLElement) => {
