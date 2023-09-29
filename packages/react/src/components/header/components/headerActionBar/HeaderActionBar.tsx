@@ -8,6 +8,7 @@ import { HeaderLanguageSelector } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import styles from './HeaderActionBar.module.scss';
+import HeaderActionBarLogo from './HeaderActionBarLogo';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -133,9 +134,7 @@ export const HeaderActionBar = ({
     <>
       <div className={styles.headerActionBarContainer}>
         <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
-          <LinkItem {...logoProps}>
-            {logoProps?.href ? <span className={styles.logoWrapper}>{logo}</span> : logo}
-          </LinkItem>
+          <HeaderActionBarLogo logo={logo} logoProps={logoProps} />
           {title && (
             <LinkItem {...titleProps}>
               <span className={classNames(styles.title)}>{title}</span>
@@ -155,7 +154,7 @@ export const HeaderActionBar = ({
         </div>
       </div>
       <HeaderLanguageSelector fullWidthForMobile />
-      <HeaderActionBarNavigationMenu />
+      <HeaderActionBarNavigationMenu logo={logo} logoProps={logoProps} />
     </>
   );
 };

@@ -5,8 +5,21 @@ import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { HeaderNavigationMenuContent } from '../headerNavigationMenu';
+import { LinkProps } from '../../../../internal/LinkItem';
+import HeaderActionBarLogo from './HeaderActionBarLogo';
 
-export const HeaderActionBarNavigationMenu = () => {
+type HeaderActionBarNavigationMenuProps = {
+  /**
+   * Logo to use
+   */
+  logo: JSX.Element;
+  /**
+   * Logo properties
+   */
+  logoProps: LinkProps;
+};
+
+export const HeaderActionBarNavigationMenu = ({ logo, logoProps }: HeaderActionBarNavigationMenuProps) => {
   const {
     hasNavigationContent,
     isNotLargeScreen,
@@ -42,6 +55,13 @@ export const HeaderActionBarNavigationMenu = () => {
           })}
         </ul>
       )}
+      <HeaderActionBarLogo
+        logoProps={{
+          ...logoProps,
+          className: classNames(logoProps.className, styles.logoLink),
+        }}
+        logo={logo}
+      />
     </div>
   );
 };

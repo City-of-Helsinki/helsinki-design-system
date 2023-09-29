@@ -1,4 +1,4 @@
-@import "../../../../styles/common.scss";
+@import '../../../../styles/common.scss';
 
 .headerNavigationMenu {
   background-color: var(--color-silver-light);
@@ -41,4 +41,10 @@
   .universalLink.universalLink {
     font-size: var(--fontsize-body-m);
   }
+}
+
+.logoLink {
+  height: calc(var(--logo-height) * 1.5) !important;
+  justify-content: center;
+  margin-bottom: var(--spacing-m);
 }

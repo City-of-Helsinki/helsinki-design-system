@@ -15,7 +15,7 @@
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
-  
+
   hr {
     border: 0;
     border-left: 1px solid var(--color-black-20);
@@ -57,7 +57,7 @@
     outline-offset: var(--header-focus-outline-width);
   }
 
-  &:not([href]):not([tabindex="0"]) {
+  &:not([href]):not([tabindex='0']) {
     cursor: auto;
   }
 }
@@ -67,21 +67,21 @@
   margin-top: -2px;
   padding: 1px;
 
-  .normal > & { @include typography.title-normal }
-  .bold > & { @include typography.title-bold }
-  .black > & { @include typography.title-black }
+  .normal > & {
+    @include typography.title-normal;
+  }
+
+  .bold > & {
+    @include typography.title-bold;
+  }
+
+  .black > & {
+    @include typography.title-black;
+  }
 }
 
 .logo {
   align-self: center;
   box-sizing: content-box;
   height: var(--logo-height);
-}
-
-.logoWrapper {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  max-height: 100%;
-  max-width: 100%;
 }
