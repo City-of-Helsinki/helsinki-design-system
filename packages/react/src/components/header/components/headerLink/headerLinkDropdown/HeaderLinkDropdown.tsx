@@ -102,7 +102,6 @@ export const HeaderLinkDropdown = ({
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
         aria-label={getDefaultButtonAriaLabel()}
-        aria-expanded={open}
       >
         {renderIcon()}
       </button>

@@ -250,13 +250,12 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   });
 
   return (
-    <span className={navigationWrapperLinkClassName} ref={containerRef}>
-      <Item
-        className={navigationLinkClassName}
-        href={href}
-        {...(Boolean(dropdownLinks) && { 'aria-expanded': isDropdownOpen })}
-        {...rest}
-      >
+    <span
+      className={navigationWrapperLinkClassName}
+      ref={containerRef}
+      {...(Boolean(dropdownLinks) && { 'aria-expanded': isDropdownOpen })}
+    >
+      <Item className={navigationLinkClassName} href={href} {...rest}>
         {label}
       </Item>
       {dropdownLinks && (
