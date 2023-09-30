@@ -52,6 +52,14 @@ const renderLanguageNode = (language: LanguageOption) => {
   return <LanguageButton key={language.value} value={language.value} label={language.label} />;
 };
 
+export const SimpleLanguageOptions = ({ languages }: { languages: LanguageOption[] }) => {
+  return (
+    <div className={classNames(classes.languageNodes, classes.simpleLanguageNodes)}>
+      {languages.map(renderLanguageNode)}
+    </div>
+  );
+};
+
 const defaultLanguageSorter: LanguageSelectorProps['sortLanguageOptions'] = (options, selectedLanguage) => {
   const hasPrimaryLanguages = options.some((option) => typeof option.isPrimary !== 'undefined');
   const selectedOption = options.find((option) => option.value === selectedLanguage);

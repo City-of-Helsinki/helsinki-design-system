@@ -158,12 +158,16 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
       <span
         class="titleAndLogoContainer logo"
       >
-        <img
-          alt="Helsingin kaupunki"
-          class="logo"
-          data-testid="action-bar-logo"
-          src="dummySrc"
-        />
+        <span
+          class="logoWrapper"
+        >
+          <img
+            alt="Helsingin kaupunki"
+            class="logo"
+            data-testid="action-bar-logo"
+            src="dummySrc"
+          />
+        </span>
       </span>
       <span
         class="titleAndLogoContainer title normal"

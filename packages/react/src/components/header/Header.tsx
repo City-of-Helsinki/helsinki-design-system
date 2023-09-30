@@ -7,7 +7,7 @@ import { HeaderActionBar, TitleStyleType } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderLink } from './components/headerLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
-import { HeaderLanguageSelector, LanguageButton } from './components/headerLanguageSelector';
+import { HeaderLanguageSelector, LanguageButton, SimpleLanguageOptions } from './components/headerLanguageSelector';
 import { HeaderSearch } from './components/headerSearch';
 import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
@@ -75,6 +75,7 @@ interface HeaderInterface extends FC<HeaderProps> {
   Search: typeof HeaderSearch;
   SkipLink: typeof SkipLink;
   LanguageButton: typeof LanguageButton;
+  SimpleLanguageOptions: typeof SimpleLanguageOptions;
 }
 
 export const Header: HeaderInterface = ({ onDidChangeLanguage, defaultLanguage, languages, ...props }: HeaderProps) => {
@@ -103,3 +104,4 @@ Header.LanguageSelector = HeaderLanguageSelector;
 Header.Search = HeaderSearch;
 Header.SkipLink = SkipLink;
 Header.LanguageButton = LanguageButton;
+Header.SimpleLanguageOptions = SimpleLanguageOptions;
