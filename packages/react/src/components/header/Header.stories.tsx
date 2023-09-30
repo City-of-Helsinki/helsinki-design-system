@@ -56,7 +56,10 @@ const languages: LanguageOption[] = [
   { label: 'Suomi', value: 'fi', isPrimary: true },
   { label: 'Svenska', value: 'sv', isPrimary: true },
   { label: 'English', value: 'en', isPrimary: true },
+  { label: 'Deutsch', value: 'de' },
   { label: 'Español', value: 'es' },
+  { label: 'Français', value: 'fr' },
+  { label: 'Pусский', value: 'ru' },
 ];
 
 export const WithFullFeatures = (args) => (
@@ -78,20 +81,7 @@ export const WithFullFeatures = (args) => (
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector ariaLabel="Kielen valinta">
-          <h3>Muut kielet</h3>
-          <Link href="www.example.com" size="S" lang="de">
-            Deutsch
-          </Link>
-          <Link href="www.example.com" size="S" lang="es">
-            Español
-          </Link>
-          <Link href="www.example.com" size="S" lang="fr">
-            Français
-          </Link>
-          <Link href="www.example.com" size="S" lang="ru">
-            Pусский
-          </Link>
+        <Header.LanguageSelector ariaLabel="Kielen valinta" languageHeading="Muut kielet">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
@@ -206,20 +196,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
         logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector ariaLabel="Kielen valinta">
-          <h3>Muut kielet</h3>
-          <Link href="www.example.com" size="S" lang="de">
-            Deutsch
-          </Link>
-          <Link href="www.example.com" size="S" lang="es">
-            Español
-          </Link>
-          <Link href="www.example.com" size="S" lang="fr">
-            Français
-          </Link>
-          <Link href="www.example.com" size="S" lang="ru">
-            Pусский
-          </Link>
+        <Header.LanguageSelector ariaLabel="Kielen valinta" languageHeading="Muut kielet">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
@@ -330,7 +307,7 @@ export const Minimal = (args) => {
           titleHref="https://hel.fi"
           logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
         >
-          <Header.LanguageSelector>
+          <Header.LanguageSelector languageHeading="Muut kielet" ariaLabel="Valitse kieli">
             <h3>Tietoa muilla kielillä</h3>
             <Link external href="www.example.com" size="S" lang="fi">
               Selkosuomi
@@ -509,7 +486,10 @@ export const ManualLanguageSorting = (args) => {
         titleHref="https://hel.fi"
         logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
       >
-        <Header.LanguageSelector sortLanguageOptions={sortLanguageOptions} />
+        <Header.LanguageSelector
+          sortLanguageOptions={sortLanguageOptions}
+          languageHeading={translations[lang]['header-menu-title']}
+        />
 
         <Header.ActionBarItem
           fullWidth
@@ -618,7 +598,7 @@ export const WithFullFeaturesCustomTheme = (args) => (
         logo={<Logo src={logoSrcFromLanguageAndTheme('fi', 'custom')} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector ariaLabel="Kielen valinta">
+        <Header.LanguageSelector languageHeading="Muut kielet" ariaLabel="Valitse kieli">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com" size="S" lang="fi">
             Selkosuomi
