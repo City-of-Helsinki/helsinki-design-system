@@ -1,17 +1,35 @@
+@use "../../Header.module.scss";
 @use "../../../../styles/common.scss";
-@use "../../../../styles/typography.scss";
+@use "./_typography.scss";
 
 .headerActionBar {
   align-items: stretch;
-  border-bottom: 1px solid var(--header-divider-color);
   box-sizing: border-box;
+  color: var(--header-color);
   display: flex;
-  gap: var(--action-bar-section-gutter);
+  gap: calc(var(--header-margin) / 2);
   height: var(--action-bar-container-height);
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--header-max-width);
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
+
+  hr {
+    border: 0;
+    border-left: 1px solid var(--color-black-20);
+    display: inline-block;
+    height: 100%;
+    margin: 0 5px;
+    width: 0;
+  }
+}
+
+.headerActionBarContainer {
+  background-color: var(--actionbar-background-color);
+  border-bottom: 1px solid var(--header-divider-color);
+  width: 100%;
 }
 
 .headerActions {
@@ -33,39 +51,37 @@
   text-decoration: none;
   white-space: nowrap;
 
-  &:not([href]):not([tabindex="0"]) {
-    cursor: auto;
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+    outline-offset: var(--header-focus-outline-width);
   }
 
-  @include common.focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  );
+  &:not([href]):not([tabindex='0']) {
+    cursor: auto;
+  }
 }
 
 .title {
   align-self: center;
   margin-top: -2px;
-  padding: 4px;
+  padding: 1px;
 
-  .normal > & { @include typography.title-normal }
-  .bold > & { @include typography.title-bold }
-  .black > & { @include typography.title-black }
+  .normal > & {
+    @include typography.title-normal;
+  }
+
+  .bold > & {
+    @include typography.title-bold;
+  }
+
+  .black > & {
+    @include typography.title-black;
+  }
 }
 
 .logo {
   align-self: center;
   box-sizing: content-box;
   height: var(--logo-height);
-}
-
-hr {
-  border: 0;
-  border-left: 1px solid var(--color-black-20);
-  display: inline-block;
-  height: 100%;
-  margin: 0 5px;
-  width: 0;
 }

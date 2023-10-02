@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/coffee-cup-saucer.svg");
-
-.hds-icon--coffee-cup-saucer {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

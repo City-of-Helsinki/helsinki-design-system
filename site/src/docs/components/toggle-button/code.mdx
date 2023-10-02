@@ -3,11 +3,8 @@ slug: '/components/toggle-button/code'
 title: 'ToggleButton - Code'
 ---
 
-import { Link, ToggleButton } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { ToggleButton } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -16,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground>
+<Playground scope={{ ToggleButton }}>
 
 ```jsx
 import { ToggleButton } from 'hds-react';
@@ -41,7 +38,7 @@ import { ToggleButton } from 'hds-react';
 </Playground>
 
 #### With a horizontal label
-<Playground>
+<Playground scope={{ ToggleButton }}>
 
 ```jsx
 import { ToggleButton } from 'hds-react';

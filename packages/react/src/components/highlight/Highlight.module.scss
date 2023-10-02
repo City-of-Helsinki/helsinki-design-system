@@ -1,0 +1,27 @@
+.highlight {
+  composes: hds-highlight from 'hds-core/lib/components/highlight/highlight.css';
+}
+
+.highlightBlockquote {
+  composes: hds-blockquote from 'hds-core/lib/components/highlight/highlight.css';
+}
+
+.text {
+  composes: hds-highlight__text from 'hds-core/lib/components/highlight/highlight.css';
+}
+
+.size-s {
+  composes: hds-highlight--small from 'hds-core/lib/components/highlight/highlight.css';
+}
+
+.size-l  {
+  composes: hds-highlight--large from 'hds-core/lib/components/highlight/highlight.css';
+}
+
+.quote {
+  composes: hds-highlight__quote from 'hds-core/lib/components/highlight/highlight.css';
+}
+
+.reference {
+  composes: hds-highlight__reference from 'hds-core/lib/components/highlight/highlight.css';
+}

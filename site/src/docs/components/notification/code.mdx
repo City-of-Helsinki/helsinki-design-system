@@ -3,8 +3,8 @@ slug: '/components/notification/code'
 title: 'Notification - Code'
 ---
 
-import { Button, Link, Notification } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
+import { Button, Notification } from 'hds-react';
+import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples
 
 #### Inline
-<Playground>
+<Playground scope={{ Notification }}>
 
 
 ```jsx
@@ -75,15 +75,15 @@ import { Notification } from 'hds-react';
 </Playground>
 
 #### Toast
-<Playground>
+<Playground scope={{ Notification, Button, useState }}>
 
 
 ```jsx
 import { Notification, Button } from 'hds-react';
 
 () => {
-  const [open, setOpen] = React.useState(false)
-  const [autoCloseOpen, setAutoCloseOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
+  const [autoCloseOpen, setAutoCloseOpen] = useState(false)
   const showButtonRef = React.useRef(null)
   const showAutoCloseButtonRef = React.useRef(null)
   const onClose = () => {
@@ -135,7 +135,7 @@ import { Notification, Button } from 'hds-react';
 </Playground>
 
 #### Notification sizes
-<Playground>
+<Playground scope={{ Notification }}>
 
 
 ```jsx
@@ -184,7 +184,7 @@ import { Notification } from 'hds-react';
 </Playground>
 
 #### Invisible
-<Playground>
+<Playground scope={{ Notification }}>
 
 
 ```jsx
@@ -198,7 +198,7 @@ import { Notification } from 'hds-react';
 ```
 
 ```html
-<div class="hiddenFromScreen" role="alert">
+<div class="visually-hidden" role="alert">
   <section aria-label="Notification" class="hds-notification">
     <div class="hds-notification__content">
       <div class="hds-notification__label">

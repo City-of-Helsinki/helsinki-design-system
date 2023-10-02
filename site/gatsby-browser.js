@@ -4,7 +4,11 @@
  * See: https://www.gatsbyjs.com/docs/browser-apis/
  */
 
-import 'hds-core/lib/base.css';
-import 'hds-core/lib/icons/all.css';
-import 'hds-core/lib/icons/icon.css';
-import 'hds-core/lib/components/all.css';
+const React = require('react');
+const Layout = require('./src/components/layout').default;
+
+// Wraps every page in a component
+exports.wrapPageElement = ({ element, props }) => {
+  if (props.location.pathname.includes("this-is-hds")) return null
+  return <Layout {...props}>{element}</Layout>;
+};

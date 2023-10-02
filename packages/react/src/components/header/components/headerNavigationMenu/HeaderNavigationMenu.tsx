@@ -1,7 +1,8 @@
 import React, { Children, cloneElement, isValidElement, useEffect } from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../../../styles/base.css';
+
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
@@ -10,11 +11,11 @@ import styles from './HeaderNavigationMenu.module.scss';
 
 export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing universal bar.
+   * Aria-label for describing universal bar.
    */
   ariaLabel?: string;
   /**
-   * Children are expected to be NavigationLink components or a container with NavigationLink components inside.
+   * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
    */
   children?: React.ReactNode;
   /**
@@ -23,34 +24,46 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   id?: string;
 }>;
 
-const activeLinkClassName = classNames(
-  styles.headerNavigationMenuLinkContent,
-  styles.headerNavigationMenuLinkContentActive,
-);
+const renderHeaderNavigationMenuItem = (child, index, isNotLargeScreen) => {
+  const linkContentClass = isNotLargeScreen
+    ? styles.headerNavigationMenuLinkContentMobile
+    : styles.headerNavigationMenuLinkContent;
 
-const renderHeaderNavigationMenuItem = (child, index) => {
-  const linkContainerClasses = child.props.active ? activeLinkClassName : styles.headerNavigationMenuLinkContent;
-  const className = classNames(child.props.className, styles.headerNavigationMenuLink);
-  const node = cloneElement(child as React.ReactElement, {
-    className,
+  const activeLinkClassName = classNames(linkContentClass, styles.headerNavigationMenuLinkContentActive);
+  const linkContainerClasses = child.props.active && !isNotLargeScreen ? activeLinkClassName : linkContentClass;
+
+  // Pass several className props downwards
+  const mobileNode = cloneElement(child as React.ReactElement, {
+    dropdownLinkClassName: styles.headerNavigationMenuDropdownLinkMobile,
+    dropdownClassName: styles.headerNavigationMenuDropdownMobile,
+    wrapperClassName: styles.headerNavigationMenuLinkWrapperMobile,
+    dropdownButtonClassName: styles.headerNavigationMenuDropdownButtonMobile,
+    className: classNames(child.props.className, styles.headerNavigationMenuLinkMobile),
     index,
   });
 
+  const desktopNode = cloneElement(child as React.ReactElement, {
+    className: classNames(child.props.className, styles.headerNavigationMenuLink),
+    index,
+  });
+
+  const node = isNotLargeScreen ? mobileNode : desktopNode;
+
   return (
     // eslint-disable-next-line react/no-array-index-key
-    <li key={index} className={styles.headerNavigationMenuLinkContainer}>
+    <li key={index}>
       <span className={linkContainerClasses}>{node}</span>
     </li>
   );
 };
 
-const HeaderNavigationMenuContent = () => {
-  const { navigationContent } = useHeaderContext();
+export const HeaderNavigationMenuContent = () => {
+  const { isNotLargeScreen, navigationContent } = useHeaderContext();
   return (
     <>
       {Children.map(navigationContent, (child, index) => {
         if (!isValidElement(child)) return null;
-        return renderHeaderNavigationMenuItem(child, index);
+        return renderHeaderNavigationMenuItem(child, index, isNotLargeScreen);
       })}
     </>
   );
@@ -65,18 +78,17 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
     setNavigationContent(navigationContent);
   }, [children]);
 
-  /* On medium screen return null for now. Later when ActionBar's first version is done,
-  we could see if this component with its contents (altered for medium screens) could be
-  sent to HeaderContext and used in ActionBar? */
   if (isNotLargeScreen) return null;
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
-      <ul className={styles.headerNavigationMenuList}>
-        <HeaderNavigationMenuContextProvider>
-          <HeaderNavigationMenuContent />
-        </HeaderNavigationMenuContextProvider>
-      </ul>
-    </nav>
+    <div className={styles.headerNavigationMenuContainer}>
+      <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
+        <ul className={styles.headerNavigationMenuList}>
+          <HeaderNavigationMenuContextProvider>
+            <HeaderNavigationMenuContent />
+          </HeaderNavigationMenuContextProvider>
+        </ul>
+      </nav>
+    </div>
   );
 };

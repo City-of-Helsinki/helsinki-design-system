@@ -4,8 +4,10 @@ import { Hero, HeroCustomTheme, HeroProps } from './Hero';
 import { Button } from '../button/Button';
 // @ts-ignore
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
-import { Navigation } from '../navigation/Navigation';
+import { Logo, logoFi } from '../logo';
+import { Header } from '../header/Header';
 import { Section } from '../section/Section';
+import { LanguageOption } from '../header/LanguageContext';
 
 export default {
   component: Hero,
@@ -189,35 +191,44 @@ const DefaultContent = (props: DefaultContentProps) => {
   );
 };
 
-const NavigationComponent = () => (
-  <Navigation menuToggleAriaLabel="Menu" skipTo="#content" skipToContentLabel="Skip to main content">
-    {/* NAVIGATION ROW */}
-    <Navigation.Row ariaLabel="Main navigation">
-      <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
-      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-      <Navigation.Dropdown label="Dropdown">
-        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-      </Navigation.Dropdown>
-    </Navigation.Row>
+const languages: LanguageOption[] = [
+  { label: 'Suomi', value: 'fi' },
+  { label: 'Svenska', value: 'sv' },
+  { label: 'English', value: 'en' },
+];
 
-    {/* NAVIGATION ACTIONS */}
-    <Navigation.Actions>
-      {/* LANGUAGE SELECTOR */}
-      <Navigation.LanguageSelector label="FI">
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fr" label="En français" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="de" label="Auf deutsch" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="ru" label="По-русски" />
-      </Navigation.LanguageSelector>
-    </Navigation.Actions>
-  </Navigation>
+const NavigationComponent = () => (
+  <Header languages={languages}>
+    <Header.SkipLink skipTo="#content" label="Skip to main content" />
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleAriaLabel="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      menuButtonAriaLabel="Menu"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+    >
+      <Header.LanguageSelector ariaLabel="Kielen valinta" />
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.Link href="#" label="Link" active onClick={(e) => e.preventDefault()} />
+      <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Header.Link
+        href="#"
+        label="Dropdown"
+        onClick={(e) => e.preventDefault()}
+        dropdownLinks={[
+          <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />,
+          <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />,
+          <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />,
+          <Header.Link href="#" label="Link" onClick={(e) => e.preventDefault()} />,
+        ]}
+      />
+    </Header.NavigationMenu>
+  </Header>
 );
 
 export const ImageLeft = (args) => {
@@ -283,7 +294,7 @@ WithoutImageKorosOverlay.argTypes = {
     '--color': '#fff',
     '--koros-color': '#000',
   }),
-  ...createKorosArg({ flipHorizontal: true }),
+  ...createKorosArg({ flipVertical: true }),
   ...createVariantArg('noImage'),
   ...createCenteredContentArg(false),
 };
@@ -430,9 +441,9 @@ PlaygroundForKoros.argTypes = {
     ...korosPosition,
     ...getThemePropertyDescriptionAsSummary('--diagonal-koros-position'),
   },
-  flipHorizontal: {
+  flipVertical: {
     control: 'boolean',
-    description: 'Flip koros horizontally. Most variants override this setting.',
+    description: 'Flip koros vertically. Most variants override this setting.',
     ...getKorosPropertyDescriptionAsSummary(),
   },
   ...createVariantArg('diagonalKoros'),

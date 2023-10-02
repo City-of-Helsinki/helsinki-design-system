@@ -13,16 +13,12 @@ import PageTabs from '../../../components/PageTabs';
 # Linkbox
 
 <div class="status-label-description">
-  <StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="alert">Beta</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Linkboxes are used to combine multiple elements into a single interactable element. While they are visually similar to HDS Cards, Linkboxes are always a single clickable link and they cannot contain other interactable elements.
-</LeadParagraph>
+<LeadParagraph>Linkboxes are used to combine multiple elements into a single interactable element. While they are visually similar to HDS Cards, Linkboxes are always a single clickable link and they cannot contain other interactable elements.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -32,5 +28,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

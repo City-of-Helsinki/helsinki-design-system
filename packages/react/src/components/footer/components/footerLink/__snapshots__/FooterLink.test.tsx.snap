@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> spec renders the base variant 1`] = `
+<DocumentFragment>
+  <a
+    class="link linkM item base"
+  >
+    <span>
+      Link
+    </span>
+  </a>
+</DocumentFragment>
+`;
+
+exports[`<Link /> spec renders the component 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer koros-basic theme-light"
+  >
+    <div
+      class="koros basic koros basic"
+    >
+      <svg
+        aria-hidden="true"
+        height="85"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            height="85"
+            id="koros_basic-1"
+            patternUnits="userSpaceOnUse"
+            width="96"
+            x="0"
+            y="0"
+          >
+            <path
+              d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z"
+              transform="scale(3)"
+            />
+          </pattern>
+        </defs>
+        <rect
+          fill="url(#koros_basic-1)"
+          height="85"
+          style="shape-rendering: crispEdges;"
+          width="100%"
+        />
+      </svg>
+    </div>
+    <div
+      class="footerContent"
+    >
+      <div
+        class="footerSections"
+      >
+        <h2
+          class="title"
+        >
+          Bar
+        </h2>
+        <a
+          class="link linkM item"
+        >
+          <span>
+            Link
+          </span>
+        </a>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;
+
+exports[`<Link /> spec renders the navigation variant 1`] = `
+<DocumentFragment>
+  <a
+    class="link linkM item navigation"
+  >
+    <span>
+      Link
+    </span>
+  </a>
+</DocumentFragment>
+`;
+
+exports[`<Link /> spec renders the utility variant 1`] = `
+<DocumentFragment>
+  <a
+    class="link linkM item utility"
+  >
+    <span>
+      Link
+    </span>
+  </a>
+</DocumentFragment>
+`;

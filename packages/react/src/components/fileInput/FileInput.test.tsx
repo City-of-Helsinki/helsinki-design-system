@@ -142,6 +142,8 @@ describe('<FileInput /> spec', () => {
     const firstFile = new File(['test'], firstFileName, { type: 'image/png' });
     const secondFileName = 'test-file-b';
     const secondFile = new File(['test-file-with-too-long-content'], secondFileName, { type: 'image/png' });
+    const thirdFileName = 'test-file-with-exactly-max-size-bytes';
+    const thirdFile = new File(['0123456789'], thirdFileName, { type: 'image/png' });
     render(
       <FileInput
         id="test-file-input"
@@ -153,10 +155,10 @@ describe('<FileInput /> spec', () => {
       />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
-    userEvent.upload(fileUpload, [firstFile, secondFile]);
+    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
-    expect(screen.getByText('1/2 file(s) added', { exact: false })).toBeInTheDocument();
-    expect(screen.getByText('File processing failed for 1/2 files:', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
     expect(
       screen.getByText(`File, ${secondFileName}, is too large (31 B). The maximum file size is 10 B.`, {
         exact: false,

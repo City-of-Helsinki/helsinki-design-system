@@ -28,24 +28,18 @@ exports[`<ToggleButton /> spec renders the component 1`] = `
       >
         <svg
           aria-hidden="true"
+          aria-label="cross-circle-fill"
           class="icon m"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g
-            fill="none"
+          <path
+            clip-rule="evenodd"
+            d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM15 7.5L16.5 9L13.5 12L16.5 15L15 16.5L12 13.5L9 16.5L7.5 15L10.5 12L7.5 9L9 7.5L12 10.5L15 7.5Z"
+            fill="currentColor"
             fill-rule="evenodd"
-          >
-            <rect
-              height="24"
-              width="24"
-            />
-            <path
-              d="M12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 Z M15,7.5 L16.5,9 L13.5,12 L16.5,15 L15,16.5 L12,13.5 L9,16.5 L7.5,15 L10.5,12 L7.5,9 L9,7.5 L12,10.5 L15,7.5 Z"
-              fill="currentColor"
-            />
-          </g>
+          />
         </svg>
       </div>
       <div
@@ -53,24 +47,18 @@ exports[`<ToggleButton /> spec renders the component 1`] = `
       >
         <svg
           aria-hidden="true"
+          aria-label="check-circle-fill"
           class="icon m"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g
-            fill="none"
+          <path
+            clip-rule="evenodd"
+            d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM16.5 8L18 9.5L10.5 17L6 12.5L7.5 11L10.5 14L16.5 8Z"
+            fill="currentColor"
             fill-rule="evenodd"
-          >
-            <rect
-              height="24"
-              width="24"
-            />
-            <path
-              d="M12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 Z M16.5,8 L18,9.5 L10.5,17 L6,12.5 L7.5,11 L10.5,14 L16.5,8 Z"
-              fill="currentColor"
-            />
-          </g>
+          />
         </svg>
       </div>
     </button>

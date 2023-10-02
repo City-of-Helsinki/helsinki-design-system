@@ -12,8 +12,9 @@ import {
   ImageWithCard,
   Koros,
   Logo,
+  logoFi,
   Link,
-  RoundedTag,
+  Tag,
   Table,
 } from 'hds-react';
 
@@ -22,6 +23,7 @@ import Seo from '../../../components/Seo';
 import './../../../components/layout.scss';
 import './styles.scss';
 import { navigate, withPrefix } from 'gatsby';
+import { FooterVariant } from '../../../../../packages/react/src/components/footer/Footer.interface';
 
 const TableBasicInfo = () => {
   const cols = [
@@ -88,7 +90,7 @@ const DemoPage = () => {
           <div className="hero">
             <div className="hero-content">
               <div className="hero-content-shape" />
-              <Logo aria-hidden="true" className="info-page-hero-logo" />
+              <Logo src={logoFi} aria-hidden className="info-page-hero-logo" />
               <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
               <p className="hero-text">
                 The Helsinki Design System focuses on usability and accessibility. It aims to improve the quality and
@@ -105,8 +107,8 @@ const DemoPage = () => {
                 Visit hds.hel.fi
               </Button>
             </div>
-            <Koros className="hero-koros hero-koros-rotated" flipHorizontal rotate="45deg" />
-            <Koros className="hero-koros hero-koros-horizontal" flipHorizontal />
+            <Koros className="hero-koros hero-koros-rotated" flipVertical rotate="45deg" />
+            <Koros className="hero-koros hero-koros-vertical" flipVertical />
           </div>
         </div>
         <div
@@ -247,27 +249,27 @@ const DemoPage = () => {
           <h3 className="heading-l">The Helsinki Design System was created to unify the user experience</h3>
           <div className="info-page-box-grid timeline">
             <div className="grid-box">
-              <RoundedTag className="box-tag">May 26, 2020</RoundedTag>
+              <Tag className="box-tag">May 26, 2020</Tag>
               <div className="box-heading">HDS Alpha</div>
               <div className="box-text">Setting up the processes after a proof of concept.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag className="box-tag">October 29, 2020</RoundedTag>
+              <Tag className="box-tag">October 29, 2020</Tag>
               <div className="box-heading">HDS Beta</div>
               <div className="box-text">Providing a foundation of the library components.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag className="box-tag">May 3, 2021</RoundedTag>
+              <Tag className="box-tag">May 3, 2021</Tag>
               <div className="box-heading">HDS 1.0.0</div>
               <div className="box-text">Official support, continuous development, a city-wide acknowledged tool.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag className="box-tag">June 27, 2022</RoundedTag>
+              <Tag className="box-tag">June 27, 2022</Tag>
               <div className="box-heading">HDS 2.0.0</div>
               <div className="box-text">Design update for the entire component library.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag
+              <Tag
                 className="box-tag alert"
                 theme={{
                   '--tag-background': 'var(--color-alert)',
@@ -275,7 +277,7 @@ const DemoPage = () => {
                 }}
               >
                 Coming soon
-              </RoundedTag>
+              </Tag>
               <div className="box-heading">HDS 3.0.0</div>
               <div className="box-text">New navigation components and a navigation pattern.</div>
             </div>
@@ -511,9 +513,9 @@ const DemoPage = () => {
       </Container>
       <Footer id="page-footer" className="page-footer" title="Helsinki Design System">
         <Footer.Base copyrightHolder="Copyright">
-          <Footer.Item label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
-          <Footer.Item label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
-          <Footer.Item label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
+          <Footer.Link variant={FooterVariant.Base} label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
+          <Footer.Link variant={FooterVariant.Base} label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+          <Footer.Link variant={FooterVariant.Base} label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
         </Footer.Base>
       </Footer>
     </>

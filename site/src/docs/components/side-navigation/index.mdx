@@ -5,9 +5,7 @@ navTitle: 'SideNavigation'
 ---
 
 import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
-import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -255,3 +253,9 @@ export const SideNavIconsExample = () =>  {
 <PlaygroundPreview>
   <SideNavIconsExample />
 </PlaygroundPreview>
+
+#### With skip link
+
+- Using the SideNavigation.SkipLink component is optional. Use the skip link component to help keyboard-only users skip the navigation links and jump to the main content. 
+- See Example for SideNavigation.SkipLink <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-sidenavigation--with-skip-link">in Storybook</Link>
+- The SideNavigation.SkipLink supports ariaLabel which gives possibility to define more informative text for screen readers

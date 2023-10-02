@@ -160,7 +160,13 @@
     "text": "Header is a wrapper component for all navigation elements.",
     "linkboxAriaLabel": "Header component",
     "linkAriaLabel": "Go to the Header component page",
-    "href": "/components/header"
+    "href": "/components/header",
+    "imgProps": {
+      "src": "/images/components/overview/header@2x.png",
+      "alt": "An illustration of the Header component.",
+      "height": 180,
+      "width": 280
+    }
   },
   {
     "name": "Hero",
@@ -182,6 +188,19 @@
     "linkAriaLabel": "Go to the Header component page",
     "href": "/components/header"
   },
+  {
+    "name": "Highlight",
+    "text": "Quote and highlight allow lifting an excerpt from a longer text to emphasize.",
+    "linkboxAriaLabel": "Highlight component",
+    "linkAriaLabel": "Go to the Highlight component page",
+    "href": "/components/highlight",
+    "imgProps": {
+      "src": "/images/components/overview/highlight@2x.png",
+      "alt": "An illustration of the Highlight component.",
+      "height": 180,
+      "width": 280
+    }
+  },  
   {
     "name": "Icon",
     "text": "Icons are used for providing visual cues and highlighting actions.",
@@ -256,19 +275,6 @@
     "imgProps": {
       "src": "/images/components/overview/logo@2x.png",
       "alt": "An illustration of the Logo component.",
-      "height": 180,
-      "width": 280
-    }
-  },
-  {
-    "name": "Navigation",
-    "text": "A navigation component is the main way to navigate and locate in the service.",
-    "linkboxAriaLabel": "Navigation component",
-    "linkAriaLabel": "Go to the Navigation component page",
-    "href": "/components/navigation",
-    "imgProps": {
-      "src": "/images/components/overview/navigation@2x.png",
-      "alt": "An illustration of the Navigation component.",
       "height": 180,
       "width": 280
     }

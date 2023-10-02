@@ -1,25 +1,27 @@
+@use "../../Header.module.scss";
 @use "../../../../styles/common.scss";
 
 button.actionBarItem {
+  align-self: center;
   appearance: none;
   background: transparent;
   border: none;
+  color: var(--header-color);
   cursor: pointer;
   padding: 0;
 
-  @include common.focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  );
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+    outline-offset: var(--header-focus-outline-width);
+  }
 }
 
 .actionBarItemIcon {
   display: block;
   height: var(--icon-size);
   margin: 0 auto;
-  padding: 0 8px;
+  padding: 3px 0 0;
   width: var(--icon-size);
 
   & > svg {
@@ -39,4 +41,12 @@ button.actionBarItem {
   & > svg {
     display: block;
   }
+}
+
+.labelOnRight {
+  display: inline-block;
+}
+
+.fixedRightPosition {
+  display: block;
 }

@@ -24,10 +24,6 @@ export type StatusLabelProps = React.PropsWithChildren<{
    * Element placed on the left side of the status label
    */
   iconLeft?: React.ReactNode;
-  /**
-   * Defines if label has rounded corners
-   */
-  variant?: 'rounded';
 }>;
 
 const IconElement = ({ icon }: { icon: React.ReactNode }) => (
@@ -36,27 +32,16 @@ const IconElement = ({ icon }: { icon: React.ReactNode }) => (
   </span>
 );
 
-/**
- * Note: default rectangular StatusLabel will be deprecated in 3.0.0.
- * Rounded corder variant will be used as default instead.
- */
 export const StatusLabel = ({
   children,
   className,
   dataTestId,
   type = 'neutral',
   iconLeft,
-  variant,
   ...rest
 }: StatusLabelProps) => (
   <span
-    className={classNames(
-      styles.statusLabel,
-      styles[type],
-      iconLeft && styles.statusLabelWithIcon,
-      variant && styles[variant],
-      className,
-    )}
+    className={classNames(styles.statusLabel, styles[type], iconLeft && styles.statusLabelWithIcon, className)}
     data-testid={dataTestId}
     {...rest}
   >

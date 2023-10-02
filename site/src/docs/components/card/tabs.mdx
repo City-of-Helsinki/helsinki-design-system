@@ -13,16 +13,12 @@ import PageTabs from '../../../components/PageTabs';
 # Card
 
 <div class="status-label-description">
-<StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-<StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
 <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-    Cards can be used to divide and organise interface content for better understandability and readability. When used correctly, Cards can help your users to scan through vast amounts of information quicker.
-</LeadParagraph>
+<LeadParagraph>Cards can be used to divide and organise interface content for better understandability and readability. When used correctly, Cards can help your users to scan through vast amounts of information quicker.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

@@ -3,9 +3,7 @@ slug: '/components/hero/code'
 title: 'Hero - Code'
 ---
 
-import { Button, Hero, Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Button, Hero } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,30 +14,34 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Diagonal koros
 
-<Playground>
+<Playground scope={{ Hero, Button }}>
 
 ```jsx
-<Hero
-  imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
-  variant="diagonalKoros"
-  theme={{
-    '--background-color': '#f5a3c7',
-    '--color': '#000',
-  }}
->
-  <Hero.Title>Hero title</Hero.Title>
-  <Hero.Text>
-    This is an introduction text. The length is circa two sentences. The suitable total length of the title and
-    introduction is around 230 characters, including spaces. The intro ends with a period.
-  </Hero.Text>
-  <Button
-    variant="secondary"
-    role="link"
-    style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+import { Fieldset, TextInput } from 'hds-react';
+
+() => (
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    theme={{
+      '--background-color': '#f5a3c7',
+      '--color': '#000',
+    }}
   >
-    Call to action
-  </Button>
-</Hero>
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+)
 ```
 
 ```html
@@ -60,7 +62,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <div class="hds-hero custom-theme hds-hero--diagonal-koros">
     <div class="hds-hero--with-background__container">
       <div class="hds-hero__content">
-        <div class="hds-hero--with-background__contentColumns">
+        <div class="hds-hero--with-background__content-columns">
           <div class="hds-hero__card">
             <h1 class="hds-hero__title">Hero title</h1>
             <p class="hds-hero__text">

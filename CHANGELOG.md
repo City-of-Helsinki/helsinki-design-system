@@ -7,6 +7,134 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.17.0] - Aug, 18, 2023
+
+### React
+
+#### Added
+- [Highlight] New component for quotes and text highlights
+
+### Core
+
+#### Added
+- [Highlight] New component for quotes and text highlights
+
+### Documentation
+
+#### Added
+- [Highlight] Documentation for new Highlight component
+- Document tokens for focus colours
+
+#### Changed
+- Improved docs for creating new react components
+- Updated contributing guide
+
+#### Fixed
+- Updated package dependencies
+
+### Design kit
+
+#### Added
+- Figma API icon library export script
+
+## [3.0.0-alpha.0] - July, 6, 2023
+
+### React
+
+#### Added
+- [Header] New Header component to wrap all its child components
+- [Header.UniversalBar] Optional component to display useful quick links
+- [Header.ActionBar] Mandatory component to display service logo, language selection, search and user login
+- [Header.NavigationMenu] Mandatory component to display navigation links
+
+#### Changed
+- [LinkBox] Property name `withBorder` changed to `border`
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+- Supported browserlist updated
+
+#### Deprecated
+- [Navigation] New Header component will be the replacement
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
+### Core
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+#### Deprecated
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
+### Documentation
+
+#### Added
+- [Header] Documentation - still a work in progress
+- Helpful tooltip to explain statuses
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+### Design kit
+
+#### Added
+
+- [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 Alpha release purposes. The shared library file includes new Header and Side navigation symbols.
+
+## [2.16.0] - June, 28, 2023
+
+### React
+
+#### Added
+
+- [Select] New optional string property 'optionKeyField'
+- [Combobox] New optional string property 'optionKeyField'
+
+#### Fixed
+
+- [FileInput] Max file size to accept sizes which equal the given limit
+- [FileInput] Empty file.type prevented file uploads of unknown types
+
+### Documentation
+
+#### Changed
+
+- Radio buttons should not have a default value
+
+### Design kit
+
+#### Changed
+
+- [Accordion] Upgrade to Sketch version 97.1
+- [Breadcrumbs] Upgrade to Sketch version 97.1
+- [Buttons] Upgrade to Sketch version 97.1
+- [Cards] Upgrade to Sketch version 97.1
+- [Color] Upgrade to Sketch version 97.1
+- [Cookies] Upgrade to Sketch version 97.1
+- [Errors] Upgrade to Sketch version 97.1
+- [Filters] Upgrade to Sketch version 97.1
+- [Footer] Upgrade to Sketch version 97.1
+- [Form Components] Upgrade to Sketch version 97.1
+- [Grids and Breakpoints] Upgrade to Sketch version 97.1
+- [Hero] Upgrade to Sketch version 97.1
+- [Icons] Upgrade to Sketch version 97.1
+- [Koros] Upgrade to Sketch version 97.1
+- [Labels and Tags] Upgrade to Sketch version 97.1
+- [Links] Upgrade to Sketch version 97.1 and update link-external icon
+- [Loaders] Upgrade to Sketch version 97.1
+- [Logo] Upgrade to Sketch version 97.1
+- [Modals and Notifications] Upgrade to Sketch version 97.1
+- [Navigation] Upgrade to Sketch version 97.1
+- [Page templates] Upgrade to Sketch version 97.1
+- [Pagination] Upgrade to Sketch version 97.1
+- [Placeholders and templates] Upgrade to Sketch version 97.1
+- [Shadow] Upgrade to Sketch version 97.1
+- [Spacing] Upgrade to Sketch version 97.1
+- [Step-by-step] Upgrade to Sketch version 97.1
+- [Table] Upgrade to Sketch version 97.1
+- [Tabs] Upgrade to Sketch version 97.1
+- [Typography] Upgrade to Sketch version 97.1
+
 ## [2.15.0] - May, 25, 2023
 
 ### React
@@ -72,7 +200,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Breadcrumbs] Breadcrumbs symbols for all HDS breakpoints
 - [Hero] Eight Hero symbols for all HDS breakpoints
-– [Icons] Added 16 new UI icons (arrow-right-dashed, bag-cogwheel, binoculars, cogwheels, collapse, graph-columns, hammers, history, lightbulb, money-bag, money-bag-fill, scroll, scroll-cogwheel, scroll-content, scroll-group, shield)
+  – [Icons] Added 16 new UI icons (arrow-right-dashed, bag-cogwheel, binoculars, cogwheels, collapse, graph-columns, hammers, history, lightbulb, money-bag, money-bag-fill, scroll, scroll-cogwheel, scroll-content, scroll-group, shield)
 - [Step-by-step] Step-by-step symbols for top, middle and bottom parts (two sizes: small & extra-large)
 
 #### Changed
@@ -112,10 +240,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 – [Icons] New icon for link-external
 
-
 ## [2.14.0] - May, 9, 2023
 
-### React 
+### React
 
 #### Fixed
 
@@ -123,6 +250,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [SearchInput] SearchInput uses hds-core's SearchInput styles instead of TextInput's
 
 #### Changed
+
 - [SelectionGroup] Refactor code using deprecating React.Children API
 - [SideNavigation] Refactor code using deprecating React.Children API
 - [Tabs] Refactor code using deprecating React.Children API
@@ -136,10 +264,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 #### Fixed
+
 - [FileInput] Added missing import
 - Repository's README files updated to match current branch policy
 
 #### Changed
+
 - [StatusLabel] Rectangular variant marked as deprected
 - Refactor code using deprecating React.Children API
 
@@ -157,7 +287,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.13.0] - March, 27, 2023
 
-### React 
+### React
 
 #### Added
 
@@ -187,6 +317,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 #### Added
+
 - [Tag] Deprecation warning for rectangular tag
 - [Navigation] Deprecation warning for Navigation
 
@@ -208,7 +339,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.12.1] - February, 23, 2023
 
-### React 
+### React
 
 #### Fixed
 
@@ -221,7 +352,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.12.0] - February, 21, 2023
 
-### React 
+### React
 
 #### Changed
 
@@ -246,7 +377,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.11.0] - February, 9, 2023
 
-### React 
+### React
 
 #### Changed
 

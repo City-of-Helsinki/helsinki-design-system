@@ -3,12 +3,8 @@ slug: '/components/date-input/code'
 title: 'DateInput - Code'
 ---
 
-import { DateInput, Link } from 'hds-react';
-
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { DateInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -17,7 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Date input with a picker
-<Playground>
+<Playground scope={{ DateInput }}>
 
 
 ```jsx
@@ -41,7 +37,7 @@ import { DateInput } from 'hds-react';
 </Playground>
 
 ### Date input without a confirmation
-<Playground>
+<Playground scope={{ DateInput }}>
 
 
 ```jsx
@@ -66,7 +62,7 @@ import { DateInput } from 'hds-react';
 </Playground>
 
 ### Date input without a picker
-<Playground>
+<Playground scope={{ DateInput }}>
 
 
 ```jsx
@@ -91,7 +87,7 @@ import { DateInput } from 'hds-react';
 </Playground>
 
 ### Localised date inputs
-<Playground>
+<Playground scope={{ DateInput }}>
 
 
 ```jsx

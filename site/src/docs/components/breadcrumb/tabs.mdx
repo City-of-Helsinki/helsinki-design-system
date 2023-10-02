@@ -8,18 +8,18 @@ import { StatusLabel } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 
 # Breadcrumb
 
-<StatusLabel type="info">Beta</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+<div class="status-label-description">
+  <StatusLabel type="alert">Beta</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip/>
+</div>
 
-<LeadParagraph>
-  Breadcrumb is a navigational element that provides links back to each previous page the user navigated through and
-  shows the user's current location on a website.
-</LeadParagraph>
+<LeadParagraph>Breadcrumb is a navigational element that provides links back to each previous page the user navigated through and
+  shows the user's current location on a website.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -30,5 +30,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

@@ -14,7 +14,7 @@ $animation-close-delay: 150ms;
   }
 
   .container {
-    display: contents;
+    display: flex;
 
     .dropdownWrapper {
       max-height: 0;
@@ -51,11 +51,11 @@ $animation-close-delay: 150ms;
     background: white;
     border: 1px solid var(--color-black-10);
     margin-top: -1px;
-    padding: 0 var(--spacing-s);
     position: relative;
     right: 0;
     transform: translateY(-100%);
-    transition: $animation-duration transform $animation-close-delay, 0ms visibility ($animation-duration + $animation-close-delay);
+    transition: $animation-duration transform $animation-close-delay,
+      0ms visibility ($animation-duration + $animation-close-delay);
     visibility: hidden;
 
     &.fullWidth {
@@ -66,6 +66,11 @@ $animation-close-delay: 150ms;
       transform: translateY(0%);
       transition: $animation-duration transform 0ms, 0ms visibility 0ms;
       visibility: visible;
+    }
+
+    > * {
+      padding: var(--spacing-xs) var(--spacing-s);
+      width: 100%;
     }
   }
 }

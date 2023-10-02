@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { default as html5 } from 'html-validate/elements/html5.json';
+import { StaticConfigLoader, HtmlValidate } from 'html-validate/dist/cjs/browser';
 
 import './LiveErrorCore.scss';
 
@@ -25,13 +26,11 @@ const LiveErrorCore = ({ code }) => {
   */
   useEffect(() => {
     if (supportsRegexpLookBehind()) {
-      import('html-validate/dist/cjs/browser').then(({ StaticConfigLoader, HtmlValidate }) => {
-        const loader = new StaticConfigLoader({
-          extends: ['html-validate:standard'],
-          elements: [html5],
-        });
-        setHtmlValidate(new HtmlValidate(loader));
+      const loader = new StaticConfigLoader({
+        extends: ['html-validate:standard'],
+        elements: [html5],
       });
+      setHtmlValidate(new HtmlValidate(loader));
     }
   }, []);
 

@@ -13,16 +13,12 @@ import PageTabs from '../../../components/PageTabs';
 # FileInput
 
 <div class="status-label-description">
-  <StatusLabel variant="rounded" type="alert">Beta</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="alert">Beta</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  A file input helps the user to browse and select one or multiple files to be uploaded to the service.
-</LeadParagraph>
+<LeadParagraph>A file input helps the user to browse and select one or multiple files to be uploaded to the service.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -33,5 +29,3 @@ import PageTabs from '../../../components/PageTabs';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

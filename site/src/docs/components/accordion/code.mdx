@@ -3,10 +3,7 @@ slug: '/components/accordion/code'
 title: 'Accordion - Code'
 ---
 
-import { Accordion, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp, Link } from 'hds-react';
-
-import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
+import { Accordion, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -17,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground>
+<Playground scope={{ Accordion }}>
 
 
 ```jsx
@@ -35,7 +32,7 @@ import { Accordion } from 'hds-react';
 
 #### With a card
 
-<Playground>
+<Playground scope={{ Accordion }}>
 
 
 ```jsx
@@ -53,7 +50,7 @@ import { Accordion } from 'hds-react';
 
 #### With the close button hidden
 
-<Playground>
+<Playground scope={{ Accordion }}>
 
 
 ```jsx
@@ -70,7 +67,7 @@ import { Accordion } from 'hds-react';
 
 #### Accordion size variants
 
-<Playground>
+<Playground scope={{ Accordion }}>
 
 ```jsx
 import { Accordion } from 'hds-react';
@@ -92,7 +89,7 @@ import { Accordion } from 'hds-react';
 
 #### Stacked Accordions
 
-<Playground>
+<Playground scope={{ Accordion }}>
 
 ```jsx
 import { Accordion } from 'hds-react';
@@ -116,11 +113,11 @@ import { Accordion } from 'hds-react';
 
 #### Custom accordion
 
-<Playground>
+<Playground scope={{ Accordion, Card, IconAngleDown, IconAngleUp, Button, Select, useAccordion }}>
 
 
 ```jsx
-import { Accordion } from 'hds-react';
+import { Accordion, Card, IconAngleDown, IconAngleUp, Button, Select, useAccordion } from 'hds-react';
 
 () => {
   const initiallyOpen = false;

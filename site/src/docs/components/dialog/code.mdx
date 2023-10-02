@@ -3,9 +3,8 @@ slug: '/components/dialog/code'
 title: 'Dialog - Code'
 ---
 
-import { Dialog, Button, IconInfoCircle, IconQuestionCircle, Link, TextArea, TextInput } from 'hds-react';
+import { Dialog, Button, IconAlertCircle, IconInfoCircle, IconQuestionCircle, IconTrash, TextArea, TextInput } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -15,10 +14,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Info dialog
-<Playground>
+<Playground scope={{ Dialog, Button, IconInfoCircle }}>
 
 ```jsx
-import { Dialog, Button } from 'hds-react';
+import { Dialog, Button, IconInfoCircle } from 'hds-react';
 
 () => {
   const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
@@ -66,10 +65,10 @@ import { Dialog, Button } from 'hds-react';
 </Playground>
 
 ### Confirm dialog
-<Playground>
+<Playground scope={{ Dialog, Button, IconQuestionCircle }}>
 
 ```jsx
-import { Dialog, Button } from 'hds-react';
+import { Dialog, Button, IconQuestionCircle } from 'hds-react';
 
 () => {
   const confirmationDialogTarget = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
@@ -119,10 +118,10 @@ import { Dialog, Button } from 'hds-react';
 </Playground>
 
 ### Danger dialog
-<Playground>
+<Playground scope={{ Dialog, Button, IconAlertCircle, IconTrash }}>
 
 ```jsx
-import { Dialog, Button, IconAlertCircle } from 'hds-react';
+import { Dialog, Button, IconAlertCircle, IconTrash } from 'hds-react';
 
 () => {
   const dangerDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
@@ -180,7 +179,7 @@ import { Dialog, Button, IconAlertCircle } from 'hds-react';
 </Playground>
 
 ### Scrollable dialog
-<Playground>
+<Playground scope={{ Dialog, Button, IconAlertCircle }}>
 
 ```jsx
 import { Dialog, Button, IconAlertCircle } from 'hds-react';
@@ -287,7 +286,7 @@ import { Dialog, Button, IconAlertCircle } from 'hds-react';
 </Playground>
 
 #### Dialog with custom content
-<Playground>
+<Playground scope={{ Dialog, Button, TextInput, TextArea }}>
 
 ```jsx
 import { Dialog, Button, TextInput, TextArea } from 'hds-react';

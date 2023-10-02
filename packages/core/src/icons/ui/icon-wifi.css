@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/wifi.svg");
-
-.hds-icon--wifi {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

@@ -1,7 +1,7 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
 import styles from './Hero.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
@@ -214,7 +214,7 @@ export const Hero = ({
   }
 
   const hideKoros = !!koros?.hide;
-  const flipHorizontal = koros?.flipHorizontal;
+  const flipVertical = koros?.flipVertical;
   const hasImage = !!imageSrc && currentVariant !== 'noImage';
   const columnStyle = hasImage && currentVariant !== 'imageBottom' ? styles.twoColumns : styles.singleColumn;
   return (
@@ -229,14 +229,14 @@ export const Hero = ({
       {!hasImage && !hideKoros && (
         <KorosInContainer
           {...korosStyle}
-          inward={!flipHorizontal}
-          flipHorizontal={flipHorizontal}
-          containerClassName={flipHorizontal ? styles.korosContainerOverflowBottom : undefined}
+          inward={!flipVertical}
+          flipVertical={flipVertical}
+          containerClassName={flipVertical ? styles.korosContainerOverflowBottom : undefined}
         />
       )}
       {hasImage && (
         <div key="korosAndImageContainer" className={classNames(styles.korosAndImageContainer)}>
-          <KorosInContainer {...korosStyle} flipHorizontal={flipHorizontal !== false} />
+          <KorosInContainer {...korosStyle} flipVertical={flipVertical !== false} />
           <div key="imageContainer" className={classNames(styles.imageBelowKoros)}>
             <Image />
           </div>

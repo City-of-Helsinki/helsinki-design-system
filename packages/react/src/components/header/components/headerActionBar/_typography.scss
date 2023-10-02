@@ -1,0 +1,95 @@
+@use '../../../../styles/layout.scss';
+
+@mixin title-base {
+  font-family: var(--font-default);
+}
+
+@mixin title-large-normal {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-large-bold {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-large-black {
+  font-size: var(--fontsize-heading-l);
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-medium-normal {
+  font-size: var(--fontsize-heading-s);
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-medium-bold {
+  font-size: var(--fontsize-heading-s);
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-medium-black {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-small-normal {
+  font-size: var(--fontsize-body-s);
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-small-bold {
+  font-size: var(--fontsize-body-s);
+  font-weight: 700;
+  letter-spacing: -0.1px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-small-black {
+  font-size: var(--fontsize-heading-xxs);
+  font-weight: 900;
+  letter-spacing: -0.1px;
+  line-height: var(--lineheight-s);
+}
+
+@mixin title-normal {
+  @include title-base;
+  @include title-large-normal;
+
+  @include layout.below-large { @include title-medium-normal }
+
+  @include layout.below-medium { @include title-small-normal }
+}
+
+@mixin title-bold {
+  @include title-base;
+  @include title-large-bold;
+
+  @include layout.below-large { @include title-medium-bold }
+
+  @include layout.below-medium { @include title-small-bold }
+}
+
+@mixin title-black {
+  @include title-base;
+  @include title-large-black;
+
+  @include layout.below-large { @include title-medium-black }
+
+  @include layout.below-medium { @include title-small-black }
+}

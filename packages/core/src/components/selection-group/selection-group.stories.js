@@ -1,7 +1,7 @@
 import './selection-group.css';
 import '../../icons/icon.css';
-import '../../icons/ui/icon-share.css';
-import '../../icons/ui/icon-angle-right.css';
+import '../../icons/share.css';
+import '../../icons/angle-right.css';
 import {useEffect} from "@storybook/client-api";
 
 const getHelperText = (text = 'Assistive text') => `<div class="helper-text">${text}</div>`;

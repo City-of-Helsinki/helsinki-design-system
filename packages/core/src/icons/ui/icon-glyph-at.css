@@ -1,6 +1,0 @@
-@svg-load icon url("../../svg/ui/glyph-at.svg");
-
-.hds-icon--glyph-at {
-  -webkit-mask-image: svg-inline(icon);
-  mask-image: svg-inline(icon);
-}

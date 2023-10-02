@@ -6,7 +6,7 @@ import { usePopper } from 'react-popper';
 import '../../styles/base.css';
 
 import styles from './Tooltip.module.scss';
-import { IconQuestionCircle } from '../../icons/ui/IconQuestionCircle';
+import { IconQuestionCircle } from '../../icons/IconQuestionCircle';
 import classNames from '../../utils/classNames';
 
 type TooltipProps = React.PropsWithChildren<{

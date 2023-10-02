@@ -17,13 +17,16 @@
  */
 %footerItem {
   @extend %buttonReset;
-
+  
+  --outline-offset: 2px;
+  --outline-offset-small: 1px;
+  
   align-items: center;
   align-self: start;
   color: inherit;
   display: flex;
-  font-weight: 500;
-  justify-content: center;
+  font-size: var(--fontsize-body-l);
+  line-height: var(--lineheight-l);
   outline: none;
   position: relative;
   text-decoration: none;
@@ -32,16 +35,11 @@
     text-decoration: underline;
   }
 
-  &:focus:after {
-    --focus-outline-size: calc(100% + var(--spacing-2-xs));
-
-    border: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
+  &:focus {
+    border: 0;
     border-radius: var(--footer-focus-outline-border-radius);
-    box-sizing: border-box;
-    content: '';
-    height: var(--focus-outline-size);
-    position: absolute;
-    width: var(--focus-outline-size);
+    outline: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
+    outline-offset: var(--outline-offset);
   }
 }
 

@@ -3,22 +3,29 @@ import React, { ComponentType, FC } from 'react';
 import { styleBoundClassNames } from '../../utils/classNames';
 import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
-import { HeaderActionBar } from './components/headerActionBar';
+import { HeaderActionBar, TitleStyleType } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
-import { NavigationLink } from './components/navigationLink';
+import { HeaderLink } from './components/headerLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
-import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
-import { NavigationSearch } from './components/navigationSearch';
-import { LanguageProvider, LanguageProviderProps } from '../../context/languageContext';
-// Styles
-import 'hds-core';
+import { HeaderLanguageSelector, LanguageButton, SimpleLanguageOptions } from './components/headerLanguageSelector';
+import { HeaderSearch } from './components/headerSearch';
+import { SkipLink } from '../../internal/skipLink';
+import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
+import { HeaderTheme } from './Header.type';
+// import base styles
+import '../../styles/base.css';
 import styles from './Header.module.scss';
+import { useTheme } from '../../hooks/useTheme';
 
 const classNames = styleBoundClassNames(styles);
 
 type HeaderAttributes = JSX.IntrinsicElements['header'];
 
 export interface HeaderNodeProps extends HeaderAttributes {
+  /**
+   * Aria-label for describing Header.
+   */
+  ariaLabel?: string;
   /**
    * Additional class names to apply to the header.
    */
@@ -27,17 +34,31 @@ export interface HeaderNodeProps extends HeaderAttributes {
    * ID of the header element.
    */
   id?: string;
+  /**
+   * theme of the header element.
+   */
+  theme?: HeaderTheme;
 }
 
-export interface HeaderProps extends HeaderNodeProps {
-  onDidChangeLanguage?: (string) => void;
-}
+export interface HeaderProps extends HeaderNodeProps, LanguageProviderProps {}
 
-const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...props }) => {
+const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, className, ...props }) => {
   const { isNotLargeScreen } = useHeaderContext();
-  const headerClassNames = classNames('hds-header', styles.header, className, { isNotLargeScreen });
+  const { theme } = props;
+
+  const customThemeClass = useTheme<HeaderTheme>(styles.header, theme);
+  const headerClassNames = classNames(
+    'hds-header',
+    styles.header,
+    theme && styles[`theme-${theme}`],
+    className,
+    customThemeClass,
+    {
+      isNotLargeScreen,
+    },
+  );
   return (
-    <header className={headerClassNames} {...props}>
+    <header className={headerClassNames} {...props} aria-label={ariaLabel}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>
     </header>
   );
@@ -46,21 +67,25 @@ const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...pr
 interface HeaderInterface extends FC<HeaderProps> {
   UniversalBar: typeof HeaderUniversalBar;
   ActionBar: typeof HeaderActionBar;
+  TitleStyleType: typeof TitleStyleType;
   NavigationMenu: typeof HeaderNavigationMenu;
   ActionBarItem: typeof HeaderActionBarItemWithDropdown;
-  NavigationLink: typeof NavigationLink;
-  NavigationLanguageSelector: typeof NavigationLanguageSelector;
-  NavigationSearch: typeof NavigationSearch;
+  Link: typeof HeaderLink;
+  LanguageSelector: typeof HeaderLanguageSelector;
+  Search: typeof HeaderSearch;
+  SkipLink: typeof SkipLink;
+  LanguageButton: typeof LanguageButton;
+  SimpleLanguageOptions: typeof SimpleLanguageOptions;
 }
 
-export const Header: HeaderInterface = ({
-  onDidChangeLanguage,
-  defaultLanguage,
-  ...props
-}: HeaderProps & LanguageProviderProps) => {
+export const Header: HeaderInterface = ({ onDidChangeLanguage, defaultLanguage, languages, ...props }: HeaderProps) => {
   return (
     <HeaderContextProvider>
-      <LanguageProvider onDidChangeLanguage={onDidChangeLanguage} defaultLanguage={defaultLanguage}>
+      <LanguageProvider
+        onDidChangeLanguage={onDidChangeLanguage}
+        defaultLanguage={defaultLanguage}
+        languages={languages}
+      >
         <HeaderNode {...props} />
       </LanguageProvider>
     </HeaderContextProvider>
@@ -69,10 +94,14 @@ export const Header: HeaderInterface = ({
 
 Header.UniversalBar = HeaderUniversalBar;
 Header.ActionBar = HeaderActionBar;
+Header.TitleStyleType = TitleStyleType;
 Header.NavigationMenu = HeaderNavigationMenu;
 
 Header.ActionBarItem = HeaderActionBarItemWithDropdown;
-Header.NavigationLink = NavigationLink;
+Header.Link = HeaderLink;
 
-Header.NavigationLanguageSelector = NavigationLanguageSelector;
-Header.NavigationSearch = NavigationSearch;
+Header.LanguageSelector = HeaderLanguageSelector;
+Header.Search = HeaderSearch;
+Header.SkipLink = SkipLink;
+Header.LanguageButton = LanguageButton;
+Header.SimpleLanguageOptions = SimpleLanguageOptions;

@@ -14,16 +14,12 @@ import LeadParagraph from '../../../components/LeadParagraph';
 # Icon
 
 <div class="status-label-description">
-  <StatusLabel variant="rounded" type="info">Stable</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-    Accessible
-  </StatusLabel>
+  <StatusLabel type="info">Stable</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip/>
 </div>
 
-<LeadParagraph>
-  Icons are used for providing visual cues and highlighting actions, denoting types and classes of information, and giving additional meaning to content.
-</LeadParagraph>
+<LeadParagraph>Icons are used for providing visual cues and highlighting actions, denoting types and classes of information, and giving additional meaning to content.</LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
@@ -34,5 +30,3 @@ import LeadParagraph from '../../../components/LeadParagraph';
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
 </PageTabs>
-
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

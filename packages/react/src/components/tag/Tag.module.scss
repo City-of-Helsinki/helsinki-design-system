@@ -1,31 +1,25 @@
 @import "../../styles/common.scss";
-@import "tag.common.scss";
 
 .tag {
-  @extend %tag;
-}
-
-// Rounded corners variant
-.tag-rounded-corners {
-  @extend %roundedCorners;
-}
-
-.tag-rounded-corners-large {
-  @extend %roundedCornersLarge;
+  composes: hds-tag from 'hds-core/lib/components/tag/tag.css';
 }
 
 // Child nodes
 .label {
-  @extend %label;
+  composes: hds-tag__label from 'hds-core/lib/components/tag/tag.css';
+}
+
+// Large size variant
+.large {
+  composes: hds-tag--large from 'hds-core/lib/components/tag/tag.css';
 }
 
 .deleteButton {
   @extend %buttonReset;
-  @extend %deleteButton;
 
   composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
 }
 
 .visuallyHidden {
-  @extend %hiddenFromScreen;
+  @extend %visuallyHidden;
 }

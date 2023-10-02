@@ -4,7 +4,6 @@ title: 'Breadcrumb - Customisation'
 ---
 
 import { Breadcrumb } from 'hds-react';
-import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -28,9 +27,12 @@ See all available theme variables in the table below.
 
 ### Customisation example
 
-<Playground>
+<Playground scope={{ Breadcrumb }}>
 
 ```jsx
+import { Breadcrumb } from 'hds-react';
+
+() => (
 <Breadcrumb
   ariaLabel="Breadcrumb"
   list={[
@@ -46,7 +48,7 @@ See all available theme variables in the table below.
     '--horizontal-margin-large': 'var(--spacing-layout-l)',
     '--horizontal-margin-x-large': 'var(--spacing-layout-xl)',
   }}
-/>
+/>)
 ```
 
 ```html

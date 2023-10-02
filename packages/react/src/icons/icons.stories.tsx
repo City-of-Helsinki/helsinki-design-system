@@ -19,16 +19,9 @@ const Wrapper = ({ children, color = 'var(--color-black)', style = {} }) => (
   </div>
 );
 
-const storyKindMapping = [
-  { category: 'ui', name: 'UI' },
-  { category: 'some', name: 'SoMe' },
-];
-
 const req = require.context('.', true, /Icon.*.tsx$/);
 req.keys().forEach((fileName, index) => {
-  const category = fileName.substring(fileName.indexOf('/') + 1, fileName.lastIndexOf('/'));
-  const kind = storyKindMapping.find((item) => item.category === category)?.name;
-  const story = storiesOf(`Icons/${kind}`, module);
+  const story = storiesOf(`Icons/Icons`, module);
   const componentName = path.basename(fileName, '.tsx');
   const Component = req(fileName)[componentName];
   Component.displayName = componentName;

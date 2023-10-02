@@ -1,6 +1,8 @@
 import React from 'react';
 
-import 'hds-core';
+// import base styles
+import '../../styles/base.css';
+
 import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
@@ -13,22 +15,22 @@ export interface BreadcrumbCustomTheme {
    * This is for the mobile view with only a single visible path.
    * Default --spacing-layout-2-xs
    */
-  '--horizontal-margin-small:'?: string;
+  '--horizontal-margin-small'?: string;
   /**
    * Custom horizontal margins for medium screens
    * Default --spacing-layout-xs
    */
-  '--horizontal-margin-medium:'?: string;
+  '--horizontal-margin-medium'?: string;
   /**
    * Custom horizontal margins for large screens
    * Default --spacing-layout-xs
    */
-  '--horizontal-margin-large:'?: string;
+  '--horizontal-margin-large'?: string;
   /**
    * Custom horizontal margins for x-large screens
    * Default --spacing-layout-s
    */
-  '--horizontal-margin-x-large:'?: string;
+  '--horizontal-margin-x-large'?: string;
 }
 
 export type BreadcrumbListItem = { title: string; path: string | null };
