@@ -6,6 +6,7 @@ export type LanguageType = string;
 export type LanguageOption = {
   label: string;
   value: LanguageType;
+  isPrimary?: boolean;
 };
 export type LanguageContextType = {
   activeLanguage: LanguageType;

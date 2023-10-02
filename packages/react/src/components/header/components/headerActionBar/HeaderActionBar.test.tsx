@@ -6,7 +6,6 @@ import { HeaderActionBar } from '.';
 import { HeaderWrapper } from '../../../../utils/test-utils';
 import { DEFAULT_LANGUAGE, LanguageOption, useActiveLanguage } from '../../LanguageContext';
 import { Header } from '../../Header';
-import { Link } from '../../../link/Link';
 import { Logo, logoFi, logoSv } from '../../../logo';
 
 type StrFn = (str: string) => string;
@@ -18,9 +17,6 @@ const languages: LanguageOption[] = [
 ];
 
 const getLanguageLabelByValue: StrFn = (val) => languages.find((obj) => obj.value === val)?.label || '';
-const ariaLabel = 'LanguageSelectorAriaLabel';
-const h3Text = 'Dropdown heading';
-const linkText = 'Selkosuomi';
 
 const LogoWithLanguageCheck = () => {
   const lang = useActiveLanguage();
@@ -32,12 +28,7 @@ const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
   return (
     <Header onDidChangeLanguage={onDidChangeLanguage} languages={languages}>
       <Header.ActionBar title="Otsake" logo={<LogoWithLanguageCheck />}>
-        <Header.LanguageSelector ariaLabel={ariaLabel}>
-          <h3>{h3Text}</h3>
-          <Link external href="www.example.com">
-            {linkText}
-          </Link>
-        </Header.LanguageSelector>
+        <Header.LanguageSelector />
       </Header.ActionBar>
     </Header>
   );
@@ -95,17 +86,5 @@ describe('<HeaderActionBar /> spec', () => {
     expect(handleLanguageChange.mock.calls.length).toBe(3);
     expect(handleLanguageChange.mock.calls[2][0]).toBe(DEFAULT_LANGUAGE);
     expect(getLogoSrc()).toBe(logoFi);
-
-    screen.getAllByLabelText(ariaLabel);
-  });
-
-  it('Language selector props and children are rendered', async () => {
-    const handleLanguageChange = jest.fn();
-
-    render(HeaderWithActionBar({ onDidChangeLanguage: handleLanguageChange }));
-
-    expect(() => screen.getByLabelText(ariaLabel)).not.toThrow();
-    expect(() => screen.getByText(h3Text)).not.toThrow();
-    expect(() => screen.getByText(linkText)).not.toThrow();
   });
 });

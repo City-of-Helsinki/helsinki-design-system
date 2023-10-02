@@ -43,18 +43,20 @@
     color: var(--lang-selector-item-font-color);
     text-decoration: none;
   }
+
+  > button {
+    border: 3px solid transparent;
+  }
 }
 
 button.item,
 [type='button'].item {
-  align-self: center;
   appearance: none;
   background: transparent;
   border: none;
   color: var(--lang-selector-item-font-color);
   cursor: pointer;
   line-height: var(--lineheight-l);
-  padding: 0;
   white-space: nowrap;
 
   &:focus-visible {
@@ -75,6 +77,15 @@ button.item,
 .languageNodes {
   display: flex;
   gap: var(--spacing-s);
+
+  button.item,
+  [type='button'].item {
+    padding: 0;
+  }
+}
+
+.simpleLanguageNodes {
+  gap: var(--action-bar-item-gutter);
 }
 
 .fullWidthForMobile {
