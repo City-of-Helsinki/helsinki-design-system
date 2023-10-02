@@ -1,6 +1,10 @@
 export const elementIsFocusable = (element: HTMLElement) => {
-  const { top, left, bottom, right, width, height } = element.getBoundingClientRect();
+  if (!window) {
+    return false;
+  }
+
   const { innerHeight, innerWidth } = window;
+  const { top, left, bottom, right, width, height } = element.getBoundingClientRect();
 
   const isInViewport = top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
   const hasTabIndex = element.tabIndex >= 0;
