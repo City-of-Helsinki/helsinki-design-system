@@ -169,15 +169,17 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
           />
         </span>
       </span>
-      <span
+      <a
+        aria-label="Otsake"
         class="titleAndLogoContainer title normal"
+        href="https://hel.fi"
       >
         <span
           class="title"
         >
           Otsake
         </span>
-      </span>
+      </a>
       <div
         class="headerActions"
       >
