@@ -34,7 +34,7 @@ export const Example = (args) => <Breadcrumb {...args} />;
 
 export const ExampleInHeader = (args) => {
   return (
-    <Header>
+    <Header languages={languages}>
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
       <Header.ActionBar
         title="Helsingin kaupunki"
@@ -45,7 +45,7 @@ export const ExampleInHeader = (args) => {
         logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
       >
-        <Header.LanguageSelector languages={languages} ariaLabel="Kielen valinta">
+        <Header.LanguageSelector ariaLabel="Kielen valinta">
           <h3>Tietoa muilla kielillä</h3>
           <Link external href="www.example.com">
             Selkosuomi
