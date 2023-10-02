@@ -88,14 +88,15 @@ export const HeaderLanguageSelectorConsumer = ({
   sortLanguageOptions = defaultLanguageSorter,
   fullWidthForMobile = false,
 }: LanguageSelectorConsumerProps) => {
-  const { isNotLargeScreen } = useHeaderContext();
+  const { isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
   const languages = useAvailableLanguages();
   const activeLanguage = useActiveLanguage();
 
   const [primaryLanguages, secondaryLanguages] = sortLanguageOptions(languages, activeLanguage);
   const primaryLanguageNodes = primaryLanguages.map(renderLanguageNode);
   // when its not large screen fullWidthForMobile -version can be used
-  const show = (isNotLargeScreen && fullWidthForMobile) || (!isNotLargeScreen && !fullWidthForMobile);
+  const show =
+    (isNotLargeScreen && fullWidthForMobile && !mobileMenuOpen) || (!isNotLargeScreen && !fullWidthForMobile);
 
   const SecondaryLanguages = () => {
     if (secondaryLanguages.length === 0) {

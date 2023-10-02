@@ -1,12 +1,11 @@
-import React, { Children, cloneElement, isValidElement, useEffect } from 'react';
+import React, { cloneElement, isValidElement, useEffect } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
 
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
-import { HeaderNavigationMenuContextProvider } from './HeaderNavigationMenuContext';
+import { getChildElementsEvenIfContainersInbetween, getChildrenAsArray } from '../../../../utils/getChildren';
 import styles from './HeaderNavigationMenu.module.scss';
 
 export type HeaderNavigationMenuProps = React.PropsWithChildren<{
@@ -59,9 +58,10 @@ const renderHeaderNavigationMenuItem = (child, index, isNotLargeScreen) => {
 
 export const HeaderNavigationMenuContent = () => {
   const { isNotLargeScreen, navigationContent } = useHeaderContext();
+  const navigationLinks = getChildrenAsArray(navigationContent);
   return (
     <>
-      {Children.map(navigationContent, (child, index) => {
+      {navigationLinks.map((child, index) => {
         if (!isValidElement(child)) return null;
         return renderHeaderNavigationMenuItem(child, index, isNotLargeScreen);
       })}
@@ -82,11 +82,9 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
 
   return (
     <div className={styles.headerNavigationMenuContainer}>
-      <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
+      <nav aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
         <ul className={styles.headerNavigationMenuList}>
-          <HeaderNavigationMenuContextProvider>
-            <HeaderNavigationMenuContent />
-          </HeaderNavigationMenuContextProvider>
+          <HeaderNavigationMenuContent />
         </ul>
       </nav>
     </div>

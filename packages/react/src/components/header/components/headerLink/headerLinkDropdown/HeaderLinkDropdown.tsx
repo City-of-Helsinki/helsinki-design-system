@@ -8,10 +8,6 @@ import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
 
-export enum NavigationLinkInteraction {
-  Hover = 'hover',
-  Click = 'click',
-}
 export enum DropdownMenuPosition {
   Left = 'left',
   Right = 'right',
@@ -50,7 +46,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
    * Function that is called when open value is changed.
    */
-  setOpen: (isOpen: boolean, interaction: NavigationLinkInteraction) => void;
+  setOpen: (isOpen: boolean) => void;
   /**
    * Depth in nested dropdowns.
    * @internal
@@ -78,7 +74,11 @@ export const HeaderLinkDropdown = ({
   const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = position ? classNames(styles.dropdownMenu, styles[position]) : styles.dropdownMenu;
 
-  const handleMenuButtonClick = () => setOpen(!open, NavigationLinkInteraction.Click);
+  const handleMenuButtonClick = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
+
   const defaultOpenDropdownAriaLabel = 'Avaa alasvetovalikko.';
   const defaultCloseDropdownAriaLabel = 'Sulje alasvetovalikko.';
   const getDefaultButtonAriaLabel = () => {
@@ -102,7 +102,6 @@ export const HeaderLinkDropdown = ({
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
         aria-label={getDefaultButtonAriaLabel()}
-        aria-expanded={open}
       >
         {renderIcon()}
       </button>

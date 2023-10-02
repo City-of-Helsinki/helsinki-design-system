@@ -84,6 +84,9 @@ const RenderTestScenario = ({
       {!consumerOnly ? (
         <HeaderActionBar
           title="Otsake"
+          titleAriaLabel="Otsake"
+          frontPageLabel="Etusivu"
+          titleHref="https://hel.fi"
           logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
         >
           <HeaderLanguageSelector ariaLabel={ariaLabel}>

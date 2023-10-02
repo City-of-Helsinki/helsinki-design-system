@@ -34,6 +34,9 @@
   --nav-button-background-color: var(--color-black-5);
   --nav-button-hover-background-color: var(--color-black-5);
   --nav-search-color: var(--header-color);
+  --nav-mobile-menu-background-color: var(--color-white);
+  --nav-mobile-menu-bottom-background-color: var(--color-silver-light);
+  --nav-mobile-margin-left: var(--spacing-s);
   --universal-bar-background-color: var(--color-black-5);
   --logo-height: 56px;
   --icon-size: 24px;
@@ -74,6 +77,8 @@
     --nav-drop-down-icon-color: var(--color-white);
     --actionbar-background-color: var(--color-black-80);
     --nav-background-color: var(--color-black-80);
+    --nav-mobile-menu-background-color: var(--color-black-80);
+    --nav-mobile-menu-bottom-background-color: var(--color-black-60);
   }
 
   background-color: var(--header-background-color);

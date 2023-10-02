@@ -27,7 +27,7 @@ const LogoWithLanguageCheck = () => {
 const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
   return (
     <Header onDidChangeLanguage={onDidChangeLanguage} languages={languages}>
-      <Header.ActionBar title="Otsake" logo={<LogoWithLanguageCheck />}>
+      <Header.ActionBar title="Otsake" logo={<LogoWithLanguageCheck />} frontPageLabel="Etusivu" titleHref="#">
         <Header.LanguageSelector />
       </Header.ActionBar>
     </Header>
@@ -40,6 +40,8 @@ describe('<HeaderActionBar /> spec', () => {
       <HeaderActionBar
         title="Test"
         logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        frontPageLabel="Etusivu"
+        titleHref="#"
       />,
       { wrapper: HeaderWrapper },
     );
@@ -51,6 +53,8 @@ describe('<HeaderActionBar /> spec', () => {
       <HeaderActionBar
         title="Test"
         logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        frontPageLabel="Etusivu"
+        titleHref="#"
       />,
       { wrapper: HeaderWrapper },
     );

@@ -28,15 +28,16 @@ exports[`<HeaderActionBar /> spec renders the component 1`] = `
               />
             </span>
           </span>
-          <span
+          <a
             class="titleAndLogoContainer title normal"
+            href="#"
           >
             <span
               class="title"
             >
               Test
             </span>
-          </span>
+          </a>
           <div
             class="headerActions"
           />

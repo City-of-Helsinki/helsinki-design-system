@@ -126,12 +126,14 @@ export const WithFullFeatures = (args) => (
 
       <Header.ActionBar
         title="Helsingin kaupunki"
+        frontPageLabel="Etusivu"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
         logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         logoAriaLabel="Service logo"
         logoHref="https://hel.fi"
         menuButtonAriaLabel="Menu"
+        openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
       >
         <Header.LanguageSelector ariaLabel="Kielen valinta" languageHeading="Muut kielet">
           <h3>Tietoa muilla kielillä</h3>
@@ -161,12 +163,14 @@ export const WithFullFeatures = (args) => (
           href="#"
           label="Sosiaali- ja terveyspalvelut"
           onClick={(event) => event.preventDefault()}
-          active
+          openDropdownAriaButtonLabel="Avaa Sosiaali- ja terveyspalvelut alavalikko"
+          closeDropdownAriaButtonLabel="Sulje Sosiaali- ja terveyspalvelut alavalikko"
           dropdownLinks={[
             <Header.Link
               href="#"
               label="Terveydenhoito"
-              active
+              openDropdownAriaButtonLabel="Avaa Terveydenhoito alavalikko"
+              closeDropdownAriaButtonLabel="Sulje Terveydenhoito alavalikko"
               dropdownLinks={[
                 <Header.Link href="#" label="Hammashoito" />,
                 <Header.Link href="#" label="Julkinen terveydenhoito" />,
@@ -175,6 +179,8 @@ export const WithFullFeatures = (args) => (
             <Header.Link
               href="#"
               label="Senioripalvelut"
+              openDropdownAriaButtonLabel="Avaa Senioripalvelut alavalikko"
+              closeDropdownAriaButtonLabel="Sulje Senioripalvelut alavalikko"
               dropdownLinks={[
                 <Header.Link href="#" label="Viriketoiminta" />,
                 <Header.Link href="#" label="Kuntouttavat palvelut" />,
@@ -185,11 +191,14 @@ export const WithFullFeatures = (args) => (
         <Header.Link
           href="#"
           label="Kasvatus ja koulutus"
+          openDropdownAriaButtonLabel="Avaa Kasvatus ja koulutus alavalikko"
+          closeDropdownAriaButtonLabel="Sulje Kasvatus ja koulutus alavalikko"
           dropdownLinks={[
             <Header.Link
               href="#"
               label="Kasvatus"
-              active
+              openDropdownAriaButtonLabel="Avaa Kasvatus alavalikko"
+              closeDropdownAriaButtonLabel="Sulje Kasvatus alavalikko"
               dropdownLinks={[
                 <Header.Link href="#" label="Varhaiskasvatus" />,
                 <Header.Link href="#" label="Esiopetus" />,
@@ -198,6 +207,8 @@ export const WithFullFeatures = (args) => (
             <Header.Link
               href="#"
               label="Koulutus"
+              openDropdownAriaButtonLabel="Avaa Koulutus alavalikko"
+              closeDropdownAriaButtonLabel="Sulje Koulutus alavalikko"
               dropdownLinks={[
                 <Header.Link href="#" label="Perusopetus" />,
                 <Header.Link href="#" label="Toisen asteen koulutus" />,
@@ -209,16 +220,21 @@ export const WithFullFeatures = (args) => (
         <Header.Link
           href="#"
           label="Yritykset ja työ"
+          openDropdownAriaButtonLabel="Avaa Yritykset ja työ alavalikko"
+          closeDropdownAriaButtonLabel="Sulje Yritykset ja työ alavalikko"
           dropdownLinks={[
             <Header.Link
               href="#"
               label="Työnantajat"
-              active
+              openDropdownAriaButtonLabel="Avaa Työnantajat alavalikko"
+              closeDropdownAriaButtonLabel="Sulje Työnantajat alavalikko"
               dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
             />,
             <Header.Link
               href="#"
               label="Työntekijät"
+              openDropdownAriaButtonLabel="Avaa Työntekijät alavalikko"
+              closeDropdownAriaButtonLabel="Sulje Työntekijät alavalikko"
               dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
             />,
           ]}
@@ -241,6 +257,7 @@ export const WithFullFeaturesDarkTheme = (args) => (
 
       <Header.ActionBar
         title="Helsingin kaupunki"
+        frontPageLabel="Etusivu"
         titleAriaLabel="Helsingin kaupunki"
         titleHref="https://hel.fi"
         logoAriaLabel="Service logo"
@@ -280,10 +297,10 @@ export const WithFullFeaturesDarkTheme = (args) => (
           dropdownLinks={[
             <Header.Link
               href="#"
-              label="Terveydenhoito"
               active
+              label="Terveydenhoito"
               dropdownLinks={[
-                <Header.Link href="#" label="Hammashoito" />,
+                <Header.Link active href="#" label="Hammashoito" />,
                 <Header.Link href="#" label="Julkinen terveydenhoito" />,
               ]}
             />,
@@ -304,7 +321,6 @@ export const WithFullFeaturesDarkTheme = (args) => (
             <Header.Link
               href="#"
               label="Kasvatus"
-              active
               dropdownLinks={[
                 <Header.Link href="#" label="Varhaiskasvatus" />,
                 <Header.Link href="#" label="Esiopetus" />,
@@ -328,7 +344,6 @@ export const WithFullFeaturesDarkTheme = (args) => (
             <Header.Link
               href="#"
               label="Työnantajat"
-              active
               dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
             />,
             <Header.Link
