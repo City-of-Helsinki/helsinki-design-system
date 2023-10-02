@@ -62,6 +62,58 @@ const languages: LanguageOption[] = [
   { label: 'Pусский', value: 'ru' },
 ];
 
+const translations = {
+  en: {
+    'header-title': 'Helsinki city',
+    'header-aria-label': 'Helsinki city',
+    'header-login': 'Login',
+    'header-search': 'Search',
+    'header-menu-title': 'Other languages',
+  },
+  fi: {
+    'header-title': 'Helsingin kaupunki',
+    'header-aria-label': 'Helsingin kaupunki',
+    'header-login': 'Kirjaudu',
+    'header-search': 'Haku',
+    'header-menu-title': 'Tietoa muilla kielillä',
+  },
+  sv: {
+    'header-title': 'Helsingfors Stad',
+    'header-aria-label': 'Helsingfors Stad',
+    'header-login': 'Logga in',
+    'header-search': 'Sök',
+    'header-menu-title': 'Andra språk',
+  },
+  es: {
+    'header-title': 'Helsingin kaupunki ES',
+    'header-aria-label': 'Helsingin kaupunki  ES',
+    'header-login': 'Kirjaudu  ES',
+    'header-search': 'Haku  ES',
+    'header-menu-title': 'Tietoa muilla kielillä  ES',
+  },
+  de: {
+    'header-title': 'Helsingin kaupunki DE',
+    'header-aria-label': 'Helsingin kaupunki  DE',
+    'header-login': 'Kirjaudu  DE',
+    'header-search': 'Haku  DE',
+    'header-menu-title': 'Tietoa muilla kielillä  DE',
+  },
+  fr: {
+    'header-title': 'Helsingin kaupunki FR',
+    'header-aria-label': 'Helsingin kaupunki  FR',
+    'header-login': 'Kirjaudu  FR',
+    'header-search': 'Haku  FR',
+    'header-menu-title': 'Tietoa muilla kielillä  FR',
+  },
+  ru: {
+    'header-title': 'Helsingin kaupunki RU',
+    'header-aria-label': 'Helsingin kaupunki  RU',
+    'header-login': 'Kirjaudu  RU',
+    'header-search': 'Haku  RU',
+    'header-menu-title': 'Tietoa muilla kielillä  RU',
+  },
+};
+
 export const WithFullFeatures = (args) => (
   <>
     <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
@@ -339,37 +391,6 @@ export const Minimal = (args) => {
 export const MinimalWithLocalization = (args) => {
   const [lang, setLang] = useState<string>('fi');
 
-  const translations = {
-    en: {
-      'header-title': 'Helsinki city',
-      'header-aria-label': 'Helsinki city',
-      'header-login': 'Login',
-      'header-search': 'Search',
-      'header-menu-title': 'Other languages',
-    },
-    fi: {
-      'header-title': 'Helsingin kaupunki',
-      'header-aria-label': 'Helsingin kaupunki',
-      'header-login': 'Kirjaudu',
-      'header-search': 'Haku',
-      'header-menu-title': 'Tietoa muilla kielillä',
-    },
-    sv: {
-      'header-title': 'Helsingfors Stad',
-      'header-aria-label': 'Helsingfors Stad',
-      'header-login': 'Logga in',
-      'header-search': 'Sök',
-      'header-menu-title': 'Andra språk',
-    },
-    es: {
-      'header-title': 'Helsingin kaupunki ES',
-      'header-aria-label': 'Helsingin kaupunki  ES',
-      'header-login': 'Kirjaudu  ES',
-      'header-search': 'Haku  ES',
-      'header-menu-title': 'Tietoa muilla kielillä  ES',
-    },
-  };
-
   const languageChangedStateAction = (language: string) => {
     setLang(language);
   };
@@ -444,37 +465,6 @@ export const ManualLanguageSorting = (args) => {
     return [primaryLanguages, secondaryLanguages];
   };
 
-  const translations = {
-    en: {
-      'header-title': 'Helsinki city',
-      'header-aria-label': 'Helsinki city',
-      'header-login': 'Login',
-      'header-search': 'Search',
-      'header-menu-title': 'Other languages',
-    },
-    fi: {
-      'header-title': 'Helsingin kaupunki',
-      'header-aria-label': 'Helsingin kaupunki',
-      'header-login': 'Kirjaudu',
-      'header-search': 'Haku',
-      'header-menu-title': 'Tietoa muilla kielillä',
-    },
-    sv: {
-      'header-title': 'Helsingfors Stad',
-      'header-aria-label': 'Helsingfors Stad',
-      'header-login': 'Logga in',
-      'header-search': 'Sök',
-      'header-menu-title': 'Andra språk',
-    },
-    es: {
-      'header-title': 'Helsingin kaupunki ES',
-      'header-aria-label': 'Helsingin kaupunki  ES',
-      'header-login': 'Kirjaudu  ES',
-      'header-search': 'Haku  ES',
-      'header-menu-title': 'Tietoa muilla kielillä  ES',
-    },
-  };
-
   const languageChangedStateAction = (language: string) => setLang(language);
   const onlyPrimaryLanguages = languages.filter((option) => option.isPrimary);
   return (
@@ -524,37 +514,6 @@ export const ManualLanguageSorting = (args) => {
 
 export const ManualLanguageOptions = (args) => {
   const [lang, setLang] = useState<string>('fi');
-
-  const translations = {
-    en: {
-      'header-title': 'Helsinki city',
-      'header-aria-label': 'Helsinki city',
-      'header-login': 'Login',
-      'header-search': 'Search',
-      'header-menu-title': 'Other languages',
-    },
-    fi: {
-      'header-title': 'Helsingin kaupunki',
-      'header-aria-label': 'Helsingin kaupunki',
-      'header-login': 'Kirjaudu',
-      'header-search': 'Haku',
-      'header-menu-title': 'Tietoa muilla kielillä',
-    },
-    sv: {
-      'header-title': 'Helsingfors Stad',
-      'header-aria-label': 'Helsingfors Stad',
-      'header-login': 'Logga in',
-      'header-search': 'Sök',
-      'header-menu-title': 'Andra språk',
-    },
-    es: {
-      'header-title': 'Helsingin kaupunki ES',
-      'header-aria-label': 'Helsingin kaupunki  ES',
-      'header-login': 'Kirjaudu  ES',
-      'header-search': 'Haku  ES',
-      'header-menu-title': 'Tietoa muilla kielillä  ES',
-    },
-  };
 
   const languageChangedStateAction = (language: string) => setLang(language);
   return (
