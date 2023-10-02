@@ -38,7 +38,7 @@
 .activeLinkWrapper:focus-visible {
   border: none;
   outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
-  outline-offset: calc(var(--header-focus-outline-width) - (var(--header-focus-outline-width) * 2));
+  outline-offset: var(--header-focus-outline-width);
 }
 
 .headerNavigationMenu {
@@ -78,7 +78,7 @@
     &:focus-visible {
       border: none;
       outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
-      outline-offset: calc(var(--header-focus-outline-width) - (var(--header-focus-outline-width) * 2));
+      outline-offset: var(--header-focus-outline-width);
     }
   }
 
@@ -90,7 +90,7 @@
     align-items: center;
     display: flex;
     min-height: auto;
-    padding: var(--spacing-m) var(--nav-mobile-margin-left) 0 var(--nav-mobile-margin-left);
+    padding: var(--spacing-m) calc(var(--header-focus-outline-width) * 2) 0;
 
     .previousButton {
       align-items: center;
@@ -101,6 +101,7 @@
       height: 32px;
       justify-content: center;
       width: 32px;
+      margin-left: var(--nav-mobile-margin-left);
     }
   }
 
