@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { LanguageSelectorProps } from '.';
@@ -7,6 +7,7 @@ import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniver
 import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
 import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
+import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
 import { IconSearch, IconUser } from '../../icons';
 import { Link } from '../link/Link';
@@ -24,25 +25,33 @@ export default {
   parameters: {
     controls: { expanded: true },
     layout: 'fullscreen',
+    docs: {
+      source: {
+        // any non-empty string here will skip jsx rendering, see:
+        // https://github.com/storybookjs/storybook/blob/next/code/renderers/react/src/docs/jsxDecorator.tsx#L165
+        code: 'hello world',
+      },
+    },
   },
   args: {
     theme: 'light',
   },
+  argTypes: {
+    theme: {
+      options: ['light', 'dark'],
+    },
+  },
 };
 
-const languageChangedAction = () => {
-  action('language:onChange');
-};
-
-const logoSrcFromLanguageAndTheme = (lang: string, theme: string) => {
+const logoSrcFromLanguageAndTheme = (lang: string, theme: HeaderTheme) => {
   switch (lang) {
     case 'sv':
-      if (theme === 'light' || theme === 'custom') {
+      if (theme === 'light' || typeof theme === 'object') {
         return logoSv;
       }
       return logoSvDark;
     default:
-      if (theme === 'light' || theme === 'custom') {
+      if (theme === 'light' || typeof theme === 'object') {
         return logoFi;
       }
       return logoFiDark;
@@ -56,346 +65,399 @@ const languages: LanguageOption[] = [
   { label: 'Suomi', value: 'fi', isPrimary: true },
   { label: 'Svenska', value: 'sv', isPrimary: true },
   { label: 'English', value: 'en', isPrimary: true },
-  { label: 'Deutsch', value: 'de' },
-  { label: 'Español', value: 'es' },
   { label: 'Français', value: 'fr' },
-  { label: 'Pусский', value: 'ru' },
 ];
 
 const translations = {
   en: {
-    'header-title': 'Helsinki city',
-    'header-aria-label': 'Helsinki city',
-    'header-login': 'Login',
-    'header-search': 'Search',
-    'header-menu-title': 'Other languages',
+    adultEducationCentres: 'Adult education centres',
+    ariaLanguageSelection: 'Choose language',
+    ariaLogo: 'Service logo',
+    ariaMenuButton: 'Menu',
+    basicEducation: 'Basic education',
+    business: 'Business',
+    businessAndWork: 'Business and work',
+    childHoodAndEducation: 'Childhood and education',
+    clearFinnish: 'Clear finnish',
+    close: 'Close',
+    dentalCare: 'Dental care',
+    earlyChildhoodEducation: 'Early childhood education',
+    education: 'Education',
+    employers: 'Employers',
+    entrepreneurs: 'Entrepreneurs',
+    feedback: 'Give feedback',
+    forImmigrants: 'For immigrants',
+    forTravellers: 'For travellers',
+    frontPage: 'Frontpage',
+    generalUpperSecondaryEducation: 'General upper secondary education',
+    headerAriaLabel: 'City of Helsinki',
+    headerLogin: 'Login',
+    headerMenuTitle: 'Other languages',
+    headerSearch: 'Search',
+    headerTitle: 'City of Helsinki',
+    healtcare: 'Healt care',
+    healthAndndSocialServices: 'Health and social services',
+    infoOtherLanguages: 'Information in other languages',
+    jobSeekers: 'Jobseekers',
+    loginOptions: 'Login options',
+    news: 'News',
+    online: 'Online',
+    openJobs: 'Open jobs',
+    otherLanguages: 'Other languages',
+    prePrimaryEducation: 'Pre-primary education',
+    search: 'Search in the website',
+    seniorServices: 'Senior services',
+    signLanguage: 'Sign language',
+    skipToContent: 'Skip to content',
   },
   fi: {
-    'header-title': 'Helsingin kaupunki',
-    'header-aria-label': 'Helsingin kaupunki',
-    'header-login': 'Kirjaudu',
-    'header-search': 'Haku',
-    'header-menu-title': 'Tietoa muilla kielillä',
+    adultEducationCentres: 'Työväenopistot',
+    ariaLanguageSelection: 'Kielen valinta',
+    ariaLogo: 'Palvelun logo',
+    ariaMenuButton: 'Valikko',
+    basicEducation: 'Perusopetus',
+    business: 'Yritykset',
+    businessAndWork: 'Yritykset ja työ',
+    childHoodAndEducation: 'Kasvatus ja koulutus',
+    clearFinnish: 'Selkosuomi',
+    close: 'Sulje',
+    dentalCare: 'Hammashoito',
+    earlyChildhoodEducation: 'Varhaiskasvatus',
+    education: 'Koulutus',
+    employers: 'Työnantajat',
+    entrepreneurs: 'Yrittäjät',
+    feedback: 'Anna palautetta',
+    forImmigrants: 'Maahanmuuttajille',
+    forTravellers: 'Matkailijoille',
+    frontPage: 'Etusivu',
+    generalUpperSecondaryEducation: 'Lukiokoulutus',
+    headerAriaLabel: 'Helsingin kaupunki',
+    headerLogin: 'Kirjaudu',
+    headerMenuTitle: 'Tietoa muilla kielillä',
+    headerSearch: 'Haku',
+    headerTitle: 'Helsingin kaupunki',
+    healtcare: 'Terveydenhoito',
+    healthAndndSocialServices: 'Sosiaali- ja terveyspalvelut',
+    infoOtherLanguages: 'Tietoa muilla kielillä',
+    jobSeekers: 'Työnhakijat',
+    loginOptions: 'Kirjautumisvalinnat',
+    news: 'Uutiset',
+    online: 'Asioi verkossa',
+    openJobs: 'Avoimet työpaikat',
+    otherLanguages: 'Muut kielet',
+    prePrimaryEducation: 'Esiopetus',
+    search: 'Hae sivustolta',
+    seniorServices: 'Senioripalvelut',
+    signLanguage: 'Viittomakieli',
+    skipToContent: 'Hyppää sisältöön',
   },
   sv: {
-    'header-title': 'Helsingfors Stad',
-    'header-aria-label': 'Helsingfors Stad',
-    'header-login': 'Logga in',
-    'header-search': 'Sök',
-    'header-menu-title': 'Andra språk',
-  },
-  es: {
-    'header-title': 'Helsingin kaupunki ES',
-    'header-aria-label': 'Helsingin kaupunki  ES',
-    'header-login': 'Kirjaudu  ES',
-    'header-search': 'Haku  ES',
-    'header-menu-title': 'Tietoa muilla kielillä  ES',
-  },
-  de: {
-    'header-title': 'Helsingin kaupunki DE',
-    'header-aria-label': 'Helsingin kaupunki  DE',
-    'header-login': 'Kirjaudu  DE',
-    'header-search': 'Haku  DE',
-    'header-menu-title': 'Tietoa muilla kielillä  DE',
+    adultEducationCentres: 'Arbetarinstituten',
+    ariaLanguageSelection: 'Välja spräk',
+    ariaLogo: 'Service logo',
+    ariaMenuButton: 'Menu',
+    basicEducation: 'Grundläggande utbildning',
+    business: 'Företag',
+    businessAndWork: 'Företag och arbete',
+    childHoodAndEducation: 'Fostran och utbildning',
+    clearFinnish: 'Klara finska',
+    close: 'Stäng',
+    dentalCare: 'Tandvård',
+    earlyChildhoodEducation: 'Småbarnspedagogik',
+    education: 'Utbildning',
+    employers: 'Arbetsgivare',
+    entrepreneurs: 'Företagare',
+    feedback: 'Ge feedback',
+    forImmigrants: 'För migranter',
+    forTravellers: 'För turister',
+    frontPage: 'Hemsida',
+    generalUpperSecondaryEducation: 'Gymnasieutbildning',
+    headerAriaLabel: 'Helsingfors Stad',
+    headerLogin: 'Logga in',
+    headerMenuTitle: 'Andra språk',
+    headerSearch: 'Sök',
+    headerTitle: 'Helsingfors Stad',
+    healtcare: 'Hälsovärd',
+    healthAndndSocialServices: 'Social- och hälsovårdstjänster',
+    infoOtherLanguages: 'information på andra språk',
+    jobSeekers: 'Arbetssökande',
+    loginOptions: 'Logga in optioner',
+    news: 'Nyheter',
+    online: 'Göra affärer online',
+    openJobs: 'Lediga jobb',
+    otherLanguages: 'Andra språk',
+    prePrimaryEducation: 'Förskoleundervisning',
+    search: 'Sök på sidor',
+    seniorServices: 'Seniortjänster',
+    signLanguage: 'Teckenpsråk',
+    skipToContent: 'Hoppa till innehåll',
   },
   fr: {
-    'header-title': 'Helsingin kaupunki FR',
-    'header-aria-label': 'Helsingin kaupunki  FR',
-    'header-login': 'Kirjaudu  FR',
-    'header-search': 'Haku  FR',
-    'header-menu-title': 'Tietoa muilla kielillä  FR',
-  },
-  ru: {
-    'header-title': 'Helsingin kaupunki RU',
-    'header-aria-label': 'Helsingin kaupunki  RU',
-    'header-login': 'Kirjaudu  RU',
-    'header-search': 'Haku  RU',
-    'header-menu-title': 'Tietoa muilla kielillä  RU',
+    adultEducationCentres: "Centre d'éducation des adultes",
+    ariaLanguageSelection: 'Changez de langue',
+    ariaLogo: 'Logo de service',
+    ariaMenuButton: 'Menu',
+    basicEducation: 'École élémentaire',
+    business: 'Enteprises',
+    businessAndWork: 'Entreprises et travail',
+    childHoodAndEducation: 'Éducation',
+    clearFinnish: 'Finnois simple',
+    close: 'Fermer',
+    dentalCare: 'Soins dentaires',
+    earlyChildhoodEducation: "L'éducation de la petite enfance",
+    education: 'Éducation',
+    employers: 'Employeurs',
+    entrepreneurs: 'Entrepreneur',
+    feedback: 'Remarques',
+    forImmigrants: 'Pour les immigrants',
+    forTravellers: 'Pour les touristes',
+    frontPage: "Page d'accueil",
+    generalUpperSecondaryEducation: 'Lycèe',
+    headerAriaLabel: 'Ville de Helsinki',
+    headerLogin: 'Se connecter',
+    headerMenuTitle: 'Autres langues',
+    headerSearch: 'Reserche',
+    headerTitle: 'Ville de Helsinki',
+    healtcare: 'Soins de santé',
+    healthAndndSocialServices: 'Services sociaux et de santé',
+    infoOtherLanguages: 'Information en autres langues',
+    jobSeekers: "Demandeurs d'emploi",
+    loginOptions: 'Choix pour se connecter',
+    news: 'Actualités',
+    online: 'e-Démarches',
+    openJobs: 'Emplois ouverts',
+    otherLanguages: 'Autres langages',
+    prePrimaryEducation: 'École maternelle',
+    search: 'Reserchez sur la site',
+    seniorServices: 'Service aux personnes âgées',
+    signLanguage: 'Langue des signes',
+    skipToContent: 'Passer au contenu',
   },
 };
 
-export const WithFullFeatures = (args) => (
-  <>
-    <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <Header.Link href="#" label="Uutiset" />
-        <Header.Link href="#" label="Asioi verkossa" />
-        <Header.Link href="#" label="Anna palautetta" />
-      </Header.UniversalBar>
+export const WithFullFeatures = (args) => {
+  const [href, setHref] = useState('');
+  const [lang, setLang] = useState<string>('fi');
 
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        frontPageLabel="Etusivu"
-        titleAriaLabel="Helsingin kaupunki"
-        titleHref="https://hel.fi"
-        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
-        logoAriaLabel="Service logo"
-        logoHref="https://hel.fi"
-        menuButtonAriaLabel="Menu"
-        openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
-      >
-        <Header.LanguageSelector ariaLabel="Kielen valinta" languageHeading="Muut kielet">
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com" size="S" lang="fi">
-            Viittomakieli
-          </Link>
-          <h3>Matkailijoille</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            MyHelsinki.fi
-          </Link>
-          <h3>Maahanmuuttajille</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            InfoFinland.fi
-          </Link>
-        </Header.LanguageSelector>
+  const languageChangedStateAction = (language: string) => {
+    setLang(language);
+  };
 
-        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-          <Header.Search label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
-        </Header.ActionBarItem>
-      </Header.ActionBar>
+  const [trans, setTrans] = useState(translations.fi);
 
-      <Header.NavigationMenu>
-        <Header.Link
-          href="#"
-          label="Sosiaali- ja terveyspalvelut"
-          onClick={(event) => event.preventDefault()}
-          openDropdownAriaButtonLabel="Avaa Sosiaali- ja terveyspalvelut alavalikko"
-          closeDropdownAriaButtonLabel="Sulje Sosiaali- ja terveyspalvelut alavalikko"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Terveydenhoito"
-              openDropdownAriaButtonLabel="Avaa Terveydenhoito alavalikko"
-              closeDropdownAriaButtonLabel="Sulje Terveydenhoito alavalikko"
-              dropdownLinks={[
-                <Header.Link href="#" label="Hammashoito" />,
-                <Header.Link href="#" label="Julkinen terveydenhoito" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Senioripalvelut"
-              openDropdownAriaButtonLabel="Avaa Senioripalvelut alavalikko"
-              closeDropdownAriaButtonLabel="Sulje Senioripalvelut alavalikko"
-              dropdownLinks={[
-                <Header.Link href="#" label="Viriketoiminta" />,
-                <Header.Link href="#" label="Kuntouttavat palvelut" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link
-          href="#"
-          label="Kasvatus ja koulutus"
-          openDropdownAriaButtonLabel="Avaa Kasvatus ja koulutus alavalikko"
-          closeDropdownAriaButtonLabel="Sulje Kasvatus ja koulutus alavalikko"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Kasvatus"
-              openDropdownAriaButtonLabel="Avaa Kasvatus alavalikko"
-              closeDropdownAriaButtonLabel="Sulje Kasvatus alavalikko"
-              dropdownLinks={[
-                <Header.Link href="#" label="Varhaiskasvatus" />,
-                <Header.Link href="#" label="Esiopetus" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Koulutus"
-              openDropdownAriaButtonLabel="Avaa Koulutus alavalikko"
-              closeDropdownAriaButtonLabel="Sulje Koulutus alavalikko"
-              dropdownLinks={[
-                <Header.Link href="#" label="Perusopetus" />,
-                <Header.Link href="#" label="Toisen asteen koulutus" />,
-                <Header.Link href="#" label="Työväenopistot" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link
-          href="#"
-          label="Yritykset ja työ"
-          openDropdownAriaButtonLabel="Avaa Yritykset ja työ alavalikko"
-          closeDropdownAriaButtonLabel="Sulje Yritykset ja työ alavalikko"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Työnantajat"
-              openDropdownAriaButtonLabel="Avaa Työnantajat alavalikko"
-              closeDropdownAriaButtonLabel="Sulje Työnantajat alavalikko"
-              dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
-            />,
-            <Header.Link
-              href="#"
-              label="Työntekijät"
-              openDropdownAriaButtonLabel="Avaa Työntekijät alavalikko"
-              closeDropdownAriaButtonLabel="Sulje Työntekijät alavalikko"
-              dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
-            />,
-          ]}
-        />
-      </Header.NavigationMenu>
-    </Header>
-    <div id="content" />
-  </>
-);
+  useEffect(() => {
+    setTrans(translations[lang]);
+  }, [lang]);
 
-export const WithFullFeaturesDarkTheme = (args) => (
-  <>
-    <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <Header.Link href="#" label="Uutiset" />
-        <Header.Link href="#" label="Asioi verkossa" />
-        <Header.Link href="#" label="Anna palautetta" />
-      </Header.UniversalBar>
-
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        frontPageLabel="Etusivu"
-        titleAriaLabel="Helsingin kaupunki"
-        titleHref="https://hel.fi"
-        logoAriaLabel="Service logo"
-        logoHref="https://hel.fi"
-        logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
-        menuButtonAriaLabel="Menu"
-      >
-        <Header.LanguageSelector ariaLabel="Kielen valinta" languageHeading="Muut kielet">
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com" size="S" lang="fi">
-            Viittomakieli
-          </Link>
-          <h3>Matkailijoille</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            MyHelsinki.fi
-          </Link>
-          <h3>Maahanmuuttajille</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            InfoFinland.fi
-          </Link>
-        </Header.LanguageSelector>
-
-        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-          <Header.Search label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
-        </Header.ActionBarItem>
-      </Header.ActionBar>
-
-      <Header.NavigationMenu>
-        <Header.Link
-          href="#"
-          label="Sosiaali- ja terveyspalvelut"
-          onClick={(event) => event.preventDefault()}
-          active
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              active
-              label="Terveydenhoito"
-              dropdownLinks={[
-                <Header.Link active href="#" label="Hammashoito" />,
-                <Header.Link href="#" label="Julkinen terveydenhoito" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Senioripalvelut"
-              dropdownLinks={[
-                <Header.Link href="#" label="Viriketoiminta" />,
-                <Header.Link href="#" label="Kuntouttavat palvelut" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link
-          href="#"
-          label="Kasvatus ja koulutus"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Kasvatus"
-              dropdownLinks={[
-                <Header.Link href="#" label="Varhaiskasvatus" />,
-                <Header.Link href="#" label="Esiopetus" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Koulutus"
-              dropdownLinks={[
-                <Header.Link href="#" label="Perusopetus" />,
-                <Header.Link href="#" label="Toisen asteen koulutus" />,
-                <Header.Link href="#" label="Työväenopistot" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link
-          href="#"
-          label="Yritykset ja työ"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Työnantajat"
-              dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
-            />,
-            <Header.Link
-              href="#"
-              label="Työntekijät"
-              dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
-            />,
-          ]}
-        />
-      </Header.NavigationMenu>
-    </Header>
-    <div id="content" />
-  </>
-);
-
-WithFullFeaturesDarkTheme.args = {
-  theme: 'dark',
-};
-
-export const Minimal = (args) => {
   return (
     <>
-      <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
-        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
+        <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
+        <Header.UniversalBar primaryLinkText={trans.headerTitle} primaryLinkHref="#">
+          <Header.Link href="#uutiset" label={trans.news} />
+          <Header.Link href="#asioi_verkossa" label={trans.online} />
+          <Header.Link href="#anna_palautetta" label={trans.feedback} />
+        </Header.UniversalBar>
+
         <Header.ActionBar
-          title="Helsingin kaupunki"
-          titleAriaLabel="Helsingin kaupunki"
+          title={trans.headerTitle}
+          frontPageLabel={trans.frontPage}
+          titleAriaLabel={trans.headerTitle}
           titleHref="https://hel.fi"
-          logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={trans.headerTitle} />}
+          logoAriaLabel={trans.ariaLogo}
+          logoHref="https://hel.fi"
+          menuButtonAriaLabel={trans.ariaMenuButton}
+          openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
         >
-          <Header.LanguageSelector languageHeading="Muut kielet" ariaLabel="Valitse kieli">
-            <h3>Tietoa muilla kielillä</h3>
+          <Header.LanguageSelector ariaLabel={trans.ariaLanguageSelection} languageHeading={trans.otherLanguages}>
+            <h3>{trans.infoOtherLanguages}</h3>
             <Link external href="www.example.com" size="S" lang="fi">
-              Selkosuomi
+              {trans.clearFinnish}
             </Link>
+            <Link external href="www.example.com" size="S" lang="fse">
+              {trans.signLanguage}
+            </Link>
+            <h3>{trans.forTravellers}</h3>
             <Link external href="www.example.com" size="S" lang="fi">
-              Viittomakieli
+              MyHelsinki.fi
+            </Link>
+            <h3>{trans.forImmigrants}</h3>
+            <Link external href="www.example.com" size="S" lang="fi">
+              InfoFinland.fi
             </Link>
           </Header.LanguageSelector>
 
-          <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-            <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label="Haku" />
+          <Header.ActionBarItem
+            label={trans.headerSearch}
+            icon={<IconSearch />}
+            id="action-bar-search"
+            closeLabel={trans.close}
+          >
+            <Header.Search label={trans.search} onChange={searchChangeAction} onSubmit={searchSubmitAction} />
           </Header.ActionBarItem>
-          <Header.ActionBarItem label="Kirjaudu" fixedRightPosition icon={<IconUser />} id="action-bar-login">
-            <h3>Kirjautumisvalinnat</h3>
+          <Header.ActionBarItem
+            label={translations[lang].headerLogin}
+            fixedRightPosition
+            icon={<IconUser />}
+            id="action-bar-login"
+            closeLabel={trans.close}
+          >
+            <h3>{trans.loginOptions}</h3>
           </Header.ActionBarItem>
         </Header.ActionBar>
 
         <Header.NavigationMenu>
-          <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
-          <Header.Link href="#" label="Kasvatus ja koulutus" />
-          <Header.Link href="#" label="Asuminen" />
+          <Header.Link
+            label={trans.healthAndndSocialServices}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#sosiaali-_ja_terveyspalvelut');
+            }}
+            active={href.includes('#sosiaali-_ja_terveyspalvelut')}
+            dropdownLinks={[
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={trans.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={trans.dentalCare}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                active={href.includes('#senioripalvelut')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#senioripalvelut');
+                }}
+                label={trans.seniorServices}
+              />,
+            ]}
+          />
+          <Header.Link
+            active={href.includes('#kasvatus_ja_koulutus')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#kasvatus_ja_koulutus');
+            }}
+            label={trans.childHoodAndEducation}
+            dropdownLinks={[
+              <Header.Link
+                active={href.includes('#varhaiskasvatus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#varhaiskasvatus');
+                }}
+                label={trans.earlyChildhoodEducation}
+              />,
+              <Header.Link
+                active={href.includes('#esiopetus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#esiopetus');
+                }}
+                label={trans.prePrimaryEducation}
+              />,
+              <Header.Link
+                active={href.includes('#koulutus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus');
+                }}
+                label={trans.education}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#perusopetus')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#kasvatus_ja_koulutus#koulutus#perusopetus');
+                    }}
+                    label={trans.basicEducation}
+                  />,
+                  <Header.Link
+                    label={trans.generalUpperSecondaryEducation}
+                    active={href.includes('#lukiokoulutus')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#kasvatus_ja_koulutus#koulutus#lukiokoulutus');
+                    }}
+                  />,
+                  <Header.Link
+                    label={trans.adultEducationCentres}
+                    active={href.includes('#tyovaenopistot')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#kasvatus_ja_koulutus#koulutus#tyovaenopistot');
+                    }}
+                  />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.Link
+            active={href.includes('#yritykset_ja_tyo')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#yritykset_ja_tyo');
+            }}
+            label={trans.businessAndWork}
+            dropdownLinks={[
+              <Header.Link
+                label={trans.employers}
+                active={href.includes('#tyonantajat')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#yritykset_ja_tyo#tyonantajat');
+                }}
+                dropdownLinks={[
+                  <Header.Link
+                    label={trans.business}
+                    active={href.includes('#yritykset_ja_tyo#tyonantajat#yritykset')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#yritykset_ja_tyo#tyonantajat#yritykset');
+                    }}
+                  />,
+                  <Header.Link
+                    label={trans.entrepreneurs}
+                    active={href.includes('#yrittajat')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#yritykset_ja_tyo#tyonantajat#yrittajat');
+                    }}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                active={href.includes('#yritykset_ja_tyo#tyonhakijat')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#yritykset_ja_tyo#tyonhakijat');
+                }}
+                label={trans.jobSeekers}
+                dropdownLinks={[
+                  <Header.Link
+                    label={trans.openJobs}
+                    active={href.includes('#yritykset_ja_tyo#tyonhakijat#avoimet_tyopaikat')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#yritykset_ja_tyo#tyonhakijat#avoimet_tyopaikat');
+                    }}
+                  />,
+                ]}
+              />,
+            ]}
+          />
         </Header.NavigationMenu>
       </Header>
       <div id="content" />
@@ -403,60 +465,49 @@ export const Minimal = (args) => {
   );
 };
 
-export const MinimalWithLocalization = (args) => {
-  const [lang, setLang] = useState<string>('fi');
-
-  const languageChangedStateAction = (language: string) => {
-    setLang(language);
-  };
+export const Minimal = (args) => {
+  const lang = 'fi';
+  const trans = translations[lang];
 
   return (
     <>
-      <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
-        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header {...args}>
+        <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
         <Header.ActionBar
-          title={translations[lang]['header-title']}
-          titleAriaLabel={translations[lang]['header-aria-label']}
+          frontPageLabel={trans.frontPage}
+          title={translations[lang].headerTitle}
+          titleAriaLabel={translations[lang].headerAriaLabel}
           titleHref="https://hel.fi"
-          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang]['header-title']} />}
-        >
-          <Header.LanguageSelector languageHeading="Muut kielet" ariaLabel="Valitse kieli">
-            <h3>{translations[lang]['header-menu-title']}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              Selkosuomi
-            </Link>
-            <Link external href="www.example.com" size="S" lang="fi">
-              Viittomakieli
-            </Link>
-          </Header.LanguageSelector>
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
+          logoAriaLabel={trans.ariaLogo}
+        />
+      </Header>
+      <div id="content" />
+    </>
+  );
+};
 
-          <Header.ActionBarItem
-            fullWidth
-            label={translations[lang]['header-search']}
-            icon={<IconSearch />}
-            id="action-bar-search"
-          >
-            <Header.Search
-              onChange={searchChangeAction}
-              onSubmit={searchSubmitAction}
-              label={translations[lang]['header-search']}
+export const MinimalWithCustomLogo = (args) => {
+  const lang = 'fi';
+  const trans = translations[lang];
+
+  return (
+    <>
+      <Header {...args}>
+        <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
+        <Header.ActionBar
+          frontPageLabel={trans.frontPage}
+          title={translations[lang].headerTitle}
+          titleAriaLabel={translations[lang].headerAriaLabel}
+          titleHref="https://hel.fi"
+          logo={
+            <Logo
+              src="https://www.turku.fi/sites/default/files/styles/site_logo/public/sites/all/themes/custom/driveturku/images/sprites/logo.png"
+              alt={translations[lang].headerTitle}
             />
-          </Header.ActionBarItem>
-          <Header.ActionBarItem
-            label={translations[lang]['header-login']}
-            fixedRightPosition
-            icon={<IconUser />}
-            id="action-bar-login"
-          >
-            <h3>Kirjautumisvalinnat</h3>
-          </Header.ActionBarItem>
-        </Header.ActionBar>
-
-        <Header.NavigationMenu>
-          <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
-          <Header.Link href="#" label="Kasvatus ja koulutus" />
-          <Header.Link href="#" label="Asuminen" />
-        </Header.NavigationMenu>
+          }
+          logoAriaLabel={trans.ariaLogo}
+        />
       </Header>
       <div id="content" />
     </>
@@ -464,7 +515,18 @@ export const MinimalWithLocalization = (args) => {
 };
 
 export const ManualLanguageSorting = (args) => {
+  const [href, setHref] = useState('');
   const [lang, setLang] = useState<string>('fi');
+
+  const languageChangedStateAction = (language: string) => {
+    setLang(language);
+  };
+
+  const [trans, setTrans] = useState(translations.fi);
+
+  useEffect(() => {
+    setTrans(translations[lang]);
+  }, [lang]);
 
   // Force Finnish language to be always visible
   const sortLanguageOptions: LanguageSelectorProps['sortLanguageOptions'] = (options, activeLanguage) => {
@@ -480,192 +542,117 @@ export const ManualLanguageSorting = (args) => {
     return [primaryLanguages, secondaryLanguages];
   };
 
-  const languageChangedStateAction = (language: string) => setLang(language);
   const onlyPrimaryLanguages = languages.filter((option) => option.isPrimary);
   return (
     <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={onlyPrimaryLanguages}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
       <Header.ActionBar
-        title={translations[lang]['header-title']}
-        titleAriaLabel={translations[lang]['header-aria-label']}
+        frontPageLabel={trans.frontPage}
+        title={trans.headerTitle}
+        titleAriaLabel={trans.headerTitle}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={trans.headerTitle} />}
       >
         <Header.LanguageSelector
           sortLanguageOptions={sortLanguageOptions}
-          languageHeading={translations[lang]['header-menu-title']}
+          ariaLabel={trans.ariaLanguageSelection}
+          languageHeading={trans.otherLanguages}
         />
 
         <Header.ActionBarItem
           fullWidth
-          label={translations[lang]['header-search']}
+          label={trans.headerSearch}
           icon={<IconSearch />}
           id="action-bar-search"
+          closeLabel={trans.close}
         >
-          <Header.Search
-            onChange={searchChangeAction}
-            onSubmit={searchSubmitAction}
-            label={translations[lang]['header-search']}
-          />
+          <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label={trans.search} />
         </Header.ActionBarItem>
         <Header.ActionBarItem
-          label={translations[lang]['header-login']}
+          label={translations[lang].headerLogin}
           fixedRightPosition
           icon={<IconUser />}
           id="action-bar-login"
+          closeLabel={trans.close}
         >
-          <h3>Kirjautumisvalinnat</h3>
+          <h3>{trans.loginOptions}</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
-        <Header.Link href="#" label="Kasvatus ja koulutus" />
-        <Header.Link href="#" label="Asuminen" />
+        <Header.Link
+          label={trans.healthAndndSocialServices}
+          onClick={(event) => {
+            event.preventDefault();
+            setHref('#sosiaali-_ja_terveyspalvelut');
+          }}
+          active={href.includes('#sosiaali-_ja_terveyspalvelut')}
+        />
+        <Header.Link
+          active={href.includes('#kasvatus_ja_koulutus')}
+          onClick={(event) => {
+            event.preventDefault();
+            setHref('#kasvatus_ja_koulutus');
+          }}
+          label={trans.childHoodAndEducation}
+        />
       </Header.NavigationMenu>
     </Header>
   );
 };
 
 export const ManualLanguageOptions = (args) => {
+  const [href, setHref] = useState('');
   const [lang, setLang] = useState<string>('fi');
 
-  const languageChangedStateAction = (language: string) => setLang(language);
+  const languageChangedStateAction = (language: string) => {
+    setLang(language);
+  };
+
+  const [trans, setTrans] = useState(translations.fi);
+
+  useEffect(() => {
+    setTrans(translations[lang]);
+  }, [lang]);
+
   return (
     <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
+      <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
       <Header.ActionBar
-        title={translations[lang]['header-title']}
-        titleAriaLabel={translations[lang]['header-aria-label']}
+        frontPageLabel={trans.frontPage}
+        title={translations[lang].headerTitle}
+        titleAriaLabel={translations[lang].headerAriaLabel}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', args.theme)} alt="Helsingin kaupunki" />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
       >
         <Header.SimpleLanguageOptions languages={[languages[0], languages[1]]} />
       </Header.ActionBar>
 
       <Header.NavigationMenu>
-        <Header.Link href="#" label="Sosiaali- ja terveyspalvelut" />
-        <Header.Link href="#" label="Kasvatus ja koulutus" />
-        <Header.Link href="#" label="Asuminen" />
+        <Header.Link
+          label={trans.healthAndndSocialServices}
+          onClick={(event) => {
+            event.preventDefault();
+            setHref('#sosiaali-_ja_terveyspalvelut');
+          }}
+          active={href.includes('#sosiaali-_ja_terveyspalvelut')}
+        />
+        <Header.Link
+          active={href.includes('#kasvatus_ja_koulutus')}
+          onClick={(event) => {
+            event.preventDefault();
+            setHref('#kasvatus_ja_koulutus');
+          }}
+          label={trans.childHoodAndEducation}
+        />
       </Header.NavigationMenu>
     </Header>
   );
 };
 
-export const WithFullFeaturesCustomTheme = (args) => (
-  <>
-    <Header {...args} onDidChangeLanguage={languageChangedAction} languages={languages}>
-      <Header.SkipLink skipTo="#content" label="Skip To Content" />
-      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <Header.Link href="#" label="Uutiset" />
-        <Header.Link href="#" label="Asioi verkossa" />
-        <Header.Link href="#" label="Anna palautetta" />
-      </Header.UniversalBar>
-
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleHref="https://hel.fi"
-        logoAriaLabel="Service logo"
-        logoHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme('fi', 'custom')} alt="Helsingin kaupunki" />}
-        menuButtonAriaLabel="Menu"
-      >
-        <Header.LanguageSelector languageHeading="Muut kielet" ariaLabel="Valitse kieli">
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com" size="S" lang="fi">
-            Viittomakieli
-          </Link>
-          <h3>Matkailijoille</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            MyHelsinki.fi
-          </Link>
-          <h3>Maahanmuuttajille</h3>
-          <Link external href="www.example.com" size="S" lang="fi">
-            InfoFinland.fi
-          </Link>
-        </Header.LanguageSelector>
-
-        <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-          <Header.Search label="Hae palvelusta" onChange={searchChangeAction} onSubmit={searchSubmitAction} />
-        </Header.ActionBarItem>
-      </Header.ActionBar>
-
-      <Header.NavigationMenu>
-        <Header.Link
-          href="#"
-          label="Sosiaali- ja terveyspalvelut"
-          onClick={(event) => event.preventDefault()}
-          active
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Terveydenhoito"
-              active
-              dropdownLinks={[
-                <Header.Link href="#" label="Hammashoito" />,
-                <Header.Link href="#" label="Julkinen terveydenhoito" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Senioripalvelut"
-              dropdownLinks={[
-                <Header.Link href="#" label="Viriketoiminta" />,
-                <Header.Link href="#" label="Kuntouttavat palvelut" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link
-          href="#"
-          label="Kasvatus ja koulutus"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Kasvatus"
-              active
-              dropdownLinks={[
-                <Header.Link href="#" label="Varhaiskasvatus" />,
-                <Header.Link href="#" label="Esiopetus" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Koulutus"
-              dropdownLinks={[
-                <Header.Link href="#" label="Perusopetus" />,
-                <Header.Link href="#" label="Toisen asteen koulutus" />,
-                <Header.Link href="#" label="Työväenopistot" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link
-          href="#"
-          label="Yritykset ja työ"
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Työnantajat"
-              active
-              dropdownLinks={[<Header.Link href="#" label="Yritykset" />, <Header.Link href="#" label="Yrittäjät" />]}
-            />,
-            <Header.Link
-              href="#"
-              label="Työntekijät"
-              dropdownLinks={[<Header.Link href="#" label="Avoimet työpaikat" />]}
-            />,
-          ]}
-        />
-      </Header.NavigationMenu>
-    </Header>
-    <div id="content" />
-  </>
-);
+export const WithFullFeaturesCustomTheme = (args) => {
+  return <WithFullFeatures {...args} />;
+};
 
 WithFullFeaturesCustomTheme.args = {
   theme: {
@@ -682,5 +669,11 @@ WithFullFeaturesCustomTheme.args = {
     '--nav-button-hover-background-color': 'var(--color-black-40)',
     '--nav-drop-down-icon-color': 'var(--color-black)',
     '--header-background-color': 'var(--color-engel-light)',
+  },
+};
+
+WithFullFeaturesCustomTheme.argTypes = {
+  theme: {
+    control: { type: 'object' },
   },
 };
