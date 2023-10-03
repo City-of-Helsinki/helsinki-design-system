@@ -681,6 +681,6 @@ WithFullFeaturesCustomTheme.args = {
     '--nav-button-background-color': 'var(--color-black-20)',
     '--nav-button-hover-background-color': 'var(--color-black-40)',
     '--nav-drop-down-icon-color': 'var(--color-black)',
-    '--header-background-color': 'transparent',
+    '--header-background-color': 'var(--color-engel-light)',
   },
 };
