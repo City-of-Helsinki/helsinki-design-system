@@ -45,7 +45,7 @@
   }
 
   > button {
-    border: 3px solid transparent;
+    border: var(--header-focus-outline-width) solid transparent;
   }
 }
 
@@ -53,16 +53,14 @@ button.item,
 [type='button'].item {
   appearance: none;
   background: transparent;
-  border: none;
   color: var(--lang-selector-item-font-color);
   cursor: pointer;
   line-height: var(--lineheight-l);
+  outline: 0;
   white-space: nowrap;
 
   &:focus-visible {
-    border: none;
-    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
-    outline-offset: var(--header-focus-outline-width);
+    border: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
   }
 }
 
@@ -80,7 +78,15 @@ button.item,
 
   button.item,
   [type='button'].item {
+    align-self: center;
+    border: none;
     padding: 0;
+
+    &:focus-visible {
+      border: none;
+      outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+      outline-offset: var(--header-focus-outline-width);
+    }
   }
 }
 
