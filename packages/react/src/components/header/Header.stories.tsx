@@ -507,7 +507,7 @@ export const MinimalWithCustomLogo = (args) => {
           titleHref="https://hel.fi"
           logo={
             <Logo
-              src={args.theme === 'light' ? customHdsLogo : customHdsLogoDark}
+              src={args.theme === 'dark' ? customHdsLogoDark : customHdsLogo}
               alt={translations[lang].headerTitle}
             />
           }
