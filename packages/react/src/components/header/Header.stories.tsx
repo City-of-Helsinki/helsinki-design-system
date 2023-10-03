@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { action } from '@storybook/addon-actions';
 
 import { LanguageSelectorProps } from '.';
 import { Header } from './Header';
