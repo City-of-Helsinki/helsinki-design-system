@@ -258,7 +258,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">view minimal header example with action bar in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full featured header example with action bar in Storybook</Link>.
 
 ##### With language selector
 
@@ -272,7 +272,7 @@ Header.LanguageSelector offers the languages for the whole service. It is recomm
 - Using the Header.LanguageSelector is optional.
 - The Header.LanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
 - The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
-- See example for Header.LanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal-with-localization">in Storybook</Link>
+- See example for Header.LanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link>.
 - Under large sized screens (992px and down) the Header.LanguageSelector moves under the Header.ActionBar.
 
 ##### With search
@@ -398,7 +398,7 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">view minimal header example with action bar in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example with navigation menu in Storybook</Link>.
 
 #### With navigation menu
 
@@ -652,6 +652,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         '--header-focus-outline-color': 'var(--color-metro-dark)',
         '--actionbar-background-color': 'var(--color-engel)',
         '--nav-background-color': 'var(--color-engel-light)',
+        '--nav-mobile-menu-background-color': 'var(--color-engel-light)',
         '--nav-border-color': 'var(--color-black)',
         '--nav-link-hover-color': 'var(--color-black)',
         '--universal-bar-background-color': 'var(--color-black-20)',
@@ -714,4 +715,4 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
   </div>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-dark-theme">view full header with dark theme example in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-custom-theme">view full header with custom theme example in Storybook</Link> or toggle<Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">the dark theme in full featured story</Link>.
