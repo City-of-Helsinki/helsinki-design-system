@@ -248,73 +248,73 @@ export const WithFullFeatures = (args) => {
     setLang(language);
   };
 
-  const [trans, setTrans] = useState(translations.fi);
+  const [I18n, setI18n] = useState(translations.fi);
 
   useEffect(() => {
-    setTrans(translations[lang]);
+    setI18n(translations[lang]);
   }, [lang]);
 
   return (
     <>
       <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
-        <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
-        <Header.UniversalBar primaryLinkText={trans.headerTitle} primaryLinkHref="#">
-          <Header.Link href="#uutiset" label={trans.news} />
-          <Header.Link href="#asioi_verkossa" label={trans.online} />
-          <Header.Link href="#anna_palautetta" label={trans.feedback} />
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
+        <Header.UniversalBar primaryLinkText={I18n.headerTitle} primaryLinkHref="#">
+          <Header.Link href="#uutiset" label={I18n.news} />
+          <Header.Link href="#asioi_verkossa" label={I18n.online} />
+          <Header.Link href="#anna_palautetta" label={I18n.feedback} />
         </Header.UniversalBar>
 
         <Header.ActionBar
-          title={trans.headerTitle}
-          frontPageLabel={trans.frontPage}
-          titleAriaLabel={trans.headerTitle}
+          title={I18n.headerTitle}
+          frontPageLabel={I18n.frontPage}
+          titleAriaLabel={I18n.headerTitle}
           titleHref="https://hel.fi"
-          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={trans.headerTitle} />}
-          logoAriaLabel={trans.ariaLogo}
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={I18n.headerTitle} />}
+          logoAriaLabel={I18n.ariaLogo}
           logoHref="https://hel.fi"
-          menuButtonAriaLabel={trans.ariaMenuButton}
+          menuButtonAriaLabel={I18n.ariaMenuButton}
           openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
         >
-          <Header.LanguageSelector ariaLabel={trans.ariaLanguageSelection} languageHeading={trans.otherLanguages}>
-            <h3>{trans.infoOtherLanguages}</h3>
+          <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
+            <h3>{I18n.infoOtherLanguages}</h3>
             <Link external href="www.example.com" size="S" lang="fi">
-              {trans.clearFinnish}
+              {I18n.clearFinnish}
             </Link>
             <Link external href="www.example.com" size="S" lang="fse">
-              {trans.signLanguage}
+              {I18n.signLanguage}
             </Link>
-            <h3>{trans.forTravellers}</h3>
+            <h3>{I18n.forTravellers}</h3>
             <Link external href="www.example.com" size="S" lang="fi">
               MyHelsinki.fi
             </Link>
-            <h3>{trans.forImmigrants}</h3>
+            <h3>{I18n.forImmigrants}</h3>
             <Link external href="www.example.com" size="S" lang="fi">
               InfoFinland.fi
             </Link>
           </Header.LanguageSelector>
 
           <Header.ActionBarItem
-            label={trans.headerSearch}
+            label={I18n.headerSearch}
             icon={<IconSearch />}
             id="action-bar-search"
-            closeLabel={trans.close}
+            closeLabel={I18n.close}
           >
-            <Header.Search label={trans.search} onChange={searchChangeAction} onSubmit={searchSubmitAction} />
+            <Header.Search label={I18n.search} onChange={searchChangeAction} onSubmit={searchSubmitAction} />
           </Header.ActionBarItem>
           <Header.ActionBarItem
             label={translations[lang].headerLogin}
             fixedRightPosition
             icon={<IconUser />}
             id="action-bar-login"
-            closeLabel={trans.close}
+            closeLabel={I18n.close}
           >
-            <h3>{trans.loginOptions}</h3>
+            <h3>{I18n.loginOptions}</h3>
           </Header.ActionBarItem>
         </Header.ActionBar>
 
         <Header.NavigationMenu>
           <Header.Link
-            label={trans.healthAndndSocialServices}
+            label={I18n.healthAndndSocialServices}
             onClick={(event) => {
               event.preventDefault();
               setHref('#sosiaali-_ja_terveyspalvelut');
@@ -326,7 +326,7 @@ export const WithFullFeatures = (args) => {
                   event.preventDefault();
                   setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
                 }}
-                label={trans.healtcare}
+                label={I18n.healtcare}
                 active={href.includes('#terveydenhoito')}
                 dropdownLinks={[
                   <Header.Link
@@ -335,7 +335,7 @@ export const WithFullFeatures = (args) => {
                       event.preventDefault();
                       setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
                     }}
-                    label={trans.dentalCare}
+                    label={I18n.dentalCare}
                   />,
                 ]}
               />,
@@ -345,7 +345,7 @@ export const WithFullFeatures = (args) => {
                   event.preventDefault();
                   setHref('#sosiaali-_ja_terveyspalvelut#senioripalvelut');
                 }}
-                label={trans.seniorServices}
+                label={I18n.seniorServices}
               />,
             ]}
           />
@@ -355,7 +355,7 @@ export const WithFullFeatures = (args) => {
               event.preventDefault();
               setHref('#kasvatus_ja_koulutus');
             }}
-            label={trans.childHoodAndEducation}
+            label={I18n.childHoodAndEducation}
             dropdownLinks={[
               <Header.Link
                 active={href.includes('#varhaiskasvatus')}
@@ -363,7 +363,7 @@ export const WithFullFeatures = (args) => {
                   event.preventDefault();
                   setHref('#kasvatus_ja_koulutus#varhaiskasvatus');
                 }}
-                label={trans.earlyChildhoodEducation}
+                label={I18n.earlyChildhoodEducation}
               />,
               <Header.Link
                 active={href.includes('#esiopetus')}
@@ -371,7 +371,7 @@ export const WithFullFeatures = (args) => {
                   event.preventDefault();
                   setHref('#kasvatus_ja_koulutus#esiopetus');
                 }}
-                label={trans.prePrimaryEducation}
+                label={I18n.prePrimaryEducation}
               />,
               <Header.Link
                 active={href.includes('#koulutus')}
@@ -379,7 +379,7 @@ export const WithFullFeatures = (args) => {
                   event.preventDefault();
                   setHref('#kasvatus_ja_koulutus#koulutus');
                 }}
-                label={trans.education}
+                label={I18n.education}
                 dropdownLinks={[
                   <Header.Link
                     active={href.includes('#perusopetus')}
@@ -387,10 +387,10 @@ export const WithFullFeatures = (args) => {
                       event.preventDefault();
                       setHref('#kasvatus_ja_koulutus#koulutus#perusopetus');
                     }}
-                    label={trans.basicEducation}
+                    label={I18n.basicEducation}
                   />,
                   <Header.Link
-                    label={trans.generalUpperSecondaryEducation}
+                    label={I18n.generalUpperSecondaryEducation}
                     active={href.includes('#lukiokoulutus')}
                     onClick={(event) => {
                       event.preventDefault();
@@ -398,7 +398,7 @@ export const WithFullFeatures = (args) => {
                     }}
                   />,
                   <Header.Link
-                    label={trans.adultEducationCentres}
+                    label={I18n.adultEducationCentres}
                     active={href.includes('#tyovaenopistot')}
                     onClick={(event) => {
                       event.preventDefault();
@@ -415,10 +415,10 @@ export const WithFullFeatures = (args) => {
               event.preventDefault();
               setHref('#yritykset_ja_tyo');
             }}
-            label={trans.businessAndWork}
+            label={I18n.businessAndWork}
             dropdownLinks={[
               <Header.Link
-                label={trans.employers}
+                label={I18n.employers}
                 active={href.includes('#tyonantajat')}
                 onClick={(event) => {
                   event.preventDefault();
@@ -426,7 +426,7 @@ export const WithFullFeatures = (args) => {
                 }}
                 dropdownLinks={[
                   <Header.Link
-                    label={trans.business}
+                    label={I18n.business}
                     active={href.includes('#yritykset_ja_tyo#tyonantajat#yritykset')}
                     onClick={(event) => {
                       event.preventDefault();
@@ -434,7 +434,7 @@ export const WithFullFeatures = (args) => {
                     }}
                   />,
                   <Header.Link
-                    label={trans.entrepreneurs}
+                    label={I18n.entrepreneurs}
                     active={href.includes('#yrittajat')}
                     onClick={(event) => {
                       event.preventDefault();
@@ -449,10 +449,10 @@ export const WithFullFeatures = (args) => {
                   event.preventDefault();
                   setHref('#yritykset_ja_tyo#tyonhakijat');
                 }}
-                label={trans.jobSeekers}
+                label={I18n.jobSeekers}
                 dropdownLinks={[
                   <Header.Link
-                    label={trans.openJobs}
+                    label={I18n.openJobs}
                     active={href.includes('#yritykset_ja_tyo#tyonhakijat#avoimet_tyopaikat')}
                     onClick={(event) => {
                       event.preventDefault();
@@ -472,19 +472,19 @@ export const WithFullFeatures = (args) => {
 
 export const Minimal = (args) => {
   const lang = 'fi';
-  const trans = translations[lang];
+  const I18n = translations[lang];
 
   return (
     <>
       <Header {...args}>
-        <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
         <Header.ActionBar
-          frontPageLabel={trans.frontPage}
+          frontPageLabel={I18n.frontPage}
           title={translations[lang].headerTitle}
           titleAriaLabel={translations[lang].headerAriaLabel}
           titleHref="https://hel.fi"
           logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
-          logoAriaLabel={trans.ariaLogo}
+          logoAriaLabel={I18n.ariaLogo}
         />
       </Header>
       <div id="content" />
@@ -494,14 +494,14 @@ export const Minimal = (args) => {
 
 export const MinimalWithCustomLogo = (args) => {
   const lang = 'fi';
-  const trans = translations[lang];
+  const I18n = translations[lang];
 
   return (
     <>
       <Header {...args}>
-        <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
         <Header.ActionBar
-          frontPageLabel={trans.frontPage}
+          frontPageLabel={I18n.frontPage}
           title={translations[lang].headerTitle}
           titleAriaLabel={translations[lang].headerAriaLabel}
           titleHref="https://hel.fi"
@@ -511,7 +511,7 @@ export const MinimalWithCustomLogo = (args) => {
               alt={translations[lang].headerTitle}
             />
           }
-          logoAriaLabel={trans.ariaLogo}
+          logoAriaLabel={I18n.ariaLogo}
         />
       </Header>
       <div id="content" />
@@ -527,10 +527,10 @@ export const ManualLanguageSorting = (args) => {
     setLang(language);
   };
 
-  const [trans, setTrans] = useState(translations.fi);
+  const [I18n, setI18n] = useState(translations.fi);
 
   useEffect(() => {
-    setTrans(translations[lang]);
+    setI18n(translations[lang]);
   }, [lang]);
 
   // Force Finnish language to be always visible
@@ -550,43 +550,43 @@ export const ManualLanguageSorting = (args) => {
   const onlyPrimaryLanguages = languages.filter((option) => option.isPrimary);
   return (
     <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={onlyPrimaryLanguages}>
-      <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
+      <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
       <Header.ActionBar
-        frontPageLabel={trans.frontPage}
-        title={trans.headerTitle}
-        titleAriaLabel={trans.headerTitle}
+        frontPageLabel={I18n.frontPage}
+        title={I18n.headerTitle}
+        titleAriaLabel={I18n.headerTitle}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={trans.headerTitle} />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={I18n.headerTitle} />}
       >
         <Header.LanguageSelector
           sortLanguageOptions={sortLanguageOptions}
-          ariaLabel={trans.ariaLanguageSelection}
-          languageHeading={trans.otherLanguages}
+          ariaLabel={I18n.ariaLanguageSelection}
+          languageHeading={I18n.otherLanguages}
         />
 
         <Header.ActionBarItem
           fullWidth
-          label={trans.headerSearch}
+          label={I18n.headerSearch}
           icon={<IconSearch />}
           id="action-bar-search"
-          closeLabel={trans.close}
+          closeLabel={I18n.close}
         >
-          <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label={trans.search} />
+          <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label={I18n.search} />
         </Header.ActionBarItem>
         <Header.ActionBarItem
           label={translations[lang].headerLogin}
           fixedRightPosition
           icon={<IconUser />}
           id="action-bar-login"
-          closeLabel={trans.close}
+          closeLabel={I18n.close}
         >
-          <h3>{trans.loginOptions}</h3>
+          <h3>{I18n.loginOptions}</h3>
         </Header.ActionBarItem>
       </Header.ActionBar>
 
       <Header.NavigationMenu>
         <Header.Link
-          label={trans.healthAndndSocialServices}
+          label={I18n.healthAndndSocialServices}
           onClick={(event) => {
             event.preventDefault();
             setHref('#sosiaali-_ja_terveyspalvelut');
@@ -599,7 +599,7 @@ export const ManualLanguageSorting = (args) => {
             event.preventDefault();
             setHref('#kasvatus_ja_koulutus');
           }}
-          label={trans.childHoodAndEducation}
+          label={I18n.childHoodAndEducation}
         />
       </Header.NavigationMenu>
     </Header>
@@ -614,17 +614,17 @@ export const ManualLanguageOptions = (args) => {
     setLang(language);
   };
 
-  const [trans, setTrans] = useState(translations.fi);
+  const [I18n, setI18n] = useState(translations.fi);
 
   useEffect(() => {
-    setTrans(translations[lang]);
+    setI18n(translations[lang]);
   }, [lang]);
 
   return (
     <Header {...args} onDidChangeLanguage={languageChangedStateAction} languages={languages}>
-      <Header.SkipLink skipTo="#content" label={trans.skipToContent} />
+      <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
       <Header.ActionBar
-        frontPageLabel={trans.frontPage}
+        frontPageLabel={I18n.frontPage}
         title={translations[lang].headerTitle}
         titleAriaLabel={translations[lang].headerAriaLabel}
         titleHref="https://hel.fi"
@@ -635,7 +635,7 @@ export const ManualLanguageOptions = (args) => {
 
       <Header.NavigationMenu>
         <Header.Link
-          label={trans.healthAndndSocialServices}
+          label={I18n.healthAndndSocialServices}
           onClick={(event) => {
             event.preventDefault();
             setHref('#sosiaali-_ja_terveyspalvelut');
@@ -648,7 +648,7 @@ export const ManualLanguageOptions = (args) => {
             event.preventDefault();
             setHref('#kasvatus_ja_koulutus');
           }}
-          label={trans.childHoodAndEducation}
+          label={I18n.childHoodAndEducation}
         />
       </Header.NavigationMenu>
     </Header>
