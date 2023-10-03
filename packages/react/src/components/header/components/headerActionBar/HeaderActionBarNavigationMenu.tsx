@@ -95,7 +95,10 @@ const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref, onLinkClick }
       className,
       dropdownButtonClassName: styles.hideDropdownButton,
       wrapperClassName: styles.mobileLinkWrapper,
-      onClick: onLinkClick,
+      onClick: (event) => {
+        if (link.props.onClick) link.props.onClick(event);
+        onLinkClick(event);
+      },
     })
   ) : (
     <HeaderLink id={id} label={frontPageLabel} href={titleHref} className={className} onClick={onLinkClick} />
@@ -129,7 +132,10 @@ const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps
                 className: classNames(child.props.className, styles.mobileLink),
                 index,
                 onDropdownButtonClick: () => onDropdownButtonClick(child),
-                onClick: () => onLinkClick(child),
+                onClick: (event) => {
+                  if (child.props.onClick) child.props.onClick(event);
+                  onLinkClick(child);
+                },
               })}
             </span>
           </li>
