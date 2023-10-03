@@ -666,6 +666,7 @@ WithFullFeaturesCustomTheme.args = {
     '--header-focus-outline-color': 'var(--color-metro-dark)',
     '--actionbar-background-color': 'var(--color-engel)',
     '--nav-background-color': 'var(--color-engel-light)',
+    '--nav-mobile-menu-background-color': 'var(--color-engel-light)',
     '--nav-border-color': 'var(--color-black)',
     '--nav-link-hover-color': 'var(--color-black)',
     '--universal-bar-background-color': 'var(--color-black-20)',
