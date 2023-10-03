@@ -11,20 +11,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Customisation
 
 ### Customisation properties
+
 In Core version, you can either use the `style` attributes in the HTML to customise the component.
 
 In React version, you can use the `theme` property to customise the component.
 
 See all available theme and style variables in the table below.
 
-| Theme variable                           | Description                                     |
-| ---------------------------------------- | ----------------------------------------------- |
-| `--accent-line-color`                    | Colour of the highlight's accent line.          |
-| `--text-color`                           | Colour of the highlight's text                  |
-
+| Theme variable        | Description                            |
+| --------------------- | -------------------------------------- |
+| `--accent-line-color` | Colour of the highlight's accent line. |
+| `--text-color`        | Colour of the highlight's text         |
 
 ### Customisation example
-<Playground>
+
+<Playground scope={{ Highlight }}>
 
 ```jsx
 import { Highlight } from 'hds-react';
@@ -34,7 +35,7 @@ import { Highlight } from 'hds-react';
     text="You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to."
     theme={{
       '--accent-line-color': '#009246',
-      '--text-color': '#0000bf'
+      '--text-color': '#0000bf',
     }}
   />
 )
@@ -44,7 +45,7 @@ import { Highlight } from 'hds-react';
   <figure class="hds-highlight" style="--accent-line-color:#009246;--text-color:#0000bf">
     <blockquote class="hds-blockquote">
       <p class="hds-highlight__text">You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.</p>
-    </blockquote class="hds-blockquote">
+    </blockquote>
   </figure>
 ```
 
