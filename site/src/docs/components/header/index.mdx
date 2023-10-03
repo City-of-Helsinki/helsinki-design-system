@@ -278,14 +278,10 @@ Header.LanguageSelector offers the languages for the whole service. It is recomm
 ##### With search
 
 <Notification label="A work in progress!" className="siteNotification">
-  The Header.Search component is subject to change, mainly regarding how the dropdown is going to look and work.
+  The Header.Search component is still in design process! We are working on it and will provide a full-featured component later on.
 </Notification>
 
-The Header.Search component is to be used for whole site wide search.
-
-- Using the Header.Search is optional. It uses the <InternalLink href="/components/search-input">HDS SearchInput component</InternalLink>.
-- The Header.Search needs to be inside [Header.ActionBarItem](#actionbaritem). Notice that the ActionBarItem is what is displayed on the ActionBar, and the children inside it are what's in the dropdown.
-- The input value can be obtained via `onChange` callback prop as the input value changes, or `onSubmit` callback prop which is called when the search icon is pressed.
+The Header.Search component is to be used for whole site wide search. Currently HDS recommends putting the SearchIcon inside the Header.ActionBar, and making it open search in separate search page by pressing the search icon. This enables using all needed search functionalities. A code example can be found in the <InternalLink href="/components/header/code/#with-all-the-components">Code</InternalLink> page.
 
 <PlaygroundPreview>
   <Header>
@@ -308,6 +304,10 @@ The Header.Search component is to be used for whole site wide search.
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">view minimal header example with search in Storybook</Link>.
 
 ##### ActionBarItem
+
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.ActionBarItem component is subject to change.
+</Notification>
 
 The Header.ActionBarItem is a generic component for displaying icon buttons on the action bar, optionally accompanied with dropdowns.
 

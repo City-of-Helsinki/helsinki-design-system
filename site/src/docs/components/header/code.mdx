@@ -210,12 +210,8 @@ import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from '
     { label: 'English', value: 'en', isPrimary: true },
     { label: 'Français', value: 'fr' },
   ];
-
-  const searchSubmitAction = (search) => {
-    console.log('Search submit: ', search);
-  };
-  const searchChangeAction = (search) => {
-    console.log('Searching: ', search);
+  const searchAction = () => {
+    console.log('Open search page');
   };
 
   const [href, setHref] = React.useState('');
@@ -269,15 +265,12 @@ import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from '
               InfoFinland.fi
             </Link>
           </Header.LanguageSelector>
-
           <Header.ActionBarItem
             label={I18n.headerSearch}
-            icon={<IconSearch />}
-            id="action-bar-search"
-            closeLabel={I18n.close}
-          >
-            <Header.Search label={I18n.search} onChange={searchChangeAction} onSubmit={searchSubmitAction} />
-          </Header.ActionBarItem>
+            icon={<IconSearch />} 
+            id="action-bar-search" 
+            onClick={searchAction} 
+            closeLabel={I18n.close}/>
           <Header.ActionBarItem
             label={translations[lang].headerLogin}
             fixedRightPosition
