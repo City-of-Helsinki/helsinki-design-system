@@ -48,58 +48,29 @@ The position of the external link is adjusted to better match common practices. 
 
 ### Focus color
 Focus color token has been added. Currently the default focus color is still Coat of Arms, but token enables changing the color according to the needs.
-Components are updated to use the new token instead of hardcoded value. While this change was released already in an earlier version, updating to 3.0.0 is a good opprotunity to make this change. 
+Components are updated to use the new token instead of hardcoded value. While this change was released already in an earlier version, updating to 3.0.0 is a good opportunity to make this change. 
 
 ### Media query hooks
-There are hooks <code>useMediaQueryLessThan</code> and <code>useMediaQueryGreaterThan</code> to ease the use of media queries in React. While this change was released already in an earlier version, updating to 3.0.0 is a good opprotunity to make this change.
+There are hooks <code>useMediaQueryLessThan</code> and <code>useMediaQueryGreaterThan</code> to ease the use of media queries in React. While this change was released already in an earlier version, updating to 3.0.0 is a good opportunity to make this change.
 
 ### Radio button should not have default value
 The documentation and examples are updated so that the radio button should not have default value. 
 This change helps form validation as it is possible to catch if the user has not selected the item. It also helps to avoid accidental values, if the user does not notice the default value.
 As the radio button itself does not allow removing the value once chosen, it is recommended to provide a separate button to clear the selection.
 
+- <InternalLink size="M" href="/components/radio-button/">Radiobutton component</InternalLink>
+- <InternalLink size="M" href="/foundation/guidelines/checkbox-radiobutton-toggle/">Checkboxes, radiobuttons or toggles</InternalLink>
+
 ## Instructions for designers using Sketch
 Sketch library is updated to version 98.2. Please update your Sketch and files accordingly.
 
-To avoid accidental symbol replacements with version 3.0.0, there is a new Abstract project and library files. 
-When you are ready to move to the new version, follow the next steps.
+Refer to updating libraries <InternalLink  size="M" href="/getting-started/tutorials/abstract-tutorial/#how-to-update-hds-libraries">in Abstract tutorial</InternalLink>. 
 
-### Prerequisites
-- Abstract contributor rights in City of Helsinki Abstract
-- Basic knowledge of using HDS in Abstract, see <InternalLink size="M" href="/getting-started/tutorials/abstract-tutorial/">Abstract basics</InternalLink>
-- <ExternalLink size="M" openInNewTab="true" href="https://github.com/sonburn/symbol-swapper">Symbol swapper-plugin for Sketch</ExternalLink> installed.
+Navigation and old footer are deprecated, but they still do exist in the files. They are marked as deprecated and new symbols are available with names Footer and Header. 
+When you wish to start using these, you will need to switch the symbols manually. HDS recommends switching to new ones as soon as possible. 
 
-### Swapping library files
-To use the HDS library from the version 3.x project, you need to swap the linked files. This needs to be done for all project files that wish to start using 3.0.0.
-
-1. Link new library files to the Abstract project.
-2. Open the project file in Sketch from Abstract.
-3. From plugins menu, open Symbol Swapper - Symbol Swap libraries.
-4. Choose the right replacement file for all linked libraries.
-5. Choose Swap symbols with same id.
-6. Swap.
-7. Save and commit to Abstract.
-8. Remove old versions of the library files from Abstract by going to files - linked libraries - unlink library
-
-### Swapping symbols
-When you wish to replace old navigation or footer with new ones, you can swap symbols. Swap libraries before you swap separate symbols.
-
-1. Open the project file in Sketch from Abstract.
-2. Select symbols you wish to swap.
-3. From plugins menu, open Symbol Swapper - Symbol Swap selections.
-4. Select new symbol source
-5. For navigation and footer choose let me choose
-6. Select symbol version you wish to use
-7. Use default settings for replacing and removing.
-8. Swap.
-9. Make needed overrides. 
-10. Save and commit to Abstract.
+Also, if needed, old versions of the library can be found in <ExternalLink size="M" openInNewTab="true" href="https://github.com/City-of-Helsinki/helsinki-design-system/releases">the design kit of each release.</ExternalLink>
 
 ## Instructions for designers using Figma
-There is a brand new Figma library available. The licences are checked and provided separately, but if you're already working in Figma, feel free to use the new design system library.
-It will be available with Helsinki licenses and in the future as a community file.
-
-- <ExternalLink size="M" openInNewTab="true">HDS Figma library in City of Helsinki organization</ExternalLink>
-
-## For developers
-There are also some updates on the dependencies. Make sure to dependencies get updated with running command <code>yarn</code>.
+There is a brand new Figma library available. The licences are checked and provided separately, and currently available for a limited time. But if you're intrested in switching to Figma, contact HDS team.
+It will be available with Helsinki licenses and in the future also as a community file.
