@@ -4,11 +4,8 @@ title: 'Building navigation'
 navTitle: 'Building navigation'
 ---
 
-import { Link } from 'hds-react';
-import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
-import InternalLink from '../../../components/InternalLink';
 import {
   Breadcrumb,
   Button,
@@ -19,13 +16,17 @@ import {
   StatusLabel,
   Tabs,
   Footer,
+  IconCheck,
+  IconError,
   IconFacebook,
   IconTwitter,
   IconInstagram,
   IconYoutube,
   IconTiktok,
+  IconLinkedin,
+  Logo,
+  logoFi
 } from 'hds-react';
-import PlaygroundPreview from '../../../components/Playground';
 
 # Building navigation
 
@@ -41,16 +42,16 @@ Adhering to these principles can create an effective and user-friendly navigatio
 
 <div
   class="guideline-do"
-  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
 >
-  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s' }}>
     <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Do</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Keep it as simple as possible.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>
           Consider the information architecture and site hierarchy. Determine what the most crucial information is and how many levels are necessary.
         </li>
@@ -58,13 +59,13 @@ Adhering to these principles can create an effective and user-friendly navigatio
     </li>
     <li>
       <strong>Pay attention to label lengths and links.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>Keep them as concise as possible and ensure navigation links match their destination pages. If multiple links lead to the same page, use identical labels.</li>
       </ul>
     </li>
     <li>
       <strong>Prioritise mobile users.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>Design your navigation system with a 'mobile-first' mindset and ensure seamless functionality on mobile devices and touchscreens.</li>
       </ul>
     </li>
@@ -73,16 +74,16 @@ Adhering to these principles can create an effective and user-friendly navigatio
 
 <div
   class="guideline-dont"
-  style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
 >
-  <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);">
+  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
     <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
     <strong>Don't</strong>
   </div>
-  <ul style="margin-bottom:0;">
+  <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Don't utilize the content area for navigation purposes.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>
           Avoid duplicating all navigation links in the content area; use content-relevant navigation links on specific pages.
         </li>
@@ -93,7 +94,7 @@ Adhering to these principles can create an effective and user-friendly navigatio
     </li>
     <li>
       <strong>Don't sacrifice clarity for style.</strong>
-      <ul style="margin-top:0;">
+      <ul style={{ marginTop: 0 }}>
         <li>
           While it's essential to maintain a visually appealing design, prioritize clarity and usability when
           implementing the navigation pattern.
@@ -112,7 +113,7 @@ When implementing a navigation pattern, it's essential to consider the order of 
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
   alt="An illustration of the recommended order of navigation component on a landing page, for desktop and mobile screens. The order is Header, Breadcrumbs, Hero, Main content and Footer."
-  style="max-width:580px;"
+  style={{ maxWidth: '580px' }}
   viewable
 />
 
@@ -121,7 +122,7 @@ When implementing a navigation pattern, it's essential to consider the order of 
 <Image
   src="/images/patterns/navigation/examples/navigation-pattern-component-order-side-nav.png"
   alt="An illustration of the recommended order of navigation components with side navigation, for desktop and mobile screens. The order is Header, Breadcrumbs, Side navigation including essential links if used concurrently, Main content and Footer."
-  style="max-width:600px;"
+  style={{ maxWidth: '600px' }}
   viewable
 />
 
@@ -132,16 +133,75 @@ The navigation components are placed at the very top of the page and serves as t
 The header's consistent placement and appearance across all pages make it easily recognizable and accessible to users, allowing them to navigate the site quickly and efficiently.
 
 <PlaygroundPreview>
-  <Header>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
     <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-      <Header.NavigationLink href="#" label="Link 1" />
-      <Header.NavigationLink href="#" label="Link 2" />
-      <Header.NavigationLink href="#" label="Link 3" />
+      <Header.Link href="#" label="Uutiset" />
+      <Header.Link href="#" label="Asioi verkossa" />
+      <Header.Link href="#" label="Anna palautetta" />
     </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.LanguageSelector>
+        <h3>Muut kielet</h3>
+        <Link href="www.example.com" size="S" lang="de">
+          Deutsch
+        </Link>
+        <Link href="www.example.com" size="S" lang="es">
+          Español
+        </Link>
+        <Link href="www.example.com" size="S" lang="fr">
+          Français
+        </Link>
+        <Link href="www.example.com" size="S" lang="ru">
+          Pусский
+        </Link>
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Viittomakieli
+        </Link>
+        <h3>Matkailijoille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">
+          MyHelsinki.fi
+        </Link>
+        <h3>Maahanmuuttajille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">
+          InfoFinland.fi
+        </Link>
+      </Header.LanguageSelector>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.Link
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+      />
+      <Header.Link
+        href="#"
+        label="Kasvatus ja koulutus"
+        onClick={(event) => event.preventDefault()}
+      />
+      <Header.Link href="#" label="Asuminen" onClick={(event) => event.preventDefault()} />
+    </Header.NavigationMenu>
   </Header>
 </PlaygroundPreview>
 
-<ul style="margin-bottom:0;">
+<ul style={{ marginBottom: 0 }}>
   <li>
     The inner components of the Header <strong>should always</strong> be in this order:
     <ol>
@@ -173,7 +233,7 @@ Breadcrumbs are a secondary navigation component that helps users understand the
   ></Breadcrumb>
 </PlaygroundPreview>
 
-<ul style="margin-bottom:0;">
+<ul style={{ marginBottom: 0 }}>
   <li>
     To learn more about the <strong>Breadcrumb</strong> component, please refer to
     <InternalLink href="/components/breadcrumb">the component page.</InternalLink>
@@ -213,7 +273,7 @@ Hero serves as a visual and content-focused introduction to the page, typically 
   </Hero>
 </PlaygroundPreview>
 
-<ul style="margin-bottom:0;">
+<ul style={{ marginBottom: 0 }}>
   <li>
     To learn more about the <strong>Hero</strong> component, please refer to
     <InternalLink href="/components/hero">the component page.</InternalLink>
@@ -339,7 +399,7 @@ export const SideNavExample = () => {
   <SideNavExample />
 </PlaygroundPreview>
 
-<ul style="margin-bottom:0;">
+<ul style={{ marginBottom: 0 }}>
   <li>
     To learn more about the <strong>SideNavigation</strong> component, please refer to
     <InternalLink href="/components/side-navigation">the component page.</InternalLink>
@@ -352,7 +412,7 @@ Following the hero section, the main content area is where the primary informati
 
 <strong>Help the user to focus on a single topic, providing only relevant links in the content area</strong>.
 
-<ul style="margin-bottom:0;">
+<ul style={{ marginBottom: 0 }}>
   <li>
     To learn more about the <strong>heading hierarchy</strong>, please refer to
     <InternalLink href="/foundation/design-tokens/typography#heading-sizes">the Typography page.</InternalLink>
@@ -376,39 +436,81 @@ Following the hero section, the main content area is where the primary informati
 The footer is placed at the bottom of the site and includes supplementary information and links, such as contact details, legal information, social media icons, and secondary navigation elements. The footer helps users find additional resources and reinforces the overall site structure by providing a consistent and accessible navigation area on every page.
 
 <PlaygroundPreview>
-  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
-    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
+  <Footer title="Helsinki Design System">
+    <Footer.Navigation>
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Back to top">
-      <Footer.SoMe>
-        <Footer.Item icon={<IconFacebook />} />
-        <Footer.Item icon={<IconTwitter />} />
-        <Footer.Item icon={<IconInstagram />} />
-        <Footer.Item icon={<IconYoutube />} />
-        <Footer.Item icon={<IconTiktok />} />
-      </Footer.SoMe>
-      <Footer.Item label="Contact us" />
-      <Footer.Item label="Give feedback" />
+    <Footer.Utilities
+      soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}
+      soMeLinks={[
+        <Footer.Link
+          title="Helsingin kaupungin Facebook-tili"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          external
+          openInNewTab
+          icon={<IconFacebook aria-hidden="true" />}
+          href="https://facebook.com/helsinginkaupunki/"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin Twitter-tili"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          external
+          openInNewTab
+          icon={<IconTwitter aria-hidden="true" />}
+          href="https://twitter.com/helsinki"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin Instagram-tili"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          external
+          openInNewTab
+          icon={<IconInstagram aria-hidden="true" />}
+          href="https://instagram.com/helsinki/"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin LinkedIn-tili"
+          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          external
+          openInNewTab
+          icon={<IconLinkedin aria-hidden="true" />}
+          href="https://linkedin.com/company/city-of-helsinki"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin Youtube-tili"
+          ariaLabel="Helsingin kaupungin Youtube-tili"
+          external
+          openInNewTab
+          icon={<IconYoutube aria-hidden="true" />}
+          href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
+        />,
+      ]}
+    >
+      <Footer.Link label="Contact us" />
+      <Footer.Link label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
+    <Footer.Base
+      backToTopLabel="Back to top"
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
     </Footer.Base>
   </Footer>
 </PlaygroundPreview>
 
-<ul style="margin-bottom:0;">
+<ul style={{ marginBottom: 0 }}>
   <li>
     To learn more about the <strong>Footer</strong> component, please refer to
     <InternalLink href="/components/footer">the component page.</InternalLink>
@@ -451,5 +553,3 @@ Implement "Skip to main content" or "Skip navigation" links at the beginning of 
 ### Modal and popup focus
 
 When a modal or popup appears, the focus should shift to this new content and trap focus within it until it's closed. Once closed, focus should return to the element that triggered the modal.
-
-
