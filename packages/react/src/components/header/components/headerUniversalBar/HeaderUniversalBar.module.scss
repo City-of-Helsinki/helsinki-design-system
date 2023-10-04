@@ -2,11 +2,17 @@
 
 .headerUniversalBar {
   align-items: center;
-  background: var(--color-black-5);
   box-sizing: border-box;
   display: flex;
+  margin: 0 auto;
+  max-width: var(--header-max-width);
   min-height: 48px;
-  padding: 0 var(--spacing-m);
+  padding: 0 var(--header-margin);
+  width: 100%;
+}
+
+.headerUniversalBarContainer {
+  background: var(--universal-bar-background-color);
   width: 100%;
 }
 

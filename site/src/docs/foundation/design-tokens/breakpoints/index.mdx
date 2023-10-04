@@ -15,7 +15,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 HDS includes tokenized values for both breakpoints and a maximum container width. Breakpoint tokens can be also used alongside <InternalLink size="M" href="/foundation/guidelines/grid">HDS grid guidelines</InternalLink> in order to create consistent designs and implementations.
 
-**HDS offers a Container component which follows breakpoint and container width tokens automatically.** It is recommended to use it if possible. For more info and examples, see <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-container--example">Container - React documentation</Link> and <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-container--default">Container - Core documentation</Link>.
+HDS offers helpful utilities for breakpoint handling:
+- **Container component** which follows breakpoint and container width tokens automatically. It is recommended to use it if possible. For more info and examples, see <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-container--example">Container - React documentation</Link> and <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-container--default">Container - Core documentation</Link>.
+- **Hooks for React components**; `useMediaQueryLessThan` and `useMediaQueryGreaterThan` hooks listen to browser window resize events and return a boolean value when the window size is over or under the given breakpoint parameter. For more information see <ExternalLink openInNewTab href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/development/packages/react/src/hooks/useMediaQuery.ts">the hooks' code</ExternalLink>, and for examples, see <ExternalLink openInNewTab href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/development/packages/react/src/components/header/Header.tsx">the Header component's source code</ExternalLink>. 
 
 ### Principles
 
@@ -28,7 +30,7 @@ HDS includes tokenized values for both breakpoints and a maximum container width
 ### Accessibility
 
 - Carefully test your implementation at different breakpoints - especially at the edge values of a breakpoint.
-- Pay extra attention how your service behaves if browser zoom functionality is used. Read more about the <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html">WCAG requirements considering reflow</ExternalLink>.
+- Pay extra attention how your service behaves if browser zoom functionality is used. Read more about the <ExternalLink openInNewTab href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html">WCAG requirements considering reflow</ExternalLink>.
 
 ### Using breakpoint tokens
 

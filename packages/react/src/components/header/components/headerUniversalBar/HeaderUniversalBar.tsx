@@ -1,17 +1,16 @@
-import React, { Children, cloneElement, useContext } from 'react';
+import React, { cloneElement, useEffect } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
-
 import styles from './HeaderUniversalBar.module.scss';
-import { NavigationLink } from '../navigationLink';
-import { HeaderContext } from '../../HeaderContext';
+import { HeaderLink } from '../headerLink/HeaderLink';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import { getChildElementsEvenIfContainerInbetween } from '../../../../utils/getChildren';
+import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing universal bar.
+   * Aria-label for describing UniversalBar.
    */
   ariaLabel?: string;
   /**
@@ -19,7 +18,7 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
-   * Children are expected to be NavigationLink components or a container with NavigationLink components inside.
+   * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
    */
   children?: React.ReactNode;
   /**
@@ -29,45 +28,59 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
    * Hypertext reference of the primary link.
    */
-  primaryLinkHref: string;
+  primaryLinkHref?: string;
   /**
    * Link text for the primary link.
    */
-  primaryLinkText: string;
+  primaryLinkText?: string;
+  /**
+   * ARIA role to describe the contents.
+   */
+  role?: string;
 }>;
 
 export const HeaderUniversalBar = ({
   ariaLabel,
-  children,
   className,
+  children,
   id,
   primaryLinkHref,
   primaryLinkText,
+  role,
 }: HeaderUniversalBarProps) => {
-  const { isSmallScreen } = useContext(HeaderContext);
-  if (isSmallScreen) return null;
-  const childElements = getChildElementsEvenIfContainerInbetween(children);
+  const { isNotLargeScreen } = useHeaderContext();
+  const childElements = getChildElementsEvenIfContainersInbetween(children);
+  const { setUniversalContent } = useSetHeaderContext();
+
+  useEffect(() => {
+    const universalContent = getChildElementsEvenIfContainersInbetween(children);
+    setUniversalContent(universalContent);
+  }, [children]);
+
+  if (isNotLargeScreen) return null;
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
-      <ul className={styles.headerUniversalBarList}>
-        <li className={styles.universalBarMainLinkContainer}>
-          <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
-        </li>
-        {Children.map(childElements, (child, index) => {
-          if (React.isValidElement(child)) {
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
-                {cloneElement(child as React.ReactElement, {
-                  className: classNames(child.props.className, styles.universalBarLink),
-                })}
-              </li>
-            );
-          }
-          return null;
-        })}
-      </ul>
-    </nav>
+    <div className={styles.headerUniversalBarContainer}>
+      <div role={role} aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
+        <ul className={styles.headerUniversalBarList}>
+          <li className={styles.universalBarMainLinkContainer}>
+            <HeaderLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
+          </li>
+          {childElements.map((child, index) => {
+            if (React.isValidElement(child)) {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
+                  {cloneElement(child as React.ReactElement, {
+                    className: classNames(child.props.className, styles.universalBarLink),
+                  })}
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </div>
+    </div>
   );
 };

@@ -57,7 +57,7 @@ const TableHead = (props) => {
     return <thead>{rowWithClassName}</thead>;
 };
 
-const TableBody = (props) => <tbody class="hds-table__content">{props.children}</tbody>
+const TableBody = (props) => <tbody className="hds-table__content">{props.children}</tbody>
 
 const Th = (props) => <th scope="col">{props.children}</th>
 

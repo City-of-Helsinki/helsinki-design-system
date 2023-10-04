@@ -1,0 +1,555 @@
+---
+slug: '/patterns/navigation/building-navigation'
+title: 'Building navigation'
+navTitle: 'Building navigation'
+---
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+import {
+  Breadcrumb,
+  Button,
+  Header,
+  Hero,
+  Navigation,
+  SideNavigation,
+  StatusLabel,
+  Tabs,
+  Footer,
+  IconCheck,
+  IconError,
+  IconFacebook,
+  IconTwitter,
+  IconInstagram,
+  IconYoutube,
+  IconTiktok,
+  IconLinkedin,
+  Logo,
+  logoFi
+} from 'hds-react';
+
+# Building navigation
+
+<StatusLabel variant="rounded" type="error">Draft</StatusLabel>
+
+<LeadParagraph>
+  Navigation components are crucial as they help users navigate through an application or website seamlessly.
+</LeadParagraph>
+
+## Principles
+
+Adhering to these principles can create an effective and user-friendly navigation component that enhances the overall user experience.
+
+<div
+  class="guideline-do"
+  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
+>
+  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s' }}>
+    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <strong>Do</strong>
+  </div>
+  <ul style={{ marginBottom: 0 }}>
+    <li>
+      <strong>Keep it as simple as possible.</strong>
+      <ul style={{ marginTop: 0 }}>
+        <li>
+          Consider the information architecture and site hierarchy. Determine what the most crucial information is and how many levels are necessary.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Pay attention to label lengths and links.</strong>
+      <ul style={{ marginTop: 0 }}>
+        <li>Keep them as concise as possible and ensure navigation links match their destination pages. If multiple links lead to the same page, use identical labels.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Prioritise mobile users.</strong>
+      <ul style={{ marginTop: 0 }}>
+        <li>Design your navigation system with a 'mobile-first' mindset and ensure seamless functionality on mobile devices and touchscreens.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div
+  class="guideline-dont"
+  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
+>
+  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
+    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <strong>Don't</strong>
+  </div>
+  <ul style={{ marginBottom: 0 }}>
+    <li>
+      <strong>Don't utilize the content area for navigation purposes.</strong>
+      <ul style={{ marginTop: 0 }}>
+        <li>
+          Avoid duplicating all navigation links in the content area; use content-relevant navigation links on specific pages.
+        </li>
+        <li>
+          Exception: On landing pages, consider adding links in the content area for improved mobile user experience, as many users avoid opening menus.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Don't sacrifice clarity for style.</strong>
+      <ul style={{ marginTop: 0 }}>
+        <li>
+          While it's essential to maintain a visually appealing design, prioritize clarity and usability when
+          implementing the navigation pattern.
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Recommended order of navigation components
+
+When implementing a navigation pattern, it's essential to consider the order of navigation components to ensure a logical, intuitive, and user-friendly experience.
+
+### On a landing page
+
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-component-order.png"
+  alt="An illustration of the recommended order of navigation component on a landing page, for desktop and mobile screens. The order is Header, Breadcrumbs, Hero, Main content and Footer."
+  style={{ maxWidth: '580px' }}
+  viewable
+/>
+
+### On a regular page with side navigation
+
+<Image
+  src="/images/patterns/navigation/examples/navigation-pattern-component-order-side-nav.png"
+  alt="An illustration of the recommended order of navigation components with side navigation, for desktop and mobile screens. The order is Header, Breadcrumbs, Side navigation including essential links if used concurrently, Main content and Footer."
+  style={{ maxWidth: '600px' }}
+  viewable
+/>
+
+### 1. Header (required)
+
+The navigation components are placed at the very top of the page and serves as the primary navigation area for your website or application. <strong>The Header component is a wrapper for the HDS header navigation components.</strong> This means you should put all the other header sub components inside this component.
+
+The header's consistent placement and appearance across all pages make it easily recognizable and accessible to users, allowing them to navigate the site quickly and efficiently.
+
+<PlaygroundPreview>
+  <Header
+    languages={[
+      { label: 'Suomi', value: 'fi' },
+      { label: 'Svenska', value: 'sv' },
+      { label: 'English', value: 'en' },
+    ]}
+  >
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+      <Header.Link href="#" label="Uutiset" />
+      <Header.Link href="#" label="Asioi verkossa" />
+      <Header.Link href="#" label="Anna palautetta" />
+    </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+    >
+      <Header.LanguageSelector>
+        <h3>Muut kielet</h3>
+        <Link href="www.example.com" size="S" lang="de">
+          Deutsch
+        </Link>
+        <Link href="www.example.com" size="S" lang="es">
+          Español
+        </Link>
+        <Link href="www.example.com" size="S" lang="fr">
+          Français
+        </Link>
+        <Link href="www.example.com" size="S" lang="ru">
+          Pусский
+        </Link>
+        <h3>Tietoa muilla kielillä</h3>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Selkosuomi
+        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">
+          Viittomakieli
+        </Link>
+        <h3>Matkailijoille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">
+          MyHelsinki.fi
+        </Link>
+        <h3>Maahanmuuttajille</h3>
+        <Link external href="www.example.com" size="S" lang="fi">
+          InfoFinland.fi
+        </Link>
+      </Header.LanguageSelector>
+    </Header.ActionBar>
+    <Header.NavigationMenu>
+      <Header.Link
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+      />
+      <Header.Link
+        href="#"
+        label="Kasvatus ja koulutus"
+        onClick={(event) => event.preventDefault()}
+      />
+      <Header.Link href="#" label="Asuminen" onClick={(event) => event.preventDefault()} />
+    </Header.NavigationMenu>
+  </Header>
+</PlaygroundPreview>
+
+<ul style={{ marginBottom: 0 }}>
+  <li>
+    The inner components of the Header <strong>should always</strong> be in this order:
+    <ol>
+      <li>HeaderUniversalBar</li>
+      <li>HeaderActionBar</li>
+      <li>HeaderNavigationMenu</li>
+    </ol>
+  </li>
+  <li>
+    To learn more about the <strong>Header</strong> component, please refer to
+    <InternalLink href="/components/header">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 2. Breadcrumbs (recommended)
+
+Breadcrumbs are a secondary navigation component that helps users understand their current location within the site hierarchy and offers a simple way to navigate back to previous pages. Placed immediately below the header, breadcrumbs provide context and enhance usability by offering a clear path through the website or application.
+
+<PlaygroundPreview>
+  <Breadcrumb
+    ariaLabel="Breadcrumb"
+    list={[
+      { title: 'Front page', path: '/' },
+      { title: 'Health and social services', path: '/path' },
+      { title: 'Senior services', path: '/path/2ndLevelPath' },
+      { title: 'Informal care', path: '/path/2ndLevelPath/3rdLevelPath' },
+      { title: 'Care options', path: null },
+    ]}
+  ></Breadcrumb>
+</PlaygroundPreview>
+
+<ul style={{ marginBottom: 0 }}>
+  <li>
+    To learn more about the <strong>Breadcrumb</strong> component, please refer to
+    <InternalLink href="/components/breadcrumb">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 3. Hero (optional)
+
+Hero is an optional but highly recommended component on <strong>landing pages</strong>. Use it only on landing pages, not on all pages. Hero's placement is below the breadcrumbs or the header.
+
+Hero serves as a visual and content-focused introduction to the page, typically including a large image, heading, and a call-to-action button or message. Hero helps grab the user's attention and sets the tone for the rest of the page.
+
+<PlaygroundPreview>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="diagonalKoros"
+    style={{
+      '--background-color': 'var(--color-coat-of-arms)',
+      '--color': '#fff',
+      '--koros-color': 'var(--background-color)',
+      '--diagonal-koros-position': '55%',
+      '--koros-height': '14px',
+    }}
+  >
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces.
+    </Hero.Text>
+    <Button
+      variant="primary"
+      role="link"
+      style={{ '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+<ul style={{ marginBottom: 0 }}>
+  <li>
+    To learn more about the <strong>Hero</strong> component, please refer to
+    <InternalLink href="/components/hero">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 4. Side navigation (optional)
+
+Side navigation can complement the primary navigation components at the top of a page, offering users an additional way to navigate your application or website.
+
+- Don't use side navigation on landing pages with the hero component. This approach maintains a coherent and straightforward navigation experience for users arriving on these pages.
+- For page-specific navigation that is simple and one-layered, consider using the Tabs component as an alternative to side navigation. Tabs can be a more intuitive choice in such cases.
+
+
+#### Navigation Hierarchy in Main and Side Navigation
+
+Effective navigation levels hierarchy is essential for user-friendly interfaces. To ensure clarity and usability in your navigation design, consider the following guidelines:
+
+**Main Navigation Levels:** 1 - 3
+- Use the main navigation for the 1st to 3rd levels of your navigation hierarchy. These top-level categories provide users with a clear overview of your application's or website's structure.
+
+**Side Navigation Levels:** 2 - 5
+- Side navigation is most effective when utilized for the 2nd to 5th levels of your navigation hierarchy. This tier allows for more detailed access to sub-sections and features, enhancing the user's ability to explore content within specific categories.
+
+**Overlapping Levels:** 
+- Avoid more than one (1) overlapping level between the main and side navigation. Overlapping items can increase cognitive load on users as they need to process redundant information from multiple menus.
+
+**Caution:** Avoid exceeding a total of 5 navigation levels when combining main and side navigation. An overly complex hierarchy can confuse users and hinder their ability to find information effectively.
+
+
+
+export const SideNavExample = () => {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  };
+  return (
+    <div
+      style={{
+        backgroundColor: '#f5f5f5',
+        display: 'grid',
+      }}
+    >
+      <div
+        style={{
+          height: '100%',
+          maxWidth: '400px',
+        }}
+      >
+        <SideNavigation defaultOpenMainLevels={[]} id="side-navigation" toggleButtonLabel="Navigate to page">
+          <SideNavigation.MainLevel id="#main-level-1" label="Events">
+            <SideNavigation.SubLevel
+              href="/events"
+              active={active === '/events'}
+              id="sub-level-1"
+              label="All events"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/archive"
+              active={active === '/archive'}
+              id="sub-level-2"
+              label="Archive"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/new-event"
+              active={active === '/new-event'}
+              id="sub-level-3"
+              label="Create a new event"
+              onClick={setActivePage}
+            />
+          </SideNavigation.MainLevel>
+          <SideNavigation.MainLevel id="main-level-2" label="Events on map">
+            <SideNavigation.SubLevel
+              href="/map"
+              active={active === '/map'}
+              id="sub-level-4"
+              label="Map"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/edit-event-locations"
+              active={active === '/edit-event-locations'}
+              id="sub-level-5"
+              label="Edit event locations"
+              onClick={setActivePage}
+            />
+            <SideNavigation.SubLevel
+              href="/new-location"
+              active={active === '/new-location'}
+              id="sub-level-6"
+              label="Create a new location"
+              onClick={setActivePage}
+            />
+          </SideNavigation.MainLevel>
+          <SideNavigation.MainLevel
+            href="/settings"
+            active={active === '/settings'}
+            id="main-level-3"
+            label="Settings"
+            onClick={setActivePage}
+          />
+          <SideNavigation.MainLevel
+            external
+            href="https://tapahtumat.hel.fi/"
+            openInNewTab
+            openInNewTabAriaLabel="Opens in a new tab."
+            openInExternalDomainAriaLabel="Opens a different website."
+            id="main-level-4"
+            label="Tapahtumat.hel.fi"
+            openInExternalDomainAriaLabel="Opens a different website"
+            withDivider
+          />
+        </SideNavigation>
+      </div>
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <SideNavExample />
+</PlaygroundPreview>
+
+<ul style={{ marginBottom: 0 }}>
+  <li>
+    To learn more about the <strong>SideNavigation</strong> component, please refer to
+    <InternalLink href="/components/side-navigation">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 5. Main content (required)
+
+Following the hero section, the main content area is where the primary information and functionality of the page are presented. This section should be well-structured, with headings, subheadings, links and other design elements, such as linkboxes, images, cards, that guide users through the content.
+
+<strong>Help the user to focus on a single topic, providing only relevant links in the content area</strong>.
+
+<ul style={{ marginBottom: 0 }}>
+  <li>
+    To learn more about the <strong>heading hierarchy</strong>, please refer to
+    <InternalLink href="/foundation/design-tokens/typography#heading-sizes">the Typography page.</InternalLink>
+  </li>
+  <li>
+    To learn more about the <strong>Card</strong> component, please refer to
+    <InternalLink href="/components/card">the component page.</InternalLink>
+  </li>
+  <li>
+    To learn more about the <strong>Link</strong> component, please refer to
+    <InternalLink href="/components/link">the component page.</InternalLink>
+  </li>
+  <li>
+    To learn more about the <strong>Linkbox</strong> component, please refer to
+    <InternalLink href="/components/linkbox">the component page.</InternalLink>
+  </li>
+</ul>
+
+### 6. Footer (required)
+
+The footer is placed at the bottom of the site and includes supplementary information and links, such as contact details, legal information, social media icons, and secondary navigation elements. The footer helps users find additional resources and reinforces the overall site structure by providing a consistent and accessible navigation area on every page.
+
+<PlaygroundPreview>
+  <Footer title="Helsinki Design System">
+    <Footer.Navigation>
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+    </Footer.Navigation>
+    <Footer.Utilities
+      soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}
+      soMeLinks={[
+        <Footer.Link
+          title="Helsingin kaupungin Facebook-tili"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          external
+          openInNewTab
+          icon={<IconFacebook aria-hidden="true" />}
+          href="https://facebook.com/helsinginkaupunki/"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin Twitter-tili"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          external
+          openInNewTab
+          icon={<IconTwitter aria-hidden="true" />}
+          href="https://twitter.com/helsinki"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin Instagram-tili"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          external
+          openInNewTab
+          icon={<IconInstagram aria-hidden="true" />}
+          href="https://instagram.com/helsinki/"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin LinkedIn-tili"
+          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          external
+          openInNewTab
+          icon={<IconLinkedin aria-hidden="true" />}
+          href="https://linkedin.com/company/city-of-helsinki"
+        />,
+        <Footer.Link
+          title="Helsingin kaupungin Youtube-tili"
+          ariaLabel="Helsingin kaupungin Youtube-tili"
+          external
+          openInNewTab
+          icon={<IconYoutube aria-hidden="true" />}
+          href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
+        />,
+      ]}
+    >
+      <Footer.Link label="Contact us" />
+      <Footer.Link label="Give feedback" />
+    </Footer.Utilities>
+    <Footer.Base
+      backToTopLabel="Back to top"
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+    </Footer.Base>
+  </Footer>
+</PlaygroundPreview>
+
+<ul style={{ marginBottom: 0 }}>
+  <li>
+    To learn more about the <strong>Footer</strong> component, please refer to
+    <InternalLink href="/components/footer">the component page.</InternalLink>
+  </li>
+</ul>
+
+## Focus order & keyboard navigation
+
+Building a correct focus order is essential to ensure accessibility and provide a good user experience for all users, including those using keyboard navigation or assistive technologies. It's crucial to test your focus order using a keyboard alone to ensure it works as expected.
+
+Focus order, or tab order, refers to the sequence in which interactive elements on a webpage or application receive focus when a user navigates using a keyboard. Here's a general guideline on how to build the focus order for keyboard navigation:
+
+### Logical order
+
+Focus order should follow a logical and intuitive pattern, usually from left to right and top to bottom, mirroring the reading order in the majority of languages. This allows users to predict where the focus will go next, enhancing usability.
+
+#### Example of the order with HDS navigation elements
+
+1. Header
+2. Breadcrumbs
+3. Hero
+4. Side navigation (including essential links if used concurrently)
+5. Main content
+6. Footer
+
+### Use of ARIA roles
+
+Use ARIA roles to clearly denote different sections of your page. This helps assistive technologies understand your content and improve the focus order.
+
+### Element priority
+
+Interactive elements such as links, buttons, and form fields should be given priority in the focus order. Non-interactive elements, like headers or paragraphs, usually don't need to be included unless they provide some functionality upon focus.
+
+### Skip links and "Back to top" links
+
+Implement "Skip to main content" or "Skip navigation" links at the beginning of the page to allow keyboard users to bypass lengthy navigation menus and reach the main content more quickly.
+
+"Back to top" links, accessible via keyboard navigation, simplify returning to the start of a page, especially valuable on lengthy pages.
+
+### Modal and popup focus
+
+When a modal or popup appears, the focus should shift to this new content and trap focus within it until it's closed. Once closed, focus should return to the element that triggered the modal.

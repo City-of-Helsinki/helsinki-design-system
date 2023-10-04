@@ -150,7 +150,7 @@ export const WithBoxShadow = () => `
 WithBoxShadow.storyName = 'With box shadow';
 
 export const Invisible = () => `
-    <div class="hiddenFromScreen">
+    <div class="visually-hidden">
       <section aria-label="Notification" role="alert" class="hds-notification">
         <div class="hds-notification__content">
           <div class="hds-notification__label">

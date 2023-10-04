@@ -37,4 +37,3 @@ Remember to always build the tokens after updating or adding new ones, otherwise
 - [PostCSS](https://github.com/postcss/postcss)
 - [Storybook](https://storybook.js.org/)
 - hds-core follows the [BEM methodology](http://getbem.com/)
-

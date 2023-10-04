@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer koros-basic theme-light"
+  >
+    <div
+      class="koros basic koros basic"
+    >
+      <svg
+        aria-hidden="true"
+        height="85"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            height="85"
+            id="koros_basic-1"
+            patternUnits="userSpaceOnUse"
+            width="96"
+            x="0"
+            y="0"
+          >
+            <path
+              d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z"
+              transform="scale(3)"
+            />
+          </pattern>
+        </defs>
+        <rect
+          fill="url(#koros_basic-1)"
+          height="85"
+          style="shape-rendering: crispEdges;"
+          width="100%"
+        />
+      </svg>
+    </div>
+    <div
+      class="footerContent"
+    >
+      <div
+        class="footerSections"
+      >
+        <h2
+          class="title"
+        >
+          Bar
+        </h2>
+        <div
+          class="utilities"
+        >
+          <hr
+            aria-hidden="true"
+            class="divider"
+          />
+          <div
+            class="links widerLinks"
+          >
+            <div
+              class="utilityGroup"
+            >
+              <div
+                class="utilityGroup"
+              >
+                <a
+                  class="heading utility"
+                  href="https://google.com"
+                >
+                  Main Page
+                </a>
+                <a
+                  class="link linkM item utility"
+                  href="https://google.com"
+                >
+                  <span>
+                    Sub page
+                  </span>
+                </a>
+                <a
+                  class="link linkM item utility"
+                  href="https://google.com"
+                >
+                  <span>
+                    Sub page
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              class="utilityGroup"
+            >
+              <div
+                class="utilityGroup"
+              >
+                <span
+                  class="heading utility"
+                >
+                  Social media
+                </span>
+                <a
+                  aria-label="Helsingin kaupungin Facebook-tili"
+                  class="link linkM item utility"
+                  href="https://facebook.com/helsinginkaupunki/"
+                  title="Helsingin kaupungin Facebook-tili"
+                >
+                  <svg
+                    aria-hidden="true"
+                    aria-label="facebook"
+                    class="icon s"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H15.644L15.6442 13.8804H18.079L18.4286 11.1643H15.6442V9.42857C15.6442 8.64107 15.8612 8.1067 16.9902 8.1067H18.4286V5.67991L18.0781 5.64435L17.7377 5.61862C17.3573 5.59334 16.8651 5.57143 16.3312 5.57143C14.258 5.57143 12.8357 6.83705 12.8357 9.16339V11.1683H10.3929V13.8844H12.8397L12.839 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                  <span>
+                    Facebook
+                  </span>
+                </a>
+                <a
+                  aria-label="Helsingin kaupungin Facebook-tili"
+                  class="link linkM item utility"
+                  href="https://facebook.com/helsinginkaupunki/"
+                  title="Helsingin kaupungin Facebook-tili"
+                >
+                  <svg
+                    aria-hidden="true"
+                    aria-label="facebook"
+                    class="icon s"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H15.644L15.6442 13.8804H18.079L18.4286 11.1643H15.6442V9.42857C15.6442 8.64107 15.8612 8.1067 16.9902 8.1067H18.4286V5.67991L18.0781 5.64435L17.7377 5.61862C17.3573 5.59334 16.8651 5.57143 16.3312 5.57143C14.258 5.57143 12.8357 6.83705 12.8357 9.16339V11.1683H10.3929V13.8844H12.8397L12.839 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                  <span>
+                    Facebook
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;

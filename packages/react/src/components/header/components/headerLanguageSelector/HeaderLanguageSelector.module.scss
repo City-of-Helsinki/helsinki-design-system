@@ -1,0 +1,109 @@
+@use "../../Header.module.scss";
+@import '../../../../styles/common.scss';
+
+.languageSelector {
+  display: flex;
+  gap: var(--spacing-s);
+  justify-content: space-between;
+}
+
+.languageSelectorDropdownIcon {
+  align-items: center;
+  margin-top: 1px;
+  padding-top: 3px;
+
+  &:focus-visible {
+    outline-offset: 0;
+  }
+}
+
+.languageSelectorDropdown {
+  align-items: flex-start;
+  background-color: var(--lang-selector-dropdown-background-color);
+  display: flex;
+  flex-flow: column nowrap;
+
+  > * {
+    align-items: center;
+    display: flex;
+    font-size: var(--fontsize-body-m);
+    line-height: var(--lineheight-l);
+    margin: 0;
+  }
+
+  > h3 {
+    border-bottom: solid 1px var(--header-divider-color);
+
+    &:not(:first-of-type) {
+      border-top: solid 1px var(--header-divider-color);
+    }
+  }
+
+  > a {
+    color: var(--lang-selector-item-font-color);
+    text-decoration: none;
+  }
+
+  > button {
+    border: var(--header-focus-outline-width) solid transparent;
+  }
+}
+
+button.item,
+[type='button'].item {
+  appearance: none;
+  background: transparent;
+  color: var(--lang-selector-item-font-color);
+  cursor: pointer;
+  line-height: var(--lineheight-l);
+  outline: 0;
+  white-space: nowrap;
+
+  &:focus-visible {
+    border: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+  }
+}
+
+.activeItem {
+  font-weight: 700;
+
+  span {
+    border-bottom: 2px solid;
+  }
+}
+
+.languageNodes {
+  display: flex;
+  gap: var(--spacing-s);
+
+  button.item,
+  [type='button'].item {
+    align-self: center;
+    border: none;
+    padding: 0;
+
+    &:focus-visible {
+      border: none;
+      outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+      outline-offset: var(--header-focus-outline-width);
+    }
+  }
+}
+
+.simpleLanguageNodes {
+  gap: var(--action-bar-item-gutter);
+}
+
+.fullWidthForMobile {
+  background-color: var(--lang-selector-mobile-background-color);
+  border-bottom: 1px solid var(--color-black-20);
+  box-sizing: border-box;
+  display: flex;
+  height: var(--spacing-layout-m);
+  padding: 0 var(--header-margin);
+  width: 100%;
+}
+
+.fullWidthForMobile .languageSelectorDropdownIcon:focus-visible {
+  outline-offset: 0;
+}

@@ -16,19 +16,20 @@ exports[`<Koros /> spec renders the component 1`] = `
           height="85"
           id="koros_basic-1"
           patternUnits="userSpaceOnUse"
-          width="106"
+          width="96"
           x="0"
           y="0"
         >
           <path
-            d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-            transform="scale(5.3)"
+            d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z"
+            transform="scale(3)"
           />
         </pattern>
       </defs>
       <rect
         fill="url(#koros_basic-1)"
         height="85"
+        style="shape-rendering: crispEdges;"
         width="100%"
       />
     </svg>
@@ -47,19 +48,20 @@ exports[`<Koros /> spec renders the component 1`] = `
           height="85"
           id="koros_basic-2"
           patternUnits="userSpaceOnUse"
-          width="106"
+          width="96"
           x="0"
           y="0"
         >
           <path
-            d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-            transform="scale(5.3)"
+            d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z"
+            transform="scale(3)"
           />
         </pattern>
       </defs>
       <rect
         fill="url(#koros_basic-2)"
         height="85"
+        style="shape-rendering: crispEdges;"
         width="100%"
       />
     </svg>
@@ -78,19 +80,20 @@ exports[`<Koros /> spec renders the component 1`] = `
           height="85"
           id="koros_beat-3"
           patternUnits="userSpaceOnUse"
-          width="106"
+          width="96"
           x="0"
           y="0"
         >
           <path
-            d="M20,800H0V0c2.8,0,3.5,2.3,3.5,2.3l2.8,8.4c0.6,1.5,1.9,2.5,3.6,2.5c2.8,0,3.6-2.5,3.6-2.5s2.8-8.1,2.8-8.2 C17,1,18.3,0,20,0V800z"
-            transform="scale(5.3)"
+            d="m0 21v64h32v-64c-4 0-5.4-4-5.4-4l-5.2-13s-1.4-4-5.4-4-5.4 4-5.4 4l-5.2 13s-1.4 4-5.4 4z"
+            transform="scale(3)"
           />
         </pattern>
       </defs>
       <rect
         fill="url(#koros_beat-3)"
         height="85"
+        style="shape-rendering: crispEdges;"
         width="100%"
       />
     </svg>
@@ -109,19 +112,52 @@ exports[`<Koros /> spec renders the component 1`] = `
           height="85"
           id="koros_pulse-4"
           patternUnits="userSpaceOnUse"
-          width="106"
+          width="96"
           x="0"
           y="0"
         >
           <path
-            d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"
-            transform="scale(5.3)"
+            d="m0 10v75h32v-75c-8 0-8-10-16-10s-8 10-16 10z"
+            transform="scale(3)"
           />
         </pattern>
       </defs>
       <rect
         fill="url(#koros_pulse-4)"
         height="85"
+        style="shape-rendering: crispEdges;"
+        width="100%"
+      />
+    </svg>
+  </div>
+  <div
+    class="koros vibration"
+  >
+    <svg
+      aria-hidden="true"
+      height="85"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern
+          height="85"
+          id="koros_vibration-5"
+          patternUnits="userSpaceOnUse"
+          width="96"
+          x="0"
+          y="0"
+        >
+          <path
+            d="m0 0v85h32v-85l-16 16z"
+            transform="scale(3)"
+          />
+        </pattern>
+      </defs>
+      <rect
+        fill="url(#koros_vibration-5)"
+        height="85"
+        style="shape-rendering: crispEdges;"
         width="100%"
       />
     </svg>
@@ -138,52 +174,22 @@ exports[`<Koros /> spec renders the component 1`] = `
       <defs>
         <pattern
           height="85"
-          id="koros_wave-5"
+          id="koros_wave-6"
           patternUnits="userSpaceOnUse"
-          width="106"
-          x="0"
-          y="0"
-        >
-          <polygon
-            points="0,800 20,800 20,0 9.8,10.1 0,0 "
-            transform="scale(5.3)"
-          />
-        </pattern>
-      </defs>
-      <rect
-        fill="url(#koros_wave-5)"
-        height="85"
-        width="100%"
-      />
-    </svg>
-  </div>
-  <div
-    class="koros storm"
-  >
-    <svg
-      aria-hidden="true"
-      height="85"
-      width="100%"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <pattern
-          height="85"
-          id="koros_storm-6"
-          patternUnits="userSpaceOnUse"
-          width="106"
+          width="96"
           x="0"
           y="0"
         >
           <path
-            d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z"
-            transform="scale(5.3)"
+            d="m0 10v75h32v-75c-8 0-13-3.7-16-10-3 6.3-8 10-16 10z"
+            transform="scale(3)"
           />
         </pattern>
       </defs>
       <rect
-        fill="url(#koros_storm-6)"
+        fill="url(#koros_wave-6)"
         height="85"
+        style="shape-rendering: crispEdges;"
         width="100%"
       />
     </svg>

@@ -19,7 +19,6 @@ export * from './link';
 export * from './linkbox';
 export * from './loadingSpinner';
 export * from './logo';
-export * from './navigation';
 export * from './notification';
 export * from './numberInput';
 export * from './pagination';

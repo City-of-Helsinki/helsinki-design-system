@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { useContentLanguage } from '../contexts/ContentContext';
-import { Navigation } from '../../navigation/Navigation';
 import styles from '../CookieConsent.module.scss';
+import classNames from '../../../utils/classNames';
+import { MenuButton } from '../../../internal/menuButton/MenuButton';
+import { LanguageSwitcherItem } from './LanguageSwitcherItem/LanguageSwitcherItem';
 
 export function LanguageSwitcher(): React.ReactElement {
   const languageSelectorId = 'cookie-consent-language-selector';
@@ -19,15 +21,18 @@ export function LanguageSwitcher(): React.ReactElement {
     onLanguageChange(code);
   };
   const currentOption = languageOptions.find((option) => option.code === current);
+
   return (
-    <Navigation.LanguageSelector
-      label={currentOption.label}
-      buttonAriaLabel={languageSelectorAriaLabel}
-      className={styles.languageSelectorOverride}
+    <MenuButton
+      className={classNames(styles.languageDropdown)}
       id={languageSelectorId}
+      label={currentOption.label}
+      menuOffset={10}
+      buttonAriaLabel={languageSelectorAriaLabel}
+      closeOnItemClick
     >
       {languageOptions.map((option) => (
-        <Navigation.Item
+        <LanguageSwitcherItem
           href="#"
           onClick={(e: React.MouseEvent) => setLanguage(option.code, e)}
           label={option.label}
@@ -37,6 +42,6 @@ export function LanguageSwitcher(): React.ReactElement {
           data-testid={`cookie-consent-language-option-${option.code}`}
         />
       ))}
-    </Navigation.LanguageSelector>
+    </MenuButton>
   );
 }

@@ -10,12 +10,16 @@
   composes: hds-icon-left from 'hds-core/lib/components/link/link.css';
 }
 
-.verticalAlignSmallOrMediumIcon {
-  composes: vertical-align-small-or-medium-icon from 'hds-core/lib/components/link/link.css';
+.verticalAlignMediumIcon {
+  composes: vertical-align-medium-icon from 'hds-core/lib/components/link/link.css';
 }
 
 .verticalAlignBigIcon {
   composes: vertical-align-big-icon from 'hds-core/lib/components/link/link.css';
+}
+
+.verticalAlignSmallIcon {
+  composes: vertical-align-small-icon from 'hds-core/lib/components/link/link.css';
 }
 
 .disableVisitedStyles {

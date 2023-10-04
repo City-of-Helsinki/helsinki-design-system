@@ -199,6 +199,96 @@ export const WithIcons = (args) => {
   );
 };
 
+const skipLinkTheme = {
+  '--left': '0px',
+  '--top': '0px',
+};
+
+export const WithSkipLink = (args) => {
+  const [active, setActive] = React.useState('/sub-level-1');
+
+  return (
+    <>
+      <style>
+        {`
+        @media only screen and (min-width: ${getComputedStyle(document.documentElement).getPropertyValue(
+          '--breakpoint-m',
+        )}) {
+          .example-page {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 1rem;
+          }
+
+          .example-page-side-navigation {
+            grid-column: 1/4;
+          }
+        }
+      `}
+      </style>
+
+      <div className="example-page">
+        <div className="example-page-side-navigation">
+          <SideNavigation ariaLabel="Getting started" {...args}>
+            <SideNavigation.SkipLink skipTo="#content" label="Skip Navigation" theme={skipLinkTheme} />
+            <SideNavigation.MainLevel id="main-level-link-1" label="Main level accordion">
+              <SideNavigation.SubLevel
+                active={active === '/sub-level-1'}
+                id="sub-level-link-1"
+                href="/sub-level-1"
+                label="Sub level link"
+                onClick={handleClick(setActive)}
+              />
+              <SideNavigation.SubLevel
+                active={active === '/sub-level-2'}
+                id="sub-level-link-2"
+                href="/sub-level-2"
+                label="Sub level link"
+                onClick={handleClick(setActive)}
+              />
+            </SideNavigation.MainLevel>
+            <SideNavigation.MainLevel id="main-level-link-2" label="Main level accordion">
+              <SideNavigation.SubLevel
+                active={active === '/sub-level-3'}
+                id="sub-level-link-3"
+                href="/sub-level-3"
+                label="Sub level link"
+                onClick={handleClick(setActive)}
+              />
+              <SideNavigation.SubLevel
+                active={active === '/sub-level-4'}
+                id="sub-level-link-4"
+                href="/sub-level-4"
+                label="Sub level link"
+                onClick={handleClick(setActive)}
+              />
+            </SideNavigation.MainLevel>
+            <SideNavigation.MainLevel
+              active={active === '/main-level-3'}
+              id="main-level-link-3"
+              href="/main-level-3"
+              label="Main level link"
+              onClick={handleClick(setActive)}
+            />
+            <SideNavigation.MainLevel
+              id="main-level-link-4"
+              href="external-address"
+              label="Main level external link"
+              external
+              openInNewTab
+              openInNewTabAriaLabel="Opens in a new tab."
+              openInExternalDomainAriaLabel="Opens a different website."
+              onClick={handleClick(setActive)}
+              withDivider
+            />
+          </SideNavigation>
+        </div>
+        <main>Page Content</main>
+      </div>
+    </>
+  );
+};
+
 export const CustomTheme = (args) => Default(args);
 CustomTheme.args = {
   theme: {

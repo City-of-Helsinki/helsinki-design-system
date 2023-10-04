@@ -4,7 +4,7 @@ title: 'Footer'
 navTitle: 'Footer'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant, Logo, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -16,32 +16,36 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
     <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Back to top">
-      <Footer.SoMe>
-        <Footer.Item icon={<IconFacebook />} />
-        <Footer.Item icon={<IconTwitter />} />
-        <Footer.Item icon={<IconInstagram />} />
-        <Footer.Item icon={<IconYoutube />} />
-        <Footer.Item icon={<IconTiktok />} />
-      </Footer.SoMe>
-      <Footer.Item label="Contact us" />
-      <Footer.Item label="Give feedback" />
+    <Footer.Utilities
+      soMeLinks={[
+        <Footer.Link icon={<IconFacebook />} />,
+        <Footer.Link icon={<IconTwitter />} />,
+        <Footer.Link icon={<IconInstagram />} />,
+        <Footer.Link icon={<IconYoutube />} />,
+        <Footer.Link icon={<IconTiktok />} />,
+      ]}
+    >
+      <Footer.Link label="Contact us"  />
+      <Footer.Link label="Give feedback"  />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
     </Footer.Base>
   </Footer>
 </PlaygroundPreview>
@@ -53,55 +57,108 @@ Footer stays consistent throughout the site and is often the place where users s
 - **It is strongly recommended to always include the footer component in your service and on every page of the service.**
 - Always position the footer to the bottom of the page.
 - Footer component is built to follow HDS <InternalLink href="/foundation/design-tokens/breakpoints">breakpoint tokens</InternalLink>. While it is recommended to follow HDS breakpoint tokens, you may alter footer width to fit your service's needs.
-- Keep the order of footer sections (navigation, utility, base) and actions consistent. Do not change the default order without a good reason.
+- Keep the order of footer sections (navigation, utility, custom, base) and actions consistent. Do not change the default order without a good reason.
 - The footer navigation should follow the same structure and labelling as the primary navigation. All top level pages included in the primary navigation should also be visible in footer navigation.
 - If sub-pages are included in the footer, they should also follow the same structure and labelling as in the primary navigation. All same-level sub-pages should be visible.
 
 ### Variations
 
-The Footer consists of three sections: navigation, utility and base. Each section is customisable to fit the needs of the service. **It is recommended that the footer includes at least navigation and base sections.** The Utility section can be omitted entirely if not needed. Parts of the sections can also be hidden.
+The Footer consists of four possible sections: navigation, utility, custom and base. Each section is customisable to fit the needs of the service. **It is recommended that the footer includes at least navigation and base sections.** The utility and custom sections can be omitted entirely if not needed.
 
-- **Navigation section** contains the Helsinki framed logo, the name of the service and footer navigation. Navigation section variations for more information about customising the footer navigation.
-- **Utility section** contains links and actions not listed in main navigation, for example, social media icons, and links to contact info, feedback, or back to top.
-- **Base section** is used for supplementary information, For example copyright information and links to other meta information, e.g. accessibility statement, privacy policy, terms of use, etc.
+- **Navigation section (recommended)** contains the name of the service and footer navigation. See the [Navigation section variations](#navigation-section-variations) for more information about customising the footer navigation.
+- **Utility section (optional)** contains links and actions not listed in main navigation, for example, social media icons, and links to contact info, feedback, or back to top. See the [Utility section variations](#utility-section-variations) for more information.
+- **Custom section (optional)** is for any content that you wish to include in the footer that doesn't fit elsewhere. You can put whatever you wish there but we recommend to keep the styling consistent with the rest of the Footer.
+- **Base section (recommended)** contains the logo and is used for supplementary information, for example copyright information and links to other meta information, e.g. accessibility statement, privacy policy, terms of use, etc.
 
 #### Default
 
-The default footer uses the black text colour variant and includes all three sections.
+The default footer uses the black text colour variant and includes three sections.
 
-- The navigation section shows the Helsinki framed logo, service name, and navigation. Navigation is optimised for up to eight menu items.
-- Utility section is optimised to display up to five social media icons and three action links. An icon can be added to action links.
-- Base section includes a text field for copyright or other meta information and is optimised for up to five supplementary links, depending on link length.
+- The navigation section shows the service name and navigation. Navigation is optimised for up to eight menu items.
+- Utility section is optimised to display up to three action links and five social media icons. An icon can be added to action links.
+- Base section includes the logo, text for copyright or other meta information. The base section is optimised for up to five supplementary links, depending on link length.
 
 <PlaygroundPreview>
   <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
     <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Back to top">
-      <Footer.SoMe>
-        <Footer.Item icon={<IconFacebook />} />
-        <Footer.Item icon={<IconTwitter />} />
-        <Footer.Item icon={<IconInstagram />} />
-        <Footer.Item icon={<IconYoutube />} />
-        <Footer.Item icon={<IconTiktok />} />
-      </Footer.SoMe>
-      <Footer.Item label="Contact us" />
-      <Footer.Item label="Give feedback" />
+    <Footer.Utilities
+      soMeLinks={[
+        <Footer.Link title="Helsingin kaupungin Facebook-tili" icon={<IconFacebook />} />,
+        <Footer.Link title="Helsingin kaupungin Twitter-tili" icon={<IconTwitter />} />,
+        <Footer.Link title="Helsingin kaupungin Instagram-tili" icon={<IconInstagram />} />,
+        <Footer.Link title="Helsingin kaupungin Youtube-tili" icon={<IconYoutube />} />,
+        <Footer.Link title="Helsingin kaupungin Tiktok-tili" icon={<IconTiktok />} />,
+      ]}
+    >
+      <Footer.Link label="Contact us" />
+      <Footer.Link label="Give feedback" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
-      <Footer.Item label="Link" />
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+    </Footer.Base>
+  </Footer>
+</PlaygroundPreview>
+
+#### Colour variations
+
+The Footer component supports light and dark themes.
+
+<PlaygroundPreview>
+  <Footer title="Helsinki Design System">
+    <Footer.Navigation>
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+    </Footer.Navigation>
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+    </Footer.Base>
+  </Footer>
+  <br />
+  <Footer title="Helsinki Design System" theme="dark">
+    <Footer.Navigation>
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+    </Footer.Navigation>
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFiDark} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
     </Footer.Base>
   </Footer>
 </PlaygroundPreview>
@@ -111,48 +168,164 @@ The default footer uses the black text colour variant and includes all three sec
 Navigation section two different layout options:
 
 - **Default navigation** includes only the main level navigation items. The layout is optimised for up to eight menu items.
-- **Minimal navigation** includes only the main level navigation items. The layout is optimised for up to four menu items.
-- **Sitemap navigation** includes also second-level sub-pages. Sitemap can be used in footer to help the user find pages quickly from a complicated page hierarchy.
-- The navigation can also be hidden altogether.
+- **Sitemap navigation** includes also second-level sub-pages. Sitemap can be used in footer to help the user find pages quickly from a complicated page hierarchy. Note that on smaller screens the second-level sub-pages are hidden.
+- The navigation can also be omitted.
 
 <PlaygroundPreview>
   <Footer title="Default" footerAriaLabel="HDS Footer">
     <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
     </Footer.Navigation>
   </Footer>
   <br />
-  <Footer title="Minimal" footerAriaLabel="HDS Footer">
-    <Footer.Navigation variant="minimal" navigationAriaLabel="HDS Footer navigation">
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-      <Footer.Item label="Item" />
-    </Footer.Navigation>
-  </Footer>
   <br />
   <Footer title="Sitemap" footerAriaLabel="HDS Footer">
-    <Footer.Navigation variant="sitemap" navigationAriaLabel="HDS Footer navigation">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
       {[1, 2, 3, 4].map((key) => (
-        <Footer.ItemGroup key={key}>
-          <Footer.Item label="Item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-          <Footer.Item subItem label="Sub item" />
-        </Footer.ItemGroup>
+        <Footer.NavigationGroup key={key} headingLink={<Footer.GroupHeading href="http://www.google.com" onClick={(e) => e.preventDefault()} label="Item" />}>
+          <Footer.Link label="Sub item" />
+          <Footer.Link label="Sub item" />
+          <Footer.Link label="Sub item" />
+          <Footer.Link label="Sub item" />
+          <Footer.Link label="Sub item" />
+          <Footer.Link label="Sub item" />
+        </Footer.NavigationGroup>
       ))}
     </Footer.Navigation>
   </Footer>
   <br />
   <Footer title="Hidden" footerAriaLabel="HDS Footer" />
+</PlaygroundPreview>
+
+#### Utility section variations
+
+Utility section has two different layout options:
+- **Default**: optimised to display up to three action links and five social media icons.
+- **Utility groups**: optimised to display up to four groups of utility links.
+- The utility section can also be omitted.
+
+<PlaygroundPreview>
+  <Footer title="Default" footerAriaLabel="HDS Footer">
+    <Footer.Utilities soMeLinks={[
+      <Footer.Link
+        title="Helsingin kaupungin Facebook-tili"
+        ariaLabel="Helsingin kaupungin Facebook-tili"
+        external
+        openInNewTab
+        icon={<IconFacebook aria-hidden />}
+        href="https://facebook.com"
+      />,
+      <Footer.Link
+        title="Helsingin kaupungin Twitter-tili"
+        ariaLabel="Helsingin kaupungin Twitter-tili"
+        external
+        openInNewTab
+        icon={<IconTwitter aria-hidden />}
+        href="https://twitter.com"
+      />,
+      <Footer.Link
+        title="Helsingin kaupungin Instagram-tili"
+        ariaLabel="Helsingin kaupungin Instagram-tili"
+        external
+        openInNewTab
+        icon={<IconInstagram aria-hidden />}
+        href="https://instagram.com"
+      />,
+      <Footer.Link
+        title="Helsingin kaupungin Youtube-tili"
+        ariaLabel="Helsingin kaupungin Youtube-tili"
+        external
+        openInNewTab
+        icon={<IconYoutube aria-hidden />}
+        href="https://youtube.com"
+      />,
+      <Footer.Link
+        title="Helsingin kaupungin Tiktok-tili"
+        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        external
+        openInNewTab
+        icon={<IconTiktok aria-hidden />}
+        href="https://tiktok.com"
+      />,
+    ]}>
+      <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="Contact us" />
+      <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
+      <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="Support" />
+      <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="About" />
+    </Footer.Utilities>
+  </Footer>
+  <br />
+  <br />
+  <Footer title="Utility groups" footerAriaLabel="HDS Footer">
+    <Footer.Utilities>
+      {[{}, {}, {}].map((index) => (
+        <Footer.UtilityGroup
+          key={index}
+          headingLink={
+            <Footer.GroupHeading
+              href="https://google.com"
+              onClick={(e) => e.preventDefault()}
+              label="Group heading link"
+            />
+          }
+        >
+          {[{}, {}, {}].map((subIndex) => {
+            return (
+              <Footer.Link
+                key={subIndex}
+                href="https://google.com"
+                onClick={(e) => e.preventDefault()}
+                label="Group link"
+              />
+            );
+          })}
+        </Footer.UtilityGroup>
+      ))}
+      <Footer.UtilityGroup key={6} headingLink={<Footer.GroupHeading label="Social media" />}>
+        <Footer.Link
+          title="Helsingin kaupungin Facebook-tili"
+          label="Facebook"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconFacebook aria-hidden="true" />}
+          href="https://facebook.com/helsinginkaupunki/"
+        />
+        <Footer.Link
+          title="Helsingin kaupungin Facebook-tili"
+          label="Facebook"
+          ariaLabel="Helsingin kaupungin Facebook-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconFacebook aria-hidden="true" />}
+          href="https://facebook.com/helsinginkaupunki/"
+        />
+        <Footer.Link
+          title="Helsingin kaupungin Twitter-tili"
+          label="Twitter"
+          ariaLabel="Helsingin kaupungin Twitter-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconTwitter aria-hidden="true" />}
+          href="https://twitter.com/helsinki"
+        />
+        <Footer.Link
+          title="Helsingin kaupungin Instagram-tili"
+          label="Instagram"
+          ariaLabel="Helsingin kaupungin Instagram-tili"
+          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
+          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          icon={<IconInstagram aria-hidden="true" />}
+          href="https://instagram.com/helsinki/"
+        />
+      </Footer.UtilityGroup>
+    </Footer.Utilities>
+  </Footer>
 </PlaygroundPreview>

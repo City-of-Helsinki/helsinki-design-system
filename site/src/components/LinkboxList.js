@@ -11,7 +11,7 @@ const LinkboxList = ({ data, className }) => (
       return (
         <div key={item.name} className="linkbox-list-item">
           <Linkbox
-            withBorder
+            border
             className="linkbox-list-link"
             size="small"
             linkboxAriaLabel={item.linkboxAriaLabel}

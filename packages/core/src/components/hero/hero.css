@@ -131,7 +131,7 @@
   object-position: var(--image-position);
 }
 
-.hds-hero--with-background__contentcolumns {
+.hds-hero--with-background__content-columns {
   display: flex;
   margin: 0 auto;
   max-width: var(--container-width-xl);

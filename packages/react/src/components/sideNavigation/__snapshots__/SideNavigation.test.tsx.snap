@@ -25,23 +25,18 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
       >
         <svg
           aria-hidden="true"
+          aria-label="angle-down"
           class="icon s"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g
-            fill="none"
+          <path
+            clip-rule="evenodd"
+            d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+            fill="currentColor"
             fill-rule="evenodd"
-          >
-            <path
-              d="M0 0h24v24H0z"
-            />
-            <path
-              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-              fill="currentColor"
-            />
-          </g>
+          />
         </svg>
       </div>
     </button>
@@ -65,23 +60,19 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
             class="leftIcon"
           >
             <svg
+              aria-hidden="true"
+              aria-label="home"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M1 13L12 2L23 13L21.5 14.5L20 13V21H4V13L2.5 14.5L1 13ZM12 5L6 11V19L8.999 18.999L9 12H15L14.999 18.999L18 19V11L12 5ZM13 14H11L10.999 18.999H12.999L13 14Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M1 13L12 2l11 11-1.5 1.5L20 13v8H4v-8l-1.5 1.5L1 13zm11-8l-6 6v8l2.999-.001L9 12h6l-.001 6.999L18 19v-8l-6-6zm1 9h-2l-.001 4.999h2L13 14z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </span>
           <span
@@ -95,23 +86,18 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="angle-up"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M12 11.5L17 16.5L18.5 15L12 8.5L5.5 15L7 16.5L12 11.5Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 24h24V0H0z"
-                />
-                <path
-                  d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </span>
         </button>
@@ -150,23 +136,19 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
             class="leftIcon"
           >
             <svg
+              aria-hidden="true"
+              aria-label="home"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M1 13L12 2L23 13L21.5 14.5L20 13V21H4V13L2.5 14.5L1 13ZM12 5L6 11V19L8.999 18.999L9 12H15L14.999 18.999L18 19V11L12 5ZM13 14H11L10.999 18.999H12.999L13 14Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M1 13L12 2l11 11-1.5 1.5L20 13v8H4v-8l-1.5 1.5L1 13zm11-8l-6 6v8l2.999-.001L9 12h6l-.001 6.999L18 19v-8l-6-6zm1 9h-2l-.001 4.999h2L13 14z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </span>
           <span
@@ -180,22 +162,18 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="link-external"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </g>
+              />
             </svg>
           </span>
         </a>

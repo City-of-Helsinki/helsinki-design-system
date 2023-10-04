@@ -5,7 +5,109 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+
+## [3.0.0] - October, 4, 2023
+
+### React
+
+#### Breaking
+- [Navigation] removed, use new Header instead
+- [Footer] removed old deprecated Footer
+- [StatusLabel] and [Tag] rectangular versions
+
+#### Added
+- [Header] New Header component to wrap all its child components
+- [Header.UniversalBar] Optional component to display useful quick links
+- [Header.ActionBar] Mandatory component to display service logo, language selection, search and user login
+- [Header.NavigationMenu] Mandatory component to display navigation links
+
+#### Changed
+- [LinkBox] Property name `withBorder` changed to `border`
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+- Supported browserlist updated
+- [RadioButton] default value is not recommended anymore 
+
+#### Fixed
+- [Breadcrumb] theme variable typos
+- [LoadingSpinner] made more polite accessibility-wise, not interrupting screen readers anymore
+
+#### Removed
+- Deprecated rectangular [StatusLabel] and [Tag]
+- [Navigation] New Header component is the replacement
+- [Footer] Deprecated old Footer
+
+### Core
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+#### Deprecated
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
+### Documentation
+
+#### Added
+- [Header] Documentation - still a work in progress
+- Helpful tooltip to explain statuses
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+- [RadioButton] Updated guidelines to tell better radio buttons should not have default value
+- Several small fixes
+
+### Design kit
+
+#### Added
+
+- [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 release purposes. The shared library file includes new Header and Side navigation symbols.
+- Updated to Sketch 98.3, please update your Sketch and files accordingly
+
+
+
+## [3.0.0-alpha.0] - July, 6, 2023
+
+### React
+
+#### Added
+- [Header] New Header component to wrap all its child components
+- [Header.UniversalBar] Optional component to display useful quick links
+- [Header.ActionBar] Mandatory component to display service logo, language selection, search and user login
+- [Header.NavigationMenu] Mandatory component to display navigation links
+
+#### Changed
+- [LinkBox] Property name `withBorder` changed to `border`
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+- Supported browserlist updated
+
+#### Deprecated
+- [Navigation] New Header component will be the replacement
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
+### Core
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+#### Deprecated
+- [Tag] Rectangular version (default)
+- [StatusLabel] Rectangular version (default)
+
+### Documentation
+
+#### Added
+- [Header] Documentation - still a work in progress
+- Helpful tooltip to explain statuses
+
+#### Changed
+- [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+### Design kit
+
+#### Added
+
+- [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 Alpha release purposes. The shared library file includes new Header and Side navigation symbols.
 
 ## [2.17.0] - Aug, 18, 2023
 
@@ -36,7 +138,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - Figma API icon library export script
-
 
 ## [2.16.0] - June, 28, 2023
 

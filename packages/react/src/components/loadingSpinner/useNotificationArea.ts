@@ -10,7 +10,7 @@ const createNotificationAreaElement = (): HTMLElement => {
   const element = document.createElement('div');
   element.id = notificationAreaId;
   element.className = styles.notificationArea;
-  element.setAttribute('role', 'alert');
+  element.setAttribute('role', 'status');
   document.body.appendChild(element);
   return element;
 };

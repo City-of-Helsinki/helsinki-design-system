@@ -18,24 +18,18 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
       >
         <svg
           aria-hidden="true"
+          aria-label="alert-circle-fill"
           class="icon s icon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g
-            fill="none"
+          <path
+            clip-rule="evenodd"
+            d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3ZM13 16V18H11V16H13ZM13 6V14H11V6H13Z"
+            fill="currentColor"
             fill-rule="evenodd"
-          >
-            <rect
-              height="24"
-              width="24"
-            />
-            <path
-              d="M12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 Z M13,16 L13,18 L11,18 L11,16 L13,16 Z M13,6 L13,14 L11,14 L11,6 L13,6 Z"
-              fill="currentColor"
-            />
-          </g>
+          />
         </svg>
         Form contains following errors
       </div>

@@ -66,23 +66,18 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="minus"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M6 11H18V13H6V11Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M6 11h12v2H6z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </button>
         </div>
@@ -96,23 +91,18 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="plus"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M13 6V11H18V13H13V18H11V13H6V11H11V6H13Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M13 6v5h5v2h-5v5h-2v-5H6v-2h5V6z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
           </button>
         </div>

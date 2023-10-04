@@ -3,7 +3,7 @@
 exports[`<Header /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
-    class="header"
+    class="hds-header header"
   >
     <div
       class="headerBackgroundWrapper"

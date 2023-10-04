@@ -11,6 +11,7 @@
     "plugin:jest/recommended",
     "airbnb",
     "prettier/@typescript-eslint",
+    "prettier/react",
     "plugin:prettier/recommended" // this should always be the last item on this array
   ],
   "plugins": ["@typescript-eslint", "prettier", "jest", "import"],

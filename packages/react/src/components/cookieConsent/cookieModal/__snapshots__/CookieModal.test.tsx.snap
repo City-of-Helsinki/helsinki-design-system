@@ -35,7 +35,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
               data-testid="cookie-consent-language-switcher"
             >
               <div
-                class="menuButton languageSelectorOverride"
+                class="menuButton languageDropdown"
               >
                 <button
                   aria-controls="cookie-consent-language-selector-menu"
@@ -53,23 +53,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                   </span>
                   <svg
                     aria-hidden="true"
+                    aria-label="angle-down"
                     class="icon s"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <path
-                        d="M0 0h24v24H0z"
-                      />
-                      <path
-                        d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                        fill="currentColor"
-                      />
-                    </g>
+                    />
                   </svg>
                 </button>
                 <div
@@ -133,23 +128,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
               </span>
               <svg
                 aria-hidden="true"
+                aria-label="angle-up"
                 class="icon s"
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g
-                  fill="none"
+                <path
+                  clip-rule="evenodd"
+                  d="M12 11.5L17 16.5L18.5 15L12 8.5L5.5 15L7 16.5L12 11.5Z"
+                  fill="currentColor"
                   fill-rule="evenodd"
-                >
-                  <path
-                    d="M0 24h24V0H0z"
-                  />
-                  <path
-                    d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z"
-                    fill="currentColor"
-                  />
-                </g>
+                />
               </svg>
             </button>
           </div>
@@ -161,23 +151,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
+              aria-label="angle-down"
               class="icon s"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g
-                fill="none"
+              <path
+                clip-rule="evenodd"
+                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                fill="currentColor"
                 fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                  fill="currentColor"
-                />
-              </g>
+              />
             </svg>
             <span>
               Näytä evästeasetukset
@@ -238,7 +223,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                 </p>
                 <div
                   id="required-consents-description"
-                  style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                  style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                 >
                   checkboxAriaLabel
                 </div>
@@ -285,7 +270,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         </p>
                         <div
                           id="required-consents-group-0-description"
-                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                         >
                           checkboxAriaLabel for requiredCookieGroup0
                         </div>
@@ -298,23 +283,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         >
                           <svg
                             aria-hidden="true"
+                            aria-label="angle-down"
                             class="icon s"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                            >
-                              <path
-                                d="M0 0h24v24H0z"
-                              />
-                              <path
-                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                                fill="currentColor"
-                              />
-                            </g>
+                            />
                           </svg>
                         </button>
                         <div
@@ -456,7 +436,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         </p>
                         <div
                           id="required-consents-group-1-description"
-                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                         >
                           checkboxAriaLabel for requiredCookieGroup1
                         </div>
@@ -469,23 +449,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         >
                           <svg
                             aria-hidden="true"
+                            aria-label="angle-down"
                             class="icon s"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                            >
-                              <path
-                                d="M0 0h24v24H0z"
-                              />
-                              <path
-                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                                fill="currentColor"
-                              />
-                            </g>
+                            />
                           </svg>
                         </button>
                         <div
@@ -601,7 +576,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                 </p>
                 <div
                   id="optional-consents-description"
-                  style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                  style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                 >
                   checkboxAriaLabel
                 </div>
@@ -646,7 +621,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         </p>
                         <div
                           id="optional-consents-group-0-description"
-                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                         >
                           checkboxAriaLabel for optionalCookieGroups0
                         </div>
@@ -659,23 +634,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         >
                           <svg
                             aria-hidden="true"
+                            aria-label="angle-down"
                             class="icon s"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                            >
-                              <path
-                                d="M0 0h24v24H0z"
-                              />
-                              <path
-                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                                fill="currentColor"
-                              />
-                            </g>
+                            />
                           </svg>
                         </button>
                         <div
@@ -793,7 +763,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         </p>
                         <div
                           id="optional-consents-group-1-description"
-                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                         >
                           checkboxAriaLabel for optionalCookieGroups1
                         </div>
@@ -806,23 +776,18 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                         >
                           <svg
                             aria-hidden="true"
+                            aria-label="angle-down"
                             class="icon s"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                            >
-                              <path
-                                d="M0 0h24v24H0z"
-                              />
-                              <path
-                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                                fill="currentColor"
-                              />
-                            </g>
+                            />
                           </svg>
                         </button>
                         <div

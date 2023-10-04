@@ -1,0 +1,35 @@
+---
+slug: '/components/header/tabs'
+title: 'Header'
+---
+
+import { StatusLabel, Notification } from 'hds-react';
+
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+
+# Header
+
+<div className="status-label-description">
+  <StatusLabel type="error">Draft</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabelTooltip/>
+</div>
+
+<LeadParagraph>The Header component is located at the top of the page above the main body content. It provides a place for levels of primary navigation and site-wide actions.</LeadParagraph>
+
+<Notification label="A work in progress!" className="siteNotification">
+  The Header components are a collection of new navigation components the HDS team is currently fine tuning. This means
+  that these components are subject to change. We are open to feedback regarding how they work.
+</Notification>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>

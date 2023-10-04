@@ -6,11 +6,11 @@ import { Logo } from './Logo';
 
 describe('<Logo /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<Logo />);
+    const { asFragment } = render(<Logo src="dummyPath" alt="logo" title="Helsingin kaupunki" />);
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<Logo />);
+    const { container } = render(<Logo src="dummyPath" alt="logo" title="Helsingin kaupunki" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
