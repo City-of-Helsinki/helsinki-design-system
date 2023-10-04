@@ -1,14 +1,14 @@
 import path from 'path';
 import { storiesOf } from "@storybook/html";
 
-import './all.css';
+import './icons.css';
 import './icon.css';
 
-const req = require.context('.', true, /(icon\b-+).+?.css$/);
+const req = require.context('.', true, /^(?!icon).+?.css$/);
 
 req.keys().forEach((fileName) => {
   const story = storiesOf(`Icons/Icons`, module)
-  const icon = path.basename(fileName, '.css').substring('icon-'.length);
+  const icon = path.basename(fileName, '.css');
   const iconCapitalized = icon.charAt(0).toUpperCase() + icon.slice(1)
   const allSizes = () => {
     const all = ['xs', 's', 'm', 'l', 'xl'].reduce((acc, size) => {

@@ -1,0 +1,23 @@
+@import '../../common.scss';
+@value medium-down from "../../../../styles/breakpoints.scss";
+
+.heading {
+  @extend %footerItem;
+
+  font-weight: bold;
+  line-height: var(--lineheight-l);
+}
+
+.navigation {
+  font-size: var(--fontsize-body-m);
+}
+
+.utility {
+  font-size: var(--fontsize-heading-m);
+}
+
+@media medium-down {
+  .heading.navigation {
+    font-weight: normal;
+  }
+}

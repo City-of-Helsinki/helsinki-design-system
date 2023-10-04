@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { DropdownDirection } from '../header/components/navigationLink';
 import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
+import { Link } from '../link';
+import { LanguageOption } from '../header/LanguageContext';
+import { Logo, logoFi } from '../logo';
 
 export default {
   component: Breadcrumb,
@@ -22,42 +24,65 @@ export default {
   },
 };
 
+const languages: LanguageOption[] = [
+  { label: 'Suomi', value: 'fi' },
+  { label: 'Svenska', value: 'sv' },
+  { label: 'English', value: 'en' },
+];
+
 export const Example = (args) => <Breadcrumb {...args} />;
 
 export const ExampleInHeader = (args) => {
   return (
-    <Header>
+    <Header languages={languages}>
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleHref="https://hel.fi"
+        logoAriaLabel="Service logo"
+        logoHref="https://hel.fi"
+        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+        menuButtonAriaLabel="Menu"
+      >
+        <Header.LanguageSelector ariaLabel="Kielen valinta">
+          <h3>Tietoa muilla kielillä</h3>
+          <Link external href="www.example.com">
+            Selkosuomi
+          </Link>
+          <Link external href="www.example.com">
+            Viittomakieli
+          </Link>
+        </Header.LanguageSelector>
+      </Header.ActionBar>
       <Header.NavigationMenu>
-        <Header.NavigationLink
+        <Header.Link
           href="#"
           label="Health and social services"
           onClick={(event) => event.preventDefault()}
           active
           dropdownLinks={[
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Senior services"
-              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Informal care" active />,
-                <Header.NavigationLink href="#" label="Senior centres" />,
-                <Header.NavigationLink href="#" label="Home care" />,
+                <Header.Link href="#" label="Informal care" active />,
+                <Header.Link href="#" label="Senior centres" />,
+                <Header.Link href="#" label="Home care" />,
               ]}
             />,
-            <Header.NavigationLink
+            <Header.Link
               href="#"
               label="Data and the rights of the client"
-              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
-                <Header.NavigationLink href="#" label="Requesting client data" />,
-                <Header.NavigationLink href="#" label="Fees" />,
+                <Header.Link href="#" label="Requesting client data" />,
+                <Header.Link href="#" label="Fees" />,
               ]}
             />,
           ]}
         />
-        <Header.NavigationLink href="#" label="Child and family services" />
+        <Header.Link href="#" label="Child and family services" />
       </Header.NavigationMenu>
       <Breadcrumb
         {...args}

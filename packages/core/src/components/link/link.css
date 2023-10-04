@@ -1,5 +1,5 @@
 @import url("../../icons/icon.css");
-@import url("../../icons/ui/icon-link-external.css");
+@import url("../../icons/link-external.css");
 
 .hds-link {
   --link-visited-color: #551a8b;
@@ -28,12 +28,16 @@
   outline: none;
 }
 
-.hds-link .vertical-align-small-or-medium-icon {
+.hds-link .vertical-align-medium-icon {
   vertical-align: sub;
 }
 
 .hds-link .vertical-align-big-icon {
   vertical-align: middle;
+}
+
+.hds-link .vertical-align-small-icon {
+  vertical-align: text-top;
 }
 
 .hds-link--disable-visited-styles:visited {

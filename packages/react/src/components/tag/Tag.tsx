@@ -56,6 +56,11 @@ export type TagProps = {
    */
   role?: 'link' | 'button';
   /**
+   * Size variant for the Tag.
+   * @default 'm'
+   */
+  size?: 'm' | 'l';
+  /**
    * The label is only visible to screen readers. Can be used to give screen reader users additional information about the tag.
    */
   srOnlyLabel?: string;
@@ -65,12 +70,6 @@ export type TagProps = {
   theme?: TagCustomTheme;
 };
 
-const ROUNDED_CORNERS_CLASS_NAME = 'tag-rounded-corners';
-const ROUNDED_CORNERS_LARGE_CLASS_NAME = 'tag-rounded-corners-large';
-
-/**
- * The RoundedTag component will replace Tag component in the next major release.
- */
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {
@@ -84,6 +83,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       onClick,
       onDelete,
       role = 'link',
+      size = 'm',
       srOnlyLabel,
       theme,
       ...rest
@@ -92,7 +92,8 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
   ) => {
     // custom theme class that is applied to the root element
     const customThemeClass = useTheme<TagCustomTheme>(styles.tag, theme);
-    const containerClassName = classNames(styles.tag, customThemeClass, className);
+    const largeClass = styles.large;
+    const containerClassName = classNames(styles.tag, size === 'l' && largeClass, customThemeClass, className);
     const clickable = typeof onClick === 'function';
     const deletable = typeof onDelete === 'function';
     const hideLabelFromScreenReaders = srOnlyLabel || deleteButtonAriaLabel;
@@ -133,23 +134,3 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
     );
   },
 );
-
-/**
- * RoundedTag will be removed in the next major release and replace Tag component. This means the Tag component will have rounded corners by default.
- * @deprecated
- */
-export const RoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
-  <Tag className={classNames(styles[ROUNDED_CORNERS_CLASS_NAME], className)} {...props} ref={ref} />
-));
-
-/**
- * LargeRoundedTag will be removed in the next major release. It will be supported via the default Tag component with the size property.
- * @deprecated
- */
-export const LargeRoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
-  <Tag
-    className={classNames(styles[ROUNDED_CORNERS_LARGE_CLASS_NAME], styles[ROUNDED_CORNERS_CLASS_NAME], className)}
-    {...props}
-    ref={ref}
-  />
-));

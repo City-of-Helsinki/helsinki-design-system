@@ -13,7 +13,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -30,23 +30,19 @@ exports[`<Pagination /> spec renders the component 1`] = `
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -148,23 +144,19 @@ exports[`<Pagination /> spec renders the component 1`] = `
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -188,7 +180,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -205,23 +197,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -304,23 +292,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -342,7 +326,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -359,23 +343,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -484,23 +464,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -522,7 +498,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -539,23 +515,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -686,23 +658,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -724,7 +692,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -741,23 +709,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -912,23 +876,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -950,7 +910,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -967,23 +927,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -1162,23 +1118,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -1200,7 +1152,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -1217,23 +1169,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -1436,23 +1384,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -1474,7 +1418,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -1491,23 +1435,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -1585,23 +1525,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -1623,7 +1559,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -1640,23 +1576,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -1758,23 +1690,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -1796,7 +1724,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -1813,23 +1741,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -1955,23 +1879,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -1993,7 +1913,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -2010,23 +1930,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -2176,23 +2092,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -2214,7 +2126,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -2231,23 +2143,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -2421,23 +2329,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -2459,7 +2363,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -2476,23 +2380,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -2690,23 +2590,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -2728,7 +2624,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -2745,23 +2641,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -2844,23 +2736,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -2882,7 +2770,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -2899,23 +2787,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -3022,23 +2906,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -3060,7 +2940,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -3077,23 +2957,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -3224,23 +3100,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -3262,7 +3134,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -3279,23 +3151,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -3450,23 +3318,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -3488,7 +3352,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -3505,23 +3369,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -3700,23 +3560,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -3738,7 +3594,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -3755,23 +3611,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -3974,23 +3826,19 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>
@@ -4012,7 +3860,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       role="navigation"
     >
       <div
-        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       >
         <span
           aria-atomic="true"
@@ -4031,23 +3879,19 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-left"
             class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M10.5 12L15.5 17L14 18.5L7.5 12L14 5.5L15.5 7L10.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="24 0 24 24 0 24 0 0"
-              />
-              <polygon
-                fill="currentColor"
-                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
-              />
-            </g>
+            />
           </svg>
         </div>
         <span
@@ -4089,23 +3933,19 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
           class="icon"
         >
           <svg
+            aria-hidden="true"
+            aria-label="angle-right"
             class="icon s angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              fill="none"
+            <path
+              clip-rule="evenodd"
+              d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+              fill="currentColor"
               fill-rule="evenodd"
-            >
-              <polygon
-                points="0 24 0 0 24 0 24 24"
-              />
-              <polygon
-                fill="currentColor"
-                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-              />
-            </g>
+            />
           </svg>
         </div>
       </button>

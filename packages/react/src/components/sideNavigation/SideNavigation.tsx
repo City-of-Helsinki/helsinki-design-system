@@ -9,6 +9,7 @@ import { FCWithName } from '../../common/types';
 import classNames from '../../utils/classNames';
 import { useMobile } from '../../hooks/useMobile';
 import { Button } from '../button';
+import { SkipLink } from '../../internal/skipLink';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { MainLevel } from './mainLevel/MainLevel';
 import { SubLevel } from './subLevel/SubLevel';
@@ -91,6 +92,10 @@ export const SideNavigation = ({
     return null;
   });
 
+  const skipLink = childElements.find(
+    (child) => isValidElement(child) && (child.type as FCWithName).componentName === 'SkipLink',
+  );
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -140,6 +145,7 @@ export const SideNavigation = ({
         ref={container}
         style={style}
       >
+        {skipLink && skipLink}
         {/* Toggle button is visible only on small screen size */}
         <Button
           aria-controls={menuId}
@@ -172,3 +178,4 @@ export const SideNavigation = ({
 
 SideNavigation.MainLevel = MainLevel;
 SideNavigation.SubLevel = SubLevel;
+SideNavigation.SkipLink = SkipLink;

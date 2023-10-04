@@ -1,20 +1,21 @@
-@value small-down, medium-up, large-up, x-large-up from "../../styles/breakpoints.scss";
+@value small-down, x-small-down, x-large-up from "../../styles/breakpoints.scss";
 
 $koros-heights: (
-  'basic': 14px,
+  'basic': 15px,
   'beat': 70px,
   'pulse': 34px,
-  'storm': 35px,
-  'wave': 54px,
+  'wave': 35px,
+  'vibration': 54px,
 );
 
 .footer {
-  --footer-focus-outline-width: 3px;
-  --footer-focus-outline-border-radius: 2px;
   --footer-background: var(--color-black-5);
-  --footer-color: var(--color-black);
+  --footer-color: var(--color-black-90);
   --footer-divider-color: var(--color-black-20);
+  --footer-focus-outline-border-radius: 0px;
   --footer-focus-outline-color: var(--color-coat-of-arms);
+  --footer-focus-outline-width: 3px;
+  --footer-padding: var(--spacing-l) var(--spacing-m) 0;
 
   color: var(--footer-color);
 
@@ -48,24 +49,28 @@ $koros-heights: (
   background-color: var(--footer-background);
 }
 
-.navigationContainer {
-  padding: var(--spacing-l) var(--spacing-m) var(--spacing-m);
-
-  > *:only-child {
-    margin-bottom: var(--spacing-2-xs);
-  }
-}
-
-.titleWrapper {
-  align-items: center;
+.footerSections {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--footer-padding);
 }
 
 .title {
-  font-size: var(--fontsize-heading-xxs);
+  font-size: var(--fontsize-heading-m);
   font-weight: bold;
   letter-spacing: 0.4px;
   line-height: var(--lineheight-l);
+}
+
+@media x-small-down {
+  .footer {
+    --footer-padding: var(--spacing-m) var(--spacing-s) 0;
+  }
+
+  .footerSections {
+    padding: var(--footer-padding);
+  }
 }
 
 @media small-down {
@@ -74,34 +79,12 @@ $koros-heights: (
   }
 
   .title {
-    margin-top: var(--spacing-xs);
-  }
-}
-
-@media medium-up {
-  .navigationContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .title {
-    margin-left: var(--spacing-s);
-  }
-}
-
-@media large-up {
-  .navigationContainer.minimal {
-    align-items: center;
-    flex-direction: row;
-    padding-bottom: var(--spacing-l);
+    font-size: var(--fontsize-heading-s);
   }
 }
 
 @media x-large-up {
-  // set max-width of footer sections
-  .footer > .footerContent > section,
-  .footer > .footerContent > div {
+  .footerSections {
     margin: 0 auto;
     max-width: var(--container-width-xl);
   }

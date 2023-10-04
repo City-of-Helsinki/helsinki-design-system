@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer.Base /> spec renders the component 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer koros-basic theme-light"
+  >
+    <div
+      class="koros basic koros basic"
+    >
+      <svg
+        aria-hidden="true"
+        height="85"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            height="85"
+            id="koros_basic-1"
+            patternUnits="userSpaceOnUse"
+            width="96"
+            x="0"
+            y="0"
+          >
+            <path
+              d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z"
+              transform="scale(3)"
+            />
+          </pattern>
+        </defs>
+        <rect
+          fill="url(#koros_basic-1)"
+          height="85"
+          style="shape-rendering: crispEdges;"
+          width="100%"
+        />
+      </svg>
+    </div>
+    <div
+      class="footerContent"
+    >
+      <div
+        class="footerSections"
+      >
+        <h2
+          class="title"
+        >
+          Bar
+        </h2>
+        <div
+          class="base"
+        >
+          <hr
+            aria-hidden="true"
+            class="divider"
+          />
+          <div
+            class="logoWrapper"
+          >
+            <a
+              class="link linkM item"
+              tabindex="0"
+            >
+              <img
+                alt="Helsingin kaupunki"
+                class="logo medium"
+                src="dummyPath"
+              />
+            </a>
+          </div>
+          <div
+            class="baseActions"
+          >
+            <div
+              class="links"
+            >
+              <span
+                class="separator"
+              >
+                |
+              </span>
+              <a
+                class="link linkM item base"
+              >
+                <span>
+                  Link 1
+                </span>
+              </a>
+              <span
+                class="separator"
+              >
+                |
+              </span>
+              <a
+                class="link linkM item base"
+              >
+                <span>
+                  Link 2
+                </span>
+              </a>
+              <span
+                class="separator"
+              >
+                |
+              </span>
+              <a
+                class="link linkM item base"
+              >
+                <span>
+                  Link 3
+                </span>
+              </a>
+            </div>
+            <button
+              class="backToTopButton"
+              role="link"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                aria-label="arrow-up"
+                class="icon s"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M12 3.5L18.5 10L17 11.5L13 7.5V20H11V7.5L7 11.5L5.5 10L12 3.5Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;

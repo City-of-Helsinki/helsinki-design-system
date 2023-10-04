@@ -100,6 +100,11 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       M: 's',
       S: 'xs',
     };
+    const mapLinkSizeToIconVerticalStyling = {
+      L: styles.verticalAlignBigIcon,
+      M: styles.verticalAlignMediumIcon,
+      S: styles.verticalAlignSmallIcon,
+    };
 
     return (
       <a
@@ -126,10 +131,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {external && (
           <IconLinkExternal
             size={mapLinkSizeToExternalIconSize[size]}
-            className={classNames(
-              styles.icon,
-              size === 'L' ? styles.verticalAlignBigIcon : styles.verticalAlignSmallOrMediumIcon,
-            )}
+            className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
             aria-hidden
           />
         )}

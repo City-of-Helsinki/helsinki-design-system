@@ -1,4 +1,0 @@
-.hds-icon--history {
-  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath d='M4 9V3h2l-.001 2.293A9 9 0 113 12h2a7 7 0 102.1-5h2.4v2H4z' fill='currentColor'/%3E%3Cpath d='M13 7v4.584l3.243 3.244-1.415 1.415-3.827-3.83L11 7h2z' fill='currentColor'/%3E%3C/g%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath d='M4 9V3h2l-.001 2.293A9 9 0 113 12h2a7 7 0 102.1-5h2.4v2H4z' fill='currentColor'/%3E%3Cpath d='M13 7v4.584l3.243 3.244-1.415 1.415-3.827-3.83L11 7h2z' fill='currentColor'/%3E%3C/g%3E%3C/svg%3E");
-}

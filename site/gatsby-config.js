@@ -96,6 +96,10 @@ module.exports = {
             name: 'Cookies',
             link: '/patterns/cookies',
           },
+          {
+            name: 'Navigation',
+            link: '/patterns/navigation',
+          },
         ],
       },
       {
@@ -105,6 +109,10 @@ module.exports = {
           {
             name: 'Support',
             link: '/about',
+          },
+          {
+            name: 'Releases',
+            link: '/about/releases',
           },
           {
             name: 'Accessibility',

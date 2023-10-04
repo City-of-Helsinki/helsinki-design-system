@@ -26,16 +26,18 @@ import InternalLink from '../../../components/InternalLink';
 ## When to use radio buttons?
 <InternalLink size="M" href="/components/radio-button" >HDS RadioButton component documentation</InternalLink>
 
-An application can use radio buttons when there is a list of two or more mutually exclusive choices and the user needs to select one of them. After clicking the non-selected radio button, whatever was previously selected is deselected. In traditional application design, the first radio button in the list was always selected by default. But not all modern websites follow this convention and rather use empty radio buttons by default. Websites today, forms, and applications inconsistently select one or leave all radio buttons blank by default. If none of the buttons is selected by default, users have no way to revert to this original state after they’ve made a selection. The lack of a standard can be confusing to users.
+An application can use radio buttons when there is a list of two or more mutually exclusive choices and the user needs to select one of them. After clicking the non-selected radio button, whatever was previously selected is deselected. In traditional application design, the first radio button in the list was always selected by default. But not all modern websites follow this convention and rather use empty radio buttons by default. Websites today, forms, and applications inconsistently select one or leave all radio buttons blank by default.  The lack of a standard can be confusing to users.
 
-**HDS strongly recommends that radio buttons are never presented unticked.**
+**HDS recommends presenting radiobuttons unticked by default.**
+
+This enables confirming user has actually made a selection. This helps automatic validation and avoiding incorrect default values.
 
 Radio buttons have a lower cognitive load than dropdown menus because they make all options permanently visible so that users can easily compare them. Radio buttons are also easier to operate for users who have difficulty making precise mouse movements. (Limited space might sometimes force you to violate this guideline, but do try to keep choices visible whenever possible.)
 
 **Example use:** Binary choices like "Yes" or "No", age group or other similar choices that exclude other options.
 
 export const RadioButtonExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = React.useState('');
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };

@@ -35,7 +35,7 @@ export const WithBorder = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withBorder
+      border
     />
   </div>
 );

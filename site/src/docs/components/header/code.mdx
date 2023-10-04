@@ -1,0 +1,789 @@
+---
+slug: '/components/header/code'
+title: 'Header - Code'
+---
+
+import { Header, IconSearch, IconUser, Logo, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+
+export const logoSrcFromLanguageAndTheme = (lang, theme) => {
+  switch (lang) {
+    case 'sv':
+      if (theme === 'light' || typeof theme === 'object') {
+        return logoSv;
+      }
+      return logoSvDark;
+    default:
+      if (theme === 'light' || typeof theme === 'object') {
+        return logoFi;
+      }
+      return logoFiDark;
+  }
+};
+
+export const translations = {
+  en: {
+    adultEducationCentres: 'Adult education centres',
+    ariaLanguageSelection: 'Choose language',
+    ariaLogo: 'Service logo',
+    ariaMenuButton: 'Menu',
+    basicEducation: 'Basic education',
+    business: 'Business',
+    businessAndWork: 'Business and work',
+    childHoodAndEducation: 'Childhood and education',
+    clearFinnish: 'Clear finnish',
+    close: 'Close',
+    dentalCare: 'Dental care',
+    earlyChildhoodEducation: 'Early childhood education',
+    education: 'Education',
+    employers: 'Employers',
+    entrepreneurs: 'Entrepreneurs',
+    feedback: 'Give feedback',
+    forImmigrants: 'For immigrants',
+    forTravellers: 'For travellers',
+    frontPage: 'Frontpage',
+    generalUpperSecondaryEducation: 'General upper secondary education',
+    headerAriaLabel: 'City of Helsinki',
+    headerLogin: 'Login',
+    headerMenuTitle: 'Other languages',
+    headerSearch: 'Search',
+    headerTitle: 'City of Helsinki',
+    healtcare: 'Healt care',
+    healthAndndSocialServices: 'Health and social services',
+    infoOtherLanguages: 'Information in other languages',
+    jobSeekers: 'Jobseekers',
+    loginOptions: 'Login options',
+    news: 'News',
+    online: 'Online',
+    openJobs: 'Open jobs',
+    otherLanguages: 'Other languages',
+    prePrimaryEducation: 'Pre-primary education',
+    search: 'Search in the website',
+    seniorServices: 'Senior services',
+    signLanguage: 'Sign language',
+    skipToContent: 'Skip to content',
+  },
+  fi: {
+    adultEducationCentres: 'Työväenopistot',
+    ariaLanguageSelection: 'Kielen valinta',
+    ariaLogo: 'Palvelun logo',
+    ariaMenuButton: 'Valikko',
+    basicEducation: 'Perusopetus',
+    business: 'Yritykset',
+    businessAndWork: 'Yritykset ja työ',
+    childHoodAndEducation: 'Kasvatus ja koulutus',
+    clearFinnish: 'Selkosuomi',
+    close: 'Sulje',
+    dentalCare: 'Hammashoito',
+    earlyChildhoodEducation: 'Varhaiskasvatus',
+    education: 'Koulutus',
+    employers: 'Työnantajat',
+    entrepreneurs: 'Yrittäjät',
+    feedback: 'Anna palautetta',
+    forImmigrants: 'Maahanmuuttajille',
+    forTravellers: 'Matkailijoille',
+    frontPage: 'Etusivu',
+    generalUpperSecondaryEducation: 'Lukiokoulutus',
+    headerAriaLabel: 'Helsingin kaupunki',
+    headerLogin: 'Kirjaudu',
+    headerMenuTitle: 'Tietoa muilla kielillä',
+    headerSearch: 'Haku',
+    headerTitle: 'Helsingin kaupunki',
+    healtcare: 'Terveydenhoito',
+    healthAndndSocialServices: 'Sosiaali- ja terveyspalvelut',
+    infoOtherLanguages: 'Tietoa muilla kielillä',
+    jobSeekers: 'Työnhakijat',
+    loginOptions: 'Kirjautumisvalinnat',
+    news: 'Uutiset',
+    online: 'Asioi verkossa',
+    openJobs: 'Avoimet työpaikat',
+    otherLanguages: 'Muut kielet',
+    prePrimaryEducation: 'Esiopetus',
+    search: 'Hae sivustolta',
+    seniorServices: 'Senioripalvelut',
+    signLanguage: 'Viittomakieli',
+    skipToContent: 'Hyppää sisältöön',
+  },
+  sv: {
+    adultEducationCentres: 'Arbetarinstituten',
+    ariaLanguageSelection: 'Välja spräk',
+    ariaLogo: 'Service logo',
+    ariaMenuButton: 'Menu',
+    basicEducation: 'Grundläggande utbildning',
+    business: 'Företag',
+    businessAndWork: 'Företag och arbete',
+    childHoodAndEducation: 'Fostran och utbildning',
+    clearFinnish: 'Klara finska',
+    close: 'Stäng',
+    dentalCare: 'Tandvård',
+    earlyChildhoodEducation: 'Småbarnspedagogik',
+    education: 'Utbildning',
+    employers: 'Arbetsgivare',
+    entrepreneurs: 'Företagare',
+    feedback: 'Ge feedback',
+    forImmigrants: 'För migranter',
+    forTravellers: 'För turister',
+    frontPage: 'Hemsida',
+    generalUpperSecondaryEducation: 'Gymnasieutbildning',
+    headerAriaLabel: 'Helsingfors Stad',
+    headerLogin: 'Logga in',
+    headerMenuTitle: 'Andra språk',
+    headerSearch: 'Sök',
+    headerTitle: 'Helsingfors Stad',
+    healtcare: 'Hälsovärd',
+    healthAndndSocialServices: 'Social- och hälsovårdstjänster',
+    infoOtherLanguages: 'information på andra språk',
+    jobSeekers: 'Arbetssökande',
+    loginOptions: 'Logga in optioner',
+    news: 'Nyheter',
+    online: 'Göra affärer online',
+    openJobs: 'Lediga jobb',
+    otherLanguages: 'Andra språk',
+    prePrimaryEducation: 'Förskoleundervisning',
+    search: 'Sök på sidor',
+    seniorServices: 'Seniortjänster',
+    signLanguage: 'Teckenpsråk',
+    skipToContent: 'Hoppa till innehåll',
+  },
+  fr: {
+    adultEducationCentres: "Centre d'éducation des adultes",
+    ariaLanguageSelection: 'Changez de langue',
+    ariaLogo: 'Logo de service',
+    ariaMenuButton: 'Menu',
+    basicEducation: 'École élémentaire',
+    business: 'Enteprises',
+    businessAndWork: 'Entreprises et travail',
+    childHoodAndEducation: 'Éducation',
+    clearFinnish: 'Finnois simple',
+    close: 'Fermer',
+    dentalCare: 'Soins dentaires',
+    earlyChildhoodEducation: "L'éducation de la petite enfance",
+    education: 'Éducation',
+    employers: 'Employeurs',
+    entrepreneurs: 'Entrepreneur',
+    feedback: 'Remarques',
+    forImmigrants: 'Pour les immigrants',
+    forTravellers: 'Pour les touristes',
+    frontPage: "Page d'accueil",
+    generalUpperSecondaryEducation: 'Lycèe',
+    headerAriaLabel: 'Ville de Helsinki',
+    headerLogin: 'Se connecter',
+    headerMenuTitle: 'Autres langues',
+    headerSearch: 'Reserche',
+    headerTitle: 'Ville de Helsinki',
+    healtcare: 'Soins de santé',
+    healthAndndSocialServices: 'Services sociaux et de santé',
+    infoOtherLanguages: 'Information en autres langues',
+    jobSeekers: "Demandeurs d'emploi",
+    loginOptions: 'Choix pour se connecter',
+    news: 'Actualités',
+    online: 'e-Démarches',
+    openJobs: 'Emplois ouverts',
+    otherLanguages: 'Autres langages',
+    prePrimaryEducation: 'École maternelle',
+    search: 'Reserchez sur la site',
+    seniorServices: 'Service aux personnes âgées',
+    signLanguage: 'Langue des signes',
+    skipToContent: 'Passer au contenu',
+  },
+};
+
+## Code
+
+### Code examples
+
+#### With all the components
+
+<Playground scope={{ Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
+
+```jsx
+import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
+
+() => {
+  const languages = [
+    { label: 'Suomi', value: 'fi', isPrimary: true },
+    { label: 'Svenska', value: 'sv', isPrimary: true },
+    { label: 'English', value: 'en', isPrimary: true },
+    { label: 'Français', value: 'fr' },
+  ];
+  const searchAction = () => {
+    console.log('Open search page');
+  };
+
+  const [href, setHref] = React.useState('');
+  const [lang, setLang] = React.useState('fi');
+
+  const languageChangedStateAction = (language) => {
+    setLang(language);
+  };
+
+  const [I18n, setI18n] = React.useState(translations[lang]);
+
+  React.useEffect(() => {
+    setI18n(translations[lang]);
+  }, [lang]);
+
+  return (
+    <>
+      <Header onDidChangeLanguage={languageChangedStateAction} languages={languages}>
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
+        <Header.UniversalBar primaryLinkText={I18n.headerTitle} primaryLinkHref="#">
+          <Header.Link href="#uutiset" label={I18n.news} />
+          <Header.Link href="#asioi_verkossa" label={I18n.online} />
+          <Header.Link href="#anna_palautetta" label={I18n.feedback} />
+        </Header.UniversalBar>
+
+        <Header.ActionBar
+          title={I18n.headerTitle}
+          frontPageLabel={I18n.frontPage}
+          titleAriaLabel={I18n.headerTitle}
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, 'light')} alt={I18n.headerTitle} />}
+          logoAriaLabel={I18n.ariaLogo}
+          logoHref="https://hel.fi"
+          menuButtonAriaLabel={I18n.ariaMenuButton}
+          openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
+        >
+          <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
+            <h3>{I18n.infoOtherLanguages}</h3>
+            <Link external href="www.example.com" size="S" lang="fi">
+              {I18n.clearFinnish}
+            </Link>
+            <Link external href="www.example.com" size="S" lang="fse">
+              {I18n.signLanguage}
+            </Link>
+            <h3>{I18n.forTravellers}</h3>
+            <Link external href="www.example.com" size="S" lang="fi">
+              MyHelsinki.fi
+            </Link>
+            <h3>{I18n.forImmigrants}</h3>
+            <Link external href="www.example.com" size="S" lang="fi">
+              InfoFinland.fi
+            </Link>
+          </Header.LanguageSelector>
+          <Header.ActionBarItem
+            label={I18n.headerSearch}
+            icon={<IconSearch />} 
+            id="action-bar-search" 
+            onClick={searchAction} 
+            closeLabel={I18n.close}/>
+          <Header.ActionBarItem
+            label={translations[lang].headerLogin}
+            fixedRightPosition
+            icon={<IconUser />}
+            id="action-bar-login"
+            closeLabel={I18n.close}
+          >
+            <h3>{I18n.loginOptions}</h3>
+          </Header.ActionBarItem>
+        </Header.ActionBar>
+        <Header.NavigationMenu>
+          <Header.Link
+            label={I18n.healthAndndSocialServices}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#sosiaali-_ja_terveyspalvelut');
+            }}
+            active={href.includes('#sosiaali-_ja_terveyspalvelut')}
+            dropdownLinks={[
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={I18n.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={I18n.dentalCare}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                active={href.includes('#senioripalvelut')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#senioripalvelut');
+                }}
+                label={I18n.seniorServices}
+              />,
+            ]}
+          />
+          <Header.Link
+            active={href.includes('#kasvatus_ja_koulutus')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#kasvatus_ja_koulutus');
+            }}
+            label={I18n.childHoodAndEducation}
+            dropdownLinks={[
+              <Header.Link
+                active={href.includes('#varhaiskasvatus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#varhaiskasvatus');
+                }}
+                label={I18n.earlyChildhoodEducation}
+              />,
+              <Header.Link
+                active={href.includes('#esiopetus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#esiopetus');
+                }}
+                label={I18n.prePrimaryEducation}
+              />,
+              <Header.Link
+                active={href.includes('#koulutus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus');
+                }}
+                label={I18n.education}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#perusopetus')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#kasvatus_ja_koulutus#koulutus#perusopetus');
+                    }}
+                    label={I18n.basicEducation}
+                  />,
+                  <Header.Link
+                    label={I18n.generalUpperSecondaryEducation}
+                    active={href.includes('#lukiokoulutus')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#kasvatus_ja_koulutus#koulutus#lukiokoulutus');
+                    }}
+                  />,
+                  <Header.Link
+                    label={I18n.adultEducationCentres}
+                    active={href.includes('#tyovaenopistot')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#kasvatus_ja_koulutus#koulutus#tyovaenopistot');
+                    }}
+                  />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.Link
+            active={href.includes('#yritykset_ja_tyo')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#yritykset_ja_tyo');
+            }}
+            label={I18n.businessAndWork}
+            dropdownLinks={[
+              <Header.Link
+                label={I18n.employers}
+                active={href.includes('#tyonantajat')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#yritykset_ja_tyo#tyonantajat');
+                }}
+                dropdownLinks={[
+                  <Header.Link
+                    label={I18n.business}
+                    active={href.includes('#yritykset_ja_tyo#tyonantajat#yritykset')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#yritykset_ja_tyo#tyonantajat#yritykset');
+                    }}
+                  />,
+                  <Header.Link
+                    label={I18n.entrepreneurs}
+                    active={href.includes('#yrittajat')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#yritykset_ja_tyo#tyonantajat#yrittajat');
+                    }}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                active={href.includes('#yritykset_ja_tyo#tyonhakijat')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#yritykset_ja_tyo#tyonhakijat');
+                }}
+                label={I18n.jobSeekers}
+                dropdownLinks={[
+                  <Header.Link
+                    label={I18n.openJobs}
+                    active={href.includes('#yritykset_ja_tyo#tyonhakijat#avoimet_tyopaikat')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#yritykset_ja_tyo#tyonhakijat#avoimet_tyopaikat');
+                    }}
+                  />,
+                ]}
+              />,
+            ]}
+          />
+        </ Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
+  )
+}
+```
+
+</Playground>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example in Storybook</Link>.
+
+#### Custom Link
+
+The Header.Link component has the `as` prop which you can use to use your own navigation link instead of our Header.Link, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
+
+<Playground scope={{ Header, Link, Logo, logoFi }}>
+
+```jsx
+import { Header, Logo, logoFi } from 'hds-react';
+import { Link } from 'gatsby';
+
+() => {
+  return (
+    <>
+      <Header>
+        <Header.SkipLink skipTo="#content" label="Skip To Content" />
+        <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+          <Header.Link href="#" label="Uutiset" />
+          <Header.Link href="#" label="Asioi verkossa" />
+          <Header.Link href="#" label="Anna palautetta" />
+        </Header.UniversalBar>
+
+        <Header.ActionBar
+          title="Helsingin kaupunki"
+          titleAriaLabel="Helsingin kaupunki"
+          titleHref="https://hel.fi"
+          logoAriaLabel="Service logo"
+          logoHref="https://hel.fi"
+          logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+          menuButtonAriaLabel="Menu"
+        />
+        <Header.NavigationMenu>
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Sosiaali- ja terveyspalvelut"
+            onClick={(event) => event.preventDefault()}
+            dropdownLinks={[
+              <Header.Link
+                as={Link}
+                href="#"
+                label="Terveydenhoito"
+                dropdownLinks={[
+                  <Header.Link as={Link} href="#" label="Hammashoito" />,
+                  <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+                ]}
+              />,
+              <Header.Link
+                as={Link}
+                href="#"
+                label="Senioripalvelut"
+                dropdownLinks={[
+                  <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+                  <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Kasvatus ja koulutus"
+            dropdownLinks={[
+              <Header.Link
+                as={Link}
+                href="#"
+                label="Kasvatus"
+                dropdownLinks={[
+                  <Header.Link as={Link} href="#" label="Varhaiskasvatus" />,
+                  <Header.Link as={Link} href="#" label="Esiopetus" />,
+                ]}
+              />,
+              <Header.Link
+                as={Link}
+                href="#"
+                label="Koulutus"
+                dropdownLinks={[
+                  <Header.Link as={Link} href="#" label="Perusopetus" />,
+                  <Header.Link as={Link} href="#" label="Toisen asteen koulutus" />,
+                  <Header.Link as={Link} href="#" label="Työväenopistot" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.Link as={Link} href="#" label="Asuminen" />
+        </Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
+  )
+}
+```
+
+</Playground>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example in Storybook</Link>.
+
+#### Dark theme
+
+<Playground scope={{ Header, Logo, logoFiDark }}>
+
+```jsx
+import { Header, Logo, logoFiDark } from 'hds-react';
+
+() => (
+  <Header
+    theme="dark"
+  >
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.Link href="#" label="Uutiset" />
+      <Header.Link href="#" label="Asioi verkossa" />
+      <Header.Link href="#" label="Anna palautetta" />
+    </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleAriaLabel="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+    />
+    <Header.NavigationMenu>
+      <Header.Link
+        as={Link}
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        dropdownLinks={[
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Terveydenhoito"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Hammashoito" />,
+              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.Link as={Link} href="#" label="Kasvatus ja koulutus" />
+      <Header.Link as={Link} href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+)
+```
+
+</Playground>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header with dark theme example in Storybook by changing the theme property.</Link>.
+
+#### Custom theme
+
+<Playground scope={{ Header, Logo, logoFi }}>
+
+```jsx
+import { Header, Logo, logoFi } from 'hds-react';
+
+() => (
+  <Header
+    theme={{
+      '--color-focus-outline': 'var(--color-metro-dark)',
+      '--header-color': 'var(--color-black)',
+      '--header-focus-outline-color': 'var(--color-metro-dark)',
+      '--actionbar-background-color': 'var(--color-engel)',
+      '--nav-background-color': 'var(--color-engel-light)',
+      '--nav-mobile-menu-background-color': 'var(--color-engel-light)',
+      '--nav-border-color': 'var(--color-black)',
+      '--nav-link-hover-color': 'var(--color-black)',
+      '--universal-bar-background-color': 'var(--color-black-20)',
+      '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
+      '--nav-button-background-color': 'var(--color-black-20)',
+      '--nav-button-hover-background-color': 'var(--color-black-40)',
+      '--nav-drop-down-icon-color': 'var(--color-black)',
+      '--header-background-color': 'var(--color-engel-light)',
+    }}
+  >
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.Link href="#" label="Uutiset" />
+      <Header.Link href="#" label="Asioi verkossa" />
+      <Header.Link href="#" label="Anna palautetta" />
+    </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleAriaLabel="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+    />
+    <Header.NavigationMenu>
+      <Header.Link
+        as={Link}
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        dropdownLinks={[
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Terveydenhoito"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Hammashoito" />,
+              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.Link as={Link} href="#" label="Kasvatus ja koulutus" />
+      <Header.Link as={Link} href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+)
+```
+
+</Playground>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-custom-theme">view full header with custom theme example in Storybook</Link>.
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                    | Source link                                                                                                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                 | -                                                                                                                                                                                                                   |
+
+### Properties
+
+| Property                    | Description                       | Values                              | Default value |
+| --------------------------- | --------------------------------- | ----------------------------------- | ------------- |
+| `ariaLabel`                 | Aria-label for describing header. | `string`                            | -             |
+| `className`                 | Additional class names to apply.  | `string`                            | -             |
+| `id`                        | Id for the element.               | `string`                            | -             |
+| `theme`                     | Header theme.                     | `light`,`dark`, `HeaderCustomTheme` | `light`       |
+| [Table 1:Header properties] |
+
+| Property                             | Description                                        | Values          | Default value |
+| ------------------------------------ | -------------------------------------------------- | --------------- | ------------- |
+| `ariaLabel`                          | Aria-label for describing SkipLink in more detail. | `string`        | -             |
+| `label`                              | Label for the SkipLink.                            | `string`        | -             |
+| `skipTo`                             | Id of the element where the SkipLink jumps to.     | `string`        | -             |
+| `theme`                              | Custom styling for SkipLink.                       | `SkipLinkTheme` | -             |
+| [Table 2:Header.SkipLink properties] |
+
+| Property                                 | Description                               | Values   | Default value |
+| ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                              | Aria-label for describing UniversalBar.   | `string` | -             |
+| `className`                              | Additional class names to apply.          | `string` | -             |
+| `primaryLinkHref`                        | Hypertext reference for the primary link. | `string` | -             |
+| `primaryLinkText`                        | Link text for the primary link            | `string` | -             |
+| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
+| [Table 3:Header.UniversalBar properties] |
+
+| Property                              | Description                                            | Values                                        | Default value |
+| ------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------- |
+| `ariaLabel`                           | Aria-label for describing ActionBar.                   | `string`                                      | -             |
+| `className`                           | Additional class names to apply.                       | `string`                                      | -             |
+| `logoAriaLabel`                       | Aria-label for the logo.                               | `string`                                      | -             |
+| `logoHref`                            | URL for the logo.                                      | `string`                                      | -             |
+| `logo`                                | Logo component.                                        | `Logo`                                        | -             |
+| `menuButtonAriaLabel`                 | Aria-label for the menu button.                        | `string`                                      | -             |
+| `onTitleClick`                        | Callback function for when the title is clicked.       | `MouseEventHandler`                           | -             |
+| `onLogoClick`                         | Callback function for when the logo is clicked.        | `MouseEventHandler`                           | -             |
+| `onMenuButtonClick`                   | Callback function for when the menu button is clicked. | `MouseEventHandler`                           | -             |
+| `title`                               | Service name.                                          | `string`                                      | -             |
+| `titleAriaLabel`                      | Aria-label for the title.                              | `string`                                      | -             |
+| `titleStyle`                          | Style for the service name.                            | `TitleStyleType.Normal` `TitleStyleType.Bold` | `Normal`      |
+| `titleHref`                           | URL for the title.                                     | `string`                                      | -             |
+| `role`                                | ARIA role to describe the contents.                    | `string`                                      | -             |
+| [Table 4:Header.ActionBar properties] |
+
+| Property                                  | Description                         | Values                 | Default value |
+| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
+| `ariaLabel`                               | Aria-label for describing the item. | `string`               | -             |
+| `icon`                                    | Icon for the item.                  | `ReactNode`            | -             |
+| `label`                                   | Label for the action bar item.      | `string` `JSX.Element` | -             |
+| [Table 5:Header.ActionBarItem properties] |
+
+| Property                                     | Description                                            | Values             | Default value |
+| -------------------------------------------- | ------------------------------------------------------ | ------------------ | ------------- |
+| `children`                                   | Additional languages to display in the dropdown.       | `JSX.Element`      | -             |
+| `languages`                                  | Array of languages to display in the Header.ActionBar. | `[LanguageOption]` | -             |
+| [Table 6:Header.LanguageSelector properties] |
+
+| Property                           | Description                                    | Values                         | Default value |
+| ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
+| `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
+| `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
+| `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
+| [Table 7:Header.Search properties] |
+
+| Property                                  | Description                                                                                             | Values                 | Default value |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------- | ------------- |
+| `ariaLabel`                               | Aria-label for describing the item.                                                                     | `string`               | -             |
+| `ariaControls`                            | Id of the controlled dropdown element.                                                                  | `string`               | -             |
+| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line. | `boolean`              | `false`       |
+| `icon`                                    | Icon for the item.                                                                                      | `ReactNode`            | -             |
+| `label`                                   | Label for the item.                                                                                     | `string` `JSX.Element` | -             |
+| [Table 8:Header.ActionBarItem properties] |
+
+| Property                                   | Description                               | Values   | Default value |
+| ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
+| `id`                                       | ID for the NavigationMenu.                | `string` | -             |
+| [Table 9:Header.NavigationMenu properties] |
+
+| Property                          | Description                                                                 | Values            | Default value                                           |
+| --------------------------------- | --------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |
+| `active`                          | Set the link as the current page, giving it proper styles.                  | `boolean`         | -                                                       |
+| `ariaLabel`                       | Aria-label for describing NavigationLink.                                   | `string`          | -                                                       |
+| `as`                              | Element or component to use instead of Header.Link.                         | `Element`         | <InternalLink href="/components/">`Link`</InternalLink> |
+| `className`                       | Additional classNames to apply to the link.                                 | `string`          | -                                                       |
+| `closeDropdownAriaButtonLabel`    | Aria-label for the dropdown button to describe the closing of the dropdown. | `string`          | -                                                       |
+| `dropdownButtonClassName`         | Additional classNames to apply to the dropdown button.                      | `string`          | -                                                       |
+| `dropdownClassName`               | Additional classNames to apply to the dropdown menu.                        | `string`          | -                                                       |
+| `dropdownLinkClassName`           | Additional classNames to apply to the dropdown links.                       | `string`          | -                                                       |
+| `dropdownLinks`                   | Array of NavigationLink components to render in a dropdown.                 | `[<Header.Link>]` | -                                                       |
+| `href`                            | Hypertext Reference of the link.                                            | `string`          | -                                                       |
+| `label`                           | Label for the link.                                                         | `string`          | -                                                       |
+| `id`                              | ID for the link.                                                            | `string`          | -                                                       |
+| `openDropdownAriaButtonLabel`     | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                       |
+| `wrapperClassName`                | Additional classNames for the element wrapping the link.                    | `string`          | -                                                       |
+| [Table 10:Header.Link properties] |

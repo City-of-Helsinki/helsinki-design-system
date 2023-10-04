@@ -12,8 +12,8 @@ describe('<Koros /> spec', () => {
         <Koros type="basic" />
         <Koros type="beat" />
         <Koros type="pulse" />
+        <Koros type="vibration" />
         <Koros type="wave" />
-        <Koros type="storm" />
       </>,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -25,8 +25,8 @@ describe('<Koros /> spec', () => {
         <Koros type="basic" />
         <Koros type="beat" />
         <Koros type="pulse" />
+        <Koros type="vibration" />
         <Koros type="wave" />
-        <Koros type="storm" />
       </>,
     );
     const results = await axe(container);

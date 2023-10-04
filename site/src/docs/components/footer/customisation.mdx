@@ -3,7 +3,7 @@ slug: '/components/footer/customisation'
 title: 'Footer - Customisation'
 ---
 
-import { Footer } from 'hds-react';
+import { Footer, Logo, logoFi } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -21,38 +21,81 @@ You can use the `theme` property to customise the component. See all available t
 | `--footer-divider-color`        | Colour of the divider line between Footer sections     |
 | `--footer-focus-outline-color'` | Colour of the Footer element focus border              |
 
-### Customisation example
+### Colour customisation example
 
-<Playground scope={{ Footer }}>
+<Playground scope={{ Footer, Logo, logoFi }}>
 
 ```jsx
-import { Footer } from 'hds-react';
+import { Footer, Logo, logoFi } from 'hds-react';
 
 () => (
-<Footer
-  title="Helsinki Design System"
-  footerAriaLabel="HDS Footer"
-  theme={{
-    '--footer-background': 'var(--color-engel)',
-    '--footer-color': 'var(--color-black-90)',
-    '--footer-divider-color': 'var(--color-black-90)',
-    '--footer-focus-outline-color': 'var(--color-black-90)',
-  }}
->
-  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
-    <Footer.Item label="Item" />
-    <Footer.Item label="Item" />
-    <Footer.Item label="Item" />
-    <Footer.Item label="Item" />
-    <Footer.Item label="Item" />
-    <Footer.Item label="Item" />
-  </Footer.Navigation>
-  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
-    <Footer.Item label="Link" />
-    <Footer.Item label="Link" />
-    <Footer.Item label="Link" />
-  </Footer.Base>
-</Footer>)
+  <Footer
+    title="Helsinki Design System"
+    theme={{
+      '--footer-background': 'var(--color-engel)',
+      '--footer-color': 'var(--color-black-90)',
+      '--footer-divider-color': 'var(--color-black-90)',
+      '--footer-focus-outline-color': 'var(--color-black-90)',
+    }}
+  >
+    <Footer.Navigation>
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+      <Footer.Link label="Item" />
+    </Footer.Navigation>
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+    </Footer.Base>
+  </Footer>
+)
+```
+
+</Playground>
+
+### Custom section
+
+<Playground scope={{ Footer, Logo, logoFi }}>
+
+```jsx
+import { Footer, Logo, logoFi } from 'hds-react';
+
+() => (
+  <Footer
+    title="Helsinki Design System"
+  >
+    <Footer.Custom>
+      <Footer.GroupHeading label="Partners" id="partners" />
+      <div
+        aria-label="partners"
+        style={{ display: 'flex', flexDirection: 'row', gap: '12px 24px', flexWrap: 'wrap', marginTop: '8px' }}
+      >
+        <Footer.Link label="Partner 1" external openInNewTab />
+        <Footer.Link label="Partner 1" external openInNewTab />
+        <Footer.Link label="Partner 1" external openInNewTab />
+      </div>
+    </Footer.Custom>
+    <Footer.Base
+      copyrightHolder="Copyright"
+      copyrightText="All rights reserved"
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    >
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+      <Footer.Link label="Link" />
+    </Footer.Base>
+  </Footer>
+)
 ```
 
 </Playground>

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeaderActionBar /> spec renders the component 1`] = `
+<DocumentFragment>
+  <header
+    class="hds-header header"
+  >
+    <div
+      class="headerBackgroundWrapper"
+    >
+      <div
+        class="headerActionBarContainer"
+      >
+        <div
+          class="headerActionBar"
+        >
+          <span
+            class="titleAndLogoContainer logo"
+          >
+            <span
+              class="logoWrapper"
+            >
+              <img
+                alt="Helsingin kaupunki"
+                class="logo"
+                data-testid="action-bar-logo"
+                src="dummySrc"
+              />
+            </span>
+          </span>
+          <a
+            class="titleAndLogoContainer title normal"
+            href="#"
+          >
+            <span
+              class="title"
+            >
+              Test
+            </span>
+          </a>
+          <div
+            class="headerActions"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+</DocumentFragment>
+`;
