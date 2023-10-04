@@ -1,0 +1,76 @@
+---
+slug: '/getting-started/tutorials/migrate-to-3.0.0'
+title: 'Migrate to 3.0.0'
+navTitle: 'Migrate to 3.0.0'
+---
+
+import ExternalLink from '../../../components/ExternalLink';
+import LeadParagraph from '../../../components/LeadParagraph';
+import InternalLink from '../../../components/InternalLink';
+
+# Migrate to version 3.0.0
+This guide helps you to start using HDS version 3.0.0. 
+
+## Breaking changes
+This major release contains some breaking changes. Pay attention to these when you update your project to use the new version.
+
+### Navigation replaced with Header
+Old navigation was removed as previously informed. The aim is to provide more flexible navigation solution that supports also larger sites and is consistent with hel.fi-styles.
+This new navigation is not updated automatically, you need to switch to it manually as the name of the component is different.
+
+If you wish to make it as similar to previous navigation, you only need <InternalLink size="M" href="/components/header/#with-action-bar"> ActionBar-subcomponent.</InternalLink>
+
+The navigation was rewritten to fix bugs, make it more modular, provide support for larger sites and unify the styles.
+
+- <InternalLink size="M" href="/components/header">Header component</InternalLink>
+- <InternalLink size="M" href="/patterns/navigation/building-navigation/">Navigation pattern</InternalLink>
+
+### New footer
+Footer has been refactored and the new version is more modular. The new component also is named footer, so check that needed properties and sub components are set correctly.
+
+- <InternalLink size="M" href="/components/footer">Footer component</InternalLink>
+
+### Deprecated rectangular variants for tags and status labels
+Rectangular tag and status label variants have been deprecated and removed. The default value is now rounded. 
+For StatusLabel, variant property with value "rounded" has been removed. For Tag, RoundedTag and RoundedLargeTag subcomponents have been removed. Size can be selected as a property and both sizes are rounded by default. 
+- <InternalLink size="M" href="/components/tag">Tag component</InternalLink>
+- <InternalLink size="M" href="/components/status-label">Status label component</InternalLink>
+
+### External link icon position adjusted
+The position of the external link is adjusted to better match common practices. This moves the icon bit more up, which can affect the line height.
+
+### Property changes
+- LinkBox property name 'withBorder' has been changed to 'border'.
+- Koro functionality flipHorizontal has been renamed to flipVertical to better reflect the actual behaviour.
+- Koro shapes had mixed up names in English. Wave was changed to Vibration and Storm to Wave.
+
+## Other important updates
+
+### Focus color
+Focus color token has been added. Currently the default focus color is still Coat of Arms, but token enables changing the color according to the needs.
+Components are updated to use the new token instead of hardcoded value. While this change was released already in an earlier version, updating to 3.0.0 is a good opportunity to make this change. 
+
+### Media query hooks
+There are hooks <code>useMediaQueryLessThan</code> and <code>useMediaQueryGreaterThan</code> to ease the use of media queries in React. While this change was released already in an earlier version, updating to 3.0.0 is a good opportunity to make this change.
+
+### Radio button should not have default value
+The documentation and examples are updated so that the radio button should not have default value. 
+This change helps form validation as it is possible to catch if the user has not selected the item. It also helps to avoid accidental values, if the user does not notice the default value.
+As the radio button itself does not allow removing the value once chosen, it is recommended to provide a separate button to clear the selection.
+
+- <InternalLink size="M" href="/components/radio-button/">Radiobutton component</InternalLink>
+- <InternalLink size="M" href="/foundation/guidelines/checkbox-radiobutton-toggle/">Checkboxes, radiobuttons or toggles</InternalLink>
+
+## Instructions for designers using Sketch
+Sketch library is updated to version 98.3. Please update your Sketch and files accordingly.
+
+Refer to updating libraries <InternalLink  size="M" href="/getting-started/tutorials/abstract-tutorial/#how-to-update-hds-libraries">in Abstract tutorial</InternalLink>. 
+
+Navigation and old footer are deprecated, but they still do exist in the files. They are marked as deprecated and new symbols are available with names Footer and Header. Old files will be archived in version later major version. 
+When you wish to start using these, you will need to switch the symbols manually. HDS recommends switching to new ones as soon as possible. 
+
+Also, if needed, old versions of the library can be found in <ExternalLink size="M" openInNewTab="true" href="https://github.com/City-of-Helsinki/helsinki-design-system/releases">the design kit of each release.</ExternalLink>
+
+## Instructions for designers using Figma
+There is a brand new Figma library available. The licences are checked and provided separately, and currently available for a limited time. But if you're intrested in switching to Figma, contact HDS team.
+It will be available with Helsinki licenses and in the future also as a community file.
