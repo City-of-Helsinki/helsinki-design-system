@@ -11,59 +11,109 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### React
 
 #### Breaking
-- [Navigation] removed, use new Header instead
-- [Footer] removed old deprecated Footer
-- [StatusLabel] and [Tag] rectangular versions
 
-#### Added
-- [Header] New Header component to wrap all its child components
-- [Header.UniversalBar] Optional component to display useful quick links
-- [Header.ActionBar] Mandatory component to display service logo, language selection, search and user login
-- [Header.NavigationMenu] Mandatory component to display navigation links
-
-#### Changed
+- [Navigation] Removed, use new Header instead
+- [Footer] Redesigned and rebuilt
+- [StatusLabel, Tag] Rectangular versions removed
 - [LinkBox] Property name `withBorder` changed to `border`
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
+
+#### Added
+
+- [Header] Added new Header-component
+  - [Header.UniversalBar] Added new UniversalBar component
+  - [Header.ActionBar] Added new ActionBar component
+    - [Header.ActionBarItem] New component to display button icons
+  - [Header.LanguageSelector] Added new language selector component
+  - [Header.Link] Added new component to be used under Header components
+  - [Header.NavigationMenu] Added new NavigationMenu component
+- [Footer] (changed) is now redesigned with new components
+  - [Footer.Custom] New component for custom content
+  - [Footer.Link] New link component to be used under Footer components
+  - [Footer.NavigationGroup] New component for displaying grouped navigation links
+  - [Footer.UtilityGroup] New component for displaying grouped utility links
+  - [Footer.GroupHeading] New component for group components headings
+- [Header, Footer] Added navigation landmarks.
+
+#### Changed
+
 - Supported browserlist updated
-- [RadioButton] default value is not recommended anymore 
+- [RadioButton] Default value is not recommended anymore 
+- [Footer] Redesigned and rebuilt
 
 #### Fixed
-- [Breadcrumb] theme variable typos
-- [LoadingSpinner] made more polite accessibility-wise, not interrupting screen readers anymore
+
+- [Breadcrumb] Theme variable typos
+- [LoadingSpinner] Made more polite accessibility-wise, not interrupting screen readers anymore
 
 #### Removed
-- Deprecated rectangular [StatusLabel] and [Tag]
+
+- [StatusLabel, Tag] Removed rectangular versions
 - [Navigation] New Header component is the replacement
-- [Footer] Deprecated old Footer
 
 ### Core
 
 #### Changed
+
+- [Koros] Rename Koros variants according to brand
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
 
-#### Deprecated
-- [Tag] Rectangular version (default)
-- [StatusLabel] Rectangular version (default)
+#### Removed
+
+- [StatusLabel, Tag] Rectangular version (default)
 
 ### Documentation
 
 #### Added
-- [Header] Documentation - still a work in progress
-- Helpful tooltip to explain statuses
+
+- [Header] Added new Header and its sub-components' documentations
+- [Footer] Added new Footer and its sub-components' documentations
+- Added documention for focus colour tokens 
+- Added navigation pattern guidelines
+- Added new releases page
+- Added new guide how to migrate to 3.0.0
 
 #### Changed
-- [Koros] Renamed variants Wave to Vibration and Storm to Wave
-- [RadioButton] Updated guidelines to tell better radio buttons should not have default value
-- Several small fixes
+
+- [Koros] Rename Koros variants according to brand
+- [Koros] Fix Storm and Wave Koros variant usage
+- [Koros] Rename koros flipHorizontal to flipVertical
+- Update contributing guide
+- [Radiobutton, Checkbox, Toggle] Update guide for no default value
+- [StatusLabel, Tag] Remove support for rectangular variants
+
+#### Fixes
+
+- [Breadcrumb, Hero] Added missing StatusLabelTooltips
+- [Koros] Koros accessibility tab content copied from footer
+- [Heros] Wrong css class in Hero component examples
+- [LoadingSpinner] Change aria alert to polite
+- [Breadcrumbs] Fixed typos in BreadCrumbCustomTheme variables
 
 ### Design kit
 
+### Figma
+
+There is a brand new Figma library available. The licenses are checked and provided separately, and currently available for a limited time. But if you're interested in switching to Figma, contact HDS team. It will be available with Helsinki licenses and in the future also as a community file.
+
+### Sketch/Abstract
+
 #### Added
 
-- [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 release purposes. The shared library file includes new Header and Side navigation symbols.
-- Updated to Sketch 98.3, please update your Sketch and files accordingly
+- [Footer] New symbols following the hel.fi visual style. New symbols also include changes to all Footer sections. Service title is now mandatory. The Helsinki logo moved to the Base section. Separate symbols for Footers with custom content (e.g. partner information). New variant for the Utility section which allow more utility links and link groups
+- [Header] New component replacing HDS Navigation  
 
+#### Changed
 
+- Updated HDS Sketch libraries to Sketch version 98.3. Please update your Sketch and files accordingly.
+- [Koros] Renamed Storm to Wave and Wave to Vibration according to brand
+- [Page templates] Breakpoint-XS padding fix from 12px to 16px
+- [Heros] Fixes for paddings and Lead Text width in sizes M and S
+
+#### Deprecated
+
+- [Footer] Old Footer symbols deprecated. These will be removed in a future major release. Switch to new Footer symbols as soon as possible
+- [Navigation] Marked as deprecated, will be removed in the next major release. Replaced by HDS Header. Switch to new Header symbols as soon as possible
 
 ## [3.0.0-alpha.0] - July, 6, 2023
 
