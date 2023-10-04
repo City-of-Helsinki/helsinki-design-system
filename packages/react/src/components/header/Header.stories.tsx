@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { action } from '@storybook/addon-actions';
 
 import { LanguageSelectorProps } from '.';
 import { Header } from './Header';
@@ -9,7 +8,7 @@ import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
-import { IconSearch, IconUser } from '../../icons';
+import { IconUser } from '../../icons';
 import { Link } from '../link/Link';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 
@@ -63,9 +62,6 @@ const logoSrcFromLanguageAndTheme = (lang: string, theme: HeaderTheme) => {
   }
 };
 
-const searchSubmitAction = action('search:onSubmit');
-const searchChangeAction = action('search:onChange');
-
 const languages: LanguageOption[] = [
   { label: 'Suomi', value: 'fi', isPrimary: true },
   { label: 'Svenska', value: 'sv', isPrimary: true },
@@ -98,7 +94,6 @@ const translations = {
     headerAriaLabel: 'City of Helsinki',
     headerLogin: 'Login',
     headerMenuTitle: 'Other languages',
-    headerSearch: 'Search',
     headerTitle: 'City of Helsinki',
     healtcare: 'Healt care',
     healthAndndSocialServices: 'Health and social services',
@@ -110,7 +105,6 @@ const translations = {
     openJobs: 'Open jobs',
     otherLanguages: 'Other languages',
     prePrimaryEducation: 'Pre-primary education',
-    search: 'Search in the website',
     seniorServices: 'Senior services',
     signLanguage: 'Sign language',
     skipToContent: 'Skip to content',
@@ -139,7 +133,6 @@ const translations = {
     headerAriaLabel: 'Helsingin kaupunki',
     headerLogin: 'Kirjaudu',
     headerMenuTitle: 'Tietoa muilla kielillä',
-    headerSearch: 'Haku',
     headerTitle: 'Helsingin kaupunki',
     healtcare: 'Terveydenhoito',
     healthAndndSocialServices: 'Sosiaali- ja terveyspalvelut',
@@ -151,7 +144,6 @@ const translations = {
     openJobs: 'Avoimet työpaikat',
     otherLanguages: 'Muut kielet',
     prePrimaryEducation: 'Esiopetus',
-    search: 'Hae sivustolta',
     seniorServices: 'Senioripalvelut',
     signLanguage: 'Viittomakieli',
     skipToContent: 'Hyppää sisältöön',
@@ -180,7 +172,6 @@ const translations = {
     headerAriaLabel: 'Helsingfors Stad',
     headerLogin: 'Logga in',
     headerMenuTitle: 'Andra språk',
-    headerSearch: 'Sök',
     headerTitle: 'Helsingfors Stad',
     healtcare: 'Hälsovärd',
     healthAndndSocialServices: 'Social- och hälsovårdstjänster',
@@ -192,7 +183,6 @@ const translations = {
     openJobs: 'Lediga jobb',
     otherLanguages: 'Andra språk',
     prePrimaryEducation: 'Förskoleundervisning',
-    search: 'Sök på sidor',
     seniorServices: 'Seniortjänster',
     signLanguage: 'Teckenpsråk',
     skipToContent: 'Hoppa till innehåll',
@@ -221,7 +211,6 @@ const translations = {
     headerAriaLabel: 'Ville de Helsinki',
     headerLogin: 'Se connecter',
     headerMenuTitle: 'Autres langues',
-    headerSearch: 'Reserche',
     headerTitle: 'Ville de Helsinki',
     healtcare: 'Soins de santé',
     healthAndndSocialServices: 'Services sociaux et de santé',
@@ -233,7 +222,6 @@ const translations = {
     openJobs: 'Emplois ouverts',
     otherLanguages: 'Autres langages',
     prePrimaryEducation: 'École maternelle',
-    search: 'Reserchez sur la site',
     seniorServices: 'Service aux personnes âgées',
     signLanguage: 'Langue des signes',
     skipToContent: 'Passer au contenu',
@@ -292,15 +280,6 @@ export const WithFullFeatures = (args) => {
               InfoFinland.fi
             </Link>
           </Header.LanguageSelector>
-
-          <Header.ActionBarItem
-            label={I18n.headerSearch}
-            icon={<IconSearch />}
-            id="action-bar-search"
-            closeLabel={I18n.close}
-          >
-            <Header.Search label={I18n.search} onChange={searchChangeAction} onSubmit={searchSubmitAction} />
-          </Header.ActionBarItem>
           <Header.ActionBarItem
             label={translations[lang].headerLogin}
             fixedRightPosition
@@ -563,16 +542,6 @@ export const ManualLanguageSorting = (args) => {
           ariaLabel={I18n.ariaLanguageSelection}
           languageHeading={I18n.otherLanguages}
         />
-
-        <Header.ActionBarItem
-          fullWidth
-          label={I18n.headerSearch}
-          icon={<IconSearch />}
-          id="action-bar-search"
-          closeLabel={I18n.close}
-        >
-          <Header.Search onChange={searchChangeAction} onSubmit={searchSubmitAction} label={I18n.search} />
-        </Header.ActionBarItem>
         <Header.ActionBarItem
           label={translations[lang].headerLogin}
           fixedRightPosition
