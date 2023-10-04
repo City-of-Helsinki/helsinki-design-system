@@ -15,12 +15,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <StatusLabel type="success">Completed</StatusLabel>
-  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconAlertCircle />}>
-    Needs attention
-  </StatusLabel>
-  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconError />}>
-    Rejected
-  </StatusLabel>
+  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconAlertCircle />}>Needs attention</StatusLabel>
+  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconError />}>Rejected</StatusLabel>
 </PlaygroundPreview>
 
 ### Principles
@@ -40,18 +36,10 @@ StatusLabel comes in five (5) different types. One neutral and four (4) with dif
 
 <PlaygroundPreview>
   <StatusLabel>Neutral</StatusLabel>
-  <StatusLabel type="info" style={{ marginLeft: 'var(--spacing-s)' }}>
-    Info
-  </StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-s)' }}>
-    Success
-  </StatusLabel>
-  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }}>
-    Alert
-  </StatusLabel>
-  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }}>
-    Error
-  </StatusLabel>
+  <StatusLabel type="info" style={{ marginLeft: 'var(--spacing-s)' }}>Info</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-s)' }}>Success</StatusLabel>
+  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }}>Alert</StatusLabel>
+  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }}>Error</StatusLabel>
 </PlaygroundPreview>
 
 #### With an icon
@@ -60,16 +48,8 @@ An icon can be used on the left side of the StatusLabel's text label. The icon s
 
 <PlaygroundPreview>
   <StatusLabel iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
-  <StatusLabel type="info" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconInfoCircle />}>
-    Info
-  </StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconCheckCircle />}>
-    Success
-  </StatusLabel>
-  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconAlertCircle />}>
-    Alert
-  </StatusLabel>
-  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconError />}>
-    Error
-  </StatusLabel>
+  <StatusLabel type="info" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconInfoCircle />}>Info</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconCheckCircle />}>Success</StatusLabel>
+  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconAlertCircle />}>Alert</StatusLabel>
+  <StatusLabel type="error" style={{ marginLeft: 'var(--spacing-s)' }} iconLeft={<IconError />}>Error</StatusLabel>
 </PlaygroundPreview>
