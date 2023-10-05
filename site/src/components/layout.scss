@@ -1,6 +1,9 @@
 @charset "utf-8";
-@import "~hds-design-tokens/lib/all.scss";
+@import "~hds-core/lib/base.min.css";
 @import "~hds-core/lib/components/all.min.css";
+@import "~hds-core/lib/icons/icon.min.css";
+@import "~hds-core/lib/icons/icons.min.css";
+@import "~hds-design-tokens/lib/all.scss";
 @import "utils.scss";
 
 :root {
