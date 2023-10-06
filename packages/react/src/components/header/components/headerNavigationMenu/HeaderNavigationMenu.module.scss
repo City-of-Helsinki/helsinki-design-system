@@ -2,7 +2,7 @@
   background-color: var(--nav-background-color);
   box-sizing: border-box;
   display: flex;
-  height: var(--spacing-layout-l);
+  min-height: var(--spacing-layout-l);
   margin: 0 auto;
   max-width: var(--header-max-width);
   padding: 0 var(--header-margin);
@@ -16,7 +16,7 @@
 .headerNavigationMenuList {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-l);
+  column-gap: var(--spacing-l);
   list-style: none;
   margin: 0;
   padding: 0;

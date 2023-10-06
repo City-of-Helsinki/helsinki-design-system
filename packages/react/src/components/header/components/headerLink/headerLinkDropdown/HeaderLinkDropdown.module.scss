@@ -10,7 +10,7 @@ button.button {
   margin: 0 0 0 var(--spacing-s);
   padding: 0;
   width: 24px;
-  
+
   &.isNotLargeScreen {
     background: transparent;
     border-left: 1px solid var(--nav-button-background-color);
@@ -52,9 +52,9 @@ button.button {
   border: 1px solid var(--nav-border-color);
   display: flex;
   flex-direction: column;
-  left: calc(-1 * var(--header-margin));
+  left: 0;
   list-style: none;
-  min-width: 280px;
+  min-width: 100%;
   padding: 0;
   position: absolute;
   top: 100%;
