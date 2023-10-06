@@ -15,7 +15,7 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
-  decorators: [(storyFn) => <div>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 
 export const Default = () => <Notification {...props}>{content}</Notification>;
