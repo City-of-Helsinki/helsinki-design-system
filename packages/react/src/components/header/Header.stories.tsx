@@ -389,6 +389,108 @@ export const WithFullFeatures = (args) => {
             ]}
           />
           <Header.Link
+            active={href.includes('#asuminen')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#asuminen');
+            }}
+            label="Asuminen"
+            dropdownLinks={[
+              <Header.Link
+                active={href.includes('#perusopetus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#perusopetus');
+                }}
+                label={I18n.basicEducation}
+              />,
+              <Header.Link
+                label={I18n.generalUpperSecondaryEducation}
+                active={href.includes('#lukiokoulutus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#lukiokoulutus');
+                }}
+              />,
+              <Header.Link
+                label={I18n.adultEducationCentres}
+                active={href.includes('#tyovaenopistot')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#tyovaenopistot');
+                }}
+              />,
+            ]}
+          />
+          <Header.Link
+            active={href.includes('#kaupunkiymparisto')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#kaupunkiymparisto');
+            }}
+            label="Kaupunkiympäristö ja liikenne"
+            dropdownLinks={[
+              <Header.Link
+                active={href.includes('#perusopetus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#perusopetus');
+                }}
+                label={I18n.basicEducation}
+              />,
+              <Header.Link
+                label={I18n.generalUpperSecondaryEducation}
+                active={href.includes('#lukiokoulutus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#lukiokoulutus');
+                }}
+              />,
+              <Header.Link
+                label={I18n.adultEducationCentres}
+                active={href.includes('#tyovaenopistot')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#tyovaenopistot');
+                }}
+              />,
+            ]}
+          />
+          <Header.Link
+            active={href.includes('#kulttuuri')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#kulttuuri');
+            }}
+            label="Kulttuuri ja vapaa-aika"
+            dropdownLinks={[
+              <Header.Link
+                active={href.includes('#perusopetus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#perusopetus');
+                }}
+                label={I18n.basicEducation}
+              />,
+              <Header.Link
+                label={I18n.generalUpperSecondaryEducation}
+                active={href.includes('#lukiokoulutus')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#lukiokoulutus');
+                }}
+              />,
+              <Header.Link
+                label={I18n.adultEducationCentres}
+                active={href.includes('#tyovaenopistot')}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#kasvatus_ja_koulutus#koulutus#tyovaenopistot');
+                }}
+              />,
+            ]}
+          />
+          <Header.Link
             active={href.includes('#yritykset_ja_tyo')}
             onClick={(event) => {
               event.preventDefault();
