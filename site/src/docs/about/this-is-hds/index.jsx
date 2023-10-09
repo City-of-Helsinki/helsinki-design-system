@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Container,
+  Hero,
   IconGlobe,
   IconPersonWheelchair,
   IconStar,
@@ -10,9 +11,8 @@ import {
   IconHeart,
   Footer,
   ImageWithCard,
-  Koros,
   Logo,
-  logoFi,
+  logoFiDark,
   Link,
   Tag,
   Table,
@@ -20,7 +20,7 @@ import {
 
 import Seo from '../../../components/Seo';
 
-import './../../../components/layout.scss';
+import '../../../components/layout.scss';
 import './styles.scss';
 import { navigate, withPrefix } from 'gatsby';
 import { FooterVariant } from '../../../../../packages/react/src/components/footer/Footer.interface';
@@ -85,38 +85,29 @@ const DemoPage = () => {
         pageTitle="This is HDS"
         description="The Helsinki Design System is a tool to create a consistent, user-friendly and accessible digital user experience for the City of Helsinki."
       ></Seo>
-      <div className="hero-container">
-        <div className="hero-wrapper">
-          <div className="hero">
-            <div className="hero-content">
-              <div className="hero-content-shape" />
-              <Logo src={logoFi} aria-hidden className="info-page-hero-logo" />
-              <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
-              <p className="hero-text">
-                The Helsinki Design System focuses on usability and accessibility. It aims to improve the quality and
-                consistency of the City of Helsinki's digital services – making the user experience better for everyone.
-              </p>
-              <Button
-                variant="primary"
-                className="front-page-hero-button"
-                role="link"
-                onClick={() => {
-                  navigate('/getting-started');
-                }}
-              >
-                Visit hds.hel.fi
-              </Button>
-            </div>
-            <Koros className="hero-koros hero-koros-rotated" flipVertical rotate="45deg" />
-            <Koros className="hero-koros hero-koros-vertical" flipVertical />
-          </div>
-        </div>
-        <div
-          className="hero-bg-image"
-          style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/tripla.jpg')}` }}
-        />
-      </div>
-
+      <Hero
+        variant="diagonalKoros"
+        imageSrc={withPrefix('/images/about/this-is-hds/tripla.jpg')}
+        theme={{
+          '--background-color': 'var(--color-coat-of-arms)',
+          '--color': 'var(--color-white)',
+        }}
+      >
+        <Logo src={logoFiDark} aria-hidden className="info-page-hero-logo" />
+        <Hero.Title>Helsinki Design System (HDS)</Hero.Title>
+        <Hero.Text>Helsinki Design System (HDS)</Hero.Text>
+        <Button
+          variant="primary"
+          className="front-page-hero-button"
+          role="link"
+          onClick={() => {
+            navigate('/getting-started');
+          }}
+        >
+          Visit hds.hel.fi
+        </Button>
+      </Hero>
+     
       <Container className="info-page-content text-body">
         <div className="info-page-image-card-container">
           <ImageWithCard
@@ -513,9 +504,21 @@ const DemoPage = () => {
       </Container>
       <Footer id="page-footer" className="page-footer" title="Helsinki Design System">
         <Footer.Base copyrightHolder="Copyright">
-          <Footer.Link variant={FooterVariant.Base} label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
-          <Footer.Link variant={FooterVariant.Base} label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
-          <Footer.Link variant={FooterVariant.Base} label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
+          <Footer.Link
+            variant={FooterVariant.Base}
+            label="Contribution"
+            href={withPrefix('/getting-started/contributing/before-contributing')}
+          />
+          <Footer.Link
+            variant={FooterVariant.Base}
+            label="Accessibility"
+            href={withPrefix('/about/accessibility/statement')}
+          />
+          <Footer.Link
+            variant={FooterVariant.Base}
+            label="GitHub"
+            href="https://github.com/City-of-Helsinki/helsinki-design-system"
+          />
         </Footer.Base>
       </Footer>
     </>
