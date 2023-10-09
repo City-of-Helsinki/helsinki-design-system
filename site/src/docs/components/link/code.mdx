@@ -21,13 +21,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 import { Link } from 'hds-react';
 
 () => (
-  <p style={{ fontSize: '14px' }}>
+  <p style={{ fontSize: 'var(--fontsize-body-s)' }}>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
     <Link
       href="https://github.com/City-of-Helsinki/helsinki-design-system"
       external
       openInExternalDomainAriaLabel="Opens a different website"
+      style={{ fontSize: 'var(--fontsize-body-s)' }}
     >
       HDS Github
     </Link>
@@ -38,7 +39,7 @@ import { Link } from 'hds-react';
 ```
 
 ```html
-<p style={{ fontSize: '14px', lineHeight: '1.5' }}>
+<p style="font-size: var(--fontsize-body-s)">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
   magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
   <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--small" aria-label="HDS Github. Opens in external domain">
