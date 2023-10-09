@@ -100,42 +100,52 @@ export const Dismissible = () => {
 
 export const AutoClose = () => {
   const [open, setOpen] = useState(false);
+  const [openProgress, setOpenProgress] = useState(false);
   const showButtonRef = useRef<HTMLButtonElement | null>(null);
+  const showProgressButtonRef = useRef<HTMLButtonElement | null>(null);
   const onClose = () => {
     setOpen(false);
+    setOpenProgress(false);
     if (showButtonRef.current) {
       showButtonRef.current.focus();
+    }
+    if (showProgressButtonRef.current) {
+      showProgressButtonRef.current.focus();
     }
   };
 
   return (
     <>
-      {!open && (
-        <Button ref={showButtonRef} onClick={() => setOpen(true)}>
-          Open notification
-        </Button>
-      )}
+      <Button disabled={open || openProgress} ref={showButtonRef} onClick={() => setOpen(true)}>
+        Show without progress bar
+      </Button>
+      <br />
+      <br />
+      <Button disabled={open || openProgress} ref={showProgressButtonRef} onClick={() => setOpenProgress(true)}>
+        Show with progress bar
+      </Button>
       {open && (
-        <>
-          <Notification
-            label="With progress bar"
-            position="top-left"
-            autoClose
-            autoCloseDuration={3000}
-            onClose={() => onClose()}
-          >
-            {content}
-          </Notification>
-          <Notification
-            label="Without progress bar"
-            position="top-center"
-            autoClose
-            autoCloseDuration={3000}
-            displayAutoCloseProgress={false}
-          >
-            {content}
-          </Notification>
-        </>
+        <Notification
+          label="Without progress bar"
+          position="top-left"
+          autoClose
+          autoCloseDuration={3000}
+          displayAutoCloseProgress={false}
+          onClose={() => onClose()}
+        >
+          {content}
+        </Notification>
+      )}
+      {openProgress && (
+        <Notification
+          label="With progress bar"
+          position="top-left"
+          autoClose
+          autoCloseDuration={3000}
+          onClose={() => onClose()}
+        >
+          {content}
+        </Notification>
       )}
     </>
   );
