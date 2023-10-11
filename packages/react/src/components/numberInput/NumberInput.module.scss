@@ -83,7 +83,7 @@
   }
 
   &:focus {
-    outline: 3px solid var(--focus-outline-color);
+    outline: 3px solid var(--color-focus-outline);
     outline-offset: -5px;
   }
 }

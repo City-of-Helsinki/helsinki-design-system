@@ -60,5 +60,5 @@
 }
 
 .button:focus {
-  outline: var(--outline-width) solid var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--color-focus-outline);
 }
