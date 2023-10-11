@@ -88,10 +88,7 @@ const DemoPage = () => {
       <Hero
         variant="diagonalKoros"
         imageSrc={withPrefix('/images/about/this-is-hds/tripla.jpg')}
-        theme={{
-          '--background-color': 'var(--color-coat-of-arms)',
-          '--color': 'var(--color-white)',
-        }}
+        className="front-page-hero"
       >
         <Logo src={logoFiDark} aria-hidden className="info-page-hero-logo" />
         <Hero.Title>Helsinki Design System (HDS)</Hero.Title>

@@ -12,7 +12,13 @@
   margin-top: var(--spacing-s);
 }
 
-.info-page-hero-logo {
+.front-page-hero.front-page-hero {
+  --background-color: var(--color-coat-of-arms);
+  --color: var(--color-white);
+  --koros-color: var(--color-coat-of-arms);
+}
+
+.info-page-hero-logo.info-page-hero-logo {
   height: unset;
   margin-left: 0;
   width: 100px;
