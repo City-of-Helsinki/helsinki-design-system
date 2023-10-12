@@ -1,15 +1,13 @@
 @import '../../styles/common.scss';
 
 .container {
+  --common-spacing: var(--spacing-s);
+  
   bottom: 0;
   left: 0;
   position: fixed;
   width: 100vw;
   z-index: 999;
-
-  --common-spacing: var(--spacing-s);
-  --focus-outline-color: var(--color-focus-outline);
-  --outline-width: 3px;
 }
 
 .aligner {
@@ -70,6 +68,9 @@
 }
 
 .content {
+  --focus-outline-color: var(--color-focus-outline);
+  --outline-width: 3px;
+
   box-sizing: border-box;
   margin: 0 auto;
   padding-left: var(--spacing-layout-2-xs);
