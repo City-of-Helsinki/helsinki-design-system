@@ -35,6 +35,7 @@ const sanitizeConfig = {
       'patternunits',
       'placeholder',
       'points',
+      'readonly',
       'rel',
       'required',
       'role',
