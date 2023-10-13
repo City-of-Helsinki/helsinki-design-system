@@ -76,3 +76,20 @@ WithCountryCode.args = {
   required: true,
 };
 WithCountryCode.decorators = [(storyFn) => <div style={{ maxWidth: '516px' }}>{storyFn()}</div>];
+
+export const Invalid = (args) => <PhoneInput {...args} />;
+Invalid.args = {
+  id: 'Invalid',
+  invalid: true,
+  helperText: 'Assistive text',
+  label: 'Label',
+  errorText: 'Invalid value',
+};
+
+export const Success = (args) => <PhoneInput {...args} />;
+Success.args = {
+  id: 'Default',
+  helperText: 'Assistive text',
+  label: 'Label',
+  successText: 'Valid value',
+};

@@ -9,16 +9,18 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
+  args: {
+    helperText: 'Assistive text',
+    label: 'Label',
+    minusStepButtonAriaLabel: 'Decrease by one',
+    plusStepButtonAriaLabel: 'Increase by one',
+    unit: '€',
+  },
 };
 
 export const Default = (args) => <NumberInput {...args} />;
 Default.args = {
   id: 'Default',
-  helperText: 'Assistive text',
-  label: 'Label',
-  minusStepButtonAriaLabel: 'Decrease by one',
-  plusStepButtonAriaLabel: 'Increase by one',
-  unit: '€',
 };
 
 export const CustomStep = (args) => <NumberInput {...args} />;
@@ -30,7 +32,6 @@ CustomStep.args = {
   label: 'Label for step test',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
-  unit: '€',
 };
 
 export const Disabled = (args) => <NumberInput {...args} />;
@@ -38,11 +39,9 @@ Disabled.storyName = 'Disabled';
 Disabled.args = {
   id: 'Disabled',
   step: 10,
-  helperText: 'Assistive text',
   label: 'Label for disabled',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
-  unit: '€',
   disabled: true,
 };
 
@@ -53,11 +52,9 @@ WithMinAndMax.args = {
   step: 1,
   min: 15,
   max: 40,
-  helperText: 'Assistive text',
   label: 'Label for min 15 max 40',
   minusStepButtonAriaLabel: 'Decrease by one',
   plusStepButtonAriaLabel: 'Increase by one',
-  unit: '€',
 };
 
 export const WithDefaultValue = (args) => <NumberInput {...args} />;
@@ -66,9 +63,20 @@ WithDefaultValue.args = {
   id: 'WithDefaultValue',
   step: 10,
   defaultValue: 20,
-  helperText: 'Assistive text',
   label: 'Label for default 20, step 10',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
-  unit: '€',
+};
+
+export const Invalid = (args) => <NumberInput {...args} />;
+Invalid.args = {
+  id: 'Invalid',
+  invalid: true,
+  errorText: 'Invalid value',
+};
+
+export const Success = (args) => <NumberInput {...args} />;
+Success.args = {
+  id: 'Success',
+  successText: 'Valid value',
 };

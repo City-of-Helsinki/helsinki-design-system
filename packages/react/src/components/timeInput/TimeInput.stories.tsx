@@ -23,3 +23,16 @@ export default {
 export const Default = (args) => {
   return <TimeInput {...args} />;
 };
+
+export const Invalid = (args) => <TimeInput {...args} />;
+Invalid.args = {
+  id: 'Invalid',
+  invalid: true,
+  errorText: 'Invalid value',
+};
+
+export const Success = (args) => <TimeInput {...args} />;
+Success.args = {
+  id: 'Default',
+  successText: 'Valid value',
+};
