@@ -215,25 +215,28 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
-  const helperText = `Returns a custom styles for odd/even days in the date picker.`;
+  const hasSomeSpaceLeft = 'some-space-left';
+  const hasLittleSpaceLeft = 'little-space-left';
+  const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
   const setDateClassNames = (date: Date) => {
     const day = date.getDate();
-    const className = day % 2 ? 'odd' : 'even';
-    return `${className}--day`;
+    if (day === 12 || day === 15 || day === 24 || day === 25) return `${hasSomeSpaceLeft}--day`;
+    if (day === 3 || day === 4 || day === 17 || day === 19) return `${hasLittleSpaceLeft}--day`;
+    return undefined;
   };
 
   return (
     <>
       <style>
         {`
-          .odd--day,
-          .odd--color {
-              background: var(--color-suomenlinna);
+          .${hasSomeSpaceLeft}--day,
+          .${hasSomeSpaceLeft}--color {
+              background: var(--color-tram-medium-light);
           }
 
-          .even--day,
-          .even--color {
-              background: var(--color-black-10);
+          .${hasLittleSpaceLeft}--day,
+          .${hasLittleSpaceLeft}--color {
+              background: var(--color-summer-medium-light);
           }
 
         `}
@@ -245,8 +248,8 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         helperText={helperText}
         setDateClassNames={setDateClassNames}
         legend={[
-          { key: 'odd', label: 'Odd' },
-          { key: 'even', label: 'Even' },
+          { key: hasSomeSpaceLeft, label: 'Some free timeslots available' },
+          { key: hasLittleSpaceLeft, label: 'Only a few free timeslots available' },
         ]}
       />
     </>
