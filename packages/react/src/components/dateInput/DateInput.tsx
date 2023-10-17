@@ -70,6 +70,9 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
     id: string;
     label: string;
   }[];
+  /**
+   * Function to set aria-describedby for dates.
+   */
   setDateAriaDescribedBy?: (date: Date) => string | undefined;
 };
 
