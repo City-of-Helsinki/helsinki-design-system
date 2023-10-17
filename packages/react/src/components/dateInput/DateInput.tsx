@@ -55,18 +55,19 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   ref?: React.Ref<HTMLInputElement>;
   /**
-   * Disables date(s) based on conditional function
+   * Disables date(s) based on conditional function.
    */
   isDateDisabledBy?: (date) => boolean;
   /**
-   * Function to set class names for dates
+   * Function to set class names for dates.
    */
   setDateClassNames?: (date: Date) => string | undefined;
   /**
-   * Legend items for the date picker
+   * Legend items for the date picker.
    * @param {{ key: string, label: string }} LegendItem
    * */
   legend?: {
+    color: string;
     key: string;
     label: string;
   }[];

@@ -379,6 +379,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       >
         <div className={styles['hds-datepicker']} ref={datepickerRef}>
           <MonthTable month={currentMonth} />
+          {legend && <Legend legend={legend} />}
           <div className={styles['hds-datepicker__bottom-buttons']}>
             {!disableConfirmation && (
               <Button
@@ -402,7 +403,6 @@ export const DatePicker = (providedProps: DayPickerProps) => {
               {closeButtonLabel}
             </Button>
           </div>
-          {legend && <Legend legend={legend} />}
         </div>
       </DatePickerContext.Provider>
     </div>

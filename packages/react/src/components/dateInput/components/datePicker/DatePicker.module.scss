@@ -243,8 +243,7 @@
   display: flex;
   flex-flow: row wrap;
   gap: var(--spacing-m);
-  justify-content: center;
-  margin: var(--spacing-m) 0 var(--spacing-xs);
+  margin: var(--spacing-m) 0;
 
   @media small-up {
     max-width: var(--table-width);
@@ -254,16 +253,13 @@
 .hds-datepicker__legend-item {
   align-items: center;
   display: flex;
+  font-size: var(--fontsize-body-s);
   gap: var(--spacing-2-xs);
+  line-height: var(--lineheight-l);
 
   &--color {
-    height: 1rem;
-    width: 1rem;
-  }
-
-  &--title {
-    font-size: var(--fontsize-body-s);
-    line-height: var(--lineheight-l);
+    height: 0.5rem;
+    width: 1.25rem;
   }
 }
 

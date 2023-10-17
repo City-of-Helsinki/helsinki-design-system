@@ -216,7 +216,9 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
   const hasSomeSpaceLeft = 'some-space-left';
+  const someSpaceColor = 'var(--color-tram-medium-light)';
   const hasLittleSpaceLeft = 'little-space-left';
+  const littleSpaceColor = 'var(--color-summer-medium-light)';
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
   const setDateClassNames = (date: Date) => {
     const day = date.getDate();
@@ -229,16 +231,13 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
     <>
       <style>
         {`
-          .${hasSomeSpaceLeft}--day,
-          .${hasSomeSpaceLeft}--color {
-              background: var(--color-tram-medium-light);
+          .${hasSomeSpaceLeft}--day {
+              background: ${someSpaceColor};
           }
 
-          .${hasLittleSpaceLeft}--day,
-          .${hasLittleSpaceLeft}--color {
-              background: var(--color-summer-medium-light);
+          .${hasLittleSpaceLeft}--day {
+            background: ${littleSpaceColor};
           }
-
         `}
       </style>
       <DateInput
@@ -248,8 +247,12 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         helperText={helperText}
         setDateClassNames={setDateClassNames}
         legend={[
-          { key: hasSomeSpaceLeft, label: 'Some free timeslots available' },
-          { key: hasLittleSpaceLeft, label: 'Only a few free timeslots available' },
+          { key: hasSomeSpaceLeft, label: 'Some free timeslots available', color: someSpaceColor },
+          {
+            key: hasLittleSpaceLeft,
+            label: 'Only a few free timeslots available',
+            color: littleSpaceColor,
+          },
         ]}
       />
     </>
