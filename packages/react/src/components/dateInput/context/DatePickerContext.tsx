@@ -23,6 +23,7 @@ export type DatePickerContextType = {
   handleMonthChange: (NextMonth: Date, event?: React.MouseEvent) => void;
   setDateClassNames?: (date: Date) => string | undefined;
   legend?: LegendItem[];
+  setDateAriaDescribedBy?: (date: Date) => string | undefined;
 };
 
 export const DatePickerContext = React.createContext<DatePickerContextType>(null);

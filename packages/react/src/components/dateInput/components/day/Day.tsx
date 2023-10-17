@@ -33,6 +33,7 @@ export const Day = ({ day }: DayProps) => {
     onDayClick,
     handleKeyboardNavigation,
     setDateClassNames,
+    setDateAriaDescribedBy,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
@@ -62,6 +63,7 @@ export const Day = ({ day }: DayProps) => {
   }
 
   const dayElementProps = {
+    'aria-describedby': setDateAriaDescribedBy ? setDateAriaDescribedBy(day) : undefined,
     'aria-disabled': !isInteractive || undefined,
     'aria-hidden': isHidden || undefined,
     'aria-pressed': isSameDay(day, selectedDate),

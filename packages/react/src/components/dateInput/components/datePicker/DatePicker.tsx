@@ -53,6 +53,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     toggleButton,
     setDateClassNames,
     legend,
+    setDateAriaDescribedBy,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -375,6 +376,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           handleMonthChange,
           setDateClassNames,
           legend,
+          setDateAriaDescribedBy,
         }}
       >
         <div className={styles['hds-datepicker']} ref={datepickerRef}>

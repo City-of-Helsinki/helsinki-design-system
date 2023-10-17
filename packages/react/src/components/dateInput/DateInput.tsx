@@ -64,13 +64,13 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
   setDateClassNames?: (date: Date) => string | undefined;
   /**
    * Legend items for the date picker.
-   * @param {{ key: string, label: string }} LegendItem
    * */
   legend?: {
     color: string;
-    key: string;
+    id: string;
     label: string;
   }[];
+  setDateAriaDescribedBy?: (date: Date) => string | undefined;
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -90,6 +90,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       isDateDisabledBy,
       setDateClassNames,
       legend,
+      setDateAriaDescribedBy,
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -248,6 +249,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               toggleButton={toggleButton}
               setDateClassNames={setDateClassNames}
               legend={legend}
+              setDateAriaDescribedBy={setDateAriaDescribedBy}
             />
           )}
         </TextInput>

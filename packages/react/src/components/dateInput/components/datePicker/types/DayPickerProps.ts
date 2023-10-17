@@ -12,11 +12,12 @@ export type DayClickEventHandler = (day: Date, e: React.MouseEvent) => void;
 export type MonthChangeEventHandler = (month: Date, e: React.MouseEvent) => void;
 
 /**
- * @param {{ key: string, label: string }} Props for legend item
+ * Props for legend item.
+ * @param {{ id: string, color: string, label: string }}
  */
 export type LegendItem = {
+  id: string;
   color: string;
-  key: string;
   label: string;
 };
 
@@ -106,7 +107,7 @@ export interface DayPickerProps {
    */
   toggleButton?: HTMLButtonElement | null;
   /**
-   * Function to set class names for dates
+   * Function to set class names for dates.
    */
   setDateClassNames?: (date: Date) => string | undefined;
   /**
@@ -114,4 +115,8 @@ export interface DayPickerProps {
    * @param {{ key: string, label: string }} LegendItem
    */
   legend?: LegendItem[];
+  /**
+   * Function to set aria-describedby for dates.
+   */
+  setDateAriaDescribedBy?: (date: Date) => string | undefined;
 }

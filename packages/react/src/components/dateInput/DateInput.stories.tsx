@@ -220,10 +220,21 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const hasLittleSpaceLeft = 'little-space-left';
   const littleSpaceColor = 'var(--color-summer-medium-light)';
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
+
+  const dayHasSomeSpace = (day: number) => day === 12 || day === 15 || day === 24 || day === 25;
+  const dayHasLittleSpace = (day: number) => day === 3 || day === 4 || day === 17 || day === 19;
+
   const setDateClassNames = (date: Date) => {
     const day = date.getDate();
-    if (day === 12 || day === 15 || day === 24 || day === 25) return `${hasSomeSpaceLeft}--day`;
-    if (day === 3 || day === 4 || day === 17 || day === 19) return `${hasLittleSpaceLeft}--day`;
+    if (dayHasSomeSpace(day)) return `${hasSomeSpaceLeft}--day`;
+    if (dayHasLittleSpace(day)) return `${hasLittleSpaceLeft}--day`;
+    return undefined;
+  };
+
+  const setDateAriaDescribedBy = (date: Date) => {
+    const day = date.getDate();
+    if (dayHasSomeSpace(day)) return hasSomeSpaceLeft;
+    if (dayHasLittleSpace(day)) return hasLittleSpaceLeft;
     return undefined;
   };
 
@@ -246,10 +257,11 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         onChange={setValue}
         helperText={helperText}
         setDateClassNames={setDateClassNames}
+        setDateAriaDescribedBy={setDateAriaDescribedBy}
         legend={[
-          { key: hasSomeSpaceLeft, label: 'Some free timeslots available', color: someSpaceColor },
+          { id: hasSomeSpaceLeft, label: 'Some free timeslots available', color: someSpaceColor },
           {
-            key: hasLittleSpaceLeft,
+            id: hasLittleSpaceLeft,
             label: 'Only a few free timeslots available',
             color: littleSpaceColor,
           },
