@@ -29,10 +29,10 @@
   &.hidden {
     @extend %visuallyHidden;
   }
+}
 
-  &:focus {
-    outline: var(--focus-outline-width) solid var(--focus-outline-color);
-  }
+.button:focus.button:focus {
+  outline: 3px solid var(--color-focus-outline);
 }
 
 .searchIcon {
