@@ -411,7 +411,7 @@ describe('<DateInput /> spec', () => {
       userEvent.tab();
     });
 
-    const fridayButton = container.querySelector('button[data-date="2021-01-01"]');
+    const fridayButton = container.querySelector('button[data-date="2021-01-01"]') as HTMLElement;
     expect(fridayButton).toHaveFocus();
     await act(async () => {
       userEvent.type(fridayButton, '{arrowright}');
@@ -462,8 +462,8 @@ describe('<DateInput /> spec', () => {
           return date.getDate() % 2 ? 'odd' : 'even';
         }}
         legend={[
-          { key: 'odd', label: 'Todd' },
-          { key: 'even', label: 'Steven' },
+          { color: 'red', id: 'odd', label: 'Todd' },
+          { color: 'blue', id: 'even', label: 'Steven' },
         ]}
       />,
     );
@@ -476,13 +476,44 @@ describe('<DateInput /> spec', () => {
     const oddButton = container.querySelector('button[data-date="2021-01-01"]');
     const evenButton = container.querySelector('button[data-date="2021-01-02"]');
     const legend = container.querySelector('.hds-datepicker__legend');
-    const oddItem = legend?.querySelector(`.odd`);
-    const evenItem = legend?.querySelector(`.even`);
+    const oddItem = legend?.querySelector(`#odd`);
+    const evenItem = legend?.querySelector(`#even`);
 
     expect(oddButton).toHaveClass('odd');
     expect(evenButton).toHaveClass('even');
     expect(legend).toBeTruthy();
     expect(oddItem).toHaveTextContent('Todd');
     expect(evenItem).toHaveTextContent('Steven');
+  });
+
+  it('should have aria-describedby for specific dates', async () => {
+    const { container } = render(
+      <DateInput
+        id="date"
+        initialMonth={new Date('2021-01-01')}
+        label="Choose a date"
+        language="en"
+        setDateClassNames={(date: Date) => {
+          return date.getDate() % 2 ? 'odd' : 'even';
+        }}
+        setDateAriaDescribedBy={(date: Date) => {
+          return date.getDate() % 2 ? 'odd' : 'even';
+        }}
+        legend={[
+          { color: 'red', id: 'odd', label: 'Todd' },
+          { color: 'blue', id: 'even', label: 'Steven' },
+        ]}
+      />,
+    );
+    // Click the calendar button
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
+
+    const oddButton = container.querySelector('button[data-date="2021-01-01"]') as HTMLElement;
+    const evenButton = container.querySelector('button[data-date="2021-01-02"]') as HTMLElement;
+
+    expect(oddButton.getAttribute('aria-describedby')).toBe('odd');
+    expect(evenButton.getAttribute('aria-describedby')).toBe('even');
   });
 });
