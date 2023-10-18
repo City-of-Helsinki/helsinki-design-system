@@ -429,15 +429,11 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
 
 When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the <InternalLink href="/components/notification#invisible">HDS invisible notification.</InternalLink>
 
-### Validation in multi-page forms
+### Validation in multi-page forms 
 
-<p>
-  <StatusLabel type="error" style={{ marginRight: 'var(--spacing-3-xs)' }}>
-    Coming soon
-  </StatusLabel>
-  <strong> The navigation component for multi-page forms has not yet been designed or implemented in HDS.</strong>
-</p>
+HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the <InternalLink href="/patterns/forms/form-building#4-dividing-long-forms-into-separate-steps">HDS Form pattern documentation</InternalLink>.
+See guidelines for <InternalLink href="/patterns/forms/form-multi-page/">Multi-page forms</InternalLink>.
 
-HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the <InternalLink href="/patterns/forms/form-building#4-dividing-long-forms-into-separate-steps">HDS Form pattern documentation.</InternalLink>
+To create multi-page forms, use <InternalLink href="h/components/stepper/">Stepper</InternalLink> for navigating between the pages. 
 
 **Validation is strongly recommended to be done separately for each page of the form.** This means that the user should not be able to proceed to the next form step before all the input fields have been validated on the current step. If some selection can make a selection in a previous step invalid, this should be clearly indicated to the user.
