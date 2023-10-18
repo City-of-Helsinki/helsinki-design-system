@@ -38,10 +38,11 @@ import {
 } from './index';
 import { Button } from '../button/Button';
 import { Accordion } from '../accordion/Accordion';
-import { Navigation } from '../navigation/Navigation';
+import { Header } from '../header/Header';
 import { Notification } from '../notification/Notification';
-import { IconSignout } from '../../icons';
+import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
+import { Logo, logoFi } from '../logo';
 
 export default {
   component: LoginProvider,
@@ -105,7 +106,6 @@ const Wrapper = (props: React.PropsWithChildren<unknown>) => {
       <style>
         {`
           .wrapper{
-            max-width: 100%;
             overflow: hidden;
             padding:20px;
           }
@@ -119,6 +119,25 @@ const Wrapper = (props: React.PropsWithChildren<unknown>) => {
         `}
       </style>
       <div className="wrapper">{props.children}</div>
+    </>
+  );
+};
+
+const ContentAligner = (props: React.PropsWithChildren<unknown>) => {
+  return (
+    <>
+      <style>
+        {`
+          .content-aligner{
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1440px;
+            padding: 0 var(--spacing-m);
+            box-sizing: border-box;
+          }
+        `}
+      </style>
+      <div className="content-aligner">{props.children}</div>
     </>
   );
 };
@@ -163,8 +182,10 @@ const Nav = () => {
   const { login, logout } = useOidcClient();
   const authenticated = !!user;
   const userName = user && user.profile.given_name;
-  const label = authenticated ? 'Log out' : 'Log in';
-  const onClick = () => {
+  const label = userName ? String(userName) : 'Log in';
+  const onClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+
     if (authenticated) {
       logout();
     } else {
@@ -172,20 +193,30 @@ const Nav = () => {
     }
   };
   return (
-    // @ts-ignore
-    <Navigation>
-      <Navigation.Actions>
-        <Navigation.User authenticated={authenticated} label={label} userName={userName} onSignIn={onClick}>
-          <Navigation.Item
-            label={label}
-            href="#"
-            icon={<IconSignout aria-hidden />}
-            variant="supplementary"
-            onClick={onClick}
-          />
-        </Navigation.User>
-      </Navigation.Actions>
-    </Navigation>
+    <Header>
+      <Header.ActionBar
+        frontPageLabel="Frontpage"
+        title="City of Helsinki"
+        titleAriaLabel="City of Helsinki"
+        titleHref="https://hel.fi"
+        logo={<Logo src={logoFi} alt="City of Helsinki" />}
+        logoAriaLabel="Service logo"
+      >
+        <Header.ActionBarItem
+          label={label}
+          fixedRightPosition
+          icon={<IconUser />}
+          id="action-bar-login-action"
+          {...(!authenticated ? { onClick } : {})}
+        >
+          {authenticated && (
+            <Button onClick={onClick} variant="supplementary" iconLeft={<IconSignout />}>
+              Log out
+            </Button>
+          )}
+        </Header.ActionBarItem>
+      </Header.ActionBar>
+    </Header>
   );
 };
 
@@ -410,26 +441,30 @@ export const ExampleApplication = () => {
             closeButtonLabelText: 'Logout',
           }}
         />
-        <AuthorizedContent user={user} />
-        <div className="buttons">
-          <LogoutButton />
-          <RenewUserButton />
-          <RenewApiTokensButton />
-          <StartSessionPollingButton />
-          <SimulateSessionEndButton />
-        </div>
+        <ContentAligner>
+          <AuthorizedContent user={user} />
+          <div className="buttons">
+            <LogoutButton />
+            <RenewUserButton />
+            <RenewApiTokensButton />
+            <StartSessionPollingButton />
+            <SimulateSessionEndButton />
+          </div>
+        </ContentAligner>
       </Wrapper>
     );
   };
 
   const LoginComponent = () => {
     return (
-      <div>
+      <Wrapper>
         <Nav />
-        <h1>Welcome to the login demo application!</h1>
-        <p>Click button below, or in the navigation, to start the login process</p>
-        <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
-      </div>
+        <ContentAligner>
+          <h1>Welcome to the login demo application!</h1>
+          <p>Click button below, or in the navigation, to start the login process</p>
+          <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
+        </ContentAligner>
+      </Wrapper>
     );
   };
 

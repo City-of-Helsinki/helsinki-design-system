@@ -9,8 +9,8 @@ import {
 } from '../client/signals';
 import { Button, ButtonProps } from '../../button/Button';
 import { LoadingSpinner } from '../../loadingSpinner';
-import { IconAlertCircleFill } from '../../../icons/ui/IconAlertCircleFill';
 import styles from './LoginButton.module.scss';
+import { IconAlertCircleFill } from '../../../icons';
 
 export type LoginButtonProps = { spinnerColor?: string; errorText: string } & ButtonProps;
 /**
