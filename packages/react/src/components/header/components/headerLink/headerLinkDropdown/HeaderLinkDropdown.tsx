@@ -71,8 +71,11 @@ export const HeaderLinkDropdown = ({
   const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const [dropdownPosition, setDropdownPosition] = useState<{ left?: number; right?: number }>({ left: 0 });
+
   const ref = useRef<HTMLUListElement>(null);
+
   const chevronClassName = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
+  const isFirstLevelDropdown = depth === 1;
   const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = position ? classNames(styles.dropdownMenu, styles[position]) : styles.dropdownMenu;
 
@@ -109,10 +112,12 @@ export const HeaderLinkDropdown = ({
       }
     };
 
-    setPosition(ref.current);
+    if (isFirstLevelDropdown) {
+      setPosition(ref.current);
 
-    if (open) {
-      window.addEventListener('resize', () => setPosition(ref.current));
+      if (open) {
+        window.addEventListener('resize', () => setPosition(ref.current));
+      }
     }
 
     return () => {
@@ -120,7 +125,7 @@ export const HeaderLinkDropdown = ({
 
       setDropdownPosition({ left: 0 });
     };
-  }, [ref.current, open]);
+  }, [ref.current, open, isFirstLevelDropdown]);
 
   return (
     <>
@@ -134,7 +139,7 @@ export const HeaderLinkDropdown = ({
         {renderIcon()}
       </button>
       <ul
-        style={dropdownPosition}
+        style={isFirstLevelDropdown ? dropdownPosition : {}}
         className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
         {...(!open && { style: { display: 'none' } })}
         data-testid={`dropdown-menu-${index}`}
