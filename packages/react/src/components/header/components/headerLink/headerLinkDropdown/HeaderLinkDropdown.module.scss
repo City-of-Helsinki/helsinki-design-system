@@ -50,6 +50,7 @@ button.button {
 .dropdownMenu {
   background-color: var(--nav-link-dropdown-background-color);
   border: 1px solid var(--nav-border-color);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   list-style: none;
