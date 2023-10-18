@@ -7,6 +7,7 @@ import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../../ico
 import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
+import useIsomorphicLayoutEffect from '../../../../../hooks/useIsomorphicLayoutEffect';
 
 export enum DropdownMenuPosition {
   Left = 'left',
@@ -69,6 +70,7 @@ export const HeaderLinkDropdown = ({
   // State for which nested dropdown link is open
   const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
+  const [dropdownPosition, setDropdownPosition] = useState<{ left?: number; right?: number }>({ left: 0 });
   const ref = useRef<HTMLUListElement>(null);
   const chevronClassName = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const depthClassName = styles[`depth-${depth - 1}`];
@@ -94,6 +96,32 @@ export const HeaderLinkDropdown = ({
     return <IconAngleDown className={chevronClassName} />;
   };
 
+  useIsomorphicLayoutEffect(() => {
+    const setPosition = (current: HTMLUListElement) => {
+      if (current != null) {
+        const { right } = current.getBoundingClientRect();
+
+        if (window.innerWidth <= right) {
+          setDropdownPosition({ right: 0 });
+        } else {
+          setDropdownPosition({ left: 0 });
+        }
+      }
+    };
+
+    setPosition(ref.current);
+
+    if (open) {
+      window.addEventListener('resize', () => setPosition(ref.current));
+    }
+
+    return () => {
+      window.removeEventListener('resize', () => setPosition(ref.current));
+
+      setDropdownPosition({ left: 0 });
+    };
+  }, [ref.current, open]);
+
   return (
     <>
       <button
@@ -106,6 +134,7 @@ export const HeaderLinkDropdown = ({
         {renderIcon()}
       </button>
       <ul
+        style={dropdownPosition}
         className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
         {...(!open && { style: { display: 'none' } })}
         data-testid={`dropdown-menu-${index}`}

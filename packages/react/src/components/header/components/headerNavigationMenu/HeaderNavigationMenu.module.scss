@@ -2,9 +2,9 @@
   background-color: var(--nav-background-color);
   box-sizing: border-box;
   display: flex;
-  min-height: var(--spacing-layout-l);
   margin: 0 auto;
   max-width: var(--header-max-width);
+  min-height: var(--spacing-layout-l);
   padding: 0 var(--header-margin);
   width: 100%;
 }
@@ -14,9 +14,9 @@
 }
 
 .headerNavigationMenuList {
+  column-gap: var(--spacing-l);
   display: flex;
   flex-wrap: wrap;
-  column-gap: var(--spacing-l);
   list-style: none;
   margin: 0;
   padding: 0;
