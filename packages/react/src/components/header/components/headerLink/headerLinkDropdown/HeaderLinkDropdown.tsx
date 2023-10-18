@@ -102,11 +102,11 @@ export const HeaderLinkDropdown = ({
   useIsomorphicLayoutEffect(() => {
     const setPosition = (current: HTMLUListElement) => {
       if (current != null) {
-        const { right } = current.getBoundingClientRect();
+        const { right, width } = current.getBoundingClientRect();
 
         if (window.innerWidth <= right) {
           setDropdownPosition({ right: 0 });
-        } else {
+        } else if (window.innerWidth - right > width) {
           setDropdownPosition({ left: 0 });
         }
       }
