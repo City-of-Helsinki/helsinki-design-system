@@ -370,11 +370,12 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
 
   const onSubmit = (e) => {
     e.preventDefault();
+    validate(formValues);
     setIsSubmitted(true);
   };
 
   React.useEffect(() => {
-    validate(formValues);
+    if (Object.keys(formErrors).length > 0) validate(formValues);
   }, [formValues]);
 
   return ( 
