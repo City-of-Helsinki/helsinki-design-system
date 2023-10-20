@@ -218,7 +218,10 @@ export const HeaderActionBar = ({
       {mobileMenuOpen && (
         <ContentTabBarrier onFocus={() => focusToActionBar(TabBarrierPosition.bottom, actionBarRef.current)} />
       )}
-      <div className={styles.headerActionBarContainer} ref={actionBarRef}>
+      <div
+        className={classNames(styles.headerActionBarContainer, mobileMenuOpen && styles.mobileMenuContainer)}
+        ref={actionBarRef}
+      >
         <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
           <HeaderActionBarLogo logo={logo} logoProps={logoProps} />
           {title && (

@@ -32,6 +32,13 @@
   width: 100%;
 }
 
+.mobileMenuContainer {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+}
+
 .headerActions {
   align-items: stretch;
   display: flex;

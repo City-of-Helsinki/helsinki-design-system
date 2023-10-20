@@ -42,11 +42,9 @@
 }
 
 .headerNavigationMenu {
-  background-color: var(--nav-mobile-menu-bottom-background-color);
-  max-height: 0;
-  overflow: hidden;
+  min-height: 0;
   position: absolute;
-  transition: 0.3s max-height;
+  transition: 0.3s min-height;
   width: 100%;
 }
 
@@ -173,12 +171,19 @@
   }
 }
 
+.mobileMenuBottom {
+  background-color: var(--nav-mobile-menu-bottom-background-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2-xl)
+}
+
 .mobileMenuOpen {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: min-content;
   margin-top: 1px;
-  max-height: 100vh;
+  min-height: 100vh;
 }
 
 .mobileNavigationLink {
@@ -196,9 +201,9 @@
 }
 
 .navigationWrapper {
+  background-color: var(--nav-mobile-menu-bottom-background-color);
   display: flex;
-  overflow: hidden;
-  overscroll-behavior: contain;
+  min-height: 100vh;
   width: 300%;
 
   &.left0 {
@@ -215,6 +220,12 @@
     transform: translateX(-200vw);
     transition: transform 0.3s ease;
   }
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
 }
 
 .universalList {
