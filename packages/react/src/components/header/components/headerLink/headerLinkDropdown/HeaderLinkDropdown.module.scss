@@ -10,7 +10,7 @@ button.button {
   margin: 0 0 0 var(--spacing-s);
   padding: 0;
   width: 24px;
-  
+
   &.isNotLargeScreen {
     background: transparent;
     border-left: 1px solid var(--nav-button-background-color);
@@ -50,9 +50,9 @@ button.button {
 .dropdownMenu {
   background-color: var(--nav-link-dropdown-background-color);
   border: 1px solid var(--nav-border-color);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  left: calc(-1 * var(--header-margin));
   list-style: none;
   min-width: 280px;
   padding: 0;
