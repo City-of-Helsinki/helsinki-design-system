@@ -12,7 +12,7 @@ export const Default = () => `
     <section aria-label="Error summary" class="hds-notification hds-notification--error">
       <div class="hds-notification__content">
         <div class="hds-notification__label" role="heading" aria-level="2" tabindex="-1">
-          <span class="hds-icon hds-icon--alert-circle" aria-hidden="true"></span>
+          <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
           <span>Form contains following errors</span>
         </div>
         <div class="hds-notification__body hds-error-summary__body">
@@ -36,7 +36,7 @@ export const Large = () => `
     <section aria-label="Error summary" class="hds-notification hds-notification--error hds-notification--large">
       <div class="hds-notification__content">
         <div class="hds-notification__label" role="heading" aria-level="2" tabindex="-1">
-          <span class="hds-icon hds-icon--alert-circle" aria-hidden="true"></span>
+          <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
           <span>Form contains following errors</span>
         </div>
         <div class="hds-notification__body hds-error-summary__body">

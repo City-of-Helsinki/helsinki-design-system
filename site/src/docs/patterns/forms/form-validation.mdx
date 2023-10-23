@@ -4,10 +4,18 @@ title: 'Form validation'
 navTitle: 'Form validation'
 ---
 
-import { Link, IconCheck, IconError, Notification, StatusLabel } from 'hds-react';
+import {
+  Button,
+  DateInput,
+  ErrorSummary,
+  IconCheck,
+  IconError,
+  Notification,
+  TextInput,
+  StatusLabel,
+} from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
-import InternalLink from '../../../components/InternalLink';
 
 # Form validation
 
@@ -239,14 +247,93 @@ The usage of the error summary component is triggered when the form is submitted
 2. The focus is moved from the form submit button to the error summary heading.
 3. The error summary is populated with a list of errors found in the form. Errors are in the same order as they appear in the form. For each error, a running number and an error description are provided. The error description also acts as an anchor link.
 4. The user can use the error description anchor link to quickly jump and focus each of the erroneous inputs.
-5. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
+5. The error validation check happens immediately after the input value changes.
+6. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
 
-<Image
-  src="/images/patterns/form/validation/validation-pattern-example@2x.png"
-  alt="Validation summary example"
-  style={{ maxWidth: 432 }}
-  viewable
-/>
+<Playground scope={{ Button, ErrorSummary, TextInput }} >
+
+```jsx
+import { Button, ErrorSummary, TextInput } from 'hds-react';
+
+() => {
+    const [formValues, setFormValues] = React.useState({});
+    const [formErrors, setFormErrors] = React.useState({});
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const errorList = Object.entries(formErrors);
+
+    const getFieldError = (fieldName, formData, errorData) => {
+      return errorData ? !formData[fieldName] && errorData[fieldName] : !formData[fieldName];
+    }
+
+    const validate = (values, currentErrors) => {
+      const hasFirstNameError = getFieldError('firstName', values, currentErrors);
+      const hasLastNameError = getFieldError('lastName', values, currentErrors);
+
+      const errors = {
+        ...(hasFirstNameError ? { firstName: 'Please enter your first name' } : {}),
+        ...(hasLastNameError ? { lastName: 'Please enter your last name' } : {}),
+      };
+      setFormErrors(errors);
+    }
+
+    const onSubmit = (e) => {
+      e.preventDefault();
+      validate(formValues);
+      setIsSubmitted(true);
+    };
+
+    React.useEffect(() => {
+      if (Object.keys(formErrors).length > 0) validate(formValues, true);
+    }, [formValues]);
+    
+    return (
+      <>
+        <h4>Live example</h4>
+        <p>Test how the hybrid validation works by pressing Submit which causes validation errors to show about missing inputs. The validation errors disappear immediately after input has changed.</p>
+        
+        <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+          {isSubmitted && errorList.length > 0 && (
+            <ErrorSummary autofocus label="Form contains following errors">
+              {errorList.map(([key, value], index) => (
+                <li key={key}>
+                  {`Error ${index + 1}: `}
+                  <a href={`#validationExample-${key}`}>{value}</a>
+                </li>
+              ))}
+            </ErrorSummary>
+          )}
+          <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+            <TextInput
+              id="validationExample-firstName"
+              name="firstName"
+              label="First name"
+              onChange={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
+              invalid={!!formErrors['firstName']}
+              errorText={formErrors['firstName']}
+              required
+            />
+            <TextInput
+              id="validationExample-lastName"
+              name="lastName"
+              label="Last name"
+              onChange={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
+              invalid={!!formErrors['lastName']}
+              errorText={formErrors['lastName']}
+              required
+            />
+          </div>
+          <div style={{ marginTop: 'var(--spacing-m)' }}>
+            <Button onClick={onSubmit} type="button">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </>
+    );
+  }
+```
+
+</Playground>
 
 You can see the validation summary pattern in action in HDS Storybook <Link href="/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">static validation example</Link> and <Link href="/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">hybrid validation example</Link>.
 
@@ -256,24 +343,98 @@ In some cases, multiple input fields can be related to each other in a way that 
 
 An example of this could be having two date inputs for setting a start and an end time. If the end time is set to be earlier than the start time, both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to an error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. All error messages are also added to the error summary list. This method has been illustrated in the image below.
 
-<Image
-  src="/images/patterns/form/validation/multiple-fields-validation@2x.png"
-  alt="Showing error messages of multiple input fields"
-  style={{ maxWidth: 482 }}
-  viewable
-/>
+<Playground scope={{ Button, ErrorSummary, DateInput }} >
+
+```jsx
+import { Button, ErrorSummary, DateInput } from 'hds-react';
+
+() => {
+  const [formValues, setFormValues] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({});
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const errorList = Object.entries(formErrors);
+
+  const isSameOrAfter = (dateA, dateB) => dateA && dateB && dateA >= dateB;
+
+  const validate = (values) => {
+    const startDate = values['startDate'];
+    const endDate = values['endDate'];
+    if (startDate == null & endDate == null) return null;
+
+    const errors = {
+      ...(!startDate || isSameOrAfter(startDate, endDate) ? { startDate: 'Start date must be before end date' } : {}),
+      ...(!endDate || isSameOrAfter(startDate, endDate) ? { endDate: 'End date must be after start date' } : {}),
+    };
+    setFormErrors(errors);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    validate(formValues);
+    setIsSubmitted(true);
+  };
+
+  React.useEffect(() => {
+    if (Object.keys(formErrors).length > 0) validate(formValues);
+  }, [formValues]);
+
+  return ( 
+    <>
+      <h4>Live example</h4>
+      <p>Check the how the validation behaves by selecting end date before the start date or vice versa.</p>   
+      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+        {isSubmitted && errorList.length > 0 && (
+          <ErrorSummary autofocus label="Form contains following errors">
+            {errorList.map(([key, value], index) => (
+              <li key={key}>
+                {`Error ${index + 1}: `}
+                <a href={`#dateValidationExample-${key}`}>{value}</a>
+              </li>
+            ))}
+          </ErrorSummary>
+        )}
+        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+          <DateInput
+            id="dateValidationExample-startDate"
+            name="startDate"
+            label="Start date"
+            onChange={(dateString, date) => setFormValues({ ...formValues, startDate: date })}
+            invalid={!!formErrors['startDate']}
+            errorText={formErrors['startDate']}
+            required
+            disableConfirmation
+          />
+          <DateInput
+            id="dateValidationExample-endDate"
+            name="endDate"
+            label="End date"
+            onChange={(dateString, date) => setFormValues({ ...formValues, endDate: date })}
+            invalid={!!formErrors['endDate']}
+            errorText={formErrors['endDate']}
+            required
+            disableConfirmation
+          />
+        </div>
+        <div style={{ marginTop: 'var(--spacing-m)' }}>
+          <Button onClick={onSubmit} type="button">
+            Submit
+          </Button>
+        </div>
+      </form>
+    </>
+  )
+}
+```
+
+</Playground>
 
 When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the <InternalLink href="/components/notification#invisible">HDS invisible notification.</InternalLink>
 
-### Validation in multi-page forms
+### Validation in multi-page forms 
 
-<p>
-  <StatusLabel type="error" style={{ marginRight: 'var(--spacing-3-xs)' }}>
-    Coming soon
-  </StatusLabel>
-  <strong> The navigation component for multi-page forms has not yet been designed or implemented in HDS.</strong>
-</p>
+HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the <InternalLink href="/patterns/forms/form-building#4-dividing-long-forms-into-separate-steps">HDS Form pattern documentation</InternalLink>.
+See guidelines for <InternalLink href="/patterns/forms/form-multi-page/">Multi-page forms</InternalLink>.
 
-HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the <InternalLink href="/patterns/forms/form-building#4-dividing-long-forms-into-separate-steps">HDS Form pattern documentation.</InternalLink>
+To create multi-page forms, use <InternalLink href="h/components/stepper/">Stepper</InternalLink> for navigating between the pages. 
 
 **Validation is strongly recommended to be done separately for each page of the form.** This means that the user should not be able to proceed to the next form step before all the input fields have been validated on the current step. If some selection can make a selection in a previous step invalid, this should be clearly indicated to the user.
