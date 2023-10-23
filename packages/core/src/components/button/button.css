@@ -163,19 +163,25 @@
 }
 
 input[type="submit"].hds-button,
+input[type="reset"].hds-button,
+input[type="button"].hds-button,
 .hds-button__label {
   font-weight: inherit;
   line-height: 1.25em;
   padding: var(--spacing-s);
 }
 
-input[type="submit"].hds-button {
+input[type="submit"].hds-button,
+input[type="reset"].hds-button,
+input[type="button"].hds-button {
   cursor: pointer;
   padding: var(--spacing-s) var(--spacing-l);
 }
 
-/* submit input */
-input[type="submit"].hds-button:focus-visible {
+/* submit/reset/button input */
+input[type="submit"].hds-button:focus-visible,
+input[type="reset"].hds-button:focus-visible,
+input[type="button"].hds-button:focus-visible {
   box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
 }
 
@@ -185,6 +191,8 @@ input[type="submit"].hds-button:focus-visible {
 }
 
 input[type="submit"].hds-button--small,
+input[type="reset"].hds-button--small,
+input[type="button"].hds-button--small,
 .hds-button--small .hds-button__label {
   line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-xs);
@@ -216,7 +224,9 @@ input[type="submit"].hds-button--small,
   padding: 0;
 }
 
-input[type="submit"].hds-button--small {
+input[type="submit"].hds-button--small,
+input[type="reset"].hds-button--small,
+input[type="button"].hds-button--small {
   padding: var(--spacing-2-xs) var(--spacing-m);
 }
 
