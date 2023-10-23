@@ -190,9 +190,6 @@ input[type="button"].hds-button:focus-visible {
   margin: 0 var(--spacing-2-xs);
 }
 
-input[type="submit"].hds-button--small,
-input[type="reset"].hds-button--small,
-input[type="button"].hds-button--small,
 .hds-button--small .hds-button__label {
   line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-xs);
@@ -227,6 +224,7 @@ input[type="button"].hds-button--small,
 input[type="submit"].hds-button--small,
 input[type="reset"].hds-button--small,
 input[type="button"].hds-button--small {
+  line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-m);
 }
 
