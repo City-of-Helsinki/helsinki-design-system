@@ -104,9 +104,9 @@ export const HeaderLinkDropdown = ({
       if (current != null) {
         const { right, width } = current.getBoundingClientRect();
 
-        if (window.outerWidth <= right) {
+        if (window.innerWidth <= right) {
           setDropdownPosition({ right: 0 });
-        } else if (window.outerWidth - right > width) {
+        } else if (window.innerWidth - right > width) {
           setDropdownPosition({ left: 0 });
         }
       }
