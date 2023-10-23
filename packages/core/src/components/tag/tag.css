@@ -8,6 +8,7 @@
   --tag-font-size: var(--fontsize-body-s);
   --tag-height-large: 48px;
   --tag-height: 32px;
+  --tag-line-height: var(--lineheight-xl);
   --tag-padding-large: 10px 20px;
   --tag-padding: 4px 12px;
   --tag-spacing-large: var(--spacing-s);
@@ -23,7 +24,7 @@
   font-size: var(--tag-font-size);
   gap: var(--spacing-2-xs);
   justify-content: center;
-  line-height: 24px;
+  line-height: var(--tag-line-height);
   min-height: var(--tag-height);
   outline: none;
   padding: var(--tag-padding)
@@ -32,6 +33,7 @@
 .hds-tag--large {
   --tag-font-size:  var(--tag-font-size-large);
   --tag-height: var(--tag-height-large);
+  --tag-line-height: var(--lineheight-l);
   --tag-padding: var(--tag-padding-large);
   --tag-spacing: var(--tag-spacing-large);
 }
