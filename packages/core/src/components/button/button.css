@@ -105,12 +105,7 @@
   color: var(--color-hover);
 }
 
-.hds-button:focus-visible {
-  background-color: var(--background-color-focus, transparent);
-  color: var(--color-focus);
-  outline: none;
-}
-
+.hds-button:focus-visible,
 .hds-button:active {
   background-color: var(--background-color-focus, transparent);
   color: var(--color-focus);
@@ -128,10 +123,7 @@
   cursor: not-allowed;
 }
 
-.hds-button:focus-visible:hover {
-  background-color: var(--background-color-hover-focus, transparent);
-}
-
+.hds-button:focus-visible:hover,
 .hds-button:active:hover {
   background-color: var(--background-color-hover-focus, transparent);
 }
@@ -140,19 +132,12 @@
   border-color: var(--border-color-hover, transparent);
 }
 
-.hds-button:not(:disabled):focus-visible {
-  border-color: var(--border-color-focus, transparent);
-}
-
+.hds-button:not(:disabled):focus-visible,
 .hds-button:not(:disabled):active {
   border-color: var(--border-color-focus, transparent);
 }
 
-.hds-button:not(:disabled):focus-visible:hover {
-  border-color: var(--border-color-hover-focus, transparent);
-  color: var(--color-hover-focus);
-}
-
+.hds-button:not(:disabled):focus-visible:hover,
 .hds-button:not(:disabled):active:hover {
   border-color: var(--border-color-hover-focus, transparent);
   color: var(--color-hover-focus);
@@ -170,12 +155,7 @@
   width: var(--size);
 }
 
-.hds-button:focus-visible::after {
-  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
-
-  border-color: var(--focus-outline-color);
-}
-
+.hds-button:focus-visible::after,
 .hds-button:active::after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
 
