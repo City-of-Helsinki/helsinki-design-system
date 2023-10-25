@@ -9,6 +9,7 @@ import { addMonths } from 'date-fns';
 import { DateInput, DateInputProps } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
+import { LegendItem } from './components/datePicker';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
@@ -215,39 +216,50 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
-  const hasSomeSpaceLeft = 'some-space-left';
-  const someSpaceColor = 'var(--color-tram-medium-light)';
-  const hasLittleSpaceLeft = 'little-space-left';
-  const littleSpaceColor = 'var(--color-summer-medium-light)';
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
+
+  const someSpaceLeftDate: LegendItem = {
+    elementId: 'some-space-left',
+    label: 'Some free timeslots available',
+    color: 'var(--color-tram-medium-light)',
+  };
+
+  const littleSpaceLeftDate: LegendItem = {
+    elementId: 'little-space-left',
+    label: 'Only a few free timeslots available',
+    color: 'var(--color-summer-medium-light)',
+  };
 
   const dayHasSomeSpace = (day: number) => day === 12 || day === 15 || day === 24 || day === 25;
   const dayHasLittleSpace = (day: number) => day === 3 || day === 4 || day === 17 || day === 19;
 
-  const setDateClassNames = (date: Date) => {
+  const getDateLegendId = (date: Date) => {
     const day = date.getDate();
-    if (dayHasSomeSpace(day)) return `${hasSomeSpaceLeft}--day`;
-    if (dayHasLittleSpace(day)) return `${hasLittleSpaceLeft}--day`;
+    if (dayHasSomeSpace(day)) return someSpaceLeftDate.elementId;
+    if (dayHasLittleSpace(day)) return littleSpaceLeftDate.elementId;
     return undefined;
+  };
+
+  const setDateClassNames = (date: Date) => {
+    const dateLegendId = getDateLegendId(date);
+    return dateLegendId ? `${dateLegendId}--day` : undefined;
   };
 
   const setDateAriaDescribedBy = (date: Date) => {
-    const day = date.getDate();
-    if (dayHasSomeSpace(day)) return hasSomeSpaceLeft;
-    if (dayHasLittleSpace(day)) return hasLittleSpaceLeft;
-    return undefined;
+    return getDateLegendId(date);
   };
 
+  const legend = [someSpaceLeftDate, littleSpaceLeftDate];
   return (
     <>
       <style>
         {`
-          .${hasSomeSpaceLeft}--day {
-              background: ${someSpaceColor};
+          .${someSpaceLeftDate.elementId}--day {
+              background: ${someSpaceLeftDate.color};
           }
 
-          .${hasLittleSpaceLeft}--day {
-            background: ${littleSpaceColor};
+          .${littleSpaceLeftDate.elementId}--day {
+            background: ${littleSpaceLeftDate.color};
           }
         `}
       </style>
@@ -258,14 +270,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         helperText={helperText}
         setDateClassNames={setDateClassNames}
         setDateAriaDescribedBy={setDateAriaDescribedBy}
-        legend={[
-          { elementId: hasSomeSpaceLeft, label: 'Some free timeslots available', color: someSpaceColor },
-          {
-            elementId: hasLittleSpaceLeft,
-            label: 'Only a few free timeslots available',
-            color: littleSpaceColor,
-          },
-        ]}
+        legend={legend}
       />
     </>
   );
