@@ -15,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 The component property `setDateClassNames` can be used to set class names for specific dates.
 
 ### Customisation example
-In this example some days have different background colours to indicate that they have limited timeslots available. When days have colours to indicate something, it's important to include `legend` and `setDateAriaDescribedBy` props to inform the users of their meaning.
+In this example some days have different background colours to indicate that they have limited timeslots available. When days have colours to indicate something, it's important to include `legend` and `setDateAriaDescribedBy` props to inform the users of their meaning. Use the `setDateAriaDescribedBy` callback function to return corresponding LegendItem's element id for specific dates.  
 
 <Playground scope={{ DateInput, useState }}>
 
