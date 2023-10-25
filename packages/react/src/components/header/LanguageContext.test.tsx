@@ -12,24 +12,19 @@ import {
   useSetLanguage,
 } from './LanguageContext';
 
-type StrFn = (str: string) => string;
 type TestScenarioProps = LanguageProviderProps & { listDefault?: boolean };
 
 const defaultLanguages: LanguageOption[] = [
   { label: 'Suomi', value: 'fi' },
   { label: 'Svenska', value: 'sv' },
-  { label: 'English', value: 'en' },
-  { label: 'Spanish', value: 'es', isPrimary: false },
-  { label: 'Norway', value: 'no', isPrimary: false },
 ];
-
 const newLanguages: LanguageOption[] = [
   { label: 'AF', value: 'af' },
   { label: 'DE', value: 'de' },
 ];
+const allLanguageOptions = [...defaultLanguages, ...newLanguages];
 
-const getLanguageLabelByValue: StrFn = (val) =>
-  [...defaultLanguages, ...newLanguages].find((obj) => obj.value === val)?.label || '';
+const getLanguageLabelByValue = (val: string) => allLanguageOptions.find((obj) => obj.value === val)?.label || '';
 const listLanguageCodes = (languages: LanguageOption[]) => languages.map((language) => language.value).join(',');
 const handleLanguageChange = jest.fn();
 const activeLanguageTestId = 'active-language';
@@ -185,60 +180,58 @@ describe('<LanguageContext />', () => {
     cleanup();
   });
 
-  it('Sets the defaultLanguage to DEFAULT_LANGUAGE by default', async () => {
+  it('Sets the defaultLanguage to DEFAULT_LANGUAGE by default. onDidChangeLanguage is not called ', async () => {
     const { getActiveLanguage } = renderTestScenario();
     expect(getActiveLanguage()).toBe(DEFAULT_LANGUAGE);
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
   });
+
   it('Sets the defaultLanguage to given language', async () => {
     const newDefault = 'no';
     const { getActiveLanguage, reRender } = renderTestScenario({ defaultLanguage: newDefault });
     expect(getActiveLanguage()).toBe(newDefault);
     await reRender();
     expect(getActiveLanguage()).toBe(newDefault);
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
   });
 
   it("useSetLanguage changes the language and re-render won't change it back to default", async () => {
     const { fireLanguageChangeEvent, getActiveLanguage, reRender } = renderTestScenario();
 
-    // onDidChangeLanguage is called on first render
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
-    expect(handleLanguageChange.mock.calls[0][0]).toBe(DEFAULT_LANGUAGE);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
 
     const svCode = 'sv';
     fireLanguageChangeEvent(svCode);
-    expect(handleLanguageChange.mock.calls.length).toBe(2);
-    expect(handleLanguageChange.mock.calls[1][0]).toBe(svCode);
+    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls[0][0]).toBe(svCode);
     expect(getActiveLanguage()).toBe(svCode);
 
     await reRender();
 
     expect(getActiveLanguage()).toBe(svCode);
     fireLanguageChangeEvent(DEFAULT_LANGUAGE);
-    expect(handleLanguageChange.mock.calls.length).toBe(3);
-    expect(handleLanguageChange.mock.calls[2][0]).toBe(DEFAULT_LANGUAGE);
+    expect(handleLanguageChange.mock.calls.length).toBe(2);
+    expect(handleLanguageChange.mock.calls[1][0]).toBe(DEFAULT_LANGUAGE);
     expect(getActiveLanguage()).toBe(DEFAULT_LANGUAGE);
   });
 
   it("Selecting same language again won't trigger a re-render or onDidChangeLanguage", async () => {
     const { fireLanguageChangeEvent, createReRenderChecker } = renderTestScenario();
 
-    // onDidChangeLanguage is called on first render
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
 
     const willNotRender = await createReRenderChecker(() => fireLanguageChangeEvent(DEFAULT_LANGUAGE));
     expect(willNotRender).toBeFalsy();
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
 
     const svCode = 'sv';
     const willRender = await createReRenderChecker(() => fireLanguageChangeEvent(svCode));
     expect(willRender).toBeTruthy();
-    expect(handleLanguageChange.mock.calls.length).toBe(2);
+    expect(handleLanguageChange.mock.calls.length).toBe(1);
 
     const willNotRenderEither = await createReRenderChecker(() => fireLanguageChangeEvent(svCode));
     expect(willNotRenderEither).toBeFalsy();
-    expect(handleLanguageChange.mock.calls.length).toBe(2);
+    expect(handleLanguageChange.mock.calls.length).toBe(1);
   });
 
   it('useAvailableLanguages lists all languages', async () => {
@@ -247,7 +240,7 @@ describe('<LanguageContext />', () => {
     expect(list.innerHTML).toBe(listLanguageCodes(defaultLanguages));
   });
 
-  it('useSetAvailableLanguages changes languages and new language can be set', async () => {
+  it('useSetAvailableLanguages changes languages and new language can be selected.', async () => {
     const { getByTestId, fireLanguageChangeEvent, getActiveLanguage, clickButton } = renderTestScenario({
       listDefault: false,
     });
@@ -258,8 +251,8 @@ describe('<LanguageContext />', () => {
     });
     const newSelection = newLanguages[0].value;
     fireLanguageChangeEvent(newSelection);
-    expect(handleLanguageChange.mock.calls.length).toBe(2);
-    expect(handleLanguageChange.mock.calls[1][0]).toBe(newSelection);
+    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls[0][0]).toBe(newSelection);
     expect(getActiveLanguage()).toBe(newSelection);
   });
 });

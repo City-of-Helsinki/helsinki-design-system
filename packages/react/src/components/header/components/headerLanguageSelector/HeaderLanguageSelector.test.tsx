@@ -142,18 +142,17 @@ describe('<Header.LanguageSelector /> spec', () => {
   it('Clicking buttons changes the selected language', async () => {
     render(LanguageSelectorWithActionBar({ onDidChangeLanguage: handleLanguageChange, renderActiveLanguage: true }));
 
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
-    expect(handleLanguageChange.mock.calls[0][0]).toBe(DEFAULT_LANGUAGE);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
     expect(getActiveLanguage()).toBe(DEFAULT_LANGUAGE);
 
     fireLanguageChangeEvent('sv');
-    expect(handleLanguageChange.mock.calls.length).toBe(2);
-    expect(handleLanguageChange.mock.calls[1][0]).toBe('sv');
+    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls[0][0]).toBe('sv');
     expect(getActiveLanguage()).toBe('sv');
 
     fireLanguageChangeEvent(DEFAULT_LANGUAGE);
-    expect(handleLanguageChange.mock.calls.length).toBe(3);
-    expect(handleLanguageChange.mock.calls[2][0]).toBe(DEFAULT_LANGUAGE);
+    expect(handleLanguageChange.mock.calls.length).toBe(2);
+    expect(handleLanguageChange.mock.calls[1][0]).toBe(DEFAULT_LANGUAGE);
     expect(getActiveLanguage()).toBe(DEFAULT_LANGUAGE);
   });
 });

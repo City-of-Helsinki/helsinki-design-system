@@ -72,8 +72,7 @@ describe('<HeaderActionBar /> spec', () => {
       return logoElement.getAttribute('src');
     };
 
-    expect(handleLanguageChange.mock.calls.length).toBe(1);
-    expect(handleLanguageChange.mock.calls[0][0]).toBe(DEFAULT_LANGUAGE);
+    expect(handleLanguageChange.mock.calls.length).toBe(0);
 
     const text = getLanguageLabelByValue(DEFAULT_LANGUAGE);
     const svText = getLanguageLabelByValue('sv');
@@ -82,13 +81,13 @@ describe('<HeaderActionBar /> spec', () => {
     expect(getLogoSrc()).toBe(logoFi);
 
     fireEvent.click(svButtonSpan);
-    expect(handleLanguageChange.mock.calls.length).toBe(2);
-    expect(handleLanguageChange.mock.calls[1][0]).toBe('sv');
+    expect(handleLanguageChange.mock.calls.length).toBe(1);
+    expect(handleLanguageChange.mock.calls[0][0]).toBe('sv');
     expect(getLogoSrc()).toBe(logoSv);
 
     fireEvent.click(defaultLanguageButton);
-    expect(handleLanguageChange.mock.calls.length).toBe(3);
-    expect(handleLanguageChange.mock.calls[2][0]).toBe(DEFAULT_LANGUAGE);
+    expect(handleLanguageChange.mock.calls.length).toBe(2);
+    expect(handleLanguageChange.mock.calls[1][0]).toBe(DEFAULT_LANGUAGE);
     expect(getLogoSrc()).toBe(logoFi);
   });
 });
