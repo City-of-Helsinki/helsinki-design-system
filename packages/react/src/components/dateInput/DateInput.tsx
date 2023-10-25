@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { TextInput, TextInputProps } from '../textInput';
-import { DatePicker } from './components/datePicker';
+import { DatePicker, LegendItem } from './components/datePicker';
 import styles from './DateInput.module.scss';
 
 export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
@@ -64,12 +64,12 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
   setDateClassNames?: (date: Date) => string | undefined;
   /**
    * Legend items for the date picker.
+   * @example
+   * ```ts
+   * legend=[{ elementId: 'legend-item-1', label: 'Text label', color: #c3c3c3 }, { elementId: 'legend-item-2', label: 'Text label', color: #d6d66d }}]
+   * ```
    * */
-  legend?: {
-    color: string;
-    id: string;
-    label: string;
-  }[];
+  legend?: LegendItem[];
   /**
    * Function to set aria-describedby for dates.
    */

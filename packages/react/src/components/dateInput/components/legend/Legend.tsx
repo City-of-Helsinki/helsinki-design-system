@@ -13,7 +13,7 @@ export const Legend = ({ legend }: LegendProps) => {
   return (
     <div className={styles['hds-datepicker__legend']}>
       {legend.map((item) => (
-        <div key={item.id} id={item.id} className={styles['hds-datepicker__legend-item']}>
+        <div key={item.elementId} id={item.elementId} className={styles['hds-datepicker__legend-item']}>
           <span className={styles['hds-datepicker__legend-item--color']} style={{ backgroundColor: item.color }} />
           {item.label}
         </div>

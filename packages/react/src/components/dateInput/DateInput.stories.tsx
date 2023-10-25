@@ -259,9 +259,9 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         setDateClassNames={setDateClassNames}
         setDateAriaDescribedBy={setDateAriaDescribedBy}
         legend={[
-          { id: hasSomeSpaceLeft, label: 'Some free timeslots available', color: someSpaceColor },
+          { elementId: hasSomeSpaceLeft, label: 'Some free timeslots available', color: someSpaceColor },
           {
-            id: hasLittleSpaceLeft,
+            elementId: hasLittleSpaceLeft,
             label: 'Only a few free timeslots available',
             color: littleSpaceColor,
           },

@@ -16,8 +16,8 @@ export type MonthChangeEventHandler = (month: Date, e: React.MouseEvent) => void
  * @param {{ id: string, color: string, label: string }}
  */
 export type LegendItem = {
-  id: string;
   color: string;
+  elementId: string;
   label: string;
 };
 
