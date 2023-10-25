@@ -14,9 +14,9 @@ export default {
   },
 };
 
-export const Default = (args) => <Tag {...args} />;
+export const DefaultTag = (args) => <Tag {...args} />;
 
-export const ClickableTag = (args) => (
+export const DefaultTagClickable = (args) => (
   <>
     <Tag {...args} label="Link" role="link" id="link" onClick={() => action(`Click: ${args.children}`)()}>
       {args.children}
@@ -34,7 +34,7 @@ export const ClickableTag = (args) => (
   </>
 );
 
-export const DeletableTag = (args) => {
+export const DefaultTagDeletable = (args) => {
   return (
     <Tag
       {...args}
@@ -47,13 +47,13 @@ export const DeletableTag = (args) => {
   );
 };
 
-export const CustomTheme = (args) => (
+export const DefaultTagWithCustomTheme = (args) => (
   <Tag {...args} onClick={() => action(`Click: ${args.children}`)()}>
     {args.children}
   </Tag>
 );
 
-CustomTheme.args = {
+DefaultTagWithCustomTheme.args = {
   theme: {
     '--tag-background': 'var(--color-engel)',
     '--tag-color': 'var(--color-black-90)',
@@ -61,11 +61,19 @@ CustomTheme.args = {
   },
 };
 
-export const LargeDeletableTag = (args) => {
+export const LargeTag = (args) => {
+  return (
+    <Tag {...args} size="l">
+      {args.children}
+    </Tag>
+  );
+};
+
+export const LargeTagDeletable = (args) => {
   return (
     <Tag
       {...args}
-      size="large"
+      size="l"
       deleteButtonAriaLabel="Delete item"
       onDelete={() => action(`Delete item: ${args.children}`)()}
     >
@@ -73,3 +81,38 @@ export const LargeDeletableTag = (args) => {
     </Tag>
   );
 };
+
+export const DefaultTagWithLongText = (args) => (
+  <Tag {...args} style={{ maxWidth: '300px' }}>
+    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
+  </Tag>
+);
+
+export const DefaultTagWithLongTextAndDeletable = (args) => (
+  <Tag
+    {...args}
+    style={{ maxWidth: '300px' }}
+    deleteButtonAriaLabel="Delete item"
+    onDelete={() => action(`Delete item: ${args.children}`)()}
+  >
+    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
+  </Tag>
+);
+
+export const LargeTagWithLongText = (args) => (
+  <Tag {...args} size="l" style={{ maxWidth: '300px' }}>
+    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
+  </Tag>
+);
+
+export const LargeTagWithLongTextAndDeletable = (args) => (
+  <Tag
+    {...args}
+    size="l"
+    style={{ maxWidth: '300px' }}
+    deleteButtonAriaLabel="Delete item"
+    onDelete={() => action(`Delete item: ${args.children}`)()}
+  >
+    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
+  </Tag>
+);
