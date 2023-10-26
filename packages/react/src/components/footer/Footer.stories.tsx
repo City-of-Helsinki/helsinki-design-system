@@ -255,6 +255,8 @@ export const Example = (args) => (
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
       logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logoHref="https://hel.fi"
+      onLogoClick={(event: React.MouseEvent) => event.preventDefault()}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"

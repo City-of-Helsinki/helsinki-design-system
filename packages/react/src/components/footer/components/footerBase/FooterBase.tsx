@@ -1,4 +1,4 @@
-import React, { cloneElement, Fragment, isValidElement } from 'react';
+import React, { cloneElement, Fragment, isValidElement, MouseEventHandler } from 'react';
 
 // import base styles
 import '../../../../styles/base.css';
@@ -10,6 +10,7 @@ import getKeyboardFocusableElements from '../../../../utils/getKeyboardFocusable
 import { FooterLink } from '../footerLink/FooterLink';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
+import { useCallbackIfDefined } from '../../../../utils/useCallback';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
@@ -40,6 +41,10 @@ export type FooterBaseProps = React.PropsWithChildren<{
    * Callback fired when the "Back to top" button is clicked.
    */
   onBackToTopClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * Callback fired when the logo is clicked.
+   */
+  onLogoClick?: MouseEventHandler;
   /**
    * ARIA role to describe the contents.
    */
@@ -73,16 +78,18 @@ export const FooterBase = ({
   logo,
   logoHref,
   onBackToTopClick,
+  onLogoClick,
   role,
   showBackToTopButton = true,
   year = new Date().getFullYear(),
 }: FooterBaseProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
+  const handleLogoClick = useCallbackIfDefined(onLogoClick);
   return (
     <div className={styles.base} aria-label={ariaLabel} role={role}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
-        <FooterLink tabIndex={0} icon={logo} href={logoHref} />
+        <FooterLink tabIndex={0} icon={logo} href={logoHref} onClick={handleLogoClick} />
       </div>
       {(copyrightHolder || copyrightText) && (
         <div className={styles.copyright}>
