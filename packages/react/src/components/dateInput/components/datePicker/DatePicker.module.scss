@@ -101,11 +101,6 @@
   &--selected {
     --background-color: var(--selected-date-background);
     --color: var(--selected-date-color);
-
-    .hds-datepicker__day__wrapper {
-      background-color: var(--selected-date-background);
-      color: var(--selected-date-color);
-    }
   }
 
   &--outside {
