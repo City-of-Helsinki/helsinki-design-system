@@ -57,7 +57,7 @@ export const Day = ({ day }: DayProps) => {
           !isDisabled && setDateTheme && setDateTheme(day),
         )
       : undefined;
-  console.log(customButtonThemeClass);
+
   // Select the HTML element based on interactivity
   const DayElement = isInteractive ? 'button' : 'span';
 
