@@ -1,3 +1,23 @@
+@use "../../styles/layout.scss";
+
 .container {
   composes: hds-container from 'hds-core/lib/components/container/container.css';
+}
+
+.alignWithHeader {
+  --header-margin: var(--spacing-m);
+  --header-max-width: 1440px;
+
+  margin: 0 auto;
+  max-width: var(--header-max-width);
+  padding: 0 var(--header-margin);
+  width: 100%;
+
+  @include layout.below-medium {
+    --header-margin: var(--spacing-s);
+  }
+
+  @include layout.below-small {
+    --header-margin: var(--spacing-xs);
+  }
 }

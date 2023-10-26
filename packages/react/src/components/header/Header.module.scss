@@ -1,6 +1,8 @@
 @use "../../styles/common.scss";
 @use "../../styles/layout.scss";
 
+/* Note Container uses same spacing and max-width. Apply changes also to Container.module.scss */
+
 .header {
   --header-background-color: var(--color-white);
   --header-color: var(--color-black-90);
@@ -41,7 +43,7 @@
   --logo-height: 56px;
   --icon-size: 24px;
   --nav-drop-down-icon-color: var(--color-black);
-  --nav-background-color:var(--color-white);
+  --nav-background-color: var(--color-white);
 
   @include layout.below-large {
     --action-bar-container-height: 74px;
@@ -62,7 +64,7 @@
 
   &.theme-dark {
     --color-focus-outline: var(--color-white);
-    --header-color: var(--color-white);    
+    --header-color: var(--color-white);
     --header-focus-outline-color: var(--color-white);
     --header-background-color: var(--color-black-80);
     --nav-border-color: var(--color-white);
@@ -85,7 +87,6 @@
   color: var(--header-color);
   position: relative;
   width: 100%;
-
 }
 
 /* BACKGROUND WRAPPER */
