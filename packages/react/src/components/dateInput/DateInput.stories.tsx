@@ -9,7 +9,7 @@ import { addMonths } from 'date-fns';
 import { DateInput, DateInputProps } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
-import { LegendItem } from './components/datePicker';
+import { DateCustomTheme, LegendItem } from './components/datePicker';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
@@ -240,9 +240,18 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
     return undefined;
   };
 
-  const setDateClassNames = (date: Date) => {
-    const dateLegendId = getDateLegendId(date);
-    return dateLegendId ? `${dateLegendId}--day` : undefined;
+  const setDateTheme: (date: Date) => DateCustomTheme | undefined = (date: Date) => {
+    const legendId = getDateLegendId(date);
+    if (legendId === someSpaceLeftDate.elementId)
+      return {
+        '--date-background': someSpaceLeftDate.color,
+      };
+
+    if (legendId === littleSpaceLeftDate.elementId)
+      return {
+        '--date-background': littleSpaceLeftDate.color,
+      };
+    return undefined;
   };
 
   const setDateAriaDescribedBy = (date: Date) => {
@@ -268,7 +277,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         value={value}
         onChange={setValue}
         helperText={helperText}
-        setDateClassNames={setDateClassNames}
+        setDateTheme={setDateTheme}
         setDateAriaDescribedBy={setDateAriaDescribedBy}
         legend={legend}
       />

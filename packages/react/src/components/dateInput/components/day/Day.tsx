@@ -10,6 +10,8 @@ import startOfMonth from 'date-fns/startOfMonth';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
 import styles from '../datePicker/DatePicker.module.scss';
+import { useTheme } from '../../../../hooks/useTheme';
+import { DateCustomTheme } from '../datePicker/types';
 
 export type DayProps = {
   /**
@@ -32,7 +34,7 @@ export const Day = ({ day }: DayProps) => {
     locale,
     onDayClick,
     handleKeyboardNavigation,
-    setDateClassNames,
+    setDateTheme,
     setDateAriaDescribedBy,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
@@ -44,7 +46,18 @@ export const Day = ({ day }: DayProps) => {
   const isAvailable = currentMonthAvailableDays.includes(dayNumber);
   const isDisabled = isOutsideCurrentMonth || !isAvailable;
   const isInteractive = onDayClick && !isDisabled;
-
+  const customButtonThemeClass =
+    !isDisabled && setDateTheme
+      ? useTheme<DateCustomTheme>(styles['hds-datepicker__day'], !isDisabled && setDateTheme && setDateTheme(day))
+      : undefined;
+  const customWrapperThemeClass =
+    !isDisabled && setDateTheme
+      ? useTheme<DateCustomTheme>(
+          styles['hds-datepicker__day__wrapper'],
+          !isDisabled && setDateTheme && setDateTheme(day),
+        )
+      : undefined;
+  console.log(customButtonThemeClass);
   // Select the HTML element based on interactivity
   const DayElement = isInteractive ? 'button' : 'span';
 
@@ -81,18 +94,18 @@ export const Day = ({ day }: DayProps) => {
     tabIndex: isInteractive ? tabIndex : undefined,
     className: cn(
       styles['hds-datepicker__day'],
+      customButtonThemeClass,
       isToday(day) && styles['hds-datepicker__day--today'],
       isSameDay(day, selectedDate) && styles['hds-datepicker__day--selected'],
       isDisabled && styles['hds-datepicker__day--disabled'],
       isDisabled && styles['hds-datepicker__day--outside'],
-      !isDisabled && setDateClassNames && setDateClassNames(day),
     ),
     'data-date': format(day, 'yyyy-MM-dd'),
   };
 
   return (
     <DayElement {...dayElementProps}>
-      <span className={styles['hds-datepicker__day__wrapper']} aria-hidden>
+      <span className={cn(styles['hds-datepicker__day__wrapper'], customWrapperThemeClass)} aria-hidden>
         {format(day, 'd', { locale })}
       </span>
       <span className={styles['hds-datepicker__day__wrapper-vhidden']}>{format(day, 'LLLL d', { locale })}</span>

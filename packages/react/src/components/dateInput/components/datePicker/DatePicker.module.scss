@@ -81,6 +81,9 @@
 }
 
 .hds-datepicker__day {
+  --background-color: var(--date-background);
+  --color: var(--date-color);
+  
   align-items: center;
   appearance: none;
   background: transparent;
@@ -95,12 +98,14 @@
   vertical-align: middle;
   width: 100%;
 
-  --background-color: var(--date-background);
-  --color: var(--date-color);
-
   &--selected {
     --background-color: var(--selected-date-background);
     --color: var(--selected-date-color);
+
+    .hds-datepicker__day__wrapper {
+      background-color: var(--selected-date-background);
+      color: var(--selected-date-color);
+    }
   }
 
   &--outside {
@@ -129,7 +134,7 @@
 
   &__wrapper {
     align-items: center;
-    background: var(--background-color);
+    background-color: var(--background-color);
     color: var(--color);
     display: flex;
     font-size: 1rem;
