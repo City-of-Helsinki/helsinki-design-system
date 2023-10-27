@@ -175,7 +175,10 @@
   background-color: var(--nav-mobile-menu-bottom-background-color);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2-xl)
+  flex-grow: 1;
+  gap: var(--spacing-2-xl);
+  height: 100%;
+  justify-content: space-between;
 }
 
 .mobileMenuOpen {
@@ -183,7 +186,6 @@
   flex-direction: column;
   height: min-content;
   margin-top: 1px;
-  min-height: 100vh;
 }
 
 .mobileNavigationLink {
@@ -203,7 +205,7 @@
 .navigationWrapper {
   background-color: var(--nav-mobile-menu-bottom-background-color);
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--action-bar-container-height));
   width: 300%;
 
   &.left0 {
@@ -226,6 +228,7 @@
   display: flex;
   flex-direction: column;
   height: min-content;
+  min-height: calc(100vh - var(--action-bar-container-height));
 }
 
 .universalList {

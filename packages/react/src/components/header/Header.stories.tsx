@@ -326,6 +326,96 @@ export const WithFullFeatures = (args) => {
                 }}
                 label={I18n.seniorServices}
               />,
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={I18n.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={I18n.dentalCare}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={I18n.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={I18n.dentalCare}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={I18n.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={I18n.dentalCare}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={I18n.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={I18n.dentalCare}
+                  />,
+                ]}
+              />,
+              <Header.Link
+                onClick={(event) => {
+                  event.preventDefault();
+                  setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
+                }}
+                label={I18n.healtcare}
+                active={href.includes('#terveydenhoito')}
+                dropdownLinks={[
+                  <Header.Link
+                    active={href.includes('#hammashoito')}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito#hammashoito');
+                    }}
+                    label={I18n.dentalCare}
+                  />,
+                ]}
+              />,
             ]}
           />
           <Header.Link

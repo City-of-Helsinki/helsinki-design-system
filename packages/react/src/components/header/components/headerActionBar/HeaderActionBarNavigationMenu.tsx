@@ -303,30 +303,15 @@ export const HeaderActionBarNavigationMenu = ({
 
     // If the animation was related to moving menus, set the focus to the currently active page link
     if (e.propertyName === 'transform' && targetElement.firstChild.nodeName === 'SECTION') {
-      console.log(e);
-      // e.target.childNodes[]
-      // child.offsetLeft kertoo lapsen tarkan sijainnin X akselilla
-      // child.clientHeight sen lapsen pituuden
-      // Set the height of the menu container
-
-      // ELI TÄSSÄ TEE NÄIN:
-      // päättele että minkä tason section näkyvissä - SAADAAN TOSIN POSITIONISTA
-      // sen voi päätellä myös näin:
-      // navContainerRef.current.getBoundingClientRect().left / window.innerWidth
-
-      // mutta anyway! kun sulla on se että mikä section on päällä, niin ota sen clientHeight,
-      // document.select parent container, ja aseta sille style height se clientHeight
-      // const containerElement = document.getElementsByClassName(targetElement.className);
-      const renderedChildIndex = Math.abs(navContainerRef.current.getBoundingClientRect().left / window.innerWidth);
-      const currentTargetHeight = targetElement.children[renderedChildIndex].clientHeight;
-      console.log(currentTargetHeight);
-      navContainerRef.current.style.height = `${currentTargetHeight}px`;
-      navContainerRef.current.style.overflow = 'hidden';
-
       // Set the focus to the currently active page link
       const linkElement = await getIsElementLoaded(`#${currentActiveLinkId}`);
-
       linkElement.focus();
+
+      // Set the height of the menu container
+      const renderedChildIndex = Math.abs(navContainerRef.current.getBoundingClientRect().left / window.innerWidth);
+      const currentTargetHeight = targetElement.children[renderedChildIndex].clientHeight;
+      navContainerRef.current.style.height = `${currentTargetHeight}px`;
+      navContainerRef.current.style.overflow = 'hidden';
     }
   };
 
