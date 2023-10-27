@@ -35,8 +35,8 @@ const Table = (props) => {
   const [tableName, caption] = captionString ? resolveCaptionStrings(captionString) : [undefined, undefined];
 
   return (
-    <div class="hds-table-container" tabindex="0" style={{ marginBottom: 'var(--spacing-layout-xs)' }}>
-      <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
+    <div className="hds-table-container" tabIndex="0" style={{ marginBottom: 'var(--spacing-layout-xs)' }}>
+      <table className="hds-table hds-table--dark" aria-label="Service users (dark variant)">
         {tableName && caption && (
           <caption className="hds-table__caption">
             <b>{tableName}</b>: {caption}
@@ -45,8 +45,8 @@ const Table = (props) => {
         {tableChildrenWithoutCaption}
       </table>
     </div>
-  )
-}
+  );
+};
 
 const TableHead = (props) => {
   const rowWithClassName = {
@@ -56,9 +56,9 @@ const TableHead = (props) => {
   return <thead>{rowWithClassName}</thead>;
 };
 
-const TableBody = (props) => <tbody className="hds-table__content">{props.children}</tbody>
+const TableBody = (props) => <tbody className="hds-table__content">{props.children}</tbody>;
 
-const Th = (props) => <th scope="col">{props.children}</th>
+const Th = (props) => <th scope="col">{props.children}</th>;
 
 Table.Head = TableHead;
 Table.Body = TableBody;
