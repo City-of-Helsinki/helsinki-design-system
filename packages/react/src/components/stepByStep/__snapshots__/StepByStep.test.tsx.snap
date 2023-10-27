@@ -19,7 +19,7 @@ exports[`<StepByStep /> spec renders the component 1`] = `
         <p
           class="stepItemTitle"
         >
-          Vaiheen otsikko
+          Vaiheen 1 otsikko
         </p>
         <div>
           <p>
@@ -54,7 +54,7 @@ exports[`<StepByStep /> spec renders the component 1`] = `
         <p
           class="stepItemTitle"
         >
-          Vaiheen otsikko
+          Vaiheen 2 otsikko
         </p>
         <div>
           <p>
