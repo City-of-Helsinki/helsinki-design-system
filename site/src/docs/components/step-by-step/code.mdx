@@ -22,28 +22,30 @@ import { StepByStep } from 'hds-react';
 () => {
   const steps = [
     {
-      title: 'Step title',
+      title: 'Step 1 title',
       description:
         "Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.",
       buttons: [
         {
           children: 'Example button',
           href: 'https://hel.fi',
+          key: 'button',
         },
       ],
     },
     {
-      title: 'Step title',
+      title: 'Step 2 title',
       description: 'Step description.',
       links: [
         {
           children: 'Example link',
           href: 'https://hel.fi',
+          key: 'link',
         },
       ],
     },
     {
-      title: 'Step title',
+      title: 'Step 3 title',
       description: 'Step description.',
     },
   ];
@@ -69,10 +71,11 @@ import { StepByStep } from 'hds-react';
   </div>
   <ul class="hds-step-by-step__steps-container">
     <li class="hds-step-by-step__step-item">
-      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <p class="hds-step-by-step__step-item-title">Step 1 title</p>
       <div>
         <p>
-          Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.
+          Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole
+          process and it's steps easily.
         </p>
         <p>
           <button type="button" class="hds-button hds-button--primary">
@@ -82,14 +85,14 @@ import { StepByStep } from 'hds-react';
       </div>
     </li>
     <li class="hds-step-by-step__step-item">
-      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <p class="hds-step-by-step__step-item-title">Step 2 title</p>
       <div>
         <p>Step description.</p>
         <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
       </div>
     </li>
     <li class="hds-step-by-step__step-item">
-      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <p class="hds-step-by-step__step-item-title">Step 3 title</p>
       <div>
         <p>Step description.</p>
       </div>
@@ -110,28 +113,30 @@ import { StepByStep } from 'hds-react';
 () => {
   const steps = [
     {
-      title: 'Step title',
+      title: 'Step 1 title',
       description:
         "Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and it's steps easily.",
       buttons: [
         {
           children: 'Example button',
           href: 'https://hel.fi',
+          key: 'button',
         },
       ],
     },
     {
-      title: 'Step title',
+      title: 'Step 2 title',
       description: 'Step description.',
       links: [
         {
           children: 'Example link',
           href: 'https://hel.fi',
+          key: 'link',
         },
       ],
     },
     {
-      title: 'Step title',
+      title: 'Step 3 title',
       description: 'Step description.',
     },
   ];
@@ -155,7 +160,7 @@ import { StepByStep } from 'hds-react';
   </div>
   <ol class="hds-step-by-step__steps-container">
     <li class="hds-step-by-step__step-item">
-      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <p class="hds-step-by-step__step-item-title">Step 1 title</p>
       <div>
         <p>
           Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole
@@ -169,14 +174,14 @@ import { StepByStep } from 'hds-react';
       </div>
     </li>
     <li class="hds-step-by-step__step-item">
-      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <p class="hds-step-by-step__step-item-title">Step 2 title</p>
       <div>
         <p>Step description.</p>
         <p><a href="#" class="hds-link hds-link--medium">Example link</a></p>
       </div>
     </li>
     <li class="hds-step-by-step__step-item">
-      <p class="hds-step-by-step__step-item-title">Step title</p>
+      <p class="hds-step-by-step__step-item-title">Step 3 title</p>
       <div>
         <p>Step description.</p>
       </div>
@@ -209,10 +214,11 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `title`                         | Title text for the step by step component.                | `string`          | -             |
 | [Table 1:StepByStep properties] |
 
-| Property                      | Description                                 | Values                     | Default value |
-| ----------------------------- | ------------------------------------------- | -------------------------- | ------------- | --- |
-| `buttons`                     | List of HDS button objects for the step. | `Array<ButtonProps>` | -             |
-| `description`                 | Step description.                           | `JSX.Element`, `string`    | -             |
-| `links`                       | List of HDS link objects for the step.   | `Array<LinkProps>` | -             |
-| `title`                       | Step title.                                 | `string`                   | -             |
+| Property                      | Description                                                                   | Values                  | Default value |
+| ----------------------------- | ----------------------------------------------------------------------------- | ----------------------- | ------------- |
+| `buttons`                     | List of HDS button objects for the step.                                      | `Array<ButtonProps>`    | -             |
+| `description`                 | Step description.                                                             | `JSX.Element`, `string` | -             |
+| `key`                         | Optional key for the React component. Title is used unless a key is provided. | `string`                | -             |
+| `links`                       | List of HDS link objects for the step.                                        | `Array<LinkProps>`      | -             |
+| `title`                       | Step title.                                                                   | `string`                | -             |
 | [Table 1:StepType properties] |
