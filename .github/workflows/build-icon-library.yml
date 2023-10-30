@@ -51,7 +51,7 @@ jobs:
         run: cp ./release/icon-kit-template-CHANGELOG.txt ./icon-library/CHANGELOG.txt
 
       - name: Create release zip file
-        uses: TheDoctor0/zip-release@0.7.1
+        uses: TheDoctor0/zip-release@0.7.5
         with:
           filename: 'release/hds-icon-kit.zip'
           path: './icon-library'
