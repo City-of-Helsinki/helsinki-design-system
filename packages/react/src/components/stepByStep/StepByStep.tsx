@@ -18,6 +18,11 @@ type StepType = {
    */
   description?: JSX.Element | string;
   /**
+   * Optional key for the React component. Title is used unless a key is provided.
+   */
+  // eslint-disable-next-line react/no-unused-prop-types
+  key?: string;
+  /**
    * List of native link objects for the step.
    */
   links?: Array<LinkProps>;
@@ -65,11 +70,24 @@ type StepByStepPropsType = {
   title?: string;
 };
 
-const getButtonOrLinkRenderer = (Tag) => ({ children, ...props }) => (
-  <p>
-    <Tag {...props}>{children}</Tag>
-  </p>
-);
+const resolveElementKey = (props: ButtonProps | LinkProps) => {
+  if (props.key) {
+    return props.key;
+  }
+  if (typeof props.children === 'string') {
+    return props.children as string;
+  }
+  return undefined;
+};
+
+const getButtonOrLinkRenderer = (Tag: typeof Button | typeof Link) => (componentProps: ButtonProps & LinkProps) => {
+  const { children, ...props } = componentProps;
+  return (
+    <p key={resolveElementKey(componentProps)}>
+      <Tag {...props}>{children}</Tag>
+    </p>
+  );
+};
 
 const renderLink = getButtonOrLinkRenderer(Link);
 const renderButton = getButtonOrLinkRenderer(Button);
@@ -79,7 +97,7 @@ const StepComponent = ({ title, description, buttons = [], links = [] }: StepTyp
     <li className={styles.stepItem}>
       <p className={styles.stepItemTitle}>{title}</p>
       <div>
-        {description && <p>{description}</p>}
+        {description && <p key="description">{description}</p>}
         {buttons.map(renderButton)}
         {links.map(renderLink)}
       </div>
@@ -109,7 +127,7 @@ export const StepByStep: FC<StepByStepPropsType> = ({
       {React.createElement(
         numberedList ? 'ol' : 'ul',
         { className: styles.stepsContainer },
-        steps.map((step) => <StepComponent {...step} />),
+        steps.map((step) => <StepComponent key={step.key || step.title} {...step} />),
       )}
     </div>
   );

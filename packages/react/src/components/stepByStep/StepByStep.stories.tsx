@@ -8,36 +8,38 @@ export default {
   args: {
     steps: [
       {
-        title: 'Step title',
+        title: 'Step 1 title',
         description:
           'Here you can describe the step in detail. Keep the text compact so the user gets the big picture of the whole process and its steps easily.',
         buttons: [
           {
             children: 'Example button',
             href: 'https://hel.fi',
+            key: 'button',
           },
         ],
       },
       {
-        title: 'Step title',
+        title: 'Step 2 title',
         description: 'You can put text here.',
         links: [
           {
             children: 'Example link',
             href: 'https://hel.fi',
+            key: 'link',
           },
         ],
       },
       {
-        title: 'Step title',
+        title: 'Step 3 title',
         description: 'You can put text here.',
       },
       {
-        title: 'Step title',
+        title: 'Step 4 title',
         description: 'You can put text here.',
       },
       {
-        title: 'Step title',
+        title: 'Step 5 title',
         description: 'You can put text here.',
       },
     ],

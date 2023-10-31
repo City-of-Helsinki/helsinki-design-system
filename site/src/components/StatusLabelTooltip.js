@@ -8,15 +8,16 @@ const StatusLabelTooltip = () => {
     Beta: 'The component is being tested',
     Stable: 'The component has been tested and defects have been fixed',
     Accessible: 'The component has been reviewed for accessibility',
-    Deprecated: 'The component will be removed'
+    Deprecated: 'The component will be removed',
   };
 
   return (
     <Tooltip placement="right-end" className="status-label-tooltip" boxShadow>
-      <ul class="status-label-definitions">
+      <ul className="status-label-definitions">
         {Object.keys(content).map((key) => (
           <li key={key}>
-            <span class="status-name">{key}</span><span>{content[key]}</span>
+            <span className="status-name">{key}</span>
+            <span>{content[key]}</span>
           </li>
         ))}
       </ul>

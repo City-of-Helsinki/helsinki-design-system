@@ -6,7 +6,7 @@ import { StepByStep } from './StepByStep';
 
 const steps = [
   {
-    title: 'Vaiheen otsikko',
+    title: 'Vaiheen 1 otsikko',
     description:
       'Tähän voit lisätä tekstiä, joka kertoo käyttäjälle mitä kyseisessä vaiheessa tapahtuu. Pidä teksti tiiviinä, jotta käyttäjä saa kokonaiskuvan prosessista ja sen vaiheista helposti silmäilemällä.',
     buttons: [
@@ -23,7 +23,7 @@ const steps = [
     ],
   },
   {
-    title: 'Vaiheen otsikko',
+    title: 'Vaiheen 2 otsikko',
     description: 'Tähän voit lisätä tekstiä.',
   },
 ];
