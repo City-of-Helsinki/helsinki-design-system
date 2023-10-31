@@ -1,0 +1,663 @@
+---
+slug: '/components/login/usage'
+title: 'Login - Usage'
+---
+
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+export const ApiPageAnchorLink = ({ anchor, children }) => {
+  return (
+    <AnchorLink path="/components/login/api" anchor={anchor}>
+      {children}
+    </AnchorLink>
+  );
+};
+
+## Usage
+
+### Table of contents
+
+- <AnchorLink>Components</AnchorLink>
+
+  - <AnchorLink>Important</AnchorLink>
+  - <AnchorLink>LoginButton</AnchorLink>
+  - <AnchorLink>LoginCallbackHandler</AnchorLink>
+  - <AnchorLink>LoginProvider</AnchorLink>
+  - <AnchorLink>SessionEndedHandler</AnchorLink>
+  - <AnchorLink>WithAuthentication</AnchorLink>
+  - <AnchorLink>WithAuthenticatedUser</AnchorLink>
+  - <AnchorLink>WithoutAuthenticatedUser</AnchorLink>
+
+- <AnchorLink>Oidc client hooks</AnchorLink>
+
+  - <AnchorLink>useAuthenticatedUser</AnchorLink>
+  - <AnchorLink>useCachedAmr</AnchorLink>
+  - <AnchorLink>useOidcClient</AnchorLink>
+  - <AnchorLink>useOidcClientTracking</AnchorLink>
+
+- <AnchorLink>Api tokens client hooks</AnchorLink>{' '}
+
+  - <AnchorLink>useApiTokens</AnchorLink>
+  - <AnchorLink>useApiTokensClient</AnchorLink>
+  - <AnchorLink>useApiTokensClientTracking</AnchorLink>
+
+- <AnchorLink>Session poller hooks</AnchorLink>{' '}
+
+  - <AnchorLink>useSessionPoller</AnchorLink>
+  - <AnchorLink>useSessionPollerTracking</AnchorLink>
+
+- <AnchorLink>Generic signal hooks</AnchorLink>{' '}
+
+  - <AnchorLink>useSignalListener</AnchorLink>
+  - <AnchorLink>useSignalTrackingWithCallback</AnchorLink>
+  - <AnchorLink>useSignalTrackingWithReturnValue</AnchorLink>
+
+- <AnchorLink>Modules</AnchorLink>
+
+  - <AnchorLink>Oidc Client</AnchorLink>
+  - <AnchorLink>Api tokens client</AnchorLink>
+  - <AnchorLink>Session poller</AnchorLink>
+
+- <AnchorLink>Silent renewal</AnchorLink>
+
+- <AnchorLink>Signals</AnchorLink>
+
+  - <AnchorLink>Listening to signals</AnchorLink>
+  - <AnchorLink>Getting signal payloads</AnchorLink>
+
+- <AnchorLink>Using without React</AnchorLink>
+- <AnchorLink>Packages</AnchorLink>
+
+### Components
+
+HDS login components cover most use cases and also handle errors when logging in or getting tokens.
+
+Detailed information about all properties of each component is listed on the <ApiPageAnchorLink anchor="components">API page</ApiPageAnchorLink>.
+
+#### Important
+
+All components and hooks require a <AnchorLink>LoginProvider</AnchorLink> to provide context for them.
+
+#### LoginButton
+
+This component handles the redirection to the OIDC server and also errors if the server rejects the request for <ExternalLink href="https://tunnistamo.dev.hel.ninja/.well-known/openid-configuration">OpenID configuration</ExternalLink>.
+
+Button text is passed and rendered as a child.
+
+<PlaygroundPreview>
+
+```jsx
+<LoginButton errorText="Login failed. Try again!">Log in</LoginButton>
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="loginbutton">API page</ApiPageAnchorLink>.
+
+#### LoginCallbackHandler
+
+This component handles the response when the OIDC server redirects the browser back to the given callback route. When the response is parsed, the browser is usually redirected to another path.
+
+<PlaygroundPreview>
+
+```jsx
+const onSuccess = (user: User) => {
+  // Handle successful login
+  // Usually redirect to a page
+};
+const onError = (error: OidcClientError) => {
+  //Handle error
+};
+return (
+  <LoginProvider {...providerProperties}>
+    <LoginCallbackHandler onSuccess={onSuccess} onError={onError}>
+      <div>Logging in...</div>
+    </LoginCallbackHandler>
+  </LoginProvider>
+);
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="logincallbackhandler">API page</ApiPageAnchorLink>.
+
+#### LoginProvider
+
+This component creates a React context and initialises all modules. All components and hooks are required to render inside the LoginProvider or React Context will throw an error.
+Position the context in the component tree like any other React context. The context does not change and cause re-renders often, so it can be at the top level.
+
+<PlaygroundPreview>
+
+```jsx
+const providerProperties: LoginProviderProps = {
+  userManagerSettings: {
+    authority: 'https://tunnistamo.dev.hel.ninja/',
+    client_id: 'exampleapp-ui-dev',
+    scope: 'openid profile email',
+    redirect_uri: 'https://service.fi/callback',
+  },
+  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
+  sessionPollerSettings: { pollIntervalInMs: 300000 },
+};
+
+const MyApp = () => {
+  const { isAuthenticated, getUser, logout } = useOidcClient();
+  const { getApiTokens } = useApiTokens();
+  const { addListener } = useSignalListener();
+  if (isAuthenticated()) {
+    return (
+      <>
+        <p>Hello, {user.name}!</p>
+        <Button onClick={() => logout()}>Log out</Button>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <p>You are not logged in.</p>
+        <LoginButton errorText="Login failed. Try again!">Log in</LoginButton>
+      </>
+    );
+  }
+};
+
+<LoginProvider {...providerProperties}>
+  <MyApp />
+</LoginProvider>;
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="loginprovider">API page</ApiPageAnchorLink>.
+
+#### SessionEndedHandler
+
+This component listens to the session-ended signal. It is emitted from the <AnchorLink>Session poller</AnchorLink>, if it receives a response indicating the user's session has ended. Then the component shows an HDS Dialog and forces the user to log out. The Dialog can be seen in the <ExternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</ExternalLink>.
+This component can be placed anywhere inside the <AnchorLink>LoginProvider</AnchorLink>.
+
+<PlaygroundPreview>
+
+```jsx
+<SessionEndedHandler
+  content={{
+    title: 'Session has ended!',
+    text: 'Your session on the server has ended. You will be logged out in this window too.',
+    buttonText: 'Logout',
+    closeButtonLabelText: 'Logout',
+  }}
+/>
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="sessionendedhandler">API page</ApiPageAnchorLink>.
+
+#### WithAuthentication
+
+Component for rendering components conditionally, depending on whether the user is authenticated or not.
+
+<PlaygroundPreview>
+
+```jsx
+const HelloUser = ({ user }: { user: User }) => {
+  return <p>Hello, {user.name}!</p>;
+};
+
+const LoginComponent = () => {
+  return <LoginButton errorText="Login failed. Try again!">Log in</LoginButton>;
+};
+
+<WithAuthentication AuthorisedComponent={HelloUser} UnauthorisedComponent={LoginComponent} />;
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="withauthentication">API page</ApiPageAnchorLink>.
+
+#### WithAuthenticatedUser
+
+Renders its children only if the user is authenticated. Uses <AnchorLink>WithAuthentication,</AnchorLink> but allows multiple children.
+
+<PlaygroundPreview>
+
+```jsx
+<WithAuthenticatedUser>
+  <p>This is rendered, if the user is authenticated</p>
+</WithAuthenticatedUser>
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="withauthenticateduser">API page</ApiPageAnchorLink>.
+
+#### WithoutAuthenticatedUser
+
+Renders its children only if the user is not authenticated. Uses <AnchorLink>WithAuthentication,</AnchorLink> but allows multiple children.
+
+<PlaygroundPreview>
+
+```jsx
+<WithoutAuthenticatedUser>
+  <p>This is rendered, if the user is not authenticated</p>
+</WithoutAuthenticatedUser>
+```
+
+</PlaygroundPreview>
+
+All component properties are listed on the <ApiPageAnchorLink anchor="withoutauthenticateduser">API page</ApiPageAnchorLink>.
+
+### Oidc client hooks
+
+More detailed information about <AnchorLink>Oidc client</AnchorLink> hooks is listed on the <ApiPageAnchorLink anchor="oidc-client-hooks">API page</ApiPageAnchorLink>.
+
+#### useAuthenticatedUser
+
+Returns a user object if the object is valid, authenticated and passes the <ApiPageAnchorLink anchor="other-exported-utility-functions">isValidUser()</ApiPageAnchorLink> check.
+
+#### useCachedAmr
+
+Returns the user's amr value. It is cached because in some cases it must be decrypted from an `id_token`.
+
+#### useOidcClient
+
+Returns the <AnchorLink anchor="oidc-client">Oidc client module</AnchorLink>.
+
+#### useOidcClientTracking
+
+Returns an array of `[signal, reset function, oidcClient instance]`. The hook re-renders the component each time the client emits a signal.
+
+<PlaygroundPreview>
+
+```jsx
+import { useOidcClient, useOidcClientTracking, useAuthenticatedUser, useCachedAmr } from 'hds-react';
+
+const OidcClientHooks = () => {
+  const client = useOidcClient();
+  const [lastSignal, reset, oidcClient] = useOidcClientTracking();
+  const user = useAuthenticatedUser();
+  const amr = useCachedAmr();
+  if (user) {
+    return <p>Your amr is: {amr ? amr[0] : 'none'}</p>;
+  } else {
+    return (
+      <Button
+        onClick={() => {
+          client.login();
+        }}
+      >
+        Log in!
+      </Button>
+    );
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Api tokens client hooks
+
+More detailed information about <AnchorLink>Api tokens client</AnchorLink> hooks is listed on the <ApiPageAnchorLink anchor="api-tokens-client-hooks">API page</ApiPageAnchorLink>.
+
+#### useApiTokens
+
+Returns functions for checking tokens and the status of renewal.
+
+#### useApiTokensClient
+
+Returns the <AnchorLink>Api tokens client</AnchorLink> module.
+
+#### useApiTokensClientTracking
+
+Returns an array of `[signal, reset function, apiTokensClient instance]`. The hook re-renders the component each time the client emits a signal.
+
+<PlaygroundPreview>
+
+```jsx
+import { useApiTokensClient, useApiTokens, useApiTokensClientTracking } from 'hds-react';
+
+const ApiTokensClientHooks = () => {
+  const client = useApiTokensClient();
+  const { getStoredApiTokens, isRenewing } = useApiTokens();
+  const [lastSignal, reset, apiTokensClient] = useApiTokensClientTracking();
+  if (isRenewing()) {
+    return <p>Your API tokens are being renewed!</p>;
+  }
+  if (getStoredApiTokens()) {
+    return <p>You have API tokens!</p>;
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Session poller hooks
+
+More detailed information about <AnchorLink>Session poller</AnchorLink> hooks is listed on the <ApiPageAnchorLink anchor="session-poller">API page</ApiPageAnchorLink>.
+
+#### useSessionPoller
+
+Returns the <AnchorLink>Session poller</AnchorLink> module.
+
+#### useSessionPollerTracking
+
+Returns an array of `[signal, reset function, sessionPoller instance]`. The hook re-renders the component each time the client emits a signal.
+
+<PlaygroundPreview>
+
+```jsx
+import { useSessionPoller, useSessionPollerTracking } from 'hds-react';
+
+const SessionPollerHooks = () => {
+  const poller = useSessionPoller();
+  const [lastSignal, reset, sessionPoller] = useSessionPollerTracking();
+  if (isSessionPollerStoppedSignal(lastSignal)) {
+    <Button
+      onClick={() => {
+        poller.start();
+      }}
+    >
+      Start polling!
+    </Button>;
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Generic signal hooks
+
+Hooks are the easiest way to listen to signals. Most hooks return the last triggered signal and re-render the component. Re-rendering is done only if the listener returns true. So listeners added by hooks must return a boolean.
+
+Hooks dispose of the listeners when the component unmounts. Hooks cannot emit signals.
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="generic-signal-hooks">API page</ApiPageAnchorLink>.
+
+#### useSignalListener
+
+Adds a single listener for all signals. The hook re-renders the component each time a signal is emitted if the listener function returns true.
+
+#### useSignalTrackingWithCallback
+
+Creates a trigger from given props and calls the callback function if any emitted signals match the trigger.
+
+#### useSignalTrackingWithReturnValue
+
+Creates a trigger from given props and re-renders the component if any emitted signals match the trigger.
+
+**Important!** The listener passed to <AnchorLink>useSignalListener</AnchorLink> must be memoized or the hook will attach a new listener on each render because the props changed. The old one is disposed of but to avoid unnecessary listeners, use memoization with `useMemo` or `useCallback`. Note that all `triggerFor...` functions are constants and do not need memoization.
+
+<AnchorLink>useSignalTrackingWithReturnValue</AnchorLink> and <AnchorLink>useSignalListener</AnchorLink> store their arguments
+in React refs, so memoization is not needed.
+
+The array returned by the <AnchorLink>useSignalListener</AnchorLink> and the <AnchorLink>useSignalTrackingWithReturnValue</AnchorLink> have the last signal, if any, and a reset function that clears the last signal. This can be used for tracking certain errors and then resetting the array when the user has seen a notification about the error.
+
+<PlaygroundPreview>
+
+```jsx
+import {
+  useSignalListener,
+  useSignalListenerWithReturnValue,
+  triggerForAllSessionPollerErrors,
+  isSessionEndedSignal,
+} from 'hds-react';
+
+const ListenerComponent = () => {
+  const [ showDialog, setShowDialog ] = useState(false);
+    // Listener function must be memoized when useSignalListener is used!
+  const myListener = useCallback(( signal )=>{
+    if( isSessionEndedSignal(signal) ){
+      setShowDialog(true)
+    }
+  },[]);
+  useSignalListener(myListener);
+  if ( showDialog ) {
+    return <Dialog ... />
+  }
+};
+
+const ListenerComponentWithReturnValue = () => {
+  const [showDialog, setShowDialog] = useState(false);
+  const [sessionEndedSignal] = useSignalTrackingWithReturnValue(triggerForAllSessionPollerErrors);
+  if(isSessionEndedSignal(sessionEndedSignal)){
+    setShowDialog(true)
+  }
+  if (showDialog) {
+    return <Dialog ... />
+  }
+};
+```
+
+</PlaygroundPreview>
+
+The properties and methods of all hooks are listed on the <ApiPageAnchorLink anchor="generic-signal-hooks">API page</ApiPageAnchorLink>.
+
+### Modules
+
+Modules are automatically created by the <AnchorLink>LoginProvider</AnchorLink>. Module settings are included in the <ApiPageAnchorLink anchor="loginprovider">LoginProvider settings</ApiPageAnchorLink> and passed to each module.
+
+Properties, methods, errors and signals of all modules are listed on the <ApiPageAnchorLink anchor="modules">API page</ApiPageAnchorLink>.
+
+#### Oidc client
+
+The <ApiPageAnchorLink anchor="oidc-client">Oidc client settings</ApiPageAnchorLink> are defined in the <ApiPageAnchorLink anchor="loginprovider">userManagerSettings</ApiPageAnchorLink> property, which is passed to the <AnchorLink>LoginProvider</AnchorLink>.
+
+The module is exposed with the <AnchorLink>useOidcClient</AnchorLink> hook.
+
+<PlaygroundPreview>
+
+```jsx
+import { useOidcClient } from 'hds-react';
+
+const LogoutComponent = () => {
+  const { logout } = useOidcClient();
+  return <Button onClick={() => logout()}>Log out</Button>;
+};
+```
+
+</PlaygroundPreview>
+
+##### Requirements
+
+Usage of the <AnchorLink>Oidc client</AnchorLink> requires
+
+- An OIDC provider.
+- At least `client id`, `authority`, `scope` and registered callback URLs at the OIDC provider.
+- Specific `silent_renew.html` for silent token renewal. This is a poorly documented feature in the `oidc-client-ts`. This file has a javascript snippet that communicates with the oidc provider "silently" in a hidden iframe. More about <ExternalLink href="https://www.oauth.com/oauth2-servers/access-tokens/refreshing-access-tokens/">token renewal</ExternalLink>. An example can be found in the <AnchorLink anchor="silent-renewal">silent renewal section</AnchorLink>.
+
+##### API
+
+All <AnchorLink>Oidc client</AnchorLink> settings, properties, methods and signals are detailed on the API page:
+
+- <ApiPageAnchorLink anchor="settings">Module settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="default-usermanager-settings">Default UserManager settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink>Methods</ApiPageAnchorLink>.
+- <ApiPageAnchorLink>State change signals</ApiPageAnchorLink>.
+- <ApiPageAnchorLink>Event signals</ApiPageAnchorLink>.
+- <ApiPageAnchorLink>Error signal types</ApiPageAnchorLink>.
+- <ApiPageAnchorLink>Dedicated signal triggers</ApiPageAnchorLink>.
+- <ApiPageAnchorLink>Getting signal payloads</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="other-exported-utility-functions">Utility functions</ApiPageAnchorLink>.
+
+##### Hooks
+
+- <AnchorLink>useOidcClient</AnchorLink>
+- <AnchorLink>useAuthenticatedUser</AnchorLink>
+- <AnchorLink>useCachedAmr</AnchorLink>
+- <AnchorLink>useOidcClientTracking</AnchorLink>
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="oidc-client-hooks">API page</ApiPageAnchorLink>.
+
+#### Api tokens client
+
+The `Api tokens client` listens to the <ApiPageAnchorLink anchor="state-change-signals">Oidc client signals</ApiPageAnchorLink> and waits until the user is authenticated and then fetches the API tokens. It retries if fetch fails and terminates when max retries are reached. When the user is expiring and renews, API tokens are also renewed automatically.
+
+**Important!** The Helsinki Tunnistus OIDC provider (Keycloak) uses a different kind of API token requests. This module does not support that, but a new module will be added later.
+
+##### Requirements
+
+URL where to get the tokens from. A user's access token is also required, so the user must be authenticated to fetch API tokens.
+
+##### API
+
+All `Api tokens client` settings, properties, methods and signals are detailed on the API page:
+
+- <ApiPageAnchorLink anchor="settings-1">Module settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="methods-1">Methods</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="other-exported-utility-functions-1">Utility functions</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="event-signals-1">Event signals</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="error-signal-types-1">Error signal types</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="dedicated-signal-triggers-1">Dedicated signal triggers</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="getting-signal-payloads-1">Getting signal payloads</ApiPageAnchorLink>.
+
+##### Hooks
+
+- <AnchorLink>useApiTokensClient</AnchorLink>
+- <AnchorLink>useApiTokens</AnchorLink>
+- <AnchorLink>useApiTokensClientTracking</AnchorLink>
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="api-tokens-client-hooks">API page</ApiPageAnchorLink>.
+
+#### Session poller
+
+The user's session could end outside of the current browser window. The `Session poller` calls the userinfo endpoint and notifies when it receives an unauthorized or forbidden response. Successes and other errors are ignored.
+
+##### Requirements
+
+Polling requires a user and the <ApiPageAnchorLink anchor="object-types-from-oidc-client-ts">userManager</ApiPageAnchorLink> from the <AnchorLink>Oidc client</AnchorLink>. The polling endpoint is fetched from <ApiPageAnchorLink anchor="object-types-from-oidc-client-ts">userManager's</ApiPageAnchorLink> metadata.
+
+##### API
+
+All `Session poller` settings, properties, methods and signals are detailed on the API page:
+
+- <ApiPageAnchorLink anchor="settings-2">Module settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="methods-2">Methods</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="other-exported-utility-functions-2">Utility functions</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="event-signals-2">Event signals</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="error-signal-types-2">Error signal types</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="dedicated-signal-triggers-2">Dedicated signal triggers</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="getting-signal-payloads-2">Getting signal payloads</ApiPageAnchorLink>.
+
+##### Hooks
+
+- <AnchorLink>useSessionPoller</AnchorLink>
+- <AnchorLink>useSessionPollerTracking</AnchorLink>
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="session-poller-hooks">API page</ApiPageAnchorLink>.
+
+#### Silent renewal
+
+The <ExternalLink href="https://github.com/authts/oidc-client-ts">oidc-client-ts</ExternalLink> uses `silent_renew.html` for user token renewal. Save this file to your server and place the URL in the settings as `silent_redirect_uri`.
+
+<PlaygroundPreview>
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Silent renewal</title>
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client-ts/2.2.2/browser/oidc-client-ts.min.js"
+      integrity="sha512-pt8b5O4w5Y9/xZpIhPN8Soo/YbC95SxHn0P/Mu39iYB2Ih/09TMS3Id5XPqve2f8DPC6voXOzgQNojCuqO6A4w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      var mgr = new oidc.UserManager({});
+      mgr.signinSilentCallback().catch(error => {
+        console.error('silent_renew.html error', error);
+      });
+    </script>
+  </body>
+</html>
+```
+
+</PlaygroundPreview>
+
+### Signals
+
+Signals can be listened to with hooks. Each module has its own hook for listening to signals only from that module. There are also hooks for listening to all signals and filtering is possible with triggers.
+
+Detailed information is in the <ApiPageAnchorLink anchor="signals">API section</ApiPageAnchorLink>.
+
+#### Listening to signals
+
+A signal listener is a function that receives one argument: the signal. A listener can listen to all signals or just one type or signal with a certain namespace. Listeners can be even more specific and listen to signals with certain payloads. In short, a listener can listen to any properties of the signal and is triggered when all properties match.
+
+The listener is called only if the emitted signal matches the given props.
+
+For example, if the trigger props (the first argument) passed to `beacon.addListener(trigger, listener)` is `{ type:'error' }`, the listener (second argument) is called when the emitted signal has a matching type. It does not matter what other props the signal has.
+
+If the trigger props are `{ namespace:'myModule', payload:{type:'click'} }`, the emitted signal must have those properties with the same, exact values. Other properties are not checked.
+
+The trigger can also be a function. Internally all triggers are converted to functions.
+
+<PlaygroundPreview>
+
+```jsx
+const listener = (signal) => {
+  // Do something with the signal.
+};
+// Listen to all error signals
+const trigger = { type: 'error' };
+useSignalTrackingWithCallback(trigger, listener);
+```
+
+</PlaygroundPreview>
+
+#### Getting signal payloads
+
+Sometimes the most significant part of a signal is the payload. There are predefined payload getters for the <AnchorLink>Oidc client</AnchorLink>. If the given signal is not from the `Oidc client` or is not of the given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+<PlaygroundPreview>
+
+```jsx
+import {
+  useSignalListenerWithReturnValue,
+  triggerForAllOidcClientSignals,
+  getOidcClientStateChangePayload,
+  oidcClientStates,
+} from 'hds-react';
+
+const StateChangeIndicator = () => {
+  const [lastSignal, reset] = useSignalListenerWithReturnValue(triggerForAllOidcClientSignals);
+  const payload = lastSignal ? getOidcClientStateChangePayload(lastSignal) : null;
+  if (payload && payload.state === oidcClientStates.LOGGING_OUT) {
+    return <p>Logging out....</p>;
+  }
+};
+```
+
+</PlaygroundPreview>
+
+### Using without React
+
+When React is not used, the <ApiPageAnchorLink>beacon</ApiPageAnchorLink> and <ApiPageAnchorLink>modules</ApiPageAnchorLink> can be created and initialized with `createLoginSystem(props)`. Props are the same as those passed to <AnchorLink>LoginProvider</AnchorLink>. The function returns a <ApiPageAnchorLink>beacon</ApiPageAnchorLink> instance that holds all modules. There are dozens of utility functions to use without React. See <ApiPageAnchorLink>modules</ApiPageAnchorLink> and <ApiPageAnchorLink>signals</ApiPageAnchorLink>.
+
+<PlaygroundPreview>
+
+```js
+import { createLoginSystem } from 'hds-react';
+
+// Actual properties are omitted from this example to keep it simple
+const loginSystemProperties = {...}
+
+const beacon = createLoginSystem(loginSystemProperties);
+
+```
+
+</PlaygroundPreview>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                             | Source link                                                                                                                                                                                                                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-login--example-application">View in Storybook</Link> | <ExternalLink size="M" openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/login">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                          | -                                                                                                                                                                                                                                                                                 |

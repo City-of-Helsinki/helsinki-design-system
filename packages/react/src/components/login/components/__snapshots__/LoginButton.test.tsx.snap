@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginButton the button text is rendered 1`] = `
+<button
+  class="button danger theme-default size-default"
+  type="button"
+>
+  <span
+    class="label"
+  >
+    Log in
+  </span>
+</button>
+`;

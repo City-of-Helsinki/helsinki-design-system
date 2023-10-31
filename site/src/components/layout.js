@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import "hds-core";
+import 'hds-core';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
@@ -17,6 +17,7 @@ import SyntaxHighlighter from './SyntaxHighlighter';
 import Table from './Table';
 import InternalLink from './InternalLink';
 import ExternalLink from './ExternalLink';
+import AnchorLink from './AnchorLink';
 import './layout.scss';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
@@ -26,6 +27,7 @@ const components = {
   IconCrossCircle,
   InternalLink,
   ExternalLink,
+  AnchorLink,
   Link,
   Playground: PlaygroundBlock,
   PlaygroundPreview,
