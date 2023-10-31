@@ -31,16 +31,21 @@ export const Indeterminate = () => (
 
 export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
 
-export const Invalid = () => <Checkbox id="invalid" label="Label" errorText="Error text" />;
+export const Invalid = (args) => <Checkbox style={{ width: '300px' }} {...args} />;
+Invalid.args = {
+  id: 'Invalid',
+  label: 'Label',
+  errorText: 'Error text',
+};
 
 export const WithHelperText = () => <Checkbox id="helper-text" label="Label" helperText="Assistive text" />;
 
 export const WithTooltip = (args) => <Checkbox id="with-tooltip" {...args} />;
 WithTooltip.args = {
-  label: 'label',
-  tooltipText: 'tooltip text',
-  tooltipLabel: 'tooltip text aria label',
-  tooltipButtonLabel: 'tooltip button aria label',
+  label: 'Label',
+  tooltipText: 'Tooltip text',
+  tooltipLabel: 'Tooltip text aria label',
+  tooltipButtonLabel: 'Tooltip button aria label',
 };
 
 export const SelectedDisabled = () => <Checkbox id="selected-disabled" label="Label" checked disabled />;

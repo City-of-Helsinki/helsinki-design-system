@@ -167,3 +167,10 @@ Playground.argTypes = {
     control: { type: 'radio' },
   },
 };
+
+export const Invalid = (args) => {
+  const [files, setFiles] = React.useState<File[]>();
+  onFilesChanged(files);
+
+  return <FileInput {...args} onChange={setFiles} errorText="An error occurred. Try again later." />;
+};
