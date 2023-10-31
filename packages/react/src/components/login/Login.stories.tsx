@@ -55,12 +55,12 @@ export default {
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
-    authority: 'https://tunnistamo.dev.hel.ninja/',
-    client_id: 'exampleapp-ui-dev',
-    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
-    redirect_uri: `${window.origin}/callback`,
+    authority: 'https://tunnistamo.test.hel.ninja/',
+    client_id: 'exampleapp-ui-test',
+    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofile https://api.hel.fi/auth/exampleapptest',
+    redirect_uri: `${window.origin}/callback/`,
   },
-  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
+  apiTokensClientSettings: { url: 'https://tunnistamo.test.hel.ninja/api-tokens/' },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
