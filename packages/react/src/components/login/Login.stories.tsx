@@ -53,12 +53,18 @@ export default {
   args: {},
 };
 
+// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/
+// and change
+// redirect_uri: `${window.origin}/static-login/callback.html`,
+// silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
+
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
     authority: 'https://tunnistamo.test.hel.ninja/',
     client_id: 'exampleapp-ui-test',
     scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofile https://api.hel.fi/auth/exampleapptest',
-    redirect_uri: `${window.origin}/callback/`,
+    redirect_uri: `${window.origin}/storybook/react/static-login/callback.html`,
+    silent_redirect_uri: `${window.origin}/storybook/react/static-login/silent_renew.html`,
   },
   apiTokensClientSettings: { url: 'https://tunnistamo.test.hel.ninja/api-tokens/' },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
