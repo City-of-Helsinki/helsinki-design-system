@@ -192,3 +192,20 @@ export const WithSelectedDisabledDates = (args) => {
 };
 WithSelectedDisabledDates.storyName = 'With selected disabled dates';
 WithSelectedDisabledDates.parameters = { loki: { skip: true } };
+
+export const Invalid = (args) => {
+  return <DateInput {...args} />;
+};
+Invalid.args = {
+  id: 'Invalid',
+  invalid: true,
+  errorText: 'Date invalid',
+};
+
+export const Success = (args) => {
+  return <DateInput {...args} />;
+};
+Success.args = {
+  id: 'Success',
+  successText: 'Date is valid',
+};

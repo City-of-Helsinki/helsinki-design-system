@@ -53,7 +53,7 @@
   will-change: transform, box-shadow;
 
   &:focus {
-    box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+    box-shadow: 0 0 0 var(--outline-width) var(--color-focus-outline);
     outline: none;
     transform: translate3d(0, 0, 0);
 

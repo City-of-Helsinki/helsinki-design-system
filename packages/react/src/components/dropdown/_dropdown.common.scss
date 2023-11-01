@@ -24,9 +24,11 @@
   --dropdown-border-color-disabled: var(--color-black-10);
   --dropdown-color-default: var(--color-black-90);
   --dropdown-color-disabled: var(--color-black-40);
-  --focus-outline-color: var(--color-coat-of-arms);
+  --focus-outline-color: var(--color-focus-outline);
+  --helper-background-color-invalid: var(--color-error-light);
   --helper-color-default: var(--color-black-60);
-  --helper-color-invalid: var(--color-error);
+  --helper-color-invalid: var(--color-black);
+  --helper-icon-color-invalid: var(--color-error);
   --menu-divider-color: var(--color-black-20);
   --menu-item-background-default: var(--color-white);
   --menu-item-background-hover: var(--color-bus);
@@ -241,17 +243,10 @@
       border-color: var(--dropdown-border-color-hover-invalid);
     }
   }
+}
 
-  .errorText {
-    align-items: center;
-    color: var(--helper-color-invalid);
-    display: flex;
-    margin-top: var(--spacing-3-xs);
-  }
-
-  .invalidIcon {
-    margin-right: var(--spacing-2-xs);
-  }
+.errorText {
+  composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 /**

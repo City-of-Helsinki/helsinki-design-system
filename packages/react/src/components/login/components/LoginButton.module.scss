@@ -1,0 +1,13 @@
+.container {
+  display: block;
+}
+
+.loginError {
+  display: flex;
+  padding: var(--spacing-m) 0;
+}
+
+.loginError .icon,
+.loginError .text {
+  color: var(--color-error);
+}

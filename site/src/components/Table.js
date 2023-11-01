@@ -22,8 +22,7 @@ const Table = (props) => {
     .filter((child) => isValidElement(child))
     .reduce(
       (acc, row, i, arr) => {
-        if ( i === arr.length - 1 && isCaption(row.props.children?.[0].props.children))
-         {
+        if (i === arr.length - 1 && isCaption(row.props.children?.[0].props.children)) {
           return [acc[0], row.props.children[0].props.children];
         } else {
           return [[...acc[0], row], acc[1]];
@@ -36,8 +35,8 @@ const Table = (props) => {
   const [tableName, caption] = captionString ? resolveCaptionStrings(captionString) : [undefined, undefined];
 
   return (
-    <div class="hds-table-container" tabindex="0">
-      <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
+    <div className="hds-table-container" tabIndex="0" style={{ marginBottom: 'var(--spacing-layout-xs)' }}>
+      <table className="hds-table hds-table--dark" aria-label="Service users (dark variant)">
         {tableName && caption && (
           <caption className="hds-table__caption">
             <b>{tableName}</b>: {caption}
@@ -46,20 +45,20 @@ const Table = (props) => {
         {tableChildrenWithoutCaption}
       </table>
     </div>
-  )
-}
-
-const TableHead = (props) => {
-    const rowWithClassName = {
-        ...props.children,
-        props: { ...props.children.props, className: 'hds-table__header-row dark' },
-    };
-    return <thead>{rowWithClassName}</thead>;
+  );
 };
 
-const TableBody = (props) => <tbody className="hds-table__content">{props.children}</tbody>
+const TableHead = (props) => {
+  const rowWithClassName = {
+    ...props.children,
+    props: { ...props.children.props, className: 'hds-table__header-row dark' },
+  };
+  return <thead>{rowWithClassName}</thead>;
+};
 
-const Th = (props) => <th scope="col">{props.children}</th>
+const TableBody = (props) => <tbody className="hds-table__content">{props.children}</tbody>;
+
+const Th = (props) => <th scope="col">{props.children}</th>;
 
 Table.Head = TableHead;
 Table.Body = TableBody;

@@ -24,3 +24,33 @@ export const Default = () => `
      <span class="hds-text-input__helper-text">Assistive text</span>
     </div>
 `;
+
+export const Invalid = () => `
+   <div class="hds-text-input">
+     ${getLabel('input1')}
+     <div class="hds-text-input__input-wrapper">
+       <input
+         id="input1"
+         class="hds-text-input__input"
+         type="number"
+       />
+     </div>
+     <span id="number-input-error" class="hds-text-input__error-text">Invalid value</span>
+     <span class="hds-text-input__helper-text">Assistive text</span>
+    </div>
+`;
+
+export const Success = () => `
+   <div class="hds-text-input">
+     ${getLabel('input1')}
+     <div class="hds-text-input__input-wrapper">
+       <input
+         id="input1"
+         class="hds-text-input__input"
+         type="number"
+       />
+     </div>
+     <span id="number-input-success" class="hds-text-input__success-text">Value is valid</span>
+     <span class="hds-text-input__helper-text">Assistive text</span>
+    </div>
+`;

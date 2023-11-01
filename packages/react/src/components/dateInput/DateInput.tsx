@@ -1,5 +1,5 @@
 import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth, max } from 'date-fns';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
@@ -66,7 +66,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       closeButtonLabel,
       disableConfirmation = false,
       disableDatePicker = false,
-      initialMonth = new Date(),
+      initialMonth: _initialMonth,
       language = 'en',
       openButtonAriaLabel,
       selectButtonLabel,
@@ -183,9 +183,21 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     // Get the current value as Date object
     const inputValueAsDate = stringToDate(inputValue);
     const toggleButton = getToggleButton();
-    const minDateToUse = minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10));
-    const maxDateToUse =
-      maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(max([minDateToUse, new Date()]), 10));
+    // Use useMemo for minDateToUse, maxDateToUse, selected and initialMonth to set
+    // new currentMonth value in DatePicker component only if any of these values
+    // is changed.
+    // Changing currentMonth value re-renders MonthTable and values of all the input
+    // fields it contains will be reseted which can be quite irritating for the user.
+    const minDateToUse = useMemo(
+      () => (minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10))),
+      [minDate],
+    );
+    const maxDateToUse = useMemo(
+      () => (maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(max([minDateToUse, new Date()]), 10))),
+      [maxDate],
+    );
+    const selected = useMemo(() => (isValid(inputValueAsDate) ? inputValueAsDate : undefined), [inputValueAsDate]);
+    const initialMonth = useMemo(() => _initialMonth || new Date(), [_initialMonth]);
 
     return (
       <div lang={language} className={styles.wrapper}>
@@ -204,7 +216,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
             <DatePicker
               language={language}
               disableConfirmation={disableConfirmation}
-              selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
+              selected={selected}
               initialMonth={initialMonth}
               onDaySelect={(day) => {
                 closeDatePicker();

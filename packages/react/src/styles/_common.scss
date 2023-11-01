@@ -69,14 +69,14 @@
 /*
  * Add an outline attribute for element's &:focus pseudo class
  */
-@mixin focusOutline($color: var(--focus-outline-color), $width: var(--outline-width), $radius: false, $offset: false) {
+@mixin focusOutline($color: var(--color-focus-outline), $width: var(--outline-width), $radius: false, $offset: false) {
   @include withFocus(focus, $color, $width, $offset, $radius)
 }
 
 /*
  * Add an outline attribute for element's &:focus-visible pseudo class
  */
-@mixin focusVisible($color: var(--focus-outline-color), $width: var(--outline-width), $radius: false, $offset: false) {
+@mixin focusVisible($color: var(--color-focus-outline), $width: var(--outline-width), $radius: false, $offset: false) {
   &:focus-visible {
     @if $radius {
       border-radius: $radius;

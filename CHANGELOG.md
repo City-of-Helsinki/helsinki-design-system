@@ -5,6 +5,100 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - October, 31, 2023
+
+### React
+
+#### Added
+
+- [Footer] Added onLogoClick callback
+- [Container] Added a new attribute to align it with Header
+- [Login] New login components and utilities to provide OIDC authentication and api tokens
+
+#### Changed
+
+- [Checkbox, DateInput, Dropdowns, FileInput, NumberInput, PasswordInput, PhoneInput, SelectionGroup, NumberInput, TextInput, TextArea, TimeInput] Improved readability and accessibility of error, success and info states
+
+#### Fixed
+
+- [StepByStep] Fixed React warnings about missing keys.
+- [Header] onDidChangeLanguage is now called only when language is changed.
+- [Header] Fixed header dropdown overflow issues
+- [DatePicker] Fixed selected date getting reseted in a controlled state
+- [CookieConsent, Dropdown, FileInput, NumberInput, SearchInput, TextInput] Fixed button focus inside input components
+- [Tag] Fixed margins with several lines long texts
+
+### Core
+
+#### Changed
+
+- [Checkbox, NumberInput, PasswordInput, PhoneInput, SelectionGroup, NumberInput, TextInput, TextArea] Improved readability and accessibility of error, success and info states
+
+#### Fixed
+
+- [Tag] Border-radiuses and paddings to match designs
+- [Link] Removed underline when using Button styles with Link
+
+### Documentation
+
+#### Added
+
+- [Footer] Added onLogoClick callback
+- [Form validation] Live examples for validation pattern
+- [Form validation] Links to multi-page guidelines and components
+- [Login] Documentation for the new Login system
+
+#### Changed
+
+- [FileInput] Changed from beta to stable
+- [Pagination] Changed from beta to stable
+- [SearchInput] Changed from beta to stable
+
+### Fixed
+
+Several new line issues breaking the documentation and examples
+This is HDS -competition page was broken and not available
+Unified error message implementation, examples and documentation
+
+### Design kit
+
+### Figma
+
+We're excited to announce the availability of the HDS UI Kit in Figma (.fig) format! You can access it within the "hds-design-kit.zip" and import the file to use in your projects. Please be aware that this Figma file is independent and won't receive automatic updates from the original file.
+
+If you're looking for an updatable Figma library, feel free to get in touch with the HDS team. An updatable version is accessible with Helsinki licenses, and we plan to make it available as a community file in the future. Stay tuned for updates!
+
+#### Changed
+
+- [Color styles] Quality of life improvement: added hex codes after color names for ease of access
+- [Color styles] Changed greyscale color names to match token names, e.g. Grey-10 -> Black-10
+- [Highlight] Changed the Quote to be a variant of Highlight component, not its own component, to match implementation
+
+[HDS Form Components] Updated error, success and info text shared symbols in all input components
+
+#### Removed
+
+[Radio button] Removed error states for individual radio buttons, because individual radio buttons should not have an error state in any use cases.
+
+#### Fixed
+
+- [Highlight] Fixed paddings on all sizes and font, line-height to match implementation
+- [Highlight] Linked text properties back to quote variants
+- [Highlight] Correct color style attached to text color
+
+### Sketch/Abstract
+
+#### Changed
+
+- [HDS Form Components] Updated error, success and info text shared symbols in all input symbols
+
+#### Removed
+
+- [Radio button] Removed error states for individual radio buttons, because individual radio buttons should not have an error state in any use cases.
+
+#### Fixed
+
+- [Dropdown] Border for dropdown menu fixed from 2px to 1px and example updated according to that
 
 ## [3.0.0] - October, 4, 2023
 
@@ -38,7 +132,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - Supported browserlist updated
-- [RadioButton] Default value is not recommended anymore 
+- [RadioButton] Default value is not recommended anymore
 - [Footer] Redesigned and rebuilt
 
 #### Fixed
@@ -68,7 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Header] Added new Header and its sub-components' documentations
 - [Footer] Added new Footer and its sub-components' documentations
-- Added documention for focus colour tokens 
+- Added documention for focus colour tokens
 - Added navigation pattern guidelines
 - Added new releases page
 - Added new guide how to migrate to 3.0.0
@@ -101,7 +195,7 @@ There is a brand new Figma library available. The licenses are checked and provi
 #### Added
 
 - [Footer] New symbols following the hel.fi visual style. New symbols also include changes to all Footer sections. Service title is now mandatory. The Helsinki logo moved to the Base section. Separate symbols for Footers with custom content (e.g. partner information). New variant for the Utility section which allow more utility links and link groups
-- [Header] New component replacing HDS Navigation  
+- [Header] New component replacing HDS Navigation
 
 #### Changed
 
@@ -120,17 +214,20 @@ There is a brand new Figma library available. The licenses are checked and provi
 ### React
 
 #### Added
+
 - [Header] New Header component to wrap all its child components
 - [Header.UniversalBar] Optional component to display useful quick links
 - [Header.ActionBar] Mandatory component to display service logo, language selection, search and user login
 - [Header.NavigationMenu] Mandatory component to display navigation links
 
 #### Changed
+
 - [LinkBox] Property name `withBorder` changed to `border`
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
 - Supported browserlist updated
 
 #### Deprecated
+
 - [Navigation] New Header component will be the replacement
 - [Tag] Rectangular version (default)
 - [StatusLabel] Rectangular version (default)
@@ -138,19 +235,23 @@ There is a brand new Figma library available. The licenses are checked and provi
 ### Core
 
 #### Changed
+
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
 
 #### Deprecated
+
 - [Tag] Rectangular version (default)
 - [StatusLabel] Rectangular version (default)
 
 ### Documentation
 
 #### Added
+
 - [Header] Documentation - still a work in progress
 - Helpful tooltip to explain statuses
 
 #### Changed
+
 - [Koros] Renamed variants Wave to Vibration and Storm to Wave
 
 ### Design kit
@@ -164,29 +265,35 @@ There is a brand new Figma library available. The licenses are checked and provi
 ### React
 
 #### Added
+
 - [Highlight] New component for quotes and text highlights
 
 ### Core
 
 #### Added
+
 - [Highlight] New component for quotes and text highlights
 
 ### Documentation
 
 #### Added
+
 - [Highlight] Documentation for new Highlight component
 - Document tokens for focus colours
 
 #### Changed
+
 - Improved docs for creating new react components
 - Updated contributing guide
 
 #### Fixed
+
 - Updated package dependencies
 
 ### Design kit
 
 #### Added
+
 - Figma API icon library export script
 
 ## [2.16.0] - June, 28, 2023

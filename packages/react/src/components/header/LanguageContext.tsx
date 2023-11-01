@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
+import React, { PropsWithChildren, createContext, useContext, useState } from 'react';
 
 export const DEFAULT_LANGUAGE = 'fi';
 
@@ -19,7 +19,7 @@ export type LanguageDispatchContextType = {
 };
 export type LanguageProviderProps = PropsWithChildren<{
   defaultLanguage?: LanguageType;
-  onDidChangeLanguage?: (string) => void;
+  onDidChangeLanguage?: (newLanguage: string) => void;
   languages?: LanguageOption[];
 }>;
 
@@ -36,14 +36,14 @@ export function LanguageProvider({ children, defaultLanguage, onDidChangeLanguag
   const [activeLanguage, setActiveLanguage] = useState(defaultLanguage);
   const [languageOptions, setLanguageOptions] = useState<LanguageOption[]>(languages || []);
 
-  useEffect(() => {
-    if (onDidChangeLanguage) onDidChangeLanguage(activeLanguage);
-  }, [activeLanguage]);
-
   const setLanguage = (language: LanguageType) => {
+    if (activeLanguage === language) {
+      return;
+    }
     if (languageOptions.map((option) => option.value).indexOf(language) === -1)
       throw new TypeError('Language not found in available languages');
     setActiveLanguage(language);
+    if (onDidChangeLanguage) onDidChangeLanguage(language);
   };
   const setAvailableLanguages = (newLanguages: LanguageOption[]) => {
     setLanguageOptions(newLanguages);

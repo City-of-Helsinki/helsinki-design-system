@@ -14,6 +14,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Diagonal koros
 
+Note that in order to customise the colour of the background with `variant="diagonalKoros"`, you need to set the `--koros-color` CSS variable.
+
 <Playground scope={{ Hero, Button }}>
 
 ```jsx
@@ -24,8 +26,8 @@ import { Fieldset, TextInput } from 'hds-react';
     imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
     variant="diagonalKoros"
     theme={{
-      '--background-color': '#f5a3c7',
       '--color': '#000',
+      '--koros-color': '#f5a3c7'
     }}
   >
     <Hero.Title>Hero title</Hero.Title>
@@ -47,8 +49,7 @@ import { Fieldset, TextInput } from 'hds-react';
 ```html
 <style scoped>
   .custom-theme {
-    --background-color: #f5a3c7;
-    --koros-color: var(--background-color);
+    --koros-color: #f5a3c7;
     --color: #000;
     --koros-height: 34px;
   }

@@ -56,7 +56,7 @@ $componentMaxWidth: 500px;
   &:focus-within > button:after {
     --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
 
-    border-color: var(--focus-outline-color);
+    border-color: var(--color-focus-outline);
   }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { getCriticalHdsRules, hdsStyles } from 'hds-react';
 import { renderToString } from 'react-dom/server';
 import Layout from './src/components/layout';
@@ -19,6 +19,6 @@ export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
 }
 
 export const wrapPageElement = ({ element, props }) => {
-  if (props.location.pathname.includes("this-is-hds")) return null
+  if (props.location.pathname.includes("this-is-hds")) return <Fragment {...props}>{element}</Fragment>
   return <Layout {...props}>{element}</Layout>
 }

@@ -4,6 +4,7 @@ import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
 import { Link } from '../link';
 import { LanguageOption } from '../header/LanguageContext';
+import { Container } from '../container/Container';
 import { Logo, logoFi } from '../logo';
 
 export default {
@@ -84,15 +85,17 @@ export const ExampleInHeader = (args) => {
         />
         <Header.Link href="#" label="Child and family services" />
       </Header.NavigationMenu>
-      <Breadcrumb
-        {...args}
-        theme={{
-          '--horizontal-margin-small': '0',
-          '--horizontal-margin-medium': 'var(--spacing-m)',
-          '--horizontal-margin-large': 'var(--spacing-xs)',
-          '--horizontal-margin-x-large': 'var(--spacing-xs)',
-        }}
-      />
+      <Container alignWithHeader>
+        <Breadcrumb
+          {...args}
+          theme={{
+            '--horizontal-margin-small': '0',
+            '--horizontal-margin-medium': '0',
+            '--horizontal-margin-large': '0',
+            '--horizontal-margin-x-large': '0',
+          }}
+        />
+      </Container>
     </Header>
   );
 };

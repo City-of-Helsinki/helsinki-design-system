@@ -95,4 +95,22 @@ describe('<Footer.Base /> spec', () => {
 
     expect(container.querySelector('#top-link')).toHaveFocus();
   });
+  it('logo href and onClick handler are set', () => {
+    const href = 'http://logo.hel.fi';
+    const onClick = jest.fn();
+    const { container } = render(
+      <FooterWrapper>
+        <FooterBase
+          logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+          logoHref={href}
+          onLogoClick={onClick}
+        >
+          <Footer.Link label="Link" variant={FooterVariant.Base} />
+        </FooterBase>
+      </FooterWrapper>,
+    );
+    const logo = container.querySelector(`a[href="${href}"]`) as HTMLLinkElement;
+    fireEvent.click(logo);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
 });
