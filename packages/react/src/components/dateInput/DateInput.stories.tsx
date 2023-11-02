@@ -9,7 +9,7 @@ import { addMonths } from 'date-fns';
 import { DateInput, DateInputProps } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
-import { DateCustomTheme, LegendItem } from './components/datePicker';
+import { LegendItem } from './components/datePicker';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
@@ -218,39 +218,24 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
 
-  const someSpaceLeftDate: LegendItem = {
-    elementId: 'some-space-left',
-    label: 'Some free timeslots available',
-    color: 'var(--color-tram-medium-light)',
-  };
-
   const littleSpaceLeftDate: LegendItem = {
     elementId: 'little-space-left',
     label: 'Only a few free timeslots available',
     color: 'var(--color-summer-medium-light)',
   };
 
-  const dayHasSomeSpace = (day: number) => day === 12 || day === 15 || day === 24 || day === 25;
-  const dayHasLittleSpace = (day: number) => day === 3 || day === 4 || day === 17 || day === 19;
+  const dayHasLittleSpace = (day: number) =>
+    day === 3 || day === 4 || day === 17 || day === 19 || day === 23 || day === 24;
 
   const getDateLegendId = (date: Date) => {
     const day = date.getDate();
-    if (dayHasSomeSpace(day)) return someSpaceLeftDate.elementId;
     if (dayHasLittleSpace(day)) return littleSpaceLeftDate.elementId;
     return undefined;
   };
 
-  const setDateTheme: (date: Date) => DateCustomTheme | undefined = (date: Date) => {
+  const setDateClassName = (date: Date) => {
     const legendId = getDateLegendId(date);
-    if (legendId === someSpaceLeftDate.elementId)
-      return {
-        '--date-background': someSpaceLeftDate.color,
-      };
-
-    if (legendId === littleSpaceLeftDate.elementId)
-      return {
-        '--date-background': littleSpaceLeftDate.color,
-      };
+    if (legendId === littleSpaceLeftDate.elementId) return 'little-space-left';
     return undefined;
   };
 
@@ -258,17 +243,15 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
     return getDateLegendId(date);
   };
 
-  const legend = [someSpaceLeftDate, littleSpaceLeftDate];
+  const legend = [littleSpaceLeftDate];
   return (
     <>
       <style>
         {`
-          .${someSpaceLeftDate.elementId}--day {
-              background: ${someSpaceLeftDate.color};
-          }
-
-          .${littleSpaceLeftDate.elementId}--day {
-            background: ${littleSpaceLeftDate.color};
+          .little-space-left {
+              --date-background: var(--color-summer-medium-light);
+              --date-border: 1px solid black;
+              --horizontal-spacing: 1px;
           }
         `}
       </style>
@@ -277,7 +260,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         value={value}
         onChange={setValue}
         helperText={helperText}
-        setDateTheme={setDateTheme}
+        setDateClassName={setDateClassName}
         setDateAriaDescribedBy={setDateAriaDescribedBy}
         legend={legend}
       />

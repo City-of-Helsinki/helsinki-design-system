@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { TextInput, TextInputProps } from '../textInput';
-import { DateCustomTheme, DatePicker, LegendItem } from './components/datePicker';
+import { DatePicker, LegendItem } from './components/datePicker';
 import styles from './DateInput.module.scss';
 
 export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
@@ -59,9 +59,9 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   isDateDisabledBy?: (date) => boolean;
   /**
-   * Set custom theme for specific dates.
+   * Set classNames for specific dates.
    */
-  setDateTheme?: (date: Date) => DateCustomTheme | undefined;
+  setDateClassName?: (date: Date) => string | undefined;
   /**
    * Legend items for the date picker.
    * @example
@@ -91,7 +91,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       minDate,
       maxDate,
       isDateDisabledBy,
-      setDateTheme,
+      setDateClassName,
       legend,
       setDateAriaDescribedBy,
       ...textInputProps
@@ -250,7 +250,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               open={showPicker}
               inputRef={inputRef}
               toggleButton={toggleButton}
-              setDateTheme={setDateTheme}
+              setDateClassName={setDateClassName}
               legend={legend}
               setDateAriaDescribedBy={setDateAriaDescribedBy}
             />

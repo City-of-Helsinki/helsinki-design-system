@@ -51,7 +51,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     open,
     inputRef,
     toggleButton,
-    setDateTheme,
+    setDateClassName,
     legend,
     setDateAriaDescribedBy,
   } = {
@@ -374,7 +374,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           onDayClick: handleDayClick,
           handleKeyboardNavigation,
           handleMonthChange,
-          setDateTheme,
+          setDateClassName,
           legend,
           setDateAriaDescribedBy,
         }}

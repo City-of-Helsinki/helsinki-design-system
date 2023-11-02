@@ -11,6 +11,7 @@
   --table-width: 100%;
   --horizontal-spacing: var(--spacing-s);
   --vertical-spacing: var(--spacing-s);
+  --date-border: 0;
 
   @media only screen and (min-width: 576px) {
     --table-width: 308px;
@@ -130,6 +131,7 @@
   &__wrapper {
     align-items: center;
     background-color: var(--background-color);
+    border: var(--date-border);
     color: var(--color);
     display: flex;
     font-size: 1rem;
@@ -142,6 +144,11 @@
       @extend %visuallyHidden;
     }
   }
+}
+
+.hds-datepicker__day--selected .hds-datepicker__day__wrapper {
+  background-color: var(--selected-date-background);
+  border: 0;
 }
 
 .hds-datepicker__navigation {

@@ -420,18 +420,15 @@ describe('<DateInput /> spec', () => {
     expect(nextMondayButton).toHaveFocus();
   });
 
-  it('should have custom theme for specific days', async () => {
-    const customTheme = {
-      '--date-background': 'green',
-    };
+  it('should return custom class for specific days', async () => {
     const { container } = render(
       <DateInput
         id="date"
         initialMonth={new Date('2021-01-01')}
         label="Choose a date"
         language="en"
-        setDateTheme={(date: Date) => {
-          return date.getDate() % 2 ? customTheme : undefined;
+        setDateClassName={(date: Date) => {
+          return date.getDate() % 2 ? 'custom-class' : undefined;
         }}
       />,
     );
@@ -445,28 +442,21 @@ describe('<DateInput /> spec', () => {
     const evenButton = container.querySelector('button[data-date="2021-01-02"]');
     const prevMonthLast = container.querySelector('span[data-date="2020-12-31"]');
     const nextMonthFirst = container.querySelector('span[data-date="2021-02-01"]');
-    const legend = container.querySelector('.hds-datepicker__legend');
-
-    expect(oddButton).toHaveStyle(customTheme);
-    expect(evenButton).not.toHaveStyle(customTheme);
-
-    expect(prevMonthLast).not.toHaveStyle(customTheme);
-    expect(nextMonthFirst).not.toHaveStyle(customTheme);
-    expect(legend).toBeFalsy();
+    expect(oddButton).toHaveClass('custom-class');
+    expect(evenButton).not.toHaveClass('custom-class');
+    expect(prevMonthLast).not.toHaveClass('custom-class');
+    expect(nextMonthFirst).not.toHaveClass('custom-class');
   });
 
   it('should return custom legend', async () => {
-    const customTheme = {
-      '--date-background': 'green',
-    };
     const { container } = render(
       <DateInput
         id="date"
         initialMonth={new Date('2021-01-01')}
         label="Choose a date"
         language="en"
-        setDateTheme={(date: Date) => {
-          return date.getDate() % 2 ? customTheme : undefined;
+        setDateClassName={(date: Date) => {
+          return date.getDate() % 2 ? 'custom-class' : undefined;
         }}
         legend={[
           { color: 'red', elementId: 'odd', label: 'Todd' },
@@ -490,17 +480,14 @@ describe('<DateInput /> spec', () => {
   });
 
   it('should have aria-describedby for specific dates', async () => {
-    const customTheme = {
-      '--date-background': 'green',
-    };
     const { container } = render(
       <DateInput
         id="date"
         initialMonth={new Date('2021-01-01')}
         label="Choose a date"
         language="en"
-        setDateTheme={(date: Date) => {
-          return date.getDate() % 2 ? customTheme : undefined;
+        setDateClassName={(date: Date) => {
+          return date.getDate() % 2 ? 'custom-class' : undefined;
         }}
         setDateAriaDescribedBy={(date: Date) => {
           return date.getDate() % 2 ? 'odd' : 'even';

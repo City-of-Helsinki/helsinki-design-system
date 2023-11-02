@@ -21,11 +21,6 @@ export type LegendItem = {
   label: string;
 };
 
-export interface DateCustomTheme {
-  '--date-background'?: string;
-  '--date-color'?: string;
-}
-
 /**
  * The props used by the [[DayPicker]] component.
  */
@@ -114,11 +109,7 @@ export interface DayPickerProps {
   /**
    * Function to set class names for dates.
    */
-  setDateClassNames?: (date: Date) => string | undefined;
-  /**
-   * Function set theme for dates.
-   */
-  setDateTheme?: (date: Date) => DateCustomTheme | undefined;
+  setDateClassName?: (date: Date) => string | undefined;
   /**
    * Legend items for datepicker
    * @param {{ key: string, label: string }} LegendItem
