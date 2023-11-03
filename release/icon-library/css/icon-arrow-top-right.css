@@ -1,0 +1,4 @@
+.hds-icon--icon-arrow-top-right {
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18 6V15H16L15.9997 9.446L7.43188 18.015L6.01767 16.6008L14.6177 8H8.99999V6H18Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18 6V15H16L15.9997 9.446L7.43188 18.015L6.01767 16.6008L14.6177 8H8.99999V6H18Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+}
