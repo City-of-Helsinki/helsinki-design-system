@@ -6,6 +6,8 @@ title: 'DateInput - Customisation'
 import { useState } from 'react';
 import { DateInput } from 'hds-react';
 import format from 'date-fns/format';
+import isSameDay from 'date-fns/isSameDay';
+import parse from 'date-fns/parse';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +16,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Customisation properties
 
-The component property `setDateClassName` can be used to set styles or change existing CSS variables for specific dates, e.g. changing a day's background, font color or border style. We recommend about our <InternalLink href="/components/date-input/accessibility">accessibility notes</InternalLink> regarding customising the styles.
+The component property `setDateClassName` can be used to set styles or change existing CSS variables for specific dates, e.g. changing a day's background, font color or border style. We recommend reading our <InternalLink href="/components/date-input/accessibility">accessibility notes</InternalLink> regarding customising the styles.
 
 See all available CSS variables in the table below.
 
@@ -23,14 +25,12 @@ See all available CSS variables in the table below.
 | `--date-background`          | Background colour for date          |
 | `--date-color`               | Font colour for date                |
 | `--date-border`              | Border for date                     |
-| `--selected-date-background` | Background colour for selected date |
-| `--selected-date-color`      | Font colour for selected date       |
 
 ### Customisation example
 
-In this example some days have a different background colour to indicate that they have limited timeslots available. When days have colours to indicate something, it's important to include `legend` and `setDateAriaDescribedBy` props to inform the users of their meaning. Use the `setDateAriaDescribedBy` callback function to return corresponding LegendItem's element id for specific dates.
+In this example some days have a different background colour to indicate that they have limited timeslots available. When days have colours to indicate something, it's important to include `legend` and `setDateAriaDescribedBy` props to inform the users of their meaning. Use the `setDateAriaDescribedBy` callback function to return corresponding LegendItem's element id for specific dates so the date type is explained via the screen reader. When days can have a different background colour, it's good practice to explain the selected date's colour in the Legend as well.
 
-<Playground scope={{ DateInput, useState, format }}>
+<Playground scope={{ DateInput, useState, format, isSameDay, parse }}>
 
 ```jsx
 import { DateInput } from 'hds-react';
@@ -44,8 +44,13 @@ import { DateInput } from 'hds-react';
   const littleSpaceLeftDate = {
     elementId: 'little-space-left',
     label: 'Only a few free timeslots available',
-    color: 'var(--color-summer-medium-light)',
+    relatedClassName: 'little-space-left',
   };
+  const selectedDate = {
+    label: 'Date is selected',
+    selected: true,
+  };
+  const legend = [littleSpaceLeftDate, selectedDate];
 
   const dayHasLittleSpace = (day) =>
     day === 3 || day === 4 || day === 17 || day === 19 || day === 23 || day === 24;
@@ -53,6 +58,7 @@ import { DateInput } from 'hds-react';
   const getDateLegendId = (date) => {
     const day = date.getDate();
     if (dayHasLittleSpace(day)) return littleSpaceLeftDate.elementId;
+    if (isSameDay(parse(value, dateFormat, date), date)) return selectedDate.elementId;
     return undefined;
   };
 
@@ -66,7 +72,6 @@ import { DateInput } from 'hds-react';
     return getDateLegendId(date);
   };
 
-  const legend = [littleSpaceLeftDate];
   return (
     <>
       <style>
@@ -74,7 +79,6 @@ import { DateInput } from 'hds-react';
           .little-space-left {
               --date-background: var(--color-summer-medium-light);
               --date-border: 1px solid black;
-              --horizontal-spacing: 1px;
           }
         `}
       </style>

@@ -258,15 +258,26 @@
 }
 
 .hds-datepicker__legend-item {
-  align-items: center;
+  --legend-item-color-height: 0.5rem;
+
+  align-items: flex-start;
   display: flex;
   font-size: var(--fontsize-body-s);
   gap: var(--spacing-2-xs);
   line-height: var(--lineheight-l);
 
   &--color {
-    height: 0.5rem;
-    width: 1.25rem;
+    background-color: var(--date-background);
+    border: var(--date-border);
+    color: var(--date-color);
+    height: var(--legend-item-color-height);
+    margin-top: calc(var(--fontsize-body-s) * var(--lineheight-l) / 2 - (var(--legend-item-color-height) / 2));
+    min-width: 1.25rem;
+  }
+  
+  &--selected {
+    background-color: var(--selected-date-background);
+    color: var(--selected-date-color);
   }
 }
 

@@ -13,12 +13,13 @@ export type MonthChangeEventHandler = (month: Date, e: React.MouseEvent) => void
 
 /**
  * Props for legend item.
- * @param {{ id: string, color: string, label: string }}
+ * @param {{ elementId: string, label: string, relatedClassName: string, selected: boolean }}
  */
 export type LegendItem = {
-  color: string;
-  elementId: string;
+  elementId?: string;
   label: string;
+  relatedClassName?: string;
+  selected?: boolean;
 };
 
 /**

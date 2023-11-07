@@ -221,8 +221,14 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const littleSpaceLeftDate: LegendItem = {
     elementId: 'little-space-left',
     label: 'Only a few free timeslots available',
-    color: 'var(--color-summer-medium-light)',
+    relatedClassName: 'little-space-left',
   };
+  /* When days have different backgrounds, it's good practice to explain selected dates as well */
+  const selectedDate: LegendItem = {
+    label: 'Date is selected',
+    selected: true,
+  };
+  const legend = [littleSpaceLeftDate, selectedDate];
 
   const dayHasLittleSpace = (day: number) =>
     day === 3 || day === 4 || day === 17 || day === 19 || day === 23 || day === 24;
@@ -230,6 +236,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const getDateLegendId = (date: Date) => {
     const day = date.getDate();
     if (dayHasLittleSpace(day)) return littleSpaceLeftDate.elementId;
+    if (isSameDay(parse(value, dateFormat, date), date)) return selectedDate.elementId;
     return undefined;
   };
 
@@ -243,7 +250,6 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
     return getDateLegendId(date);
   };
 
-  const legend = [littleSpaceLeftDate];
   return (
     <>
       <style>
@@ -251,7 +257,6 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
           .little-space-left {
               --date-background: var(--color-summer-medium-light);
               --date-border: 1px solid black;
-              --horizontal-spacing: 1px;
           }
         `}
       </style>
