@@ -66,7 +66,7 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    * Legend items for the date picker.
    * @example
    * ```ts
-   * legend={[{ elementId: 'legend-item-1', label: 'Text label', relatedClassName: '.custom-day' }, { elementId: 'legend-item-2', label: 'Text label', color: '#d6d66d' }]}
+   * legend={[{ elementId: 'legend-item-1', label: 'Text label', relatedClassName: 'custom-day' }, { elementId: 'legend-item-2', label: 'Text label', color: '#d6d66d' }]}
    * ```
    * */
   legend?: LegendItem[];

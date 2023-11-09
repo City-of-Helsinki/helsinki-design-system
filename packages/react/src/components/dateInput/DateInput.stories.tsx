@@ -242,7 +242,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
 
   const setDateClassName = (date: Date) => {
     const legendId = getDateLegendId(date);
-    if (legendId === littleSpaceLeftDate.elementId) return 'little-space-left';
+    if (legendId === littleSpaceLeftDate.elementId) return littleSpaceLeftDate.relatedClassName;
     return undefined;
   };
 

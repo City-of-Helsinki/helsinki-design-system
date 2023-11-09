@@ -64,7 +64,7 @@ import { DateInput } from 'hds-react';
 
   const setDateClassName = (date) => {
     const legendId = getDateLegendId(date);
-    if (legendId === littleSpaceLeftDate.elementId) return 'little-space-left';
+    if (legendId === littleSpaceLeftDate.elementId) return littleSpaceLeftDate.relatedClassName;
     return undefined;
   };
 

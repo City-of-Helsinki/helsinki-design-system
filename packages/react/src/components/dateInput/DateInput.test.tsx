@@ -456,11 +456,11 @@ describe('<DateInput /> spec', () => {
         label="Choose a date"
         language="en"
         setDateClassName={(date: Date) => {
-          return date.getDate() % 2 ? 'custom-class' : undefined;
+          return date.getDate() % 2 ? 'red' : 'blue';
         }}
         legend={[
-          { color: 'red', elementId: 'odd', label: 'Todd' },
-          { color: 'blue', elementId: 'even', label: 'Steven' },
+          { relatedClassName: 'red', elementId: 'odd', label: 'Todd' },
+          { relatedClassName: 'blue', elementId: 'even', label: 'Steven' },
         ]}
       />,
     );
@@ -487,14 +487,14 @@ describe('<DateInput /> spec', () => {
         label="Choose a date"
         language="en"
         setDateClassName={(date: Date) => {
-          return date.getDate() % 2 ? 'custom-class' : undefined;
+          return date.getDate() % 2 ? 'red' : 'blue';
         }}
         setDateAriaDescribedBy={(date: Date) => {
           return date.getDate() % 2 ? 'odd' : 'even';
         }}
         legend={[
-          { color: 'red', elementId: 'odd', label: 'Todd' },
-          { color: 'blue', elementId: 'even', label: 'Steven' },
+          { relatedClassName: 'red', elementId: 'odd', label: 'Todd' },
+          { relatedClassName: 'blue', elementId: 'even', label: 'Steven' },
         ]}
       />,
     );
