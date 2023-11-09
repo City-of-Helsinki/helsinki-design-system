@@ -50,12 +50,12 @@ export default {
 const logoSrcFromLanguageAndTheme = (lang: string, theme: HeaderTheme) => {
   switch (lang) {
     case 'sv':
-      if (theme === 'light' || typeof theme === 'object') {
+      if (theme === 'light' || typeof theme === 'object' || theme === undefined) {
         return logoSv;
       }
       return logoSvDark;
     default:
-      if (theme === 'light' || typeof theme === 'object') {
+      if (theme === 'light' || typeof theme === 'object' || theme === undefined) {
         return logoFi;
       }
       return logoFiDark;
