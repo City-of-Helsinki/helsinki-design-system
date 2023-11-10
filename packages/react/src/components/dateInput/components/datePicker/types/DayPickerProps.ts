@@ -12,6 +12,17 @@ export type DayClickEventHandler = (day: Date, e: React.MouseEvent) => void;
 export type MonthChangeEventHandler = (month: Date, e: React.MouseEvent) => void;
 
 /**
+ * Props for legend item.
+ * @param {{ elementId: string, label: string, relatedClassName: string, selected: boolean }}
+ */
+export type LegendItem = {
+  elementId?: string;
+  label: string;
+  relatedClassName?: string;
+  selected?: boolean;
+};
+
+/**
  * The props used by the [[DayPicker]] component.
  */
 export interface DayPickerProps {
@@ -96,4 +107,17 @@ export interface DayPickerProps {
    * Calendar toggle button
    */
   toggleButton?: HTMLButtonElement | null;
+  /**
+   * Function to set class names for dates.
+   */
+  setDateClassName?: (date: Date) => string | undefined;
+  /**
+   * Legend items for datepicker
+   * @param {{ key: string, label: string }} LegendItem
+   */
+  legend?: LegendItem[];
+  /**
+   * Function to set aria-describedby for dates.
+   */
+  setDateAriaDescribedBy?: (date: Date) => string | undefined;
 }

@@ -1,0 +1,99 @@
+---
+slug: '/components/date-input/customisation'
+title: 'DateInput - Customisation'
+---
+
+import { useState } from 'react';
+import { DateInput } from 'hds-react';
+import format from 'date-fns/format';
+import isSameDay from 'date-fns/isSameDay';
+import parse from 'date-fns/parse';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+
+The component property `setDateClassName` can be used to set styles or change existing CSS variables for specific dates, e.g. changing a day's background, font color or border style. We recommend reading our <InternalLink href="/components/date-input/accessibility">accessibility notes</InternalLink> regarding customising the styles.
+
+See all available CSS variables in the table below.
+
+| CSS variable               | Description                         |
+| ---------------------------- | ----------------------------------- |
+| `--date-background`          | Background colour for date          |
+| `--date-color`               | Font colour for date                |
+| `--date-border`              | Border for date                     |
+
+### Customisation example
+
+In this example some days have a different background colour to indicate that they have limited timeslots available. When days have colours to indicate something, it's important to include `legend` and `setDateAriaDescribedBy` props to inform the users of their meaning. Use the `setDateAriaDescribedBy` callback function to return corresponding LegendItem's element id for specific dates so the date type is explained via the screen reader. When days can have a different background colour, it's good practice to explain the selected date's colour in the Legend as well.
+
+<Playground scope={{ DateInput, useState, format, isSameDay, parse }}>
+
+```jsx
+import { DateInput } from 'hds-react';
+
+() => {
+  const dateFormat = 'dd.M.yyyy';
+  const dateValue = new Date(2021, 10, 12);
+  const [value, setValue] = useState(format(dateValue, dateFormat));
+  const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
+
+  const littleSpaceLeftDate = {
+    elementId: 'little-space-left',
+    label: 'Only a few free timeslots available',
+    relatedClassName: 'little-space-left',
+  };
+  const selectedDate = {
+    label: 'Date is selected',
+    selected: true,
+  };
+  const legend = [littleSpaceLeftDate, selectedDate];
+
+  const dayHasLittleSpace = (day) =>
+    day === 3 || day === 4 || day === 17 || day === 19 || day === 23 || day === 24;
+
+  const getDateLegendId = (date) => {
+    const day = date.getDate();
+    if (dayHasLittleSpace(day)) return littleSpaceLeftDate.elementId;
+    if (isSameDay(parse(value, dateFormat, date), date)) return selectedDate.elementId;
+    return undefined;
+  };
+
+  const setDateClassName = (date) => {
+    const legendId = getDateLegendId(date);
+    if (legendId === littleSpaceLeftDate.elementId) return littleSpaceLeftDate.relatedClassName;
+    return undefined;
+  };
+
+  const setDateAriaDescribedBy = (date) => {
+    return getDateLegendId(date);
+  };
+
+  return (
+    <>
+      <style>
+        {`
+          .little-space-left {
+              --date-background: var(--color-summer-medium-light);
+              --date-border: 1px solid black;
+          }
+        `}
+      </style>
+      <DateInput
+        value={value}
+        onChange={setValue}
+        helperText={helperText}
+        setDateClassName={setDateClassName}
+        setDateAriaDescribedBy={setDateAriaDescribedBy}
+        legend={legend}
+        style={{ width: '400px' }}
+      />
+    </>
+  );
+}
+```
+
+</Playground>

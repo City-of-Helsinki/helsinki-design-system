@@ -32,6 +32,8 @@ export const Day = ({ day }: DayProps) => {
     locale,
     onDayClick,
     handleKeyboardNavigation,
+    setDateClassName,
+    setDateAriaDescribedBy,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
@@ -42,6 +44,7 @@ export const Day = ({ day }: DayProps) => {
   const isAvailable = currentMonthAvailableDays.includes(dayNumber);
   const isDisabled = isOutsideCurrentMonth || !isAvailable;
   const isInteractive = onDayClick && !isDisabled;
+  const customButtonClass = !isDisabled && !isOutsideCurrentMonth && setDateClassName && setDateClassName(day);
 
   // Select the HTML element based on interactivity
   const DayElement = isInteractive ? 'button' : 'span';
@@ -61,6 +64,7 @@ export const Day = ({ day }: DayProps) => {
   }
 
   const dayElementProps = {
+    'aria-describedby': setDateAriaDescribedBy ? setDateAriaDescribedBy(day) : undefined,
     'aria-disabled': !isInteractive || undefined,
     'aria-hidden': isHidden || undefined,
     'aria-pressed': isSameDay(day, selectedDate),
@@ -78,6 +82,7 @@ export const Day = ({ day }: DayProps) => {
     tabIndex: isInteractive ? tabIndex : undefined,
     className: cn(
       styles['hds-datepicker__day'],
+      customButtonClass,
       isToday(day) && styles['hds-datepicker__day--today'],
       isSameDay(day, selectedDate) && styles['hds-datepicker__day--selected'],
       isDisabled && styles['hds-datepicker__day--disabled'],

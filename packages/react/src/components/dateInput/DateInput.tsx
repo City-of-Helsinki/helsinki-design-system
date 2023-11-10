@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { TextInput, TextInputProps } from '../textInput';
-import { DatePicker } from './components/datePicker';
+import { DatePicker, LegendItem } from './components/datePicker';
 import styles from './DateInput.module.scss';
 
 export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
@@ -55,9 +55,25 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   ref?: React.Ref<HTMLInputElement>;
   /**
-   * Disables date(s) based on conditional function
+   * Disables date(s) based on conditional function.
    */
   isDateDisabledBy?: (date) => boolean;
+  /**
+   * Set classNames for specific dates.
+   */
+  setDateClassName?: (date: Date) => string | undefined;
+  /**
+   * Legend items for the date picker.
+   * @example
+   * ```ts
+   * legend={[{ elementId: 'legend-item-1', label: 'Text label', relatedClassName: 'custom-day' }, { elementId: 'legend-item-2', label: 'Text label', color: '#d6d66d' }]}
+   * ```
+   * */
+  legend?: LegendItem[];
+  /**
+   * Function to set aria-describedby for dates.
+   */
+  setDateAriaDescribedBy?: (date: Date) => string | undefined;
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -75,6 +91,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       minDate,
       maxDate,
       isDateDisabledBy,
+      setDateClassName,
+      legend,
+      setDateAriaDescribedBy,
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -231,6 +250,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               open={showPicker}
               inputRef={inputRef}
               toggleButton={toggleButton}
+              setDateClassName={setDateClassName}
+              legend={legend}
+              setDateAriaDescribedBy={setDateAriaDescribedBy}
             />
           )}
         </TextInput>
