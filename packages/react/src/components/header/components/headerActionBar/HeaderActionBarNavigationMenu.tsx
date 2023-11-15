@@ -311,7 +311,6 @@ export const HeaderActionBarNavigationMenu = ({
       const renderedChildIndex = Math.abs(navContainerRef.current.getBoundingClientRect().left / window.innerWidth);
       const currentTargetHeight = targetElement.children[renderedChildIndex].clientHeight;
       navContainerRef.current.style.height = `${currentTargetHeight}px`;
-      navContainerRef.current.style.overflow = 'hidden';
     }
   };
 

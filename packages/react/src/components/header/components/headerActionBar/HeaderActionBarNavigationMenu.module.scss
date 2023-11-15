@@ -42,7 +42,6 @@
 }
 
 .headerNavigationMenu {
-  min-height: 0;
   position: absolute;
   transition: 0.3s min-height;
   width: 100%;
@@ -205,6 +204,7 @@
   background-color: var(--nav-mobile-menu-bottom-background-color);
   display: flex;
   min-height: calc(100vh - var(--action-bar-container-height));
+  overflow: hidden;
   width: 300%;
 
   &.left0 {
