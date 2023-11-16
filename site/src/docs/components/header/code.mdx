@@ -247,6 +247,7 @@ import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from '
           logoHref="https://hel.fi"
           menuButtonAriaLabel={I18n.ariaMenuButton}
           openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
+          onMenuClick={(e) => e.stopPropagation()}
         >
           <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
             <h3>{I18n.infoOtherLanguages}</h3>
@@ -473,6 +474,7 @@ import { Link } from 'gatsby';
           logoHref="https://hel.fi"
           logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
           menuButtonAriaLabel="Menu"
+          onMenuClick={(e) => e.stopPropagation()}
         />
         <Header.NavigationMenu>
           <Header.Link
@@ -565,6 +567,7 @@ import { Header, Logo, logoFiDark } from 'hds-react';
       logoHref="https://hel.fi"
       logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     />
     <Header.NavigationMenu>
       <Header.Link
@@ -644,6 +647,7 @@ import { Header, Logo, logoFi } from 'hds-react';
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     />
     <Header.NavigationMenu>
       <Header.Link

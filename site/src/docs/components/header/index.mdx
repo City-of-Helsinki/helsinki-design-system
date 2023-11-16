@@ -35,6 +35,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
         <h3>Muut kielet</h3>
@@ -167,6 +168,7 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
@@ -207,6 +209,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     />
   </Header>
 </PlaygroundPreview>
@@ -238,6 +241,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
@@ -287,6 +291,7 @@ The Header.Search component is to be used for whole site wide search. Currently 
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
         <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
@@ -324,6 +329,7 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
@@ -418,6 +424,7 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
       logoHref="https://hel.fi"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
         <h3>Muut kielet</h3>
@@ -536,6 +543,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         logoHref="https://hel.fi"
         logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
+        onMenuClick={(e) => e.stopPropagation()}
       >
         <Header.LanguageSelector />
       </Header.ActionBar>
@@ -585,6 +593,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         logoHref="https://hel.fi"
         logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
+        onMenuClick={(e) => e.stopPropagation()}
       >
         <Header.LanguageSelector
           languages={[
@@ -656,6 +665,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         logoHref="https://hel.fi"
         logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
         menuButtonAriaLabel="Menu"
+        onMenuClick={(e) => e.stopPropagation()}
       >
         <Header.LanguageSelector
           languages={[

@@ -130,6 +130,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   onLogoClick?: MouseEventHandler;
   /**
+   * Callback fired when the mobile menu is clicked.
+   */
+  onMenuClick?: MouseEventHandler;
+  /**
    * Callback fired when the title is clicked.
    */
   onTitleClick?: MouseEventHandler;
@@ -166,6 +170,7 @@ export const HeaderActionBar = ({
   logo,
   onTitleClick,
   onLogoClick,
+  onMenuClick,
   children,
   className,
   ariaLabel,
@@ -253,7 +258,7 @@ export const HeaderActionBar = ({
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
             {childrenLeft}
-            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} />
+            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuClick} />
             {childrenRight.length > 0 && (
               <>
                 <hr />

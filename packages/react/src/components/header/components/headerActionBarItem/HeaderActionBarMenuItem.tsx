@@ -21,7 +21,10 @@ export const HeaderActionBarMenuItem = ({ ariaLabel, onClick }: HeaderActionBarM
 
   const handleClickCapture = useCallbackIfDefined(onClick);
   const handleClick: EventHandler<MouseEvent> = (event) => {
-    if (!event.isPropagationStopped()) setMobileMenuOpen(!mobileMenuOpen);
+    if (!event.isPropagationStopped()) {
+      setMobileMenuOpen(!mobileMenuOpen);
+    }
+    if (onClick) onClick(event);
   };
 
   if (!hasNavigationContent || !isNotLargeScreen) return null;
