@@ -63,7 +63,9 @@
  * Normalize.css rules
  * Correct the inability to style clickable types in iOS and Safari.
  */
-.hds-button[type="button"], .hds-button[type="reset"], .hds-button[type="submit"] {
+.hds-button[type="button"],
+.hds-button[type="reset"],
+.hds-button[type="submit"] {
   -webkit-appearance: button;
 }
 
@@ -71,7 +73,10 @@
  * Normalize.css rules
  * Remove the inner border and padding in Firefox.
  */
-.hds-button::-moz-focus-inner, .hds-button[type="button"]::-moz-focus-inner, .hds-button[type="reset"]::-moz-focus-inner, .hds-button[type="submit"]::-moz-focus-inner {
+.hds-button:-moz-focus-inner,
+.hds-button[type="button"]:-moz-focus-inner,
+.hds-button[type="reset"]:-moz-focus-inner,
+.hds-button[type="submit"]:-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
@@ -80,7 +85,10 @@
  * Normalize.css rules
  * Restore the focus styles unset by the previous rule.
  */
-.hds-button:-moz-focusring, .hds-button[type="button"]:-moz-focusring, .hds-button[type="reset"]:-moz-focusring, .hds-button[type="submit"]:-moz-focusring {
+.hds-button:-moz-focusring,
+.hds-button[type="button"]:-moz-focusring,
+.hds-button[type="reset"]:-moz-focusring,
+.hds-button[type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -97,12 +105,7 @@
   color: var(--color-hover);
 }
 
-.hds-button:focus-visible {
-  background-color: var(--background-color-focus, transparent);
-  color: var(--color-focus);
-  outline: none;
-}
-
+.hds-button:focus-visible,
 .hds-button:active {
   background-color: var(--background-color-focus, transparent);
   color: var(--color-focus);
@@ -120,10 +123,7 @@
   cursor: not-allowed;
 }
 
-.hds-button:focus-visible:hover {
-  background-color: var(--background-color-hover-focus, transparent);
-}
-
+.hds-button:focus-visible:hover,
 .hds-button:active:hover {
   background-color: var(--background-color-hover-focus, transparent);
 }
@@ -132,19 +132,12 @@
   border-color: var(--border-color-hover, transparent);
 }
 
-.hds-button:not(:disabled):focus-visible {
-  border-color: var(--border-color-focus, transparent);
-}
-
+.hds-button:not(:disabled):focus-visible,
 .hds-button:not(:disabled):active {
   border-color: var(--border-color-focus, transparent);
 }
 
-.hds-button:not(:disabled):focus-visible:hover {
-  border-color: var(--border-color-hover-focus, transparent);
-  color: var(--color-hover-focus);
-}
-
+.hds-button:not(:disabled):focus-visible:hover,
 .hds-button:not(:disabled):active:hover {
   border-color: var(--border-color-hover-focus, transparent);
   color: var(--color-hover-focus);
@@ -162,12 +155,7 @@
   width: var(--size);
 }
 
-.hds-button:focus-visible:after {
-  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
-
-  border-color: var(--focus-outline-color);
-}
-
+.hds-button:focus-visible:after,
 .hds-button:active:after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
 
@@ -175,19 +163,25 @@
 }
 
 input[type="submit"].hds-button,
+input[type="reset"].hds-button,
+input[type="button"].hds-button,
 .hds-button__label {
   font-weight: inherit;
   line-height: 1.25em;
   padding: var(--spacing-s);
 }
 
-input[type="submit"].hds-button {
+input[type="submit"].hds-button,
+input[type="reset"].hds-button,
+input[type="button"].hds-button {
   cursor: pointer;
   padding: var(--spacing-s) var(--spacing-l);
 }
 
-/* submit input */
-input[type="submit"].hds-button:focus-visible {
+/* submit/reset/button input */
+input[type="submit"].hds-button:focus-visible,
+input[type="reset"].hds-button:focus-visible,
+input[type="button"].hds-button:focus-visible {
   box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
 }
 
@@ -196,12 +190,10 @@ input[type="submit"].hds-button:focus-visible {
   margin: 0 var(--spacing-2-xs);
 }
 
-input[type="submit"].hds-button--small,
 .hds-button--small .hds-button__label {
   line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-xs);
 }
-
 
 /* supplementary with right icon */
 .hds-button--supplementary .hds-button__label:first-child {
@@ -229,7 +221,10 @@ input[type="submit"].hds-button--small,
   padding: 0;
 }
 
-input[type="submit"].hds-button--small {
+input[type="submit"].hds-button--small,
+input[type="reset"].hds-button--small,
+input[type="button"].hds-button--small {
+  line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-m);
 }
 
