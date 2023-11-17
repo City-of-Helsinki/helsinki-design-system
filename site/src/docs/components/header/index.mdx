@@ -6,7 +6,6 @@ navTitle: 'Header'
 
 import { Header, IconBell, IconSearch, Notification, Logo, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -17,9 +16,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <Header
     languages={[
-      { label: 'Suomi', value: 'fi' },
-      { label: 'Svenska', value: 'sv' },
-      { label: 'English', value: 'en' },
+      { label: 'Suomi', value: 'fi', isPrimary: true },
+      { label: 'Svenska', value: 'sv', isPrimary: true },
+      { label: 'English', value: 'en', isPrimary: true },
     ]}
   >
     <Header.SkipLink skipTo="#content" label="Skip To Content" />
@@ -39,33 +38,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     >
       <Header.LanguageSelector>
         <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">
-          Deutsch
-        </Link>
-        <Link href="www.example.com" size="S" lang="es">
-          Español
-        </Link>
-        <Link href="www.example.com" size="S" lang="fr">
-          Français
-        </Link>
-        <Link href="www.example.com" size="S" lang="ru">
-          Pусский
-        </Link>
+        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
+        <Link href="www.example.com" size="S" lang="es">Español</Link>
+        <Link href="www.example.com" size="S" lang="fr">Français</Link>
+        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          Selkosuomi
-        </Link>
-        <Link external href="www.example.com" size="S" lang="fi">
-          Viittomakieli
-        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
         <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          MyHelsinki.fi
-        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
         <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          InfoFinland.fi
-        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
       </Header.LanguageSelector>
     </Header.ActionBar>
     <Header.NavigationMenu>
@@ -123,7 +106,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
 
 ### Principles
 
@@ -155,9 +138,9 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
 <PlaygroundPreview>
   <Header
     languages={[
-      { label: 'Suomi', value: 'fi' },
-      { label: 'Svenska', value: 'sv' },
-      { label: 'English', value: 'en' },
+      { label: 'Suomi', value: 'fi', isPrimary: true },
+      { label: 'Svenska', value: 'sv', isPrimary: true },
+      { label: 'English', value: 'en', isPrimary: true },
     ]}
   >
     <Header.SkipLink skipTo="#content" label="Skip To Content" />
@@ -172,18 +155,14 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
     >
       <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">
-          Selkosuomi
-        </Link>
-        <Link external href="www.example.com" size="S">
-          Viittomakieli
-        </Link>
+        <Link external href="www.example.com" size="S">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S">Viittomakieli</Link>
       </Header.LanguageSelector>
     </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">view minimal header example with skip link in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">View minimal header example with skip link in Storybook</Link>.
 
 #### With universal bar
 
@@ -214,7 +193,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example with universal bar in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with universal bar in Storybook</Link>.
 
 #### With action bar
 
@@ -229,9 +208,9 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
 <PlaygroundPreview>
   <Header
     languages={[
-      { label: 'Suomi', value: 'fi' },
-      { label: 'Svenska', value: 'sv' },
-      { label: 'English', value: 'en' },
+      { label: 'Suomi', value: 'fi', isPrimary: true },
+      { label: 'Svenska', value: 'sv', isPrimary: true },
+      { label: 'English', value: 'en', isPrimary: true },
     ]}
   >
     <Header.ActionBar
@@ -245,18 +224,14 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
     >
       <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">
-          Selkosuomi
-        </Link>
-        <Link external href="www.example.com" size="S">
-          Viittomakieli
-        </Link>
+        <Link external href="www.example.com" size="S">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S">Viittomakieli</Link>
       </Header.LanguageSelector>
     </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full featured header example with action bar in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full featured header example with action bar in Storybook</Link>.
 
 ##### With language selector
 
@@ -300,7 +275,7 @@ The Header.Search component is to be used for whole site wide search. Currently 
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">view minimal header example with search in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">View minimal header example with search in Storybook</Link>.
 
 ##### ActionBarItem
 
@@ -317,9 +292,9 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
 <PlaygroundPreview>
   <Header
     languages={[
-      { label: 'Suomi', value: 'fi' },
-      { label: 'Svenska', value: 'sv' },
-      { label: 'English', value: 'en' },
+      { label: 'Suomi', value: 'fi', isPrimary: true },
+      { label: 'Svenska', value: 'sv', isPrimary: true },
+      { label: 'English', value: 'en', isPrimary: true },
     ]}
   >
     <Header.ActionBar
@@ -333,12 +308,8 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
     >
       <Header.LanguageSelector>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">
-          Selkosuomi
-        </Link>
-        <Link external href="www.example.com" size="S">
-          Viittomakieli
-        </Link>
+        <Link external href="www.example.com" size="S">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S">Viittomakieli</Link>
       </Header.LanguageSelector>
       <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell />} id="action-bar-notifications">
         <p>Ei uusi ilmoituksia.</p>
@@ -399,7 +370,7 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example with navigation menu in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
 
 #### With navigation menu
 
@@ -412,9 +383,9 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
 <PlaygroundPreview>
   <Header
     languages={[
-      { label: 'Suomi', value: 'fi' },
-      { label: 'Svenska', value: 'sv' },
-      { label: 'English', value: 'en' },
+      { label: 'Suomi', value: 'fi', isPrimary: true },
+      { label: 'Svenska', value: 'sv', isPrimary: true },
+      { label: 'English', value: 'en', isPrimary: true },
     ]}
   >
     <Header.ActionBar
@@ -428,33 +399,17 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
     >
       <Header.LanguageSelector>
         <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">
-          Deutsch
-        </Link>
-        <Link href="www.example.com" size="S" lang="es">
-          Español
-        </Link>
-        <Link href="www.example.com" size="S" lang="fr">
-          Français
-        </Link>
-        <Link href="www.example.com" size="S" lang="ru">
-          Pусский
-        </Link>
+        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
+        <Link href="www.example.com" size="S" lang="es">Español</Link>
+        <Link href="www.example.com" size="S" lang="fr">Français</Link>
+        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
         <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          Selkosuomi
-        </Link>
-        <Link external href="www.example.com" size="S" lang="fi">
-          Viittomakieli
-        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
+        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
         <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          MyHelsinki.fi
-        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
         <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          InfoFinland.fi
-        </Link>
+        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
       </Header.LanguageSelector>
     </Header.ActionBar>
     <Header.NavigationMenu>
@@ -512,7 +467,7 @@ The Header.NavigationMenu is enables users to navigate to different pages of the
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">view full header example with navigation menu in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
 
 #### Colour variations
 
@@ -531,9 +486,9 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
     <Header
       theme="light"
       languages={[
-        { label: 'Suomi', value: 'fi' },
-        { label: 'Svenska', value: 'sv' },
-        { label: 'English', value: 'en' },
+        { label: 'Suomi', value: 'fi', isPrimary: true },
+        { label: 'Svenska', value: 'sv', isPrimary: true },
+        { label: 'English', value: 'en', isPrimary: true },
       ]}
     >
       <Header.ActionBar
@@ -585,7 +540,13 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
       zIndex: '12',
     }}
   >
-    <Header theme="dark">
+    <Header
+      theme="dark" 
+      languages={[
+        { label: 'Suomi', value: 'fi', isPrimary: true },
+        { label: 'Svenska', value: 'sv', isPrimary: true },
+        { label: 'English', value: 'en', isPrimary: true },
+      ]}>
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleHref="https://hel.fi"
@@ -595,13 +556,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         menuButtonAriaLabel="Menu"
         onMenuClick={(e) => e.stopPropagation()}
       >
-        <Header.LanguageSelector
-          languages={[
-            { label: 'Suomi', value: 'fi' },
-            { label: 'Svenska', value: 'sv' },
-            { label: 'English', value: 'en' },
-          ]}
-        />
+        <Header.LanguageSelector />
       </Header.ActionBar>
       <Header.NavigationMenu>
         <Header.Link
@@ -657,6 +612,11 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         '--nav-drop-down-icon-color': 'var(--color-black)',
         '--header-background-color': 'transparent',
       }}
+      languages={[
+        { label: 'Suomi', value: 'fi', isPrimary: true },
+        { label: 'Svenska', value: 'sv', isPrimary: true },
+        { label: 'English', value: 'en', isPrimary: true },
+      ]}
     >
       <Header.ActionBar
         title="Helsingin kaupunki"
@@ -667,13 +627,7 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
         menuButtonAriaLabel="Menu"
         onMenuClick={(e) => e.stopPropagation()}
       >
-        <Header.LanguageSelector
-          languages={[
-            { label: 'Suomi', value: 'fi' },
-            { label: 'Svenska', value: 'sv' },
-            { label: 'English', value: 'en' },
-          ]}
-        />
+        <Header.LanguageSelector />
       </Header.ActionBar>
       <Header.NavigationMenu>
         <Header.Link
@@ -708,4 +662,4 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
   </div>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly, <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-custom-theme">view full header with custom theme example in Storybook</Link> or toggle<Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">the dark theme in full featured story</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-custom-theme">View full header with custom theme example in Storybook</Link> or toggle<Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">the dark theme in full featured story</Link>.
