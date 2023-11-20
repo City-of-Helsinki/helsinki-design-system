@@ -54,10 +54,13 @@ import { createMockOidcClient } from '../testUtils/oidcClientTestUtil';
 import { OidcClient, oidcClientEvents, oidcClientNamespace } from '../client';
 import { ApiTokensEventSignal, createApiTokensClientEventTriggerProps } from './signals';
 
+type RequestInit = Parameters<typeof fetch>[1];
+
 type ResponseType = {
   returnedStatus?: HttpStatusCode;
   body?: string;
   error?: boolean;
+  isAbortError?: boolean;
 };
 
 type InitProps = {
@@ -97,7 +100,9 @@ describe(`apiTokenClient`, () => {
   const errorResponse: ResponseType = { returnedStatus: HttpStatusCode.NOT_FOUND };
   const forbiddenResponse: ResponseType = { returnedStatus: HttpStatusCode.FORBIDDEN };
   const unauthorizedResponse: ResponseType = { returnedStatus: HttpStatusCode.UNAUTHORIZED };
-
+  const createSuccessfulApiTokenAudienceResponse = (token: string) => {
+    return { ...successfulResponse, body: JSON.stringify({ access_token: token }) };
+  };
   const retryInterval = 20000;
   const defaultClientProps: ApiTokenClientProps = {
     url: `http://userinfo.net${endPointPath}`,
@@ -128,12 +133,19 @@ describe(`apiTokenClient`, () => {
     };
   };
 
-  const addFetchResponse = ({ returnedStatus, body }: ResponseType) => {
+  const addFetchResponse = ({ returnedStatus, body, isAbortError }: ResponseType) => {
     if (returnedStatus === HttpStatusCode.OK) {
       const bodyObject = body ? { body } : getApiTokenResponseBody();
       addResponse({ status: returnedStatus, ...bodyObject });
     } else if (returnedStatus) {
       addResponse({ status: returnedStatus, body: `Error ${returnedStatus}` });
+    } else if (isAbortError) {
+      const abortError = new Error('Aborted');
+      abortError.name = 'AbortError';
+      if (!mockActualAbortFetch.isAbortError(abortError)) {
+        throw new Error('Created error did not pass isAbortError() check');
+      }
+      addResponse(abortError);
     } else {
       addResponse(new Error('Fetch failed'));
     }
@@ -206,6 +218,14 @@ describe(`apiTokenClient`, () => {
     return apiTokenClient;
   };
 
+  const getFetchRequestBodyAsString = (callArgs: [string | Request | undefined, RequestInit | undefined]) => {
+    if (!callArgs[1]) {
+      return '';
+    }
+    const source = callArgs[1].body as string | URLSearchParams;
+    return source.toString();
+  };
+
   beforeAll(() => {
     enableFetchMocks();
   });
@@ -254,7 +274,10 @@ describe(`apiTokenClient`, () => {
       `);
     });
     it('Can be aborted with clear(). Errors are not returned or emitted on abort. isRenewing() changes with the process.', async () => {
-      const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({ createModules: false });
+      const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({
+        createModules: false,
+        apiTokenClientProps: { maxRetries: 3 },
+      });
       const resultGetter = getPromiseResultLater(apiTokenClient.fetch(createUser()));
       // abort is called always when starting new fetch
       expect(mockMapAborter.getCalls('abort')).toHaveLength(1);
@@ -344,6 +367,97 @@ describe(`apiTokenClient`, () => {
       expect(currentApiTokenClient.getTokens()).toBeNull();
       expect(getEmittedErrors()).toHaveLength(1);
       expect(apiTokenClient.isRenewing()).toBeFalsy();
+    });
+    it('Appends grantType and permission to request body, if defined', async () => {
+      const grantType = 'grantType';
+      const permission = 'permission';
+      const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({
+        createModules: false,
+        apiTokenClientProps: { queryProps: { grantType, permission } },
+      });
+      await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(currentUser as User));
+      const fetchCalls = getFetchMockCalls();
+      const fetchCallBodies = fetchCalls.map(getFetchRequestBodyAsString);
+      expect(fetchCallBodies[0]).toBe(`grant_type=${grantType}&permission=${permission}`);
+      expect(fetchCalls[0]).toMatchInlineSnapshot(`
+        Array [
+          "${defaultClientProps.url}",
+          Object {
+            "body": URLSearchParams {},
+            "headers": Headers {
+              Symbol(map): Object {
+                "Authorization": Array [
+                  "Bearer ${(currentUser as User).access_token}",
+                ],
+              },
+            },
+            "method": "POST",
+            "signal": AbortSignal {},
+          },
+        ]
+      `);
+    });
+    it('Calls the end point multiple times, if multiple audiences are set. Request bodies have given audiences', async () => {
+      const grantType = 'grantType';
+      const permission = 'permission';
+      const audiences = ['audience1', 'audience2'];
+      const apiTokenClient = initTests({
+        createModules: false,
+        apiTokenClientProps: { audiences, queryProps: { grantType, permission } },
+        // added also error response to verify re-fetching works
+        responses: [
+          createSuccessfulApiTokenAudienceResponse('audience-1-token'),
+          errorResponse,
+          unauthorizedResponse,
+          createSuccessfulApiTokenAudienceResponse('audience-2-token'),
+        ],
+      });
+      const expectedResult = {
+        [audiences[0]]: 'audience-1-token',
+        [audiences[1]]: 'audience-2-token',
+      };
+      const promise = apiTokenClient.fetch(createUser());
+      await advanceUntilPromiseResolved(promise);
+      expect(apiTokenClient.getTokens()).toMatchObject(expectedResult);
+      const fetchCalls = getFetchMockCalls();
+      expect(fetchCalls).toHaveLength(4);
+      const fetchCallBodies = fetchCalls.map(getFetchRequestBodyAsString);
+      expect(fetchCallBodies[0]).toBe(`audience=${audiences[0]}&grant_type=${grantType}&permission=${permission}`);
+      expect(fetchCallBodies[1]).toBe(`audience=${audiences[1]}&grant_type=${grantType}&permission=${permission}`);
+    });
+    it('Multiple requests are aborted with clear(). Errors are not returned or emitted on abort. isRenewing() changes with the process.', async () => {
+      const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({
+        createModules: false,
+        apiTokenClientProps: { audiences: ['audience1', 'audience2'] },
+        additionalResponses: [successfulResponse],
+      });
+      const resultGetter = getPromiseResultLater(apiTokenClient.fetch(createUser()));
+      // abort is called always when starting new fetch
+      expect(mockMapAborter.getCalls('abort')).toHaveLength(1);
+      expect(apiTokenClient.isRenewing()).toBeTruthy();
+      await waitUntilRequestStarted();
+      apiTokenClient.clear();
+      expect(mockMapAborter.getCalls('abort')).toHaveLength(2);
+      await waitUntilRequestFinished();
+      expect(await resultGetter()).toEqual({});
+      expect(getEmittedErrors()).toHaveLength(0);
+      expect(apiTokenClient.isRenewing()).toBeFalsy();
+    });
+    it('When multi-requests fetch fails, other requests are not made. An error is emitted and tokens cleared.', async () => {
+      const apiTokenClient = initTests({
+        apiTokenClientProps: { audiences: ['audience1', 'audience2', 'audience3'], maxRetries: 0 },
+        responses: [
+          createSuccessfulApiTokenAudienceResponse('audience-1-token'),
+          errorResponse,
+          createSuccessfulApiTokenAudienceResponse('audience-2-token'),
+          createSuccessfulApiTokenAudienceResponse('audience-3-token'),
+        ],
+      });
+      const promise = apiTokenClient.fetch(createUser());
+      await advanceUntilPromiseResolved(promise);
+      expect(apiTokenClient.getTokens()).toBeNull();
+      expect(getEmittedErrors()).toHaveLength(1);
+      expect(getFetchMockCalls()).toHaveLength(2);
     });
   });
   describe(`.getTokens()`, () => {
