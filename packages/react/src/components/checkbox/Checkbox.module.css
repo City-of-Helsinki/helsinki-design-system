@@ -10,6 +10,10 @@
   composes: hds-checkbox__label from 'hds-core/lib/components/checkbox/checkbox.css';
 }
 
+.noLabel {
+  composes: hds-checkbox__no-label from 'hds-core/lib/components/checkbox/checkbox.css';
+}
+
 .errorText {
   composes: hds-checkbox__error-text from 'hds-core/lib/components/checkbox/checkbox.css';
 }

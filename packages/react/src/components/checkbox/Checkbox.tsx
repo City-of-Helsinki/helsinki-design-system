@@ -125,11 +125,9 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
-        {label && (
-          <label htmlFor={id} className={classNames(styles.label)}>
-            {label}
-          </label>
-        )}
+        <label htmlFor={id} className={classNames(styles.label, !label ? styles.noLabel : '')}>
+          {label}
+        </label>
         {tooltipText && (
           <Tooltip className={styles.tooltipButton} buttonLabel={tooltipButtonLabel} tooltipLabel={tooltipLabel}>
             {tooltipText}
