@@ -11,9 +11,10 @@ export type HttpPoller = {
 export type HttpPollerProps = {
   pollFunction: () => Promise<Response | undefined>;
   shouldPoll: () => boolean;
-  onError: (returnedHttpStatus?: number) => { keepPolling: boolean };
+  onError: (returnedHttpStatus?: number, error?: Error) => { keepPolling: boolean };
   onSuccess?: (response: Response) => { keepPolling: boolean };
   pollIntervalInMs?: number;
+  onErrorStatusWhenAborted?: number;
 };
 
 const defaultPollIntervalInMs = 60000;
@@ -32,6 +33,7 @@ export default function createHttpPoller({
   onError,
   onSuccess,
   pollIntervalInMs = defaultPollIntervalInMs,
+  onErrorStatusWhenAborted,
 }: HttpPollerProps): HttpPoller {
   let isPolling = false;
   let isForceStopped = false;
@@ -81,9 +83,12 @@ export default function createHttpPoller({
       }
     }
     if (err && isAbortError(err)) {
+      if (onErrorStatusWhenAborted) {
+        onError(onErrorStatusWhenAborted, err);
+      }
       return;
     }
-    if (success || onError(responseStatus).keepPolling) {
+    if (success || onError(responseStatus, err).keepPolling) {
       startTimer();
     }
   };
