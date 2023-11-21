@@ -28,7 +28,6 @@
   display: flex;
   flex-wrap: wrap;
   min-height: var(--size);
-  min-width: var(--size);
   position: relative;
 }
 
