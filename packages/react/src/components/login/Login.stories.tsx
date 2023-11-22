@@ -65,10 +65,14 @@ const useKeycloakArgs = {
   description: 'Only a storybook option. If true, Keycloak OIDC is used.',
 };
 
-// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/
-// and change
-// redirect_uri: `${window.origin}/static-login/callback.html`,
-// silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
+// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/ and change
+// with Tunnistamo
+// redirect_uri: `${window.origin}/static-login/callback.html`
+// or with Keycloak:
+// redirect_uri: `${window.origin}/static-login/callback_kc.html`
+// with both
+// silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`
+// post_logout_redirect_uri: `${window.origin}/static-login/logout.html`
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
