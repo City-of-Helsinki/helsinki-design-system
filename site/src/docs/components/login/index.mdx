@@ -150,3 +150,21 @@ Modules communicate with signals. A module emits signals and listener functions 
 The signal emitter is called a <ApiPageAnchorLink>Beacon</ApiPageAnchorLink>. Usually, only error signals should be monitored. Data updates are handled automatically.
 
 Detailed information is in the <UsagePageAnchorLink anchor="signals">signals section</UsagePageAnchorLink> of the <UsagePageAnchorLink anchor="usage">Usage page</UsagePageAnchorLink>.
+
+### Common settings for localhost
+
+Every service must have its own `client_id` and `scope`, but these settings can be used for testing.
+They only work in `http://localhost:3000`. Make sure you have `/callback` and `/silent_renew.html` configured.
+
+```js
+const loginProviderProps: LoginProviderProps = {
+  userManagerSettings: {
+    authority: 'https://tunnistamo.dev.hel.ninja/',
+    client_id: 'exampleapp-ui-dev',
+    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
+    redirect_uri: `${window.origin}/callback`,
+  },
+  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
+  sessionPollerSettings: { pollIntervalInMs: 10000 },
+};
+```
