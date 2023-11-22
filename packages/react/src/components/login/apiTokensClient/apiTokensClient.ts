@@ -30,16 +30,16 @@ async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData |
   const myHeaders = new Headers();
   myHeaders.append('Authorization', `Bearer ${accessToken}`);
 
-  const urlencoded = new URLSearchParams();
+  const requestBody = new URLSearchParams();
   if (audience) {
-    urlencoded.append('audience', audience);
+    requestBody.append('audience', audience);
   }
   if (queryProps) {
     if (queryProps.grantType) {
-      urlencoded.append('grant_type', queryProps.grantType);
+      requestBody.append('grant_type', queryProps.grantType);
     }
     if (queryProps.permission) {
-      urlencoded.append('permission', queryProps.permission);
+      requestBody.append('permission', queryProps.permission);
     }
   }
 
@@ -49,9 +49,9 @@ async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData |
     headers: myHeaders,
     signal,
   };
-  const body = urlencoded.toString();
-  if (body) {
-    requestOptions.body = body;
+  // add body only if params are set
+  if (requestBody.toString()) {
+    requestOptions.body = requestBody;
   }
 
   const pollFunction = () => fetch(url, requestOptions);
