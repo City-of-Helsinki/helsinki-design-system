@@ -133,10 +133,10 @@
   padding-left: calc(var(--size) + var(--label-padding));
   padding-top: calc((var(--size) - (var(--label-font-size) * var(--lineheight-m))) / 2);
   position: relative;
+}
 
-  &.hds-checkbox__no-label {
-    padding-left: 0;
-  }
+.hds-checkbox .hds-checkbox__label--hidden {
+  padding-left: 0;
 }
 
 /* ERROR */

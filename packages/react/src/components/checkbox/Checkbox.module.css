@@ -11,7 +11,7 @@
 }
 
 .noLabel {
-  composes: hds-checkbox__no-label from 'hds-core/lib/components/checkbox/checkbox.css';
+  composes: hds-checkbox__label--hidden from 'hds-core/lib/components/checkbox/checkbox.css';
 }
 
 .errorText {
