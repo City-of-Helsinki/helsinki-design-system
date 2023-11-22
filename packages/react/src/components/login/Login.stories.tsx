@@ -555,7 +555,7 @@ export const Callback = (args: StoryArgs) => {
         <p>Login failed!</p>
         <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
         <p>
-          Currently selected OIDC server is <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong> This can be
+          Currently selected OIDC server is <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>. This can be
           changed in Addons (press &quot;A&quot;) or by selecting the server below.
         </p>
         <p>
