@@ -61,7 +61,6 @@
     "@testing-library/react": "11.2.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^12.8.1",
-    "@types/cleave.js": "1.4.4",
     "@types/jest": "^26.0.1",
     "@types/jest-axe": "^3.5.3",
     "@types/react": "17.0.2",
@@ -154,7 +153,6 @@
     "yup": "^1.0.2"
   },
   "resolutions": {
-    "@types/react": "17.0.2",
     "babel-jest": "^26.0.1",
     "eslint-plugin-react": "7.27.1",
     "jest": "^26.0.1",
