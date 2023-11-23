@@ -15,11 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [Header.ActionBarItem] New property "preventButtonResize" to prevent menu button shifting when clicked
 
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -39,6 +40,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -58,6 +60,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 - Updated grid documentation with information about the new Header
 
@@ -78,6 +81,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -97,6 +101,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -164,6 +169,7 @@ Changes that are not related to specific components
 ### Sketch & Abstract
 
 #### Changed
+
 - Updated HDS Sketch libraries to Sketch version 99.1. Please update your Sketch and files accordingly
 
 ### Icons
