@@ -182,13 +182,6 @@
     }
   },
   {
-    "name": "Header",
-    "text": "Header is a wrapper component for all navigation elements.",
-    "linkboxAriaLabel": "Header component",
-    "linkAriaLabel": "Go to the Header component page",
-    "href": "/components/header"
-  },
-  {
     "name": "Highlight",
     "text": "Quote and highlight allow lifting an excerpt from a longer text to emphasize.",
     "linkboxAriaLabel": "Highlight component",

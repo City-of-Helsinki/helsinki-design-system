@@ -1,0 +1,111 @@
+---
+slug: '/components/header/customisation'
+title: 'Header - Customisation'
+---
+
+import { Header, Logo, logoFi } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+
+| Theme variable                              | Description                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `--actionbar-background-color`              | Background color of the action bar.                                       |
+| `--color-focus-outline`                     | Color of the focus outline.                                               |
+| `--header-background-color`                 | Background color of the header.                                           |
+| `--header-color`                            | Font color inside the header.                                             |
+| `--header-max-width`                        | Max width of the header.                                                  |
+| `--header-z-index`                          | Z-index of the header.                                                    |
+| `--lang-selector-dropdown-background-color` | Background color of the dropdown for the language select.                 |
+| `--logo-height`                             | Height of the logo. Should be scaled down with smaller screens.           |
+| `--nav-background-color`                    | Background color of the navigation menu.                                  |
+| `--nav-border-color`                        | Border color of the navigation menu.                                      |
+| `--nav-link-hover-color`                    | Hover color of the navigation links.                                      |
+| `--nav-button-background-color`             | Background color of the navigation link's dropdown toggling button.       |
+| `--nav-link-dropdown-background-color`      | Background color of the navigation link dropdown.                         |
+| `--nav-button-hover-background-color`       | Hover background color of the navigation link's dropdown toggling button. |
+| `--nav-drop-down-icon-color`                | Color of the icon for the navigation link's dropdown toggling button.     |
+| `--universal-bar-background-color`          | Background color of the universal bar.                                    |
+
+
+### Customisation example
+<Playground scope={{ Header, Logo, logoFi }}>
+
+```jsx
+import { Header, Logo, logoFi } from 'hds-react';
+
+() => (
+  <Header
+    theme={{
+      '--color-focus-outline': 'var(--color-metro-dark)',
+      '--header-color': 'var(--color-black)',
+      '--header-focus-outline-color': 'var(--color-metro-dark)',
+      '--actionbar-background-color': 'var(--color-engel)',
+      '--nav-background-color': 'var(--color-engel-light)',
+      '--nav-mobile-menu-background-color': 'var(--color-engel-light)',
+      '--nav-border-color': 'var(--color-black)',
+      '--nav-link-hover-color': 'var(--color-black)',
+      '--universal-bar-background-color': 'var(--color-black-20)',
+      '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
+      '--nav-button-background-color': 'var(--color-black-20)',
+      '--nav-button-hover-background-color': 'var(--color-black-40)',
+      '--nav-drop-down-icon-color': 'var(--color-black)',
+      '--header-background-color': 'var(--color-engel-light)',
+    }}
+  >
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.Link href="#" label="Uutiset" />
+      <Header.Link href="#" label="Asioi verkossa" />
+      <Header.Link href="#" label="Anna palautetta" />
+    </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleAriaLabel="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+    />
+    <Header.NavigationMenu>
+      <Header.Link
+        as={Link}
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        dropdownLinks={[
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Terveydenhoito"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Hammashoito" />,
+              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.Link as={Link} href="#" label="Kasvatus ja koulutus" />
+      <Header.Link as={Link} href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+)
+```
+</Playground>
