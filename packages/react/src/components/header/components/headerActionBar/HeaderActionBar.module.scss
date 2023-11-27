@@ -5,6 +5,7 @@
 
 .headerActionBar {
   align-items: stretch;
+  background-color: var(--actionbar-background-color);
   box-sizing: border-box;
   color: var(--header-color);
   display: flex;
@@ -16,6 +17,7 @@
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
   position: relative;
+  z-index: var(--header-z-index);
 
   hr {
     border: 0;
