@@ -20,28 +20,34 @@ import { LinkProps } from '../../../../internal/LinkItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 
 type NavigationSectionType = {
+  logo: React.ReactNode;
   universalLinks: React.ReactNode[];
 } & React.ComponentPropsWithoutRef<'section'>;
 
-const NavigationSection = ({ children, className, universalLinks, ...rest }: NavigationSectionType) => {
+const NavigationSection = ({ children, className, logo, universalLinks, ...rest }: NavigationSectionType) => {
   return (
     <section {...rest} className={classNames(styles.navSection, className)}>
       <nav className={styles.navigation}>
         <ul className={styles.menu}>{children}</ul>
       </nav>
-      <ul className={styles.universalList}>
-        {universalLinks.map((child, index) => {
-          if (!isValidElement(child)) return null;
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
-              {cloneElement(child as React.ReactElement, {
-                className: styles.universalLink,
-              })}
-            </li>
-          );
-        })}
-      </ul>
+      <div className={styles.mobileMenuBottom}>
+        {universalLinks && (
+          <ul className={styles.universalList}>
+            {universalLinks.map((child, index) => {
+              if (!isValidElement(child)) return null;
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={index}>
+                  {cloneElement(child as React.ReactElement, {
+                    className: styles.universalLink,
+                  })}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {logo}
+      </div>
     </section>
   );
 };
@@ -143,6 +149,16 @@ const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps
     </>
   );
 };
+
+const Logo = ({ logo, logoProps }) => (
+  <HeaderActionBarLogo
+    logoProps={{
+      ...logoProps,
+      className: classNames(logoProps.className, styles.logoLink),
+    }}
+    logo={logo}
+  />
+);
 
 /**
  * Find only the active links in the given objects model.
@@ -287,9 +303,14 @@ export const HeaderActionBarNavigationMenu = ({
 
     // If the animation was related to moving menus, set the focus to the currently active page link
     if (e.propertyName === 'transform' && targetElement.firstChild.nodeName === 'SECTION') {
+      // Set the focus to the currently active page link
       const linkElement = await getIsElementLoaded(`#${currentActiveLinkId}`);
-
       linkElement.focus();
+
+      // Set the height of the menu container
+      const renderedChildIndex = Math.abs(navContainerRef.current.getBoundingClientRect().left / window.innerWidth);
+      const currentTargetHeight = targetElement.children[renderedChildIndex].clientHeight;
+      navContainerRef.current.style.height = `${currentTargetHeight}px`;
     }
   };
 
@@ -310,6 +331,7 @@ export const HeaderActionBarNavigationMenu = ({
             universalLinks={universalLinks}
             aria-hidden
             className={isAnimating ? styles.visible : styles.hidden}
+            logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
           >
             <ActiveDropdownLink
               link={previousDropdownLink}
@@ -325,6 +347,7 @@ export const HeaderActionBarNavigationMenu = ({
           universalLinks={universalLinks}
           aria-hidden={isRenderingDeepestMenu}
           className={!isRenderingDeepestMenu ? styles.visible : styles.hidden}
+          logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
         >
           {openMainLinks.length > 0 && (
             <PreviousDropdownLink
@@ -350,6 +373,7 @@ export const HeaderActionBarNavigationMenu = ({
             universalLinks={universalLinks}
             aria-hidden={!isRenderingDeepestMenu}
             className={isAnimating || isRenderingDeepestMenu ? styles.visible : styles.hidden}
+            logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
           >
             <PreviousDropdownLink
               link={previousDropdownLink}
@@ -374,6 +398,7 @@ export const HeaderActionBarNavigationMenu = ({
             universalLinks={universalLinks}
             aria-hidden={!openingLink}
             className={isAnimating ? styles.visible : styles.hidden}
+            logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
           >
             <PreviousDropdownLink
               link={currentlyActiveMainLink}
@@ -396,13 +421,6 @@ export const HeaderActionBarNavigationMenu = ({
           </NavigationSection>
         )}
       </div>
-      <HeaderActionBarLogo
-        logoProps={{
-          ...logoProps,
-          className: classNames(logoProps.className, styles.logoLink),
-        }}
-        logo={logo}
-      />
     </div>
   );
 };

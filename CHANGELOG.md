@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [DateInput] Support for customising date styles
 
 #### Changed
 
@@ -25,7 +25,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Header.NavigationMenu] Fixed navigation menu on mobile
 
 ### Core
 
