@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Header.NavigationMenu] Fixed navigation menu on mobile
+- [Checbox] Fixed Checkbox label taking space even if label not given (when using an external component as the label for it)
 
 ### Core
 
@@ -46,6 +47,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Checkbox] Small changes to styles not to add padding when label not used (by using `hds-checkbox__label--hidden` class)
 
 ### Documentation
 
@@ -61,6 +63,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 - [Component] What has been changed
+- [Checkbox] Small addition to guide not to use the label-property at all when using an external label for the Checkbox
 
 #### Fixed
 
