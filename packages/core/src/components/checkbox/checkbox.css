@@ -135,6 +135,10 @@
   position: relative;
 }
 
+.hds-checkbox .hds-checkbox__label--hidden {
+  padding-left: 0;
+}
+
 /* ERROR */
 .hds-checkbox__error-text {
   background-color: var(--color-error-light);

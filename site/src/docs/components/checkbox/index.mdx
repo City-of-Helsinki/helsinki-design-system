@@ -58,6 +58,7 @@ export const CheckboxExample = () => {
 - If Checkboxes are related to each other, use <InternalLink href="/components/selection-group">HDS Selection group</InternalLink> to achieve that.
 - Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use <InternalLink href="/components/toggle-button">HDS Toggle button component</InternalLink> instead. Also see <InternalLink href="/foundation/guidelines/checkbox-radiobutton-toggle">guidelines for choosing between radio buttons, checkboxes and toggles.</InternalLink>
 - Checkbox can be provided with additional tooltip. Tooltip information should be considered as extra information. You can find more information about Tooltips how they are used from the <InternalLink href="/components/tooltip">Tooltip documentation page</InternalLink>.
+- If some other component is used as the label for the checkbox by using `<label for="checkbox_id">`, the label parameter of the checkbox itself should not be given at all (affects the layout).
 ### Variations
 
 #### Default
