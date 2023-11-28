@@ -31,20 +31,6 @@ export const AlignsWithHeader = (args) => {
           <Header.Link href="#online" label="Online" />
           <Header.Link href="#feedback" label="Feedback" />
         </Header.UniversalBar>
-        <Header.NavigationMenu>
-          <Header.Link
-            label="Sosiaali ja terveyspalvelut"
-            onClick={(event) => {
-              event.preventDefault();
-            }}
-          />
-          <Header.Link
-            label="kasvatus ja koulutus"
-            onClick={(event) => {
-              event.preventDefault();
-            }}
-          />
-        </Header.NavigationMenu>
         <Header.ActionBar
           frontPageLabel="Frontpage"
           title="City of Helsinki"
@@ -62,6 +48,20 @@ export const AlignsWithHeader = (args) => {
             <h3>Tempor incididunt ut labore et dolore</h3>
           </Header.ActionBarItem>
         </Header.ActionBar>
+        <Header.NavigationMenu>
+          <Header.Link
+            label="Sosiaali ja terveyspalvelut"
+            onClick={(event) => {
+              event.preventDefault();
+            }}
+          />
+          <Header.Link
+            label="kasvatus ja koulutus"
+            onClick={(event) => {
+              event.preventDefault();
+            }}
+          />
+        </Header.NavigationMenu>
       </Header>
       <Container {...args}>
         <h1>Duis aute irure dolor in reprehenderit</h1>
