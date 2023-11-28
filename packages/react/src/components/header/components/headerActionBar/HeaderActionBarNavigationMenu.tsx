@@ -325,6 +325,52 @@ export const HeaderActionBarNavigationMenu = ({
     setMobileMenuOpen(false);
   };
 
+  const RenderNavigationSection = ({
+    links,
+    activeLink,
+    activeLinkId,
+    ariaHidden,
+    previousLink,
+    showPreviousLink,
+    className,
+  }: {
+    links: React.ReactNode[];
+    activeLink: React.ReactElement;
+    activeLinkId?: string;
+    previousLink?: React.ReactElement;
+    showPreviousLink?: boolean;
+    ariaHidden: boolean;
+    className: string;
+  }) => {
+    // PreviousDropdownLink defaults to titleHref if link is undefined
+    return (
+      <NavigationSection
+        universalLinks={universalLinks}
+        aria-hidden={ariaHidden}
+        className={className}
+        logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
+      >
+        {showPreviousLink && (
+          <PreviousDropdownLink
+            link={previousLink}
+            frontPageLabel={frontPageLabel}
+            titleHref={titleHref}
+            onClick={goBack}
+            openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
+          />
+        )}
+        <ActiveDropdownLink
+          id={activeLinkId}
+          link={activeLink}
+          frontPageLabel={frontPageLabel}
+          titleHref={titleHref}
+          onLinkClick={handleLinkClick}
+        />
+        <MenuLinks links={links} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
+      </NavigationSection>
+    );
+  };
+
   return (
     <div className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}>
       <div
@@ -332,100 +378,51 @@ export const HeaderActionBarNavigationMenu = ({
         onTransitionEnd={menuSectionsAnimationDone}
         ref={navContainerRef}
       >
-        {navigationContent && (
-          <>
-            {/* Previous menu links */}
-            {openMainLinks.length >= 1 && (
-              <NavigationSection
-                universalLinks={universalLinks}
-                aria-hidden
-                logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
-              >
-                <ActiveDropdownLink
-                  link={previousDropdownLink}
-                  frontPageLabel={frontPageLabel}
-                  titleHref={titleHref}
-                  onLinkClick={handleLinkClick}
-                />
-                <MenuLinks links={previousMenuLinks} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
-              </NavigationSection>
-            )}
-            {/* Currently open links */}
-            <NavigationSection
-              universalLinks={universalLinks}
-              aria-hidden={isRenderingDeepestMenu}
-              logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
-            >
-              {openMainLinks.length > 0 && (
-                <PreviousDropdownLink
-                  link={!isRenderingDeepestMenu ? previousDropdownLink : previousDropdownLink}
-                  frontPageLabel={frontPageLabel}
-                  titleHref={titleHref}
-                  onClick={goBack}
-                  openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-                />
-              )}
-              <ActiveDropdownLink
-                id={!isRenderingDeepestMenu && !isAnimating ? currentActiveLinkId : undefined}
-                link={!isRenderingDeepestMenu ? currentlyActiveMainLink : previousDropdownLink}
-                frontPageLabel={frontPageLabel}
-                titleHref={titleHref}
-                onLinkClick={handleLinkClick}
-              />
-              <MenuLinks links={menuLinks} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
-            </NavigationSection>
-            {/* Next links. Rendered at the deepest level. */}
-            {!openingLink && (
-              <NavigationSection
-                universalLinks={universalLinks}
-                aria-hidden={!isRenderingDeepestMenu}
-                logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
-              >
-                <PreviousDropdownLink
-                  link={previousDropdownLink}
-                  frontPageLabel={frontPageLabel}
-                  titleHref={titleHref}
-                  onClick={goBack}
-                  openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-                />
-                <ActiveDropdownLink
-                  id={isRenderingDeepestMenu ? currentActiveLinkId : undefined}
-                  link={currentlyActiveMainLink}
-                  frontPageLabel={frontPageLabel}
-                  titleHref={titleHref}
-                  onLinkClick={handleLinkClick}
-                />
-                <MenuLinks links={menuLinks} onDropdownButtonClick={goDeeper} onLinkClick={handleLinkClick} />
-              </NavigationSection>
-            )}
-            {/* Render the menu animating into view for better UX. */}
-            {openingLink && typeof openingLink !== 'string' && (
-              <NavigationSection
-                universalLinks={universalLinks}
-                aria-hidden={!openingLink}
-                logo={<Logo logo={logo} logoProps={{ ...logoProps }} />}
-              >
-                <PreviousDropdownLink
-                  link={currentlyActiveMainLink}
-                  frontPageLabel={frontPageLabel}
-                  titleHref={titleHref}
-                  onClick={goBack}
-                  openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-                />
-                <ActiveDropdownLink
-                  link={openingLink}
-                  frontPageLabel={frontPageLabel}
-                  titleHref={titleHref}
-                  onLinkClick={handleLinkClick}
-                />
-                <MenuLinks
-                  links={openingLink.props.dropdownLinks}
-                  onDropdownButtonClick={goDeeper}
-                  onLinkClick={handleLinkClick}
-                />
-              </NavigationSection>
-            )}
-          </>
+        {/* Previous menu links */}
+        {openMainLinks.length >= 1 && (
+          <RenderNavigationSection
+            activeLink={previousDropdownLink}
+            ariaHidden
+            className={isAnimating ? styles.visible : styles.hidden}
+            links={previousMenuLinks}
+            showPreviousLink={false}
+          />
+        )}
+
+        {/* Currently open links */}
+        <RenderNavigationSection
+          activeLink={!isRenderingDeepestMenu ? currentlyActiveMainLink : previousDropdownLink}
+          activeLinkId={!isRenderingDeepestMenu && !isAnimating ? currentActiveLinkId : undefined}
+          ariaHidden={isRenderingDeepestMenu}
+          className={!isRenderingDeepestMenu ? styles.visible : styles.hidden}
+          links={menuLinks}
+          previousLink={openMainLinks.length > 0 ? previousDropdownLink : undefined}
+          showPreviousLink={openMainLinks.length > 0}
+        />
+
+        {/* Next links. Rendered at the deepest level. */}
+        {!openingLink && (
+          <RenderNavigationSection
+            activeLink={currentlyActiveMainLink}
+            activeLinkId={isRenderingDeepestMenu ? currentActiveLinkId : undefined}
+            ariaHidden={!isRenderingDeepestMenu}
+            className={isAnimating || isRenderingDeepestMenu ? styles.visible : styles.hidden}
+            links={menuLinks}
+            previousLink={previousDropdownLink}
+            showPreviousLink
+          />
+        )}
+
+        {/* Render the menu animating into view for better UX. */}
+        {openingLink && typeof openingLink !== 'string' && (
+          <RenderNavigationSection
+            activeLink={openingLink}
+            ariaHidden={!openingLink}
+            className={isAnimating ? styles.visible : styles.hidden}
+            links={openingLink.props.dropdownLinks}
+            previousLink={currentlyActiveMainLink}
+            showPreviousLink
+          />
         )}
       </div>
     </div>
