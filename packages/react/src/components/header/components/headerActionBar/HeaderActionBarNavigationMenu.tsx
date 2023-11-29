@@ -1,4 +1,12 @@
-import React, { cloneElement, isValidElement, MouseEventHandler, TransitionEvent, useRef, useState } from 'react';
+import React, {
+  cloneElement,
+  isValidElement,
+  MouseEventHandler,
+  TransitionEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
@@ -6,7 +14,6 @@ import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { getChildrenAsArray } from '../../../../utils/getChildren';
 import { HeaderLink } from '../headerLink';
 import { IconAngleLeft } from '../../../../icons';
-import getIsElementLoaded from '../../../../utils/getIsElementLoaded';
 import { LinkProps } from '../../../../internal/LinkItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 
@@ -81,14 +88,12 @@ type ActiveDropdownLinkProps = {
   link: React.ReactElement;
   frontPageLabel: string;
   titleHref?: string;
-  id?: string;
   onLinkClick?: MouseEventHandler<HTMLAnchorElement>;
 };
-const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref, onLinkClick }: ActiveDropdownLinkProps) => {
+const ActiveDropdownLink = ({ link, frontPageLabel, titleHref, onLinkClick }: ActiveDropdownLinkProps) => {
   const className = styles.activeMobileLink;
   const activeLink = link ? (
     cloneElement(link, {
-      id,
       className,
       dropdownButtonClassName: styles.hideDropdownButton,
       wrapperClassName: styles.mobileLinkWrapper,
@@ -98,7 +103,7 @@ const ActiveDropdownLink = ({ id, link, frontPageLabel, titleHref, onLinkClick }
       },
     })
   ) : (
-    <HeaderLink id={id} label={frontPageLabel} href={titleHref} className={className} onClick={onLinkClick} />
+    <HeaderLink label={frontPageLabel} href={titleHref} className={className} onClick={onLinkClick} />
   );
   return (
     <li className={styles.activeListItem}>
@@ -184,7 +189,7 @@ export const HeaderActionBarNavigationMenu = ({
   const { setMobileMenuOpen } = useSetHeaderContext();
   // State for which link menu is open but not necessarily active. Needed for browsing the menu.
   const navContainerRef = useRef<HTMLDivElement>();
-  const currentActiveLinkId = 'current-active-link';
+  const shouldSetFocus = useRef(false);
 
   const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
 
@@ -316,6 +321,24 @@ export const HeaderActionBarNavigationMenu = ({
     };
   };
 
+  const getActiveLinkElement = (): HTMLAnchorElement | null => {
+    const container = navContainerRef.current;
+    const activeMenuIndex = getActiveMenus().length - 1;
+    const activeMenuElement = container ? (container.childNodes[activeMenuIndex] as HTMLElement) : null;
+    return activeMenuElement ? activeMenuElement.querySelector(`a.${styles.activeMobileLink}`) : null;
+  };
+
+  useEffect(() => {
+    // Set the focus to the currently active page link
+    if (shouldSetFocus.current) {
+      shouldSetFocus.current = false;
+      const linkElement = getActiveLinkElement();
+      if (linkElement) {
+        linkElement.focus();
+      }
+    }
+  });
+
   if (!mobileMenuOpen) return null;
 
   const goDeeper = (link: React.ReactElement) => {
@@ -339,22 +362,17 @@ export const HeaderActionBarNavigationMenu = ({
   const menuSectionsAnimationDone = async (e: TransitionEvent) => {
     const targetElement = e.target as HTMLElement;
     if (e.propertyName === 'transform' && targetElement.firstChild.nodeName === 'SECTION') {
+      shouldSetFocus.current = true;
       // Set the height of the menu container
       const renderedChildIndex = resetMenusAfterAnimation() - 1;
       const currentMenuSection = targetElement.children[renderedChildIndex];
       navContainerRef.current.style.height = `${currentMenuSection.clientHeight}px`;
-
-      // If the animation was related to moving menus, set the focus to the currently active page link
-      // Set the focus to the currently active page link
-      const linkElement = await getIsElementLoaded(`#${currentActiveLinkId}`);
-      linkElement.focus();
     }
   };
 
   const RenderNavigationSection = ({
     links,
     activeLink,
-    activeLinkId,
     ariaHidden,
     previousLink,
     showPreviousLink,
@@ -362,7 +380,6 @@ export const HeaderActionBarNavigationMenu = ({
   }: {
     links: React.ReactNode[];
     activeLink: React.ReactElement;
-    activeLinkId?: string;
     previousLink?: React.ReactElement;
     showPreviousLink?: boolean;
     ariaHidden: boolean;
@@ -385,7 +402,6 @@ export const HeaderActionBarNavigationMenu = ({
           />
         )}
         <ActiveDropdownLink
-          id={activeLinkId}
           link={activeLink}
           frontPageLabel={frontPageLabel}
           titleHref={titleHref}
@@ -410,7 +426,6 @@ export const HeaderActionBarNavigationMenu = ({
           return (
             <RenderNavigationSection
               activeLink={activeLink}
-              activeLinkId={isCurrentMenu ? currentActiveLinkId : undefined}
               ariaHidden={!isCurrentMenu}
               className={isCurrentMenu || isCurrentlyAnimating ? styles.visible : styles.hidden}
               key={key}
