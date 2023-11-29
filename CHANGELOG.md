@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [DateInput] Support for customising date styles
+- [Accordion] Support for customising close button styles
 
 #### Changed
 
@@ -64,6 +65,7 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 - [Component] What has been changed
 - [Checkbox] Small addition to guide not to use the label-property at all when using an external label for the Checkbox
+- [Accordion] Add close button theming properties
 
 #### Fixed
 
