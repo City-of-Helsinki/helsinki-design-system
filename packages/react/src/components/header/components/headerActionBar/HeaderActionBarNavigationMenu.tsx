@@ -423,11 +423,15 @@ export const HeaderActionBarNavigationMenu = ({
           const { links, previousLink, activeLink, key } = getMenuContents(i);
           const isCurrentMenu = isMenuCurrent(i);
           const isCurrentlyAnimating = isAnimating();
+          const distanceToLast = selectedMenuLevels.length - 1 - i;
+          // Maximum of 2 menus can be seen at the same time and only when animating.
+          // Otherwise only one. If there are 3 menus, then root should not be shown.
+          const shouldBeVisible = (isCurrentlyAnimating && distanceToLast < 2) || isCurrentMenu;
           return (
             <RenderNavigationSection
               activeLink={activeLink}
               ariaHidden={!isCurrentMenu}
-              className={isCurrentMenu || isCurrentlyAnimating ? styles.visible : styles.hidden}
+              className={shouldBeVisible ? styles.visible : styles.hidden}
               key={key}
               links={links}
               previousLink={previousLink}
