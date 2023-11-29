@@ -1,12 +1,4 @@
-import React, {
-  cloneElement,
-  isValidElement,
-  MouseEventHandler,
-  TransitionEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { cloneElement, isValidElement, MouseEventHandler, TransitionEvent, useRef, useState } from 'react';
 
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
@@ -191,8 +183,6 @@ export const HeaderActionBarNavigationMenu = ({
   const { navigationContent, mobileMenuOpen, hasUniversalContent, universalContent } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
   // State for which link menu is open but not necessarily active. Needed for browsing the menu.
-  // State for the wide wrapping element's position. Value is also used as a class for animation.
-  const [position, setPosition] = useState<Position>('left0');
   const navContainerRef = useRef<HTMLDivElement>();
   const currentActiveLinkId = 'current-active-link';
 
@@ -210,6 +200,11 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   const getActiveMenus = () => selectedMenuLevels.filter((level) => level.active);
+
+  const getMenuPositionStyle = () => {
+    const activeMenuIndex = getActiveMenus().length - 1;
+    return styles[menuPositions[activeMenuIndex]];
+  };
 
   const isMenuActive = (index: number) => {
     const menuItem = selectedMenuLevels[index];
@@ -321,20 +316,7 @@ export const HeaderActionBarNavigationMenu = ({
     };
   };
 
-  /* Start animation when active menu has changed */
-  const activeMenuIndex = getActiveMenus().length - 1;
-  useEffect(() => {
-    setPosition(menuPositions[activeMenuIndex]);
-  }, [activeMenuIndex]);
-
-  useEffect(() => {
-    if (mobileMenuOpen && navContainerRef?.current) {
-      // Set the height of the menu container
-      const renderedChildIndex = Math.abs(navContainerRef.current.getBoundingClientRect().left / window.innerWidth);
-      const currentTargetHeight = navContainerRef.current.children[renderedChildIndex].clientHeight;
-      navContainerRef.current.style.height = `${currentTargetHeight}px`;
-    }
-  }, [mobileMenuOpen]);
+  if (!mobileMenuOpen) return null;
 
   const goDeeper = (link: React.ReactElement) => {
     if (isAnimating()) {
@@ -417,7 +399,7 @@ export const HeaderActionBarNavigationMenu = ({
   return (
     <div className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}>
       <div
-        className={classNames(styles.navigationWrapper, styles[position])}
+        className={classNames(styles.navigationWrapper, getMenuPositionStyle())}
         onTransitionEnd={menuSectionsAnimationDone}
         ref={navContainerRef}
       >
