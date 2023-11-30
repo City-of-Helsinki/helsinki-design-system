@@ -47,6 +47,12 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 
+### Templates
+
+#### Added
+
+- Added new template for error page
+
 ### Documentation
 
 #### Breaking
