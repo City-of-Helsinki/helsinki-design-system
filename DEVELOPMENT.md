@@ -9,7 +9,7 @@
 - [Nvm](https://github.com/nvm-sh/nvm)
 - [Node](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
-- [Docker](https://www.docker.com/) (for visual regression tests)
+- [Docker](https://www.docker.com/) (For visual regression tests. Read more [here](https://github.com/City-of-Helsinki/helsinki-design-system/blob/development/packages/react/DEVELOPMENT.md#visual-regression-tests).)
 
 ### Setting up local development environment
 
