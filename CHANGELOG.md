@@ -24,7 +24,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Header.LanguageSelector] Added `aria-current` to currently selected language button
 
 ### Core
 
