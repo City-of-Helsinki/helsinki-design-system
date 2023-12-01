@@ -49,6 +49,12 @@ Changes that are not related to specific components
 - [Component] What bugs/typos are fixed?
 - [Checkbox] Small changes to styles not to add padding when label not used (by using `hds-checkbox__label--hidden` class)
 
+### Templates
+
+#### Added
+
+- Added new template for error page
+
 ### Documentation
 
 #### Breaking
