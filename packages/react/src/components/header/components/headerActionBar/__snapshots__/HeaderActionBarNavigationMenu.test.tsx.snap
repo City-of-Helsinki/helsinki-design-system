@@ -1,0 +1,695 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu can be opened 1`] = `
+<DocumentFragment>
+  <header
+    class="hds-header header isNotLargeScreen"
+  >
+    <div
+      class="headerBackgroundWrapper"
+    >
+      <div
+        aria-hidden="true"
+        tabindex="0"
+      />
+      <div
+        class="headerActionBarContainer mobileMenuContainer"
+      >
+        <div
+          class="headerActionBar"
+        >
+          <a
+            aria-label="logoAriaLabel"
+            class="titleAndLogoContainer logo"
+            href="https://hel.fi"
+          >
+            <span
+              class="logoWrapper"
+            >
+              <span />
+            </span>
+          </a>
+          <a
+            aria-label="titleAriaLabel"
+            class="titleAndLogoContainer title normal"
+            href="https://domain.fi"
+          >
+            <span
+              class="title"
+            >
+              title
+            </span>
+          </a>
+          <div
+            class="headerActions"
+          >
+            ActionBar
+            <button
+              aria-controls="hds-mobile-menu"
+              aria-expanded="true"
+              aria-label="menuButtonAriaLabel"
+              class="actionBarItem undefined"
+              type="button"
+            >
+              <span
+                class="actionBarItemIcon"
+              >
+                <svg
+                  aria-hidden="true"
+                  aria-label="cross"
+                  class="icon s"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="actionBarItemLabel"
+              >
+                Menu
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="headerNavigationMenu mobileMenuOpen"
+          id="hds-mobile-menu"
+        >
+          <div
+            class="navigationWrapper left0"
+          >
+            <section
+              aria-hidden="false"
+              class="navSection visible"
+            >
+              <nav
+                class="navigation"
+              >
+                <ul
+                  class="menu"
+                >
+                  <li
+                    class="activeListItem"
+                  >
+                    <span
+                      class="activeLinkWrapper"
+                    >
+                      <span
+                        class="isNotLargeScreen navigationLinkWrapper depth-0"
+                      >
+                        <a
+                          class="link linkM headerLink depth-0 activeMobileLink isNotLargeScreen"
+                          href="https://domain.fi"
+                        >
+                          frontPageLabel
+                        </a>
+                      </span>
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      class="mobileNavigationLink"
+                    >
+                      <span
+                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                      >
+                        <a
+                          class="link linkM headerLink depth-0 mobileLink isNotLargeScreen"
+                          href="http://test-link-0.com"
+                        >
+                          TestLabel_0
+                        </a>
+                        <button
+                          aria-expanded="false"
+                          aria-label="Avaa alasvetovalikko."
+                          class="button isNotLargeScreen depth-0 mobileLinkDropdownButton"
+                          data-testid="dropdown-button-0"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            aria-label="angle-down"
+                            class="icon s chevron"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <ul
+                          class="dropdownMenu isNotLargeScreen mobileLinkDropdown"
+                          data-testid="dropdown-menu-0"
+                          style="display: none;"
+                        >
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-0_0.com"
+                              >
+                                TestLabel_0_0
+                              </a>
+                              <button
+                                aria-expanded="false"
+                                aria-label="Avaa alasvetovalikko."
+                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                data-testid="dropdown-button-0"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  aria-label="angle-right"
+                                  class="icon s chevron"
+                                  role="img"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                              <ul
+                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                data-testid="dropdown-menu-0"
+                                style="display: none;"
+                              >
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-0_0_0.com"
+                                    >
+                                      TestLabel_0_0_0
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-0_0_1.com"
+                                    >
+                                      TestLabel_0_0_1
+                                    </a>
+                                  </span>
+                                </li>
+                              </ul>
+                            </span>
+                          </li>
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-0_1.com"
+                              >
+                                TestLabel_0_1
+                              </a>
+                            </span>
+                          </li>
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-0_2.com"
+                              >
+                                TestLabel_0_2
+                              </a>
+                              <button
+                                aria-expanded="false"
+                                aria-label="Avaa alasvetovalikko."
+                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                data-testid="dropdown-button-2"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  aria-label="angle-right"
+                                  class="icon s chevron"
+                                  role="img"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                              <ul
+                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                data-testid="dropdown-menu-2"
+                                style="display: none;"
+                              >
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-0_2_0.com"
+                                    >
+                                      TestLabel_0_2_0
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-0_2_1.com"
+                                    >
+                                      TestLabel_0_2_1
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-0_2_2.com"
+                                    >
+                                      TestLabel_0_2_2
+                                    </a>
+                                  </span>
+                                </li>
+                              </ul>
+                            </span>
+                          </li>
+                        </ul>
+                      </span>
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      class="mobileNavigationLink"
+                    >
+                      <span
+                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                      >
+                        <a
+                          class="link linkM headerLink depth-0 mobileLink isNotLargeScreen"
+                          href="http://test-link-1.com"
+                        >
+                          TestLabel_1
+                        </a>
+                        <button
+                          aria-expanded="false"
+                          aria-label="Avaa alasvetovalikko."
+                          class="button isNotLargeScreen depth-0 mobileLinkDropdownButton"
+                          data-testid="dropdown-button-1"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            aria-label="angle-down"
+                            class="icon s chevron"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <ul
+                          class="dropdownMenu isNotLargeScreen mobileLinkDropdown"
+                          data-testid="dropdown-menu-1"
+                          style="display: none;"
+                        >
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-1_0.com"
+                              >
+                                TestLabel_1_0
+                              </a>
+                              <button
+                                aria-expanded="false"
+                                aria-label="Avaa alasvetovalikko."
+                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                data-testid="dropdown-button-0"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  aria-label="angle-right"
+                                  class="icon s chevron"
+                                  role="img"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                              <ul
+                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                data-testid="dropdown-menu-0"
+                                style="display: none;"
+                              >
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-1_0_0.com"
+                                    >
+                                      TestLabel_1_0_0
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-1_0_1.com"
+                                    >
+                                      TestLabel_1_0_1
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-1_0_2.com"
+                                    >
+                                      TestLabel_1_0_2
+                                    </a>
+                                  </span>
+                                </li>
+                              </ul>
+                            </span>
+                          </li>
+                        </ul>
+                      </span>
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      class="mobileNavigationLink"
+                    >
+                      <span
+                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                      >
+                        <a
+                          class="link linkM headerLink depth-0 mobileLink isNotLargeScreen"
+                          href="http://test-link-2.com"
+                        >
+                          TestLabel_2
+                        </a>
+                      </span>
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      class="mobileNavigationLink"
+                    >
+                      <span
+                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                      >
+                        <a
+                          class="link linkM headerLink depth-0 mobileLink isNotLargeScreen"
+                          href="http://test-link-3.com"
+                        >
+                          TestLabel_3
+                        </a>
+                        <button
+                          aria-expanded="false"
+                          aria-label="Avaa alasvetovalikko."
+                          class="button isNotLargeScreen depth-0 mobileLinkDropdownButton"
+                          data-testid="dropdown-button-3"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            aria-label="angle-down"
+                            class="icon s chevron"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <ul
+                          class="dropdownMenu isNotLargeScreen mobileLinkDropdown"
+                          data-testid="dropdown-menu-3"
+                          style="display: none;"
+                        >
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-3_0.com"
+                              >
+                                TestLabel_3_0
+                              </a>
+                            </span>
+                          </li>
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-3_1.com"
+                              >
+                                TestLabel_3_1
+                              </a>
+                              <button
+                                aria-expanded="false"
+                                aria-label="Avaa alasvetovalikko."
+                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                data-testid="dropdown-button-1"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  aria-label="angle-right"
+                                  class="icon s chevron"
+                                  role="img"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                              <ul
+                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                data-testid="dropdown-menu-1"
+                                style="display: none;"
+                              >
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-3_1_0.com"
+                                    >
+                                      TestLabel_3_1_0
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-3_1_1.com"
+                                    >
+                                      TestLabel_3_1_1
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-3_1_2.com"
+                                    >
+                                      TestLabel_3_1_2
+                                    </a>
+                                  </span>
+                                </li>
+                              </ul>
+                            </span>
+                          </li>
+                          <li>
+                            <span
+                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                            >
+                              <a
+                                class="link linkM headerLink depth-1 dropdownLink isNotLargeScreen"
+                                href="http://test-link-3_2.com"
+                              >
+                                TestLabel_3_2
+                              </a>
+                              <button
+                                aria-expanded="false"
+                                aria-label="Avaa alasvetovalikko."
+                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                data-testid="dropdown-button-2"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  aria-label="angle-right"
+                                  class="icon s chevron"
+                                  role="img"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                              <ul
+                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                data-testid="dropdown-menu-2"
+                                style="display: none;"
+                              >
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-3_2_0.com"
+                                    >
+                                      TestLabel_3_2_0
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-3_2_1.com"
+                                    >
+                                      TestLabel_3_2_1
+                                    </a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span
+                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                  >
+                                    <a
+                                      class="link linkM headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      href="http://test-link-3_2_2.com"
+                                    >
+                                      TestLabel_3_2_2
+                                    </a>
+                                  </span>
+                                </li>
+                              </ul>
+                            </span>
+                          </li>
+                        </ul>
+                      </span>
+                    </span>
+                  </li>
+                </ul>
+              </nav>
+              <div
+                class="mobileMenuBottom"
+              >
+                <ul
+                  class="universalList"
+                />
+                <a
+                  aria-label="logoAriaLabel"
+                  class="titleAndLogoContainer logo logoLink"
+                  href="https://hel.fi"
+                >
+                  <span
+                    class="logoWrapper"
+                  >
+                    <span />
+                  </span>
+                </a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div
+        aria-hidden="true"
+        tabindex="0"
+      />
+    </div>
+  </header>
+</DocumentFragment>
+`;
