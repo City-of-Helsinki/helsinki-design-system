@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Header.NavigationMenu] Fixed navigation menu on mobile
+- [Header.ActionBar] Added `aria-hidden` for separator
 - [Checbox] Fixed Checkbox label taking space even if label not given (when using an external component as the label for it)
 
 ### Core

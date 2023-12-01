@@ -261,7 +261,7 @@ export const HeaderActionBar = ({
             <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuClick} />
             {childrenRight.length > 0 && (
               <>
-                <hr />
+                <hr aria-hidden="true" />
                 {childrenRight}
               </>
             )}
