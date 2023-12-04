@@ -25,6 +25,23 @@ export interface AccordionCustomTheme {
   '--header-focus-outline-color'?: string;
   '--content-font-size'?: string;
   '--content-line-height'?: string;
+  '--close-button-background-color-disabled'?: string;
+  '--close-button-background-color-focus'?: string;
+  '--close-button-background-color-hover-focus'?: string;
+  '--close-button-background-color-hover'?: string;
+  '--close-button-background-color'?: string;
+  '--close-button-border-color-active'?: string;
+  '--close-button-border-color-disabled'?: string;
+  '--close-button-border-color-focus'?: string;
+  '--close-button-border-color-hover-focus'?: string;
+  '--close-button-border-color-hover'?: string;
+  '--close-button-border-color'?: string;
+  '--close-button-color-disabled'?: string;
+  '--close-button-color-focus'?: string;
+  '--close-button-color-hover-focus'?: string;
+  '--close-button-color-hover'?: string;
+  '--close-button-color'?: string;
+  '--close-button-focus-outline-color'?: string;
 }
 
 type Language = 'en' | 'fi' | 'sv';
@@ -141,6 +158,24 @@ export const Accordion = ({
     '--content-font-color': theme['--content-font-color'],
     '--content-font-size': theme['--content-font-size'],
     '--content-line-height': theme['--content-line-height'],
+
+    '--close-button-background-color-disabled': theme['--close-button-background-color-disabled'],
+    '--close-button-background-color-focus': theme['--close-button-background-color-focus'],
+    '--close-button-background-color-hover-focus': theme['--close-button-background-color-hover-focus'],
+    '--close-button-background-color-hover': theme['--close-button-background-color-hover'],
+    '--close-button-background-color': theme['--close-button-background-color'],
+    '--close-button-border-color-active': theme['--close-button-border-color-active'],
+    '--close-button-border-color-disabled': theme['--close-button-border-color-disabled'],
+    '--close-button-border-color-focus': theme['--close-button-border-color-focus'],
+    '--close-button-border-color-hover-focus': theme['--close-button-border-color-hover-focus'],
+    '--close-button-border-color-hover': theme['--close-button-border-color-hover'],
+    '--close-button-border-color': theme['--close-button-border-color'],
+    '--close-button-color-disabled': theme['--close-button-color-disabled'],
+    '--close-button-color-focus': theme['--close-button-color-focus'],
+    '--close-button-color-hover-focus': theme['--close-button-color-hover-focus'],
+    '--close-button-color-hover': theme['--close-button-color-hover'],
+    '--close-button-color': theme['--close-button-color'],
+    '--close-button-focus-outline-color': theme['--close-button-focus-outline-color'],
   };
 
   const filteredSovereignThemeVariables = pickBy(sovereignThemeVariables);
