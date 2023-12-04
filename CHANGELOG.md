@@ -5,13 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.2.0] - December, 5, 2023
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -21,8 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
 - [Button] CSS supports reset and button types
 
 #### Fixed
@@ -33,23 +27,12 @@ Changes that are not related to specific components
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
 - [Button] CSS supports reset and button types
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Checkbox] Small changes to styles not to add padding when label not used (by using `hds-checkbox__label--hidden` class)
 
 ### Templates
@@ -60,64 +43,40 @@ Changes that are not related to specific components
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
 - [Checkbox] Small addition to guide not to use the label-property at all when using an external label for the Checkbox
 - [Accordion] Add close button theming properties
 
+### Figma
+
+#### Added
+
+- [Icons] Added a new vector icon for X, replacing Twitter
+
+#### Changed
+
+- [Footer] Replaced old Twitter icon with X icon
+- [SearchInput] Improved responsiveness with auto layout
+
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Tabs] Background colour removed to support different application background colours. Note! When using Tabs with a scroll-button in Figma, ensure to adjust the button's gradient fill to match the application's background for visual consistency
 
-### Design kit
+### Sketch & Abstract
 
-#### Figma
+#### Changed
+- Updated HDS Sketch libraries to Sketch version 99.1. Please update your Sketch and files accordingly
 
-##### Breaking
+### Icons
 
-- [Component] What are the breaking changes?
+#### Added
 
-##### Added
+- [Icons] Added a new vector icon for X
 
-- [Component] What is added?
+#### Changed
 
-##### Changed
-
-Changes that are not related to specific components
-- [Component] What has been changed
-
-##### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-#### Sketch/Abstract
-
-##### Breaking
-
-- [Component] What are the breaking changes?
-
-##### Added
-
-- [Component] What is added?
-
-##### Changed
-
-Changes that are not related to specific components
-- [Component] What has been changed
-
-##### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Icons] Renamed twitter to xx_twitter to indicate it's deprecated state
 
 ## [3.1.0] - October, 31, 2023
 
