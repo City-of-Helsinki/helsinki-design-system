@@ -14,14 +14,15 @@ export type ApiTokenClientProps = {
   url: string;
   maxRetries?: number;
   retryInterval?: number;
+  queryProps?: { permission: string; grantType: string };
+  audiences?: string[];
 };
 
-export type FetchApiTokenOptions = {
-  url: string;
+export type FetchApiTokenOptions = Pick<ApiTokenClientProps, 'url' | 'queryProps' | 'retryInterval'> & {
   accessToken: string;
   signal?: AbortSignal;
   maxRetries?: number;
-  retryInterval?: number;
+  audience?: string;
 };
 
 export type ApiTokensClientEvent = keyof typeof apiTokensClientEvents;

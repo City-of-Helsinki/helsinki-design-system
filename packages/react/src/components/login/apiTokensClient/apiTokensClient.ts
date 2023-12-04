@@ -23,17 +23,36 @@ import {
   apiTokensClientNamespace,
   apiTokensClientEvents,
 } from '.';
+import { sequentialAsyncLoop } from '../../../utils/sequentialAsyncLoop';
 
 async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData | ApiTokensClientError> {
-  const { url, signal, accessToken, maxRetries = 4, retryInterval = 500 } = options;
+  const { url, signal, audience, accessToken, queryProps, maxRetries = 0, retryInterval = 500 } = options;
   const myHeaders = new Headers();
   myHeaders.append('Authorization', `Bearer ${accessToken}`);
 
-  const requestOptions = {
+  const requestBody = new URLSearchParams();
+  if (audience) {
+    requestBody.append('audience', audience);
+  }
+  if (queryProps) {
+    if (queryProps.grantType) {
+      requestBody.append('grant_type', queryProps.grantType);
+    }
+    if (queryProps.permission) {
+      requestBody.append('permission', queryProps.permission);
+    }
+  }
+
+  // RequestInit is not importable so using Parameters here
+  const requestOptions: Parameters<typeof fetch>[1] = {
     method: 'POST',
     headers: myHeaders,
     signal,
   };
+  // add body only if params are set
+  if (requestBody.toString()) {
+    requestOptions.body = requestBody;
+  }
 
   const pollFunction = () => fetch(url, requestOptions);
   const [fetchError, fetchResponse] = await to(
@@ -74,6 +93,47 @@ async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData |
   }
   return Promise.resolve(json as TokenData);
 }
+
+async function fetchApiTokens(
+  options: FetchApiTokenOptions,
+  audiences: ApiTokenClientProps['audiences'],
+  getAbortSignal: () => AbortSignal,
+): Promise<TokenData | ApiTokensClientError> {
+  if (!audiences || !audiences.length) {
+    return fetchApiToken({ ...options, signal: getAbortSignal() });
+  }
+
+  let errorResponse: ApiTokensClientError | TokenData | undefined;
+  const requests = audiences.map((audience) => {
+    return async (apiTokens: TokenData) => {
+      const opt: FetchApiTokenOptions = {
+        ...options,
+        signal: getAbortSignal(),
+        audience,
+      };
+      if (errorResponse) {
+        return Promise.resolve(errorResponse);
+      }
+      const fetchResult = await fetchApiToken(opt);
+      const hasError = fetchResult instanceof Error;
+      // only reason for empty object is aborted request.
+      const isAborted = Object.keys(fetchResult).length === 0;
+      if (hasError || isAborted) {
+        errorResponse = hasError ? fetchResult : {};
+        return Promise.resolve(errorResponse);
+      }
+      // refresh tokens are not stored, because user's tokens expire first
+      // and api tokens are refreshed then too.
+      const accessToken = (fetchResult as TokenData).access_token as string;
+      return Promise.resolve({
+        ...apiTokens,
+        [audience]: accessToken,
+      });
+    };
+  });
+  return sequentialAsyncLoop({}, requests);
+}
+
 /**
  * Gets the api tokens from storage
  * @param storage
@@ -146,7 +206,7 @@ export const getUserReferenceFromStorage = (storage: Storage = window.sessionSto
 };
 
 export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient {
-  const { url, maxRetries, retryInterval } = props;
+  const { url, maxRetries, retryInterval, audiences, queryProps } = props;
   const fetchCanceller = createFetchAborter();
 
   let tokens: TokenData | null = null;
@@ -177,13 +237,17 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
     const { access_token: accessToken } = user;
     renewing = true;
     dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED, null);
-    const result = await fetchApiToken({
-      url,
-      accessToken,
-      signal: fetchCanceller.getSignal(),
-      maxRetries,
-      retryInterval,
-    });
+    const result = await fetchApiTokens(
+      {
+        url,
+        accessToken,
+        maxRetries,
+        retryInterval,
+        queryProps,
+      },
+      audiences,
+      () => fetchCanceller.getSignal(),
+    );
     renewing = false;
     removeAllTokens();
     if (result instanceof Error) {
@@ -222,7 +286,7 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
     if (type === oidcClientEvents.USER_REMOVED) {
       fetchCanceller.abort();
       removeAllTokens();
-      await dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
+      dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
       renewing = false;
     }
     if (type === oidcClientEvents.USER_UPDATED) {

@@ -44,19 +44,35 @@ import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 
+type StoryArgs = {
+  useKeycloak?: boolean;
+};
+
 export default {
   component: LoginProvider,
   title: 'Components/Login',
   parameters: {
     controls: { expanded: true },
   },
-  args: {},
+  args: {
+    useKeycloak: false,
+  },
 };
 
-// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/
-// and change
-// redirect_uri: `${window.origin}/static-login/callback.html`,
-// silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
+const useKeycloakArgs = {
+  defaultValue: false,
+  control: 'boolean',
+  description: 'Only a storybook option. If true, Keycloak OIDC is used.',
+};
+
+// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/ and change
+// with Tunnistamo
+// redirect_uri: `${window.origin}/static-login/callback.html`
+// or with Keycloak:
+// redirect_uri: `${window.origin}/static-login/callback_kc.html`
+// with both
+// silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`
+// post_logout_redirect_uri: `${window.origin}/static-login/logout.html`
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
@@ -70,12 +86,36 @@ const loginProviderProps: LoginProviderProps = {
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
+const loginProviderPropsForKeycloak: LoginProviderProps = {
+  userManagerSettings: {
+    authority: 'https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus',
+    client_id: 'exampleapp-ui-test',
+    scope: 'openid profile',
+    redirect_uri: `${window.origin}/static-login/callback_kc.html`,
+    silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
+    post_logout_redirect_uri: `${window.origin}/static-login/logout.html`,
+  },
+  apiTokensClientSettings: {
+    url: 'https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/protocol/openid-connect/token',
+    queryProps: {
+      grantType: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+      permission: '#access',
+    },
+    audiences: ['exampleapp-api-test', 'profile-api-test'],
+  },
+  sessionPollerSettings: { pollIntervalInMs: 10000 },
+};
+
 const getIFramePath = () => {
   let path = window.location.href.split('?')[0];
   if (path.includes('.') && path.lastIndexOf('/') > -1) {
     path = path.substring(0, path.lastIndexOf('/') + 1);
   }
   return `${path}iframe.html`;
+};
+
+const shouldUseKeycloakServer = (args: StoryArgs) => {
+  return args && args.useKeycloak;
 };
 
 function createSignalTracker(): ConnectedModule & {
@@ -434,7 +474,12 @@ const AuthorizedContent = ({ user }: { user: User }) => {
   );
 };
 
-export const ExampleApplication = () => {
+export const ExampleApplication = (args: StoryArgs) => {
+  // The following lines are not needed when only one oidc server is used.
+  // HDS uses both Tunnistamo and Keycloak and uses Storybook args to define which is used.
+  const isUsingKeycloak = shouldUseKeycloakServer(args);
+  const loginProps = isUsingKeycloak ? loginProviderPropsForKeycloak : loginProviderProps;
+
   const AuthenticatedContent = ({ user }: { user: User }) => {
     return (
       <Wrapper>
@@ -460,14 +505,16 @@ export const ExampleApplication = () => {
       </Wrapper>
     );
   };
-
   const LoginComponent = () => {
     return (
       <Wrapper>
         <Nav />
         <ContentAligner>
           <h1>Welcome to the login demo application!</h1>
-          <p>Click button below, or in the navigation, to start the login process</p>
+          <p>
+            Click button below, or in the navigation, to start the login process with{' '}
+            <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>.
+          </p>
           <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
         </ContentAligner>
       </Wrapper>
@@ -475,20 +522,31 @@ export const ExampleApplication = () => {
   };
 
   return (
-    <LoginProvider {...loginProviderProps} modules={[signalTracker]}>
+    <LoginProvider {...loginProps} modules={[signalTracker]}>
       <IFrameWarning />
       <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
     </LoginProvider>
   );
 };
 
-export const Callback = () => {
+ExampleApplication.argTypes = {
+  useKeycloak: useKeycloakArgs,
+};
+
+export const Callback = (args: StoryArgs) => {
+  // The following lines are not needed when only one oidc server is used.
+  // HDS uses Tunnistamo and Tunnistus (Keycloak) and uses url params to define which is used.
+  const isUsingKeycloak = shouldUseKeycloakServer(args);
+  const loginProps = isUsingKeycloak ? loginProviderPropsForKeycloak : loginProviderProps;
+
   const [userOrError, setUserOrError] = useState<User | OidcClientError | undefined>(undefined);
   const path = getIFramePath();
   const onSuccess = (user: User) => {
     const target = window.top || window.self;
 
-    target.location.href = `${path}?path=/story/components-login--example-application`;
+    target.location.href = `${path}?path=/story/components-login--example-application&args=useKeycloak:${String(
+      isUsingKeycloak,
+    )}`;
     setUserOrError(user);
   };
   const onError = (error?: OidcClientError) => {
@@ -500,7 +558,20 @@ export const Callback = () => {
       <div>
         <p>Login failed!</p>
         <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
-        <a href={`${getIFramePath()}?path=/story/components-login--example-application`}>Go to the demo application</a>
+        <p>
+          Currently selected OIDC server is <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>. This can be
+          changed in Addons (press &quot;A&quot;) or by selecting the server below.
+        </p>
+        <p>
+          <a href={`${getIFramePath()}?path=/story/components-login--example-application&args=useKeycloak:false`}>
+            Go to the demo application and login with Tunnistamo
+          </a>
+        </p>
+        <p>
+          <a href={`${getIFramePath()}?path=/story/components-login--example-application&args=useKeycloak:true`}>
+            Go to the demo application and login with Keycloak
+          </a>
+        </p>
       </div>
     );
   }
@@ -509,10 +580,14 @@ export const Callback = () => {
   }
 
   return (
-    <LoginProvider {...loginProviderProps}>
+    <LoginProvider {...loginProps}>
       <LoginCallbackHandler onSuccess={onSuccess} onError={onError}>
         <div>Logging in...</div>
       </LoginCallbackHandler>
     </LoginProvider>
   );
+};
+
+Callback.argTypes = {
+  useKeycloak: useKeycloakArgs,
 };

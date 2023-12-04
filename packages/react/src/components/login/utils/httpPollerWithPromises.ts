@@ -1,6 +1,7 @@
 import to from 'await-to-js';
 
 import createHttpPoller, { HttpPoller, isSuccessfulHttpResponse } from './httpPoller';
+import { isAbortError } from './abortFetch';
 
 export type RetryingPollerProps = {
   pollFunction: () => Promise<Response | undefined>;
@@ -17,9 +18,10 @@ export default async function retryPollingUntilSuccessful({
   if (!err && response && isSuccessfulHttpResponse(response)) {
     return Promise.resolve(response);
   }
-  if (!maxRetries) {
+  if (!maxRetries || (err && isAbortError(err))) {
     return Promise.reject(err);
   }
+  const abortStatusCode = -1;
   let retries = maxRetries;
   let poller: HttpPoller | undefined;
   const removePoller = () => {
@@ -36,7 +38,12 @@ export default async function retryPollingUntilSuccessful({
         resolve(successResponse);
         return { keepPolling: false };
       },
-      onError: () => {
+      onError: (status, error) => {
+        if (status === abortStatusCode) {
+          retries = 0;
+          reject(error);
+          return { keepPolling: false };
+        }
         retries -= 1;
         const keepPolling = retries > 0;
         if (!keepPolling) {
@@ -46,6 +53,7 @@ export default async function retryPollingUntilSuccessful({
       },
       shouldPoll: () => retries > 0,
       pollIntervalInMs,
+      onErrorStatusWhenAborted: abortStatusCode,
     });
     poller.start();
   })
