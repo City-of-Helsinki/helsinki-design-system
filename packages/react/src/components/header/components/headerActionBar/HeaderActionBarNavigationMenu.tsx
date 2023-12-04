@@ -308,7 +308,6 @@ export const HeaderActionBarNavigationMenu = ({
     if (level === 1) {
       return undefined;
     }
-
     return findParentElement(selectedMenuLevels.slice(0, level));
   };
 
@@ -413,7 +412,10 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   return (
-    <div className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}>
+    <div
+      className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}
+      id="hds-mobile-menu"
+    >
       <div
         className={classNames(styles.navigationWrapper, getMenuPositionStyle())}
         onTransitionEnd={menuSectionsAnimationDone}
