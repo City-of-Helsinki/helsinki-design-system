@@ -9,7 +9,6 @@ import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-
 export const logoSrcFromLanguageAndTheme = (lang, theme) => {
   switch (lang) {
     case 'sv':
@@ -738,18 +737,24 @@ import { Header, Logo, logoFi } from 'hds-react';
 | `label`                                   | Label for the action bar item.      | `string` `JSX.Element` | -             |
 | [Table 5:Header.ActionBarItem properties] |
 
-| Property                                     | Description                                            | Values             | Default value |
-| -------------------------------------------- | ------------------------------------------------------ | ------------------ | ------------- |
-| `children`                                   | Additional languages to display in the dropdown.       | `JSX.Element`      | -             |
-| `languages`                                  | Array of languages to display in the Header.ActionBar. | `[LanguageOption]` | -             |
+| Property                                     | Description                                                                                                                                                                                | Values                                                                                          | Default value |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ------------- |
+| `children`                                   | Additional languages to display in the dropdown.                                                                                                                                           | `JSX.Element`                                                                                   | -             |
+| `languages`                                  | Array of languages to display in the Header.ActionBar.                                                                                                                                     | `[LanguageOption]`                                                                              | -             |
+| `sortLanguageOptions`                        | Function for sorting language options into primary and secondary. By default, all primary `LanguageOptions` as shown. If a secondary `LanguageOption` is selected, only that one is shown. | `(options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]]` | -             |
 | [Table 6:Header.LanguageSelector properties] |
+
+| Property                                          | Description                   | Values             | Default value |
+| ------------------------------------------------- | ----------------------------- | ------------------ | ------------- |
+| `languages`                                       | Array of languages to render. | `[LanguageOption]` | -             |
+| [Table 7:Header.SimpleLanguageOptions properties] |
 
 | Property                           | Description                                    | Values                         | Default value |
 | ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
 | `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
 | `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
 | `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
-| [Table 7:Header.Search properties] |
+| [Table 8:Header.Search properties] |
 
 | Property                                  | Description                                                                                             | Values                 | Default value |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------- | ------------- |
@@ -758,13 +763,13 @@ import { Header, Logo, logoFi } from 'hds-react';
 | `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line. | `boolean`              | `false`       |
 | `icon`                                    | Icon for the item.                                                                                      | `ReactNode`            | -             |
 | `label`                                   | Label for the item.                                                                                     | `string` `JSX.Element` | -             |
-| [Table 8:Header.ActionBarItem properties] |
+| [Table 9:Header.ActionBarItem properties] |
 
-| Property                                   | Description                               | Values   | Default value |
-| ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
-| `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
-| `id`                                       | ID for the NavigationMenu.                | `string` | -             |
-| [Table 9:Header.NavigationMenu properties] |
+| Property                                    | Description                               | Values   | Default value |
+| ------------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                                 | Aria-label for describing NavigationMenu. | `string` | -             |
+| `id`                                        | ID for the NavigationMenu.                | `string` | -             |
+| [Table 10:Header.NavigationMenu properties] |
 
 | Property                          | Description                                                                 | Values            | Default value                                           |
 | --------------------------------- | --------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |
@@ -782,4 +787,4 @@ import { Header, Logo, logoFi } from 'hds-react';
 | `id`                              | ID for the link.                                                            | `string`          | -                                                       |
 | `openDropdownAriaButtonLabel`     | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                       |
 | `wrapperClassName`                | Additional classNames for the element wrapping the link.                    | `string`          | -                                                       |
-| [Table 10:Header.Link properties] |
+| [Table 11:Header.Link properties] |
