@@ -64,6 +64,7 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>WithAuthentication</AnchorLink>
   - <AnchorLink>WithAuthenticatedUser</AnchorLink>
   - <AnchorLink>WithoutAuthenticatedUser</AnchorLink>
+
 - <AnchorLink>Modules</AnchorLink>
 
   - <AnchorLink>Oidc Client</AnchorLink>
@@ -74,7 +75,6 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
 - <AnchorLink>Api tokens client hooks</AnchorLink>{' '}
 - <AnchorLink>Session poller hooks</AnchorLink>{' '}
 - <AnchorLink>Generic signal hooks</AnchorLink>{' '}
-
 
 - <AnchorLink>Beacon</AnchorLink>
 - <AnchorLink>Signals</AnchorLink>
@@ -337,11 +337,13 @@ URL where to get the tokens from. A user's access token is also required, so the
 
 ##### Settings
 
-| Property                               | Description                                                     | Default value |
-| -------------------------------------- | --------------------------------------------------------------- | ------------- |
-| `maxRetries`                           | Optional. The number of max retries until fetching is stopped.  | 4             |
-| `retryInterval`                        | Optional. Waiting time in milliseconds between failed requests. | 500           |
-| `url`                                  | **Required**. URL to the API tokens endpoint.                   | none          |
+| Property                               | Description                                                                                                   | Default value |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------- |
+| `audiences`                            | Optional. An array of strings. Used with Keycloak api token requests. One token is fetched for each audience. | none          |
+| `maxRetries`                           | Optional. The number of max retries until fetching is stopped.                                                | 4             |
+| `queryProps`                           | Optional. An object. Used with Keycloak api token requests. Contains properties `grantType` and `permission`. | none          |
+| `retryInterval`                        | Optional. Waiting time in milliseconds between failed requests.                                               | 500           |
+| `url`                                  | **Required**. URL to the API tokens endpoint.                                                                 | none          |
 | [Table 20: Api tokens client settings] |
 
 ##### Methods

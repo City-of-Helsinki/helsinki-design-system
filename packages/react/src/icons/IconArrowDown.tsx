@@ -26,7 +26,7 @@ export const IconArrowDown = ({
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M13 4V16.4995L17 12.5L18.5 14L12 20.5L5.5 14L7 12.5L11 16.5V4H13Z"
+      d="M13.5 4V16.4995L17.5 12.5L19 14L12.5 20.5L6 14L7.5 12.5L11.5 16.5V4H13.5Z"
       fill="currentColor"
     />
   </svg>

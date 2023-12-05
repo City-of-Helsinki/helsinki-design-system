@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "test": "jest --env=jest-environment-jsdom-sixteen",
     "prepublishOnly": "cp -r ./lib/. .",
     "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
-    "update-reference-images": "loki update"
+    "update-reference-images": "loki update --requireReference --verboseRenderer --reactUri file:./storybook-static"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
@@ -61,7 +61,6 @@
     "@testing-library/react": "11.2.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^12.8.1",
-    "@types/cleave.js": "1.4.4",
     "@types/jest": "^26.0.1",
     "@types/jest-axe": "^3.5.3",
     "@types/react": "17.0.2",
@@ -127,7 +126,7 @@
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
-    "hds-core": "3.1.0",
+    "hds-core": "3.2.0",
     "http-status-typed": "^1.0.1",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
@@ -154,7 +153,6 @@
     "yup": "^1.0.2"
   },
   "resolutions": {
-    "@types/react": "17.0.2",
     "babel-jest": "^26.0.1",
     "eslint-plugin-react": "7.27.1",
     "jest": "^26.0.1",

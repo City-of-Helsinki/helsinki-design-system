@@ -1,6 +1,8 @@
 import Locale from 'date-fns/locale';
 import React from 'react';
 
+import { LegendItem } from '../components/datePicker/types';
+
 export type DatePickerContextType = {
   datepickerRef: React.MutableRefObject<HTMLDivElement>;
   currentMonth: Date;
@@ -19,6 +21,9 @@ export type DatePickerContextType = {
   onDayClick?: (date: Date, e: React.MouseEvent) => void;
   handleKeyboardNavigation: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
   handleMonthChange: (NextMonth: Date, event?: React.MouseEvent) => void;
+  setDateClassName?: (date: Date) => string | undefined;
+  legend?: LegendItem[];
+  setDateAriaDescribedBy?: (date: Date) => string | undefined;
 };
 
 export const DatePickerContext = React.createContext<DatePickerContextType>(null);

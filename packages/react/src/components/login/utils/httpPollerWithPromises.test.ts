@@ -6,10 +6,12 @@ import { HttpPollerProps } from './httpPoller';
 import { getMockCalls } from '../../../utils/testHelpers';
 import { advanceUntilDoesNotThrow } from '../testUtils/timerTestUtil';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
+import { isAbortError } from './abortFetch';
 
 type TestResponse = {
   status: HttpStatusCode.OK | HttpStatusCode.FORBIDDEN | -1;
   data?: string;
+  abort?: boolean;
 };
 
 // all vars used in jest.mock must start with "mock"
@@ -45,6 +47,7 @@ describe(`httpPollerWithPromises.ts`, () => {
   };
   const forbiddenResponse: TestResponse = { status: HttpStatusCode.FORBIDDEN };
   const errorResponse: TestResponse = { status: -1 };
+  const abortResponse: TestResponse = { status: -1, abort: true };
   const responsesWithErrorForbiddenSuccess = [errorResponse, forbiddenResponse, successfulResponse];
   const pollIntervalInMs = 60000;
   const pollFunctionFulfillmentTime = 1000;
@@ -60,7 +63,14 @@ describe(`httpPollerWithPromises.ts`, () => {
           setTimeout(() => {
             const response = list.shift();
             if (!response || response.status === -1) {
-              reject(new Error('An error'));
+              const error = new Error('An error');
+              if (response && response.abort) {
+                error.name = 'AbortError';
+                if (!isAbortError(error)) {
+                  throw new Error('Created abort error does not pass isAbortError check');
+                }
+              }
+              reject(error);
             }
             resolve(response as Response);
           }, pollFunctionFulfillmentTime);
@@ -102,7 +112,7 @@ describe(`httpPollerWithPromises.ts`, () => {
     const callCountAfter = callCountBefore + 1;
     await advanceUntilDoesNotThrow(() => {
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(callCountAfter);
-    });
+    }, pollIntervalInMs);
   };
   const waitForPollingToEnd = async ({ assumedState }: { assumedState?: 'resolved' | 'rejected' }) => {
     await advanceUntilDoesNotThrow(() => {
@@ -149,7 +159,6 @@ describe(`httpPollerWithPromises.ts`, () => {
     const promise = createPollingPromise(responsesWithErrorForbiddenSuccess, {
       maxRetries: 1,
     });
-
     await waitForPollingToProceed({ assumedCallCount: 1 });
     advanceTimersToNextPoll();
     await waitForPollingToProceed({ assumedCallCount: 2 });
@@ -183,5 +192,33 @@ describe(`httpPollerWithPromises.ts`, () => {
     expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
     expect(getStartCallCount()).toBe(0);
     expect(getStopCallCount()).toBe(0);
+  });
+  it(`If first request aborted, httpPoller is not started. An abort error is returned`, async () => {
+    const promise = createPollingPromise([abortResponse, successfulResponse]);
+    await waitForPollingToProceed({ assumedCallCount: 1 });
+    await waitForPollingToEnd({
+      assumedState: 'rejected',
+    });
+    const [err, response] = await to(promise);
+    expect(isAbortError(err as Error)).toBeTruthy();
+    expect(response).toBeUndefined();
+    expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
+    expect(getStartCallCount()).toBe(0);
+    expect(getStopCallCount()).toBe(0);
+  });
+  it(`If a request is aborted, an abort error is returned.`, async () => {
+    const promise = createPollingPromise([errorResponse, abortResponse, successfulResponse]);
+    await waitForPollingToProceed({ assumedCallCount: 1 });
+    advanceTimersToNextPoll();
+    await waitForPollingToProceed({ assumedCallCount: 2 });
+    await waitForPollingToEnd({
+      assumedState: 'rejected',
+    });
+    const [err, response] = await to(promise);
+    expect(isAbortError(err as Error)).toBeTruthy();
+    expect(response).toBeUndefined();
+    expect(pollFunctionMockCallback).toHaveBeenCalledTimes(2);
+    expect(getStartCallCount()).toBe(1);
+    expect(getStopCallCount()).toBe(1);
   });
 });

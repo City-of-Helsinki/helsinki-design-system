@@ -17,10 +17,10 @@
   --header-item-border-color: var(--color-black-20);
   --header-item-hover-color: var(--color-black-20);
   --actionbar-background-color: var(--color-white);
-  --action-bar-container-height: 88px;
+  --action-bar-container-height: 87px;
   --action-bar-section-gutter: var(--spacing-s);
-  --action-bar-dropdown-menu-caret-width: 64px;
-  --action-bar-dropdown-menu-primary-item-height: 64px;
+  --action-bar-dropdown-menu-caret-width: 63px;
+  --action-bar-dropdown-menu-primary-item-height: 63px;
   --action-bar-dropdown-menu-secondary-item-height: 48px;
   --action-bar-button-size: 64px;
   --action-bar-item-gutter: 12px;
@@ -85,6 +85,7 @@
 
   background-color: var(--header-background-color);
   color: var(--header-color);
+  min-height: var(--action-bar-container-height);
   position: relative;
   width: 100%;
 }

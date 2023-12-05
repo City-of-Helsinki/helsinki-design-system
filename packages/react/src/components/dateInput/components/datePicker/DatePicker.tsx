@@ -17,6 +17,7 @@ import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
+import { Legend } from '../legend';
 import { Button } from '../../../button';
 import { IconCheck, IconCross } from '../../../../icons';
 import styles from './DatePicker.module.scss';
@@ -50,6 +51,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     open,
     inputRef,
     toggleButton,
+    setDateClassName,
+    legend,
+    setDateAriaDescribedBy,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -370,10 +374,14 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           onDayClick: handleDayClick,
           handleKeyboardNavigation,
           handleMonthChange,
+          setDateClassName,
+          legend,
+          setDateAriaDescribedBy,
         }}
       >
         <div className={styles['hds-datepicker']} ref={datepickerRef}>
           <MonthTable month={currentMonth} />
+          {legend && <Legend legend={legend} />}
           <div className={styles['hds-datepicker__bottom-buttons']}>
             {!disableConfirmation && (
               <Button

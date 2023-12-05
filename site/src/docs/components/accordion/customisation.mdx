@@ -27,6 +27,23 @@ You can use the `theme` property to customise the component. See all available t
 | <code>--header-line-height</code>         | Line height of the accordion header.            |
 | <code>--padding-horizontal</code>         | Left and right padding of the accordion.        |
 | <code>--padding-vertical</code>           | Top and bottom padding of the accordion.        |
+| <code>--close-button-background-color-disabled</code> | Self explanatory styles for closing button |
+| <code>--close-button-background-color-focus</code> |  |
+| <code>--close-button-background-color-hover-focus</code> |  |
+| <code>--close-button-background-color-hover</code> |  |
+| <code>--close-button-background-color</code> |  |
+| <code>--close-button-border-color-active</code> |  |
+| <code>--close-button-border-color-disabled</code> |  |
+| <code>--close-button-border-color-focus</code> |  |
+| <code>--close-button-border-color-hover-focus</code> |  |
+| <code>--close-button-border-color-hover</code> |  |
+| <code>--close-button-border-color</code> |  |
+| <code>--close-button-color-disabled</code> |  |
+| <code>--close-button-color-focus</code> |  |
+| <code>--close-button-color-hover-focus</code> |  |
+| <code>--close-button-color-hover</code> |  |
+| <code>--close-button-color</code> |  |
+| <code>--close-button-focus-outline-color</code> |  |
 
 
 ### Customisation example
@@ -46,7 +63,7 @@ import { Accordion } from 'hds-react';
   }}
   theme={{
     '--background-color': 'var(--color-bus)',
-    '--header-focus-outline-color': 'var(--color-white)',
+    '--header-focus-outline-color': 'var(--color-gold)',
     '--button-size': '28px',
     '--content-font-color': 'var(--color-white)',
     '--content-font-size': 'var(--fontsize-body-m)',
@@ -55,7 +72,11 @@ import { Accordion } from 'hds-react';
     '--header-font-size': 'var(--fontsize-heading-s)',
     '--header-line-height': 'var(--lineheight-s)',
     '--padding-horizontal': 'var(--spacing-m)',
-    '--padding-vertical': '20px'
+    '--padding-vertical': '20px',
+    '--close-button-color-hover': 'var(--color-black)',
+    '--close-button-color-focus': 'var(--color-black)',
+    '--close-button-color-hover-focus': 'var(--color-black)',
+    '--close-button-background-color-focus': 'var(--color-white)',
   }}
 >
   In order to customise the accordion component, use the theme property.

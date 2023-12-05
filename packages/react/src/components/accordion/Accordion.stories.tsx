@@ -95,6 +95,7 @@ export const CustomTheme = (args) => (
         '--background-color': 'var(--color-bus)',
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': '20px',
+        '--header-focus-outline-color': 'var(--color-gold)',
         '--header-font-color': 'var(--color-white)',
         '--header-font-size': 'var(--fontsize-heading-s)',
         '--header-font-weight': '500',
@@ -105,6 +106,7 @@ export const CustomTheme = (args) => (
         '--content-font-color': 'var(--color-white)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
+        '--close-button-background-color-focus': 'var(--color-white)',
       }}
     />
   </>

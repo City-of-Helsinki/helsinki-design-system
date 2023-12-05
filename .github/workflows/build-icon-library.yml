@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v4
         with:
           node-version: '20.3.1'
           registry-url: 'https://registry.npmjs.org'
@@ -51,7 +51,7 @@ jobs:
         run: cp ./release/icon-kit-template-CHANGELOG.txt ./icon-library/CHANGELOG.txt
 
       - name: Create release zip file
-        uses: TheDoctor0/zip-release@0.7.1
+        uses: TheDoctor0/zip-release@0.7.6
         with:
           filename: 'release/hds-icon-kit.zip'
           path: './icon-library'

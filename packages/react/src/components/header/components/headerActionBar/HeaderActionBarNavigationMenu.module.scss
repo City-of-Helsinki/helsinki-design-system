@@ -42,11 +42,8 @@
 }
 
 .headerNavigationMenu {
-  background-color: var(--nav-mobile-menu-bottom-background-color);
-  max-height: 0;
-  overflow: hidden;
   position: absolute;
-  transition: 0.3s max-height;
+  transition: 0.3s min-height;
   width: 100%;
 }
 
@@ -173,11 +170,20 @@
   }
 }
 
+.mobileMenuBottom {
+  background-color: var(--nav-mobile-menu-bottom-background-color);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--spacing-2-xl);
+  height: 100%;
+  justify-content: space-between;
+}
+
 .mobileMenuOpen {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  max-height: 100vh;
+  height: min-content;
 }
 
 .mobileNavigationLink {
@@ -195,9 +201,10 @@
 }
 
 .navigationWrapper {
+  background-color: var(--nav-mobile-menu-bottom-background-color);
   display: flex;
+  min-height: calc(100vh - var(--action-bar-container-height));
   overflow: hidden;
-  overscroll-behavior: contain;
   width: 300%;
 
   &.left0 {
@@ -214,6 +221,13 @@
     transform: translateX(-200vw);
     transition: transform 0.3s ease;
   }
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  min-height: calc(100vh - var(--action-bar-container-height));
 }
 
 .universalList {

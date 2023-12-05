@@ -6,9 +6,10 @@ import isWeekend from 'date-fns/isWeekend';
 import isSameDay from 'date-fns/isSameDay';
 import { addMonths } from 'date-fns';
 
-import { DateInput } from '.';
+import { DateInput, DateInputProps } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
+import { LegendItem } from './components/datePicker';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
@@ -190,6 +191,7 @@ export const WithSelectedDisabledDates = (args) => {
     />
   );
 };
+
 WithSelectedDisabledDates.storyName = 'With selected disabled dates';
 WithSelectedDisabledDates.parameters = { loki: { skip: true } };
 
@@ -209,3 +211,66 @@ Success.args = {
   id: 'Success',
   successText: 'Date is valid',
 };
+
+export const WithCustomDayStyles = (args: DateInputProps) => {
+  const dateFormat = 'dd.M.yyyy';
+  const dateValue = new Date(2021, 10, 12);
+  const [value, setValue] = useState<string>(format(dateValue, dateFormat));
+  const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
+
+  const littleSpaceLeftDate: LegendItem = {
+    elementId: 'little-space-left',
+    label: 'Only a few free timeslots available',
+    relatedClassName: 'little-space-left',
+  };
+  /* When days have different backgrounds, it's good practice to explain selected dates as well */
+  const selectedDate: LegendItem = {
+    label: 'Date is selected',
+    selected: true,
+  };
+  const legend = [littleSpaceLeftDate, selectedDate];
+
+  const dayHasLittleSpace = (day: number) =>
+    day === 3 || day === 4 || day === 17 || day === 19 || day === 23 || day === 24;
+
+  const getDateLegendId = (date: Date) => {
+    const day = date.getDate();
+    if (dayHasLittleSpace(day)) return littleSpaceLeftDate.elementId;
+    if (isSameDay(parse(value, dateFormat, date), date)) return selectedDate.elementId;
+    return undefined;
+  };
+
+  const setDateClassName = (date: Date) => {
+    const legendId = getDateLegendId(date);
+    if (legendId === littleSpaceLeftDate.elementId) return littleSpaceLeftDate.relatedClassName;
+    return undefined;
+  };
+
+  const setDateAriaDescribedBy = (date: Date) => {
+    return getDateLegendId(date);
+  };
+
+  return (
+    <>
+      <style>
+        {`
+          .little-space-left {
+              --date-background: var(--color-summer-medium-light);
+              --date-border: 1px solid black;
+          }
+        `}
+      </style>
+      <DateInput
+        {...args}
+        value={value}
+        onChange={setValue}
+        helperText={helperText}
+        setDateClassName={setDateClassName}
+        setDateAriaDescribedBy={setDateAriaDescribedBy}
+        legend={legend}
+      />
+    </>
+  );
+};
+WithCustomDayStyles.storyName = 'With custom day styles';
+WithCustomDayStyles.parameters = { loki: { skip: true } };

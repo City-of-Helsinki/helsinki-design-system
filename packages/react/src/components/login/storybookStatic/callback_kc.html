@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Silent renewal</title>
+  </head>
+  <body>
+    <script>
+      const isLocalHost = window.origin.includes('localhost');
+      const prefix = isLocalHost ? window.origin : `${window.origin}/storybook/react/`;
+      window.location.href = `${prefix}${window.location.search}&path=/story/components-login--callback&args=useKeycloak:true#${window.location.hash}`;
+    </script>
+  </body>
+</html>

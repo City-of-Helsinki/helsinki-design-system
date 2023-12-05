@@ -11,6 +11,7 @@
   --table-width: 100%;
   --horizontal-spacing: var(--spacing-s);
   --vertical-spacing: var(--spacing-s);
+  --date-border: 0;
 
   @media only screen and (min-width: 576px) {
     --table-width: 308px;
@@ -81,6 +82,9 @@
 }
 
 .hds-datepicker__day {
+  --background-color: var(--date-background);
+  --color: var(--date-color);
+  
   align-items: center;
   appearance: none;
   background: transparent;
@@ -94,9 +98,6 @@
   position: relative;
   vertical-align: middle;
   width: 100%;
-
-  --background-color: var(--date-background);
-  --color: var(--date-color);
 
   &--selected {
     --background-color: var(--selected-date-background);
@@ -129,7 +130,8 @@
 
   &__wrapper {
     align-items: center;
-    background: var(--background-color);
+    background-color: var(--background-color);
+    border: var(--date-border);
     color: var(--color);
     display: flex;
     font-size: 1rem;
@@ -142,6 +144,11 @@
       @extend %visuallyHidden;
     }
   }
+}
+
+.hds-datepicker__day--selected .hds-datepicker__day__wrapper {
+  background-color: var(--selected-date-background);
+  border: 0;
 }
 
 .hds-datepicker__navigation {
@@ -238,3 +245,40 @@
     margin-left: var(--spacing-s);
   }
 }
+
+.hds-datepicker__legend {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--spacing-m);
+  margin: var(--spacing-m) 0;
+
+  @media small-up {
+    max-width: var(--table-width);
+  }
+}
+
+.hds-datepicker__legend-item {
+  --legend-item-color-height: 0.5rem;
+
+  align-items: flex-start;
+  display: flex;
+  font-size: var(--fontsize-body-s);
+  gap: var(--spacing-2-xs);
+  line-height: var(--lineheight-l);
+
+  &--color {
+    background-color: var(--date-background);
+    border: var(--date-border);
+    color: var(--date-color);
+    height: var(--legend-item-color-height);
+    margin-top: calc(var(--fontsize-body-s) * var(--lineheight-l) / 2 - (var(--legend-item-color-height) / 2));
+    min-width: 1.25rem;
+  }
+  
+  &--selected {
+    background-color: var(--selected-date-background);
+    color: var(--selected-date-color);
+  }
+}
+
+

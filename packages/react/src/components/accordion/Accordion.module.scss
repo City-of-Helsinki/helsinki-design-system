@@ -7,6 +7,25 @@
   --content-font-size: var(--fontsize-body-m);
   --content-line-height: var(--lineheight-l);
 
+  /* Close button */
+  --close-button-background-color-disabled: inherit;
+  --close-button-background-color-focus: transparent;
+  --close-button-background-color-hover-focus: var(--color-black-5);
+  --close-button-background-color-hover: var(--color-black-5);
+  --close-button-background-color: inherit;
+  --close-button-border-color-active: var(--header-focus-outline-color);
+  --close-button-border-color-disabled: inherit;
+  --close-button-border-color-focus: var(--header-focus-outline-color);
+  --close-button-border-color-hover-focus: var(--header-focus-outline-color);
+  --close-button-border-color-hover: inherit;
+  --close-button-border-color: inherit;
+  --close-button-color-disabled: inherit;
+  --close-button-color-focus: var(--color-black);
+  --close-button-color-hover-focus: var(--color-black);
+  --close-button-color-hover: var(--color-black);
+  --close-button-color: var(--content-font-color);
+  --close-button-focus-outline-color: transparent;
+
   &:not(.card) {
     border-bottom: 1px solid var(--border-color);
   }
@@ -91,9 +110,30 @@
 
   .closeButton {
     bottom: 0;
-    color: var(--content-font-color);
     position: absolute;
     right: 0;
+
+    &:not(:disabled):active {
+      border-color: var(--close-button-border-color-active);
+    }
+
+    --background-color-disabled: var(--close-button-background-color-disabled);
+    --background-color-focus: var(--close-button-background-color-focus);
+    --background-color-hover-focus: var(--close-button-background-color-hover-focus);
+    --background-color-hover: var(--close-button-background-color-hover);
+    --background-color: var(--close-button-background-color);
+    --border-color-active: var(--close-button-border-color-active);
+    --border-color-disabled: var(--close-button-border-color-disabled);
+    --border-color-focus: var(--close-button-border-color-focus);
+    --border-color-hover-focus: var(--close-button-border-color-hover-focus);
+    --border-color-hover: var(--close-button-border-color-hover);
+    --border-color: var(--close-button-border-color);
+    --color-disabled: var(--close-button-color-disabled);
+    --color-focus: var(--close-button-color-focus);
+    --color-hover-focus: var(--close-button-color-hover-focus);
+    --color-hover: var(--close-button-color-hover);
+    --color: var(--close-button-color);
+    --focus-outline-color: var(--close-button-focus-outline-color);
   }
 }
 

@@ -220,7 +220,8 @@ const Layout = ({ children, pageContext }) => {
         >
           <Header.SkipLink skipTo={`#${contentId}`} label="Skip to content" />
           <Header.ActionBar
-            title={<NavigationTitle />}
+            frontPageLabel="Front page"
+            title={siteTitle}
             titleAriaLabel="Helsinki: Helsinki Design System"
             titleHref={siteUrl}
             logoHref={siteUrl}

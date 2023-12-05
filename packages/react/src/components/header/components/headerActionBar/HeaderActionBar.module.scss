@@ -1,6 +1,7 @@
 @use "../../Header.module.scss";
 @use "../../../../styles/common.scss";
 @use "./_typography.scss";
+@value medium-down from "../../../../styles/breakpoints.scss";
 
 .headerActionBar {
   align-items: stretch;
@@ -30,6 +31,13 @@
   background-color: var(--actionbar-background-color);
   border-bottom: 1px solid var(--header-divider-color);
   width: 100%;
+}
+
+.mobileMenuContainer {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
 }
 
 .headerActions {
@@ -84,4 +92,14 @@
   align-self: center;
   box-sizing: content-box;
   height: var(--logo-height);
+}
+
+@media medium-down {
+  .headerActionBar {
+    border-bottom: 1px solid var(--header-divider-color);
+  }
+
+  .headerActionBarContainer {
+    border-bottom: none;
+  }
 }

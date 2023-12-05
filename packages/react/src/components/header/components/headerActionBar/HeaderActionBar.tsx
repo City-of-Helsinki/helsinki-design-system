@@ -57,18 +57,34 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
 };
 
 const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLElement): (() => void) => {
-  const element = document.createElement('div');
-  element.className = ACTIONBAR_TAB_BARRIER_CLASS_NAME;
-  element.tabIndex = defaultBarrierProps.tabIndex;
-  element['aria-hidden'] = defaultBarrierProps['aria-hidden'];
-  element.addEventListener('focus', () => focusToActionBar(position, actionBar));
-  if (position === TabBarrierPosition.top) {
-    document.body.insertBefore(element, document.body.firstChild);
-  } else {
-    document.body.appendChild(element);
-  }
+  if (document) {
+    const element = document.createElement('div');
+    element.className = ACTIONBAR_TAB_BARRIER_CLASS_NAME;
+    element.tabIndex = defaultBarrierProps.tabIndex;
+    element['aria-hidden'] = defaultBarrierProps['aria-hidden'];
+    element.addEventListener('focus', () => focusToActionBar(position, actionBar));
+    if (position === TabBarrierPosition.top) {
+      document.body.insertBefore(element, document.body.firstChild);
+    } else {
+      document.body.appendChild(element);
+    }
 
-  return () => element.remove();
+    return () => element.remove();
+  }
+  return null;
+};
+
+const addDocumentScrollPrevention = (actionBar?: HTMLElement) => {
+  if (document && actionBar) {
+    // Getting the closest ancestor HTML. Get the closest in case of iframes or such
+    const closestHtmlElement = actionBar.closest('html');
+    closestHtmlElement.style.overflow = 'hidden';
+
+    return () => {
+      closestHtmlElement.style.removeProperty('overflow');
+    };
+  }
+  return null;
 };
 
 export enum TitleStyleType {
@@ -114,6 +130,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   onLogoClick?: MouseEventHandler;
   /**
+   * Callback fired when the mobile menu is clicked.
+   */
+  onMenuClick?: MouseEventHandler;
+  /**
    * Callback fired when the title is clicked.
    */
   onTitleClick?: MouseEventHandler;
@@ -150,6 +170,7 @@ export const HeaderActionBar = ({
   logo,
   onTitleClick,
   onLogoClick,
+  onMenuClick,
   children,
   className,
   ariaLabel,
@@ -165,14 +186,17 @@ export const HeaderActionBar = ({
   const actionBarRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    // When mobile menu is open, set up tab barriers to prevent keyboard navigation to content outside action bar and menu.
     if (mobileMenuOpen && actionBarRef !== undefined) {
+      // When mobile menu is open, set up tab barriers to prevent keyboard navigation to content outside action bar and menu.
       const removeTopTabBarrier = addDocumentTabBarrier(TabBarrierPosition.top, actionBarRef.current);
       const removeBottomTabBarrier = addDocumentTabBarrier(TabBarrierPosition.bottom, actionBarRef.current);
+      // Set overflow: hidden to html tag so page content under the mobile menu is not scrollable
+      const removeScrollPrevention = addDocumentScrollPrevention(actionBarRef.current);
 
       return () => {
         removeTopTabBarrier();
         removeBottomTabBarrier();
+        removeScrollPrevention();
       };
     }
 
@@ -218,7 +242,10 @@ export const HeaderActionBar = ({
       {mobileMenuOpen && (
         <ContentTabBarrier onFocus={() => focusToActionBar(TabBarrierPosition.bottom, actionBarRef.current)} />
       )}
-      <div className={styles.headerActionBarContainer} ref={actionBarRef}>
+      <div
+        className={classNames(styles.headerActionBarContainer, mobileMenuOpen && styles.mobileMenuContainer)}
+        ref={actionBarRef}
+      >
         <div className={classNames(styles.headerActionBar, className)} role={role} aria-label={ariaLabel}>
           <HeaderActionBarLogo logo={logo} logoProps={logoProps} />
           {title && (
@@ -231,10 +258,10 @@ export const HeaderActionBar = ({
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
             {childrenLeft}
-            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} />
+            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuClick} />
             {childrenRight.length > 0 && (
               <>
-                <hr />
+                <hr aria-hidden="true" />
                 {childrenRight}
               </>
             )}

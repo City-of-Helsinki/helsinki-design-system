@@ -4,6 +4,7 @@ import { waitFor } from '@testing-library/react';
 
 import createHttpPoller, { HttpPoller, HttpPollerProps } from './httpPoller';
 import { createFetchAborter } from './abortFetch';
+import { advanceUntilListenerCalled } from '../testUtils/timerTestUtil';
 
 type TestResponse = {
   status: HttpStatusCode.OK | HttpStatusCode.FORBIDDEN | -1;
@@ -53,8 +54,8 @@ describe(`httpPoller`, () => {
           }, intervalInMs * 2);
         });
       },
-      onError: (returnedHttpStatus) => {
-        onErrorMockCallback(returnedHttpStatus);
+      onError: (returnedHttpStatus, error) => {
+        onErrorMockCallback(returnedHttpStatus, error);
         return props.onErrorReturnValue;
       },
       shouldPoll: () => {
@@ -133,7 +134,7 @@ describe(`httpPoller`, () => {
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(2);
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(0);
     });
-    it(`the onError is called with responseStatus when response status is not httpStatus.OK (200). 
+    it(`the onError is called with responseStatus and an error (if any) when response status is not httpStatus.OK (200). 
         Polling continues when onError returns {keepPolling : true}`, async () => {
       poller = createPoller({
         ...pollerDefaultTestProps,
@@ -143,7 +144,7 @@ describe(`httpPoller`, () => {
       await advanceFromStartTimerToLoadEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(onErrorMockCallback).toHaveBeenCalledTimes(1);
-      expect(onErrorMockCallback).toBeCalledWith(HttpStatusCode.FORBIDDEN);
+      expect(onErrorMockCallback).toBeCalledWith(HttpStatusCode.FORBIDDEN, null);
       await advanceToTimerEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(2);
     });
@@ -157,14 +158,14 @@ describe(`httpPoller`, () => {
       poller.start();
       await advanceFromStartTimerToLoadEnd();
       expect(onErrorMockCallback).toHaveBeenCalledTimes(1);
-      expect(onErrorMockCallback).toBeCalledWith(undefined);
+      expect(onErrorMockCallback).toBeCalledWith(undefined, expect.any(Error));
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
       await advanceToTimerEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
     });
-    it(`neither onError or onSuccess are called if request is aborted`, async () => {
+    it(`neither onError or onSuccess are called if request is aborted, if onErrorStatusWhenAborted is not defined `, async () => {
       const fetchAborter = createFetchAborter();
       const timeoutListener = jest.fn();
       fetchMock.mockOnce(
@@ -201,6 +202,40 @@ describe(`httpPoller`, () => {
       });
       expect(onErrorMockCallback).toHaveBeenCalledTimes(0);
       expect(onSuccessMockCallback).toHaveBeenCalledTimes(0);
+    });
+    it(`onError is called when aborted, if onErrorStatusWhenAborted is defined `, async () => {
+      const onErrorStatusWhenAborted = -100;
+      const fetchAborter = createFetchAborter();
+      const timeoutListener = jest.fn();
+      fetchMock.mockOnce(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              timeoutListener();
+              resolve({});
+            }, 1000);
+          }),
+      );
+      poller = createHttpPoller({
+        pollFunction: async () => fetch('http://domain.com', { signal: fetchAborter.getSignal() }),
+        onError: (returnedHttpStatus, error) => {
+          onErrorMockCallback(returnedHttpStatus, error);
+          return { keepPolling: true };
+        },
+        shouldPoll: () => true,
+        onSuccess: jest.fn(),
+        pollIntervalInMs: intervalInMs,
+        onErrorStatusWhenAborted,
+      });
+      poller.start();
+      await waitFor(async () => {
+        await advanceOneInterval();
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+      });
+      fetchAborter.abort();
+      await advanceUntilListenerCalled(timeoutListener, intervalInMs + 1);
+
+      expect(onErrorMockCallback).toHaveBeenCalledWith(onErrorStatusWhenAborted, expect.any(Error));
     });
     it('Polling never starts if poller.stop is called', async () => {
       poller = createPoller({

@@ -5,6 +5,79 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - December, 5, 2023
+
+### React
+
+#### Added
+
+- [DateInput] Support for customising date styles
+- [Login] Support for getting api tokens from Keycloak
+- [Accordion] Support for customising close button styles
+
+#### Changed
+
+- [Button] CSS supports reset and button types
+
+#### Fixed
+
+- [Header.NavigationMenu] Fixed navigation menu on mobile
+- [Header.ActionBar] Added `aria-hidden` for separator
+- [Checbox] Fixed Checkbox label taking space even if label not given (when using an external component as the label for it)
+
+### Core
+
+#### Changed
+
+- [Button] CSS supports reset and button types
+
+#### Fixed
+
+- [Checkbox] Small changes to styles not to add padding when label not used (by using `hds-checkbox__label--hidden` class)
+
+### Templates
+
+#### Added
+
+- Added new template for error page
+
+### Documentation
+
+#### Changed
+
+- [Checkbox] Small addition to guide not to use the label-property at all when using an external label for the Checkbox
+- [Accordion] Add close button theming properties
+
+### Figma
+
+#### Added
+
+- [Icons] Added a new vector icon for X, replacing Twitter
+
+#### Changed
+
+- [Footer] Replaced old Twitter icon with X icon
+- [SearchInput] Improved responsiveness with auto layout
+
+#### Fixed
+
+- [Tabs] Background colour removed to support different application background colours. Note! When using Tabs with a scroll-button in Figma, ensure to adjust the button's gradient fill to match the application's background for visual consistency
+
+### Sketch & Abstract
+
+#### Changed
+- Updated HDS Sketch libraries to Sketch version 99.1. Please update your Sketch and files accordingly
+
+### Icons
+
+#### Added
+
+- [Icons] Added a new vector icon for X
+
+#### Changed
+
+- [Icons] Renamed twitter to xx_twitter to indicate it's deprecated state
+
 ## [3.1.0] - October, 31, 2023
 
 ### React
