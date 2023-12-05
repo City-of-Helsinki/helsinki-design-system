@@ -618,7 +618,7 @@ export const ManualLanguageOptions = (args) => {
         titleHref="https://hel.fi"
         logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
       >
-        <Header.SimpleLanguageOptions languages={[languages[0], languages[1]]} />
+        <Header.SimpleLanguageOptions languages={[languages[0], languages[1], languages[2]]} />
       </Header.ActionBar>
 
       <Header.NavigationMenu>
