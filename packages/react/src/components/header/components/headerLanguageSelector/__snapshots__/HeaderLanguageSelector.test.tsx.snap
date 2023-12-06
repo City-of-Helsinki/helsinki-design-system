@@ -9,6 +9,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
       class="languageNodes"
     >
       <button
+        aria-current="true"
         class="item activeItem"
         lang="fi"
         type="button"
@@ -18,6 +19,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
         </span>
       </button>
       <button
+        aria-current="false"
         class="item"
         lang="sv"
         type="button"
@@ -27,6 +29,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
         </span>
       </button>
       <button
+        aria-current="false"
         class="item"
         lang="en"
         type="button"
@@ -94,6 +97,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
           id="language-selection-more-dropdown"
         >
           <button
+            aria-current="false"
             class="item"
             lang="es"
             type="button"
@@ -103,6 +107,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
             </span>
           </button>
           <button
+            aria-current="false"
             class="item"
             lang="no"
             type="button"
@@ -190,6 +195,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
             class="languageNodes"
           >
             <button
+              aria-current="true"
               class="item activeItem"
               lang="fi"
               type="button"
@@ -199,6 +205,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
               </span>
             </button>
             <button
+              aria-current="false"
               class="item"
               lang="sv"
               type="button"
@@ -208,6 +215,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
               </span>
             </button>
             <button
+              aria-current="false"
               class="item"
               lang="en"
               type="button"
@@ -275,6 +283,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                 id="language-selection-more-dropdown"
               >
                 <button
+                  aria-current="false"
                   class="item"
                   lang="es"
                   type="button"
@@ -284,6 +293,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                   </span>
                 </button>
                 <button
+                  aria-current="false"
                   class="item"
                   lang="no"
                   type="button"
