@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'hds-react';
 import PropTypes from 'prop-types';
 
+import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
+
 const ExternalLink = ({ href, children, openInNewTab, openInNewTabAriaLabel, openInExternalDomainAriaLabel, size }) => {
   const openInNewTabProps = openInNewTab
     ? { openInNewTab, openInNewTabAriaLabel: openInNewTabAriaLabel || 'Opens in a new tab.' }
@@ -15,7 +17,7 @@ const ExternalLink = ({ href, children, openInNewTab, openInNewTabAriaLabel, ope
       {...openInNewTabProps}
       size={size}
     >
-      {children}
+      {stripParagraphAsFirstChild(children)}
     </Link>
   );
 };

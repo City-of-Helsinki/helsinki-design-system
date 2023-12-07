@@ -3,6 +3,8 @@ import InternalLink from './InternalLink';
 import PropTypes from 'prop-types';
 import { useLocation } from '@reach/router';
 
+import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
+
 export const AnchorLink = ({ anchor, children, path }) => {
   const location = useLocation();
   const parsedPath = path || location.path;
@@ -10,7 +12,9 @@ export const AnchorLink = ({ anchor, children, path }) => {
     .toLowerCase()
     .replace(/ /g, '-')
     .replace(/[^\w-]/g, '');
-  return <InternalLink href={`${parsedPath || ''}#${parsedAnchor}`}>{children}</InternalLink>;
+  return (
+    <InternalLink href={`${parsedPath || ''}#${parsedAnchor}`}>{stripParagraphAsFirstChild(children)}</InternalLink>
+  );
 };
 
 AnchorLink.propTypes = {
