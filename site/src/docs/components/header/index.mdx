@@ -4,8 +4,10 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header, IconBell, IconSearch, Notification, Logo, logoFi, logoFiDark } from 'hds-react';
+import { Header, IconBell, IconSearch, Logo, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+
+import Notification from '../../../components/Notification';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
