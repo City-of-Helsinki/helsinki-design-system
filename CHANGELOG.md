@@ -62,7 +62,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Add missing Next.js and Gatsby code snippets to foundations / server side rendering
 
 ### Figma
 
