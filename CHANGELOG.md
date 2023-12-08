@@ -19,8 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
+- [Tag] Default value for `id` marked to be removed in the next major release.
+- [Table] Default values for `headingId` and `id` marked marked to be removed in the next major release.
+
 
 #### Fixed
 
