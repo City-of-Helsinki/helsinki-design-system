@@ -59,6 +59,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 - [Component] What has been changed
+- Updated grid documentation with information about the new Header
 
 #### Fixed
 
