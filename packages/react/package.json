@@ -12,8 +12,9 @@
     "base.min-*"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint && yarn run tcm && rollup -c",
-    "clean": "rimraf node_modules lib storybook-static",
+    "build": "rimraf lib/ && rollup -c",
+    "build:commonjs": "rimraf ../commonjs/lib/ && rollup -c --environment commonjs",
+    "clean": "rimraf node_modules lib storybook-static ../commonjs/lib/",
     "start": "tcm src internal --watch & yarn storybook",
     "scaffold": "node scripts/scaffold.js",
     "icon": "node scripts/icon.js",
@@ -99,6 +100,7 @@
     "rollup": "2.67.2",
     "rollup-plugin-css-text": "^1.0.3",
     "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-includepaths": "0.2.4",
     "rollup-plugin-postcss": "3.1.8",
     "rollup-plugin-terser": "7.0.2",

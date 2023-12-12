@@ -11,6 +11,7 @@
     "build:tokens": "lerna run --scope hds-design-tokens build",
     "build:core": "lerna run --scope hds-core build",
     "build:react": "lerna run --scope hds-react build",
+    "build:commonjs": "lerna run --scope hds-js build",
     "build:site": "lerna run --scope site build",
     "clean": "lerna clean --yes && rimraf node_modules/ packages/core/lib packages/core/storybook-static packages/react/lib packages/react/storybook-static packages/design-tokens/lib site/.cache site/public",
     "start:core": "lerna run --scope hds-core start",

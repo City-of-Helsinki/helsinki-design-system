@@ -12,9 +12,14 @@ import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
+
+const isForCommonJs = !!process.env.commonjs;
+const commonJSDependencies = require('../commonjs/externalPackages');
+const commonjsBasePackage = require('../commonjs/base-package.json');
 
 const insertCssEsm = () => {
   return {
@@ -70,6 +75,7 @@ const external = [
   '@juggle/resize-observer',
   '@popperjs/core',
   '@react-aria/visually-hidden',
+  ...(isForCommonJs ? commonJSDependencies : []),
 ];
 
 const getExternal = (format) => (format === 'esm' ? [...external, /@babel\/runtime/] : external);
@@ -79,7 +85,7 @@ const getConfig = (format, extractCSS) => ({
     includePaths({ paths: ['src'], extensions }),
     resolve(),
     ts(),
-    format === 'esm' &&
+    (format === 'esm' || format === 'commonCjs' || format === 'commonEsm') &&
       babel({
         babelHelpers: 'runtime',
         exclude: 'node_modules/**',
@@ -117,40 +123,70 @@ const getConfig = (format, extractCSS) => ({
         })
       : undefined,
     format === 'cjs' ? insertCssCjs() : undefined,
+    format === 'commonEsm' &&
+      generatePackageJson({
+        inputFolder: './',
+        outputFolder: '../commonjs/',
+        baseContents: commonjsBasePackage,
+      }),
   ],
   external: getExternal(format),
 });
 
-export default [
-  {
-    input: esmInput,
-    output: [
+export default !isForCommonJs
+  ? [
       {
-        dir: 'lib',
-        format: 'esm',
+        input: esmInput,
+        output: [
+          {
+            dir: 'lib',
+            format: 'esm',
+          },
+        ],
+        ...getConfig('esm', false),
       },
-    ],
-    ...getConfig('esm', false),
-  },
-  {
-    input: esmInput,
-    output: [
       {
-        dir: 'lib/tmp',
-        format: 'esm',
-        exports: 'named',
+        input: esmInput,
+        output: [
+          {
+            dir: 'lib/tmp',
+            format: 'esm',
+            exports: 'named',
+          },
+        ],
+        ...getConfig('esm', true),
       },
-    ],
-    ...getConfig('esm', true),
-  },
-  {
-    input: ['src/index.ts', 'lib/index.css-text.js'],
-    output: [
       {
-        dir: 'lib/cjs',
-        format: 'cjs',
+        input: ['src/index.ts', 'lib/index.css-text.js'],
+        output: [
+          {
+            dir: 'lib/cjs',
+            format: 'cjs',
+          },
+        ],
+        ...getConfig('cjs', false),
       },
-    ],
-    ...getConfig('cjs', false),
-  },
-];
+    ]
+  : [
+      {
+        input: { index: '../commonjs/index.ts' },
+        output: [
+          {
+            dir: '../commonjs/lib',
+            format: 'esm',
+          },
+        ],
+        ...getConfig('commonEsm', false),
+      },
+
+      {
+        input: ['../commonjs/index.ts'],
+        output: [
+          {
+            dir: '../commonjs/lib/cjs',
+            format: 'cjs',
+          },
+        ],
+        ...getConfig('commonCjs', false),
+      },
+    ];
