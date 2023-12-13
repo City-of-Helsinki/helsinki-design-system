@@ -50,3 +50,37 @@ button.actionBarItem {
 .fixedRightPosition {
   display: block;
 }
+
+@mixin hiddenButTakingHorizontalSpace {
+  height: 0;
+  opacity: 0;
+}
+
+@mixin visibleAndTakingSpace {
+  height: auto;
+  opacity: 1;
+}
+
+.activeStateContent {
+  @include hiddenButTakingHorizontalSpace;
+
+  background-color: var(--actionbar-background-color);
+}
+
+.activeStateContentLabel {
+  white-space: break-spaces;
+}
+
+.isActive {
+  .activeStateContent {
+    @include visibleAndTakingSpace;
+  }
+
+  > .actionBarItemIcon {
+    display: none;
+  }
+
+  > .actionBarItemLabel {
+    @include hiddenButTakingHorizontalSpace;
+  }
+}
