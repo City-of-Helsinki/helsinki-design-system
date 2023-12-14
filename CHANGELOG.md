@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- [Select] Placeholder text inherits background color
 
 #### Fixed
 
