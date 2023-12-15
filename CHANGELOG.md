@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Dropdown] Clearing values from disabled Dropdowns is prohibited
+- [Header.ActionBarItem] Fix click event handling issue in icons
 
 ### Core
 

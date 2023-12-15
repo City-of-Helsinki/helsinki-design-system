@@ -23,6 +23,7 @@ button.actionBarItem {
   margin: 0 auto;
   padding: 3px 0 0;
   width: var(--icon-size);
+  pointer-events: none;
 
   & > svg {
     display: block;
@@ -37,6 +38,7 @@ button.actionBarItem {
   font-size: var(--action-bar-item-title-font-size);
   margin: 0 auto;
   white-space: nowrap;
+  pointer-events: none;
 
   & > svg {
     display: block;
