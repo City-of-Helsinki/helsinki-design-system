@@ -86,6 +86,37 @@ See below for more complete examples:
 >
   In the Next.js framework, create a file called _document.js in folder pages, and add this code to it:
 
+  ```js
+  // pages/_document.js - tested with next.js version: 10.0.5
+  import Document, { Html, Head, Main, NextScript } from 'next/document'
+  import { getCriticalHdsRules, hdsStyles } from 'hds-react';
+
+  class MyDocument extends Document {
+    static async getInitialProps(ctx) {
+      const initialProps = await Document.getInitialProps(ctx)
+      const hdsCriticalRules = await getCriticalHdsRules(initialProps.html, hdsStyles);
+
+      return {...initialProps, hdsCriticalRules}
+    }
+
+    render() {
+      return (
+        <Html>
+          <Head>
+            <style data-used-styles dangerouslySetInnerHTML={{ __html: this.props.hdsCriticalRules }} />
+          </Head>
+          <body>
+            <Main />
+            <NextScript />
+          </body>
+        </Html>
+      )
+    }
+  }
+
+  export default MyDocument
+  ```
+
 </Accordion>
 
 <Accordion
@@ -98,6 +129,28 @@ See below for more complete examples:
   }}
 >
   In the Gatsby framework, create a file called gatsby-ssr.js at the root of the project, and add this code to it:
+
+  ```js
+  // gatsby-ssr.js - tested with gatsby version 4.17.0
+  import React from 'react';
+  import { getCriticalHdsRules, hdsStyles } from 'hds-react';
+  import { renderToString } from 'react-dom/server';
+
+  export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
+    const bodyHTML = renderToString(bodyComponent);
+
+    if (hdsStyles && hdsStyles.length > 0 && bodyHTML && bodyHTML.length > 0) {
+      const cssRules = await getCriticalHdsRules(bodyHTML, hdsStyles);
+      const HeadComponents = [
+        <style data-used-styles dangerouslySetInnerHTML={{ __html: cssRules }} />
+      ];
+
+      return setHeadComponents(HeadComponents);
+    }
+
+    return;
+  }
+  ```
 
 </Accordion>
 
