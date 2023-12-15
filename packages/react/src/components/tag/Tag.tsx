@@ -33,6 +33,7 @@ export type TagProps = {
   deleteButtonProps?: React.ComponentPropsWithoutRef<'button'>;
   /**
    * Used to generate the first part of the id on the elements.
+   * Default value `hds-tag` will be removed in the next major release.
    */
   id?: string;
   /**
@@ -77,7 +78,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       className,
       deleteButtonAriaLabel,
       deleteButtonProps,
-      id = 'hds-tag',
+      id = 'hds-tag', // Default value will be removed in the next major release
       labelClassName,
       labelProps,
       onClick,
