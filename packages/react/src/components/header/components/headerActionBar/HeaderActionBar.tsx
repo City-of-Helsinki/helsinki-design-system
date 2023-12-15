@@ -182,7 +182,7 @@ export const HeaderActionBar = ({
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
-  const { mobileMenuOpen } = useHeaderContext();
+  const { isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
   const actionBarRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
@@ -267,13 +267,15 @@ export const HeaderActionBar = ({
             )}
           </div>
         </div>
-        <HeaderActionBarNavigationMenu
-          frontPageLabel={frontPageLabel}
-          titleHref={titleHref}
-          logo={logo}
-          logoProps={logoProps}
-          openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-        />
+        {isNotLargeScreen && (
+          <HeaderActionBarNavigationMenu
+            frontPageLabel={frontPageLabel}
+            titleHref={titleHref}
+            logo={logo}
+            logoProps={logoProps}
+            openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
+          />
+        )}
       </div>
       {componentExists && (
         <HeaderLanguageSelectorConsumer {...lsProps} fullWidthForMobile>

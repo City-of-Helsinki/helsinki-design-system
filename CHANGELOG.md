@@ -15,13 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [Header.ActionBarItem] New property "preventButtonResize" to prevent menu button shifting when clicked
 
 #### Changed
 
 - [Tag] Default value for `id` marked to be removed in the next major release.
 - [Table] Default values for `headingId` and `id` marked marked to be removed in the next major release.
-
+- [Select] Placeholder text inherits background color
 
 #### Fixed
 
@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -59,11 +60,13 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
+- Updated grid documentation with information about the new Header
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Add missing Next.js and Gatsby code snippets to foundations / server side rendering
 
 ### Figma
 
@@ -78,6 +81,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -97,6 +101,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -164,6 +169,7 @@ Changes that are not related to specific components
 ### Sketch & Abstract
 
 #### Changed
+
 - Updated HDS Sketch libraries to Sketch version 99.1. Please update your Sketch and files accordingly
 
 ### Icons

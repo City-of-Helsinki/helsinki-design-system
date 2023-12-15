@@ -14,6 +14,7 @@ export default {
   title: 'Components/Hero',
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
   args: {},
 };
@@ -208,6 +209,7 @@ const NavigationComponent = () => (
       logoHref="https://hel.fi"
       menuButtonAriaLabel="Menu"
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+      frontPageLabel="Etusivu"
     >
       <Header.LanguageSelector ariaLabel="Kielen valinta" />
     </Header.ActionBar>

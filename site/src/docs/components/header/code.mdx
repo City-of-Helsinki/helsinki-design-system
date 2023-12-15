@@ -270,6 +270,7 @@ import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from '
             icon={<IconUser />}
             id="action-bar-login"
             closeLabel={I18n.close}
+            preventButtonResize
           >
             <h3>{I18n.loginOptions}</h3>
           </Header.ActionBarItem>
@@ -731,11 +732,14 @@ import { Header, Logo, logoFi } from 'hds-react';
 | `role`                                | ARIA role to describe the contents.                    | `string`                                      | -             |
 | [Table 4:Header.ActionBar properties] |
 
-| Property                                  | Description                         | Values                 | Default value |
-| ----------------------------------------- | ----------------------------------- | ---------------------- | ------------- |
-| `ariaLabel`                               | Aria-label for describing the item. | `string`               | -             |
-| `icon`                                    | Icon for the item.                  | `ReactNode`            | -             |
-| `label`                                   | Label for the action bar item.      | `string` `JSX.Element` | -             |
+| Property                                  | Description                                                                                             | Values                 | Default value |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------- | ------------- |
+| `ariaLabel`                               | Aria-label for describing the item.                                                                     | `string`               | -             |
+| `ariaControls`                            | Id of the controlled dropdown element.                                                                  | `string`               | -             |
+| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line. | `boolean`              | `false`       |
+| `icon`                                    | Icon for the item.                                                                                      | `ReactNode`            | -             |
+| `label`                                   | Label for the item.                                                                                     | `string` `JSX.Element` | -             |
+| `preventButtonResize`                     | If true, menu button resizing is prevented by rendering button's active state to a separate element.    | `boolean`              | `false`       |
 | [Table 5:Header.ActionBarItem properties] |
 
 | Property                                     | Description                                            | Values             | Default value |
@@ -751,20 +755,11 @@ import { Header, Logo, logoFi } from 'hds-react';
 | `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
 | [Table 7:Header.Search properties] |
 
-| Property                                  | Description                                                                                             | Values                 | Default value |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------- | ------------- |
-| `ariaLabel`                               | Aria-label for describing the item.                                                                     | `string`               | -             |
-| `ariaControls`                            | Id of the controlled dropdown element.                                                                  | `string`               | -             |
-| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line. | `boolean`              | `false`       |
-| `icon`                                    | Icon for the item.                                                                                      | `ReactNode`            | -             |
-| `label`                                   | Label for the item.                                                                                     | `string` `JSX.Element` | -             |
-| [Table 8:Header.ActionBarItem properties] |
-
 | Property                                   | Description                               | Values   | Default value |
 | ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
 | `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
 | `id`                                       | ID for the NavigationMenu.                | `string` | -             |
-| [Table 9:Header.NavigationMenu properties] |
+| [Table 8:Header.NavigationMenu properties] |
 
 | Property                          | Description                                                                 | Values            | Default value                                           |
 | --------------------------------- | --------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |
@@ -782,4 +777,4 @@ import { Header, Logo, logoFi } from 'hds-react';
 | `id`                              | ID for the link.                                                            | `string`          | -                                                       |
 | `openDropdownAriaButtonLabel`     | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                       |
 | `wrapperClassName`                | Additional classNames for the element wrapping the link.                    | `string`          | -                                                       |
-| [Table 10:Header.Link properties] |
+| [Table 9:Header.Link properties] |
