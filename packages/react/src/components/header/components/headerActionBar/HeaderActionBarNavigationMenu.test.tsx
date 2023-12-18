@@ -25,6 +25,7 @@ type TestTools = RenderResult & {
   closeMobileMenu: () => Promise<void>;
   findVisibleSectionLinksByMenuIds: (menuIds: string[]) => Promise<HTMLElement[]>;
   getNavSections: () => ReturnType<HTMLElement['querySelectorAll']>;
+  getCSSVisibleSections: () => HTMLElement[];
   getActiveLink: () => HTMLAnchorElement;
   getPreviousLink: () => HTMLAnchorElement | null;
   selectMenuItem: (menuItem: MenuItem) => Promise<HTMLElement[]>;
@@ -34,6 +35,7 @@ type TestTools = RenderResult & {
   getFocusedElement: () => Element | null;
   navigateTo: (menuItem: MenuItem) => Promise<void>;
   navigateBack: (waitForParentItem: MenuItem | string) => Promise<void>;
+  triggerMenuAnimationEnd: () => void;
 };
 
 const mockedWindowControls = mockWindowLocation();
@@ -176,21 +178,43 @@ const renderHeader = (): TestTools => {
   const result = render(HeaderWithMenus());
   const { container, getByText, getAllByText } = result;
 
+  const getSections = () => container.querySelectorAll('section');
   const getNavSections: TestTools['getNavSections'] = () => container.querySelectorAll('section > nav');
   const isElementAriaHidden = (el: Element) => el.getAttribute('aria-hidden') === 'true';
 
   const isElementAriaVisible = (el: Element) => !isElementAriaHidden(el);
   const getDropdownButtonForLink = (el: Element) => el.parentElement?.querySelector('button') as HTMLButtonElement;
-  const getVisibleNav = () => {
+  const getAriaVisibleNav = () => {
     return Array.from(getNavSections()).find((el) =>
       isElementAriaVisible(el.parentElement as HTMLElement),
     ) as HTMLElement;
   };
+
+  const getCSSVisibleSections = () => {
+    return Array.from(getSections()).filter((el) => {
+      const classes = String(el.getAttribute('class'));
+      return !classes.includes('hidden');
+    }) as HTMLElement[];
+  };
+
+  const triggerMenuAnimationEnd = () => {
+    const menu = container.querySelector('#hds-mobile-menu') as HTMLElement;
+    // For some reasong event will not be triggered without bubbles
+    const ev = new Event('transitionend', { bubbles: true });
+    // "propertyName" will not end up to the component in any other way than setting it to the object
+    // @ts-ignore
+    ev.propertyName = 'transform';
+    fireEvent(menu, ev);
+  };
+
   const toggleMobileMenu = async (shouldBeOpen: boolean) => {
     const menuButton = getByText('Menu') as HTMLButtonElement;
     fireEvent.click(menuButton);
+    if (!shouldBeOpen) {
+      triggerMenuAnimationEnd();
+    }
     await waitFor(() => {
-      const isClosed = getNavSections().length === 0;
+      const isClosed = getCSSVisibleSections().length === 0;
       if (isClosed === shouldBeOpen) {
         throw new Error('Navigation element mismatch');
       }
@@ -206,7 +230,7 @@ const renderHeader = (): TestTools => {
   };
 
   const findVisibleSectionLinksByMenuIds: TestTools['findVisibleSectionLinksByMenuIds'] = async (menuIds) => {
-    const visibleNav = getVisibleNav();
+    const visibleNav = getAriaVisibleNav();
     // ignore links listed in activeListItem. They are invisible.
     const activeListItem = visibleNav.querySelector('li.activeListItem');
     return waitFor(() => {
@@ -223,12 +247,12 @@ const renderHeader = (): TestTools => {
   };
 
   const getActiveLink: TestTools['getActiveLink'] = () => {
-    const visibleNav = getVisibleNav();
+    const visibleNav = getAriaVisibleNav();
     return visibleNav.querySelector('a.activeMobileLink') as HTMLAnchorElement;
   };
 
   const getPreviousLink: TestTools['getPreviousLink'] = () => {
-    const visibleNav = getVisibleNav();
+    const visibleNav = getAriaVisibleNav();
     return visibleNav.querySelector('span.previousMobileLink') as HTMLAnchorElement;
   };
 
@@ -241,7 +265,7 @@ const renderHeader = (): TestTools => {
       return Promise.reject(new Error(`Menu item ${item.id} not found`));
     }
     const getCurrentNavIndex = () => {
-      const currentNav = getVisibleNav();
+      const currentNav = getAriaVisibleNav();
       const index = Array.from(getNavSections()).indexOf(currentNav);
       if (index === -1) {
         throw new Error('getCurrentNavIndex is -1');
@@ -328,6 +352,8 @@ const renderHeader = (): TestTools => {
     verifyPreviousItem,
     navigateTo,
     navigateBack,
+    getCSSVisibleSections,
+    triggerMenuAnimationEnd,
   };
 };
 
@@ -370,11 +396,22 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     await findVisibleSectionLinksByMenuIds(menus.map((item) => item.id));
     expect(getNavSections()).toHaveLength(1);
   });
-  it('Nav sections are rendered only when needed and removed when not needed', async () => {
-    const { openMobileMenu, navigateTo, getNavSections, navigateBack, closeMobileMenu } = renderHeader();
-    expect(getNavSections()).toHaveLength(0);
-    await openMobileMenu();
+  it('Nav sections are rendered and visible only when needed and removed when not needed', async () => {
+    const {
+      openMobileMenu,
+      navigateTo,
+      getNavSections,
+      navigateBack,
+      closeMobileMenu,
+      getCSSVisibleSections,
+    } = renderHeader();
+    // one is always rendered
     expect(getNavSections()).toHaveLength(1);
+    // but it is hidden
+    expect(getCSSVisibleSections()).toHaveLength(0);
+    await openMobileMenu();
+    expect(getCSSVisibleSections()).toHaveLength(1);
+    //
     await navigateTo(getMenuItem([0]));
     expect(getNavSections()).toHaveLength(2);
     await navigateTo(getMenuItem([0, 2]));
@@ -384,23 +421,24 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     await navigateBack(frontPageLabel);
     expect(getNavSections()).toHaveLength(1);
     await closeMobileMenu();
-    expect(getNavSections()).toHaveLength(0);
+    expect(getCSSVisibleSections()).toHaveLength(0);
+    expect(getNavSections()).toHaveLength(1);
   });
   it('Previous and active links change while navigating', async () => {
     const {
       openMobileMenu,
       navigateTo,
-      getNavSections,
       navigateBack,
       verifyActiveItem,
       verifyPreviousItem,
+      getCSSVisibleSections,
     } = renderHeader();
     const menu3 = getMenuItem([3]);
     const menu31 = getMenuItem([3, 1]);
     const menu32 = getMenuItem([3, 2]);
     const menu0 = getMenuItem([0]);
     const menu02 = getMenuItem([0, 2]);
-    expect(getNavSections()).toHaveLength(0);
+    expect(getCSSVisibleSections()).toHaveLength(0);
     await openMobileMenu();
     expect(verifyActiveItem(frontPageLabel)).toBeTruthy();
     expect(verifyPreviousItem(null)).toBeTruthy();
@@ -440,29 +478,91 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     expect(verifyPreviousItem(null)).toBeTruthy();
   });
   it('If the top level active link is clicked, menu is closed.', async () => {
-    const { openMobileMenu, getNavSections, getActiveLink } = renderHeader();
-    expect(getNavSections()).toHaveLength(0);
+    const { openMobileMenu, getActiveLink, getCSSVisibleSections, triggerMenuAnimationEnd } = renderHeader();
     await openMobileMenu();
 
     const activeLinkToFrontpage = getActiveLink();
     // suppress jsdom "navigation not implemented" error
     activeLinkToFrontpage.setAttribute('href', '');
     fireEvent.click(activeLinkToFrontpage);
+    triggerMenuAnimationEnd();
     await waitFor(() => {
-      expect(getNavSections()).toHaveLength(0);
+      expect(getCSSVisibleSections()).toHaveLength(0);
     });
   });
   it('If a lower level active link is clicked, menu is closed and onClick handler is called.', async () => {
-    const { openMobileMenu, getNavSections, getActiveLink, selectMenuItem } = renderHeader();
-    expect(getNavSections()).toHaveLength(0);
+    const {
+      openMobileMenu,
+      getActiveLink,
+      selectMenuItem,
+      getCSSVisibleSections,
+      triggerMenuAnimationEnd,
+    } = renderHeader();
     await openMobileMenu();
     await selectMenuItem(getMenuItem([0]));
 
     const activeLinkToFrontpage = getActiveLink();
     fireEvent.click(activeLinkToFrontpage);
+    triggerMenuAnimationEnd();
     await waitFor(() => {
       expect(onClickTracker).toHaveBeenCalledTimes(1);
-      expect(getNavSections()).toHaveLength(0);
+      expect(getCSSVisibleSections()).toHaveLength(0);
     });
   });
+  it('When re-opened, the menus are restored to the state when closed.', async () => {
+    const {
+      openMobileMenu,
+      closeMobileMenu,
+      navigateTo,
+      navigateBack,
+      verifyActiveItem,
+      verifyPreviousItem,
+      getCSSVisibleSections,
+      getNavSections,
+    } = renderHeader();
+    const menu3 = getMenuItem([3]);
+    const menu31 = getMenuItem([3, 1]);
+    expect(getCSSVisibleSections()).toHaveLength(0);
+    await openMobileMenu();
+
+    await navigateTo(menu3);
+    await navigateTo(menu31);
+
+    expect(verifyActiveItem(menu31)).toBeTruthy();
+    expect(verifyPreviousItem(menu3)).toBeTruthy();
+    expect(getNavSections()).toHaveLength(3);
+    expect(getCSSVisibleSections()).toHaveLength(3);
+
+    await closeMobileMenu();
+    await openMobileMenu();
+
+    expect(verifyActiveItem(menu31)).toBeTruthy();
+    expect(verifyPreviousItem(menu3)).toBeTruthy();
+    expect(getNavSections()).toHaveLength(3);
+    expect(getCSSVisibleSections()).toHaveLength(3);
+
+    await navigateBack(menu3);
+    expect(verifyActiveItem(menu3)).toBeTruthy();
+    expect(verifyPreviousItem(frontPageLabel)).toBeTruthy();
+
+    await closeMobileMenu();
+    await openMobileMenu();
+
+    expect(getNavSections()).toHaveLength(2);
+    expect(getCSSVisibleSections()).toHaveLength(2);
+
+    expect(verifyActiveItem(menu3)).toBeTruthy();
+    expect(verifyPreviousItem(frontPageLabel)).toBeTruthy();
+
+    await navigateBack(frontPageLabel);
+    await closeMobileMenu();
+    await openMobileMenu();
+
+    expect(getNavSections()).toHaveLength(1);
+    expect(getCSSVisibleSections()).toHaveLength(1);
+
+    expect(verifyActiveItem(frontPageLabel)).toBeTruthy();
+    expect(verifyPreviousItem(null)).toBeTruthy();
+    // this is slow process with many updates, so increased timeout
+  }, 10000);
 });

@@ -1,12 +1,4 @@
-import React, {
-  cloneElement,
-  isValidElement,
-  MouseEventHandler,
-  TransitionEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { cloneElement, isValidElement, MouseEventHandler, TransitionEvent, useEffect, useRef } from 'react';
 
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
@@ -16,6 +8,8 @@ import { HeaderLink } from '../headerLink';
 import { IconAngleLeft } from '../../../../icons';
 import { LinkProps } from '../../../../internal/LinkItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
+import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
+import useForceRender from '../../../../hooks/useForceRender';
 
 type NavigationSectionType = {
   logo: React.ReactNode;
@@ -160,10 +154,16 @@ const Logo = ({ logo, logoProps }) => (
 type Position = 'left0' | 'left100' | 'left200';
 type MenuInfo = {
   active: boolean;
-  animating: boolean;
   index: number;
   key: string;
   root: boolean;
+};
+type State = {
+  isOpen: boolean;
+  menus: MenuInfo[];
+  isChangingLevel: boolean;
+  isClosingOrOpening: boolean;
+  shouldSetFocusToActiveLink: boolean;
 };
 type HeaderActionBarNavigationMenuProps = {
   frontPageLabel: string;
@@ -186,77 +186,136 @@ export const HeaderActionBarNavigationMenu = ({
   openFrontPageLinksAriaLabel,
 }: HeaderActionBarNavigationMenuProps) => {
   const { navigationContent, mobileMenuOpen, hasUniversalContent, universalContent } = useHeaderContext();
+  const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
   const { setMobileMenuOpen } = useSetHeaderContext();
   // State for which link menu is open but not necessarily active. Needed for browsing the menu.
   const navContainerRef = useRef<HTMLDivElement>();
-  const shouldSetFocus = useRef(false);
+  const reRender = useForceRender();
 
-  const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
+  const state = useRef<State>({
+    isOpen: mobileMenuOpen,
+    menus: [{ root: true, index: -1, active: false, key: 'root' }],
+    isChangingLevel: false,
+    isClosingOrOpening: false,
+    shouldSetFocusToActiveLink: false,
+  });
 
-  const [selectedMenuLevels, setSelectedMenuLevels] = useState<MenuInfo[]>([
-    // first menu is always the same - the root menu.
-    { root: true, index: -1, active: true, animating: false, key: 'root' },
-  ]);
+  const getState = () => state.current;
 
-  const menuPositions: Record<number, Position> = {
-    0: 'left0',
-    1: 'left100',
-    2: 'left200',
+  const updateState = (newStateProps: Partial<State>) => {
+    state.current = { ...getState(), ...newStateProps };
   };
 
-  const getActiveMenus = () => selectedMenuLevels.filter((level) => level.active);
+  const getMenuLevels = (): State['menus'] => {
+    return getState().menus;
+  };
+
+  const updateMenuLevelsAndRender = (newLevels: State['menus'], animationOver = false) => {
+    updateState({ menus: newLevels, isChangingLevel: !animationOver });
+    reRender();
+  };
+
+  const modifyMenuLevels = ({
+    setActiveIndex,
+    newMenuIndex,
+    removeLastIfInActive,
+    deactivateLast,
+    activateLast,
+  }: {
+    setActiveIndex?: number;
+    newMenuIndex?: number;
+    removeLastIfInActive?: boolean;
+    activateLast?: boolean;
+    deactivateLast?: boolean;
+  }) => {
+    const currentMenus = [...getMenuLevels()];
+    const getNewActiveIndex = (): number | null => {
+      if (typeof setActiveIndex === 'number') {
+        return setActiveIndex;
+      }
+      if (activateLast) {
+        return currentMenus.length - 1;
+      }
+      if (deactivateLast) {
+        return currentMenus.length - 2;
+      }
+      return null;
+    };
+    const activeIndex = getNewActiveIndex();
+    if (activeIndex !== null) {
+      currentMenus.forEach((menu, index) => {
+        // eslint-disable-next-line no-param-reassign
+        menu.active = index === activeIndex;
+      });
+    }
+    if (typeof newMenuIndex !== 'undefined') {
+      const parent = currentMenus[currentMenus.length - 1];
+      parent.active = false;
+      currentMenus.push({ index: newMenuIndex, active: true, root: false, key: `${parent.key}_${newMenuIndex}` });
+    }
+    if (removeLastIfInActive) {
+      const lastMenu = currentMenus[currentMenus.length - 1];
+      if (!lastMenu.root && !lastMenu.active) {
+        currentMenus.pop();
+      }
+    }
+    return currentMenus;
+  };
+
+  if (getState().isOpen !== mobileMenuOpen) {
+    updateState({ isClosingOrOpening: true, isOpen: mobileMenuOpen, isChangingLevel: false });
+    // when closed, all menus are inactive.
+    // when menu is opened the last menu item is set active.
+    // when menus was closed, there can be 1-3 menus still stored
+    // and this way the previous state is restored.
+    if (mobileMenuOpen) {
+      modifyMenuLevels({ activateLast: true });
+    }
+  }
+
+  const getActiveMenuIndex = () => {
+    return getMenuLevels().findIndex((level) => level.active);
+  };
 
   const getMenuPositionStyle = () => {
-    const activeMenuIndex = getActiveMenus().length - 1;
+    const menuPositions: Record<number, Position> = {
+      0: 'left0',
+      1: 'left100',
+      2: 'left200',
+    };
+    const { isClosingOrOpening, isOpen } = getState();
+    // when opening / closing the menu should be positioned to the last
+    const activeMenuIndex = isClosingOrOpening || !isOpen ? getMenuLevels().length - 1 : getActiveMenuIndex();
     return styles[menuPositions[activeMenuIndex]];
   };
 
   const isMenuActive = (index: number) => {
-    const menuItem = selectedMenuLevels[index];
+    const menuItem = getMenuLevels()[index];
     return !!(menuItem && menuItem.active);
   };
 
   // Menu is current when it is the last active one
   const isMenuCurrent = (index: number) => {
-    return isMenuActive(index) && getActiveMenus().length - 1 === index;
+    return isMenuActive(index) && getActiveMenuIndex() === index;
   };
 
   const isAnimating = () => {
-    return selectedMenuLevels.some((level) => level.animating);
+    return getState().isChangingLevel;
   };
 
   const addSelectedMenuLevel = (selectedIndex: number) => {
     if (selectedIndex === -1) {
       return;
     }
-    const parent = selectedMenuLevels[selectedMenuLevels.length - 1];
-    setSelectedMenuLevels([
-      ...selectedMenuLevels,
-      { index: selectedIndex, animating: true, active: true, root: false, key: `${parent.key}_${selectedIndex}` },
-    ]);
+    updateMenuLevelsAndRender(modifyMenuLevels({ newMenuIndex: selectedIndex }));
   };
 
   const goToPreviousMenuLevel = () => {
-    const last = selectedMenuLevels.pop();
-
-    // Last item is removed after animation is done.
-    // It is marked as inactive here and removed in resetMenusAfterAnimation()
-    setSelectedMenuLevels([
-      ...selectedMenuLevels.map((item) => {
-        return { ...item, animating: true };
-      }),
-      { ...last, active: false, animating: true },
-    ]);
+    updateMenuLevelsAndRender(modifyMenuLevels({ deactivateLast: true }));
   };
 
   const resetMenusAfterAnimation = () => {
-    const newArray = getActiveMenus();
-    setSelectedMenuLevels(
-      newArray.map((i) => {
-        return { ...i, animating: false };
-      }),
-    );
-    return newArray.length;
+    updateMenuLevelsAndRender(modifyMenuLevels({ removeLastIfInActive: true }), true);
   };
 
   const getLinksOrChildren = (parent: React.ReactElement) => {
@@ -283,12 +342,12 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   const findLinkIndex = (link: React.ReactElement) => {
-    const linkParent = findParentElement(selectedMenuLevels);
+    const linkParent = findParentElement(getMenuLevels());
     return linkParent ? getLinksOrChildren(linkParent).indexOf(link) : -1;
   };
 
   const getLinks = (level: number) => {
-    const parent = findParentElement(selectedMenuLevels.slice(0, level + 1));
+    const parent = findParentElement(getMenuLevels().slice(0, level + 1));
     return parent ? getLinksOrChildren(parent) : [];
   };
 
@@ -296,7 +355,7 @@ export const HeaderActionBarNavigationMenu = ({
     if (level === 0) {
       return undefined;
     }
-    return findParentElement(selectedMenuLevels.slice(0, level + 1));
+    return findParentElement(getMenuLevels().slice(0, level + 1));
   };
 
   const getPreviousLink = (level: number) => {
@@ -308,7 +367,7 @@ export const HeaderActionBarNavigationMenu = ({
     if (level === 1) {
       return undefined;
     }
-    return findParentElement(selectedMenuLevels.slice(0, level));
+    return findParentElement(getMenuLevels().slice(0, level));
   };
 
   const getMenuContents = (level: number) => {
@@ -316,29 +375,27 @@ export const HeaderActionBarNavigationMenu = ({
       links: getLinks(level),
       previousLink: getPreviousLink(level),
       activeLink: getActiveLink(level),
-      key: selectedMenuLevels[level].key,
+      key: getMenuLevels()[level].key,
     };
   };
 
   const getActiveLinkElement = (): HTMLAnchorElement | null => {
     const container = navContainerRef.current;
-    const activeMenuIndex = getActiveMenus().length - 1;
+    const activeMenuIndex = getActiveMenuIndex();
     const activeMenuElement = container ? (container.childNodes[activeMenuIndex] as HTMLElement) : null;
     return activeMenuElement ? activeMenuElement.querySelector(`a.${styles.activeMobileLink}`) : null;
   };
 
   useEffect(() => {
     // Set the focus to the currently active page link
-    if (shouldSetFocus.current) {
-      shouldSetFocus.current = false;
+    if (getState().shouldSetFocusToActiveLink) {
+      updateState({ shouldSetFocusToActiveLink: false });
       const linkElement = getActiveLinkElement();
       if (linkElement) {
         linkElement.focus();
       }
     }
   });
-
-  if (!mobileMenuOpen) return null;
 
   const goDeeper = (link: React.ReactElement) => {
     if (isAnimating()) {
@@ -358,16 +415,45 @@ export const HeaderActionBarNavigationMenu = ({
     setMobileMenuOpen(false);
   };
 
-  const menuSectionsAnimationDone = async (e: TransitionEvent) => {
+  const setCurrentMenuHeight = () => {
+    const containerElement = navContainerRef.current;
+    if (!containerElement) {
+      return;
+    }
+    // Set the height of the menu container
+    const renderedChildIndex = getActiveMenuIndex();
+    const currentMenuSection = containerElement.children[renderedChildIndex];
+    if (!currentMenuSection) {
+      return;
+    }
+    navContainerRef.current.style.height = `${currentMenuSection.clientHeight}px`;
+  };
+
+  const animationDone = async (e: TransitionEvent) => {
+    if (e.propertyName !== 'transform') {
+      return;
+    }
     const targetElement = e.target as HTMLElement;
-    if (e.propertyName === 'transform' && targetElement.firstChild.nodeName === 'SECTION') {
-      shouldSetFocus.current = true;
-      // Set the height of the menu container
-      const renderedChildIndex = resetMenusAfterAnimation() - 1;
-      const currentMenuSection = targetElement.children[renderedChildIndex];
-      navContainerRef.current.style.height = `${currentMenuSection.clientHeight}px`;
+    const isNavContainer = targetElement === navContainerRef.current;
+    const isMenuElement = targetElement === navContainerRef.current.parentElement;
+    const { isChangingLevel, isClosingOrOpening } = getState();
+    if (isNavContainer && isChangingLevel) {
+      updateState({ shouldSetFocusToActiveLink: true });
+      setCurrentMenuHeight();
+      resetMenusAfterAnimation();
+    } else if (isMenuElement && isClosingOrOpening) {
+      updateState({ isClosingOrOpening: false });
+      if (!getState().isOpen) {
+        updateMenuLevelsAndRender(modifyMenuLevels({ setActiveIndex: -1 }), true);
+      }
     }
   };
+
+  useIsomorphicLayoutEffect(() => {
+    if (mobileMenuOpen) {
+      setCurrentMenuHeight();
+    }
+  }, [mobileMenuOpen]);
 
   const RenderNavigationSection = ({
     links,
@@ -411,29 +497,27 @@ export const HeaderActionBarNavigationMenu = ({
     );
   };
 
+  const { isClosingOrOpening } = getState();
   return (
     <div
       className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}
       id="hds-mobile-menu"
+      onTransitionEnd={animationDone}
     >
-      <div
-        className={classNames(styles.navigationWrapper, getMenuPositionStyle())}
-        onTransitionEnd={menuSectionsAnimationDone}
-        ref={navContainerRef}
-      >
-        {selectedMenuLevels.map((data, i) => {
+      <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
+        {getMenuLevels().map((data, i) => {
           const { links, previousLink, activeLink, key } = getMenuContents(i);
           const isCurrentMenu = isMenuCurrent(i);
           const isCurrentlyAnimating = isAnimating();
-          const distanceToLast = selectedMenuLevels.length - 1 - i;
+          const distanceToLast = getMenuLevels().length - 1 - i;
           // Maximum of 2 menus can be seen at the same time and only when animating.
           // Otherwise only one. If there are 3 menus, then root should not be shown.
           const shouldBeVisible = (isCurrentlyAnimating && distanceToLast < 2) || isCurrentMenu;
           return (
             <RenderNavigationSection
               activeLink={activeLink}
-              ariaHidden={!isCurrentMenu}
-              className={shouldBeVisible ? styles.visible : styles.hidden}
+              ariaHidden={!mobileMenuOpen || !isCurrentMenu}
+              className={isClosingOrOpening || shouldBeVisible ? styles.visible : styles.hidden}
               key={key}
               links={links}
               previousLink={previousLink}

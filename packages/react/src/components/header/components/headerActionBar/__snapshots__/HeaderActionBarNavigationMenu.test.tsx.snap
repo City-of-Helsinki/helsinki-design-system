@@ -84,6 +84,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
         >
           <div
             class="navigationWrapper left0"
+            style="height: 0px;"
           >
             <section
               aria-hidden="false"

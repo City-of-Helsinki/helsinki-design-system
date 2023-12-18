@@ -45,7 +45,9 @@
   overflow: hidden;
   position: absolute;
   transform: translateY(-100%) translateY(1px);
-  transition: var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown), var(--animation-duration-dropwdown) min-height calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
+  transition: var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
+    var(--animation-duration-dropwdown) min-height
+      calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
   width: 100%;
 }
 
@@ -209,21 +211,20 @@
   display: flex;
   min-height: calc(100vh - var(--action-bar-container-height));
   overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
   width: 300%;
 
   &.left0 {
     transform: translateX(0);
-    transition: transform 0.3s ease;
   }
 
   &.left100 {
     transform: translateX(-100vw);
-    transition: transform 0.3s ease;
   }
 
   &.left200 {
     transform: translateX(-200vw);
-    transition: transform 0.3s ease;
   }
 }
 
