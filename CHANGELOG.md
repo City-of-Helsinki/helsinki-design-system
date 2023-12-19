@@ -5,17 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.3.0] - December, 19, 2023
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
 - [Header.ActionBarItem] New property "preventButtonResize" to prevent menu button shifting when clicked
+- [Header.NavigationMenu] Mobile menu has open and close animation
 
 #### Changed
 
@@ -27,41 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Header.LanguageSelector] Added `aria-current` to currently selected language button
 
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - Updated grid documentation with information about the new Header
 
 #### Fixed
@@ -70,43 +36,9 @@ Changes that are not related to specific components
 
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Sketch/Abstract
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+[UI Kit] Component frames now locked in the file to prevent accidental moving
 
 ## [3.2.0] - December, 5, 2023
 
