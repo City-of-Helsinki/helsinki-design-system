@@ -26,6 +26,7 @@
   width: 100%;
 
   &.placeholder {
+    background-color: inherit;
     color: var(--placeholder-color);
   }
 

@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - December, 19, 2023
+
+### React
+
+#### Added
+
+- [Header.ActionBarItem] New property "preventButtonResize" to prevent menu button shifting when clicked
+- [Header.NavigationMenu] Mobile menu has open and close animation
+
+#### Changed
+
+- [Tag] Default value for `id` marked to be removed in the next major release.
+- [Table] Default values for `headingId` and `id` marked marked to be removed in the next major release.
+- [Select] Placeholder text inherits background color
+
+#### Fixed
+
+- [Header.LanguageSelector] Added `aria-current` to currently selected language button
+
+### Documentation
+
+#### Changed
+
+- Updated grid documentation with information about the new Header
+
+#### Fixed
+
+- Add missing Next.js and Gatsby code snippets to foundations / server side rendering
+
+### Figma
+
+#### Changed
+
+[UI Kit] Component frames now locked in the file to prevent accidental moving
+
 ## [3.2.0] - December, 5, 2023
 
 ### React
@@ -66,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Sketch & Abstract
 
 #### Changed
+
 - Updated HDS Sketch libraries to Sketch version 99.1. Please update your Sketch and files accordingly
 
 ### Icons

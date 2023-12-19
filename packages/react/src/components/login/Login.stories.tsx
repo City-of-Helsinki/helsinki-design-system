@@ -53,6 +53,7 @@ export default {
   title: 'Components/Login',
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
   args: {
     useKeycloak: false,
@@ -153,7 +154,6 @@ const Wrapper = (props: React.PropsWithChildren<unknown>) => {
         {`
           .wrapper{
             overflow: hidden;
-            padding:20px;
           }
           pre{
             white-space: break-spaces;

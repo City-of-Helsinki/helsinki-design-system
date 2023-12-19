@@ -1,6 +1,3 @@
-$animation-duration: 250ms;
-$animation-close-delay: 150ms;
-
 @layer actionBar {
   .dropdownWrapper {
     bottom: 0;
@@ -20,7 +17,7 @@ $animation-close-delay: 150ms;
       max-height: 0;
       min-width: 300px;
       padding-bottom: 0;
-      transition-delay: $animation-duration + $animation-close-delay;
+      transition-delay: calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
     }
 
     &.visible .dropdownWrapper {
@@ -54,8 +51,8 @@ $animation-close-delay: 150ms;
     position: relative;
     right: 0;
     transform: translateY(-100%);
-    transition: $animation-duration transform $animation-close-delay,
-      0ms visibility ($animation-duration + $animation-close-delay);
+    transition: var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
+      0ms visibility calc((var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown)));
     visibility: hidden;
 
     &.fullWidth {
@@ -64,7 +61,7 @@ $animation-close-delay: 150ms;
 
     &.visible {
       transform: translateY(0%);
-      transition: $animation-duration transform 0ms, 0ms visibility 0ms;
+      transition: var(--animation-duration-dropwdown) transform 0ms, 0ms visibility 0ms;
       visibility: visible;
     }
 

@@ -42,7 +42,14 @@ export const LanguageButton = ({ value, label }: LanguageOption) => {
   const selectLanguage = withDefaultPrevented(() => setLanguage(value));
 
   return (
-    <button key={value} lang={value} onClick={selectLanguage} type="button" className={className}>
+    <button
+      key={value}
+      lang={value}
+      onClick={selectLanguage}
+      type="button"
+      className={className}
+      aria-current={activeLanguage === value}
+    >
       <span>{label}</span>
     </button>
   );

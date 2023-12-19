@@ -119,11 +119,13 @@ export type TableProps = {
   headingClassName?: string;
   /**
    * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
+   * Default value `hds-table-heading-id` will be removed in the next major release.
    * @default 'hds-table-heading-id'
    */
   headingId?: string;
   /**
    * Id that is passed to the native html table element.
+   * Default value `hds-table-id` will be removed in the next major release.
    * @default 'hds-table-id'
    */
   id?: string;
@@ -257,8 +259,8 @@ export const Table = ({
   heading,
   headingAriaLevel = 2,
   headingClassName,
-  headingId = 'hds-table-heading-id',
-  id = 'hds-table-id',
+  headingId = 'hds-table-heading-id', // Default value will be removed in the next major release
+  id = 'hds-table-id', // Default value will be removed in the next major release
   indexKey,
   initialSortingColumnKey,
   initialSortingOrder,

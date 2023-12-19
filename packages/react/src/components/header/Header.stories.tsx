@@ -289,6 +289,7 @@ export const WithFullFeatures = (args) => {
               icon={<IconUser />}
               id="action-bar-login"
               closeLabel={I18n.close}
+              preventButtonResize
             >
               <h3>{I18n.loginOptions}</h3>
             </Header.ActionBarItem>
@@ -644,6 +645,7 @@ export const ManualLanguageSorting = (args) => {
             icon={<IconUser />}
             id="action-bar-login"
             closeLabel={I18n.close}
+            preventButtonResize
           >
             <h3>{I18n.loginOptions}</h3>
           </Header.ActionBarItem>

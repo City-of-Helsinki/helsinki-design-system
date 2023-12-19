@@ -39,6 +39,6 @@ The breakpoint tokens are divided into two sets;
 - **Breakpoint tokens** define exact widths (in pixels) where the next breakpoint comes into effect.
 - **Container width token** defines maximum container width.
 
-When breakpoints change the left and right padding of the container changes. It is recommended to use the provided padding values because they match with <InternalLink href="/components/navigation">HDS Navigation</InternalLink> and <InternalLink href="/components/footer">HDS Footer</InternalLink> paddings. You can find these paddings on the <InternalLink href="/foundation/design-tokens/breakpoints/tokens">HDS Breakpoints tokens tab.</InternalLink>
+When breakpoints change the left and right padding of the container changes. It is recommended to use the provided padding values because they match with <InternalLink href="/components/footer">HDS Footer</InternalLink> paddings. You can find these paddings on the <InternalLink href="/foundation/design-tokens/breakpoints/tokens">HDS Breakpoints tokens tab.</InternalLink>
 
-The maximum content container width is always `--container-width-xl` (1200px). When the viewport width is below this value, the content container always takes all available space.
+The maximum content container width is always `--container-width-xl` (1200px). When the viewport width is below this value, the content container always takes all available space. Note that the <InternalLink href="/components/header">Header component</InternalLink> is an exception with maximum width of 1440 pixels so it should not be placed inside the grid container.

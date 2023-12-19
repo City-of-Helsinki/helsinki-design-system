@@ -17,3 +17,7 @@ Closes #
 ## How Has This Been Tested?
 
 ## Screenshots (if appropriate):
+
+## Add to changelog
+- [ ] Added needed line to changelog 
+<!-- Or comment here why it is not relevant in the change log -->

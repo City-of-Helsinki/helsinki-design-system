@@ -12,6 +12,7 @@ export default {
   title: 'Components/Breadcrumb',
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
   args: {
     ariaLabel: 'Breadcrumb',
@@ -35,56 +36,58 @@ export const Example = (args) => <Breadcrumb {...args} />;
 
 export const ExampleInHeader = (args) => {
   return (
-    <Header languages={languages}>
-      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
-      <Header.ActionBar
-        title="Helsingin kaupunki"
-        titleAriaLabel="Helsingin kaupunki"
-        titleHref="https://hel.fi"
-        logoAriaLabel="Service logo"
-        logoHref="https://hel.fi"
-        logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
-        menuButtonAriaLabel="Menu"
-      >
-        <Header.LanguageSelector ariaLabel="Kielen valinta">
-          <h3>Tietoa muilla kielillä</h3>
-          <Link external href="www.example.com">
-            Selkosuomi
-          </Link>
-          <Link external href="www.example.com">
-            Viittomakieli
-          </Link>
-        </Header.LanguageSelector>
-      </Header.ActionBar>
-      <Header.NavigationMenu>
-        <Header.Link
-          href="#"
-          label="Health and social services"
-          onClick={(event) => event.preventDefault()}
-          active
-          dropdownLinks={[
-            <Header.Link
-              href="#"
-              label="Senior services"
-              active
-              dropdownLinks={[
-                <Header.Link href="#" label="Informal care" active />,
-                <Header.Link href="#" label="Senior centres" />,
-                <Header.Link href="#" label="Home care" />,
-              ]}
-            />,
-            <Header.Link
-              href="#"
-              label="Data and the rights of the client"
-              dropdownLinks={[
-                <Header.Link href="#" label="Requesting client data" />,
-                <Header.Link href="#" label="Fees" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.Link href="#" label="Child and family services" />
-      </Header.NavigationMenu>
+    <>
+      <Header languages={languages}>
+        <Header.ActionBar
+          title="Helsingin kaupunki"
+          titleAriaLabel="Helsingin kaupunki"
+          titleHref="https://hel.fi"
+          logoAriaLabel="Service logo"
+          logoHref="https://hel.fi"
+          logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+          menuButtonAriaLabel="Menu"
+          frontPageLabel="Etusivu"
+        >
+          <Header.LanguageSelector ariaLabel="Kielen valinta">
+            <h3>Tietoa muilla kielillä</h3>
+            <Link external href="www.example.com">
+              Selkosuomi
+            </Link>
+            <Link external href="www.example.com">
+              Viittomakieli
+            </Link>
+          </Header.LanguageSelector>
+        </Header.ActionBar>
+        <Header.NavigationMenu>
+          <Header.Link
+            href="#"
+            label="Health and social services"
+            onClick={(event) => event.preventDefault()}
+            active
+            dropdownLinks={[
+              <Header.Link
+                href="#"
+                label="Senior services"
+                active
+                dropdownLinks={[
+                  <Header.Link href="#" label="Informal care" active />,
+                  <Header.Link href="#" label="Senior centres" />,
+                  <Header.Link href="#" label="Home care" />,
+                ]}
+              />,
+              <Header.Link
+                href="#"
+                label="Data and the rights of the client"
+                dropdownLinks={[
+                  <Header.Link href="#" label="Requesting client data" />,
+                  <Header.Link href="#" label="Fees" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.Link href="#" label="Child and family services" />
+        </Header.NavigationMenu>
+      </Header>
       <Container alignWithHeader>
         <Breadcrumb
           {...args}
@@ -96,7 +99,7 @@ export const ExampleInHeader = (args) => {
           }}
         />
       </Container>
-    </Header>
+    </>
   );
 };
 

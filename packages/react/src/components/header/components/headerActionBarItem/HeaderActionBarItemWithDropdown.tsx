@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { IconCross } from '../../../../icons';
-import { HeaderActionBarItem } from './HeaderActionBarItem';
+import { HeaderActionBarItem, HeaderActionBarItemProps } from './HeaderActionBarItem';
 import classNames from '../../../../utils/classNames';
 import classes from './HeaderActionBarItemWithDropdown.module.scss';
 
@@ -50,6 +50,10 @@ type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
    * Fix the item position to the right side of the action bar.
    */
   fixedRightPosition?: boolean;
+  /**
+   * Menu button resizing is prevented by rendering button's active state to a separate element.
+   */
+  preventButtonResize?: boolean;
 }> &
   React.ComponentPropsWithoutRef<'div'>;
 
@@ -64,10 +68,11 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     dropdownClassName: dropdownClassNameProp,
     closeLabel,
     icon,
-    closeIcon = IconCross,
+    closeIcon = <IconCross />,
     ariaLabel,
     labelOnRight,
     fixedRightPosition,
+    preventButtonResize,
     ...props
   } = properties;
   const dropdownContentElementRef = useRef<HTMLElement>(null);
@@ -108,8 +113,8 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     setHasContent(dropdownContentElementRef.current?.childNodes.length !== 0);
   }, [children]);
 
-  const iconLabel = visible ? closeLabel : label;
-  const iconClass = visible ? closeIcon : icon;
+  const iconLabel = visible && !preventButtonResize ? closeLabel : label;
+  const iconClass = visible && !preventButtonResize ? closeIcon : icon;
   const visibilityClasses = {
     visible,
     [classes.visible]: visible,
@@ -119,7 +124,12 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
   const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, visibilityClasses);
-
+  const buttonOverlayProps: Pick<HeaderActionBarItemProps, 'activeStateIcon' | 'activeStateLabel'> = preventButtonResize
+    ? {
+        activeStateIcon: closeIcon,
+        activeStateLabel: closeLabel,
+      }
+    : {};
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
     <div {...props} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
@@ -133,6 +143,8 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         aria-controls={`${id}-dropdown`}
         labelOnRight={labelOnRight}
         fixedRightPosition={fixedRightPosition}
+        isActive={visible}
+        {...buttonOverlayProps}
       />
       <div className={classes.dropdownWrapper}>
         <aside id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>

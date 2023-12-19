@@ -44,7 +44,9 @@
   --icon-size: 24px;
   --nav-drop-down-icon-color: var(--color-black);
   --nav-background-color: var(--color-white);
-
+  --animation-duration-dropwdown: 250ms;
+  --animation-close-delay-dropdown: 150ms;
+  
   @include layout.below-large {
     --action-bar-container-height: 74px;
     --logo-height: 48px;
