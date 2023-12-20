@@ -15,6 +15,22 @@
   padding-right: calc(2 * var(--spacing-s) + 1.5rem);
 }
 
+.input.hasClearButton {
+  padding-right: calc(2 * var(--spacing-s) + 1.5rem);
+}
+
+.input.hasButton.hasClearButton {
+  padding-right: calc(4 * var(--spacing-s) + 1.5rem);
+}
+
+.clearButton {
+  composes: hds-text-input__button-clear from 'hds-core/lib/components/text-input/text-input.css';
+}
+
+.hasClearButton {
+  composes: hds-text-input__input-clear from 'hds-core/lib/components/text-input/text-input.css';
+}
+
 .errorText {
   composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
 }

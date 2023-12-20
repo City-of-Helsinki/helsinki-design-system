@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
 
 import { TextInput } from './TextInput';
 import { Button } from '../button';
+import { IconSearch } from '../../icons';
 
 const textInputProps = {
   helperText: 'Assistive text',
@@ -58,7 +60,7 @@ WithTooltip.storyName = 'With tooltip';
 export const NumberInput = () => <TextInput {...textInputProps} type="number" />;
 
 export const UsingRef = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -115,3 +117,49 @@ Playground.args = {
     'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
   tooltipButtonAriaLabelText: 'Tooltip',
 };
+
+export const SimpleSearchInput = (args) => {
+  const [inputValue, setInputValue] = React.useState('');
+  const ref = useRef<HTMLInputElement>(null);
+
+  const doSearch = (value: string | undefined) => {
+    action('search for')(value);
+  };
+
+  const onButtonClick = () => {
+    doSearch(ref?.current?.value);
+  };
+
+  const onChangeHandler = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const onKeyUpHandler = (e) => {
+    if (e.key === 'Enter') {
+      doSearch(e.target.value);
+    }
+  };
+
+  return (
+    <TextInput
+      {...args}
+      buttonAriaLabel={`Search for ${inputValue}`}
+      buttonIcon={<IconSearch />}
+      clearButtonAriaLabel="Clear search"
+      label="Simple search"
+      onButtonClick={onButtonClick}
+      onChange={onChangeHandler}
+      onKeyUp={onKeyUpHandler}
+      ref={ref}
+      type="search"
+    />
+  );
+};
+
+SimpleSearchInput.storyName = 'As search input';
+
+export const SimpleSearchInputWithDefaultValue = (args) => {
+  return <SimpleSearchInput {...args} defaultValue="test input" />;
+};
+
+SimpleSearchInputWithDefaultValue.storyName = 'As search input with default value';

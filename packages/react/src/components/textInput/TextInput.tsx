@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 
 // import base styles
 import '../../styles/base.css';
@@ -7,12 +7,22 @@ import styles from './TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import classNames from '../../utils/classNames';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
+import { IconCrossCircle } from '../../icons';
 
 export type TextInputProps = {
   /**
    * Additional class names to apply to the text input
    */
   className?: string;
+  /**
+   * The aria-label for the clear button.
+   * @default 'Clear'
+   */
+  clearButtonAriaLabel?: string;
+  /**
+   * Use clear button
+   */
+  clearButton?: boolean;
   /**
    * Additional children to render after the input.
    */
@@ -53,6 +63,10 @@ export type TextInputProps = {
    * Callback fired when the state is changed
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  /**
+   * Button click callback
+   */
+  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   /**
    * Short hint displayed in the input before the user enters a value
    */
@@ -109,37 +123,35 @@ export type TextInputProps = {
    * Button aria-label
    */
   buttonAriaLabel?: string;
-  /**
-   * Button click callback
-   */
-  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
 } & React.ComponentPropsWithoutRef<'input'>;
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
-      className = '',
+      buttonAriaLabel,
+      buttonIcon,
       children,
-      disabled = false,
+      className = '',
+      clearButtonAriaLabel = 'Clear',
+      clearButton = false,
       defaultValue,
+      disabled = false,
       errorText,
       helperText,
       hideLabel,
-      invalid,
       id,
+      infoText,
+      invalid,
       label,
+      onButtonClick,
       onChange = () => null,
       required,
       style,
       successText,
-      infoText,
+      tooltipButtonLabel,
       tooltipLabel,
       tooltipText,
-      tooltipButtonLabel,
       type = 'text',
-      buttonIcon,
-      buttonAriaLabel,
-      onButtonClick,
       ...rest
     }: TextInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -150,47 +162,85 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       helperText,
       hideLabel,
       id,
+      infoText,
       invalid,
       label,
       required,
       style,
       successText,
-      infoText,
+      tooltipButtonLabel,
       tooltipLabel,
       tooltipText,
-      tooltipButtonLabel,
     };
+
+    const innerWrapperRef = React.useRef<HTMLDivElement>(null);
 
     // Compose aria-describedby attribute
     const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
-
     const hasButton = Boolean(buttonIcon && onButtonClick);
+    const hasClearButton = Boolean(clearButton || type === 'search');
+
+    const innerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e);
+      if (!hasClearButton) return;
+      const inputElement = e.target;
+      const innerValue = inputElement.value;
+      if (hasClearButton && innerValue.length > 0) {
+        innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
+      } else {
+        innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
+      }
+    };
+
+    const onClearButtonClick = (e: SyntheticEvent) => {
+      const input = innerWrapperRef.current.querySelector('input') as HTMLInputElement;
+      input.value = '';
+      input.focus();
+      innerOnChange(e as React.ChangeEvent<HTMLInputElement>);
+    };
+
+    if (defaultValue?.length > 0 && hasClearButton) {
+      wrapperProps['data-hds-textinput-filled'] = true;
+    }
 
     return (
-      <InputWrapper {...wrapperProps}>
+      <InputWrapper {...wrapperProps} ref={innerWrapperRef}>
         <input
-          className={classNames(styles.input, hasButton && styles.hasButton)}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
+          className={classNames(styles.input, hasButton && styles.hasButton, hasClearButton && styles.hasClearButton)}
           defaultValue={defaultValue}
           disabled={disabled}
           id={id}
-          onChange={onChange}
+          onChange={innerOnChange}
           ref={ref}
           required={required}
           type={type}
-          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
-        {hasButton && (
+        {(hasButton || hasClearButton) && (
           <div className={styles.buttonWrapper}>
-            <button
-              className={styles.button}
-              disabled={disabled}
-              type="button"
-              onClick={onButtonClick}
-              aria-label={buttonAriaLabel}
-            >
-              {buttonIcon}
-            </button>
+            {hasClearButton && (
+              <button
+                aria-label={clearButtonAriaLabel}
+                className={classNames(styles.button, styles.clearButton)}
+                disabled={disabled}
+                onClick={onClearButtonClick}
+                type="button"
+              >
+                <IconCrossCircle />
+              </button>
+            )}
+            {buttonIcon && onButtonClick && (
+              <button
+                aria-label={buttonAriaLabel}
+                className={styles.button}
+                disabled={disabled}
+                onClick={onButtonClick}
+                type="button"
+              >
+                {buttonIcon}
+              </button>
+            )}
           </div>
         )}
         {children}
