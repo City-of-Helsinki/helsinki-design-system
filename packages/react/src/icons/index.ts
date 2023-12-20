@@ -170,7 +170,7 @@ export { IconTiktok } from './IconTiktok';
 export { IconTrash } from './IconTrash';
 export { IconTraveler } from './IconTraveler';
 export { IconTwitch } from './IconTwitch';
-export { IconTwitterOld } from './IconTwitterOld';
+export { IconTwitter } from './IconTwitter';
 export { IconUpload } from './IconUpload';
 export { IconUploadCloud } from './IconUploadCloud';
 export { IconUser } from './IconUser';
