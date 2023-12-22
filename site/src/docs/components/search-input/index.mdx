@@ -32,6 +32,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **It is recommended to have only one search per page.** If you need multiple searches, clearly label them to indicate their purpose.
 - If possible, provide search suggestions (see With suggestions section for more info). This helps users to find what they are looking for, especially if the searchable items are complex.
     - Do not use suggestions to present search results. Results should be provided in their own component or a separate page.
+- When no search suggestions are provided and search results are shown on another page, we recommend using a simpler search by using a <InternalLink href="/components/text-input">TextInput component</InternalLink>. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-textinput--simple-search-input">View in Storybook</Link>.
 
 ### Variations
 
