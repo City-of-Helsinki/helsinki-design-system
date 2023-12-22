@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LeadParagraph = ({
-  color = 'var(--color-black-90)',
-  size = 'var(--fontsize-body-xl)',
-  style = {},
-  children,
-}) => (
+import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
+
+const LeadParagraph = ({ color = 'var(--color-black-90)', size = 'var(--fontsize-body-xl)', style = {}, children }) => (
   <p
     style={{
       fontSize: size,
@@ -15,7 +12,7 @@ const LeadParagraph = ({
       ...style,
     }}
   >
-    {children}
+    {stripParagraphAsFirstChild(children)}
   </p>
 );
 

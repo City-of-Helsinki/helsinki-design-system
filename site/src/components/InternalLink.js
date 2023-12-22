@@ -3,6 +3,8 @@ import { Link } from 'hds-react';
 import PropTypes from 'prop-types';
 import { navigate, withPrefix } from 'gatsby';
 
+import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
+
 const InternalLink = ({ href, children, openInNewTab, openInNewTabAriaLabel, size }) => {
   const openInNewTabProps = openInNewTab
     ? { openInNewTab, openInNewTabAriaLabel: openInNewTabAriaLabel || 'Opens in a new tab.' }
@@ -18,7 +20,7 @@ const InternalLink = ({ href, children, openInNewTab, openInNewTabAriaLabel, siz
         navigate(href);
       }}
     >
-      {children}
+      {stripParagraphAsFirstChild(children)}
     </Link>
   );
 };

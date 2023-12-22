@@ -1,9 +1,11 @@
 ---
 slug: '/components/checkbox/customisation'
+title: 'Checkbox - Customisation'
 ---
 
-import { Checkbox, Notification } from 'hds-react';
+import { Checkbox } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import Notification from '../../../components/Notification';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -37,10 +39,10 @@ See all available theme variables in the table below.
 
 ### Customisation example
 
-<Playground scope={{ Checkbox, Notification }}>
+<Playground scope={{ Checkbox }}>
 
 ```jsx
-import { Checkbox, Notification } from 'hds-react';
+import { Checkbox } from 'hds-react';
 
 () => {
   const [checked, setChecked] = React.useState(false);
