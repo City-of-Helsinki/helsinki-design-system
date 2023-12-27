@@ -9,7 +9,6 @@ import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-
 export const logoSrcFromLanguageAndTheme = (lang, theme) => {
   switch (lang) {
     case 'sv':
@@ -630,27 +629,30 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
 | `ariaLabel`                              | Aria-label for describing UniversalBar.   | `string` | -             |
 | `className`                              | Additional class names to apply.          | `string` | -             |
+| `id`                                     | Id of the header element.                 | `string` | -             |
 | `primaryLinkHref`                        | Hypertext reference for the primary link. | `string` | -             |
 | `primaryLinkText`                        | Link text for the primary link            | `string` | -             |
 | `role`                                   | ARIA role to describe the contents.       | `string` | -             |
 | [Table 3:Header.UniversalBar properties] |
 
-| Property                              | Description                                            | Values                                        | Default value |
-| ------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------- |
-| `ariaLabel`                           | Aria-label for describing ActionBar.                   | `string`                                      | -             |
-| `className`                           | Additional class names to apply.                       | `string`                                      | -             |
-| `logoAriaLabel`                       | Aria-label for the logo.                               | `string`                                      | -             |
-| `logoHref`                            | URL for the logo.                                      | `string`                                      | -             |
-| `logo`                                | Logo component.                                        | `Logo`                                        | -             |
-| `menuButtonAriaLabel`                 | Aria-label for the menu button.                        | `string`                                      | -             |
-| `onTitleClick`                        | Callback function for when the title is clicked.       | `MouseEventHandler`                           | -             |
-| `onLogoClick`                         | Callback function for when the logo is clicked.        | `MouseEventHandler`                           | -             |
-| `onMenuButtonClick`                   | Callback function for when the menu button is clicked. | `MouseEventHandler`                           | -             |
-| `title`                               | Service name.                                          | `string`                                      | -             |
-| `titleAriaLabel`                      | Aria-label for the title.                              | `string`                                      | -             |
-| `titleStyle`                          | Style for the service name.                            | `TitleStyleType.Normal` `TitleStyleType.Bold` | `Normal`      |
-| `titleHref`                           | URL for the title.                                     | `string`                                      | -             |
-| `role`                                | ARIA role to describe the contents.                    | `string`                                      | -             |
+| Property                              | Description                                                                                  | Values                                        | Default value |
+| ------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
+| `ariaLabel`                           | Aria-label for describing ActionBar.                                                         | `string`                                      | -             |
+| `className`                           | Additional class names to apply.                                                             | `string`                                      | -             |
+| `frontPageLabel`                      | Label for front page link in mobile navigation menu.                                         | `string`                                      | -             |
+| `logo`                                | Logo component.                                                                              | `Logo`                                        | -             |
+| `logoAriaLabel`                       | Aria-label for the logo.                                                                     | `string`                                      | -             |
+| `logoHref`                            | URL for the logo.                                                                            | `string`                                      | -             |
+| `menuButtonAriaLabel`                 | Aria-label for the menu button.                                                              | `string`                                      | -             |
+| `onLogoClick`                         | Callback function for when the logo is clicked.                                              | `MouseEventHandler`                           | -             |
+| `onMenuButtonClick`                   | Callback function for when the menu button is clicked.                                       | `MouseEventHandler`                           | -             |
+| `onTitleClick`                        | Callback function for when the title is clicked.                                             | `MouseEventHandler`                           | -             |
+| `openFrontPageLinksAriaLabel`         | Aria-label for describing opening main navigation links into view in mobile navigation menu. | `string`                                      | -             |
+| `role`                                | ARIA role to describe the contents.                                                          | `string`                                      | -             |
+| `title`                               | Service name.                                                                                | `string`                                      | -             |
+| `titleAriaLabel`                      | Aria-label for the title.                                                                    | `string`                                      | -             |
+| `titleStyle`                          | Style for the service name.                                                                  | `TitleStyleType.Normal` `TitleStyleType.Bold` | `Normal`      |
+| `titleHref`                           | URL for the title.                                                                           | `string`                                      | -             |
 | [Table 4:Header.ActionBar properties] |
 
 | Property                                  | Description                                                                                             | Values                 | Default value |
@@ -663,24 +665,30 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `preventButtonResize`                     | If true, menu button resizing is prevented by rendering button's active state to a separate element.    | `boolean`              | `false`       |
 | [Table 5:Header.ActionBarItem properties] |
 
-| Property                                     | Description                                            | Values             | Default value |
-| -------------------------------------------- | ------------------------------------------------------ | ------------------ | ------------- |
-| `children`                                   | Additional languages to display in the dropdown.       | `JSX.Element`      | -             |
-| `languages`                                  | Array of languages to display in the Header.ActionBar. | `[LanguageOption]` | -             |
+| Property                                     | Description                                                                                                                                                                                | Values                                                                                          | Default value |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ------------- |
+| `children`                                   | Additional languages to display in the dropdown.                                                                                                                                           | `JSX.Element`                                                                                   | -             |
+| `languages`                                  | Array of languages to display in the Header.ActionBar.                                                                                                                                     | `[LanguageOption]`                                                                              | -             |
+| `sortLanguageOptions`                        | Function for sorting language options into primary and secondary. By default, all primary `LanguageOptions` as shown. If a secondary `LanguageOption` is selected, only that one is shown. | `(options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]]` | -             |
 | [Table 6:Header.LanguageSelector properties] |
+
+| Property                                          | Description                   | Values             | Default value |
+| ------------------------------------------------- | ----------------------------- | ------------------ | ------------- |
+| `languages`                                       | Array of languages to render. | `[LanguageOption]` | -             |
+| [Table 7:Header.SimpleLanguageOptions properties] |
 
 | Property                           | Description                                    | Values                         | Default value |
 | ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
 | `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
 | `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
 | `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
-| [Table 7:Header.Search properties] |
+| [Table 8:Header.Search properties] |
 
 | Property                                   | Description                               | Values   | Default value |
 | ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
 | `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
 | `id`                                       | ID for the NavigationMenu.                | `string` | -             |
-| [Table 8:Header.NavigationMenu properties] |
+| [Table 9:Header.NavigationMenu properties] |
 
 | Property                          | Description                                                                 | Values            | Default value                                           |
 | --------------------------------- | --------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |
@@ -694,8 +702,11 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `dropdownLinkClassName`           | Additional classNames to apply to the dropdown links.                       | `string`          | -                                                       |
 | `dropdownLinks`                   | Array of NavigationLink components to render in a dropdown.                 | `[<Header.Link>]` | -                                                       |
 | `href`                            | Hypertext Reference of the link.                                            | `string`          | -                                                       |
+| `id`                              | Id for the link.                                                            | `string`          | -                                                       |
 | `label`                           | Label for the link.                                                         | `string`          | -                                                       |
-| `id`                              | ID for the link.                                                            | `string`          | -                                                       |
+| `onDropdownButtonClick`           | Callback fired when the dropdown button is clicked.                         | `() => void`      | -                                                       |
 | `openDropdownAriaButtonLabel`     | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                       |
+| `openSubNavIndex`                 | Which sub navigation index is open.                                         | `number`          | -                                                       |
+| `setOpenSubNavIndex`              | Set which sub navigation index is open.                                     | `number`          | -                                                       |
 | `wrapperClassName`                | Additional classNames for the element wrapping the link.                    | `string`          | -                                                       |
-| [Table 9:Header.Link properties] |
+| [Table 10:Header.Link properties] |

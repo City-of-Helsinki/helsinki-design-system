@@ -12,6 +12,7 @@ import styles from './HeaderActionBar.module.scss';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { useHeaderContext } from '../../HeaderContext';
+import { HeaderActionBarItemProps } from '../headerActionBarItem/HeaderActionBarItem';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -106,10 +107,6 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   frontPageLabel: string;
   /**
-   * Aria-label for describing opening main navigation links into view in mobile navigation menu.
-   */
-  openFrontPageLinksAriaLabel?: string;
-  /**
    * Logo to use
    */
   logo: React.ReactElement<typeof Logo>;
@@ -137,6 +134,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    * Callback fired when the title is clicked.
    */
   onTitleClick?: MouseEventHandler;
+  /**
+   * Aria-label for describing opening main navigation links into view in mobile navigation menu.
+   */
+  openFrontPageLinksAriaLabel?: string;
   /**
    * ARIA role to describe the contents.
    */
@@ -228,10 +229,14 @@ export const HeaderActionBar = ({
   }
 
   const childrenLeft = Array.isArray(children)
-    ? children.filter((item) => React.isValidElement(item) && !item.props.fixedRightPosition)
+    ? children.filter(
+        (item) => React.isValidElement(item) && !(item.props as HeaderActionBarItemProps).fixedRightPosition,
+      )
     : [children];
   const childrenRight = Array.isArray(children)
-    ? children.filter((item) => React.isValidElement(item) && !!item.props.fixedRightPosition)
+    ? children.filter(
+        (item) => React.isValidElement(item) && !!(item.props as HeaderActionBarItemProps).fixedRightPosition,
+      )
     : [];
   const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(children);
   const languageSelectorChildren = useMemo(() => {

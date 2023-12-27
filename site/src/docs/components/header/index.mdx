@@ -250,6 +250,21 @@ Header.LanguageSelector offers the languages for the whole service. It is recomm
 - See example for Header.LanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link>.
 - Under large sized screens (992px and down) the Header.LanguageSelector moves under the Header.ActionBar.
 
+Use the Header.LanguageSelector when
+- There are no reasons not to. This is the default and fulfills almost all needs and use cases.
+- Responsive mobile view is needed. There is no room for many options unless some are placed in a dropdown.
+- There are many selectable languages, some primary and some secondary. Primary languages are usually shown outside of the dropdown.
+
+Header.SimpleLanguageOptions is an alternative to Header.LanguageSelector. Like its name suggests, it is very simple and has no ordering logic or a mobile version. It should not be used unless the Header.LanguageSelector is not suitable for your special scenario.
+
+Use the Header.SimpleLanguageOptions when
+
+- All language options should be visible at all the times.
+- Language options should not change location in mobile views.
+- The ordering of the options must be fixed and even the `sortLanguageOptions` option of the Header.LanguageSelector does not help.
+
+Note that you have to handle mobile views manually.
+
 ##### With search
 
 <Notification label="A work in progress!" className="siteNotification">
