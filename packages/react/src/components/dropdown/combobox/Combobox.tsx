@@ -526,6 +526,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             selectedItemsContainerRef={selectedItemsContainerRef}
             setActiveIndex={setActiveIndex}
             toggleButtonHidden={!showToggleButton}
+            disabled={disabled}
           />
         )}
         {props.multiselect === false && props.icon && (
@@ -569,6 +570,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
               toggleButtonRef.current.focus();
             }}
             clearButtonAriaLabel={props.clearButtonAriaLabel}
+            disabled={disabled}
           />
         )}
         {/* MENU */}
