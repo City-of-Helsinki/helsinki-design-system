@@ -29,7 +29,7 @@ type SelectedItemsProps<OptionType> = {
   /**
    * Boolean to set for disabled state
    */
-  disabled: boolean;
+  disabled?: boolean;
   /**
    * Dropdown ID
    */
@@ -279,7 +279,7 @@ export const SelectedItems = <OptionType,>({
               }}
               onDelete={(e) => {
                 e.stopPropagation();
-                onRemove(_selectedItem);
+                if (!disabled) onRemove(_selectedItem);
               }}
               srOnlyLabel={replaceTokenWithValue(selectedItemSrLabel, selectedItemLabel)}
               {...getSelectedItemProps({
