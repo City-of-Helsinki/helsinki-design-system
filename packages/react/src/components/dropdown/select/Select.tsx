@@ -550,6 +550,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             selectedItemSrLabel={props.selectedItemSrLabel}
             selectedItemsContainerRef={selectedItemsContainerRef}
             setActiveIndex={setActiveIndex}
+            disabled={disabled}
           />
         )}
         {/* TOGGLE BUTTON */}
@@ -581,6 +582,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
               toggleButtonRef.current.focus();
             }}
             clearButtonAriaLabel={props.clearButtonAriaLabel}
+            disabled={disabled}
           />
         )}
         {/* MENU */}
