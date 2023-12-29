@@ -61,7 +61,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Fixed Wave motifs links to Helsinki Brand pages 
 
 ### Figma
 
