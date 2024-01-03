@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fs from 'fs';
+import path from 'path';
 
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
@@ -15,6 +16,8 @@ import cssText from 'rollup-plugin-css-text';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const packageJSON = require('./package.json');
 
 const insertCssEsm = () => {
   return {
@@ -52,27 +55,10 @@ const moveCss = () => {
 };
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
-const external = [
-  'crc-32',
-  'kashe',
-  'memoize-one',
-  'postcss',
-  'react',
-  'react-dom',
-  'lodash.uniqueid',
-  'lodash.isequal',
-  'lodash.isfunction',
-  'react-spring',
-  'react-use-measure',
-  'react-merge-refs',
-  'react-virtual',
-  'react-popper',
-  '@juggle/resize-observer',
-  '@popperjs/core',
-  '@react-aria/visually-hidden',
-];
 
-const getExternal = (format) => (format === 'esm' ? [...external, /@babel\/runtime/] : external);
+const externals = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)];
+
+const getExternal = (format) => (format === 'esm' ? [...externals, /@babel\/runtime/] : externals);
 
 const getConfig = (format, extractCSS) => ({
   plugins: [
