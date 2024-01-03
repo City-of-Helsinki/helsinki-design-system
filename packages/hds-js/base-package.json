@@ -10,15 +10,5 @@
   "types": "./index.d.ts",
   "sideEffects": [
     "base.min-*"
-  ],
-  "dependencies": {
-    "await-to-js": "^3.0.0",
-    "cookie": "^0.4.1",
-    "http-status-typed": "^1.0.1",
-    "jwt-decode": "^3.1.2",
-    "lodash.isobject": "3.0.2",
-    "lodash.isundefined": "3.0.1",
-    "lodash.pick": "^4.4.0",
-    "oidc-client-ts": "^2.2.2"
-  }
+  ]
 }

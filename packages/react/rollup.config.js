@@ -28,7 +28,7 @@ const hdsJsCommonJsOutput = 'hds-js-cjs';
 
 const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
 const isHdsJsOutputFormat = (format) => format === hdsJsEsmOutput || format === hdsJsCommonJsOutput;
-const hdsJsBasePackageJSON = require('../hds-js/package.json');
+const hdsJsBasePackageJSON = require('../hds-js/base-package.json');
 
 const insertCssEsm = () => {
   return {
@@ -173,7 +173,7 @@ const getConfig = (format, extractCSS) => ({
     format === hdsJsEsmOutput &&
       generatePackageJson({
         inputFolder: './',
-        outputFolder: '../hds-js/output/',
+        outputFolder: '../hds-js/',
         baseContents: hdsJsBasePackageJSON,
       }),
     checkModule(buildForHdsJs),
@@ -220,7 +220,7 @@ export default !buildForHdsJs
         input: { index: '../hds-js/index.ts' },
         output: [
           {
-            dir: '../hds-js/output/lib',
+            dir: '../hds-js/lib',
             format: 'esm',
           },
         ],
@@ -231,7 +231,7 @@ export default !buildForHdsJs
         input: ['../hds-js/index.ts'],
         output: [
           {
-            dir: '../hds-js/output/lib/cjs',
+            dir: '../hds-js/lib/cjs',
             format: 'cjs',
           },
         ],
