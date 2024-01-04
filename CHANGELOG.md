@@ -5,13 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.4.0-alpha.0] - Jan, 04, 2024
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -39,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -58,11 +55,12 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
 
-- Fixed Wave motifs links to Helsinki Brand pages 
+- Fixed Wave motifs links to Helsinki Brand pages
 - [Header] Small fixes
 
 ### Figma
@@ -78,6 +76,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -97,11 +96,21 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+### Hds-js
+
+#### Added
+
+- [cookieConsentController] The Cookie Consent controller for City of Helsinki cookies
+- [cookieController] Controller for reading and writing City of Helsinki cookies
+- [getContent] Common content for City of Helsinki cookies
+- [createLoginSystem] Vanilla JS version of the login system
 
 ## [3.3.0] - December, 19, 2023
 
