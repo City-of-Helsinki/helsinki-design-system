@@ -87,6 +87,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
   };
 
   const handleDocumentClick = (event) => {
+    if (!visible) return;
     const container = getContainer();
     const eventTargetNode = event.target;
     if (!container.contains(eventTargetNode)) {
@@ -95,6 +96,7 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
   };
 
   const handleBlur = (event) => {
+    if (!visible) return;
     const container = getContainer();
     const eventTargetNode = event.relatedTarget;
     if (!container.contains(eventTargetNode)) {
@@ -102,11 +104,10 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     }
   };
 
-  // Set event listener only when dropdown open
   useEffect(() => {
-    if (visible) document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('click', handleDocumentClick);
     return () => document.removeEventListener('click', handleDocumentClick);
-  }, [containerElementRef.current, visible]);
+  }, [containerElementRef.current]);
 
   // Hide the component if there is no content
   useEffect(() => {
