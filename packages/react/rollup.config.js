@@ -12,11 +12,22 @@ import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJSON = require('./package.json');
+
+const buildForHdsJs = !!process.env.hdsJS;
+const updateHdsJs = !!process.env.hdsJSUpdate;
+const reactEsmOutputFormat = 'react-esm';
+const reactCommonJsOutputFormat = 'react-cjs';
+const hdsJsEsmOutput = 'hds-js-esm';
+const hdsJsCommonJsOutput = 'hds-js-cjs';
+
+const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
+const hdsJsPackageJSON = require('../hds-js/package.json');
 
 const insertCssEsm = () => {
   return {
@@ -57,14 +68,14 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const externals = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)];
 
-const getExternal = (format) => (format === 'esm' ? [...externals, /@babel\/runtime/] : externals);
+const getExternal = (format) => (isEsmOutputFormat(format) ? [...externals, /@babel\/runtime/] : externals);
 
 const getConfig = (format, extractCSS) => ({
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
     ts(),
-    format === 'esm' &&
+    isEsmOutputFormat(format) &&
       babel({
         babelHelpers: 'runtime',
         exclude: 'node_modules/**',
@@ -101,13 +112,21 @@ const getConfig = (format, extractCSS) => ({
           hook: 'closeBundle',
         })
       : undefined,
-    format === 'cjs' ? insertCssCjs() : undefined,
+    format === reactCommonJsOutputFormat ? insertCssCjs() : undefined,
+    format === hdsJsEsmOutput &&
+      updateHdsJs &&
+      generatePackageJson({
+        inputFolder: './',
+        outputFolder: '../hds-js/',
+        baseContents: hdsJsPackageJSON,
+      }),
   ],
   external: getExternal(format),
 });
 
-export default [
-  {
+const outputQueue = [];
+if (!buildForHdsJs && !updateHdsJs) {
+  outputQueue.push({
     input: esmInput,
     output: [
       {
@@ -115,9 +134,9 @@ export default [
         format: 'esm',
       },
     ],
-    ...getConfig('esm', false),
-  },
-  {
+    ...getConfig(reactEsmOutputFormat, false),
+  });
+  outputQueue.push({
     input: esmInput,
     output: [
       {
@@ -126,9 +145,9 @@ export default [
         exports: 'named',
       },
     ],
-    ...getConfig('esm', true),
-  },
-  {
+    ...getConfig(reactEsmOutputFormat, true),
+  });
+  outputQueue.push({
     input: ['src/index.ts', 'lib/index.css-text.js'],
     output: [
       {
@@ -136,6 +155,32 @@ export default [
         format: 'cjs',
       },
     ],
-    ...getConfig('cjs', false),
-  },
-];
+    ...getConfig(reactCommonJsOutputFormat, false),
+  });
+} else {
+  outputQueue.push({
+    input: { index: '../hds-js/exports.ts' },
+    output: [
+      {
+        dir: '../hds-js/lib',
+        format: 'esm',
+      },
+    ],
+    ...getConfig(hdsJsEsmOutput, false),
+  });
+
+  if (!updateHdsJs) {
+    outputQueue.push({
+      input: ['../hds-js/exports.ts'],
+      output: [
+        {
+          dir: '../hds-js/lib/cjs',
+          format: 'cjs',
+        },
+      ],
+      ...getConfig(hdsJsCommonJsOutput, false),
+    });
+  }
+}
+
+export default outputQueue;
