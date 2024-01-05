@@ -4,7 +4,7 @@ The `hds-js` is a custom export from the [hds-react](https://github.com/City-of-
 
 ## Adding files to the bundle
 
-Add required exports to the `exports.ts` and run `yarn update:hds-js` from the `packages/react` folder.
+Add required exports to the `index.ts` and run `yarn update:hds-js` from the `packages/react` folder.
 
 ## Building
 

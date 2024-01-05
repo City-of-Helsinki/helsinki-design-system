@@ -217,7 +217,7 @@ if (!buildForHdsJs && !updateHdsJs) {
   });
 } else {
   outputQueue.push({
-    input: { index: '../hds-js/exports.ts' },
+    input: { index: '../hds-js/index.ts' },
     output: [
       {
         dir: '../hds-js/lib',
@@ -229,7 +229,7 @@ if (!buildForHdsJs && !updateHdsJs) {
 
   if (!updateHdsJs) {
     outputQueue.push({
-      input: ['../hds-js/exports.ts'],
+      input: ['../hds-js/index.ts'],
       output: [
         {
           dir: '../hds-js/lib/cjs',
