@@ -40,20 +40,20 @@ yarn start:react
 
 ### Commands
 
-| Command                            | Description                                                                        |
-| ---------------------------------- | ---------------------------------------------------------------------------------- |
-| yarn                               | Installs dependencies and links local packages.                                    |
-| yarn build                         | Builds all the packages.                                                           |
-| yarn build:\<package>              | Builds a specific package (`tokens`, `core`, `react` or `site`).                   |
-| yarn start:\<platform>             | Starts the development environment for a specific platform (`core` or `react`).    |
-| release                            | Publishes packages that have changed since the last release.                       |
-| update-versions                    | Bump version of packages to publish.                                               |
+| Command                | Description                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| yarn                   | Installs dependencies and links local packages.                                 |
+| yarn build             | Builds all the packages.                                                        |
+| yarn build:\<package>  | Builds a specific package (`tokens`, `core`, `react`, `hds-js` or `site`).      |
+| yarn start:\<platform> | Starts the development environment for a specific platform (`core` or `react`). |
+| release                | Publishes packages that have changed since the last release.                    |
+| update-versions        | Bump version of packages to publish.                                            |
 
 ## Workflow
 
 This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
 
-1. Get the latest updates from the `development` branch. The `master` branch is only updated during the release process containing the latest released features while `development` branch has the latest features waiting for a new release. 
+1. Get the latest updates from the `development` branch. The `master` branch is only updated during the release process containing the latest released features while `development` branch has the latest features waiting for a new release.
 
 ```bash
 git checkout development
