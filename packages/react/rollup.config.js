@@ -27,6 +27,7 @@ const hdsJsEsmOutput = 'hds-js-esm';
 const hdsJsCommonJsOutput = 'hds-js-cjs';
 
 const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
+const isHdsJsOutputFormat = (format) => format === hdsJsEsmOutput || format === hdsJsCommonJsOutput;
 const hdsJsPackageJSON = require('../hds-js/package.json');
 
 const insertCssEsm = () => {
@@ -69,6 +70,62 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const externals = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)];
 
 const getExternal = (format) => (isEsmOutputFormat(format) ? [...externals, /@babel\/runtime/] : externals);
+
+const checkModule = (forHdsJs) => {
+  const forbiddenImportIds = ['react', 'react-dom'];
+  const forbiddenFileExtensions = ['.tsx', '.jsx', '.css', '.scss'];
+  const allowedExternals = ['tslib'];
+  if (!forHdsJs) {
+    // https://github.com/Hacker0x01/react-datepicker/issues/1606
+    allowedExternals.push('date-fns');
+    // not in react/package.json. Used by rollup-plugin-postcss
+    // not sure why included.
+    allowedExternals.push('style-inject');
+  }
+
+  const hasForbiddenImports = (importedIds) => {
+    return importedIds.some((id) => {
+      return forbiddenImportIds.includes(id);
+    });
+  };
+  const hasForbiddenFiletype = (id) => {
+    const extStartIndex = id.lastIndexOf('.');
+    if (extStartIndex === -1) {
+      return false;
+    }
+    const filetype = id.substr(extStartIndex).toLowerCase();
+    return forbiddenFileExtensions.includes(filetype);
+  };
+
+  const isNodeModule = (id) => {
+    const folderCheck = 'node_modules/';
+    const isInNodeModules = id.includes(folderCheck);
+    if (!isInNodeModules) {
+      return false;
+    }
+    const moduleFolder = id.split(folderCheck)[1].split('/')[0];
+    if (allowedExternals.includes(moduleFolder)) {
+      return false;
+    }
+    return true;
+  };
+
+  return {
+    name: 'checkModule',
+    moduleParsed(info) {
+      if (forHdsJs && hasForbiddenImports(info.importedIds)) {
+        this.error(`Forbidden import found! It imports: ${info.importedIds.join(',')}`);
+      }
+      if (forHdsJs && hasForbiddenFiletype(info.id)) {
+        this.error(`Forbidden file type found!`);
+      }
+      if (isNodeModule(info.id)) {
+        const message = `External module ${info.id} added to built code!`;
+        forHdsJs ? this.error(message) : this.warn(message);
+      }
+    },
+  };
+};
 
 const getConfig = (format, extractCSS) => ({
   plugins: [
@@ -120,6 +177,7 @@ const getConfig = (format, extractCSS) => ({
         outputFolder: '../hds-js/',
         baseContents: hdsJsPackageJSON,
       }),
+    checkModule(buildForHdsJs || updateHdsJs),
   ],
   external: getExternal(format),
 });
