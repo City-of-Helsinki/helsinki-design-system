@@ -68,6 +68,7 @@ Changes that are not related to specific components
 #### Changed
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
+- [CookieConsent] Updated the list of cookies
 
 #### Fixed
 
