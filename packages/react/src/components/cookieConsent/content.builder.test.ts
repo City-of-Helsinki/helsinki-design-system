@@ -3,8 +3,11 @@ import _get from 'lodash.get';
 import { CookieContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
 import { getCookieContent } from './getContent';
 import { CookieData, CookieGroup, Content, Category } from './contexts/ContentContext';
+import { COOKIE_NAME } from './cookieConsentController';
+import mockWindowLocation from './__mocks__/mockWindowLocation';
 
 describe(`content.builder.ts`, () => {
+  const mockedWindowControls = mockWindowLocation();
   const commonContent = getCookieContent();
   const siteName = 'hel.fi';
   const commonContentTestProps: CookieContentSource = {
@@ -121,6 +124,10 @@ describe(`content.builder.ts`, () => {
   const filterContentWithoutFunctions = (content: Content): Content => {
     return JSON.parse(JSON.stringify(content));
   };
+
+  afterAll(() => {
+    mockedWindowControls.restore();
+  });
 
   describe('createContent', () => {
     it('returns content.texts and content.language when categories are not passed. SiteName is in main.title.', () => {
@@ -884,13 +891,35 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('Automatically adds the consent storage cookie to required consents', () => {
+    const baseProps = { siteName, currentLanguage: 'fi' } as CookieContentSource;
+    const pickSharedConsentGroup = (source: Content) => {
+      return source.requiredCookies?.groups[0] as CookieGroup;
+    };
+    const pickSharedConsentCookie = (source: Content) => {
+      return pickSharedConsentGroup(source).cookies[0] as CookieData;
+    };
     it('when noCommonConsentCookie is not true ', () => {
-      const content = createContent({ siteName, currentLanguage: 'fi' });
+      const content = createContent(baseProps);
+      const group = pickSharedConsentGroup(content);
+      const cookie = pickSharedConsentCookie(content);
       expect(content.requiredCookies).toBeDefined();
-      expect(content.requiredCookies?.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
-      expect(content.requiredCookies?.groups[0].cookies[0].name).toBe(
-        commonContent.commonCookies.helConsentCookie.fi.name,
-      );
+      expect(group.title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
+      expect(cookie.name).toBe(commonContent.commonCookies.helConsentCookie.fi.name);
+    });
+    it('the cookie has hostName and id set automatically', () => {
+      const windowHostName = 'subdomain.hel.fi';
+      const customHostName = 'cookie.domain.com';
+      mockedWindowControls.setUrl(`https://${windowHostName}`);
+
+      const content = createContent(baseProps, customHostName);
+      const storageCookie = pickSharedConsentCookie(content);
+
+      expect(storageCookie.id).toBe(COOKIE_NAME);
+      expect(storageCookie.hostName).toBe(customHostName);
+
+      const contentWithoutPresetDomain = createContent(baseProps);
+      const storageCookie2 = pickSharedConsentCookie(contentWithoutPresetDomain);
+      expect(storageCookie2.hostName).toBe(windowHostName);
     });
   });
   describe('setPropsToObject merges given value/object to the target object', () => {

@@ -12,7 +12,7 @@ import type {
   ContentContextType,
 } from './contexts/ContentContext';
 import { getCookieContent } from './getContent';
-import { COOKIE_NAME } from './cookieConsentController';
+import { COOKIE_NAME, getCookieDomainFromUrl } from './cookieConsentController';
 
 type ContentSourceCookieData = Partial<CookieData> & {
   commonGroup?: string;
@@ -187,6 +187,7 @@ function mergeObjects(target: MergableContent, source: MergableContent, paths: s
 
 function buildCookieGroups(
   props: CookieContentSource,
+  cookieDomain: string,
 ): { requiredCookies: CookieGroup[]; optionalCookies: CookieGroup[] } {
   const requiredCookies = [];
   const optionalCookies = [];
@@ -281,6 +282,7 @@ function buildCookieGroups(
   if (!noCommonConsentCookie && !helConsentCookieFound) {
     const consentCookie: Partial<CookieData> = getCommonCookie(currentLanguage, 'helConsentCookie');
     consentCookie.id = COOKIE_NAME;
+    consentCookie.hostName = cookieDomain;
     parseGroup({ commonGroup: 'sharedConsents', cookies: [consentCookie] }, true);
   }
   return {
@@ -309,7 +311,7 @@ function buildConsentCategories(
   return data as Category;
 }
 
-export function createContent(props: CookieContentSource): Content {
+export function createContent(props: CookieContentSource, cookieDomain?: string): Content {
   const { siteName, language, currentLanguage, optionalCookies, requiredCookies, focusTargetSelector } = props;
   const content: Partial<Content> = {
     texts: getTexts(currentLanguage, siteName),
@@ -319,7 +321,7 @@ export function createContent(props: CookieContentSource): Content {
   if (props.texts) {
     mergeObjects(content.texts, props.texts, ['sections.main', 'sections.details', 'ui', 'tableHeadings']);
   }
-  const consentGroups = buildCookieGroups(props);
+  const consentGroups = buildCookieGroups(props, cookieDomain || getCookieDomainFromUrl());
   const categoryDescriptions = getCategoryDescriptions(currentLanguage);
   content.optionalCookies = buildConsentCategories(
     categoryDescriptions.optionalCookies,
@@ -340,7 +342,7 @@ export function pickConsentIdsFromContentSource(
   let required: string[] = [];
   let optional: string[] = [];
 
-  const cookieGroups = buildCookieGroups(contentSource as CookieContentSource);
+  const cookieGroups = buildCookieGroups(contentSource as CookieContentSource, '');
 
   cookieGroups.requiredCookies.forEach((group) => {
     if (group.cookies) {

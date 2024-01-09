@@ -637,7 +637,7 @@ export function getCookieContent() {
     commonCookies: {
       helConsentCookie: {
         id: 'SET_IN_CODE',
-        hostName: '*.hel.fi',
+        hostName: 'SET_IN_CODE',
         commonGroup: 'SET_IN_CODE',
         fi: {
           name: 'Evästesuostumukset',
