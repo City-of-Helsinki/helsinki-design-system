@@ -1,6 +1,6 @@
 import { pick, isObject, isUndefined } from 'lodash';
 
-import { createCookieStorageProxy } from './cookieStorageProxy';
+import { createCookieStorageProxy, getCookieDomainForSubDomainAccess } from './cookieStorageProxy';
 
 export type ConsentList = string[];
 
@@ -75,11 +75,7 @@ export function parseConsents(jsonString: string | undefined): ConsentObject {
 }
 
 export const getCookieDomainFromUrl = (): string => {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-
-  return window.location.hostname.split('.').slice(-2).join('.');
+  return getCookieDomainForSubDomainAccess();
 };
 
 export function createStorage(initialValues: ConsentStorage): {
