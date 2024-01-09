@@ -318,16 +318,16 @@ describe(`cookieConsentController.ts`, () => {
         });
       });
 
-      it('the domain of the cookie is set to <domain>.<suffix> so it is readable from *.hel.fi and *.hel.ninja', () => {
+      it('by default, the domain of the cookie is set to window.location.hostname so it is only readable from that exact domain and not other subdomains.', () => {
         mockedWindowControls.setUrl('https://subdomain.hel.fi');
         createControllerAndInitCookie(defaultControllerTestData);
         controller.save();
-        expect(getSetCookieArguments().options.domain).toEqual('hel.fi');
+        expect(getSetCookieArguments().options.domain).toEqual('subdomain.hel.fi');
 
         mockedWindowControls.setUrl('http://profiili.hel.ninja:3000?foo=bar');
         createControllerAndInitCookie(defaultControllerTestData);
         controller.save();
-        expect(getSetCookieArguments().options.domain).toEqual('hel.ninja');
+        expect(getSetCookieArguments().options.domain).toEqual('profiili.hel.ninja');
       });
 
       it('if "cookieDomain" property is passed in the props, it is set as the domain of the cookie', () => {

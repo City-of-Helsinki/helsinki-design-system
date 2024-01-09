@@ -81,7 +81,7 @@ export const getCookieDomainFromUrl = (): string => {
     return '';
   }
 
-  return window.location.hostname.split('.').slice(-2).join('.');
+  return window.location.hostname;
 };
 
 export function createStorage(

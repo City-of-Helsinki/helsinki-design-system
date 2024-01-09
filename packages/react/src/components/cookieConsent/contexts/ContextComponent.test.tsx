@@ -255,7 +255,7 @@ describe('ContextComponent ', () => {
         ...allApprovedConsentData.consents,
         ...unknownConsents,
       });
-      expect(getSetCookieArguments().options.domain).toEqual('hel.fi');
+      expect(getSetCookieArguments().options.domain).toEqual('subdomain.hel.fi');
     });
 
     it('sets the domain of the cookie to given cookieDomain', () => {
