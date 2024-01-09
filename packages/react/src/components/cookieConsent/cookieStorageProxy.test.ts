@@ -2,7 +2,7 @@
 import { CookieSerializeOptions } from 'cookie';
 
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import mockWindowLocation from './__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../utils/mockWindowLocation';
 import { CookieSetOptions, defaultCookieSetOptions, getAll } from './cookieController';
 import { VERSION_COOKIE_NAME, createCookieStorageProxy } from './cookieStorageProxy';
 import { COOKIE_NAME } from './cookieConsentController';
