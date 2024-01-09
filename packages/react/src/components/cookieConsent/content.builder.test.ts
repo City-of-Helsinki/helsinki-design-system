@@ -1,10 +1,15 @@
+/* eslint-disable jest/no-mocks-import */
 import { get } from 'lodash';
 
 import { CookieContentSource, ContentSourceCookieGroup, createContent } from './content.builder';
 import { getCookieContent } from './getContent';
 import { CookieData, CookieGroup, Content, Category } from './contexts/ContentContext';
+import { COOKIE_NAME } from './cookieConsentController';
+import mockWindowLocation from '../../utils/mockWindowLocation';
+import { VERSION_COOKIE_NAME } from './cookieStorageProxy';
 
 describe(`content.builder.ts`, () => {
+  const mockedWindowControls = mockWindowLocation();
   const commonContent = getCookieContent();
   const siteName = 'hel.fi';
   const commonContentTestProps: CookieContentSource = {
@@ -121,6 +126,10 @@ describe(`content.builder.ts`, () => {
   const filterContentWithoutFunctions = (content: Content): Content => {
     return JSON.parse(JSON.stringify(content));
   };
+
+  afterAll(() => {
+    mockedWindowControls.restore();
+  });
 
   describe('createContent', () => {
     it('returns content.texts and content.language when categories are not passed. SiteName is in main.title.', () => {
@@ -883,14 +892,50 @@ describe(`content.builder.ts`, () => {
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
   });
-  describe('Automatically adds the consent storage cookie to required consents', () => {
+  describe('Automatically adds the consent and consent version cookies to required consents', () => {
+    const baseProps = { siteName, currentLanguage: 'fi' } as CookieContentSource;
+    const pickSharedConsentGroup = (source: Content) => {
+      return source.requiredCookies?.groups[0] as CookieGroup;
+    };
+    const findSharedConsentCookie = (source: Content, id: CookieData['id']) => {
+      return pickSharedConsentGroup(source).cookies.filter((cookie) => cookie.id === id)[0] as CookieData;
+    };
+    const pickSharedConsentCookie = (source: Content) => {
+      return findSharedConsentCookie(source, COOKIE_NAME);
+    };
+    const pickSharedConsentVersionCookie = (source: Content) => {
+      return findSharedConsentCookie(source, VERSION_COOKIE_NAME);
+    };
     it('when noCommonConsentCookie is not true', () => {
-      const content = createContent({ siteName, currentLanguage: 'fi' });
+      const content = createContent(baseProps);
+      const group = pickSharedConsentGroup(content);
       expect(content.requiredCookies).toBeDefined();
-      expect(content.requiredCookies?.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
-      expect(content.requiredCookies?.groups[0].cookies[0].name).toBe(
-        commonContent.commonCookies.helConsentCookie.fi.name,
-      );
+      expect(group.title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
+      expect(pickSharedConsentCookie(content)).toBeDefined();
+      expect(pickSharedConsentVersionCookie(content)).toBeDefined();
+    });
+    it('cookies have name, hostName and id set automatically', () => {
+      const windowHostName = 'subdomain.hel.fi';
+      const customHostName = 'cookie.domain.com';
+      mockedWindowControls.setUrl(`https://${windowHostName}`);
+
+      const content = createContent(baseProps, customHostName);
+      const storageCookie = pickSharedConsentCookie(content);
+
+      expect(storageCookie.id).toBe(COOKIE_NAME);
+      expect(storageCookie.name).toBe(COOKIE_NAME);
+      expect(storageCookie.hostName).toBe(customHostName);
+
+      const versionCookie = pickSharedConsentVersionCookie(content);
+      expect(versionCookie.id).toBe(VERSION_COOKIE_NAME);
+      expect(versionCookie.name).toBe(VERSION_COOKIE_NAME);
+      expect(versionCookie.hostName).toBe(customHostName);
+
+      const contentWithoutPresetDomain = createContent(baseProps);
+      const storageCookie2 = pickSharedConsentCookie(contentWithoutPresetDomain);
+      expect(storageCookie2.hostName).toBe(windowHostName);
+      const versionCookie2 = pickSharedConsentVersionCookie(contentWithoutPresetDomain);
+      expect(versionCookie2.hostName).toBe(windowHostName);
     });
   });
 });
