@@ -1,4 +1,6 @@
 /* eslint-disable jest/no-mocks-import */
+import cookie from 'cookie';
+
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { getAll, setNamedCookie, getNamedCookie, createCookieController, CookieSetOptions } from './cookieController';
 
@@ -59,7 +61,7 @@ describe(`cookieController.ts`, () => {
 
       const cookiesAsString = mockedCookieControls.getCookie();
       Object.entries(allCookies).forEach(([key, value]) => {
-        expect(cookiesAsString.includes(`${key} = ${value};`)).toBeTruthy();
+        expect(cookiesAsString.includes(cookie.serialize(key, value))).toBeTruthy();
       });
     });
 
@@ -78,7 +80,7 @@ describe(`cookieController.ts`, () => {
       setNamedCookie(target, newValue);
       expect(getNamedCookie(target)).toEqual(newValue);
       const cookiesAsString = mockedCookieControls.getCookie();
-      expect(cookiesAsString).toEqual(`${target} = ${encodeURIComponent(newValue)};`);
+      expect(cookiesAsString).toEqual(`${target}=${encodeURIComponent(newValue)}`);
     });
 
     it('passes also options to document.cookie', () => {
@@ -92,17 +94,18 @@ describe(`cookieController.ts`, () => {
         maxAge: 100,
       };
       setNamedCookie(dummyKey, dummyValue, options);
-      const optionsFromCookie = mockedCookieControls.getCookieOptions(dummyKey);
+      const optionsFromCookie = mockedCookieControls.getCookieOptions(dummyKey, options);
       expect(optionsFromCookie).toEqual(options);
     });
 
     it('passes also partial options to document.cookie', () => {
+      const activeCookieOptions = mockedCookieControls.getSerializeOptions();
       const options: CookieSetOptions = {
         domain: 'domain.com',
         sameSite: 'none',
       };
       setNamedCookie(dummyKey, dummyValue, options);
-      const optionsFromCookie = mockedCookieControls.getCookieOptions(dummyKey);
+      const optionsFromCookie = mockedCookieControls.getCookieOptions(dummyKey, { ...activeCookieOptions, ...options });
       expect(optionsFromCookie).toEqual(options);
     });
     it('throws when setting invalid options', () => {
@@ -133,7 +136,7 @@ describe(`cookieController.ts`, () => {
 
       controller.set(cookieValue);
       expect(getNamedCookie(cookieName)).toEqual(cookieValue);
-      const passedOptions = mockedCookieControls.getCookieOptions(cookieName);
+      const passedOptions = mockedCookieControls.getCookieOptions(cookieName, options);
       expect(passedOptions).toEqual(options);
     });
     it('createCookieController.get gets a cookie with name passed to the controller on initialization', () => {
