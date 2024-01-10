@@ -1,6 +1,8 @@
 import cookie, { CookieSerializeOptions } from 'cookie';
+import _isObject from 'lodash.isobject';
 
 export type CookieSetOptions = CookieSerializeOptions;
+export type CookieConsentData = { [x: string]: boolean };
 
 function getAll() {
   return cookie.parse(document.cookie);
@@ -15,12 +17,19 @@ function setNamedCookie(name: string, value: string, options?: CookieSerializeOp
   document.cookie = cookie.serialize(name, value, options);
 }
 
+function createConsentsString(consents: CookieConsentData): string {
+  if (!_isObject(consents)) {
+    return '{}';
+  }
+  return JSON.stringify(consents);
+}
+
 function createCookieController(
   options: CookieSetOptions,
   cookieName: string,
 ): {
   get: () => string;
-  set: (data: string) => void;
+  set: (data: CookieConsentData | string) => void;
 } {
   const defaultCookieSetOptions: CookieSetOptions = {
     path: '/',
@@ -43,8 +52,9 @@ function createCookieController(
 
   const getCookie = (): string => getNamedCookie(cookieName) || '';
 
-  const setCookie = (data: string): void => {
-    setNamedCookie(cookieName, data, cookieOptions);
+  const setCookie = (data: CookieConsentData | string): void => {
+    const storedValue = typeof data === 'string' ? data : createConsentsString(data);
+    setNamedCookie(cookieName, storedValue, cookieOptions);
   };
 
   return {

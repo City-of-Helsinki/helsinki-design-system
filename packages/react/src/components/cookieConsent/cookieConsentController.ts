@@ -2,11 +2,11 @@ import _pick from 'lodash.pick';
 import _isObject from 'lodash.isobject';
 import _isUndefined from 'lodash.isundefined';
 
-import { createCookieController } from './cookieController';
+import { createCookieController, CookieConsentData } from './cookieController';
 
 export type ConsentList = string[];
 
-export type ConsentObject = { [x: string]: boolean };
+export type ConsentObject = CookieConsentData;
 
 export type ConsentStorage = {
   required: ConsentObject;
