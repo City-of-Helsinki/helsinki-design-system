@@ -27,7 +27,7 @@ import { Content } from '../contexts/ContentContext';
 
 const { defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
-const mockedCookieControls = mockDocumentCookie();
+const mockedCookieControls = mockDocumentCookie({ domain: 'localhost' });
 
 let content: Content;
 

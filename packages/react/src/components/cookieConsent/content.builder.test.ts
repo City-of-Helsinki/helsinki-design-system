@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-mocks-import */
 import _get from 'lodash.get';
 
 import { CookieContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
