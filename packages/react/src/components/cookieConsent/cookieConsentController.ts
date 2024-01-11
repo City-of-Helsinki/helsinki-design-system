@@ -2,7 +2,8 @@ import _pick from 'lodash.pick';
 import _isObject from 'lodash.isobject';
 import _isUndefined from 'lodash.isundefined';
 
-import { createCookieController, CookieConsentData } from './cookieController';
+import { createCookieController, CookieConsentData, parseConsents } from './cookieController';
+import { getCookieDomainFromUrlForSubDomain } from './cookieFilterer';
 
 export type ConsentList = string[];
 
@@ -65,23 +66,8 @@ function verifyConsentProps({ optionalConsents, requiredConsents }: ConsentContr
   });
 }
 
-export function parseConsents(jsonString: string | undefined): ConsentObject {
-  if (!jsonString || jsonString.length < 2 || jsonString.charAt(0) !== '{') {
-    return {};
-  }
-  try {
-    return JSON.parse(jsonString);
-  } catch (e) {
-    return {};
-  }
-}
-
 export const getCookieDomainFromUrl = (): string => {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-
-  return window.location.hostname;
+  return getCookieDomainFromUrlForSubDomain();
 };
 
 export function createStorage(

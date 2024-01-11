@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { ConsentObject, COOKIE_NAME, getCookieDomainFromUrl, parseConsents } from './cookieConsentController';
-import { createCookieController } from './cookieController';
+import { ConsentObject, COOKIE_NAME, getCookieDomainFromUrl } from './cookieConsentController';
+import { createCookieController, parseConsents } from './cookieController';
 
 export type UseCookiesHookReturnType = {
   getAllConsents: () => ConsentObject;
