@@ -21,6 +21,7 @@ import {
 } from '../test.util';
 import { createContent } from '../content.builder';
 import { CookiePage } from './CookiePage';
+import { addVersionNumber } from '../cookieFilterer';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
@@ -41,7 +42,7 @@ const renderCookieConsent = ({
   };
   const contentSource = getContentSource(requiredConsents, optionalConsents);
   content = createContent(contentSource);
-  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
+  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(addVersionNumber(cookieWithInjectedUnknowns)) });
   const result = render(<CookiePage contentSource={contentSource} />);
 
   return result;
@@ -71,6 +72,12 @@ describe('<Page /> ', () => {
   });
 
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
+  const versionKey = Object.keys(addVersionNumber({}))[0];
+  const getSetCookieArgumentDataWithoutVersionNumber = (index = -1) => {
+    const data = JSON.parse(getSetCookieArguments(index).data);
+    Reflect.deleteProperty(data, versionKey);
+    return data;
+  };
 
   describe('Cookie consent ', () => {
     it('and child components are rendered even if consents have been handled', () => {
@@ -86,7 +93,7 @@ describe('<Page /> ', () => {
 
   describe(`Approve buttons`, () => {
     const checkCookiesAreSetAndSaveNotificationShown = (result: RenderResult, assumedConsents: unknown) => {
-      expect(JSON.parse(getSetCookieArguments().data)).toEqual(assumedConsents);
+      expect(getSetCookieArgumentDataWithoutVersionNumber()).toEqual(assumedConsents);
       verifyElementExistsByTestId(result, dataTestIds.saveNotification);
       expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
     };
@@ -142,7 +149,7 @@ describe('<Page /> ', () => {
           consentState[consent] = true;
         });
         clickElement(result, dataTestIds.approveButton);
-        expect(JSON.parse(getSetCookieArguments().data)).toEqual(consentState);
+        expect(getSetCookieArgumentDataWithoutVersionNumber()).toEqual(consentState);
         verifyElementExistsByTestId(result, dataTestIds.saveNotification);
         expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(index + 1);
       });

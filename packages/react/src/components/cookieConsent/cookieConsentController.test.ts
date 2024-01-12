@@ -10,6 +10,7 @@ import createConsentController, {
 } from './cookieConsentController';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { extractSetCookieArguments } from './test.util';
+import { addVersionNumber } from './cookieFilterer';
 
 describe(`cookieConsentController.ts`, () => {
   let controller: ConsentController;
@@ -42,7 +43,7 @@ describe(`cookieConsentController.ts`, () => {
     cookie?: ConsentObject;
     cookieDomain?: string;
   }) => {
-    mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookie) });
+    mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(addVersionNumber(cookie)) });
     controller = createConsentController({
       requiredConsents,
       optionalConsents,
@@ -79,10 +80,12 @@ describe(`cookieConsentController.ts`, () => {
           ...defaultControllerTestData,
           cookie: cookieDataWithUnknownConsents,
         });
-        expect(controller.save()).toEqual({
-          ...cookieDataWithUnknownConsents,
-          ...otherConsents,
-        });
+        expect(controller.save()).toEqual(
+          addVersionNumber({
+            ...cookieDataWithUnknownConsents,
+            ...otherConsents,
+          }),
+        );
       });
 
       it('parses props correctly without consents', () => {
@@ -123,12 +126,13 @@ describe(`cookieConsentController.ts`, () => {
           optionalConsent1: allConsents.optionalConsent1,
           optionalConsent2: allConsents.optionalConsent2,
         });
-        expect(controller.save()).toEqual(allConsents);
+        expect(controller.save()).toEqual(addVersionNumber(allConsents));
       });
 
       it('cookie is only read on init', () => {
         createControllerAndInitCookie({});
-        expect(mockedCookieControls.mockGet).toHaveBeenCalledTimes(1);
+        // cookieFilterer reads cookies first and then cookieController
+        expect(mockedCookieControls.mockGet).toHaveBeenCalledTimes(2);
         expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
       });
     });
@@ -153,10 +157,12 @@ describe(`cookieConsentController.ts`, () => {
         controller.approveAll();
         controller.approveRequired();
         controller.rejectAll();
-        expect(controller.save()).toEqual({
-          ...cookieDataWithUnknownConsents,
-          ...otherConsents,
-        });
+        expect(controller.save()).toEqual(
+          addVersionNumber({
+            ...cookieDataWithUnknownConsents,
+            ...otherConsents,
+          }),
+        );
       });
     });
 
@@ -310,12 +316,14 @@ describe(`cookieConsentController.ts`, () => {
         controller.approveRequired();
         controller.save();
         expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
-        expect(JSON.parse(getSetCookieArguments().data)).toEqual({
-          requiredConsent1: true,
-          requiredConsent2: true,
-          optionalConsent1: false,
-          optionalConsent2: false,
-        });
+        expect(JSON.parse(getSetCookieArguments().data)).toEqual(
+          addVersionNumber({
+            requiredConsent1: true,
+            requiredConsent2: true,
+            optionalConsent1: false,
+            optionalConsent2: false,
+          }),
+        );
       });
 
       it('by default, the domain of the cookie is set to window.location.hostname so it is only readable from that exact domain and not other subdomains.', () => {

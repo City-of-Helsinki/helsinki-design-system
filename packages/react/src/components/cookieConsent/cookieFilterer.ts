@@ -33,7 +33,7 @@ export function getCookieDomainFromUrlForSubDomain(): string {
   return window.location.hostname;
 }
 
-export function addVersionNumber(data: Record<string, boolean>, versionNumber = CURRENT_VERSION) {
+export function addVersionNumber(data: CookieConsentData, versionNumber = CURRENT_VERSION): CookieConsentData {
   return {
     ...data,
     [`${VERSION_INDICATOR}${versionNumber}`]: true,

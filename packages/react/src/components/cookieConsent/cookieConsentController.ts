@@ -2,8 +2,8 @@ import _pick from 'lodash.pick';
 import _isObject from 'lodash.isobject';
 import _isUndefined from 'lodash.isundefined';
 
-import { createCookieController, CookieConsentData, parseConsents } from './cookieController';
-import { getCookieDomainFromUrlForSubDomain } from './cookieFilterer';
+import { CookieConsentData, parseConsents } from './cookieController';
+import { getCookieDomainFromUrlForSubDomain, createCookieFilterer } from './cookieFilterer';
 
 export type ConsentList = string[];
 
@@ -143,7 +143,7 @@ export default function createConsentController(props: ConsentControllerProps): 
   verifyConsentProps(props);
   const { optionalConsents = [], requiredConsents = [] } = props;
   const allConsents = [...optionalConsents, ...requiredConsents];
-  const cookieController = createCookieController(
+  const cookieController = createCookieFilterer(
     {
       maxAge: COOKIE_EXPIRATION_TIME,
       domain: props.cookieDomain || getCookieDomainFromUrl(),
@@ -215,7 +215,7 @@ export default function createConsentController(props: ConsentControllerProps): 
 }
 
 export function getConsentsFromCookie(cookieDomain?: string): ConsentObject {
-  const cookieController = createCookieController(
+  const cookieController = createCookieFilterer(
     {
       domain: cookieDomain || getCookieDomainFromUrl(),
     },
