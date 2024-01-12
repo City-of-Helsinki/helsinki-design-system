@@ -1,6 +1,5 @@
 import { pick, isObject, isUndefined } from 'lodash';
 
-import { createCookieController } from './cookieController';
 import { createCookieStorageProxy } from './cookieStorageProxy';
 
 export type ConsentList = string[];
@@ -223,14 +222,4 @@ export default function createConsentController(props: ConsentControllerProps): 
     },
     save,
   };
-}
-
-export function getConsentsFromCookie(cookieDomain?: string): ConsentObject {
-  const cookieController = createCookieController(
-    {
-      domain: cookieDomain || getCookieDomainFromUrl(),
-    },
-    COOKIE_NAME,
-  );
-  return parseConsents(cookieController.get());
 }
