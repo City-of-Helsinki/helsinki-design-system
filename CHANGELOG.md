@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [CookieConsent] A new cookie is set containing version number of consents.
 
 #### Changed
 
@@ -23,6 +23,7 @@ Changes that are not related to specific components
 
 - [Component] What has been changed
 - [Tag] Marked changed and removed properties in the next major release
+- [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
 
 #### Fixed
 
