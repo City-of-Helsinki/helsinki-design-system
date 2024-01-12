@@ -64,6 +64,7 @@ Changes that are not related to specific components
 
 - Fixed Wave motifs links to Helsinki Brand pages 
 - [Header] Small fixes
+- [Notification] Fix size texts
 
 ### Figma
 
