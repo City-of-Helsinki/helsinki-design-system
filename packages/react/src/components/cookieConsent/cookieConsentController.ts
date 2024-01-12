@@ -213,13 +213,3 @@ export default function createConsentController(props: ConsentControllerProps): 
     save,
   };
 }
-
-export function getConsentsFromCookie(cookieDomain?: string): ConsentObject {
-  const cookieController = createCookieFilterer(
-    {
-      domain: cookieDomain || getCookieDomainFromUrl(),
-    },
-    COOKIE_NAME,
-  );
-  return parseConsents(cookieController.get());
-}
