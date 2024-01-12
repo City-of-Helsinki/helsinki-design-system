@@ -42,9 +42,11 @@ You can find examples of ContentSource property contents in <Link openInNewTab o
 
 #### CookieDomain
 
-The cookie domain is automatically detected from the site the component is on. By default, the component sets the cookie domain to be the root domain with `*.` This way the cookie consents can be read from all subdomains. For example `*.hel.fi`.
+The cookie domain is automatically detected from the site the component is on. By default, the component sets the cookie domain to be `window.location.hostname.` This way the cookie consents are limited to single service as it makes it more secure and understandable for user which cookies are used right here. 
 
-If your site domain is included in the [public suffix list](https://publicsuffix.org/) or you do not wish to expose your cookies to subdomains, or you want to set the domain manually for some reason, then use the `cookieDomain` property.
+If the domain is the root `hel.fi` it must be manually set up to point `customDomain: www.hel.fi` or it will be readable by all.
+
+If your site domain is included in the [public suffix list](https://publicsuffix.org/) or you want to set the domain manually for some reason, then use the `cookieDomain` property.
 
 Cookies for domains on the public suffix list cannot accept subdomain cookies. E.g. `github.io`.
 
