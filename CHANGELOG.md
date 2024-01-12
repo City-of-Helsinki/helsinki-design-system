@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Header] Theme supports max-width and logo-height variables
+- [CookieConsent] Default consent storage cookie domain was changed to window.location.hostname
 
 #### Fixed
 
@@ -39,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -58,11 +60,12 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
 
-- Fixed Wave motifs links to Helsinki Brand pages 
+- Fixed Wave motifs links to Helsinki Brand pages
 - [Header] Small fixes
 - [Notification] Fix size texts
 
@@ -79,6 +82,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -98,6 +102,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
