@@ -1,6 +1,7 @@
 import { pick, isObject, isUndefined } from 'lodash';
 
 import { createCookieController } from './cookieController';
+import { createCookieStorageProxy } from './cookieStorageProxy';
 
 export type ConsentList = string[];
 
@@ -153,7 +154,7 @@ export default function createConsentController(props: ConsentControllerProps): 
   verifyConsentProps(props);
   const { optionalConsents = [], requiredConsents = [] } = props;
   const allConsents = [...optionalConsents, ...requiredConsents];
-  const cookieController = createCookieController(
+  const cookieController = createCookieStorageProxy(
     {
       maxAge: COOKIE_EXPIRATION_TIME,
       domain: props.cookieDomain || getCookieDomainFromUrl(),
