@@ -2,6 +2,13 @@ import cookie, { CookieSerializeOptions } from 'cookie';
 
 export type CookieSetOptions = CookieSerializeOptions;
 
+export const defaultCookieSetOptions: CookieSetOptions = {
+  path: '/',
+  secure: false,
+  sameSite: 'strict',
+  maxAge: undefined,
+};
+
 function getAll() {
   return cookie.parse(document.cookie);
 }
@@ -22,13 +29,6 @@ function createCookieController(
   get: () => string;
   set: (data: string) => void;
 } {
-  const defaultCookieSetOptions: CookieSetOptions = {
-    path: '/',
-    secure: false,
-    sameSite: 'strict',
-    maxAge: undefined,
-  };
-
   const cookieOptions: CookieSetOptions = {
     ...defaultCookieSetOptions,
     ...options,
