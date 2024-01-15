@@ -54,6 +54,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Hero] Note about scaling to diagonal koros examples
+- [ErrorSummary] Add documentation for Error Summary component
 
 #### Changed
 

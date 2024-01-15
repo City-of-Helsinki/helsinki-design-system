@@ -1,0 +1,19 @@
+---
+slug: '/components/error-summary/accessibility'
+title: 'ErrorSummary - Accessibility'
+---
+
+import ExternalLink from '../../../components/ExternalLink';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- The Error Summary must be given a label
+- If errors are found in the form, the error summary component is created and placed at the beginning of the form, below the initial form heading.
+- The focus is moved from the form submit button to the error summary heading by using either the `autofocus` property or by other means.
+- The error summary is populated with a list of errors found in the form. Errors are in the same order as they appear in the form. For each error, a running number and an error description are provided. The error description also acts as an anchor link.
+- The user can use the error description anchor link to quickly jump and focus each of the erroneous inputs.
+- The colour contrast between the Error Summary and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG AA Level contrast ratios</ExternalLink>. If needed, you may use a border to increase the contrast to its background.

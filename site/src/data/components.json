@@ -117,6 +117,19 @@
     }
   },
   {
+    "name": "ErrorSummary",
+    "text": "Error summary is a notification-like element which lists all errors in a form or other inputs.",
+    "linkboxAriaLabel": "Error summary component",
+    "linkAriaLabel": "Go to the Error summary component page",
+    "href": "/components/error-summary",
+    "imgProps": {
+      "src": "/images/components/overview/errorsummary@2x.png",
+      "alt": "An illustration of the Error Summary component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
     "name": "Fieldset",
     "text": "Fieldset groups multiple related form input fields together.",
     "linkboxAriaLabel": "Fieldset component",

@@ -1,0 +1,74 @@
+---
+slug: '/components/error-summary'
+title: 'ErrorSummary'
+navTitle: 'ErrorSummary'
+---
+
+import { ErrorSummary, TextInput } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <ErrorSummary label="Error summary">
+    <ul>
+      <li>Error 1: <a href="#field1">Please enter your first name</a></li>
+      <li>Error 2: <a href="#field2">Please enter your last name</a></li>
+      <li>Error 3: <a href="#field3">Please enter a valid email address</a></li>
+    </ul>
+  </ErrorSummary>
+  <form style={{paddingTop: '20px'}}>
+    <TextInput
+      id="field1"
+      name="field1"
+      label="Invalid field 1"
+      invalid
+    />
+    <TextInput
+      id="field2"
+      name="field2"
+      label="Invalid field 2"
+      invalid
+    />
+    <TextInput
+      id="field3"
+      name="field3"
+      label="Invalid field 3"
+      invalid
+    />
+  </form>
+</PlaygroundPreview>
+
+### Principles
+
+- The error summary is a notification-like element which lists all errors (and their descriptions) found in a form or an input and provides anchor links to each erroneous input for easy access.
+- Add a label for the error summary that describes the errors.
+- You can also add *autofocus* attribute to jump to the summary when it appears.
+- A more detailed description of using the component when evaluating forms can be found <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/patterns/forms/form-validation/#validation-summary-pattern">in the patterns section.</Link>
+
+### Variations
+
+#### Large
+
+There are two variations, the default and the large.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)', display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
+   <ErrorSummary label="Default error summary">
+    <ul>
+      <li>Error 1: <a href="#field1">Please enter your first name</a></li>
+      <li>Error 2: <a href="#field2">Please enter your last name</a></li>
+      <li>Error 3: <a href="#field3">Please enter a valid email address</a></li>
+    </ul>
+  </ErrorSummary>
+   <ErrorSummary label="Large error summary" size="large">
+    <ul>
+      <li>Error 1: <a href="#field1">Please enter your first name</a></li>
+      <li>Error 2: <a href="#field2">Please enter your last name</a></li>
+      <li>Error 3: <a href="#field3">Please enter a valid email address</a></li>
+    </ul>
+  </ErrorSummary>
+</PlaygroundPreview>
