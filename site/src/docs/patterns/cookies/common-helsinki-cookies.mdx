@@ -12,92 +12,84 @@ import StatusLabel from '../../../components/StatusLabel';
 
 <StatusLabel type="error">Draft</StatusLabel>
 
-<LeadParagraph>Using common Helsinki cookie consent brings the benefit of sharing consents. This is useful both for the user and the
-  service. The user only has to give their consent once and it becomes easier for the service to manage its cookies.</LeadParagraph>
+<LeadParagraph>
+  Using common Helsinki cookies brings the benefit of consistent content across services that use the same components.
+</LeadParagraph>
 
-## Key principles of using common cookies 
+## Key principles of using common cookies
 
-- You can use common Helsinki cookies if your service is using the \*.hel.fi domain.
-- When common cookies are available, use them instead of creating custom cookies. This way the user only has to give their consent once between multiple Helsinki services.   
-- When a common cookie is used, it must be used **exactly** as described on this page. If you modify the cookie in any way, it is no longer a common cookie. 
-- If your service is using custom cookies alongside common cookies, you still need to ask for consent for the custom cookies (if they are considered optional). 
-- You can either use all or a part of the common cookies. 
-- Note, that some of the services (e.g. Matomo) may require multiple common cookies for it to work.
+- You can use common Helsinki cookies if your service is using a \*.hel.fi domain.
+- When common cookies are available, use them instead of creating custom cookies.
+- When a common cookie is used, it must be used **exactly** as described on this page. If you modify the cookie in any way, it is no longer a common cookie.
+- If your service is using custom cookies alongside common cookies, you still need to ask for consent for the custom cookies (if they are considered optional).
+- You can either use all or a part of the common cookies.
+- Note that some of the services (e.g., Matomo) may require multiple common cookies for it to work.
 
 ## Common cookies between \*.hel.fi sites
 
-The following is a list of approved common cookies between services using \*.hel.fi domain. You can find this list as a JSON object in the <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsent/getContent.ts" openInNewTab openInNewTabAriaLabel="Opens in a new tab" openInExternalDomainAriaLabel="Opens a different website">Helsinki Design System GitHub repository</ExternalLink>.
-
-
+The following is a list of approved common cookies for common services like Matomo or Tunnistamo. You can find this list as a JSON object in the <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsent/getContent.ts" openInNewTab openInNewTabAriaLabel="Opens in a new tab" openInExternalDomainAriaLabel="Opens a different website">Helsinki Design System GitHub repository</ExternalLink>.
 
 ### Statistics
 
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `_pk_id.*`                                                       | *.hel.fi      | Matomo. Tracking what the user does in the user interface | 393 days           |
-| `_pk_ses*`                                                       | *.hel.fi      | Matomo. Tracking what the user does in the user interface | 30 minutes         |
-| `mtm_.*`                                                         | *.hel.fi      | Matomo. Consent for using analytics cookies               | 400 days           |
-| `cookiehub`                                                      | cookiehub.com | Used by CookieHub to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site                      | 365 days            |
+| Cookie name                                                                               | Cookie set by | Purpose of use                                                                                                                            | Period of validity |
+| ----------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `_pk_id.*`                                                                                | \*.hel.fi     | Matomo. Tracking what the user does in the user interface                                                                                 | 393 days           |
+| `_pk_ses*`                                                                                | \*.hel.fi     | Matomo. Tracking what the user does in the user interface                                                                                 | 30 minutes         |
+| `mtm_.*`                                                                                  | \*.hel.fi     | Matomo. Consent for using analytics cookies                                                                                               | 400 days           |
+| `cookiehub`                                                                               | cookiehub.com | Used by CookieHub to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site | 365 days           |
 | [Table 1:The information collected by statistics cookies is used to develop the website.] |
-    
 
 ### Cookies related to basic functionalities
 
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `SSESS*`                                                         | hel.fi     | A cookie related to the operation of the content management system   |  23 days            |
+| Cookie name                                                                                                                                        | Cookie set by | Purpose of use                                                     | Period of validity |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------ | ------------------ |
+| `SSESS*`                                                                                                                                           | hel.fi        | A cookie related to the operation of the content management system | 23 days            |
 | [Table 2:Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.] |
 
+### Login
 
-### Login 
-
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `sso-sessionid`                                                  | api.hel.fi    | Persist the authentication session                | Session            |
-| `tunnistamo_prod-sessionid`                                      | api.hel.fi    | Persist the authentication session                | Session            |
- | `profiili-prod-csrftoken`                                        | api.hel.fi    | A security control                                | 365 days           |
-| `AUTH_SESSION_ID`                                                | tunnistus.hel.fi      | Persist the authentication session        | Session            |
-| `AUTH_SESSION_ID_LEGACY`                                         | tunnistus.hel.fi | Persist the authentication session             | Session            |
-| `KC_*`                                                           | tunnistus.hel.fi | Persist the authentication session             | Session            |
-| `JSESSIONID`                                                     | suomi.fi      | Persist the authentication session                | Session            |
-| `E-Identification-LogTag`                                        | suomi.fi      | Persist the authentication session                | Session            |
-| `_opensaml_req_cookie*`                                          | suomi.fi      | Persist the authentication session                | Session            |
-| `_shibstate_*`                                                   | suomi.fi      | Persist the authentication session                | Session            |
-| `_shibsession_*`                                                 | suomi.fi      | Persist the authentication session                | Session            |
-| `shib_idp_session`                                               | suomi.fi      | Persist the authentication session                | Session            |
+| Cookie name                                                          | Cookie set by    | Purpose of use                     | Period of validity |
+| -------------------------------------------------------------------- | ---------------- | ---------------------------------- | ------------------ |
+| `sso-sessionid`                                                      | api.hel.fi       | Persist the authentication session | Session            |
+| `tunnistamo_prod-sessionid`                                          | api.hel.fi       | Persist the authentication session | Session            |
+| `profiili-prod-csrftoken`                                            | api.hel.fi       | A security control                 | 365 days           |
+| `AUTH_SESSION_ID`                                                    | tunnistus.hel.fi | Persist the authentication session | Session            |
+| `AUTH_SESSION_ID_LEGACY`                                             | tunnistus.hel.fi | Persist the authentication session | Session            |
+| `KC_*`                                                               | tunnistus.hel.fi | Persist the authentication session | Session            |
+| `JSESSIONID`                                                         | suomi.fi         | Persist the authentication session | Session            |
+| `E-Identification-LogTag`                                            | suomi.fi         | Persist the authentication session | Session            |
+| `_opensaml_req_cookie*`                                              | suomi.fi         | Persist the authentication session | Session            |
+| `_shibstate_*`                                                       | suomi.fi         | Persist the authentication session | Session            |
+| `_shibsession_*`                                                     | suomi.fi         | Persist the authentication session | Session            |
+| `shib_idp_session`                                                   | suomi.fi         | Persist the authentication session | Session            |
 | [Table 3:Common Tunnistamo cookies between *.hel.fi domain services] |
-
-
 
 ### Load balancing
 
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `A random 32-character long string`                              | api.hel.fi, tunnistus.hel.fi  | Technical routing of requests     | Session            |
+| Cookie name                                                                                       | Cookie set by                | Purpose of use                | Period of validity |
+| ------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------- | ------------------ |
+| `A random 32-character long string`                                                               | api.hel.fi, tunnistus.hel.fi | Technical routing of requests | Session            |
 | [Table 4:Load-balancing cookies ensure that the service loads and works quickly and efficiently.] |
-
-
 
 ### Information security
 
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `tunnistamo_prod-csrftoken`                                      | api.hel.fi    | A security control                                | 365 days           |
+| Cookie name                                                                              | Cookie set by | Purpose of use     | Period of validity |
+| ---------------------------------------------------------------------------------------- | ------------- | ------------------ | ------------------ |
+| `tunnistamo_prod-csrftoken`                                                              | api.hel.fi    | A security control | 365 days           |
 | [Table 5:Security cookies enable secure data transfer between the user and the service.] |
 
 ### Language settings
 
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `KEYCLOAK_LOCALE`                                                | tunnistus.hel.fi      | Persist the user's chosen language        | Session            |
-| `E-Identification-Lang`                                          | suomi.fi      | Persist the user's chosen language                | Session            |
+| Cookie name                                                                                              | Cookie set by    | Purpose of use                     | Period of validity |
+| -------------------------------------------------------------------------------------------------------- | ---------------- | ---------------------------------- | ------------------ |
+| `KEYCLOAK_LOCALE`                                                                                        | tunnistus.hel.fi | Persist the user's chosen language | Session            |
+| `E-Identification-Lang`                                                                                  | suomi.fi         | Persist the user's chosen language | Session            |
 | [Table 6:Language cookies store the language selections by the user to remember the preferred language.] |
 
+### Cookie consent
 
-
-### Shared consent
-
-| Cookie name                                                      | Cookie set by | Purpose of use                                    | Period of validity |
-| ---------------------------------------------------------------- | ------------- | ------------------------------------------------- | ------------------ |
-| `city-of-helsinki-cookie-consents`                               | *.hel.fi    | Used by hel.fi to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.                                | 1 year          |
-| [Table 7:City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services.] |
+| Cookie name                        | Cookie set by        | Purpose of use                                                                                                                          | Period of validity |
+| ---------------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `city-of-helsinki-cookie-consents` | \<subdomain\>.hel.fi | Used by hel.fi to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site. | 1 year             |
+| `city-of-helsinki-consent-version` | \<subdomain\>.hel.fi | Used by hel.fi to store information about what version of the cookie consent the user has agreed to.                                    | 1 year             |
+| [Table 7:Cookie consents.]         |
