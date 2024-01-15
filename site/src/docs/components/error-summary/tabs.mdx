@@ -1,0 +1,32 @@
+---
+slug: '/components/error-summary/tabs'
+title: 'ErrorSummary'
+---
+
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+import StatusLabel from '../../../components/StatusLabel';
+
+# ErrorSummary
+
+<div class="status-label-description">
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+<StatusLabelTooltip/>
+</div>
+
+<LeadParagraph>
+  The error summary is notification-like element which lists all errors (and their descriptions) found in a form or other inputs and provides anchor links to each erroneous input for easy access.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
