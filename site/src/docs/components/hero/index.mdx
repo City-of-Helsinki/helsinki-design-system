@@ -28,9 +28,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       variant="secondary"
       role="link"
       style={{ '--background-color': '#fff', '--color': 'var(--color-bus)', '--border-color': '#fff' }}
-    >
-      Call to action
-    </Button>
+    >Call to action</Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -51,6 +49,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **Koro shapes:** Choose from six koro shapes (basic, beat, calm, pulse, vibration, and wave), which can be positioned at the bottom or over the Hero image at a 45-degree angle. To learn more about Koro shapes and their customization, refer to <InternalLink href="/components/koros">HDS Koros documentation</InternalLink>.
 - **Title and introduction (required):** The suitable total length of the title and introduction is circa 230 characters, including spaces. The intro ends with a period.
 - **CTA:** Buttons can also be added to the Hero component, and it is recommended to include, e.g. the most critical link of the page in the Hero component, if one is known. By default, use a button with a background colour (primary button style). On dark background colours, secondary button style can be used.
+- **Arrow icon:** Hero can contain an arrow icon on the bottom left corner to indicate there's more content. The arrow slightly overlaps both the Hero and the following content. Can be used on all Hero variants and the color can be changed in Hero's theme.
 
 ### React subcomponents
 
@@ -84,9 +83,7 @@ Use when you want to support the title's message with an image. Don't use an ima
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >
-      Call to action
-    </Button>
+    >Call to action</Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -110,9 +107,7 @@ Use when you want to fill the background area with an image. Use an image that w
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >
-      Call to action
-    </Button>
+    >Call to action</Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -138,9 +133,7 @@ Use when you want to create a dynamic Hero layout on your page. Ensure the image
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >
-      Call to action
-    </Button>
+    >Call to action</Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -166,9 +159,7 @@ Use when you want to emphasize the title and introduction text content over the 
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >
-      Call to action
-    </Button>
+    >Call to action</Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -192,8 +183,31 @@ Use when you don't have a suitable image to support the title section's message 
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >
-      Call to action
-    </Button>
+    >Call to action</Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Arrow icon
+
+Used to indicate there's more content to follow.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    theme={{
+      '--background-color': '#9fc9eb',
+      '--color': '#000',
+      '--koros-color': '#009246',
+      '--koros-height': '82px',
+    }}
+    koros={{ type: 'pulse' }}
+    showArrowIcon
+  >
+    <Hero.Title>Hero with an arrow icon</Hero.Title>
+    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >Call to action</Button>
   </Hero>
 </PlaygroundPreview>

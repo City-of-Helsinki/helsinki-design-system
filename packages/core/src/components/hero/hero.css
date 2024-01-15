@@ -11,13 +11,43 @@
   --horizontal-padding-x-large: var(--spacing-layout-xs);
   --padding-horizontal: var(--horizontal-padding-small);
   --padding-vertical: var(--spacing-xl);
+  --arrow-icon-size: 128px;
+  --arrow-margin-top: var(--spacing-2-xl);
+  --arrow-margin-left: auto;
+  --arrow-icon-color: var(--color);
+  --z-index: 1;
 
   background-color: var(--background-color);
   color: var(--color);
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 1;
+  z-index: var(--z-index);
+}
+
+.hds-hero__arrow-icon-container {
+  display: flex;
+  height: 0;
+  margin: 0 auto;
+  max-width: var(--container-width-xl);
+  overflow: visible;
+  position: relative;
+  width: 100%;
+  z-index: calc(var(--z-index) + 1);
+}
+
+.hds-hero__arrow-icon-spacing-after {
+  margin-bottom: calc(var(--arrow-icon-size) / 2);
+}
+
+.hds-hero--arrow-icon {
+  --icon-size: var(--arrow-icon-size) !important;
+
+  color: var(--arrow-icon-color);
+
+  /* the following is magic to calculate a proper margins (icon has empty space in it that is taken into account)  */
+  margin-left: calc(var(--padding-horizontal) - (var(--arrow-icon-size) / 4));
+  margin-top: calc(0px - var(--arrow-icon-size) / (128 / 20) - var(--spacing-layout-xs));
 }
 
 .hds-hero__title {
@@ -210,6 +240,7 @@
   .hds-hero {
     --padding-horizontal: var(--horizontal-padding-medium);
     --padding-vertical: var(--spacing-layout-m);
+    --arrow-icon-size: 164px;
   }
 
   .hds-hero--with-background__background,
