@@ -9,6 +9,7 @@ import classes from './HeaderLanguageSelector.module.scss';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
 
+/* eslint-disable react/no-unused-prop-types */
 type LanguageSelectorComponentProps = {
   /**
    * Aria-label attribute for the dropdown button.
@@ -23,6 +24,7 @@ type LanguageSelectorComponentProps = {
    */
   sortLanguageOptions?: (options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]];
 };
+/* eslint-enable react/no-unused-prop-types */
 
 export type LanguageSelectorProps = PropsWithChildren<LanguageSelectorComponentProps>;
 

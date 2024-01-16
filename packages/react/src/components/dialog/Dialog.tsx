@@ -40,9 +40,9 @@ const focusToDialogElement = (position: TabBarrierPosition, dialogElement?: HTML
   if (dialogElement) {
     const focusableElements = findFocusableDialogElements(dialogElement);
     if (focusableElements.length) {
-      (focusableElements[
-        position === TabBarrierPosition.top ? 0 : focusableElements.length - 1
-      ] as HTMLElement).focus();
+      (
+        focusableElements[position === TabBarrierPosition.top ? 0 : focusableElements.length - 1] as HTMLElement
+      ).focus();
     }
   }
 };

@@ -37,13 +37,8 @@ describe('sessionPoller hooks testing', () => {
     const endPointPath = '/userInfoEndPoint';
     const successfulResponse: ResponseType = { returnedStatus: HttpStatusCode.OK };
     const unauthorizedResponse: ResponseType = { returnedStatus: HttpStatusCode.UNAUTHORIZED };
-    const {
-      waitUntilRequestStarted,
-      waitUntilRequestFinished,
-      cleanUp,
-      setResponders,
-      addResponse,
-    } = createControlledFetchMockUtil([{ path: endPointPath }]);
+    const { waitUntilRequestStarted, waitUntilRequestFinished, cleanUp, setResponders, addResponse } =
+      createControlledFetchMockUtil([{ path: endPointPath }]);
 
     const openIdResponse = {
       status: HttpStatusCode.OK,

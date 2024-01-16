@@ -3,7 +3,7 @@ export type MockedWindowLocationActions = {
   restore: () => void;
 };
 export default function mockWindowLocation(): MockedWindowLocationActions {
-  const globalWin = (global as unknown) as Window;
+  const globalWin = global as unknown as Window;
   let oldWindowLocation: Location | undefined = globalWin.location;
   let urlObject = new URL('https://default.domain.com');
   const location = Object.defineProperties(

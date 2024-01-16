@@ -17,7 +17,7 @@ type TestConsentData = {
   cookieDomain?: string;
 };
 
-describe('ContextComponent ', () => {
+describe('ContextComponent', () => {
   const mockedCookieControls = mockDocumentCookie();
   const mockedWindowControls = mockWindowLocation();
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
@@ -166,7 +166,7 @@ describe('ContextComponent ', () => {
     );
   };
 
-  describe('Consumers should not ask for consents when hasUserHandledAllConsents() returns true. It ', () => {
+  describe('Consumers should not ask for consents when hasUserHandledAllConsents() returns true. It', () => {
     it('returns false if all required consents are not true.', () => {
       const consentsWithUnApprovedRequiredConsent = createConsentData({
         requiredConsentCookieValue: false,
@@ -203,7 +203,7 @@ describe('ContextComponent ', () => {
     });
   });
 
-  describe('onConsentsParsed is called when context is created and controller has read the cookie. ', () => {
+  describe('onConsentsParsed is called when context is created and controller has read the cookie.', () => {
     it('Arguments are ({consents}, false) when user has not handled all consents', () => {
       renderCookieConsent(allNotApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
@@ -227,7 +227,7 @@ describe('ContextComponent ', () => {
     });
   });
 
-  describe('onAllConsentsGiven ', () => {
+  describe('onAllConsentsGiven', () => {
     it('is called after user has given all consents.', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(0);
@@ -246,7 +246,7 @@ describe('ContextComponent ', () => {
     });
   });
 
-  describe('Saving ', () => {
+  describe('Saving', () => {
     it('by clicking "Approve all" sends also unknown consents', () => {
       mockedWindowControls.setUrl('https://subdomain.hel.fi');
       const result = renderCookieConsent(allNotApprovedConsentData);

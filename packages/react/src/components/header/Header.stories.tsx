@@ -281,7 +281,7 @@ const FullFeaturedNavigationMenu = ({
   href,
   setHref,
 }: {
-  I18n: typeof translations['fi'];
+  I18n: (typeof translations)['fi'];
   href: string;
   setHref: (anchor: string) => void;
 }) => {

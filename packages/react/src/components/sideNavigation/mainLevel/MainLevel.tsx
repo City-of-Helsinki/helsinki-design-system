@@ -154,9 +154,8 @@ export const MainLevel = ({
   ...rest
 }: MainLevelProps) => {
   const menuId = `${id}-menu`;
-  const { defaultOpenMainLevels, activeParentLevel, setActiveParentLevel, setMobileMenuOpen } = useContext(
-    SideNavigationContext,
-  );
+  const { defaultOpenMainLevels, activeParentLevel, setActiveParentLevel, setMobileMenuOpen } =
+    useContext(SideNavigationContext);
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpenMainLevels.includes(index as number));
   const [isActiveParent, setIsActiveParent] = useState<boolean>(false);
 

@@ -6,7 +6,11 @@ export const oidcClientErrors = {
 } as const;
 
 export class OidcClientError extends Error {
-  constructor(public message: string, public type: OidcClientErrorType, public originalError?: Error | null) {
+  constructor(
+    public message: string,
+    public type: OidcClientErrorType,
+    public originalError?: Error | null,
+  ) {
     super(message);
     this.type = type;
     this.originalError = originalError;

@@ -186,12 +186,12 @@ export function createConsentObjectWithSelectedRejections(
 export async function openAllAccordions(
   result: RenderResult,
   content: Content,
-  dataTestIds: typeof commonTestProps['dataTestIds'],
+  dataTestIds: (typeof commonTestProps)['dataTestIds'],
 ): Promise<void> {
   const openAccordions = async (groupParent: TestGroupParent) => {
-    const list = (groupParent === 'required'
-      ? content.requiredCookies?.groups
-      : content.optionalCookies?.groups) as CookieGroup[];
+    const list = (
+      groupParent === 'required' ? content.requiredCookies?.groups : content.optionalCookies?.groups
+    ) as CookieGroup[];
     let index = 0;
     /* eslint-disable no-restricted-syntax */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

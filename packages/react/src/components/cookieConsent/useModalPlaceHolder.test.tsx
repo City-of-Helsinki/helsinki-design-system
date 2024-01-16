@@ -117,7 +117,7 @@ afterAll(() => {
   jest.clearAllMocks();
 });
 
-describe('useModalPlaceHolder ', () => {
+describe('useModalPlaceHolder', () => {
   describe('creates a placeholder element', () => {
     it('and matches its height to the observed element height every time element change is detected', async () => {
       const result = renderElements();

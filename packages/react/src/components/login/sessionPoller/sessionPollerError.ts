@@ -6,7 +6,11 @@ export const sessionPollerErrors = {
 } as const;
 
 export class SessionPollerError extends Error {
-  constructor(public message: string, public type: SessionPollerErrorType, public originalError?: Error | null) {
+  constructor(
+    public message: string,
+    public type: SessionPollerErrorType,
+    public originalError?: Error | null,
+  ) {
     super(message);
     this.type = type;
     this.originalError = originalError;

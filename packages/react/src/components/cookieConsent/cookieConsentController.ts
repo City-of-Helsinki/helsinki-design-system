@@ -82,9 +82,7 @@ export const getCookieDomainFromUrl = (): string => {
   return window.location.hostname.split('.').slice(-2).join('.');
 };
 
-export function createStorage(
-  initialValues: ConsentStorage,
-): {
+export function createStorage(initialValues: ConsentStorage): {
   getAll: () => ConsentStorage;
   getConsentByName: (consentName: string) => boolean;
   approve: (keys: string[]) => ConsentStorage;

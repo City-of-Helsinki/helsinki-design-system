@@ -884,7 +884,7 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('Automatically adds the consent storage cookie to required consents', () => {
-    it('when noCommonConsentCookie is not true ', () => {
+    it('when noCommonConsentCookie is not true', () => {
       const content = createContent({ siteName, currentLanguage: 'fi' });
       expect(content.requiredCookies).toBeDefined();
       expect(content.requiredCookies?.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);

@@ -39,7 +39,6 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
   });
 
   const getCalls = () => {
-    // console.log('calls', tracker.mock.calls);
     return (tracker.mock.calls as unknown) as string[];
   };
 

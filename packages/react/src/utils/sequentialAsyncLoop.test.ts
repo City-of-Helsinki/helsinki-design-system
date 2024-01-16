@@ -123,7 +123,7 @@ describe('sequentialAsyncLoop runs array of async functions sequentially', () =>
       const keys = ['key1', 'key2', 'key3', 'key4'];
       const funcs = values.map((value, i) => createRequestAndHandler(keys[i], value));
       const [err] = await to(sequentialAsyncLoop<Result>({}, funcs));
-      expect(((err as unknown) as Response).status).toEqual(401);
+      expect((err as unknown as Response).status).toEqual(401);
       expect(tracker).toHaveBeenCalledTimes(2);
     });
   });

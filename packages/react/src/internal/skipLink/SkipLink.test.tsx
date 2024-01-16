@@ -10,7 +10,7 @@ describe('<SkipToContentLink /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('it should show link when tab is pressed', () => {
+  it('should show link when tab is pressed', () => {
     const { asFragment, getByText } = render(<SkipLink skipTo="content" label="skip to content" />);
     userEvent.tab();
     expect(asFragment()).toMatchSnapshot();

@@ -58,13 +58,8 @@ describe('apiToken hooks testing', () => {
 
     const apiTokensResponder: Responder = { id: 'apiTokensResponder', path: endPointPath, delay: 10000 };
 
-    const {
-      waitUntilRequestFinished,
-      waitUntilRequestStarted,
-      cleanUp,
-      setResponders,
-      addResponse,
-    } = createControlledFetchMockUtil([apiTokensResponder]);
+    const { waitUntilRequestFinished, waitUntilRequestStarted, cleanUp, setResponders, addResponse } =
+      createControlledFetchMockUtil([apiTokensResponder]);
 
     const getApiTokenResponseBody = () => {
       return {
@@ -218,7 +213,7 @@ describe('apiToken hooks testing', () => {
       });
     });
     describe('useApiTokens hook', () => {
-      describe('Returns getStoredApiTokens function ', () => {
+      describe('Returns getStoredApiTokens function', () => {
         it('which returns apiTokens, if user is authenticated and apiTokens are fetched', async () => {
           const user = createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
 
@@ -241,7 +236,7 @@ describe('apiToken hooks testing', () => {
           expect(getTokensError()).not.toBeUndefined();
         });
       });
-      describe('Returns isRenewing function ', () => {
+      describe('Returns isRenewing function', () => {
         it('which returns true, if apiTokens are renewing', async () => {
           createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
           init({ component: 'tokens' });

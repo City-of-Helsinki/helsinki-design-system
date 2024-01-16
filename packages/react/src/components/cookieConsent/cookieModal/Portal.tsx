@@ -72,5 +72,6 @@ export function Portal({ rootId, children }: { rootId: string; children: React.R
     return null;
   }
   wasPortalCreated.current = true;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return createPortal(<>{children}</>, containerElementRef.current as HTMLElement);
 }

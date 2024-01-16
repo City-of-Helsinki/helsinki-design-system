@@ -316,13 +316,12 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     }
   };
 
-  const ignoreFocusHandlerWhenClickingItem = (handler: FocusEventHandler<HTMLDivElement>) => (
-    event: FocusEvent<HTMLDivElement>,
-  ) => {
-    if (!isClicking) {
-      handler(event);
-    }
-  };
+  const ignoreFocusHandlerWhenClickingItem =
+    (handler: FocusEventHandler<HTMLDivElement>) => (event: FocusEvent<HTMLDivElement>) => {
+      if (!isClicking) {
+        handler(event);
+      }
+    };
 
   const handleWrapperFocus = (e: FocusEvent<HTMLDivElement>) => {
     if (getIsElementFocused(e)) {

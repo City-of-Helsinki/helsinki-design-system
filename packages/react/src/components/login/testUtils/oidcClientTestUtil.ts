@@ -50,9 +50,11 @@ export function getDefaultOidcClientTestProps(): OidcClientProps {
 }
 
 export function getPrivateUserManagerClient(userManager: UserManager): OidcClientFromNpm {
-  const client = ((userManager as unknown) as {
-    _client: OidcClientFromNpm;
-  })._client;
+  const client = (
+    userManager as unknown as {
+      _client: OidcClientFromNpm;
+    }
+  )._client;
 
   return client;
 }
@@ -174,7 +176,7 @@ export function createMockUserManager(userMock: jest.Mock): UserManager {
     getUser: userMock,
   };
 
-  return (manager as unknown) as UserManager;
+  return manager as unknown as UserManager;
 }
 
 export function createMockOidcClient() {

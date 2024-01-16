@@ -40,7 +40,7 @@ describe('Client hooks', () => {
     });
     it('Returns an user object, if valid user is found', async () => {
       init({ invalidUser: false });
-      expect(((getUser() as unknown) as User).access_token).not.toBeUndefined();
+      expect((getUser() as unknown as User).access_token).not.toBeUndefined();
     });
     it('Returns null, if a valid user is not found', async () => {
       init({

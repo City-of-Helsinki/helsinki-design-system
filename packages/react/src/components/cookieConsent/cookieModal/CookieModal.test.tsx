@@ -159,7 +159,7 @@ describe('<CookieModal /> spec', () => {
   }, 15000);
 });
 
-describe('<CookieModal /> ', () => {
+describe('<CookieModal />', () => {
   afterEach(() => {
     mockedCookieControls.clear();
     jest.clearAllMocks();
@@ -169,7 +169,7 @@ describe('<CookieModal /> ', () => {
     mockedCookieControls.restore();
   });
 
-  describe('Portal and modal ', () => {
+  describe('Portal and modal', () => {
     it('and child components are rendered when consents have not been handled', () => {
       const result = renderCookieConsent(defaultConsentData);
       verifyElementExistsByTestId(result, dataTestIds.container);

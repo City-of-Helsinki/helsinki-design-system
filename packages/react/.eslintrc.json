@@ -53,7 +53,12 @@
     "react/prop-types": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
-    "jsx-a11y/control-has-associated-label": "warn",
+    "jsx-a11y/control-has-associated-label": [
+      1,
+      {
+        "ignoreElements": ["td"]
+      }
+    ],
     "jsx-a11y/no-interactive-element-to-noninteractive-role": "warn",
     "jsx-a11y/label-has-associated-control": [
       2,

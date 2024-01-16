@@ -209,7 +209,7 @@ export function createTriggerForAllNamespaces(): Pick<Signal, 'namespace'> {
 
 export function convertSignalToTrigger(signal: Signal): SignalTriggerProps {
   if (!Object.prototype.hasOwnProperty.call(signal, 'context')) {
-    return (signal as unknown) as SignalTriggerProps;
+    return signal as unknown as SignalTriggerProps;
   }
   const { type, namespace, payload } = signal;
   return { type, namespace, payload };

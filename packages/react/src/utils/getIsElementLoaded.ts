@@ -13,7 +13,9 @@ export default async (selector: string): Promise<HTMLElement | null> => {
 
   while (document.querySelector(selector) === null) {
     // eslint-disable-next-line no-await-in-loop
-    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await new Promise((resolve) => {
+      requestAnimationFrame(resolve);
+    });
   }
   return document.querySelector(selector) as HTMLElement;
 };
