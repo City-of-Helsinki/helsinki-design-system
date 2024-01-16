@@ -10,8 +10,6 @@
     "plugin:import/typescript",
     "plugin:jest/recommended",
     "airbnb",
-    "prettier/@typescript-eslint",
-    "prettier/react",
     "plugin:prettier/recommended" // this should always be the last item on this array
   ],
   "plugins": ["@typescript-eslint", "prettier", "jest", "import"],
@@ -24,6 +22,7 @@
   "ignorePatterns": ["*.module.css"],
   "rules": {
     "no-use-before-define": "off",
+    "default-param-last": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "no-shadow": "off", // replaced by ts-eslint rule below
     "@typescript-eslint/no-shadow": "error",
@@ -40,6 +39,7 @@
         "newlines-between": "always"
       }
     ],
+    "react/function-component-definition": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
