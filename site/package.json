@@ -57,7 +57,7 @@
     "stylelint-order": "^6.0.2"
   },
   "resolutions": {
-    "multer": "1.4.4-lts.1",
+    "multer": "1.4.5-lts.1",
     "jpeg-js": "0.4.4"
   },
   "keywords": [
