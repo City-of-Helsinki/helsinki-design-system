@@ -79,7 +79,7 @@ const translations = {
     basicEducation: 'Basic education',
     business: 'Business',
     businessAndWork: 'Business and work',
-    childHoodAndEducation: 'Childhood and education',
+    childhoodAndEducation: 'Childhood and education',
     clearFinnish: 'Clear finnish',
     close: 'Close',
     dentalCare: 'Dental care',
@@ -96,8 +96,8 @@ const translations = {
     headerLogin: 'Login',
     headerMenuTitle: 'Other languages',
     headerTitle: 'City of Helsinki',
-    healtcare: 'Healt care',
-    healthAndndSocialServices: 'Health and social services',
+    healthCare: 'Health care',
+    healthAndSocialServices: 'Health and social services',
     infoOtherLanguages: 'Information in other languages',
     jobSeekers: 'Jobseekers',
     loginOptions: 'Login options',
@@ -118,7 +118,7 @@ const translations = {
     basicEducation: 'Perusopetus',
     business: 'Yritykset',
     businessAndWork: 'Yritykset ja työ',
-    childHoodAndEducation: 'Kasvatus ja koulutus',
+    childhoodAndEducation: 'Kasvatus ja koulutus',
     clearFinnish: 'Selkosuomi',
     close: 'Sulje',
     dentalCare: 'Hammashoito',
@@ -135,8 +135,8 @@ const translations = {
     headerLogin: 'Kirjaudu',
     headerMenuTitle: 'Tietoa muilla kielillä',
     headerTitle: 'Helsingin kaupunki',
-    healtcare: 'Terveydenhoito',
-    healthAndndSocialServices: 'Sosiaali- ja terveyspalvelut',
+    healthCare: 'Terveydenhoito',
+    healthAndSocialServices: 'Sosiaali- ja terveyspalvelut',
     infoOtherLanguages: 'Tietoa muilla kielillä',
     jobSeekers: 'Työnhakijat',
     loginOptions: 'Kirjautumisvalinnat',
@@ -157,7 +157,7 @@ const translations = {
     basicEducation: 'Grundläggande utbildning',
     business: 'Företag',
     businessAndWork: 'Företag och arbete',
-    childHoodAndEducation: 'Fostran och utbildning',
+    childhoodAndEducation: 'Fostran och utbildning',
     clearFinnish: 'Klara finska',
     close: 'Stäng',
     dentalCare: 'Tandvård',
@@ -174,8 +174,8 @@ const translations = {
     headerLogin: 'Logga in',
     headerMenuTitle: 'Andra språk',
     headerTitle: 'Helsingfors Stad',
-    healtcare: 'Hälsovärd',
-    healthAndndSocialServices: 'Social- och hälsovårdstjänster',
+    healthCare: 'Hälsovärd',
+    healthAndSocialServices: 'Social- och hälsovårdstjänster',
     infoOtherLanguages: 'information på andra språk',
     jobSeekers: 'Arbetssökande',
     loginOptions: 'Logga in optioner',
@@ -196,7 +196,7 @@ const translations = {
     basicEducation: 'École élémentaire',
     business: 'Enteprises',
     businessAndWork: 'Entreprises et travail',
-    childHoodAndEducation: 'Éducation',
+    childhoodAndEducation: 'Éducation',
     clearFinnish: 'Finnois simple',
     close: 'Fermer',
     dentalCare: 'Soins dentaires',
@@ -213,8 +213,8 @@ const translations = {
     headerLogin: 'Se connecter',
     headerMenuTitle: 'Autres langues',
     headerTitle: 'Ville de Helsinki',
-    healtcare: 'Soins de santé',
-    healthAndndSocialServices: 'Services sociaux et de santé',
+    healthCare: 'Soins de santé',
+    healthAndSocialServices: 'Services sociaux et de santé',
     infoOtherLanguages: 'Information en autres langues',
     jobSeekers: "Demandeurs d'emploi",
     loginOptions: 'Choix pour se connecter',
@@ -276,11 +276,19 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
   );
 };
 
-const FullFeaturedNavigationMenu = ({ I18n, href, setHref }) => {
+const FullFeaturedNavigationMenu = ({
+  I18n,
+  href,
+  setHref,
+}: {
+  I18n: typeof translations['fi'];
+  href: string;
+  setHref: (anchor: string) => void;
+}) => {
   return (
     <Header.NavigationMenu>
       <Header.Link
-        label={I18n.healthAndndSocialServices}
+        label={I18n.healthAndSocialServices}
         onClick={(event) => {
           event.preventDefault();
           setHref('#sosiaali-_ja_terveyspalvelut');
@@ -292,7 +300,7 @@ const FullFeaturedNavigationMenu = ({ I18n, href, setHref }) => {
               event.preventDefault();
               setHref('#sosiaali-_ja_terveyspalvelut#terveydenhoito');
             }}
-            label={I18n.healtcare}
+            label={I18n.healthCare}
             active={href.includes('#terveydenhoito')}
             dropdownLinks={[
               <Header.Link
@@ -321,7 +329,7 @@ const FullFeaturedNavigationMenu = ({ I18n, href, setHref }) => {
           event.preventDefault();
           setHref('#kasvatus_ja_koulutus');
         }}
-        label={I18n.childHoodAndEducation}
+        label={I18n.childhoodAndEducation}
         dropdownLinks={[
           <Header.Link
             active={href.includes('#varhaiskasvatus')}
@@ -574,7 +582,7 @@ export const ManualLanguageSorting = (args) => {
 
       <Header.NavigationMenu>
         <Header.Link
-          label={I18n.healthAndndSocialServices}
+          label={I18n.healthAndSocialServices}
           onClick={(event) => {
             event.preventDefault();
             setHref('#sosiaali-_ja_terveyspalvelut');
@@ -587,7 +595,7 @@ export const ManualLanguageSorting = (args) => {
             event.preventDefault();
             setHref('#kasvatus_ja_koulutus');
           }}
-          label={I18n.childHoodAndEducation}
+          label={I18n.childhoodAndEducation}
         />
       </Header.NavigationMenu>
     </Header>
@@ -623,7 +631,7 @@ export const ManualLanguageOptions = (args) => {
 
       <Header.NavigationMenu>
         <Header.Link
-          label={I18n.healthAndndSocialServices}
+          label={I18n.healthAndSocialServices}
           onClick={(event) => {
             event.preventDefault();
             setHref('#sosiaali-_ja_terveyspalvelut');
@@ -636,7 +644,7 @@ export const ManualLanguageOptions = (args) => {
             event.preventDefault();
             setHref('#kasvatus_ja_koulutus');
           }}
-          label={I18n.childHoodAndEducation}
+          label={I18n.childhoodAndEducation}
         />
       </Header.NavigationMenu>
     </Header>
