@@ -56,6 +56,7 @@ Changes that are not related to specific components
 
 - [Hero] Note about scaling to diagonal koros examples
 - [ErrorSummary] Add documentation for Error Summary component
+- [Focus colour] Use of Focus style widths
 
 #### Changed
 
