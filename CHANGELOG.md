@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Header] Theme supports max-width and logo-height variables
+- [TextInput] Support using TextInput component as a simple search field
 
 #### Fixed
 
@@ -28,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Icon] New icon for X service
 
+#### Changed
+
+- [Text input] Support using Text input component as a simple search field
+
 ### Documentation
 
 #### Added
@@ -36,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ErrorSummary] Add documentation for Error Summary component
 - [Focus colour] Use of Focus style widths
 - [Icons] New icon for X service added to assets list
+- [Search input] Advice using a Text input as a simple search field if no suggestions and/or results are provided
 
 #### Fixed
 
