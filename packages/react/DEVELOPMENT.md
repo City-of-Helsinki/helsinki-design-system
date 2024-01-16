@@ -20,16 +20,18 @@ yarn start:react
 
 ### Commands
 
-| Command                            | Description                                               |
-| ---------------------------------- | --------------------------------------------------------- |
-| yarn                               | Install dependencies and link local packages.             |
-| yarn build                         | Builds the package.                                       |
-| yarn start                         | Starts the development environment.                       |
-| yarn test                          | Runs the tests.                                           |
-| yarn lint                          | Runs the linting.                                         |
-| yarn scaffold                      | Runs the scaffolding script for creating a new component. |
-| yarn visual-test                   | Runst the visual regression tests.                        |
-| yarn update-reference-images       | Update reference images for visual regression tests.      |
+| Command                      | Description                                               |
+| ---------------------------- | --------------------------------------------------------- |
+| yarn                         | Install dependencies and link local packages.             |
+| yarn build                   | Builds the React package.                                 |
+| yarn build:hds-js            | Builds the hds-js package.                                |
+| yarn start                   | Starts the development environment.                       |
+| yarn test                    | Runs the tests.                                           |
+| yarn lint                    | Runs the linting.                                         |
+| yarn scaffold                | Runs the scaffolding script for creating a new component. |
+| yarn visual-test             | Runst the visual regression tests.                        |
+| yarn update-reference-images | Update reference images for visual regression tests.      |
+| yarn update:hds-js           | Updates dependencies in the hds-js/package.json           |
 
 ## Adding a component
 
