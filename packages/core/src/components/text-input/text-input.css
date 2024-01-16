@@ -62,6 +62,15 @@
   will-change: transform, box-shadow;
 }
 
+.hds-text-input:not([data-hds-textinput-filled]) .hds-text-input__button-clear,
+.hds-text-input__input-clear::-webkit-search-cancel-button {
+  display: none;
+}
+
+.hds-text-input .hds-text-input__button-clear > * {
+  pointer-events: none;
+}
+
 /* text-input transitions */
 .hds-text-input .hds-text-input__input:hover {
   border-color: var(--input-border-color-hover);

@@ -23,66 +23,76 @@ type InputWrapperProps = {
   tooltipLabel?: string;
   tooltipText?: string;
   tooltipButtonLabel?: string;
-};
+  ref?: React.Ref<HTMLDivElement>;
+} & React.ComponentPropsWithoutRef<'div'>;
 
-export const InputWrapper = ({
-  children,
-  className = '',
-  errorText,
-  helperText,
-  hideLabel = false,
-  id,
-  invalid = false,
-  isAriaLabelledBy = false,
-  label,
-  labelId,
-  onBlur,
-  required = false,
-  style,
-  successText,
-  infoText,
-  tooltipLabel,
-  tooltipText,
-  tooltipButtonLabel,
-}: InputWrapperProps) => (
-  <div
-    onBlur={onBlur}
-    className={classNames(styles.root, invalid && styles.invalid, successText && styles.success, className)}
-    style={style}
-  >
-    {label && (
-      <FieldLabel
-        id={labelId}
-        inputId={id}
-        isAriaLabelledBy={isAriaLabelledBy}
-        hidden={hideLabel}
-        label={label}
-        required={required}
-        tooltipLabel={tooltipLabel}
-        tooltipButtonLabel={tooltipButtonLabel}
-        tooltipText={tooltipText}
-      />
-    )}
-    <div className={classNames(styles.inputWrapper)}>{children}</div>
-    {errorText && (
-      <div className={styles.errorText} id={`${id}-error`}>
-        {errorText}
+export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
+  (
+    {
+      children,
+      className = '',
+      errorText,
+      helperText,
+      hideLabel = false,
+      id,
+      invalid = false,
+      isAriaLabelledBy = false,
+      label,
+      labelId,
+      onBlur,
+      required = false,
+      style,
+      successText,
+      infoText,
+      tooltipLabel,
+      tooltipText,
+      tooltipButtonLabel,
+      ...rest
+    }: InputWrapperProps,
+    ref?: React.Ref<HTMLDivElement>,
+  ) => {
+    const inputWrapperProps = {
+      className: classNames(styles.root, invalid && styles.invalid, successText && styles.success, className),
+      onBlur,
+      style,
+    };
+    return (
+      <div {...inputWrapperProps} {...rest} ref={ref}>
+        {label && (
+          <FieldLabel
+            id={labelId}
+            inputId={id}
+            isAriaLabelledBy={isAriaLabelledBy}
+            hidden={hideLabel}
+            label={label}
+            required={required}
+            tooltipLabel={tooltipLabel}
+            tooltipButtonLabel={tooltipButtonLabel}
+            tooltipText={tooltipText}
+          />
+        )}
+        <div className={classNames(styles.inputWrapper)}>{children}</div>
+        {errorText && (
+          <div className={styles.errorText} id={`${id}-error`}>
+            {errorText}
+          </div>
+        )}
+        {successText && (
+          <div className={styles.successText} id={`${id}-success`}>
+            {successText}
+          </div>
+        )}
+        {infoText && (
+          <div className={styles.infoText} id={`${id}-info`}>
+            {infoText}
+          </div>
+        )}
+        {helperText && (
+          <div className={styles.helperText} id={`${id}-helper`}>
+            {helperText}
+          </div>
+        )}
       </div>
-    )}
-    {successText && (
-      <div className={styles.successText} id={`${id}-success`}>
-        {successText}
-      </div>
-    )}
-    {infoText && (
-      <div className={styles.infoText} id={`${id}-info`}>
-        {infoText}
-      </div>
-    )}
-    {helperText && (
-      <div className={styles.helperText} id={`${id}-helper`}>
-        {helperText}
-      </div>
-    )}
-  </div>
+    );
+  },
 );

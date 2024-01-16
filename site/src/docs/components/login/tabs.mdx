@@ -3,17 +3,17 @@ slug: '/components/login/tabs'
 title: 'Login'
 ---
 
-import { StatusLabel, Notification } from 'hds-react';
-
 import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
 import LeadParagraph from '../../../components/LeadParagraph';
 import PageTabs from '../../../components/PageTabs';
+import Notification from '../../../components/Notification';
+import StatusLabel from '../../../components/StatusLabel';
 
 # Login
 
 <div className="status-label-description">
   <StatusLabel type="error">Draft</StatusLabel>
-  <StatusLabel variant="rounded" type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
   <StatusLabelTooltip />
 </div>
 

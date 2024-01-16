@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, cloneElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 // import base styles
@@ -12,42 +12,6 @@ import { MergeElementProps } from '../../../../common/types';
 import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
 
 const classNames = styleBoundClassNames(styles);
-
-export type LinkProps = {
-  /**
-   * Indicator for active link. This is used in HeaderNavigationMenu.
-   */
-  active?: boolean;
-  /**
-   * Additional class names to apply to the link.
-   */
-  className?: string;
-  /**
-   * Boolean for indicating whether the link has a dropdown menu.
-   */
-  hasDropdownLinks?: boolean;
-  /**
-   * Hypertext Reference of the link.
-   */
-  href: string;
-  /**
-   * Boolean for indicating whether the link's dropdown menu is open.
-   */
-  isDropdownOpen?: boolean;
-  /**
-   * Label for link.
-   */
-  label: string;
-  /**
-   * Optional event handler for onMouseEnter.
-   */
-  onMouseEnter?: MouseEventHandler;
-  /**
-   * Depth in nested dropdowns.
-   * @internal
-   */
-  depth: number;
-};
 
 export type NavigationLinkProps<ReactElement> = {
   /**
@@ -250,11 +214,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   });
 
   return (
-    <span
-      className={navigationWrapperLinkClassName}
-      ref={containerRef}
-      {...(Boolean(dropdownLinks) && { 'aria-expanded': isDropdownOpen })}
-    >
+    <span className={navigationWrapperLinkClassName} ref={containerRef}>
       <Item className={navigationLinkClassName} href={href} {...rest}>
         {label}
       </Item>

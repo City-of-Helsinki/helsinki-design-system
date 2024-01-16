@@ -37,10 +37,14 @@ jobs:
         run: yarn build
         working-directory: ./packages/react
 
+      - name: build hds-js package
+        run: yarn build:hds-js
+        working-directory: ./packages/react
+
       - name: build documentation site
         run: yarn build
         working-directory: ./site
-      
+
       - name: Copy CNAME file
         run: cp CNAME ./site/public/
 

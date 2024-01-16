@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
 import { Tabs } from 'hds-react';
 
+import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
+
 import './PageTabs.scss';
 
 const resolvePathFromSubSlug = (slug) => {
@@ -22,8 +24,12 @@ const PageTabs = ({ pageContext, children }) => {
 
   const mdxChildren = Array.isArray(children) ? children : [children];
 
-  const tabList = mdxChildren.find((reactChild) => isValidElement(reactChild) && reactChild.type.componentName === pageTabListComponentName);
-  const tabPanel = mdxChildren.find((reactChild) => isValidElement(reactChild) && reactChild.type.componentName === pageTabPanelComponentName);
+  const tabList = mdxChildren.find(
+    (reactChild) => isValidElement(reactChild) && reactChild.type.componentName === pageTabListComponentName,
+  );
+  const tabPanel = mdxChildren.find(
+    (reactChild) => isValidElement(reactChild) && reactChild.type.componentName === pageTabPanelComponentName,
+  );
   const tabs = tabList.props?.children.filter((reactChild) => reactChild.type.componentName === pageTabComponentName);
   const tabActiveIndex = tabs.findIndex((tab) => slug.endsWith(tab.props.href));
   const activeIndex = tabActiveIndex === -1 ? 0 : tabActiveIndex;
@@ -37,7 +43,7 @@ const PageTabs = ({ pageContext, children }) => {
             key={tab.props.href}
             onClick={() => navigate(`${tab.props.href === '/' ? rootPath : rootPath + tab.props.href}`)}
           >
-            {tab.props.children}
+            {stripParagraphAsFirstChild(tab.props.children)}
           </Tabs.Tab>
         ))}
       </Tabs.TabList>
@@ -63,7 +69,7 @@ TabList.componentName = pageTabListComponentName;
 TabList.propTypes = {
   children: PropTypes.node.isRequired,
 };
-const Tab = ({ href, slug, children }) => <Tabs.Tab>{children}</Tabs.Tab>;
+const Tab = ({ href, slug, children }) => <Tabs.Tab> {children}</Tabs.Tab>;
 Tab.componentName = pageTabComponentName;
 Tab.propTypes = {
   slug: PropTypes.string,

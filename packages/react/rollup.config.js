@@ -12,9 +12,23 @@ import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const packageJSON = require('./package.json');
+
+const buildForHdsJs = !!process.env.hdsJS;
+const updateHdsJs = !!process.env.hdsJSUpdate;
+const reactEsmOutputFormat = 'react-esm';
+const reactCommonJsOutputFormat = 'react-cjs';
+const hdsJsEsmOutput = 'hds-js-esm';
+const hdsJsCommonJsOutput = 'hds-js-cjs';
+
+const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
+const isHdsJsOutputFormat = (format) => format === hdsJsEsmOutput || format === hdsJsCommonJsOutput;
+const hdsJsPackageJSON = require('../hds-js/package.json');
 
 const insertCssEsm = () => {
   return {
@@ -52,34 +66,73 @@ const moveCss = () => {
 };
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
-const external = [
-  'crc-32',
-  'kashe',
-  'memoize-one',
-  'postcss',
-  'react',
-  'react-dom',
-  'lodash.uniqueid',
-  'lodash.isequal',
-  'lodash.isfunction',
-  'react-spring',
-  'react-use-measure',
-  'react-merge-refs',
-  'react-virtual',
-  'react-popper',
-  '@juggle/resize-observer',
-  '@popperjs/core',
-  '@react-aria/visually-hidden',
-];
 
-const getExternal = (format) => (format === 'esm' ? [...external, /@babel\/runtime/] : external);
+const externals = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)];
+
+const getExternal = (format) => (isEsmOutputFormat(format) ? [...externals, /@babel\/runtime/] : externals);
+
+const checkModule = (forHdsJs) => {
+  const forbiddenImportIds = ['react', 'react-dom'];
+  const forbiddenFileExtensions = ['.tsx', '.jsx', '.css', '.scss'];
+  const allowedExternals = ['tslib'];
+  if (!forHdsJs) {
+    // https://github.com/Hacker0x01/react-datepicker/issues/1606
+    allowedExternals.push('date-fns');
+    // not in react/package.json. Used by rollup-plugin-postcss
+    // not sure why included.
+    allowedExternals.push('style-inject');
+  }
+
+  const hasForbiddenImports = (importedIds) => {
+    return importedIds.some((id) => {
+      return forbiddenImportIds.includes(id);
+    });
+  };
+  const hasForbiddenFiletype = (id) => {
+    const extStartIndex = id.lastIndexOf('.');
+    if (extStartIndex === -1) {
+      return false;
+    }
+    const filetype = id.substr(extStartIndex).toLowerCase();
+    return forbiddenFileExtensions.includes(filetype);
+  };
+
+  const isNodeModule = (id) => {
+    const folderCheck = 'node_modules/';
+    const isInNodeModules = id.includes(folderCheck);
+    if (!isInNodeModules) {
+      return false;
+    }
+    const moduleFolder = id.split(folderCheck)[1].split('/')[0];
+    if (allowedExternals.includes(moduleFolder)) {
+      return false;
+    }
+    return true;
+  };
+
+  return {
+    name: 'checkModule',
+    moduleParsed(info) {
+      if (forHdsJs && hasForbiddenImports(info.importedIds)) {
+        this.error(`Forbidden import found! It imports: ${info.importedIds.join(',')}`);
+      }
+      if (forHdsJs && hasForbiddenFiletype(info.id)) {
+        this.error(`Forbidden file type found!`);
+      }
+      if (isNodeModule(info.id)) {
+        const message = `External module ${info.id} added to built code!`;
+        forHdsJs ? this.error(message) : this.warn(message);
+      }
+    },
+  };
+};
 
 const getConfig = (format, extractCSS) => ({
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
     ts(),
-    format === 'esm' &&
+    isEsmOutputFormat(format) &&
       babel({
         babelHelpers: 'runtime',
         exclude: 'node_modules/**',
@@ -116,13 +169,22 @@ const getConfig = (format, extractCSS) => ({
           hook: 'closeBundle',
         })
       : undefined,
-    format === 'cjs' ? insertCssCjs() : undefined,
+    format === reactCommonJsOutputFormat ? insertCssCjs() : undefined,
+    format === hdsJsEsmOutput &&
+      updateHdsJs &&
+      generatePackageJson({
+        inputFolder: './',
+        outputFolder: '../hds-js/',
+        baseContents: hdsJsPackageJSON,
+      }),
+    checkModule(buildForHdsJs || updateHdsJs),
   ],
   external: getExternal(format),
 });
 
-export default [
-  {
+const outputQueue = [];
+if (!buildForHdsJs && !updateHdsJs) {
+  outputQueue.push({
     input: esmInput,
     output: [
       {
@@ -130,9 +192,9 @@ export default [
         format: 'esm',
       },
     ],
-    ...getConfig('esm', false),
-  },
-  {
+    ...getConfig(reactEsmOutputFormat, false),
+  });
+  outputQueue.push({
     input: esmInput,
     output: [
       {
@@ -141,9 +203,9 @@ export default [
         exports: 'named',
       },
     ],
-    ...getConfig('esm', true),
-  },
-  {
+    ...getConfig(reactEsmOutputFormat, true),
+  });
+  outputQueue.push({
     input: ['src/index.ts', 'lib/index.css-text.js'],
     output: [
       {
@@ -151,6 +213,32 @@ export default [
         format: 'cjs',
       },
     ],
-    ...getConfig('cjs', false),
-  },
-];
+    ...getConfig(reactCommonJsOutputFormat, false),
+  });
+} else {
+  outputQueue.push({
+    input: { index: '../hds-js/index.ts' },
+    output: [
+      {
+        dir: '../hds-js/lib',
+        format: 'esm',
+      },
+    ],
+    ...getConfig(hdsJsEsmOutput, false),
+  });
+
+  if (!updateHdsJs) {
+    outputQueue.push({
+      input: ['../hds-js/index.ts'],
+      output: [
+        {
+          dir: '../hds-js/lib/cjs',
+          format: 'cjs',
+        },
+      ],
+      ...getConfig(hdsJsCommonJsOutput, false),
+    });
+  }
+}
+
+export default outputQueue;

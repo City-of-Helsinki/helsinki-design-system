@@ -1,0 +1,77 @@
+---
+slug: '/components/error-summary/customisation'
+title: 'ErrorSummary - Customisation'
+---
+
+import { ErrorSummary } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+You can either use the `style` or `class` attributes in the HTML to customise the component.
+
+### Customisation example
+<Playground scope={{ ErrorSummary }}>
+
+
+```jsx
+import { ErrorSummary } from 'hds-react';
+
+() => (
+ <ErrorSummary
+  label="Error summary"
+  style={{
+    '--notification-background-color': 'lightgray',
+    '--notification-border-color': 'black',
+  }}
+>
+    <ul>
+      <li>
+        Error 1: <a href="#field1">Please enter your first name</a>
+      </li>
+      <li>
+        Error 2: <a href="#field2">Please enter your last name</a>
+      </li>
+      <li>
+        Error 3: <a href="#field3">Please enter a valid email address</a>
+      </li>
+    </ul>
+  </ErrorSummary>
+)
+```
+
+```html
+  <section
+    aria-label="Error summary"
+    class="hds-notification hds-notification--error"
+    style="
+      --notification-background-color: lightgray;
+      --notification-border-color: black;
+    "
+  >
+    <div class="hds-notification__content">
+      <div class="hds-notification__label" role="heading" aria-level="2" tabindex="-1">
+        <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
+        <span>Error summary</span>
+      </div>
+      <div class="hds-notification__body hds-error-summary__body">
+        <ul>
+          <li>
+            Error 1: <a href="#field1">Please enter your first name</a>
+          </li>
+          <li>
+            Error 2: <a href="#field2">Please enter your last name</a>
+          </li>
+          <li>
+            Error 3: <a href="#field3">Please enter a valid email address</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+```
+
+</Playground>

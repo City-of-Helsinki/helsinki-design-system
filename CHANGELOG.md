@@ -5,6 +5,65 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - January, 16, 2024
+
+### React
+
+#### Changed
+
+- [Header] Theme supports max-width and logo-height variables
+- [TextInput] Support using TextInput component as a simple search field
+
+#### Fixed
+
+- [Dropdown] Clearing values from disabled Dropdowns is prohibited
+- [Header.ActionBarItem] Fix click event handling issue in icons
+
+#### Added
+
+- [IconX] New icon for X service
+
+### Core
+
+#### Added
+
+- [Icon] New icon for X service
+
+#### Changed
+
+- [Text input] Support using Text input component as a simple search field
+
+### Documentation
+
+#### Added
+
+- [Hero] Note about scaling to diagonal koros examples
+- [ErrorSummary] Add documentation for Error Summary component
+- [Focus colour] Use of Focus style widths
+- [Icons] New icon for X service added to assets list
+- [Search input] Advice using a Text input as a simple search field if no suggestions and/or results are provided
+
+#### Fixed
+
+- Fixed Wave motifs links to Helsinki Brand pages
+- [Header] Small fixes
+- [Notification] Fix size texts
+
+### Figma
+
+#### Changed
+
+- [Icons] Old Twitter icon renamed back to its original name so that Glyphfig script works correctly
+
+### Hds-js
+
+#### Added
+
+- [cookieConsentController] The Cookie Consent controller for City of Helsinki cookies
+- [cookieController] Controller for reading and writing City of Helsinki cookies
+- [getContent] Common content for City of Helsinki cookies
+- [login] Vanilla JS version of the login system
+
 ## [3.3.0] - December, 19, 2023
 
 ### React

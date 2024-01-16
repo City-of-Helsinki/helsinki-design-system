@@ -1,0 +1,81 @@
+---
+slug: '/components/error-summary/code'
+title: 'ErrorSummary - Code'
+---
+
+import { ErrorSummary } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Error Summary with three errors
+
+<Playground scope={{ ErrorSummary }}>
+
+
+```jsx
+import { ErrorSummary } from 'hds-react';
+
+() => (
+  <ErrorSummary label="Error summary">
+    <ul>
+      <li>
+        Error 1: <a href="#field1">Please enter your first name</a>
+      </li>
+      <li>
+        Error 2: <a href="#field2">Please enter your last name</a>
+      </li>
+      <li>
+        Error 3: <a href="#field3">Please enter a valid email address</a>
+      </li>
+    </ul>
+  </ErrorSummary>
+)
+```
+
+```html
+  <section aria-label="Error summary" class="hds-notification hds-notification--error">
+    <div class="hds-notification__content">
+      <div class="hds-notification__label" role="heading" aria-level="2" tabindex="-1">
+        <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
+        <span>Error summary</span>
+      </div>
+      <div class="hds-notification__body hds-error-summary__body">
+        <ul>
+          <li>
+            Error 1: <a href="#field1">Please enter your first name</a>
+          </li>
+          <li>
+            Error 2: <a href="#field2">Please enter your last name</a>
+          </li>
+          <li>
+            Error 3: <a href="#field3">Please enter a valid email address</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                   | Source link                                                                                                                                                        |
+| ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-errorsummary--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/errorSummary/ErrorSummary.tsx">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-errorsummary--default">View in Storybook</Link>        | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/error-summary">View source</ExternalLink>           |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-errorsummary--default">React Storybook.</Link>
+
+| Property  | Description                                             | Values      | Default value |
+| --------- | ------------------------------------------------------- | ----------- | ------------- |
+| `autofocus` | Automatically focus the label of the error summary.   | `boolean`   | false         |
+| `label`   | The label of the error summary.                         | `string`    | -             |
+| `size`    | The size of the error summary.                          | `"default"`, `"large"` | `"default"` |

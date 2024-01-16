@@ -187,6 +187,7 @@ export { IconVolumePlus } from './IconVolumePlus';
 export { IconWhatsapp } from './IconWhatsapp';
 export { IconWifi } from './IconWifi';
 export { IconWifiCrossed } from './IconWifiCrossed';
+export { IconX } from './IconX';
 export { IconYle } from './IconYle';
 export { IconYouth } from './IconYouth';
 export { IconYoutube } from './IconYoutube';

@@ -60,8 +60,6 @@
 
   @include layout.below-small {
     --header-margin: var(--spacing-xs);
-    --action-bar-container-height: 64px;
-    --logo-height: 32px;
   }
 
   &.theme-dark {

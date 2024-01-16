@@ -27,6 +27,10 @@ type SelectedItemsProps<OptionType> = {
    */
   clearButtonAriaLabel?: string;
   /**
+   * Boolean to set for disabled state
+   */
+  disabled?: boolean;
+  /**
    * Dropdown ID
    */
   dropdownId: string;
@@ -171,9 +175,16 @@ type ClearButtonProps = {
   clearButtonAriaLabel: string;
   toggleButtonHidden?: boolean;
   onFocus?: () => void;
+  disabled?: boolean;
 };
 
-export const ClearButton = ({ toggleButtonHidden, onClear, clearButtonAriaLabel, onFocus }: ClearButtonProps) => {
+export const ClearButton = ({
+  toggleButtonHidden,
+  onClear,
+  clearButtonAriaLabel,
+  onFocus,
+  disabled,
+}: ClearButtonProps) => {
   return (
     <button
       type="button"
@@ -181,6 +192,7 @@ export const ClearButton = ({ toggleButtonHidden, onClear, clearButtonAriaLabel,
       onClick={onClear}
       aria-label={clearButtonAriaLabel}
       onFocus={onFocus && onFocus}
+      disabled={disabled}
     >
       <IconCrossCircle />
     </button>
@@ -193,6 +205,7 @@ export const SelectedItems = <OptionType,>({
   clearable = true,
   clearButtonAriaLabel,
   dropdownId,
+  disabled,
   getSelectedItemProps,
   hideItems = false,
   onClear,
@@ -266,7 +279,7 @@ export const SelectedItems = <OptionType,>({
               }}
               onDelete={(e) => {
                 e.stopPropagation();
-                onRemove(_selectedItem);
+                if (!disabled) onRemove(_selectedItem);
               }}
               srOnlyLabel={replaceTokenWithValue(selectedItemSrLabel, selectedItemLabel)}
               {...getSelectedItemProps({
@@ -309,6 +322,7 @@ export const SelectedItems = <OptionType,>({
               (containerEl?.childNodes[0] as HTMLDivElement).setAttribute('tabindex', '0');
             }
           }}
+          disabled={disabled}
         />
       )}
     </>
