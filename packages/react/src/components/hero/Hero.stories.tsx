@@ -668,17 +668,17 @@ AllHeroes.argTypes = {
   ...getDisabledControl('variant'),
 };
 
-// a loremIpsum function creating at least 300 letters long string with spaces
-const loremIpsum = () => {
-  return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, quam sed aliquet faucibus, nisl risus condimentum nisl, quis aliquam ligula mauris nec enim. Donec euismod, quam sed aliquet faucibus, nisl risus condimentum nisl, quis aliquam ligula mauris nec enim. Donec euismod, quam sed aliquet faucibus, nisl risus condimentum nisl, quis aliquam ligula mauris nec enim.';
-};
-
 export const AllHeroesWithArrowIcon = () => {
   const DummyContent = () => {
     return (
       <div style={{ minHeight: '200px', padding: '20px' }}>
-        <h1>{loremIpsum()}</h1>
-        <p>{loremIpsum()}</p>
+        <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, quam sed aliquet faucibus, nisl risus
+          condimentum nisl, quis aliquam ligula mauris nec enim. Donec euismod, quam sed aliquet faucibus, nisl risus
+          condimentum nisl, quis aliquam ligula mauris nec enim. Donec euismod, quam sed aliquet faucibus, nisl risus
+          condimentum nisl, quis aliquam ligula mauris nec enim.
+        </p>
       </div>
     );
   };
