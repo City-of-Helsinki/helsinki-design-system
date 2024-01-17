@@ -816,19 +816,16 @@ export const SimpleFormExample = (args) => {
           )}
           {state.activeStepIndex === 3 && (
             <FileInput
+              id="files"
               multiple
               label="Select file(s)"
               accept=".png,.jpg"
               defaultValue={state.fields.files.value || null}
               language="en"
-              invalid={
-                (!state.fields.files.value || state.fields.files.value.length === 0) &&
-                state.fields.files.visited === true
-              }
               errorText={
-                (!state.fields.age.value || state.fields.age.value.length === 0) &&
-                state.fields.age.visited === true &&
-                'Please enter your age'
+                (!state.fields.files.value || state.fields.files.value.length === 0) &&
+                state.fields.files.visited === true &&
+                'Please updload a file'
               }
               onChange={(event) => dispatch({ type: 'changeField', fieldName: 'files', newValue: event })}
             />
