@@ -1,20 +1,18 @@
 .hds-hero {
+  --arrow-icon-color: var(--color);
+  --arrow-icon-size: 128px;
   --background-color: var(--color-white);
   --color: var(--color-black-90);
+  --diagonal-koros-position: 45%;
+  --horizontal-padding-large: var(--spacing-layout-xs);
+  --horizontal-padding-medium: var(--spacing-layout-xs);
+  --horizontal-padding-small: var(--spacing-layout-2-xs);
+  --horizontal-padding-x-large: var(--spacing-layout-xs);
   --image-position: bottom right;
   --koros-color: var(--color-white);
   --koros-height: 85px;
-  --diagonal-koros-position: 45%;
-  --horizontal-padding-small: var(--spacing-layout-2-xs);
-  --horizontal-padding-medium: var(--spacing-layout-xs);
-  --horizontal-padding-large: var(--spacing-layout-xs);
-  --horizontal-padding-x-large: var(--spacing-layout-xs);
   --padding-horizontal: var(--horizontal-padding-small);
   --padding-vertical: var(--spacing-xl);
-  --arrow-icon-size: 128px;
-  --arrow-margin-top: var(--spacing-2-xl);
-  --arrow-margin-left: auto;
-  --arrow-icon-color: var(--color);
   --z-index: 1;
 
   background-color: var(--background-color);
