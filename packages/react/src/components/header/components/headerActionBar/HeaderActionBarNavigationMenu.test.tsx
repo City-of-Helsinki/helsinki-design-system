@@ -5,7 +5,7 @@ import React from 'react';
 import { getActiveElement } from '../../../cookieConsent/test.util';
 import { Header } from '../../Header';
 // eslint-disable-next-line jest/no-mocks-import
-import mockWindowLocation from '../../../login/__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../../../utils/mockWindowLocation';
 
 jest.mock('../../../../hooks/useMediaQuery', () => ({
   ...(jest.requireActual('../../../../hooks/useMediaQuery') as Record<string, unknown>),

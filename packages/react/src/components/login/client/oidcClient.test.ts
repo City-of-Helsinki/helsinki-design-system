@@ -2,8 +2,7 @@ import to from 'await-to-js';
 import { User, UserManagerSettings, SigninResponse } from 'oidc-client-ts';
 import { waitFor } from '@testing-library/react';
 
-// eslint-disable-next-line jest/no-mocks-import
-import mockWindowLocation from '../__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../../utils/mockWindowLocation';
 // eslint-disable-next-line jest/no-mocks-import
 import { jwtWithHelloStringAmr, jwtWithHelloWorldArrayAmr } from '../__mocks__/jwtTokens';
 import {

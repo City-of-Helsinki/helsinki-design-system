@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-mocks-import */
-import mockWindowLocation from './__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../utils/mockWindowLocation';
 import createConsentController, {
   ConsentController,
   ConsentList,

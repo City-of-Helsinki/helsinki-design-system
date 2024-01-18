@@ -6,7 +6,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { ConsentList, ConsentObject, COOKIE_NAME } from '../cookieConsentController';
 import { ConsentContext } from './ConsentContext';
 import { CookieConsentContext } from './ContextComponent';
-import mockWindowLocation from '../__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../../utils/mockWindowLocation';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import { extractSetCookieArguments, getContentSource } from '../test.util';
 
