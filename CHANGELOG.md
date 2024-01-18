@@ -15,10 +15,12 @@
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
 
+- Warnings about "unmet peer dependency".
 - Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
 - [HeaderActionBarItemWithDropdown] Removed useless `@layer` css style which caused Jest/jsdom tests output errors.
 - [Checkbox] Layout issue when using external label with htmlLabelFor-attribute
@@ -36,6 +38,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -55,6 +58,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -74,6 +78,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -93,6 +98,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -112,6 +118,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -175,6 +182,7 @@ Changes that are not related to specific components
 ### Icon kit
 
 #### Added:
+
 - [Icons] New icons in the Forms category: document-group, document-blank, document-blank-group, folder, folder-group & box
 
 ## [3.4.0] - January, 16, 2024
