@@ -12,7 +12,7 @@
     "airbnb",
     "plugin:prettier/recommended" // this should always be the last item on this array
   ],
-  "plugins": ["@typescript-eslint", "prettier", "jest", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "react", "jest", "import"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "ecmaFeatures": {
