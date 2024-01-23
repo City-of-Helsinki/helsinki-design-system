@@ -25,6 +25,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [TextInput] Hide native password reveal icon (Edge browser)
 
 ### Core
 
@@ -44,6 +45,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Text input] Hide native password reveal icon (Edge browser)
 
 ### Documentation
 

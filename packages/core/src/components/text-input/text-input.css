@@ -152,6 +152,10 @@
   resize: vertical;
 }
 
+.hds-text-input .hds-text-input__input::-ms-reveal {
+  display: none;
+}
+
 .hds-text-input .hds-text-input__input::placeholder {
   color: var(--placeholder-color);
   opacity: 1;
