@@ -19,8 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
+- [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
 
 #### Fixed
 
@@ -41,6 +40,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 - [Component] What has been changed
+- [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
 
 #### Fixed
 
@@ -55,7 +55,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Hero] Added examples and code of the arrow-icon
 
 #### Changed
 

@@ -1,8 +1,15 @@
 import './hero.css';
+import '../../icons/icon.css';
 
 export default {
   title: 'Components/Hero',
 };
+
+const arrowIcon = `
+  <div class="hds-hero__arrow-icon-container">
+    <span class="hds-icon hds-hero--arrow-icon hds-icon--arrow-down" />
+  </div>
+`;
 
 const button = `
   <button type="button" class="hds-button hds-button--secondary hds-button--theme-black" role="link">
@@ -68,6 +75,26 @@ export const ImageBottom = () => `
 
 ImageBottom.storyName = 'Bottom image';
 
+export const ImageBottomWithArrow = () => `
+  <div class="hds-hero hds-hero--image-bottom hds-hero__arrow-icon-spacing-after" style="--koros-height:15px;">
+    <div class="hds-hero__container">
+      <div class="hds-hero__content hds-hero__content--single-column">
+        ${card}
+      </div>
+    </div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
+    ${arrowIcon}
+  </div>`;
+
+ImageBottomWithArrow.storyName = 'Bottom image with arrow icon';
+
 export const DiagonalKoros = () => `
   <style type="text/css">
     .custom-theme {
@@ -108,6 +135,7 @@ export const DiagonalKoros = () => `
         ${image}
       </div>
     </div>
+    ${arrowIcon}
   </div>`;
 DiagonalKoros.storyName = 'Diagonal koros';
 
@@ -259,3 +287,39 @@ export const BackgroundImage = () => `
     </div>
   </div>`;
 BackgroundImage.storyName = 'Background image';
+
+export const BackgroundImageWithArrow = () => `
+  <style type="text/css">
+    .container {
+      background: #ccc;
+      padding: 10px 10px 200px;
+    }
+    .custom-theme {
+      content: "";
+      --background-color: #fff;
+      --color: #000;
+      --bottom-koros-color: #ccc;
+      --top-koros-color: var(--background-color);
+      --koros-height: 15px;
+      --arrow-icon-color: var(--color-brick);
+    }
+  </style>
+  <div class="container">
+    <div class="hds-hero custom-theme hds-hero--background-image hds-hero__arrow-icon-spacing-after">
+      <div class="hds-hero--with-background__container">
+        <div class="hds-hero--with-background__background">
+          <div class="hds-hero--background-image__koros">
+            ${getKoros(true)}
+          </div>
+          ${image}
+        </div>
+        <div class="hds-hero__content">
+          ${card}
+          <div class="hds-hero--with-background__empty-column">
+          </div>
+        </div>
+      </div>
+      ${arrowIcon}
+    </div>
+  </div>`;
+BackgroundImageWithArrow.storyName = 'Background image with arrow icon';

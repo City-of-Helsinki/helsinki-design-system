@@ -20,6 +20,7 @@ See all available theme variables in the table below.
 
 | Theme variable                 | Description                                                                                          |
 | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `--arrow-icon-color`           | Arrow icon color. Default is the current text color (`--color`).                                                   |
 | `--background-color`           | Background color. Default is `--color-white`                                                         |
 | `--color`                      | Text color. Default is `--color-black-90`                                                            |
 | `--image-position`             | How image is aligned if it does not fit the container. Default is `bottom right`                     |
@@ -52,8 +53,10 @@ import { Hero } from 'hds-react';
   variant="imageBottom"
   theme={{
     '--background-color': '#fff',
+    '--arrow-icon-color': 'var(--color-brick)',
   }}
   koros={{ style: 'pulse', dense: true }}
+  showArrowIcon
 >
   <Hero.Title>Hero title</Hero.Title>
   <Hero.Text>
@@ -74,6 +77,7 @@ import { Hero } from 'hds-react';
 <style scoped>
   .custom-theme {
     --koros-height: 5px;
+    --arrow-icon-color: var(--color-brick);
   }
   .black-button.black-button {
     --background-color: #000;
@@ -81,7 +85,7 @@ import { Hero } from 'hds-react';
     --border-color: #000;
   }
 </style>
-<div class="hds-hero hds-hero--image-bottom custom-theme">
+<div class="hds-hero hds-hero--image-bottom custom-theme hds-hero__arrow-icon-spacing-after">
   <div class="hds-hero__container">
     <div class="hds-hero__content hds-hero__content--single-column">
       <div class="hds-hero__card">
@@ -112,6 +116,9 @@ import { Hero } from 'hds-react';
     <div class="hds-hero__image-below-koros">
       <img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />
     </div>
+  </div>
+  <div class="hds-hero__arrow-icon-container">
+    <span class="hds-icon hds-hero--arrow-icon hds-icon--arrow-down" />
   </div>
 </div>
 ```

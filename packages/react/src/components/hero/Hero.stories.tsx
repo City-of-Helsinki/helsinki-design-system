@@ -16,7 +16,6 @@ export default {
     controls: { expanded: true },
     layout: 'fullscreen',
   },
-  args: {},
 };
 
 type DefaultContentProps = {
@@ -295,6 +294,7 @@ WithoutImageKorosOverlay.argTypes = {
     '--background-color': '#000',
     '--color': '#fff',
     '--koros-color': '#000',
+    '--arrow-icon-color': 'var(--color-brick)',
   }),
   ...createKorosArg({ flipVertical: true }),
   ...createVariantArg('noImage'),
@@ -666,4 +666,48 @@ AllHeroes.argTypes = {
   ...getDisabledControl('imageSrc'),
   ...getDisabledControl('centeredContent'),
   ...getDisabledControl('variant'),
+};
+
+export const AllHeroesWithArrowIcon = () => {
+  const DummyContent = () => {
+    return (
+      <div style={{ minHeight: '200px', padding: '20px' }}>
+        <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, quam sed aliquet faucibus, nisl risus
+          condimentum nisl, quis aliquam ligula mauris nec enim. Donec euismod, quam sed aliquet faucibus, nisl risus
+          condimentum nisl, quis aliquam ligula mauris nec enim. Donec euismod, quam sed aliquet faucibus, nisl risus
+          condimentum nisl, quis aliquam ligula mauris nec enim.
+        </p>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'beige' }}>
+      <ImageLeft {...{ ...getDefaultArgs('imageLeft'), showArrowIcon: true }} />
+      <DummyContent />
+      <BackgroundImage
+        {...{ ...getDefaultArgs('backgroundImage'), theme: { '--koros-color': 'beige' }, showArrowIcon: true }}
+      />
+      <DummyContent />
+      <ImageRight {...{ ...getDefaultArgs('imageRight'), showArrowIcon: true }} />
+      <DummyContent />
+      <WithoutImage {...{ ...getDefaultArgs('noImage', noImageOptions[1]), showArrowIcon: true }} />
+      <DummyContent />
+      <DiagonalKoros {...{ ...getDefaultArgs('diagonalKoros'), showArrowIcon: true }} />
+      <DummyContent />
+      <WithoutImageKorosOverlay
+        {...{
+          ...getDefaultArgs('noImage', noImageOptions[2]),
+          showArrowIcon: true,
+        }}
+      />
+      <DummyContent />
+      <ImageBottom {...{ ...getDefaultArgs('imageBottom'), showArrowIcon: true }} />
+      <DummyContent />
+      <WithoutImageAndKoros {...{ ...getDefaultArgs('noImage', noImageOptions[3]), showArrowIcon: true }} />
+      <DummyContent />
+    </div>
+  );
 };
