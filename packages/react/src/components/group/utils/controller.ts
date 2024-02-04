@@ -26,13 +26,14 @@ export function createController({
       return storage.get();
     },
     updateData({ data, updateKeys }) {
-      storage.set(data);
+      const updatedData = storage.set(data);
       if (updateKeys && updateKeys.length) {
         updateKeys.forEach((id) => {
           propHandler.updateKey(id);
         });
       }
       reRenderer();
+      return updatedData;
     },
     triggerChange(props) {
       return onChange({ ...props, controller: this });

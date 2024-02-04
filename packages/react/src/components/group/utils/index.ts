@@ -24,7 +24,7 @@ export type ElementRef = MutableRefObject<HTMLElement | null>;
 
 export type Controller = {
   getProps: ({ id: string, elementProps: DefaultGroupElementProps }) => ReturnType<PropSetter>;
-  updateData: (props: { data: StorageData; updateKeys?: string[] }) => void;
+  updateData: (props: { data: StorageData; updateKeys?: string[] }) => StorageData;
   getData: Storage['get'];
   getMetaData: () => StorageData;
   updateMetaData: (appended: StorageData) => StorageData;

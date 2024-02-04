@@ -32,7 +32,7 @@
   --menu-divider-color: var(--color-black-20);
   --menu-item-background-default: var(--color-white);
   --menu-item-background-hover: var(--color-bus);
-  --menu-item-background-selected: var(--color-white);
+  --menu-item-background-selected: var(--color-bus-light);
   --menu-item-background-selected-hover: var(--color-bus);
   --menu-item-background-disabled: var(--color-white);
   --menu-item-color-default: var(--color-black-90);
@@ -65,7 +65,7 @@
   }
 
   input {
-   /*
+    /*
     * Normalize.css rule
     * 1. Change the font styles in all browsers.
     * 2. Remove the margin in Firefox and Safari.
@@ -73,7 +73,7 @@
     font-family: inherit; /* 1 */
     margin: 0; /* 2 */
 
-   /*
+    /*
     * Normalize.css rule
     * Remove the default vertical scrollbar in IE 10+.
     */
