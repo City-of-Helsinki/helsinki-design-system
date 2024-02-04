@@ -6,8 +6,8 @@ import { createController } from './utils/controller';
 import { Controller, GroupChild, GroupProps } from './utils';
 import { isForwardController } from './utils/forwardController';
 
-export function pickGroupId(props: React.HtmlHTMLAttributes<HTMLElement>) {
-  return props['data-hds-group-id'] || props.id;
+export function pickGroupId(props: React.HtmlHTMLAttributes<HTMLElement> & { groupId: string }) {
+  return props['data-hds-group-id'] || props.groupId || props.id;
 }
 
 export const renderGroupChild = (

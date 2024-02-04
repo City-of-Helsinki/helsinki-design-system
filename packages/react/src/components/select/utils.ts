@@ -1,0 +1,208 @@
+import { ReactElement, ReactNode } from 'react';
+
+import { Group, Option, SelectData, SelectProps } from '.';
+import { getChildrenAsArray } from '../../utils/getChildren';
+import { Controller } from '../group/utils';
+
+export function getSelectDataFromController(controller: Controller): SelectData {
+  return controller.getData() as SelectData;
+}
+
+export function getMultiSelectState(controller: Controller): boolean {
+  return getSelectDataFromController(controller).multiSelect;
+}
+
+export function updateControllerSelectData(controller: Controller, newProps: Partial<SelectData>): SelectData {
+  return controller.updateData({
+    data: newProps,
+  }) as SelectData;
+}
+
+export function getOptionGroupIndex(groups: SelectData['groups'], option: Option): number {
+  if (groups.length === 0) {
+    return -1;
+  }
+  if (groups.length === 1) {
+    return 0;
+  }
+  return groups.findIndex(({ options }) => {
+    return (
+      options.findIndex(({ value, isGroupLabel }) => value === option.value && isGroupLabel === option.isGroupLabel) >
+      -1
+    );
+  });
+}
+
+export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0): number {
+  const optionCountWithoutGroupLabel = group.options.length - 1;
+  if (!optionCountWithoutGroupLabel) {
+    return 0;
+  }
+  return (
+    (group.options.filter((option) => !option.isGroupLabel && option.selected).length + pendingSelectionCount) /
+    optionCountWithoutGroupLabel
+  );
+}
+
+export function updateSelectedOptionInGroups(
+  groups: SelectData['groups'],
+  updatedOption: Required<Option>,
+  isMultiSelect: boolean,
+): SelectData['groups'] {
+  const groupIndex = getOptionGroupIndex(groups, updatedOption);
+
+  return groups.map((group, index) => {
+    const selectedOptionPerc =
+      index === groupIndex && isMultiSelect ? getSelectedOptionsPerc(group, updatedOption.selected ? 1 : -1) : 0;
+    return {
+      options: group.options.map((option) => {
+        if (option.isGroupLabel) {
+          if (index === groupIndex && isMultiSelect) {
+            return {
+              ...option,
+              selected: selectedOptionPerc === 1,
+            };
+          }
+          return option;
+        }
+        if (index === groupIndex && option.value === updatedOption.value) {
+          return {
+            ...updatedOption,
+            selected: !!updatedOption.selected,
+          };
+        }
+        return {
+          ...option,
+          selected: !isMultiSelect ? false : option.selected,
+        };
+      }),
+    };
+  });
+}
+
+export function updateSelectedGroupOptions(
+  groups: SelectData['groups'],
+  updatedOption: Required<Option>,
+): SelectData['groups'] {
+  const groupIndex = getOptionGroupIndex(groups, updatedOption);
+  if (groupIndex < 0) {
+    return groups;
+  }
+  return groups.map((group, index) => {
+    if (index === groupIndex) {
+      return {
+        options: group.options.map((option) => {
+          return {
+            ...option,
+            selected: updatedOption.selected,
+          };
+        }),
+      };
+    }
+    return group;
+  });
+}
+
+export function getAllOptions(groups: SelectData['groups'], filterOutGroupLabels = true): Option[] {
+  const options: Option[] = [];
+  groups.forEach((group) => {
+    group.options.forEach((option) => {
+      if (filterOutGroupLabels && option.isGroupLabel) {
+        return;
+      }
+      options.push(option);
+    });
+  });
+  return options;
+}
+
+export function getSelectedOptions(groups: SelectData['groups']): Option[] {
+  return getAllOptions(groups).filter((option) => !!option.selected);
+}
+
+export function validateOption(option: Option | string): Required<Option> {
+  return typeof option === 'string'
+    ? { value: option, label: option, selected: false, isGroupLabel: false, visible: true }
+    : {
+        ...option,
+        selected: !!option.selected,
+        isGroupLabel: false,
+        visible: typeof option.visible === 'boolean' ? option.visible : true,
+      };
+}
+
+function createGroupLabel(label: string) {
+  return { ...validateOption(label), isGroupLabel: true, visible: !!label };
+}
+
+export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): SelectData['groups'] {
+  if (props.groups) {
+    return props.groups.map((group) => {
+      const labelOption: Required<Option> = createGroupLabel(group.label);
+      const groupOptions = group.options.map(validateOption);
+      return {
+        options: [labelOption, ...groupOptions],
+      };
+    });
+  }
+
+  return [
+    {
+      options: [createGroupLabel(''), ...(props.options || []).map(validateOption)],
+    },
+  ];
+}
+
+export function defaultFilter(option: Option, filterStr: string) {
+  return option.label.toLowerCase().indexOf(filterStr.toLowerCase()) > -1;
+}
+
+export function filterOptions(groups: SelectData['groups'], filterStr: string) {
+  groups.forEach((group) => {
+    // do not count the label
+    let visibleOptions = group.options.length - 1;
+    group.options.forEach((option) => {
+      if (option.isGroupLabel) {
+        return;
+      }
+      // eslint-disable-next-line no-param-reassign
+      option.visible = !filterStr || defaultFilter(option, filterStr);
+      if (!option.visible) {
+        visibleOptions -= 1;
+      }
+    });
+    const groupLabel = group.options[0];
+    groupLabel.visible = !!groupLabel.label && visibleOptions > 0;
+    // check if group label should be visible....
+  });
+  return groups;
+}
+
+export function childrenToGroups(children: SelectProps<ReactElement>['children']): SelectData['groups'] {
+  if (!children || typeof children !== 'object') {
+    return [];
+  }
+  const childArray = getChildrenAsArray(children) as ReactElement[];
+  if (!childArray.length) {
+    return [{ options: [] }];
+  }
+  const hasOptionGroups = childArray[0].type === 'optgroup';
+  const optionElementToOption = (optionEl: ReactNode | ReactElement) => {
+    const props = (optionEl && typeof optionEl === 'object' ? (optionEl as ReactElement).props : {}) as ReactElement<
+      HTMLOptionElement
+    >['props'];
+    const label = String(props.children);
+    const value = props && String(props.value);
+    const selected = !!(props && props.selected);
+    return validateOption({ label, value, selected });
+  };
+  if (hasOptionGroups) {
+    return childArray.map((child) => {
+      const optionElements = child.props.children;
+      const options = optionElements ? getChildrenAsArray(optionElements).map(optionElementToOption) : [];
+      options.unshift(createGroupLabel(String(child.props.label)));
+      return { options };
+    });
+  }
+  return [{ options: [createGroupLabel(''), ...childArray.map(optionElementToOption)] }];
+}

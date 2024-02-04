@@ -1,0 +1,97 @@
+@import '../../../styles/common.scss';
+@import '../../dropdown/dropdown.common.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+}
+
+.root {
+  @extend %dropdownRoot;
+
+  &.open {
+    .angleIcon {
+      transform: translateY(2px) rotateX(180deg);
+    }
+  }
+}
+
+.container {
+  @extend %dropdownWrapper;
+}
+
+.label {
+  color: var(--dropdown-color-default);
+}
+
+.button {
+  @extend %buttonReset;
+
+  align-items: center;
+  color: var(--dropdown-color-default);
+  display: flex;
+  font-size: var(--fontsize-body-l);
+  min-height: var(--menu-item-height);
+  outline: none;
+  padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
+  width: 100%;
+
+  &.placeholder {
+    background-color: inherit;
+    color: var(--placeholder-color);
+  }
+
+  &.placeholder:disabled {
+    color: var(--dropdown-color-disabled);
+  }
+}
+
+/**
+ * THE BUTTON LABEL (SELECTED VALUE OR PLACEHOLDER)
+ */
+.buttonLabel {
+  padding-right: var(--spacing-layout-xs);
+}
+
+.buttonLabel.buttonLabelWithClearButton {
+  padding-right: var(--spacing-3-xl);
+}
+
+.listAndInputContainer {
+  @extend %dropdownMenu;
+
+  background-color: #fff;
+
+  &.listAndInputContainerVisible {
+    display: block;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.listItem {
+  @extend %dropdownMenuItem;
+}
+
+.selectableListItem {
+  &:hover {
+    background-color: var(--menu-item-background-selected);
+  }
+}
+
+.groupLabel {
+  @extend %dropdownMenuItem;
+
+  background-color: #ccc;
+  cursor: default;
+}
+
+.filterInput {
+  padding: var(--spacing-layout-2-xs);
+}
