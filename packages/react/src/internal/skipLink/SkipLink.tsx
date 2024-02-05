@@ -1,7 +1,6 @@
 import React from 'react';
 
-// import core base styles
-import '../../styles/base.css';
+import '../../styles/base.module.css';
 import styles from './SkipLink.module.scss';
 import { useTheme } from '../../hooks/useTheme';
 import classNames from '../../utils/classNames';

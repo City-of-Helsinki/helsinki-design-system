@@ -1,7 +1,6 @@
 import React, { cloneElement, useEffect } from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
+import '../../../../styles/base.module.css';
 import styles from './HeaderUniversalBar.module.scss';
 import { HeaderLink } from '../headerLink/HeaderLink';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';

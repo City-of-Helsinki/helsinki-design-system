@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import useThrottledWheel from '../../hooks/useThrottledWheel';
-// import base styles
-import '../../styles/base.css';
+import '../../styles/base.module.css';
 import styles from './NumberInput.module.scss';
 import { IconMinus, IconPlus } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';

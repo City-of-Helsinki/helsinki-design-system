@@ -4,9 +4,7 @@ import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
 import { ResizeObserver } from '@juggle/resize-observer';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './MenuButton.module.scss';
 import { Menu } from './menu/Menu';
 import { IconAngleDown, IconAngleUp } from '../../icons';

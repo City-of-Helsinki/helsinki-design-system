@@ -2,9 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';

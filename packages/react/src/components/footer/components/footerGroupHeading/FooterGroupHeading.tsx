@@ -1,8 +1,6 @@
 import React from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
-
+import '../../../../styles/base.module.css';
 import styles from './FooterGroupHeading.module.scss';
 import { MergeElementProps } from '../../../../common/types';
 import classNames from '../../../../utils/classNames';

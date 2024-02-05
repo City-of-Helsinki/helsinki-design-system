@@ -1,8 +1,6 @@
 import React, { cloneElement, isValidElement, useEffect } from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
-
+import '../../../../styles/base.module.css';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween, getChildrenAsArray } from '../../../../utils/getChildren';

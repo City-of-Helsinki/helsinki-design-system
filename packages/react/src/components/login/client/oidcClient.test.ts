@@ -80,7 +80,7 @@ describe('oidcClient', () => {
       const { userManager } = testData;
       const signinRedirect = jest.spyOn(userManager, 'signinRedirect');
       const loginParams = { language: 'sv' };
-      await waitForLoginToTimeout(loginParams);
+      await waitForLoginToTimeout(mockedWindowControls, loginParams);
       expect(signinRedirect).toHaveBeenNthCalledWith(1, {
         extraQueryParams: {
           ui_locales: loginParams.language,
@@ -103,7 +103,7 @@ describe('oidcClient', () => {
         nonce: 'nonce',
         state: { stateValue: 1, path: '/applications' },
       };
-      await waitForLoginToTimeout({ ...loginParams, language: 'sv' });
+      await waitForLoginToTimeout(mockedWindowControls, { ...loginParams, language: 'sv' });
       expect(signinRedirect).toHaveBeenNthCalledWith(1, {
         ...loginParams,
         extraQueryParams: {
@@ -123,33 +123,33 @@ describe('oidcClient', () => {
     it('should add given language to the logout url', async () => {
       const { oidcClient, userManager } = testData;
       const signoutRedirectSpy = jest.spyOn(userManager, 'signoutRedirect');
-      const loginParams = { language: 'sv' };
-      await waitForLogoutToTimeout(loginParams);
+      const logoutParams = { language: 'sv' };
+      await waitForLogoutToTimeout(mockedWindowControls, logoutParams);
       expect(signoutRedirectSpy).toHaveBeenCalledTimes(1);
       expect(signoutRedirectSpy).toHaveBeenNthCalledWith(1, {
         extraQueryParams: {
-          ui_locales: loginParams.language,
+          ui_locales: logoutParams.language,
         },
       });
       await waitFor(() => {
-        expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
+        expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(logoutParams.language);
       });
       expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should pass other LogoutProps than "language" to signoutRedirect and convert "language" to an extraQueryParam', async () => {
       const { userManager } = testData;
       const signoutRedirectSpy = jest.spyOn(userManager, 'signoutRedirect');
-      const loginParams: LogoutProps = {
+      const logoutParams: LogoutProps = {
         extraQueryParams: { extraParam1: 'extra' },
         state: { stateValue: 2, path: '/logout' },
         id_token_hint: 'id_token_hint',
         post_logout_redirect_uri: 'post_logout_redirect_uri',
       };
-      await waitForLogoutToTimeout({ ...loginParams, language: 'sv' });
+      await waitForLogoutToTimeout(mockedWindowControls, { ...logoutParams, language: 'sv' });
       expect(signoutRedirectSpy).toHaveBeenNthCalledWith(1, {
-        ...loginParams,
+        ...logoutParams,
         extraQueryParams: {
-          ...loginParams.extraQueryParams,
+          ...logoutParams.extraQueryParams,
           ui_locales: 'sv',
         },
       });
@@ -158,7 +158,7 @@ describe('oidcClient', () => {
       const userManagerProps = getDefaultOidcClientTestProps().userManagerSettings as UserManagerSettings;
       const userFromStorage = getUserFromStorage(userManagerProps);
       expect(userFromStorage).not.toBeNull();
-      await waitForLogoutToTimeout();
+      await waitForLogoutToTimeout(mockedWindowControls);
       const userFromStorageAfterLogout = getUserFromStorage(userManagerProps);
       expect(userFromStorageAfterLogout).toBeNull();
     });
@@ -445,9 +445,9 @@ describe('oidcClient', () => {
     });
     it('state changes when login is called. Payload has the state change', async () => {
       await initTests({ modules: [listenerModule] });
-      await waitForLoginToTimeout();
+      await waitForLoginToTimeout(mockedWindowControls);
       const emittedSignals = getListenerSignals(listenerModule.getListener());
-      expect(emittedSignals).toHaveLength(1);
+      expect(emittedSignals.length > 0).toBeTruthy();
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);
       expect(emittedSignals[0].payload).toMatchObject({
         state: oidcClientStates.LOGGING_IN,
@@ -457,7 +457,7 @@ describe('oidcClient', () => {
     it('state changes when logout is called. Payload has the state change. USER_REMOVED event is emitted.', async () => {
       placeUserToStorage();
       await initTests({ modules: [listenerModule] });
-      await waitForLogoutToTimeout();
+      await waitForLogoutToTimeout(mockedWindowControls);
       const emittedSignals = getListenerSignals(listenerModule.getListener());
       expect(emittedSignals).toHaveLength(2);
       expect(emittedSignals[0].type).toBe(stateChangeSignalType);

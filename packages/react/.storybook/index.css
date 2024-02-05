@@ -1,3 +1,5 @@
+@import '../src/styles/base.module.css';
+
 @font-face {
   font-family: 'HelsinkiGrotesk';
   src: url('../src/fonts/565d73a693abe0776c801607ac28f0bf.woff') format('woff');

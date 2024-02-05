@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './Tabs.module.scss';
 import classNames from '../../utils/classNames';
 import { TabsContext } from './TabsContext';

@@ -1,4 +1,11 @@
-@import url("normalize.css");
 @import url("hds-design-tokens");
 @import url("utils/animations.css");
 @import url("utils/helpers.css");
+
+/*
+ * Normalize.css rule
+ */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}

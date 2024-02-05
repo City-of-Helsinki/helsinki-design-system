@@ -1,9 +1,7 @@
 import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
 import { useCombobox, UseComboboxStateChangeTypes } from 'downshift';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './SearchInput.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import { DropdownMenu } from '../../internal/dropdownMenu/DropdownMenu';

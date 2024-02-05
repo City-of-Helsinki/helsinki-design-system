@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 import pickBy from 'lodash.pickby';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './Accordion.module.scss';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../icons';
