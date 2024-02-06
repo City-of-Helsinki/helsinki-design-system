@@ -1,15 +1,13 @@
-import React, { ChangeEventHandler, DetailedHTMLProps, HTMLAttributes } from 'react';
+import React, { ChangeEventHandler } from 'react';
 
-import styles from './styles.module.scss';
+import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { Option } from '../index';
+import { eventTypes, groupIds, LiElementProps, Option } from '../index';
 import { Controller } from '../../group/utils';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-export type LiElementProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLLIElement> & { label?: string; checked?: boolean; indeterminate?: boolean },
-  never
->;
+export type ListItemProps = LiElementProps & { label?: string; checked?: boolean; indeterminate?: boolean };
+
 type ListItemPropSetterProps = {
   option: Option;
   controller: Controller;
@@ -22,7 +20,7 @@ export const createOptionsListItemProps = ({
   controller,
   isMultiSelect,
   isIntermediate,
-}: ListItemPropSetterProps): LiElementProps => {
+}: ListItemPropSetterProps): ListItemProps => {
   const { isGroupLabel, label, selected } = option;
 
   if (isGroupLabel) {
@@ -37,7 +35,11 @@ export const createOptionsListItemProps = ({
           indeterminate: isIntermediate,
           checked: option.selected,
           onClick: (originalEvent: React.MouseEvent) => {
-            controller.triggerChange({ id: 'list-group', type: 'click', payload: { originalEvent, value: option } });
+            controller.triggerChange({
+              id: groupIds.listGroup,
+              type: eventTypes.click,
+              payload: { originalEvent, value: option },
+            });
           },
         };
   }
@@ -46,9 +48,13 @@ export const createOptionsListItemProps = ({
     children: isMultiSelect ? null : label,
     label: isMultiSelect ? label : undefined,
     checked: isMultiSelect ? option.selected : undefined,
-    indeterminate: false,
+    indeterminate: undefined,
     onClick: (originalEvent: React.MouseEvent) => {
-      controller.triggerChange({ id: 'list-item', type: 'click', payload: { originalEvent, value: option } });
+      controller.triggerChange({
+        id: groupIds.listItem,
+        type: eventTypes.click,
+        payload: { originalEvent, value: option },
+      });
     },
   };
 };
@@ -58,7 +64,7 @@ export function OptionListItem(props: LiElementProps) {
   return <li {...attr}>{children}</li>;
 }
 
-export function MultiSelectOptionListItem(props: LiElementProps) {
+export function MultiSelectOptionListItem(props: ListItemProps) {
   const { label, checked, onClick, indeterminate, ...attr } = props;
   return (
     <li {...attr}>

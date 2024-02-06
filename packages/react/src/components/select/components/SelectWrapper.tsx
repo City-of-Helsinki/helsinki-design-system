@@ -1,6 +1,6 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import styles from './styles.module.scss';
+import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { DefaultGroupElementProps, PropSetter } from '../../group/utils';
 import { RenderGroupChildren } from '../../group/utils/renderChildrenAsGroupChildren';

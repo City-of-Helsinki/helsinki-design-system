@@ -1,14 +1,11 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import styles from './styles.module.scss';
+import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { Controller, DefaultGroupElementProps, PropSetter } from '../../group/utils';
 import { Option, SelectData } from '../index';
 import { createOptionsListItemProps, MultiSelectOptionListItem, OptionListItem } from './OptionListItem';
 import { getAllOptions, getMultiSelectState, getOptionGroupIndex, getSelectedOptionsPerc } from '../utils';
-
-export type UlElementProps = DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, never>;
-export type LiElementProps = DetailedHTMLProps<HTMLAttributes<HTMLLIElement>, never>;
 
 const createListOptions = (data: SelectData, controller: Controller) => {
   const { groups } = data;

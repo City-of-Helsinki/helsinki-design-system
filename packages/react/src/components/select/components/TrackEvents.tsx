@@ -1,5 +1,6 @@
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 
+import { eventTypes } from '..';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { Controller } from '../../group/utils';
 import { getSelectDataFromController } from '../utils';
@@ -18,7 +19,7 @@ export function TrackEvents({
     if (!openStateRef.current) {
       return;
     }
-    controller.triggerChange({ id: 'events', type: 'outside-click' });
+    controller.triggerChange({ id: 'tracker', type: eventTypes.outSideclick });
   }, []);
 
   useEffect(() => {

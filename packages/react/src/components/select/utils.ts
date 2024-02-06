@@ -1,11 +1,15 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { Group, Option, SelectData, SelectProps } from '.';
+import { Group, Option, SelectData, SelectMetaData, SelectProps } from '.';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { Controller } from '../group/utils';
 
 export function getSelectDataFromController(controller: Controller): SelectData {
   return controller.getData() as SelectData;
+}
+
+export function getMetaDataFromController(controller: Controller): SelectMetaData {
+  return controller.getMetaData() as SelectMetaData;
 }
 
 export function getMultiSelectState(controller: Controller): boolean {
@@ -100,6 +104,19 @@ export function updateSelectedGroupOptions(
       };
     }
     return group;
+  });
+}
+
+export function clearAllSelectedOptions(groups: SelectData['groups']): SelectData['groups'] {
+  return groups.map((group) => {
+    return {
+      options: group.options.map((option) => {
+        return {
+          ...option,
+          selected: false,
+        };
+      }),
+    };
   });
 }
 
@@ -205,4 +222,40 @@ export function childrenToGroups(children: SelectProps<ReactElement>['children']
     });
   }
   return [{ options: [createGroupLabel(''), ...childArray.map(optionElementToOption)] }];
+}
+
+export function mergeSearchResultsToCurrent(
+  props: Pick<SelectProps, 'groups' | 'options'>,
+  currentGroups: SelectData['groups'],
+): SelectData['groups'] {
+  const newData = propsToGroups(props);
+  /* const currentWithSelectedOptions: Group[] = current
+    .map((group) => {
+      const selected = getSelectedOptions([group]) as Required<Option>[];
+      console.log('selected', selected);
+      // group label is never shown again, so ignored
+      return { options: selected };
+      // return { options: selected.length ? [group.options[0], ...selected] : [] };
+    })
+    .filter((group) => {
+      return group.options.length > 0;
+    });
+    */
+  const newOptions = getAllOptions(newData);
+  const currentOptionsWithoutMatches = getSelectedOptions(currentGroups).filter((option) => {
+    const sameInNewOptionsIndex = newOptions.findIndex((newOption) => {
+      return newOption.value === option.value;
+    });
+    if (sameInNewOptionsIndex > -1) {
+      newOptions[sameInNewOptionsIndex].selected = true;
+      return false;
+    }
+    return true;
+  });
+
+  const currentHiddenOptionsInAGroup = currentOptionsWithoutMatches.length
+    ? [{ options: currentOptionsWithoutMatches.map((opt) => ({ ...opt, visible: false })) } as Group]
+    : [];
+
+  return [...currentHiddenOptionsInAGroup, ...newData];
 }
