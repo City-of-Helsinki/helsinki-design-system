@@ -1,0 +1,4 @@
+.hds-icon--folder-group {
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M24 3H15L13 1H6V16H24V3ZM8 9H22V14H8V9ZM14 5H22V7H8V3H12L14 5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M3 19H21V17H5V4H3V19Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M0 22H18V20H2V7H0V22Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M24 3H15L13 1H6V16H24V3ZM8 9H22V14H8V9ZM14 5H22V7H8V3H12L14 5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M3 19H21V17H5V4H3V19Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M0 22H18V20H2V7H0V22Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+}
