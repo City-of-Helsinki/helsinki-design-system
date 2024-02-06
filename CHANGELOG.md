@@ -5,6 +5,65 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - February, 6, 2024
+
+### React
+
+#### Changed
+
+- [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
+- Normalize is now removed from the `hds-core` package which React-package relies on. If it causes trouble, it can be included in projects separately.
+
+#### Fixed
+
+- [TextInput] Hide native password reveal icon (Edge browser)
+- The way styles were imported was broken and could result in faulty styles
+
+### Core
+
+#### Changed
+
+- [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
+- Normalize is now removed from the package, if it causes trouble, it can be included in projects separately.
+
+#### Fixed
+
+- [Text input] Hide native password reveal icon (Edge browser)
+
+### Documentation
+
+#### Added
+
+- [Hero] Added examples and code of the arrow-icon
+
+### Figma
+
+#### Added
+
+- [Hero] Added a visual arrow
+- [Hero] Added a photographer information
+- [Tag] Two new variants: Link (underlined) and Action (bordered) with interaction states
+- [Icons] New icons in the Forms category: document-group, document-blank, document-blank-group, folder, folder-group & box
+
+#### Changed
+
+- [Hero] Variants named according to code implementation
+- [Tag] Adjusted focus state offset to 2px
+
+#### Fixed
+
+- [Hero] Fixes for multiple variants e.g fonts, colours, paddings and improved Koro element usage and layout structure.
+
+#### Removed
+
+- [Tag] Removed state variants for informative tags
+- [Hero] Removed the "new value" variant as it was unnecessary.
+
+### Icon kit
+
+#### Added:
+- [Icons] New icons in the Forms category: document-group, document-blank, document-blank-group, folder, folder-group & box
+
 ## [3.4.0] - January, 16, 2024
 
 ### React

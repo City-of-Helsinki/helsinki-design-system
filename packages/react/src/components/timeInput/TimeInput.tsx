@@ -1,8 +1,6 @@
 import React, { FocusEventHandler, useEffect, useRef, useState } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput/TextInput';
 import textInputStyles from '../textInput/TextInput.module.css';

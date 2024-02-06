@@ -1,7 +1,6 @@
 import React from 'react';
 
-// import core base styles
-import 'hds-core';
+import '../../styles/base.module.css';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
 import styles from './Highlight.module.scss';

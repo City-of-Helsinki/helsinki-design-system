@@ -117,3 +117,17 @@
 .korosAligner {
   composes: hds-hero--diagonal-koros__koros-aligner from 'hds-core/lib/components/hero/hero.css';
 }
+
+/* arrow icon specific styles */
+
+.arrowIconContainer {
+  composes: hds-hero__arrow-icon-container from 'hds-core/lib/components/hero/hero.css';
+}
+
+.arrowIcon {
+  composes: hds-hero--arrow-icon from 'hds-core/lib/components/hero/hero.css';
+}
+
+.arrowIconSpacingAfter {
+  composes: hds-hero__arrow-icon-spacing-after from 'hds-core/lib/components/hero/hero.css';
+}

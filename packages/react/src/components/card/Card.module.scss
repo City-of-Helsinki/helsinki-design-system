@@ -1,14 +1,5 @@
 .card {
-  --background-color: var(--color-white);
-  --border-color: var(--color-black-90);
-  --color: var(--color-black-90);
-  --border-width: 2px;
-  --padding-horizontal: var(--spacing-l);
-  --padding-vertical: var(--spacing-m);
-
-  background-color: var(--background-color);
-  color: var(--color);
-  padding: var(--padding-vertical) var(--padding-horizontal);
+  composes: hds-card from 'hds-core/lib/components/card/card.css';
 }
 
 .boxShadow {

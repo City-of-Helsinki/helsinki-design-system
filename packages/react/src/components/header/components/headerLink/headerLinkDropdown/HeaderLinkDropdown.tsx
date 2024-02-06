@@ -1,7 +1,6 @@
 import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 
-// import base styles
-import '../../../../../styles/base.css';
+import '../../../../../styles/base.module.css';
 import styles from './HeaderLinkDropdown.module.scss';
 import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../../icons';
 import { useHeaderContext } from '../../../HeaderContext';

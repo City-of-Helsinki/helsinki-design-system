@@ -7,20 +7,27 @@ export type MockedWindowLocationActions = {
 export default function mockWindowLocation(): MockedWindowLocationActions {
   const globalWin = (global as unknown) as Window;
   let oldWindowLocation: Location | undefined = globalWin.location;
-
-  const unload = () => setTimeout(() => window.dispatchEvent(new Event('unload')), 20);
-  const tracker = jest.fn(unload);
+  const tracker = jest.fn();
+  const unload = (...args: unknown[]) => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    tracker(...args);
+    setTimeout(() => window.dispatchEvent(new Event('unload')), 20);
+  };
+  // If  the tracker is directly set to "value" below,
+  // then calls done with "window.location.assign.bind(window.self)"
+  // will not be tracked. oidc-client-ts does this.
+  const trackerWithUnload = jest.fn(unload);
   const location = Object.defineProperties(
     {},
     {
       ...Object.getOwnPropertyDescriptors(oldWindowLocation),
       assign: {
         enumerable: true,
-        value: tracker,
+        value: trackerWithUnload,
       },
       replace: {
         enumerable: true,
-        value: tracker,
+        value: trackerWithUnload,
       },
     },
   );
@@ -32,6 +39,7 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
   });
 
   const getCalls = () => {
+    // console.log('calls', tracker.mock.calls);
     return (tracker.mock.calls as unknown) as string[];
   };
 

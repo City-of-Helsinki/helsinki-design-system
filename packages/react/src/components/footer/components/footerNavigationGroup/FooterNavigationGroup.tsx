@@ -1,8 +1,6 @@
 import React, { cloneElement, Fragment, isValidElement } from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
-
+import '../../../../styles/base.module.css';
 import { FooterVariant } from '../../Footer.interface';
 import { useMediaQueryLessThan } from '../../../../hooks/useMediaQuery';
 import styles from './FooterNavigationGroup.module.scss';

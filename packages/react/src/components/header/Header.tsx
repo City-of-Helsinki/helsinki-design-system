@@ -12,8 +12,7 @@ import { HeaderSearch } from './components/headerSearch';
 import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { HeaderTheme } from './Header.type';
-// import base styles
-import '../../styles/base.css';
+import '../../styles/base.module.css';
 import styles from './Header.module.scss';
 import { useTheme } from '../../hooks/useTheme';
 

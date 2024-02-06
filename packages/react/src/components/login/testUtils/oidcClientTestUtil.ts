@@ -18,6 +18,8 @@ import { createOidcClient } from '../client/oidcClient';
 import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
 import { UserCreationProps, createSignInResponse, createUserAndPlaceUserToStorage } from './userTestUtil';
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
+// eslint-disable-next-line jest/no-mocks-import
+import { MockedWindowLocationActions } from '../__mocks__/mockWindowLocation';
 
 export type InitTestResult = {
   oidcClient: OidcClient;
@@ -82,41 +84,24 @@ export function createOidcClientTestSuite() {
     return Promise.reject(new Error(`Unknown url ${req.url}`));
   });
 
-  // oidcClient.login redirects the browser.
-  // The returned promise is never resolved - unless an error occurs.
-  // Always reject it here, no need for both fulfillments.
-  async function waitForLoginToTimeout(loginProps?: LoginProps) {
-    let promise: Promise<void>;
-    await expect(async () =>
-      waitFor(
-        () => {
-          if (!promise) {
-            promise = oidcClient.login(loginProps);
-          }
-          return Promise.reject(new Error('Login redirected'));
-        },
-        {
-          timeout: 1000,
-        },
-      ),
-    ).rejects.toThrow();
+  async function waitForLoginToTimeout(mockedWindowControls: MockedWindowLocationActions, loginProps?: LoginProps) {
+    const currentCallCount = mockedWindowControls.getCalls().length;
+    oidcClient.login(loginProps).then(jest.fn()).catch(jest.fn());
+    await waitFor(() => {
+      if (mockedWindowControls.getCalls().length === currentCallCount) {
+        throw new Error('mockedWindowControls not called yet.');
+      }
+    });
   }
 
-  // loginClient.logout redirects the browser.
-  // The returned promise is never resolved.
-  async function waitForLogoutToTimeout(logoutProps?: LogoutProps) {
-    let promise: Promise<void>;
-    await expect(() =>
-      waitFor(
-        () => {
-          if (!promise) {
-            promise = oidcClient.logout(logoutProps);
-          }
-          return promise;
-        },
-        { timeout: 1000 },
-      ),
-    ).rejects.toThrow();
+  async function waitForLogoutToTimeout(mockedWindowControls: MockedWindowLocationActions, logoutProps?: LogoutProps) {
+    const currentCallCount = mockedWindowControls.getCalls().length;
+    oidcClient.logout(logoutProps).then(jest.fn()).catch(jest.fn());
+    await waitFor(() => {
+      if (mockedWindowControls.getCalls().length === currentCallCount) {
+        throw new Error('mockedWindowControls not called yet.');
+      }
+    });
   }
 
   const initTests = async (

@@ -1,8 +1,6 @@
 import React from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './Footer.module.scss';
 import { Koros, KorosType } from '../koros';
 import classNames from '../../utils/classNames';
