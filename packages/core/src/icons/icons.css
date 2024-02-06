@@ -20,6 +20,7 @@
 @import url("bell.css");
 @import url("bell-crossed.css");
 @import url("binoculars.css");
+@import url("box.css");
 @import url("cake.css");
 @import url("calendar.css");
 @import url("calendar-clock.css");
@@ -50,6 +51,9 @@
 @import url("discord.css");
 @import url("display.css");
 @import url("document.css");
+@import url("document-blank.css");
+@import url("document-blank-group.css");
+@import url("document-group.css");
 @import url("download.css");
 @import url("download-cloud.css");
 @import url("drag.css");
@@ -65,6 +69,8 @@
 @import url("face-smile.css");
 @import url("facebook.css");
 @import url("family.css");
+@import url("folder.css");
+@import url("folder-group.css");
 @import url("globe.css");
 @import url("google.css");
 @import url("graph-columns.css");
