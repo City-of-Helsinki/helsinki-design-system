@@ -1,8 +1,6 @@
 import React, { cloneElement, Fragment, isValidElement, MouseEventHandler } from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
-
+import '../../../../styles/base.module.css';
 import styles from './FooterBase.module.scss';
 import { Logo } from '../../../logo';
 import { IconArrowUp } from '../../../../icons';

@@ -21,7 +21,6 @@ import {
   StateChangeSignalPayload,
   stateChangeSignalType,
   waitForSignals,
-  errorSignalType,
 } from './beacon/signals';
 import { LISTEN_TO_ALL_MARKER, SignalNamespace, createBeacon } from './beacon/beacon';
 import { ApiTokenClientProps, TokenData, apiTokensClientEvents, apiTokensClientNamespace } from './apiTokensClient';
@@ -47,6 +46,7 @@ type TestScenarioProps = {
     userInStorageType?: UserInScenarios;
     signInResponseType?: HttpStatusCode;
     renewResponseType?: HttpStatusCode;
+    openIdConfigResponseType?: HttpStatusCode;
   };
   apiTokensClientProps: {
     tokensInStorage?: ApiTokensInScenarios;
@@ -133,15 +133,6 @@ describe('Test all modules together', () => {
   const openIdResponder: Responder = {
     id: 'openIdConfig',
     path: '/openid-configuration',
-    responses: [
-      {
-        status: HttpStatusCode.OK,
-        body: JSON.stringify(openIdConfiguration),
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-    ],
   };
   const responders: Responder[] = [apiTokensResponder, sessionPollerResponder, openIdResponder];
 
@@ -151,6 +142,7 @@ describe('Test all modules together', () => {
       userInStorageType: 'none',
       signInResponseType: HttpStatusCode.OK,
       renewResponseType: HttpStatusCode.OK,
+      openIdConfigResponseType: HttpStatusCode.OK,
     };
     const defaultApiTokensClientProps: TestScenarioProps['apiTokensClientProps'] = {
       tokensInStorage: 'none',
@@ -184,6 +176,21 @@ describe('Test all modules together', () => {
     }
     if (oidcClientProps.userInStorageType === 'valid') {
       return placeUserToStorage();
+    }
+    return null;
+  };
+
+  const setupOpenIdConfigResponse = (props: TestScenarioProps) => {
+    const { oidcClientProps } = props;
+    if (oidcClientProps.openIdConfigResponseType === HttpStatusCode.OK) {
+      const response = {
+        status: HttpStatusCode.OK,
+        body: JSON.stringify(openIdConfiguration),
+        headers: {
+          'content-type': 'application/json',
+        },
+      };
+      addResponse(response, openIdResponder.id);
     }
     return null;
   };
@@ -247,6 +254,7 @@ describe('Test all modules together', () => {
     const initialUser = setupInitialUser(testProps);
 
     const { oidcClient, userManager } = await initTests({});
+    setupOpenIdConfigResponse(testProps);
     setupSignInResponse(testProps);
     setupUserRenewalResponse(testProps, userManager);
 
@@ -362,19 +370,15 @@ describe('Test all modules together', () => {
     });
     it('When login starts, only login process starts', async () => {
       const { getReceivedSignalTypes } = await initAll({});
-      await waitForLoginToTimeout();
+      await waitForLoginToTimeout(mockedWindowControls);
       // open id config is called on every login
       jest.advanceTimersByTime(1000000);
       expect(getRequestCount()).toBe(1);
       expect(getRequestsInfoById(openIdResponder.id as string)).toHaveLength(1);
-      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
-        initSignalType,
-        oidcClientStates.LOGGING_IN,
-        errorSignalType,
-      ]);
+      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, oidcClientStates.LOGGING_IN]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
-      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(8);
+      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(7);
     });
     it('When login handleCallback is called and finished, apiTokens are fetched and session polling starts', async () => {
       const { getReceivedSignalTypes, oidcClient, beacon } = await initAll({});
@@ -517,7 +521,7 @@ describe('Test all modules together', () => {
       });
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(1);
       expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(0);
-      await waitForLogoutToTimeout();
+      await waitForLogoutToTimeout(mockedWindowControls);
       expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
         initSignalType,
         oidcClientStates.LOGGING_OUT,

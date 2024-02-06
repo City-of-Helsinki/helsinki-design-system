@@ -1,8 +1,6 @@
 import React, { cloneElement, Fragment, isValidElement } from 'react';
 
-// import base styles
-import '../../../../styles/base.css';
-
+import '../../../../styles/base.module.css';
 import styles from './FooterNavigation.module.scss';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';

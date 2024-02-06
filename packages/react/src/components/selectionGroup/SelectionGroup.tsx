@@ -1,8 +1,6 @@
 import React, { isValidElement, useEffect } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './SelectionGroup.module.scss';
 import classNames from '../../utils/classNames';
 import { RequiredIndicator } from '../../internal/required-indicator/RequiredIndicator';

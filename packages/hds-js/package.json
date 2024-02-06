@@ -8,9 +8,6 @@
   "module": "./index.js",
   "esnext": "./index.js",
   "types": "./index.d.ts",
-  "sideEffects": [
-    "base.min-*"
-  ],
   "dependencies": {
     "await-to-js": "^3.0.0",
     "cookie": "^0.4.1",

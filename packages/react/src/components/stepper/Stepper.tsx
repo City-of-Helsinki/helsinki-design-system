@@ -1,7 +1,6 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
 
-// import base styles
-import '../../styles/base.css';
+import '../../styles/base.module.css';
 import styles from './Stepper.module.scss';
 import { Step, StepState } from './Step';
 import classNames from '../../utils/classNames';

@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './Table.module.scss';
 import { TableContainer } from './components/TableContainer';
 import { HeaderRow } from './components/HeaderRow';

@@ -9,7 +9,7 @@
   "esnext": "./index.js",
   "types": "./index.d.ts",
   "sideEffects": [
-    "base.min-*"
+    "base.module*"
   ],
   "scripts": {
     "build": "rimraf lib/ && yarn run lint && yarn run tcm  && rollup -c",

@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import notificationStyles from '../notification/Notification.module.css';
 import errorSummaryStyles from './ErrorSummary.module.scss';
 import { IconAlertCircleFill } from '../../icons';

@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './Linkbox.module.scss';
 import { IconArrowRight, IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';

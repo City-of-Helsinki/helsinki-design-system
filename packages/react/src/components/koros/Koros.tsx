@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';
 

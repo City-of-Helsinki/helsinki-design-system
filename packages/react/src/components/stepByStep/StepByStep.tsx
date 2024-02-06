@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import { Button, ButtonProps } from '../button';
 import classNames from '../../utils/classNames';
 import { Link, LinkProps } from '../link';

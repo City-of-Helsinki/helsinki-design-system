@@ -20,11 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
+- Normalize is now removed from the `hds-core` package which React-package relies on. If it causes trouble, it can be included in projects separately.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [TextInput] Hide native password reveal icon (Edge browser)
+- The way styles were imported was broken and could result in faulty styles
 
 ### Core
 
@@ -41,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Changes that are not related to specific components
 - [Component] What has been changed
 - [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
+- Normalize is now removed from the package, if it causes trouble, it can be included in projects separately.
 
 #### Fixed
 

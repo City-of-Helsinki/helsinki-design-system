@@ -1,8 +1,7 @@
 import React, { cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-// import base styles
-import '../../../../styles/base.css';
+import '../../../../styles/base.module.css';
 import styles from './HeaderLink.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';

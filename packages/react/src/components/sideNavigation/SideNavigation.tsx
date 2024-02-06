@@ -1,8 +1,6 @@
 import React, { cloneElement, isValidElement, useEffect } from 'react';
 
-// import base styles
-import '../../styles/base.css';
-
+import '../../styles/base.module.css';
 import styles from './SideNavigation.module.scss';
 import SideNavigationContext from './SideNavigationContext';
 import { FCWithName } from '../../common/types';

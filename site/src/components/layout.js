@@ -5,7 +5,6 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import 'hds-core';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
