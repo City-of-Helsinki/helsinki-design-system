@@ -5,17 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.5.0] - February, 6, 2024
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
 
 #### Changed
 
@@ -29,101 +21,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
 - [Hero] Add support for showing an arrow-icon in the bottom left corner with theming support
 - Normalize is now removed from the package, if it causes trouble, it can be included in projects separately.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Text input] Hide native password reveal icon (Edge browser)
 
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
 - [Hero] Added examples and code of the arrow-icon
 
-#### Changed
-
-Changes that are not related to specific components
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
+- [Hero] Added a visual arrow
+- [Hero] Added a photographer information
+- [Tag] Two new variants: Link (underlined) and Action (bordered) with interaction states
+- [Icons] New icons in the Forms category: document-group, document-blank, document-blank-group, folder, folder-group & box
 
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
+- [Hero] Variants named according to code implementation
+- [Tag] Adjusted focus state offset to 2px
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Hero] Fixes for multiple variants e.g fonts, colours, paddings and improved Koro element usage and layout structure.
 
-### Sketch/Abstract
+#### Removed
 
-#### Breaking
+- [Tag] Removed state variants for informative tags
+- [Hero] Removed the "new value" variant as it was unnecessary.
 
-- [Component] What are the breaking changes?
+### Icon kit
 
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+#### Added:
+- [Icons] New icons in the Forms category: document-group, document-blank, document-blank-group, folder, folder-group & box
 
 ## [3.4.0] - January, 16, 2024
 
