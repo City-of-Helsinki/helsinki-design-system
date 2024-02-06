@@ -33,7 +33,7 @@ export const Example = () => {
     };
   }, []);
   return (
-    <Select groups={groups} label="Label" onChange={onChange}>
+    <Select groups={groups} label="Label" onChange={onChange} showFiltering placeholder="Choose one">
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
@@ -69,5 +69,60 @@ export const MultiSelect = () => {
       error: hasClearedSelections ? `Please select something` : '',
     };
   }, []);
-  return <Select groups={groups} label="Label" onChange={onChange} multiSelect />;
+  return (
+    <Select groups={groups} label="Label" onChange={onChange} multiSelect showFiltering placeholder="Choose many" />
+  );
+};
+
+const createFakeResults = (search: string) => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'result group 1',
+      options: [
+        {
+          value: `${search} hit 1`,
+          label: `${search} hit 1`,
+        },
+        {
+          value: `${search} hit 2`,
+          label: `${search} hit 2`,
+        },
+        {
+          value: `${search} hit 3`,
+          label: `${search} hit 3`,
+        },
+        {
+          value: `match`,
+          label: `same match`,
+        },
+      ],
+    },
+  ];
+  return { groups };
+};
+
+export const Search = () => {
+  // const options: SelectProps['options'] = ['Label1', 'Label2', { value: 'c', label: 'Label3' }];
+  const groups: SelectProps['groups'] = [];
+  const onChange: SelectProps['onChange'] = useCallback((selected, data) => {
+    console.log('onChange data', selected, data);
+  }, []);
+  const onSearch: SelectProps['onSearch'] = useCallback(async (searchValue, selected, data) => {
+    console.log('onSearch data', searchValue, selected, data);
+    await new Promise((res) => {
+      setTimeout(res, 1000);
+    });
+    return Promise.resolve(searchValue ? createFakeResults(searchValue) : {});
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      onSearch={onSearch}
+      multiSelect
+      showSearch
+      placeholder="Choose many"
+    />
+  );
 };

@@ -59,8 +59,8 @@ export type GroupChildFunction = FunctionComponent<{ controller: Controller }>;
 
 export type GroupChild<P = DefaultGroupElementProps> = ComponentType<HTMLElementAttributesWithChildren & P>;
 
-export type GroupProps = PropsWithChildren<unknown> & {
-  propSetter: PropSetter;
+export type GroupProps<T> = PropsWithChildren<unknown> & {
+  propSetter: PropSetter<T>;
   initialData: StorageData;
   metaData?: StorageData;
   onChange?: ChangeHandler;

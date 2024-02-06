@@ -1,5 +1,5 @@
-@import '../../../styles/common.scss';
-@import '../../dropdown/dropdown.common.scss';
+@import '../../styles/common.scss';
+@import '../dropdown/dropdown.common.scss';
 
 .wrapper {
   display: flex;
@@ -28,14 +28,19 @@
 .button {
   @extend %buttonReset;
 
-  align-items: center;
   color: var(--dropdown-color-default);
   display: flex;
   font-size: var(--fontsize-body-l);
-  min-height: var(--menu-item-height);
   outline: none;
-  padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
-  width: 100%;
+  padding: 0;
+
+  &.selection {
+    flex-grow: 1;
+  }
+
+  &.icon {
+    flex-shrink: 1;
+  }
 
   &.placeholder {
     background-color: inherit;
@@ -94,4 +99,20 @@
 
 .filterInput {
   padding: var(--spacing-layout-2-xs);
+}
+
+.searchAndFilterInfoContainer {
+  padding: var(--spacing-layout-2-xs);
+}
+
+.selectedOptionsContainer {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  min-height: var(--menu-item-height);
+  padding: var(--spacing-s);
+}
+
+.tagContainer {
+  flex-grow: 1;
 }

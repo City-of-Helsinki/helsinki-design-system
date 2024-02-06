@@ -1,33 +1,45 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
-
-import { SelectData } from '.';
-import classNames from '../../utils/classNames';
+import { groupIds, PropSetterElementTypes } from '.';
 import { PropSetter } from '../group/utils';
-import styles from './components/styles.module.scss';
-import { UlElementProps } from './components/OptionsList';
-import { createInputOnChangeListener } from '../group/utils/propSetterHelpers';
+import { optionsListPropSetter } from './components/OptionsList';
+import { selectionsAndListsContainerPropSetter } from './components/SelectionsAndListsContainer';
+import { selectedOptionsPropSetter } from './components/SelectedOptions';
+import { labelPropSetter } from './components/Label';
+import { containerPropSetter } from './components/Container';
+import { filterInputPropSetter } from './components/FilterInput';
+import { listAndInputContainerPropSetter } from './components/ListAndInputContainer';
+import { searchAndFilterInfoPropSetter } from './components/SearchAndFilterInfo';
+import { searchInputPropSetter } from './components/SearchInput';
+import { getSelectDataFromController } from './utils';
 
-export type InputElementProps = DetailedHTMLProps<HTMLAttributes<HTMLInputElement>, never>;
-
-export const filterInputPropSetter: PropSetter<InputElementProps> = (props) => {
-  const { controller } = props;
-  const data = controller.getData() as SelectData;
-  const isOpen = data.open;
-  return {
-    className: classNames(styles.filterInput, isOpen && styles.filterInputVisible),
-    children: data.label,
-    ...createInputOnChangeListener(props),
-    onButtonClick: () => {
-      console.log('--->btn');
-    },
-    value: controller.getMetaData().filter,
-  };
+const propSettersByGroupId: Partial<Record<keyof typeof groupIds, PropSetter<PropSetterElementTypes>>> = {
+  selectedOptions: selectedOptionsPropSetter,
+  container: containerPropSetter,
+  selectionsAndLists: selectionsAndListsContainerPropSetter,
+  list: optionsListPropSetter,
+  label: labelPropSetter,
+  filter: filterInputPropSetter,
+  search: searchInputPropSetter,
+  listAndInputContainer: listAndInputContainerPropSetter,
+  searchAndFilterInfo: searchAndFilterInfoPropSetter,
 };
 
-export const listAndInputContainerPropSetter: PropSetter<UlElementProps> = ({ controller }) => {
-  const data = controller.getData() as SelectData;
-  const isOpen = data.open;
-  return {
-    className: classNames(styles.listAndInputContainer, isOpen && styles.listAndInputContainerVisible),
-  };
+export const selectPropSetter: PropSetter<PropSetterElementTypes> = (propSetterProps) => {
+  const { id, controller } = propSetterProps;
+  const propSetter = propSettersByGroupId[id];
+  if (propSetter) {
+    return propSetter(propSetterProps);
+  }
+
+  const data = getSelectDataFromController(controller);
+  if (id === 'assistiveText') {
+    return {
+      children: data.assistiveText || '',
+    };
+  }
+  if (id === 'error') {
+    return {
+      children: data.error || '',
+    };
+  }
+  return {};
 };
