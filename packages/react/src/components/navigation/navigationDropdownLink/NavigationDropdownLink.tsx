@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
 import { NavigationItem } from '../navigationItem/NavigationItem';

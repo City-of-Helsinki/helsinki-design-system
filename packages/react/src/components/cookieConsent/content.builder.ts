@@ -1,4 +1,4 @@
-import _get from 'lodash.get';
+import { get, set } from 'lodash';
 
 import type {
   CookieData,
@@ -143,40 +143,15 @@ function getCommonCookie(language: string, id: string): CookieData {
   return cookie;
 }
 
-// lodash.set has a high vulnerability without a fix
-// replaced with this custom merge function
-export function setPropsToObject(
-  targetObject: Record<string, unknown>,
-  path: string,
-  value: unknown,
-): Record<string, unknown> {
-  if (path.includes('_')) {
-    throw new Error('String "_" is not allowed in the path to avoid prototype pollution');
-  }
-  const splitPath = path.split('.');
-  const lastPath = splitPath.pop();
-  const targetPointInObject = splitPath.reduce((currentObj, currentPath) => {
-    if (typeof currentObj[currentPath] === 'undefined') {
-      // eslint-disable-next-line no-param-reassign
-      currentObj[currentPath] = Object.create(null);
-    }
-    return currentObj[currentPath];
-  }, targetObject);
-  if (lastPath) {
-    targetPointInObject[lastPath] = value;
-  }
-  return targetObject;
-}
-
 function mergeObjects(target: MergableContent, source: MergableContent, paths: string[]) {
   paths.forEach((path) => {
-    const pickedFromSource = _get(source, path);
+    const pickedFromSource = get(source, path);
     if (pickedFromSource) {
-      const pickedFromTarget = _get(target, path);
+      const pickedFromTarget = get(target, path);
       if (typeof pickedFromSource === 'string') {
-        setPropsToObject(target, path, pickedFromSource || pickedFromTarget);
+        set(target, path, pickedFromSource || pickedFromTarget);
       } else {
-        setPropsToObject(target, path, {
+        set(target, path, {
           ...pickedFromTarget,
           ...pickedFromSource,
         });

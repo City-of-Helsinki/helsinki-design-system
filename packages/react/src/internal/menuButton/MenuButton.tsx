@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
 import { ResizeObserver } from '@juggle/resize-observer';

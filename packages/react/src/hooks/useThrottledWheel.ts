@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import throttle from 'lodash.throttle';
+import { throttle } from 'lodash';
 /*
   A Hook that will throttle the wheel event
   for 200ms or with chosen delay on given html input reference object.

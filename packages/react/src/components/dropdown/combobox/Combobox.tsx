@@ -2,8 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
-import isEqual from 'lodash.isequal';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId, isEqual } from 'lodash';
 import { useVirtual } from 'react-virtual';
 
 // import base styles
