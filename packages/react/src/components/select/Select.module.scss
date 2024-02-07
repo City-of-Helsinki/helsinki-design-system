@@ -36,6 +36,10 @@
 
   &.selection {
     flex-grow: 1;
+
+    span {
+      padding-right: var(--spacing-2-xs);
+    }
   }
 
   &.icon {
@@ -63,6 +67,13 @@
   padding-right: var(--spacing-3-xl);
 }
 
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
 .listAndInputContainer {
   @extend %dropdownMenu;
 
@@ -71,17 +82,13 @@
   &.listAndInputContainerVisible {
     display: block;
   }
-}
 
-.list {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
-
-.listItem {
-  @extend %dropdownMenuItem;
+  &.withSearchOrFilter {
+    .listContainer {
+      border-top: 1px solid var(--color-black-20);
+      margin-top: var(--spacing-layout-2-xs);
+    }
+  }
 }
 
 .selectableListItem {
@@ -90,11 +97,29 @@
   }
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  &.shiftOptions {
+    .selectableListItem:not(.groupLabel) {
+      padding-left: var(--spacing-layout-xs);
+    }
+  }
+}
+
+.listItem {
+  @extend %dropdownMenuItem;
+}
+
 .groupLabel {
   @extend %dropdownMenuItem;
 
-  background-color: #ccc;
+  background-color: var(--color-black-5);
   cursor: default;
+  font-weight: bold;
 }
 
 .filterInput {
@@ -115,4 +140,9 @@
 
 .tagContainer {
   flex-grow: 1;
+}
+
+.tag {
+  margin-bottom: var(--spacing-xs);
+  margin-right: var(--spacing-xs);
 }

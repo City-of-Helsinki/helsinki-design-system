@@ -133,6 +133,22 @@ export function getAllOptions(groups: SelectData['groups'], filterOutGroupLabels
   return options;
 }
 
+export function countVisibleOptions(groups: SelectData['groups']): number {
+  let count = 0;
+  groups.forEach((group) => {
+    group.options.forEach((option) => {
+      if (!option.isGroupLabel && option.visible) {
+        count += 1;
+      }
+    });
+  });
+  return count;
+}
+
+export function getVisibleGroupLabels(groups: SelectData['groups']): Option[] {
+  return groups.map((group) => group.options[0]).filter((option) => option && option.label && option.visible);
+}
+
 export function getSelectedOptions(groups: SelectData['groups']): Option[] {
   return getAllOptions(groups).filter((option) => !!option.selected);
 }

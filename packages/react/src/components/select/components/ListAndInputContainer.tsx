@@ -1,24 +1,29 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 
 import styles from '../Select.module.scss';
-import { SelectData, UlElementProps } from '..';
+import { UlElementProps } from '..';
 import classNames from '../../../utils/classNames';
 import { PropSetter } from '../../group/utils';
 import { RenderGroupChildren } from '../../group/utils/renderChildrenAsGroupChildren';
+import { getMetaDataFromController, getSelectDataFromController } from '../utils';
 
 export const listAndInputContainerPropSetter: PropSetter<UlElementProps> = ({ controller }) => {
-  const data = controller.getData() as SelectData;
-  const isOpen = data.open;
+  const { open, showFiltering, showSearch } = getSelectDataFromController(controller);
+  const hasInput = showFiltering || showSearch;
   return {
-    className: classNames(styles.listAndInputContainer, isOpen && styles.listAndInputContainerVisible),
+    className: classNames(
+      styles.listAndInputContainer,
+      open && styles.listAndInputContainerVisible,
+      hasInput && styles.withSearchOrFilter,
+    ),
   };
 };
 
 export const ListAndInputContainer = RenderGroupChildren((props, controller, childRenderer) => {
-  const ref = controller.getMetaData().listContainerRef as RefObject<HTMLDivElement>;
+  const { listContainerRef } = getMetaDataFromController(controller);
   const { children, ...attr } = props;
   return (
-    <div {...attr} ref={ref}>
+    <div {...attr} ref={listContainerRef}>
       {childRenderer(children, controller)}
     </div>
   );

@@ -1,4 +1,11 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, LabelHTMLAttributes, RefObject } from 'react';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  HTMLAttributes,
+  LabelHTMLAttributes,
+  ReactNode,
+  RefObject,
+} from 'react';
 
 import { GroupProps } from '../group/utils';
 
@@ -24,6 +31,7 @@ export type SelectProps<P = unknown> = {
   showFiltering?: boolean;
   showSearch?: boolean;
   placeholder?: string;
+  icon?: ReactNode;
 };
 
 export type SelectData = Required<
@@ -35,8 +43,8 @@ export type SelectData = Required<
   error?: string;
 };
 
-export type SelectMetaData = {
-  listContainerRef: RefObject<HTMLElement>;
+export type SelectMetaData = Pick<SelectProps, 'icon'> & {
+  listContainerRef: RefObject<HTMLDivElement>;
   searchUpdate: number;
   selectionUpdate: number;
   idPrefix: string;

@@ -4,7 +4,7 @@ import { OptionsList } from './components/OptionsList';
 import { SelectedOptions } from './components/SelectedOptions';
 import { Group } from '../group/Group';
 import { ChangeHandler } from '../group/utils';
-import { SelectProps, SelectData, groupIds } from '.';
+import { SelectProps, groupIds } from '.';
 import {
   getMetaDataFromController,
   getSelectDataFromController,
@@ -33,6 +33,7 @@ export function Select({
   showFiltering,
   showSearch,
   placeholder,
+  icon,
   onChange,
   onSearch,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
@@ -58,6 +59,7 @@ export function Select({
       search: '',
       isSearching: false,
       currentSearchPromise: null,
+      icon,
     }),
     [],
   );
@@ -72,7 +74,7 @@ export function Select({
     groupDataUpdater(changeProps);
 
     if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
-      const current = getData() as SelectData;
+      const current = getData();
       updateMetaData({ isSearching: true });
       onSearch(
         getMetaData().search as string,
@@ -88,7 +90,7 @@ export function Select({
         });
     }
     if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
-      const current = getData() as SelectData;
+      const current = getData();
       const newProps = onChange(
         getSelectedOptions(current.groups).map((opt) => opt.value),
         current,
