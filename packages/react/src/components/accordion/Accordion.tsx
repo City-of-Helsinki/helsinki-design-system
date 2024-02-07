@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
-import pickBy from 'lodash.pickby';
+import { uniqueId, pickBy } from 'lodash';
 
 // import base styles
 import '../../styles/base.css';

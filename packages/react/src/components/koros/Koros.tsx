@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 
 // import base styles
 import '../../styles/base.css';

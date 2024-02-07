@@ -9,8 +9,7 @@ import {
   UseMultipleSelectionStateChangeOptions,
   UseMultipleSelectionState,
 } from 'downshift';
-import isEqual from 'lodash.isequal';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId, isEqual } from 'lodash';
 import { useVirtual } from 'react-virtual';
 
 // import base styles

@@ -1,4 +1,4 @@
-import isEqual from 'lodash.isequal';
+import { isEqual } from 'lodash';
 
 export const DROPDOWN_MENU_ITEM_HEIGHT = 52;
 
