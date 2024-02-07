@@ -4,21 +4,23 @@ import { TextInput } from '../../textInput/TextInput';
 import { DefaultGroupElementProps, PropSetter } from '../../group/utils';
 import { IconSearch } from '../../../icons';
 import styles from '../Select.module.scss';
-import { InputElementProps, SelectData } from '..';
+import { InputElementProps } from '..';
 import classNames from '../../../utils/classNames';
 import { createInputOnChangeListener } from '../../group/utils/propSetterHelpers';
+import { getMetaDataFromController, getSelectDataFromController } from '../utils';
 
 export const filterInputPropSetter: PropSetter<InputElementProps> = (props) => {
   const { controller } = props;
-  const data = controller.getData() as SelectData;
+  const { label } = getSelectDataFromController(controller);
+  const { filter } = getMetaDataFromController(controller);
   return {
     className: classNames(styles.filterInput),
-    children: data.label,
+    children: label,
     ...createInputOnChangeListener(props),
     onButtonClick: () => {
       console.log('--->btn');
     },
-    value: controller.getMetaData().filter,
+    value: filter,
   };
 };
 

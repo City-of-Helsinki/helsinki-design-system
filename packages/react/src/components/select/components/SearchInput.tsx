@@ -4,21 +4,23 @@ import styles from '../Select.module.scss';
 import { TextInput } from '../../textInput/TextInput';
 import { DefaultGroupElementProps, PropSetter } from '../../group/utils';
 import { IconSearch } from '../../../icons';
-import { InputElementProps, SelectData } from '..';
+import { InputElementProps } from '..';
 import classNames from '../../../utils/classNames';
 import { createInputOnChangeListener } from '../../group/utils/propSetterHelpers';
+import { getSelectDataFromController, getMetaDataFromController } from '../utils';
 
 export const searchInputPropSetter: PropSetter<InputElementProps> = (props) => {
   const { controller } = props;
-  const data = controller.getData() as SelectData;
+  const { label } = getSelectDataFromController(controller);
+  const { search } = getMetaDataFromController(controller);
   return {
     className: classNames(styles.filterInput),
-    children: data.label,
+    children: label,
     ...createInputOnChangeListener(props),
     onButtonClick: () => {
       console.log('--->btn');
     },
-    value: controller.getMetaData().search,
+    value: search,
   };
 };
 

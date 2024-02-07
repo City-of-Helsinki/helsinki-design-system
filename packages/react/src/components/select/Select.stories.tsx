@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
 import { SelectProps } from '.';
+import { IconLocation } from '../../icons';
 import { Select } from './Select';
 
 export default {
@@ -13,7 +14,7 @@ export const Example = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: ['Fruits', 'Vegetables'],
+      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
     },
     {
       label: 'Bad choices',
@@ -33,7 +34,14 @@ export const Example = () => {
     };
   }, []);
   return (
-    <Select groups={groups} label="Label" onChange={onChange} showFiltering placeholder="Choose one">
+    <Select
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      showFiltering
+      placeholder="Choose one"
+      icon={<IconLocation />}
+    >
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
@@ -70,7 +78,15 @@ export const MultiSelect = () => {
     };
   }, []);
   return (
-    <Select groups={groups} label="Label" onChange={onChange} multiSelect showFiltering placeholder="Choose many" />
+    <Select
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      multiSelect
+      showFiltering
+      placeholder="Choose many"
+      icon={<IconLocation />}
+    />
   );
 };
 

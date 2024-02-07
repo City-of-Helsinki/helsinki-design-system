@@ -4,13 +4,27 @@ import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { Controller, DefaultGroupElementProps, PropSetter } from '../../group/utils';
 import { createOnClickListener } from '../../group/utils/propSetterHelpers';
-import { getMultiSelectState, getSelectDataFromController, getSelectedOptions } from '../utils';
+import {
+  getMetaDataFromController,
+  getMultiSelectState,
+  getSelectDataFromController,
+  getSelectedOptions,
+} from '../utils';
 import { ButtonElementProps, SelectedTag, selectedTagPropSetter } from './SelectedTag';
 import { IconCrossCircle, IconAngleDown } from '../../../icons';
-import { DivElementProps, groupIds, Option } from '..';
+import { DivElementProps, groupIds, Option, SelectMetaData } from '..';
 
-type TagControllerProps = DivElementProps & { options: Option[]; placeholder: string; controller: Controller };
-type SingleOptionButtonProps = ButtonElementProps & { option?: Option; placeholder: string };
+type TagControllerProps = DivElementProps & {
+  options: Option[];
+  placeholder: string;
+  controller: Controller;
+  icon: SelectMetaData['icon'];
+};
+type SingleOptionButtonProps = ButtonElementProps & {
+  option?: Option;
+  placeholder: string;
+  icon: SelectMetaData['icon'];
+};
 type SelectedOptionsProps = DivElementProps & {
   singleOptionButtonProps?: SingleOptionButtonProps;
   clearButtonProps: ButtonElementProps;
@@ -35,26 +49,33 @@ export function ArrowButton(props: ButtonElementProps) {
 }
 
 export function SingleSelectButton(props: SingleOptionButtonProps) {
-  const { option, placeholder, ...attr } = props || {};
+  const { option, placeholder, icon, ...attr } = props || {};
   const value = (option && option.label) || placeholder;
   return (
     <button type="button" {...attr}>
+      {icon && <span>{icon}</span>}
       {value}
     </button>
   );
 }
 export function Tags(props: TagControllerProps) {
-  const { options, placeholder, controller, ...attr } = props || {};
+  const { options, placeholder, controller, icon, ...attr } = props || {};
   const children =
     options && options.length
       ? options.map((option) => <SelectedTag {...selectedTagPropSetter({ option, controller })} key={option.value} />)
       : placeholder;
-  return <div {...attr}>{children}</div>;
+  return (
+    <div {...attr}>
+      {icon && <span>{icon}</span>}
+      {children}
+    </div>
+  );
 }
 
 export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (propSetterProps) => {
   const { controller } = propSetterProps;
   const { groups, placeholder } = getSelectDataFromController(controller);
+  const { icon } = getMetaDataFromController(controller);
   const isMultiSelect = getMultiSelectState(controller);
   const selectedOptions = getSelectedOptions(groups);
   const clearButtonProps = {
@@ -76,6 +97,7 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
         options: selectedOptions,
         placeholder,
         controller,
+        icon,
         // this onCLick goes to div!
         ...createOnClickListener(propSetterProps),
       },
@@ -90,6 +112,7 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
       option: selectedOptions[0],
       ...createOnClickListener(propSetterProps),
       placeholder,
+      icon,
     },
   };
 };

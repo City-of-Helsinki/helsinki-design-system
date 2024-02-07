@@ -12,7 +12,7 @@ import {
 
 export const groupDataUpdater: ChangeHandler = ({ id, type, controller, payload }) => {
   const current = getSelectDataFromController(controller);
-  console.log('id,type', id, type, payload);
+  // console.log('id,type', id, type, payload);
 
   const groupIdWithType = `${id}_${type}`;
 
