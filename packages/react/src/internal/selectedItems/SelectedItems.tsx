@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 import { ResizeObserver } from '@juggle/resize-observer';
 
 import styles from './SelectedItems.module.scss';

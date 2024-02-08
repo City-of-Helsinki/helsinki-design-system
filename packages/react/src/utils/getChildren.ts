@@ -1,5 +1,5 @@
 import React, { isValidElement } from 'react';
-import flatten from 'lodash.flatten';
+import { flatten } from 'lodash';
 
 import { FCWithName } from '../common/types';
 
