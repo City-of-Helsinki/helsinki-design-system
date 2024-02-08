@@ -30,12 +30,14 @@ export type SelectProps<P = unknown> = {
   multiSelect?: boolean;
   showFiltering?: boolean;
   showSearch?: boolean;
+  required?: boolean;
   placeholder?: string;
+  id?: string;
   icon?: ReactNode;
 };
 
 export type SelectData = Required<
-  Pick<SelectProps, 'label' | 'open' | 'multiSelect' | 'showFiltering' | 'showSearch' | 'placeholder'>
+  Pick<SelectProps, 'label' | 'open' | 'multiSelect' | 'showFiltering' | 'showSearch' | 'placeholder' | 'required'>
 > & {
   groups: Array<Group>;
   assistiveText?: string;
@@ -45,13 +47,21 @@ export type SelectData = Required<
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   listContainerRef: RefObject<HTMLDivElement>;
+  tagListRef: RefObject<HTMLDivElement>;
+  showAllButtonRef: RefObject<HTMLButtonElement>;
   searchUpdate: number;
   selectionUpdate: number;
-  idPrefix: string;
   filter: string;
   search: string;
   isSearching: boolean;
   currentSearchPromise: Promise<unknown> | undefined;
+  showAllTags: boolean;
+  elementIds: {
+    button: string;
+    label: string;
+    container: string;
+    tagList: string;
+  };
 };
 
 export type DivElementProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>;
@@ -80,6 +90,9 @@ export const groupIds = {
   assistiveText: 'assistiveText',
   arrowButton: 'arrowButton',
   clearButton: 'clearButton',
+  tagList: 'tagList',
+  showAllButton: 'showAllButton',
+  clearAllButton: 'clearAllButton',
 };
 
 export const eventTypes = {
@@ -92,6 +105,8 @@ export const groupIdEvents = {
   selectedOptionsClick: `${groupIds.selectedOptions}_${eventTypes.click}`,
   listItemClick: `${groupIds.listItem}_${eventTypes.click}`,
   clearClick: `${groupIds.clearButton}_${eventTypes.click}`,
+  clearAllClick: `${groupIds.clearAllButton}_${eventTypes.click}`,
+  showAllClick: `${groupIds.showAllButton}_${eventTypes.click}`,
   arrowClick: `${groupIds.arrowButton}_${eventTypes.click}`,
   tagClick: `${groupIds.tag}_${eventTypes.click}`,
   listGroupClick: `${groupIds.listGroup}_${eventTypes.click}`,

@@ -146,3 +146,44 @@
   margin-bottom: var(--spacing-xs);
   margin-right: var(--spacing-xs);
 }
+
+.tagListContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: row;
+  max-height: 10px;
+  overflow: hidden;
+
+  &.tagListExpanded {
+    max-height: unset;
+  }
+}
+
+.hiddenButton {
+  display: none;
+}
+
+.tagListButtons {
+  display: flex;
+  flex-direction: row;
+
+  > button:first-child {
+    margin-right: var(--spacing-xs);
+  }
+}
+
+.clearAllButton {
+  --background-color-hover: var(--color-error-light);
+  --border-color: var(--color-error);
+  --border-color-hover: var(--color-error);
+  --border-color-focus: var(--color-error);
+  --border-color-hover-focus: var(--color-error);
+  --color: var(--color-error);
+  --color-hover: var(--color-error);
+  --color-focus: var(--color-error);
+  --color-hover-focus: var(--color-error);
+}

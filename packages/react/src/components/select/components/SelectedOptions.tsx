@@ -14,7 +14,7 @@ import { ButtonElementProps, SelectedTag, selectedTagPropSetter } from './Select
 import { IconCrossCircle, IconAngleDown } from '../../../icons';
 import { DivElementProps, groupIds, Option, SelectMetaData } from '..';
 
-type TagControllerProps = DivElementProps & {
+type TagContainerProps = DivElementProps & {
   options: Option[];
   placeholder: string;
   controller: Controller;
@@ -29,7 +29,7 @@ type SelectedOptionsProps = DivElementProps & {
   singleOptionButtonProps?: SingleOptionButtonProps;
   clearButtonProps: ButtonElementProps;
   arrowButtonProps: ButtonElementProps;
-  tagContainerProps?: TagControllerProps;
+  tagContainerProps?: TagContainerProps;
 };
 
 export function ClearButton(props: ButtonElementProps) {
@@ -58,7 +58,7 @@ export function SingleSelectButton(props: SingleOptionButtonProps) {
     </button>
   );
 }
-export function Tags(props: TagControllerProps) {
+export function Tags(props: TagContainerProps) {
   const { options, placeholder, controller, icon, ...attr } = props || {};
   const children =
     options && options.length
@@ -137,22 +137,3 @@ export function SelectedOptions(props: DefaultGroupElementProps) {
     </div>
   );
 }
-
-/*  export const selectedOptionsPropSetter: PropSetter<ButtonElementProps> = (propSetterProps) => {
-  const { controller } = propSetterProps;
-  const { groups, placeholder } = getSelectDataFromController(controller);
-  const isMultiSelect = getMultiSelectState(controller);
-  const selectedOptions = getSelectedOptions(groups);
-  const children = isMultiSelect
-    ? selectedOptions.map((option) => (
-        <SelectedTag {...selectedTagPropSetter({ option, controller })} key={option.value} />
-      ))
-    : (selectedOptions[0] && selectedOptions[0].value) || placeholder;
-  return {
-    className: classNames(styles.button),
-    ...createOnClickListener(propSetterProps),
-    children,
-  };
-};
-
-*/

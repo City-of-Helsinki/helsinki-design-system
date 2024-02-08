@@ -1,9 +1,10 @@
-import { RefObject, useCallback, useEffect, useRef } from 'react';
+import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { eventTypes } from '..';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { Controller } from '../../group/utils';
-import { getSelectDataFromController } from '../utils';
+import { getMetaDataFromController, getSelectDataFromController } from '../utils';
+import { updateShowAllButtonCount } from './TagList';
 
 export function TrackEvents({
   controller,
@@ -24,6 +25,9 @@ export function TrackEvents({
 
   useEffect(() => {
     openStateRef.current = !!getSelectDataFromController(controller).open;
+  });
+  useLayoutEffect(() => {
+    updateShowAllButtonCount(getMetaDataFromController(controller));
   });
   useOutsideClick({ ref: listElementRef, callback });
   return null;
