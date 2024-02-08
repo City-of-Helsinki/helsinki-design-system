@@ -10,6 +10,7 @@ import { listAndInputContainerPropSetter } from './components/ListAndInputContai
 import { searchAndFilterInfoPropSetter } from './components/SearchAndFilterInfo';
 import { searchInputPropSetter } from './components/SearchInput';
 import { getSelectDataFromController } from './utils';
+import { tagListPropSetter } from './components/TagList';
 
 const propSettersByGroupId: Partial<Record<keyof typeof groupIds, PropSetter<PropSetterElementTypes>>> = {
   selectedOptions: selectedOptionsPropSetter,
@@ -21,6 +22,7 @@ const propSettersByGroupId: Partial<Record<keyof typeof groupIds, PropSetter<Pro
   search: searchInputPropSetter,
   listAndInputContainer: listAndInputContainerPropSetter,
   searchAndFilterInfo: searchAndFilterInfoPropSetter,
+  tagList: tagListPropSetter,
 };
 
 export const selectPropSetter: PropSetter<PropSetterElementTypes> = (propSetterProps) => {

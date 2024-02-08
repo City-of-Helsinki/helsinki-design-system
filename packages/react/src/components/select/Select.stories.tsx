@@ -41,6 +41,7 @@ export const Example = () => {
       showFiltering
       placeholder="Choose one"
       icon={<IconLocation />}
+      required
     >
       <optgroup label="Group label">
         <option value="label">Text</option>
@@ -58,8 +59,8 @@ export const MultiSelect = () => {
     {
       label: 'Bad choices',
       options: [
-        { value: 'Candy with choco', label: 'Candy' },
-        { value: 'Gasoline', label: 'Gasoline' },
+        { value: 'Candy with choco', label: 'Candy', selected: true },
+        { value: 'Gasoline', label: 'Gasoline', selected: true },
       ],
     },
   ];

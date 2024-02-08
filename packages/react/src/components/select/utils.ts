@@ -245,18 +245,6 @@ export function mergeSearchResultsToCurrent(
   currentGroups: SelectData['groups'],
 ): SelectData['groups'] {
   const newData = propsToGroups(props);
-  /* const currentWithSelectedOptions: Group[] = current
-    .map((group) => {
-      const selected = getSelectedOptions([group]) as Required<Option>[];
-      console.log('selected', selected);
-      // group label is never shown again, so ignored
-      return { options: selected };
-      // return { options: selected.length ? [group.options[0], ...selected] : [] };
-    })
-    .filter((group) => {
-      return group.options.length > 0;
-    });
-    */
   const newOptions = getAllOptions(newData);
   const currentOptionsWithoutMatches = getSelectedOptions(currentGroups).filter((option) => {
     const sameInNewOptionsIndex = newOptions.findIndex((newOption) => {

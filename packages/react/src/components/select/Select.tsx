@@ -1,10 +1,11 @@
-import React, { createRef, ReactElement, useMemo } from 'react';
+import React, { createRef, ReactElement, useLayoutEffect, useMemo } from 'react';
+import uniqueId from 'lodash.uniqueid';
 
 import { OptionsList } from './components/OptionsList';
 import { SelectedOptions } from './components/SelectedOptions';
 import { Group } from '../group/Group';
 import { ChangeHandler } from '../group/utils';
-import { SelectProps, groupIds } from '.';
+import { SelectProps, groupIds, SelectMetaData } from '.';
 import {
   getMetaDataFromController,
   getSelectDataFromController,
@@ -24,6 +25,7 @@ import { SearchAndFilterInfo } from './components/SearchAndFilterInfo';
 import { SearchInput } from './components/SearchInput';
 import { Error } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
+import { TagList, updateShowAllButtonCount } from './components/TagList';
 
 export function Select({
   options,
@@ -34,14 +36,17 @@ export function Select({
   showSearch,
   placeholder,
   icon,
+  required,
   onChange,
   onSearch,
+  id,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo(
     () => ({
       groups: propsToGroups({ options, groups }),
       label: 'Label',
       open: !!open,
+      required: !!required,
       multiSelect: !!multiSelect,
       showFiltering: !!showFiltering,
       showSearch: !!showSearch,
@@ -49,20 +54,28 @@ export function Select({
     }),
     [options, open],
   );
-  const metaData = useMemo(
-    () => ({
-      listContainerRef: createRef<HTMLElement>(),
+  const metaData: SelectMetaData = useMemo(() => {
+    const containerId = `${id || uniqueId('hds-select')}`;
+    return {
+      listContainerRef: createRef<HTMLDivElement>(),
+      tagListRef: createRef<HTMLDivElement>(),
+      showAllButtonRef: createRef<HTMLButtonElement>(),
       searchUpdate: -1,
       selectionUpdate: -1,
-      idPrefix: 'select-',
       filter: '',
       search: '',
       isSearching: false,
-      currentSearchPromise: null,
+      showAllTags: false,
+      currentSearchPromise: undefined,
       icon,
-    }),
-    [],
-  );
+      elementIds: {
+        button: `${containerId}-button`,
+        label: `${containerId}-label`,
+        tagList: `${containerId}-tag-list`,
+        container: containerId,
+      },
+    };
+  }, [id]);
   const handleChanges: ChangeHandler = (changeProps) => {
     const { controller } = changeProps;
     const { updateMetaData, updateData } = controller;
@@ -119,6 +132,7 @@ export function Select({
             </SelectionsAndListsContainer>
             <Error groupId={groupIds.error} />
             <AssistiveText groupId={groupIds.assistiveText} />
+            <TagList groupId={groupIds.tagList} />
             <TrackEvents controller={controller} listElementRef={metaData.listContainerRef} key="tracker" />
           </Container>
         );
