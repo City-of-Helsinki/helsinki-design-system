@@ -48,7 +48,9 @@ export function ArrowButton(props: ButtonElementProps) {
 
 export function SingleSelectButton(props: SingleOptionButtonProps) {
   const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = props || {};
-  const labels = options.map((opt) => <span className={optionClassName}>{opt.label}</span>) || placeholder;
+  const labels = options.length
+    ? options.map((opt) => <span className={optionClassName}>{opt.label}</span>)
+    : placeholder;
   return (
     <button type="button" {...attr} ref={buttonRef}>
       {icon && <span key="icon">{icon}</span>}
@@ -131,14 +133,13 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
 export function updateHiddenElementsCount(metaData: SelectMetaData) {
   const buttonEl = metaData.selectionButtonRef.current;
   const labels = buttonEl && buttonEl.querySelector('* > div');
-  console.log('buttonEl', buttonEl);
-  console.log('labels', labels);
   if (labels) {
-    labels.childNodes.forEach((el) => (el as HTMLElement).classList.remove(styles.lastVisible));
+    labels.childNodes.forEach(
+      (el) => el && (el as HTMLElement).classList && (el as HTMLElement).classList.remove(styles.lastVisible),
+    );
     const firstVisible = getIndexOfFirstVisibleChild(labels);
     const childCount = labels.children.length - 1;
     const hiddenItems = childCount - firstVisible;
-    console.log('hiddenItems', hiddenItems);
     if (!hiddenItems) {
       buttonEl.classList.remove(styles.hasHiddenItems);
     } else {
