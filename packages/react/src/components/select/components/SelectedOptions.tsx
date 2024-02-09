@@ -4,15 +4,11 @@ import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { Controller, DefaultGroupElementProps, PropSetter } from '../../group/utils';
 import { createOnClickListener } from '../../group/utils/propSetterHelpers';
-import {
-  getMetaDataFromController,
-  getMultiSelectState,
-  getSelectDataFromController,
-  getSelectedOptions,
-} from '../utils';
-import { ButtonElementProps, SelectedTag, selectedTagPropSetter } from './SelectedTag';
+import { getMetaDataFromController, getSelectDataFromController, getSelectedOptions } from '../utils';
+import { ButtonElementProps } from './SelectedTag';
 import { IconCrossCircle, IconAngleDown } from '../../../icons';
 import { DivElementProps, groupIds, Option, SelectMetaData } from '..';
+import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
 
 type TagContainerProps = DivElementProps & {
   options: Option[];
@@ -21,9 +17,11 @@ type TagContainerProps = DivElementProps & {
   icon: SelectMetaData['icon'];
 };
 type SingleOptionButtonProps = ButtonElementProps & {
-  option?: Option;
+  options: Option[];
   placeholder: string;
   icon: SelectMetaData['icon'];
+  optionClassName: string;
+  buttonRef: SelectMetaData['selectionButtonRef'];
 };
 type SelectedOptionsProps = DivElementProps & {
   singleOptionButtonProps?: SingleOptionButtonProps;
@@ -42,22 +40,31 @@ export function ClearButton(props: ButtonElementProps) {
 
 export function ArrowButton(props: ButtonElementProps) {
   return (
-    <button type="button" {...props}>
+    <button type="button" {...props} aria-hidden>
       <IconAngleDown className={styles.angleIcon} aria-hidden />
     </button>
   );
 }
 
 export function SingleSelectButton(props: SingleOptionButtonProps) {
-  const { option, placeholder, icon, ...attr } = props || {};
-  const value = (option && option.label) || placeholder;
+  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = props || {};
+  const labels = options.map((opt) => <span className={optionClassName}>{opt.label}</span>) || placeholder;
   return (
-    <button type="button" {...attr}>
-      {icon && <span>{icon}</span>}
-      {value}
+    <button type="button" {...attr} ref={buttonRef}>
+      {icon && <span key="icon">{icon}</span>}
+      <div className={styles.labels} key="labels">
+        {labels}
+      </div>
+      <span className={styles.count} key="count">
+        <span className="count" key="number">
+          +1
+        </span>
+      </span>
     </button>
   );
 }
+
+/*
 export function Tags(props: TagContainerProps) {
   const { options, placeholder, controller, icon, ...attr } = props || {};
   const children =
@@ -70,13 +77,13 @@ export function Tags(props: TagContainerProps) {
       {children}
     </div>
   );
-}
+} */
 
 export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (propSetterProps) => {
   const { controller } = propSetterProps;
   const { groups, placeholder } = getSelectDataFromController(controller);
-  const { icon } = getMetaDataFromController(controller);
-  const isMultiSelect = getMultiSelectState(controller);
+  const { icon, selectionButtonRef } = getMetaDataFromController(controller);
+  // const isMultiSelect = getMultiSelectState(controller);
   const selectedOptions = getSelectedOptions(groups);
   const clearButtonProps = {
     className: classNames(styles.button, styles.icon),
@@ -86,6 +93,8 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
     className: classNames(styles.button, styles.icon),
     ...createOnClickListener({ id: groupIds.arrowButton, controller }),
   };
+
+  /*
 
   if (isMultiSelect && selectedOptions.length) {
     return {
@@ -102,20 +111,46 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
         ...createOnClickListener(propSetterProps),
       },
     };
-  }
+  } */
   return {
     className: classNames(styles.selectedOptionsContainer),
     clearButtonProps,
     arrowButtonProps,
     singleOptionButtonProps: {
       className: classNames(styles.button, styles.selection),
-      option: selectedOptions[0],
+      options: selectedOptions,
       ...createOnClickListener(propSetterProps),
       placeholder,
       icon,
+      optionClassName: styles.buttonOption,
+      buttonRef: selectionButtonRef,
     },
   };
 };
+
+export function updateHiddenElementsCount(metaData: SelectMetaData) {
+  const buttonEl = metaData.selectionButtonRef.current;
+  const labels = buttonEl && buttonEl.querySelector('* > div');
+  console.log('buttonEl', buttonEl);
+  console.log('labels', labels);
+  if (labels) {
+    labels.childNodes.forEach((el) => (el as HTMLElement).classList.remove(styles.lastVisible));
+    const firstVisible = getIndexOfFirstVisibleChild(labels);
+    const childCount = labels.children.length - 1;
+    const hiddenItems = childCount - firstVisible;
+    console.log('hiddenItems', hiddenItems);
+    if (!hiddenItems) {
+      buttonEl.classList.remove(styles.hasHiddenItems);
+    } else {
+      buttonEl.classList.add(styles.hasHiddenItems);
+      const countIndicator = buttonEl.querySelector('span.count');
+      if (countIndicator) {
+        countIndicator.innerHTML = `+${hiddenItems}`;
+      }
+      (labels.childNodes[firstVisible] as HTMLElement).classList.add(styles.lastVisible);
+    }
+  }
+}
 
 export function SelectedOptions(props: DefaultGroupElementProps) {
   const {
@@ -126,12 +161,11 @@ export function SelectedOptions(props: DefaultGroupElementProps) {
     ...attr
   } = (props as unknown) as SelectedOptionsProps;
   const showClearButton =
-    (singleOptionButtonProps && singleOptionButtonProps.option) ||
+    (singleOptionButtonProps && singleOptionButtonProps.options.length) ||
     (tagContainerProps && tagContainerProps.options.length);
   return (
     <div {...attr}>
       {singleOptionButtonProps && <SingleSelectButton {...singleOptionButtonProps} />}
-      {tagContainerProps && <Tags {...tagContainerProps} />}
       {showClearButton && <ClearButton {...clearButtonProps} />}
       <ArrowButton {...arrowButtonProps} />
     </div>

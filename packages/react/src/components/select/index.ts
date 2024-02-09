@@ -49,6 +49,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   listContainerRef: RefObject<HTMLDivElement>;
   tagListRef: RefObject<HTMLDivElement>;
   showAllButtonRef: RefObject<HTMLButtonElement>;
+  selectionButtonRef: RefObject<HTMLButtonElement>;
   searchUpdate: number;
   selectionUpdate: number;
   filter: string;

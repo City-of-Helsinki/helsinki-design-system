@@ -1,5 +1,5 @@
 export const getIndexOfFirstVisibleChild = (
-  el: HTMLElement,
+  el: HTMLElement | Element,
   verticalOrHorizontal: 'vertical' | 'horizontal' | 'both' = 'both',
 ): number => {
   const rect = el.getBoundingClientRect();
