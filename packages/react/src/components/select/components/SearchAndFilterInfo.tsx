@@ -5,30 +5,45 @@ import { DivElementProps } from '..';
 import classNames from '../../../utils/classNames';
 import { PropSetter } from '../../group/utils';
 import { countVisibleOptions, getMetaDataFromController, getSelectDataFromController } from '../utils';
+import { LoadingSpinner } from '../../loadingSpinner';
 
 type SearchAndFilterInfoProps = DivElementProps & {
-  noResultsText?: string;
-  loadingText?: string;
+  noResultsTexts: string[];
+  loadingText: string;
 };
 export const searchAndFilterInfoPropSetter: PropSetter<SearchAndFilterInfoProps> = ({ controller }) => {
   const { groups } = getSelectDataFromController(controller);
   const { isSearching, search, filter } = getMetaDataFromController(controller);
   const count = countVisibleOptions(groups);
   return {
-    noResultsText: !isSearching && !count && (search || filter) ? 'No results....' : '',
-    loadingText: isSearching ? 'Loading....' : '',
+    noResultsTexts:
+      !isSearching && !count && (search || filter)
+        ? [`No options found for "${search || filter}"`, 'Try a different search term']
+        : [],
+    loadingText: isSearching ? 'Loading options' : '',
     className: classNames(styles.searchAndFilterInfoContainer),
   };
 };
 
 export function SearchAndFilterInfo(props: SearchAndFilterInfoProps) {
-  const { loadingText, noResultsText, ...attr } = props;
-  if (!noResultsText && !loadingText) {
+  const { loadingText, noResultsTexts, ...attr } = props;
+  if (!noResultsTexts?.length && !loadingText) {
     return null;
   }
   return (
     <div {...attr}>
-      <p>{loadingText || noResultsText}</p>
+      {loadingText && (
+        <>
+          <LoadingSpinner />
+          <span>{loadingText}</span>
+        </>
+      )}
+      {!!noResultsTexts.length && (
+        <>
+          <span>{noResultsTexts[0]}</span>
+          <span>{noResultsTexts[1]}</span>
+        </>
+      )}
     </div>
   );
 }

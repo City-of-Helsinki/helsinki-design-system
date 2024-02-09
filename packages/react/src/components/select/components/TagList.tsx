@@ -40,7 +40,7 @@ export const tagListPropSetter: PropSetter<TagListProps> = (propSetterProps) => 
       'Show less'
     ) : (
       <>
-        Show all (<span className="count">count</span>)
+        Show all (<span className="count">{selectedOptions.length}</span>)
       </>
     ),
     variant: 'secondary',
@@ -91,7 +91,7 @@ function Tags(props: TagContainerProps) {
   );
 }
 
-export function updateShowAllButtonCount(metaData: SelectMetaData) {
+export function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.tagListRef.current;
   const buttonEl = metaData.showAllButtonRef.current;
   if (tagListEl && buttonEl && !metaData.showAllTags) {
@@ -102,10 +102,6 @@ export function updateShowAllButtonCount(metaData: SelectMetaData) {
       buttonEl.classList.add(styles.hiddenButton);
     } else {
       buttonEl.classList.remove(styles.hiddenButton);
-      const countIndicator = buttonEl.querySelector('span.count');
-      if (countIndicator) {
-        countIndicator.innerHTML = String(childCount + 1);
-      }
     }
   }
 }
