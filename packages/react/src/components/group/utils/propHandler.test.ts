@@ -1,4 +1,4 @@
-import { Controller, PropSetter } from '.';
+import { Controller, HTMLElementAttributesWithChildren, PropSetter } from '.';
 import { createPropHandler } from './propHandler';
 
 describe(`propHandler handles component props, keys and refs`, () => {
@@ -6,8 +6,16 @@ describe(`propHandler handles component props, keys and refs`, () => {
   let nextRef: { current: string } | undefined;
   let currentProps: Record<string, unknown> = {};
   const fakeController = ({} as unknown) as Controller;
-  const defaultProps = { id: 'primary_id', controller: fakeController, elementProps: { attributeY: 'value' } };
-  const secondaryProps = { id: 'second_id', controller: fakeController, elementProps: { attributeX: 'value' } };
+  const defaultProps = {
+    id: 'primary_id',
+    controller: fakeController,
+    elementProps: { attributeY: 'value' } as HTMLElementAttributesWithChildren,
+  };
+  const secondaryProps = {
+    id: 'second_id',
+    controller: fakeController,
+    elementProps: { attributeX: 'value' } as HTMLElementAttributesWithChildren,
+  };
   const propSetterTracker = jest.fn();
   const propSetter: PropSetter = ({ id, controller, elementProps }) => {
     propSetterTracker(id, controller, elementProps);

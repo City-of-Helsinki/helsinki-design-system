@@ -1,4 +1,5 @@
-import { Option, eventTypes, groupIdEvents } from '.';
+import { Option } from '.';
+import { eventTypes, groupIdEvents } from './groupData';
 import { ChangeHandler } from '../group/utils';
 import {
   getSelectDataFromController,

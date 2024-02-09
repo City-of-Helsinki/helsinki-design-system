@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
-import { eventTypes } from '..';
+import { eventTypes } from '../groupData';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { Controller } from '../../group/utils';
 import { getMetaDataFromController, getSelectDataFromController } from '../utils';

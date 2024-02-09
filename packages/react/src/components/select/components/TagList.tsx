@@ -8,7 +8,8 @@ import { createOnClickListener } from '../../group/utils/propSetterHelpers';
 import { getMetaDataFromController, getSelectDataFromController, getSelectedOptions } from '../utils';
 import { SelectedTag, selectedTagPropSetter } from './SelectedTag';
 import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
-import { DivElementProps, groupIds, Option, SelectMetaData } from '..';
+import { DivElementProps, Option, SelectMetaData } from '..';
+import { eventTypes, groupIds } from '../groupData';
 import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
 
 type TagContainerProps = DivElementProps & {
@@ -29,13 +30,13 @@ export const tagListPropSetter: PropSetter<TagListProps> = (propSetterProps) => 
   const { elementIds, showAllTags, tagListRef, showAllButtonRef } = getMetaDataFromController(controller);
   const selectedOptions = getSelectedOptions(groups);
   const clearButtonProps: ButtonProps = {
-    ...createOnClickListener({ id: groupIds.clearAllButton, controller }),
+    ...createOnClickListener({ id: groupIds.clearAllButton, controller }, eventTypes.click),
     children: 'Clear all',
     variant: 'secondary',
     className: styles.clearAllButton,
   };
   const showAllButtonProps: TagListProps['showAllButtonProps'] = {
-    ...createOnClickListener({ id: groupIds.showAllButton, controller }),
+    ...createOnClickListener({ id: groupIds.showAllButton, controller }, eventTypes.click),
     children: showAllTags ? (
       'Show less'
     ) : (

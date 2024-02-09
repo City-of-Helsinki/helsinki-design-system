@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Controller, HTMLElementAttributesWithChildren } from '.';
+import { Controller, HTMLElementAttributesWithChildren, isFunctionOrObject } from '.';
 
 const HDSForwardController = Symbol('HDSForwardController');
 
@@ -30,11 +30,6 @@ export function ForwardController<P extends HTMLElementAttributesWithChildren & 
 }
 
 export function isForwardController(component: unknown) {
-  const isFunctionOrObject = (checkTarget: unknown) => {
-    // typeof null === object, so checking that too.
-    const typeOfTarget = checkTarget ? typeof checkTarget : '';
-    return typeOfTarget === 'object' || typeOfTarget === 'function';
-  };
   const reactObjectType = isFunctionOrObject(component) && Reflect.get(component as React.ComponentType, 'type');
   return isFunctionOrObject(reactObjectType) && Reflect.get(reactObjectType, HDSForwardController) === true;
 }

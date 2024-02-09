@@ -1,3 +1,4 @@
+import { DefaultGroupElementProps, PropSetter } from '.';
 import { sleep } from '../../../utils/testHelpers';
 import { createController } from './controller';
 
@@ -71,8 +72,8 @@ describe(`controller`, () => {
       expect(controller.getMetaData()).toMatchObject(metaData);
     });
     it(`the third argument (updateKeys) resets stored keys for given ids which forces component to re-mount.`, async () => {
-      const propSetterWithoutKeys = () => {
-        return { prop: 'values' };
+      const propSetterWithoutKeys: PropSetter = () => {
+        return { prop: 'values' } as DefaultGroupElementProps;
       };
       const controller = createController({
         initialData: multiData,
