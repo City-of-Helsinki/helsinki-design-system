@@ -1,4 +1,4 @@
-import React, { createRef, ReactElement, useLayoutEffect, useMemo } from 'react';
+import React, { createRef, ReactElement, useMemo } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
 import { OptionsList } from './components/OptionsList';
@@ -25,7 +25,7 @@ import { SearchAndFilterInfo } from './components/SearchAndFilterInfo';
 import { SearchInput } from './components/SearchInput';
 import { Error } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
-import { TagList, updateShowAllButtonCount } from './components/TagList';
+import { TagList } from './components/TagList';
 
 export function Select({
   options,
@@ -60,6 +60,7 @@ export function Select({
       listContainerRef: createRef<HTMLDivElement>(),
       tagListRef: createRef<HTMLDivElement>(),
       showAllButtonRef: createRef<HTMLButtonElement>(),
+      selectionButtonRef: createRef<HTMLButtonElement>(),
       searchUpdate: -1,
       selectionUpdate: -1,
       filter: '',
@@ -132,7 +133,7 @@ export function Select({
             </SelectionsAndListsContainer>
             <Error groupId={groupIds.error} />
             <AssistiveText groupId={groupIds.assistiveText} />
-            <TagList groupId={groupIds.tagList} />
+            <TagList data-hds-group-id={groupIds.tagList} />
             <TrackEvents controller={controller} listElementRef={metaData.listContainerRef} key="tracker" />
           </Container>
         );

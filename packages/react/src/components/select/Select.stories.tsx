@@ -54,7 +54,7 @@ export const MultiSelect = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: ['Fruits', 'Vegetables'],
+      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
     },
     {
       label: 'Bad choices',

@@ -4,6 +4,7 @@ import { eventTypes } from '..';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { Controller } from '../../group/utils';
 import { getMetaDataFromController, getSelectDataFromController } from '../utils';
+import { updateHiddenElementsCount } from './SelectedOptions';
 import { updateShowAllButtonCount } from './TagList';
 
 export function TrackEvents({
@@ -27,7 +28,9 @@ export function TrackEvents({
     openStateRef.current = !!getSelectDataFromController(controller).open;
   });
   useLayoutEffect(() => {
-    updateShowAllButtonCount(getMetaDataFromController(controller));
+    const metadata = getMetaDataFromController(controller);
+    updateShowAllButtonCount(metadata);
+    updateHiddenElementsCount(metadata);
   });
   useOutsideClick({ ref: listElementRef, callback });
   return null;
