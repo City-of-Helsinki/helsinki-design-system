@@ -5,7 +5,8 @@ import { OptionsList } from './components/OptionsList';
 import { SelectedOptions } from './components/SelectedOptions';
 import { Group } from '../group/Group';
 import { ChangeHandler } from '../group/utils';
-import { SelectProps, groupIds, SelectMetaData } from '.';
+import { SelectProps, SelectMetaData } from '.';
+import { groupIds } from './groupData';
 import {
   getMetaDataFromController,
   getSelectDataFromController,
@@ -120,11 +121,11 @@ export function Select({
     <Group initialData={initialData} metaData={metaData} onChange={handleChanges} propSetter={selectPropSetter}>
       {({ controller }) => {
         return (
-          <Container data-hds-group-id={groupIds.container}>
-            <Label data-hds-group-id={groupIds.label} />
-            <SelectionsAndListsContainer data-hds-group-id={groupIds.selectionsAndLists}>
+          <Container>
+            <Label />
+            <SelectionsAndListsContainer>
               <SelectedOptions data-hds-group-id={groupIds.selectedOptions} />
-              <ListAndInputContainer data-hds-group-id={groupIds.listAndInputContainer}>
+              <ListAndInputContainer>
                 {initialData.showFiltering && <FilterInput data-hds-group-id={groupIds.filter} key={groupIds.filter} />}
                 {initialData.showSearch && <SearchInput data-hds-group-id={groupIds.search} key={groupIds.search} />}
                 <OptionsList data-hds-group-id={groupIds.list} />

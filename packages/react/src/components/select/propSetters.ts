@@ -1,12 +1,10 @@
-import { groupIds, PropSetterElementTypes } from '.';
+import { PropSetterElementTypes } from '.';
+import { groupIds } from './groupData';
 import { PropSetter } from '../group/utils';
 import { optionsListPropSetter } from './components/OptionsList';
-import { selectionsAndListsContainerPropSetter } from './components/SelectionsAndListsContainer';
 import { selectedOptionsPropSetter } from './components/SelectedOptions';
 import { labelPropSetter } from './components/Label';
-import { containerPropSetter } from './components/Container';
 import { filterInputPropSetter } from './components/FilterInput';
-import { listAndInputContainerPropSetter } from './components/ListAndInputContainer';
 import { searchAndFilterInfoPropSetter } from './components/SearchAndFilterInfo';
 import { searchInputPropSetter } from './components/SearchInput';
 import { getSelectDataFromController } from './utils';
@@ -14,13 +12,10 @@ import { tagListPropSetter } from './components/TagList';
 
 const propSettersByGroupId: Partial<Record<keyof typeof groupIds, PropSetter<PropSetterElementTypes>>> = {
   selectedOptions: selectedOptionsPropSetter,
-  container: containerPropSetter,
-  selectionsAndLists: selectionsAndListsContainerPropSetter,
   list: optionsListPropSetter,
   label: labelPropSetter,
   filter: filterInputPropSetter,
   search: searchInputPropSetter,
-  listAndInputContainer: listAndInputContainerPropSetter,
   searchAndFilterInfo: searchAndFilterInfoPropSetter,
   tagList: tagListPropSetter,
 };

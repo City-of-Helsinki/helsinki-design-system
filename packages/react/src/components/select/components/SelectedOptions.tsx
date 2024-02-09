@@ -7,7 +7,8 @@ import { createOnClickListener } from '../../group/utils/propSetterHelpers';
 import { getMetaDataFromController, getSelectDataFromController, getSelectedOptions } from '../utils';
 import { ButtonElementProps } from './SelectedTag';
 import { IconCrossCircle, IconAngleDown } from '../../../icons';
-import { DivElementProps, groupIds, Option, SelectMetaData } from '..';
+import { DivElementProps, Option, SelectMetaData } from '..';
+import { eventTypes, groupIds } from '../groupData';
 import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
 
 type TagContainerProps = DivElementProps & {
@@ -89,11 +90,11 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
   const selectedOptions = getSelectedOptions(groups);
   const clearButtonProps = {
     className: classNames(styles.button, styles.icon),
-    ...createOnClickListener({ id: groupIds.clearButton, controller }),
+    ...createOnClickListener({ id: groupIds.clearButton, controller }, eventTypes.click),
   };
   const arrowButtonProps = {
     className: classNames(styles.button, styles.icon),
-    ...createOnClickListener({ id: groupIds.arrowButton, controller }),
+    ...createOnClickListener({ id: groupIds.arrowButton, controller }, eventTypes.click),
   };
 
   /*
@@ -121,7 +122,7 @@ export const selectedOptionsPropSetter: PropSetter<SelectedOptionsProps> = (prop
     singleOptionButtonProps: {
       className: classNames(styles.button, styles.selection),
       options: selectedOptions,
-      ...createOnClickListener(propSetterProps),
+      ...createOnClickListener(propSetterProps, eventTypes.click),
       placeholder,
       icon,
       optionClassName: styles.buttonOption,

@@ -14,8 +14,8 @@ export type ChangeEvent = { id: string; type?: string; payload?: ChangeEventPayl
 export type ChangeHandlerProps = ChangeEvent & { controller: Controller };
 export type ChangeHandler = (props: ChangeHandlerProps) => unknown;
 export type HTMLElementAttributesWithChildren = PropsWithChildren<HtmlHTMLAttributes<HTMLElement>>;
-export type DefaultGroupElementProps = Record<string, unknown> & {
-  key?: string;
+export type DefaultGroupElementProps = HTMLElementAttributesWithChildren & {
+  key?: string; // needed?
   forwardedController?: Controller;
   'data-hds-group-id'?: string;
 };
@@ -43,7 +43,7 @@ export type PropSetter<T = DefaultGroupElementProps> = (props: {
   id: string;
   controller: Controller;
   key: string;
-  elementProps: DefaultGroupElementProps;
+  elementProps: HTMLElementAttributesWithChildren;
 }) => T;
 
 export type PropHandler = {
@@ -51,7 +51,7 @@ export type PropHandler = {
     id: string;
     controller: Controller;
     elementProps: DefaultGroupElementProps;
-  }) => DefaultGroupElementProps;
+  }) => HTMLElementAttributesWithChildren & DefaultGroupElementProps;
   updateKey: (id: string) => void;
 };
 
@@ -59,9 +59,15 @@ export type GroupChildFunction = FunctionComponent<{ controller: Controller }>;
 
 export type GroupChild<P = DefaultGroupElementProps> = ComponentType<HTMLElementAttributesWithChildren & P>;
 
-export type GroupProps<T> = PropsWithChildren<unknown> & {
+export type GroupProps<T = HTMLElementAttributesWithChildren> = Omit<HTMLElementAttributesWithChildren, 'onChange'> & {
   propSetter: PropSetter<T>;
   initialData: StorageData;
   metaData?: StorageData;
   onChange?: ChangeHandler;
+};
+
+export const isFunctionOrObject = (checkTarget: unknown) => {
+  // typeof null === object, so checking that too here:
+  const typeOfTarget = checkTarget ? typeof checkTarget : '';
+  return typeOfTarget === 'object' || typeOfTarget === 'function';
 };

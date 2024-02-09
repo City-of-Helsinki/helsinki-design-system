@@ -1,8 +1,8 @@
 import React, { MouseEventHandler } from 'react';
 
 import styles from '../Select.module.scss';
-import { TextInput } from '../../textInput/TextInput';
-import { DefaultGroupElementProps, PropSetter } from '../../group/utils';
+import { TextInput, TextInputProps } from '../../textInput/TextInput';
+import { PropSetter } from '../../group/utils';
 import { IconSearch } from '../../../icons';
 import { InputElementProps } from '..';
 import classNames from '../../../utils/classNames';
@@ -24,7 +24,7 @@ export const searchInputPropSetter: PropSetter<InputElementProps> = (props) => {
   };
 };
 
-export function SearchInput(props: DefaultGroupElementProps) {
+export function SearchInput(props: Partial<TextInputProps>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { children, onButtonClick, ...rest } = props;
   return (

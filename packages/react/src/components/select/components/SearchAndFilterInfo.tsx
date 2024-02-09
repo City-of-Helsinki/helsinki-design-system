@@ -1,16 +1,20 @@
 import React from 'react';
 
 import styles from '../Select.module.scss';
-import { DivElementProps } from '..';
 import classNames from '../../../utils/classNames';
 import { PropSetter } from '../../group/utils';
 import { countVisibleOptions, getMetaDataFromController, getSelectDataFromController } from '../utils';
 import { LoadingSpinner } from '../../loadingSpinner';
+import { ComponentToGroupChild } from '../../group/Group';
+import { DivElementProps } from '..';
 
 type SearchAndFilterInfoProps = DivElementProps & {
   noResultsTexts: string[];
   loadingText: string;
 };
+
+export const searchAndFilterInfoGroupId = 'searchAndFilterInfo';
+
 export const searchAndFilterInfoPropSetter: PropSetter<SearchAndFilterInfoProps> = ({ controller }) => {
   const { groups } = getSelectDataFromController(controller);
   const { isSearching, search, filter } = getMetaDataFromController(controller);
@@ -25,7 +29,7 @@ export const searchAndFilterInfoPropSetter: PropSetter<SearchAndFilterInfoProps>
   };
 };
 
-export function SearchAndFilterInfo(props: SearchAndFilterInfoProps) {
+function SearchAndFilterInfoGroupComponent(props: SearchAndFilterInfoProps) {
   const { loadingText, noResultsTexts, ...attr } = props;
   if (!noResultsTexts?.length && !loadingText) {
     return null;
@@ -47,3 +51,8 @@ export function SearchAndFilterInfo(props: SearchAndFilterInfoProps) {
     </div>
   );
 }
+
+export const SearchAndFilterInfo = ComponentToGroupChild<SearchAndFilterInfoProps>(
+  SearchAndFilterInfoGroupComponent,
+  searchAndFilterInfoGroupId,
+);

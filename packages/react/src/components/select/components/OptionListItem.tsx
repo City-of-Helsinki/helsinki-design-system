@@ -2,9 +2,10 @@ import React, { ChangeEventHandler } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { eventTypes, groupIds, LiElementProps, Option } from '../index';
+import { LiElementProps, Option } from '../index';
 import { Controller } from '../../group/utils';
 import { Checkbox } from '../../checkbox/Checkbox';
+import { groupIds, eventTypes } from '../groupData';
 
 export type ListItemProps = LiElementProps & { label?: string; checked?: boolean; indeterminate?: boolean };
 

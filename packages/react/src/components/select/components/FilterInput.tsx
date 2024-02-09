@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 
-import { TextInput } from '../../textInput/TextInput';
-import { DefaultGroupElementProps, PropSetter } from '../../group/utils';
+import { TextInput, TextInputProps } from '../../textInput/TextInput';
+import { PropSetter } from '../../group/utils';
 import { IconSearch } from '../../../icons';
 import styles from '../Select.module.scss';
 import { InputElementProps } from '..';
@@ -24,7 +24,7 @@ export const filterInputPropSetter: PropSetter<InputElementProps> = (props) => {
   };
 };
 
-export function FilterInput(props: DefaultGroupElementProps) {
+export function FilterInput(props: Partial<TextInputProps>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { children, onButtonClick, ...rest } = props;
   return (

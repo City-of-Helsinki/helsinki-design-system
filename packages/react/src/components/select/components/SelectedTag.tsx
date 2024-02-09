@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-import { Option, eventTypes, groupIds } from '../index';
+import { Option } from '../index';
+import { groupIds, eventTypes } from '../groupData';
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { Controller } from '../../group/utils';

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { TextInput } from '../textInput/TextInput';
 import { Button } from '../button/Button';
-import { ChangeHandlerProps, Controller, GroupChild, GroupChildFunction, GroupProps } from './utils';
+import {
+  ChangeHandlerProps,
+  Controller,
+  GroupChild,
+  GroupChildFunction,
+  GroupProps,
+  HTMLElementAttributesWithChildren,
+} from './utils';
 import { Group, RenderWithController } from './Group';
 import { createOnClickListener, createInputOnChangeListener } from './utils/propSetterHelpers';
 import { IconArrowDown, IconArrowUp } from '../../icons';
@@ -18,7 +25,7 @@ export const Example = () => {
     const data = controller.getData() as typeof props.initialData;
     return data[id];
   };
-  const props: GroupProps = {
+  const props: GroupProps<{ value: string }> = {
     initialData: { text: 'initial text', reverse: 'reverse', otherProp: 'hello world' },
     onChange: (change: ChangeHandlerProps) => {
       const { controller, id, payload } = change;
@@ -66,7 +73,7 @@ export const NumericStepper = () => {
     const data = controller.getData() as typeof props.initialData;
     return data[id];
   };
-  const props: GroupProps = {
+  const props: GroupProps<HTMLElementAttributesWithChildren & { value?: string }> = {
     initialData: { value: 1, max: 500, min: -5, error: '' },
 
     onChange: (change: ChangeHandlerProps) => {
@@ -108,7 +115,7 @@ export const NumericStepper = () => {
         };
       }
       if (id === 'error') {
-        return { children: pickData(id, controller) || '' };
+        return { children: (pickData(id, controller) || '') as ReactNode };
       }
       return {
         ...elementProps,
