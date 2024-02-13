@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 
 import { SelectProps } from '.';
 import { IconLocation } from '../../icons';
+import { SelectWitContext } from './context/SelectWithContext';
 import { Select } from './Select';
 
 export default {
@@ -141,5 +142,46 @@ export const Search = () => {
       showSearch
       placeholder="Choose many"
     />
+  );
+};
+
+export const AExample = () => {
+  // const options: SelectProps['options'] = ['Label1', 'Label2', { value: 'c', label: 'Label3' }];
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
+    },
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'Candy with choco', label: 'Candy' },
+        { value: 'Gasoline', label: 'Gasoline' },
+      ],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback((selected, data) => {
+    console.log('data', selected, data);
+    const selectedValue = selected.length > 0 ? selected[0] : '';
+    const isError = selectedValue === 'Gasoline';
+    return {
+      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose one good option!',
+      error: isError ? `${selectedValue}?! Really?` : '',
+    };
+  }, []);
+  return (
+    <SelectWitContext
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      showFiltering
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+    >
+      <optgroup label="Group label">
+        <option value="label">Text</option>
+      </optgroup>
+    </SelectWitContext>
   );
 };

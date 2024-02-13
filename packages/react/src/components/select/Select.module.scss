@@ -206,7 +206,7 @@
 .tagList {
   display: flex;
   flex-flow: row wrap;
-  max-height: 10px;
+  max-height: 50px;
   overflow: hidden;
 
   &.tagListExpanded {
