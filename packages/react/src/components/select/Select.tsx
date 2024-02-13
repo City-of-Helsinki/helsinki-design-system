@@ -134,7 +134,7 @@ export function Select({
             </SelectionsAndListsContainer>
             <Error groupId={groupIds.error} />
             <AssistiveText groupId={groupIds.assistiveText} />
-            <TagList data-hds-group-id={groupIds.tagList} />
+            {initialData.multiSelect && <TagList data-hds-group-id={groupIds.tagList} />}
             <TrackEvents controller={controller} listElementRef={metaData.listContainerRef} key="tracker" />
           </Container>
         );

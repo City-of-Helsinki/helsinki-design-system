@@ -8,7 +8,7 @@
 export type StorageData = Record<string, unknown>;
 export type Storage = {
   set: (newData: StorageData) => StorageData;
-  get: () => unknown;
+  get: () => StorageData;
 };
 
 export function createStorage(initialData: StorageData): Storage {
