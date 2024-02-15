@@ -24,7 +24,7 @@ export const searchInputPropSetter = (props: Partial<TextInputProps>): TextInput
     buttonAriaLabel: 'Search for ...inputValue',
     buttonIcon: <IconSearch />,
     clearButtonAriaLabel: 'Clear search',
-    label: 'Search options',
+    placeholder: 'Search options',
     key: 'keepme',
     value: search,
   };

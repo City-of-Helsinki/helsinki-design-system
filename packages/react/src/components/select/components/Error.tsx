@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from '../Select.module.scss';
 import { SelectData } from '../types';
 import { useContextTools } from '../../dataContext/hooks';
 import { NotificationProps, Notification } from '../../notification/Notification';
@@ -12,6 +13,7 @@ function errorPropCreator(props: Partial<NotificationProps>): NotificationProps 
     type: 'error',
     children: error || '',
     closeButtonLabelText: '',
+    className: styles.errorNotification,
   };
 }
 

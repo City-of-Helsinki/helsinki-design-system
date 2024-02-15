@@ -37,7 +37,7 @@ export function SearchAndFilterInfo(props: DivElementProps) {
     <div {...attr}>
       {loadingText && (
         <>
-          <LoadingSpinner />
+          <LoadingSpinner small />
           <span>{loadingText}</span>
         </>
       )}
