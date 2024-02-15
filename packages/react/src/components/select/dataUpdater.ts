@@ -7,7 +7,7 @@ import {
   mergeSearchResultsToCurrent,
   clearAllSelectedOptions,
 } from './utils';
-import { events, eventTypes } from './events';
+import { eventIds, events, eventTypes } from './events';
 
 export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) => {
   const { id, type, payload } = event;
@@ -60,8 +60,8 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
     tools.updateMetaData({ showAllTags: !showAllTags });
     // empty upate to cause re-render
     tools.updateData({});
-  } else if (id === 'searchResults') {
-    if (type === 'success') {
+  } else if (id === eventIds.searchResult) {
+    if (type === eventTypes.success) {
       tools.updateMetaData({ isSearching: false });
       tools.updateData({
         groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),

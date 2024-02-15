@@ -92,7 +92,7 @@ const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps
     clearButtonProps,
     arrowButtonProps,
     singleOptionButtonProps: {
-      className: classNames(styles.button, styles.selection),
+      className: classNames(styles.button, styles.selection, !selectedOptions.length && styles.placeholder),
       options: selectedOptions,
       ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
       placeholder,
@@ -106,8 +106,6 @@ const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps
 export function updateHiddenElementsCount(metaData: SelectMetaData) {
   const buttonEl = metaData.selectionButtonRef.current;
   const labels = buttonEl && buttonEl.querySelector('* > div');
-  console.log('buttonEl', buttonEl);
-  console.log('labels', labels);
   if (labels) {
     labels.childNodes.forEach(
       (el) => el && (el as HTMLElement).classList && (el as HTMLElement).classList.remove(styles.lastVisible),

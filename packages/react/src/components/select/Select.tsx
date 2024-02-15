@@ -17,6 +17,7 @@ import { FilterInput } from './components/FilterInput';
 import { SearchInput } from './components/SearchInput';
 import { SearchAndFilterInfo } from './components/SearchAndFilterInfo';
 import { TagList } from './components/TagList';
+import { eventIds, eventTypes } from './events';
 
 export function Select({
   options,
@@ -75,12 +76,12 @@ export function Select({
       searchFunc(search as string, [], {} as SelectData)
         .then((res) => {
           if (isCancelled) {
-            resolve({ id: 'searchResult', type: 'already-cancelled' });
+            resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
           }
-          resolve({ id: 'searchResults', type: 'success', payload: { value: res } });
+          resolve({ id: 'searchResults', type: eventTypes.success, payload: { value: res } });
         })
         .catch(() => {
-          resolve({ id: 'searchError', type: 'error' });
+          resolve({ id: 'searchError', type: eventTypes.error });
         });
     });
     const cancel = () => {

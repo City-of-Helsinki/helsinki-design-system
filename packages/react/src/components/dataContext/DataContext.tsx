@@ -8,7 +8,6 @@ export type ChangeEventPayload = { value?: unknown; originalEvent?: SyntheticEve
 export type ChangeEvent = { id: string; type?: string; payload?: ChangeEventPayload };
 export type ChangeHandler<D = StorageData, M = StorageData> = (event: ChangeEvent, tools: Tools<D, M>) => boolean;
 export type ChangeTrigger = (event: ChangeEvent) => void;
-export type AsyncUpdateResult<D, M> = { data?: Partial<D>; metaData?: Partial<M>; render: boolean };
 
 type DataContextProps<D = StorageData, M = StorageData> = {
   dataStorage: Storage;
@@ -24,7 +23,6 @@ export type Tools<D = StorageData, M = StorageData> = {
   updateData: (newData: Partial<D>) => D;
   getMetaData: () => M;
   updateMetaData: (newData: Partial<M>) => M;
-  asyncUpdateWithRender: (promise: Promise<AsyncUpdateResult<D, M>>) => void;
   asyncRequestWithTrigger: (promise: Promise<ChangeEvent>) => void;
 };
 
@@ -45,7 +43,6 @@ const createTools = (dataStorage: Storage, metaDataStorage: Storage): Tools => {
     updateData: (newData: StorageData) => dataStorage.set(newData),
     getMetaData: () => metaDataStorage.get(),
     updateMetaData: (newData: StorageData) => metaDataStorage.set(newData),
-    asyncUpdateWithRender: () => ({}),
     asyncRequestWithTrigger: () => ({}),
   };
 };
@@ -70,24 +67,6 @@ export default function DataContainer<D extends StorageData, M extends StorageDa
   const tools = useMemo(() => {
     const toolSet = createTools(dataStorage, metaDataStorage);
     // what if this is called after unmount?
-    const asyncUpdateWithRender: Tools['asyncUpdateWithRender'] = async (promise) => {
-      const [err, result] = await to(promise);
-      if (err) {
-        return;
-      }
-      const { data, metaData: newMetaData, render } = result;
-      if (data) {
-        toolSet.updateData(data);
-      }
-      if (newMetaData) {
-        toolSet.updateMetaData(newMetaData);
-      }
-      if (render) {
-        rerender();
-      }
-    };
-    toolSet.asyncUpdateWithRender = asyncUpdateWithRender;
-
     const asyncRequestWithTrigger: Tools['asyncRequestWithTrigger'] = async (promise) => {
       const [err, result] = await to(promise);
       if (err) {

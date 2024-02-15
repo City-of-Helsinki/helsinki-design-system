@@ -15,10 +15,16 @@
       transform: translateY(2px) rotateX(180deg);
     }
   }
+
+  &.error {
+    border-color: var(--color-error);
+  }
 }
 
 .container {
   @extend %dropdownWrapper;
+
+  margin-bottom: var(--spacing-2-xs);
 }
 
 .label {
@@ -109,7 +115,7 @@
   &.withSearchOrFilter {
     .listContainer {
       border-top: 1px solid var(--color-black-20);
-      margin-top: var(--spacing-layout-2-xs);
+      margin-top: var(--spacing-2-xs);
     }
   }
 }
@@ -146,11 +152,19 @@
 }
 
 .filterInput {
-  padding: var(--spacing-layout-2-xs);
+  padding: var(--spacing-2-xs) var(--spacing-2-xs) 0;
 }
 
 .searchAndFilterInfoContainer {
-  padding: var(--spacing-layout-2-xs);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-layout-s);
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  > span {
+    padding-top: var(--spacing-layout-2-xs);
+  }
 }
 
 .selectedOptionsContainer {
@@ -206,7 +220,7 @@
 .tagList {
   display: flex;
   flex-flow: row wrap;
-  max-height: 50px;
+  max-height: 34px;
   overflow: hidden;
 
   &.tagListExpanded {
@@ -221,6 +235,7 @@
 .tagListButtons {
   display: flex;
   flex-direction: row;
+  margin-top: var(--spacing-2-xs);
 
   > button:first-child {
     margin-right: var(--spacing-xs);
@@ -237,4 +252,12 @@
   --color-hover: var(--color-error);
   --color-focus: var(--color-error);
   --color-hover-focus: var(--color-error);
+}
+
+.errorNotification {
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.assistiveText {
+  margin-bottom: var(--spacing-2-xs);
 }

@@ -25,9 +25,10 @@ export const filterInputPropSetter = (props: Partial<TextInputProps>): TextInput
     buttonAriaLabel: 'Search for ...inputValue',
     buttonIcon: <IconSearch />,
     clearButtonAriaLabel: 'Clear search',
-    label: 'Filter options',
+    label: '',
     key: 'keepme',
     value: filter,
+    placeholder: 'Filter',
   };
 };
 
