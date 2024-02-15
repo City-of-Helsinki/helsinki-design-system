@@ -1,11 +1,11 @@
 import React, { useCallback, useRef } from 'react';
 
-import { SelectProps } from '.';
+import { SelectProps } from './types';
 import { IconLocation } from '../../icons';
-import { SelectWithContext } from './SelectWithContext';
+import { Select } from './Select';
 
 export default {
-  component: SelectWithContext,
+  component: Select,
   title: 'Components/Select',
 };
 
@@ -24,8 +24,7 @@ export const Example = () => {
       ],
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((selected, data) => {
-    console.log('data', selected, data);
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
     const selectedValue = selected.length > 0 ? selected[0] : '';
     const isError = selectedValue === 'Gasoline';
     return {
@@ -34,7 +33,7 @@ export const Example = () => {
     };
   }, []);
   return (
-    <SelectWithContext
+    <Select
       groups={groups}
       label="Label"
       onChange={onChange}
@@ -46,7 +45,7 @@ export const Example = () => {
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
-    </SelectWithContext>
+    </Select>
   );
 };
 export const MultiSelect = () => {
@@ -65,8 +64,7 @@ export const MultiSelect = () => {
     },
   ];
   const hasSelectedSomething = useRef(false);
-  const onChange: SelectProps['onChange'] = useCallback((selected, data) => {
-    console.log('data', selected, data);
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
     const hasClearedSelections = hasSelectedSomething.current && !selected.length;
     if (!hasSelectedSomething.current && selected.length) {
       hasSelectedSomething.current = true;
@@ -79,7 +77,7 @@ export const MultiSelect = () => {
     };
   }, []);
   return (
-    <SelectWithContext
+    <Select
       groups={groups}
       label="Label"
       onChange={onChange}
@@ -121,18 +119,17 @@ const createFakeResults = (search: string) => {
 export const Search = () => {
   // const options: SelectProps['options'] = ['Label1', 'Label2', { value: 'c', label: 'Label3' }];
   const groups: SelectProps['groups'] = [];
-  const onChange: SelectProps['onChange'] = useCallback((selected, data) => {
-    console.log('onChange data', selected, data);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    //
   }, []);
-  const onSearch: SelectProps['onSearch'] = useCallback(async (searchValue, selected, data) => {
-    console.log('onSearch data', searchValue, selected, data);
+  const onSearch: SelectProps['onSearch'] = useCallback(async (searchValue) => {
     await new Promise((res) => {
       setTimeout(res, 1000);
     });
     return Promise.resolve(searchValue ? createFakeResults(searchValue) : {});
   }, []);
   return (
-    <SelectWithContext
+    <Select
       groups={groups}
       label="Label"
       onChange={onChange}

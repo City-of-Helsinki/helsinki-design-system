@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SelectData } from '../index';
+import { SelectData } from '../types';
 import { useContextTools } from '../../dataContext/hooks';
 import { NotificationProps, Notification } from '../../notification/Notification';
 

@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { DivElementProps, Option, SelectData, SelectMetaData, UlElementProps } from '../index';
+import { DivElementProps, Option, SelectData, SelectMetaData, UlElementProps } from '../types';
 import { createOptionsListItemProps, MultiSelectOptionListItem, OptionListItem } from './OptionListItem';
 import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../utils';
 import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
 import { ChangeTrigger } from '../../dataContext/DataContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
-import { eventTypes } from '../groupData';
+import { eventTypes } from '../events';
 
 const createListOptions = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
   const getGroupLabelIntermediateState = (option: Option): boolean => {

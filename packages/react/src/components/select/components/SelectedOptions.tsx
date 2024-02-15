@@ -2,12 +2,12 @@ import React, { useLayoutEffect } from 'react';
 import { Controller } from 'react-spring';
 
 import styles from '../Select.module.scss';
-import { DivElementProps, SelectMetaData, ButtonElementProps, SelectData, Option } from '../index';
+import { DivElementProps, SelectMetaData, ButtonElementProps, SelectData, Option } from '../types';
 import { IconCrossCircle, IconAngleDown } from '../../../icons';
 import classNames from '../../../utils/classNames';
 import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
 import { createOnClickListener, getSelectedOptions } from '../utils';
-import { groupIds, eventTypes } from '../groupData';
+import { eventTypes, eventIds } from '../events';
 import { useChangeTrigger, useContextTools, useMetaDataStorage } from '../../dataContext/hooks';
 
 type TagContainerProps = DivElementProps & {
@@ -29,8 +29,6 @@ type SelectedOptionsProps = DivElementProps & {
   arrowButtonProps: ButtonElementProps;
   tagContainerProps?: TagContainerProps;
 };
-
-export const selectedOptionsId = 'selectedOptions';
 
 export function ClearButton(props: ButtonElementProps) {
   return (
@@ -81,11 +79,11 @@ const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps
   const trigger = useChangeTrigger();
   const clearButtonProps = {
     className: classNames(styles.button, styles.icon),
-    ...createOnClickListener({ id: groupIds.clearButton, type: eventTypes.click, trigger }),
+    ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
   };
   const arrowButtonProps = {
     className: classNames(styles.button, styles.icon),
-    ...createOnClickListener({ id: groupIds.arrowButton, type: eventTypes.click, trigger }),
+    ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
   };
 
   return {
@@ -96,7 +94,7 @@ const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps
     singleOptionButtonProps: {
       className: classNames(styles.button, styles.selection),
       options: selectedOptions,
-      ...createOnClickListener({ id: selectedOptionsId, type: eventTypes.click, trigger }),
+      ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
       placeholder,
       icon,
       optionClassName: styles.buttonOption,

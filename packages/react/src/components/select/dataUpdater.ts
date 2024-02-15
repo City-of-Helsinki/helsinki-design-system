@@ -1,4 +1,4 @@
-import { Option, SearchResult, SelectData, SelectMetaData } from './index';
+import { Option, SearchResult, SelectData, SelectMetaData } from './types';
 import { ChangeHandler } from '../dataContext/DataContext';
 import {
   updateSelectedOptionInGroups,
@@ -7,19 +7,17 @@ import {
   mergeSearchResultsToCurrent,
   clearAllSelectedOptions,
 } from './utils';
-import { groupIdEvents, eventTypes } from './groupData';
+import { events, eventTypes } from './events';
 
-export const groupDataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) => {
+export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) => {
   const { id, type, payload } = event;
   const current = tools.getData();
   const { showAllTags } = tools.getMetaData();
-  console.log('id,type', id, type, payload);
-
   const groupIdWithType = `${id}_${type}`;
 
-  if (groupIdWithType === groupIdEvents.selectedOptionsClick || groupIdWithType === groupIdEvents.arrowClick) {
+  if (groupIdWithType === events.selectedOptionsClick || groupIdWithType === events.arrowClick) {
     tools.updateData({ open: !current.open });
-  } else if (groupIdWithType === groupIdEvents.listItemClick || groupIdWithType === groupIdEvents.tagClick) {
+  } else if (groupIdWithType === events.listItemClick || groupIdWithType === events.tagClick) {
     const clickedOption = payload && (payload.value as Required<Option>);
     if (!clickedOption) {
       return false;
@@ -30,10 +28,10 @@ export const groupDataUpdater: ChangeHandler<SelectData, SelectMetaData> = (even
         { ...clickedOption, selected: !clickedOption.selected },
         current.multiSelect,
       ),
-      open: groupIdWithType !== groupIdEvents.tagClick && current.multiSelect,
+      open: groupIdWithType !== events.tagClick && current.multiSelect,
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
-  } else if (groupIdWithType === groupIdEvents.listGroupClick) {
+  } else if (groupIdWithType === events.listGroupClick) {
     const clickedOption = payload && (payload.value as Required<Option>);
     if (!clickedOption) {
       return false;
@@ -43,28 +41,27 @@ export const groupDataUpdater: ChangeHandler<SelectData, SelectMetaData> = (even
       open: true,
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
-  } else if (groupIdWithType === groupIdEvents.clearClick || groupIdWithType === groupIdEvents.clearAllClick) {
+  } else if (groupIdWithType === events.clearClick || groupIdWithType === events.clearAllClick) {
     tools.updateData({
       groups: clearAllSelectedOptions(current.groups),
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
   } else if (type === eventTypes.outSideclick) {
     tools.updateData({ open: false });
-  } else if (groupIdWithType === groupIdEvents.filterChange) {
+  } else if (groupIdWithType === events.filterChange) {
     const filterValue = (payload && (payload.value as string)) || '';
     tools.updateMetaData({ filter: filterValue });
     tools.updateData({ groups: filterOptions(current.groups, filterValue) });
-  } else if (groupIdWithType === groupIdEvents.searchChange) {
+  } else if (groupIdWithType === events.searchChange) {
     const searchValue = (payload && (payload.value as string)) || '';
     tools.updateMetaData({ search: searchValue, searchUpdate: searchValue ? Date.now() : -1 });
     tools.updateData(!searchValue ? { groups: mergeSearchResultsToCurrent({}, current.groups) } : {});
-  } else if (groupIdWithType === groupIdEvents.showAllClick) {
+  } else if (groupIdWithType === events.showAllClick) {
     tools.updateMetaData({ showAllTags: !showAllTags });
     // empty upate to cause re-render
     tools.updateData({});
   } else if (id === 'searchResults') {
     if (type === 'success') {
-      console.log('sucess', payload);
       tools.updateMetaData({ isSearching: false });
       tools.updateData({
         groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),

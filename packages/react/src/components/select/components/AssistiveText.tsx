@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DivElementProps, SelectData } from '../index';
+import { DivElementProps, SelectData } from '../types';
 import { useContextTools } from '../../dataContext/hooks';
 
 function assitiveTextPropCreator(props: DivElementProps) {

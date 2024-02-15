@@ -1,11 +1,11 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
 import styles from '../Select.module.scss';
-import { Option } from '../index';
+import { Option } from '../types';
 import classNames from '../../../utils/classNames';
 import { Tag, TagProps } from '../../tag/Tag';
 import { ChangeTrigger } from '../../dataContext/DataContext';
-import { groupIds, eventTypes } from '../groupData';
+import { eventTypes, eventIds } from '../events';
 
 export type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, never>;
 
@@ -19,7 +19,7 @@ export const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): Ta
     },
     onDelete: (e) => {
       e.stopPropagation();
-      trigger({ id: groupIds.tag, type: eventTypes.click, payload: { value: option } });
+      trigger({ id: eventIds.tag, type: eventTypes.click, payload: { value: option } });
     },
     children: option.label,
     role: 'button',

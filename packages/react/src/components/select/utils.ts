@@ -1,8 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option } from '.';
+import { SelectData, Group, SelectProps, Option } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataContext/DataContext';
+import { eventTypes } from './events';
 
 type DomHandlerProps = {
   id: string;
@@ -11,7 +12,7 @@ type DomHandlerProps = {
 };
 
 export function createOnClickListener(props: DomHandlerProps) {
-  const { id, type = 'click', trigger } = props;
+  const { id, type = eventTypes.click, trigger } = props;
   return {
     onClick: (originalEvent: React.MouseEvent) => {
       trigger({ id, type, payload: { originalEvent } });
@@ -20,7 +21,7 @@ export function createOnClickListener(props: DomHandlerProps) {
 }
 
 export function createInputOnChangeListener(props: DomHandlerProps) {
-  const { id, type = 'change', trigger } = props;
+  const { id, type = eventTypes.change, trigger } = props;
   return {
     onChange: (originalEvent: React.ChangeEvent<HTMLInputElement>) => {
       trigger({
