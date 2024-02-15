@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { DivElementProps } from '..';
+import { DivElementProps } from '../types';
 
 export const containerGroupId = 'container';
 

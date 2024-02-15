@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { SelectData, SelectMetaData } from '../index';
+import { SelectData, SelectMetaData } from '../types';
 import { useContextTools } from '../../dataContext/hooks';
 
 export const ListAndInputContainer = (props) => {

@@ -3,10 +3,12 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import { TextInput, TextInputProps } from '../../textInput/TextInput';
 import { IconSearch } from '../../../icons';
-import { SelectMetaData } from '../index';
+import { SelectMetaData } from '../types';
 import classNames from '../../../utils/classNames';
 import { createInputOnChangeListener } from '../utils';
 import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
+
+export const filterEventId = 'filter';
 
 export const filterInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
   const { getMetaData } = useContextTools();
@@ -15,7 +17,7 @@ export const filterInputPropSetter = (props: Partial<TextInputProps>): TextInput
   return {
     ...props,
     className: classNames(styles.filterInput),
-    ...createInputOnChangeListener({ id: 'filter', trigger }),
+    ...createInputOnChangeListener({ id: filterEventId, trigger }),
     onButtonClick: () => {
       console.log('--->btn');
     },

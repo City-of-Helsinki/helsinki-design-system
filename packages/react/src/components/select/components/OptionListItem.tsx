@@ -2,9 +2,9 @@ import React, { ChangeEventHandler } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { LiElementProps, Option } from '../index';
+import { LiElementProps, Option } from '../types';
 import { Checkbox } from '../../checkbox/Checkbox';
-import { groupIds, eventTypes } from '../groupData';
+import { eventIds, eventTypes } from '../events';
 import { ChangeTrigger } from '../../dataContext/DataContext';
 
 export type ListItemProps = LiElementProps & { label?: string; checked?: boolean; indeterminate?: boolean };
@@ -37,7 +37,7 @@ export const createOptionsListItemProps = ({
           checked: option.selected,
           onClick: (originalEvent: React.MouseEvent) => {
             trigger({
-              id: groupIds.listGroup,
+              id: eventIds.listGroup,
               type: eventTypes.click,
               payload: { originalEvent, value: option },
             });
@@ -52,7 +52,7 @@ export const createOptionsListItemProps = ({
     indeterminate: undefined,
     onClick: (originalEvent: React.MouseEvent) => {
       trigger({
-        id: groupIds.listItem,
+        id: eventIds.listItem,
         type: eventTypes.click,
         payload: { originalEvent, value: option },
       });

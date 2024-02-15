@@ -1,12 +1,12 @@
 import uniqueId from 'lodash.uniqueid';
 import React, { ReactElement, useMemo, createRef } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData, SearchFunction } from '.';
+import { SelectProps, SelectMetaData, SelectData, SearchFunction } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
-import { groupDataUpdater } from './groupDataUpdater';
+import { dataUpdater } from './dataUpdater';
 import { propsToGroups, getSelectedOptions } from './utils';
-import DataContainer, { ChangeHandler } from '../dataContext/DataContext';
+import DataContainer, { ChangeEvent, ChangeHandler } from '../dataContext/DataContext';
 import { SelectedOptions } from './components/SelectedOptions';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
 import { OptionsList } from './components/OptionsList';
@@ -15,11 +15,10 @@ import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
 import { FilterInput } from './components/FilterInput';
 import { SearchInput } from './components/SearchInput';
-import { ChangeEvent } from '../group/utils';
 import { SearchAndFilterInfo } from './components/SearchAndFilterInfo';
 import { TagList } from './components/TagList';
 
-export function SelectWithContext({
+export function Select({
   options,
   open,
   groups,
@@ -94,7 +93,7 @@ export function SelectWithContext({
     const { updateMetaData, updateData, getData, getMetaData, asyncRequestWithTrigger } = tools;
     const lastSelectionUpdate = getMetaData().selectionUpdate;
     const lastSearchUpdate = getMetaData().searchUpdate;
-    groupDataUpdater(event, tools);
+    dataUpdater(event, tools);
 
     if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
       const { cancelCurrentSearch, search } = getMetaData();

@@ -6,10 +6,10 @@ import { Button, ButtonProps } from '../../button/Button';
 import { getSelectedOptions, createOnClickListener } from '../utils';
 import { SelectedTag } from './SelectedTag';
 import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
-import { DivElementProps, Option, SelectData, SelectMetaData } from '../index';
-import { groupIds } from '../groupData';
+import { DivElementProps, Option, SelectData, SelectMetaData } from '../types';
 import { useContextTools, useChangeTrigger } from '../../dataContext/hooks';
 import { getChildElementsPerRow } from '../../../utils/getChildElementsPerRow';
+import { eventIds } from '../events';
 
 type TagsProps = DivElementProps & {
   selectedOptions: Option[];
@@ -19,7 +19,7 @@ type TagsProps = DivElementProps & {
 const clearButtonPropSetter = (): ButtonProps => {
   const trigger = useChangeTrigger();
   return {
-    ...createOnClickListener({ id: groupIds.clearAllButton, trigger }),
+    ...createOnClickListener({ id: eventIds.clearAllButton, trigger }),
     children: 'Clear all',
     variant: 'secondary',
     className: styles.clearAllButton,
@@ -42,7 +42,7 @@ const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['s
   const selectedOptions = getSelectedOptions(groups);
   const trigger = useChangeTrigger();
   return {
-    ...createOnClickListener({ id: groupIds.showAllButton, trigger }),
+    ...createOnClickListener({ id: eventIds.showAllButton, trigger }),
     children: showAllTags ? (
       'Show less'
     ) : (

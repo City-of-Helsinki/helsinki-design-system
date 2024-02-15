@@ -4,15 +4,13 @@ import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { countVisibleOptions } from '../utils';
 import { LoadingSpinner } from '../../loadingSpinner';
-import { DivElementProps, SelectData, SelectMetaData } from '../index';
+import { DivElementProps, SelectData, SelectMetaData } from '../types';
 import { useContextTools } from '../../dataContext/hooks';
 
 type SearchAndFilterInfoProps = DivElementProps & {
   noResultsTexts: string[];
   loadingText: string;
 };
-
-export const searchAndFilterInfoGroupId = 'searchAndFilterInfo';
 
 export const searchAndFilterInfoPropSetter = (props: DivElementProps): SearchAndFilterInfoProps => {
   const { getData, getMetaData } = useContextTools();

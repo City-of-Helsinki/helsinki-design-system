@@ -2,12 +2,10 @@ import React from 'react';
 
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import { useContextTools } from '../../dataContext/hooks';
-import { SelectData, SelectMetaData } from '../index';
+import { SelectData, SelectMetaData } from '../types';
 
 type FieldLabelProps = Parameters<typeof FieldLabel>[0];
 type LabelComponentProps = Partial<FieldLabelProps>;
-
-export const labelDataContextId = 'label';
 
 const labelPropSetter = (props?: LabelComponentProps): FieldLabelProps => {
   const { getData, getMetaData } = useContextTools();

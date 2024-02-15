@@ -7,8 +7,6 @@ import {
   RefObject,
 } from 'react';
 
-import { GroupProps } from '../group/utils';
-
 export type Option = { value: string; label: string; selected?: boolean; isGroupLabel?: boolean; visible?: boolean };
 export type Group = { options: Required<Option>[] };
 export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
@@ -70,4 +68,3 @@ export type InputElementProps = DetailedHTMLProps<HTMLAttributes<HTMLInputElemen
 export type UlElementProps = DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, never>;
 export type LiElementProps = DetailedHTMLProps<HTMLAttributes<HTMLLIElement>, never>;
 export type PropSetterElementTypes = ButtonElementProps | DivElementProps | UlElementProps | LabelElementProps;
-export type SelectGroupProps = GroupProps<PropSetterElementTypes>;
