@@ -78,10 +78,10 @@ export function Select({
           if (isCancelled) {
             resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
           }
-          resolve({ id: 'searchResults', type: eventTypes.success, payload: { value: res } });
+          resolve({ id: eventIds.searchResult, type: eventTypes.success, payload: { value: res } });
         })
         .catch(() => {
-          resolve({ id: 'searchError', type: eventTypes.error });
+          resolve({ id: eventIds.searchResult, type: eventTypes.error });
         });
     });
     const cancel = () => {

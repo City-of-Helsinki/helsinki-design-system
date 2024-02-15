@@ -49,7 +49,6 @@ export const Example = () => {
   );
 };
 export const MultiSelect = () => {
-  // const options: SelectProps['options'] = ['Label1', 'Label2', { value: 'c', label: 'Label3' }];
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -89,26 +88,132 @@ export const MultiSelect = () => {
   );
 };
 
+function generateRandomArray() {
+  // Arrays containing names of fruits and vegetables and adjectives
+  const fruitsAndVegetables = [
+    'apple',
+    'banana',
+    'orange',
+    'grape',
+    'strawberry',
+    'watermelon',
+    'kiwi',
+    'pineapple',
+    'mango',
+    'peach',
+    'carrot',
+    'broccoli',
+    'potato',
+    'tomato',
+    'cucumber',
+    'lettuce',
+    'spinach',
+    'bell pepper',
+    'eggplant',
+    'zucchini',
+    'blueberry',
+    'raspberry',
+    'blackberry',
+    'avocado',
+    'pear',
+    'lemon',
+    'lime',
+    'cherry',
+    'pumpkin',
+    'apricot',
+    'cranberry',
+    'fig',
+    'grapefruit',
+    'guava',
+    'honeydew',
+    'kale',
+    'nectarine',
+    'olive',
+    'papaya',
+    'pea',
+    'plum',
+    'radish',
+    'rutabaga',
+    'tangerine',
+    'turnip',
+    'watercress',
+    'yam',
+    'yucca',
+    'zucchini',
+  ];
+
+  const adjectives = [
+    'sweet',
+    'juicy',
+    'ripe',
+    'fresh',
+    'tasty',
+    'delicious',
+    'crisp',
+    'tangy',
+    'fragrant',
+    'colorful',
+    'nutritious',
+    'succulent',
+    'flavorful',
+    'sour',
+    'satisfying',
+    'exotic',
+    'vibrant',
+    'healthy',
+    'aromatic',
+    'wholesome',
+    'tender',
+    'zesty',
+    'bitter',
+    'spicy',
+    'crunchy',
+    'mellow',
+    'sugary',
+    'scented',
+    'sapid',
+    'mouthwatering',
+  ];
+
+  // Generate random length between 1 and 10
+  const length = Math.floor(Math.random() * 10) + 1;
+
+  // Create the random array
+  const randomArray: string[] = [];
+  for (let i = 0; i < length; i += 1) {
+    // Randomly select a fruit or vegetable and an adjective
+    const randomFruitIndex = Math.floor(Math.random() * fruitsAndVegetables.length);
+    const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
+    const randomFruit = fruitsAndVegetables[randomFruitIndex];
+    const randomAdjective = adjectives[randomAdjectiveIndex];
+    const description = `${randomAdjective} ${randomFruit}`;
+    randomArray.push(description);
+  }
+
+  return randomArray;
+}
+
 const createFakeResults = (search: string) => {
+  if (search === 'none') {
+    return { groups: [] };
+  }
   const groups: SelectProps['groups'] = [
     {
-      label: 'result group 1',
+      label: 'Result group 1',
       options: [
+        ...generateRandomArray().map((value) => {
+          return {
+            value,
+            label: value,
+          };
+        }),
         {
-          value: `${search} hit 1`,
-          label: `${search} hit 1`,
-        },
-        {
-          value: `${search} hit 2`,
-          label: `${search} hit 2`,
-        },
-        {
-          value: `${search} hit 3`,
-          label: `${search} hit 3`,
+          value: `${search}`,
+          label: `Option for ${search}`,
         },
         {
           value: `match`,
-          label: `same match`,
+          label: `Same option`,
         },
       ],
     },
@@ -117,7 +222,6 @@ const createFakeResults = (search: string) => {
 };
 
 export const Search = () => {
-  // const options: SelectProps['options'] = ['Label1', 'Label2', { value: 'c', label: 'Label3' }];
   const groups: SelectProps['groups'] = [];
   const onChange: SelectProps['onChange'] = useCallback(() => {
     //
