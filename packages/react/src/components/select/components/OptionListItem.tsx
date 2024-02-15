@@ -3,24 +3,24 @@ import React, { ChangeEventHandler } from 'react';
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { LiElementProps, Option } from '../index';
-import { Controller } from '../../group/utils';
 import { Checkbox } from '../../checkbox/Checkbox';
 import { groupIds, eventTypes } from '../groupData';
+import { ChangeTrigger } from '../../dataContext/DataContext';
 
 export type ListItemProps = LiElementProps & { label?: string; checked?: boolean; indeterminate?: boolean };
 
 type ListItemPropSetterProps = {
   option: Option;
-  controller: Controller;
   isMultiSelect: boolean;
   isIntermediate: boolean;
+  trigger: ChangeTrigger;
 };
 
 export const createOptionsListItemProps = ({
   option,
-  controller,
   isMultiSelect,
   isIntermediate,
+  trigger,
 }: ListItemPropSetterProps): ListItemProps => {
   const { isGroupLabel, label, selected } = option;
 
@@ -36,7 +36,7 @@ export const createOptionsListItemProps = ({
           indeterminate: isIntermediate,
           checked: option.selected,
           onClick: (originalEvent: React.MouseEvent) => {
-            controller.triggerChange({
+            trigger({
               id: groupIds.listGroup,
               type: eventTypes.click,
               payload: { originalEvent, value: option },
@@ -51,7 +51,7 @@ export const createOptionsListItemProps = ({
     checked: isMultiSelect ? option.selected : undefined,
     indeterminate: undefined,
     onClick: (originalEvent: React.MouseEvent) => {
-      controller.triggerChange({
+      trigger({
         id: groupIds.listItem,
         type: eventTypes.click,
         payload: { originalEvent, value: option },

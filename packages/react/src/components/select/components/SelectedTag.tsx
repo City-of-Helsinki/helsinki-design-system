@@ -1,17 +1,17 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-import { Option } from '../index';
-import { groupIds, eventTypes } from '../groupData';
 import styles from '../Select.module.scss';
+import { Option } from '../index';
 import classNames from '../../../utils/classNames';
-import { Controller } from '../../group/utils';
 import { Tag, TagProps } from '../../tag/Tag';
+import { ChangeTrigger } from '../../dataContext/DataContext';
+import { groupIds, eventTypes } from '../groupData';
 
 export type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, never>;
 
-//  tags are dynamically created in SelectedOptions. They are not created by <Group>
+type SelectedTagProps = { option: Option; trigger: ChangeTrigger };
 
-export const selectedTagPropSetter = ({ option, controller }: { option: Option; controller: Controller }): TagProps => {
+export const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): TagProps => {
   return {
     className: classNames(styles.tag),
     onClick: (e) => {
@@ -19,14 +19,14 @@ export const selectedTagPropSetter = ({ option, controller }: { option: Option; 
     },
     onDelete: (e) => {
       e.stopPropagation();
-      controller.triggerChange({ id: groupIds.tag, type: eventTypes.click, payload: { value: option } });
+      trigger({ id: groupIds.tag, type: eventTypes.click, payload: { value: option } });
     },
     children: option.label,
     role: 'button',
   };
 };
 
-export function SelectedTag(props: TagProps) {
-  const { children, ...attr } = props;
+export function SelectedTag(props: SelectedTagProps) {
+  const { children, ...attr } = selectedTagPropSetter(props);
   return <Tag {...attr}>{children}</Tag>;
 }

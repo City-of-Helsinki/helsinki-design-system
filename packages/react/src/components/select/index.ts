@@ -11,6 +11,8 @@ import { GroupProps } from '../group/utils';
 
 export type Option = { value: string; label: string; selected?: boolean; isGroupLabel?: boolean; visible?: boolean };
 export type Group = { options: Required<Option>[] };
+export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
+export type SearchFunction = (searchValue: string, selectedValues: string[], data: SelectData) => Promise<SearchResult>;
 
 export type SelectProps<P = unknown> = {
   options?: (Option | string)[];
@@ -21,11 +23,7 @@ export type SelectProps<P = unknown> = {
     options: (Option | string)[];
   }>;
   onChange: (selectedValues: string[], data: SelectData) => Partial<SelectData> | void | undefined;
-  onSearch?: (
-    searchValue: string,
-    selectedValues: string[],
-    data: SelectData,
-  ) => Promise<Pick<SelectProps, 'groups' | 'options'>>;
+  onSearch?: SearchFunction;
   children?: P | P[];
   multiSelect?: boolean;
   showFiltering?: boolean;
@@ -55,7 +53,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   filter: string;
   search: string;
   isSearching: boolean;
-  currentSearchPromise: Promise<unknown> | undefined;
+  cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
   elementIds: {
     button: string;

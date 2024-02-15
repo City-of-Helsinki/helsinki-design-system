@@ -1,22 +1,16 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { Controller, DefaultGroupElementProps, PropSetter } from '../../group/utils';
-import { Option, SelectData, UlElementProps } from '../index';
+import { DivElementProps, Option, SelectData, SelectMetaData, UlElementProps } from '../index';
 import { createOptionsListItemProps, MultiSelectOptionListItem, OptionListItem } from './OptionListItem';
-import {
-  getAllOptions,
-  getMetaDataFromController,
-  getMultiSelectState,
-  getOptionGroupIndex,
-  getSelectDataFromController,
-  getSelectedOptionsPerc,
-  getVisibleGroupLabels,
-} from '../utils';
+import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../utils';
+import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
+import { ChangeTrigger } from '../../dataContext/DataContext';
+import useOutsideClick from '../../../hooks/useOutsideClick';
+import { eventTypes } from '../groupData';
 
-const createListOptions = (groups: SelectData['groups'], controller: Controller) => {
-  const isMultiSelect = getMultiSelectState(controller);
+const createListOptions = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
   const getGroupLabelIntermediateState = (option: Option): boolean => {
     if (!option.isGroupLabel || option.selected) {
       return false;
@@ -29,9 +23,9 @@ const createListOptions = (groups: SelectData['groups'], controller: Controller)
     .map((option) => {
       const { children, ...attr } = createOptionsListItemProps({
         option,
-        controller,
         isMultiSelect,
         isIntermediate: getGroupLabelIntermediateState(option),
+        trigger,
       });
       if (!option.visible) {
         return null;
@@ -46,21 +40,57 @@ const createListOptions = (groups: SelectData['groups'], controller: Controller)
     .filter((option) => !!option);
 };
 
-export const optionsListPropSetter: PropSetter<UlElementProps> = ({ controller }) => {
-  const { open, groups } = getSelectDataFromController(controller);
-  const { isSearching } = getMetaDataFromController(controller);
+const optionsListPropSetter = (
+  props: UlElementProps,
+): React.PropsWithChildren<
+  UlElementProps & {
+    containerProps: DivElementProps;
+    outsideClickTrigger: () => void;
+    isOpen: boolean;
+    listContainerRef: SelectMetaData['listContainerRef'];
+  }
+> => {
+  const { getData, getMetaData } = useContextTools();
+  const { open, groups, multiSelect } = getData() as SelectData;
+  const { isSearching, listContainerRef } = getMetaData() as SelectMetaData;
+  const trigger = useChangeTrigger();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const outsideClickTrigger = () => {
+    trigger({ id: 'tracker', type: eventTypes.outSideclick });
+  };
   return {
+    ...props,
     className: classNames(styles.list, hasVisibleGroupLabels && styles.shiftOptions),
-    children: open && !isSearching ? createListOptions(groups, controller) : null,
+    children: open && !isSearching ? createListOptions(groups, trigger, multiSelect) : null,
     containerProps: {
       className: styles.listContainer,
     },
+    outsideClickTrigger,
+    isOpen: open,
+    listContainerRef,
   };
 };
 
-export const OptionsList = (props: React.PropsWithChildren<DefaultGroupElementProps>) => {
-  const { children, containerProps, ...attr } = props;
+export const OptionsList = (props: React.PropsWithChildren<UlElementProps>) => {
+  const { children, containerProps, outsideClickTrigger, isOpen, listContainerRef, ...attr } = optionsListPropSetter(
+    props,
+  );
+  // open state is tracked on each render, because controller data is updated in sync
+  // and therefore the menu would/could close again immediately because button click will set the state open
+  const openStateRef = useRef<boolean>(isOpen);
+  const callback = useCallback(() => {
+    if (!openStateRef.current) {
+      return;
+    }
+    outsideClickTrigger();
+  }, []);
+
+  useEffect(() => {
+    openStateRef.current = isOpen;
+  });
+
+  useOutsideClick({ ref: listContainerRef, callback });
+
   if (!children || (Array.isArray(children) && !children.length)) {
     return null;
   }

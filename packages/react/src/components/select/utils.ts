@@ -1,25 +1,35 @@
-import { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
-import { Group, Option, SelectData, SelectMetaData, SelectProps } from '.';
+import { SelectData, Group, SelectProps, Option } from '.';
 import { getChildrenAsArray } from '../../utils/getChildren';
-import { Controller } from '../group/utils';
+import { ChangeEvent } from '../dataContext/DataContext';
 
-export function getSelectDataFromController(controller: Controller): SelectData {
-  return controller.getData() as SelectData;
+type DomHandlerProps = {
+  id: string;
+  type?: string;
+  trigger: (event: ChangeEvent) => void;
+};
+
+export function createOnClickListener(props: DomHandlerProps) {
+  const { id, type = 'click', trigger } = props;
+  return {
+    onClick: (originalEvent: React.MouseEvent) => {
+      trigger({ id, type, payload: { originalEvent } });
+    },
+  };
 }
 
-export function getMetaDataFromController(controller: Controller): SelectMetaData {
-  return controller.getMetaData() as SelectMetaData;
-}
-
-export function getMultiSelectState(controller: Controller): boolean {
-  return getSelectDataFromController(controller).multiSelect;
-}
-
-export function updateControllerSelectData(controller: Controller, newProps: Partial<SelectData>): SelectData {
-  return controller.updateData({
-    data: newProps,
-  }) as SelectData;
+export function createInputOnChangeListener(props: DomHandlerProps) {
+  const { id, type = 'change', trigger } = props;
+  return {
+    onChange: (originalEvent: React.ChangeEvent<HTMLInputElement>) => {
+      trigger({
+        id,
+        type,
+        payload: { value: originalEvent.currentTarget.value, originalEvent },
+      });
+    },
+  };
 }
 
 export function getOptionGroupIndex(groups: SelectData['groups'], option: Option): number {
@@ -149,7 +159,9 @@ export function getVisibleGroupLabels(groups: SelectData['groups']): Option[] {
   return groups.map((group) => group.options[0]).filter((option) => option && option.label && option.visible);
 }
 
-export function getSelectedOptions(groups: SelectData['groups']): Option[] {
+type NewType = Option;
+
+export function getSelectedOptions(groups: SelectData['groups']): NewType[] {
   return getAllOptions(groups).filter((option) => !!option.selected);
 }
 

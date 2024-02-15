@@ -2,12 +2,13 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { RenderGroupChildren } from '../../group/utils/renderChildrenAsGroupChildren';
-import { getMetaDataFromController, getSelectDataFromController } from '../utils';
+import { SelectData, SelectMetaData } from '../index';
+import { useContextTools } from '../../dataContext/hooks';
 
-export const ListAndInputContainer = RenderGroupChildren((props, controller, childRenderer) => {
-  const { listContainerRef } = getMetaDataFromController(controller);
-  const { open, showFiltering, showSearch } = getSelectDataFromController(controller);
+export const ListAndInputContainer = (props) => {
+  const { getData, getMetaData } = useContextTools();
+  const { open, showFiltering, showSearch } = getData() as SelectData;
+  const { listContainerRef } = getMetaData() as SelectMetaData;
   const hasInput = showFiltering || showSearch;
   const { children } = props;
   return (
@@ -19,7 +20,7 @@ export const ListAndInputContainer = RenderGroupChildren((props, controller, chi
       )}
       ref={listContainerRef}
     >
-      {childRenderer(children, controller)}
+      {children}
     </div>
   );
-});
+};

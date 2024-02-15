@@ -1,5 +1,5 @@
 import { containerGroupId } from './components/Container';
-import { labelGroupId } from './components/Label';
+import { labelDataContextId } from './components/Label';
 import { searchAndFilterInfoGroupId } from './components/SearchAndFilterInfo';
 
 export const groupIds = {
@@ -10,7 +10,7 @@ export const groupIds = {
   filter: 'filter',
   search: 'search',
   container: containerGroupId,
-  label: labelGroupId,
+  label: labelDataContextId,
   selectionsAndLists: 'selectionsAndLists',
   listAndInputContainer: 'listAndInputContainer',
   list: 'list',

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { DataBase, DataContext, ChangeEvent, ChangeTrigger } from './DataContext';
+import { DataContext, ChangeEvent, ChangeTrigger } from './DataContext';
 
 export function useDataContext() {
   return useContext(DataContext);
@@ -18,15 +18,8 @@ export function useMetaDataStorage() {
   return useDataContext().metaDataStorage;
 }
 
-export function updateData(props: DataBase) {
-  const context = useDataContext();
-  const newData = context.dataStorage.set(props);
-  context.rerender();
-  return newData;
-}
-
-export function updateMetaData(props: DataBase) {
-  return useDataContext().metaDataStorage.set(props);
+export function useReRender() {
+  return useDataContext().rerender();
 }
 
 export function useChangeTrigger(): ChangeTrigger {

@@ -1,28 +1,25 @@
 import uniqueId from 'lodash.uniqueid';
 import React, { ReactElement, useMemo, createRef } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData } from '..';
+import { SelectProps, SelectMetaData, SelectData, SearchFunction } from '.';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
-/* import { AssistiveText } from '../components/AssistiveText';
-import { FilterInput } from '../components/FilterInput';
-import { ListAndInputContainer } from '../components/ListAndInputContainer';
-import { OptionsList } from '../components/OptionsList';
-import { SearchAndFilterInfo } from '../components/SearchAndFilterInfo';
-import { SearchInput } from '../components/SearchInput';
-import { SelectedOptions } from '../components/SelectedOptions';
-import { SelectionsAndListsContainer } from '../components/SelectionsAndListsContainer';
-import { TagList } from '../components/TagList';
-import { Error } from '../components/Error';
-import { TrackEvents } from '../components/TrackEvents';
-import { groupIds } from '../groupData'; */
 import { groupDataUpdater } from './groupDataUpdater';
-import { propsToGroups, getSelectedOptions, mergeSearchResultsToCurrent } from '../utils';
-import DataContainer, { ChangeHandler } from './DataContext';
+import { propsToGroups, getSelectedOptions } from './utils';
+import DataContainer, { ChangeHandler } from '../dataContext/DataContext';
 import { SelectedOptions } from './components/SelectedOptions';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
+import { OptionsList } from './components/OptionsList';
+import { ListAndInputContainer } from './components/ListAndInputContainer';
+import { ErrorNotification } from './components/Error';
+import { AssistiveText } from './components/AssistiveText';
+import { FilterInput } from './components/FilterInput';
+import { SearchInput } from './components/SearchInput';
+import { ChangeEvent } from '../group/utils';
+import { SearchAndFilterInfo } from './components/SearchAndFilterInfo';
+import { TagList } from './components/TagList';
 
-export function SelectWitContext({
+export function SelectWithContext({
   options,
   open,
   groups,
@@ -62,7 +59,7 @@ export function SelectWitContext({
       search: '',
       isSearching: false,
       showAllTags: false,
-      currentSearchPromise: undefined,
+      cancelCurrentSearch: undefined,
       icon,
       elementIds: {
         button: `${containerId}-button`,
@@ -72,28 +69,56 @@ export function SelectWitContext({
       },
     };
   }, [id]);
+
+  const executeSearch = (search: string, searchFunc: SearchFunction): [() => void, Promise<ChangeEvent>] => {
+    let isCancelled = false;
+    const request = new Promise<ChangeEvent>((resolve) => {
+      searchFunc(search as string, [], {} as SelectData)
+        .then((res) => {
+          if (isCancelled) {
+            resolve({ id: 'searchResult', type: 'already-cancelled' });
+          }
+          resolve({ id: 'searchResults', type: 'success', payload: { value: res } });
+        })
+        .catch(() => {
+          resolve({ id: 'searchError', type: 'error' });
+        });
+    });
+    const cancel = () => {
+      isCancelled = true;
+    };
+    return [cancel, request];
+  };
+
   const handleChanges: ChangeHandler<SelectData, SelectMetaData> = (event, tools): boolean => {
-    const { updateMetaData, updateData, getData, getMetaData } = tools;
+    const { updateMetaData, updateData, getData, getMetaData, asyncRequestWithTrigger } = tools;
     const lastSelectionUpdate = getMetaData().selectionUpdate;
     const lastSearchUpdate = getMetaData().searchUpdate;
-
     groupDataUpdater(event, tools);
 
     if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
-      const current = getData();
-      updateMetaData({ isSearching: true });
-      onSearch(
+      const { cancelCurrentSearch, search } = getMetaData();
+      if (cancelCurrentSearch) {
+        cancelCurrentSearch();
+      }
+      // const current = getData();
+      const [cancel, request] = executeSearch(search, onSearch);
+      updateMetaData({ isSearching: true, cancelCurrentSearch: cancel });
+      asyncRequestWithTrigger(request);
+      /* onSearch(
         getMetaData().search as string,
         getSelectedOptions(current.groups).map((opt) => opt.value),
         current,
       )
         .then((res) => {
+          console.log('then', res);
           updateMetaData({ isSearching: false });
           updateData({ groups: mergeSearchResultsToCurrent(res, current.groups) });
         })
         .catch(() => {
           // ignore
         });
+        */
     }
     if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
       const current = getData();
@@ -110,13 +135,24 @@ export function SelectWitContext({
     return true;
   };
 
+  // unmount => cancel asyncs
+
   return (
     <DataContainer<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={handleChanges}>
       <Container>
-        <Label />
-        <SelectionsAndListsContainer>
+        <Label key="label" />
+        <SelectionsAndListsContainer key="selectionsAndListsContainer">
           <SelectedOptions />
+          <ListAndInputContainer>
+            {initialData.showFiltering && <FilterInput />}
+            {initialData.showSearch && <SearchInput />}
+            <OptionsList />
+            <SearchAndFilterInfo />
+          </ListAndInputContainer>
         </SelectionsAndListsContainer>
+        <ErrorNotification />
+        <AssistiveText />
+        {initialData.multiSelect && <TagList />}
       </Container>
     </DataContainer>
   );
