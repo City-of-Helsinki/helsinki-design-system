@@ -1,42 +1,35 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
 import styles from '../Select.module.scss';
 import { TextInput, TextInputProps } from '../../textInput/TextInput';
-import { PropSetter } from '../../group/utils';
 import { IconSearch } from '../../../icons';
-import { InputElementProps } from '..';
+import { SelectMetaData } from '../index';
 import classNames from '../../../utils/classNames';
-import { createInputOnChangeListener } from '../../group/utils/propSetterHelpers';
-import { getSelectDataFromController, getMetaDataFromController } from '../utils';
+import { createInputOnChangeListener } from '../utils';
+import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
 
-export const searchInputPropSetter: PropSetter<InputElementProps> = (props) => {
-  const { controller } = props;
-  const { label } = getSelectDataFromController(controller);
-  const { search } = getMetaDataFromController(controller);
+export const searchInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
+  const { getMetaData } = useContextTools();
+  const trigger = useChangeTrigger();
+  const { search } = getMetaData() as SelectMetaData;
   return {
+    ...props,
     className: classNames(styles.filterInput),
-    children: label,
-    ...createInputOnChangeListener(props),
+    ...createInputOnChangeListener({ id: 'search', trigger }),
     onButtonClick: () => {
       console.log('--->btn');
     },
+    id: 'ccc',
+    buttonAriaLabel: 'Search for ...inputValue',
+    buttonIcon: <IconSearch />,
+    clearButtonAriaLabel: 'Clear search',
+    label: 'Search options',
+    key: 'keepme',
     value: search,
   };
 };
 
 export function SearchInput(props: Partial<TextInputProps>) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { children, onButtonClick, ...rest } = props;
-  return (
-    <TextInput
-      id="ccc"
-      buttonAriaLabel="Search for ...inputValue"
-      buttonIcon={<IconSearch />}
-      clearButtonAriaLabel="Clear search"
-      label="Search options"
-      onButtonClick={onButtonClick as MouseEventHandler<HTMLButtonElement>}
-      key="keepme"
-      {...rest}
-    />
-  );
+  const inputProps = searchInputPropSetter(props);
+  return <TextInput {...inputProps} />;
 }

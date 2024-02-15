@@ -2,11 +2,10 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { PropSetter } from '../../group/utils';
-import { countVisibleOptions, getMetaDataFromController, getSelectDataFromController } from '../utils';
+import { countVisibleOptions } from '../utils';
 import { LoadingSpinner } from '../../loadingSpinner';
-import { ComponentToGroupChild } from '../../group/Group';
-import { DivElementProps } from '..';
+import { DivElementProps, SelectData, SelectMetaData } from '../index';
+import { useContextTools } from '../../dataContext/hooks';
 
 type SearchAndFilterInfoProps = DivElementProps & {
   noResultsTexts: string[];
@@ -15,11 +14,13 @@ type SearchAndFilterInfoProps = DivElementProps & {
 
 export const searchAndFilterInfoGroupId = 'searchAndFilterInfo';
 
-export const searchAndFilterInfoPropSetter: PropSetter<SearchAndFilterInfoProps> = ({ controller }) => {
-  const { groups } = getSelectDataFromController(controller);
-  const { isSearching, search, filter } = getMetaDataFromController(controller);
+export const searchAndFilterInfoPropSetter = (props: DivElementProps): SearchAndFilterInfoProps => {
+  const { getData, getMetaData } = useContextTools();
+  const { groups } = getData() as SelectData;
+  const { isSearching, search, filter } = getMetaData() as SelectMetaData;
   const count = countVisibleOptions(groups);
   return {
+    ...props,
     noResultsTexts:
       !isSearching && !count && (search || filter)
         ? [`No options found for "${search || filter}"`, 'Try a different search term']
@@ -29,8 +30,8 @@ export const searchAndFilterInfoPropSetter: PropSetter<SearchAndFilterInfoProps>
   };
 };
 
-function SearchAndFilterInfoGroupComponent(props: SearchAndFilterInfoProps) {
-  const { loadingText, noResultsTexts, ...attr } = props;
+export function SearchAndFilterInfo(props: DivElementProps) {
+  const { loadingText, noResultsTexts, ...attr } = searchAndFilterInfoPropSetter(props);
   if (!noResultsTexts?.length && !loadingText) {
     return null;
   }
@@ -51,8 +52,3 @@ function SearchAndFilterInfoGroupComponent(props: SearchAndFilterInfoProps) {
     </div>
   );
 }
-
-export const SearchAndFilterInfo = ComponentToGroupChild<SearchAndFilterInfoProps>(
-  SearchAndFilterInfoGroupComponent,
-  searchAndFilterInfoGroupId,
-);

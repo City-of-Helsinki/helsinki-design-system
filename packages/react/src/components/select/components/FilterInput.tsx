@@ -1,51 +1,35 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
-import { TextInput, TextInputProps } from '../../textInput/TextInput';
-import { PropSetter } from '../../group/utils';
-import { IconSearch } from '../../../icons';
 import styles from '../Select.module.scss';
-import { InputElementProps } from '..';
+import { TextInput, TextInputProps } from '../../textInput/TextInput';
+import { IconSearch } from '../../../icons';
+import { SelectMetaData } from '../index';
 import classNames from '../../../utils/classNames';
-import { createInputOnChangeListener } from '../../group/utils/propSetterHelpers';
-import { getMetaDataFromController, getSelectDataFromController } from '../utils';
+import { createInputOnChangeListener } from '../utils';
+import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
 
-export const filterInputPropSetter: PropSetter<InputElementProps> = (props) => {
-  const { controller } = props;
-  const { label } = getSelectDataFromController(controller);
-  const { filter } = getMetaDataFromController(controller);
+export const filterInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
+  const { getMetaData } = useContextTools();
+  const trigger = useChangeTrigger();
+  const { filter } = getMetaData() as SelectMetaData;
   return {
+    ...props,
     className: classNames(styles.filterInput),
-    children: label,
-    ...createInputOnChangeListener(props),
+    ...createInputOnChangeListener({ id: 'filter', trigger }),
     onButtonClick: () => {
       console.log('--->btn');
     },
+    id: 'ccc',
+    buttonAriaLabel: 'Search for ...inputValue',
+    buttonIcon: <IconSearch />,
+    clearButtonAriaLabel: 'Clear search',
+    label: 'Filter options',
+    key: 'keepme',
     value: filter,
   };
 };
 
 export function FilterInput(props: Partial<TextInputProps>) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { children, onButtonClick, ...rest } = props;
-  return (
-    <TextInput
-      id="ccc"
-      buttonAriaLabel="Search for ...inputValue"
-      buttonIcon={<IconSearch />}
-      clearButtonAriaLabel="Clear search"
-      label="Filter options"
-      onButtonClick={onButtonClick as MouseEventHandler<HTMLButtonElement>}
-      key="keepme"
-      {...rest}
-    />
-  );
+  const inputProps = filterInputPropSetter(props);
+  return <TextInput {...inputProps} />;
 }
-
-/*
-Object.defineProperty(FilterInput, 'HDSForwardController', {
-  value: true,
-});
-
-(FilterInput as React.FC & { groupId: string }).groupId = 'TEST';
-
-*/

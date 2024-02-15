@@ -1,9 +1,21 @@
 import React from 'react';
 
-import { Notification } from '../../notification/Notification';
-import GroupChild from '../../group/GroupChild';
-import { DefaultGroupElementProps } from '../../group/utils';
+import { SelectData } from '../index';
+import { useContextTools } from '../../dataContext/hooks';
+import { NotificationProps, Notification } from '../../notification/Notification';
 
-export function Error(props: DefaultGroupElementProps & { groupId: string }) {
-  return <GroupChild {...props} renderOnlyWithChildren as={(elProps) => <Notification type="error" {...elProps} />} />;
+function errorPropCreator(props: Partial<NotificationProps>): NotificationProps {
+  const { getData } = useContextTools();
+  const { error } = getData() as SelectData;
+  return {
+    ...props,
+    type: 'error',
+    children: error || '',
+    closeButtonLabelText: '',
+  };
+}
+
+export function ErrorNotification(props: Partial<NotificationProps>) {
+  const { children, ...elProps } = errorPropCreator(props);
+  return children ? <Notification {...elProps}>{children}</Notification> : null;
 }

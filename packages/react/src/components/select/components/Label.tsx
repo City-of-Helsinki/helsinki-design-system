@@ -1,31 +1,27 @@
 import React from 'react';
 
-import styles from '../Select.module.scss';
-import classNames from '../../../utils/classNames';
-import { PropSetter } from '../../group/utils';
-import { getMetaDataFromController, getSelectDataFromController } from '../utils';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
-import { ComponentToGroupChild } from '../../group/Group';
+import { useContextTools } from '../../dataContext/hooks';
+import { SelectData, SelectMetaData } from '../index';
 
 type FieldLabelProps = Parameters<typeof FieldLabel>[0];
+type LabelComponentProps = Partial<FieldLabelProps>;
 
-export const labelGroupId = 'label';
+export const labelDataContextId = 'label';
 
-export const labelPropSetter: PropSetter<FieldLabelProps> = ({ controller }) => {
-  const { label, required } = getSelectDataFromController(controller);
-  const { elementIds } = getMetaDataFromController(controller);
+const labelPropSetter = (props?: LabelComponentProps): FieldLabelProps => {
+  const { getData, getMetaData } = useContextTools();
+  const { label, required } = getData() as SelectData;
+  const { elementIds } = getMetaData() as SelectMetaData;
   return {
+    ...props,
     required,
-    className: classNames(styles.label),
     label,
     inputId: elementIds.button,
     id: elementIds.label,
   };
 };
 
-export const Label = ComponentToGroupChild((props: FieldLabelProps) => {
-  if (!(props as FieldLabelProps).label) {
-    return null;
-  }
-  return <FieldLabel {...(props as FieldLabelProps)} />;
-}, labelGroupId);
+export const Label = (props: LabelComponentProps = {}) => {
+  return <FieldLabel {...labelPropSetter(props)} />;
+};

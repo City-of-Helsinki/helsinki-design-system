@@ -1,42 +1,48 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { Button, ButtonProps } from '../../button/Button';
-import { Controller, DefaultGroupElementProps, PropSetter } from '../../group/utils';
-import { createOnClickListener } from '../../group/utils/propSetterHelpers';
-import { getMetaDataFromController, getSelectDataFromController, getSelectedOptions } from '../utils';
-import { SelectedTag, selectedTagPropSetter } from './SelectedTag';
+import { getSelectedOptions, createOnClickListener } from '../utils';
+import { SelectedTag } from './SelectedTag';
 import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
-import { DivElementProps, Option, SelectMetaData } from '..';
-import { eventTypes, groupIds } from '../groupData';
-import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
+import { DivElementProps, Option, SelectData, SelectMetaData } from '../index';
+import { groupIds } from '../groupData';
+import { useContextTools, useChangeTrigger } from '../../dataContext/hooks';
+import { getChildElementsPerRow } from '../../../utils/getChildElementsPerRow';
 
-type TagContainerProps = DivElementProps & {
-  options: Option[];
-  controller: Controller;
-  containerRef: SelectMetaData['tagListRef'];
+type TagsProps = DivElementProps & {
+  selectedOptions: Option[];
+  metaData: SelectMetaData;
 };
 
-type TagListProps = DivElementProps & {
-  clearButtonProps: ButtonProps;
-  showAllButtonProps: ButtonProps & { buttonRef: SelectMetaData['showAllButtonRef'] };
-  tagContainerProps: TagContainerProps;
-};
-
-export const tagListPropSetter: PropSetter<TagListProps> = (propSetterProps) => {
-  const { controller } = propSetterProps;
-  const { groups } = getSelectDataFromController(controller);
-  const { elementIds, showAllTags, tagListRef, showAllButtonRef } = getMetaDataFromController(controller);
-  const selectedOptions = getSelectedOptions(groups);
-  const clearButtonProps: ButtonProps = {
-    ...createOnClickListener({ id: groupIds.clearAllButton, controller }, eventTypes.click),
+const clearButtonPropSetter = (): ButtonProps => {
+  const trigger = useChangeTrigger();
+  return {
+    ...createOnClickListener({ id: groupIds.clearAllButton, trigger }),
     children: 'Clear all',
     variant: 'secondary',
     className: styles.clearAllButton,
   };
-  const showAllButtonProps: TagListProps['showAllButtonProps'] = {
-    ...createOnClickListener({ id: groupIds.showAllButton, controller }, eventTypes.click),
+};
+
+function ClearButton() {
+  const { children, ...attr } = clearButtonPropSetter();
+  return (
+    <Button {...attr} iconRight={<IconCrossCircleFill />}>
+      {children}
+    </Button>
+  );
+}
+
+const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['showAllButtonRef'] } => {
+  const { getMetaData, getData } = useContextTools();
+  const { groups } = getData() as SelectData;
+  const { showAllTags, showAllButtonRef } = getMetaData() as SelectMetaData;
+  const selectedOptions = getSelectedOptions(groups);
+  const trigger = useChangeTrigger();
+  return {
+    ...createOnClickListener({ id: groupIds.showAllButton, trigger }),
     children: showAllTags ? (
       'Show less'
     ) : (
@@ -47,46 +53,30 @@ export const tagListPropSetter: PropSetter<TagListProps> = (propSetterProps) => 
     variant: 'secondary',
     buttonRef: showAllButtonRef,
   };
-
-  const tagContainerProps: TagContainerProps = {
-    options: selectedOptions,
-    controller,
-    id: elementIds.tagList,
-    containerRef: tagListRef,
-    className: classNames(styles.tagList, showAllTags && styles.tagListExpanded),
-  };
-
-  return {
-    className: classNames(styles.tagListContainer),
-    clearButtonProps,
-    showAllButtonProps,
-    tagContainerProps,
-  };
 };
 
-function ClearButton(props: TagListProps['clearButtonProps']) {
-  const { children, ...attr } = props;
-  return (
-    <Button {...attr} iconRight={<IconCrossCircleFill />}>
-      {children}
-    </Button>
-  );
-}
-
-function ShowAllButton(props: TagListProps['showAllButtonProps']) {
-  const { children, buttonRef, ...attr } = props;
+function ShowAllButton() {
+  const { children, buttonRef, ...attr } = showAllButtonPropSetter();
   return (
     <Button {...attr} ref={buttonRef} iconRight={<IconAngleDown />}>
       {children}
     </Button>
   );
 }
-function Tags(props: TagContainerProps) {
-  const { options, className, containerRef, controller } = props || {};
+
+function Tags(props: TagsProps) {
+  const { selectedOptions, metaData } = props;
+  const { tagListRef, showAllTags, elementIds } = metaData;
+
+  const trigger = useChangeTrigger();
   return (
-    <div className={className} ref={containerRef}>
-      {options.map((option) => (
-        <SelectedTag {...selectedTagPropSetter({ option, controller })} key={option.value} />
+    <div
+      id={elementIds.tagList}
+      className={classNames(styles.tagList, showAllTags && styles.tagListExpanded)}
+      ref={tagListRef}
+    >
+      {selectedOptions.map((option) => (
+        <SelectedTag option={option} trigger={trigger} key={option.value} />
       ))}
     </div>
   );
@@ -95,11 +85,13 @@ function Tags(props: TagContainerProps) {
 export function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.tagListRef.current;
   const buttonEl = metaData.showAllButtonRef.current;
-  if (tagListEl && buttonEl && !metaData.showAllTags) {
-    const firstVisible = getIndexOfFirstVisibleChild(tagListEl);
-    const childCount = tagListEl.children.length - 1;
-    const hiddenItems = childCount - firstVisible;
-    if (!hiddenItems) {
+  if (tagListEl && buttonEl) {
+    // Because tags can be removed at any time, checking just number
+    // of visible items does not work.
+    // When all items are visible and one is deleted, visible items cannot be used
+    // to determise should "show less"-button be hidden.
+    const numberOfTagRows = getChildElementsPerRow(tagListEl).length;
+    if (numberOfTagRows < 2) {
       buttonEl.classList.add(styles.hiddenButton);
     } else {
       buttonEl.classList.remove(styles.hiddenButton);
@@ -107,18 +99,26 @@ export function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   }
 }
 
-export function TagList(props: DefaultGroupElementProps) {
-  const { clearButtonProps, showAllButtonProps, tagContainerProps, ...attr } = (props as unknown) as TagListProps;
-  const showAllButton = showAllButtonProps;
-  if (!tagContainerProps.options.length) {
+export function TagList() {
+  const { getMetaData, getData } = useContextTools();
+  const { groups } = getData() as SelectData;
+  const metaData = getMetaData() as SelectMetaData;
+
+  const selectedOptions = getSelectedOptions(groups);
+
+  useLayoutEffect(() => {
+    checkIfShowAllButtonIsNeeded(metaData);
+  });
+
+  if (!selectedOptions.length) {
     return null;
   }
   return (
-    <div {...attr}>
-      <Tags {...tagContainerProps} />
+    <div className={classNames(styles.tagListContainer)}>
+      <Tags selectedOptions={selectedOptions} metaData={metaData} />
       <div className={styles.tagListButtons}>
-        {showAllButton && <ShowAllButton {...showAllButtonProps} />}
-        <ClearButton {...clearButtonProps} />
+        <ShowAllButton />
+        <ClearButton />
       </div>
     </div>
   );

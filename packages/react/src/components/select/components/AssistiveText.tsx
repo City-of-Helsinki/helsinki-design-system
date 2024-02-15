@@ -1,8 +1,18 @@
 import React from 'react';
 
-import GroupChild from '../../group/GroupChild';
-import { DefaultGroupElementProps } from '../../group/utils';
+import { DivElementProps, SelectData } from '../index';
+import { useContextTools } from '../../dataContext/hooks';
 
-export function AssistiveText(props: DefaultGroupElementProps & { groupId: string }) {
-  return <GroupChild {...props} renderOnlyWithChildren />;
+function assitiveTextPropCreator(props: DivElementProps) {
+  const { getData } = useContextTools();
+  const { assistiveText } = getData() as SelectData;
+  return {
+    ...props,
+    children: assistiveText || '',
+  };
+}
+
+export function AssistiveText(props: DivElementProps) {
+  const { children, ...attr } = assitiveTextPropCreator(props);
+  return children ? <div {...attr}>{children}</div> : null;
 }
