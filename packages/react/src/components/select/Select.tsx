@@ -1,12 +1,13 @@
 import uniqueId from 'lodash.uniqueid';
 import React, { ReactElement, useMemo, createRef } from 'react';
+import debounce from 'lodash.debounce';
 
 import { SelectProps, SelectMetaData, SelectData, SearchFunction } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { dataUpdater } from './dataUpdater';
 import { propsToGroups, getSelectedOptions, childrenToGroups } from './utils';
-import DataContainer, { ChangeEvent, ChangeHandler } from '../dataContext/DataContext';
+import DataContainer, { ChangeEvent, ChangeHandler, Tools } from '../dataContext/DataContext';
 import { SelectedOptions } from './components/SelectedOptions';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
 import { OptionsList } from './components/OptionsList';
@@ -47,7 +48,7 @@ export function Select({
       placeholder: placeholder || '',
       assistiveText: assistiveText || '',
     }),
-    [options, open],
+    [options, open, groups],
   );
   const metaData: SelectMetaData = useMemo(() => {
     const containerId = `${id || uniqueId('hds-select')}`;
@@ -93,14 +94,32 @@ export function Select({
     return [cancel, request];
   };
 
+  const debouncedSearch = debounce((tools: Tools<SelectData, SelectMetaData>) => {
+    if (!onSearch) {
+      return;
+    }
+    const { cancelCurrentSearch, search } = tools.getMetaData();
+    if (cancelCurrentSearch) {
+      cancelCurrentSearch();
+    }
+    if (!search) {
+      return;
+    }
+    const [cancel, request] = executeSearch(search, onSearch);
+    tools.updateMetaData({ cancelCurrentSearch: cancel });
+    tools.asyncRequestWithTrigger(request);
+  }, 300);
+
   const handleChanges: ChangeHandler<SelectData, SelectMetaData> = (event, tools): boolean => {
-    const { updateMetaData, updateData, getData, getMetaData, asyncRequestWithTrigger } = tools;
+    const { updateMetaData, updateData, getData, getMetaData } = tools;
     const lastSelectionUpdate = getMetaData().selectionUpdate;
     const lastSearchUpdate = getMetaData().searchUpdate;
     dataUpdater(event, tools);
 
     if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
-      const { cancelCurrentSearch, search } = getMetaData();
+      tools.updateMetaData({ isSearching: !!getMetaData().search });
+      debouncedSearch(tools);
+      /* const { cancelCurrentSearch, search } = getMetaData();
       if (cancelCurrentSearch) {
         cancelCurrentSearch();
       }
@@ -108,7 +127,7 @@ export function Select({
       const [cancel, request] = executeSearch(search, onSearch);
       updateMetaData({ isSearching: true, cancelCurrentSearch: cancel });
       asyncRequestWithTrigger(request);
-      /* onSearch(
+      onSearch(
         getMetaData().search as string,
         getSelectedOptions(current.groups).map((opt) => opt.value),
         current,
