@@ -5,7 +5,7 @@ import { SelectProps, SelectMetaData, SelectData, SearchFunction } from './types
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { dataUpdater } from './dataUpdater';
-import { propsToGroups, getSelectedOptions } from './utils';
+import { propsToGroups, getSelectedOptions, childrenToGroups } from './utils';
 import DataContainer, { ChangeEvent, ChangeHandler } from '../dataContext/DataContext';
 import { SelectedOptions } from './components/SelectedOptions';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -31,11 +31,13 @@ export function Select({
   required,
   onChange,
   onSearch,
+  children,
+  assistiveText,
   id,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo(
     () => ({
-      groups: propsToGroups({ options, groups }),
+      groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
       label: 'Label',
       open: !!open,
       required: !!required,
@@ -43,6 +45,7 @@ export function Select({
       showFiltering: !!showFiltering,
       showSearch: !!showSearch,
       placeholder: placeholder || '',
+      assistiveText: assistiveText || '',
     }),
     [options, open],
   );

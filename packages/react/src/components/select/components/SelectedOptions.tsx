@@ -61,11 +61,13 @@ export function SingleSelectButton(props: SingleOptionButtonProps) {
       <div className={styles.labels} key="labels">
         {labels}
       </div>
-      <span className={styles.count} key="count">
-        <span className="count" key="number">
-          +1
+      {options.length > 1 && (
+        <span className={styles.count} key="count">
+          <span className="count" key="number">
+            +1
+          </span>
         </span>
-      </span>
+      )}
     </button>
   );
 }

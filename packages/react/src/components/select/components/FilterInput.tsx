@@ -7,17 +7,16 @@ import { SelectMetaData } from '../types';
 import classNames from '../../../utils/classNames';
 import { createInputOnChangeListener } from '../utils';
 import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
+import { eventIds } from '../events';
 
-export const filterEventId = 'filter';
-
-export const filterInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
+const filterInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
   const { getMetaData } = useContextTools();
   const trigger = useChangeTrigger();
   const { filter } = getMetaData() as SelectMetaData;
   return {
     ...props,
     className: classNames(styles.filterInput),
-    ...createInputOnChangeListener({ id: filterEventId, trigger }),
+    ...createInputOnChangeListener({ id: eventIds.filter, trigger }),
     onButtonClick: () => {
       console.log('--->btn');
     },
