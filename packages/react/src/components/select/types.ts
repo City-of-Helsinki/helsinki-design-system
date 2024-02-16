@@ -30,10 +30,14 @@ export type SelectProps<P = unknown> = {
   placeholder?: string;
   id?: string;
   icon?: ReactNode;
+  assistiveText?: string;
 };
 
 export type SelectData = Required<
-  Pick<SelectProps, 'label' | 'open' | 'multiSelect' | 'showFiltering' | 'showSearch' | 'placeholder' | 'required'>
+  Pick<
+    SelectProps,
+    'label' | 'open' | 'multiSelect' | 'showFiltering' | 'showSearch' | 'placeholder' | 'required' | 'assistiveText'
+  >
 > & {
   groups: Array<Group>;
   assistiveText?: string;

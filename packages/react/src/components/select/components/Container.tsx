@@ -4,8 +4,6 @@ import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { DivElementProps } from '../types';
 
-export const containerGroupId = 'container';
-
 export const Container = (props: Partial<DivElementProps>) => {
   const { children, ...rest } = props;
   return (

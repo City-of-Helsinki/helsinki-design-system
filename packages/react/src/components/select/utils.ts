@@ -181,7 +181,10 @@ function createGroupLabel(label: string) {
   return { ...validateOption(label), isGroupLabel: true, visible: !!label };
 }
 
-export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): SelectData['groups'] {
+export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): SelectData['groups'] | undefined {
+  if (!props.groups && !props.options) {
+    return undefined;
+  }
   if (props.groups) {
     return props.groups.map((group) => {
       const labelOption: Required<Option> = createGroupLabel(group.label);
@@ -224,9 +227,9 @@ export function filterOptions(groups: SelectData['groups'], filterStr: string) {
   return groups;
 }
 
-export function childrenToGroups(children: SelectProps<ReactElement>['children']): SelectData['groups'] {
+export function childrenToGroups(children: SelectProps<ReactElement>['children']): SelectData['groups'] | undefined {
   if (!children || typeof children !== 'object') {
-    return [];
+    return undefined;
   }
   const childArray = getChildrenAsArray(children) as ReactElement[];
   if (!childArray.length) {

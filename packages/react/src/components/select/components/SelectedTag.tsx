@@ -11,7 +11,7 @@ export type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButt
 
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger };
 
-export const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): TagProps => {
+const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): TagProps => {
   return {
     className: classNames(styles.tag),
     onClick: (e) => {
@@ -22,7 +22,6 @@ export const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): Ta
       trigger({ id: eventIds.tag, type: eventTypes.click, payload: { value: option } });
     },
     children: option.label,
-    role: 'button',
   };
 };
 
