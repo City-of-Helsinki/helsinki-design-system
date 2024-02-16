@@ -13,10 +13,10 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
   const { id, type, payload } = event;
   const current = tools.getData();
   const { showAllTags } = tools.getMetaData();
-  const groupIdWithType = `${id}_${type}`;
-  if (groupIdWithType === events.selectedOptionsClick || groupIdWithType === events.arrowClick) {
+  const eventIdWithType = `${id}_${type}`;
+  if (eventIdWithType === events.selectedOptionsClick || eventIdWithType === events.arrowClick) {
     tools.updateData({ open: !current.open });
-  } else if (groupIdWithType === events.listItemClick || groupIdWithType === events.tagClick) {
+  } else if (eventIdWithType === events.listItemClick || eventIdWithType === events.tagClick) {
     const clickedOption = payload && (payload.value as Required<Option>);
     if (!clickedOption) {
       return false;
@@ -27,10 +27,10 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
         { ...clickedOption, selected: !clickedOption.selected },
         current.multiSelect,
       ),
-      open: groupIdWithType !== events.tagClick && current.multiSelect,
+      open: eventIdWithType !== events.tagClick && current.multiSelect,
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
-  } else if (groupIdWithType === events.listGroupClick) {
+  } else if (eventIdWithType === events.listGroupClick) {
     const clickedOption = payload && (payload.value as Required<Option>);
     if (!clickedOption) {
       return false;
@@ -40,25 +40,25 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
       open: true,
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
-  } else if (groupIdWithType === events.clearClick || groupIdWithType === events.clearAllClick) {
+  } else if (eventIdWithType === events.clearClick || eventIdWithType === events.clearAllClick) {
     tools.updateData({
       groups: clearAllSelectedOptions(current.groups),
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
   } else if (type === eventTypes.outSideclick) {
     tools.updateData({ open: false });
-  } else if (groupIdWithType === events.filterChange) {
+  } else if (eventIdWithType === events.filterChange) {
     const filterValue = (payload && (payload.value as string)) || '';
     tools.updateMetaData({ filter: filterValue });
     tools.updateData({ groups: filterOptions(current.groups, filterValue) });
-  } else if (groupIdWithType === events.searchChange) {
+  } else if (eventIdWithType === events.searchChange) {
     const searchValue = (payload && (payload.value as string)) || '';
-    tools.updateMetaData({ search: searchValue, searchUpdate: searchValue ? Date.now() : -1 });
-    tools.updateData(!searchValue ? { groups: mergeSearchResultsToCurrent({}, current.groups) } : {});
-  } else if (groupIdWithType === events.showAllClick) {
+    tools.updateMetaData({ search: searchValue, searchUpdate: Date.now() });
+    if (!searchValue) {
+      tools.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
+    }
+  } else if (eventIdWithType === events.showAllClick) {
     tools.updateMetaData({ showAllTags: !showAllTags });
-    // empty upate to cause re-render
-    tools.updateData({});
   } else if (id === eventIds.searchResult) {
     if (type === eventTypes.success) {
       tools.updateMetaData({ isSearching: false });

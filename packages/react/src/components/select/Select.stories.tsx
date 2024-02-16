@@ -3,6 +3,8 @@ import React, { useCallback, useRef } from 'react';
 import { SelectProps } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
+import { Button } from '../button/Button';
+import useForceRender from '../../hooks/useForceRender';
 
 export default {
   component: Select,
@@ -100,8 +102,8 @@ function generateOptionArray(count = -1) {
   const length = count > 0 ? count : Math.floor(Math.random() * 20) + 1;
 
   const toUpperCase = (str: string) => str[0].toUpperCase() + str.slice(1);
-  // Create the random array
-  const randomArray: string[] = [];
+  // Using set to avoid duplicates
+  const randomSet: Set<string> = new Set();
   for (let i = 0; i < length; i += 1) {
     // Randomly select a fruit or vegetable and an adjective
     const randomFruitIndex = Math.floor(Math.random() * fruitsAndVegetables.length);
@@ -109,10 +111,10 @@ function generateOptionArray(count = -1) {
     const randomFruit = fruitsAndVegetables[randomFruitIndex];
     const randomAdjective = adjectives[randomAdjectiveIndex];
     const description = `${toUpperCase(randomAdjective)} ${randomFruit}`;
-    randomArray.push(description);
+    randomSet.add(description);
   }
 
-  return randomArray;
+  return Array.from(randomSet);
 }
 
 export const Example = () => {
@@ -273,7 +275,7 @@ export const WithMultiselect = () => {
   );
 };
 
-export const WithPreselectedMultiselect = () => {
+export const WithPreselectedOptions = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -366,5 +368,113 @@ export const WithSearch = () => {
       showSearch
       placeholder="Choose many"
     />
+  );
+};
+
+export const WithExternalControls = () => {
+  const groupsRef = useRef<SelectProps['groups']>([
+    {
+      label: 'Healthy choices',
+      options: generateOptionArray(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionArray(4),
+    },
+  ]);
+
+  const reRender = useForceRender();
+
+  const resetSelections = () => {
+    groupsRef.current = [
+      {
+        label: 'Healthy choices',
+        options: generateOptionArray(4),
+      },
+      {
+        label: 'More healthy choices',
+        options: generateOptionArray(4),
+      },
+    ];
+    reRender();
+  };
+  const invertSelections = () => {
+    groupsRef.current = groupsRef.current
+      ? groupsRef.current.map((group) => {
+          return {
+            label: group.label,
+            options: group.options.map((option) => {
+              return typeof option === 'string'
+                ? {
+                    label: option,
+                    value: option,
+                    selected: true,
+                  }
+                : {
+                    ...option,
+                    selected: !option.selected,
+                  };
+            }),
+          };
+        })
+      : [];
+    reRender();
+  };
+  const selectAll = () => {
+    groupsRef.current = groupsRef.current
+      ? groupsRef.current.map((group) => {
+          return {
+            label: group.label,
+            options: group.options.map((option) => {
+              return typeof option === 'string'
+                ? {
+                    label: option,
+                    value: option,
+                    selected: true,
+                  }
+                : {
+                    ...option,
+                    selected: true,
+                  };
+            }),
+          };
+        })
+      : [];
+    reRender();
+  };
+
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    groupsRef.current = groupsRef.current
+      ? groupsRef.current.map((group) => {
+          return {
+            label: group.label,
+            options: group.options.map((option) => {
+              return typeof option === 'string'
+                ? option
+                : {
+                    ...option,
+                    selected: selected.includes(option.value),
+                  };
+            }),
+          };
+        })
+      : [];
+  }, []);
+  return (
+    <div>
+      <Select
+        groups={groupsRef.current}
+        label="Controlled select"
+        onChange={onChange}
+        multiSelect
+        showFiltering
+        placeholder="Choose"
+      />
+      <div>
+        <Button onClick={resetSelections}>Reset selections</Button>
+        <Button onClick={invertSelections}>Invert selections</Button>
+        <Button onClick={selectAll}>Select all</Button>
+      </div>
+    </div>
   );
 };

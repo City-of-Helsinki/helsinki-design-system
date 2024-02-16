@@ -189,6 +189,10 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
     return props.groups.map((group) => {
       const labelOption: Required<Option> = createGroupLabel(group.label);
       const groupOptions = group.options.map(validateOption);
+      const allSelected = groupOptions.findIndex((option) => !option.selected) === -1;
+      if (allSelected) {
+        labelOption.selected = true;
+      }
       return {
         options: [labelOption, ...groupOptions],
       };
@@ -249,7 +253,12 @@ export function childrenToGroups(children: SelectProps<ReactElement>['children']
     return childArray.map((child) => {
       const optionElements = child.props.children;
       const options = optionElements ? getChildrenAsArray(optionElements).map(optionElementToOption) : [];
-      options.unshift(createGroupLabel(String(child.props.label)));
+      const label = createGroupLabel(String(child.props.label));
+      const allSelected = options.findIndex((option) => !option.selected) === -1;
+      if (allSelected) {
+        label.selected = true;
+      }
+      options.unshift(label);
       return { options };
     });
   }
@@ -260,7 +269,7 @@ export function mergeSearchResultsToCurrent(
   props: Pick<SelectProps, 'groups' | 'options'>,
   currentGroups: SelectData['groups'],
 ): SelectData['groups'] {
-  const newData = propsToGroups(props);
+  const newData = propsToGroups(props) || [];
   const newOptions = getAllOptions(newData);
   const currentOptionsWithoutMatches = getSelectedOptions(currentGroups).filter((option) => {
     const sameInNewOptionsIndex = newOptions.findIndex((newOption) => {
