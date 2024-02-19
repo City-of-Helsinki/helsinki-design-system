@@ -1,11 +1,14 @@
-import { Option, SearchResult, SelectData, SelectMetaData } from './types';
-import { ChangeHandler } from '../dataContext/DataContext';
+import debounce from 'lodash.debounce';
+
+import { Option, SearchFunction, SearchResult, SelectData, SelectMetaData } from './types';
+import { ChangeEvent, ChangeHandler, Tools } from '../dataContext/DataContext';
 import {
   updateSelectedOptionInGroups,
   updateSelectedGroupOptions,
   filterOptions,
   mergeSearchResultsToCurrent,
   clearAllSelectedOptions,
+  getSelectedOptions,
 } from './utils';
 import { eventIds, events, eventTypes } from './events';
 
@@ -67,5 +70,69 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
       });
     }
   }
+  return true;
+};
+
+const executeSearch = (search: string, searchFunc: SearchFunction): [() => void, Promise<ChangeEvent>] => {
+  let isCancelled = false;
+  console.log('s', search);
+  const request = new Promise<ChangeEvent>((resolve) => {
+    searchFunc(search as string, [], {} as SelectData)
+      .then((res) => {
+        console.log('!', res);
+        if (isCancelled) {
+          resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
+        }
+        resolve({ id: eventIds.searchResult, type: eventTypes.success, payload: { value: res } });
+      })
+      .catch(() => {
+        resolve({ id: eventIds.searchResult, type: eventTypes.error });
+      });
+  });
+  const cancel = () => {
+    isCancelled = true;
+  };
+  return [cancel, request];
+};
+
+const debouncedSearch = debounce((tools: Tools<SelectData, SelectMetaData>, searchFunc?: SearchFunction) => {
+  if (!searchFunc) {
+    return;
+  }
+  const { cancelCurrentSearch, search } = tools.getMetaData();
+  if (cancelCurrentSearch) {
+    cancelCurrentSearch();
+  }
+  if (!search) {
+    return;
+  }
+  const [cancel, request] = executeSearch(search, searchFunc);
+  tools.updateMetaData({ cancelCurrentSearch: cancel });
+  tools.asyncRequestWithTrigger(request);
+}, 300);
+
+export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, tools): boolean => {
+  const { updateMetaData, updateData, getData, getMetaData } = tools;
+  const lastSelectionUpdate = getMetaData().selectionUpdate;
+  const lastSearchUpdate = getMetaData().searchUpdate;
+  const { onSearch, onChange } = getData();
+  dataUpdater(event, tools);
+
+  if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
+    tools.updateMetaData({ isSearching: !!getMetaData().search });
+    debouncedSearch(tools, onSearch);
+  }
+  if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
+    const current = getData();
+    const newProps = onChange(
+      getSelectedOptions(current.groups).map((opt) => opt.value),
+      current,
+    );
+    updateMetaData({ selectionUpdate: Date.now() });
+    if (newProps) {
+      updateData(newProps);
+    }
+  }
+  // needs fixing:
   return true;
 };
