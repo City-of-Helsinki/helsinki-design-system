@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
@@ -9,6 +9,7 @@ import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
 import { ChangeTrigger } from '../../dataContext/DataContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { eventTypes } from '../events';
+import { VirtualizedListElement } from './VirtualizedListElement';
 
 const createListOptions = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
   const getGroupLabelIntermediateState = (option: Option): boolean => {
@@ -48,11 +49,13 @@ const optionsListPropSetter = (
     outsideClickTrigger: () => void;
     isOpen: boolean;
     listContainerRef: SelectMetaData['listContainerRef'];
+    virtualize: boolean;
+    listRef: SelectMetaData['listRef'];
   }
 > => {
   const { getData, getMetaData } = useContextTools();
-  const { open, groups, multiSelect } = getData() as SelectData;
-  const { isSearching, listContainerRef } = getMetaData() as SelectMetaData;
+  const { open, groups, multiSelect, virtualize } = getData() as SelectData;
+  const { isSearching, listContainerRef, listRef } = getMetaData() as SelectMetaData;
   const trigger = useChangeTrigger();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const outsideClickTrigger = () => {
@@ -68,35 +71,44 @@ const optionsListPropSetter = (
     outsideClickTrigger,
     isOpen: open,
     listContainerRef,
+    listRef,
+    virtualize,
   };
 };
 
 export const OptionsList = (props: React.PropsWithChildren<UlElementProps>) => {
-  const { children, containerProps, outsideClickTrigger, isOpen, listContainerRef, ...attr } = optionsListPropSetter(
-    props,
-  );
-  // open state is tracked on each render, because controller data is updated in sync
-  // and therefore the menu would/could close again immediately because button click will set the state open
-  const openStateRef = useRef<boolean>(isOpen);
-  const callback = useCallback(() => {
-    if (!openStateRef.current) {
+  const {
+    children,
+    containerProps,
+    outsideClickTrigger,
+    isOpen,
+    listRef,
+    listContainerRef,
+    virtualize,
+    ...attr
+  } = optionsListPropSetter(props);
+  const callback = () => {
+    if (!isOpen || Date.now() > 1) {
       return;
     }
     outsideClickTrigger();
-  }, []);
-
-  useEffect(() => {
-    openStateRef.current = isOpen;
-  });
+  };
 
   useOutsideClick({ ref: listContainerRef, callback });
-
   if (!children || (Array.isArray(children) && !children.length)) {
     return null;
   }
   return (
     <div {...containerProps}>
-      <ul {...attr}>{children}</ul>
+      {virtualize ? (
+        <VirtualizedListElement {...attr} ref={listRef}>
+          {children}
+        </VirtualizedListElement>
+      ) : (
+        <ul {...attr} ref={listRef}>
+          {children}
+        </ul>
+      )}
     </div>
   );
 };

@@ -478,3 +478,43 @@ export const WithExternalControls = () => {
     </div>
   );
 };
+
+export const WithVirtualizationMultiselect = () => {
+  let count = 0;
+  const makeUniqueOption = (value: string) => {
+    const valueWithCount = `${value} ${count}`;
+    count += 1;
+    return {
+      label: value,
+      value: valueWithCount,
+    };
+  };
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionArray(1000).map(makeUniqueOption),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionArray(1000).map(makeUniqueOption),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    return {
+      assistiveText: `You have selected ${selected.length} options`,
+    };
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      multiSelect
+      virtualize
+      showFiltering
+      placeholder="Choose many"
+      icon={<IconLocation />}
+    />
+  );
+};

@@ -31,12 +31,21 @@ export type SelectProps<P = unknown> = {
   id?: string;
   icon?: ReactNode;
   assistiveText?: string;
+  virtualize?: boolean;
 };
 
 export type SelectData = Required<
   Pick<
     SelectProps,
-    'label' | 'open' | 'multiSelect' | 'showFiltering' | 'showSearch' | 'placeholder' | 'required' | 'assistiveText'
+    | 'label'
+    | 'open'
+    | 'multiSelect'
+    | 'showFiltering'
+    | 'showSearch'
+    | 'placeholder'
+    | 'required'
+    | 'assistiveText'
+    | 'virtualize'
   >
 > & {
   groups: Array<Group>;
@@ -47,6 +56,7 @@ export type SelectData = Required<
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   listContainerRef: RefObject<HTMLDivElement>;
+  listRef: RefObject<HTMLUListElement>;
   tagListRef: RefObject<HTMLDivElement>;
   showAllButtonRef: RefObject<HTMLButtonElement>;
   selectionButtonRef: RefObject<HTMLButtonElement>;
