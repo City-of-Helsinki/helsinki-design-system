@@ -46,17 +46,20 @@ export type SelectData = Required<
     | 'required'
     | 'assistiveText'
     | 'virtualize'
+    | 'onChange'
   >
 > & {
   groups: Array<Group>;
   assistiveText?: string;
   label?: string;
   error?: string;
+  onSearch?: SearchFunction;
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   listContainerRef: RefObject<HTMLDivElement>;
   listRef: RefObject<HTMLUListElement>;
+  selectContainerRef: RefObject<HTMLDivElement>;
   tagListRef: RefObject<HTMLDivElement>;
   showAllButtonRef: RefObject<HTMLButtonElement>;
   selectionButtonRef: RefObject<HTMLButtonElement>;
@@ -67,6 +70,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   isSearching: boolean;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
+  lastEventTarget: 'list' | 'button' | 'container' | undefined;
   elementIds: {
     button: string;
     label: string;

@@ -88,7 +88,7 @@ export const OptionsList = (props: React.PropsWithChildren<UlElementProps>) => {
     ...attr
   } = optionsListPropSetter(props);
   const callback = () => {
-    if (!isOpen || Date.now() > 1) {
+    if (!isOpen) {
       return;
     }
     outsideClickTrigger();
