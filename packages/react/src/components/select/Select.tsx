@@ -34,9 +34,10 @@ export function Select({
   onSearch,
   children,
   assistiveText,
+  virtualize,
   id,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
-  const initialData = useMemo(
+  const initialData = useMemo<SelectData>(
     () => ({
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
       label: 'Label',
@@ -45,15 +46,17 @@ export function Select({
       multiSelect: !!multiSelect,
       showFiltering: !!showFiltering,
       showSearch: !!showSearch,
+      virtualize: !!virtualize,
       placeholder: placeholder || '',
       assistiveText: assistiveText || '',
     }),
     [options, open, groups],
   );
-  const metaData: SelectMetaData = useMemo(() => {
+  const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select')}`;
     return {
       listContainerRef: createRef<HTMLDivElement>(),
+      listRef: createRef<HTMLUListElement>(),
       tagListRef: createRef<HTMLDivElement>(),
       showAllButtonRef: createRef<HTMLButtonElement>(),
       selectionButtonRef: createRef<HTMLButtonElement>(),
