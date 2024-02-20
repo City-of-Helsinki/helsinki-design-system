@@ -34,9 +34,12 @@ export function Select({
   assistiveText,
   virtualize,
   id,
+  onFocus,
+  onBlur,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
-  const initialData = useMemo<SelectData>(
-    () => ({
+  const initialData = useMemo<SelectData>(() => {
+    console.log('NEW initialData');
+    return {
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
       label: 'Label',
       open: !!open,
@@ -49,11 +52,14 @@ export function Select({
       assistiveText: assistiveText || '',
       onSearch,
       onChange,
-    }),
-    [options, open, groups],
-  );
+      onFocus,
+      onBlur,
+    };
+  }, [options, open, groups]);
+
   const metaData = useMemo((): SelectMetaData => {
-    const containerId = `${id || uniqueId('hds-select')}`;
+    const containerId = `${id || uniqueId('hds-select-')}`;
+    console.log('NEW METADATA');
     return {
       listContainerRef: createRef<HTMLDivElement>(),
       listRef: createRef<HTMLUListElement>(),
@@ -68,13 +74,15 @@ export function Select({
       isSearching: false,
       showAllTags: false,
       cancelCurrentSearch: undefined,
-      lastEventTarget: undefined,
+      focusTarget: undefined,
       icon,
       elementIds: {
-        button: `${containerId}-button`,
+        container: containerId,
+        button: `${containerId}-main-button`,
+        clearButton: `${containerId}-clear-button`,
+        arrowButton: `${containerId}-arrow-button`,
         label: `${containerId}-label`,
         tagList: `${containerId}-tag-list`,
-        container: containerId,
       },
     };
   }, [id]);

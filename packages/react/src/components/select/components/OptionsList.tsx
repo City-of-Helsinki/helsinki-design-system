@@ -8,7 +8,7 @@ import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleG
 import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
 import { ChangeTrigger } from '../../dataContext/DataContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
-import { eventTypes } from '../events';
+import { eventIds, eventTypes } from '../events';
 import { VirtualizedListElement } from './VirtualizedListElement';
 
 const createListOptions = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
@@ -59,7 +59,7 @@ const optionsListPropSetter = (
   const trigger = useChangeTrigger();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const outsideClickTrigger = () => {
-    trigger({ id: 'tracker', type: eventTypes.outSideclick });
+    trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
   };
   return {
     ...props,
@@ -73,6 +73,7 @@ const optionsListPropSetter = (
     listContainerRef,
     listRef,
     virtualize,
+    tabIndex: -1,
   };
 };
 

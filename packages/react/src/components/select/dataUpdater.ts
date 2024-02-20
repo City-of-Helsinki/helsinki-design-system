@@ -12,13 +12,19 @@ import {
 } from './utils';
 import { eventIds, events, eventTypes } from './events';
 
-export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) => {
+const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) => {
   const { id, type, payload } = event;
   const current = tools.getData();
   const { showAllTags } = tools.getMetaData();
   const eventIdWithType = `${id}_${type}`;
   if (eventIdWithType === events.selectedOptionsClick || eventIdWithType === events.arrowClick) {
-    tools.updateData({ open: !current.open });
+    const willOpen = !current.open;
+    tools.updateData({ open: willOpen });
+    if (willOpen) {
+      tools.updateMetaData({
+        focusTarget: 'list',
+      });
+    }
   } else if (eventIdWithType === events.listItemClick || eventIdWithType === events.tagClick) {
     const clickedOption = payload && (payload.value as Required<Option>);
     if (!clickedOption) {
@@ -33,6 +39,11 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
       open: eventIdWithType !== events.tagClick && current.multiSelect,
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
+    if (eventIdWithType === events.listItemClick) {
+      tools.updateMetaData({
+        focusTarget: 'button',
+      });
+    }
   } else if (eventIdWithType === events.listGroupClick) {
     const clickedOption = payload && (payload.value as Required<Option>);
     if (!clickedOption) {
@@ -48,8 +59,11 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
       groups: clearAllSelectedOptions(current.groups),
     });
     tools.updateMetaData({ selectionUpdate: Date.now() });
-  } else if (type === eventTypes.outSideclick) {
+  } else if (type === eventTypes.outSideClick) {
     tools.updateData({ open: false });
+    tools.updateMetaData({
+      focusTarget: 'button',
+    });
   } else if (eventIdWithType === events.filterChange) {
     const filterValue = (payload && (payload.value as string)) || '';
     tools.updateMetaData({ filter: filterValue });
@@ -75,11 +89,9 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, to
 
 const executeSearch = (search: string, searchFunc: SearchFunction): [() => void, Promise<ChangeEvent>] => {
   let isCancelled = false;
-  console.log('s', search);
   const request = new Promise<ChangeEvent>((resolve) => {
     searchFunc(search as string, [], {} as SelectData)
       .then((res) => {
-        console.log('!', res);
         if (isCancelled) {
           resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
         }

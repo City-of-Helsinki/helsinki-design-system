@@ -22,6 +22,8 @@ export type SelectProps<P = unknown> = {
   }>;
   onChange: (selectedValues: string[], data: SelectData) => Partial<SelectData> | void | undefined;
   onSearch?: SearchFunction;
+  onFocus?: () => void;
+  onBlur?: () => void;
   children?: P | P[];
   multiSelect?: boolean;
   showFiltering?: boolean;
@@ -54,6 +56,8 @@ export type SelectData = Required<
   label?: string;
   error?: string;
   onSearch?: SearchFunction;
+  onFocus?: SelectProps['onFocus'];
+  onBlur?: SelectProps['onBlur'];
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
@@ -70,12 +74,14 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   isSearching: boolean;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
-  lastEventTarget: 'list' | 'button' | 'container' | undefined;
+  focusTarget: 'list' | 'button' | 'container' | undefined;
   elementIds: {
     button: string;
     label: string;
     container: string;
     tagList: string;
+    clearButton: string;
+    arrowButton: string;
   };
 };
 
