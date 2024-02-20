@@ -75,17 +75,19 @@ export function SingleSelectButton(props: SingleOptionButtonProps) {
 const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps => {
   const { getData, getMetaData } = useContextTools();
   const { groups, placeholder } = getData() as SelectData;
-  const { icon, selectionButtonRef } = getMetaData() as SelectMetaData;
+  const { icon, selectionButtonRef, elementIds } = getMetaData() as SelectMetaData;
   // const isMultiSelect = getMultiSelectState(controller);
   const selectedOptions = getSelectedOptions(groups);
   const trigger = useChangeTrigger();
   const clearButtonProps = {
     className: classNames(styles.button, styles.icon),
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
+    id: elementIds.clearButton,
   };
   const arrowButtonProps = {
     className: classNames(styles.button, styles.icon),
     ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
+    id: elementIds.arrowButton,
   };
 
   return {
@@ -101,6 +103,7 @@ const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps
       icon,
       optionClassName: styles.buttonOption,
       buttonRef: selectionButtonRef,
+      id: elementIds.button,
     },
   };
 };

@@ -10,15 +10,20 @@ export const eventIds = {
   filter: 'filter',
   search: 'search',
   searchResult: 'searchResult',
+  generic: 'generic',
 };
 export const eventTypes = {
   click: 'click',
-  outSideclick: 'outsideClick',
+  outSideClick: 'outSideClick',
   change: 'change',
   success: 'success',
   error: 'error',
   cancelled: 'cancelled',
-};
+  blur: 'blur',
+  focus: 'focus',
+  keydown: 'keydown',
+  mousedown: 'mousedown',
+} as const;
 
 export const events = {
   selectedOptionsClick: `${eventIds.selectedOptions}_${eventTypes.click}`,

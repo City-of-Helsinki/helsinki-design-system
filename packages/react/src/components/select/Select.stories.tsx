@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { SelectProps } from './types';
 import { IconLocation } from '../../icons';
@@ -516,5 +516,63 @@ export const WithVirtualizationMultiselect = () => {
       placeholder="Choose many"
       icon={<IconLocation />}
     />
+  );
+};
+
+export const WithFocusListeners = () => {
+  const [isFocused, setIsFocused] = useState(false);
+  const groups: SelectProps['groups'] = useMemo(
+    () => [
+      {
+        label: 'Healthy choices',
+        options: generateOptionArray(4),
+      },
+      {
+        label: 'More healthy choices',
+        options: generateOptionArray(4),
+      },
+    ],
+    [],
+  );
+  const onFocus: SelectProps['onFocus'] = useCallback(async () => {
+    setIsFocused(true);
+  }, []);
+  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
+    setIsFocused(false);
+  }, []);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    //
+  }, []);
+  return (
+    <>
+      {' '}
+      <style>
+        {`
+          .focused, .blurred{
+            padding:10px;
+          }
+          .focused{
+            background-color:#0f0;
+          }
+          .blurred{
+            background-color:#f00;
+          }
+         
+        `}
+      </style>
+      <div className={isFocused ? 'focused' : 'blurred'}>
+        <Select
+          groups={groups}
+          label="Label"
+          onChange={onChange}
+          multiSelect
+          showFiltering
+          placeholder="Choose three or more"
+          icon={<IconLocation />}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
+      </div>
+    </>
   );
 };
