@@ -46,16 +46,14 @@ export function LoginButton({
     },
   };
   return (
-    <>
-      <div className={styles.container}>
-        <Button {...combinedButtonProps}>{children}</Button>
-        {loginError && (
-          <div className={styles.loginError}>
-            <IconAlertCircleFill className={styles.icon} />
-            <span className={styles.text}>{errorText}</span>
-          </div>
-        )}
-      </div>
-    </>
+    <div className={styles.container}>
+      <Button {...combinedButtonProps}>{children}</Button>
+      {loginError && (
+        <div className={styles.loginError}>
+          <IconAlertCircleFill className={styles.icon} />
+          <span className={styles.text}>{errorText}</span>
+        </div>
+      )}
+    </div>
   );
 }

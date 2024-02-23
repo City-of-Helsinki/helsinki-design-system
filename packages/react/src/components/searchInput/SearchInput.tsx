@@ -221,10 +221,13 @@ export const SearchInput = <SuggestionItem,>({
     }
     if (event.key === 'Home' || event.key === 'End') {
       // When preventDownshiftDefault = true, downshift does not alter native behavior
-      // eslint-disable-next-line no-param-reassign
-      (event.nativeEvent as typeof event.nativeEvent & {
-        preventDownshiftDefault: boolean;
-      }).preventDownshiftDefault = true;
+      /* eslint-disable no-param-reassign */
+      (
+        event.nativeEvent as typeof event.nativeEvent & {
+          preventDownshiftDefault: boolean;
+        }
+      ).preventDownshiftDefault = true;
+      /* eslint-enable no-param-reassign */
     }
   };
 

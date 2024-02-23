@@ -396,6 +396,7 @@ export const Table = ({
         {verticalHeaders && verticalHeaders.length && <VerticalHeaderColGroup />}
         <thead>
           <HeaderRow>
+            {/* eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role */}
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
             {visibleColumns.map((column) => {

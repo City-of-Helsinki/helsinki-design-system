@@ -173,7 +173,7 @@ describe(`beacon`, () => {
       expect(trigger({ type: '*', namespace: '*' })).toBeFalsy();
       expect(trigger({ type: '', namespace: '' })).toBeFalsy();
     });
-    it(`Trigger with  signal type "*" and given namespace listens to all signals in that namespace `, async () => {
+    it(`Trigger with  signal type "*" and given namespace listens to all signals in that namespace`, async () => {
       const trigger = createSignalTrigger('*:signalNamespace');
       expect(trigger({ type: 'signalType', namespace: 'signalNamespace' })).toBeTruthy();
       expect(trigger({ type: 'any', namespace: 'signalNamespace' })).toBeTruthy();
@@ -451,7 +451,7 @@ describe(`beacon`, () => {
     });
   });
 
-  describe(`When emitting signals, the signal.context is `, () => {
+  describe(`When emitting signals, the signal.context is`, () => {
     const syncListener = jest.fn();
     const syncListener2 = jest.fn();
     const syncSignalType = 'sync';

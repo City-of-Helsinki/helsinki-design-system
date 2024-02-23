@@ -61,7 +61,7 @@ describe(`signals`, () => {
     const allSignals = [...eventSignals, ...errorSignals];
     const allSources = [...plainObjects, ...allSignals];
 
-    describe(`and returns true, `, () => {
+    describe(`and returns true,`, () => {
       it(`if all source object key/value pairs match target key/value pairs`, async () => {
         allSources.forEach((signal) => {
           expect(compareSignals(signal, signal as Signal)).toBeTruthy();
@@ -69,7 +69,7 @@ describe(`signals`, () => {
       });
       it(`also when target has more keys that source`, async () => {
         allSources.forEach((signal) => {
-          expect(compareSignals(signal, ({ ...signal, extra: 'value' } as unknown) as Signal)).toBeTruthy();
+          expect(compareSignals(signal, { ...signal, extra: 'value' } as unknown as Signal)).toBeTruthy();
         });
         eventSignals.forEach((signal) => {
           expect(compareSignals(signal, { ...eventSignalWithNamespaceBPayloadBContextB, ...signal })).toBeTruthy();
@@ -99,7 +99,7 @@ describe(`signals`, () => {
         });
       });
     });
-    describe(`and returns false, `, () => {
+    describe(`and returns false,`, () => {
       it(`if all source object key/value pairs does not match target key/value pairs`, async () => {
         allSignals.forEach((signal) => {
           expect(compareSignals({ ...signal, type: 'X' }, signal)).toBeFalsy();
@@ -107,7 +107,7 @@ describe(`signals`, () => {
           expect(compareSignals({ ...signal, payload: { ...payloadA, ...payloadB } }, signal)).toBeFalsy();
           expect(
             compareSignals(
-              { ...signal, context: ({ ...contextA, namespace: 'Z' } as unknown) as ConnectedModule },
+              { ...signal, context: { ...contextA, namespace: 'Z' } as unknown as ConnectedModule },
               signal,
             ),
           ).toBeFalsy();
@@ -120,7 +120,7 @@ describe(`signals`, () => {
       });
       it(`also when source has more keys that target`, async () => {
         allSignals.forEach((signal) => {
-          expect(compareSignals(({ ...signal, extra: 'value' } as unknown) as Signal, signal)).toBeFalsy();
+          expect(compareSignals({ ...signal, extra: 'value' } as unknown as Signal, signal)).toBeFalsy();
         });
       });
     });
@@ -194,7 +194,7 @@ describe(`signals`, () => {
         signalListTypes[0],
       ]);
     });
-    it(`if options.allowSkipping is true (default), then all listed signals before the triggered one are marked as triggered. Results have only triggered signals. `, async () => {
+    it(`if options.allowSkipping is true (default), then all listed signals before the triggered one are marked as triggered. Results have only triggered signals.`, async () => {
       const promise = waitForSignals(beacon, signalList)
         .then((signals) => {
           result = signals;
@@ -205,7 +205,7 @@ describe(`signals`, () => {
       await promise;
       expect(result.map((signal) => signal.type)).toEqual([signalListTypes[1], signalListTypes[3]]);
     });
-    it(`if options.allowSkipping is true (default), then one signal can fulfill the promise `, async () => {
+    it(`if options.allowSkipping is true (default), then one signal can fulfill the promise`, async () => {
       const promise = waitForSignals(beacon, [...signalList, ...signalList, fulfillingSignal])
         .then((signals) => {
           result = signals;
@@ -215,7 +215,7 @@ describe(`signals`, () => {
       await promise;
       expect(result.map((signal) => signal.type)).toEqual([fulfillingSignal.type]);
     });
-    it(`if options.rejectsOn has triggers, any of the triggers will reject the promise `, async () => {
+    it(`if options.rejectsOn has triggers, any of the triggers will reject the promise`, async () => {
       const promise = waitForSignals(beacon, signalList, { rejectOn: signalList })
         .then((signals) => {
           result = signals;
@@ -226,7 +226,7 @@ describe(`signals`, () => {
       expect(result).toHaveLength(0);
       expect(rejections).toHaveLength(1);
     });
-    it(`if options.allowSkipping is false, catching a signal in wrong order will reject `, async () => {
+    it(`if options.allowSkipping is false, catching a signal in wrong order will reject`, async () => {
       const promise = waitForSignals(beacon, signalList, { strictOrder: true })
         .then((signals) => {
           result = signals;

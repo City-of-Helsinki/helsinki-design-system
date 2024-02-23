@@ -15,8 +15,7 @@ const customColor = '#00005e';
 const quoteArgs = { text: 'Add an interesting quote here', type: 'quote', reference: 'First name Last name. Title.' };
 
 const highlightArgs = {
-  text:
-    'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
+  text: 'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
 };
 
 export const DefaultHighlight = (args) => <Highlight {...args} />;

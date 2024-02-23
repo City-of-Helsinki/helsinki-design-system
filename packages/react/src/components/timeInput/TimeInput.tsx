@@ -287,6 +287,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
           <label htmlFor={hourInputId} className={styles.partialInputLabel}>
             {hoursLabel}
           </label>
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <input
             className={styles.partialInput}
             type="text"
@@ -307,6 +308,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
           <label htmlFor={minuteInputId} className={styles.partialInputLabel}>
             {minutesLabel}
           </label>
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <input
             className={styles.partialInput}
             type="text"

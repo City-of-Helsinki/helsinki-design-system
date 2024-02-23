@@ -8,6 +8,7 @@ import { TabsContext } from './TabsContext';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { getChildByIndex, isElementOutsideLeftEdge, isElementOutsideRightEdge } from './tabUtils';
 import { getChildrenAsArray } from '../../utils/getChildren';
+import { TabProps } from './Tab';
 
 export type TabListProps = React.PropsWithChildren<{
   /**
@@ -35,10 +36,10 @@ export const TabList = ({ children, className, style = {} }: TabListProps) => {
   /**
    * Pass the index as prop to each tab element
    */
-  const tabs = childElements.map((child, index) => {
+  const tabs = childElements.map((child, index: number) => {
     if (React.isValidElement(child) && (child.type as FCWithName).componentName === 'Tab') {
       // eslint-disable-next-line react/no-array-index-key
-      return React.cloneElement(child, { index, key: index });
+      return React.cloneElement<TabProps>(child, { index, key: index });
     }
     return null;
   });
@@ -176,6 +177,7 @@ export const TabList = ({ children, className, style = {} }: TabListProps) => {
     <div className={classNames(styles.tablistBar, className)} style={style}>
       {showPreviousButton && (
         <div className={styles.scrollButton} aria-hidden="true">
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <button type="button" onClick={onPreviousButtonClick} tabIndex={-1}>
             <IconAngleLeft />
           </button>
@@ -196,6 +198,7 @@ export const TabList = ({ children, className, style = {} }: TabListProps) => {
       </div>
       {showNextButton && (
         <div className={styles.scrollButton} aria-hidden="true">
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <button type="button" onClick={onNextButtonClick} tabIndex={-1}>
             <IconAngleRight />
           </button>

@@ -107,7 +107,7 @@ describe(`cookieController.ts`, () => {
     });
     it('throws when setting invalid options', () => {
       const options: CookieSetOptions = {
-        expires: (1111 as unknown) as Date,
+        expires: 1111 as unknown as Date,
       };
       expect(() => setNamedCookie(dummyKey, dummyValue, options)).toThrow();
     });

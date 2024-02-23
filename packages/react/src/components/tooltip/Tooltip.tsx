@@ -59,27 +59,27 @@ export const Tooltip = ({
   const [arrowRef, setArrowRef] = useState(null); // The ref for the arrow must be a callback ref
 
   // Initialize Popper.js
-  const { styles: popperStyles, attributes: popperAttributes, forceUpdate: updatePopper } = usePopper(
-    buttonRef.current,
-    tooltipRef.current,
-    {
-      placement,
-      modifiers: [
-        {
-          name: 'arrow',
-          options: {
-            element: arrowRef,
-          },
+  const {
+    styles: popperStyles,
+    attributes: popperAttributes,
+    forceUpdate: updatePopper,
+  } = usePopper(buttonRef.current, tooltipRef.current, {
+    placement,
+    modifiers: [
+      {
+        name: 'arrow',
+        options: {
+          element: arrowRef,
         },
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 10],
-          },
+      },
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 10],
         },
-      ],
-    },
-  );
+      },
+    ],
+  });
 
   // Calculate popper dimensions after tooltip is opened
   useEffect(() => {

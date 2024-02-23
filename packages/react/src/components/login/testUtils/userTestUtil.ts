@@ -72,12 +72,12 @@ export function createUser(userCreationProps: UserCreationProps = {}): User {
     ...response,
     expired: userCreationProps.expiredUser,
   };
-  return ({
+  return {
     ...user,
     toStorageString() {
       return JSON.stringify(this);
     },
-  } as unknown) as User;
+  } as unknown as User;
 }
 
 export function createUserAndPlaceUserToStorage(
@@ -91,7 +91,7 @@ export function createUserAndPlaceUserToStorage(
 }
 
 export function raiseUserUserManagerEvent(targetUserManager: UserManager, eventType: keyof PublicUserManagerEvents) {
-  const events = (targetUserManager.events as unknown) as PublicUserManagerEvents;
+  const events = targetUserManager.events as unknown as PublicUserManagerEvents;
   events[eventType].raise();
 }
 

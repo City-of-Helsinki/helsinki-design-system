@@ -92,9 +92,10 @@ function getLanguage(lang: SupportedLanguage, overrides: CookieContentSource['la
   } as Content['language'];
 }
 
-function getCategoryDescriptions(
-  language: SupportedLanguage,
-): { requiredCookies: Description; optionalCookies: Description } {
+function getCategoryDescriptions(language: SupportedLanguage): {
+  requiredCookies: Description;
+  optionalCookies: Description;
+} {
   const { requiredCookies, optionalCookies } = commonContent;
   return {
     requiredCookies: requiredCookies[language],
@@ -160,9 +161,10 @@ function mergeObjects(target: MergableContent, source: MergableContent, paths: s
   });
 }
 
-function buildCookieGroups(
-  props: CookieContentSource,
-): { requiredCookies: CookieGroup[]; optionalCookies: CookieGroup[] } {
+function buildCookieGroups(props: CookieContentSource): {
+  requiredCookies: CookieGroup[];
+  optionalCookies: CookieGroup[];
+} {
   const requiredCookies = [];
   const optionalCookies = [];
   const groupMap = new Map<string, CookieGroup>();
@@ -309,9 +311,10 @@ export function createContent(props: CookieContentSource): Content {
   return content as Content;
 }
 
-export function pickConsentIdsFromContentSource(
-  contentSource: Partial<CookieContentSource>,
-): { required: string[]; optional: string[] } {
+export function pickConsentIdsFromContentSource(contentSource: Partial<CookieContentSource>): {
+  required: string[];
+  optional: string[];
+} {
   let required: string[] = [];
   let optional: string[] = [];
 

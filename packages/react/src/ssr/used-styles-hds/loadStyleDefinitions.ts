@@ -62,8 +62,10 @@ const createAwaitableResult = () => {
 };
 
 const getAtRule = (rule: PostcssAtRule | Rule): string[] => {
-  if (rule && rule.parent && 'name' in rule.parent && rule.parent.name === 'media') {
-    return getAtRule(rule.parent).concat(rule.parent.params);
+  const ruleParent = rule && (rule.parent as unknown as PostcssAtRule);
+  const isParentAPostcssAtRule = !!(rule.parent && 'name' in rule.parent);
+  if (isParentAPostcssAtRule && ruleParent.name === 'media') {
+    return getAtRule(ruleParent).concat(ruleParent.params);
   }
 
   return [];

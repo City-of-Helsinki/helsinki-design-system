@@ -79,7 +79,9 @@ describe(`httpPoller`, () => {
     await advanceOneInterval();
     await advanceOneInterval();
     // https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function
-    await new Promise((resolve) => setImmediate(resolve));
+    await new Promise((resolve) => {
+      setImmediate(resolve);
+    });
   };
   const advanceFromStartTimerToLoadEnd = async () => {
     await advanceToTimerEnd();
@@ -103,15 +105,15 @@ describe(`httpPoller`, () => {
   beforeEach(() => {
     jest.useFakeTimers();
   });
-  describe('Calling start() starts the timer and when timer ends ', () => {
+  describe('Calling start() starts the timer and when timer ends', () => {
     it('the pollFunction and shouldPoll have been called continuously', async () => {
       poller = createPoller({
         ...pollerDefaultTestProps,
       });
       poller.start();
-      expect(shouldPollMockCallback).not.toBeCalled();
-      expect(pollFunctionMockCallback).not.toBeCalled();
-      expect(onErrorMockCallback).not.toBeCalled();
+      expect(shouldPollMockCallback).not.toHaveBeenCalled();
+      expect(pollFunctionMockCallback).not.toHaveBeenCalled();
+      expect(onErrorMockCallback).not.toHaveBeenCalled();
       await advanceToTimerEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
@@ -144,7 +146,7 @@ describe(`httpPoller`, () => {
       await advanceFromStartTimerToLoadEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(onErrorMockCallback).toHaveBeenCalledTimes(1);
-      expect(onErrorMockCallback).toBeCalledWith(HttpStatusCode.FORBIDDEN, null);
+      expect(onErrorMockCallback).toHaveBeenCalledWith(HttpStatusCode.FORBIDDEN, null);
       await advanceToTimerEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(2);
     });
@@ -158,14 +160,14 @@ describe(`httpPoller`, () => {
       poller.start();
       await advanceFromStartTimerToLoadEnd();
       expect(onErrorMockCallback).toHaveBeenCalledTimes(1);
-      expect(onErrorMockCallback).toBeCalledWith(undefined, expect.any(Error));
+      expect(onErrorMockCallback).toHaveBeenCalledWith(undefined, expect.any(Error));
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
       await advanceToTimerEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(pollFunctionMockCallback).toHaveBeenCalledTimes(1);
     });
-    it(`neither onError or onSuccess are called if request is aborted, if onErrorStatusWhenAborted is not defined `, async () => {
+    it(`neither onError or onSuccess are called if request is aborted, if onErrorStatusWhenAborted is not defined`, async () => {
       const fetchAborter = createFetchAborter();
       const timeoutListener = jest.fn();
       fetchMock.mockOnce(
@@ -203,7 +205,7 @@ describe(`httpPoller`, () => {
       expect(onErrorMockCallback).toHaveBeenCalledTimes(0);
       expect(onSuccessMockCallback).toHaveBeenCalledTimes(0);
     });
-    it(`onError is called when aborted, if onErrorStatusWhenAborted is defined `, async () => {
+    it(`onError is called when aborted, if onErrorStatusWhenAborted is defined`, async () => {
       const onErrorStatusWhenAborted = -100;
       const fetchAborter = createFetchAborter();
       const timeoutListener = jest.fn();
@@ -293,7 +295,7 @@ describe(`httpPoller`, () => {
       await advanceFromStartTimerToLoadEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(1);
       expect(onSuccessMockCallback).toHaveBeenCalledTimes(1);
-      expect(onSuccessMockCallback).toBeCalledWith(pollerDefaultTestProps.requestResponses[0]);
+      expect(onSuccessMockCallback).toHaveBeenCalledWith(pollerDefaultTestProps.requestResponses[0]);
       await advanceToTimerEnd();
       expect(shouldPollMockCallback).toHaveBeenCalledTimes(2);
       expect(onSuccessMockCallback).toHaveBeenCalledTimes(1);

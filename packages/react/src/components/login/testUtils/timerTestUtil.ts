@@ -18,7 +18,7 @@ export function createTimedPromise(response: unknown, delay = 1000) {
 export async function advanceUntilListenerCalled(listener: jest.Mock, advanceTime = 200) {
   await waitFor(() => {
     jest.advanceTimersByTime(advanceTime);
-    expect(listener).toBeCalledTimes(1);
+    expect(listener).toHaveBeenCalledTimes(1);
   });
   return getLastMockCallArgs(listener);
 }

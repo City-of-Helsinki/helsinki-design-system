@@ -382,7 +382,7 @@ describe(`sessionPoller`, () => {
     await waitForFetchMockResultFulfillment(0);
   });
 
-  it('when fetch fails and statusCode indicates an auth error, the error signal is sent and polling is stopped ', async () => {
+  it('when fetch fails and statusCode indicates an auth error, the error signal is sent and polling is stopped', async () => {
     initTests({ setValidSession: true, responses: [successfulResponse, unauthorizedResponse, forbiddenResponse] });
     await waitUntilRequestFinished();
     const result = (await waitForFetchMockResultFulfillment(0)) as Response;

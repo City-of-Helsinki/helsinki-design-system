@@ -5,7 +5,7 @@ import React from 'react';
 import { getActiveElement } from '../../../cookieConsent/test.util';
 import { Header } from '../../Header';
 // eslint-disable-next-line jest/no-mocks-import
-import mockWindowLocation from '../../../login/__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../../../utils/mockWindowLocation';
 
 jest.mock('../../../../hooks/useMediaQuery', () => ({
   ...(jest.requireActual('../../../../hooks/useMediaQuery') as Record<string, unknown>),
@@ -397,14 +397,8 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     expect(getNavSections()).toHaveLength(1);
   });
   it('Nav sections are rendered and visible only when needed and removed when not needed', async () => {
-    const {
-      openMobileMenu,
-      navigateTo,
-      getNavSections,
-      navigateBack,
-      closeMobileMenu,
-      getCSSVisibleSections,
-    } = renderHeader();
+    const { openMobileMenu, navigateTo, getNavSections, navigateBack, closeMobileMenu, getCSSVisibleSections } =
+      renderHeader();
     // one is always rendered
     expect(getNavSections()).toHaveLength(1);
     // but it is hidden
@@ -425,14 +419,8 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     expect(getNavSections()).toHaveLength(1);
   });
   it('Previous and active links change while navigating', async () => {
-    const {
-      openMobileMenu,
-      navigateTo,
-      navigateBack,
-      verifyActiveItem,
-      verifyPreviousItem,
-      getCSSVisibleSections,
-    } = renderHeader();
+    const { openMobileMenu, navigateTo, navigateBack, verifyActiveItem, verifyPreviousItem, getCSSVisibleSections } =
+      renderHeader();
     const menu3 = getMenuItem([3]);
     const menu31 = getMenuItem([3, 1]);
     const menu32 = getMenuItem([3, 2]);
@@ -491,13 +479,8 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     });
   });
   it('If a lower level active link is clicked, menu is closed and onClick handler is called.', async () => {
-    const {
-      openMobileMenu,
-      getActiveLink,
-      selectMenuItem,
-      getCSSVisibleSections,
-      triggerMenuAnimationEnd,
-    } = renderHeader();
+    const { openMobileMenu, getActiveLink, selectMenuItem, getCSSVisibleSections, triggerMenuAnimationEnd } =
+      renderHeader();
     await openMobileMenu();
     await selectMenuItem(getMenuItem([0]));
 

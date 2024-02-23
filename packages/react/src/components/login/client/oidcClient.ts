@@ -175,9 +175,9 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     ]);
   };
 
-  const handleUserRenewal = async ({ triggerSigninSilent = false }: { triggerSigninSilent?: boolean } = {}): Promise<
-    RenewalResult
-  > => {
+  const handleUserRenewal = async ({
+    triggerSigninSilent = false,
+  }: { triggerSigninSilent?: boolean } = {}): Promise<RenewalResult> => {
     if (isRenewing()) {
       return renewPromise;
     }

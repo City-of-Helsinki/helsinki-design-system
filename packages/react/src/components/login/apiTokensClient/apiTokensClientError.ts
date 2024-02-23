@@ -7,7 +7,11 @@ export const apiTokensClientError = {
 } as const;
 
 export class ApiTokensClientError extends Error {
-  constructor(public message: string, public type: ApiTokensClientErrorType, public originalError?: Error | null) {
+  constructor(
+    public message: string,
+    public type: ApiTokensClientErrorType,
+    public originalError?: Error | null,
+  ) {
     super(message);
     this.type = type;
     this.originalError = originalError;

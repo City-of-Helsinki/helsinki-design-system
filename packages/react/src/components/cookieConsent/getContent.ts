@@ -99,35 +99,29 @@ export function getCookieContent() {
         main: {
           fi: {
             title: '{{siteName}} käyttää evästeitä',
-            text:
-              'Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.',
+            text: 'Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.',
           },
           sv: {
             title: '{{siteName}} använder kakor',
-            text:
-              'Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för bättre användarupplevelse, analytik och individualiserat innehåll.',
+            text: 'Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för bättre användarupplevelse, analytik och individualiserat innehåll.',
           },
           en: {
             title: '{{siteName}} uses cookies',
-            text:
-              'This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content.',
+            text: 'This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content.',
           },
         },
         details: {
           fi: {
             title: 'Tietoa sivustolla käytetyistä evästeistä',
-            text:
-              'Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.',
+            text: 'Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.',
           },
           sv: {
             title: 'Information om kakor som används på webbplatsen',
-            text:
-              'Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.',
+            text: 'Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.',
           },
           en: {
             title: 'About the cookies used on the website',
-            text:
-              'The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies.',
+            text: 'The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies.',
           },
         },
       },
@@ -192,22 +186,19 @@ export function getCookieContent() {
     requiredCookies: {
       fi: {
         title: 'Välttämättömät evästeet',
-        text:
-          'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat käytettävyyteen.',
+        text: 'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat käytettävyyteen.',
         checkboxAriaDescription:
           'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat käytettävyyteen.',
       },
       sv: {
         title: 'Nödvändig kakor',
-        text:
-          'Du kan inte förbjuda användningen av nödvändiga kakorna. De möjliggör webbplatsens funktioner och påverkar användbarheten.',
+        text: 'Du kan inte förbjuda användningen av nödvändiga kakorna. De möjliggör webbplatsens funktioner och påverkar användbarheten.',
         checkboxAriaDescription:
           'Du kan inte förbjuda användningen av nödvändiga kakorna. De möjliggör webbplatsens funktioner och påverkar användbarheten.',
       },
       en: {
         title: 'Necessary cookies',
-        text:
-          'Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability.',
+        text: 'Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability.',
         checkboxAriaDescription:
           'Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability.',
       },
@@ -254,8 +245,7 @@ export function getCookieContent() {
       preferences: {
         fi: {
           title: 'Mieltymykset',
-          text:
-            'Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän tekemien valintojen perusteella.',
+          text: 'Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän tekemien valintojen perusteella.',
           expandAriaLabel: 'Näytä mieltymyksiin liittyvien evästeiden tiedot',
           checkboxAriaDescription:
             'Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän tekemien valintojen perusteella.',
@@ -269,8 +259,7 @@ export function getCookieContent() {
         },
         en: {
           title: 'Preferences',
-          text:
-            'Preference cookies customise the layout and operation of the website based on the choices made by the user.',
+          text: 'Preference cookies customise the layout and operation of the website based on the choices made by the user.',
           expandAriaLabel: 'Show cookie information related to preferences',
           checkboxAriaDescription:
             'Preference cookies customise the layout and operation of the website based on the choices made by the user.',
@@ -365,24 +354,21 @@ export function getCookieContent() {
       deviceInfo: {
         fi: {
           title: 'Laitetiedot',
-          text:
-            'Laitetietoevästeet sisältävät sellaisia käyttäjän laitteelta kerättyjä tietoja, joilla varmistetaan palvelun toiminta.',
+          text: 'Laitetietoevästeet sisältävät sellaisia käyttäjän laitteelta kerättyjä tietoja, joilla varmistetaan palvelun toiminta.',
           expandAriaLabel: 'Näytä laitetietoihin liittyvien evästeiden tiedot',
           checkboxAriaDescription:
             'Laitetietoevästeet sisältävät sellaisia käyttäjän laitteelta kerättyjä tietoja, joilla varmistetaan palvelun toiminta.',
         },
         sv: {
           title: 'Enhetsuppgifter',
-          text:
-            'Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs.',
+          text: 'Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs.',
           expandAriaLabel: 'Visa information om kakor för enhetsuppgifterna',
           checkboxAriaDescription:
             'Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs.',
         },
         en: {
           title: 'Device information',
-          text:
-            "Device information cookies contain information collected from the user's device that ensures the functionality of the service.",
+          text: "Device information cookies contain information collected from the user's device that ensures the functionality of the service.",
           expandAriaLabel: 'Show cookie information related to device information',
           checkboxAriaDescription:
             "Device information cookies contain information collected from the user's device that ensures the functionality of the service.",
@@ -412,16 +398,14 @@ export function getCookieContent() {
       thirdParty: {
         fi: {
           title: 'Kolmannen osapuolen palvelut',
-          text:
-            'Evästeet mahdollistavat ulkopuolisten palvelujen (kuten sosiaalisen median alustojen) toiminnan tällä sivustolla.',
+          text: 'Evästeet mahdollistavat ulkopuolisten palvelujen (kuten sosiaalisen median alustojen) toiminnan tällä sivustolla.',
           expandAriaLabel: 'Näytä kolmansiin osapuoliin liittyvien evästeiden tiedot',
           checkboxAriaDescription:
             'Evästeet mahdollistavat ulkopuolisten palvelujen (kuten sosiaalisen median alustojen) toiminnan tällä sivustolla.',
         },
         sv: {
           title: 'Tredje parts tjänster',
-          text:
-            'Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats.',
+          text: 'Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats.',
           expandAriaLabel: 'Visa information om tredjepartskakor',
           checkboxAriaDescription:
             'Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats.',
@@ -487,8 +471,7 @@ export function getCookieContent() {
         },
         sv: {
           title: 'Belastningsutjämning',
-          text:
-            'Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt.',
+          text: 'Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt.',
           expandAriaLabel: 'Visa information om belastningsutjämningskakor',
           checkboxAriaDescription:
             'Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt.',
@@ -504,23 +487,20 @@ export function getCookieContent() {
       essential: {
         fi: {
           title: 'Perustoimintoihin liittyvät evästeet',
-          text:
-            'Perustoimintoihin liittyviä evästeitä ei voi hylätä. Ne mahdollistavat sivuston kunnollisen toimivuuden ja vaikuttavat käytettävyyteen.',
+          text: 'Perustoimintoihin liittyviä evästeitä ei voi hylätä. Ne mahdollistavat sivuston kunnollisen toimivuuden ja vaikuttavat käytettävyyteen.',
           expandAriaLabel: 'Näytä perustoimintoihin liittyvien evästeiden tiedot',
           checkboxAriaDescription: 'Sivusto ei toimi ilman näitä',
         },
         sv: {
           title: 'Kakor för grundläggande funktioner',
-          text:
-            'Du kan inte förbjuda användningen av kakor för grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.',
+          text: 'Du kan inte förbjuda användningen av kakor för grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.',
           expandAriaLabel: 'Visa information om kakor för grundläggande funktioner',
           checkboxAriaDescription:
             'Du kan inte förbjuda användningen av kakor för grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.',
         },
         en: {
           title: 'Cookies related to basic functionalities',
-          text:
-            'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.',
+          text: 'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.',
           expandAriaLabel: 'Show cookie information related to basic functionalities',
           checkboxAriaDescription:
             'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability',
@@ -549,24 +529,21 @@ export function getCookieContent() {
       sharedConsents: {
         fi: {
           title: 'Yhteiset evästeet',
-          text:
-            'Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen kaupungin muissa palveluissa.',
+          text: 'Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen kaupungin muissa palveluissa.',
           expandAriaLabel: 'Näytä yhteisiin evästesuostumuksiin liittyvien evästeiden tiedot',
           checkboxAriaDescription:
             'Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen muissa kaupungin palveluissa.',
         },
         sv: {
           title: 'Gemensamma kakor',
-          text:
-            'Helsingfors stads tjänster använder gemensamma kakor . Vi lagrar dessa samtycken så att du inte behöver godkänna samma kakor igen i stadens andra tjänster.',
+          text: 'Helsingfors stads tjänster använder gemensamma kakor . Vi lagrar dessa samtycken så att du inte behöver godkänna samma kakor igen i stadens andra tjänster.',
           expandAriaLabel: 'Visa information om kakor för gemensamt samtycke',
           checkboxAriaDescription:
             'Helsingfors stads tjänster använder gemensamma kakor . Vi lagrar dessa samtycken så att du inte behöver godkänna samma kakor igen i stadens andra tjänster.',
         },
         en: {
           title: 'Shared consent',
-          text:
-            'City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services.',
+          text: 'City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services.',
           expandAriaLabel: 'Show cookie information related to shared cookie consent',
           checkboxAriaDescription:
             'City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services.',
