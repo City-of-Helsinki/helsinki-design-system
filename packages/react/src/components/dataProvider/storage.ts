@@ -6,9 +6,9 @@
  * */
 
 export type StorageData = Record<string, unknown>;
-export type Storage = {
-  set: (newData: StorageData) => StorageData;
-  get: () => StorageData;
+export type Storage<D = StorageData> = {
+  set: (newData: D) => D;
+  get: () => D;
 };
 
 export function createStorage(initialData: StorageData): Storage {

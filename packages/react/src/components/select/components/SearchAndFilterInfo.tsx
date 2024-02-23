@@ -5,7 +5,7 @@ import classNames from '../../../utils/classNames';
 import { countVisibleOptions } from '../utils';
 import { LoadingSpinner } from '../../loadingSpinner';
 import { DivElementProps, SelectData, SelectMetaData } from '../types';
-import { useContextTools } from '../../dataContext/hooks';
+import { useContextDataHandlers } from '../../dataProvider/hooks';
 
 type SearchAndFilterInfoProps = DivElementProps & {
   noResultsTexts: string[];
@@ -13,7 +13,7 @@ type SearchAndFilterInfoProps = DivElementProps & {
 };
 
 export const searchAndFilterInfoPropSetter = (props: DivElementProps): SearchAndFilterInfoProps => {
-  const { getData, getMetaData } = useContextTools();
+  const { getData, getMetaData } = useContextDataHandlers();
   const { groups } = getData() as SelectData;
   const { isSearching, search, filter } = getMetaData() as SelectMetaData;
   const count = countVisibleOptions(groups);

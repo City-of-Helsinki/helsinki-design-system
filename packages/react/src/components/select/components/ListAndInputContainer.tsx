@@ -3,10 +3,10 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { SelectData, SelectMetaData } from '../types';
-import { useContextTools } from '../../dataContext/hooks';
+import { useContextDataHandlers } from '../../dataProvider/hooks';
 
 export const ListAndInputContainer = (props) => {
-  const { getData, getMetaData } = useContextTools();
+  const { getData, getMetaData } = useContextDataHandlers();
   const { open, showFiltering, showSearch } = getData() as SelectData;
   const { listContainerRef } = getMetaData() as SelectMetaData;
   const hasInput = showFiltering || showSearch;

@@ -3,11 +3,11 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { DivElementProps, SelectMetaData } from '../types';
-import { useContextTools } from '../../dataContext/hooks';
+import { useContextDataHandlers } from '../../dataProvider/hooks';
 import { useFocusHandling } from '../useFocusHandling';
 
 export const Container = (props: Partial<DivElementProps>) => {
-  const tools = useContextTools();
+  const tools = useContextDataHandlers();
   const trackingProps = useFocusHandling(tools);
   const { children, ...rest } = props;
   const id = (tools.getMetaData() as SelectMetaData).elementIds.container;

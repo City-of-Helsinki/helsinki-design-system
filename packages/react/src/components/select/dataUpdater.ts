@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 
 import { Option, SearchFunction, SearchResult, SelectData, SelectMetaData } from './types';
-import { ChangeEvent, ChangeHandler, Tools } from '../dataContext/DataContext';
+import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
   updateSelectedOptionInGroups,
   updateSelectedGroupOptions,
@@ -12,16 +12,16 @@ import {
 } from './utils';
 import { eventIds, events, eventTypes } from './events';
 
-const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) => {
+const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
   const { id, type, payload } = event;
-  const current = tools.getData();
-  const { showAllTags } = tools.getMetaData();
+  const current = dataHandlers.getData();
+  const { showAllTags } = dataHandlers.getMetaData();
   const eventIdWithType = `${id}_${type}`;
   if (eventIdWithType === events.selectedOptionsClick || eventIdWithType === events.arrowClick) {
     const willOpen = !current.open;
-    tools.updateData({ open: willOpen });
+    dataHandlers.updateData({ open: willOpen });
     if (willOpen) {
-      tools.updateMetaData({
+      dataHandlers.updateMetaData({
         focusTarget: 'list',
       });
     }
@@ -30,7 +30,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) =>
     if (!clickedOption) {
       return false;
     }
-    tools.updateData({
+    dataHandlers.updateData({
       groups: updateSelectedOptionInGroups(
         current.groups,
         { ...clickedOption, selected: !clickedOption.selected },
@@ -38,9 +38,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) =>
       ),
       open: eventIdWithType !== events.tagClick && current.multiSelect,
     });
-    tools.updateMetaData({ selectionUpdate: Date.now() });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
     if (eventIdWithType === events.listItemClick) {
-      tools.updateMetaData({
+      dataHandlers.updateMetaData({
         focusTarget: 'button',
       });
     }
@@ -49,37 +49,37 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, tools) =>
     if (!clickedOption) {
       return false;
     }
-    tools.updateData({
+    dataHandlers.updateData({
       groups: updateSelectedGroupOptions(current.groups, { ...clickedOption, selected: !clickedOption.selected }),
       open: true,
     });
-    tools.updateMetaData({ selectionUpdate: Date.now() });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
   } else if (eventIdWithType === events.clearClick || eventIdWithType === events.clearAllClick) {
-    tools.updateData({
+    dataHandlers.updateData({
       groups: clearAllSelectedOptions(current.groups),
     });
-    tools.updateMetaData({ selectionUpdate: Date.now() });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
   } else if (type === eventTypes.outSideClick) {
-    tools.updateData({ open: false });
-    tools.updateMetaData({
+    dataHandlers.updateData({ open: false });
+    dataHandlers.updateMetaData({
       focusTarget: 'button',
     });
   } else if (eventIdWithType === events.filterChange) {
     const filterValue = (payload && (payload.value as string)) || '';
-    tools.updateMetaData({ filter: filterValue });
-    tools.updateData({ groups: filterOptions(current.groups, filterValue) });
+    dataHandlers.updateMetaData({ filter: filterValue });
+    dataHandlers.updateData({ groups: filterOptions(current.groups, filterValue) });
   } else if (eventIdWithType === events.searchChange) {
     const searchValue = (payload && (payload.value as string)) || '';
-    tools.updateMetaData({ search: searchValue, searchUpdate: Date.now() });
+    dataHandlers.updateMetaData({ search: searchValue, searchUpdate: Date.now() });
     if (!searchValue) {
-      tools.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
+      dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
     }
   } else if (eventIdWithType === events.showAllClick) {
-    tools.updateMetaData({ showAllTags: !showAllTags });
+    dataHandlers.updateMetaData({ showAllTags: !showAllTags });
   } else if (id === eventIds.searchResult) {
     if (type === eventTypes.success) {
-      tools.updateMetaData({ isSearching: false });
-      tools.updateData({
+      dataHandlers.updateMetaData({ isSearching: false });
+      dataHandlers.updateData({
         groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),
       });
     }
@@ -107,32 +107,35 @@ const executeSearch = (search: string, searchFunc: SearchFunction): [() => void,
   return [cancel, request];
 };
 
-const debouncedSearch = debounce((tools: Tools<SelectData, SelectMetaData>, searchFunc?: SearchFunction) => {
-  if (!searchFunc) {
-    return;
-  }
-  const { cancelCurrentSearch, search } = tools.getMetaData();
-  if (cancelCurrentSearch) {
-    cancelCurrentSearch();
-  }
-  if (!search) {
-    return;
-  }
-  const [cancel, request] = executeSearch(search, searchFunc);
-  tools.updateMetaData({ cancelCurrentSearch: cancel });
-  tools.asyncRequestWithTrigger(request);
-}, 300);
+const debouncedSearch = debounce(
+  (dataHandlers: DataHandlers<SelectData, SelectMetaData>, searchFunc?: SearchFunction) => {
+    if (!searchFunc) {
+      return;
+    }
+    const { cancelCurrentSearch, search } = dataHandlers.getMetaData();
+    if (cancelCurrentSearch) {
+      cancelCurrentSearch();
+    }
+    if (!search) {
+      return;
+    }
+    const [cancel, request] = executeSearch(search, searchFunc);
+    dataHandlers.updateMetaData({ cancelCurrentSearch: cancel });
+    dataHandlers.asyncRequestWithTrigger(request);
+  },
+  300,
+);
 
-export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, tools): boolean => {
-  const { updateMetaData, updateData, getData, getMetaData } = tools;
+export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
+  const { updateMetaData, updateData, getData, getMetaData } = dataHandlers;
   const lastSelectionUpdate = getMetaData().selectionUpdate;
   const lastSearchUpdate = getMetaData().searchUpdate;
   const { onSearch, onChange } = getData();
-  dataUpdater(event, tools);
+  dataUpdater(event, dataHandlers);
 
   if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
-    tools.updateMetaData({ isSearching: !!getMetaData().search });
-    debouncedSearch(tools, onSearch);
+    dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
+    debouncedSearch(dataHandlers, onSearch);
   }
   if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
     const current = getData();

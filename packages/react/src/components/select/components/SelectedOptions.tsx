@@ -8,7 +8,7 @@ import classNames from '../../../utils/classNames';
 import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
 import { createOnClickListener, getSelectedOptions } from '../utils';
 import { eventTypes, eventIds } from '../events';
-import { useChangeTrigger, useContextTools, useMetaDataStorage } from '../../dataContext/hooks';
+import { useChangeTrigger, useContextDataHandlers, useMetaDataStorage } from '../../dataProvider/hooks';
 
 type TagContainerProps = DivElementProps & {
   options: Option[];
@@ -73,7 +73,7 @@ export function SingleSelectButton(props: SingleOptionButtonProps) {
 }
 
 const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps => {
-  const { getData, getMetaData } = useContextTools();
+  const { getData, getMetaData } = useContextDataHandlers();
   const { groups, placeholder } = getData() as SelectData;
   const { icon, selectionButtonRef, elementIds } = getMetaData() as SelectMetaData;
   // const isMultiSelect = getMultiSelectState(controller);

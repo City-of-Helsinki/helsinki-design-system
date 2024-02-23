@@ -4,7 +4,7 @@ import styles from '../Select.module.scss';
 import { Option } from '../types';
 import classNames from '../../../utils/classNames';
 import { Tag, TagProps } from '../../tag/Tag';
-import { ChangeTrigger } from '../../dataContext/DataContext';
+import { ChangeTrigger } from '../../dataProvider/DataContext';
 import { eventTypes, eventIds } from '../events';
 
 export type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, never>;

@@ -6,7 +6,7 @@ import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
 import { propsToGroups, childrenToGroups } from './utils';
-import DataContainer from '../dataContext/DataContext';
+import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptions } from './components/SelectedOptions';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
 import { OptionsList } from './components/OptionsList';
@@ -90,7 +90,7 @@ export function Select({
   // unmount => cancel asyncs
 
   return (
-    <DataContainer<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeChandler}>
+    <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeChandler}>
       <Container>
         <Label key="label" />
         <SelectionsAndListsContainer key="selectionsAndListsContainer">
@@ -106,6 +106,6 @@ export function Select({
         <AssistiveText />
         {initialData.multiSelect && <TagList />}
       </Container>
-    </DataContainer>
+    </DataProvider>
   );
 }

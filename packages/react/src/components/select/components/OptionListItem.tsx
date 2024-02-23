@@ -5,7 +5,7 @@ import classNames from '../../../utils/classNames';
 import { LiElementProps, Option } from '../types';
 import { Checkbox } from '../../checkbox/Checkbox';
 import { eventIds, eventTypes } from '../events';
-import { ChangeTrigger } from '../../dataContext/DataContext';
+import { ChangeTrigger } from '../../dataProvider/DataContext';
 
 export type ListItemProps = LiElementProps & { label?: string; checked?: boolean; indeterminate?: boolean };
 

@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode } from 'react';
 
 import { SelectData, Group, SelectProps, Option } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
-import { ChangeEvent } from '../dataContext/DataContext';
+import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
 
 type DomHandlerProps = {
