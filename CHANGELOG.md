@@ -1,10 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## [3.X.X] - Month, XX, 202X
 
 ### React
@@ -24,7 +19,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
 
 ### Core
 
@@ -602,6 +597,14 @@ There is a brand new Figma library available. The licenses are checked and provi
 #### Added
 
 - [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 Alpha release purposes. The shared library file includes new Header and Side navigation symbols.
+
+## [2.17.1] - Feb, 7, 2024
+
+### React
+
+#### Fixed
+
+- Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
 
 ## [2.17.0] - Aug, 18, 2023
 

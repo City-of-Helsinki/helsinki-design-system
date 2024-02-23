@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 
 import { Button } from '../../button';
 import { Select } from './Select';

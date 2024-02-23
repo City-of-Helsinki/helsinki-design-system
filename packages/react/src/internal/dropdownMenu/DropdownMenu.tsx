@@ -1,5 +1,5 @@
 import React from 'react';
-import isEqual from 'lodash.isequal';
+import { isEqual } from 'lodash';
 import { VirtualItem } from 'react-virtual';
 
 import { getIsInSelectedOptions } from '../../components/dropdown/dropdownUtils';

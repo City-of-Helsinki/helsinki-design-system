@@ -1,6 +1,4 @@
-import _pick from 'lodash.pick';
-import _isObject from 'lodash.isobject';
-import _isUndefined from 'lodash.isundefined';
+import { pick, isObject, isUndefined } from 'lodash';
 
 import { createCookieController } from './cookieController';
 
@@ -48,7 +46,7 @@ function mergeConsents(set1: ConsentObject, set2: ConsentObject, set3?: ConsentO
 }
 
 function createConsentsString(consents: ConsentObject): string {
-  if (!_isObject(consents)) {
+  if (!isObject(consents)) {
     return '{}';
   }
   return JSON.stringify(consents);
@@ -107,10 +105,10 @@ export function createStorage(
   };
 
   const findConsentSource = (consentName: string, targetStorage: ConsentStorage): ConsentObject | undefined => {
-    if (!_isUndefined(targetStorage.required[consentName])) {
+    if (!isUndefined(targetStorage.required[consentName])) {
       return targetStorage.required;
     }
-    if (!_isUndefined(targetStorage.optional[consentName])) {
+    if (!isUndefined(targetStorage.optional[consentName])) {
       return targetStorage.optional;
     }
     return undefined;
@@ -168,17 +166,17 @@ export default function createConsentController(props: ConsentControllerProps): 
 
   const required = mergeConsents(
     convertStringArrayToKeyConsentObject(requiredConsents),
-    _pick(currentConsentsInCookie, requiredConsents),
+    pick(currentConsentsInCookie, requiredConsents),
   );
 
   const optional = mergeConsents(
     convertStringArrayToKeyConsentObject(optionalConsents),
-    _pick(currentConsentsInCookie, optionalConsents),
+    pick(currentConsentsInCookie, optionalConsents),
   );
 
   const unknownConsentKeys = Object.keys(currentConsentsInCookie).filter((key) => !allConsents.includes(key));
 
-  const unknown = unknownConsentKeys.length ? _pick(currentConsentsInCookie, unknownConsentKeys) : undefined;
+  const unknown = unknownConsentKeys.length ? pick(currentConsentsInCookie, unknownConsentKeys) : undefined;
 
   const storage = createStorage({ required, optional, unknown });
 
@@ -222,7 +220,7 @@ export default function createConsentController(props: ConsentControllerProps): 
     rejectAll,
     getUnhandledConsents: () => {
       const storedCookies = parseConsents(cookieController.get());
-      return allConsents.filter((key) => _isUndefined(storedCookies[key]));
+      return allConsents.filter((key) => isUndefined(storedCookies[key]));
     },
     save,
   };

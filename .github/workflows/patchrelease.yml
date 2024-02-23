@@ -1,0 +1,47 @@
+name: patchrelease
+
+on:
+  push:
+    branches:
+      - patchrelease
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install dependencies
+        run: yarn
+
+      - name: build design tokens package
+        run: yarn build
+        working-directory: ./packages/design-tokens
+
+      - name: build core package
+        run: yarn build
+        working-directory: ./packages/core
+
+      - name: build react package
+        run: yarn build
+        working-directory: ./packages/react
+
+      - name: build hds-js package
+        run: yarn build:hds-js
+        working-directory: ./packages/react
+
+      - name: release npm packages
+        run: yarn release --dist-tag patch
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
