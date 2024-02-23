@@ -19,7 +19,7 @@ import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
 import { UserCreationProps, createSignInResponse, createUserAndPlaceUserToStorage } from './userTestUtil';
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
 // eslint-disable-next-line jest/no-mocks-import
-import { MockedWindowLocationActions } from '../__mocks__/mockWindowLocation';
+import { MockedWindowLocationActions } from '../../../utils/mockWindowLocation';
 
 export type InitTestResult = {
   oidcClient: OidcClient;
