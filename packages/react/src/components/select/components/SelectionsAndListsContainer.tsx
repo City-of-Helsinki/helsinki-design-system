@@ -3,10 +3,10 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { DivElementProps } from '../types';
-import { Tools } from '../../dataContext/DataContext';
-import { useContextTools } from '../../dataContext/hooks';
+import { DataHandlers } from '../../dataProvider/DataContext';
+import { useContextDataHandlers } from '../../dataProvider/hooks';
 
-function createComponentProps(props: React.PropsWithChildren<unknown>, tools: Tools): DivElementProps {
+function createComponentProps(props: React.PropsWithChildren<unknown>, tools: DataHandlers): DivElementProps {
   const { getData } = tools;
   const { error } = getData();
   return {
@@ -16,7 +16,7 @@ function createComponentProps(props: React.PropsWithChildren<unknown>, tools: To
 }
 
 export const SelectionsAndListsContainer = (props: React.PropsWithChildren<unknown>) => {
-  const tools = useContextTools();
+  const tools = useContextDataHandlers();
   const { children, ...attr } = createComponentProps(props, tools);
   return <div {...attr}>{children}</div>;
 };

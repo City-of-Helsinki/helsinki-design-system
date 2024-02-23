@@ -6,11 +6,11 @@ import { IconSearch } from '../../../icons';
 import { SelectMetaData } from '../types';
 import classNames from '../../../utils/classNames';
 import { createInputOnChangeListener } from '../utils';
-import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
+import { useChangeTrigger, useContextDataHandlers } from '../../dataProvider/hooks';
 import { eventIds } from '../events';
 
 export const searchInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
-  const { getMetaData } = useContextTools();
+  const { getMetaData } = useContextDataHandlers();
   const trigger = useChangeTrigger();
   const { search } = getMetaData() as SelectMetaData;
   return {

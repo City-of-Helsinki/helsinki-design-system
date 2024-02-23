@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import { DivElementProps, SelectData } from '../types';
-import { useContextTools } from '../../dataContext/hooks';
+import { useContextDataHandlers } from '../../dataProvider/hooks';
 
 function assitiveTextPropCreator(props: DivElementProps): DivElementProps {
-  const { getData } = useContextTools();
+  const { getData } = useContextDataHandlers();
   const { assistiveText } = getData() as SelectData;
   return {
     ...props,

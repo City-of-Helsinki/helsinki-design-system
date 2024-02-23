@@ -9,7 +9,7 @@ import {
   useEffect,
 } from 'react';
 
-import { Tools } from '../dataContext/DataContext';
+import { DataHandlers } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
 import { SelectData, SelectMetaData } from './types';
 import getIsElementFocused from '../../utils/getIsElementFocused';
@@ -42,8 +42,8 @@ type ReturnObject = Pick<
   'onBlur' | 'onFocus' | 'onMouseUp' | 'onKeyUp' | 'tabIndex'
 > & { ref: RefObject<HTMLDivElement> };
 
-export function useFocusHandling(tools: Tools): ReturnObject {
-  const { getMetaData, updateMetaData, getData } = tools;
+export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
+  const { getMetaData, updateMetaData, getData } = dataHandlers;
   const isElementHit = (target: RefObject<Element>, eventTarget?: Element) => {
     if (!target.current || !eventTarget) {
       return false;

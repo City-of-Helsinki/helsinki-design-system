@@ -5,8 +5,8 @@ import classNames from '../../../utils/classNames';
 import { DivElementProps, Option, SelectData, SelectMetaData, UlElementProps } from '../types';
 import { createOptionsListItemProps, MultiSelectOptionListItem, OptionListItem } from './OptionListItem';
 import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../utils';
-import { useChangeTrigger, useContextTools } from '../../dataContext/hooks';
-import { ChangeTrigger } from '../../dataContext/DataContext';
+import { useChangeTrigger, useContextDataHandlers } from '../../dataProvider/hooks';
+import { ChangeTrigger } from '../../dataProvider/DataContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../events';
 import { VirtualizedListElement } from './VirtualizedListElement';
@@ -53,7 +53,7 @@ const optionsListPropSetter = (
     listRef: SelectMetaData['listRef'];
   }
 > => {
-  const { getData, getMetaData } = useContextTools();
+  const { getData, getMetaData } = useContextDataHandlers();
   const { open, groups, multiSelect, virtualize } = getData() as SelectData;
   const { isSearching, listContainerRef, listRef } = getMetaData() as SelectMetaData;
   const trigger = useChangeTrigger();

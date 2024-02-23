@@ -27,11 +27,3 @@ export function filterMockCallArgs(func: jest.Mock | jest.SpyInstance, filter: (
 export function hasListenerBeenCalled(listener: jest.Mock) {
   return listener && getMockCalls(listener).length > 0;
 }
-
-export function sleep(time: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-}

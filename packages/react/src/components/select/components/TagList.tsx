@@ -7,7 +7,7 @@ import { getSelectedOptions, createOnClickListener } from '../utils';
 import { SelectedTag } from './SelectedTag';
 import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
 import { DivElementProps, Option, SelectData, SelectMetaData } from '../types';
-import { useContextTools, useChangeTrigger } from '../../dataContext/hooks';
+import { useContextDataHandlers, useChangeTrigger } from '../../dataProvider/hooks';
 import { getChildElementsPerRow } from '../../../utils/getChildElementsPerRow';
 import { eventIds } from '../events';
 
@@ -36,7 +36,7 @@ function ClearButton() {
 }
 
 const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['showAllButtonRef'] } => {
-  const { getMetaData, getData } = useContextTools();
+  const { getMetaData, getData } = useContextDataHandlers();
   const { groups } = getData() as SelectData;
   const { showAllTags, showAllButtonRef } = getMetaData() as SelectMetaData;
   const selectedOptions = getSelectedOptions(groups);
@@ -100,7 +100,7 @@ export function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
 }
 
 export function TagList() {
-  const { getMetaData, getData } = useContextTools();
+  const { getMetaData, getData } = useContextDataHandlers();
   const { groups } = getData() as SelectData;
   const metaData = getMetaData() as SelectMetaData;
 

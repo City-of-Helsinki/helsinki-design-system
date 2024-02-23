@@ -2,11 +2,11 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import { SelectData } from '../types';
-import { useContextTools } from '../../dataContext/hooks';
+import { useContextDataHandlers } from '../../dataProvider/hooks';
 import { NotificationProps, Notification } from '../../notification/Notification';
 
 function errorPropCreator(props: Partial<NotificationProps>): NotificationProps {
-  const { getData } = useContextTools();
+  const { getData } = useContextDataHandlers();
   const { error } = getData() as SelectData;
   return {
     ...props,

@@ -5,9 +5,16 @@ import { v4 as uuidv4 } from 'uuid';
 import useForceRender from '../../hooks/useForceRender';
 import { getAllMockCallArgs } from '../../utils/testHelpers';
 import { Button } from '../button';
-import { TextInput } from '../textInput';
-import DataContainer, { DataContainerProps, Tools } from './DataContext';
-import { useDataStorage, useMetaDataStorage, useChangeTrigger, useContextTools, useDataContext } from './hooks';
+import { ChangeEvent, DataHandlers } from './DataContext';
+import { DataProviderProps, DataProvider } from './DataProvider';
+import {
+  useDataStorage,
+  useMetaDataStorage,
+  useChangeTrigger,
+  useContextDataHandlers,
+  useDataContext,
+  useAsyncChangeTrigger,
+} from './hooks';
 import { Storage, StorageData } from './storage';
 
 type DomEventData = { rendered: number; mounted: number; unmounted: number; updateTime: number };
@@ -20,10 +27,6 @@ type DataPerId = DomEventData & {
 
 type TestComponentProps = {
   id: string;
-  value?: string;
-  key: string;
-  onButtonClick?: () => void;
-  onTextInputChange?: () => void;
 };
 
 type TestData = {
@@ -39,6 +42,7 @@ describe('DataContext', () => {
   const domEventsPerId = new Map<string, DomEventData>();
   const initialDomEventData: DomEventData = { rendered: 0, mounted: 0, unmounted: 0, updateTime: 0 };
   const contextTracker = jest.fn();
+  const asyncTracker = jest.fn();
   const getDomEventDataPerId = (id: string) => {
     return domEventsPerId.get(id) || { ...initialDomEventData };
   };
@@ -57,7 +61,7 @@ describe('DataContext', () => {
     domEventsPerId.set(id, current);
   };
 
-  const domEventCountHook = (id: string) => {
+  const useDomEventCountHook = (id: string) => {
     // when component is mounted, these refs are initialized or reset.
     // domEventsPerId tracks all renders, this ref tracks only renders of this instance.
     const instanceRenderCountRef = useRef(1);
@@ -85,15 +89,6 @@ describe('DataContext', () => {
     };
   };
 
-  const getOnChangeUpdaterProps = (id: string) => {
-    const trigger = useChangeTrigger();
-    return {
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-        trigger({ id, type: 'change', payload: { value: e.currentTarget.value } });
-      },
-    };
-  };
-
   const getComponentKey = (metaData: TestData, componentProps: unknown) => {
     const keys = metaData.keys || {};
     const { id } = (componentProps as unknown) as { id: string };
@@ -111,23 +106,40 @@ describe('DataContext', () => {
 
   const TestComponent = (componentProps: TestComponentProps) => {
     const { id } = componentProps;
-    const contextData = useDataStorage().get() as TestData;
-    contextTracker(useContextTools(), useDataStorage(), useMetaDataStorage());
-    const value = String(contextData.componentData[id]);
-    const { instanceRenderCount, instanceId } = domEventCountHook(id || 'no-id');
+    const data = useDataStorage<TestData>().get();
+    contextTracker(useContextDataHandlers(), useDataStorage(), useMetaDataStorage());
+    const value = String(data.componentData[id]);
+    const { instanceRenderCount, instanceId } = useDomEventCountHook(id);
+    const asyncTrigger = useAsyncChangeTrigger();
+    const onClick = (success: boolean) => {
+      const promise: Promise<ChangeEvent> = new Promise((resolve, reject) => {
+        const resolver = () => {
+          success ? resolve({ id, type: 'async', payload: { value: '4000' } }) : reject(new Error('Failed async call'));
+        };
+        setTimeout(resolver, 500);
+      });
+      success ? promise.then(asyncTracker) : promise.catch(asyncTracker);
+      asyncTrigger(promise);
+    };
     return (
       <div id={`${id}`}>
         <Button id={`button-${id}`} {...getOnClickUpdaterProps(id)}>
           Click me!
         </Button>
-        <TextInput id={`input-${id}`} value={value} {...getOnChangeUpdaterProps(id)} />
+        <Button id={`button-${id}-async`} onClick={() => onClick(true)}>
+          Successful Async test
+        </Button>
+        <Button id={`button-${id}-failed-async`} onClick={() => onClick(false)}>
+          Failing Async test
+        </Button>
         <span id={`render-count-${id}`}>{instanceRenderCount}</span>
         <span id={`instance-uuid-${id}`}>{instanceId}</span>
         <span id={`value-${id}`}>{value as string}</span>
       </div>
     );
   };
-
+  // components that does not use context are not re-rendered when context changes.
+  // calling useDataContext() to force re-render
   function ForceDataContextChildToUpdate<T = PropsWithChildren<unknown>>(f: React.FC<T>) {
     return (props: T) => {
       useDataContext();
@@ -135,11 +147,11 @@ describe('DataContext', () => {
     };
   }
 
+  // When key changes, the component is re-mounted
   function DataContextChildWithKeyTracking<T = PropsWithChildren<unknown>>(Comp: React.FC<T>) {
     return (props: T) => {
-      const componentKey = getComponentKey(useMetaDataStorage().get() as TestData, props);
+      const componentKey = getComponentKey(useMetaDataStorage<TestData>().get(), props);
       return <Comp {...{ ...props, key: componentKey }} />;
-      // return React.cloneElement(f, { ...props, key: componentKey });
     };
   }
 
@@ -147,23 +159,32 @@ describe('DataContext', () => {
 
   // tracks only whole data container's re-rendering process
   const DataContextRenderCounter = ForceDataContextChildToUpdate((props: PropsWithChildren<{ id: string }>) => {
-    const { instanceRenderCount } = domEventCountHook(props.id);
+    const { instanceRenderCount } = useDomEventCountHook(props.id);
     return <span id="render-count-context">{instanceRenderCount}</span>;
   });
 
+  // renders dom
   const renderComponent = ({ initialData, metaData }: { initialData: TestData; metaData: TestData }) => {
-    const onChange: DataContainerProps<TestData, TestData>['onChange'] = (event, tools) => {
+    const onChange: DataProviderProps<TestData, TestData>['onChange'] = (event, dataHandlers) => {
       if (event.type === 'click') {
-        const data = tools.getData() as TestData;
+        const data = dataHandlers.getData();
         const currentValue = data.componentData[event.id] as number;
         const newComponentData = {
           ...data.componentData,
           [event.id]: currentValue + 1,
         };
-        tools.updateData({ ...data, componentData: newComponentData });
+        dataHandlers.updateData({ ...data, componentData: newComponentData });
         if (event.id === 'test3') {
-          tools.updateMetaData(updateComponentKeyInMetaData(event.id, (tools.getMetaData() as unknown) as TestData));
+          dataHandlers.updateMetaData(updateComponentKeyInMetaData(event.id, dataHandlers.getMetaData()));
         }
+      }
+      if (event.type === 'async') {
+        const data = dataHandlers.getData();
+        const newComponentData = {
+          ...data.componentData,
+          [event.id]: event.payload?.value,
+        };
+        dataHandlers.updateData({ ...data, componentData: newComponentData });
       }
       return true;
     };
@@ -177,11 +198,11 @@ describe('DataContext', () => {
       const toggleContext = () => {
         toggleRenderContext((current) => !current);
       };
-      // store data so it can be changed later to force new Context instance.
-      const dataRefs = useRef({ initialData, metaData });
+      // store data so it can be changed later to force a new Context instance.
+      const dataRefs = useRef({ initialData, metaData, onChange });
       const updateData = () => {
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { initialData, metaData } = dataRefs.current;
+        const { initialData, metaData, onChange } = dataRefs.current;
         dataRefs.current = {
           initialData: {
             ...initialData,
@@ -193,14 +214,16 @@ describe('DataContext', () => {
             time: Date.now(),
           },
           metaData,
+          onChange,
         };
         rerender();
       };
       const updateMetaData = () => {
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { initialData, metaData } = dataRefs.current;
+        const { initialData, metaData, onChange } = dataRefs.current;
         dataRefs.current = {
           initialData,
+          onChange,
           metaData: {
             ...metaData,
             componentData: {
@@ -210,6 +233,18 @@ describe('DataContext', () => {
             },
             time: Date.now(),
           },
+        };
+        rerender();
+      };
+      const updateOnChange = () => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        const { initialData, metaData } = dataRefs.current;
+        dataRefs.current = {
+          initialData,
+          onChange: () => {
+            throw new Error('This should not happen');
+          },
+          metaData,
         };
         rerender();
       };
@@ -227,18 +262,22 @@ describe('DataContext', () => {
           <Button id="button-update-metadata" onClick={updateMetaData}>
             Update metadata
           </Button>
+          <Button id="button-update-onChange" onClick={updateOnChange}>
+            Update onChange
+          </Button>
           {renderContext && (
             <div id="container-wrapper">
-              <DataContainer
+              <DataProvider
                 initialData={dataRefs.current.initialData}
                 metaData={dataRefs.current.metaData}
-                onChange={onChange}
+                onChange={dataRefs.current.onChange}
               >
                 <TestComponent id="test1" key="key1" />
                 <TestComponent id="test2" key="key2" />
                 <TestComponentWithKeyTracking id="test3" key="key3" />
+                <TestComponent id="test4" key="key4" />
                 <DataContextRenderCounter id="context-counter" key="counter" />
-              </DataContainer>
+              </DataProvider>
             </div>
           )}
         </div>
@@ -280,15 +319,7 @@ describe('DataContext', () => {
     };
 
     const rerenderAll = async () => {
-      await act(async () => {
-        const lastUpdateTime = getDomUpdateTime('context-counter');
-        clickButton('re-render');
-        await waitFor(() => {
-          if (getDomUpdateTime('context-counter') === lastUpdateTime) {
-            throw new Error('Context not updated');
-          }
-        });
-      });
+      await executeAndWaitForUpdate(() => clickButton('re-render'));
     };
 
     const toggleContext = async () => {
@@ -366,31 +397,31 @@ describe('DataContext', () => {
   };
 
   // contextTracker stores last context props used in components.
-  const getLastContextTrackerCall = (): Tools => {
+  const getLastContextTrackerCall = (): DataHandlers => {
     const calls = getAllMockCallArgs(contextTracker);
     return calls[calls.length - 1];
   };
 
-  const getToolsFromUseContextToolsCalls = (): Tools => {
+  const getDataHandlersFromUseContextDataHandlersCalls = (): DataHandlers => {
     return getLastContextTrackerCall()[0];
   };
 
-  const getDataStorageFromUseContextToolsCalls = (): Storage => {
+  const getDataStorageFromUseContextDataHandlersCalls = (): Storage => {
     return getLastContextTrackerCall()[1];
   };
 
-  const getMetaDataStorageFromUseContextToolsCalls = (): Storage => {
+  const getMetaDataStorageFromUseContextDataHandlersCalls = (): Storage => {
     return getLastContextTrackerCall()[2];
   };
 
   const getUsedContextInstances = () => {
-    const tools = getToolsFromUseContextToolsCalls();
+    const dataHandlers = getDataHandlersFromUseContextDataHandlersCalls();
     return [
-      tools,
-      tools.getData(),
-      tools.getMetaData(),
-      getDataStorageFromUseContextToolsCalls(),
-      getMetaDataStorageFromUseContextToolsCalls(),
+      dataHandlers,
+      dataHandlers.getData(),
+      dataHandlers.getMetaData(),
+      getDataStorageFromUseContextDataHandlersCalls(),
+      getMetaDataStorageFromUseContextDataHandlersCalls(),
     ];
   };
 
@@ -431,13 +462,13 @@ describe('DataContext', () => {
   const initialData: TestData = {
     time: Date.now(),
     list: [],
-    componentData: { test1: 100, test2: 200, test3: 300 },
+    componentData: { test1: 100, test2: 200, test3: 300, test4: 0 },
     uuid: uuidv4(),
   };
   const metaData: TestData = {
     time: Date.now(),
     list: [],
-    componentData: { test1: 1000, test2: 2000, test3: 3000 },
+    componentData: { test1: 1000, test2: 2000, test3: 3000, test4: 0 },
     uuid: uuidv4(),
   };
   it('Data is passed to components and all components are rendered with proper data.', async () => {
@@ -552,19 +583,19 @@ describe('DataContext', () => {
       metaData,
     });
 
-    const [toolsV1, dataV1, metaDataV1, dataStorageV1, metaDataStorageV1] = getUsedContextInstances();
+    const [dataHandlersV1, dataV1, metaDataV1, dataStorageV1, metaDataStorageV1] = getUsedContextInstances();
     await rerenderAll();
 
-    const [toolsV2, dataV2, metaDataV2] = getUsedContextInstances();
-    expect(toolsV2).toBe(toolsV1);
+    const [dataHandlersV2, dataV2, metaDataV2] = getUsedContextInstances();
+    expect(dataHandlersV2).toBe(dataHandlersV1);
     expect(dataV2).toBe(dataV1);
     expect(metaDataV2).toBe(metaDataV1);
 
     await executeAndWaitForUpdate(() => {
       clickButton('test1');
     });
-    const [toolsV3, dataV3, metaDataV3] = getUsedContextInstances();
-    expect(toolsV3).toBe(toolsV2);
+    const [dataHandlersV3, dataV3, metaDataV3] = getUsedContextInstances();
+    expect(dataHandlersV3).toBe(dataHandlersV2);
     expect(dataV3).not.toBe(dataV2);
     expect(metaDataV3).toBe(metaDataV2);
     await rerenderAll();
@@ -572,24 +603,24 @@ describe('DataContext', () => {
       // this will update metaData:
       clickButton('test3');
     });
-    const [toolsV4, dataV4, metaDataV4, dataStorageV4, metaDataStorageV4] = getUsedContextInstances();
-    expect(toolsV4).toBe(toolsV3);
+    const [dataHandlersV4, dataV4, metaDataV4, dataStorageV4, metaDataStorageV4] = getUsedContextInstances();
+    expect(dataHandlersV4).toBe(dataHandlersV3);
     expect(dataV4).not.toBe(dataV3);
     expect(metaDataV4).not.toBe(metaDataV3);
     expect(dataStorageV4).toBe(dataStorageV1);
     expect(metaDataStorageV4).toBe(metaDataStorageV1);
   });
-  it('Data and tools instances change when initialData is changed. MetaData is not changed.', async () => {
+  it('Data and dataHandlers instances change when initialData is changed. MetaData is not changed.', async () => {
     const { executeAndWaitForUpdate, clickButton, collectAllDataPerId } = renderComponent({
       initialData,
       metaData,
     });
-    const [toolsV1, dataV1, metaDataV1, dataStorageV1, metaDataStorageV1] = getUsedContextInstances();
+    const [dataHandlersV1, dataV1, metaDataV1, dataStorageV1, metaDataStorageV1] = getUsedContextInstances();
     await executeAndWaitForUpdate(() => {
       clickButton('update-data');
     });
-    const [toolsV2, dataV2, metaDataV2, dataStorageV2, metaDataStorageV2] = getUsedContextInstances();
-    expect(toolsV2).not.toBe(toolsV1);
+    const [dataHandlersV2, dataV2, metaDataV2, dataStorageV2, metaDataStorageV2] = getUsedContextInstances();
+    expect(dataHandlersV2).not.toBe(dataHandlersV1);
     expect(dataV2).not.toBe(dataV1);
     expect(metaDataV2).toBe(metaDataV1);
     expect(dataStorageV2).not.toBe(dataStorageV1);
@@ -611,7 +642,7 @@ describe('DataContext', () => {
       value: '-200',
     });
   });
-  it('MetaData and tools instances change when metaData is changed. Data is not changed.', async () => {
+  it('MetaData and dataHandlers instances change when metaData is changed. Data is not changed.', async () => {
     const { executeAndWaitForUpdate, clickButton, collectAllDataPerId } = renderComponent({
       initialData,
       metaData,
@@ -621,12 +652,12 @@ describe('DataContext', () => {
       clickButton('test2');
     });
 
-    const [toolsV1, dataV1, metaDataV1, dataStorageV1, metaDataStorageV1] = getUsedContextInstances();
+    const [dataHandlersV1, dataV1, metaDataV1, dataStorageV1, metaDataStorageV1] = getUsedContextInstances();
     await executeAndWaitForUpdate(() => {
       clickButton('update-metadata');
     });
-    const [toolsV2, dataV2, metaDataV2, dataStorageV2, metaDataStorageV2] = getUsedContextInstances();
-    expect(toolsV2).not.toBe(toolsV1);
+    const [dataHandlersV2, dataV2, metaDataV2, dataStorageV2, metaDataStorageV2] = getUsedContextInstances();
+    expect(dataHandlersV2).not.toBe(dataHandlersV1);
     expect(dataV2).toBe(dataV1);
     expect(metaDataV2).not.toBe(metaDataV1);
     expect(dataStorageV2).toBe(dataStorageV1);
@@ -645,5 +676,92 @@ describe('DataContext', () => {
       unmounted: 0,
       value: '201',
     });
+  });
+  it('The onChange callback is memoized.', async () => {
+    const { executeAndWaitForUpdate, clickButton, collectAllDataPerId } = renderComponent({
+      initialData,
+      metaData,
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('test2');
+    });
+    expect(collectAllDataPerId('test2')).toMatchObject({
+      id: 'test2',
+      mounted: 1,
+      rendered: 2,
+      unmounted: 0,
+      value: '201',
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('update-onChange');
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('test2');
+    });
+    expect(collectAllDataPerId('test2')).toMatchObject({
+      id: 'test2',
+      mounted: 1,
+      rendered: 4,
+      unmounted: 0,
+      value: '202',
+    });
+  });
+  it('asyncRequestWithTrigger accepts a promise and triggers the result as an event', async () => {
+    const { executeAndWaitForUpdate, clickButton, collectAllDataPerId } = renderComponent({
+      initialData,
+      metaData,
+    });
+    const dataHandlers = getDataHandlersFromUseContextDataHandlersCalls();
+    const triggerSpy = jest.spyOn(dataHandlers, 'trigger');
+    expect(collectAllDataPerId('test4')).toMatchObject({
+      id: 'test4',
+      mounted: 1,
+      rendered: 1,
+      unmounted: 0,
+      value: '0',
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('test4-async');
+    });
+    await waitFor(() => {
+      expect(asyncTracker).toHaveBeenCalledTimes(1);
+      expect(triggerSpy).toHaveBeenCalledTimes(1);
+    });
+    expect(collectAllDataPerId('test4')).toMatchObject({
+      id: 'test4',
+      mounted: 1,
+      rendered: 2,
+      unmounted: 0,
+      value: '4000',
+    });
+  });
+  it('asyncRequestWithTrigger ignores failed promises.', async () => {
+    const { clickButton } = renderComponent({
+      initialData,
+      metaData,
+    });
+    const dataHandlers = getDataHandlersFromUseContextDataHandlersCalls();
+    const triggerSpy = jest.spyOn(dataHandlers, 'trigger');
+    clickButton('test4-failed-async');
+    await waitFor(() => {
+      expect(asyncTracker).toHaveBeenCalledTimes(1);
+      expect(triggerSpy).toHaveBeenCalledTimes(0);
+    });
+  });
+  it('async triggers are properly handled also after component teardown', async () => {
+    // without the unmount check with isComponentUnmounted
+    // console.error would be called with "Can't perform a React state update on an unmounted component"
+    const logSpy = jest.spyOn(global.console, 'error');
+    const { clickButton, toggleContext } = renderComponent({
+      initialData,
+      metaData,
+    });
+    clickButton('test4-async');
+    expect(asyncTracker).toHaveBeenCalledTimes(0);
+    await toggleContext();
+    await waitFor(() => {
+      expect(asyncTracker).toHaveBeenCalledTimes(1);
+    });
+    expect(logSpy).toHaveBeenCalledTimes(0);
   });
 });
