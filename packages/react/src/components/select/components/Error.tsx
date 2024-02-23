@@ -1,13 +1,12 @@
 import React from 'react';
 
 import styles from '../Select.module.scss';
-import { SelectData } from '../types';
-import { useContextDataHandlers } from '../../dataProvider/hooks';
+import { SelectDataHandlers } from '../types';
 import { NotificationProps, Notification } from '../../notification/Notification';
+import { useSelectDataHandlers } from '../typedHooks';
 
-function errorPropCreator(props: Partial<NotificationProps>): NotificationProps {
-  const { getData } = useContextDataHandlers();
-  const { error } = getData() as SelectData;
+function createErrorProps(props: Partial<NotificationProps>, { getData }: SelectDataHandlers): NotificationProps {
+  const { error } = getData();
   return {
     ...props,
     type: 'error',
@@ -18,6 +17,6 @@ function errorPropCreator(props: Partial<NotificationProps>): NotificationProps 
 }
 
 export function ErrorNotification(props: Partial<NotificationProps>) {
-  const { children, ...elProps } = errorPropCreator(props);
-  return children ? <Notification {...elProps}>{children}</Notification> : null;
+  const { children, ...attr } = createErrorProps(props, useSelectDataHandlers());
+  return children ? <Notification {...attr}>{children}</Notification> : null;
 }

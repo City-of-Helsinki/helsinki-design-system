@@ -2,16 +2,41 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { DivElementProps, Option, SelectData, SelectMetaData, UlElementProps } from '../types';
-import { createOptionsListItemProps, MultiSelectOptionListItem, OptionListItem } from './OptionListItem';
+import { DivElementProps, Option, SelectData, SelectDataHandlers, SelectMetaData } from '../types';
+import {
+  createMultiSelectGroupLabelProps,
+  createMultiSelectItemProps,
+  createSingleSelectGroupLabelProps,
+  createSingleSelectItemProps,
+  LiElementWithCheckboxProps,
+  MultiSelectGroupLabelProps,
+  MultiSelectOptionListItem,
+  OptionListItem,
+} from './OptionListItem';
 import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../utils';
-import { useChangeTrigger, useContextDataHandlers } from '../../dataProvider/hooks';
+import { useSelectDataHandlers } from '../typedHooks';
 import { ChangeTrigger } from '../../dataProvider/DataContext';
-import useOutsideClick from '../../../hooks/useOutsideClick';
-import { eventIds, eventTypes } from '../events';
 import { VirtualizedListElement } from './VirtualizedListElement';
 
-const createListOptions = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
+const createOptionsListItemProps = ({
+  option,
+  isMultiSelect,
+  isIntermediate,
+  trigger,
+}: MultiSelectGroupLabelProps): LiElementWithCheckboxProps => {
+  const { isGroupLabel } = option;
+
+  if (isGroupLabel) {
+    return !isMultiSelect
+      ? createSingleSelectGroupLabelProps(option)
+      : createMultiSelectGroupLabelProps({ option, trigger, isIntermediate, isMultiSelect });
+  }
+  return isMultiSelect
+    ? createMultiSelectItemProps({ option, trigger })
+    : createSingleSelectItemProps({ option, trigger });
+};
+
+const createOptionElements = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
   const getGroupLabelIntermediateState = (option: Option): boolean => {
     if (!option.isGroupLabel || option.selected) {
       return false;
@@ -41,74 +66,46 @@ const createListOptions = (groups: SelectData['groups'], trigger: ChangeTrigger,
     .filter((option) => !!option);
 };
 
-const optionsListPropSetter = (
-  props: UlElementProps,
-): React.PropsWithChildren<
-  UlElementProps & {
-    containerProps: DivElementProps;
-    outsideClickTrigger: () => void;
-    isOpen: boolean;
-    listContainerRef: SelectMetaData['listContainerRef'];
-    virtualize: boolean;
-    listRef: SelectMetaData['listRef'];
-  }
-> => {
-  const { getData, getMetaData } = useContextDataHandlers();
-  const { open, groups, multiSelect, virtualize } = getData() as SelectData;
-  const { isSearching, listContainerRef, listRef } = getMetaData() as SelectMetaData;
-  const trigger = useChangeTrigger();
-  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
-  const outsideClickTrigger = () => {
-    trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
-  };
+const createOptionsListChildren = ({ getData, getMetaData, trigger }: SelectDataHandlers) => {
+  const { open, groups, multiSelect } = getData() as SelectData;
+  const { isSearching } = getMetaData() as SelectMetaData;
   return {
-    ...props,
+    children: open && !isSearching ? createOptionElements(groups, trigger, multiSelect) : null,
+  };
+};
+
+const createContainerProps = (): DivElementProps => {
+  return {
+    className: styles.listContainer,
+  };
+};
+
+const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) => {
+  const { groups } = getData() as SelectData;
+  const { listRef } = getMetaData() as SelectMetaData;
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+
+  return {
     className: classNames(styles.list, hasVisibleGroupLabels && styles.shiftOptions),
-    children: open && !isSearching ? createListOptions(groups, trigger, multiSelect) : null,
-    containerProps: {
-      className: styles.listContainer,
-    },
-    outsideClickTrigger,
-    isOpen: open,
-    listContainerRef,
-    listRef,
-    virtualize,
+    ref: listRef,
     tabIndex: -1,
   };
 };
 
-export const OptionsList = (props: React.PropsWithChildren<UlElementProps>) => {
-  const {
-    children,
-    containerProps,
-    outsideClickTrigger,
-    isOpen,
-    listRef,
-    listContainerRef,
-    virtualize,
-    ...attr
-  } = optionsListPropSetter(props);
-  const callback = () => {
-    if (!isOpen) {
-      return;
-    }
-    outsideClickTrigger();
-  };
-
-  useOutsideClick({ ref: listContainerRef, callback });
+export const OptionsList = () => {
+  const handlers = useSelectDataHandlers();
+  const { children } = createOptionsListChildren(handlers);
   if (!children || (Array.isArray(children) && !children.length)) {
     return null;
   }
+  const { virtualize } = handlers.getData();
+  const listElementProps = createListElementProps(handlers);
   return (
-    <div {...containerProps}>
+    <div {...createContainerProps()}>
       {virtualize ? (
-        <VirtualizedListElement {...attr} ref={listRef}>
-          {children}
-        </VirtualizedListElement>
+        <VirtualizedListElement {...listElementProps}>{children}</VirtualizedListElement>
       ) : (
-        <ul {...attr} ref={listRef}>
-          {children}
-        </ul>
+        <ul {...listElementProps}>{children}</ul>
       )}
     </div>
   );

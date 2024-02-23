@@ -1,19 +1,25 @@
 import React from 'react';
 
 import styles from '../Select.module.scss';
-import classNames from '../../../utils/classNames';
-import { DivElementProps, SelectMetaData } from '../types';
-import { useContextDataHandlers } from '../../dataProvider/hooks';
+import { DivElementProps, SelectDataHandlers } from '../types';
 import { useFocusHandling } from '../useFocusHandling';
+import { useSelectDataHandlers } from '../typedHooks';
+
+function createContainerProps(props: DivElementProps, { getMetaData }: SelectDataHandlers): DivElementProps {
+  const { elementIds } = getMetaData();
+  return {
+    ...props,
+    id: elementIds.container,
+    className: styles.wrapper,
+  };
+}
 
 export const Container = (props: Partial<DivElementProps>) => {
-  const tools = useContextDataHandlers();
-  const trackingProps = useFocusHandling(tools);
-  const { children, ...rest } = props;
-  const id = (tools.getMetaData() as SelectMetaData).elementIds.container;
+  const dataHandlers = useSelectDataHandlers();
+  const trackingProps = useFocusHandling(dataHandlers);
+  const { children, ...rest } = createContainerProps(props, dataHandlers);
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div {...rest} {...trackingProps} className={classNames(styles.wrapper)} id={id}>
+    <div {...rest} {...trackingProps}>
       {children}
     </div>
   );

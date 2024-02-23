@@ -2,25 +2,46 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { SelectData, SelectMetaData } from '../types';
-import { useContextDataHandlers } from '../../dataProvider/hooks';
+import { DivElementProps, SelectDataHandlers } from '../types';
+import { useSelectDataHandlers } from '../typedHooks';
+import useOutsideClick from '../../../hooks/useOutsideClick';
+import { eventIds, eventTypes } from '../events';
 
-export const ListAndInputContainer = (props) => {
-  const { getData, getMetaData } = useContextDataHandlers();
-  const { open, showFiltering, showSearch } = getData() as SelectData;
-  const { listContainerRef } = getMetaData() as SelectMetaData;
+const createListAndInputContainerProps = (
+  props: DivElementProps,
+  { getData, getMetaData, trigger }: SelectDataHandlers,
+) => {
+  const { open, showFiltering, showSearch } = getData();
+  const { listContainerRef } = getMetaData();
   const hasInput = showFiltering || showSearch;
-  const { children } = props;
-  return (
-    <div
-      className={classNames(
-        styles.listAndInputContainer,
-        open && styles.listAndInputContainerVisible,
-        hasInput && styles.withSearchOrFilter,
-      )}
-      ref={listContainerRef}
-    >
-      {children}
-    </div>
+  const outsideClickTrigger = () => {
+    trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
+  };
+  return {
+    ...props,
+    className: classNames(
+      styles.listAndInputContainer,
+      open && styles.listAndInputContainerVisible,
+      hasInput && styles.withSearchOrFilter,
+    ),
+    ref: listContainerRef,
+    outsideClickTrigger,
+    isOpen: open,
+  };
+};
+
+export const ListAndInputContainer = (props: DivElementProps) => {
+  const { children, outsideClickTrigger, isOpen, ...attr } = createListAndInputContainerProps(
+    props,
+    useSelectDataHandlers(),
   );
+  const callback = () => {
+    if (!isOpen) {
+      return;
+    }
+    outsideClickTrigger();
+  };
+
+  useOutsideClick({ ref: attr.ref, callback });
+  return <div {...attr}>{children}</div>;
 };

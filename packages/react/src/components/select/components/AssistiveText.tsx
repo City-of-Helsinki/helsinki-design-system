@@ -1,12 +1,11 @@
 import React from 'react';
 
 import styles from '../Select.module.scss';
-import { DivElementProps, SelectData } from '../types';
-import { useContextDataHandlers } from '../../dataProvider/hooks';
+import { DivElementProps, SelectDataHandlers } from '../types';
+import { useSelectDataHandlers } from '../typedHooks';
 
-function assitiveTextPropCreator(props: DivElementProps): DivElementProps {
-  const { getData } = useContextDataHandlers();
-  const { assistiveText } = getData() as SelectData;
+function createAssistiveTextProps(props: DivElementProps, { getData }: SelectDataHandlers): DivElementProps {
+  const { assistiveText } = getData();
   return {
     ...props,
     className: styles.assistiveText,
@@ -15,6 +14,6 @@ function assitiveTextPropCreator(props: DivElementProps): DivElementProps {
 }
 
 export function AssistiveText(props: DivElementProps) {
-  const { children, ...attr } = assitiveTextPropCreator(props);
+  const { children, ...attr } = createAssistiveTextProps(props, useSelectDataHandlers());
   return children ? <div {...attr}>{children}</div> : null;
 }
