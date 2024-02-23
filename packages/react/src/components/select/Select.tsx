@@ -91,8 +91,8 @@ export function Select({
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeChandler}>
       <Container>
-        <Label key="label" />
-        <SelectionsAndListsContainer key="selectionsAndListsContainer">
+        <Label />
+        <SelectionsAndListsContainer>
           <SelectedOptions />
           <ListAndInputContainer>
             {initialData.showFiltering && <FilterInput />}

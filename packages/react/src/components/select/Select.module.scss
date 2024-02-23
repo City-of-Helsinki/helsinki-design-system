@@ -12,7 +12,7 @@
 
   &.open {
     .angleIcon {
-      transform: translateY(2px) rotateX(180deg);
+      transform: rotateX(180deg);
     }
   }
 
@@ -90,17 +90,6 @@
       display: block;
     }
   }
-}
-
-/**
- * THE BUTTON LABEL (SELECTED VALUE OR PLACEHOLDER)
- */
-.buttonLabel {
-  padding-right: var(--spacing-layout-xs);
-}
-
-.buttonLabel.buttonLabelWithClearButton {
-  padding-right: var(--spacing-3-xl);
 }
 
 .listContainer {

@@ -6,15 +6,11 @@ import { Button, ButtonProps } from '../../button/Button';
 import { getSelectedOptions, createOnClickListener } from '../utils';
 import { SelectedTag } from './SelectedTag';
 import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
-import { DivElementProps, Option, SelectData, SelectMetaData } from '../types';
+import { DivElementProps, SelectData, SelectMetaData } from '../types';
 import { useContextDataHandlers, useChangeTrigger } from '../../dataProvider/hooks';
 import { getChildElementsPerRow } from '../../../utils/getChildElementsPerRow';
 import { eventIds } from '../events';
-
-type TagsProps = DivElementProps & {
-  selectedOptions: Option[];
-  metaData: SelectMetaData;
-};
+import { useSelectDataHandlers } from '../typedHooks';
 
 const clearButtonPropSetter = (): ButtonProps => {
   const trigger = useChangeTrigger();
@@ -64,11 +60,13 @@ function ShowAllButton() {
   );
 }
 
-function Tags(props: TagsProps) {
-  const { selectedOptions, metaData } = props;
-  const { tagListRef, showAllTags, elementIds } = metaData;
+function Tags() {
+  const { getData, getMetaData, trigger } = useSelectDataHandlers();
+  const { groups } = getData();
+  const { tagListRef, showAllTags, elementIds } = getMetaData();
 
-  const trigger = useChangeTrigger();
+  const selectedOptions = getSelectedOptions(groups);
+
   return (
     <div
       id={elementIds.tagList}
@@ -82,7 +80,7 @@ function Tags(props: TagsProps) {
   );
 }
 
-export function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
+function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.tagListRef.current;
   const buttonEl = metaData.showAllButtonRef.current;
   if (tagListEl && buttonEl) {
@@ -99,24 +97,35 @@ export function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   }
 }
 
-export function TagList() {
-  const { getMetaData, getData } = useContextDataHandlers();
-  const { groups } = getData() as SelectData;
-  const metaData = getMetaData() as SelectMetaData;
+function createContainerProps(): DivElementProps {
+  return {
+    className: classNames(styles.tagListContainer),
+  };
+}
 
-  const selectedOptions = getSelectedOptions(groups);
+function createButtonContainerProps(): DivElementProps {
+  return {
+    className: classNames(styles.tagListButtons),
+  };
+}
+
+export function TagList() {
+  const { getData, getMetaData } = useSelectDataHandlers();
+
+  const selectedOptions = getSelectedOptions(getData().groups);
 
   useLayoutEffect(() => {
-    checkIfShowAllButtonIsNeeded(metaData);
+    checkIfShowAllButtonIsNeeded(getMetaData());
   });
 
   if (!selectedOptions.length) {
     return null;
   }
+
   return (
-    <div className={classNames(styles.tagListContainer)}>
-      <Tags selectedOptions={selectedOptions} metaData={metaData} />
-      <div className={styles.tagListButtons}>
+    <div {...createContainerProps()}>
+      <Tags />
+      <div {...createButtonContainerProps()}>
         <ShowAllButton />
         <ClearButton />
       </div>

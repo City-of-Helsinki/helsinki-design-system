@@ -2,21 +2,21 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { DivElementProps } from '../types';
-import { DataHandlers } from '../../dataProvider/DataContext';
-import { useContextDataHandlers } from '../../dataProvider/hooks';
+import { DivElementProps, SelectDataHandlers } from '../types';
+import { useSelectDataHandlers } from '../typedHooks';
 
-function createComponentProps(props: React.PropsWithChildren<unknown>, tools: DataHandlers): DivElementProps {
-  const { getData } = tools;
-  const { error } = getData();
+function createComponentProps(
+  props: React.PropsWithChildren<unknown>,
+  { getData }: SelectDataHandlers,
+): DivElementProps {
+  const { error, open } = getData();
   return {
     ...props,
-    className: classNames(styles.root, styles.container, error && styles.error),
+    className: classNames(styles.root, styles.container, error && styles.error, open && styles.open),
   };
 }
 
 export const SelectionsAndListsContainer = (props: React.PropsWithChildren<unknown>) => {
-  const tools = useContextDataHandlers();
-  const { children, ...attr } = createComponentProps(props, tools);
+  const { children, ...attr } = createComponentProps(props, useSelectDataHandlers());
   return <div {...attr}>{children}</div>;
 };
