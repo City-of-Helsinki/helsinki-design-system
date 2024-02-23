@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import React from 'react';
 
 import styles from '../Select.module.scss';
 import { Option } from '../types';
@@ -7,11 +7,9 @@ import { Tag, TagProps } from '../../tag/Tag';
 import { ChangeTrigger } from '../../dataProvider/DataContext';
 import { eventTypes, eventIds } from '../events';
 
-export type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, never>;
-
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger };
 
-const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): TagProps => {
+const createDelectedTagProps = ({ option, trigger }: SelectedTagProps): TagProps => {
   return {
     className: classNames(styles.tag),
     onClick: (e) => {
@@ -26,6 +24,6 @@ const selectedTagPropSetter = ({ option, trigger }: SelectedTagProps): TagProps 
 };
 
 export function SelectedTag(props: SelectedTagProps) {
-  const { children, ...attr } = selectedTagPropSetter(props);
+  const { children, ...attr } = createDelectedTagProps(props);
   return <Tag {...attr}>{children}</Tag>;
 }

@@ -1,21 +1,14 @@
 import React, { useLayoutEffect } from 'react';
-import { Controller } from 'react-spring';
 
 import styles from '../Select.module.scss';
-import { DivElementProps, SelectMetaData, ButtonElementProps, SelectData, Option } from '../types';
+import { DivElementProps, SelectMetaData, ButtonElementProps, Option, SelectDataHandlers } from '../types';
 import { IconCrossCircle, IconAngleDown } from '../../../icons';
 import classNames from '../../../utils/classNames';
 import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
 import { createOnClickListener, getSelectedOptions } from '../utils';
 import { eventTypes, eventIds } from '../events';
-import { useChangeTrigger, useContextDataHandlers, useMetaDataStorage } from '../../dataProvider/hooks';
+import { useSelectDataHandlers } from '../typedHooks';
 
-type TagContainerProps = DivElementProps & {
-  options: Option[];
-  placeholder: string;
-  controller: Controller;
-  icon: SelectMetaData['icon'];
-};
 type SingleOptionButtonProps = ButtonElementProps & {
   options: Option[];
   placeholder: string;
@@ -23,14 +16,26 @@ type SingleOptionButtonProps = ButtonElementProps & {
   optionClassName: string;
   buttonRef: SelectMetaData['selectionButtonRef'];
 };
-type SelectedOptionsProps = DivElementProps & {
-  singleOptionButtonProps?: SingleOptionButtonProps;
-  clearButtonProps: ButtonElementProps;
-  arrowButtonProps: ButtonElementProps;
-  tagContainerProps?: TagContainerProps;
+
+const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
+  const { elementIds } = getMetaData();
+  const { groups } = getData();
+  const selectedOptions = getSelectedOptions(groups);
+  if (!selectedOptions.length) {
+    return null;
+  }
+  return {
+    className: classNames(styles.button, styles.icon),
+    ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
+    id: elementIds.clearButton,
+  };
 };
 
-export function ClearButton(props: ButtonElementProps) {
+function ClearButton() {
+  const props = createClearButtonProps(useSelectDataHandlers());
+  if (!props) {
+    return null;
+  }
   return (
     <button type="button" {...props}>
       <IconCrossCircle className={styles.angleIcon} aria-hidden />
@@ -38,7 +43,17 @@ export function ClearButton(props: ButtonElementProps) {
   );
 }
 
-export function ArrowButton(props: ButtonElementProps) {
+const createArrowButtonProps = ({ getMetaData, trigger }: SelectDataHandlers): ButtonElementProps => {
+  const { elementIds } = getMetaData();
+  return {
+    className: classNames(styles.button, styles.icon),
+    ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
+    id: elementIds.arrowButton,
+  };
+};
+
+function ArrowButton() {
+  const props = createArrowButtonProps(useSelectDataHandlers());
   return (
     <button type="button" {...props} aria-hidden>
       <IconAngleDown className={styles.angleIcon} aria-hidden />
@@ -46,8 +61,30 @@ export function ArrowButton(props: ButtonElementProps) {
   );
 }
 
-export function SingleSelectButton(props: SingleOptionButtonProps) {
-  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = props || {};
+const createButtonWithSelectionProps = ({
+  getData,
+  getMetaData,
+  trigger,
+}: SelectDataHandlers): SingleOptionButtonProps => {
+  const { groups, placeholder } = getData();
+  const { icon, selectionButtonRef, elementIds } = getMetaData();
+  const selectedOptions = getSelectedOptions(groups);
+  return {
+    className: classNames(styles.button, styles.selection, !selectedOptions.length && styles.placeholder),
+    options: selectedOptions,
+    ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
+    placeholder,
+    icon,
+    optionClassName: styles.buttonOption,
+    buttonRef: selectionButtonRef,
+    id: elementIds.button,
+  };
+};
+
+function ButtonWithSelection() {
+  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = createButtonWithSelectionProps(
+    useSelectDataHandlers(),
+  );
   const labels = options.length
     ? options.map((opt) => (
         <span className={optionClassName} key={opt.value}>
@@ -72,43 +109,7 @@ export function SingleSelectButton(props: SingleOptionButtonProps) {
   );
 }
 
-const selectedOptionsPropSetter = (props: DivElementProps): SelectedOptionsProps => {
-  const { getData, getMetaData } = useContextDataHandlers();
-  const { groups, placeholder } = getData() as SelectData;
-  const { icon, selectionButtonRef, elementIds } = getMetaData() as SelectMetaData;
-  // const isMultiSelect = getMultiSelectState(controller);
-  const selectedOptions = getSelectedOptions(groups);
-  const trigger = useChangeTrigger();
-  const clearButtonProps = {
-    className: classNames(styles.button, styles.icon),
-    ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
-    id: elementIds.clearButton,
-  };
-  const arrowButtonProps = {
-    className: classNames(styles.button, styles.icon),
-    ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
-    id: elementIds.arrowButton,
-  };
-
-  return {
-    ...props,
-    className: classNames(styles.selectedOptionsContainer),
-    clearButtonProps,
-    arrowButtonProps,
-    singleOptionButtonProps: {
-      className: classNames(styles.button, styles.selection, !selectedOptions.length && styles.placeholder),
-      options: selectedOptions,
-      ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
-      placeholder,
-      icon,
-      optionClassName: styles.buttonOption,
-      buttonRef: selectionButtonRef,
-      id: elementIds.button,
-    },
-  };
-};
-
-export function updateHiddenElementsCount(metaData: SelectMetaData) {
+function updateHiddenElementsCount(metaData: SelectMetaData) {
   const buttonEl = metaData.selectionButtonRef.current;
   const labels = buttonEl && buttonEl.querySelector('* > div');
   if (labels) {
@@ -131,26 +132,25 @@ export function updateHiddenElementsCount(metaData: SelectMetaData) {
   }
 }
 
-export function SelectedOptions(props: DivElementProps) {
-  const {
-    clearButtonProps,
-    arrowButtonProps,
-    singleOptionButtonProps,
-    tagContainerProps,
-    ...attr
-  } = selectedOptionsPropSetter(props);
-  const showClearButton =
-    (singleOptionButtonProps && singleOptionButtonProps.options.length) ||
-    (tagContainerProps && tagContainerProps.options.length);
-  const metaData = useMetaDataStorage().get() as SelectMetaData;
+function createContainerProps(): DivElementProps {
+  return {
+    className: classNames(styles.selectedOptionsContainer),
+  };
+}
+
+export function SelectedOptions() {
+  const dataHandlers = useSelectDataHandlers();
+  const attr = createContainerProps();
+
   useLayoutEffect(() => {
-    updateHiddenElementsCount(metaData);
+    updateHiddenElementsCount(dataHandlers.getMetaData());
   });
+
   return (
     <div {...attr}>
-      {singleOptionButtonProps && <SingleSelectButton {...singleOptionButtonProps} />}
-      {showClearButton && <ClearButton {...clearButtonProps} />}
-      <ArrowButton {...arrowButtonProps} />
+      <ButtonWithSelection />
+      <ClearButton />
+      <ArrowButton />
     </div>
   );
 }

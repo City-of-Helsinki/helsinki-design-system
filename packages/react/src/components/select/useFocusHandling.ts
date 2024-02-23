@@ -161,7 +161,6 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
   );
 
   useEffect(() => {
-    console.log('FT', focusTarget);
     if (focusTarget) {
       if (focusTarget === 'button' && selectionButtonRef.current) {
         selectionButtonRef.current.focus();
