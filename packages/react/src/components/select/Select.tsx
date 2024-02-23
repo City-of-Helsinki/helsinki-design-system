@@ -38,7 +38,6 @@ export function Select({
   onBlur,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo<SelectData>(() => {
-    console.log('NEW initialData');
     return {
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
       label: 'Label',
@@ -59,7 +58,6 @@ export function Select({
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
-    console.log('NEW METADATA');
     return {
       listContainerRef: createRef<HTMLDivElement>(),
       listRef: createRef<HTMLUListElement>(),
@@ -83,6 +81,7 @@ export function Select({
         arrowButton: `${containerId}-arrow-button`,
         label: `${containerId}-label`,
         tagList: `${containerId}-tag-list`,
+        searchOrFilterInput: `${containerId}-input-element`,
       },
     };
   }, [id]);

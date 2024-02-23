@@ -3,35 +3,36 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import { TextInput, TextInputProps } from '../../textInput/TextInput';
 import { IconSearch } from '../../../icons';
-import { SelectMetaData } from '../types';
+import { SelectDataHandlers } from '../types';
 import classNames from '../../../utils/classNames';
 import { createInputOnChangeListener } from '../utils';
-import { useChangeTrigger, useContextDataHandlers } from '../../dataProvider/hooks';
 import { eventIds } from '../events';
+import { useSelectDataHandlers } from '../typedHooks';
 
-const filterInputPropSetter = (props: Partial<TextInputProps>): TextInputProps => {
-  const { getMetaData } = useContextDataHandlers();
-  const trigger = useChangeTrigger();
-  const { filter } = getMetaData() as SelectMetaData;
+const createFilterInputProps = (
+  props: Partial<TextInputProps>,
+  { getMetaData, trigger }: SelectDataHandlers,
+): TextInputProps => {
+  const { filter, elementIds } = getMetaData();
   return {
     ...props,
     className: classNames(styles.filterInput),
     ...createInputOnChangeListener({ id: eventIds.filter, trigger }),
-    onButtonClick: () => {
-      console.log('--->btn');
+    onButtonClick: (e) => {
+      e.preventDefault();
     },
-    id: 'ccc',
+    id: elementIds.searchOrFilterInput,
+    key: elementIds.searchOrFilterInput,
     buttonAriaLabel: 'Search for ...inputValue',
     buttonIcon: <IconSearch />,
     clearButtonAriaLabel: 'Clear search',
     label: '',
-    key: 'keepme',
     value: filter,
     placeholder: 'Filter',
   };
 };
 
 export function FilterInput(props: Partial<TextInputProps>) {
-  const inputProps = filterInputPropSetter(props);
+  const inputProps = createFilterInputProps(props, useSelectDataHandlers());
   return <TextInput {...inputProps} />;
 }

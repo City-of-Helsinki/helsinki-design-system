@@ -7,6 +7,8 @@ import {
   RefObject,
 } from 'react';
 
+import { DataHandlers } from '../dataProvider/DataContext';
+
 export type Option = { value: string; label: string; selected?: boolean; isGroupLabel?: boolean; visible?: boolean };
 export type Group = { options: Required<Option>[] };
 export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
@@ -82,6 +84,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     tagList: string;
     clearButton: string;
     arrowButton: string;
+    searchOrFilterInput: string;
   };
 };
 
@@ -92,3 +95,5 @@ export type InputElementProps = DetailedHTMLProps<HTMLAttributes<HTMLInputElemen
 export type UlElementProps = DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, never>;
 export type LiElementProps = DetailedHTMLProps<HTMLAttributes<HTMLLIElement>, never>;
 export type PropSetterElementTypes = ButtonElementProps | DivElementProps | UlElementProps | LabelElementProps;
+
+export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;

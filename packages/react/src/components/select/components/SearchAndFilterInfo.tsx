@@ -4,32 +4,29 @@ import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { countVisibleOptions } from '../utils';
 import { LoadingSpinner } from '../../loadingSpinner';
-import { DivElementProps, SelectData, SelectMetaData } from '../types';
-import { useContextDataHandlers } from '../../dataProvider/hooks';
+import { DivElementProps } from '../types';
+import { useSelectDataHandlers } from '../typedHooks';
 
-type SearchAndFilterInfoProps = DivElementProps & {
-  noResultsTexts: string[];
-  loadingText: string;
-};
-
-export const searchAndFilterInfoPropSetter = (props: DivElementProps): SearchAndFilterInfoProps => {
-  const { getData, getMetaData } = useContextDataHandlers();
-  const { groups } = getData() as SelectData;
-  const { isSearching, search, filter } = getMetaData() as SelectMetaData;
-  const count = countVisibleOptions(groups);
+const createSearchAndFilterInfoProps = (props: DivElementProps): DivElementProps => {
   return {
     ...props,
-    noResultsTexts:
-      !isSearching && !count && (search || filter)
-        ? [`No options found for "${search || filter}"`, 'Try a different search term']
-        : [],
-    loadingText: isSearching ? 'Loading options' : '',
     className: classNames(styles.searchAndFilterInfoContainer),
   };
 };
 
 export function SearchAndFilterInfo(props: DivElementProps) {
-  const { loadingText, noResultsTexts, ...attr } = searchAndFilterInfoPropSetter(props);
+  const { getData, getMetaData } = useSelectDataHandlers();
+
+  const { groups } = getData();
+  const { isSearching, search, filter } = getMetaData();
+  const count = countVisibleOptions(groups);
+  const noResultsTexts =
+    !isSearching && !count && (search || filter)
+      ? [`No options found for "${search || filter}"`, 'Try a different search term']
+      : [];
+  const loadingText = isSearching ? 'Loading options' : '';
+
+  const attr = createSearchAndFilterInfoProps(props);
   if (!noResultsTexts?.length && !loadingText) {
     return null;
   }
