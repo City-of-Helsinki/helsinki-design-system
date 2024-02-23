@@ -213,6 +213,22 @@ export const GroupWithParent = () => {
 
 GroupWithParent.storyName = 'Group with a parent';
 
+export const WithExternalLabel = () => {
+  const customStyle = {
+    '--background-unselected': 'teal',
+    'margin-right': 'var(--spacing-2-xs)',
+  } as React.CSSProperties;
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Checkbox id="withExternalLabel" style={customStyle} />
+      <label htmlFor="withExternalLabel">
+        <h3>External label</h3>
+      </label>
+    </div>
+  );
+};
+
 export const Playground = (args) => {
   const [checkedItems, setCheckedItems] = useState({});
   const options = ['Option 1', 'Option 2', 'Option 3'];
