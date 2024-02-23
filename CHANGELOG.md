@@ -20,6 +20,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
+- [HeaderActionBarItemWithDropdown] Removed useless `@layer` css style which caused Jest/jsdom tests output errors.
 
 ### Core
 
