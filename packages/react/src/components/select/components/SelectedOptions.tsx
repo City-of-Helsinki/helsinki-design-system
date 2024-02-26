@@ -14,7 +14,7 @@ type SingleOptionButtonProps = ButtonElementProps & {
   placeholder: string;
   icon: SelectMetaData['icon'];
   optionClassName: string;
-  buttonRef: SelectMetaData['selectionButtonRef'];
+  buttonRef: SelectMetaData['refs']['selectionButton'];
 };
 
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
@@ -67,7 +67,7 @@ const createButtonWithSelectedOptionsProps = ({
   trigger,
 }: SelectDataHandlers): SingleOptionButtonProps => {
   const { groups, placeholder } = getData();
-  const { icon, selectionButtonRef, elementIds } = getMetaData();
+  const { icon, refs, elementIds } = getMetaData();
   const selectedOptions = getSelectedOptions(groups);
   return {
     className: classNames(styles.button, styles.selectedOptions, !selectedOptions.length && styles.placeholder),
@@ -76,7 +76,7 @@ const createButtonWithSelectedOptionsProps = ({
     placeholder,
     icon,
     optionClassName: styles.buttonOption,
-    buttonRef: selectionButtonRef,
+    buttonRef: refs.selectionButton,
     id: elementIds.button,
   };
 };
@@ -120,7 +120,7 @@ The counter is absolutely positionend in its container, so if just number change
 unexpectedly hidden options if new number is wider than the one before hidden items calculations.
 */
 function updateHiddenElementsCount(metaData: SelectMetaData) {
-  const buttonEl = metaData.selectionButtonRef.current;
+  const buttonEl = metaData.refs.selectionButton.current;
   const cssClassesForSpaceReservation = [
     styles.spaceForOneDigit,
     styles.spaceForTwoDigits,

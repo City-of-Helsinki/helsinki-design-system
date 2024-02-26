@@ -31,10 +31,10 @@ function ClearButton() {
   );
 }
 
-const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['showAllButtonRef'] } => {
+const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['refs']['showAllButton'] } => {
   const { getMetaData, getData } = useContextDataHandlers();
   const { groups } = getData() as SelectData;
-  const { showAllTags, showAllButtonRef } = getMetaData() as SelectMetaData;
+  const { showAllTags, refs } = getMetaData() as SelectMetaData;
   const selectedOptions = getSelectedOptions(groups);
   const trigger = useChangeTrigger();
   return {
@@ -47,7 +47,7 @@ const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['s
       </>
     ),
     variant: 'secondary',
-    buttonRef: showAllButtonRef,
+    buttonRef: refs.showAllButton,
   };
 };
 
@@ -63,7 +63,7 @@ function ShowAllButton() {
 function Tags() {
   const { getData, getMetaData, trigger } = useSelectDataHandlers();
   const { groups } = getData();
-  const { tagListRef, showAllTags, elementIds } = getMetaData();
+  const { refs, showAllTags, elementIds } = getMetaData();
 
   const selectedOptions = getSelectedOptions(groups);
 
@@ -71,7 +71,7 @@ function Tags() {
     <div
       id={elementIds.tagList}
       className={classNames(styles.tagList, showAllTags && styles.tagListExpanded)}
-      ref={tagListRef}
+      ref={refs.tagList}
     >
       {selectedOptions.map((option) => (
         <SelectedTag option={option} trigger={trigger} key={option.value} />
@@ -81,8 +81,8 @@ function Tags() {
 }
 
 function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
-  const tagListEl = metaData.tagListRef.current;
-  const buttonEl = metaData.showAllButtonRef.current;
+  const tagListEl = metaData.refs.tagList.current;
+  const buttonEl = metaData.refs.showAllButton.current;
   if (tagListEl && buttonEl) {
     // Because tags can be removed at any time, checking just number
     // of visible items does not work.

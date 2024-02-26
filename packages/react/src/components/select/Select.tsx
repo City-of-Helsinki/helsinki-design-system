@@ -59,13 +59,6 @@ export function Select({
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
     return {
-      listContainerRef: createRef<HTMLDivElement>(),
-      listRef: createRef<HTMLUListElement>(),
-      selectContainerRef: createRef<HTMLDivElement>(),
-      tagListRef: createRef<HTMLDivElement>(),
-      showAllButtonRef: createRef<HTMLButtonElement>(),
-      selectionButtonRef: createRef<HTMLButtonElement>(),
-      filterOrSearchInputRef: createRef<HTMLInputElement>(),
       searchUpdate: -1,
       selectionUpdate: -1,
       filter: '',
@@ -75,6 +68,15 @@ export function Select({
       cancelCurrentSearch: undefined,
       focusTarget: undefined,
       icon,
+      refs: {
+        listContainer: createRef<HTMLDivElement>(),
+        list: createRef<HTMLUListElement>(),
+        selectContainer: createRef<HTMLDivElement>(),
+        tagList: createRef<HTMLDivElement>(),
+        showAllButton: createRef<HTMLButtonElement>(),
+        selectionButton: createRef<HTMLButtonElement>(),
+        filterOrSearchInput: createRef<HTMLInputElement>(),
+      },
       elementIds: {
         container: containerId,
         button: `${containerId}-main-button`,

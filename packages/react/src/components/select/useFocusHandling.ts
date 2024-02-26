@@ -52,15 +52,7 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     return target.current === eventTarget || target.current.contains(eventTarget);
   };
 
-  const {
-    listContainerRef,
-    selectionButtonRef,
-    selectContainerRef,
-    listRef,
-    filterOrSearchInputRef,
-    elementIds,
-    focusTarget,
-  } = getMetaData() as SelectMetaData;
+  const { refs, elementIds, focusTarget } = getMetaData() as SelectMetaData;
 
   const elementIdEntries = Object.entries(elementIds);
   const getElementId = (element: Element): string | null => {
@@ -79,13 +71,13 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
   };
 
   const getHittedElement = (eventSource: Element): SelectMetaData['focusTarget'] => {
-    if (listContainerRef && isElementHit(listContainerRef, eventSource)) {
+    if (refs.listContainer && isElementHit(refs.listContainer, eventSource)) {
       return 'list';
     }
-    if (selectionButtonRef && isElementHit(selectionButtonRef, eventSource)) {
+    if (refs.selectionButton && isElementHit(refs.selectionButton, eventSource)) {
       return 'button';
     }
-    if (selectContainerRef && isElementHit(selectContainerRef, eventSource)) {
+    if (refs.selectContainer && isElementHit(refs.selectContainer, eventSource)) {
       return 'container';
     }
     return undefined;
@@ -128,8 +120,8 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
       const hittedElement = getHittedElement(element);
       const hittedElementId = getClosestKnownElementById(element);
 
-      if (type === eventTypes.mousedown && hittedElementId === elementIds.clearButton && selectionButtonRef.current) {
-        selectionButtonRef.current.focus();
+      if (type === eventTypes.mousedown && hittedElementId === elementIds.clearButton && refs.selectionButton.current) {
+        refs.selectionButton.current.focus();
       }
       /*
       console.log('hittedElement', hittedElement, type, e.target, document.activeElement);
@@ -137,16 +129,16 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
       updateMetaData({ lastEventTarget: hittedElement });
       if (type === eventTypes.mousedown || type === eventTypes.keydown) {
         // should determine element
-        if (hittedElement === 'list' && selectionButtonRef.current) {
-          // selectionButtonRef.current.focus();
+        if (hittedElement === 'list' && refs.selectionButton.current) {
+          // refs.selectionButton.current.focus();
         }
         if (
           hittedElement === 'container' &&
-          selectionButtonRef.current &&
-          selectionButtonRef.current !== document.activeElement
+          refs.selectionButton.current &&
+          refs.selectionButton.current !== document.activeElement
         ) {
           console.log('SHIFT!');
-          selectionButtonRef.current.focus();
+          refs.selectionButton.current.focus();
         }
       } else if (type === eventTypes.blur) {
         const { lastEventTarget } = getMetaData() as SelectMetaData;
@@ -163,14 +155,14 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
 
   useEffect(() => {
     if (focusTarget) {
-      if (focusTarget === 'button' && selectionButtonRef.current) {
-        selectionButtonRef.current.focus();
+      if (focusTarget === 'button' && refs.selectionButton.current) {
+        refs.selectionButton.current.focus();
       }
-      if (focusTarget === 'list' && listRef.current) {
-        listRef.current.focus();
+      if (focusTarget === 'list' && refs.list.current) {
+        refs.list.current.focus();
       }
-      if (focusTarget === 'searchOrFilterInput' && filterOrSearchInputRef.current) {
-        filterOrSearchInputRef.current.focus();
+      if (focusTarget === 'searchOrFilterInput' && refs.filterOrSearchInput.current) {
+        refs.filterOrSearchInput.current.focus();
       }
       updateMetaData({ focusTarget: undefined });
     }
@@ -197,6 +189,6 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
       eventTracker(eventTypes.keydown, e);
     },
     tabIndex: -1,
-    ref: selectContainerRef,
+    ref: refs.selectContainer,
   };
 }
