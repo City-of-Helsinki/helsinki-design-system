@@ -61,7 +61,7 @@ function ArrowButton() {
   );
 }
 
-const createButtonWithSelectionProps = ({
+const createButtonWithSelectedOptionsProps = ({
   getData,
   getMetaData,
   trigger,
@@ -70,7 +70,7 @@ const createButtonWithSelectionProps = ({
   const { icon, selectionButtonRef, elementIds } = getMetaData();
   const selectedOptions = getSelectedOptions(groups);
   return {
-    className: classNames(styles.button, styles.selection, !selectedOptions.length && styles.placeholder),
+    className: classNames(styles.button, styles.selectedOptions, !selectedOptions.length && styles.placeholder),
     options: selectedOptions,
     ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
     placeholder,
@@ -81,8 +81,8 @@ const createButtonWithSelectionProps = ({
   };
 };
 
-function ButtonWithSelection() {
-  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = createButtonWithSelectionProps(
+function ButtonWithSelectedOptions() {
+  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = createButtonWithSelectedOptionsProps(
     useSelectDataHandlers(),
   );
   const labels = options.length
@@ -166,7 +166,7 @@ export function SelectedOptions() {
 
   return (
     <div {...attr}>
-      <ButtonWithSelection />
+      <ButtonWithSelectedOptions />
       <ClearButton />
       <ArrowButton />
     </div>

@@ -19,6 +19,12 @@
   &.error {
     border-color: var(--color-error);
   }
+
+  --menu-item-background-default: var(--color-white);
+  --menu-item-background-hover: var(--color-bus-light);
+  --menu-item-background-selected: var(--color-bus-light);
+  --menu-item-background-selected-hover: var(--color-bus-light);
+  --menu-item-background-disabled: var(--color-white);
 }
 
 .container {
@@ -31,95 +37,182 @@
   color: var(--dropdown-color-default);
 }
 
-.button {
-  @extend %buttonReset;
-
+.selectedOptionsContainer {
   align-items: center;
-  color: var(--dropdown-color-default);
+  box-sizing: border-box;
   display: flex;
-  font-size: var(--fontsize-body-l);
-  outline: none;
-  padding: 0;
+  min-height: var(--menu-item-height);
 
-  &.selection {
-    flex-grow: 1;
+  .button {
+    @extend %buttonReset;
 
-    // button icon
-    > span:first-child {
+    align-items: center;
+    color: var(--dropdown-color-default);
+    display: flex;
+    font-size: var(--fontsize-body-l);
+    outline: none;
+    padding: var(--spacing-s);
+    padding-right: var(--spacing-2-xs);
+
+    .labels {
+      box-sizing: border-box;
       display: flex;
-      padding-right: var(--spacing-2-xs);
+      flex-flow: wrap;
+      flex-grow: 1;
+      max-height: 30px;
+      overflow: hidden;
+    }
+
+    &.selectedOptions {
+      flex-grow: 1;
+
+      // button icon
+      > span:first-child {
+        display: flex;
+        padding-right: var(--spacing-2-xs);
+      }
+    }
+
+    &.icon {
+      flex-shrink: 1;
+      padding-left: var(--spacing-2-xs);
+    }
+
+    &:last-child {
+      padding-right: var(--spacing-s);
+    }
+
+    &.placeholder {
+      background-color: inherit;
+      color: var(--placeholder-color);
+    }
+
+    &.placeholder:disabled {
+      color: var(--dropdown-color-disabled);
+    }
+
+    &.spaceForOneDigit .labels {
+      /* minus is option padding right, minus smth */
+      padding-right: calc(24px - var(--spacing-2-xs));
+    }
+
+    &.spaceForTwoDigits .labels {
+      padding-right: calc(34px - var(--spacing-2-xs));
+    }
+
+    &.spaceForThreeDigits .labels {
+      padding-right: calc(44px - var(--spacing-2-xs));
+    }
+
+    &.spaceForFourDigits .labels {
+      padding-right: calc(54px - var(--spacing-2-xs));
+    }
+
+    .count.count {
+      display: none;
+      font-weight: bold;
+      padding: 0;
+      position: relative;
+      width: 1px;
+
+      /* This helps align the element vertically, when child is position:absolute */
+      &:after {
+        content: '\00a0';
+        display: inline-block;
+      }
+
+      span {
+        background-color: #fff;
+        position: absolute;
+        right: 2px;
+        top: 0;
+      }
+    }
+
+    &.hasHiddenItems {
+      .count {
+        display: block;
+      }
     }
   }
 
-  &.icon {
-    flex-shrink: 1;
-  }
-
-  &.placeholder {
-    background-color: inherit;
-    color: var(--placeholder-color);
-  }
-
-  &.placeholder:disabled {
-    color: var(--dropdown-color-disabled);
-  }
-
-  &.spaceForOneDigit .labels {
-    /* minus is option padding right, minus smth */
-    padding-right: calc(24px - var(--spacing-2-xs));
-  }
-
-  &.spaceForTwoDigits .labels {
-    padding-right: calc(34px - var(--spacing-2-xs));
-  }
-
-  &.spaceForThreeDigits .labels {
-    padding-right: calc(44px - var(--spacing-2-xs));
-  }
-
-  &.spaceForFourDigits .labels {
-    padding-right: calc(54px - var(--spacing-2-xs));
-  }
-
-  .count.count {
-    display: none;
-    font-weight: bold;
-    padding: 0;
+  .buttonOption {
+    max-width: 100%;
+    padding: 2px var(--spacing-2-xs) 0 0;
     position: relative;
-    width: 1px;
+    white-space: nowrap;
 
-    /* This helps align the element vertically, when child is position:absolute */
-    &:after {
-      content: '\00a0';
+    &:not(:last-child):after {
+      bottom: 0;
+      content: ',';
       display: inline-block;
-    }
 
-    span {
-      background-color: #fff;
+      /* "absolute", because comma is added/removed after render 
+      and should not cause reflow of elements */
       position: absolute;
-      right: 2px;
-      top: 0;
+      right: var(--spacing-3-xs);
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.lastVisible:after {
+      content: '';
     }
   }
-
-  &.hasHiddenItems {
-    .count {
-      display: block;
-    }
-  }
-}
-
-.listContainer {
-  display: flex;
-  flex-direction: column;
-  max-height: 200px;
-  overflow-y: auto;
 }
 
 .listAndInputContainer {
   @extend %dropdownMenu;
 
   background-color: #fff;
+
+  .listContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 200px;
+    overflow-y: auto;
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+
+      .selectableListItem {
+        &:hover {
+          background-color: var(--menu-item-background-selected-hover);
+        }
+      }
+
+      &.shiftOptions {
+        .selectableListItem:not(.groupLabel) {
+          padding-left: var(--spacing-layout-xs);
+        }
+      }
+    }
+
+    .listItem {
+      @extend %dropdownMenuItem;
+
+      > * {
+        width: 100%;
+
+        label {
+          flex-grow: 1;
+        }
+      }
+    }
+
+    .groupLabel {
+      @extend %dropdownMenuItem;
+
+      background-color: var(--color-black-5);
+      cursor: default;
+      font-weight: bold;
+    }
+  }
 
   &.listAndInputContainerVisible {
     display: block;
@@ -130,37 +223,6 @@
       border-top: 1px solid var(--color-black-20);
     }
   }
-}
-
-.selectableListItem {
-  &:hover {
-    background-color: var(--menu-item-background-selected);
-  }
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-
-  &.shiftOptions {
-    .selectableListItem:not(.groupLabel) {
-      padding-left: var(--spacing-layout-xs);
-    }
-  }
-}
-
-.listItem {
-  @extend %dropdownMenuItem;
-}
-
-.groupLabel {
-  @extend %dropdownMenuItem;
-
-  background-color: var(--color-black-5);
-  cursor: default;
-  font-weight: bold;
 }
 
 .filterInput {
@@ -179,99 +241,52 @@
   }
 }
 
-.selectedOptionsContainer {
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  min-height: var(--menu-item-height);
-  padding: var(--spacing-s);
-}
-
-.labels {
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: wrap;
-  flex-grow: 1;
-  max-height: 30px;
-  overflow: hidden;
-}
-
-.buttonOption {
-  max-width: 100%;
-  padding: 2px var(--spacing-2-xs) 0 0;
-  position: relative;
-  white-space: nowrap;
-
-  &:not(:last-child):after {
-    bottom: 0;
-    content: ',';
-    display: inline-block;
-
-    /* "absolute", because comma is added/removed after render 
-    and should not cause reflow of elements */
-    position: absolute;
-    right: var(--spacing-3-xs);
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &.lastVisible:after {
-    content: '';
-  }
-}
-
-.tagContainer {
-  flex-grow: 1;
-}
-
-.tag {
-  margin-bottom: var(--spacing-xs);
-  margin-right: var(--spacing-xs);
-}
-
 .tagListContainer {
   display: flex;
   flex-direction: column;
-}
 
-.tagList {
-  display: flex;
-  flex-flow: row wrap;
-  max-height: 36px;
-  overflow: hidden;
-  padding: 4px 0;
+  .tagList {
+    display: flex;
+    flex-flow: row wrap;
+    max-height: 36px;
+    overflow: hidden;
+    padding: 4px 0;
+
+    .tag {
+      margin-bottom: var(--spacing-xs);
+      margin-right: var(--spacing-xs);
+    }
+  }
 
   &.tagListExpanded {
     max-height: unset;
   }
-}
 
-.hiddenButton {
-  display: none;
-}
+  .tagListButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--spacing-2-xs);
 
-.tagListButtons {
-  display: flex;
-  flex-direction: row;
-  margin-top: var(--spacing-2-xs);
+    > button:first-child {
+      margin-right: var(--spacing-xs);
+    }
 
-  > button:first-child {
-    margin-right: var(--spacing-xs);
+    .hiddenButton {
+      display: none;
+    }
+
+    .clearAllButton {
+      --background-color-hover: var(--color-error-light);
+      --border-color: var(--color-error);
+      --border-color-hover: var(--color-error);
+      --border-color-focus: var(--color-error);
+      --border-color-hover-focus: var(--color-error);
+      --color: var(--color-error);
+      --color-hover: var(--color-error);
+      --color-focus: var(--color-error);
+      --color-hover-focus: var(--color-error);
+    }
   }
-}
-
-.clearAllButton {
-  --background-color-hover: var(--color-error-light);
-  --border-color: var(--color-error);
-  --border-color-hover: var(--color-error);
-  --border-color-focus: var(--color-error);
-  --border-color-hover-focus: var(--color-error);
-  --color: var(--color-error);
-  --color-hover: var(--color-error);
-  --color-focus: var(--color-error);
-  --color-hover-focus: var(--color-error);
 }
 
 .errorNotification {
