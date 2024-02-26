@@ -45,7 +45,7 @@
     flex-grow: 1;
 
     // button icon
-    span {
+    > span:first-child {
       display: flex;
       padding-right: var(--spacing-2-xs);
     }
@@ -64,13 +64,31 @@
     color: var(--dropdown-color-disabled);
   }
 
-  .count {
-    display: block;
+  &.spaceForOneDigit .labels {
+    /* minus is option padding right, minus smth */
+    padding-right: calc(24px - var(--spacing-2-xs));
+  }
+
+  &.spaceForTwoDigits .labels {
+    padding-right: calc(34px - var(--spacing-2-xs));
+  }
+
+  &.spaceForThreeDigits .labels {
+    padding-right: calc(44px - var(--spacing-2-xs));
+  }
+
+  &.spaceForFourDigits .labels {
+    padding-right: calc(54px - var(--spacing-2-xs));
+  }
+
+  .count.count {
+    display: none;
     font-weight: bold;
     padding: 0;
     position: relative;
     width: 1px;
 
+    /* This helps align the element vertically, when child is position:absolute */
     &:after {
       content: '\00a0';
       display: inline-block;
@@ -78,15 +96,14 @@
 
     span {
       background-color: #fff;
-      display: none;
       position: absolute;
-      right: 0;
+      right: 2px;
       top: 0;
     }
   }
 
   &.hasHiddenItems {
-    .count span {
+    .count {
       display: block;
     }
   }
@@ -182,11 +199,18 @@
 .buttonOption {
   max-width: 100%;
   padding: 2px var(--spacing-2-xs) 0 0;
+  position: relative;
   white-space: nowrap;
 
   &:not(:last-child):after {
+    bottom: 0;
     content: ',';
     display: inline-block;
+
+    /* "absolute", because comma is added/removed after render 
+    and should not cause reflow of elements */
+    position: absolute;
+    right: var(--spacing-3-xs);
   }
 
   &:last-child {
