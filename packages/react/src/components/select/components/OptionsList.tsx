@@ -82,12 +82,12 @@ const createContainerProps = (): DivElementProps => {
 
 const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) => {
   const { groups } = getData() as SelectData;
-  const { listRef } = getMetaData() as SelectMetaData;
+  const { refs } = getMetaData() as SelectMetaData;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
 
   return {
     className: classNames(styles.list, hasVisibleGroupLabels && styles.shiftOptions),
-    ref: listRef,
+    ref: refs.list,
     tabIndex: -1,
   };
 };

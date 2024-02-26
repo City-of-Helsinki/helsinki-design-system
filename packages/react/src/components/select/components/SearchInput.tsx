@@ -13,7 +13,7 @@ const createSearchInputProps = (
   props: Partial<TextInputProps>,
   { getMetaData, trigger }: SelectDataHandlers,
 ): TextInputProps => {
-  const { search, elementIds, filterOrSearchInputRef } = getMetaData() as SelectMetaData;
+  const { search, elementIds, refs } = getMetaData() as SelectMetaData;
   return {
     ...props,
     className: classNames(styles.filterOrSearchInput),
@@ -29,7 +29,7 @@ const createSearchInputProps = (
     placeholder: 'Search options',
     label: '',
     value: search,
-    ref: filterOrSearchInputRef,
+    ref: refs.filterOrSearchInput,
   };
 };
 

@@ -63,13 +63,15 @@ export type SelectData = Required<
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
-  listContainerRef: RefObject<HTMLDivElement>;
-  listRef: RefObject<HTMLUListElement>;
-  selectContainerRef: RefObject<HTMLDivElement>;
-  tagListRef: RefObject<HTMLDivElement>;
-  showAllButtonRef: RefObject<HTMLButtonElement>;
-  selectionButtonRef: RefObject<HTMLButtonElement>;
-  filterOrSearchInputRef: RefObject<HTMLInputElement>;
+  refs: {
+    listContainer: RefObject<HTMLDivElement>;
+    list: RefObject<HTMLUListElement>;
+    selectContainer: RefObject<HTMLDivElement>;
+    tagList: RefObject<HTMLDivElement>;
+    showAllButton: RefObject<HTMLButtonElement>;
+    selectionButton: RefObject<HTMLButtonElement>;
+    filterOrSearchInput: RefObject<HTMLInputElement>;
+  };
   searchUpdate: number;
   selectionUpdate: number;
   filter: string;
