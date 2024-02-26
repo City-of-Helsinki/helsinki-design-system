@@ -35,7 +35,9 @@ export type SelectProps<P = unknown> = {
   id?: string;
   icon?: ReactNode;
   assistiveText?: string;
+  error?: string;
   virtualize?: boolean;
+  disabled?: boolean;
 };
 
 export type SelectData = Required<
@@ -51,6 +53,8 @@ export type SelectData = Required<
     | 'assistiveText'
     | 'virtualize'
     | 'onChange'
+    | 'error'
+    | 'disabled'
   >
 > & {
   groups: Array<Group>;

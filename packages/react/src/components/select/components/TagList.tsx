@@ -6,24 +6,25 @@ import { Button, ButtonProps } from '../../button/Button';
 import { getSelectedOptions, createOnClickListener } from '../utils';
 import { SelectedTag } from './SelectedTag';
 import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
-import { DivElementProps, SelectData, SelectMetaData } from '../types';
+import { DivElementProps, SelectData, SelectDataHandlers, SelectMetaData } from '../types';
 import { useContextDataHandlers, useChangeTrigger } from '../../dataProvider/hooks';
 import { getChildElementsPerRow } from '../../../utils/getChildElementsPerRow';
 import { eventIds } from '../events';
 import { useSelectDataHandlers } from '../typedHooks';
 
-const clearButtonPropSetter = (): ButtonProps => {
-  const trigger = useChangeTrigger();
+const clearButtonPropSetter = ({ getData, trigger }: SelectDataHandlers): ButtonProps => {
+  const { disabled } = getData();
   return {
     ...createOnClickListener({ id: eventIds.clearAllButton, trigger }),
     children: 'Clear all',
     variant: 'secondary',
     className: styles.clearAllButton,
+    disabled,
   };
 };
 
 function ClearButton() {
-  const { children, ...attr } = clearButtonPropSetter();
+  const { children, ...attr } = clearButtonPropSetter(useContextDataHandlers());
   return (
     <Button {...attr} iconRight={<IconCrossCircleFill />}>
       {children}
@@ -33,7 +34,7 @@ function ClearButton() {
 
 const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['refs']['showAllButton'] } => {
   const { getMetaData, getData } = useContextDataHandlers();
-  const { groups } = getData() as SelectData;
+  const { groups, disabled } = getData() as SelectData;
   const { showAllTags, refs } = getMetaData() as SelectMetaData;
   const selectedOptions = getSelectedOptions(groups);
   const trigger = useChangeTrigger();
@@ -48,6 +49,7 @@ const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['r
     ),
     variant: 'secondary',
     buttonRef: refs.showAllButton,
+    disabled,
   };
 };
 
@@ -62,7 +64,7 @@ function ShowAllButton() {
 
 function Tags() {
   const { getData, getMetaData, trigger } = useSelectDataHandlers();
-  const { groups } = getData();
+  const { groups, disabled } = getData();
   const { refs, showAllTags, elementIds } = getMetaData();
 
   const selectedOptions = getSelectedOptions(groups);
@@ -74,7 +76,7 @@ function Tags() {
       ref={refs.tagList}
     >
       {selectedOptions.map((option) => (
-        <SelectedTag option={option} trigger={trigger} key={option.value} />
+        <SelectedTag option={option} trigger={trigger} key={option.value} disabled={disabled} />
       ))}
     </div>
   );
