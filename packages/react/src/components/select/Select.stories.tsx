@@ -602,16 +602,45 @@ export const WithFocusListeners = () => {
     <>
       <style>
         {`
-          .focused, .blurred{
-            padding:10px;
+          .focused,
+          .blurred {
+            padding: 10px;
           }
-          .focused{
-            background-color:#0f0;
+
+          .focused {
+            background-color: #defcde;
           }
-          .blurred{
-            background-color:#f00;
+
+          .blurred {
+            background-color: #ececec;
           }
-         
+
+          .indicators {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+
+            .indicator {
+              padding-left: 20px;
+              position: relative;
+            }
+
+            .indicator:before {
+              background: #defcde;
+              content: ' ';
+              display: block;
+              height: 10px;
+              left: 0;
+              position: absolute;
+              top: 5px;
+              width: 10px;
+            }
+
+            .indicator.blurIndicator:before {
+              background: #ececec;
+            }
+          }
+
         `}
       </style>
       <div className={isFocused ? 'focused' : 'blurred'}>
@@ -626,6 +655,10 @@ export const WithFocusListeners = () => {
           onFocus={onFocus}
           onBlur={onBlur}
         />
+      </div>
+      <div className="indicators">
+        <div className="indicator">Focused</div>
+        <div className="indicator blurIndicator">Blurred</div>
       </div>
     </>
   );
