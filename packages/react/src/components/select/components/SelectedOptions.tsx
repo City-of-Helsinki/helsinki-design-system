@@ -109,14 +109,32 @@ function ButtonWithSelection() {
   );
 }
 
+/*
+This function updates the indicator showing how many options are hidden.
+Because the number of hidden elements can be n+1 digits, the space the indicator needs to vary.
+If the hidden element count is +9 before hidden elements are calculated it bay change to +10, the count requires more space.
+That is why the preseved space needs to be for current count +1 digits.
+The counter is absolutely positionend in its container, so if just number changes it won't affect element flow and result into 
+unexpectedly hidden options if new number is wider than the one before hidden items calculations.
+*/
 function updateHiddenElementsCount(metaData: SelectMetaData) {
   const buttonEl = metaData.selectionButtonRef.current;
+  const cssClassesForSpaceReservation = [
+    styles.spaceForOneDigit,
+    styles.spaceForTwoDigits,
+    styles.spaceForThreeDigits,
+    styles.spaceForFourDigits,
+  ];
   const labels = buttonEl && buttonEl.querySelector('* > div');
   if (labels) {
     labels.childNodes.forEach(
       (el) => el && (el as HTMLElement).classList && (el as HTMLElement).classList.remove(styles.lastVisible),
     );
-    const firstVisible = getIndexOfFirstVisibleChild(labels);
+    const selectedItemsCount = labels.childNodes.length;
+    const maxCountDigits = String(selectedItemsCount - 1).length; // -1 because one is always visible
+    buttonEl.classList.remove(...cssClassesForSpaceReservation);
+    buttonEl.classList.add(cssClassesForSpaceReservation[maxCountDigits - 1]);
+    const firstVisible = getIndexOfFirstVisibleChild(labels, 'vertical');
     const childCount = labels.children.length - 1;
     const hiddenItems = childCount - firstVisible;
     if (!hiddenItems) {
