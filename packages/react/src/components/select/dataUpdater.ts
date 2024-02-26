@@ -42,7 +42,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       open: eventIdWithType !== events.tagClick && current.multiSelect,
     });
     dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
-    if (eventIdWithType === events.listItemClick) {
+    if (eventIdWithType === events.listItemClick && !current.multiSelect) {
       dataHandlers.updateMetaData({
         focusTarget: 'button',
       });
