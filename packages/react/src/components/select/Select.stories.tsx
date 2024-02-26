@@ -133,6 +133,23 @@ export const Example = () => {
     />
   );
 };
+export const Disabled = () => {
+  const options = generateOptionArray(20);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    //
+  }, []);
+  return (
+    <Select
+      options={options}
+      label="Label"
+      onChange={onChange}
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+      disabled
+    />
+  );
+};
 export const OptionsAsHtml = () => {
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
     const selectedValue = selected.length > 0 ? selected[0] : '';
@@ -383,6 +400,8 @@ export const WithExternalControls = () => {
     },
   ]);
 
+  const disabledRef = useRef(false);
+
   const reRender = useForceRender();
 
   const resetSelections = () => {
@@ -442,6 +461,29 @@ export const WithExternalControls = () => {
       : [];
     reRender();
   };
+  const toggleDisable = () => {
+    groupsRef.current = groupsRef.current
+      ? groupsRef.current.map((group) => {
+          return {
+            label: group.label,
+            options: group.options.map((option) => {
+              return typeof option === 'string'
+                ? {
+                    label: option,
+                    value: option,
+                    selected: false,
+                  }
+                : {
+                    ...option,
+                    selected: option.selected,
+                  };
+            }),
+          };
+        })
+      : [];
+    disabledRef.current = !disabledRef.current;
+    reRender();
+  };
 
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
     groupsRef.current = groupsRef.current
@@ -449,33 +491,46 @@ export const WithExternalControls = () => {
           return {
             label: group.label,
             options: group.options.map((option) => {
-              return typeof option === 'string'
-                ? option
-                : {
-                    ...option,
-                    selected: selected.includes(option.value),
-                  };
+              const optionAsObj = typeof option === 'string' ? { label: option, value: option } : { ...option };
+              return {
+                ...optionAsObj,
+                selected: selected.includes(optionAsObj.value),
+              };
             }),
           };
         })
       : [];
   }, []);
   return (
-    <div>
-      <Select
-        groups={groupsRef.current}
-        label="Controlled select"
-        onChange={onChange}
-        multiSelect
-        showFiltering
-        placeholder="Choose"
-      />
+    <>
+      <style>
+        {`
+          .buttons{
+            margin-top: 20px;
+          }
+          .buttons > *{
+            margin-right: 10px;
+          }
+      `}
+      </style>
       <div>
-        <Button onClick={resetSelections}>Reset selections</Button>
-        <Button onClick={invertSelections}>Invert selections</Button>
-        <Button onClick={selectAll}>Select all</Button>
+        <Select
+          groups={groupsRef.current}
+          label="Controlled select"
+          onChange={onChange}
+          multiSelect
+          showFiltering
+          placeholder="Choose"
+          disabled={disabledRef.current}
+        />
+        <div className="buttons">
+          <Button onClick={resetSelections}>Reset selections</Button>
+          <Button onClick={invertSelections}>Invert selections</Button>
+          <Button onClick={selectAll}>Select all</Button>
+          <Button onClick={toggleDisable}>Toggle disabled</Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -545,7 +600,6 @@ export const WithFocusListeners = () => {
   }, []);
   return (
     <>
-      {' '}
       <style>
         {`
           .focused, .blurred{

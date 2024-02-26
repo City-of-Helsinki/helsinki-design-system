@@ -9,7 +9,7 @@ import { createOnClickListener, getSelectedOptions } from '../utils';
 import { eventTypes, eventIds } from '../events';
 import { useSelectDataHandlers } from '../typedHooks';
 
-type SingleOptionButtonProps = ButtonElementProps & {
+type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   options: Option[];
   placeholder: string;
   icon: SelectMetaData['icon'];
@@ -19,15 +19,16 @@ type SingleOptionButtonProps = ButtonElementProps & {
 
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
   const { elementIds } = getMetaData();
-  const { groups } = getData();
+  const { groups, disabled } = getData();
   const selectedOptions = getSelectedOptions(groups);
   if (!selectedOptions.length) {
     return null;
   }
   return {
-    className: classNames(styles.button, styles.icon),
+    className: classNames(styles.button, styles.icon, disabled && styles.disabledButton),
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
     id: elementIds.clearButton,
+    disabled,
   };
 };
 
@@ -43,12 +44,14 @@ function ClearButton() {
   );
 }
 
-const createArrowButtonProps = ({ getMetaData, trigger }: SelectDataHandlers): ButtonElementProps => {
+const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHandlers): ButtonElementProps => {
   const { elementIds } = getMetaData();
+  const { disabled } = getData();
   return {
-    className: classNames(styles.button, styles.icon),
+    className: classNames(styles.button, styles.icon, disabled && styles.disabledButton),
     ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
     id: elementIds.arrowButton,
+    disabled,
   };
 };
 
@@ -65,12 +68,17 @@ const createButtonWithSelectedOptionsProps = ({
   getData,
   getMetaData,
   trigger,
-}: SelectDataHandlers): SingleOptionButtonProps => {
-  const { groups, placeholder } = getData();
+}: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
+  const { groups, placeholder, disabled } = getData();
   const { icon, refs, elementIds } = getMetaData();
   const selectedOptions = getSelectedOptions(groups);
   return {
-    className: classNames(styles.button, styles.selectedOptions, !selectedOptions.length && styles.placeholder),
+    className: classNames(
+      styles.button,
+      styles.selectedOptions,
+      !selectedOptions.length && styles.placeholder,
+      disabled && styles.disabledButton,
+    ),
     options: selectedOptions,
     ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
     placeholder,
@@ -78,6 +86,7 @@ const createButtonWithSelectedOptionsProps = ({
     optionClassName: styles.buttonOption,
     buttonRef: refs.selectionButton,
     id: elementIds.button,
+    disabled,
   };
 };
 

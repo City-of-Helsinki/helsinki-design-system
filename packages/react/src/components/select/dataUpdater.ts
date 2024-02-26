@@ -15,6 +15,9 @@ import { eventIds, events, eventTypes } from './events';
 const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
   const { id, type, payload } = event;
   const current = dataHandlers.getData();
+  if (current.disabled) {
+    return false;
+  }
   const { showAllTags } = dataHandlers.getMetaData();
   const eventIdWithType = `${id}_${type}`;
   if (eventIdWithType === events.selectedOptionsClick || eventIdWithType === events.arrowClick) {

@@ -36,6 +36,8 @@ export function Select({
   id,
   onFocus,
   onBlur,
+  error,
+  disabled,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -43,18 +45,20 @@ export function Select({
       label: 'Label',
       open: !!open,
       required: !!required,
+      disabled: !!disabled,
       multiSelect: !!multiSelect,
       showFiltering: !!showFiltering,
       showSearch: !!showSearch,
       virtualize: !!virtualize,
       placeholder: placeholder || '',
       assistiveText: assistiveText || '',
+      error: error || '',
       onSearch,
       onChange,
       onFocus,
       onBlur,
     };
-  }, [options, open, groups]);
+  }, [options, open, groups, disabled]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;

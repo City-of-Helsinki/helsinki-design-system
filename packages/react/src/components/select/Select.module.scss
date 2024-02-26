@@ -63,6 +63,27 @@
       overflow: hidden;
     }
 
+    .count.count {
+      display: none;
+      font-weight: bold;
+      padding: 0;
+      position: relative;
+      width: 1px;
+
+      /* This helps align the element vertically, when child is position:absolute */
+      &:after {
+        content: '\00a0';
+        display: inline-block;
+      }
+
+      span {
+        background-color: #fff;
+        position: absolute;
+        right: 2px;
+        top: 0;
+      }
+    }
+
     &.selectedOptions {
       flex-grow: 1;
 
@@ -74,6 +95,7 @@
     }
 
     &.icon {
+      align-self: stretch;
       flex-shrink: 1;
       padding-left: var(--spacing-2-xs);
     }
@@ -108,24 +130,16 @@
       padding-right: calc(54px - var(--spacing-2-xs));
     }
 
-    .count.count {
-      display: none;
-      font-weight: bold;
-      padding: 0;
-      position: relative;
-      width: 1px;
+    &.disabledButton {
+      background-color: var(--dropdown-background-disabled);
+      color: var(--dropdown-color-disabled);
 
-      /* This helps align the element vertically, when child is position:absolute */
-      &:after {
-        content: '\00a0';
-        display: inline-block;
+      &.icon {
+        color: var(--menu-item-icon-color-disabled);
       }
 
-      span {
-        background-color: #fff;
-        position: absolute;
-        right: 2px;
-        top: 0;
+      .count.count span {
+        background-color: var(--dropdown-background-disabled);
       }
     }
 
@@ -138,7 +152,7 @@
 
   .buttonOption {
     max-width: 100%;
-    padding: 2px var(--spacing-2-xs) 0 0;
+    padding: 0 var(--spacing-2-xs) 0 0;
     position: relative;
     white-space: nowrap;
 
@@ -255,6 +269,10 @@
     .tag {
       margin-bottom: var(--spacing-xs);
       margin-right: var(--spacing-xs);
+
+      &.disabledTag {
+        pointer-events: none;
+      }
     }
   }
 
