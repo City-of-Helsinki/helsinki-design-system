@@ -65,6 +65,7 @@ export function Select({
       tagListRef: createRef<HTMLDivElement>(),
       showAllButtonRef: createRef<HTMLButtonElement>(),
       selectionButtonRef: createRef<HTMLButtonElement>(),
+      filterOrSearchInputRef: createRef<HTMLInputElement>(),
       searchUpdate: -1,
       selectionUpdate: -1,
       filter: '',

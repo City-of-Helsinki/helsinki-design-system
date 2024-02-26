@@ -22,7 +22,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     dataHandlers.updateData({ open: willOpen });
     if (willOpen) {
       dataHandlers.updateMetaData({
-        focusTarget: 'list',
+        focusTarget: current.showSearch || current.showFiltering ? 'searchOrFilterInput' : 'list',
       });
     }
   } else if (eventIdWithType === events.listItemClick || eventIdWithType === events.tagClick) {

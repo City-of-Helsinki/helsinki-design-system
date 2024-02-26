@@ -13,10 +13,10 @@ const createFilterInputProps = (
   props: Partial<TextInputProps>,
   { getMetaData, trigger }: SelectDataHandlers,
 ): TextInputProps => {
-  const { filter, elementIds } = getMetaData();
+  const { filter, elementIds, filterOrSearchInputRef } = getMetaData();
   return {
     ...props,
-    className: classNames(styles.filterInput),
+    className: classNames(styles.filterOrSearchInput),
     ...createInputOnChangeListener({ id: eventIds.filter, trigger }),
     onButtonClick: (e) => {
       e.preventDefault();
@@ -29,6 +29,7 @@ const createFilterInputProps = (
     label: '',
     value: filter,
     placeholder: 'Filter',
+    ref: filterOrSearchInputRef,
   };
 };
 

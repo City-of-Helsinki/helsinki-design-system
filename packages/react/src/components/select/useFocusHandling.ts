@@ -57,6 +57,7 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     selectionButtonRef,
     selectContainerRef,
     listRef,
+    filterOrSearchInputRef,
     elementIds,
     focusTarget,
   } = getMetaData() as SelectMetaData;
@@ -167,6 +168,9 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
       }
       if (focusTarget === 'list' && listRef.current) {
         listRef.current.focus();
+      }
+      if (focusTarget === 'searchOrFilterInput' && filterOrSearchInputRef.current) {
+        filterOrSearchInputRef.current.focus();
       }
       updateMetaData({ focusTarget: undefined });
     }

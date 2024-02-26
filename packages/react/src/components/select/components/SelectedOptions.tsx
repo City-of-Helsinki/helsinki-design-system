@@ -85,13 +85,15 @@ function ButtonWithSelectedOptions() {
   const { options, placeholder, buttonRef, optionClassName, icon, ...attr } = createButtonWithSelectedOptionsProps(
     useSelectDataHandlers(),
   );
-  const labels = options.length
-    ? options.map((opt) => (
-        <span className={optionClassName} key={opt.value}>
-          {opt.label}
-        </span>
-      ))
-    : placeholder;
+  const labels = options.length ? (
+    options.map((opt) => (
+      <span className={optionClassName} key={opt.value}>
+        {opt.label}
+      </span>
+    ))
+  ) : (
+    <span className={optionClassName}>{placeholder}</span>
+  );
   return (
     <button type="button" {...attr} ref={buttonRef}>
       {icon && <span key="icon">{icon}</span>}
