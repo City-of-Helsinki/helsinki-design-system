@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
@@ -19,7 +19,7 @@ export type MultiSelectGroupLabelProps = SelectItemProps & {
 
 export type LiElementWithCheckboxProps = LiElementProps & {
   label?: string;
-  checked?: boolean;
+  selected?: boolean;
   indeterminate?: boolean;
 };
 
@@ -35,6 +35,8 @@ export const createSingleSelectItemProps = ({ option, trigger }: SelectItemProps
         payload: { originalEvent, value: option },
       });
     },
+    role: 'option',
+    'aria-selected': selected,
   };
 };
 
@@ -49,10 +51,17 @@ export const createSingleSelectGroupLabelProps = (option: SelectItemProps['optio
 export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps): LiElementWithCheckboxProps => {
   const { label, selected } = option;
   return {
-    className: classNames(styles.listItem, styles.selectableListItem, selected && styles.selected),
+    className: classNames(
+      styles.listItem,
+      styles.selectableListItem,
+      styles.multiSelectListItem,
+      selected && styles.selected,
+    ),
     children: null,
     label,
-    checked: option.selected,
+    selected,
+    role: 'option',
+    'aria-selected': selected,
     indeterminate: undefined,
     onClick: (originalEvent: React.MouseEvent) => {
       trigger({
@@ -60,6 +69,9 @@ export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps)
         type: eventTypes.click,
         payload: { originalEvent, value: option },
       });
+    },
+    onKeyDown: (originalEvent: React.KeyboardEvent) => {
+      console.log('KD', originalEvent.key);
     },
   };
 };
@@ -70,16 +82,19 @@ export const createMultiSelectGroupLabelProps = ({
 }: MultiSelectGroupLabelProps): LiElementWithCheckboxProps => {
   const { label } = option;
   return {
-    className: classNames(styles.listItem, styles.groupLabel, styles.selectableListItem),
+    className: classNames(styles.listItem, styles.groupLabel, styles.selectableListItem, styles.multiSelectListItem),
     label,
     indeterminate: isIntermediate,
-    checked: option.selected,
+    selected: option.selected,
     onClick: (originalEvent: React.MouseEvent) => {
       trigger({
         id: eventIds.listGroup,
         type: eventTypes.click,
         payload: { originalEvent, value: option },
       });
+    },
+    onKeyDown: (originalEvent: React.KeyboardEvent) => {
+      console.log('KD', originalEvent.key);
     },
   };
 };
@@ -90,16 +105,18 @@ export function OptionListItem(props: LiElementProps) {
 }
 
 export function MultiSelectOptionListItem(props: LiElementWithCheckboxProps) {
-  const { label, checked, onClick, indeterminate, ...attr } = props;
+  const { label, selected, indeterminate, ...attr } = props;
   return (
     <li {...attr}>
       <Checkbox
         indeterminate={indeterminate}
         id={label as string}
-        onChange={(onClick as unknown) as ChangeEventHandler<HTMLInputElement>}
-        checked={checked}
-        label={label}
+        onChange={(e) => {
+          e.preventDefault();
+        }}
+        checked={selected}
       />
+      <label>{label}</label>
     </li>
   );
 }
