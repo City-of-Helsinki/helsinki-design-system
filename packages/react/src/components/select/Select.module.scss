@@ -59,7 +59,7 @@
       display: flex;
       flex-flow: wrap;
       flex-grow: 1;
-      max-height: 30px;
+      max-height: 29px;
       overflow: hidden;
     }
 
@@ -225,7 +225,7 @@
   }
 }
 
-.filterInput {
+.filterOrSearchInput {
   padding: var(--spacing-2-xs);
 }
 

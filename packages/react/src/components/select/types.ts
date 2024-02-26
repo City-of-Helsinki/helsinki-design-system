@@ -69,6 +69,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   tagListRef: RefObject<HTMLDivElement>;
   showAllButtonRef: RefObject<HTMLButtonElement>;
   selectionButtonRef: RefObject<HTMLButtonElement>;
+  filterOrSearchInputRef: RefObject<HTMLInputElement>;
   searchUpdate: number;
   selectionUpdate: number;
   filter: string;
@@ -76,7 +77,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   isSearching: boolean;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
-  focusTarget: 'list' | 'button' | 'container' | undefined;
+  focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;
   elementIds: {
     button: string;
     label: string;
