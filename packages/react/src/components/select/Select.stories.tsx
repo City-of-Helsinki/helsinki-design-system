@@ -260,6 +260,36 @@ export const WithMultiselect = () => {
       options: generateOptionArray(4),
     },
   ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // ignoreThis
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      multiSelect
+      showFiltering
+      placeholder="Choose three or more"
+      icon={<IconLocation />}
+    />
+  );
+};
+
+export const WithMinAndMax = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionArray(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionArray(4),
+    },
+  ];
+  const [error, setError] = useState<string | undefined>(undefined);
+  const selectionCount = useRef(0);
   const hasSelectedSomething = useRef(false);
   const requiredCount = 3;
   const getAssistiveText = (selectedCount: number) => {
@@ -272,11 +302,18 @@ export const WithMultiselect = () => {
     if (!hasSelectedSomething.current && selected.length) {
       hasSelectedSomething.current = true;
     }
+    selectionCount.current = selected.length;
 
     return {
       assistiveText: getAssistiveText(selected.length),
       error: hasClearedSelections ? `Please select three items` : '',
     };
+  }, []);
+
+  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
+    if (selectionCount.current < requiredCount) {
+      setError(getAssistiveText(selectionCount.current));
+    }
   }, []);
   return (
     <Select
@@ -288,6 +325,8 @@ export const WithMultiselect = () => {
       placeholder="Choose three or more"
       icon={<IconLocation />}
       assistiveText={getAssistiveText(0)}
+      onBlur={onBlur}
+      error={error}
     />
   );
 };
