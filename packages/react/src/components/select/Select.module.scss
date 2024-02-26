@@ -194,6 +194,32 @@
       margin: 0;
       padding: 0;
 
+      .listItem {
+        @extend %dropdownMenuItem;
+      }
+
+      .multiSelectListItem {
+        position: relative;
+
+        > div {
+          pointer-events: none;
+          width: 24px;
+        }
+
+        label {
+          cursor: pointer;
+          flex-grow: 1;
+          padding-left: var(--spacing-2-xs);
+        }
+      }
+
+      .groupLabel {
+        @extend %dropdownMenuItem;
+
+        background-color: var(--color-black-5);
+        font-weight: bold;
+      }
+
       .selectableListItem {
         &:hover {
           background-color: var(--menu-item-background-selected-hover);
@@ -210,26 +236,12 @@
           padding-left: var(--spacing-layout-xs);
         }
       }
-    }
 
-    .listItem {
-      @extend %dropdownMenuItem;
-
-      > * {
-        width: 100%;
-
-        label {
-          flex-grow: 1;
+      &.multiSelectList {
+        .listItem.selected:not(:hover) {
+          background-color: transparent;
         }
       }
-    }
-
-    .groupLabel {
-      @extend %dropdownMenuItem;
-
-      background-color: var(--color-black-5);
-      cursor: default;
-      font-weight: bold;
     }
   }
 
@@ -271,6 +283,10 @@
     overflow: hidden;
     padding: 4px 0;
 
+    &.tagListExpanded {
+      max-height: unset;
+    }
+
     .tag {
       margin-bottom: var(--spacing-xs);
       margin-right: var(--spacing-xs);
@@ -279,10 +295,6 @@
         pointer-events: none;
       }
     }
-  }
-
-  &.tagListExpanded {
-    max-height: unset;
   }
 
   .tagListButtons {

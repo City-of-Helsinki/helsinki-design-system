@@ -107,10 +107,12 @@ export function updateSelectedGroupOptions(
     if (index === groupIndex) {
       return {
         options: group.options.map((option) => {
-          return {
-            ...option,
-            selected: updatedOption.selected,
-          };
+          return option.visible
+            ? {
+                ...option,
+                selected: updatedOption.selected,
+              }
+            : option;
         }),
       };
     }
