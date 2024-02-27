@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
-import { SelectProps } from './types';
+import { SelectProps, Option } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
@@ -213,7 +213,7 @@ export const WithSelectionValidation = () => {
     },
   ];
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValue = selected.length > 0 ? selected[0] : '';
+    const selectedValue = selected.length > 0 ? selected[0].value : '';
     const isError = selectedValue === 'wrong';
     return {
       assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose a healthy option!',
@@ -252,7 +252,7 @@ export const WithFilter = () => {
     },
   ];
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValue = selected.length > 0 ? selected[0] : '';
+    const selectedValue = selected.length > 0 ? selected[0].value : '';
     const isError = selectedValue === 'Poison';
     return {
       assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose one good option!',
@@ -365,19 +365,19 @@ export const WithMinAndMax = () => {
       hasSelectedSomething.current = true;
     }
     // If a group was selected, there might be an overflow of selections.
-    const getAllowedSelections = (allSelections: string[]) => {
+    const getAllowedSelections = (allSelections: Option[]) => {
       const overflow = allSelections.length - maxCount;
-      if (lastClickedOption && lastClickedOption.isGroupLabel && history.getLatestValues().length === maxCount) {
+      if (lastClickedOption && lastClickedOption.isGroupLabel && history.getLatestOptions().length === maxCount) {
         return [];
       }
       if (overflow > 0) {
-        const newSelections = [...history.getLatestValues(), ...history.filterNewSelections(allSelections)];
+        const newSelections = [...history.getLatestOptions(), ...history.filterNewSelections(allSelections)];
         const allowed = newSelections.slice(0, overflow);
         return allowed;
       }
       return allSelections;
     };
-    const filteredSelections = getAllowedSelections(selectedValues);
+    const filteredSelections = getAllowedSelections(selectedValues).map((option) => option.value);
     selectionCount.current = filteredSelections.length;
     const maxReached = filteredSelections.length === maxCount;
 
@@ -592,10 +592,11 @@ export const WithExternalControls = () => {
   };
 
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    const selectedValues = selected.map((option) => option.value);
     groupStorage.update(groupStorage.get(), (option) => {
       return {
         ...option,
-        selected: selected.includes(option.value),
+        selected: selectedValues.includes(option.value),
         disabled: !option.disabled,
       };
     });

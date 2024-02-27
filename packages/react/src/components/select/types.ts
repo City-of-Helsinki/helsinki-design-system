@@ -12,26 +12,27 @@ import { DataHandlers } from '../dataProvider/DataContext';
 export type Option = {
   value: string;
   label: string;
-  selected?: boolean;
-  isGroupLabel?: boolean;
-  visible?: boolean;
-  disabled?: boolean;
+  selected: boolean;
+  isGroupLabel: boolean;
+  visible: boolean;
+  disabled: boolean;
 };
-export type Group = { options: Required<Option>[] };
+export type OptionInProps = Partial<Option>;
+export type Group = { options: Option[] };
 export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
 export type SearchFunction = (searchValue: string, selectedValues: string[], data: SelectData) => Promise<SearchResult>;
 
 export type SelectProps<P = unknown> = {
-  options?: (Option | string)[];
+  options?: (OptionInProps | string)[];
   open?: boolean;
   label: string;
   groups?: Array<{
     label: string;
-    options: (Option | string)[];
+    options: (OptionInProps | string)[];
   }>;
   onChange: (
-    selectedValues: string[],
-    clickedOption: Required<Option>,
+    selectedOptions: Option[],
+    clickedOption: Option,
     data: SelectData,
   ) => Partial<SelectProps> | void | undefined;
   onSearch?: SearchFunction;
@@ -92,7 +93,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   filter: string;
   search: string;
   isSearching: boolean;
-  lastClickedOption: Required<Option> | undefined;
+  lastClickedOption: Option | undefined;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
   focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;
