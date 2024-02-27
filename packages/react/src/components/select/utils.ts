@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option } from './types';
+import { SelectData, Group, SelectProps, Option, OptionInProps } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -11,7 +11,7 @@ type DomHandlerProps = {
   trigger: (event: ChangeEvent) => void;
 };
 
-export type OptionIterator = (option: Required<Option>, group: Group) => Required<Option> | undefined;
+export type OptionIterator = (option: Option, group: Group) => Option | undefined;
 
 export function createOnClickListener(props: DomHandlerProps) {
   const { id, type = eventTypes.click, trigger } = props;
@@ -35,7 +35,7 @@ export function createInputOnChangeListener(props: DomHandlerProps) {
   };
 }
 
-export function getOptionGroupIndex(groups: SelectData['groups'], option: Option): number {
+export function getOptionGroupIndex(groups: SelectData['groups'], option: OptionInProps): number {
   if (groups.length === 0) {
     return -1;
   }
@@ -63,7 +63,7 @@ export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0):
 
 export function updateSelectedOptionInGroups(
   groups: SelectData['groups'],
-  updatedOption: Required<Option>,
+  updatedOption: Option,
   isMultiSelect: boolean,
 ): SelectData['groups'] {
   const groupIndex = getOptionGroupIndex(groups, updatedOption);
@@ -97,10 +97,7 @@ export function updateSelectedOptionInGroups(
   });
 }
 
-export function updateSelectedGroupOptions(
-  groups: SelectData['groups'],
-  updatedOption: Required<Option>,
-): SelectData['groups'] {
+export function updateSelectedGroupOptions(groups: SelectData['groups'], updatedOption: Option): SelectData['groups'] {
   const groupIndex = getOptionGroupIndex(groups, updatedOption);
   if (groupIndex < 0) {
     return groups;
@@ -135,8 +132,8 @@ export function clearAllSelectedOptions(groups: SelectData['groups']): SelectDat
   });
 }
 
-export function getAllOptions(groups: SelectData['groups'], filterOutGroupLabels = true): Required<Option>[] {
-  const options: Required<Option>[] = [];
+export function getAllOptions(groups: SelectData['groups'], filterOutGroupLabels = true): Option[] {
+  const options: Option[] = [];
   groups.forEach((group) => {
     group.options.forEach((option) => {
       if (filterOutGroupLabels && option.isGroupLabel) {
@@ -160,24 +157,30 @@ export function countVisibleOptions(groups: SelectData['groups']): number {
   return count;
 }
 
-export function getVisibleGroupLabels(groups: SelectData['groups']): Required<Option>[] {
+export function getVisibleGroupLabels(groups: SelectData['groups']): Option[] {
   return groups.map((group) => group.options[0]).filter((option) => option && option.label && option.visible);
 }
 
-export function getSelectedOptions(groups: SelectData['groups']): Required<Option>[] {
+export function getSelectedOptions(groups: SelectData['groups']): Option[] {
   return getAllOptions(groups).filter((option) => !!option.selected);
 }
 
-export function validateOption(option: Option | string): Required<Option> {
-  return typeof option === 'string'
-    ? { value: option, label: option, selected: false, isGroupLabel: false, visible: true, disabled: false }
-    : {
-        ...option,
-        selected: !!option.selected,
-        isGroupLabel: false,
-        visible: typeof option.visible === 'boolean' ? option.visible : true,
-        disabled: typeof option.disabled === 'boolean' ? option.disabled : false,
-      };
+export function validateOption(option: OptionInProps | string): Option {
+  if (typeof option === 'string') {
+    return { value: option, label: option, selected: false, isGroupLabel: false, visible: true, disabled: false };
+  }
+
+  const label = option.label || option.value || '';
+  const value = option.value || label;
+
+  return {
+    label,
+    value,
+    selected: !!option.selected,
+    isGroupLabel: false,
+    visible: typeof option.visible === 'boolean' ? option.visible : true,
+    disabled: typeof option.disabled === 'boolean' ? option.disabled : false,
+  };
 }
 
 function createGroupLabel(label: string) {
@@ -190,7 +193,7 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
   }
   if (props.groups) {
     return props.groups.map((group) => {
-      const labelOption: Required<Option> = createGroupLabel(group.label);
+      const labelOption: Option = createGroupLabel(group.label);
       const groupOptions = group.options.map(validateOption);
       const allSelected = groupOptions.findIndex((option) => !option.selected) === -1;
       if (allSelected) {

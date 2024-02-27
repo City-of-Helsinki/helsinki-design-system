@@ -30,7 +30,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       });
     }
   } else if (eventIdWithType === events.listItemClick || eventIdWithType === events.tagClick) {
-    const clickedOption = payload && (payload.value as Required<Option>);
+    const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return false;
     }
@@ -49,7 +49,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       });
     }
   } else if (eventIdWithType === events.listGroupClick) {
-    const clickedOption = payload && (payload.value as Required<Option>);
+    const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return false;
     }
@@ -144,11 +144,7 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
   if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
-    const newProps = onChange(
-      getSelectedOptions(current.groups).map((opt) => opt.value),
-      lastClickedOption as Required<Option>,
-      current,
-    );
+    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     updateMetaData({ selectionUpdate: Date.now() });
     if (newProps) {
       if (newProps.groups) {

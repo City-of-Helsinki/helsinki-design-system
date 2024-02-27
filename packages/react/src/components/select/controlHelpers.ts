@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Group, SelectProps, Option } from './types';
 import { iterateAndCopyGroup, OptionIterator, propsToGroups } from './utils';
 
-type SelectionHistory = Array<{ options: Required<Option>[]; clickedOption: Required<Option> | undefined }>;
+type SelectionHistory = Array<{ options: Option[]; clickedOption: Option | undefined }>;
 
 export function useExternalGroupStorage(props: Pick<SelectProps, 'groups' | 'options'>) {
   const storage = useRef<Group[] | null>(null);
@@ -53,7 +53,7 @@ export function useSelectionHistory() {
   };
 
   return {
-    add: (selections: Required<Option>[], clickedOption?: Required<Option>) => {
+    add: (selections: Option[], clickedOption?: Option) => {
       getHistory().push({
         options: selections.map((opt) => ({ ...opt })),
         clickedOption: clickedOption ? { ...clickedOption } : undefined,
@@ -61,16 +61,16 @@ export function useSelectionHistory() {
     },
     getAll: () => getHistory(),
     getLatest,
-    getLatestValues: () => {
+    getLatestOptions: () => {
       const latest = getLatest().options;
-      return latest && latest.length ? latest.map((opt) => opt.value) : [];
+      return latest && latest.length ? latest : [];
     },
-    filterNewSelections: (list: string[]): string[] => {
+    filterNewSelections: (list: Option[]): Option[] => {
       const latest = getLatest().options;
       if (!latest || !latest.length) {
         return list;
       }
-      return list.filter((selectedValue) => latest.findIndex((opt) => opt.value === selectedValue) === -1);
+      return list.filter((selectedOption) => latest.findIndex((opt) => opt.value === selectedOption.value) === -1);
     },
   };
 }
