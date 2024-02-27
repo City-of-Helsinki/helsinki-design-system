@@ -12,9 +12,8 @@ export const VirtualizedListElement = forwardRef<HTMLUListElement, Props>(
     const rowVirtualizer = useVirtualizer({
       count: childElements.length || 0,
       getScrollElement: () => (ref ? (ref as MutableRefObject<Element>).current : null),
-      estimateSize: () => 40,
+      estimateSize: () => 52,
     });
-
     /*
       Without the empty div, the virtualized render only 7/1000+ items.
     */

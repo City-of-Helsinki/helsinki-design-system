@@ -15,6 +15,7 @@ export type SelectItemProps = {
 export type MultiSelectGroupLabelProps = SelectItemProps & {
   isMultiSelect: boolean;
   isIntermediate: boolean;
+  isGroupDisabled: boolean;
 };
 
 export type LiElementWithCheckboxProps = LiElementProps & {
@@ -24,9 +25,14 @@ export type LiElementWithCheckboxProps = LiElementProps & {
 };
 
 export const createSingleSelectItemProps = ({ option, trigger }: SelectItemProps): LiElementProps => {
-  const { label, selected } = option;
+  const { label, selected, disabled } = option;
   return {
-    className: classNames(styles.listItem, styles.selectableListItem, selected && styles.selected),
+    className: classNames(
+      styles.listItem,
+      styles.selectableListItem,
+      selected && styles.selected,
+      disabled && styles.disabledOption,
+    ),
     children: label,
     onClick: (originalEvent: React.MouseEvent) => {
       trigger({
@@ -49,13 +55,14 @@ export const createSingleSelectGroupLabelProps = (option: SelectItemProps['optio
 };
 
 export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps): LiElementWithCheckboxProps => {
-  const { label, selected } = option;
+  const { label, selected, disabled } = option;
   return {
     className: classNames(
       styles.listItem,
       styles.selectableListItem,
       styles.multiSelectListItem,
       selected && styles.selected,
+      disabled && styles.disabledOption,
     ),
     children: null,
     label,
@@ -64,6 +71,9 @@ export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps)
     'aria-selected': selected,
     indeterminate: undefined,
     onClick: (originalEvent: React.MouseEvent) => {
+      if (disabled) {
+        return;
+      }
       trigger({
         id: eventIds.listItem,
         type: eventTypes.click,
@@ -79,14 +89,24 @@ export const createMultiSelectGroupLabelProps = ({
   option,
   trigger,
   isIntermediate,
+  isGroupDisabled,
 }: MultiSelectGroupLabelProps): LiElementWithCheckboxProps => {
   const { label } = option;
   return {
-    className: classNames(styles.listItem, styles.groupLabel, styles.selectableListItem, styles.multiSelectListItem),
+    className: classNames(
+      styles.listItem,
+      styles.groupLabel,
+      styles.selectableListItem,
+      styles.multiSelectListItem,
+      isGroupDisabled && styles.disabledOption,
+    ),
     label,
     indeterminate: isIntermediate,
     selected: option.selected,
     onClick: (originalEvent: React.MouseEvent) => {
+      if (isGroupDisabled) {
+        return;
+      }
       trigger({
         id: eventIds.listGroup,
         type: eventTypes.click,

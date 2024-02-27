@@ -9,6 +9,7 @@ import {
   mergeSearchResultsToCurrent,
   clearAllSelectedOptions,
   getSelectedOptions,
+  propsToGroups,
 } from './utils';
 import { eventIds, events, eventTypes } from './events';
 
@@ -41,7 +42,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       ),
       open: eventIdWithType !== events.tagClick && current.multiSelect,
     });
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
     if (eventIdWithType === events.listItemClick && !current.multiSelect) {
       dataHandlers.updateMetaData({
         focusTarget: 'button',
@@ -54,14 +55,13 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     }
     dataHandlers.updateData({
       groups: updateSelectedGroupOptions(current.groups, { ...clickedOption, selected: !clickedOption.selected }),
-      open: true,
     });
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
   } else if (eventIdWithType === events.clearClick || eventIdWithType === events.clearAllClick) {
     dataHandlers.updateData({
       groups: clearAllSelectedOptions(current.groups),
     });
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now() });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: undefined });
   } else if (type === eventTypes.outSideClick) {
     dataHandlers.updateData({ open: false });
     dataHandlers.updateMetaData({
@@ -132,6 +132,7 @@ const debouncedSearch = debounce(
 export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateMetaData, updateData, getData, getMetaData } = dataHandlers;
   const lastSelectionUpdate = getMetaData().selectionUpdate;
+
   const lastSearchUpdate = getMetaData().searchUpdate;
   const { onSearch, onChange } = getData();
   dataUpdater(event, dataHandlers);
@@ -142,13 +143,19 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
   }
   if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
     const current = getData();
+    const { lastClickedOption } = getMetaData();
     const newProps = onChange(
       getSelectedOptions(current.groups).map((opt) => opt.value),
+      lastClickedOption as Required<Option>,
       current,
     );
     updateMetaData({ selectionUpdate: Date.now() });
     if (newProps) {
-      updateData(newProps);
+      if (newProps.groups) {
+        updateData({ groups: propsToGroups({ groups: newProps.groups }) });
+      }
+      const { error, assistiveText } = newProps;
+      updateData({ error, assistiveText });
     }
   }
   // needs fixing:

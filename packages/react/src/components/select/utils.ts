@@ -11,6 +11,8 @@ type DomHandlerProps = {
   trigger: (event: ChangeEvent) => void;
 };
 
+export type OptionIterator = (option: Required<Option>, group: Group) => Required<Option> | undefined;
+
 export function createOnClickListener(props: DomHandlerProps) {
   const { id, type = eventTypes.click, trigger } = props;
   return {
@@ -107,7 +109,7 @@ export function updateSelectedGroupOptions(
     if (index === groupIndex) {
       return {
         options: group.options.map((option) => {
-          return option.visible
+          return option.visible && !option.disabled
             ? {
                 ...option,
                 selected: updatedOption.selected,
@@ -133,8 +135,8 @@ export function clearAllSelectedOptions(groups: SelectData['groups']): SelectDat
   });
 }
 
-export function getAllOptions(groups: SelectData['groups'], filterOutGroupLabels = true): Option[] {
-  const options: Option[] = [];
+export function getAllOptions(groups: SelectData['groups'], filterOutGroupLabels = true): Required<Option>[] {
+  const options: Required<Option>[] = [];
   groups.forEach((group) => {
     group.options.forEach((option) => {
       if (filterOutGroupLabels && option.isGroupLabel) {
@@ -158,29 +160,28 @@ export function countVisibleOptions(groups: SelectData['groups']): number {
   return count;
 }
 
-export function getVisibleGroupLabels(groups: SelectData['groups']): Option[] {
+export function getVisibleGroupLabels(groups: SelectData['groups']): Required<Option>[] {
   return groups.map((group) => group.options[0]).filter((option) => option && option.label && option.visible);
 }
 
-type NewType = Option;
-
-export function getSelectedOptions(groups: SelectData['groups']): NewType[] {
+export function getSelectedOptions(groups: SelectData['groups']): Required<Option>[] {
   return getAllOptions(groups).filter((option) => !!option.selected);
 }
 
 export function validateOption(option: Option | string): Required<Option> {
   return typeof option === 'string'
-    ? { value: option, label: option, selected: false, isGroupLabel: false, visible: true }
+    ? { value: option, label: option, selected: false, isGroupLabel: false, visible: true, disabled: false }
     : {
         ...option,
         selected: !!option.selected,
         isGroupLabel: false,
         visible: typeof option.visible === 'boolean' ? option.visible : true,
+        disabled: typeof option.disabled === 'boolean' ? option.disabled : false,
       };
 }
 
 function createGroupLabel(label: string) {
-  return { ...validateOption(label), isGroupLabel: true, visible: !!label };
+  return { ...validateOption(label), isGroupLabel: true, visible: !!label, disabled: false };
 }
 
 export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): SelectData['groups'] | undefined {
@@ -249,7 +250,8 @@ export function childrenToGroups(children: SelectProps<ReactElement>['children']
     const label = String(props.children);
     const value = props && String(props.value);
     const selected = !!(props && props.selected);
-    return validateOption({ label, value, selected });
+    const disabled = !!(props && props.disabled);
+    return validateOption({ label, value, selected, disabled });
   };
   if (hasOptionGroups) {
     return childArray.map((child) => {
@@ -289,4 +291,14 @@ export function mergeSearchResultsToCurrent(
     : [];
 
   return [...currentHiddenOptionsInAGroup, ...newData];
+}
+
+export function iterateAndCopyGroup(groups: Group[], iterator: OptionIterator): Group[] {
+  return groups.map((group) => {
+    return {
+      options: group.options.map((opt) => {
+        return iterator(opt, group) || { ...opt };
+      }),
+    };
+  });
 }

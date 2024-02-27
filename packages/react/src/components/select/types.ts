@@ -9,7 +9,14 @@ import {
 
 import { DataHandlers } from '../dataProvider/DataContext';
 
-export type Option = { value: string; label: string; selected?: boolean; isGroupLabel?: boolean; visible?: boolean };
+export type Option = {
+  value: string;
+  label: string;
+  selected?: boolean;
+  isGroupLabel?: boolean;
+  visible?: boolean;
+  disabled?: boolean;
+};
 export type Group = { options: Required<Option>[] };
 export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
 export type SearchFunction = (searchValue: string, selectedValues: string[], data: SelectData) => Promise<SearchResult>;
@@ -22,7 +29,11 @@ export type SelectProps<P = unknown> = {
     label: string;
     options: (Option | string)[];
   }>;
-  onChange: (selectedValues: string[], data: SelectData) => Partial<SelectData> | void | undefined;
+  onChange: (
+    selectedValues: string[],
+    clickedOption: Required<Option>,
+    data: SelectData,
+  ) => Partial<SelectProps> | void | undefined;
   onSearch?: SearchFunction;
   onFocus?: () => void;
   onBlur?: () => void;
@@ -81,6 +92,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   filter: string;
   search: string;
   isSearching: boolean;
+  lastClickedOption: Required<Option> | undefined;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
   focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;

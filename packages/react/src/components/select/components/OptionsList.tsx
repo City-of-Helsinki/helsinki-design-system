@@ -22,6 +22,7 @@ const createOptionsListItemProps = ({
   option,
   isMultiSelect,
   isIntermediate,
+  isGroupDisabled,
   trigger,
 }: MultiSelectGroupLabelProps): LiElementWithCheckboxProps => {
   const { isGroupLabel } = option;
@@ -29,7 +30,7 @@ const createOptionsListItemProps = ({
   if (isGroupLabel) {
     return !isMultiSelect
       ? createSingleSelectGroupLabelProps(option)
-      : createMultiSelectGroupLabelProps({ option, trigger, isIntermediate, isMultiSelect });
+      : createMultiSelectGroupLabelProps({ option, trigger, isIntermediate, isMultiSelect, isGroupDisabled });
   }
   return isMultiSelect
     ? createMultiSelectItemProps({ option, trigger })
@@ -38,12 +39,19 @@ const createOptionsListItemProps = ({
 
 const createOptionElements = (groups: SelectData['groups'], trigger: ChangeTrigger, isMultiSelect: boolean) => {
   const getGroupLabelIntermediateState = (option: Option): boolean => {
-    if (!option.isGroupLabel || option.selected) {
+    if (!option.isGroupLabel) {
       return false;
     }
     const optionGroup = groups[getOptionGroupIndex(groups, option)];
     const perc = optionGroup ? getSelectedOptionsPerc(optionGroup) : 0;
     return perc < 1 && perc > 0;
+  };
+  const getGroupLabelDisabledState = (option: Option): boolean => {
+    if (!option.isGroupLabel) {
+      return false;
+    }
+    const optionGroup = groups[getOptionGroupIndex(groups, option)];
+    return !optionGroup.options.some((opt) => !opt.isGroupLabel && !opt.disabled);
   };
   return getAllOptions(groups, false)
     .map((option) => {
@@ -51,6 +59,7 @@ const createOptionElements = (groups: SelectData['groups'], trigger: ChangeTrigg
         option,
         isMultiSelect,
         isIntermediate: getGroupLabelIntermediateState(option),
+        isGroupDisabled: getGroupLabelDisabledState(option),
         trigger,
       });
       if (!option.visible) {

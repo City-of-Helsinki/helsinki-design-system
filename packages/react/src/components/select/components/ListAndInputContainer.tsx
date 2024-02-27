@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
@@ -35,13 +35,28 @@ export const ListAndInputContainer = (props: DivElementProps) => {
     props,
     useSelectDataHandlers(),
   );
-  const callback = () => {
-    if (!isOpen) {
-      return;
+  const isOpenRef = useRef(isOpen);
+  const callback = (isUpEvent: boolean) => {
+    if (!isOpenRef.current) {
+      return false;
+    }
+    if (!isUpEvent) {
+      return true;
     }
     outsideClickTrigger();
+    return true;
   };
 
-  useOutsideClick({ ref: attr.ref, callback });
+  // in case of a lot of options
+  // the list may be rendered slowly
+  // and for example select button click may open the menu
+  // then outside click immediately opens it.
+  // Instead of checking the data.open (which is updated in sync)
+  // check the open value after render, which is relevant to the click.
+  useEffect(() => {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  useOutsideClick({ ref: attr.ref, callback, usePointerDownEvent: true });
   return <div {...attr}>{children}</div>;
 };
