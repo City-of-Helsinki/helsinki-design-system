@@ -9,13 +9,9 @@ import { createInputOnChangeListener } from '../utils';
 import { eventIds } from '../events';
 import { useSelectDataHandlers } from '../typedHooks';
 
-const createFilterInputProps = (
-  props: Partial<TextInputProps>,
-  { getMetaData, trigger }: SelectDataHandlers,
-): TextInputProps => {
+const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
   const { filter, elementIds, refs } = getMetaData();
   return {
-    ...props,
     className: classNames(styles.filterOrSearchInput),
     ...createInputOnChangeListener({ id: eventIds.filter, trigger }),
     onButtonClick: (e) => {
@@ -33,7 +29,7 @@ const createFilterInputProps = (
   };
 };
 
-export function FilterInput(props: Partial<TextInputProps>) {
-  const inputProps = createFilterInputProps(props, useSelectDataHandlers());
+export function FilterInput() {
+  const inputProps = createFilterInputProps(useSelectDataHandlers());
   return <TextInput {...inputProps} />;
 }

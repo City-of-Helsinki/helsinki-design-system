@@ -7,14 +7,13 @@ import { LoadingSpinner } from '../../loadingSpinner';
 import { DivElementProps } from '../types';
 import { useSelectDataHandlers } from '../typedHooks';
 
-const createSearchAndFilterInfoProps = (props: DivElementProps): DivElementProps => {
+const createSearchAndFilterInfoProps = (): DivElementProps => {
   return {
-    ...props,
     className: classNames(styles.searchAndFilterInfoContainer),
   };
 };
 
-export function SearchAndFilterInfo(props: DivElementProps) {
+export function SearchAndFilterInfo() {
   const { getData, getMetaData } = useSelectDataHandlers();
 
   const { groups } = getData();
@@ -26,7 +25,7 @@ export function SearchAndFilterInfo(props: DivElementProps) {
       : [];
   const loadingText = isSearching ? 'Loading options' : '';
 
-  const attr = createSearchAndFilterInfoProps(props);
+  const attr = createSearchAndFilterInfoProps();
   if (!noResultsTexts?.length && !loadingText) {
     return null;
   }

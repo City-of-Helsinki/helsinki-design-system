@@ -5,16 +5,11 @@ import { useSelectDataHandlers } from '../typedHooks';
 import { SelectDataHandlers } from '../types';
 
 type FieldLabelProps = Parameters<typeof FieldLabel>[0];
-type LabelComponentProps = Partial<FieldLabelProps>;
 
-const createLabelProps = (
-  props: LabelComponentProps,
-  { getData, getMetaData }: SelectDataHandlers,
-): FieldLabelProps => {
+const createLabelProps = ({ getData, getMetaData }: SelectDataHandlers): FieldLabelProps => {
   const { label, required } = getData();
   const { elementIds } = getMetaData();
   return {
-    ...props,
     required,
     label,
     inputId: elementIds.button,
@@ -22,6 +17,6 @@ const createLabelProps = (
   };
 };
 
-export const Label = (props: LabelComponentProps = {}) => {
-  return <FieldLabel {...createLabelProps(props, useSelectDataHandlers())} />;
+export const Label = () => {
+  return <FieldLabel {...createLabelProps(useSelectDataHandlers())} />;
 };

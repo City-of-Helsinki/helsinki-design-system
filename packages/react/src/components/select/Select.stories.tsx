@@ -5,13 +5,15 @@ import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
+import { useExternalGroupStorage, useSelectionHistory } from './controlHelpers';
+import { getSelectedOptions } from './utils';
 
 export default {
   component: Select,
   title: 'Components/Select',
 };
 
-function generateOptionArray(count = -1) {
+function generateOptionLabels(count = -1): string[] {
   // Arrays containing names of fruits and vegetables and adjectives
   const fruitsAndVegetables = [
     'apple',
@@ -98,13 +100,12 @@ function generateOptionArray(count = -1) {
     'mouthwatering',
   ];
 
-  // Generate random length between 1 and 10
   const length = count > 0 ? count : Math.floor(Math.random() * 20) + 1;
 
   const toUpperCase = (str: string) => str[0].toUpperCase() + str.slice(1);
   // Using set to avoid duplicates
   const randomSet: Set<string> = new Set();
-  for (let i = 0; i < length; i += 1) {
+  while (randomSet.size < length) {
     // Randomly select a fruit or vegetable and an adjective
     const randomFruitIndex = Math.floor(Math.random() * fruitsAndVegetables.length);
     const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
@@ -118,9 +119,9 @@ function generateOptionArray(count = -1) {
 }
 
 export const Example = () => {
-  const options = generateOptionArray(20);
+  const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
-    //
+    // track changes
   }, []);
   return (
     <Select
@@ -133,10 +134,11 @@ export const Example = () => {
     />
   );
 };
+
 export const Disabled = () => {
-  const options = generateOptionArray(20);
+  const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
-    //
+    // track changes
   }, []);
   return (
     <Select
@@ -150,14 +152,10 @@ export const Disabled = () => {
     />
   );
 };
+
 export const OptionsAsHtml = () => {
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValue = selected.length > 0 ? selected[0] : '';
-    const isError = selectedValue === 'Gasoline';
-    return {
-      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose one good option!',
-      error: isError ? `${selectedValue}?! Really?` : '',
-    };
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
   }, []);
   return (
     <Select label="Label" onChange={onChange} placeholder="Choose one">
@@ -172,8 +170,35 @@ export const OptionsAsHtml = () => {
     </Select>
   );
 };
+
 export const WithGroups = () => {
-  // const options: SelectProps['options'] = ['Label1', 'Label2', { value: 'c', label: 'Label3' }];
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(40),
+    },
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'Candy cane', label: 'Candy cane' },
+        { value: 'Sugar bomb', label: 'Sugar bomb' },
+        { value: 'Dr. Pepper', label: 'Dr. Pepper' },
+      ],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changess
+  }, []);
+  return (
+    <Select groups={groups} label="Label" onChange={onChange} placeholder="Choose one" icon={<IconLocation />} required>
+      <optgroup label="Group label">
+        <option value="label">Text</option>
+      </optgroup>
+    </Select>
+  );
+};
+
+export const WithSelectionValidation = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -183,16 +208,16 @@ export const WithGroups = () => {
       label: 'Bad choices',
       options: [
         { value: 'Candy with choco', label: 'Candy' },
-        { value: 'Gasoline', label: 'Gasoline' },
+        { value: 'wrong', label: 'Do not choose me!' },
       ],
     },
   ];
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
     const selectedValue = selected.length > 0 ? selected[0] : '';
-    const isError = selectedValue === 'Gasoline';
+    const isError = selectedValue === 'wrong';
     return {
-      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose one good option!',
-      error: isError ? `${selectedValue}?! Really?` : '',
+      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose a healthy option!',
+      error: isError ? `You choose poorly!` : '',
     };
   }, []);
   return (
@@ -203,19 +228,20 @@ export const WithGroups = () => {
     </Select>
   );
 };
+
 export const WithFilter = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(14),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4),
     },
     {
       label: 'Even more healthy choices',
-      options: generateOptionArray(10),
+      options: generateOptionLabels(10),
     },
     {
       label: 'Bad choices',
@@ -242,27 +268,56 @@ export const WithFilter = () => {
       placeholder="Choose one"
       icon={<IconLocation />}
       required
-    >
-      <optgroup label="Group label">
-        <option value="label">Text</option>
-      </optgroup>
-    </Select>
+    />
   );
 };
+
 export const WithMultiselect = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4),
     },
   ];
 
   const onChange: SelectProps['onChange'] = useCallback(() => {
-    // ignoreThis
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Label"
+      onChange={onChange}
+      multiSelect
+      showFiltering
+      placeholder="Choose three or more"
+      icon={<IconLocation />}
+    />
+  );
+};
+
+export const WithDisabledOptions = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4).map((option, i) => {
+        return { label: option, value: option, disabled: i === 3 };
+      }),
+    },
+    {
+      label: 'Only disabled choices',
+      options: generateOptionLabels(4).map((option) => {
+        return { label: option, value: option, disabled: true };
+      }),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
   }, []);
   return (
     <Select
@@ -278,36 +333,71 @@ export const WithMultiselect = () => {
 };
 
 export const WithMinAndMax = () => {
-  const groups: SelectProps['groups'] = [
+  const initialGroups = [
     {
       label: 'Healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
     },
   ];
+  const groupStorage = useExternalGroupStorage({ groups: initialGroups });
+  const history = useSelectionHistory();
   const [error, setError] = useState<string | undefined>(undefined);
   const selectionCount = useRef(0);
   const hasSelectedSomething = useRef(false);
-  const requiredCount = 3;
+  const requiredCount = 1;
+  const maxCount = 2;
   const getAssistiveText = (selectedCount: number) => {
     return selectedCount >= requiredCount
       ? `Required number of selections done!`
-      : `Please select ${requiredCount - selectedCount} more items`;
+      : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
   };
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const hasClearedSelections = hasSelectedSomething.current && !selected.length;
-    if (!hasSelectedSomething.current && selected.length) {
+  const onChange: SelectProps['onChange'] = useCallback((selectedValues, lastClickedOption) => {
+    const hasClearedSelections = hasSelectedSomething.current && !selectedValues.length;
+    if (!hasSelectedSomething.current && selectedValues.length) {
       hasSelectedSomething.current = true;
     }
-    selectionCount.current = selected.length;
-
-    return {
-      assistiveText: getAssistiveText(selected.length),
-      error: hasClearedSelections ? `Please select three items` : '',
+    // If a group was selected, there might be an overflow of selections.
+    const getAllowedSelections = (allSelections: string[]) => {
+      const overflow = allSelections.length - maxCount;
+      if (lastClickedOption && lastClickedOption.isGroupLabel && history.getLatestValues().length === maxCount) {
+        return [];
+      }
+      if (overflow > 0) {
+        const newSelections = [...history.getLatestValues(), ...history.filterNewSelections(allSelections)];
+        const allowed = newSelections.slice(0, overflow);
+        return allowed;
+      }
+      return allSelections;
     };
+    const filteredSelections = getAllowedSelections(selectedValues);
+    selectionCount.current = filteredSelections.length;
+    const maxReached = filteredSelections.length === maxCount;
+
+    groupStorage.update(groupStorage.get(), (option) => {
+      const isSelected = filteredSelections.includes(option.value);
+      return {
+        ...option,
+        selected: isSelected,
+        disabled: maxReached ? !isSelected : false,
+      };
+    });
+    history.add(getSelectedOptions(groupStorage.get()), lastClickedOption);
+
+    const returnProps = {
+      assistiveText: getAssistiveText(filteredSelections.length),
+      error: hasClearedSelections ? `Please select ${requiredCount}-${maxCount} items` : '',
+      groups: groupStorage.getAsProp(),
+    };
+
+    return returnProps;
   }, []);
 
   const onBlur: SelectProps['onBlur'] = useCallback(async () => {
@@ -317,7 +407,7 @@ export const WithMinAndMax = () => {
   }, []);
   return (
     <Select
-      groups={groups}
+      groups={groupStorage.getAsProp()}
       label="Label"
       onChange={onChange}
       multiSelect
@@ -335,7 +425,7 @@ export const WithPreselectedOptions = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionArray(8).map((value, i) => {
+      options: generateOptionLabels(8).map((value, i) => {
         return {
           label: value,
           value,
@@ -345,7 +435,7 @@ export const WithPreselectedOptions = () => {
     },
     {
       label: 'More healthy choices',
-      options: generateOptionArray(8).map((value, i) => {
+      options: generateOptionLabels(8).map((value, i) => {
         return {
           label: value,
           value,
@@ -355,7 +445,7 @@ export const WithPreselectedOptions = () => {
     },
   ];
   const onChange: SelectProps['onChange'] = useCallback(() => {
-    //
+    // track changes
   }, []);
   return (
     <Select
@@ -378,7 +468,7 @@ const createRandomGroups = (search: string) => {
     {
       label: 'Random items',
       options: [
-        ...generateOptionArray().map((value) => {
+        ...generateOptionLabels().map((value) => {
           return {
             value,
             label: value,
@@ -406,7 +496,7 @@ const createRandomGroups = (search: string) => {
 export const WithSearch = () => {
   const groups: SelectProps['groups'] = [];
   const onChange: SelectProps['onChange'] = useCallback(() => {
-    //
+    // track changes
   }, []);
   const onSearch: SelectProps['onSearch'] = useCallback(async (searchValue) => {
     await new Promise((res) => {
@@ -415,130 +505,100 @@ export const WithSearch = () => {
     return Promise.resolve(searchValue ? createRandomGroups(searchValue) : {});
   }, []);
   return (
-    <Select
-      groups={groups}
-      label="Label"
-      onChange={onChange}
-      onSearch={onSearch}
-      multiSelect
-      showSearch
-      placeholder="Choose many"
-    />
+    <div>
+      <Select
+        groups={groups}
+        label="Label"
+        onChange={onChange}
+        onSearch={onSearch}
+        multiSelect
+        showSearch
+        placeholder="Choose many"
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+    </div>
   );
 };
 
 export const WithExternalControls = () => {
-  const groupsRef = useRef<SelectProps['groups']>([
+  const initialGroups = [
     {
       label: 'Healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionArray(4),
+      options: generateOptionLabels(4),
     },
-  ]);
+  ];
 
-  const disabledRef = useRef(false);
+  const groupStorage = useExternalGroupStorage({ groups: initialGroups });
+
+  const propsRef = useRef<Partial<SelectProps>>({});
 
   const reRender = useForceRender();
 
   const resetSelections = () => {
-    groupsRef.current = [
-      {
-        label: 'Healthy choices',
-        options: generateOptionArray(4),
-      },
-      {
-        label: 'More healthy choices',
-        options: generateOptionArray(4),
-      },
-    ];
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        selected: false,
+        disabled: false,
+      };
+    });
+    propsRef.current.open = false;
     reRender();
   };
   const invertSelections = () => {
-    groupsRef.current = groupsRef.current
-      ? groupsRef.current.map((group) => {
-          return {
-            label: group.label,
-            options: group.options.map((option) => {
-              return typeof option === 'string'
-                ? {
-                    label: option,
-                    value: option,
-                    selected: true,
-                  }
-                : {
-                    ...option,
-                    selected: !option.selected,
-                  };
-            }),
-          };
-        })
-      : [];
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        selected: !option.selected,
+        disabled: false,
+      };
+    });
+    propsRef.current.open = false;
     reRender();
   };
   const selectAll = () => {
-    groupsRef.current = groupsRef.current
-      ? groupsRef.current.map((group) => {
-          return {
-            label: group.label,
-            options: group.options.map((option) => {
-              return typeof option === 'string'
-                ? {
-                    label: option,
-                    value: option,
-                    selected: true,
-                  }
-                : {
-                    ...option,
-                    selected: true,
-                  };
-            }),
-          };
-        })
-      : [];
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        selected: true,
+        disabled: false,
+      };
+    });
+    propsRef.current.open = false;
+    reRender();
+  };
+  const toggleGroupDisable = () => {
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        selected: true,
+        disabled: !option.disabled,
+      };
+    });
+    propsRef.current.open = false;
     reRender();
   };
   const toggleDisable = () => {
-    groupsRef.current = groupsRef.current
-      ? groupsRef.current.map((group) => {
-          return {
-            label: group.label,
-            options: group.options.map((option) => {
-              return typeof option === 'string'
-                ? {
-                    label: option,
-                    value: option,
-                    selected: false,
-                  }
-                : {
-                    ...option,
-                    selected: option.selected,
-                  };
-            }),
-          };
-        })
-      : [];
-    disabledRef.current = !disabledRef.current;
+    propsRef.current = { ...propsRef.current, disabled: !propsRef.current.disabled };
+    reRender();
+  };
+  const toggleMenu = () => {
+    propsRef.current = { ...propsRef.current, open: !propsRef.current.open };
     reRender();
   };
 
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    groupsRef.current = groupsRef.current
-      ? groupsRef.current.map((group) => {
-          return {
-            label: group.label,
-            options: group.options.map((option) => {
-              const optionAsObj = typeof option === 'string' ? { label: option, value: option } : { ...option };
-              return {
-                ...optionAsObj,
-                selected: selected.includes(optionAsObj.value),
-              };
-            }),
-          };
-        })
-      : [];
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        selected: selected.includes(option.value),
+        disabled: !option.disabled,
+      };
+    });
   }, []);
   return (
     <>
@@ -554,19 +614,22 @@ export const WithExternalControls = () => {
       </style>
       <div>
         <Select
-          groups={groupsRef.current}
+          groups={groupStorage.getAsProp()}
           label="Controlled select"
           onChange={onChange}
           multiSelect
           showFiltering
           placeholder="Choose"
-          disabled={disabledRef.current}
+          disabled={propsRef.current.disabled}
+          open={propsRef.current.open}
         />
         <div className="buttons">
           <Button onClick={resetSelections}>Reset selections</Button>
           <Button onClick={invertSelections}>Invert selections</Button>
           <Button onClick={selectAll}>Select all</Button>
-          <Button onClick={toggleDisable}>Toggle disabled</Button>
+          <Button onClick={toggleDisable}>Disable/enable component</Button>
+          <Button onClick={toggleGroupDisable}>Disable/enable options</Button>
+          <Button onClick={toggleMenu}>Open/Close list</Button>
         </div>
       </div>
     </>
@@ -586,11 +649,11 @@ export const WithVirtualizationMultiselect = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionArray(1000).map(makeUniqueOption),
+      options: generateOptionLabels(1000).map(makeUniqueOption),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionArray(1000).map(makeUniqueOption),
+      options: generateOptionLabels(1000).map(makeUniqueOption),
     },
   ];
 
@@ -619,11 +682,11 @@ export const WithFocusListeners = () => {
     () => [
       {
         label: 'Healthy choices',
-        options: generateOptionArray(4),
+        options: generateOptionLabels(4),
       },
       {
         label: 'More healthy choices',
-        options: generateOptionArray(4),
+        options: generateOptionLabels(4),
       },
     ],
     [],

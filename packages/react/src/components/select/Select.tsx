@@ -71,6 +71,7 @@ export function Select({
       showAllTags: false,
       cancelCurrentSearch: undefined,
       focusTarget: undefined,
+      lastClickedOption: undefined,
       icon,
       refs: {
         listContainer: createRef<HTMLDivElement>(),

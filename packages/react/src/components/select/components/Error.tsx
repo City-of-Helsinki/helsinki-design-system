@@ -5,10 +5,9 @@ import { SelectDataHandlers } from '../types';
 import { NotificationProps, Notification } from '../../notification/Notification';
 import { useSelectDataHandlers } from '../typedHooks';
 
-function createErrorProps(props: Partial<NotificationProps>, { getData }: SelectDataHandlers): NotificationProps {
+function createErrorProps({ getData }: SelectDataHandlers): NotificationProps {
   const { error } = getData();
   return {
-    ...props,
     type: 'error',
     children: error || '',
     closeButtonLabelText: '',
@@ -16,7 +15,7 @@ function createErrorProps(props: Partial<NotificationProps>, { getData }: Select
   };
 }
 
-export function ErrorNotification(props: Partial<NotificationProps>) {
-  const { children, ...attr } = createErrorProps(props, useSelectDataHandlers());
+export function ErrorNotification() {
+  const { children, ...attr } = createErrorProps(useSelectDataHandlers());
   return children ? <Notification {...attr}>{children}</Notification> : null;
 }

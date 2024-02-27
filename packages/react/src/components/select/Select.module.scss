@@ -59,7 +59,7 @@
       display: flex;
       flex-flow: wrap;
       flex-grow: 1;
-      max-height: 29px;
+      max-height: 27px;
       overflow: hidden;
     }
 
@@ -196,6 +196,15 @@
 
       .listItem {
         @extend %dropdownMenuItem;
+
+        &.disabledOption.disabledOption {
+          color: var(--color-black-40);
+          cursor: not-allowed;
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
       }
 
       .multiSelectListItem {
@@ -210,6 +219,10 @@
           cursor: pointer;
           flex-grow: 1;
           padding-left: var(--spacing-2-xs);
+        }
+
+        &.disabledOption.disabledOption label {
+          cursor: not-allowed;
         }
       }
 

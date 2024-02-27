@@ -9,13 +9,9 @@ import { createInputOnChangeListener } from '../utils';
 import { eventIds } from '../events';
 import { useSelectDataHandlers } from '../typedHooks';
 
-const createSearchInputProps = (
-  props: Partial<TextInputProps>,
-  { getMetaData, trigger }: SelectDataHandlers,
-): TextInputProps => {
+const createSearchInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
   const { search, elementIds, refs } = getMetaData() as SelectMetaData;
   return {
-    ...props,
     className: classNames(styles.filterOrSearchInput),
     ...createInputOnChangeListener({ id: eventIds.search, trigger }),
     onButtonClick: (e) => {
@@ -33,7 +29,7 @@ const createSearchInputProps = (
   };
 };
 
-export function SearchInput(props: Partial<TextInputProps>) {
-  const inputProps = createSearchInputProps(props, useSelectDataHandlers());
+export function SearchInput() {
+  const inputProps = createSearchInputProps(useSelectDataHandlers());
   return <TextInput {...inputProps} />;
 }
