@@ -91,7 +91,7 @@ const createContainerProps = (): DivElementProps => {
 
 const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) => {
   const { groups, multiSelect } = getData() as SelectData;
-  const { refs } = getMetaData() as SelectMetaData;
+  const { refs, elementIds } = getMetaData() as SelectMetaData;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
 
   return {
@@ -102,6 +102,7 @@ const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) =>
     ),
     ref: refs.list,
     tabIndex: -1,
+    id: elementIds.list,
   };
 };
 

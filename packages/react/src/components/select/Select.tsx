@@ -85,6 +85,7 @@ export function Select({
       elementIds: {
         container: containerId,
         button: `${containerId}-main-button`,
+        list: `${containerId}-list`,
         clearButton: `${containerId}-clear-button`,
         arrowButton: `${containerId}-arrow-button`,
         label: `${containerId}-label`,
