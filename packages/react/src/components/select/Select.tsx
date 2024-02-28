@@ -1,4 +1,4 @@
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 import React, { ReactElement, useMemo, createRef } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData } from './types';
