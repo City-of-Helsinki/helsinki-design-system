@@ -91,7 +91,7 @@ function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
     // When all items are visible and one is deleted, visible items cannot be used
     // to determise should "show less"-button be hidden.
     const numberOfTagRows = getChildElementsPerRow(tagListEl).length;
-    if (numberOfTagRows < 2) {
+    if (numberOfTagRows < 3) {
       buttonEl.classList.add(styles.hiddenButton);
     } else {
       buttonEl.classList.remove(styles.hiddenButton);
