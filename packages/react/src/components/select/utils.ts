@@ -247,9 +247,9 @@ export function childrenToGroups(children: SelectProps<ReactElement>['children']
   }
   const hasOptionGroups = childArray[0].type === 'optgroup';
   const optionElementToOption = (optionEl: ReactNode | ReactElement) => {
-    const props = (optionEl && typeof optionEl === 'object' ? (optionEl as ReactElement).props : {}) as ReactElement<
-      HTMLOptionElement
-    >['props'];
+    const props = (
+      optionEl && typeof optionEl === 'object' ? (optionEl as ReactElement).props : {}
+    ) as ReactElement<HTMLOptionElement>['props'];
     const label = String(props.children);
     const value = props && String(props.value);
     const selected = !!(props && props.selected);
