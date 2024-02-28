@@ -46,8 +46,14 @@ import { Signal, SignalNamespace } from '../beacon/beacon';
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
 import { waitForFetchMockRequestsToFinish } from '../testUtils/fetchMockTestUtil';
 
-const { initTests, waitForLoginToTimeout, waitForLogoutToTimeout, cleanUp, setSignInResponse, placeUserToStorage } =
-  createOidcClientTestSuite();
+const {
+  initTests,
+  waitForLoginToTimeout,
+  waitForLogoutToTimeout,
+  cleanUp,
+  setSignInResponse,
+  placeUserToStorage,
+} = createOidcClientTestSuite();
 
 describe('oidcClient', () => {
   let testData: InitTestResult;
@@ -73,6 +79,8 @@ describe('oidcClient', () => {
       const { userManager } = testData;
       const signinRedirect = jest.spyOn(userManager, 'signinRedirect');
       const loginParams = { language: 'sv' };
+      // @ts-ignore
+      console.log('---start');
       await waitForLoginToTimeout(mockedWindowControls, loginParams);
       expect(signinRedirect).toHaveBeenNthCalledWith(1, {
         extraQueryParams: {
@@ -301,7 +309,7 @@ describe('oidcClient', () => {
       const initProps = {
         ...createUserProps(undefined),
       };
-      (initProps.userProps.signInResponseProfileProps as unknown as Record<string, string>).amr = amrValue;
+      ((initProps.userProps.signInResponseProfileProps as unknown) as Record<string, string>).amr = amrValue;
       const { oidcClient } = await initTests(initProps);
       expect(oidcClient.getAmr()).toBeUndefined();
     });

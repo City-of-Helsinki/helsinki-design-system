@@ -6,11 +6,20 @@ export type MockedWindowLocationActions = {
   setUrl: (url: string) => void;
 };
 export default function mockWindowLocation(): MockedWindowLocationActions {
-  const globalWin = global as unknown as Window;
+  const globalWin = (global as unknown) as Window;
   let oldWindowLocation: Location | undefined = globalWin.location;
 
-  const unload = () => setTimeout(() => window.dispatchEvent(new Event('unload')), 20);
-  const tracker = jest.fn(unload);
+  const unload = () =>
+    setTimeout(() => {
+      // @ts-ignore
+      console.log('UNLOAD');
+      window.dispatchEvent(new Event('unload'));
+    }, 20);
+  const tracker = jest.fn(() => {
+    // @ts-ignore
+    console.log('TRACKER');
+    unload();
+  });
   let urlObject = new URL('https://default.domain.com');
   const location = Object.defineProperties(
     {},
@@ -37,7 +46,7 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
   });
 
   const getCalls = () => {
-    return tracker.mock.calls as unknown as string[];
+    return (tracker.mock.calls as unknown) as string[];
   };
 
   return {
