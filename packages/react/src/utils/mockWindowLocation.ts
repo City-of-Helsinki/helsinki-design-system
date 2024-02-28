@@ -6,7 +6,7 @@ export type MockedWindowLocationActions = {
   setUrl: (url: string) => void;
 };
 export default function mockWindowLocation(): MockedWindowLocationActions {
-  const globalWin = (global as unknown) as Window;
+  const globalWin = global as unknown as Window;
   let oldWindowLocation: Location | undefined = globalWin.location;
 
   const unload = () =>
@@ -46,7 +46,7 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
   });
 
   const getCalls = () => {
-    return (tracker.mock.calls as unknown) as string[];
+    return tracker.mock.calls as unknown as string[];
   };
 
   return {
