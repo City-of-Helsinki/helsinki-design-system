@@ -100,6 +100,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   elementIds: {
     button: string;
     label: string;
+    list: string;
     container: string;
     tagList: string;
     clearButton: string;
