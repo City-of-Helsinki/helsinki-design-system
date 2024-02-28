@@ -4,7 +4,7 @@ import { DataContext, ChangeTrigger, DataContextContent, DataHandlers } from './
 import { StorageData } from './storage';
 
 export function useDataContext<D = StorageData, M = StorageData>() {
-  return (useContext(DataContext) as unknown) as DataContextContent<D, M>;
+  return useContext(DataContext) as unknown as DataContextContent<D, M>;
 }
 
 export function useContextDataHandlers<D = StorageData, M = StorageData>() {

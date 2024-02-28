@@ -91,7 +91,7 @@ describe('DataContext', () => {
 
   const getComponentKey = (metaData: TestData, componentProps: unknown) => {
     const keys = metaData.keys || {};
-    const { id } = (componentProps as unknown) as { id: string };
+    const { id } = componentProps as unknown as { id: string };
     return String(keys[id] || id) || undefined;
   };
 
@@ -533,13 +533,8 @@ describe('DataContext', () => {
   });
 
   it('Component whose data changed, but key did not, is not re-mounted', async () => {
-    const {
-      clickButton,
-      executeAndWaitForUpdate,
-      getInstanceId,
-      createComponentDataStorage,
-      collectAllDataPerId,
-    } = renderComponent({ initialData, metaData });
+    const { clickButton, executeAndWaitForUpdate, getInstanceId, createComponentDataStorage, collectAllDataPerId } =
+      renderComponent({ initialData, metaData });
     const test1Storage = createComponentDataStorage('test1', initialData);
     test1Storage.appendData({ instanceId: getInstanceId('test1') });
 
@@ -556,13 +551,8 @@ describe('DataContext', () => {
     expect(collectAllDataPerId('test1')).toMatchObject(test1Storage.get());
   });
   it('Component whose key changes, is re-mounted', async () => {
-    const {
-      clickButton,
-      executeAndWaitForUpdate,
-      getInstanceId,
-      createComponentDataStorage,
-      collectAllDataPerId,
-    } = renderComponent({ initialData, metaData });
+    const { clickButton, executeAndWaitForUpdate, getInstanceId, createComponentDataStorage, collectAllDataPerId } =
+      renderComponent({ initialData, metaData });
     const test3Storage = createComponentDataStorage('test3', initialData);
     test3Storage.appendData({ instanceId: getInstanceId('test1') });
 
