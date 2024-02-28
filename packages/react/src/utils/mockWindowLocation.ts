@@ -8,7 +8,8 @@ export type MockedWindowLocationActions = {
 export default function mockWindowLocation(): MockedWindowLocationActions {
   const globalWin = global as unknown as Window;
   let oldWindowLocation: Location | undefined = globalWin.location;
-
+  // @ts-ignore
+  console.log('create mockWindowLocation');
   const unload = () =>
     setTimeout(() => {
       // @ts-ignore
@@ -46,6 +47,8 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
   });
 
   const getCalls = () => {
+    // @ts-ignore
+    console.log('getCalls', tracker.mock.calls.length);
     return tracker.mock.calls as unknown as string[];
   };
 
@@ -60,6 +63,8 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
       urlObject = new URL(url);
     },
     reset: () => {
+      // @ts-ignore
+      console.log('reset mockWindowLocation');
       tracker.mockClear();
     },
     getCalls,

@@ -56,6 +56,7 @@ describe('oidcClient', () => {
     mockedWindowControls.restore();
   });
   afterEach(() => {
+    console.log('afterEach');
     cleanUp();
     mockedWindowControls.reset();
   });
