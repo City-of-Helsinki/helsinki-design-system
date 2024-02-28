@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash';
 
 import { Option, SearchFunction, SearchResult, SelectData, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
