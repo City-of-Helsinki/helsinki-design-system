@@ -88,6 +88,8 @@ export function createOidcClientTestSuite() {
 
   async function waitForLoginToTimeout(mockedWindowControls: MockedWindowLocationActions, loginProps?: LoginProps) {
     const currentCallCount = mockedWindowControls.getCalls().length;
+    // @ts-ignore
+    console.log('---login');
     oidcClient.login(loginProps).then(jest.fn()).catch(jest.fn());
     await waitFor(() => {
       if (mockedWindowControls.getCalls().length === currentCallCount) {
