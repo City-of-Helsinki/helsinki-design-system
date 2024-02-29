@@ -43,6 +43,7 @@ const defaultOidcClientTestProps: OidcClientProps = {
     client_id,
     scope,
   },
+  debug: true,
 };
 
 export function getDefaultOidcClientTestProps(): OidcClientProps {

@@ -71,17 +71,17 @@ describe('oidcClient', () => {
       testData = await initTests({});
     });
     it('should add given language to the login url', async () => {
-      // const { userManager } = testData;
-      // const signinRedirect = jest.spyOn(userManager, 'signinRedirect');
+      const { userManager } = testData;
+      const signinRedirect = jest.spyOn(userManager, 'signinRedirect');
       const loginParams = { language: 'sv' };
       // @ts-ignore
       console.log('---start');
       await waitForLoginToTimeout(mockedWindowControls, loginParams);
-      /* expect(signinRedirect).toHaveBeenNthCalledWith(1, {
+      expect(signinRedirect).toHaveBeenNthCalledWith(1, {
         extraQueryParams: {
           ui_locales: loginParams.language,
         },
-      }); */
+      });
       await waitFor(() => {
         expect(mockedWindowControls.getCallParameters().get('ui_locales')).toBe(loginParams.language);
       });
