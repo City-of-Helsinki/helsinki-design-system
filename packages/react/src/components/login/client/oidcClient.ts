@@ -282,10 +282,14 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     isRenewing,
     login: async (loginProps) => {
       emitStateChange(oidcClientStates.LOGGING_IN);
+      // @ts-ignore
+      console.log('---signinRedirect');
       const [err] = await to(userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps)));
       if (err) {
         emitError(new OidcClientError('Login redirect failed', oidcClientErrors.SIGNIN_ERROR, err));
       }
+      // @ts-ignore
+      console.log('---signinRedirect ok');
       return Promise.resolve();
     },
     logout: async (logoutProps) => {
