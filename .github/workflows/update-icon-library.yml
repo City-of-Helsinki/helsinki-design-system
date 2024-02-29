@@ -29,7 +29,9 @@ jobs:
           fi
 
       # Don't do anything if we're on release-x.x.x AND the icon-kit has the same version number (already built for the release)
+      # Skip this step if workflow was triggered by workflow_dispatch
       - name: Check if icon library has already been built for this release
+        if: github.event_name != 'workflow_dispatch'
         run: |
           PKG_VER=`node -pe "require('./packages/react/package.json').version"`
           ICON_KIT_VER=`sed -n -E 's/.*version[[:space:]]+([0-9]+([.][0-9]+)*).*/\1/p' ./release/icon-kit-template-CHANGELOG.txt`
