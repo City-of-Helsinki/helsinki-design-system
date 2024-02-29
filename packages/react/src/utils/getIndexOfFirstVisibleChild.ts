@@ -1,3 +1,13 @@
+/**
+ *
+ * Traverses element's children to find child element whose bounding client rect is fully inside the parent's bounding client rect
+ * Children are traversed in reverse order, starting from last. Traversion stops immediately when a fitting element is found.
+ * Does not check all bounding client rects to find the element nearest to parent's borders.
+ *
+ * @param el
+ * @param verticalOrHorizontal Should child be visible horizontally, vertically or both.
+ * @returns
+ */
 export const getIndexOfFirstVisibleChild = (
   el: HTMLElement | Element,
   verticalOrHorizontal: 'vertical' | 'horizontal' | 'both' = 'both',
