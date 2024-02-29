@@ -147,8 +147,6 @@ function updateHiddenElementsCount(metaData: SelectMetaData) {
     const firstVisible = getIndexOfFirstVisibleChild(labels, 'vertical');
     const childCount = labels.children.length - 1;
     const hiddenItems = childCount - firstVisible;
-    console.log('hiddenItems', hiddenItems);
-    console.log('firstVisible', firstVisible);
     if (hiddenItems < 1 || firstVisible === -1) {
       buttonEl.classList.remove(styles.hasHiddenItems);
     } else {
