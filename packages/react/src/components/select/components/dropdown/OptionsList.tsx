@@ -14,7 +14,7 @@ import {
   OptionListItem,
 } from './OptionListItem';
 import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../../utils';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ChangeTrigger } from '../../../dataProvider/DataContext';
 import { VirtualizedListElement } from './VirtualizedListElement';
 

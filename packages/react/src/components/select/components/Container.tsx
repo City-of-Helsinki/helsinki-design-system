@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from '../Select.module.scss';
 import { DivElementProps, SelectDataHandlers } from '../types';
-import { useFocusHandling } from '../useFocusHandling';
-import { useSelectDataHandlers } from '../typedHooks';
+import { useFocusHandling } from '../hooks/useFocusHandling';
+import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 
 function createContainerProps(props: DivElementProps, { getMetaData }: SelectDataHandlers): DivElementProps {
   const { elementIds } = getMetaData();

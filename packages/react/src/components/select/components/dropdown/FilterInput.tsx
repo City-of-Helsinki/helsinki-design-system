@@ -7,7 +7,7 @@ import { SelectDataHandlers } from '../../types';
 import classNames from '../../../../utils/classNames';
 import { createInputOnChangeListener } from '../../utils';
 import { eventIds } from '../../events';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
   const { filter, elementIds, refs } = getMetaData();

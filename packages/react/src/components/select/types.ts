@@ -94,6 +94,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   search: string;
   isSearching: boolean;
   lastClickedOption: Option | undefined;
+  lastToggleCommand: number;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
   focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;

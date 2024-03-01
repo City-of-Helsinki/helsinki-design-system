@@ -9,11 +9,11 @@ import {
   useEffect,
 } from 'react';
 
-import { DataHandlers } from '../dataProvider/DataContext';
-import { eventTypes } from './events';
-import { SelectData, SelectMetaData } from './types';
-import getIsElementFocused from '../../utils/getIsElementFocused';
-import getIsElementBlurred from '../../utils/getIsElementBlurred';
+import { DataHandlers } from '../../dataProvider/DataContext';
+import { eventTypes } from '../events';
+import { SelectData, SelectMetaData } from '../types';
+import getIsElementFocused from '../../../utils/getIsElementFocused';
+import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 
 /**
  * Essential user actions:

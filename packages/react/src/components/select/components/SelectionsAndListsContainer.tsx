@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
 import { DivElementProps, SelectDataHandlers } from '../types';
-import { useSelectDataHandlers } from '../typedHooks';
+import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 
 function createComponentProps(
   props: React.PropsWithChildren<unknown>,

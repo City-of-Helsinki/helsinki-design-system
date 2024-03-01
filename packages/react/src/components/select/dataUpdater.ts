@@ -19,17 +19,65 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   if (current.disabled) {
     return false;
   }
+
+  const isOpenOrCloseEvent = (userEvent: string) => {
+    return userEvent === events.selectedOptionsClick || userEvent === events.arrowClick;
+  };
+  const isOptionClick = (userEvent: string) => {
+    return userEvent === events.listItemClick || userEvent === events.tagClick;
+  };
+  const isGroupClick = (userEvent: string) => {
+    return userEvent === events.listGroupClick;
+  };
+  const isClearOptionsClick = (userEvent: string) => {
+    return userEvent === events.clearClick || userEvent === events.clearAllClick;
+  };
+  const isOutsideClick = (userEvent?: string) => {
+    return userEvent === eventTypes.outSideClick;
+  };
+  const isFilterChangeEvent = (userEvent: string) => {
+    return userEvent === events.filterChange;
+  };
+  const isSearchChangeEvent = (userEvent: string) => {
+    return userEvent === events.searchChange;
+  };
+  const isShowAllClick = (userEvent: string) => {
+    return userEvent === events.showAllClick;
+  };
+  const isSearchResultsUpdate = (eventId: string) => {
+    return eventId === eventIds.searchResult;
+  };
+
+  const openOrClose = (open: boolean) => {
+    const now = Date.now();
+    if (now - dataHandlers.getMetaData().lastToggleCommand < 100) {
+      return false;
+    }
+    dataHandlers.updateData({ open });
+    dataHandlers.updateMetaData({ lastToggleCommand: Date.now() });
+    return true;
+  };
+
+  const setFocusTarget = (focusTarget: SelectMetaData['focusTarget']) => {
+    dataHandlers.updateMetaData({
+      focusTarget,
+    });
+  };
+
+  console.log('::::', id, type);
   const { showAllTags } = dataHandlers.getMetaData();
   const eventIdWithType = `${id}_${type}`;
-  if (eventIdWithType === events.selectedOptionsClick || eventIdWithType === events.arrowClick) {
+
+  if (isOpenOrCloseEvent(eventIdWithType)) {
     const willOpen = !current.open;
-    dataHandlers.updateData({ open: willOpen });
-    if (willOpen) {
-      dataHandlers.updateMetaData({
-        focusTarget: current.showSearch || current.showFiltering ? 'searchOrFilterInput' : 'list',
-      });
+    const didUpdate = openOrClose(willOpen);
+    if (didUpdate && willOpen) {
+      setFocusTarget(current.showSearch || current.showFiltering ? 'searchOrFilterInput' : 'list');
     }
-  } else if (eventIdWithType === events.listItemClick || eventIdWithType === events.tagClick) {
+    return true;
+  }
+
+  if (isOptionClick(eventIdWithType)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return false;
@@ -40,15 +88,18 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
         { ...clickedOption, selected: !clickedOption.selected },
         current.multiSelect,
       ),
-      open: eventIdWithType !== events.tagClick && current.multiSelect,
     });
+    openOrClose(eventIdWithType !== events.tagClick && current.multiSelect);
     dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
     if (eventIdWithType === events.listItemClick && !current.multiSelect) {
       dataHandlers.updateMetaData({
         focusTarget: 'button',
       });
     }
-  } else if (eventIdWithType === events.listGroupClick) {
+    return true;
+  }
+
+  if (isGroupClick(eventIdWithType)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return false;
@@ -57,37 +108,57 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       groups: updateSelectedGroupOptions(current.groups, { ...clickedOption, selected: !clickedOption.selected }),
     });
     dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
-  } else if (eventIdWithType === events.clearClick || eventIdWithType === events.clearAllClick) {
+    return true;
+  }
+
+  if (isClearOptionsClick(eventIdWithType)) {
     dataHandlers.updateData({
       groups: clearAllSelectedOptions(current.groups),
     });
     dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: undefined });
-  } else if (type === eventTypes.outSideClick) {
-    dataHandlers.updateData({ open: false });
-    dataHandlers.updateMetaData({
-      focusTarget: 'button',
-    });
-  } else if (eventIdWithType === events.filterChange) {
+    return true;
+  }
+
+  if (isOutsideClick(type)) {
+    if (openOrClose(false)) {
+      dataHandlers.updateMetaData({
+        focusTarget: 'button',
+      });
+      return true;
+    }
+  }
+
+  if (isFilterChangeEvent(eventIdWithType)) {
     const filterValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ filter: filterValue });
     dataHandlers.updateData({ groups: filterOptions(current.groups, filterValue) });
-  } else if (eventIdWithType === events.searchChange) {
+    return true;
+  }
+
+  if (isSearchChangeEvent(eventIdWithType)) {
     const searchValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ search: searchValue, searchUpdate: Date.now() });
     if (!searchValue) {
       dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
     }
-  } else if (eventIdWithType === events.showAllClick) {
+    return true;
+  }
+
+  if (isShowAllClick(eventIdWithType)) {
     dataHandlers.updateMetaData({ showAllTags: !showAllTags });
-  } else if (id === eventIds.searchResult) {
+    return true;
+  }
+
+  if (isSearchResultsUpdate(id)) {
     if (type === eventTypes.success) {
       dataHandlers.updateMetaData({ isSearching: false });
       dataHandlers.updateData({
         groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),
       });
     }
+    return true;
   }
-  return true;
+  return false;
 };
 
 const executeSearch = (search: string, searchFunc: SearchFunction): [() => void, Promise<ChangeEvent>] => {

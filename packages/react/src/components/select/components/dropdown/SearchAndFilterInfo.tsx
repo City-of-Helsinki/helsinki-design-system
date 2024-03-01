@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { countVisibleOptions } from '../../utils';
 import { LoadingSpinner } from '../../../loadingSpinner';
 import { DivElementProps } from '../../types';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const createSearchAndFilterInfoProps = (): DivElementProps => {
   return {
