@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from '../Select.module.scss';
-import classNames from '../../../utils/classNames';
-import { LiElementProps, Option } from '../types';
-import { Checkbox } from '../../checkbox/Checkbox';
-import { eventIds, eventTypes } from '../events';
-import { ChangeTrigger } from '../../dataProvider/DataContext';
+import styles from '../../Select.module.scss';
+import classNames from '../../../../utils/classNames';
+import { LiElementProps, Option } from '../../types';
+import { Checkbox } from '../../../checkbox/Checkbox';
+import { eventIds, eventTypes } from '../../events';
+import { ChangeTrigger } from '../../../dataProvider/DataContext';
 
 export type SelectItemProps = {
   option: Option;

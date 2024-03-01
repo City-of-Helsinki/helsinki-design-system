@@ -7,16 +7,16 @@ import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
 import { propsToGroups, childrenToGroups } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
-import { SelectedOptions } from './components/SelectedOptions';
+import { SelectedOptions } from './components/mainButton/SelectedOptions';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
-import { OptionsList } from './components/OptionsList';
-import { ListAndInputContainer } from './components/ListAndInputContainer';
+import { OptionsList } from './components/dropdown/OptionsList';
+import { ListAndInputContainer } from './components/dropdown/ListAndInputContainer';
 import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
-import { FilterInput } from './components/FilterInput';
-import { SearchInput } from './components/SearchInput';
-import { SearchAndFilterInfo } from './components/SearchAndFilterInfo';
-import { TagList } from './components/TagList';
+import { FilterInput } from './components/dropdown/FilterInput';
+import { SearchInput } from './components/dropdown/SearchInput';
+import { SearchAndFilterInfo } from './components/dropdown/SearchAndFilterInfo';
+import { TagList } from './components/tagList/TagList';
 
 export function Select({
   options,
@@ -104,15 +104,15 @@ export function Select({
         <SelectionsAndListsContainer>
           <SelectedOptions />
           <ListAndInputContainer>
-            {initialData.showFiltering && <FilterInput />}
-            {initialData.showSearch && <SearchInput />}
+            <FilterInput />
+            <SearchInput />
             <OptionsList />
             <SearchAndFilterInfo />
           </ListAndInputContainer>
         </SelectionsAndListsContainer>
         <ErrorNotification />
         <AssistiveText />
-        {initialData.multiSelect && <TagList />}
+        <TagList />
       </Container>
     </DataProvider>
   );

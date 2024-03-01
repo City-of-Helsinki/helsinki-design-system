@@ -1,13 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 
-import styles from '../Select.module.scss';
-import { DivElementProps, SelectMetaData, ButtonElementProps, Option, SelectDataHandlers } from '../types';
-import { IconCrossCircle, IconAngleDown } from '../../../icons';
-import classNames from '../../../utils/classNames';
-import { getIndexOfFirstVisibleChild } from '../../../utils/getIndexOfFirstVisibleChild';
-import { createOnClickListener, getSelectedOptions } from '../utils';
-import { eventTypes, eventIds } from '../events';
-import { useSelectDataHandlers } from '../typedHooks';
+import styles from '../../Select.module.scss';
+import classNames from '../../../../utils/classNames';
+import { eventIds, eventTypes } from '../../events';
+import { useSelectDataHandlers } from '../../typedHooks';
+import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
+import { getSelectedOptions, createOnClickListener } from '../../utils';
+import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   options: Option[];
@@ -16,53 +15,6 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   optionClassName: string;
   buttonRef: SelectMetaData['refs']['selectionButton'];
 };
-
-const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
-  const { elementIds } = getMetaData();
-  const { groups, disabled } = getData();
-  const selectedOptions = getSelectedOptions(groups);
-  if (!selectedOptions.length) {
-    return null;
-  }
-  return {
-    className: classNames(styles.button, styles.icon, disabled && styles.disabledButton),
-    ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
-    id: elementIds.clearButton,
-    disabled,
-  };
-};
-
-function ClearButton() {
-  const props = createClearButtonProps(useSelectDataHandlers());
-  if (!props) {
-    return null;
-  }
-  return (
-    <button type="button" {...props}>
-      <IconCrossCircle className={styles.angleIcon} aria-hidden />
-    </button>
-  );
-}
-
-const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHandlers): ButtonElementProps => {
-  const { elementIds } = getMetaData();
-  const { disabled } = getData();
-  return {
-    className: classNames(styles.button, styles.icon, disabled && styles.disabledButton),
-    ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
-    id: elementIds.arrowButton,
-    disabled,
-  };
-};
-
-function ArrowButton() {
-  const props = createArrowButtonProps(useSelectDataHandlers());
-  return (
-    <button type="button" {...props} aria-hidden>
-      <IconAngleDown className={styles.angleIcon} aria-hidden />
-    </button>
-  );
-}
 
 const createButtonWithSelectedOptionsProps = ({
   getData,
@@ -89,35 +41,6 @@ const createButtonWithSelectedOptionsProps = ({
     disabled,
   };
 };
-
-function ButtonWithSelectedOptions() {
-  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } =
-    createButtonWithSelectedOptionsProps(useSelectDataHandlers());
-  const labels = options.length ? (
-    options.map((opt) => (
-      <span className={optionClassName} key={opt.value}>
-        {opt.label}
-      </span>
-    ))
-  ) : (
-    <span className={optionClassName}>{placeholder}</span>
-  );
-  return (
-    <button type="button" {...attr} ref={buttonRef}>
-      {icon && <span key="icon">{icon}</span>}
-      <div className={styles.labels} key="labels">
-        {labels}
-      </div>
-      {options.length > 1 && (
-        <span className={styles.count} key="count">
-          <span className="count" key="number">
-            +1
-          </span>
-        </span>
-      )}
-    </button>
-  );
-}
 
 /*
 This function updates the indicator showing how many options are hidden.
@@ -160,25 +83,38 @@ function updateHiddenElementsCount(metaData: SelectMetaData) {
   }
 }
 
-function createContainerProps(): DivElementProps {
-  return {
-    className: classNames(styles.selectedOptionsContainer),
-  };
-}
+export function ButtonWithSelectedOptions() {
+  const { options, placeholder, buttonRef, optionClassName, icon, ...attr } =
+    createButtonWithSelectedOptionsProps(useSelectDataHandlers());
+  const labels = options.length ? (
+    options.map((opt) => (
+      <span className={optionClassName} key={opt.value}>
+        {opt.label}
+      </span>
+    ))
+  ) : (
+    <span className={optionClassName}>{placeholder}</span>
+  );
 
-export function SelectedOptions() {
   const dataHandlers = useSelectDataHandlers();
-  const attr = createContainerProps();
 
   useLayoutEffect(() => {
     updateHiddenElementsCount(dataHandlers.getMetaData());
   });
 
   return (
-    <div {...attr}>
-      <ButtonWithSelectedOptions />
-      <ClearButton />
-      <ArrowButton />
-    </div>
+    <button type="button" {...attr} ref={buttonRef}>
+      {icon && <span key="icon">{icon}</span>}
+      <div className={styles.labels} key="labels">
+        {labels}
+      </div>
+      {options.length > 1 && (
+        <span className={styles.count} key="count">
+          <span className="count" key="number">
+            +1
+          </span>
+        </span>
+      )}
+    </button>
   );
 }

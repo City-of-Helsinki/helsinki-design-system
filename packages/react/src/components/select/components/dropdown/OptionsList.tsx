@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from '../Select.module.scss';
-import classNames from '../../../utils/classNames';
-import { DivElementProps, Option, SelectData, SelectDataHandlers, SelectMetaData } from '../types';
+import styles from '../../Select.module.scss';
+import classNames from '../../../../utils/classNames';
+import { DivElementProps, Option, SelectData, SelectDataHandlers, SelectMetaData } from '../../types';
 import {
   createMultiSelectGroupLabelProps,
   createMultiSelectItemProps,
@@ -13,9 +13,9 @@ import {
   MultiSelectOptionListItem,
   OptionListItem,
 } from './OptionListItem';
-import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../utils';
-import { useSelectDataHandlers } from '../typedHooks';
-import { ChangeTrigger } from '../../dataProvider/DataContext';
+import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../../utils';
+import { useSelectDataHandlers } from '../../typedHooks';
+import { ChangeTrigger } from '../../../dataProvider/DataContext';
 import { VirtualizedListElement } from './VirtualizedListElement';
 
 const createOptionsListItemProps = ({
