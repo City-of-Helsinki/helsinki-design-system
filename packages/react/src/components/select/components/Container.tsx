@@ -4,13 +4,14 @@ import styles from '../Select.module.scss';
 import { DivElementProps, SelectDataHandlers } from '../types';
 import { useFocusHandling } from '../hooks/useFocusHandling';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
+import classNames from '../../../utils/classNames';
 
 function createContainerProps(props: DivElementProps, { getMetaData }: SelectDataHandlers): DivElementProps {
   const { elementIds } = getMetaData();
   return {
     ...props,
     id: elementIds.container,
-    className: styles.wrapper,
+    className: classNames(styles.wrapper, styles.root),
   };
 }
 
