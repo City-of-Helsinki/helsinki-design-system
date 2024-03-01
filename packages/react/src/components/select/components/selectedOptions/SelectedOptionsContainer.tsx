@@ -7,14 +7,15 @@ import { ButtonWithSelectedOptions } from './ButtonWithSelectedOptions';
 import { ArrowButton } from './ArrowButton';
 import { ClearButton } from './ClearButton';
 
-function createContainerProps(): DivElementProps {
+function createContainerProps(props: Partial<DivElementProps>): DivElementProps {
   return {
+    ...props,
     className: classNames(styles.selectedOptionsContainer),
   };
 }
 
-export function SelectedOptions() {
-  const attr = createContainerProps();
+export function SelectedOptionsContainer(props: Partial<DivElementProps>) {
+  const attr = createContainerProps(props);
 
   return (
     <div {...attr}>

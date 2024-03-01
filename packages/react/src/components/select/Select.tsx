@@ -7,7 +7,7 @@ import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
 import { propsToGroups, childrenToGroups } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
-import { SelectedOptions } from './components/mainButton/SelectedOptions';
+import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
 import { OptionsList } from './components/dropdown/OptionsList';
 import { ListAndInputContainer } from './components/dropdown/ListAndInputContainer';
@@ -17,6 +17,9 @@ import { FilterInput } from './components/dropdown/FilterInput';
 import { SearchInput } from './components/dropdown/SearchInput';
 import { SearchAndFilterInfo } from './components/dropdown/SearchAndFilterInfo';
 import { TagList } from './components/tagList/TagList';
+import { ArrowButton } from './components/selectedOptions/ArrowButton';
+import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWithSelectedOptions';
+import { ClearButton } from './components/selectedOptions/ClearButton';
 
 export function Select({
   options,
@@ -92,6 +95,7 @@ export function Select({
         label: `${containerId}-label`,
         tagList: `${containerId}-tag-list`,
         searchOrFilterInput: `${containerId}-input-element`,
+        selectionsAndListsContainer: `${containerId}-sl-container`,
       },
     };
   }, [id]);
@@ -103,7 +107,11 @@ export function Select({
       <Container>
         <Label />
         <SelectionsAndListsContainer>
-          <SelectedOptions />
+          <SelectedOptionsContainer>
+            <ButtonWithSelectedOptions />
+            <ClearButton />
+            <ArrowButton />
+          </SelectedOptionsContainer>
           <ListAndInputContainer>
             <FilterInput />
             <SearchInput />

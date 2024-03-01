@@ -95,7 +95,8 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     }
     return null;
   };
-
+  // what key presses should do.
+  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
   const eventTracker = useCallback(
     (
       type: keyof typeof eventTypes,
@@ -103,14 +104,14 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     ) => {
       const element = e.target as Element;
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
-        console.log('-----BLURRED');
+        // console.log('-----BLURRED');
         const { onBlur } = getData() as SelectData;
         if (onBlur) {
           onBlur();
         }
       }
       if (type === eventTypes.focus && getIsElementFocused(e as FocusEvent<HTMLDivElement>)) {
-        console.log('-----FOCUSED');
+        // console.log('-----FOCUSED');
         const { onFocus } = getData() as SelectData;
         if (onFocus) {
           onFocus();

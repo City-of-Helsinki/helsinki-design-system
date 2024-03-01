@@ -11,46 +11,34 @@ import {
   getSelectedOptions,
   propsToGroups,
 } from './utils';
-import { eventIds, events, eventTypes } from './events';
+import {
+  EventId,
+  eventIds,
+  EventType,
+  eventTypes,
+  isClearOptionsClickEvent,
+  isFilterChangeEvent,
+  isGroupClickEvent,
+  isOpenOrCloseEvent,
+  isOptionClickEvent,
+  isOutsideClickEvent,
+  isSearchChangeEvent,
+  isSearchUpdateEvent,
+  isShowAllClickEvent,
+} from './events';
+
+const MIN_USER_INTERACTION_TIME_IN_MS = 100;
 
 const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
-  const { id, type, payload } = event;
+  const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
   if (current.disabled) {
     return false;
   }
 
-  const isOpenOrCloseEvent = (userEvent: string) => {
-    return userEvent === events.selectedOptionsClick || userEvent === events.arrowClick;
-  };
-  const isOptionClick = (userEvent: string) => {
-    return userEvent === events.listItemClick || userEvent === events.tagClick;
-  };
-  const isGroupClick = (userEvent: string) => {
-    return userEvent === events.listGroupClick;
-  };
-  const isClearOptionsClick = (userEvent: string) => {
-    return userEvent === events.clearClick || userEvent === events.clearAllClick;
-  };
-  const isOutsideClick = (userEvent?: string) => {
-    return userEvent === eventTypes.outSideClick;
-  };
-  const isFilterChangeEvent = (userEvent: string) => {
-    return userEvent === events.filterChange;
-  };
-  const isSearchChangeEvent = (userEvent: string) => {
-    return userEvent === events.searchChange;
-  };
-  const isShowAllClick = (userEvent: string) => {
-    return userEvent === events.showAllClick;
-  };
-  const isSearchResultsUpdate = (eventId: string) => {
-    return eventId === eventIds.searchResult;
-  };
-
   const openOrClose = (open: boolean) => {
     const now = Date.now();
-    if (now - dataHandlers.getMetaData().lastToggleCommand < 100) {
+    if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
       return false;
     }
     dataHandlers.updateData({ open });
@@ -64,11 +52,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     });
   };
 
-  console.log('::::', id, type);
   const { showAllTags } = dataHandlers.getMetaData();
-  const eventIdWithType = `${id}_${type}`;
 
-  if (isOpenOrCloseEvent(eventIdWithType)) {
+  if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
     if (didUpdate && willOpen) {
@@ -77,7 +63,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     return true;
   }
 
-  if (isOptionClick(eventIdWithType)) {
+  if (isOptionClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return false;
@@ -89,9 +75,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
         current.multiSelect,
       ),
     });
-    openOrClose(eventIdWithType !== events.tagClick && current.multiSelect);
+    openOrClose(id !== eventIds.tag && current.multiSelect);
     dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
-    if (eventIdWithType === events.listItemClick && !current.multiSelect) {
+    if (id === eventIds.listItem && !current.multiSelect) {
       dataHandlers.updateMetaData({
         focusTarget: 'button',
       });
@@ -99,7 +85,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     return true;
   }
 
-  if (isGroupClick(eventIdWithType)) {
+  if (isGroupClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return false;
@@ -111,7 +97,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     return true;
   }
 
-  if (isClearOptionsClick(eventIdWithType)) {
+  if (isClearOptionsClickEvent(id, type)) {
     dataHandlers.updateData({
       groups: clearAllSelectedOptions(current.groups),
     });
@@ -119,7 +105,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     return true;
   }
 
-  if (isOutsideClick(type)) {
+  if (isOutsideClickEvent(id, type)) {
     if (openOrClose(false)) {
       dataHandlers.updateMetaData({
         focusTarget: 'button',
@@ -128,14 +114,14 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     }
   }
 
-  if (isFilterChangeEvent(eventIdWithType)) {
+  if (isFilterChangeEvent(id, type)) {
     const filterValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ filter: filterValue });
     dataHandlers.updateData({ groups: filterOptions(current.groups, filterValue) });
     return true;
   }
 
-  if (isSearchChangeEvent(eventIdWithType)) {
+  if (isSearchChangeEvent(id, type)) {
     const searchValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ search: searchValue, searchUpdate: Date.now() });
     if (!searchValue) {
@@ -144,12 +130,12 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     return true;
   }
 
-  if (isShowAllClick(eventIdWithType)) {
+  if (isShowAllClickEvent(id, type)) {
     dataHandlers.updateMetaData({ showAllTags: !showAllTags });
     return true;
   }
 
-  if (isSearchResultsUpdate(id)) {
+  if (isSearchUpdateEvent(id, type)) {
     if (type === eventTypes.success) {
       dataHandlers.updateMetaData({ isSearching: false });
       dataHandlers.updateData({
