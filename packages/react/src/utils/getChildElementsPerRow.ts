@@ -34,12 +34,6 @@ export const getChildElementsPerRow = (container: HTMLElement | Element, maxRows
     if (!rowBounds) {
       return true;
     }
-    /*
-    console.log('childRect.right', childRect.right);
-    console.log('rowBounds.right', rowBounds.right);
-    console.log('childRect.top', childRect.top);
-    console.log('rowBounds.bottom', rowBounds.bottom);
-    */
     if (childRect.right < rowBounds.right && childRect.top > rowBounds.bottom) {
       return true;
     }

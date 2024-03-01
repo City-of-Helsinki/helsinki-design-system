@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
-import styles from '../Select.module.scss';
-import classNames from '../../../utils/classNames';
-import { DivElementProps, SelectDataHandlers } from '../types';
-import { useSelectDataHandlers } from '../typedHooks';
-import useOutsideClick from '../../../hooks/useOutsideClick';
-import { eventIds, eventTypes } from '../events';
+import styles from '../../Select.module.scss';
+import classNames from '../../../../utils/classNames';
+import { DivElementProps, SelectDataHandlers } from '../../types';
+import { useSelectDataHandlers } from '../../typedHooks';
+import useOutsideClick from '../../../../hooks/useOutsideClick';
+import { eventIds, eventTypes } from '../../events';
 
 const createListAndInputContainerProps = (
   props: DivElementProps,

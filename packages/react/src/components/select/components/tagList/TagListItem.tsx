@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from '../Select.module.scss';
-import { Option } from '../types';
-import classNames from '../../../utils/classNames';
-import { Tag, TagProps } from '../../tag/Tag';
-import { ChangeTrigger } from '../../dataProvider/DataContext';
-import { eventTypes, eventIds } from '../events';
+import styles from '../../Select.module.scss';
+import { Option } from '../../types';
+import classNames from '../../../../utils/classNames';
+import { Tag, TagProps } from '../../../tag/Tag';
+import { ChangeTrigger } from '../../../dataProvider/DataContext';
+import { eventTypes, eventIds } from '../../events';
 
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger; disabled: boolean };
 
@@ -25,7 +25,7 @@ const createDelectedTagProps = ({ option, trigger, disabled }: SelectedTagProps)
   };
 };
 
-export function SelectedTag(props: SelectedTagProps) {
+export function TagListItem(props: SelectedTagProps) {
   const { children, ...attr } = createDelectedTagProps(props);
   return <Tag {...attr}>{children}</Tag>;
 }

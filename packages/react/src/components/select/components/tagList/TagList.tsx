@@ -1,16 +1,16 @@
 import React, { useLayoutEffect } from 'react';
 
-import styles from '../Select.module.scss';
-import classNames from '../../../utils/classNames';
-import { Button, ButtonProps } from '../../button/Button';
-import { getSelectedOptions, createOnClickListener } from '../utils';
-import { SelectedTag } from './SelectedTag';
-import { IconAngleDown, IconCrossCircleFill } from '../../../icons';
-import { DivElementProps, SelectData, SelectDataHandlers, SelectMetaData } from '../types';
-import { useContextDataHandlers, useChangeTrigger } from '../../dataProvider/hooks';
-import { getChildElementsPerRow } from '../../../utils/getChildElementsPerRow';
-import { eventIds } from '../events';
-import { useSelectDataHandlers } from '../typedHooks';
+import styles from '../../Select.module.scss';
+import classNames from '../../../../utils/classNames';
+import { Button, ButtonProps } from '../../../button/Button';
+import { getSelectedOptions, createOnClickListener } from '../../utils';
+import { TagListItem } from './TagListItem';
+import { IconAngleDown, IconCrossCircleFill } from '../../../../icons';
+import { DivElementProps, SelectData, SelectDataHandlers, SelectMetaData } from '../../types';
+import { useContextDataHandlers, useChangeTrigger } from '../../../dataProvider/hooks';
+import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow';
+import { eventIds } from '../../events';
+import { useSelectDataHandlers } from '../../typedHooks';
 
 const clearButtonPropSetter = ({ getData, trigger }: SelectDataHandlers): ButtonProps => {
   const { disabled } = getData();
@@ -76,7 +76,7 @@ function Tags() {
       ref={refs.tagList}
     >
       {selectedOptions.map((option) => (
-        <SelectedTag option={option} trigger={trigger} key={option.value} disabled={disabled} />
+        <TagListItem option={option} trigger={trigger} key={option.value} disabled={disabled} />
       ))}
     </div>
   );
@@ -113,8 +113,9 @@ function createButtonContainerProps(): DivElementProps {
 
 export function TagList() {
   const { getData, getMetaData } = useSelectDataHandlers();
+  const { groups, multiSelect } = getData();
 
-  const selectedOptions = getSelectedOptions(getData().groups);
+  const selectedOptions = multiSelect ? getSelectedOptions(groups) : [];
 
   useLayoutEffect(() => {
     checkIfShowAllButtonIsNeeded(getMetaData());

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import styles from '../Select.module.scss';
-import { TextInput, TextInputProps } from '../../textInput/TextInput';
-import { IconSearch } from '../../../icons';
-import { SelectDataHandlers, SelectMetaData } from '../types';
-import classNames from '../../../utils/classNames';
-import { createInputOnChangeListener } from '../utils';
-import { eventIds } from '../events';
-import { useSelectDataHandlers } from '../typedHooks';
+import styles from '../../Select.module.scss';
+import { TextInput, TextInputProps } from '../../../textInput/TextInput';
+import { IconSearch } from '../../../../icons';
+import { SelectDataHandlers, SelectMetaData } from '../../types';
+import classNames from '../../../../utils/classNames';
+import { createInputOnChangeListener } from '../../utils';
+import { eventIds } from '../../events';
+import { useSelectDataHandlers } from '../../typedHooks';
 
 const createSearchInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
   const { search, elementIds, refs } = getMetaData() as SelectMetaData;
@@ -30,6 +30,10 @@ const createSearchInputProps = ({ getMetaData, trigger }: SelectDataHandlers): T
 };
 
 export function SearchInput() {
-  const inputProps = createSearchInputProps(useSelectDataHandlers());
+  const dataHandlers = useSelectDataHandlers();
+  if (!dataHandlers.getData().showSearch) {
+    return null;
+  }
+  const inputProps = createSearchInputProps(dataHandlers);
   return <TextInput {...inputProps} />;
 }
