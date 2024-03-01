@@ -1,14 +1,12 @@
 @import '../../styles/common.scss';
 @import '../dropdown/dropdown.common.scss';
 
-.wrapper {
+.root {
+  @extend %dropdownRoot;
+
   display: flex;
   flex-direction: column;
   max-width: 420px;
-}
-
-.root {
-  @extend %dropdownRoot;
 
   &.open {
     .angleIcon {
@@ -27,14 +25,10 @@
   --menu-item-background-disabled: var(--color-white);
 }
 
-.container {
+.selectAndListContainer {
   @extend %dropdownWrapper;
 
   margin-bottom: var(--spacing-2-xs);
-}
-
-.label {
-  color: var(--dropdown-color-default);
 }
 
 .selectedOptionsContainer {

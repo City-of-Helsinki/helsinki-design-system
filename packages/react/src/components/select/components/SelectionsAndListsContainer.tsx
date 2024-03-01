@@ -12,7 +12,7 @@ function createComponentProps(
   const { error, open } = getData();
   return {
     ...props,
-    className: classNames(styles.root, styles.container, error && styles.error, open && styles.open),
+    className: classNames(styles.selectAndListContainer, error && styles.error, open && styles.open),
   };
 }
 
