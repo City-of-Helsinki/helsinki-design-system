@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
-import { useSelectDataHandlers } from '../typedHooks';
+import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 import { SelectDataHandlers } from '../types';
 
 type FieldLabelProps = Parameters<typeof FieldLabel>[0];

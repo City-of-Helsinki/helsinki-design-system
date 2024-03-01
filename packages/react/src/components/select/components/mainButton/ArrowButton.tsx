@@ -5,7 +5,7 @@ import { ButtonElementProps, SelectDataHandlers } from '../../types';
 import classNames from '../../../../utils/classNames';
 import { createOnClickListener } from '../../utils';
 import { eventTypes, eventIds } from '../../events';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { IconAngleDown } from '../../../../icons';
 
 const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHandlers): ButtonElementProps => {

@@ -10,7 +10,7 @@ import { DivElementProps, SelectData, SelectDataHandlers, SelectMetaData } from 
 import { useContextDataHandlers, useChangeTrigger } from '../../../dataProvider/hooks';
 import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow';
 import { eventIds } from '../../events';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const clearButtonPropSetter = ({ getData, trigger }: SelectDataHandlers): ButtonProps => {
   const { disabled } = getData();

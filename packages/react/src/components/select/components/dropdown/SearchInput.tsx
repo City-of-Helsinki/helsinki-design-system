@@ -7,7 +7,7 @@ import { SelectDataHandlers, SelectMetaData } from '../../types';
 import classNames from '../../../../utils/classNames';
 import { createInputOnChangeListener } from '../../utils';
 import { eventIds } from '../../events';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const createSearchInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
   const { search, elementIds, refs } = getMetaData() as SelectMetaData;

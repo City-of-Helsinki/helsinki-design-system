@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react';
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
-import { useSelectDataHandlers } from '../../typedHooks';
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
 import { getSelectedOptions, createOnClickListener } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
