@@ -103,6 +103,8 @@ export const createMultiSelectGroupLabelProps = ({
     label,
     indeterminate: isIntermediate,
     selected: option.selected,
+    'aria-selected': option.selected,
+    role: 'option',
     onClick: (originalEvent: React.MouseEvent) => {
       if (isGroupDisabled) {
         return;
@@ -135,6 +137,7 @@ export function MultiSelectOptionListItem(props: LiElementWithCheckboxProps) {
           e.preventDefault();
         }}
         checked={selected}
+        aria-hidden
       />
       <label>{label}</label>
     </li>

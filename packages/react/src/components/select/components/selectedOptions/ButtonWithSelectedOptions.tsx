@@ -21,7 +21,7 @@ const createButtonWithSelectedOptionsProps = ({
   getMetaData,
   trigger,
 }: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { groups, placeholder, disabled } = getData();
+  const { groups, placeholder, disabled, open } = getData();
   const { icon, refs, elementIds } = getMetaData();
   const selectedOptions = getSelectedOptions(groups);
   return {
@@ -39,6 +39,9 @@ const createButtonWithSelectedOptionsProps = ({
     buttonRef: refs.selectionButton,
     id: elementIds.button,
     disabled,
+    'aria-controls': elementIds.selectionsAndListsContainer,
+    'aria-expanded': open,
+    'aria-haspopup': 'listbox',
   };
 };
 

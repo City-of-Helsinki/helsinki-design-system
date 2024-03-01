@@ -103,6 +103,7 @@ const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) =>
     ref: refs.list,
     tabIndex: -1,
     id: elementIds.list,
+    role: 'listbox',
   };
 };
 

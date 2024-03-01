@@ -20,6 +20,7 @@ const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHan
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
     id: elementIds.clearButton,
     disabled,
+    'aria-label': 'Remove all selections',
   };
 };
 

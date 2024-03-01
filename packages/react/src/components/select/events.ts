@@ -1,3 +1,6 @@
+export type EventId = keyof typeof eventIds;
+export type EventType = keyof typeof eventTypes;
+
 export const eventIds = {
   selectedOptions: 'selectedOptions',
   listItem: 'listItem',
@@ -11,7 +14,8 @@ export const eventIds = {
   search: 'search',
   searchResult: 'searchResult',
   generic: 'generic',
-};
+} as const;
+
 export const eventTypes = {
   click: 'click',
   outSideClick: 'outSideClick',
@@ -25,18 +29,56 @@ export const eventTypes = {
   mousedown: 'mousedown',
 } as const;
 
-export const events = {
-  selectedOptionsClick: `${eventIds.selectedOptions}_${eventTypes.click}`,
-  listItemClick: `${eventIds.listItem}_${eventTypes.click}`,
-  listGroupClick: `${eventIds.listGroup}_${eventTypes.click}`,
-  clearClick: `${eventIds.clearButton}_${eventTypes.click}`,
-  clearAllClick: `${eventIds.clearAllButton}_${eventTypes.click}`,
-  showAllClick: `${eventIds.showAllButton}_${eventTypes.click}`,
-  arrowClick: `${eventIds.arrowButton}_${eventTypes.click}`,
-  tagClick: `${eventIds.tag}_${eventTypes.click}`,
-  filterChange: `${eventIds.filter}_${eventTypes.change}`,
-  searchChange: `${eventIds.search}_${eventTypes.change}`,
-  searchResultSuccess: `${eventIds.searchResult}_${eventTypes.success}`,
-  searchResultError: `${eventIds.searchResult}_${eventTypes.error}`,
-  searchResultCancelled: `${eventIds.searchResult}_${eventTypes.cancelled}`,
+const isClick = (eventType?: EventType) => eventType === eventTypes.click;
+const isChange = (eventType?: EventType) => eventType === eventTypes.change;
+const isError = (eventType?: EventType) => eventType === eventTypes.error;
+const isCancelled = (eventType?: EventType) => eventType === eventTypes.cancelled;
+const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
+const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || eventId === eventIds.tag;
+const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
+const isEventForListToggle = (eventId: EventId) =>
+  eventId === eventIds.selectedOptions || eventId === eventIds.arrowButton;
+
+export const isOpenOrCloseEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && isEventForListToggle(eventId);
+};
+
+export const isOptionClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && isIdForOption(eventId);
+};
+
+export const isGroupClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && eventId === eventIds.listGroup;
+};
+
+export const isClearOptionsClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && isIdForClear(eventId);
+};
+
+export const isOutsideClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isGenericEvent(eventId) && eventType === eventTypes.outSideClick;
+};
+
+export const isFilterChangeEvent = (eventId: EventId, eventType?: EventType) => {
+  return isChange(eventType) && eventId === eventIds.filter;
+};
+
+export const isSearchChangeEvent = (eventId: EventId, eventType?: EventType) => {
+  return isChange(eventType) && eventId === eventIds.search;
+};
+
+export const isShowAllClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && eventId === eventIds.showAllButton;
+};
+
+export const isSearchUpdateEvent = (eventId: EventId, eventType?: EventType) => {
+  return eventId === eventIds.searchResult && eventType === eventTypes.success;
+};
+
+export const isSearchErrorEvent = (eventId: EventId, eventType?: EventType) => {
+  return isError(eventType) && eventId === eventIds.searchResult;
+};
+
+export const isSearchCancelledEvent = (eventId: EventId, eventType?: EventType) => {
+  return isCancelled(eventType) && eventId === eventIds.searchResult;
 };

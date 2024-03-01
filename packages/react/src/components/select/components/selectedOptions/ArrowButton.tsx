@@ -16,6 +16,7 @@ const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHan
     ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
     id: elementIds.arrowButton,
     disabled,
+    'aria-hidden': true,
   };
 };
 
