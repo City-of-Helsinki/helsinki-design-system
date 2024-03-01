@@ -118,7 +118,11 @@ import { Notification, Button } from 'hds-react';
 ```
 
 ```html
-<section aria-label="Notification" class="hds-notification hds-notification--top-right">
+<button type="button" onclick="document.getElementById('toast-container').style.display = 'inherit';" class="hds-button hds-button--primary">
+  <span class="hds-button__label">Show toast</span>
+</button>
+
+<section id="toast-container" style="display: none;" aria-label="Notification" class="hds-notification hds-notification--top-right">
   <div role="alert" class="hds-notification__content">
     <div class="hds-notification__label">
       <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
@@ -126,7 +130,7 @@ import { Notification, Button } from 'hds-react';
     </div>
     <div class="hds-notification__body">You have received new messages.</div>
   </div>
-  <button class="hds-notification__close-button" aria-label="Close toast" type="button" onclick="">
+  <button class="hds-notification__close-button" aria-label="Close toast" type="button" onclick="document.getElementById('toast-container').style.display = 'none';">
     <span class="hds-icon hds-icon--cross" aria-hidden="true"></span>
   </button>
 </section>
