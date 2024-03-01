@@ -64,6 +64,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Button] Fix wrong label on secondary Button variant example.
 
 ### Figma
 
