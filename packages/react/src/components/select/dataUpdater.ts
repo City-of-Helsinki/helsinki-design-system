@@ -28,7 +28,8 @@ import {
   isShowAllClickEvent,
 } from './events';
 
-const MIN_USER_INTERACTION_TIME_IN_MS = 100;
+// this is too high atm.
+const MIN_USER_INTERACTION_TIME_IN_MS = 500;
 
 const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
@@ -36,13 +37,14 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   if (current.disabled) {
     return false;
   }
+  // console.log('-.-', id, type);
   const openOrClose = (open: boolean) => {
     const now = Date.now();
     if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
       return false;
     }
     dataHandlers.updateData({ open });
-    dataHandlers.updateMetaData({ lastToggleCommand: Date.now() });
+    dataHandlers.updateMetaData({ lastToggleCommand: now });
     return true;
   };
 

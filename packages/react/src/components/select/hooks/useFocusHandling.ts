@@ -10,10 +10,8 @@ import {
 } from 'react';
 
 import { eventTypes } from '../events';
-import { SelectDataHandlers } from '../types';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
-import { isListItemType, isTagType, useElementDetection } from './useElementDetection';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 
 /**
@@ -46,62 +44,6 @@ type ReturnObject = Pick<
 export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData } = useSelectDataHandlers();
   const { refs, focusTarget } = getMetaData();
-  const { getEventElementType, getListItemSiblings, getTagSiblings } = useElementDetection();
-  /* const isElementHit = (target: RefObject<Element>, eventTarget?: Element) => {
-    if (!target.current || !eventTarget) {
-      return false;
-    }
-
-    return target.current === eventTarget || target.current.contains(eventTarget);
-  };
-
-  
-
-  const elementIdEntries = Object.entries(elementIds);
-  const getElementId = (element: Element): string | null => {
-    return element.getAttribute('id');
-  };
-  
-  const getKnownElementId = (element: Element): string | null => {
-    const id = getElementId(element);
-
-    if (!id) {
-      return null;
-    }
-    const index = elementIdEntries.findIndex(([, v]) => {
-      return v === id;
-    });
-    return index > -1 ? elementIdEntries[index][1] : null;
-  };
-  
-  const getHittedElement = (eventSource: Element): SelectMetaData['focusTarget'] => {
-    if (refs.listContainer && isElementHit(refs.listContainer, eventSource)) {
-      return 'list';
-    }
-    if (refs.selectionButton && isElementHit(refs.selectionButton, eventSource)) {
-      return 'button';
-    }
-    if (refs.selectContainer && isElementHit(refs.selectContainer, eventSource)) {
-      return 'container';
-    }
-    return undefined;
-  };
-
-  const getClosestKnownElementById = (eventSource: Element): string | null => {
-    let element: Element | null = eventSource;
-    while (element) {
-      const knownId = getKnownElementId(element);
-      if (knownId) {
-        element = null;
-        return knownId;
-      }
-      element = element.parentElement;
-    }
-    return null;
-  };
-  */
-  // what key presses should do.
-  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
   const eventTracker = useCallback(
     (
       type: keyof typeof eventTypes,
@@ -165,17 +107,6 @@ export function useFocusHandling(): ReturnObject {
     },
     onBlur: (e) => {
       eventTracker(eventTypes.blur, e);
-    },
-
-    onMouseUp: (e: MouseEvent<HTMLDivElement>) => {
-      const { type, element } = getEventElementType(e);
-      if (type && element && isListItemType(type)) {
-        console.log('list sibs', getListItemSiblings(element));
-      }
-      if (type && element && isTagType(type)) {
-        console.log('tag sibs', getTagSiblings(element));
-      }
-      console.log('type', type);
     },
     tabIndex: -1,
     ref: refs.selectContainer,

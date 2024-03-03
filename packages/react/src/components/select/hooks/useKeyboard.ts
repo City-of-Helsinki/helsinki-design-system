@@ -11,6 +11,10 @@ import {
 } from './useElementDetection';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 
+// what key presses should do.
+// https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
+// https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+
 const alphanumRegExp = /[a-z0-9äöå]/i;
 
 export const isAlphaNumKey = (e: KeyboardEvent<HTMLElement>) => {
@@ -43,7 +47,6 @@ export function useKeyboard() {
   const { getEventElementType, getListItemSiblings } = useElementDetection();
   const { trigger, getData, getMetaData } = useSelectDataHandlers();
 
-  // https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
   const onKeyUp = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       const { type, element } = getEventElementType(e);
