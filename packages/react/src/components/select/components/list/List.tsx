@@ -4,19 +4,21 @@ import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { DivElementProps, Option, SelectData, SelectDataHandlers, SelectMetaData } from '../../types';
 import {
-  createMultiSelectGroupLabelProps,
-  createMultiSelectItemProps,
   createSingleSelectGroupLabelProps,
   createSingleSelectItemProps,
   LiElementWithCheckboxProps,
   MultiSelectGroupLabelProps,
-  MultiSelectOptionListItem,
   OptionListItem,
-} from './OptionListItem';
+} from './SingleSelectItem';
 import { getAllOptions, getOptionGroupIndex, getSelectedOptionsPerc, getVisibleGroupLabels } from '../../utils';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ChangeTrigger } from '../../../dataProvider/DataContext';
 import { VirtualizedListElement } from './VirtualizedListElement';
+import {
+  createMultiSelectGroupLabelProps,
+  createMultiSelectItemProps,
+  MultiSelectOptionListItem,
+} from './MultiSelectItem';
 
 const createOptionsListItemProps = ({
   option,
@@ -107,7 +109,7 @@ const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) =>
   };
 };
 
-export const OptionsList = () => {
+export const List = () => {
   const handlers = useSelectDataHandlers();
   const { children } = createOptionsListChildren(handlers);
   if (!children || (Array.isArray(children) && !children.length)) {

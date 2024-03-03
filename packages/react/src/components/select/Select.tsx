@@ -9,13 +9,13 @@ import { propsToGroups, childrenToGroups } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
-import { OptionsList } from './components/dropdown/OptionsList';
-import { ListAndInputContainer } from './components/dropdown/ListAndInputContainer';
+import { List } from './components/list/List';
+import { ListAndInputContainer } from './components/list/ListAndInputContainer';
 import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
-import { FilterInput } from './components/dropdown/FilterInput';
-import { SearchInput } from './components/dropdown/SearchInput';
-import { SearchAndFilterInfo } from './components/dropdown/SearchAndFilterInfo';
+import { FilterInput } from './components/list/FilterInput';
+import { SearchInput } from './components/list/SearchInput';
+import { SearchAndFilterInfo } from './components/list/SearchAndFilterInfo';
 import { TagList } from './components/tagList/TagList';
 import { ArrowButton } from './components/selectedOptions/ArrowButton';
 import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWithSelectedOptions';
@@ -117,7 +117,7 @@ export function Select({
           <ListAndInputContainer>
             <FilterInput />
             <SearchInput />
-            <OptionsList />
+            <List />
             <SearchAndFilterInfo />
           </ListAndInputContainer>
         </SelectionsAndListsContainer>
