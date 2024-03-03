@@ -1,11 +1,4 @@
-import {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  HTMLAttributes,
-  LabelHTMLAttributes,
-  ReactNode,
-  RefObject,
-} from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, ReactNode, RefObject } from 'react';
 
 import { DataHandlers } from '../dataProvider/DataContext';
 
@@ -114,12 +107,9 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
 };
 
 export type DivElementProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>;
-export type LabelElementProps = DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, never>;
 export type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, never>;
-export type InputElementProps = DetailedHTMLProps<HTMLAttributes<HTMLInputElement>, never>;
 export type UlElementProps = DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, never>;
 export type LiElementProps = DetailedHTMLProps<HTMLAttributes<HTMLLIElement>, never>;
-export type PropSetterElementTypes = ButtonElementProps | DivElementProps | UlElementProps | LabelElementProps;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
 export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
