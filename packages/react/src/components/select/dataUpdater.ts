@@ -28,8 +28,7 @@ import {
   isShowAllClickEvent,
 } from './events';
 
-// this is too high atm.
-const MIN_USER_INTERACTION_TIME_IN_MS = 500;
+const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
 const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
@@ -54,6 +53,11 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     });
   };
 
+  const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
+    dataHandlers.updateData({ groups });
+    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
+  };
+
   const { showAllTags } = dataHandlers.getMetaData();
 
   if (isOpenOrCloseEvent(id, type)) {
@@ -70,19 +74,15 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     if (!clickedOption) {
       return false;
     }
-    dataHandlers.updateData({
-      groups: updateSelectedOptionInGroups(
-        current.groups,
-        { ...clickedOption, selected: !clickedOption.selected },
-        current.multiSelect,
-      ),
-    });
+    const newGroups = updateSelectedOptionInGroups(
+      current.groups,
+      { ...clickedOption, selected: !clickedOption.selected },
+      current.multiSelect,
+    );
+    updateGroups(newGroups, clickedOption);
     openOrClose(id !== eventIds.tag && current.multiSelect);
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
     if (id === eventIds.listItem && !current.multiSelect) {
-      dataHandlers.updateMetaData({
-        focusTarget: 'button',
-      });
+      setFocusTarget('button');
     }
     return true;
   }
@@ -92,26 +92,23 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     if (!clickedOption) {
       return false;
     }
-    dataHandlers.updateData({
-      groups: updateSelectedGroupOptions(current.groups, { ...clickedOption, selected: !clickedOption.selected }),
+    const newGroups = updateSelectedGroupOptions(current.groups, {
+      ...clickedOption,
+      selected: !clickedOption.selected,
     });
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
+    updateGroups(newGroups, clickedOption);
     return true;
   }
 
   if (isClearOptionsClickEvent(id, type)) {
-    dataHandlers.updateData({
-      groups: clearAllSelectedOptions(current.groups),
-    });
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: undefined });
+    const newGroups = clearAllSelectedOptions(current.groups);
+    updateGroups(newGroups);
     return true;
   }
 
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
     if (openOrClose(false)) {
-      dataHandlers.updateMetaData({
-        focusTarget: 'button',
-      });
+      setFocusTarget('button');
       return true;
     }
   }

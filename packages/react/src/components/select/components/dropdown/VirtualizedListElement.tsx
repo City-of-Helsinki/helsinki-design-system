@@ -2,15 +2,16 @@ import React, { PropsWithChildren, forwardRef, ForwardedRef, MutableRefObject } 
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { UlElementProps } from '../../types';
+import { useRenderChildrenInChunks } from '../../hooks/useRenderChildrenInChunks';
 
 type Props = PropsWithChildren<UlElementProps>;
 
 export const VirtualizedListElement = forwardRef<HTMLUListElement, Props>(
   (props: Props, ref: ForwardedRef<HTMLUListElement>) => {
     const { children, ...attr } = props;
-    const childElements = children as React.ReactNode[];
+    const currentChildren = useRenderChildrenInChunks(children);
     const rowVirtualizer = useVirtualizer({
-      count: childElements.length || 0,
+      count: currentChildren.length || 0,
       getScrollElement: () => (ref ? (ref as MutableRefObject<Element>).current : null),
       estimateSize: () => 52,
     });
@@ -40,7 +41,7 @@ export const VirtualizedListElement = forwardRef<HTMLUListElement, Props>(
                 transform: `translateY(${virtualItem.start}px)`,
               }}
             >
-              {childElements[virtualItem.index]}
+              {currentChildren[virtualItem.index]}
             </div>
           ))}
         </ul>
