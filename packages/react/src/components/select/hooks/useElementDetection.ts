@@ -1,10 +1,10 @@
-import { RefObject, MouseEvent, KeyboardEvent, BaseSyntheticEvent } from 'react';
+import { RefObject, MouseEvent, KeyboardEvent, FocusEvent, BaseSyntheticEvent } from 'react';
 import { isElement } from 'lodash';
 
 import { KnownElementType } from '../types';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 
-type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>;
+type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
 
 export function useElementDetection() {

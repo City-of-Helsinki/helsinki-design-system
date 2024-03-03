@@ -228,6 +228,8 @@
       }
 
       .selectableListItem {
+        outline: none;
+
         &:hover {
           background-color: var(--menu-item-background-selected-hover);
         }
@@ -235,6 +237,7 @@
         &:focus,
         &:focus-within {
           box-shadow: 0 0 1px 1px var(--color-coat-of-arms) inset;
+          outline: none;
         }
       }
 
