@@ -29,7 +29,6 @@ export function useFocusHandling(): ReturnObject {
       type: keyof typeof eventTypes,
       e: FocusEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
     ) => {
-      console.log('-->', getEventElementType(e));
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
         const { onBlur } = getData();
         if (onBlur) {
@@ -51,7 +50,6 @@ export function useFocusHandling(): ReturnObject {
           }
         };
         if (eventElementType === 'list') {
-          console.log('MOVE F');
           moveFocusToFirstListItem();
         }
       }
