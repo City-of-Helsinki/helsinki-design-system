@@ -9,11 +9,12 @@ import {
   useEffect,
 } from 'react';
 
-import { DataHandlers } from '../../dataProvider/DataContext';
 import { eventTypes } from '../events';
-import { SelectData, SelectMetaData } from '../types';
+import { SelectDataHandlers } from '../types';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
+import { isListItemType, isTagType, useElementDetection } from './useElementDetection';
+import { useSelectDataHandlers } from './useSelectDataHandlers';
 
 /**
  * Essential user actions:
@@ -39,12 +40,14 @@ import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
-  'onBlur' | 'onFocus' | 'onMouseUp' | 'onKeyUp' | 'tabIndex'
+  'onBlur' | 'onFocus' | 'onMouseUp' | 'tabIndex'
 > & { ref: RefObject<HTMLDivElement> };
 
-export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
-  const { getMetaData, updateMetaData, getData } = dataHandlers;
-  const isElementHit = (target: RefObject<Element>, eventTarget?: Element) => {
+export function useFocusHandling(): ReturnObject {
+  const { getMetaData, updateMetaData, getData } = useSelectDataHandlers();
+  const { refs, focusTarget } = getMetaData();
+  const { getEventElementType, getListItemSiblings, getTagSiblings } = useElementDetection();
+  /* const isElementHit = (target: RefObject<Element>, eventTarget?: Element) => {
     if (!target.current || !eventTarget) {
       return false;
     }
@@ -52,12 +55,13 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     return target.current === eventTarget || target.current.contains(eventTarget);
   };
 
-  const { refs, elementIds, focusTarget } = getMetaData() as SelectMetaData;
+  
 
   const elementIdEntries = Object.entries(elementIds);
   const getElementId = (element: Element): string | null => {
     return element.getAttribute('id');
   };
+  
   const getKnownElementId = (element: Element): string | null => {
     const id = getElementId(element);
 
@@ -69,7 +73,7 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     });
     return index > -1 ? elementIdEntries[index][1] : null;
   };
-
+  
   const getHittedElement = (eventSource: Element): SelectMetaData['focusTarget'] => {
     if (refs.listContainer && isElementHit(refs.listContainer, eventSource)) {
       return 'list';
@@ -95,6 +99,7 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     }
     return null;
   };
+  */
   // what key presses should do.
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
   const eventTracker = useCallback(
@@ -102,68 +107,53 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
       type: keyof typeof eventTypes,
       e: FocusEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
     ) => {
-      const element = e.target as Element;
+      // const element = e.target as Element;
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
         // console.log('-----BLURRED');
-        const { onBlur } = getData() as SelectData;
+        const { onBlur } = getData();
         if (onBlur) {
           onBlur();
         }
       }
       if (type === eventTypes.focus && getIsElementFocused(e as FocusEvent<HTMLDivElement>)) {
         // console.log('-----FOCUSED');
-        const { onFocus } = getData() as SelectData;
+        const { onFocus } = getData();
         if (onFocus) {
           onFocus();
         }
       }
+      /*
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const hittedElement = getHittedElement(element);
       const hittedElementId = getClosestKnownElementById(element);
 
       if (type === eventTypes.mousedown && hittedElementId === elementIds.clearButton && refs.selectionButton.current) {
         refs.selectionButton.current.focus();
-      }
-      /*
-      console.log('hittedElement', hittedElement, type, e.target, document.activeElement);
-      const previousEventTarget = getMetaData().lastEventTarget;
-      updateMetaData({ lastEventTarget: hittedElement });
-      if (type === eventTypes.mousedown || type === eventTypes.keydown) {
-        // should determine element
-        if (hittedElement === 'list' && refs.selectionButton.current) {
-          // refs.selectionButton.current.focus();
-        }
-        if (
-          hittedElement === 'container' &&
-          refs.selectionButton.current &&
-          refs.selectionButton.current !== document.activeElement
-        ) {
-          console.log('SHIFT!');
-          refs.selectionButton.current.focus();
-        }
-      } else if (type === eventTypes.blur) {
-        const { lastEventTarget } = getMetaData() as SelectMetaData;
-        if (!lastEventTarget) {
-          //
-        }
-      }
-      if (!previousEventTarget) {
-        console.log('-----FOCUS');
       } */
     },
     [getMetaData, updateMetaData],
   );
 
+  const setFocus = (targetRef?: RefObject<HTMLElement>) => {
+    if (targetRef && targetRef.current && targetRef.current.focus) {
+      targetRef.current.focus();
+    }
+  };
+
   useEffect(() => {
     if (focusTarget) {
-      if (focusTarget === 'button' && refs.selectionButton.current) {
-        refs.selectionButton.current.focus();
-      }
-      if (focusTarget === 'list' && refs.list.current) {
-        refs.list.current.focus();
-      }
-      if (focusTarget === 'searchOrFilterInput' && refs.filterOrSearchInput.current) {
-        refs.filterOrSearchInput.current.focus();
+      switch (focusTarget) {
+        case 'button':
+          setFocus(refs.selectionButton);
+          break;
+        case 'list':
+          setFocus(refs.list);
+          break;
+        case 'searchOrFilterInput':
+          setFocus(refs.searchOrFilterInput);
+          break;
+        default:
+          break;
       }
       updateMetaData({ focusTarget: undefined });
     }
@@ -176,18 +166,16 @@ export function useFocusHandling(dataHandlers: DataHandlers): ReturnObject {
     onBlur: (e) => {
       eventTracker(eventTypes.blur, e);
     },
+
     onMouseUp: (e: MouseEvent<HTMLDivElement>) => {
-      eventTracker(eventTypes.mousedown, e);
-    },
-    onKeyUp: (e: KeyboardEvent<HTMLDivElement>) => {
-      const { key } = e;
-      const triggerKeys = ['Enter', 'Tab', ' ', 'Escape'];
-      if (!triggerKeys.includes(key)) {
-        return;
+      const { type, element } = getEventElementType(e);
+      if (type && element && isListItemType(type)) {
+        console.log('list sibs', getListItemSiblings(element));
       }
-      // ignore if search / filter has focus....
-      // e.target.nodeName === input + type text
-      eventTracker(eventTypes.keydown, e);
+      if (type && element && isTagType(type)) {
+        console.log('tag sibs', getTagSiblings(element));
+      }
+      console.log('type', type);
     },
     tabIndex: -1,
     ref: refs.selectContainer,

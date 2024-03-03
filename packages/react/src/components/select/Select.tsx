@@ -84,7 +84,7 @@ export function Select({
         tagList: createRef<HTMLDivElement>(),
         showAllButton: createRef<HTMLButtonElement>(),
         selectionButton: createRef<HTMLButtonElement>(),
-        filterOrSearchInput: createRef<HTMLInputElement>(),
+        searchOrFilterInput: createRef<HTMLInputElement>(),
       },
       elementIds: {
         container: containerId,
@@ -96,6 +96,8 @@ export function Select({
         tagList: `${containerId}-tag-list`,
         searchOrFilterInput: `${containerId}-input-element`,
         selectionsAndListsContainer: `${containerId}-sl-container`,
+        clearAllButton: `${containerId}-clear-all-button`,
+        showAllButton: `${containerId}-show-all-button`,
       },
     };
   }, [id]);

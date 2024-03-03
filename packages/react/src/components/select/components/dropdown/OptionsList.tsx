@@ -76,8 +76,8 @@ const createOptionElements = (groups: SelectData['groups'], trigger: ChangeTrigg
 };
 
 const createOptionsListChildren = ({ getData, getMetaData, trigger }: SelectDataHandlers) => {
-  const { open, groups, multiSelect } = getData() as SelectData;
-  const { isSearching } = getMetaData() as SelectMetaData;
+  const { open, groups, multiSelect } = getData();
+  const { isSearching } = getMetaData();
   return {
     children: open && !isSearching ? createOptionElements(groups, trigger, multiSelect) : null,
   };

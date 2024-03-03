@@ -12,7 +12,7 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
   const { filter, elementIds, refs } = getMetaData();
   return {
-    className: classNames(styles.filterOrSearchInput),
+    className: classNames(styles.searchOrFilterInput),
     ...createInputOnChangeListener({ id: eventIds.filter, trigger }),
     onButtonClick: (e) => {
       e.preventDefault();
@@ -25,7 +25,7 @@ const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers): T
     label: '',
     value: filter,
     placeholder: 'Filter',
-    ref: refs.filterOrSearchInput,
+    ref: refs.searchOrFilterInput,
   };
 };
 

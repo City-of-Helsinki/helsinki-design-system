@@ -25,8 +25,7 @@ export const eventTypes = {
   cancelled: 'cancelled',
   blur: 'blur',
   focus: 'focus',
-  keydown: 'keydown',
-  mousedown: 'mousedown',
+  close: 'close',
 } as const;
 
 const isClick = (eventType?: EventType) => eventType === eventTypes.click;
@@ -57,6 +56,10 @@ export const isClearOptionsClickEvent = (eventId: EventId, eventType?: EventType
 
 export const isOutsideClickEvent = (eventId: EventId, eventType?: EventType) => {
   return isGenericEvent(eventId) && eventType === eventTypes.outSideClick;
+};
+
+export const isCloseEvent = (eventId: EventId, eventType?: EventType) => {
+  return isGenericEvent(eventId) && eventType === eventTypes.close;
 };
 
 export const isFilterChangeEvent = (eventId: EventId, eventType?: EventType) => {
