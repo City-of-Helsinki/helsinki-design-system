@@ -13,28 +13,7 @@ import { eventTypes } from '../events';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
-
-/**
- * Essential user actions:
- * - any press in selectedOptions
- * - any press in list
- * - any press outside when list is open
- *
- * Ignoreable user actions:
- * - any tag list action
- *
- *
- * Focus shifting:
- * - when list is closed -> focus main button
- * - when clear button is clicked -> focus main button
- * - when main button / open button is clicked -> focus main button or list ?
- *
- * Focus reporting
- * - onFocus has not been reported, since last onBlur
- *
- * Blur reporting
- * - When outside main button and list
- */
+import { useElementDetection } from './useElementDetection';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
@@ -43,35 +22,39 @@ type ReturnObject = Pick<
 
 export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData } = useSelectDataHandlers();
+  const { getEventElementType, getListItemSiblings } = useElementDetection();
   const { refs, focusTarget } = getMetaData();
   const eventTracker = useCallback(
     (
       type: keyof typeof eventTypes,
       e: FocusEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
     ) => {
-      // const element = e.target as Element;
+      console.log('-->', getEventElementType(e));
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
-        // console.log('-----BLURRED');
         const { onBlur } = getData();
         if (onBlur) {
           onBlur();
         }
       }
       if (type === eventTypes.focus && getIsElementFocused(e as FocusEvent<HTMLDivElement>)) {
-        // console.log('-----FOCUSED');
         const { onFocus } = getData();
         if (onFocus) {
           onFocus();
         }
       }
-      /*
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const hittedElement = getHittedElement(element);
-      const hittedElementId = getClosestKnownElementById(element);
-
-      if (type === eventTypes.mousedown && hittedElementId === elementIds.clearButton && refs.selectionButton.current) {
-        refs.selectionButton.current.focus();
-      } */
+      if (type === eventTypes.focus) {
+        const { type: eventElementType } = getEventElementType(e);
+        const moveFocusToFirstListItem = () => {
+          const closestListItems = getListItemSiblings(undefined, false);
+          if (closestListItems.next) {
+            closestListItems.next.focus();
+          }
+        };
+        if (eventElementType === 'list') {
+          console.log('MOVE F');
+          moveFocusToFirstListItem();
+        }
+      }
     },
     [getMetaData, updateMetaData],
   );
