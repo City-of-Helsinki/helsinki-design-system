@@ -70,7 +70,8 @@ export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps)
     label,
     selected,
     role: 'option',
-    'aria-selected': selected,
+    'aria-checked': selected,
+    'aria-label': label,
     indeterminate: undefined,
     tabIndex: -1,
     onClick: (originalEvent: React.MouseEvent) => {
@@ -103,7 +104,7 @@ export const createMultiSelectGroupLabelProps = ({
     label,
     indeterminate: isIntermediate,
     selected: option.selected,
-    'aria-selected': option.selected,
+    'aria-checked': option.selected,
     role: 'option',
     tabIndex: -1,
     onClick: (originalEvent: React.MouseEvent) => {
@@ -138,7 +139,7 @@ export function MultiSelectOptionListItem(props: LiElementWithCheckboxProps) {
         aria-hidden
         tabIndex={-1}
       />
-      <label>{label}</label>
+      <label aria-hidden>{label}</label>
     </li>
   );
 }

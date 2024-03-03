@@ -242,6 +242,10 @@ export const isListGroupLabelType = (id: KnownElementType) => {
   return id === 'listGroupLabel';
 };
 
+export const isAnyListChildType = (id: KnownElementType) => {
+  return isListItemType(id) || isListGroupLabelType(id);
+};
+
 export const isTagListType = (id: KnownElementType) => {
   return id === 'tagList';
 };
