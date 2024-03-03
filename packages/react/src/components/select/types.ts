@@ -86,7 +86,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     tagList: RefObject<HTMLDivElement>;
     showAllButton: RefObject<HTMLButtonElement>;
     selectionButton: RefObject<HTMLButtonElement>;
-    filterOrSearchInput: RefObject<HTMLInputElement>;
+    searchOrFilterInput: RefObject<HTMLInputElement>;
   };
   searchUpdate: number;
   selectionUpdate: number;
@@ -108,6 +108,8 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     arrowButton: string;
     searchOrFilterInput: string;
     selectionsAndListsContainer: string;
+    showAllButton: string;
+    clearAllButton: string;
   };
 };
 
@@ -120,3 +122,4 @@ export type LiElementProps = DetailedHTMLProps<HTMLAttributes<HTMLLIElement>, ne
 export type PropSetterElementTypes = ButtonElementProps | DivElementProps | UlElementProps | LabelElementProps;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
+export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';

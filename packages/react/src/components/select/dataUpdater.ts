@@ -17,6 +17,7 @@ import {
   EventType,
   eventTypes,
   isClearOptionsClickEvent,
+  isCloseEvent,
   isFilterChangeEvent,
   isGroupClickEvent,
   isOpenOrCloseEvent,
@@ -35,7 +36,6 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   if (current.disabled) {
     return false;
   }
-
   const openOrClose = (open: boolean) => {
     const now = Date.now();
     if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
@@ -105,7 +105,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     return true;
   }
 
-  if (isOutsideClickEvent(id, type)) {
+  if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
     if (openOrClose(false)) {
       dataHandlers.updateMetaData({
         focusTarget: 'button',

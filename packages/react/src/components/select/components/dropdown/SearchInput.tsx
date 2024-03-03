@@ -3,16 +3,16 @@ import React from 'react';
 import styles from '../../Select.module.scss';
 import { TextInput, TextInputProps } from '../../../textInput/TextInput';
 import { IconSearch } from '../../../../icons';
-import { SelectDataHandlers, SelectMetaData } from '../../types';
+import { SelectDataHandlers } from '../../types';
 import classNames from '../../../../utils/classNames';
 import { createInputOnChangeListener } from '../../utils';
 import { eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const createSearchInputProps = ({ getMetaData, trigger }: SelectDataHandlers): TextInputProps => {
-  const { search, elementIds, refs } = getMetaData() as SelectMetaData;
+  const { search, elementIds, refs } = getMetaData();
   return {
-    className: classNames(styles.filterOrSearchInput),
+    className: classNames(styles.searchOrFilterInput),
     ...createInputOnChangeListener({ id: eventIds.search, trigger }),
     onButtonClick: (e) => {
       e.preventDefault();
@@ -25,7 +25,7 @@ const createSearchInputProps = ({ getMetaData, trigger }: SelectDataHandlers): T
     placeholder: 'Search options',
     label: '',
     value: search,
-    ref: refs.filterOrSearchInput,
+    ref: refs.searchOrFilterInput,
   };
 };
 

@@ -2,85 +2,13 @@ import React, { useLayoutEffect } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
-import { Button, ButtonProps } from '../../../button/Button';
-import { getSelectedOptions, createOnClickListener } from '../../utils';
-import { TagListItem } from './TagListItem';
-import { IconAngleDown, IconCrossCircleFill } from '../../../../icons';
-import { DivElementProps, SelectData, SelectDataHandlers, SelectMetaData } from '../../types';
-import { useContextDataHandlers, useChangeTrigger } from '../../../dataProvider/hooks';
+import { getSelectedOptions } from '../../utils';
+import { Tags } from './Tags';
+import { DivElementProps, SelectMetaData } from '../../types';
 import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow';
-import { eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
-
-const clearButtonPropSetter = ({ getData, trigger }: SelectDataHandlers): ButtonProps => {
-  const { disabled } = getData();
-  return {
-    ...createOnClickListener({ id: eventIds.clearAllButton, trigger }),
-    children: 'Clear all',
-    variant: 'secondary',
-    className: styles.clearAllButton,
-    disabled,
-  };
-};
-
-function ClearButton() {
-  const { children, ...attr } = clearButtonPropSetter(useContextDataHandlers());
-  return (
-    <Button {...attr} iconRight={<IconCrossCircleFill />}>
-      {children}
-    </Button>
-  );
-}
-
-const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['refs']['showAllButton'] } => {
-  const { getMetaData, getData } = useContextDataHandlers();
-  const { groups, disabled } = getData() as SelectData;
-  const { showAllTags, refs } = getMetaData() as SelectMetaData;
-  const selectedOptions = getSelectedOptions(groups);
-  const trigger = useChangeTrigger();
-  return {
-    ...createOnClickListener({ id: eventIds.showAllButton, trigger }),
-    children: showAllTags ? (
-      'Show less'
-    ) : (
-      <>
-        Show all (<span className="count">{selectedOptions.length}</span>)
-      </>
-    ),
-    variant: 'secondary',
-    buttonRef: refs.showAllButton,
-    disabled,
-  };
-};
-
-function ShowAllButton() {
-  const { children, buttonRef, ...attr } = showAllButtonPropSetter();
-  return (
-    <Button {...attr} ref={buttonRef} iconRight={<IconAngleDown />}>
-      {children}
-    </Button>
-  );
-}
-
-function Tags() {
-  const { getData, getMetaData, trigger } = useSelectDataHandlers();
-  const { groups, disabled } = getData();
-  const { refs, showAllTags, elementIds } = getMetaData();
-
-  const selectedOptions = getSelectedOptions(groups);
-
-  return (
-    <div
-      id={elementIds.tagList}
-      className={classNames(styles.tagList, showAllTags && styles.tagListExpanded)}
-      ref={refs.tagList}
-    >
-      {selectedOptions.map((option) => (
-        <TagListItem option={option} trigger={trigger} key={option.value} disabled={disabled} />
-      ))}
-    </div>
-  );
-}
+import { ClearAllButton } from './ClearAllButton';
+import { ShowAllButton } from './SelectAllButton';
 
 function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.refs.tagList.current;
@@ -130,7 +58,7 @@ export function TagList() {
       <Tags />
       <div {...createButtonContainerProps()}>
         <ShowAllButton />
-        <ClearButton />
+        <ClearAllButton />
       </div>
     </div>
   );

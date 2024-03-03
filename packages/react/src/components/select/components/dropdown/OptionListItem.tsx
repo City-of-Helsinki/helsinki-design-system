@@ -43,6 +43,7 @@ export const createSingleSelectItemProps = ({ option, trigger }: SelectItemProps
     },
     role: 'option',
     'aria-selected': selected,
+    tabIndex: -1,
   };
 };
 
@@ -51,6 +52,7 @@ export const createSingleSelectGroupLabelProps = (option: SelectItemProps['optio
   return {
     className: classNames(styles.listItem, styles.groupLabel),
     children: label,
+    tabIndex: -1,
   };
 };
 
@@ -70,6 +72,7 @@ export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps)
     role: 'option',
     'aria-selected': selected,
     indeterminate: undefined,
+    tabIndex: -1,
     onClick: (originalEvent: React.MouseEvent) => {
       if (disabled) {
         return;
@@ -79,9 +82,6 @@ export const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps)
         type: eventTypes.click,
         payload: { originalEvent, value: option },
       });
-    },
-    onKeyDown: (originalEvent: React.KeyboardEvent) => {
-      console.log('KD', originalEvent.key);
     },
   };
 };
@@ -105,6 +105,7 @@ export const createMultiSelectGroupLabelProps = ({
     selected: option.selected,
     'aria-selected': option.selected,
     role: 'option',
+    tabIndex: -1,
     onClick: (originalEvent: React.MouseEvent) => {
       if (isGroupDisabled) {
         return;
@@ -114,9 +115,6 @@ export const createMultiSelectGroupLabelProps = ({
         type: eventTypes.click,
         payload: { originalEvent, value: option },
       });
-    },
-    onKeyDown: (originalEvent: React.KeyboardEvent) => {
-      console.log('KD', originalEvent.key);
     },
   };
 };
@@ -138,6 +136,7 @@ export function MultiSelectOptionListItem(props: LiElementWithCheckboxProps) {
         }}
         checked={selected}
         aria-hidden
+        tabIndex={-1}
       />
       <label>{label}</label>
     </li>
