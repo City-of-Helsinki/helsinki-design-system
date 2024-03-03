@@ -101,7 +101,7 @@ const createListElementProps = ({ getData, getMetaData }: SelectDataHandlers) =>
       multiSelect && styles.multiSelectList,
     ),
     ref: refs.list,
-    tabIndex: -1,
+    tabIndex: 0,
     id: elementIds.list,
     role: 'listbox',
   };
