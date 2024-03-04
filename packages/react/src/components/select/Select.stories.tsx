@@ -788,10 +788,11 @@ export const WithCollaboration = () => {
     }
   };
   const removeFromSelectedItems = (topCat: string, subCat: string) => {
-    const items = selectedItems[topCat] || [];
+    const topCatLowerCase = topCat.toLowerCase();
+    const items = selectedItems[topCatLowerCase] || [];
     const newItems = items.filter((e) => e.value !== subCat);
-    addToSelectedItems(topCat, newItems);
-    if (selectedTopCategory?.value === topCat) {
+    addToSelectedItems(topCatLowerCase, newItems);
+    if (selectedTopCategory?.value.toLowerCase() === topCatLowerCase) {
       updateSubcategoryOptions(
         subCategoryOptions.map((opt) => {
           return {
