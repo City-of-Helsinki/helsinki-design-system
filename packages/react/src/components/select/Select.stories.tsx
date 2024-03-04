@@ -1,108 +1,110 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
-import { SelectProps, Option } from './types';
+import { SelectProps, Option, OptionInProps } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
 import { useExternalGroupStorage, useSelectionHistory } from './controlHelpers';
 import { getSelectedOptions } from './utils';
+import { Tag } from '../tag/Tag';
 
 export default {
   component: Select,
   title: 'Components/Select',
 };
 
+const capitalise = (str: string) => str[0].toUpperCase() + str.slice(1);
+
+const fruitsAndVegetables = [
+  'apple',
+  'banana',
+  'orange',
+  'grape',
+  'strawberry',
+  'watermelon',
+  'kiwi',
+  'pineapple',
+  'mango',
+  'peach',
+  'carrot',
+  'broccoli',
+  'potato',
+  'tomato',
+  'cucumber',
+  'lettuce',
+  'spinach',
+  'bell pepper',
+  'eggplant',
+  'zucchini',
+  'blueberry',
+  'raspberry',
+  'blackberry',
+  'avocado',
+  'pear',
+  'lemon',
+  'lime',
+  'cherry',
+  'pumpkin',
+  'apricot',
+  'cranberry',
+  'fig',
+  'grapefruit',
+  'guava',
+  'honeydew',
+  'kale',
+  'nectarine',
+  'olive',
+  'papaya',
+  'pea',
+  'plum',
+  'radish',
+  'rutabaga',
+  'tangerine',
+  'turnip',
+  'watercress',
+  'yam',
+  'yucca',
+];
+
+const adjectives = [
+  'sweet',
+  'juicy',
+  'ripe',
+  'fresh',
+  'tasty',
+  'delicious',
+  'crisp',
+  'tangy',
+  'fragrant',
+  'colorful',
+  'nutritious',
+  'succulent',
+  'flavorful',
+  'sour',
+  'satisfying',
+  'exotic',
+  'vibrant',
+  'healthy',
+  'aromatic',
+  'wholesome',
+  'tender',
+  'zesty',
+  'bitter',
+  'spicy',
+  'crunchy',
+  'mellow',
+  'sugary',
+  'scented',
+  'sapid',
+  'mouthwatering',
+];
+
 function generateOptionLabels(count = -1): string[] {
   // Arrays containing names of fruits and vegetables and adjectives
-  const fruitsAndVegetables = [
-    'apple',
-    'banana',
-    'orange',
-    'grape',
-    'strawberry',
-    'watermelon',
-    'kiwi',
-    'pineapple',
-    'mango',
-    'peach',
-    'carrot',
-    'broccoli',
-    'potato',
-    'tomato',
-    'cucumber',
-    'lettuce',
-    'spinach',
-    'bell pepper',
-    'eggplant',
-    'zucchini',
-    'blueberry',
-    'raspberry',
-    'blackberry',
-    'avocado',
-    'pear',
-    'lemon',
-    'lime',
-    'cherry',
-    'pumpkin',
-    'apricot',
-    'cranberry',
-    'fig',
-    'grapefruit',
-    'guava',
-    'honeydew',
-    'kale',
-    'nectarine',
-    'olive',
-    'papaya',
-    'pea',
-    'plum',
-    'radish',
-    'rutabaga',
-    'tangerine',
-    'turnip',
-    'watercress',
-    'yam',
-    'yucca',
-    'zucchini',
-  ];
-
-  const adjectives = [
-    'sweet',
-    'juicy',
-    'ripe',
-    'fresh',
-    'tasty',
-    'delicious',
-    'crisp',
-    'tangy',
-    'fragrant',
-    'colorful',
-    'nutritious',
-    'succulent',
-    'flavorful',
-    'sour',
-    'satisfying',
-    'exotic',
-    'vibrant',
-    'healthy',
-    'aromatic',
-    'wholesome',
-    'tender',
-    'zesty',
-    'bitter',
-    'spicy',
-    'crunchy',
-    'mellow',
-    'sugary',
-    'scented',
-    'sapid',
-    'mouthwatering',
-  ];
 
   const length = count > 0 ? count : Math.floor(Math.random() * 20) + 1;
 
-  const toUpperCase = (str: string) => str[0].toUpperCase() + str.slice(1);
   // Using set to avoid duplicates
   const randomSet: Set<string> = new Set();
   while (randomSet.size < length) {
@@ -111,7 +113,7 @@ function generateOptionLabels(count = -1): string[] {
     const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
     const randomFruit = fruitsAndVegetables[randomFruitIndex];
     const randomAdjective = adjectives[randomAdjectiveIndex];
-    const description = `${toUpperCase(randomAdjective)} ${randomFruit}`;
+    const description = `${capitalise(randomAdjective)} ${randomFruit}`;
     randomSet.add(description);
   }
 
@@ -336,13 +338,13 @@ export const WithMinAndMax = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(4).map((option) => {
+      options: generateOptionLabels(6).map((option) => {
         return { label: option, value: option, disabled: false };
       }),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionLabels(4).map((option) => {
+      options: generateOptionLabels(6).map((option) => {
         return { label: option, value: option, disabled: false };
       }),
     },
@@ -372,7 +374,7 @@ export const WithMinAndMax = () => {
       }
       if (overflow > 0) {
         const newSelections = [...history.getLatestOptions(), ...history.filterNewSelections(allSelections)];
-        const allowed = newSelections.slice(0, overflow);
+        const allowed = newSelections.slice(0, maxCount);
         return allowed;
       }
       return allSelections;
@@ -764,5 +766,127 @@ export const WithFocusListeners = () => {
         <div className="indicator blurIndicator">Blurred</div>
       </div>
     </>
+  );
+};
+
+export const WithCollaboration = () => {
+  const [selectedTopCategory, updateSelectedTopCategory] = useState<Option | null>(null);
+  const [subCategoryOptions, updateSubcategoryOptions] = useState<OptionInProps[]>([]);
+  const [selectedItems, updateSelectedItems] = useState<Record<string, Option[]>>({});
+  const topCategoryOptions = fruitsAndVegetables.sort().map((option) => {
+    return {
+      label: capitalise(option),
+      value: option,
+      selected: !!(selectedTopCategory && selectedTopCategory.value === option),
+    };
+  });
+  const addToSelectedItems = (topCat: string, selections: Option[]) => {
+    if (topCat) {
+      const copy = { ...selectedItems };
+      copy[topCat] = selections.map((s) => ({ ...s }));
+      updateSelectedItems(copy);
+    }
+  };
+  const removeFromSelectedItems = (topCat: string, subCat: string) => {
+    const items = selectedItems[topCat] || [];
+    const newItems = items.filter((e) => e.value !== subCat);
+    addToSelectedItems(topCat, newItems);
+    if (selectedTopCategory?.value === topCat) {
+      updateSubcategoryOptions(
+        subCategoryOptions.map((opt) => {
+          return {
+            ...opt,
+            selected: !!newItems.find((o) => o.value === opt.value),
+          };
+        }),
+      );
+    }
+  };
+
+  const onTopCategoryChange: SelectProps['onChange'] = (selectedValues) => {
+    const selection = selectedValues[0] || {};
+    updateSelectedTopCategory(selection);
+    if (selection.value) {
+      const newSubCategoryOptions: OptionInProps[] = [];
+      const selected = selectedItems[selection.value] || [];
+      adjectives.sort().forEach((value) => {
+        const label = capitalise(`${value} ${selection.value}`);
+        newSubCategoryOptions.push({ label, value, selected: !!selected.find((opt) => opt.value === value) });
+      });
+      updateSubcategoryOptions(newSubCategoryOptions);
+    } else {
+      updateSubcategoryOptions([]);
+    }
+  };
+  const onSubCategoryChange: SelectProps['onChange'] = (selectedValues) => {
+    addToSelectedItems(String(selectedTopCategory && selectedTopCategory.value), selectedValues);
+  };
+
+  const SelectedValues = () => {
+    const selectedTopCategories = Object.keys(selectedItems);
+    if (!selectedTopCategories.length) {
+      return null;
+    }
+    const values: OptionInProps[] = [];
+    selectedTopCategories.forEach((key) => {
+      const options = selectedItems[key];
+      options.forEach((option) => {
+        const value = `${key}: ${option.value}`;
+        values.push({ label: capitalise(value), value });
+      });
+    });
+    return (
+      <>
+        <style>
+          {`
+          .tags{
+            margin-top: 20px;
+          }
+          .tags > *{
+            margin-right: 10px;
+          }
+      `}
+        </style>
+
+        <div>
+          <h3>Selected</h3>
+          <div className="tags">
+            {values.map((opt) => {
+              const onDelete = () => {
+                const [cat, subCat] = String(opt.label).split(': ');
+                removeFromSelectedItems(cat, subCat);
+              };
+              return (
+                <Tag onDelete={onDelete} key={opt.value}>
+                  {opt.label}
+                </Tag>
+              );
+            })}
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <div>
+      <Select
+        options={topCategoryOptions}
+        label="Select your favourite"
+        onChange={onTopCategoryChange}
+        placeholder="Choose one"
+      />
+      {subCategoryOptions.length ? (
+        <Select
+          options={subCategoryOptions}
+          label="Select types"
+          onChange={onSubCategoryChange}
+          placeholder="Choose multiple"
+          multiSelect
+          noTags
+        />
+      ) : null}
+      <SelectedValues />
+    </div>
   );
 };

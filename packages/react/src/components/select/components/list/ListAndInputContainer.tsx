@@ -12,7 +12,7 @@ const createListAndInputContainerProps = (
   { getData, getMetaData, trigger }: SelectDataHandlers,
 ) => {
   const { open, showFiltering, showSearch } = getData();
-  const { refs } = getMetaData();
+  const { refs, elementIds } = getMetaData();
   const hasInput = showFiltering || showSearch;
   const outsideClickTrigger = () => {
     trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
@@ -26,6 +26,7 @@ const createListAndInputContainerProps = (
     ),
     ref: refs.listContainer,
     outsideClickTrigger,
+    id: elementIds.selectionsAndListsContainer,
   };
 };
 

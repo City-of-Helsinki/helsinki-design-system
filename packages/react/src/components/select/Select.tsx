@@ -30,6 +30,7 @@ export function Select({
   showSearch,
   placeholder,
   icon,
+  label,
   required,
   onChange,
   onSearch,
@@ -41,11 +42,12 @@ export function Select({
   onBlur,
   error,
   disabled,
+  noTags,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo<SelectData>(() => {
     return {
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
-      label: 'Label',
+      label,
       open: !!open,
       required: !!required,
       disabled: !!disabled,
@@ -53,6 +55,7 @@ export function Select({
       showFiltering: !!showFiltering,
       showSearch: !!showSearch,
       virtualize: !!virtualize,
+      noTags: !!noTags,
       placeholder: placeholder || '',
       assistiveText: assistiveText || '',
       error: error || '',
