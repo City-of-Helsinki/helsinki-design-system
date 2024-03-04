@@ -7,14 +7,12 @@ import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 
 function createComponentProps(
   props: React.PropsWithChildren<unknown>,
-  { getData, getMetaData }: SelectDataHandlers,
+  { getData }: SelectDataHandlers,
 ): DivElementProps {
   const { error, open } = getData();
-  const { elementIds } = getMetaData();
   return {
     ...props,
     className: classNames(styles.selectAndListContainer, error && styles.error, open && styles.open),
-    id: elementIds.selectionsAndListsContainer,
   };
 }
 

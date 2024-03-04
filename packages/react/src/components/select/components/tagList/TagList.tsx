@@ -41,7 +41,7 @@ function createButtonContainerProps(): DivElementProps {
 
 export function TagList() {
   const { getData, getMetaData } = useSelectDataHandlers();
-  const { groups, multiSelect } = getData();
+  const { groups, multiSelect, noTags } = getData();
 
   const selectedOptions = multiSelect ? getSelectedOptions(groups) : [];
 
@@ -49,7 +49,7 @@ export function TagList() {
     checkIfShowAllButtonIsNeeded(getMetaData());
   });
 
-  if (!selectedOptions.length) {
+  if (!selectedOptions.length || noTags) {
     return null;
   }
 
