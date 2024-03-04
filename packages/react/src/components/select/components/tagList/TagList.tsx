@@ -9,6 +9,7 @@ import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ClearAllButton } from './ClearAllButton';
 import { ShowAllButton } from './SelectAllButton';
+import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 
 function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.refs.tagList.current;
@@ -24,6 +25,23 @@ function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
     } else {
       buttonEl.classList.remove(styles.hiddenButton);
     }
+  }
+}
+
+function makeHiddenElementsUnfocusable(metaData: SelectMetaData) {
+  const tagListEl = metaData.refs.tagList.current;
+
+  const tags = tagListEl && tagListEl.querySelectorAll('* > div');
+  if (tags) {
+    const firstVisible = getIndexOfFirstVisibleChild(tagListEl, 'vertical');
+    const firstHidden = firstVisible > -1 ? firstVisible + 1 : -1;
+    let index = 0;
+    tags.forEach((el) => {
+      if (el && (el as HTMLElement).setAttribute) {
+        (el as HTMLElement).setAttribute('tabindex', index < firstHidden ? '0' : '-1');
+      }
+      index += 1;
+    });
   }
 }
 
@@ -47,6 +65,7 @@ export function TagList() {
 
   useLayoutEffect(() => {
     checkIfShowAllButtonIsNeeded(getMetaData());
+    makeHiddenElementsUnfocusable(getMetaData());
   });
 
   if (!selectedOptions.length || noTags) {
