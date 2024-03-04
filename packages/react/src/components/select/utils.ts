@@ -11,7 +11,12 @@ type DomHandlerProps = {
   trigger: (event: ChangeEvent) => void;
 };
 
-export type OptionIterator = (option: Option, group: Group) => Option | undefined;
+export type OptionIterator = (
+  option: Option,
+  group: Group,
+  optionIndex: number,
+  groupIndex: number,
+) => Option | undefined;
 
 export function createOnClickListener(props: DomHandlerProps) {
   const { id, type = eventTypes.click, trigger } = props;
@@ -61,6 +66,16 @@ export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0):
   );
 }
 
+export function iterateAndCopyGroup(groups: Group[], iterator: OptionIterator): Group[] {
+  return groups.map((group, groupIndex) => {
+    return {
+      options: group.options.map((opt, optionIndex) => {
+        return iterator(opt, group, optionIndex, groupIndex) || { ...opt };
+      }),
+    };
+  });
+}
+
 export function updateSelectedOptionInGroups(
   groups: SelectData['groups'],
   updatedOption: Option,
@@ -98,36 +113,29 @@ export function updateSelectedOptionInGroups(
 }
 
 export function updateSelectedGroupOptions(groups: SelectData['groups'], updatedOption: Option): SelectData['groups'] {
-  const groupIndex = getOptionGroupIndex(groups, updatedOption);
-  if (groupIndex < 0) {
+  const targetGroupIndex = getOptionGroupIndex(groups, updatedOption);
+  if (targetGroupIndex < 0) {
     return groups;
   }
-  return groups.map((group, index) => {
-    if (index === groupIndex) {
-      return {
-        options: group.options.map((option) => {
-          return option.visible && !option.disabled
-            ? {
-                ...option,
-                selected: updatedOption.selected,
-              }
-            : option;
-        }),
-      };
+
+  return iterateAndCopyGroup(groups, (option, group, optionIndex, groupIndex) => {
+    if (groupIndex !== targetGroupIndex) {
+      return { ...option };
     }
-    return group;
+    return option.visible && !option.disabled
+      ? {
+          ...option,
+          selected: updatedOption.selected,
+        }
+      : { ...option };
   });
 }
 
 export function clearAllSelectedOptions(groups: SelectData['groups']): SelectData['groups'] {
-  return groups.map((group) => {
+  return iterateAndCopyGroup(groups, (option) => {
     return {
-      options: group.options.map((option) => {
-        return {
-          ...option,
-          selected: false,
-        };
-      }),
+      ...option,
+      selected: false,
     };
   });
 }
@@ -294,14 +302,4 @@ export function mergeSearchResultsToCurrent(
     : [];
 
   return [...currentHiddenOptionsInAGroup, ...newData];
-}
-
-export function iterateAndCopyGroup(groups: Group[], iterator: OptionIterator): Group[] {
-  return groups.map((group) => {
-    return {
-      options: group.options.map((opt) => {
-        return iterator(opt, group) || { ...opt };
-      }),
-    };
-  });
 }
