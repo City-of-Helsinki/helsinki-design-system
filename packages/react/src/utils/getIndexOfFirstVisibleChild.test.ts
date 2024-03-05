@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { flatten } from 'lodash';
-import { Writable } from 'type-fest';
+import type { Writable } from 'type-fest';
 
 import { getIndexOfFirstVisibleChild } from './getIndexOfFirstVisibleChild';
 import { assignNewFakeElementChildren, createDomRect, createFakeElement, getRect } from './test-utils';
@@ -15,7 +15,7 @@ describe('getIndexOfFirstVisibleChild returns index of the last child that fits 
   /**
    * Creates a grid like structure of fake HTML elements
    */
-  const createElementGrid = (rows: number, cols: number, spacingX: number = 0, spacingY: number = 0) => {
+  const createElementGrid = (rows: number, cols: number, spacingX = 0, spacingY = 0) => {
     const grid: HTMLElement[][] = [];
     for (let y = 0; y < rows; y += 1) {
       const column: HTMLElement[] = [];

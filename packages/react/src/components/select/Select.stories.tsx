@@ -891,3 +891,58 @@ export const WithCollaboration = () => {
     </div>
   );
 };
+
+export const AvoidRemountDataLoss = () => {
+  const Wrapper = () => {
+    const render = useForceRender();
+    const groups: SelectProps['groups'] = useMemo(
+      () => [
+        {
+          label: 'Healthy choices',
+          options: generateOptionLabels(4),
+        },
+        {
+          label: 'More healthy choices',
+          options: generateOptionLabels(4),
+        },
+      ],
+      [],
+    );
+
+    const onChange: SelectProps['onChange'] = useCallback(() => {
+      // track changes
+    }, []);
+    return (
+      <div>
+        <Button onClick={render}>Re-render</Button>
+        <Select
+          groups={groups}
+          label="Label"
+          onChange={onChange}
+          multiSelect
+          showFiltering
+          placeholder="Choose three or more"
+          icon={<IconLocation />}
+        />
+      </div>
+    );
+  };
+
+  const Main = () => {
+    const keyRef = useRef(`${Date.now()}`);
+    const render = useForceRender();
+    const remount = () => {
+      keyRef.current = `${Date.now()}`;
+      render();
+    };
+    return (
+      <div>
+        <Button onClick={render}>Re-render</Button>
+        <Button onClick={remount}>Re-mount</Button>
+        <Wrapper key={keyRef.current} />
+      </div>
+    );
+  };
+
+  return <Main />;
+};
