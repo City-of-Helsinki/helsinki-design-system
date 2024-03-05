@@ -1,5 +1,10 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## [3.X.X] - Month, XX, 202X
 
 ### React
@@ -44,6 +49,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Icons] Document-group icon wrong colors
 
 ### Documentation
 
@@ -54,6 +60,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
+- [Icons] Added missing icons to site icons list
 
 #### Changed
 
