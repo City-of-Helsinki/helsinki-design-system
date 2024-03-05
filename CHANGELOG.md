@@ -61,6 +61,7 @@ Changes that are not related to specific components
 
 - [Component] What is added?
 - [Icons] Added missing icons to site icons list
+- Added links to React and Core Storybooks to Resources and Components pages
 
 #### Changed
 
