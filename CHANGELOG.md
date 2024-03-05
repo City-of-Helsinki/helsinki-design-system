@@ -65,6 +65,7 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 - [Button] Fix wrong label on secondary Button variant example.
+- [Notification] Fix Core showing and hiding Toast Notification example
 
 ### Figma
 
