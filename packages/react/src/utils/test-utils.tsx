@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { Writable } from 'type-fest';
+import type { Writable } from 'type-fest';
 
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
