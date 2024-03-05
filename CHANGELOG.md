@@ -64,6 +64,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Notification] Fix Core showing and hiding Toast Notification example
 
 ### Figma
 
