@@ -19,9 +19,11 @@ See all available theme variables in the table below.
 
 | Theme variable                        | Description                                 |
 | ------------------------------------- | ------------------------------------------- |
-| `--tag-background`                    | Colour of the tag background.               |
-| `--tag-color`                         | Colour of elements inside the tag.          |
-| `--tag-focus-outline-color`           | Colour of the tag focus border.             |
+| '--tag-action-border-color'           | Colour of the border of Tags with onClick or onDelete actions |
+| '--tag-background-color'              | Colour of the tag background.               |
+| '--tag-color'                         | Colour of elements inside the tag.          |
+| '--tag-focus-outline-color'           | Colour of the tag focus border.             |
+| '--tag-hover-background-color'        | Colour of the tag background when hovered upon. |
 
 ### Customisation example
 <Playground scope={{ Tag }}>
@@ -32,15 +34,35 @@ import { Tag } from 'hds-react';
 
 () => (
 <Tag
+  aria-label="run custom action"
   onClick={function noRefCheck(){}}
   theme={{
-    '--tag-background': 'var(--color-engel)',
-    '--tag-color': 'var(--color-black-90)',
-    '--tag-focus-outline-color': 'var(--color-black-90)'
+    '--tag-background-color': 'var(--color-copper-dark)',
+    '--tag-hover-background-color': 'var(--color-tram-dark)',
+    '--tag-color': 'var(--color-white)',
+    '--tag-focus-outline-color': 'var(--color-metro)',
   }}
 >
-  Americum
+  Action
 </Tag>)
+```
+
+```html
+<div
+  role="button"
+  class="hds-tag hds-tag--action"
+  style="
+    --tag-background-color: var(--color-copper-dark);
+    --tag-hover-background-color: var(--color-tram-dark);
+    --tag-color: var(--color-white);
+    --tag-focus-outline-color: var(--color-metro);
+  "
+  tabindex="0"
+  onclick={}
+  aria-label="run custom action"
+>
+  <span class="hds-tag__label">Action</span>
+</div>
 ```
 
 

@@ -42,7 +42,7 @@ const sanitizeConfig = {
       'scope',
       'span',
       'style',
-      'tabIndex',
+      'tabindex',
       'target',
       'transform',
       'type',

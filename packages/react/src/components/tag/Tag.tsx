@@ -7,9 +7,18 @@ import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
 
 export interface TagCustomTheme {
-  '--tag-background'?: string;
+  '--tag-action-border-color'?: string;
+  '--tag-background-color'?: string;
   '--tag-color'?: string;
   '--tag-focus-outline-color'?: string;
+  '--tag-hover-background-color'?: string;
+}
+
+export type TagVariant = 'action' | 'informative' | 'link';
+
+enum TagSize {
+  Small = 's',
+  Large = 'l',
 }
 
 export type TagProps = {
@@ -22,114 +31,146 @@ export type TagProps = {
    */
   className?: string;
   /**
-   * The aria-label for the delete button
+   * Url to go to after Link variant is clicked
    */
-  deleteButtonAriaLabel?: string;
+  href?: string;
   /**
-   * Prop will be passed to the delete button `<button>` element. It also hides the default label from screen readers to prevent confusion with labels when present.
+   * Link's _target -attribute
    */
-  deleteButtonProps?: React.ComponentPropsWithoutRef<'button'>;
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  /*
   /**
-   * Used to generate the first part of the id on the elements.
-   * Default value `hds-tag` will be removed in the next major release.
+   * Element placed on the left side of the label
    */
-  id?: string;
+  iconLeft?: React.ReactNode;
   /**
-   * Additional class names to apply to the tag's label element
+   * Element placed on the right side of the label
    */
-  labelClassName?: string;
+  iconRight?: React.ReactNode;
   /**
-   * Props that will be passed to the label `<span>` element.
+   * Should Tag span to multiple lines
+   * @default false
    */
-  labelProps?: React.ComponentPropsWithoutRef<'span'>;
+  multiline?: boolean;
   /**
    * Callback function fired when the tag is clicked. If set, the tag will be clickable.
    */
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
   /**
-   * Callback function fired when the delete icon is clicked. If set, a delete button will be shown.
+   * Callback function fired when the tag is clicked. If set, a delete button will be shown.
    */
-  onDelete?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  /**
-   * Sets the role of the tag when it's clickable. Uses 'link' by default.
-   */
-  role?: 'link' | 'button';
+  onDelete?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
   /**
    * Size variant for the Tag.
-   * @default 'm'
+   * @default TagSize.Small
    */
-  size?: 'm' | 'l';
-  /**
-   * The label is only visible to screen readers. Can be used to give screen reader users additional information about the tag.
-   */
-  srOnlyLabel?: string;
+  size?: TagSize;
   /**
    * Custom theme styles
    */
   theme?: TagCustomTheme;
+  /**
+   * Ref is set to the main element
+   */
+  ref?: React.Ref<HTMLDivElement> | React.LegacyRef<HTMLAnchorElement>;
 };
 
-export const Tag = forwardRef<HTMLDivElement, TagProps>(
+export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, React.ComponentProps<'div'> & TagProps>(
   (
     {
       children,
       className,
-      deleteButtonAriaLabel,
-      deleteButtonProps,
-      id = 'hds-tag', // Default value will be removed in the next major release
-      labelClassName,
-      labelProps,
       onClick,
       onDelete,
-      role = 'link',
-      size = 'm',
-      srOnlyLabel,
+      size = TagSize.Small,
       theme,
+      href,
+      iconLeft,
+      iconRight,
+      multiline = false,
       ...rest
     },
-    ref: React.Ref<HTMLDivElement>,
+    ref: React.Ref<HTMLDivElement | HTMLAnchorElement>,
   ) => {
+    const deletable = !!onDelete;
+    const onAction = onDelete || onClick;
+    const hasAction = !!onAction;
+
+    let variant: TagVariant = 'informative';
+    let role: string | null = null;
+
+    if (onAction) {
+      variant = 'action';
+      role = 'button';
+    } else if (href) {
+      variant = 'link';
+    }
+
     // custom theme class that is applied to the root element
     const customThemeClass = useTheme<TagCustomTheme>(styles.tag, theme);
     const largeClass = styles.large;
-    const containerClassName = classNames(styles.tag, size === 'l' && largeClass, customThemeClass, className);
-    const clickable = typeof onClick === 'function';
-    const deletable = typeof onDelete === 'function';
-    const hideLabelFromScreenReaders = srOnlyLabel || deleteButtonAriaLabel;
+    const containerClassName = classNames(
+      styles.tag,
+      size === TagSize.Large && largeClass,
+      customThemeClass,
+      className,
+      styles[variant],
+    );
+
+    const iconElementLeft = iconLeft ? (
+      <div className={classNames(styles.icon)} aria-hidden="true">
+        {iconLeft}
+      </div>
+    ) : null;
+
+    const iconElementRight = iconRight ? (
+      <div className={classNames(styles.icon)} aria-hidden="true">
+        {iconRight}
+      </div>
+    ) : null;
 
     // handle key down
     const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Enter' || event.key === ' ') onClick(event);
+      if (event.key === 'Enter' || event.key === ' ') {
+        onAction(event);
+      }
     };
 
-    const labelContainerClassName = classNames(styles.label, labelClassName);
+    const LinkWrapper: React.FC = (props) => {
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          className={classNames(containerClassName, styles.link)}
+          href={href}
+          {...(rest as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {props.children}
+        </a>
+      );
+    };
 
-    return (
-      <div
-        id={id}
-        className={containerClassName}
-        ref={ref}
-        {...(clickable && { tabIndex: 0, role, onClick, onKeyDown })}
-        {...rest}
-      >
-        <span id={id && `${id}-label`} className={labelContainerClassName} {...labelProps}>
-          {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
-          <span {...(hideLabelFromScreenReaders ? { 'aria-hidden': true } : {})}>{children}</span>
-        </span>
+    const Wrapper: React.FC = (props) => {
+      return (
+        <div
+          className={containerClassName}
+          ref={ref as React.Ref<HTMLDivElement>}
+          {...(hasAction && { tabIndex: 0, role, onClick: onAction, onKeyDown })}
+          {...rest}
+        >
+          {props.children}
+        </div>
+      );
+    };
 
-        {deletable && (
-          <button
-            {...deleteButtonProps}
-            id={id && `${id}-delete-button`}
-            type="button"
-            className={styles.deleteButton}
-            aria-label={deleteButtonAriaLabel}
-            onClick={onDelete}
-          >
-            <IconCross className={styles.icon} aria-hidden />
-          </button>
-        )}
-      </div>
+    const content = (
+      <>
+        {iconElementLeft}
+        <span className={classNames(styles.label, multiline ? styles.multilineLabel : null)}>{children}</span>
+        {iconElementRight}
+        {deletable && !iconElementRight ? <IconCross className={styles.icon} aria-hidden /> : null}
+      </>
     );
+
+    return href ? <LinkWrapper>{content}</LinkWrapper> : <Wrapper>{content}</Wrapper>;
   },
 );
