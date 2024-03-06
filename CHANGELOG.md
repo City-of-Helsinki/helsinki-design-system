@@ -24,6 +24,7 @@ Changes that are not related to specific components
 - Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
 - [HeaderActionBarItemWithDropdown] Removed useless `@layer` css style which caused Jest/jsdom tests output errors.
 - [Checkbox] Layout issue when using external label with htmlLabelFor-attribute
+- [Table] Append className prop instead of overriding the existing classes
 
 ### Core
 
