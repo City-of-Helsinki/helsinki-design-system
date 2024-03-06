@@ -26,6 +26,13 @@ The city of Helsinki cookie pattern is based on <ExternalLink size="M" href="htt
 
 Cookies are pieces of data that are stored on the user's device. They are a way to store persistent information about how the user is using the service. The use of cookies is controlled by law. The law requires that cookies that are not necessary for the service must be asked for consent from the user.
 
+
+### Cookie recommendations
+
+- It is strongly recommended to use cookies only at the subdomain level to enhance security, as broader cookies create a larger attack surface for malware.
+- Services can remove unknown cookies themselves, so it's good to name your cookies properly
+- Prefix cookies with the service name to distinguish them from others. Example: XX_SessionID, XX_Preferences, etc.
+
 ### When the consent for cookies should be asked?
 
 The consent needs to be asked for a cookie that is not necessary for the use of the service. This means that the service's main functions are available even without these cookies. In the future, we refer to these cookies as **optional cookies**.
