@@ -21,6 +21,7 @@ import {
 } from '../test.util';
 import { createContent } from '../content.builder';
 import { CookiePage } from './CookiePage';
+import { VERSION_COOKIE_NAME } from '../cookieStorageProxy';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
@@ -40,8 +41,9 @@ const renderCookieConsent = ({
     ...unknownConsents,
   };
   const contentSource = getContentSource(requiredConsents, optionalConsents);
+  const versionCookie = { [VERSION_COOKIE_NAME]: '1' };
   content = createContent(contentSource);
-  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
+  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns), ...versionCookie });
   const result = render(<CookiePage contentSource={contentSource} />);
 
   return result;

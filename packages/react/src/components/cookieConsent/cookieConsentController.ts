@@ -1,6 +1,6 @@
 import { pick, isObject, isUndefined } from 'lodash';
 
-import { createCookieController } from './cookieController';
+import { createCookieStorageProxy, getCookieDomainForSubDomainAccess } from './cookieStorageProxy';
 
 export type ConsentList = string[];
 
@@ -75,11 +75,7 @@ export function parseConsents(jsonString: string | undefined): ConsentObject {
 }
 
 export const getCookieDomainFromUrl = (): string => {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-
-  return window.location.hostname.split('.').slice(-2).join('.');
+  return getCookieDomainForSubDomainAccess();
 };
 
 export function createStorage(initialValues: ConsentStorage): {
@@ -153,7 +149,7 @@ export default function createConsentController(props: ConsentControllerProps): 
   verifyConsentProps(props);
   const { optionalConsents = [], requiredConsents = [] } = props;
   const allConsents = [...optionalConsents, ...requiredConsents];
-  const cookieController = createCookieController(
+  const cookieController = createCookieStorageProxy(
     {
       maxAge: COOKIE_EXPIRATION_TIME,
       domain: props.cookieDomain || getCookieDomainFromUrl(),
@@ -222,14 +218,4 @@ export default function createConsentController(props: ConsentControllerProps): 
     },
     save,
   };
-}
-
-export function getConsentsFromCookie(cookieDomain?: string): ConsentObject {
-  const cookieController = createCookieController(
-    {
-      domain: cookieDomain || getCookieDomainFromUrl(),
-    },
-    COOKIE_NAME,
-  );
-  return parseConsents(cookieController.get());
 }

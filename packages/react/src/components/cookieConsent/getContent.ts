@@ -614,24 +614,41 @@ export function getCookieContent() {
     commonCookies: {
       helConsentCookie: {
         id: 'SET_IN_CODE',
-        hostName: '*.hel.fi',
+        hostName: 'SET_IN_CODE',
         commonGroup: 'SET_IN_CODE',
+        name: 'SET_IN_CODE',
         fi: {
-          name: 'Evästesuostumukset',
           description:
             'Sivusto käyttää tätä evästettä tietojen tallentamiseen siitä, ovatko kävijät antaneet hyväksyntänsä tai kieltäytyneet evästeiden käytöstä.',
           expiration: '1 vuosi',
         },
         sv: {
-          name: 'Samtycken till kakor',
           description:
             'Webbplatsen använder denna kaka för att lagra information om huruvida besökare har godkänt användningen av kakor eller inte.',
           expiration: 'Ett år',
         },
         en: {
-          name: 'Cookie consents',
           description:
             'Used by hel.fi to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.',
+          expiration: '1 year',
+        },
+      },
+      helConsentCookieVersion: {
+        id: 'SET_IN_CODE',
+        hostName: 'SET_IN_CODE',
+        commonGroup: 'SET_IN_CODE',
+        name: 'SET_IN_CODE',
+        fi: {
+          description: 'Tähän evästeeseen tallennetaan käyttäjän hyväksymän evästeselosteen versio.',
+          expiration: '1 vuosi',
+        },
+        sv: {
+          description: 'Används för att lagra information om versionen av cookies samtycke som användaren har godkänt.',
+          expiration: 'Ett år',
+        },
+        en: {
+          description:
+            'Used by hel.fi to store information about what version of the cookie consent the user has agreed to.',
           expiration: '1 year',
         },
       },
