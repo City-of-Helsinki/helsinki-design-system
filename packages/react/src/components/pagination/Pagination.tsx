@@ -209,11 +209,10 @@ export const Pagination = ({
     }
   }, [pageIndex, hasUserChangedPage]);
 
-  const itemList = useMemo(() => createPaginationItemList({ pageCount, pageIndex, siblingCount }), [
-    pageCount,
-    pageIndex,
-    siblingCount,
-  ]);
+  const itemList = useMemo(
+    () => createPaginationItemList({ pageCount, pageIndex, siblingCount }),
+    [pageCount, pageIndex, siblingCount],
+  );
 
   const customThemeClass = useTheme<PaginationCustomTheme>(styles.pagination, theme);
 

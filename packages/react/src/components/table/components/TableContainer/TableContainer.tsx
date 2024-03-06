@@ -18,6 +18,7 @@ export type TableContainerProps = {
 
 export const TableContainer = ({
   children,
+  className,
   dataTestId,
   variant = 'dark',
   id,
@@ -32,6 +33,7 @@ export const TableContainer = ({
     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
     <div tabIndex={0} className={styles.container}>
       <table
+        {...rest}
         className={classNames(
           styles.table,
           variant === 'dark' ? styles.dark : styles.light,
@@ -39,11 +41,11 @@ export const TableContainer = ({
           zebra && styles.zebra,
           verticalLines && styles.verticalLines,
           customThemeClass,
+          className,
         )}
         aria-labelledby={headingId}
         data-testid={dataTestId}
         id={id}
-        {...rest}
       >
         {children}
       </table>

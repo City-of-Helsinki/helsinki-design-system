@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import isFunction from 'lodash.isfunction';
+import { isFunction } from 'lodash';
 
 export default (ref: React.Ref<HTMLInputElement>, internalRef: RefObject<HTMLInputElement>): void => {
   if (isFunction(ref)) {

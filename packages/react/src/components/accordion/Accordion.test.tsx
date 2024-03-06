@@ -27,7 +27,7 @@ describe('<Accordion /> spec', () => {
         Bar
       </Accordion>,
     );
-    userEvent.click(container.querySelector('[id="accordion-heading"] .label'));
+    userEvent.click(container.querySelector('[id="accordion-heading"] .label') as Element);
     expect(container.querySelector('[id="accordion-content"]')).toBeVisible();
   });
 
@@ -39,7 +39,7 @@ describe('<Accordion /> spec', () => {
       </Accordion>,
     );
 
-    userEvent.click(container.querySelector('[data-testid="accordion-closeButton"]'));
+    userEvent.click(container.querySelector('[data-testid="accordion-closeButton"]') as Element);
 
     await act(async () => {
       jest.runAllTimers();

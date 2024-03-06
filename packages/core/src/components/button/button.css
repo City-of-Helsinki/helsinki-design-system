@@ -12,7 +12,6 @@
   * Normalize.css rules
   * Correct the inability to style clickable types in iOS and Safari.
   */
-  -webkit-appearance: button;
   background-color: var(--background-color, transparent);
   border: var(--border-width) solid var(--border-color, transparent);
   border-radius: 0;
@@ -63,6 +62,7 @@
  * Normalize.css rules
  * Correct the inability to style clickable types in iOS and Safari.
  */
+button.hds-button,
 .hds-button[type="button"],
 .hds-button[type="reset"],
 .hds-button[type="submit"] {

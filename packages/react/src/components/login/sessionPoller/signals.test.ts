@@ -30,11 +30,9 @@ import { oidcClientNamespace } from '../client';
 
 describe(`signals`, () => {
   const eventData = { tokens: 'token' };
-  const eventChecks: Array<[
-    typeof isSessionPollerStartedSignal,
-    SessionPollerEvent,
-    typeof sessionPollingStartedTrigger,
-  ]> = [
+  const eventChecks: Array<
+    [typeof isSessionPollerStartedSignal, SessionPollerEvent, typeof sessionPollingStartedTrigger]
+  > = [
     [isSessionPollerStartedSignal, sessionPollerEvents.SESSION_POLLING_STARTED, sessionPollingStartedTrigger],
     [isSessionPollerStoppedSignal, sessionPollerEvents.SESSION_POLLING_STOPPED, sessionPollingStoppedTrigger],
   ];

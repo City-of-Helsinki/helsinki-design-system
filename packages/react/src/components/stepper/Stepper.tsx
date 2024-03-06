@@ -189,6 +189,7 @@ export const Stepper = ({
     <div lang={language} className={classNames(styles.stepperContainer, customThemeClass)} data-testid={dataTestId}>
       {showPreviousButton && (
         <div className={classNames(styles.scrollButton, styles.scrollButtonPrevious)} aria-hidden="true">
+          {/*  eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <button
             type="button"
             onClick={() => {
@@ -203,6 +204,7 @@ export const Stepper = ({
       )}
       {showNextButton && (
         <div className={classNames(styles.scrollButton, styles.scrollButtonNext)} aria-hidden="true">
+          {/*  eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <button
             type="button"
             onClick={() => {

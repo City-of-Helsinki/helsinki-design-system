@@ -55,7 +55,7 @@ describe(`createRenewalTrackingPromise`, () => {
     raiseExpiringEvent();
     await advanceUntilListenerCalled(fulfillmentListener);
     await waitFor(() => {
-      expect(promiseListener).toBeCalledTimes(1);
+      expect(promiseListener).toHaveBeenCalledTimes(1);
     });
     expect(getLastMockCallArgs(promiseListener)[0]).toBeInstanceOf(Error);
     expect(fulfillmentListener).toHaveBeenCalledTimes(1);
@@ -74,7 +74,7 @@ describe(`createRenewalTrackingPromise`, () => {
     raiseUnloadedEvent();
     await advanceUntilListenerCalled(fulfillmentListener);
     await waitFor(() => {
-      expect(promiseListener).toBeCalledTimes(1);
+      expect(promiseListener).toHaveBeenCalledTimes(1);
     });
     expect(getLastMockCallArgs(promiseListener)[0]).toBeInstanceOf(Error);
     expect(fulfillmentListener).toHaveBeenCalledTimes(1);

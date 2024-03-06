@@ -7,17 +7,18 @@
     "site"
   ],
   "scripts": {
-    "build": "yarn build:tokens && yarn build:core && yarn build:react && yarn build:hds-js && yarn build:site",
+    "build": "yarn build:code && yarn build:site",
     "build:tokens": "lerna run --scope hds-design-tokens build",
     "build:core": "lerna run --scope hds-core build",
     "build:react": "lerna run --scope hds-react build",
-    "build:hds-js": "lerna run --scope hds-react build:hds-js",
     "build:site": "lerna run --scope site build",
+    "build:code": "yarn build:tokens && yarn build:core && yarn build:react",
     "clean": "lerna clean --yes && rimraf node_modules/ packages/core/lib packages/core/storybook-static packages/react/lib packages/react/storybook-static packages/design-tokens/lib site/.cache site/public",
     "start:core": "lerna run --scope hds-core start",
     "start:react": "lerna run --scope hds-react start",
     "release": "lerna publish from-package --yes",
-    "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes"
+    "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes",
+    "update-changelog": "node ./scripts/changelog/update-changelog.js"
   },
   "devDependencies": {
     "lerna": "^7.0.1",
@@ -29,8 +30,9 @@
     "@types/react-dom/@types/react": "17.0.2",
     "@types/react-dom/**/@types/react": "17.0.2",
     "**/@types/react-dom/**/@types/react": "17.0.2",
-    "multer": "1.4.4-lts.1",
+    "multer": "1.4.5-lts.1",
     "jpeg-js": "0.4.4",
-    "json5": "2.2.2"
+    "json5@>=2.0.0": "2.2.3",
+    "json5@>=1.0.0": "1.0.2"
   }
 }

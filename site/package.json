@@ -2,7 +2,7 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "workspaces": {
     "nohoist": [
       "gatsby",
@@ -42,13 +42,17 @@
     "sass": "^1.49.9"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-syntax-flow": "^7.23.3",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
     "chalk": "4.0.0",
     "crypto-browserify": "^3.11.0",
+    "eslint": "8.56.0",
     "eslint-config-react-app": "^7.0.1",
-    "hds-core": "3.5.0",
-    "hds-design-tokens": "3.5.0",
-    "hds-react": "3.5.0",
+    "hds-core": "3.6.0",
+    "hds-design-tokens": "3.6.0",
+    "hds-react": "3.6.0",
     "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",
@@ -57,7 +61,7 @@
     "stylelint-order": "^6.0.2"
   },
   "resolutions": {
-    "multer": "1.4.4-lts.1",
+    "multer": "1.4.5-lts.1",
     "jpeg-js": "0.4.4"
   },
   "keywords": [

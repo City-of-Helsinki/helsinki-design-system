@@ -1,5 +1,5 @@
-@use "../../Header.module.scss";
-@use "../../../../styles/common.scss";
+@use '../../Header.module.scss';
+@use '../../../../styles/common.scss';
 
 button.actionBarItem {
   align-self: center;
@@ -22,8 +22,8 @@ button.actionBarItem {
   height: var(--icon-size);
   margin: 0 auto;
   padding: 3px 0 0;
-  width: var(--icon-size);
   pointer-events: none;
+  width: var(--icon-size);
 
   & > svg {
     display: block;
@@ -37,8 +37,8 @@ button.actionBarItem {
   display: block;
   font-size: var(--action-bar-item-title-font-size);
   margin: 0 auto;
-  white-space: nowrap;
   pointer-events: none;
+  white-space: nowrap;
 
   & > svg {
     display: block;

@@ -2,8 +2,7 @@ import to from 'await-to-js';
 import { User, UserManagerSettings, SigninResponse } from 'oidc-client-ts';
 import { waitFor } from '@testing-library/react';
 
-// eslint-disable-next-line jest/no-mocks-import
-import mockWindowLocation from '../__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../../utils/mockWindowLocation';
 // eslint-disable-next-line jest/no-mocks-import
 import { jwtWithHelloStringAmr, jwtWithHelloWorldArrayAmr } from '../__mocks__/jwtTokens';
 import {
@@ -47,14 +46,8 @@ import { Signal, SignalNamespace } from '../beacon/beacon';
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
 import { waitForFetchMockRequestsToFinish } from '../testUtils/fetchMockTestUtil';
 
-const {
-  initTests,
-  waitForLoginToTimeout,
-  waitForLogoutToTimeout,
-  cleanUp,
-  setSignInResponse,
-  placeUserToStorage,
-} = createOidcClientTestSuite();
+const { initTests, waitForLoginToTimeout, waitForLogoutToTimeout, cleanUp, setSignInResponse, placeUserToStorage } =
+  createOidcClientTestSuite();
 
 describe('oidcClient', () => {
   let testData: InitTestResult;
@@ -303,12 +296,12 @@ describe('oidcClient', () => {
       const { oidcClient } = await initTests(createUserProps('invalid'));
       expect(oidcClient.getAmr()).toBeUndefined();
     });
-    it('returns undefined, if amr has invalid value and id_token is not set ', async () => {
+    it('returns undefined, if amr has invalid value and id_token is not set', async () => {
       const amrValue = 'notAnArray';
       const initProps = {
         ...createUserProps(undefined),
       };
-      ((initProps.userProps.signInResponseProfileProps as unknown) as Record<string, string>).amr = amrValue;
+      (initProps.userProps.signInResponseProfileProps as unknown as Record<string, string>).amr = amrValue;
       const { oidcClient } = await initTests(initProps);
       expect(oidcClient.getAmr()).toBeUndefined();
     });
@@ -739,7 +732,7 @@ describe('oidcClient', () => {
       });
     });
     describe('Manual renewal can be started with renewUser()', () => {
-      it('It is handled like the automatic renewal', async () => {
+      it('is handled like the automatic renewal', async () => {
         const { oidcClient, waitForRefreshToEnd, refreshTokens } = await initRenewalTests(true, true);
         expect(oidcClient.isRenewing()).toBeFalsy();
         const initialUser = oidcClient.getUser() as User;

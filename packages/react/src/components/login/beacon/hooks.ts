@@ -59,7 +59,7 @@ const useSignalTracking = (signalProps: SignalListenerSource, callback?: SignalL
       return signalProps as SignalTrigger;
     }
     return (signal: Signal) => {
-      return compareSignalTriggers(signalProps as SignalTriggerProps, (signal as unknown) as SignalTriggerProps);
+      return compareSignalTriggers(signalProps as SignalTriggerProps, signal as unknown as SignalTriggerProps);
     };
   }, []);
   const callbackRef = useRef(callback);

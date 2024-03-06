@@ -118,14 +118,8 @@ describe(`apiTokenClient`, () => {
     removeUserAfterInit: false,
   };
 
-  const {
-    waitUntilRequestFinished,
-    waitUntilRequestStarted,
-    cleanUp,
-    setResponders,
-    addResponse,
-    getRequestCount,
-  } = createControlledFetchMockUtil([{ path: endPointPath }]);
+  const { waitUntilRequestFinished, waitUntilRequestStarted, cleanUp, setResponders, addResponse, getRequestCount } =
+    createControlledFetchMockUtil([{ path: endPointPath }]);
 
   const getApiTokenResponseBody = () => {
     return {
@@ -256,6 +250,7 @@ describe(`apiTokenClient`, () => {
       await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(currentUser as User));
       const fetchCalls = getFetchMockCalls();
       expect(fetchCalls).toHaveLength(1);
+      // eslint-disable-next-line jest/no-interpolation-in-snapshots
       expect(fetchCalls[0]).toMatchInlineSnapshot(`
         Array [
           "${defaultClientProps.url}",
@@ -340,7 +335,7 @@ describe(`apiTokenClient`, () => {
       expect(emittedErrors).toHaveLength(1);
       expect(emittedErrors[0].isInvalidTokensError).toBeTruthy();
     });
-    it('Returns a fetch error when fetch fails for a network error or other status. An error is emitted. ', async () => {
+    it('Returns a fetch error when fetch fails for a network error or other status. An error is emitted.', async () => {
       const apiTokenClient = initTests({
         apiTokenClientProps: { maxRetries: 0 },
         responses: [{ error: true }, errorResponse],
@@ -379,6 +374,7 @@ describe(`apiTokenClient`, () => {
       const fetchCalls = getFetchMockCalls();
       const fetchCallBodies = fetchCalls.map(getFetchRequestBodyAsString);
       expect(fetchCallBodies[0]).toBe(`grant_type=${grantType}&permission=${permission}`);
+      // eslint-disable-next-line jest/no-interpolation-in-snapshots
       expect(fetchCalls[0]).toMatchInlineSnapshot(`
         Array [
           "${defaultClientProps.url}",
@@ -500,7 +496,7 @@ describe(`apiTokenClient`, () => {
       });
     });
   });
-  describe(`When init signal is received `, () => {
+  describe(`When init signal is received`, () => {
     it('and user matches api token reference, tokens are restored from storage. API_TOKENS_UPDATED event is emitted', async () => {
       const tokens = { token: 'a token' };
       const userAccessToken = 'an access token';
@@ -609,7 +605,7 @@ describe(`apiTokenClient`, () => {
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
 
-    it('tokens are not renewed, if USER_UPDATED event has no valid user ', async () => {
+    it('tokens are not renewed, if USER_UPDATED event has no valid user', async () => {
       const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({ removeUserAfterInit: true });
       const eventPayloads = getEmittedEventPayloads();
       expect(eventPayloads).toHaveLength(2);

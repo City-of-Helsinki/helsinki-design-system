@@ -59,7 +59,7 @@ describe('<Combobox />', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('user should be able to search and choose an option ', async () => {
+  it('user should be able to search and choose an option', async () => {
     const onChange = jest.fn();
     const { getAllByLabelText, getAllByRole, getByDisplayValue } = getWrapper({ onChange });
     const input = getAllByLabelText(label)[0];

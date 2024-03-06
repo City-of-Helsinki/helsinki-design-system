@@ -180,7 +180,7 @@ describe('<LanguageContext />', () => {
     cleanup();
   });
 
-  it('Sets the defaultLanguage to DEFAULT_LANGUAGE by default. onDidChangeLanguage is not called ', async () => {
+  it('Sets the defaultLanguage to DEFAULT_LANGUAGE by default. onDidChangeLanguage is not called', async () => {
     const { getActiveLanguage } = renderTestScenario();
     expect(getActiveLanguage()).toBe(DEFAULT_LANGUAGE);
     expect(handleLanguageChange.mock.calls.length).toBe(0);

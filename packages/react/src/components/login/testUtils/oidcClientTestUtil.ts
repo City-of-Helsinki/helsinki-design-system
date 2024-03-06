@@ -19,7 +19,7 @@ import openIdConfiguration from '../__mocks__/openIdConfiguration.json';
 import { UserCreationProps, createSignInResponse, createUserAndPlaceUserToStorage } from './userTestUtil';
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
 // eslint-disable-next-line jest/no-mocks-import
-import { MockedWindowLocationActions } from '../__mocks__/mockWindowLocation';
+import { MockedWindowLocationActions } from '../../../utils/mockWindowLocation';
 
 export type InitTestResult = {
   oidcClient: OidcClient;
@@ -50,9 +50,11 @@ export function getDefaultOidcClientTestProps(): OidcClientProps {
 }
 
 export function getPrivateUserManagerClient(userManager: UserManager): OidcClientFromNpm {
-  const client = ((userManager as unknown) as {
-    _client: OidcClientFromNpm;
-  })._client;
+  const client = (
+    userManager as unknown as {
+      _client: OidcClientFromNpm;
+    }
+  )._client;
 
   return client;
 }
@@ -174,7 +176,7 @@ export function createMockUserManager(userMock: jest.Mock): UserManager {
     getUser: userMock,
   };
 
-  return (manager as unknown) as UserManager;
+  return manager as unknown as UserManager;
 }
 
 export function createMockOidcClient() {

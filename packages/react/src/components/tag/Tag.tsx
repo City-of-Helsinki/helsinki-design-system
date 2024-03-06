@@ -23,10 +23,12 @@ export type TagProps = {
   className?: string;
   /**
    * The aria-label for the delete button
+   * @deprecated Will be removed in the next major release.
    */
   deleteButtonAriaLabel?: string;
   /**
    * Prop will be passed to the delete button `<button>` element. It also hides the default label from screen readers to prevent confusion with labels when present.
+   * @deprecated Will be removed in the next major release.
    */
   deleteButtonProps?: React.ComponentPropsWithoutRef<'button'>;
   /**
@@ -36,10 +38,12 @@ export type TagProps = {
   id?: string;
   /**
    * Additional class names to apply to the tag's label element
+   * @deprecated Will be removed in the next major release.
    */
   labelClassName?: string;
   /**
    * Props that will be passed to the label `<span>` element.
+   * @deprecated Will be removed in the next major release.
    */
   labelProps?: React.ComponentPropsWithoutRef<'span'>;
   /**
@@ -52,19 +56,23 @@ export type TagProps = {
   onDelete?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   /**
    * Sets the role of the tag when it's clickable. Uses 'link' by default.
+   * @deprecated Usage will change in the next major release.
    */
   role?: 'link' | 'button';
   /**
    * Size variant for the Tag.
    * @default 'm'
+   * @deprecated Will change in the next major release.
    */
   size?: 'm' | 'l';
   /**
    * The label is only visible to screen readers. Can be used to give screen reader users additional information about the tag.
+   * @deprecated Will be removed in the next major release.
    */
   srOnlyLabel?: string;
   /**
    * Custom theme styles
+   * Will contain more properties in the next major release.
    */
   theme?: TagCustomTheme;
 };
@@ -74,17 +82,17 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
     {
       children,
       className,
-      deleteButtonAriaLabel,
-      deleteButtonProps,
+      deleteButtonAriaLabel, // Will be removed in the next major release
+      deleteButtonProps, // Will be removed in the next major release
       id = 'hds-tag', // Default value will be removed in the next major release
-      labelClassName,
-      labelProps,
+      labelClassName, // Will be removed in the next major release
+      labelProps, // Will be removed in the next major release
       onClick,
       onDelete,
-      role = 'link',
-      size = 'm',
-      srOnlyLabel,
-      theme,
+      role = 'link', // Use will change in the next major release
+      size = 'm', // Will change in the next major release
+      srOnlyLabel, // Will be removed in the next major release
+      theme, // Will contain more properties in the next major release
       ...rest
     },
     ref: React.Ref<HTMLDivElement>,

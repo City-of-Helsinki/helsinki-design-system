@@ -321,7 +321,7 @@ export const HeaderActionBarNavigationMenu = ({
   const getLinksOrChildren = (parent: React.ReactElement) => {
     return parent.props && parent.props.dropdownLinks
       ? parent.props.dropdownLinks
-      : getChildrenAsArray(((parent as unknown) as React.PropsWithChildren<unknown>).children);
+      : getChildrenAsArray((parent as unknown as React.PropsWithChildren<unknown>).children);
   };
 
   // Picks given child by MenuInfo.index

@@ -152,7 +152,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
 </DocumentFragment>
 `;
 
-exports[`<Header.LanguageSelector /> spec renders the consumer component with props and children passed from the LanguageSelector  1`] = `
+exports[`<Header.LanguageSelector /> spec renders the consumer component with props and children passed from the LanguageSelector 1`] = `
 <DocumentFragment>
   <div
     class="headerActionBarContainer"

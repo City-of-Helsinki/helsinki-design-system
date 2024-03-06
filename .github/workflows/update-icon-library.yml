@@ -1,8 +1,11 @@
-# Build icon library, create zip file for release and create PR
-name: icon library
+# Build icon library, create zip file for release and commit to current branch
+name: update icon library
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - release-*
 
 jobs:
   build-icon-library:
@@ -16,6 +19,26 @@ jobs:
         with:
           node-version: '20.3.1'
           registry-url: 'https://registry.npmjs.org'
+
+      # Don't do anything if we're on development, main or master branches
+      - name: Check branch
+        run: |
+          if [[ $GITHUB_REF == refs/heads/development || $GITHUB_REF == refs/heads/master || $GITHUB_REF == refs/heads/main ]]; then
+            echo "Development, master pr main branch, skipping icon library build"
+            exit 1
+          fi
+
+      # Don't do anything if we're on release-x.x.x AND the icon-kit has the same version number (already built for the release)
+      # Skip this step if workflow was triggered by workflow_dispatch
+      - name: Check if icon library has already been built for this release
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          PKG_VER=`node -pe "require('./packages/react/package.json').version"`
+          ICON_KIT_VER=`sed -n -E 's/.*version[[:space:]]+([0-9]+([.][0-9]+)*).*/\1/p' ./release/icon-kit-template-CHANGELOG.txt`
+          if [[ ${PKG_VER} == ${ICON_KIT_VER} ]]; then
+            echo "Icon library has already been built for this release, skipping"
+            exit 0
+          fi
 
       - name: Run Glypfig
         run: |
@@ -84,8 +107,3 @@ jobs:
           git add .
           git commit -m 'Updated icon library'
           git push
-
-      - name: create pull request
-        run: gh pr create -B development --title 'Icon library build' --body 'Created by Github action icon library'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

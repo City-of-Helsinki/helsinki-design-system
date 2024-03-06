@@ -59,7 +59,7 @@ describe('LoginCallbackHandler', () => {
     );
   };
 
-  it('calls onSuccess with user object, if user already exists ', async () => {
+  it('calls onSuccess with user object, if user already exists', async () => {
     renderComponent(oidcClientStates.VALID_SESSION, true);
     expect(onSuccess).toHaveBeenCalledTimes(1);
     expect(isValidUser(getLastMockCallArgs(onSuccess)[0])).toBeTruthy();

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash';
 
 import '../../styles/base.module.css';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
@@ -297,32 +297,37 @@ const getExtension = (path: string): string => {
   return extensionWithDot;
 };
 
-const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
-  const extension: string = getExtension(file.name);
-  const fileType: string = file.type;
-  const acceptedExtensions = accept.split(',').map((str) => str.trim());
-  const isMatchingType = !!acceptedExtensions.find(
-    (acceptExtension) => acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
-  );
-  const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
+const validateAccept =
+  (language: Language, accept: string) =>
+  (file: File): true | ValidationError => {
+    const extension: string = getExtension(file.name);
+    const fileType: string = file.type;
+    const acceptedExtensions = accept.split(',').map((str) => str.trim());
+    const isMatchingType = !!acceptedExtensions.find(
+      (acceptExtension) =>
+        acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
+    );
+    const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
 
-  return (
-    isMatchingType ||
-    hasMatchingFileExtension || {
-      type: ValidationErrorType.accept,
-      text: getAcceptErrorMessage(language, file, accept),
-    }
-  );
-};
+    return (
+      isMatchingType ||
+      hasMatchingFileExtension || {
+        type: ValidationErrorType.accept,
+        text: getAcceptErrorMessage(language, file, accept),
+      }
+    );
+  };
 
-const validateMaxSize = (language: Language, maxSize: number) => (file: File): true | ValidationError => {
-  return (
-    file.size <= maxSize || {
-      type: ValidationErrorType.maxSize,
-      text: getMaxSizeErrorMessage(language, file, maxSize),
-    }
-  );
-};
+const validateMaxSize =
+  (language: Language, maxSize: number) =>
+  (file: File): true | ValidationError => {
+    return (
+      file.size <= maxSize || {
+        type: ValidationErrorType.maxSize,
+        text: getMaxSizeErrorMessage(language, file, maxSize),
+      }
+    );
+  };
 
 export const FileInput = ({
   id,

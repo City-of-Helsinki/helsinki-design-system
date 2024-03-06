@@ -5,6 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.0] - March, 6, 2024
+
+### React
+
+#### Changed
+
+- [Tag] Marked changed and removed properties in the next major release
+
+#### Fixed
+
+- Warnings about "unmet peer dependency".
+- Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
+- [HeaderActionBarItemWithDropdown] Removed useless `@layer` css style which caused Jest/jsdom tests output errors.
+- [Checkbox] Layout issue when using external label with htmlLabelFor-attribute
+- [Table] Append className prop instead of overriding the existing classes
+
+### Core
+
+#### Fixed
+
+- [Icons] Document-group icon wrong colors
+- [Button] Some iOS-versions rendering rounded link buttons wrongly
+
+### Documentation
+
+#### Added
+
+- [Icons] Added missing icons to site icons list
+- Added links to React and Core Storybooks to Resources and Components pages
+
+#### Fixed
+
+- [Button] Fix wrong label on secondary Button variant example.
+- [Notification] Fix Core showing and hiding Toast Notification example
+
+### Figma
+
+#### Fixed
+
+- [Icons] Fixed document-group icon, removed stroke from the vector. Removed few export settings and fixed box’s black color to use HDS-token.
+
+### Icon kit
+
+#### Fixed:
+
+- [Forms and information] Fixed document-group icon svg, removed stroke from the vector.
+
 ## [3.5.0] - February, 6, 2024
 
 ### React
@@ -62,6 +109,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Icon kit
 
 #### Added:
+
 - [Icons] New icons in the Forms category: document-group, document-blank, document-blank-group, folder, folder-group & box
 
 ## [3.4.0] - January, 16, 2024
@@ -486,6 +534,14 @@ There is a brand new Figma library available. The licenses are checked and provi
 #### Added
 
 - [Header] Add HDS Header.sketch file to shared libraries for HDS 3.0.0 Alpha release purposes. The shared library file includes new Header and Side navigation symbols.
+
+## [2.17.1] - Feb, 7, 2024
+
+### React
+
+#### Fixed
+
+- Removed old & deprecated individual `lodash` dependencies and replaced with the full package and importing the needed functions only.
 
 ## [2.17.0] - Aug, 18, 2023
 

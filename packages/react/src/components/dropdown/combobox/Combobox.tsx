@@ -2,8 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
-import isEqual from 'lodash.isequal';
-import uniqueId from 'lodash.uniqueid';
+import { isEqual, uniqueId } from 'lodash';
 import { useVirtual } from 'react-virtual';
 
 import '../../../styles/base.module.css';
@@ -317,13 +316,12 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     }
   };
 
-  const ignoreFocusHandlerWhenClickingItem = (handler: FocusEventHandler<HTMLDivElement>) => (
-    event: FocusEvent<HTMLDivElement>,
-  ) => {
-    if (!isClicking) {
-      handler(event);
-    }
-  };
+  const ignoreFocusHandlerWhenClickingItem =
+    (handler: FocusEventHandler<HTMLDivElement>) => (event: FocusEvent<HTMLDivElement>) => {
+      if (!isClicking) {
+        handler(event);
+      }
+    };
 
   const handleWrapperFocus = (e: FocusEvent<HTMLDivElement>) => {
     if (getIsElementFocused(e)) {

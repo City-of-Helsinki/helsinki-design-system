@@ -4,8 +4,7 @@ import to from 'await-to-js';
 import HttpStatusCode from 'http-status-typed';
 import { waitFor } from '@testing-library/react';
 
-// eslint-disable-next-line jest/no-mocks-import
-import mockWindowLocation from './__mocks__/mockWindowLocation';
+import mockWindowLocation from '../../utils/mockWindowLocation';
 // eslint-disable-next-line jest/no-mocks-import
 import apiTokens from './__mocks__/apiTokens.json';
 // eslint-disable-next-line jest/no-mocks-import

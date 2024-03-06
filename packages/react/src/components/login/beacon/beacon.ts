@@ -65,7 +65,7 @@ export function convertToComparableSignals(
   // If source has context, it is a deep object with unnecessary key/values to compare.
   // Only important prop is the namespace, so just pick that
   if (!source.context) {
-    return (source as unknown) as SignalTriggerProps;
+    return source as unknown as SignalTriggerProps;
   }
   return { ...source, context: source.context ? { namespace: source.context.namespace } : undefined };
 }
@@ -87,7 +87,7 @@ export function compareSignals(signalOrJustType: SignalType | Partial<Signal>, s
   // If source has no context, it is not compared to the target, so no need to convert it.
   const target = source.context
     ? convertToComparableSignals(signalToCheckFrom)
-    : ((signalToCheckFrom as unknown) as SignalTriggerProps);
+    : (signalToCheckFrom as unknown as SignalTriggerProps);
   return compareSignalTriggers(source, target);
 }
 
@@ -103,7 +103,7 @@ export function createSignalTrigger(signalOrJustSignalType: SignalType | Signal 
     }
     const target = source.context
       ? convertToComparableSignals(incomingSignal)
-      : ((incomingSignal as unknown) as SignalTriggerProps);
+      : (incomingSignal as unknown as SignalTriggerProps);
     return compareSignalTriggers(source, target);
   };
 }

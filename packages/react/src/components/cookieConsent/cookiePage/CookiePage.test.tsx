@@ -61,7 +61,7 @@ describe('<Page /> spec', () => {
   }, 15000);
 });
 
-describe('<Page /> ', () => {
+describe('<Page />', () => {
   afterEach(() => {
     mockedCookieControls.clear();
   });
@@ -72,7 +72,7 @@ describe('<Page /> ', () => {
 
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
 
-  describe('Cookie consent ', () => {
+  describe('Cookie consent', () => {
     it('and child components are rendered even if consents have been handled', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
@@ -115,7 +115,7 @@ describe('<Page /> ', () => {
     });
   });
 
-  describe('Details are shown and ', () => {
+  describe('Details are shown and', () => {
     it('required and optional consent groups are rendered', async () => {
       const result = renderCookieConsent(defaultConsentData);
       verifyElementExistsByTestId(result, dataTestIds.getConsentsCheckboxId(requiredGroupParent));
@@ -148,13 +148,13 @@ describe('<Page /> ', () => {
       });
     });
   });
-  describe('Accordions of each consent group can be opened and ', () => {
+  describe('Accordions of each consent group can be opened and', () => {
     it('all consents in the group are rendered', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const checkConsentsExist = async (groupParent: TestGroupParent) => {
-        const list = (groupParent === 'required'
-          ? content.requiredCookies?.groups
-          : content.optionalCookies?.groups) as CookieGroup[];
+        const list = (
+          groupParent === 'required' ? content.requiredCookies?.groups : content.optionalCookies?.groups
+        ) as CookieGroup[];
         let index = 0;
         // cannot use async/await with array.forEach
         // eslint-disable-next-line no-restricted-syntax

@@ -80,6 +80,7 @@ describe("partiallyCompareObjects compares only object's key values", () => {
             Number.isNaN(sourceValue) &&
             Number.isNaN(targetValue)
           ) {
+            // eslint-disable-next-line jest/no-conditional-expect
             expect(partiallyCompareObjects(source, { key: 1 })).toBeFalsy();
             return;
           }

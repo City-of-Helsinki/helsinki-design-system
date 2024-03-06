@@ -14,6 +14,7 @@ describe('<InputWrapper /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
       <InputWrapper {...wrapperProps}>
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <input id="test" />
       </InputWrapper>,
     );
@@ -22,6 +23,7 @@ describe('<InputWrapper /> spec', () => {
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <InputWrapper {...wrapperProps}>
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <input id="test" />
       </InputWrapper>,
     );

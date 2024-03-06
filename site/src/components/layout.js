@@ -84,9 +84,9 @@ const generateUiIdFromPath = (path, prefix) => {
     !path && path === '/'
       ? 'home'
       : path
-        .split('/')
-        .filter((str) => !!str)
-        .join('-');
+          .split('/')
+          .filter((str) => !!str)
+          .join('-');
   return `${prefix}-${pathStr}`;
 };
 
@@ -165,10 +165,10 @@ const Layout = ({ children, pageContext }) => {
   const subMenuLinksFromPages =
     currentMenuItem && currentMenuItem.link
       ? allPages
-        .filter(isNavPage)
-        .filter(isLinkParentForPage(currentMenuItem.link, 2))
-        .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
-        .sort(sortByPageTitle)
+          .filter(isNavPage)
+          .filter(isLinkParentForPage(currentMenuItem.link, 2))
+          .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
+          .sort(sortByPageTitle)
       : [];
 
   const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
@@ -186,18 +186,6 @@ const Layout = ({ children, pageContext }) => {
       .sort(sortByPageTitle),
   }));
   const contentId = 'content';
-  const NavigationTitle = () => (
-    <div className="page-header-title">
-      <div>{siteTitle}</div>
-      <div className="page-header-title-badge">
-        <img
-          style={{ filter: 'invert(1)' }}
-          alt="HDS version number: 2.15.0"
-          src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=1a1a1a"
-        />
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -213,10 +201,7 @@ const Layout = ({ children, pageContext }) => {
         ]}
       />
       <div className="page text-body">
-        <Header
-          id="page-header"
-          className="pageHeader"
-        >
+        <Header id="page-header" className="pageHeader">
           <Header.SkipLink skipTo={`#${contentId}`} label="Skip to content" />
           <Header.ActionBar
             frontPageLabel="Front page"
@@ -263,12 +248,12 @@ const Layout = ({ children, pageContext }) => {
                       {...(hasSubLevels
                         ? {}
                         : {
-                          href: prefixedLink,
-                          onClick: (e) => {
-                            e.preventDefault();
-                            navigate(link);
-                          },
-                        })}
+                            href: prefixedLink,
+                            onClick: (e) => {
+                              e.preventDefault();
+                              navigate(link);
+                            },
+                          })}
                     >
                       {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
@@ -299,12 +284,7 @@ const Layout = ({ children, pageContext }) => {
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Navigation>
             {uiMenuLinks.map(({ name, link, uiId }) => (
-              <Footer.Link
-                key={uiId}
-                label={name}
-                to={link}
-                as={GatsbyLink}
-              />
+              <Footer.Link key={uiId} label={name} to={link} as={GatsbyLink} />
             ))}
           </Footer.Navigation>
           <Footer.Base

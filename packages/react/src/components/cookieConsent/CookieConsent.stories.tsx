@@ -1050,8 +1050,7 @@ export const TunnistamoLoginCookies = (args) => {
       sections: {
         main: {
           title: 'List all cookies used in Tunnistamo login',
-          text:
-            'This is an example how to get consents for all cookies when using Tunnistamo login flow. All used session, language, load balancer and csrf cookies are listed. Tunnistamo uses Tunnistus and Suomi.fi services and cookies of those services are also listed as they have no consent queries of their own.',
+          text: 'This is an example how to get consents for all cookies when using Tunnistamo login flow. All used session, language, load balancer and csrf cookies are listed. Tunnistamo uses Tunnistus and Suomi.fi services and cookies of those services are also listed as they have no consent queries of their own.',
         },
       },
     },
@@ -1076,11 +1075,7 @@ export const TunnistamoLoginCookies = (args) => {
     focusTargetSelector: '#focused-element-after-cookie-consent-closed',
   };
 
-  return (
-    <>
-      <CookiePage contentSource={contentSource} />
-    </>
-  );
+  return <CookiePage contentSource={contentSource} />;
 };
 
 TunnistamoLoginCookies.parameters = {

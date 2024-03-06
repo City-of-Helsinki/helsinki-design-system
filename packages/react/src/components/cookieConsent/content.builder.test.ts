@@ -1,6 +1,6 @@
-import _get from 'lodash.get';
+import { get } from 'lodash';
 
-import { CookieContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
+import { CookieContentSource, ContentSourceCookieGroup, createContent } from './content.builder';
 import { getCookieContent } from './getContent';
 import { CookieData, CookieGroup, Content, Category } from './contexts/ContentContext';
 
@@ -155,7 +155,7 @@ describe(`content.builder.ts`, () => {
       expect(plainContent.requiredCookies).toBeUndefined();
       expect(plainContent.optionalCookies).toBeUndefined();
 
-      expect(_get(plainContent, mainTitlePath).indexOf(siteName)).toBe(0);
+      expect(get(plainContent, mainTitlePath).indexOf(siteName)).toBe(0);
     });
   });
   describe('contentSource.texts', () => {
@@ -166,14 +166,14 @@ describe(`content.builder.ts`, () => {
         ...commonContentTestProps,
         texts: { sections: { main: { title: newMainTitle } } },
       });
-      expect(_get(contentWithNewMainTitle, mainTitlePath)).toBe(newMainTitle);
-      expect(_get(contentWithNewMainTitle, mainTextPath)).toBe(_get(defaults, mainTextPath));
+      expect(get(contentWithNewMainTitle, mainTitlePath)).toBe(newMainTitle);
+      expect(get(contentWithNewMainTitle, mainTextPath)).toBe(get(defaults, mainTextPath));
       const contentWithNewDetailsText = createContent({
         ...commonContentTestProps,
         texts: { sections: { details: { text: newDetailsText } } },
       });
-      expect(_get(contentWithNewDetailsText, detailsTextPath)).toBe(newDetailsText);
-      expect(_get(contentWithNewDetailsText, detailsTitlePath)).toBe(_get(defaults, detailsTitlePath));
+      expect(get(contentWithNewDetailsText, detailsTextPath)).toBe(newDetailsText);
+      expect(get(contentWithNewDetailsText, detailsTitlePath)).toBe(get(defaults, detailsTitlePath));
     });
   });
   describe('contentSource.language', () => {
@@ -884,98 +884,13 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('Automatically adds the consent storage cookie to required consents', () => {
-    it('when noCommonConsentCookie is not true ', () => {
+    it('when noCommonConsentCookie is not true', () => {
       const content = createContent({ siteName, currentLanguage: 'fi' });
       expect(content.requiredCookies).toBeDefined();
       expect(content.requiredCookies?.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
       expect(content.requiredCookies?.groups[0].cookies[0].name).toBe(
         commonContent.commonCookies.helConsentCookie.fi.name,
       );
-    });
-  });
-  describe('setPropsToObject merges given value/object to the target object', () => {
-    type AnyObject = { [key: string]: unknown };
-    type TargetObject = { [key: string]: TargetObject | string };
-    it('Path indicates where to merge. Path is a given as a comma delimetered path.', () => {
-      const target = setPropsToObject({}, 'a', 'valueOfA');
-      expect(target).toEqual({ a: 'valueOfA' });
-
-      const target2 = setPropsToObject({}, 'a.a', 'valueOfAA');
-      expect(target2).toEqual({ a: { a: 'valueOfAA' } });
-
-      const target3 = setPropsToObject({}, 'a.b.c.d.e.f', 'valueOfABCDEF');
-      expect(target3).toEqual({
-        a: {
-          b: {
-            c: {
-              d: {
-                e: {
-                  f: 'valueOfABCDEF',
-                },
-              },
-            },
-          },
-        },
-      });
-    });
-    it('existing props are not overridden or copied', () => {
-      const target: TargetObject & { obj1: { obj2?: AnyObject; newObj2?: { newObj3?: AnyObject } } } = {
-        prop1: 'valueOfProp1',
-        obj1: { obj2: { value: 'valueOfObj2' } },
-      };
-
-      // save refs to objects to check refs do not change
-      const { obj1: obj1Ref } = target;
-      const { obj2: obj2Ref } = target.obj1 as TargetObject;
-
-      // objects added later
-      const obj3 = { value: 'valueOfObj3' };
-      const newObj4 = { newObj5: 'valueOfNewObj5' };
-
-      setPropsToObject(target, 'prop2', 'valueOfProp2');
-      expect(target.prop2).toBe('valueOfProp2');
-
-      setPropsToObject(target.obj1.obj2 as AnyObject, 'obj3', obj3);
-      expect((target.obj1.obj2 as AnyObject).obj3).toBe(obj3);
-
-      setPropsToObject(target, 'obj1.newObj2.newObj3', newObj4);
-      expect((target.obj1.newObj2 as AnyObject).newObj3).toBe(newObj4);
-
-      // check initial values/refs have not changed
-      expect(target.prop1).toBe('valueOfProp1');
-      expect(target.obj1).toBe(obj1Ref);
-      expect(target.obj1.obj2).toBe(obj2Ref);
-      expect((target.obj1.obj2 as AnyObject).value).toBe('valueOfObj2');
-    });
-    it('object to merge is not copied, but assigned', () => {
-      const target: AnyObject = {};
-      const mergedObject1 = { obj: 'valueOfObj', object2: {} };
-      const mergedObject2 = { obj2: 'valueOfObj2' };
-      const finalObject1 = { obj3: 'valueOfObj3' };
-
-      setPropsToObject(target, 'object1', mergedObject1);
-      expect(target.object1).toEqual(mergedObject1);
-
-      setPropsToObject(target, 'object1.object2', mergedObject2);
-      expect((target.object1 as AnyObject).object2).toEqual(mergedObject2);
-
-      setPropsToObject(target, 'object1', finalObject1);
-      expect(target.object1).toEqual(finalObject1);
-      expect((target.object1 as AnyObject).object2).toBeUndefined();
-    });
-    it('merged value can be anything', () => {
-      const target: AnyObject = {};
-      const values = [null, undefined, 1, 'abc', () => undefined, new Map(), Object.create({})];
-      values.forEach((value, index) => {
-        const key = `value-${index}`;
-        setPropsToObject(target, key, value);
-        expect(target[key]).toBe(value);
-      });
-    });
-    it('Using "_" is prohibited to avoid prototype pollution', () => {
-      const target: AnyObject = {};
-      expect(() => setPropsToObject(target, '__proto__.toString', () => 'hello')).toThrow();
-      expect(target.toString()).not.toBe('hello');
     });
   });
 });

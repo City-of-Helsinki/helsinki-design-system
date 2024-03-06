@@ -120,7 +120,7 @@ describe('<Header.LanguageSelector /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders the consumer component with props and children passed from the LanguageSelector ', () => {
+  it('renders the consumer component with props and children passed from the LanguageSelector', () => {
     const { asFragment } = render(<LanguageSelectorWithActionBar />);
     expect(asFragment()).toMatchSnapshot();
   });
