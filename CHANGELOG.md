@@ -5,23 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.6.0] - March, 6, 2024
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Tag] Marked changed and removed properties in the next major release
 
 #### Fixed
@@ -34,34 +23,15 @@ Changes that are not related to specific components
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Icons] Document-group icon wrong colors
+- [Button] Some iOS-versions rendering rounded link buttons wrongly
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
 - [Icons] Added missing icons to site icons list
 - Added links to React and Core Storybooks to Resources and Components pages
 
@@ -71,69 +41,20 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Button] Fix wrong label on secondary Button variant example.
 - [Notification] Fix Core showing and hiding Toast Notification example
 
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Icons] Fixed document-group icon, removed stroke from the vector. Removed few export settings and fixed box’s black color to use HDS-token.
 
-### Sketch/Abstract
+### Icon kit
 
-#### Breaking
+#### Fixed:
 
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Forms and information] Fixed document-group icon svg, removed stroke from the vector.
 
 ## [3.5.0] - February, 6, 2024
 
