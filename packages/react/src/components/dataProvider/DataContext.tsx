@@ -3,7 +3,7 @@ import { createContext, SyntheticEvent } from 'react';
 import { createStorage, Storage, StorageData } from './storage';
 
 export type ChangeEventPayload = { value?: unknown; originalEvent?: SyntheticEvent };
-export type ChangeEvent = { id: string; type?: string; payload?: ChangeEventPayload };
+export type ChangeEvent<I = string, T = string> = { id: I; type?: T; payload?: ChangeEventPayload };
 export type ChangeHandler<D = StorageData, M = StorageData> = (
   event: ChangeEvent,
   dataHandlers: DataHandlers<D, M>,
