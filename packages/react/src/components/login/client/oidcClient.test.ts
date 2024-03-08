@@ -1,6 +1,7 @@
 import to from 'await-to-js';
 import { User, UserManagerSettings, SigninResponse } from 'oidc-client-ts';
 import { waitFor } from '@testing-library/react';
+import { enableFetchMocks, disableFetchMocks } from 'jest-fetch-mock';
 
 import mockWindowLocation from '../../../utils/mockWindowLocation';
 // eslint-disable-next-line jest/no-mocks-import
@@ -18,6 +19,7 @@ import {
   UserReturnType,
   oidcClientEvents,
   oidcClientStates,
+  OidcClientProps,
 } from './index';
 import { getUserFromStorage, getUserStoreKey, isUserExpired, isValidUser } from './oidcClient';
 import { OidcClientError } from './oidcClientError';
@@ -52,8 +54,21 @@ const { initTests, waitForLoginToTimeout, waitForLogoutToTimeout, cleanUp, setSi
 describe('oidcClient', () => {
   let testData: InitTestResult;
   const mockedWindowControls = mockWindowLocation();
+  const defaultOidcClientProps = getDefaultOidcClientTestProps();
+  const userManagerSettingsWithoutAutomaticSilenRew = {
+    ...defaultOidcClientProps.userManagerSettings,
+    automaticSilentRenew: false,
+  } as UserManagerSettings;
+  const oidcClientPropsWithoutAutomaticSilentRenew: OidcClientProps = {
+    ...defaultOidcClientProps,
+    userManagerSettings: userManagerSettingsWithoutAutomaticSilenRew,
+  };
+  beforeAll(() => {
+    enableFetchMocks();
+  });
   afterAll(() => {
     mockedWindowControls.restore();
+    disableFetchMocks();
   });
   afterEach(() => {
     cleanUp();
@@ -67,7 +82,7 @@ describe('oidcClient', () => {
   });
   describe('.login()', () => {
     beforeEach(async () => {
-      testData = await initTests({});
+      testData = await initTests({}, oidcClientPropsWithoutAutomaticSilentRenew);
     });
     it('should add given language to the login url', async () => {
       const { userManager } = testData;
