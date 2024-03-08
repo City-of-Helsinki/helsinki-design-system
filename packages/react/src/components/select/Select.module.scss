@@ -1,0 +1,267 @@
+@import '../../styles/common.scss';
+@import '../dropdown/dropdown.common.scss';
+
+.root {
+  @extend %dropdownRoot;
+
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+
+  &.open {
+    .angleIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  &.error {
+    border-color: var(--color-error);
+  }
+
+  --menu-item-background-default: var(--color-white);
+  --menu-item-background-hover: var(--color-bus-light);
+  --menu-item-background-selected: var(--color-bus-light);
+  --menu-item-background-selected-hover: var(--color-bus-light);
+  --menu-item-background-disabled: var(--color-white);
+}
+
+.selectAndListContainer {
+  @extend %dropdownWrapper;
+
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.selectedOptionsContainer {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  min-height: var(--menu-item-height);
+
+  .button {
+    @extend %buttonReset;
+
+    align-items: center;
+    color: var(--dropdown-color-default);
+    display: flex;
+    font-size: var(--fontsize-body-l);
+    outline: none;
+    padding: var(--spacing-s);
+    padding-right: var(--spacing-2-xs);
+
+    .labels {
+      box-sizing: border-box;
+      display: flex;
+      flex-flow: wrap;
+      flex-grow: 1;
+      max-height: var(--lineheight-l);
+      overflow: hidden;
+    }
+
+    .count.count {
+      display: none;
+      font-weight: bold;
+      padding: 0;
+      position: relative;
+      width: 1px;
+
+      /* This helps align the element vertically, when child is position:absolute */
+      &:after {
+        content: '\00a0';
+        display: inline-block;
+      }
+
+      span {
+        background-color: #fff;
+        position: absolute;
+        right: 2px;
+        top: 0;
+      }
+    }
+
+    &.selectedOptions {
+      flex-grow: 1;
+
+      // button icon
+      > span:first-child {
+        display: flex;
+        padding-right: var(--spacing-2-xs);
+      }
+    }
+
+    &.icon {
+      align-self: stretch;
+      flex-shrink: 1;
+      padding-left: var(--spacing-2-xs);
+    }
+
+    &:last-child {
+      padding-right: var(--spacing-s);
+    }
+
+    &.placeholder {
+      background-color: inherit;
+      color: var(--placeholder-color);
+    }
+
+    &.placeholder:disabled {
+      color: var(--dropdown-color-disabled);
+    }
+
+    &.spaceForOneDigit .labels {
+      /* minus is option padding right, minus smth */
+      padding-right: calc(24px - var(--spacing-2-xs));
+    }
+
+    &.spaceForTwoDigits .labels {
+      padding-right: calc(34px - var(--spacing-2-xs));
+    }
+
+    &.spaceForThreeDigits .labels {
+      padding-right: calc(44px - var(--spacing-2-xs));
+    }
+
+    &.spaceForFourDigits .labels {
+      padding-right: calc(54px - var(--spacing-2-xs));
+    }
+
+    &.disabledButton {
+      background-color: var(--dropdown-background-disabled);
+      color: var(--dropdown-color-disabled);
+
+      &.icon {
+        color: var(--menu-item-icon-color-disabled);
+      }
+
+      .count.count span {
+        background-color: var(--dropdown-background-disabled);
+      }
+    }
+
+    &.hasHiddenItems {
+      .count {
+        display: block;
+      }
+    }
+  }
+
+  .buttonOption {
+    max-width: 100%;
+    padding: 0 var(--spacing-2-xs) 0 0;
+    position: relative;
+    white-space: nowrap;
+
+    &:not(:last-child):after {
+      bottom: 0;
+      content: ',';
+      display: inline-block;
+
+      /* "absolute", because comma is added/removed after render 
+      and should not cause reflow of elements */
+      position: absolute;
+      right: var(--spacing-3-xs);
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.lastVisible:after {
+      content: '';
+    }
+  }
+}
+
+.listAndInputContainer {
+  @extend %dropdownMenu;
+
+  background-color: #fff;
+
+  .listContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 238px;
+    overflow-y: auto;
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+
+      .listItem {
+        @extend %dropdownMenuItem;
+
+        &.disabledOption.disabledOption {
+          color: var(--color-black-40);
+          cursor: not-allowed;
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+
+      .multiSelectListItem {
+        position: relative;
+
+        > div {
+          pointer-events: none;
+          width: 24px;
+        }
+
+        label {
+          cursor: pointer;
+          flex-grow: 1;
+          padding-left: var(--spacing-2-xs);
+        }
+
+        &.disabledOption.disabledOption label {
+          cursor: not-allowed;
+        }
+      }
+
+      .groupLabel {
+        @extend %dropdownMenuItem;
+
+        background-color: var(--color-black-5);
+        font-weight: bold;
+      }
+
+      .selectableListItem {
+        outline: none;
+
+        &:hover {
+          background-color: var(--menu-item-background-selected-hover);
+        }
+
+        &:focus,
+        &:focus-within {
+          box-shadow: 0 0 1px 1px var(--color-coat-of-arms) inset;
+          outline: none;
+        }
+      }
+
+      &.shiftOptions {
+        .selectableListItem:not(.groupLabel) {
+          padding-left: var(--spacing-layout-xs);
+        }
+      }
+
+      &.multiSelectList {
+        .listItem.selected:not(:hover) {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  &.listAndInputContainerVisible {
+    display: block;
+  }
+
+  &.withSearchOrFilter {
+    .listContainer {
+      border-top: 1px solid var(--color-black-20);
+    }
+  }
+}
