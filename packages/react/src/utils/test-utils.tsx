@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react';
+import type { Writable } from 'type-fest';
 
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
@@ -36,3 +37,116 @@ export const HeaderNavigationMenuWrapper = ({ children }: WrapperProps) => (
     <Header.NavigationMenu>{children}</Header.NavigationMenu>
   </Header>
 );
+
+export const createDomRect = (props: Partial<DOMRect>): Writable<DOMRect> => {
+  const rect = {
+    left: props.left || props.x || 0,
+    top: props.top || props.y || 0,
+    width: props.width || 0,
+    height: props.height || 0,
+    right: props.right || 0,
+    bottom: props.bottom || 0,
+  };
+
+  const right = Math.max(rect.right, rect.left + rect.width);
+  const bottom = Math.max(rect.bottom, rect.top + rect.height);
+  const width = Math.max(rect.width, rect.right - rect.left);
+  const height = Math.max(rect.height, rect.bottom - rect.top);
+
+  return {
+    left: rect.left,
+    top: rect.top,
+    width,
+    height,
+    right,
+    bottom,
+    x: rect.left,
+    y: rect.top,
+    toJSON: () => '',
+  };
+};
+
+export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[] = []): HTMLElement => {
+  const domRect = createDomRect(rect);
+  const element: Partial<HTMLElement> = {
+    getBoundingClientRect: () => {
+      return domRect as DOMRect;
+    },
+  };
+  const baseDefineProps = {
+    enumerable: true,
+    configurable: true,
+  };
+  let childList: HTMLElement[] = [];
+  let parent: HTMLElement | null = null;
+  const getParentChildren = () => {
+    if (!parent || !parent.children) {
+      return [];
+    }
+    return Array.from(parent.children);
+  };
+  const getIndexInParentChildren = () => {
+    return getParentChildren().findIndex((i) => i === element);
+  };
+  Reflect.defineProperty(element, 'lastElementChild', {
+    ...baseDefineProps,
+    get() {
+      return childList[childList.length - 1] || null;
+    },
+  });
+  Reflect.defineProperty(element, 'children', {
+    ...baseDefineProps,
+    get() {
+      return childList;
+    },
+    set(newList: HTMLElement[]) {
+      childList = [...newList];
+      childList.forEach((child) => {
+        // @ts-ignore
+        // eslint-disable-next-line no-param-reassign
+        child.parent = element;
+      });
+    },
+  });
+  Reflect.defineProperty(element, 'parent', {
+    ...baseDefineProps,
+    get() {
+      return parent;
+    },
+    set(value) {
+      parent = value;
+    },
+  });
+  Reflect.defineProperty(element, 'previousElementSibling', {
+    ...baseDefineProps,
+    get() {
+      const siblingIndex = getIndexInParentChildren() - 1;
+      const parentChildren = getParentChildren();
+      return siblingIndex > -1 ? parentChildren[siblingIndex] : null;
+    },
+  });
+
+  // @ts-ignore
+  element.children = children;
+
+  return element as HTMLElement;
+};
+
+export const isRect = (element: HTMLElement | DOMRect) => {
+  return typeof (element as DOMRect).top !== 'undefined';
+};
+
+export const getRect = (element: HTMLElement | DOMRect) => {
+  return isRect(element) ? (element as DOMRect) : (element as HTMLElement).getBoundingClientRect();
+};
+
+export const assignNewFakeElementChildren = (parent: HTMLElement, children: (HTMLElement | DOMRect)[]) => {
+  // @ts-ignore
+  // eslint-disable-next-line no-param-reassign
+  parent.children = children.map((childOrRect) => {
+    if (isRect(childOrRect)) {
+      return createFakeElement(childOrRect as DOMRect);
+    }
+    return childOrRect as HTMLElement;
+  });
+};
