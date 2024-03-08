@@ -180,6 +180,7 @@ export function createHookTestEnvironment(
   };
 
   const oidcClientProps = { ...getDefaultOidcClientTestProps(), ...additionalOidcClientProps };
+  oidcClientProps.userManagerSettings.automaticSilentRenew = false;
 
   if (userInStorage) {
     createUserAndPlaceUserToStorage(oidcClientProps.userManagerSettings, userInStorage);

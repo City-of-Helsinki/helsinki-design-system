@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
@@ -13,6 +14,8 @@ import { createUser } from '../testUtils/userTestUtil';
 import { OidcClientError } from '../client/oidcClientError';
 
 const loginProps = getDefaultOidcClientTestProps();
+loginProps.userManagerSettings.automaticSilentRenew = false;
+
 const onError = jest.fn();
 const onSuccess = jest.fn();
 
@@ -24,6 +27,14 @@ afterEach(() => {
   jest.useRealTimers();
   jest.restoreAllMocks();
   sessionStorage.clear();
+});
+
+beforeAll(() => {
+  enableFetchMocks();
+});
+
+afterAll(() => {
+  disableFetchMocks();
 });
 
 describe('LoginCallbackHandler', () => {

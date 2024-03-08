@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
@@ -9,6 +10,7 @@ import { OidcClient, oidcClientNamespace } from '../client';
 import { advanceUntilDoesNotThrow, createTimedPromise } from '../testUtils/timerTestUtil';
 
 const loginProps = getDefaultOidcClientTestProps();
+loginProps.userManagerSettings.automaticSilentRenew = false;
 
 const buttonText = 'Log in';
 const props: Omit<LoginButtonProps, 'children'> = {
@@ -24,6 +26,14 @@ afterEach(() => {
   jest.useRealTimers();
   jest.restoreAllMocks();
   sessionStorage.clear();
+});
+
+beforeAll(() => {
+  enableFetchMocks();
+});
+
+afterAll(() => {
+  disableFetchMocks();
 });
 
 describe('LoginButton', () => {
