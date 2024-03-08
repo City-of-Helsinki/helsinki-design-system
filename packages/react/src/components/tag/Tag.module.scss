@@ -4,22 +4,26 @@
   composes: hds-tag from 'hds-core/lib/components/tag/tag.css';
 }
 
-// Child nodes
-.label {
-  composes: hds-tag__label from 'hds-core/lib/components/tag/tag.css';
-}
-
-// Large size variant
 .large {
   composes: hds-tag--large from 'hds-core/lib/components/tag/tag.css';
 }
 
-.deleteButton {
-  @extend %buttonReset;
-
-  composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
+.action {
+  composes: hds-tag--action from 'hds-core/lib/components/tag/tag.css';
 }
 
-.visuallyHidden {
-  @extend %visuallyHidden;
+.link {
+  composes: hds-tag--link from 'hds-core/lib/components/tag/tag.css';
+}
+
+.icon {
+  composes: hds-tag__icon from 'hds-core/lib/components/tag/tag.css';
+}
+
+.label {
+  composes: hds-tag__label from 'hds-core/lib/components/tag/tag.css';
+}
+
+.multilineLabel {
+  composes: hds-tag__label--multiline from 'hds-core/lib/components/tag/tag.css';
 }

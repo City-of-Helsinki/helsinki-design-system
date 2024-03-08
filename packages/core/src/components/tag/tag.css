@@ -2,59 +2,112 @@
 @import url("../../icons/cross.css");
 
 .hds-tag {
-  --tag-background: var(--color-black-10);
+  --tag-action-border-color: var(--color-black-90);
+  --tag-background-color: var(--color-black-10);
   --tag-color: var(--color-black-90);
+  --tag-focus-outline-color: var(--color-focus-outline);
   --tag-font-size-large: var(--fontsize-body-m);
   --tag-font-size: var(--fontsize-body-s);
+  --tag-gap-large: var(--spacing-2-xs);
+  --tag-gap-small: var(--spacing-3-xs);
+  --tag-gap: var(--tag-gap-small);
   --tag-height-large: 48px;
   --tag-height: 32px;
-  --tag-line-height: var(--lineheight-xl);
-  --tag-padding-large: 10px 20px;
-  --tag-padding: 4px 12px;
-  --tag-spacing-large: var(--spacing-s);
-  --tag-spacing: var(--spacing-xs);
+  --tag-hover-background-color: var(--color-black-20);
+  --tag-icon-reposition-large: -8px;
+  --tag-icon-reposition-small: -4px;
+  --tag-icon-size: 24px;
+  --tag-icon-reposition: var(--tag-icon-reposition-small);
+  --tag-outline-width-large: 3px;
+  --tag-outline-width-small: 2px;
+  --tag-outline-width: var(--tag-outline-width-small);
+  --tag-padding-horizontal-large: 20px;
+  --tag-padding-horizontal-small: 12px;
+  --tag-padding-horizontal: var(--tag-padding-horizontal-small);
+  --tag-padding-vertical-large: 10px;
+  --tag-padding-vertical-small: 3px;
+  --tag-padding-vertical: var(--tag-padding-vertical-small);
 
   align-items: center;
-  background-color: var(--tag-background);
+  background-color: var(--tag-background-color);
   border-radius: calc(var(--tag-height) / 2);
   box-sizing: border-box;
   color: var(--tag-color);
   display: inline-flex;
   flex-direction: row;
   font-size: var(--tag-font-size);
-  gap: var(--spacing-2-xs);
+  font-weight: 500;
+  gap: var(--tag-gap);
   justify-content: center;
-  line-height: var(--tag-line-height);
+  line-height: var(--lineheight-l);
+  max-width: 100%;
   min-height: var(--tag-height);
   outline: none;
-  padding: var(--tag-padding)
+  overflow: hidden;
+  padding: var(--tag-padding-vertical) var(--tag-padding-horizontal);
 }
 
 .hds-tag--large {
   --tag-font-size:  var(--tag-font-size-large);
+  --tag-gap: var(--tag-gap-large);
   --tag-height: var(--tag-height-large);
-  --tag-line-height: var(--lineheight-l);
-  --tag-padding: var(--tag-padding-large);
-  --tag-spacing: var(--tag-spacing-large);
+  --tag-icon-reposition: var(--tag-icon-reposition-large);
+  --tag-outline-width: var(--tag-outline-width-large);
+  --tag-padding-horizontal: var(--tag-padding-horizontal-large);
+  --tag-padding-vertical: var(--tag-padding-vertical-large);
 }
 
-.hds-tag:focus,
-.hds-tag:focus-within {
-  box-shadow: 0 0 0 3px var(--color-focus-outline);
+.hds-tag--large.hds-tag--action {
+  --tag-padding-horizontal: calc(var(--tag-padding-horizontal-large) - 1px);
+  --tag-padding-vertical: calc(var(--tag-padding-vertical-large) - 1px);
 }
 
-.hds-tag[tabindex='0'] {
-  cursor: pointer;
+.hds-tag--action {
+  border: 1px solid var(--tag-action-border-color);
+
+  --tag-padding-horizontal: calc(var(--tag-padding-horizontal-small) - 1px);
+  --tag-padding-vertical: calc(var(--tag-padding-vertical-small) - 1px);
 }
 
-.hds-tag__delete-button {
-  display: flex;
+.hds-tag__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hds-tag__label--multiline {
+  overflow: initial;
+  text-overflow: initial;
+  white-space: initial;
+}
+
+.hds-tag--link {
+  text-decoration: underline;
+}
+
+.hds-tag--action, .hds-tag--link {
+  &:hover {
+    background-color: var(--tag-hover-background-color);
+    cursor: pointer;
+  }
+
+  &:focus-visible, &:active:hover {
+    box-shadow: none;
+    outline: var(--tag-outline-width) solid var(--tag-focus-outline-color);
+    outline-offset: 2px;
+  }
+}
+
+.hds-tag__icon, .hds-icon.hds-tag__icon {
   flex-shrink: 0;
-  height: var(--spacing-m);
+  height: var(--tag-icon-size);
+  width: var(--tag-icon-size);
+}
 
-  /* Add negative horizontal margins to counter
-  the gap and the padding on the side */
-  margin: 0 calc(0px - var(--spacing-3-xs));
-  outline: none;
-  width: var(--spacing-m);
+.hds-tag__icon:first-child {
+  margin-left: var(--tag-icon-reposition);
+}
+
+.hds-tag__icon:last-child {
+  margin-right: var(--tag-icon-reposition);
 }

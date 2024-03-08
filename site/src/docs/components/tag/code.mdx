@@ -3,7 +3,7 @@ slug: '/components/tag/code'
 title: 'Tag - Code'
 ---
 
-import { Tag } from 'hds-react';
+import { Tag, IconZoomIn, IconZoomOut, IconGlobe, IconDocument, IconLinkExternal  } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -19,14 +19,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 import { Tag } from 'hds-react';
 
 () => (<>
-  <Tag
-    aria-label="Category: News"
-  >
+  <Tag>
     News
   </Tag>
 
   <Tag
-    aria-label="Category: Announcements"
     style={{ marginLeft: 'var(--spacing-s)' }}
   >
     Announcements
@@ -36,11 +33,11 @@ import { Tag } from 'hds-react';
 
 ```html
 <div>
-<div class="hds-tag" tabindex="0" onclick="" aria-label="Category: News">
+<div class="hds-tag">
   <span class="hds-tag__label">News</span>
 </div>
 
-<div class="hds-tag" tabindex="0" onclick="" aria-label="Category: Announcements" style="margin-left:var(--spacing-xs);">
+<div class="hds-tag" style="margin-left:var(--spacing-xs);">
   <span class="hds-tag__label">Announcements</span>
 </div>
 </div>
@@ -56,33 +53,30 @@ import { Tag } from 'hds-react';
 
 () => (<>
   <Tag
-    role="link"
-    onClick={() => {}}
-    aria-label="Move to category: News"
+    onClick={() => { console.log("action A"); }}
+    aria-label="Call to action: Action A"
   >
-    News
+    Action A
   </Tag>
 
   <Tag
-    role="link"
-    onClick={() => {}}
-    aria-label="Move to category: Announcements"
+    onClick={() => { console.log("action B"); }}
+    aria-label="Call to action: Action B"
     style={{ marginLeft: 'var(--spacing-s)' }}
   >
-    Announcements
+    Action B
   </Tag>
 </>)
 ```
 
 ```html
 <div>
-<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: News">
-  <span class="hds-tag__label">News</span>
-</div>
-
-<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: Announcements" style="margin-left:var(--spacing-xs);">
-  <span class="hds-tag__label">Announcements</span>
-</div>
+  <div aria-label="Call to action: Action A" class="hds-tag hds-tag--action" onclick="console.log('action A');" role="button" tabindex="0">
+    <span class="hds-tag__label">Action A</span>
+  </div>
+  <div aria-label="Call to action: Action B" class="hds-tag hds-tag--action" onclick="console.log('action B');" role="button" style="margin-left:var(--spacing-xs);" tabindex="0">
+    <span class="hds-tag__label">Action B</span>
+  </div>
 </div>
 ```
 
@@ -97,14 +91,14 @@ import { Tag } from 'hds-react';
 () => (<>
   <Tag
     onDelete={() => {}}
-    deleteButtonAriaLabel="Delete filter: News"
+    aria-label="Delete filter: News"
   >
     News
   </Tag>
 
   <Tag
     onDelete={() => {}}
-    deleteButtonAriaLabel="Delete filter: Announcements"
+    aria-label="Delete filter: Announcements"
     style={{ marginLeft: 'var(--spacing-s)' }}
   >
     Announcements
@@ -113,26 +107,22 @@ import { Tag } from 'hds-react';
 ```
 
 ```html
-<div>
-<div class="hds-tag">
-  <span class="hds-tag__label" aria-hidden="true">News</span>
-  <button type="button" aria-label="Delete filter: News" class="hds-tag__delete-button button-reset">
-      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
-  </button>
+<div style="display: flex; gap: var(--spacing-s);">
+<div role="button" tabindex="0" class="hds-tag hds-tag--action" onclick={} aria-label="Delete filter: News">
+<span class="hds-tag__label">News</span>
+<span class="hds-icon hds-tag__icon hds-icon--cross" aria-hidden="true"></span>
 </div>
 
-<div class="hds-tag" style="margin-left:var(--spacing-xs);">
-  <span class="hds-tag__label" aria-hidden="true">Announcements</span>
-  <button type="button" aria-label="Delete filter: Announcements" class="hds-tag__delete-button button-reset">
-      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
-  </button>
-</div>
+    <div role="button" tabindex="0" class="hds-tag hds-tag--action" onclick={} aria-label="Delete filter: Announcements">
+      <span class="hds-tag__label">Announcements</span>
+      <span class="hds-icon hds-tag__icon hds-icon--cross" aria-hidden="true"></span>
+    </div>
 </div>
 ```
 
 </Playground>
 
-#### Large deletable
+#### Large Deletable
 <Playground scope={{ Tag }}>
 
 ```jsx
@@ -140,18 +130,18 @@ import { Tag } from 'hds-react';
 
 () => (<>
   <Tag
-    size="l"
     onDelete={() => {}}
-    deleteButtonAriaLabel="Delete filter: News"
+    aria-label="Delete filter: News"
+    size="l"
   >
     News
   </Tag>
 
   <Tag
-    size="l"
     onDelete={() => {}}
-    deleteButtonAriaLabel="Delete filter: Announcements"
+    aria-label="Delete filter: Announcements"
     style={{ marginLeft: 'var(--spacing-s)' }}
+    size="l"
   >
     Announcements
   </Tag>
@@ -159,20 +149,112 @@ import { Tag } from 'hds-react';
 ```
 
 ```html
-<div>
-<div class="hds-tag hds-tag--large">
-  <span class="hds-tag__label" aria-hidden="true">News</span>
-  <button type="button" aria-label="Delete filter: News" class="hds-tag__delete-button button-reset">
-      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
-  </button>
+<div style="display: flex; gap: var(--spacing-s);">
+<div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action" onclick={} aria-label="Delete filter: News">
+<span class="hds-tag__label">News</span>
+<span class="hds-icon hds-tag__icon hds-icon--cross" aria-hidden="true"></span>
 </div>
 
-<div class="hds-tag hds-tag--large" style="margin-left:var(--spacing-xs);">
-  <span class="hds-tag__label" aria-hidden="true">Announcements</span>
-  <button type="button" aria-label="Delete filter: Announcements" class="hds-tag__delete-button button-reset">
-      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
-  </button>
+    <div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action" onclick={} aria-label="Delete filter: Announcements">
+      <span class="hds-tag__label">Announcements</span>
+      <span class="hds-icon hds-tag__icon hds-icon--cross" aria-hidden="true"></span>
+    </div>
 </div>
+```
+
+</Playground>
+
+#### With Icons
+<Playground scope={{ Tag, IconGlobe, IconDocument, IconZoomIn, IconZoomOut }}>
+
+```jsx
+import { Tag, IconGlobe, IconDocument, IconZoomIn, IconZoomOut } from 'hds-react';
+
+() => (
+<div style={{display: 'flex', gap: 'var(--spacing-s)'}}>
+  <Tag
+    iconLeft={<IconGlobe />}
+  >
+    Global News
+  </Tag>
+  <Tag
+    iconRight={<IconDocument />}
+  >
+    Documents
+  </Tag>
+  <Tag
+    iconLeft={<IconZoomOut />}
+    iconRight={<IconZoomIn />}
+  >
+    Zoom in & out
+  </Tag>
+</div>)
+```
+
+```html
+<div style="display: flex; gap: var(--spacing-s);">
+  <div class="hds-tag">
+    <span class="hds-icon hds-tag__icon hds-icon--globe" aria-hidden="true"></span>
+    <span class="hds-tag__label">Global News</span>
+  </div>
+  <div class="hds-tag">
+    <span class="hds-tag__label">Documents</span>
+    <span class="hds-icon hds-tag__icon hds-icon--document" aria-hidden="true"></span>
+  </div>
+  <div class="hds-tag">
+    <span class="hds-icon hds-tag__icon hds-icon--zoom-out" aria-hidden="true"></span>
+    <span class="hds-tag__label">Zoom in & out</span>
+    <span class="hds-icon hds-tag__icon hds-icon--zoom-in" aria-hidden="true"></span>
+  </div>
+</div>
+```
+
+</Playground>
+
+#### As Link
+<Playground scope={{ Tag, IconLinkExternal }}>
+
+```jsx
+import { Tag } from 'hds-react';
+
+() => (<>
+  <Tag
+    href="#with-icons"
+    aria-label="Jump to section: With icons"
+  >
+    With icons
+  </Tag>
+  <Tag
+    href="#as-link"
+    aria-label="Jump to section: As link"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    As link
+  </Tag>
+    <Tag
+    href="https://hel.fi"
+    target="_blank"
+    aria-label="Go to City of Helsinki frontpage"
+    style={{ marginLeft: 'var(--spacing-s)' }}
+    iconRight={<IconLinkExternal />}
+  >
+    City of Helsinki
+  </Tag>
+</>)
+```
+
+```html
+<div>
+  <a href="#with-icons"aria-label="Jump to section: With icons" class="hds-tag hds-tag--link">
+    <span class="hds-tag__label">With icons</span>
+  </a>
+  <a href="#as-link" aria-label="Jump to section: As link" class="hds-tag hds-tag--link" style="margin-left:var(--spacing-xs);">
+    <span class="hds-tag__label">As link</span>
+  </a>
+  <a href="https://hel.fi" target="_blank" aria-label="Go to City of Helsinki frontpage" class="hds-tag hds-tag--link" style="margin-left:var(--spacing-xs);">
+    <span class="hds-tag__label">City of Helsinki</span>
+    <span class="hds-icon hds-tag__icon hds-icon--link-external" aria-hidden="true"></span>
+  </a>
 </div>
 ```
 
@@ -189,12 +271,12 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property                | Description                                                                                                                    | Values              | Default value |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------------- |
-| `deleteButtonAriaLabel` | The aria-label for the delete button                                                                                           | `string`            | -             |
-| `deleteButtonProps`     | Props that will be passed to the delete button `button` element.                                                               | `properties`        | -             |
-| `labelProps`            | Props that will be passed to the label `span` element.                                                                         | `properties`        | -             |
+| `aria-label`            | The aria-label for the interactive Tags (with onClick, onDelete or href -properties)                                           | `string`            | -             |
+| `href`                  | Url to go to when clicked, defines the Tag as a link                                                                           | `string`            | -             |
+| `iconLeft`              | Icon placed on the left side of the label.                                                                                     | `ReactNode`         | -             |
+| `iconRight`             | Icon placed on the right side of the label.                                                                                    | `ReactNode`         | -             |
 | `onClick`               | Callback function fired when the tag is clicked. If set, the tag will be clickable.                                            | `function`          | -             |
-| `onDelete`              | Callback function fired when the delete icon is clicked. If set, a delete button will be shown.                                | `function`          | -             |
-| `role`                  | Sets the role of the tag when it's clickable. Uses 'link' by default.                                                          | `"button"` `"link"` | `"link"`      |
-| `size`                  | Sets the size of the Tag.                                                                                                      | `"m"` `"l"`         | `"m"`         |
-| `srOnlyLabel`           | Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag. | `string`            | -             |
+| `onDelete`              | Callback function fired when the tag is clicked. If set, the tag will be clickable and a delete icon will be shown.            | `function`          | -             |
+| `size`                  | Sets the size of the Tag.                                                                                                      | `"s"` `"l"`         | `"s"`         |
+| `target`                | The target attribute specifies where to open the linked document.                                                              | `"_blank"` `"_self"` `"_parent"` `"_top"` `"framename"` | `"_self"`         |
 [Table 1:Tag properties]|
