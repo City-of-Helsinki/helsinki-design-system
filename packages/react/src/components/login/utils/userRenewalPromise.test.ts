@@ -1,6 +1,7 @@
 import { User, SigninResponse } from 'oidc-client-ts';
 import to from 'await-to-js';
 import { waitFor } from '@testing-library/react';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { createRenewalTrackingPromise } from './userRenewalPromise';
 import { createOidcClientTestSuite } from '../testUtils/oidcClientTestUtil';
@@ -23,6 +24,9 @@ describe(`createRenewalTrackingPromise`, () => {
     return { promise, fulfillmentListener, testFunctions };
   };
 
+  beforeAll(async () => {
+    enableFetchMocks();
+  });
   beforeEach(async () => {
     jest.useFakeTimers();
   });
@@ -35,6 +39,7 @@ describe(`createRenewalTrackingPromise`, () => {
 
   afterAll(() => {
     cleanUp();
+    disableFetchMocks();
   });
   it(`resolves after user is renewed and userLoaded event is raised. Returns a user`, async () => {
     const { promise, fulfillmentListener, testFunctions } = await initTestsWithResponse(createSignInResponse({}));
