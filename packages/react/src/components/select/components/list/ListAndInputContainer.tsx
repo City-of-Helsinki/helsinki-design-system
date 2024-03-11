@@ -26,7 +26,6 @@ const createListAndInputContainerProps = (
     ),
     ref: refs.listContainer,
     outsideClickTrigger,
-    id: elementIds.selectionsAndListsContainer,
   };
 };
 

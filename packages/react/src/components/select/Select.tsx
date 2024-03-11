@@ -13,8 +13,7 @@ import { List } from './components/list/List';
 import { ListAndInputContainer } from './components/list/ListAndInputContainer';
 import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
-import { FilterInput } from './components/list/FilterInput';
-import { SearchInput } from './components/list/SearchInput';
+import { SearchOrFilterInput } from './components/list/SearchOrFilterInput';
 import { SearchAndFilterInfo } from './components/list/SearchAndFilterInfo';
 import { TagList } from './components/tagList/TagList';
 import { ArrowButton } from './components/selectedOptions/ArrowButton';
@@ -98,7 +97,7 @@ export function Select({
         label: `${containerId}-label`,
         tagList: `${containerId}-tag-list`,
         searchOrFilterInput: `${containerId}-input-element`,
-        selectionsAndListsContainer: `${containerId}-sl-container`,
+        searchOrFilterInputLabel: `${containerId}-input-element`,
         clearAllButton: `${containerId}-clear-all-button`,
         showAllButton: `${containerId}-show-all-button`,
       },
@@ -118,8 +117,7 @@ export function Select({
             <ArrowButton />
           </SelectedOptionsContainer>
           <ListAndInputContainer>
-            <FilterInput />
-            <SearchInput />
+            <SearchOrFilterInput />
             <List />
             <SearchAndFilterInfo />
           </ListAndInputContainer>

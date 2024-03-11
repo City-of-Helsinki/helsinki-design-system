@@ -169,6 +169,11 @@ export function getVisibleGroupLabels(groups: SelectData['groups']): Option[] {
   return groups.map((group) => group.options[0]).filter((option) => option && option.label && option.visible);
 }
 
+export function getGroupLabelOption(group: Group): Option | undefined {
+  const firstOption = group.options[0];
+  return firstOption && firstOption.isGroupLabel ? firstOption : undefined;
+}
+
 export function getSelectedOptions(groups: SelectData['groups']): Option[] {
   return getAllOptions(groups).filter((option) => !!option.selected);
 }

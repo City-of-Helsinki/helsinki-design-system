@@ -11,16 +11,10 @@ export type SelectItemProps = {
   trigger: ChangeTrigger;
 };
 
-export type MultiSelectGroupLabelProps = SelectItemProps & {
-  isMultiSelect: boolean;
-  isIntermediate: boolean;
-  isGroupDisabled: boolean;
-};
+export const singleSelectElementSelectorFromListRoot = 'li[role=option]';
 
-export type LiElementWithCheckboxProps = LiElementProps & {
-  label?: string;
-  selected?: boolean;
-  indeterminate?: boolean;
+export const isSingleSelectElement = (element: HTMLElement) => {
+  return element.nodeName === 'LI' && element.getAttribute('role') === 'option';
 };
 
 export const createSingleSelectItemProps = ({ option, trigger }: SelectItemProps): LiElementProps => {
