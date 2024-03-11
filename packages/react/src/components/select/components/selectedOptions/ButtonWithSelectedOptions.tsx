@@ -21,27 +21,35 @@ const createButtonWithSelectedOptionsProps = ({
   getMetaData,
   trigger,
 }: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { groups, placeholder, disabled, open } = getData();
+  const { groups, placeholder, disabled, open, showFiltering, showSearch } = getData();
   const { icon, refs, elementIds } = getMetaData();
   const selectedOptions = getSelectedOptions(groups);
+  const getAriaControlsId = () => {
+    if (showFiltering || showSearch) {
+      return elementIds.searchOrFilterInput;
+    }
+    return elementIds.list;
+  };
   return {
+    'aria-controls': getAriaControlsId(),
+    'aria-expanded': open,
+    'aria-haspopup': 'listbox',
+    'aria-labelledby': elementIds.label,
+    'aria-owns': elementIds.list,
+    buttonRef: refs.selectionButton,
     className: classNames(
       styles.button,
       styles.selectedOptions,
       !selectedOptions.length && styles.placeholder,
       disabled && styles.disabledButton,
     ),
+    disabled,
+    icon,
+    id: elementIds.button,
     options: selectedOptions,
     ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
-    placeholder,
-    icon,
     optionClassName: styles.buttonOption,
-    buttonRef: refs.selectionButton,
-    id: elementIds.button,
-    disabled,
-    'aria-controls': elementIds.selectionsAndListsContainer,
-    'aria-expanded': open,
-    'aria-haspopup': 'listbox',
+    placeholder,
   };
 };
 

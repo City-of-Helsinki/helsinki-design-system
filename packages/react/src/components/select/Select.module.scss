@@ -31,6 +31,10 @@
   margin-bottom: var(--spacing-2-xs);
 }
 
+.visuallyHidden {
+  @extend %visuallyHidden;
+}
+
 .selectedOptionsContainer {
   align-items: center;
   box-sizing: border-box;

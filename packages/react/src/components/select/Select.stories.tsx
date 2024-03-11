@@ -120,7 +120,7 @@ function generateOptionLabels(count = -1): string[] {
   return Array.from(randomSet);
 }
 
-export const Example = () => {
+export const ExampleForSingleSelect = () => {
   const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
@@ -128,11 +128,28 @@ export const Example = () => {
   return (
     <Select
       options={options}
-      label="Label"
+      label="Select one fruit or vegetable"
       onChange={onChange}
       placeholder="Choose one"
       icon={<IconLocation />}
       required
+    />
+  );
+};
+export const ExampleForMultiSelect = () => {
+  const options = generateOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={options}
+      label="Select multiple fruits or vegetables"
+      onChange={onChange}
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+      multiSelect
     />
   );
 };
@@ -145,7 +162,7 @@ export const Disabled = () => {
   return (
     <Select
       options={options}
-      label="Label"
+      label="Select one fruit or vegetable"
       onChange={onChange}
       placeholder="Choose one"
       icon={<IconLocation />}
@@ -160,7 +177,7 @@ export const OptionsAsHtml = () => {
     // track changes
   }, []);
   return (
-    <Select label="Label" onChange={onChange} placeholder="Choose one">
+    <Select label="Select one fruit or vegetable" onChange={onChange} placeholder="Choose one">
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -173,7 +190,7 @@ export const OptionsAsHtml = () => {
   );
 };
 
-export const WithGroups = () => {
+export const SingleSelectAndGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -192,7 +209,14 @@ export const WithGroups = () => {
     // track changess
   }, []);
   return (
-    <Select groups={groups} label="Label" onChange={onChange} placeholder="Choose one" icon={<IconLocation />} required>
+    <Select
+      groups={groups}
+      label="Select one fruit or vegetable"
+      onChange={onChange}
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+    >
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
@@ -200,7 +224,7 @@ export const WithGroups = () => {
   );
 };
 
-export const WithSelectionValidation = () => {
+export const ValidateSelections = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -223,7 +247,14 @@ export const WithSelectionValidation = () => {
     };
   }, []);
   return (
-    <Select groups={groups} label="Label" onChange={onChange} placeholder="Choose one" icon={<IconLocation />} required>
+    <Select
+      groups={groups}
+      label="Select one fruit or vegetable"
+      onChange={onChange}
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+    >
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
@@ -231,7 +262,7 @@ export const WithSelectionValidation = () => {
   );
 };
 
-export const WithFilter = () => {
+export const SingleSelectAndFiltering = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -264,7 +295,7 @@ export const WithFilter = () => {
   return (
     <Select
       groups={groups}
-      label="Label"
+      label="Select one fruit or vegetable"
       onChange={onChange}
       showFiltering
       placeholder="Choose one"
@@ -274,7 +305,7 @@ export const WithFilter = () => {
   );
 };
 
-export const WithMultiselect = () => {
+export const MultiSelectAndGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -292,7 +323,7 @@ export const WithMultiselect = () => {
   return (
     <Select
       groups={groups}
-      label="Label"
+      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       showFiltering
@@ -302,7 +333,7 @@ export const WithMultiselect = () => {
   );
 };
 
-export const WithDisabledOptions = () => {
+export const MultiSelectAndDisabledOptions = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -324,7 +355,7 @@ export const WithDisabledOptions = () => {
   return (
     <Select
       groups={groups}
-      label="Label"
+      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       showFiltering
@@ -334,7 +365,7 @@ export const WithDisabledOptions = () => {
   );
 };
 
-export const WithMinAndMax = () => {
+export const MultiSelectWithMinMax = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -410,7 +441,7 @@ export const WithMinAndMax = () => {
   return (
     <Select
       groups={groupStorage.getAsProp()}
-      label="Label"
+      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       showFiltering
@@ -423,7 +454,7 @@ export const WithMinAndMax = () => {
   );
 };
 
-export const WithPreselectedOptions = () => {
+export const MultiSelectWithPreselectedOptions = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -452,7 +483,7 @@ export const WithPreselectedOptions = () => {
   return (
     <Select
       groups={groups}
-      label="Label"
+      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       showFiltering
@@ -495,7 +526,7 @@ const createRandomGroups = (search: string) => {
   return { groups };
 };
 
-export const WithSearch = () => {
+export const MultiSelectWithSearch = () => {
   const groups: SelectProps['groups'] = [];
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
@@ -510,7 +541,7 @@ export const WithSearch = () => {
     <div>
       <Select
         groups={groups}
-        label="Label"
+        label="Search and select multiple fruits or vegetables"
         onChange={onChange}
         onSearch={onSearch}
         multiSelect
@@ -522,7 +553,7 @@ export const WithSearch = () => {
   );
 };
 
-export const WithExternalControls = () => {
+export const MultiSelectWithExternalControls = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -639,6 +670,7 @@ export const WithExternalControls = () => {
   );
 };
 
+/*
 export const WithVirtualizationMultiselect = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
@@ -668,7 +700,7 @@ export const WithVirtualizationMultiselect = () => {
   return (
     <Select
       groups={groups}
-      label="Label"
+      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       virtualize
@@ -678,7 +710,7 @@ export const WithVirtualizationMultiselect = () => {
     />
   );
 };
-
+*/
 export const WithFocusListeners = () => {
   const [isFocused, setIsFocused] = useState(false);
   const groups: SelectProps['groups'] = useMemo(
@@ -751,7 +783,7 @@ export const WithFocusListeners = () => {
       <div className={isFocused ? 'focused' : 'blurred'}>
         <Select
           groups={groups}
-          label="Label"
+          label="Select multiple fruits or vegetables"
           onChange={onChange}
           multiSelect
           showFiltering
@@ -892,7 +924,7 @@ export const WithCollaboration = () => {
   );
 };
 
-export const AvoidRemountDataLoss = () => {
+export const WithRerenderDataStoring = () => {
   const Wrapper = () => {
     const render = useForceRender();
     const groups: SelectProps['groups'] = useMemo(
@@ -917,7 +949,7 @@ export const AvoidRemountDataLoss = () => {
         <Button onClick={render}>Re-render</Button>
         <Select
           groups={groups}
-          label="Label"
+          label="Select multiple fruits or vegetables"
           onChange={onChange}
           multiSelect
           showFiltering
