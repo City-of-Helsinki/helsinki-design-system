@@ -67,6 +67,8 @@ export function Select({
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
+    const optionIds = new Map<string, string>();
+    let optionIdCounter = 0;
     return {
       searchUpdate: -1,
       selectionUpdate: -1,
@@ -100,6 +102,16 @@ export function Select({
         searchOrFilterInputLabel: `${containerId}-input-element`,
         clearAllButton: `${containerId}-clear-all-button`,
         showAllButton: `${containerId}-show-all-button`,
+        getOptionId: (option) => {
+          const current = optionIds.get(option.value);
+          if (!current) {
+            const optionId = `${containerId}_option_${optionIdCounter}`;
+            optionIdCounter += 1;
+            optionIds.set(option.value, optionId);
+            return optionId;
+          }
+          return current;
+        },
       },
     };
   }, [id]);

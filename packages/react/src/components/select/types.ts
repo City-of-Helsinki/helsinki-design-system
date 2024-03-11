@@ -105,6 +105,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     searchOrFilterInput: string;
     showAllButton: string;
     clearAllButton: string;
+    getOptionId: (option: Option) => string;
   };
 };
 
