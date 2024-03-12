@@ -36,7 +36,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   if (current.disabled) {
     return false;
   }
-  // console.log('-.-', id, type);
+  // console.log('-.-', id, type, payload);
   const openOrClose = (open: boolean) => {
     const now = Date.now();
     if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {

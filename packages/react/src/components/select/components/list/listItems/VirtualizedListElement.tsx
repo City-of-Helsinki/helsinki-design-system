@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, forwardRef, ForwardedRef, MutableRefObject } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { UlElementProps } from '../../types';
-import { useRenderChildrenInChunks } from '../../hooks/useRenderChildrenInChunks';
+import { UlElementProps } from '../../../types';
+import { useRenderChildrenInChunks } from '../../../hooks/useRenderChildrenInChunks';
 
 type Props = PropsWithChildren<UlElementProps>;
 

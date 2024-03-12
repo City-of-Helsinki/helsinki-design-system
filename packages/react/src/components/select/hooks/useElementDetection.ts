@@ -3,6 +3,7 @@ import { isElement } from 'lodash';
 
 import { KnownElementType } from '../types';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
+import { isSingleSelectElement, isMultiSelectElement } from '../components/list/common';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
@@ -74,7 +75,7 @@ export function useElementDetection() {
   };
 
   const isListItemElement = (element: HTMLElement) => {
-    return element.nodeName === 'LI' && element.getAttribute('role') === 'option';
+    return isSingleSelectElement(element) || isMultiSelectElement(element);
   };
 
   const isTagOrChild = (element: HTMLElement) => {

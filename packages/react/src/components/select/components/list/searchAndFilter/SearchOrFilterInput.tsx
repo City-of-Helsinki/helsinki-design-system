@@ -1,13 +1,13 @@
 import React from 'react';
 
-import styles from '../../Select.module.scss';
-import { TextInput, TextInputProps } from '../../../textInput/TextInput';
-import { IconSearch } from '../../../../icons';
-import { SelectDataHandlers } from '../../types';
-import classNames from '../../../../utils/classNames';
-import { createInputOnChangeListener } from '../../utils';
-import { EventId, eventIds } from '../../events';
-import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
+import styles from '../../../Select.module.scss';
+import { TextInput, TextInputProps } from '../../../../textInput/TextInput';
+import { IconSearch } from '../../../../../icons';
+import { SelectDataHandlers } from '../../../types';
+import classNames from '../../../../../utils/classNames';
+import { createInputOnChangeListener } from '../../../utils';
+import { EventId, eventIds } from '../../../events';
+import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
 
 type InputType = Extract<EventId, 'filter' | 'search'>;
 
