@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -14,9 +14,12 @@ const createListAndInputContainerProps = (
   const { open, showFiltering, showSearch } = getData();
   const { refs } = getMetaData();
   const hasInput = showFiltering || showSearch;
-  const outsideClickTrigger = () => {
+  const outsideClickTrigger = useCallback(() => {
+    if (!open) {
+      return;
+    }
     trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
-  };
+  }, [open, trigger]);
   return {
     ...props,
     className: classNames(

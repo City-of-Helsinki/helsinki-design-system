@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
 import { DivElementProps, LiElementProps } from '../../../types';
-import { Checkbox } from '../../../../checkbox/Checkbox';
+import { Checkbox, CheckboxProps } from '../../../../checkbox/Checkbox';
 import { eventIds, eventTypes } from '../../../events';
 import { SelectItemProps } from '../common';
 
@@ -49,23 +49,38 @@ const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps): Multi
 
 export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
   const { label, checked, indeterminate, isInGroup, ...attr } = props;
+  const checkboxProps: CheckboxProps = {
+    indeterminate,
+    id: label as string,
+    onChange: (e) => {
+      e.preventDefault();
+    },
+    checked,
+    'aria-hidden': true,
+    tabIndex: -1,
+  };
+  const Content = () => {
+    // aria-hidden is not passed to checkbox, so added a wrapper to hide it.
+    // checkbox's label does not expand to full width so had to add external
+
+    return (
+      <div aria-hidden className={styles.checkboxContainer}>
+        <Checkbox {...checkboxProps} />
+        <label>{label}</label>
+      </div>
+    );
+  };
   if (isInGroup) {
-    //
+    return (
+      <div {...(attr as DivElementProps)}>
+        <Content />
+      </div>
+    );
   }
   return (
-    <div {...(attr as DivElementProps)}>
-      <Checkbox
-        indeterminate={indeterminate}
-        id={label as string}
-        onChange={(e) => {
-          e.preventDefault();
-        }}
-        checked={checked}
-        aria-hidden
-        tabIndex={-1}
-      />
-      <label aria-hidden>{label}</label>
-    </div>
+    <li {...(attr as LiElementProps)}>
+      <Content />
+    </li>
   );
 }
 export function MultiSelectOption(props: SelectItemProps & { isInGroup: boolean }) {
