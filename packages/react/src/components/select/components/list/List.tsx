@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../../Select.module.scss';
 import { getVisibleGroupLabels } from '../../utils';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
-import { MultiSelectListWithGroup } from './MultiSelectListWithGroup';
+import { MultiSelectListWithGroups } from './MultiSelectListWithGroups';
 import { SingleSelectAndGrouplessList } from './SingleSelectAndGrouplessList';
 import classNames from '../../../../utils/classNames';
 
@@ -19,7 +19,7 @@ export const List = () => {
   const isMultiSelectAndHasGroupLabels = multiSelect && hasVisibleGroupLabels;
   return (
     <div className={classes}>
-      {isMultiSelectAndHasGroupLabels ? <MultiSelectListWithGroup /> : <SingleSelectAndGrouplessList />}
+      {isMultiSelectAndHasGroupLabels ? <MultiSelectListWithGroups /> : <SingleSelectAndGrouplessList />}
     </div>
   );
 };

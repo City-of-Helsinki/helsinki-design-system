@@ -4,12 +4,9 @@ import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { SelectDataHandlers, SelectMetaData, DivElementProps, Group } from '../../types';
 import { getSelectedOptionsPerc, getGroupLabelOption, getAllOptions } from '../../utils';
-import {
-  createMultiSelectGroupLabelProps,
-  createMultiSelectItemProps,
-  MultiSelectOptionListItem,
-} from './MultiSelectItem';
+import { MultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
+import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
 
 const createGroupOptionElements = (group: Group, { trigger }: Pick<SelectDataHandlers, 'trigger'>) => {
   const getGroupLabelIntermediateState = (target: Group): boolean => {
@@ -25,20 +22,18 @@ const createGroupOptionElements = (group: Group, { trigger }: Pick<SelectDataHan
         return null;
       }
 
-      const { children, ...attr } = option.isGroupLabel
-        ? createMultiSelectGroupLabelProps({
-            option,
-            trigger,
-            isIntermediate: getGroupLabelIntermediateState(group),
-            isGroupDisabled: getGroupLabelDisabledState(group),
-          })
-        : createMultiSelectItemProps({ option, trigger });
-
-      return (
-        <MultiSelectOptionListItem {...attr} key={option.value as string}>
-          {children}
-        </MultiSelectOptionListItem>
-      );
+      if (option.isGroupLabel) {
+        return (
+          <MultiSelectGroupLabel
+            option={option}
+            trigger={trigger}
+            isIntermediate={getGroupLabelIntermediateState(group)}
+            isGroupDisabled={getGroupLabelDisabledState(group)}
+            key={option.label}
+          />
+        );
+      }
+      return <MultiSelectOption option={option} trigger={trigger} isInGroup key={option.value} />;
     })
     .filter((option) => !!option);
 };
@@ -92,7 +87,7 @@ const createContainerProps = ({
   };
 };
 
-export function MultiSelectListWithGroup() {
+export function MultiSelectListWithGroups() {
   const dataHandlers = useSelectDataHandlers();
   const attr = createContainerProps(dataHandlers);
   const children = createGroups(dataHandlers);
