@@ -1,9 +1,10 @@
 import { ChangeTrigger } from '../../../dataProvider/DataContext';
-import { Option } from '../../types';
+import { Option, SelectMetaData } from '../../types';
 
 export type SelectItemProps = {
   option: Option;
   trigger: ChangeTrigger;
+  getOptionId: SelectMetaData['getOptionId'];
 };
 
 // export const multiSelectElementSelectorFromListRoot = 'div[role=checkbox]';

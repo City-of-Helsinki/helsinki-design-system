@@ -8,7 +8,10 @@ import { MultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
 
-const createGroupOptionElements = (group: Group, { trigger }: Pick<SelectDataHandlers, 'trigger'>) => {
+const createGroupOptionElements = (
+  group: Group,
+  { trigger, getOptionId }: Pick<SelectDataHandlers, 'trigger'> & Pick<SelectMetaData, 'getOptionId'>,
+) => {
   const getGroupLabelIntermediateState = (target: Group): boolean => {
     const perc = getSelectedOptionsPerc(target);
     return perc < 1 && perc > 0;
@@ -27,13 +30,16 @@ const createGroupOptionElements = (group: Group, { trigger }: Pick<SelectDataHan
           <MultiSelectGroupLabel
             option={option}
             trigger={trigger}
+            getOptionId={getOptionId}
             isIntermediate={getGroupLabelIntermediateState(group)}
             isGroupDisabled={getGroupLabelDisabledState(group)}
             key={option.label}
           />
         );
       }
-      return <MultiSelectOption option={option} trigger={trigger} isInGroup key={option.value} />;
+      return (
+        <MultiSelectOption option={option} trigger={trigger} isInGroup key={option.value} getOptionId={getOptionId} />
+      );
     })
     .filter((option) => !!option);
 };
@@ -57,13 +63,13 @@ const createGroupProps = (group: Group) => {
 
 const createGroups = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
   const { groups, open } = getData();
-  const { isSearching } = getMetaData();
+  const { isSearching, getOptionId } = getMetaData();
   if (!open || isSearching) {
     return [];
   }
   return groups.map((group) => {
     const attr = createGroupProps(group);
-    const children = createGroupOptionElements(group, { trigger });
+    const children = createGroupOptionElements(group, { trigger, getOptionId });
     return (
       <MultiSelectGroup {...attr} key={attr['aria-label']}>
         {children}

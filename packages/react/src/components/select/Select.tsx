@@ -102,16 +102,17 @@ export function Select({
         searchOrFilterInputLabel: `${containerId}-input-element`,
         clearAllButton: `${containerId}-clear-all-button`,
         showAllButton: `${containerId}-show-all-button`,
-        getOptionId: (option) => {
-          const current = optionIds.get(option.value);
-          if (!current) {
-            const optionId = `${containerId}_option_${optionIdCounter}`;
-            optionIdCounter += 1;
-            optionIds.set(option.value, optionId);
-            return optionId;
-          }
-          return current;
-        },
+      },
+      getOptionId: (option) => {
+        const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
+        const current = optionIds.get(identifier);
+        if (!current) {
+          const optionId = `${containerId}_option_${optionIdCounter}`;
+          optionIdCounter += 1;
+          optionIds.set(identifier, optionId);
+          return optionId;
+        }
+        return current;
       },
     };
   }, [id]);
