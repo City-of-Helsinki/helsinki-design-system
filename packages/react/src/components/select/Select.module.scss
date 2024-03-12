@@ -245,7 +245,7 @@
 
         &:focus,
         &:focus-within {
-          box-shadow: 0 0 1px 1px var(--color-coat-of-arms) inset;
+          box-shadow: 0 0 0 2px var(--color-coat-of-arms) inset;
           outline: none;
         }
       }

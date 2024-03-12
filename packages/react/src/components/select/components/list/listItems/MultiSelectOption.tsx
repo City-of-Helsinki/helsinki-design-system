@@ -16,7 +16,7 @@ type CommonMultiSelectOptionProps = {
 export type MultiSelectOptionProps = (DivElementProps | LiElementProps) &
   CommonMultiSelectOptionProps & { isInGroup: boolean };
 
-const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps): MultiSelectOptionProps => {
+const createMultiSelectItemProps = ({ option, trigger, getOptionId }: SelectItemProps): MultiSelectOptionProps => {
   const { label, selected, disabled } = option;
   return {
     className: classNames(
@@ -44,14 +44,16 @@ const createMultiSelectItemProps = ({ option, trigger }: SelectItemProps): Multi
       });
     },
     isInGroup: false,
+    id: getOptionId(option),
   };
 };
 
 export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
   const { label, checked, indeterminate, isInGroup, ...attr } = props;
+  const checkboxId = `${attr.id}-checkbox`;
   const checkboxProps: CheckboxProps = {
     indeterminate,
-    id: label as string,
+    id: checkboxId,
     onChange: (e) => {
       e.preventDefault();
     },
@@ -66,7 +68,7 @@ export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
     return (
       <div aria-hidden className={styles.checkboxContainer}>
         <Checkbox {...checkboxProps} />
-        <label>{label}</label>
+        <label htmlFor={checkboxId}>{label}</label>
       </div>
     );
   };

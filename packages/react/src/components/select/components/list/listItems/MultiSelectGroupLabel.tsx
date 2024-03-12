@@ -14,6 +14,7 @@ export type MultiSelectGroupLabelProps = SelectItemProps & {
 const createMultiSelectGroupLabelProps = ({
   option,
   trigger,
+  getOptionId,
   isIntermediate,
   isGroupDisabled,
 }: MultiSelectGroupLabelProps): MultiSelectOptionProps => {
@@ -43,29 +44,9 @@ const createMultiSelectGroupLabelProps = ({
         payload: { originalEvent, value: option },
       });
     },
-    key: option.label,
+    id: getOptionId(option),
   };
 };
-
-/*
-export function MultiSelectGroupLabel(props: MultiSelectGroupLabelProps) {
-  const { label, selected, indeterminate, ...attr } = createMultiSelectGroupLabelProps(props);
-  return (
-    <div {...attr}>
-      <Checkbox
-        indeterminate={indeterminate}
-        id={label as string}
-        onChange={(e) => {
-          e.preventDefault();
-        }}
-        checked={selected}
-        aria-hidden
-        tabIndex={-1}
-      />
-      <label aria-hidden>{label}</label>
-    </div>
-  );
-} */
 
 export function MultiSelectGroupLabel(props: MultiSelectGroupLabelProps) {
   const elementProps = createMultiSelectGroupLabelProps(props);

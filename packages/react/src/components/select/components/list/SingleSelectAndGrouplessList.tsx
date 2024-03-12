@@ -10,7 +10,7 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
   const { groups, multiSelect, open } = getData();
-  const { isSearching } = getMetaData();
+  const { isSearching, getOptionId } = getMetaData();
   if (!open || isSearching) {
     return [];
   }
@@ -20,9 +20,17 @@ const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandl
         return null;
       }
       if (multiSelect) {
-        return <MultiSelectOption option={option} trigger={trigger} isInGroup={false} key={option.value} />;
+        return (
+          <MultiSelectOption
+            option={option}
+            trigger={trigger}
+            isInGroup={false}
+            key={option.value}
+            getOptionId={getOptionId}
+          />
+        );
       }
-      return <SingleSelectOption option={option} trigger={trigger} key={option.value} />;
+      return <SingleSelectOption option={option} trigger={trigger} key={option.value} getOptionId={getOptionId} />;
     })
     .filter((option) => !!option);
 };

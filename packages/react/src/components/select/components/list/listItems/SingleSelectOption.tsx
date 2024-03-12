@@ -6,7 +6,7 @@ import { LiElementProps } from '../../../types';
 import { eventIds, eventTypes } from '../../../events';
 import { SelectItemProps } from '../common';
 
-const createSingleSelectItemProps = ({ option, trigger }: SelectItemProps): LiElementProps => {
+const createSingleSelectItemProps = ({ option, trigger, getOptionId }: SelectItemProps): LiElementProps => {
   const { label, selected, disabled } = option;
   return {
     className: classNames(
@@ -26,6 +26,7 @@ const createSingleSelectItemProps = ({ option, trigger }: SelectItemProps): LiEl
     role: 'option',
     'aria-selected': selected,
     tabIndex: -1,
+    id: getOptionId(option),
   };
 };
 
