@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
-import { getSelectedOptions, createOnClickListener } from '../../utils';
+import { getSelectedOptions, createOnClickListener, hasInputInList } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
@@ -21,21 +21,42 @@ const createButtonWithSelectedOptionsProps = ({
   getMetaData,
   trigger,
 }: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { groups, placeholder, disabled, open, showFiltering, showSearch } = getData();
-  const { icon, refs, elementIds } = getMetaData();
+  const { groups, placeholder, disabled, open, showFiltering, showSearch, label } = getData();
+  const { icon, refs, elementIds, activeDescendant } = getMetaData();
   const selectedOptions = getSelectedOptions(groups);
+  const hasInput = hasInputInList({ showFiltering, showSearch });
   const getAriaControlsId = () => {
-    if (showFiltering || showSearch) {
+    if (hasInput) {
       return elementIds.searchOrFilterInput;
     }
     return elementIds.list;
+  };
+  const getAriaLabel = () => {
+    const labels = [`${label}.`];
+    const { length } = selectedOptions;
+    if (!length) {
+      labels.push(`${placeholder}. ${length} options selected.`);
+    } else {
+      labels.push(`Selected option`);
+      if (selectedOptions[0]) {
+        labels.push(`"${selectedOptions[0].label}"`);
+      }
+      if (selectedOptions[1]) {
+        labels.push(`and "${selectedOptions[1].label}"`);
+      }
+      if (length > 2) {
+        labels.push(`and ${length - 2} other options.`);
+      }
+    }
+
+    return labels.join(' ');
   };
   return {
     'aria-controls': getAriaControlsId(),
     'aria-expanded': open,
     'aria-haspopup': 'listbox',
-    'aria-labelledby': elementIds.label,
-    'aria-owns': elementIds.list,
+    'aria-label': getAriaLabel(),
+    'aria-activedescendant': hasInput ? undefined : activeDescendant,
     buttonRef: refs.selectionButton,
     className: classNames(
       styles.button,
@@ -45,6 +66,7 @@ const createButtonWithSelectedOptionsProps = ({
     ),
     disabled,
     icon,
+    role: hasInput ? undefined : 'combobox',
     id: elementIds.button,
     options: selectedOptions,
     ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),

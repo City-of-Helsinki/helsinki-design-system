@@ -23,6 +23,7 @@ const createMultiSelectGroupLabelProps = ({
     className: classNames(
       styles.listItem,
       styles.groupLabel,
+      styles.focusableListItem,
       styles.selectableListItem,
       styles.multiSelectListItem,
       isGroupDisabled && styles.disabledOption,

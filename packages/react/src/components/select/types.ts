@@ -93,6 +93,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
   focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;
+  activeDescendant: string | undefined;
   elementIds: {
     button: string;
     label: string;

@@ -31,6 +31,7 @@ export const eventTypes = {
 const isClick = (eventType?: EventType) => eventType === eventTypes.click;
 const isChange = (eventType?: EventType) => eventType === eventTypes.change;
 const isError = (eventType?: EventType) => eventType === eventTypes.error;
+const isBlur = (eventType?: EventType) => eventType === eventTypes.blur;
 const isCancelled = (eventType?: EventType) => eventType === eventTypes.cancelled;
 const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
 const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || eventId === eventIds.tag;
@@ -84,4 +85,8 @@ export const isSearchErrorEvent = (eventId: EventId, eventType?: EventType) => {
 
 export const isSearchCancelledEvent = (eventId: EventId, eventType?: EventType) => {
   return isCancelled(eventType) && eventId === eventIds.searchResult;
+};
+
+export const isGenericBlurEvent = (eventId: EventId, eventType?: EventType) => {
+  return isGenericEvent(eventId) && isBlur(eventType);
 };

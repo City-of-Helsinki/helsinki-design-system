@@ -21,7 +21,7 @@ export function SearchAndFilterInfo() {
   const count = countVisibleOptions(groups);
   const noResultsTexts =
     !isSearching && !count && (search || filter)
-      ? [`No options found for "${search || filter}"`, 'Try a different search term']
+      ? [`No options found for "${search || filter}"`, 'Try a different term']
       : [];
   const loadingText = isSearching ? 'Loading options' : '';
 

@@ -22,6 +22,7 @@ const createMultiSelectItemProps = ({ option, trigger, getOptionId }: SelectItem
     className: classNames(
       styles.listItem,
       styles.selectableListItem,
+      styles.focusableListItem,
       styles.multiSelectListItem,
       selected && styles.selected,
       disabled && styles.disabledOption,

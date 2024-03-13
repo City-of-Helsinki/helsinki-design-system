@@ -10,12 +10,13 @@ import { eventTypes, eventIds } from '../../events';
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger; disabled: boolean };
 
 const createDelectedTagProps = ({ option, trigger, disabled }: SelectedTagProps): TagProps => {
+  const componentOrOptionDisabled = disabled || option.disabled;
   return {
-    className: classNames(styles.tag, disabled && styles.disabledTag),
+    className: classNames(styles.tag, componentOrOptionDisabled && styles.disabledTag),
     onClick: (e) => {
       e.stopPropagation();
     },
-    onDelete: disabled
+    onDelete: componentOrOptionDisabled
       ? undefined
       : (e) => {
           e.stopPropagation();

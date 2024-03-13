@@ -12,7 +12,7 @@ import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
 type InputType = Extract<EventId, 'filter' | 'search'>;
 
 const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers, inputType: InputType): TextInputProps => {
-  const { filter, elementIds, refs, search } = getMetaData();
+  const { filter, elementIds, refs, search, activeDescendant } = getMetaData();
   const isSearchInput = inputType === 'search';
   const value = isSearchInput ? search : filter;
   return {
@@ -32,9 +32,8 @@ const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers, in
     ref: refs.searchOrFilterInput,
     hideLabel: true,
     'aria-controls': elementIds.list,
-    'aria-owns': elementIds.list,
     'aria-expanded': true,
-    'aria-activedescendant': undefined,
+    'aria-activedescendant': activeDescendant || '',
     'aria-labelledby': `${elementIds.searchOrFilterInputLabel} ${elementIds.label}`,
     'aria-haspopup': 'true',
     role: 'combobox',

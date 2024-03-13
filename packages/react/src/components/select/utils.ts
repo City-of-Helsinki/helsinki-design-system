@@ -308,3 +308,7 @@ export function mergeSearchResultsToCurrent(
 
   return [...currentHiddenOptionsInAGroup, ...newData];
 }
+
+export function hasInputInList(data: Pick<SelectData, 'showFiltering' | 'showSearch'> | SelectData) {
+  return data.showFiltering || data.showSearch;
+}

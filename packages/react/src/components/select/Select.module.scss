@@ -237,11 +237,13 @@
       }
 
       .selectableListItem {
-        outline: none;
-
         &:hover {
           background-color: var(--menu-item-background-selected-hover);
         }
+      }
+
+      .focusableListItem {
+        outline: none;
 
         &:focus,
         &:focus-within {
@@ -331,6 +333,7 @@
 
     .clearAllButton {
       --background-color-hover: var(--color-error-light);
+      --background-color: var(--color-white);
       --border-color: var(--color-error);
       --border-color-hover: var(--color-error);
       --border-color-focus: var(--color-error);
