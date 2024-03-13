@@ -3,18 +3,30 @@ import { isElement } from 'lodash';
 
 import { KnownElementType } from '../types';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
-import { isSingleSelectElement, isMultiSelectElement } from '../components/list/common';
+import {
+  isSingleSelectElement,
+  isMultiSelectElement,
+  multiSelectElementSelector,
+  singleSelectElementSelector,
+} from '../components/list/common';
+import { hasInputInList } from '../utils';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
 
 export function useElementDetection() {
-  const { getMetaData } = useSelectDataHandlers();
+  const { getMetaData, getData } = useSelectDataHandlers();
   const { refs, elementIds } = getMetaData();
+  const { showFiltering, showSearch, open } = getData();
+  const hasInput = hasInputInList({ showFiltering, showSearch });
 
   const elementIdEntries = Object.entries(elementIds) as [KnownElementType, string][];
   const getElementId = (element: HTMLElement): string | null => {
     return element.getAttribute('id');
+  };
+
+  const getElementByKnownType = (id: KnownElementType): HTMLElement | null => {
+    return document.getElementById(elementIds[id]);
   };
 
   const getKnownElementId = (element: HTMLElement): KnownElementType | null => {
@@ -103,8 +115,9 @@ export function useElementDetection() {
     target?: T,
     loop = true,
     allowSameElement = false,
+    children?: T[],
   ) => {
-    const childElements = parent.children ? ([...parent.children] as unknown as T[]) : [];
+    const childElements = children || (parent.children ? ([...parent.children] as unknown as T[]) : []);
     const index = target ? childElements.indexOf(target) : -1;
     const getNewIndex = (dir: -1 | 1) => {
       const newIndex = index + dir;
@@ -123,9 +136,15 @@ export function useElementDetection() {
       next: allowSameElement || nextIndex !== index ? childElements[nextIndex] : null,
     };
   };
+  const getListItems = (listElement: HTMLElement) => {
+    const selector = `${multiSelectElementSelector},${singleSelectElementSelector}`;
+    return listElement.querySelectorAll(selector);
+  };
+
   const getListItemSiblings = (listItem?: HTMLLIElement, loop = true) => {
     const list = refs.list.current as HTMLElement;
-    return getElementSiblings<HTMLLIElement>(list, listItem, loop);
+    const listItems = getListItems(list) as unknown as HTMLLIElement[];
+    return getElementSiblings<HTMLLIElement>(list, listItem, loop, false, [...listItems]);
   };
 
   const getTagSiblings = (tag: HTMLElement, loop = true) => {
@@ -179,6 +198,7 @@ export function useElementDetection() {
   };
 
   const getElementType = (element: HTMLElement): KnownElementType | null => {
+    // clear cache on re-render
     if (cacheForLastElement.element === element) {
       return cacheForLastElement.id;
     }
@@ -203,11 +223,21 @@ export function useElementDetection() {
     };
   };
 
+  const getElementUsingActiveDescendant = () => {
+    if (hasInput) {
+      return open ? getElementByKnownType('searchOrFilterInput') : null;
+    }
+    return getElementByKnownType('button');
+  };
+
   return {
     getEventElementType,
     getElementType,
     getListItemSiblings,
     getTagSiblings,
+    getElementUsingActiveDescendant,
+    getElementByKnownType,
+    getElementId,
   };
 }
 

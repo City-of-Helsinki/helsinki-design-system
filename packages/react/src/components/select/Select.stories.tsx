@@ -755,7 +755,7 @@ export const WithFocusListeners = () => {
           .indicators {
             display: flex;
             flex-direction: column;
-            margin-top: 20px;
+            margin: 20px 0;
 
             .indicator {
               padding-left: 20px;
@@ -797,6 +797,7 @@ export const WithFocusListeners = () => {
         <div className="indicator">Focused</div>
         <div className="indicator blurIndicator">Blurred</div>
       </div>
+      <Button>This is focusable</Button>
     </>
   );
 };

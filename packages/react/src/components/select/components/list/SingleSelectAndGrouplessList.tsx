@@ -7,6 +7,8 @@ import { getAllOptions } from '../../utils';
 import { MultiSelectOption } from './listItems/MultiSelectOption';
 import { SingleSelectOption } from './listItems/SingleSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
+import { SingleSelectGroupLabel } from './listItems/SingleSelectGroupLabel';
+import { SelectItemProps } from './common';
 
 const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
   const { groups, multiSelect, open } = getData();
@@ -19,18 +21,19 @@ const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandl
       if (!option.visible) {
         return null;
       }
+      const props: SelectItemProps & { key: string } = {
+        option,
+        trigger,
+        key: option.value,
+        getOptionId,
+      };
       if (multiSelect) {
-        return (
-          <MultiSelectOption
-            option={option}
-            trigger={trigger}
-            isInGroup={false}
-            key={option.value}
-            getOptionId={getOptionId}
-          />
-        );
+        return <MultiSelectOption {...props} isInGroup={false} />;
       }
-      return <SingleSelectOption option={option} trigger={trigger} key={option.value} getOptionId={getOptionId} />;
+      if (option.isGroupLabel) {
+        return <SingleSelectGroupLabel {...props} />;
+      }
+      return <SingleSelectOption {...props} />;
     })
     .filter((option) => !!option);
 };

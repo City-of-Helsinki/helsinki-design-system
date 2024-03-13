@@ -10,6 +10,7 @@ import {
   clearAllSelectedOptions,
   getSelectedOptions,
   propsToGroups,
+  hasInputInList,
 } from './utils';
 import {
   EventId,
@@ -19,6 +20,7 @@ import {
   isClearOptionsClickEvent,
   isCloseEvent,
   isFilterChangeEvent,
+  isGenericBlurEvent,
   isGroupClickEvent,
   isOpenOrCloseEvent,
   isOptionClickEvent,
@@ -44,6 +46,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     }
     dataHandlers.updateData({ open });
     dataHandlers.updateMetaData({ lastToggleCommand: now });
+    if (!open) {
+      dataHandlers.updateMetaData({ activeDescendant: undefined });
+    }
     return true;
   };
 
@@ -64,7 +69,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
     if (didUpdate && willOpen) {
-      setFocusTarget(current.showSearch || current.showFiltering ? 'searchOrFilterInput' : 'list');
+      setFocusTarget(hasInputInList(current) ? 'searchOrFilterInput' : 'list');
     }
     return true;
   }
@@ -142,6 +147,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       });
     }
     return true;
+  }
+  if (isGenericBlurEvent(id, type) && current.open) {
+    return openOrClose(false);
   }
   return false;
 };

@@ -81,6 +81,7 @@ export function Select({
       lastClickedOption: undefined,
       lastToggleCommand: 0,
       icon,
+      activeDescendant: undefined,
       refs: {
         listContainer: createRef<HTMLDivElement>(),
         list: createRef<HTMLUListElement>(),
@@ -99,7 +100,7 @@ export function Select({
         label: `${containerId}-label`,
         tagList: `${containerId}-tag-list`,
         searchOrFilterInput: `${containerId}-input-element`,
-        searchOrFilterInputLabel: `${containerId}-input-element`,
+        searchOrFilterInputLabel: `${containerId}-input-element-label`,
         clearAllButton: `${containerId}-clear-all-button`,
         showAllButton: `${containerId}-show-all-button`,
       },
@@ -107,7 +108,7 @@ export function Select({
         const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
         const current = optionIds.get(identifier);
         if (!current) {
-          const optionId = `${containerId}_option_${optionIdCounter}`;
+          const optionId = `${containerId}-option-${optionIdCounter}`;
           optionIdCounter += 1;
           optionIds.set(identifier, optionId);
           return optionId;

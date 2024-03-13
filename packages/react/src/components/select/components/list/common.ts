@@ -7,13 +7,13 @@ export type SelectItemProps = {
   getOptionId: SelectMetaData['getOptionId'];
 };
 
-// export const multiSelectElementSelectorFromListRoot = 'div[role=checkbox]';
+export const multiSelectElementSelector = 'div[role=checkbox],li[role=checkbox]';
 
 export const isMultiSelectElement = (element: HTMLElement) => {
   return (element.nodeName === 'DIV' || element.nodeName === 'LI') && element.getAttribute('role') === 'checkbox';
 };
 
-// export const singleSelectElementSelectorFromListRoot = 'li[role=option]';
+export const singleSelectElementSelector = 'li';
 
 export const isSingleSelectElement = (element: HTMLElement) => {
   return element.nodeName === 'LI' && element.getAttribute('role') === 'option';

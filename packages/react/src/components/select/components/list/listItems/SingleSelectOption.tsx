@@ -12,6 +12,7 @@ const createSingleSelectItemProps = ({ option, trigger, getOptionId }: SelectIte
     className: classNames(
       styles.listItem,
       styles.selectableListItem,
+      styles.focusableListItem,
       selected && styles.selected,
       disabled && styles.disabledOption,
     ),
