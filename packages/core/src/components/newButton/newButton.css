@@ -1,0 +1,103 @@
+@import url('./newButtonVariants.css');
+
+.new-hds-button {
+  --border-width: 2px;
+  --focus-outline-width: 2px;
+  --horizontal-gap: 8px;
+  --horizontal-padding: 32px;
+  --min-size: 56px;
+  --padding: 0 calc(var(--horizontal-padding) - var(--border-width));
+  --icon-reposition: -8px;
+
+  align-content: flex-start;
+  align-items: center;
+  background-color: var(--background-color, transparent);
+  border: var(--border-width) solid var(--border-color, transparent);
+  border-radius: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: var(--color, inherit);
+  column-gap: var(--horizontal-gap);
+  cursor: var(--cursor, pointer);
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 1.15;
+  margin: 0;
+  min-height: var(--min-size);
+  min-width: var(--min-size);
+  outline: none;
+  outline-offset: 2px;
+  overflow: hidden;
+  padding: 0 32px;
+  position: relative;
+  text-decoration: none;
+  text-transform: none;
+  vertical-align: top;
+}
+
+.new-hds-button--small {
+  --min-size: 44px;
+  --horizontal-padding: 24px;
+}
+
+button.new-hds-button,
+.new-hds-button[type="button"],
+.new-hds-button[type="reset"],
+.new-hds-button[type="submit"]
+{
+  -webkit-appearance: button;
+}
+
+.new-hds-button--fullwidth {
+  width: 100%;
+}
+
+/* active */
+.new-hds-button:active {
+  background-color: var(--background-color-focus);
+  color: var(--color-focus);
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+}
+
+/* focus */
+.new-hds-button:focus-visible {
+  border-color: var(--border-color-focus);
+  color: var(--color-focus);
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+}
+
+/* hover */
+.new-hds-button:hover {
+  background-color: var(--background-color-hover);
+  border-color: var(--border-color-hover);
+  color: var(--color-hover);
+}
+
+/* disabled */
+.new-hds-button:disabled {
+  background-color: var(--background-color-disabled, transparent);
+  border-color: var(--border-color-disabled, transparent);
+  color: var(--color-disabled, inherit);
+  cursor: not-allowed;
+  outline: none;
+}
+
+/* icons */
+.new-hds-button .hds-icon {
+  height: var(--spacing-m);
+  width: var(--spacing-m);
+}
+
+/* right-size icon */
+.new-hds-button .hds-icon:first-child {
+  margin-left: var(--icon-reposition);
+}
+
+/* left-size icon */
+.new-hds-button .hds-icon:last-child {
+  margin-right: var(--icon-reposition);
+}
