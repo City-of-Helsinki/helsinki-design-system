@@ -3,11 +3,11 @@
 .new-hds-button {
   --border-width: 2px;
   --focus-outline-width: 2px;
-  --horizontal-gap: 8px;
-  --horizontal-padding: 32px;
+  --horizontal-gap: var(--spacing-2-xs);
+  --horizontal-padding: var(--spacing-l);
   --min-size: 56px;
   --padding: 0 calc(var(--horizontal-padding) - var(--border-width));
-  --icon-reposition: -8px;
+  --icon-reposition: calc(0 - var(--spacing-2-xs));
 
   align-content: flex-start;
   align-items: center;
@@ -25,23 +25,28 @@
   font-size: 100%;
   font-weight: 500;
   justify-content: center;
-  line-height: 1.15;
+  line-height: var(--lineheight-l);
   margin: 0;
   min-height: var(--min-size);
   min-width: var(--min-size);
   outline: none;
   outline-offset: 2px;
   overflow: hidden;
-  padding: 0 32px;
+  padding: var(--padding);
   position: relative;
   text-decoration: none;
   text-transform: none;
   vertical-align: top;
 }
 
+/*
+.new-hds-button__label {
+  color: orange;
+} */
+
 .new-hds-button--small {
   --min-size: 44px;
-  --horizontal-padding: 24px;
+  --horizontal-padding: var(--spacing-m);
 }
 
 button.new-hds-button,

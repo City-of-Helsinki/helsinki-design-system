@@ -1,0 +1,51 @@
+.button {
+  composes: new-hds-button from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.label {
+  composes: new-hds-button__label from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.fullWidth {
+  composes: new-hds-button--fullwidth from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.size-small {
+  composes: new-hds-button--small from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.icon {
+  composes: hds-icon from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.isLoading {
+  composes: new-hds-button--loading from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.primary {
+  composes: new-hds-button--primary from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.secondary {
+  composes: new-hds-button--secondary from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.supplementary {
+  composes: new-hds-button--supplementary from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.success {
+  composes: new-hds-button--success from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.danger {
+  composes: new-hds-button--danger from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.theme-coat {
+  composes: new-hds-button--theme-coat from 'hds-core/lib/components/newButton/newButton.css';
+}
+
+.theme-black {
+  composes: new-hds-button--theme-black from 'hds-core/lib/components/newButton/newButton.css';
+}

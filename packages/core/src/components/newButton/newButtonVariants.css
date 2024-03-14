@@ -2,180 +2,180 @@
 
 /* default (bus) */
 .new-hds-button--primary {
-    --background-color: var(--color-bus);
-    --background-color-hover: var(--color-bus-dark);
-    --background-color-focus: var(--color-bus);
-    --background-color-disabled: var(--color-black-20);
-    --border-color: var(--color-bus);
-    --border-color-hover: var(--background-color-hover);
-    --border-color-focus: var(--background-color-focus);
-    --border-color-disabled: var(--background-color-disabled);
-    --color: var(--color-white);
-    --color-hover: var(--color-white);
-    --color-focus: var(--color-white);
-    --color-disabled: var(--color-white);
-    --focus-outline-color: var(--color-focus-outline);
-    --submit-input-focus-gutter-color: var(--color-white);
+  --background-color: var(--color-bus);
+  --background-color-hover: var(--color-bus-dark);
+  --background-color-focus: var(--color-bus);
+  --background-color-disabled: var(--color-black-20);
+  --border-color: var(--color-bus);
+  --border-color-hover: var(--background-color-hover);
+  --border-color-focus: var(--background-color-focus);
+  --border-color-disabled: var(--background-color-disabled);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --color-disabled: var(--color-white);
+  --focus-outline-color: var(--color-focus-outline);
+  --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SECONDARY */
 
 /* default (bus) */
 .new-hds-button--secondary {
-    --background-color: transparent;
-    --background-color-hover: var(--color-bus-light);
-    --background-color-focus: transparent;
-    --background-color-disabled: transparent;
-    --border-color: var(--color-bus);
-    --border-color-hover: var(--color-bus-dark);
-    --border-color-focus: var(--border-color);
-    --border-color-disabled: var(--color-black-50);
-    --border-width: 2px;
-    --color: var(--color-bus);
-    --color-hover: var(--color-bus-dark);
-    --color-focus: var(--color);
-    --color-disabled: var(--color-black-40);
-    --focus-outline-color: var(--color-focus-outline);
-    --submit-input-focus-gutter-color: var(--color-white);
+  --background-color: transparent;
+  --background-color-hover: var(--color-bus-light);
+  --background-color-focus: transparent;
+  --background-color-disabled: transparent;
+  --border-color: var(--color-bus);
+  --border-color-hover: var(--color-bus-dark);
+  --border-color-focus: var(--border-color);
+  --border-color-disabled: var(--color-black-50);
+  --border-width: 2px;
+  --color: var(--color-bus);
+  --color-hover: var(--color-bus-dark);
+  --color-focus: var(--color);
+  --color-disabled: var(--color-black-40);
+  --focus-outline-color: var(--color-focus-outline);
+  --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SUPPLEMENTARY */
 
 .new-hds-button--supplementary {
-    --background-color: transparent;
-    --background-color-hover: var(--color-bus-light);
-    --background-color-focus: var(--background-color);
-    --background-color-disabled: var(--background-color);
-    --border-color: var(--background-color);
-    --border-color-hover: var(--border-color);
-    --border-color-focus: var(--border-color);
-    --border-color-disabled: var(--background-color);
-    --color: var(--color-bus);
-    --color-hover: var(--color-bus-dark);
-    --color-focus: var(--color);
-    --color-disabled: var(--color-black-40);
-    --focus-outline-color: var(--color-focus-outline);
-    --submit-input-focus-gutter-color: transparent;
+  --background-color: transparent;
+  --background-color-hover: var(--color-bus-light);
+  --background-color-focus: var(--background-color);
+  --background-color-disabled: var(--background-color);
+  --border-color: var(--background-color);
+  --border-color-hover: var(--border-color);
+  --border-color-focus: var(--border-color);
+  --border-color-disabled: var(--background-color);
+  --color: var(--color-bus);
+  --color-hover: var(--color-bus-dark);
+  --color-focus: var(--color);
+  --color-disabled: var(--color-black-40);
+  --focus-outline-color: var(--color-focus-outline);
+  --submit-input-focus-gutter-color: transparent;
 }
 
 /* LOADING */
 
 .new-hds-button--loading {
-    --background-color: transparent;
-    --background-color-hover: transparent;
-    --background-color-focus: transparent;
-    --background-color-disabled: transparent;
-    --border-color: transparent;
-    --border-color-hover: transparent;
-    --border-color-focus: transparent;
-    --border-color-disabled: transparent;
-    --color: var(--color-black-90);
-    --color-hover: var(--color-black-90);
-    --color-focus: var(--color-black-90);
-    --color-disabled: var(--color-black-90);
-    --cursor: wait;
+  --background-color: transparent;
+  --background-color-hover: transparent;
+  --background-color-focus: transparent;
+  --background-color-disabled: transparent;
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --border-color-focus: transparent;
+  --border-color-disabled: transparent;
+  --color: var(--color-black-90);
+  --color-hover: var(--color-black-90);
+  --color-focus: var(--color-black-90);
+  --color-disabled: var(--color-black-90);
+  --cursor: wait;
 }
 
 /* UTILITY */
 
 /* success */
 .new-hds-button--success {
-    --background-color: var(--color-success);
-    --background-color-hover: var(--color-success-dark);
-    --background-color-focus: var(--color-success);
-    --border-color: var(--color-success);
-    --border-color-hover: var(--color-success-dark);
-    --border-color-focus: var(--color-success);
-    --color: var(--color-white);
-    --color-hover: var(--color-white);
-    --color-focus: var(--color-white);
-    --focus-outline-color: var(--color-focus-outline);
+  --background-color: var(--color-success);
+  --background-color-hover: var(--color-success-dark);
+  --background-color-focus: var(--color-success);
+  --border-color: var(--color-success);
+  --border-color-hover: var(--color-success-dark);
+  --border-color-focus: var(--color-success);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --focus-outline-color: var(--color-focus-outline);
 }
 
 /* danger */
 .new-hds-button--danger {
-    --background-color: var(--color-error);
-    --background-color-hover: var(--color-error-dark);
-    --background-color-focus: var(--color-error);
-    --border-color: var(--color-error);
-    --border-color-hover: var(--color-error-dark);
-    --border-color-focus: var(--color-error);
-    --color: var(--color-white);
-    --color-hover: var(--color-white);
-    --color-focus: var(--color-white);
-    --focus-outline-color: var(--color-focus-outline);
+  --background-color: var(--color-error);
+  --background-color-hover: var(--color-error-dark);
+  --background-color-focus: var(--color-error);
+  --border-color: var(--color-error);
+  --border-color-hover: var(--color-error-dark);
+  --border-color-focus: var(--color-error);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --focus-outline-color: var(--color-focus-outline);
 }
 
 /* THEMES */
 
 /* coat */
 .new-hds-button--primary.new-hds-button--theme-coat {
-    --background-color: var(--color-coat-of-arms);
-    --background-color-hover: var(--color-coat-of-arms-dark);
-    --background-color-focus: var(--color-coat-of-arms);
-    --border-color: var(--color-coat-of-arms);
-    --border-color-hover: var(--color-coat-of-arms-dark);
-    --border-color-focus: var(--color-coat-of-arms);
-    --color: var(--color-white);
-    --color-hover: var(--color-white);
-    --color-focus: var(--color-white);
+  --background-color: var(--color-coat-of-arms);
+  --background-color-hover: var(--color-coat-of-arms-dark);
+  --background-color-focus: var(--color-coat-of-arms);
+  --border-color: var(--color-coat-of-arms);
+  --border-color-hover: var(--color-coat-of-arms-dark);
+  --border-color-focus: var(--color-coat-of-arms);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
 }
 
 .new-hds-button--secondary.new-hds-button--theme-coat {
-    --background-color: transparent;
-    --background-color-hover: var(--color-coat-of-arms-light);
-    --background-color-focus: transparent;
-    --border-color: var(--color-coat-of-arms);
-    --border-color-hover: var(--border-color);
-    --border-color-focus: var(--color-coat-of-arms);
-    --color: var(--color-coat-of-arms);
-    --color-hover: var(--color-coat-of-arms);
-    --color-focus: var(--color-coat-of-arms);
+  --background-color: transparent;
+  --background-color-hover: var(--color-coat-of-arms-light);
+  --background-color-focus: transparent;
+  --border-color: var(--color-coat-of-arms);
+  --border-color-hover: var(--border-color);
+  --border-color-focus: var(--color-coat-of-arms);
+  --color: var(--color-coat-of-arms);
+  --color-hover: var(--color-coat-of-arms);
+  --color-focus: var(--color-coat-of-arms);
 }
 
 .new-hds-button--supplementary.new-hds-button--theme-coat {
-    --background-color: transparent;
-    --background-color-hover: var(--color-coat-of-arms-light);
-    --background-color-focus: transparent;
-    --border-color: transparent;
-    --border-color-hover: transparent;
-    --color: var(--color-coat-of-arms);
-    --color-hover: var(--color-coat-of-arms);
-    --color-focus: var(--color-coat-of-arms);
+  --background-color: transparent;
+  --background-color-hover: var(--color-coat-of-arms-light);
+  --background-color-focus: transparent;
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --color: var(--color-coat-of-arms);
+  --color-hover: var(--color-coat-of-arms);
+  --color-focus: var(--color-coat-of-arms);
 }
 
 /* black */
 .new-hds-button--primary.new-hds-button--theme-black {
-    --background-color: var(--color-black);
-    --background-color-hover: var(--color-black);
-    --background-color-focus: var(--color-black);
-    --border-color: var(--color-black);
-    --border-color-hover: var(--color-black);
-    --border-color-focus: var(--color-black);
-    --color: var(--color-white);
-    --color-hover: var(--color-white);
-    --color-focus: var(--color-white);
+  --background-color: var(--color-black);
+  --background-color-hover: var(--color-black);
+  --background-color-focus: var(--color-black);
+  --border-color: var(--color-black);
+  --border-color-hover: var(--color-black);
+  --border-color-focus: var(--color-black);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
 }
 
 .new-hds-button--secondary.new-hds-button--theme-black {
-    --background-color: transparent;
-    --background-color-hover: var(--color-black-5);
-    --background-color-focus: transparent;
-    --border-color: var(--color-black);
-    --border-color-hover: var(--color-black);
-    --border-color-focus: var(--color-black);
-    --color: var(--color-black);
-    --color-hover: var(--color-black);
-    --color-focus: var(--color-black);
+  --background-color: transparent;
+  --background-color-hover: var(--color-black-5);
+  --background-color-focus: transparent;
+  --border-color: var(--color-black);
+  --border-color-hover: var(--color-black);
+  --border-color-focus: var(--color-black);
+  --color: var(--color-black);
+  --color-hover: var(--color-black);
+  --color-focus: var(--color-black);
 }
 
 .new-hds-button--supplementary.new-hds-button--theme-black {
-    --background-color: transparent;
-    --background-color-hover: var(--color-black-5);
-    --background-color-focus: transparent;
-    --border-color: transparent;
-    --border-color-hover: transparent;
-    --color: var(--color-black);
-    --color-hover: var(--color-black);
-    --color-focus: var(--color-black);
+  --background-color: transparent;
+  --background-color-hover: var(--color-black-5);
+  --background-color-focus: transparent;
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --color: var(--color-black);
+  --color-hover: var(--color-black);
+  --color-focus: var(--color-black);
 }
