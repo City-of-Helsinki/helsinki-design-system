@@ -1,25 +1,25 @@
-import { useRef, useCallback, useEffect, ReactNode } from 'react';
+import { useMemo, useCallback, useEffect, ReactNode } from 'react';
 
 import useForceRender from '../../../hooks/useForceRender';
 
 export function useRenderChildrenInChunks(children: ReactNode) {
   const render = useForceRender();
   const length = Array.isArray(children) ? children.length : 0;
-  const renderChunkRef = useRef({ max: length, pos: 100, chunkSize: 100 });
-  const currentChildren = length ? (children as ReactNode[]).slice(0, renderChunkRef.current.pos) : [children];
+  const chunkLog = useMemo(() => ({ max: length, pos: 100, chunkSize: 100 }), [length]);
+  const currentChildren = length ? (children as ReactNode[]).slice(0, chunkLog.pos) : [children];
 
   const updateChunks = useCallback(() => {
-    const { max, pos, chunkSize } = renderChunkRef.current;
-    if (pos === max) {
+    const { max, pos, chunkSize } = chunkLog;
+    if (pos >= max) {
       return;
     }
-    renderChunkRef.current.pos = Math.min(pos + chunkSize, max);
+    chunkLog.pos = Math.min(pos + chunkSize, max);
     window.requestAnimationFrame(render);
-  }, []);
+  }, [chunkLog]);
 
   useEffect(() => {
     return () => {
-      renderChunkRef.current.max = 0;
+      chunkLog.max = 0;
     };
   }, []);
 
