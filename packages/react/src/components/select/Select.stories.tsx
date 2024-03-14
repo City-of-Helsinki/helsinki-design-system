@@ -670,8 +670,46 @@ export const MultiSelectWithExternalControls = () => {
   );
 };
 
-/*
-export const WithVirtualizationMultiselect = () => {
+export const WithVirtualizationMultiSelect = () => {
+  let count = 0;
+  const makeUniqueOption = (value: string) => {
+    const valueWithCount = `${value} ${count}`;
+    count += 1;
+    return {
+      label: value,
+      value: valueWithCount,
+    };
+  };
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(10).map(makeUniqueOption),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(10).map(makeUniqueOption),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    return {
+      assistiveText: `You have selected ${selected.length} options`,
+    };
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Select multiple fruits or vegetables"
+      onChange={onChange}
+      multiSelect
+      virtualize
+      showFiltering
+      placeholder="Choose many"
+      icon={<IconLocation />}
+    />
+  );
+};
+export const WithVirtualizationSingleSelect = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -702,7 +740,6 @@ export const WithVirtualizationMultiselect = () => {
       groups={groups}
       label="Select multiple fruits or vegetables"
       onChange={onChange}
-      multiSelect
       virtualize
       showFiltering
       placeholder="Choose many"
@@ -710,7 +747,7 @@ export const WithVirtualizationMultiselect = () => {
     />
   );
 };
-*/
+
 export const WithFocusListeners = () => {
   const [isFocused, setIsFocused] = useState(false);
   const groups: SelectProps['groups'] = useMemo(
