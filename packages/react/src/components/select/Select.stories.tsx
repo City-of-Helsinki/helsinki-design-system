@@ -683,11 +683,11 @@ export const WithVirtualizationMultiSelect = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(10).map(makeUniqueOption),
+      options: generateOptionLabels(1000).map(makeUniqueOption),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionLabels(10).map(makeUniqueOption),
+      options: generateOptionLabels(1000).map(makeUniqueOption),
     },
   ];
 
@@ -741,6 +741,41 @@ export const WithVirtualizationSingleSelect = () => {
       label="Select multiple fruits or vegetables"
       onChange={onChange}
       virtualize
+      showFiltering
+      placeholder="Choose many"
+      icon={<IconLocation />}
+    />
+  );
+};
+export const WithVirtualizationNoGroups = () => {
+  let count = 0;
+  const makeUniqueOption = (value: string) => {
+    const valueWithCount = `${value} ${count}`;
+    count += 1;
+    return {
+      label: value,
+      value: valueWithCount,
+    };
+  };
+  const options: SelectProps['options'] = [
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    return {
+      assistiveText: `You have selected ${selected.length} options`,
+    };
+  }, []);
+  return (
+    <Select
+      options={options}
+      label="Select multiple fruits or vegetables"
+      onChange={onChange}
+      virtualize
+      multiSelect
       showFiltering
       placeholder="Choose many"
       icon={<IconLocation />}
