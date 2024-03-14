@@ -9,6 +9,7 @@ import { SingleSelectOption } from './listItems/SingleSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { SingleSelectGroupLabel } from './listItems/SingleSelectGroupLabel';
 import { SelectItemProps } from './common';
+import { VirtualizedSSAGL } from './VirtualizedSSAGL';
 
 const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
   const { groups, multiSelect, open } = getData();
@@ -51,7 +52,11 @@ const createListElementProps = ({ getMetaData }: SelectDataHandlers) => {
 
 export function SingleSelectAndGrouplessList() {
   const dataHandlers = useSelectDataHandlers();
+  const { virtualize } = dataHandlers.getData();
   const attr = createListElementProps(dataHandlers);
   const children = createOptionElements(dataHandlers);
+  if (virtualize) {
+    return <VirtualizedSSAGL {...attr}>{children}</VirtualizedSSAGL>;
+  }
   return <ul {...attr}>{children}</ul>;
 }

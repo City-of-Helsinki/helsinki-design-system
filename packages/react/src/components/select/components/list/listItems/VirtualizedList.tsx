@@ -54,8 +54,6 @@ export const VirtualizedList = forwardRef<HTMLUListElement, Props>(
     const List = () => {
       const childElements = currentChildren;
       const virtualItems = rowVirtualizer.getVirtualItems();
-      console.log('!!!!virtualItems', virtualItems.length);
-      console.log('!!!!pickedChildren', pickedChildren.length);
       const setChildProps = (el: React.ReactNode, index: number) => {
         const vProps = virtualItems[index];
         if (!vProps) {
@@ -82,7 +80,6 @@ export const VirtualizedList = forwardRef<HTMLUListElement, Props>(
         if (isMultiSelectWithGroups) {
           let pickedChildrenCount = 0;
           const maxChildren = childElements.length;
-          console.log('currentChildren', currentChildren);
           const pickGroupChildren = (i: number) => {
             const groupChildCount = childMap.get(i);
 
@@ -92,7 +89,6 @@ export const VirtualizedList = forwardRef<HTMLUListElement, Props>(
             const startIndex = pickedChildrenCount;
             const lastChild = Math.min(startIndex + groupChildCount, maxChildren);
             const groupChildren = childElements.slice(pickedChildrenCount, lastChild);
-            console.log('---::::', startIndex, lastChild, groupChildren);
             pickedChildrenCount = lastChild;
 
             return groupChildren.map((el, childIndex) => setChildProps(el, startIndex + childIndex));
@@ -101,15 +97,12 @@ export const VirtualizedList = forwardRef<HTMLUListElement, Props>(
             if ((child as React.ReactElement).type === 'span') {
               return child;
             }
-            console.log('g', child);
             const groupChildren = pickGroupChildren(groupIndex);
-            console.log('groupChildren', groupChildren);
             const childProps = {
               ...(child as React.ReactElement).props,
               children: groupChildren,
             };
             const elem = renderFunctionalComponent(child, childProps);
-            console.log('elem', elem);
             return elem;
           });
         }

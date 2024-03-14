@@ -7,6 +7,9 @@ import { getSelectedOptionsPerc, getGroupLabelOption, getAllOptions } from '../.
 import { MultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
+import { VirtualizedMSLWG } from './VirtualizedMSLWG';
+
+export type GroupContent = { groupProps: DivElementProps & { key: string }; children: (JSX.Element | null)[] };
 
 const createGroupOptionElements = (
   group: Group,
@@ -46,11 +49,7 @@ const createGroupOptionElements = (
 
 export function MultiSelectGroup(props: DivElementProps) {
   const { children, ...attr } = props;
-  return (
-    <div role="group" aria-label="Healthy choices" {...attr}>
-      {children}
-    </div>
-  );
+  return <div {...attr}>{children}</div>;
 }
 
 const createGroupProps = (group: Group) => {
@@ -61,12 +60,21 @@ const createGroupProps = (group: Group) => {
   };
 };
 
+const createGroupContents = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
+  const { groups } = getData();
+  const { getOptionId } = getMetaData();
+
+  return groups.reduce((arr: GroupContent[], group: Group) => {
+    const attr = createGroupProps(group);
+    const children = createGroupOptionElements(group, { trigger, getOptionId });
+    return [...arr, { groupProps: { ...attr, key: attr['aria-label'] }, children }];
+  }, []);
+};
+
 const createGroups = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
-  const { groups, open } = getData();
-  const { isSearching, getOptionId } = getMetaData();
-  if (!open || isSearching) {
-    return [];
-  }
+  const { groups } = getData();
+  const { getOptionId } = getMetaData();
+
   return groups.map((group) => {
     const attr = createGroupProps(group);
     const children = createGroupOptionElements(group, { trigger, getOptionId });
@@ -95,9 +103,19 @@ const createContainerProps = ({
 
 export function MultiSelectListWithGroups() {
   const dataHandlers = useSelectDataHandlers();
+  const { getData, getMetaData } = dataHandlers;
+  const { virtualize, open, groups } = getData();
+  const { isSearching } = getMetaData();
   const attr = createContainerProps(dataHandlers);
-  const children = createGroups(dataHandlers);
-  const choiceCount = getAllOptions(dataHandlers.getData().groups).length;
+  const choiceCount = getAllOptions(groups).length;
+  const shouldRenderOptions = open && !isSearching;
+
+  // if (virtualize && groups.length === 10000000000) {
+  if (virtualize) {
+    const groupContents = shouldRenderOptions ? createGroupContents(dataHandlers) : [];
+    return <VirtualizedMSLWG groupContents={groupContents} containerProps={attr} />;
+  }
+  const children = shouldRenderOptions ? createGroups(dataHandlers) : [];
   return (
     <div {...attr}>
       <span className={styles.visuallyHidden}>{`${choiceCount} choices`}</span>
