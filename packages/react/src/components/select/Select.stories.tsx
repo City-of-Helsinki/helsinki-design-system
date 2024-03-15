@@ -216,11 +216,7 @@ export const SingleselectWithGroups = () => {
       placeholder="Choose one"
       icon={<IconLocation />}
       required
-    >
-      <optgroup label="Group label">
-        <option value="label">Text</option>
-      </optgroup>
-    </Select>
+    />
   );
 };
 
@@ -254,11 +250,40 @@ export const WithValidation = () => {
       placeholder="Choose one"
       icon={<IconLocation />}
       required
-    >
-      <optgroup label="Group label">
-        <option value="label">Text</option>
-      </optgroup>
-    </Select>
+    />
+  );
+};
+
+export const LongLabels = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Bad choices',
+      options: [
+        {
+          value: 'Candy with choco',
+          label: 'Candy is very good source of energy and vibes and also is very good source of energy and vibes ',
+        },
+        { value: 'wrong', label: 'Do not choose me!' },
+      ],
+    },
+    {
+      label: 'Healthy choices',
+      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    //
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Select one fruit or vegetable"
+      onChange={onChange}
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+      multiSelect
+    />
   );
 };
 
@@ -293,11 +318,7 @@ export const Error = () => {
       icon={<IconLocation />}
       required
       error="Choose a healthy option!"
-    >
-      <optgroup label="Group label">
-        <option value="label">Text</option>
-      </optgroup>
-    </Select>
+    />
   );
 };
 

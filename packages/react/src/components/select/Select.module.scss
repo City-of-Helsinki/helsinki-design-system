@@ -94,6 +94,7 @@
 
     &.selectedOptions {
       flex-grow: 1;
+      overflow: hidden;
 
       // button icon
       > span:first-child {
@@ -160,8 +161,10 @@
 
   .buttonOption {
     max-width: 100%;
+    overflow: hidden;
     padding: 0 var(--spacing-2-xs) 0 0;
     position: relative;
+    text-overflow: ellipsis;
     white-space: nowrap;
 
     &:not(:last-child):after {
@@ -246,6 +249,7 @@
           flex-direction: row;
 
           > div {
+            flex-shrink: 0;
             pointer-events: none;
             width: 24px;
 
@@ -255,7 +259,7 @@
           label {
             cursor: pointer;
             flex-grow: 1;
-            padding-left: var(--spacing-2-xs);
+            padding-left: var(--spacing-xs);
           }
         }
 
@@ -293,7 +297,7 @@
 
       &.shiftOptions {
         .selectableListItem:not(.groupLabel) {
-          padding-left: var(--spacing-layout-xs);
+          padding-left: var(--spacing-layout-s);
         }
       }
 
