@@ -475,7 +475,7 @@ export const MultiselectWithMinMax = () => {
     const maxReached = filteredSelections.length === maxCount;
 
     groupStorage.update(groupStorage.get(), (option) => {
-      const isSelected = filteredSelections.includes(option.value);
+      const isSelected = option.isGroupLabel ? option.selected : filteredSelections.includes(option.value);
       return {
         ...option,
         selected: isSelected,
