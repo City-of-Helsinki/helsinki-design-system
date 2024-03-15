@@ -18,7 +18,7 @@ const createMultiSelectGroupLabelProps = ({
   isIntermediate,
   isGroupDisabled,
 }: MultiSelectGroupLabelProps): MultiSelectOptionProps => {
-  const { label } = option;
+  const { label, disabled } = option;
   return {
     className: classNames(
       styles.listItem,
@@ -29,6 +29,7 @@ const createMultiSelectGroupLabelProps = ({
       isGroupDisabled && styles.disabledOption,
     ),
     label,
+    disabled: disabled || isGroupDisabled,
     indeterminate: isIntermediate,
     checked: option.selected,
     'aria-checked': isIntermediate ? 'mixed' : option.selected,
@@ -51,5 +52,6 @@ const createMultiSelectGroupLabelProps = ({
 
 export function MultiSelectGroupLabel(props: MultiSelectGroupLabelProps) {
   const elementProps = createMultiSelectGroupLabelProps(props);
+  console.log('elementProps', elementProps);
   return <MultiSelectOptionElement {...elementProps} isInGroup />;
 }

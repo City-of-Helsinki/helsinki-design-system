@@ -8,12 +8,6 @@
   flex-direction: column;
   max-width: 420px;
 
-  &.open {
-    .angleIcon {
-      transform: rotateX(180deg);
-    }
-  }
-
   &.error {
     border-color: var(--color-error);
   }
@@ -23,10 +17,26 @@
   --menu-item-background-selected: var(--color-bus-light);
   --menu-item-background-selected-hover: var(--color-bus-light);
   --menu-item-background-disabled: var(--color-white);
+  --dropdown-border-color-hover-invalid: var(--color-error);
+  --dropdown-border-color-invalid: var(--color-error);
 }
 
 .selectAndListContainer {
   @extend %dropdownWrapper;
+
+  &.open {
+    .angleIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  &.error {
+    border-color: var(--dropdown-border-color-invalid);
+
+    &:hover {
+      border-color: var(--dropdown-border-color-hover-invalid);
+    }
+  }
 
   margin-bottom: var(--spacing-2-xs);
 }
@@ -196,11 +206,34 @@
         @extend %dropdownMenuItem;
 
         &.disabledOption.disabledOption {
-          color: var(--color-black-40);
           cursor: not-allowed;
 
           &:hover {
             background-color: transparent;
+          }
+        }
+      }
+
+      .singleSelectListItem {
+        --menu-item-background-hover: var(--color-bus-light);
+        --menu-item-background-selected: var(--color-bus);
+        --menu-item-background-selected-hover: var(--color-bus);
+        --menu-item-color-selected: var(--color-white);
+        --menu-item-color-selected-hover: var(--color-white);
+
+        &.disabledOption.disabledOption {
+          color: var(--color-black-40);
+        }
+
+        .singleSelectListItemLabel {
+          align-items: center;
+          display: flex;
+          flex-grow: 1;
+          justify-content: space-between;
+
+          > span {
+            height: 24px;
+            width: 24px;
           }
         }
       }
@@ -215,6 +248,8 @@
           > div {
             pointer-events: none;
             width: 24px;
+
+            --background-unselected: var(--color-white);
           }
 
           label {
@@ -234,11 +269,15 @@
 
         background-color: var(--color-black-5);
         font-weight: bold;
+
+        &.disabledOption.disabledOption:hover {
+          background-color: var(--color-black-5);
+        }
       }
 
-      .selectableListItem {
+      .selectableListItem:not(.selected) {
         &:hover {
-          background-color: var(--menu-item-background-selected-hover);
+          background-color: var(--menu-item-background-hover);
         }
       }
 
@@ -304,10 +343,6 @@
     overflow: hidden;
     padding: 4px 0;
 
-    &.tagListExpanded {
-      max-height: unset;
-    }
-
     .tag {
       margin-bottom: var(--spacing-xs);
       margin-right: var(--spacing-xs);
@@ -315,6 +350,16 @@
       &.disabledTag {
         pointer-events: none;
       }
+    }
+  }
+
+  &.tagListExpanded {
+    .tagList {
+      max-height: unset;
+    }
+
+    .arrowIcon {
+      transform: rotateX(180deg);
     }
   }
 

@@ -120,7 +120,7 @@ function generateOptionLabels(count = -1): string[] {
   return Array.from(randomSet);
 }
 
-export const ExampleForSingleSelect = () => {
+export const Singleselect = () => {
   const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
@@ -136,7 +136,7 @@ export const ExampleForSingleSelect = () => {
     />
   );
 };
-export const ExampleForMultiSelect = () => {
+export const Multiselect = () => {
   const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
@@ -190,7 +190,7 @@ export const OptionsAsHtml = () => {
   );
 };
 
-export const SingleSelectAndGroups = () => {
+export const SingleselectWithGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -224,18 +224,18 @@ export const SingleSelectAndGroups = () => {
   );
 };
 
-export const ValidateSelections = () => {
+export const WithValidation = () => {
   const groups: SelectProps['groups'] = [
-    {
-      label: 'Healthy choices',
-      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
-    },
     {
       label: 'Bad choices',
       options: [
         { value: 'Candy with choco', label: 'Candy' },
         { value: 'wrong', label: 'Do not choose me!' },
       ],
+    },
+    {
+      label: 'Healthy choices',
+      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
     },
   ];
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
@@ -262,7 +262,46 @@ export const ValidateSelections = () => {
   );
 };
 
-export const SingleSelectAndFiltering = () => {
+export const Error = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'Candy with choco', label: 'Candy' },
+        { value: 'wrong', label: 'Do not choose me!' },
+      ],
+    },
+    {
+      label: 'Healthy choices',
+      options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    const selectedValue = selected.length > 0 ? selected[0].value : '';
+    const isError = selectedValue === 'wrong';
+    return {
+      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose a healthy option!',
+      error: isError ? `You choose poorly!` : '',
+    };
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      label="Select one fruit or vegetable"
+      onChange={onChange}
+      placeholder="Choose one"
+      icon={<IconLocation />}
+      required
+      error="Choose a healthy option!"
+    >
+      <optgroup label="Group label">
+        <option value="label">Text</option>
+      </optgroup>
+    </Select>
+  );
+};
+
+export const SingleselectWithFiltering = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -305,7 +344,7 @@ export const SingleSelectAndFiltering = () => {
   );
 };
 
-export const MultiSelectAndGroups = () => {
+export const MultiselectWithGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -333,7 +372,7 @@ export const MultiSelectAndGroups = () => {
   );
 };
 
-export const MultiSelectAndDisabledOptions = () => {
+export const MultiselectWithDisabledOptions = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -365,7 +404,7 @@ export const MultiSelectAndDisabledOptions = () => {
   );
 };
 
-export const MultiSelectWithMinMax = () => {
+export const MultiselectWithMinMax = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -454,7 +493,7 @@ export const MultiSelectWithMinMax = () => {
   );
 };
 
-export const MultiSelectWithPreselectedOptions = () => {
+export const MultiselectWithPreselections = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -526,7 +565,7 @@ const createRandomGroups = (search: string) => {
   return { groups };
 };
 
-export const MultiSelectWithSearch = () => {
+export const MultiselectWithSearch = () => {
   const groups: SelectProps['groups'] = [];
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
@@ -553,7 +592,7 @@ export const MultiSelectWithSearch = () => {
   );
 };
 
-export const MultiSelectWithExternalControls = () => {
+export const MultiselectWithControls = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -608,7 +647,6 @@ export const MultiSelectWithExternalControls = () => {
     groupStorage.update(groupStorage.get(), (option) => {
       return {
         ...option,
-        selected: true,
         disabled: !option.disabled,
       };
     });
@@ -670,7 +708,7 @@ export const MultiSelectWithExternalControls = () => {
   );
 };
 
-export const WithVirtualizationMultiSelect = () => {
+export const VirtualizedMultiselect = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -709,7 +747,7 @@ export const WithVirtualizationMultiSelect = () => {
     />
   );
 };
-export const WithVirtualizationSingleSelect = () => {
+export const VirtualizedSingleselect = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -747,7 +785,7 @@ export const WithVirtualizationSingleSelect = () => {
     />
   );
 };
-export const WithVirtualizationNoGroups = () => {
+export const VirtualizationWithoutGroups = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -783,7 +821,7 @@ export const WithVirtualizationNoGroups = () => {
   );
 };
 
-export const WithFocusListeners = () => {
+export const FocusListenerExample = () => {
   const [isFocused, setIsFocused] = useState(false);
   const groups: SelectProps['groups'] = useMemo(
     () => [
@@ -874,7 +912,7 @@ export const WithFocusListeners = () => {
   );
 };
 
-export const WithCollaboration = () => {
+export const WithMultipleComponents = () => {
   const [selectedTopCategory, updateSelectedTopCategory] = useState<Option | null>(null);
   const [subCategoryOptions, updateSubcategoryOptions] = useState<OptionInProps[]>([]);
   const [selectedItems, updateSelectedItems] = useState<Record<string, Option[]>>({});

@@ -7,9 +7,8 @@ import { Tags } from './Tags';
 import { DivElementProps, SelectMetaData } from '../../types';
 import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
-import { ClearAllButton } from './ClearAllButton';
-import { ShowAllButton } from './SelectAllButton';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
+import { TagListButtons } from './TagListButtons';
 
 function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.refs.tagList.current;
@@ -45,21 +44,16 @@ function makeHiddenElementsUnfocusable(metaData: SelectMetaData) {
   }
 }
 
-function createContainerProps(): DivElementProps {
+function createContainerProps(showAllTags: boolean): DivElementProps {
   return {
-    className: classNames(styles.tagListContainer),
-  };
-}
-
-function createButtonContainerProps(): DivElementProps {
-  return {
-    className: classNames(styles.tagListButtons),
+    className: classNames(styles.tagListContainer, showAllTags && styles.tagListExpanded),
   };
 }
 
 export function TagList() {
   const { getData, getMetaData } = useSelectDataHandlers();
   const { groups, multiSelect, noTags } = getData();
+  const { showAllTags } = getMetaData();
 
   const selectedOptions = multiSelect ? getSelectedOptions(groups) : [];
 
@@ -73,12 +67,9 @@ export function TagList() {
   }
 
   return (
-    <div {...createContainerProps()}>
+    <div {...createContainerProps(showAllTags)}>
       <Tags />
-      <div {...createButtonContainerProps()}>
-        <ShowAllButton />
-        <ClearAllButton />
-      </div>
+      <TagListButtons />
     </div>
   );
 }

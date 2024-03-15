@@ -5,6 +5,22 @@ import classNames from '../../../../../utils/classNames';
 import { LiElementProps } from '../../../types';
 import { eventIds, eventTypes } from '../../../events';
 import { SelectItemProps } from '../common';
+import { IconCheck } from '../../../../../icons';
+
+const Label = ({ text, selected }: { text: string; selected: boolean }) => {
+  return (
+    <span className={styles.singleSelectListItemLabel}>
+      {text}
+      {selected ? (
+        <span>
+          <IconCheck aria-hidden />
+        </span>
+      ) : (
+        ''
+      )}
+    </span>
+  );
+};
 
 const createSingleSelectItemProps = ({ option, trigger, getOptionId }: SelectItemProps): LiElementProps => {
   const { label, selected, disabled } = option;
@@ -12,11 +28,12 @@ const createSingleSelectItemProps = ({ option, trigger, getOptionId }: SelectIte
     className: classNames(
       styles.listItem,
       styles.selectableListItem,
+      styles.singleSelectListItem,
       styles.focusableListItem,
       selected && styles.selected,
       disabled && styles.disabledOption,
     ),
-    children: label,
+    children: <Label text={label} selected={selected} />,
     onClick: (originalEvent: React.MouseEvent) => {
       trigger({
         id: eventIds.listItem,
@@ -26,6 +43,7 @@ const createSingleSelectItemProps = ({ option, trigger, getOptionId }: SelectIte
     },
     role: 'option',
     'aria-selected': selected,
+    'aria-disabled': disabled,
     tabIndex: -1,
     id: getOptionId(option),
   };

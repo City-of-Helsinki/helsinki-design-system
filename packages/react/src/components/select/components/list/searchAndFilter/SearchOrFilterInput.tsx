@@ -38,6 +38,7 @@ const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers, in
     'aria-haspopup': 'true',
     role: 'combobox',
     labelId: elementIds.searchOrFilterInputLabel,
+    clearButton: true,
   };
 };
 
