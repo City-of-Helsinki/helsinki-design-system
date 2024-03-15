@@ -131,11 +131,11 @@ export function updateSelectedGroupOptions(groups: SelectData['groups'], updated
   });
 }
 
-export function clearAllSelectedOptions(groups: SelectData['groups']): SelectData['groups'] {
+export function clearAllEnabledSelectedOptions(groups: SelectData['groups']): SelectData['groups'] {
   return iterateAndCopyGroup(groups, (option) => {
     return {
       ...option,
-      selected: false,
+      selected: option.disabled ? option.selected : false,
     };
   });
 }

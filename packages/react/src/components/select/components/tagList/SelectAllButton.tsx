@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from '../../Select.module.scss';
 import { Button, ButtonProps } from '../../../button/Button';
 import { getSelectedOptions, createOnClickListener } from '../../utils';
 import { IconAngleDown } from '../../../../icons';
@@ -31,7 +32,7 @@ const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['r
 export function ShowAllButton() {
   const { children, buttonRef, ...attr } = showAllButtonPropSetter();
   return (
-    <Button {...attr} ref={buttonRef} iconRight={<IconAngleDown />}>
+    <Button {...attr} ref={buttonRef} iconRight={<IconAngleDown className={styles.arrowIcon} />}>
       {children}
     </Button>
   );

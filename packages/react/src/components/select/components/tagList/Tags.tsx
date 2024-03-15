@@ -9,16 +9,12 @@ import { TagListItem } from './TagListItem';
 export function Tags() {
   const { getData, getMetaData, trigger } = useSelectDataHandlers();
   const { groups, disabled } = getData();
-  const { refs, showAllTags, elementIds } = getMetaData();
+  const { refs, elementIds } = getMetaData();
 
   const selectedOptions = getSelectedOptions(groups);
 
   return (
-    <div
-      id={elementIds.tagList}
-      className={classNames(styles.tagList, showAllTags && styles.tagListExpanded)}
-      ref={refs.tagList}
-    >
+    <div id={elementIds.tagList} className={classNames(styles.tagList)} ref={refs.tagList}>
       {selectedOptions.map((option) => (
         <TagListItem option={option} trigger={trigger} key={option.value} disabled={disabled} />
       ))}

@@ -7,7 +7,7 @@ import {
   updateSelectedGroupOptions,
   filterOptions,
   mergeSearchResultsToCurrent,
-  clearAllSelectedOptions,
+  clearAllEnabledSelectedOptions,
   getSelectedOptions,
   propsToGroups,
   hasInputInList,
@@ -106,7 +106,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   }
 
   if (isClearOptionsClickEvent(id, type)) {
-    const newGroups = clearAllSelectedOptions(current.groups);
+    const newGroups = clearAllEnabledSelectedOptions(current.groups);
     updateGroups(newGroups);
     return true;
   }
