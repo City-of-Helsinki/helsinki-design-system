@@ -4,7 +4,7 @@ import '../../icons/share.css';
 import '../../icons/angle-right.css';
 import '../../icons/trash.css';
 
-const getLabel = (label = 'Button') => `<span class="hds-button__label">${label}</span>`;
+const getLabel = (label = 'Button') => label;  /* `<span class="hds-button__label">${label}</span>`; */
 
 export default {
   title: 'Components/Button',

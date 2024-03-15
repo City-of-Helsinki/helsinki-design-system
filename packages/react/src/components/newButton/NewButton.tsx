@@ -5,15 +5,30 @@ import { LoadingSpinner } from '../loadingSpinner';
 import styles from './NewButton.module.scss';
 import classNames from '../../utils/classNames';
 
-export type NewButtonSize = 'default' | 'small';
-export type NewButtonTheme = 'default' | 'coat' | 'black';
-export type NewButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+export enum NewButtonSize {
+  Default = 'default',
+  Small = 'small',
+}
+
+export enum NewButtonTheme {
+  Default = 'default',
+  Coat = 'coat',
+  Black = 'black',
+}
+
+export enum NewButtonVariant {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Supplementary = 'supplementary',
+  Success = 'success',
+  Danger = 'danger',
+}
 
 export type CommonNewButtonProps = {
   /**
-   * The content of the button
+   * The content (label) of the button
    */
-  children: React.ReactNode;
+  children: string;
   /**
    * Additional class names to apply to the button
    */
@@ -21,7 +36,7 @@ export type CommonNewButtonProps = {
   /**
    * Defines the button variant
    */
-  variant?: Exclude<NewButtonVariant, 'supplementary'>;
+  variant?: Exclude<NewButtonVariant, NewButtonVariant.Supplementary>;
   /**
    * Defines the button theme
    */
@@ -58,7 +73,7 @@ export type CommonNewButtonProps = {
 
 // Supplementary variant requires iconStart or iconEnd
 export type SupplementaryNewButtonProps = Omit<CommonNewButtonProps, 'variant'> & {
-  variant: 'supplementary';
+  variant: NewButtonVariant.Supplementary;
 } & (
     | {
         iconStart: React.ReactNode;
@@ -83,9 +98,9 @@ export const NewButton = React.forwardRef<HTMLButtonElement, NewButtonProps>(
       className,
       disabled = false,
       fullWidth,
-      size = 'default',
-      theme = 'default',
-      variant = 'primary',
+      size = NewButtonSize.Default,
+      theme = NewButtonTheme.Default,
+      variant = NewButtonVariant.Primary,
       iconStart,
       iconEnd,
       isLoading = false,
@@ -131,7 +146,7 @@ export const NewButton = React.forwardRef<HTMLButtonElement, NewButtonProps>(
         {...rest}
       >
         {isLoading ? <LoadingSpinner small /> : iconElementStart}
-        <span className={styles.label}>{isLoading ? loadingText : children}</span>
+        {isLoading ? loadingText : children}
         {isLoading ? null : iconElementEnd}
       </button>
     );

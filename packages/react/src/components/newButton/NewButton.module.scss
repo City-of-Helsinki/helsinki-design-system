@@ -2,10 +2,6 @@
   composes: new-hds-button from 'hds-core/lib/components/newButton/newButton.css';
 }
 
-.label {
-  composes: new-hds-button__label from 'hds-core/lib/components/newButton/newButton.css';
-}
-
 .fullWidth {
   composes: new-hds-button--fullwidth from 'hds-core/lib/components/newButton/newButton.css';
 }
