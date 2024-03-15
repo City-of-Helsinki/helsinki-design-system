@@ -52,6 +52,5 @@ const createMultiSelectGroupLabelProps = ({
 
 export function MultiSelectGroupLabel(props: MultiSelectGroupLabelProps) {
   const elementProps = createMultiSelectGroupLabelProps(props);
-  console.log('elementProps', elementProps);
   return <MultiSelectOptionElement {...elementProps} isInGroup />;
 }

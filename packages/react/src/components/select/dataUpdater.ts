@@ -97,11 +97,13 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     if (!clickedOption) {
       return false;
     }
-    const newGroups = updateSelectedGroupOptions(current.groups, {
+    // add to docs that the clicked option is updated before onChange
+    const updatedOption = {
       ...clickedOption,
       selected: !clickedOption.selected,
-    });
-    updateGroups(newGroups, clickedOption);
+    };
+    const newGroups = updateSelectedGroupOptions(current.groups, updatedOption);
+    updateGroups(newGroups, updatedOption);
     return true;
   }
 
@@ -212,6 +214,7 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
     updateMetaData({ selectionUpdate: Date.now() });
     if (newProps) {
       if (newProps.groups) {
+        // NOTE: propsToGroups loses group labels selected status:
         updateData({ groups: propsToGroups({ groups: newProps.groups }) });
       }
       const { error, assistiveText } = newProps;

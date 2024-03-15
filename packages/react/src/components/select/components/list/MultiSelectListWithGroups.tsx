@@ -109,8 +109,6 @@ export function MultiSelectListWithGroups() {
   const attr = createContainerProps(dataHandlers);
   const choiceCount = getAllOptions(groups).length;
   const shouldRenderOptions = open && !isSearching;
-
-  // if (virtualize && groups.length === 10000000000) {
   if (virtualize) {
     const groupContents = shouldRenderOptions ? createGroupContents(dataHandlers) : [];
     return <VirtualizedMSLWG groupContents={groupContents} containerProps={attr} />;
