@@ -185,6 +185,7 @@ export const LinkButton = () => (
       window.open('/');
     }}
     role="link"
+    aria-label='Link to "/"'
   >
     Button used as a link
   </NewButton>
