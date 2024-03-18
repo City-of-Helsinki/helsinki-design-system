@@ -425,6 +425,44 @@ export const MultiselectWithDisabledOptions = () => {
   );
 };
 
+export const ExternalLabel = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4).map((option, i) => {
+        return { label: option, value: option, disabled: i === 3 };
+      }),
+    },
+    {
+      label: 'Only disabled choices',
+      options: generateOptionLabels(4).map((option) => {
+        return { label: option, value: option, disabled: true };
+      }),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <div>
+      <label htmlFor="labelless-select-main-button" id="labelless-select-label">
+        External label
+      </label>
+      <Select
+        id="labelless-select"
+        ariaLabel="Choose anything"
+        groups={groups}
+        onChange={onChange}
+        multiSelect
+        showFiltering
+        placeholder="Choose three or more"
+        icon={<IconLocation />}
+      />
+    </div>
+  );
+};
+
 export const MultiselectWithMinMax = () => {
   const initialGroups = [
     {
@@ -752,7 +790,7 @@ export const VirtualizedMultiselect = () => {
 
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
     return {
-      assistiveText: `You have selected ${selected.length} options`,
+      assistiveText: `You have selected ${selected.length} option(s)`,
     };
   }, []);
   return (
@@ -791,7 +829,7 @@ export const VirtualizedSingleselect = () => {
 
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
     return {
-      assistiveText: `You have selected ${selected.length} options`,
+      assistiveText: `You have selected ${selected.length} option(s)`,
     };
   }, []);
   return (
@@ -825,7 +863,7 @@ export const VirtualizationWithoutGroups = () => {
 
   const onChange: SelectProps['onChange'] = useCallback((selected) => {
     return {
-      assistiveText: `You have selected ${selected.length} options`,
+      assistiveText: `You have selected ${selected.length} option(s)`,
     };
   }, []);
   return (

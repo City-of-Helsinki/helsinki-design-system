@@ -5,6 +5,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { UlElementProps } from '../../../types';
 import { useRenderChildrenInChunks } from '../../../hooks/useRenderChildrenInChunks';
 import { getChildElementsEvenIfContainersInbetween, getChildrenAsArray } from '../../../../../utils/getChildren';
+import { DROPDOWN_MENU_ITEM_HEIGHT } from '../../utils';
 
 type Props = PropsWithChildren<UlElementProps> & { isMultiSelectWithGroups: boolean };
 
@@ -40,7 +41,7 @@ export const VirtualizedList = forwardRef<HTMLUListElement, Props>(
     const rowVirtualizer = useVirtualizer({
       count: currentChildren.length || 0,
       getScrollElement: () => (ref ? (ref as MutableRefObject<Element>).current : null),
-      estimateSize: () => 52,
+      estimateSize: () => DROPDOWN_MENU_ITEM_HEIGHT,
     });
     const listComponentProps = {
       ...listComponent.props,

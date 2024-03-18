@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
-import { getSelectedOptions, createOnClickListener, hasInputInList } from '../../utils';
+import { createOnClickListener, hasInputInList } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
@@ -21,9 +21,8 @@ const createButtonWithSelectedOptionsProps = ({
   getMetaData,
   trigger,
 }: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { groups, placeholder, disabled, open, showFiltering, showSearch, label } = getData();
-  const { icon, refs, elementIds, activeDescendant } = getMetaData();
-  const selectedOptions = getSelectedOptions(groups);
+  const { placeholder, disabled, open, showFiltering, showSearch, label, ariaLabel } = getData();
+  const { icon, refs, elementIds, activeDescendant, selectedOptions } = getMetaData();
   const hasInput = hasInputInList({ showFiltering, showSearch });
   const getAriaControlsId = () => {
     if (hasInput) {
@@ -32,7 +31,8 @@ const createButtonWithSelectedOptionsProps = ({
     return elementIds.list;
   };
   const getAriaLabel = () => {
-    const labels = [`${label}.`];
+    const descriptiveLabel = label || ariaLabel;
+    const labels = descriptiveLabel ? [`${descriptiveLabel}.`] : [];
     const { length } = selectedOptions;
     if (!length) {
       labels.push(`${placeholder}. ${length} options selected.`);

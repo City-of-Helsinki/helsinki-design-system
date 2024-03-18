@@ -8,9 +8,9 @@ import {
   filterOptions,
   mergeSearchResultsToCurrent,
   clearAllEnabledSelectedOptions,
-  getSelectedOptions,
   propsToGroups,
   hasInputInList,
+  createSelectedOptionsList,
 } from './utils';
 import {
   EventId,
@@ -60,7 +60,11 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
 
   const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
     dataHandlers.updateData({ groups });
-    dataHandlers.updateMetaData({ selectionUpdate: Date.now(), lastClickedOption: clickedOption });
+    dataHandlers.updateMetaData({
+      selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups, clickedOption),
+      selectionUpdate: Date.now(),
+      lastClickedOption: clickedOption,
+    });
   };
 
   const { showAllTags } = dataHandlers.getMetaData();
@@ -79,12 +83,13 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     if (!clickedOption) {
       return false;
     }
-    const newGroups = updateSelectedOptionInGroups(
-      current.groups,
-      { ...clickedOption, selected: !clickedOption.selected },
-      current.multiSelect,
-    );
-    updateGroups(newGroups, clickedOption);
+    // add to docs that the clicked option is updated before onChange
+    const updatedOption = {
+      ...clickedOption,
+      selected: !clickedOption.selected,
+    };
+    const newGroups = updateSelectedOptionInGroups(current.groups, updatedOption, current.multiSelect);
+    updateGroups(newGroups, updatedOption);
     openOrClose(id !== eventIds.tag && current.multiSelect);
     if (id === eventIds.listItem && !current.multiSelect) {
       setFocusTarget('button');
@@ -156,10 +161,14 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   return false;
 };
 
-const executeSearch = (search: string, searchFunc: SearchFunction): [() => void, Promise<ChangeEvent>] => {
+const executeSearch = (
+  searchFunc: SearchFunction,
+  search: string,
+  selectedOptions: SelectMetaData['selectedOptions'],
+): [() => void, Promise<ChangeEvent>] => {
   let isCancelled = false;
   const request = new Promise<ChangeEvent>((resolve) => {
-    searchFunc(search as string, [], {} as SelectData)
+    searchFunc(search as string, selectedOptions, {} as SelectData)
       .then((res) => {
         if (isCancelled) {
           resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
@@ -181,14 +190,14 @@ const debouncedSearch = debounce(
     if (!searchFunc) {
       return;
     }
-    const { cancelCurrentSearch, search } = dataHandlers.getMetaData();
+    const { cancelCurrentSearch, search, selectedOptions } = dataHandlers.getMetaData();
     if (cancelCurrentSearch) {
       cancelCurrentSearch();
     }
     if (!search) {
       return;
     }
-    const [cancel, request] = executeSearch(search, searchFunc);
+    const [cancel, request] = executeSearch(searchFunc, search, selectedOptions);
     dataHandlers.updateMetaData({ cancelCurrentSearch: cancel });
     dataHandlers.asyncRequestWithTrigger(request);
   },
@@ -210,7 +219,7 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
   if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
-    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    const newProps = onChange(getMetaData().selectedOptions, lastClickedOption as Option, current);
     updateMetaData({ selectionUpdate: Date.now() });
     if (newProps) {
       if (newProps.groups) {

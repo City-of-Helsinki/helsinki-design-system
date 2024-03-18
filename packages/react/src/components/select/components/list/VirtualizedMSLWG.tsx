@@ -2,9 +2,11 @@ import React, { MutableRefObject, RefObject } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { flatten } from 'lodash';
 
+import styles from '../../Select.module.scss';
 import { useRenderChildrenInChunks } from '../../hooks/useRenderChildrenInChunks';
 import type { GroupContent } from './MultiSelectListWithGroups';
 import { DivElementProps } from '../../types';
+import { DROPDOWN_MENU_ITEM_HEIGHT } from '../../utils';
 
 type Props = { groupContents: GroupContent[]; containerProps: DivElementProps & { ref: RefObject<HTMLDivElement> } };
 
@@ -21,7 +23,7 @@ export const VirtualizedMSLWG = (props: Props) => {
   const rowVirtualizer = useVirtualizer({
     count: currentChildren.length || 0,
     getScrollElement: () => (ref ? (ref as MutableRefObject<Element>).current : null),
-    estimateSize: () => 52,
+    estimateSize: () => DROPDOWN_MENU_ITEM_HEIGHT,
   });
   let pickedChildrenCount = 0;
   const maxChildren = currentChildren.length;
@@ -43,11 +45,8 @@ export const VirtualizedMSLWG = (props: Props) => {
         }
         const virtualProps = {
           key: virtualItem.key,
+          className: styles.virtualizedListItem,
           style: {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
             height: `${virtualItem.size}px`,
             transform: `translateY(${virtualItem.start}px)`,
           },
@@ -68,8 +67,6 @@ export const VirtualizedMSLWG = (props: Props) => {
         ref={ref}
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
-          width: '100%',
-          position: 'relative',
         }}
       >
         {chunkedAndParsedGroups.map(({ children, groupProps, childProps }) => {

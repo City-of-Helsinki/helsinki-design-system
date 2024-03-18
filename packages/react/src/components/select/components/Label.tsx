@@ -18,5 +18,9 @@ const createLabelProps = ({ getData, getMetaData }: SelectDataHandlers): FieldLa
 };
 
 export const Label = () => {
-  return <FieldLabel {...createLabelProps(useSelectDataHandlers())} />;
+  const props = createLabelProps(useSelectDataHandlers());
+  if (!props.label) {
+    return null;
+  }
+  return <FieldLabel {...props} />;
 };

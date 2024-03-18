@@ -204,6 +204,7 @@
       flex-direction: column;
       margin: 0;
       padding: 0;
+      position: relative;
 
       .listItem {
         @extend %dropdownMenuItem;
@@ -215,6 +216,13 @@
             background-color: transparent;
           }
         }
+      }
+
+      .virtualizedListItem {
+        left: 0;
+        position: 'absolute';
+        top: 0;
+        width: '100%';
       }
 
       .singleSelectListItem {

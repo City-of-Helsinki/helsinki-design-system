@@ -4,14 +4,13 @@ import styles from '../../Select.module.scss';
 import { ButtonElementProps, SelectDataHandlers } from '../../types';
 import { IconCrossCircle } from '../../../../icons';
 import classNames from '../../../../utils/classNames';
-import { createOnClickListener, getSelectedOptions } from '../../utils';
+import { createOnClickListener } from '../../utils';
 import { eventTypes, eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
-  const { elementIds } = getMetaData();
-  const { groups, disabled } = getData();
-  const selectedOptions = getSelectedOptions(groups);
+  const { elementIds, selectedOptions } = getMetaData();
+  const { disabled } = getData();
   if (!selectedOptions.length) {
     return null;
   }
