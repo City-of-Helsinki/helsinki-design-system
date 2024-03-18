@@ -86,7 +86,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     container: RefObject<HTMLDivElement>;
     tagList: RefObject<HTMLDivElement>;
     showAllButton: RefObject<HTMLButtonElement>;
-    button: RefObject<HTMLButtonElement>;
+    dropdownButton: RefObject<HTMLButtonElement>;
     searchOrFilterInput: RefObject<HTMLInputElement>;
   };
   didSearchChange: boolean;
@@ -98,12 +98,12 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   lastToggleCommand: number;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
-  focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput'> | undefined;
+  focusTarget: Extract<KnownElementType, 'list' | 'dropdownButton' | 'container' | 'searchOrFilterInput'> | undefined;
   activeDescendant: string | undefined;
   selectedOptions: Option[];
   listInputType?: Extract<EventId, 'filter' | 'search'>;
   elementIds: {
-    button: string;
+    dropdownButton: string;
     label: string;
     searchOrFilterInputLabel: string;
     list: string;
@@ -131,7 +131,7 @@ export type TextKey =
   | 'placeholder'
   | 'error'
   | 'assistive'
-  | 'buttonAriaLabel'
+  | 'dropdownButtonAriaLabel'
   | 'tagsClearAllButton'
   | 'tagsShowAllButton'
   | 'deleteTagButton'
@@ -139,8 +139,8 @@ export type TextKey =
   | 'filterPlaceholder'
   | 'searchAriaLabel'
   | 'filterAriaLabel'
-  | 'searchClearbuttonAriaLabel'
-  | 'filterClearbuttonAriaLabel'
+  | 'searchClearButtonAriaLabel'
+  | 'filterClearButtonAriaLabel'
   | 'searchButtonAriaLabel'
   | 'filterButtonAriaLabel'
   | 'searching'

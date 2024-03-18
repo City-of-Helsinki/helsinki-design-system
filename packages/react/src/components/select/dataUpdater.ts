@@ -91,7 +91,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     updateGroups(newGroups, updatedOption);
     openOrClose(id !== eventIds.tag && current.multiSelect);
     if (id === eventIds.listItem && !current.multiSelect) {
-      setFocusTarget('button');
+      setFocusTarget('dropdownButton');
     }
     return true;
   }
@@ -119,7 +119,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
 
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
     if (openOrClose(false)) {
-      setFocusTarget('button');
+      setFocusTarget('dropdownButton');
       return true;
     }
   }

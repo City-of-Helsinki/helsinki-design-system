@@ -209,7 +209,7 @@ export function useElementDetection() {
     if (hasInput) {
       return open ? getElementByKnownType('searchOrFilterInput') : null;
     }
-    return getElementByKnownType('button');
+    return getElementByKnownType('dropdownButton');
   };
 
   return {
@@ -224,7 +224,7 @@ export function useElementDetection() {
 }
 
 export const isSelectedOptionsButtonType = (id: KnownElementType) => {
-  return id === 'button';
+  return id === 'dropdownButton';
 };
 
 export const isClearButtonType = (id: KnownElementType) => {

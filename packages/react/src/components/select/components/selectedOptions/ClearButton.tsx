@@ -15,7 +15,7 @@ const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHan
     return null;
   }
   return {
-    className: classNames(styles.button, styles.icon, disabled && styles.disabledButton),
+    className: classNames(styles.dropdownButton, styles.icon, disabled && styles.disabledButton),
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
     id: elementIds.clearButton,
     disabled,

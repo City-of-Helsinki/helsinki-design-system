@@ -51,7 +51,7 @@
   display: flex;
   min-height: var(--menu-item-height);
 
-  .button {
+  .dropdownButton {
     @extend %buttonReset;
 
     align-items: center;
@@ -159,7 +159,7 @@
     }
   }
 
-  .buttonOption {
+  .dropdownButtonOption {
     max-width: 100%;
     overflow: hidden;
     padding: 0 var(--spacing-2-xs) 0 0;
