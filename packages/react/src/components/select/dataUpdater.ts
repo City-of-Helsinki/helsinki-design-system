@@ -60,7 +60,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
     dataHandlers.updateData({ groups });
     dataHandlers.updateMetaData({
-      selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups, clickedOption),
+      selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
       didSelectionsChange: true,
       lastClickedOption: clickedOption,
     });

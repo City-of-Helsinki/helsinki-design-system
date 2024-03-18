@@ -320,37 +320,10 @@ export function mergeSearchResultsToCurrent(
   return [...currentHiddenOptionsInAGroup, ...newData];
 }
 
-export function createSelectedOptionsList(
-  currentSelections: Option[],
-  groups: SelectData['groups'],
-  changedOption?: Option,
-) {
-  if (!changedOption) {
-    const selections = getSelectedOptions(groups);
-    const selectionsAsValues = new Set(selections.map((opt) => opt.value));
-    const stillSelected = currentSelections.filter((opt) => selectionsAsValues.has(opt.value));
-    const selectedValues = new Set(stillSelected.map((opt) => opt.value));
-    return [...stillSelected, ...selections.filter((opt) => !selectedValues.has(opt.value))];
-  }
-  if (changedOption.isGroupLabel) {
-    const groupSelections = getGroupOptions(changedOption, groups);
-    if (!changedOption.selected) {
-      const unselectValues = new Set(groupSelections.map((opt) => opt.value));
-      return currentSelections.filter((selected) => !unselectValues.has(selected.value));
-    }
-    if (changedOption.selected) {
-      const currentValues = new Set(currentSelections.map((opt) => opt.value));
-      const copy = [...currentSelections];
-      groupSelections.forEach((opt) => {
-        if (!currentValues.has(opt.value)) {
-          copy.push(opt);
-        }
-      });
-      return copy;
-    }
-  }
-  if (changedOption.selected) {
-    return [...currentSelections, changedOption];
-  }
-  return currentSelections.filter((selected) => selected.value !== changedOption.value);
+export function createSelectedOptionsList(currentSelections: Option[], groups: SelectData['groups']) {
+  const selections = getSelectedOptions(groups);
+  const selectionsAsValues = new Set(selections.map((opt) => opt.value));
+  const stillSelected = currentSelections.filter((opt) => selectionsAsValues.has(opt.value));
+  const selectedValues = new Set(stillSelected.map((opt) => opt.value));
+  return [...stillSelected, ...selections.filter((opt) => !selectedValues.has(opt.value))];
 }
