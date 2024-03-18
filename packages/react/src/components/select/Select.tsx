@@ -25,8 +25,6 @@ export function Select({
   open,
   groups,
   multiSelect,
-  showFiltering,
-  showSearch,
   placeholder,
   icon,
   label,
@@ -44,6 +42,7 @@ export function Select({
   noTags,
   ariaLabel,
   visibleOptions,
+  filter,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -53,8 +52,6 @@ export function Select({
       required: !!required,
       disabled: !!disabled,
       multiSelect: !!multiSelect,
-      showFiltering: !!showFiltering,
-      showSearch: !!showSearch,
       virtualize: !!virtualize,
       noTags: !!noTags,
       placeholder: placeholder || '',
@@ -66,6 +63,7 @@ export function Select({
       onChange,
       onFocus,
       onBlur,
+      filterFunction: filter,
     };
   }, [options, open, groups, disabled]);
 
@@ -126,6 +124,13 @@ export function Select({
   useMemo(() => {
     metaData.selectedOptions = getSelectedOptions(initialData.groups);
   }, initialData.groups);
+
+  useMemo(() => {
+    if (!initialData.onSearch && !initialData.filterFunction) {
+      metaData.listInputType = undefined;
+    }
+    metaData.listInputType = initialData.onSearch ? 'search' : 'filter';
+  }, [initialData.onSearch, initialData.filterFunction]);
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeChandler}>

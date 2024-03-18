@@ -9,16 +9,15 @@ import {
   multiSelectElementSelector,
   singleSelectElementSelector,
 } from '../components/list/common';
-import { hasInputInList } from '../utils';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
 
 export function useElementDetection() {
   const { getMetaData, getData } = useSelectDataHandlers();
-  const { refs, elementIds } = getMetaData();
-  const { showFiltering, showSearch, open } = getData();
-  const hasInput = hasInputInList({ showFiltering, showSearch });
+  const { refs, elementIds, listInputType } = getMetaData();
+  const { open } = getData();
+  const hasInput = !listInputType;
 
   const elementIdEntries = Object.entries(elementIds) as [KnownElementType, string][];
   const getElementId = (element: HTMLElement): string | null => {
@@ -56,23 +55,6 @@ export function useElementDetection() {
 
     return child.parentElement === assumedParent;
   };
-  /*
-  const isRefHitOrParentOf = (target?: RefObject<HTMLElement>, eventTarget?: HTMLElement) => {
-    if (!target || !target.current || !eventTarget) {
-      return false;
-    }
-
-    return target.current === eventTarget || isChildOf(target.current, eventTarget);
-  }; 
-  
-  const isRefParentOf = (target?: RefObject<HTMLElement>, eventTarget?: HTMLElement) => {
-    if (!target || !target.current || !eventTarget) {
-      return false;
-    }
-
-    return eventTarget.parentElement === target.current;
-  };
-  */
 
   const isRefAncestorOf = (target?: RefObject<HTMLElement>, eventTarget?: HTMLElement) => {
     if (!target || !target.current || !eventTarget) {

@@ -5,7 +5,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { UlElementProps } from '../../../types';
 import { useRenderChildrenInChunks } from '../../../hooks/useRenderChildrenInChunks';
 import { getChildElementsEvenIfContainersInbetween, getChildrenAsArray } from '../../../../../utils/getChildren';
-import { DROPDOWN_MENU_ITEM_HEIGHT } from '../../utils';
+import { DROPDOWN_MENU_ITEM_HEIGHT } from '../../../utils';
 
 type Props = PropsWithChildren<UlElementProps> & { isMultiSelectWithGroups: boolean };
 

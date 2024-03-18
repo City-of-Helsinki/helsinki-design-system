@@ -2,7 +2,7 @@ import React, { PropsWithChildren, forwardRef, ForwardedRef, MutableRefObject } 
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { UlElementProps } from '../../../types';
-import { DROPDOWN_MENU_ITEM_HEIGHT } from '../../utils';
+import { DROPDOWN_MENU_ITEM_HEIGHT } from '../../../utils';
 import { useRenderChildrenInChunks } from '../../../hooks/useRenderChildrenInChunks';
 
 type Props = PropsWithChildren<UlElementProps>;

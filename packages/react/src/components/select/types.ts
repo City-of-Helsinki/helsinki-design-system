@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, RefObject } from 'react';
 
 import { DataHandlers } from '../dataProvider/DataContext';
+import { EventId } from './events';
 
 export type Option = {
   value: string;
@@ -13,6 +14,7 @@ export type Option = {
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
 export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
+export type FilterFunction = (option: Option, filterStr: string) => boolean;
 export type SearchFunction = (
   searchValue: string,
   selectedOptions: Option[],
@@ -33,12 +35,11 @@ export type SelectProps<P = unknown> = {
     data: SelectData,
   ) => Partial<SelectProps> | void | undefined;
   onSearch?: SearchFunction;
+  filter?: FilterFunction;
   onFocus?: () => void;
   onBlur?: () => void;
   children?: P | P[];
   multiSelect?: boolean;
-  showFiltering?: boolean;
-  showSearch?: boolean;
   required?: boolean;
   placeholder?: string;
   id?: string;
@@ -57,8 +58,6 @@ export type SelectData = Required<
     SelectProps,
     | 'open'
     | 'multiSelect'
-    | 'showFiltering'
-    | 'showSearch'
     | 'placeholder'
     | 'required'
     | 'assistiveText'
@@ -75,6 +74,7 @@ export type SelectData = Required<
   error?: string;
   ariaLabel?: string;
   onSearch?: SearchFunction;
+  filterFunction?: FilterFunction;
   onFocus?: SelectProps['onFocus'];
   onBlur?: SelectProps['onBlur'];
 };
@@ -101,6 +101,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;
   activeDescendant: string | undefined;
   selectedOptions: Option[];
+  listInputType?: Extract<EventId, 'filter' | 'search'>;
   elementIds: {
     button: string;
     label: string;

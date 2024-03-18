@@ -11,9 +11,9 @@ const createListAndInputContainerProps = (
   props: DivElementProps,
   { getData, getMetaData, trigger }: SelectDataHandlers,
 ) => {
-  const { open, showFiltering, showSearch } = getData();
-  const { refs } = getMetaData();
-  const hasInput = showFiltering || showSearch;
+  const { open } = getData();
+  const { refs, listInputType } = getMetaData();
+  const hasInput = !listInputType;
   const outsideClickTrigger = useCallback(() => {
     if (!open) {
       return;
