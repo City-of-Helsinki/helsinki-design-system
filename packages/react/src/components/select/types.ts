@@ -125,3 +125,27 @@ export type LiElementProps = HTMLAttributes<HTMLLIElement>;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
 export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
+
+export type TextKey =
+  | 'label'
+  | 'placeholder'
+  | 'error'
+  | 'assistive'
+  | 'buttonAriaLabel'
+  | 'tagsClearAllButton'
+  | 'tagsShowAllButton'
+  | 'deleteTagButton'
+  | 'searchPlaceholder'
+  | 'filterPlaceholder'
+  | 'searchAriaLabel'
+  | 'filterAriaLabel'
+  | 'searchClearbuttonAriaLabel'
+  | 'filterClearbuttonAriaLabel'
+  | 'searchButtonAriaLabel'
+  | 'filterButtonAriaLabel'
+  | 'searching'
+  | 'noSearchResultsInfo'
+  | 'noFilteredResultsInfo'
+  | 'searchWithAnotherTerm'
+  | 'filterWithAnotherTerm'
+  | 'buttonClearAllAriaLabel';
