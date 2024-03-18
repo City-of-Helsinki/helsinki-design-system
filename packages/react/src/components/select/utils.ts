@@ -325,9 +325,12 @@ export function createSelectedOptionsList(
   groups: SelectData['groups'],
   changedOption?: Option,
 ) {
-  // if changedOption is missing, clearButton was clicked.
   if (!changedOption) {
-    return getSelectedOptions(groups);
+    const selections = getSelectedOptions(groups);
+    const selectionsAsValues = new Set(selections.map((opt) => opt.value));
+    const stillSelected = currentSelections.filter((opt) => selectionsAsValues.has(opt.value));
+    const selectedValues = new Set(stillSelected.map((opt) => opt.value));
+    return [...stillSelected, ...selections.filter((opt) => !selectedValues.has(opt.value))];
   }
   if (changedOption.isGroupLabel) {
     const groupSelections = getGroupOptions(changedOption, groups);
