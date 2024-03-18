@@ -94,12 +94,12 @@ button.new-hds-button,
   width: var(--spacing-m);
 }
 
-/* right-size icon */
+/* start-side icon */
 .new-hds-button .hds-icon:first-child:not(:last-child) {
   margin-left: var(--icon-reposition);
 }
 
-/* left-size icon */
-.new-hds-button .hds-icon:last-child:not(:first-child) { 
+/* end-side icon */
+.new-hds-button .hds-icon:last-child:not(:first-child) {
   margin-right: var(--icon-reposition);
 }

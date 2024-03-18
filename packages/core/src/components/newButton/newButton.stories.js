@@ -4,11 +4,11 @@ import '../../icons/share.css';
 import '../../icons/angle-right.css';
 import '../../icons/trash.css';
 
-const getLabel = (label = 'New button') => label; /*`<span class="new-hds-button__label">${label}</span>`;*/
+const getLabel = (label = 'New button') => `<span>${label}</span>`;
 
 export default {
   title: 'Components/NewButton',
-  decorators: [(storyFn) => `<style>.new-hds-button {margin-right: 1rem;}</style>${storyFn()}`],
+  decorators: [(storyFn) => `<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start;">${storyFn()}</div>`],
 };
 
 export const Primary = () => `
@@ -78,9 +78,6 @@ export const Icons = () => `
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
 
-  <br>
-  <br>
-
   <button type="button" class="new-hds-button new-hds-button--small new-hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}
@@ -90,7 +87,7 @@ export const Icons = () => `
     ${getLabel()}
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
-  
+
   <button type="button" class="new-hds-button new-hds-button--small new-hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}
@@ -105,7 +102,7 @@ export const Loading = () => `
       <div></div>
       <div></div>
     </div>
-    ${getLabel()}
+    Saving your changes
   </button>
 `;
 

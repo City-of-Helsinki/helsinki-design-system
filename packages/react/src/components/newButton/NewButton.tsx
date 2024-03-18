@@ -146,7 +146,7 @@ export const NewButton = React.forwardRef<HTMLButtonElement, NewButtonProps>(
         {...rest}
       >
         {isLoading ? <LoadingSpinner small /> : iconElementStart}
-        {isLoading ? loadingText : children}
+        <span>{isLoading ? loadingText : children}</span>
         {isLoading ? null : iconElementEnd}
       </button>
     );
