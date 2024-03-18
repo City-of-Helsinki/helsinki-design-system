@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import React, { ReactElement, useMemo, createRef } from 'react';
+import React, { ReactElement, useMemo, createRef, useEffect } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData } from './types';
 import { Container } from './components/Container';
@@ -71,9 +71,15 @@ export function Select({
     const containerId = `${id || uniqueId('hds-select-')}`;
     const optionIds = new Map<string, string>();
     let optionIdCounter = 0;
+    const getListInputType = () => {
+      if (!initialData.onSearch && !initialData.filterFunction) {
+        return undefined;
+      }
+      return initialData.onSearch ? 'search' : 'filter';
+    };
     return {
-      searchUpdate: -1,
-      selectionUpdate: -1,
+      didSearchChange: false,
+      didSelectionsChange: false,
       filter: '',
       search: '',
       isSearching: false,
@@ -118,15 +124,18 @@ export function Select({
         }
         return current;
       },
+      listInputType: getListInputType(),
     };
-  }, [id, initialData.groups]);
+  }, [id, initialData.groups, initialData.onSearch, initialData.filterFunction]);
 
-  useMemo(() => {
-    if (!initialData.onSearch && !initialData.filterFunction) {
-      metaData.listInputType = undefined;
-    }
-    metaData.listInputType = initialData.onSearch ? 'search' : 'filter';
-  }, [initialData.onSearch, initialData.filterFunction]);
+  useEffect(() => {
+    return () => {
+      // untested
+      if (metaData.cancelCurrentSearch) {
+        metaData.cancelCurrentSearch();
+      }
+    };
+  }, []);
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeChandler}>

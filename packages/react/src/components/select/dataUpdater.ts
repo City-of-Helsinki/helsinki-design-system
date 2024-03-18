@@ -61,7 +61,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     dataHandlers.updateData({ groups });
     dataHandlers.updateMetaData({
       selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups, clickedOption),
-      selectionUpdate: Date.now(),
+      didSelectionsChange: true,
       lastClickedOption: clickedOption,
     });
   };
@@ -72,7 +72,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
     if (didUpdate && willOpen) {
-      setFocusTarget(!dataHandlers.getMetaData().listInputType ? 'searchOrFilterInput' : 'list');
+      setFocusTarget(dataHandlers.getMetaData().listInputType ? 'searchOrFilterInput' : 'list');
     }
     return true;
   }
@@ -135,7 +135,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
 
   if (isSearchChangeEvent(id, type)) {
     const searchValue = (payload && (payload.value as string)) || '';
-    dataHandlers.updateMetaData({ search: searchValue, searchUpdate: Date.now() });
+    dataHandlers.updateMetaData({ search: searchValue, didSearchChange: true });
     if (!searchValue) {
       dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
     }
@@ -208,25 +208,29 @@ const debouncedSearch = debounce(
 
 export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateMetaData, updateData, getData, getMetaData } = dataHandlers;
-  const lastSelectionUpdate = getMetaData().selectionUpdate;
-
-  const lastSearchUpdate = getMetaData().searchUpdate;
   const { onSearch, onChange } = getData();
   dataUpdater(event, dataHandlers);
+  // dataUpdater sets these metadata values to "true":
+  const { didSearchChange, didSelectionsChange } = getMetaData();
 
-  if (getMetaData().searchUpdate > lastSearchUpdate && onSearch) {
-    dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
+  if (didSearchChange && onSearch) {
+    dataHandlers.updateMetaData({ isSearching: !!getMetaData().search, didSearchChange: false });
     debouncedSearch(dataHandlers, onSearch);
   }
-  if (getMetaData().selectionUpdate !== lastSelectionUpdate) {
+
+  if (didSelectionsChange) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
     const newProps = onChange(getMetaData().selectedOptions, lastClickedOption as Option, current);
-    updateMetaData({ selectionUpdate: Date.now() });
+    updateMetaData({ didSelectionsChange: false });
     if (newProps) {
       if (newProps.groups) {
         // NOTE: propsToGroups loses group labels selected status:
-        updateData({ groups: propsToGroups({ groups: newProps.groups }) });
+        const groups = propsToGroups({ groups: newProps.groups }) || [];
+        updateData({ groups });
+        updateMetaData({
+          selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
+        });
       }
       const { error, assistiveText } = newProps;
       updateData({ error, assistiveText });
