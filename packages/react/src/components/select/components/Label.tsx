@@ -12,7 +12,7 @@ const createLabelProps = ({ getData, getMetaData }: SelectDataHandlers): FieldLa
   return {
     required,
     label,
-    inputId: elementIds.button,
+    inputId: elementIds.dropdownButton,
     id: elementIds.label,
   };
 };
