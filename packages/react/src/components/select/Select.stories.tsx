@@ -6,7 +6,7 @@ import { Select } from './Select';
 import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
 import { useExternalGroupStorage, useSelectionHistory } from './controlHelpers';
-import { getSelectedOptions } from './utils';
+import { defaultFilter, getSelectedOptions } from './utils';
 import { Tag } from '../tag/Tag';
 
 export default {
@@ -357,7 +357,7 @@ export const SingleselectWithFiltering = () => {
       groups={groups}
       label="Select one fruit or vegetable"
       onChange={onChange}
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose one"
       icon={<IconLocation />}
       required
@@ -386,7 +386,7 @@ export const MultiselectWithGroups = () => {
       label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose three or more"
       icon={<IconLocation />}
     />
@@ -418,7 +418,7 @@ export const MultiselectWithDisabledOptions = () => {
       label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose three or more"
       icon={<IconLocation />}
     />
@@ -455,7 +455,7 @@ export const ExternalLabel = () => {
         groups={groups}
         onChange={onChange}
         multiSelect
-        showFiltering
+        filter={defaultFilter}
         placeholder="Choose three or more"
         icon={<IconLocation />}
       />
@@ -542,7 +542,7 @@ export const MultiselectWithMinMax = () => {
       label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose three or more"
       icon={<IconLocation />}
       assistiveText={getAssistiveText(0)}
@@ -584,7 +584,7 @@ export const MultiselectWithPreselections = () => {
       label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose many"
       icon={<IconLocation />}
     />
@@ -643,7 +643,6 @@ export const MultiselectWithSearch = () => {
         onChange={onChange}
         onSearch={onSearch}
         multiSelect
-        showSearch
         placeholder="Choose many"
       />
       <p>Search with &quot;none&quot; to return an empty set</p>
@@ -749,7 +748,7 @@ export const MultiselectWithControls = () => {
           label="Controlled select"
           onChange={onChange}
           multiSelect
-          showFiltering
+          filter={defaultFilter}
           placeholder="Choose"
           disabled={propsRef.current.disabled}
           open={propsRef.current.open}
@@ -800,7 +799,7 @@ export const VirtualizedMultiselect = () => {
       onChange={onChange}
       multiSelect
       virtualize
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose many"
       icon={<IconLocation />}
     />
@@ -838,7 +837,7 @@ export const VirtualizedSingleselect = () => {
       label="Select multiple fruits or vegetables"
       onChange={onChange}
       virtualize
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose many"
       icon={<IconLocation />}
     />
@@ -873,7 +872,7 @@ export const VirtualizationWithoutGroups = () => {
       onChange={onChange}
       virtualize
       multiSelect
-      showFiltering
+      filter={defaultFilter}
       placeholder="Choose many"
       icon={<IconLocation />}
     />
@@ -955,7 +954,7 @@ export const FocusListenerExample = () => {
           label="Select multiple fruits or vegetables"
           onChange={onChange}
           multiSelect
-          showFiltering
+          filter={defaultFilter}
           placeholder="Choose three or more"
           icon={<IconLocation />}
           onFocus={onFocus}
@@ -1122,7 +1121,7 @@ export const WithRerenderDataStoring = () => {
           label="Select multiple fruits or vegetables"
           onChange={onChange}
           multiSelect
-          showFiltering
+          filter={defaultFilter}
           placeholder="Choose three or more"
           icon={<IconLocation />}
         />

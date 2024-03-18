@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
-import { createOnClickListener, hasInputInList } from '../../utils';
+import { createOnClickListener } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
@@ -21,9 +21,9 @@ const createButtonWithSelectedOptionsProps = ({
   getMetaData,
   trigger,
 }: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { placeholder, disabled, open, showFiltering, showSearch, label, ariaLabel } = getData();
-  const { icon, refs, elementIds, activeDescendant, selectedOptions } = getMetaData();
-  const hasInput = hasInputInList({ showFiltering, showSearch });
+  const { placeholder, disabled, open, label, ariaLabel } = getData();
+  const { icon, refs, elementIds, activeDescendant, selectedOptions, listInputType } = getMetaData();
+  const hasInput = !listInputType;
   const getAriaControlsId = () => {
     if (hasInput) {
       return elementIds.searchOrFilterInput;

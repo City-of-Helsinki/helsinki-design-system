@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option, OptionInProps } from './types';
+import { SelectData, Group, SelectProps, Option, OptionInProps, FilterFunction } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -240,7 +240,7 @@ export function defaultFilter(option: Option, filterStr: string) {
   return option.label.toLowerCase().indexOf(filterStr.toLowerCase()) > -1;
 }
 
-export function filterOptions(groups: SelectData['groups'], filterStr: string) {
+export function filterOptions(groups: SelectData['groups'], filterStr: string, filterFunc: FilterFunction) {
   groups.forEach((group) => {
     // do not count the label
     let visibleOptions = group.options.length - 1;
@@ -249,7 +249,7 @@ export function filterOptions(groups: SelectData['groups'], filterStr: string) {
         return;
       }
       // eslint-disable-next-line no-param-reassign
-      option.visible = !filterStr || defaultFilter(option, filterStr);
+      option.visible = !filterStr || filterFunc(option, filterStr);
       if (!option.visible) {
         visibleOptions -= 1;
       }
@@ -318,10 +318,6 @@ export function mergeSearchResultsToCurrent(
     : [];
 
   return [...currentHiddenOptionsInAGroup, ...newData];
-}
-
-export function hasInputInList(data: Pick<SelectData, 'showFiltering' | 'showSearch'> | SelectData) {
-  return data.showFiltering || data.showSearch;
 }
 
 export function createSelectedOptionsList(

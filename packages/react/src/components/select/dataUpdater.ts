@@ -1,6 +1,6 @@
 import { debounce } from 'lodash';
 
-import { Option, SearchFunction, SearchResult, SelectData, SelectMetaData } from './types';
+import { FilterFunction, Option, SearchFunction, SearchResult, SelectData, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
   updateSelectedOptionInGroups,
@@ -9,7 +9,6 @@ import {
   mergeSearchResultsToCurrent,
   clearAllEnabledSelectedOptions,
   propsToGroups,
-  hasInputInList,
   createSelectedOptionsList,
 } from './utils';
 import {
@@ -73,7 +72,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
     if (didUpdate && willOpen) {
-      setFocusTarget(hasInputInList(current) ? 'searchOrFilterInput' : 'list');
+      setFocusTarget(!dataHandlers.getMetaData().listInputType ? 'searchOrFilterInput' : 'list');
     }
     return true;
   }
@@ -128,7 +127,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   if (isFilterChangeEvent(id, type)) {
     const filterValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ filter: filterValue });
-    dataHandlers.updateData({ groups: filterOptions(current.groups, filterValue) });
+    dataHandlers.updateData({
+      groups: filterOptions(current.groups, filterValue, current.filterFunction as FilterFunction),
+    });
     return true;
   }
 
@@ -165,10 +166,11 @@ const executeSearch = (
   searchFunc: SearchFunction,
   search: string,
   selectedOptions: SelectMetaData['selectedOptions'],
+  data: SelectData,
 ): [() => void, Promise<ChangeEvent>] => {
   let isCancelled = false;
   const request = new Promise<ChangeEvent>((resolve) => {
-    searchFunc(search as string, selectedOptions, {} as SelectData)
+    searchFunc(search as string, selectedOptions, data)
       .then((res) => {
         if (isCancelled) {
           resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
@@ -197,7 +199,7 @@ const debouncedSearch = debounce(
     if (!search) {
       return;
     }
-    const [cancel, request] = executeSearch(searchFunc, search, selectedOptions);
+    const [cancel, request] = executeSearch(searchFunc, search, selectedOptions, dataHandlers.getData());
     dataHandlers.updateMetaData({ cancelCurrentSearch: cancel });
     dataHandlers.asyncRequestWithTrigger(request);
   },

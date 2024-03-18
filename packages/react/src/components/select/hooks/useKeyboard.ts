@@ -1,7 +1,6 @@
 import { KeyboardEvent, useCallback } from 'react';
 
 import { eventIds, eventTypes } from '../events';
-import { hasInputInList } from '../utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,
@@ -70,7 +69,7 @@ export function useKeyboard() {
       const wasArrowDownPressed = isArrowDownKey(e);
       const wasArrowUpPressed = !wasArrowDownPressed && isArrowUpKey(e);
       const wasClickKeyPressed = !wasArrowUpPressed && !wasArrowDownPressed && isClickKey(e);
-      const hasInput = hasInputInList(getData());
+      const hasInput = !getMetaData().listInputType;
       if (isEscKey(e) && getData().open) {
         trigger({ id: eventIds.generic, type: eventTypes.close });
       } else if (isInSelectedOptionsType(type) && wasArrowDownPressed) {

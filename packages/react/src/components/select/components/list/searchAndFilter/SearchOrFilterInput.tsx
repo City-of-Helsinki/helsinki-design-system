@@ -3,15 +3,16 @@ import React from 'react';
 import styles from '../../../Select.module.scss';
 import { TextInput, TextInputProps } from '../../../../textInput/TextInput';
 import { IconSearch } from '../../../../../icons';
-import { SelectDataHandlers } from '../../../types';
+import { SelectDataHandlers, SelectMetaData } from '../../../types';
 import classNames from '../../../../../utils/classNames';
 import { createInputOnChangeListener } from '../../../utils';
-import { EventId, eventIds } from '../../../events';
+import { eventIds } from '../../../events';
 import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
 
-type InputType = Extract<EventId, 'filter' | 'search'>;
-
-const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers, inputType: InputType): TextInputProps => {
+const createFilterInputProps = (
+  { getMetaData, trigger }: SelectDataHandlers,
+  inputType: Exclude<SelectMetaData['listInputType'], undefined>,
+): TextInputProps => {
   const { filter, elementIds, refs, search, activeDescendant } = getMetaData();
   const isSearchInput = inputType === 'search';
   const value = isSearchInput ? search : filter;
@@ -44,12 +45,11 @@ const createFilterInputProps = ({ getMetaData, trigger }: SelectDataHandlers, in
 
 export function SearchOrFilterInput() {
   const dataHandlers = useSelectDataHandlers();
-  const { getData } = dataHandlers;
-  const { showFiltering, showSearch } = getData();
-  if (!showFiltering && !showSearch) {
+  const { getMetaData } = dataHandlers;
+  const { listInputType } = getMetaData();
+  if (!listInputType) {
     return null;
   }
-  const inputType: InputType = showFiltering ? 'filter' : 'search';
-  const inputProps = createFilterInputProps(dataHandlers, inputType);
+  const inputProps = createFilterInputProps(dataHandlers, listInputType);
   return <TextInput {...inputProps} />;
 }
