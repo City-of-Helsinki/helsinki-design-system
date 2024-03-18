@@ -106,6 +106,7 @@ export function Select({
         clearAllButton: `${containerId}-clear-all-button`,
         showAllButton: `${containerId}-show-all-button`,
       },
+      selectedOptions: getSelectedOptions(initialData.groups),
       getOptionId: (option) => {
         const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
         const current = optionIds.get(identifier);
@@ -117,13 +118,8 @@ export function Select({
         }
         return current;
       },
-      selectedOptions: [],
     };
-  }, [id]);
-
-  useMemo(() => {
-    metaData.selectedOptions = getSelectedOptions(initialData.groups);
-  }, initialData.groups);
+  }, [id, initialData.groups]);
 
   useMemo(() => {
     if (!initialData.onSearch && !initialData.filterFunction) {
