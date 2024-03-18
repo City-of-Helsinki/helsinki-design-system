@@ -93,10 +93,10 @@ export function Select({
       refs: {
         listContainer: createRef<HTMLDivElement>(),
         list: createRef<HTMLUListElement>(),
-        selectContainer: createRef<HTMLDivElement>(),
+        container: createRef<HTMLDivElement>(),
         tagList: createRef<HTMLDivElement>(),
         showAllButton: createRef<HTMLButtonElement>(),
-        selectionButton: createRef<HTMLButtonElement>(),
+        button: createRef<HTMLButtonElement>(),
         searchOrFilterInput: createRef<HTMLInputElement>(),
       },
       elementIds: {

@@ -17,7 +17,7 @@ import { useElementDetection } from './useElementDetection';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
-  'onBlur' | 'onFocus' | 'onMouseUp' | 'tabIndex'
+  'onBlur' | 'onFocus' | 'tabIndex'
 > & { ref: RefObject<HTMLDivElement> };
 
 export function useFocusHandling(): ReturnObject {
@@ -88,19 +88,7 @@ export function useFocusHandling(): ReturnObject {
 
   useEffect(() => {
     if (focusTarget) {
-      switch (focusTarget) {
-        case 'button':
-          setFocus(refs.selectionButton);
-          break;
-        case 'list':
-          setFocus(refs.list);
-          break;
-        case 'searchOrFilterInput':
-          setFocus(refs.searchOrFilterInput);
-          break;
-        default:
-          break;
-      }
+      setFocus(refs[focusTarget]);
       updateMetaData({ focusTarget: undefined });
     }
   });
@@ -113,6 +101,6 @@ export function useFocusHandling(): ReturnObject {
       eventTracker(eventTypes.blur, e);
     },
     tabIndex: -1,
-    ref: refs.selectContainer,
+    ref: refs.container,
   };
 }
