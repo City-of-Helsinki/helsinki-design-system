@@ -2,7 +2,6 @@ import React, { useLayoutEffect } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
-import { getSelectedOptions } from '../../utils';
 import { Tags } from './Tags';
 import { DivElementProps, SelectMetaData } from '../../types';
 import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow';
@@ -52,17 +51,17 @@ function createContainerProps(showAllTags: boolean): DivElementProps {
 
 export function TagList() {
   const { getData, getMetaData } = useSelectDataHandlers();
-  const { groups, multiSelect, noTags } = getData();
-  const { showAllTags } = getMetaData();
+  const { multiSelect, noTags } = getData();
+  const { showAllTags, selectedOptions } = getMetaData();
 
-  const selectedOptions = multiSelect ? getSelectedOptions(groups) : [];
+  const selectedOptioList = multiSelect ? selectedOptions : [];
 
   useLayoutEffect(() => {
     checkIfShowAllButtonIsNeeded(getMetaData());
     makeHiddenElementsUnfocusable(getMetaData());
   });
 
-  if (!selectedOptions.length || noTags) {
+  if (!selectedOptioList.length || noTags) {
     return null;
   }
 

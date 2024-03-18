@@ -13,12 +13,16 @@ export type Option = {
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
 export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
-export type SearchFunction = (searchValue: string, selectedValues: string[], data: SelectData) => Promise<SearchResult>;
+export type SearchFunction = (
+  searchValue: string,
+  selectedOptions: Option[],
+  data: SelectData,
+) => Promise<SearchResult>;
 
 export type SelectProps<P = unknown> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
-  label: string;
+  label?: string;
   groups?: Array<{
     label: string;
     options: (OptionInProps | string)[];
@@ -44,12 +48,13 @@ export type SelectProps<P = unknown> = {
   virtualize?: boolean;
   disabled?: boolean;
   noTags?: boolean;
+  ariaLabel?: string;
+  visibleOptions?: number;
 };
 
 export type SelectData = Required<
   Pick<
     SelectProps,
-    | 'label'
     | 'open'
     | 'multiSelect'
     | 'showFiltering'
@@ -59,15 +64,16 @@ export type SelectData = Required<
     | 'assistiveText'
     | 'virtualize'
     | 'onChange'
-    | 'error'
     | 'disabled'
     | 'noTags'
+    | 'visibleOptions'
   >
 > & {
   groups: Array<Group>;
   assistiveText?: string;
   label?: string;
   error?: string;
+  ariaLabel?: string;
   onSearch?: SearchFunction;
   onFocus?: SelectProps['onFocus'];
   onBlur?: SelectProps['onBlur'];
@@ -94,6 +100,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   showAllTags: boolean;
   focusTarget: 'list' | 'button' | 'container' | 'searchOrFilterInput' | undefined;
   activeDescendant: string | undefined;
+  selectedOptions: Option[];
   elementIds: {
     button: string;
     label: string;

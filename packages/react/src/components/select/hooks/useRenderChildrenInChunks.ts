@@ -6,7 +6,7 @@ export function useRenderChildrenInChunks(children: ReactNode) {
   const render = useForceRender();
   const length = Array.isArray(children) ? children.length : 0;
   const chunkLog = useMemo(() => ({ max: length, pos: 100, chunkSize: 100 }), [length]);
-  const currentChildren = length ? (children as ReactNode[]).slice(0, chunkLog.pos) : [children];
+  const currentChildren = length ? (children as ReactNode[]).slice(0, chunkLog.pos) : [];
 
   const updateChunks = useCallback(() => {
     const { max, pos, chunkSize } = chunkLog;

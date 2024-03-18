@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '../../Select.module.scss';
 import { Button, ButtonProps } from '../../../button/Button';
-import { getSelectedOptions, createOnClickListener } from '../../utils';
+import { createOnClickListener } from '../../utils';
 import { IconAngleDown } from '../../../../icons';
 import { SelectMetaData } from '../../types';
 import { eventIds } from '../../events';
@@ -10,9 +10,8 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const showAllButtonPropSetter = (): ButtonProps & { buttonRef: SelectMetaData['refs']['showAllButton'] } => {
   const { getMetaData, getData, trigger } = useSelectDataHandlers();
-  const { groups, disabled } = getData();
-  const { showAllTags, refs, elementIds } = getMetaData();
-  const selectedOptions = getSelectedOptions(groups);
+  const { disabled } = getData();
+  const { showAllTags, refs, elementIds, selectedOptions } = getMetaData();
   return {
     ...createOnClickListener({ id: eventIds.showAllButton, trigger }),
     children: showAllTags ? (

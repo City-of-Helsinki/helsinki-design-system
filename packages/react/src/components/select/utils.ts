@@ -18,6 +18,8 @@ export type OptionIterator = (
   groupIndex: number,
 ) => Option | undefined;
 
+export const DROPDOWN_MENU_ITEM_HEIGHT = 52;
+
 export function createOnClickListener(props: DomHandlerProps) {
   const { id, type = eventTypes.click, trigger } = props;
   return {
@@ -174,6 +176,15 @@ export function getGroupLabelOption(group: Group): Option | undefined {
   return firstOption && firstOption.isGroupLabel ? firstOption : undefined;
 }
 
+export function getGroupOptions(groupLabel: Option, groups: Group[]): Option[] {
+  const groupIndex = getOptionGroupIndex(groups, groupLabel);
+  if (groupIndex < 0) {
+    return [];
+  }
+  const group = groups[groupIndex];
+  return group.options.slice(1);
+}
+
 export function getSelectedOptions(groups: SelectData['groups']): Option[] {
   return getAllOptions(groups).filter((option) => !!option.selected);
 }
@@ -311,4 +322,36 @@ export function mergeSearchResultsToCurrent(
 
 export function hasInputInList(data: Pick<SelectData, 'showFiltering' | 'showSearch'> | SelectData) {
   return data.showFiltering || data.showSearch;
+}
+
+export function createSelectedOptionsList(
+  currentSelections: Option[],
+  groups: SelectData['groups'],
+  changedOption?: Option,
+) {
+  // if changedOption is missing, clearButton was clicked.
+  if (!changedOption) {
+    return getSelectedOptions(groups);
+  }
+  if (changedOption.isGroupLabel) {
+    const groupSelections = getGroupOptions(changedOption, groups);
+    if (!changedOption.selected) {
+      const unselectValues = new Set(groupSelections.map((opt) => opt.value));
+      return currentSelections.filter((selected) => !unselectValues.has(selected.value));
+    }
+    if (changedOption.selected) {
+      const currentValues = new Set(currentSelections.map((opt) => opt.value));
+      const copy = [...currentSelections];
+      groupSelections.forEach((opt) => {
+        if (!currentValues.has(opt.value)) {
+          copy.push(opt);
+        }
+      });
+      return copy;
+    }
+  }
+  if (changedOption.selected) {
+    return [...currentSelections, changedOption];
+  }
+  return currentSelections.filter((selected) => selected.value !== changedOption.value);
 }

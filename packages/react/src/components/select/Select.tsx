@@ -5,7 +5,7 @@ import { SelectProps, SelectMetaData, SelectData } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
-import { propsToGroups, childrenToGroups } from './utils';
+import { propsToGroups, childrenToGroups, getSelectedOptions } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -42,6 +42,8 @@ export function Select({
   error,
   disabled,
   noTags,
+  ariaLabel,
+  visibleOptions,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -58,6 +60,8 @@ export function Select({
       placeholder: placeholder || '',
       assistiveText: assistiveText || '',
       error: error || '',
+      visibleOptions: visibleOptions || 5.5,
+      ariaLabel,
       onSearch,
       onChange,
       onFocus,
@@ -115,10 +119,13 @@ export function Select({
         }
         return current;
       },
+      selectedOptions: [],
     };
   }, [id]);
 
-  // unmount => cancel asyncs
+  useMemo(() => {
+    metaData.selectedOptions = getSelectedOptions(initialData.groups);
+  }, initialData.groups);
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeChandler}>
