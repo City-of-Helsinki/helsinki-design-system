@@ -11,8 +11,6 @@
   --border-color-focus: var(--background-color-focus);
   --border-color-disabled: var(--background-color-disabled);
   --color: var(--color-white);
-  --color-hover: var(--color-white);
-  --color-focus: var(--color-white);
   --color-disabled: var(--color-white);
   --focus-outline-color: var(--color-focus-outline);
   --submit-input-focus-gutter-color: var(--color-white);

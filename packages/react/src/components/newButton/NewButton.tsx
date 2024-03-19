@@ -12,16 +12,19 @@ export enum NewButtonSize {
 }
 export interface NewButtonCustomTheme {
   '--background-color'?: string;
-  '--background-color-hover'?: string;
   '--background-color-focus'?: string;
+  '--background-color-hover'?: string;
+  '--background-color-active'?: string;
   '--background-color-disabled'?: string;
   '--border-color'?: string;
-  '--border-color-hover'?: string;
   '--border-color-focus'?: string;
+  '--border-color-hover'?: string;
+  '--border-color-active'?: string;
   '--border-color-disabled'?: string;
   '--color'?: string;
-  '--color-hover'?: string;
   '--color-focus'?: string;
+  '--color-hover'?: string;
+  '--color-active'?: string;
   '--color-disabled'?: string;
   '--focus-outline-color'?: string;
 }

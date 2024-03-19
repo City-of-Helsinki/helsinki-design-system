@@ -15,14 +15,17 @@
   --bg-color-focus: var(--background-color-focus, var(--bg-color, transparent));
   --bg-color-hover: var(--background-color-hover, var(--bg-color-focus, transparent));
   --bg-color-active: var(--background-color-active, var(--bg-color-hover, transparent));
+  --bg-color-disabled: var(--background-color-disabled, var(--color-black-20, transparent));
   --txt-color: var(--color, inherit);
   --txt-color-focus: var(--color-focus, var(--txt-color, inherit));
   --txt-color-hover: var(--color-hover, var(--txt-color-focus, inherit));
   --txt-color-active: var(--color-active, var(--txt-color-hover, inherit));
+  --txt-color-disabled: var(--color-disabled, var(--color-white, inherit));
   --br-color: var(--border-color, var(--bg-color));
   --br-color-focus: var(--border-color-focus, var(--br-color, transparent));
   --br-color-hover: var(--border-color-hover, var(--br-color-focus, transparent));
   --br-color-active: var(--border-color-active, var(--br-color-hover, transparent));
+  --br-color-disabled: var(--border-color-disabled, var(--bg-color-disabled, transparent));
   --foc-outline-color: var(--focus-outline-color, transparent);
 
   align-content: flex-start;
@@ -98,9 +101,9 @@ button.new-hds-button,
 
 /* disabled */
 .new-hds-button:disabled {
-  background-color: var(--background-color-disabled, transparent);
-  border-color: var(--border-color-disabled, transparent);
-  color: var(--color-disabled, inherit);
+  background-color: var(--bg-color-disabled);
+  border-color: var(--br-color-disabled);
+  color: var(--txt-color-disabled);
   cursor: not-allowed;
   outline: none;
 }

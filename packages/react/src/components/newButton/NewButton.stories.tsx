@@ -147,10 +147,12 @@ export const CustomTheme = () => {
     '--background-color': 'red',
     '--background-color-hover': 'orange',
     '--background-color-focus': 'yellow',
+    '--background-color-active': 'green',
+    '--border-color-active': 'green',
   };
   return (
-    <NewButton onClick={onClick} theme={customTheme} variant={NewButtonVariant.Secondary}>
-      {getLabel('coat')}
+    <NewButton onClick={onClick} theme={customTheme} variant={NewButtonVariant.Primary}>
+      {getLabel('custom')}
     </NewButton>
   );
 };
