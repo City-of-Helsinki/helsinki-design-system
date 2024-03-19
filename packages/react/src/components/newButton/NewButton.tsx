@@ -4,24 +4,44 @@ import '../../styles/base.module.css';
 import { LoadingSpinner } from '../loadingSpinner';
 import styles from './NewButton.module.scss';
 import classNames from '../../utils/classNames';
+import { useTheme } from '../../hooks/useTheme';
 
 export enum NewButtonSize {
   Default = 'default',
   Small = 'small',
 }
-
-export enum NewButtonTheme {
-  Default = 'default',
-  Coat = 'coat',
-  Black = 'black',
+export interface NewButtonCustomTheme {
+  '--background-color'?: string;
+  '--background-color-hover'?: string;
+  '--background-color-focus'?: string;
+  '--background-color-disabled'?: string;
+  '--border-color'?: string;
+  '--border-color-hover'?: string;
+  '--border-color-focus'?: string;
+  '--border-color-disabled'?: string;
+  '--color'?: string;
+  '--color-hover'?: string;
+  '--color-focus'?: string;
+  '--color-disabled'?: string;
+  '--focus-outline-color'?: string;
 }
 
+export enum NewButtonTheme {
+  Black = 'black',
+  Coat = 'coat',
+  Default = 'default',
+}
+
+export type NewButtonThemeType = `${NewButtonTheme}`;
+
+export type NewTheme = NewButtonThemeType | NewButtonCustomTheme;
+
 export enum NewButtonVariant {
+  Danger = 'danger',
   Primary = 'primary',
   Secondary = 'secondary',
-  Supplementary = 'supplementary',
   Success = 'success',
-  Danger = 'danger',
+  Supplementary = 'supplementary',
 }
 
 export type CommonNewButtonProps = {
@@ -40,7 +60,7 @@ export type CommonNewButtonProps = {
   /**
    * Defines the button theme
    */
-  theme?: NewButtonTheme;
+  theme?: NewTheme;
   /**
    * If `true`, the button will be disabled
    */
@@ -110,6 +130,9 @@ export const NewButton = React.forwardRef<HTMLButtonElement, NewButtonProps>(
     }: NewButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => {
+    // custom theme class that is applied to the root element
+    const customThemeClass = useTheme<NewTheme>(styles.button, theme);
+
     const iconElementStart = iconStart ? (
       <div className={styles.icon} aria-hidden="true">
         {iconStart}
@@ -140,6 +163,7 @@ export const NewButton = React.forwardRef<HTMLButtonElement, NewButtonProps>(
           styles[`size-${size}`],
           fullWidth ? styles.fullWidth : '',
           isLoading ? styles.isLoading : '',
+          customThemeClass,
           className,
         )}
         onClick={isLoading ? loadingOnClick : onClick}

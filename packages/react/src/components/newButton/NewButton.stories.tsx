@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
-import { NewButton, NewButtonSize, NewButtonTheme, NewButtonVariant } from './NewButton';
+import { NewButton, NewButtonCustomTheme, NewButtonSize, NewButtonTheme, NewButtonVariant } from './NewButton';
 
 const onClick = action('button-click');
 
@@ -123,19 +123,37 @@ export const Themes = () => (
       {getLabel('coat')}
     </NewButton>
 
-    <NewButton onClick={onClick} iconStart={<IconShare />} size={NewButtonSize.Small}>
-      {getLabel()}
+    <NewButton theme={NewButtonTheme.Black} onClick={onClick} variant={NewButtonVariant.Primary}>
+      {getLabel('black')}
     </NewButton>
 
-    <NewButton onClick={onClick} iconEnd={<IconAngleRight />} size={NewButtonSize.Small}>
-      {getLabel()}
+    <NewButton theme={NewButtonTheme.Black} onClick={onClick} variant={NewButtonVariant.Secondary}>
+      {getLabel('black')}
     </NewButton>
 
-    <NewButton onClick={onClick} iconStart={<IconShare />} iconEnd={<IconAngleRight />} size={NewButtonSize.Small}>
-      {getLabel()}
+    <NewButton
+      theme={NewButtonTheme.Black}
+      onClick={onClick}
+      iconEnd={<IconAngleRight />}
+      variant={NewButtonVariant.Supplementary}
+    >
+      {getLabel('black')}
     </NewButton>
   </>
 );
+
+export const CustomTheme = () => {
+  const customTheme: NewButtonCustomTheme = {
+    '--background-color': 'red',
+    '--background-color-hover': 'orange',
+    '--background-color-focus': 'yellow',
+  };
+  return (
+    <NewButton onClick={onClick} theme={customTheme} variant={NewButtonVariant.Secondary}>
+      {getLabel('coat')}
+    </NewButton>
+  );
+};
 
 export const Loading = () => (
   <NewButton isLoading loadingText="Saving your changes">

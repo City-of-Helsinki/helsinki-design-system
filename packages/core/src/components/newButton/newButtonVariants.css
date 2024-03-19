@@ -3,8 +3,9 @@
 /* default (bus) */
 .new-hds-button--primary {
   --background-color: var(--color-bus);
+  /* --background-color-active: yellow; */
   --background-color-hover: var(--color-bus-dark);
-  --background-color-focus: var(--color-bus);
+  /* --background-color-focus: var(--color-bus); */
   --background-color-disabled: var(--color-black-20);
   --border-color: var(--color-bus);
   --border-color-hover: var(--background-color-hover);

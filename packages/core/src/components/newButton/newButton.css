@@ -2,13 +2,28 @@
 
 .new-hds-button {
   --border-width: 2px;
-  --focus-outline-width: 2px;
+  --focus-outline-width: 3px;
   --horizontal-gap: var(--spacing-2-xs);
   --horizontal-padding: var(--spacing-l);
   --min-size: 56px;
   --vertical-padding: var(--spacing-s);
   --padding: calc(var(--vertical-padding) - var(--border-width)) calc(var(--horizontal-padding) - var(--border-width));
   --icon-reposition: calc(-1 * var(--spacing-2-xs));
+
+  /* logics */
+  --bg-color: var(--background-color, transparent);
+  --bg-color-focus: var(--background-color-focus, var(--bg-color, transparent));
+  --bg-color-hover: var(--background-color-hover, var(--bg-color-focus, transparent));
+  --bg-color-active: var(--background-color-active, var(--bg-color-hover, transparent));
+  --txt-color: var(--color, inherit);
+  --txt-color-focus: var(--color-focus, var(--txt-color, inherit));
+  --txt-color-hover: var(--color-hover, var(--txt-color-focus, inherit));
+  --txt-color-active: var(--color-active, var(--txt-color-hover, inherit));
+  --br-color: var(--border-color, var(--bg-color));
+  --br-color-focus: var(--border-color-focus, var(--br-color, inherit));
+  --br-color-hover: var(--border-color-hover, var(--br-color-focus, inherit));
+  --br-color-active: var(--border-color-active, var(--br-color-hover, inherit));
+  --foc-outline-color: var(--focus-outline-color, transparent);
 
   align-content: flex-start;
   align-items: center;
@@ -58,17 +73,11 @@ button.new-hds-button,
   width: 100%;
 }
 
-/* active */
-.new-hds-button:active {
-  background-color: var(--background-color-focus);
-  color: var(--color-focus);
-  outline: var(--focus-outline-width) solid var(--focus-outline-color);
-}
-
 /* focus */
 .new-hds-button:focus-visible {
-  border-color: var(--border-color-focus);
-  color: var(--color-focus);
+  background-color: var(--background-color-focus, var(--background-color, initial));
+  border-color: var(--border-color-focus, var(--background-color, initial));
+  color: var(--color-focus, var(--color, inherit));
   outline: var(--focus-outline-width) solid var(--focus-outline-color);
 }
 
@@ -77,6 +86,15 @@ button.new-hds-button,
   background-color: var(--background-color-hover);
   border-color: var(--border-color-hover);
   color: var(--color-hover);
+}
+
+/* active */
+.new-hds-button:active {
+  background-color: var(--background-color-active, var(--background-color-hover, initial));
+
+  /* background-color: var(--background-color-focus); */
+  color: var(--color-active, --color-hover);
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
 }
 
 /* disabled */
