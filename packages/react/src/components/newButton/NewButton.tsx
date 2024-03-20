@@ -7,8 +7,8 @@ import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
 
 export enum NewButtonSize {
-  Default = 'default',
   Small = 'small',
+  Medium = 'medium',
 }
 export interface NewButtonCustomTheme {
   '--background-color'?: string;
@@ -32,7 +32,7 @@ export interface NewButtonCustomTheme {
 export enum NewButtonTheme {
   Black = 'black',
   Coat = 'coat',
-  Default = 'default',
+  Bus = 'bus',
 }
 
 export type NewButtonThemeType = `${NewButtonTheme}`;
@@ -121,8 +121,8 @@ export const NewButton = React.forwardRef<HTMLButtonElement, NewButtonProps>(
       className,
       disabled = false,
       fullWidth,
-      size = NewButtonSize.Default,
-      theme = NewButtonTheme.Default,
+      size = NewButtonSize.Medium,
+      theme = NewButtonTheme.Bus,
       variant = NewButtonVariant.Primary,
       iconStart,
       iconEnd,
