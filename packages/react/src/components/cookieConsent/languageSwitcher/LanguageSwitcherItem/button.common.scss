@@ -1,0 +1,51 @@
+%button {
+  composes: hds-button from 'button.css';
+}
+
+%label {
+  composes: hds-button__label from 'button.css';
+}
+
+%fullWidth {
+  composes: hds-button--fullwidth from 'button.css';
+}
+
+%size-small {
+  composes: hds-button--small from 'button.css';
+}
+
+%icon {
+  composes: hds-icon from 'button.css';
+}
+
+%primary {
+  composes: hds-button--primary from 'button.css';
+}
+
+%secondary {
+  composes: hds-button--secondary from 'button.css';
+}
+
+%supplementary {
+  composes: hds-button--supplementary from 'button.css';
+}
+
+%loading {
+  composes: hds-button--loading from 'button.css';
+}
+
+%success {
+  composes: hds-button--success from 'button.css';
+}
+
+%danger {
+  composes: hds-button--danger from 'button.css';
+}
+
+%theme-coat {
+  composes: hds-button--theme-coat from 'button.css';
+}
+
+%theme-black {
+  composes: hds-button--theme-black from 'button.css';
+}
