@@ -1,22 +1,19 @@
 import React from 'react';
 
 import styles from '../Select.module.scss';
-import { SelectDataHandlers } from '../types';
-import { NotificationProps, Notification } from '../../notification/Notification';
+import { DivElementProps, SelectDataHandlers } from '../types';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 import { getTextKeyFromDataHandlers } from '../texts';
 
-function createErrorProps(dataHandlers: SelectDataHandlers): NotificationProps {
+function createErrorProps(dataHandlers: SelectDataHandlers): DivElementProps {
   const error = getTextKeyFromDataHandlers('error', dataHandlers);
   return {
-    type: 'error',
     children: error,
-    closeButtonLabelText: '',
-    className: styles.errorNotification,
+    className: styles.errorText,
   };
 }
 
 export function ErrorNotification() {
   const { children, ...attr } = createErrorProps(useSelectDataHandlers());
-  return children ? <Notification {...attr}>{children}</Notification> : null;
+  return children ? <div {...attr}>{children}</div> : null;
 }
