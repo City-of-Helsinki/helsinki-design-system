@@ -128,12 +128,10 @@ export const Singleselect = () => {
   return (
     <Select
       options={options}
-      label="Select one fruit or vegetable"
       onChange={onChange}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
     />
   );
 };
@@ -145,13 +143,11 @@ export const Multiselect = () => {
   return (
     <Select
       options={options}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
       multiSelect
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose one' }}
     />
   );
 };
@@ -164,13 +160,11 @@ export const Disabled = () => {
   return (
     <Select
       options={options}
-      label="Select one fruit or vegetable"
       onChange={onChange}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
       disabled
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
     />
   );
 };
@@ -180,12 +174,7 @@ export const OptionsAsHtml = () => {
     // track changes
   }, []);
   return (
-    <Select
-      label="Select one fruit or vegetable"
-      onChange={onChange}
-      placeholder="Choose one"
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
-    >
+    <Select onChange={onChange} texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}>
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -219,12 +208,10 @@ export const SingleselectWithGroups = () => {
   return (
     <Select
       groups={groups}
-      label="Select one fruit or vegetable"
       onChange={onChange}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
     />
   );
 };
@@ -243,25 +230,29 @@ export const WithValidation = () => {
       options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValue = selected.length > 0 ? selected[0].value : '';
+  const texts: Partial<Texts> = {
+    label: 'Select many fruits or vegetables',
+    placeholder: 'Choose many',
+  };
+  const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
+    const textFromObj = texts[key];
+    if (textFromObj) {
+      return textFromObj;
+    }
+    const selectedValue = selectedOptions.length > 0 ? selectedOptions[0].value : '';
     const isError = selectedValue === 'wrong';
-    return {
-      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose a healthy option!',
-      error: isError ? `You choose poorly!` : '',
-    };
+    if (key === 'assistive') {
+      return selectedValue && !isError ? `Good choice!` : 'Please, choose a healthy option!';
+    }
+    if (key === 'error') {
+      return isError ? `You choose poorly!` : '';
+    }
+    return `${key}!!`;
   }, []);
-  return (
-    <Select
-      groups={groups}
-      label="Select one fruit or vegetable"
-      onChange={onChange}
-      placeholder="Choose one"
-      icon={<IconLocation />}
-      required
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
-    />
-  );
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return <Select groups={groups} onChange={onChange} icon={<IconLocation />} required texts={textsAsFunction} />;
 };
 export const DynamicTexts = () => {
   const requiredCount = 4;
@@ -284,7 +275,7 @@ export const DynamicTexts = () => {
 
   const texts: Partial<Texts> = {
     label: 'Select many fruits or vegetables',
-    placeholder: 'Choose one',
+    placeholder: 'Choose many',
   };
 
   const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
@@ -334,13 +325,11 @@ export const LongLabels = () => {
   return (
     <Select
       groups={groups}
-      label="Select one fruit or vegetable"
       onChange={onChange}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
       multiSelect
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
     />
   );
 };
@@ -359,24 +348,36 @@ export const Error = () => {
       options: ['Apple', 'Carrot', 'Kale', 'Broccoli', 'Cucumber', 'Tomato', 'Banana', 'Lettuce'],
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValue = selected.length > 0 ? selected[0].value : '';
+  const texts: Partial<Texts> = {
+    label: 'Select one fruit or vegetable',
+    placeholder: 'Choose one',
+  };
+  const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
+    const textFromObj = texts[key];
+    if (textFromObj) {
+      return textFromObj;
+    }
+    const selectedValue = selectedOptions.length > 0 ? selectedOptions[0].value : '';
     const isError = selectedValue === 'wrong';
-    return {
-      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose a healthy option!',
-      error: isError ? `You choose poorly!` : '',
-    };
+    if (key === 'assistive') {
+      return selectedValue && !isError ? `Good choice!` : 'Please, choose a healthy option!';
+    }
+    if (key === 'error') {
+      return isError ? `You choose poorly!` : '';
+    }
+    return `${key}!!`;
+  }, []);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
   }, []);
   return (
     <Select
       groups={groups}
-      label="Select one fruit or vegetable"
       onChange={onChange}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
       error="Choose a healthy option!"
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
+      texts={textsAsFunction}
     />
   );
 };
@@ -403,24 +404,37 @@ export const SingleselectWithFiltering = () => {
       ],
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValue = selected.length > 0 ? selected[0].value : '';
+  const texts: Partial<Texts> = {
+    label: 'Select one fruit or vegetable',
+    placeholder: 'Choose one',
+  };
+  const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
+    const textFromObj = texts[key];
+    if (textFromObj) {
+      return textFromObj;
+    }
+    const selectedValue = selectedOptions.length > 0 ? selectedOptions[0].value : '';
     const isError = selectedValue === 'Poison';
-    return {
-      assistiveText: selectedValue && !isError ? `${selectedValue} is a good choice` : 'Choose one good option!',
-      error: isError ? `${selectedValue}?! Really?` : '',
-    };
+    if (key === 'assistive') {
+      return selectedValue && !isError ? `Good choice!` : 'Please, choose a healthy option!';
+    }
+    if (key === 'error') {
+      return isError ? `${selectedValue}?! Really?` : '';
+    }
+    return `${key}!!`;
   }, []);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+
   return (
     <Select
       groups={groups}
-      label="Select one fruit or vegetable"
       onChange={onChange}
       filter={defaultFilter}
-      placeholder="Choose one"
       icon={<IconLocation />}
       required
-      texts={{ label: 'Select one fruit or vegetable!!!' }}
+      texts={textsAsFunction}
     />
   );
 };
@@ -443,13 +457,11 @@ export const MultiselectWithGroups = () => {
   return (
     <Select
       groups={groups}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       filter={defaultFilter}
-      placeholder="Choose three or more"
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
     />
   );
 };
@@ -476,13 +488,11 @@ export const MultiselectWithDisabledOptions = () => {
   return (
     <Select
       groups={groups}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       filter={defaultFilter}
-      placeholder="Choose three or more"
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
     />
   );
 };
@@ -513,13 +523,12 @@ export const ExternalLabel = () => {
       </label>
       <Select
         id="labelless-select"
-        ariaLabel="Choose anything"
         groups={groups}
         onChange={onChange}
         multiSelect
         filter={defaultFilter}
-        placeholder="Choose three or more"
         icon={<IconLocation />}
+        texts={{ placeholder: 'Choose three or more', dropdownButtonAriaLabel: 'Choose anything' }}
       />
     </div>
   );
@@ -553,7 +562,6 @@ export const MultiselectWithMinMax = () => {
       : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
   };
   const onChange: SelectProps['onChange'] = useCallback((selectedValues, lastClickedOption) => {
-    const hasClearedSelections = hasSelectedSomething.current && !selectedValues.length;
     if (!hasSelectedSomething.current && selectedValues.length) {
       hasSelectedSomething.current = true;
     }
@@ -585,12 +593,29 @@ export const MultiselectWithMinMax = () => {
     history.add(getSelectedOptions(groupStorage.get()), lastClickedOption);
 
     const returnProps = {
-      assistiveText: getAssistiveText(filteredSelections.length),
-      error: hasClearedSelections ? `Please select ${requiredCount}-${maxCount} items` : '',
       groups: groupStorage.getAsProp(),
     };
 
     return returnProps;
+  }, []);
+
+  const texts: Partial<Texts> = {
+    label: 'Select multiple fruits or vegetables',
+    placeholder: 'Choose three or more',
+  };
+  const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
+    const textFromObj = texts[key];
+    if (textFromObj) {
+      return textFromObj;
+    }
+    const hasClearedSelections = hasSelectedSomething.current && !selectedOptions.length;
+    if (key === 'assistive') {
+      return getAssistiveText(selectedOptions.length);
+    }
+    if (key === 'error') {
+      return hasClearedSelections ? `Please select ${requiredCount}-${maxCount} items` : '';
+    }
+    return `${key}!!`;
   }, []);
 
   const onBlur: SelectProps['onBlur'] = useCallback(async () => {
@@ -601,16 +626,13 @@ export const MultiselectWithMinMax = () => {
   return (
     <Select
       groups={groupStorage.getAsProp()}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       filter={defaultFilter}
-      placeholder="Choose three or more"
       icon={<IconLocation />}
-      assistiveText={getAssistiveText(0)}
       onBlur={onBlur}
       error={error}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={textsAsFunction}
     />
   );
 };
@@ -644,13 +666,11 @@ export const MultiselectWithPreselections = () => {
   return (
     <Select
       groups={groups}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       filter={defaultFilter}
-      placeholder="Choose many"
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
     />
   );
 };
@@ -703,11 +723,10 @@ export const MultiselectWithSearch = () => {
     <div>
       <Select
         groups={groups}
-        label="Search and select multiple fruits or vegetables"
         onChange={onChange}
         onSearch={onSearch}
         multiSelect
-        placeholder="Choose many"
+        texts={{ placeholder: 'Choose many', label: 'Search and select multiple fruits or vegetables' }}
       />
       <p>Search with &quot;none&quot; to return an empty set</p>
     </div>
@@ -809,13 +828,12 @@ export const MultiselectWithControls = () => {
       <div>
         <Select
           groups={groupStorage.getAsProp()}
-          label="Controlled select"
           onChange={onChange}
           multiSelect
           filter={defaultFilter}
-          placeholder="Choose"
           disabled={propsRef.current.disabled}
           open={propsRef.current.open}
+          texts={{ placeholder: 'Choose', label: 'Controlled select' }}
         />
         <div className="buttons">
           <Button onClick={resetSelections}>Reset selections</Button>
@@ -859,14 +877,11 @@ export const VirtualizedMultiselect = () => {
   return (
     <Select
       groups={groups}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       multiSelect
       virtualize
-      filter={defaultFilter}
-      placeholder="Choose many"
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
     />
   );
 };
@@ -899,13 +914,11 @@ export const VirtualizedSingleselect = () => {
   return (
     <Select
       groups={groups}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       virtualize
       filter={defaultFilter}
-      placeholder="Choose many"
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
     />
   );
 };
@@ -934,14 +947,12 @@ export const VirtualizationWithoutGroups = () => {
   return (
     <Select
       options={options}
-      label="Select multiple fruits or vegetables"
       onChange={onChange}
       virtualize
       multiSelect
       filter={defaultFilter}
-      placeholder="Choose many"
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
     />
   );
 };
@@ -1018,15 +1029,13 @@ export const FocusListenerExample = () => {
       <div className={isFocused ? 'focused' : 'blurred'}>
         <Select
           groups={groups}
-          label="Select multiple fruits or vegetables"
           onChange={onChange}
           multiSelect
           filter={defaultFilter}
-          placeholder="Choose three or more"
           icon={<IconLocation />}
           onFocus={onFocus}
           onBlur={onBlur}
-          texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+          texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
         />
       </div>
       <div className="indicators">
@@ -1142,18 +1151,16 @@ export const WithMultipleComponents = () => {
     <div>
       <Select
         options={topCategoryOptions}
-        label="Select your favourite"
         onChange={onTopCategoryChange}
-        placeholder="Choose one"
+        texts={{ label: 'Select your favourite', placeholder: 'Choose one' }}
       />
       {subCategoryOptions.length ? (
         <Select
           options={subCategoryOptions}
-          label="Select types"
           onChange={onSubCategoryChange}
-          placeholder="Choose multiple"
           multiSelect
           noTags
+          texts={{ label: 'Select types', placeholder: 'Choose multiple' }}
         />
       ) : null}
       <SelectedValues />
@@ -1186,13 +1193,11 @@ export const WithRerenderDataStoring = () => {
         <Button onClick={render}>Re-render</Button>
         <Select
           groups={groups}
-          label="Select multiple fruits or vegetables"
           onChange={onChange}
           multiSelect
           filter={defaultFilter}
-          placeholder="Choose three or more"
           icon={<IconLocation />}
-          texts={{ label: 'Select multiple fruits or vegetables!!!' }}
+          texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
         />
       </div>
     );

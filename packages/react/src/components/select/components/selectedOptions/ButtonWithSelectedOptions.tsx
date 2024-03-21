@@ -7,6 +7,7 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
 import { createOnClickListener } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
+import { getTextKeyFromDataHandlers } from '../../texts';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   options: Option[];
@@ -16,13 +17,13 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   buttonRef: SelectMetaData['refs']['dropdownButton'];
 };
 
-const createButtonWithSelectedOptionsProps = ({
-  getData,
-  getMetaData,
-  trigger,
-}: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { placeholder, disabled, open, label, ariaLabel } = getData();
+const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
+  const { getData, getMetaData, trigger } = dataHandlers;
+  const { disabled, open } = getData();
   const { icon, refs, elementIds, activeDescendant, selectedOptions, listInputType } = getMetaData();
+  const placeholder = getTextKeyFromDataHandlers('placeholder', dataHandlers);
+  const label = getTextKeyFromDataHandlers('label', dataHandlers);
+  const ariaLabel = getTextKeyFromDataHandlers('dropdownButtonAriaLabel', dataHandlers);
   const hasInput = !listInputType;
   const getAriaControlsId = () => {
     if (hasInput) {
