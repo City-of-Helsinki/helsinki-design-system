@@ -1,7 +1,7 @@
 import { uniqueId } from 'lodash';
 import React, { ReactElement, useMemo, createRef, useEffect } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData } from './types';
+import { SelectProps, SelectMetaData, SelectData, Option } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
@@ -19,6 +19,8 @@ import { TagList } from './components/tagList/TagList';
 import { ArrowButton } from './components/selectedOptions/ArrowButton';
 import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWithSelectedOptions';
 import { ClearButton } from './components/selectedOptions/ClearButton';
+import { createTextProvider } from './texts';
+import { eventIds } from './events';
 
 export function Select({
   options,
@@ -43,6 +45,7 @@ export function Select({
   ariaLabel,
   visibleOptions,
   filter,
+  texts,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -75,7 +78,7 @@ export function Select({
       if (!initialData.onSearch && !initialData.filterFunction) {
         return undefined;
       }
-      return initialData.onSearch ? 'search' : 'filter';
+      return initialData.onSearch ? eventIds.search : eventIds.filter;
     };
     return {
       didSearchChange: false,
@@ -113,7 +116,7 @@ export function Select({
         showAllButton: `${containerId}-show-all-button`,
       },
       selectedOptions: getSelectedOptions(initialData.groups),
-      getOptionId: (option) => {
+      getOptionId: (option: Option) => {
         const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
         const current = optionIds.get(identifier);
         if (!current) {
@@ -125,9 +128,9 @@ export function Select({
         return current;
       },
       listInputType: getListInputType(),
+      textProvider: createTextProvider(texts),
     };
-  }, [id, initialData.groups, initialData.onSearch, initialData.filterFunction]);
-
+  }, [id, initialData.groups, initialData.onSearch, initialData.filterFunction, texts]);
   useEffect(() => {
     return () => {
       // untested

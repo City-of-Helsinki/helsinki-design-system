@@ -17,7 +17,12 @@ type CommonMultiSelectOptionProps = {
 export type MultiSelectOptionProps = (DivElementProps | LiElementProps) &
   CommonMultiSelectOptionProps & { isInGroup: boolean };
 
-const createMultiSelectItemProps = ({ option, trigger, getOptionId }: SelectItemProps): MultiSelectOptionProps => {
+const createMultiSelectItemProps = ({
+  option,
+  trigger,
+  getOptionId,
+  isInGroup,
+}: SelectItemProps & { isInGroup: boolean }): MultiSelectOptionProps => {
   const { label, selected, disabled } = option;
   return {
     className: classNames(
@@ -47,7 +52,7 @@ const createMultiSelectItemProps = ({ option, trigger, getOptionId }: SelectItem
         payload: { originalEvent, value: option },
       });
     },
-    isInGroup: false,
+    isInGroup,
     id: getOptionId(option),
   };
 };
