@@ -7,7 +7,7 @@ import classNames from '../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
-import { Button } from '../button';
+import { Button, ButtonSize, ButtonTheme, ButtonVariant } from '../button';
 import useHasMounted from '../../hooks/useHasMounted';
 
 export interface AccordionCustomTheme {
@@ -292,8 +292,8 @@ export const Accordion = ({
             data-testid={`${accordionId}-closeButton`}
             aria-label={`${getCloseMessage(language)} ${heading}`}
             className={classNames(styles.closeButton, closeButtonClassName)}
-            theme="black"
-            size="small"
+            theme={ButtonTheme.Black}
+            size={ButtonSize.Small}
             onKeyPress={(e) => {
               if (e.key === ' ') {
                 onCloseButtonActivate();
@@ -302,8 +302,8 @@ export const Accordion = ({
             onClick={() => {
               onCloseButtonActivate();
             }}
-            variant="supplementary"
-            iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
+            variant={ButtonVariant.Supplementary}
+            iconEnd={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
           >
             {getCloseMessage(language)}
           </Button>

@@ -1,11 +1,12 @@
 @import '../../../../styles/common.scss';
-@import '../../../button/button.common.scss';
 @value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../../styles/breakpoints.scss";
 
 %item {
+  /*
   @extend %button;
   @extend %size-small;
   @extend %fullWidth;
+  */
 
   text-decoration: none;
 }
@@ -20,17 +21,20 @@
 
 .primary {
   @extend %item;
-  @extend %primary;
+
+  // @extend %primary;
 }
 
 .secondary {
   @extend %item;
-  @extend %secondary;
+
+  // @extend %secondary;
 }
 
 .supplementary {
   @extend %item;
-  @extend %supplementary;
+
+  // @extend %supplementary;
 
   --border-width: 3px;
 }
@@ -42,7 +46,7 @@
 }
 
 .icon {
-  @extend %icon;
+  // @extend %icon;
 
   &#{&} {
     display: flex;
@@ -52,7 +56,7 @@
 }
 
 .label {
-  @extend %label;
+  // @extend %label;
 
   padding: 0;
 }

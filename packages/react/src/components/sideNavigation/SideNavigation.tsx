@@ -6,7 +6,7 @@ import SideNavigationContext from './SideNavigationContext';
 import { FCWithName } from '../../common/types';
 import classNames from '../../utils/classNames';
 import { useMobile } from '../../hooks/useMobile';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 import { SkipLink } from '../../internal/skipLink';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { MainLevel } from './mainLevel/MainLevel';
@@ -151,9 +151,9 @@ export const SideNavigation = ({
           aria-haspopup
           className={styles.toggleButton}
           fullWidth
-          iconRight={mobileMenuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
+          iconEnd={mobileMenuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
           onClick={toggleMobileMenu}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           type="button"
         >
           {toggleButtonLabel}

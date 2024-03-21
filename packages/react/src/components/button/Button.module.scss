@@ -1,58 +1,47 @@
-@import "button.common";
-
 .button {
-  @extend %button;
-}
-
-.label {
-  @extend %label;
+  composes: new-hds-button from 'hds-core/lib/components/button/button.css';
 }
 
 .fullWidth {
-  @extend %fullWidth;
+  composes: new-hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
 }
 
 .size-small {
-  @extend %size-small;
+  composes: new-hds-button--small from 'hds-core/lib/components/button/button.css';
 }
 
 .icon {
-  @extend %icon;
-
-  svg {
-    max-height: 100%;
-    max-width: 100%;
-  }
-}
-
-.primary {
-  @extend %primary;
-}
-
-.secondary {
-  @extend %secondary;
-}
-
-.supplementary {
-  @extend %supplementary;
+  composes: hds-icon from 'hds-core/lib/components/button/button.css';
 }
 
 .isLoading {
-  @extend %loading;
+  composes: new-hds-button--loading from 'hds-core/lib/components/button/button.css';
+}
+
+.primary {
+  composes: new-hds-button--primary from 'hds-core/lib/components/button/button.css';
+}
+
+.secondary {
+  composes: new-hds-button--secondary from 'hds-core/lib/components/button/button.css';
+}
+
+.supplementary {
+  composes: new-hds-button--supplementary from 'hds-core/lib/components/button/button.css';
 }
 
 .success {
-  @extend %success;
+  composes: new-hds-button--success from 'hds-core/lib/components/button/button.css';
 }
 
 .danger {
-  @extend %danger;
+  composes: new-hds-button--danger from 'hds-core/lib/components/button/button.css';
 }
 
 .theme-coat {
-  @extend %theme-coat;
+  composes: new-hds-button--theme-coat from 'hds-core/lib/components/button/button.css';
 }
 
 .theme-black {
-  @extend %theme-black;
+  composes: new-hds-button--theme-black from 'hds-core/lib/components/button/button.css';
 }

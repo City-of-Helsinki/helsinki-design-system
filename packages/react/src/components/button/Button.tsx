@@ -4,28 +4,68 @@ import '../../styles/base.module.css';
 import { LoadingSpinner } from '../loadingSpinner';
 import styles from './Button.module.scss';
 import classNames from '../../utils/classNames';
+import { useTheme } from '../../hooks/useTheme';
 
-export type ButtonSize = 'default' | 'small';
-export type ButtonTheme = 'default' | 'coat' | 'black';
-export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+export enum ButtonSize {
+  Small = 'small',
+  Medium = 'medium',
+}
+export interface ButtonCustomTheme {
+  '--background-color'?: string;
+  '--background-color-focus'?: string;
+  '--background-color-hover'?: string;
+  '--background-color-active'?: string;
+  '--background-color-disabled'?: string;
+  '--border-color'?: string;
+  '--border-color-focus'?: string;
+  '--border-color-hover'?: string;
+  '--border-color-active'?: string;
+  '--border-color-disabled'?: string;
+  '--color'?: string;
+  '--color-focus'?: string;
+  '--color-hover'?: string;
+  '--color-active'?: string;
+  '--color-disabled'?: string;
+  '--focus-outline-color'?: string;
+}
+
+export enum ButtonTheme {
+  Black = 'black',
+  Coat = 'coat',
+  Bus = 'bus',
+}
+
+export type ButtonThemeType = `${ButtonTheme}`;
+
+export type ButtonCombinedTheme = ButtonThemeType | ButtonCustomTheme;
+
+export enum ButtonVariant {
+  Danger = 'danger',
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Success = 'success',
+  Supplementary = 'supplementary',
+}
 
 export type CommonButtonProps = {
   /**
-   * The content of the button
+   * The content (label) of the button
    */
-  children: React.ReactNode;
+  children: string;
   /**
    * Additional class names to apply to the button
    */
   className?: string;
   /**
    * Defines the button variant
+   * @default ButtonVariant.Primary
    */
-  variant?: Exclude<ButtonVariant, 'supplementary'>;
+  variant?: Exclude<ButtonVariant, ButtonVariant.Supplementary>;
   /**
    * Defines the button theme
+   * @default ButtonTheme.Bus
    */
-  theme?: ButtonTheme;
+  theme?: ButtonCombinedTheme;
   /**
    * If `true`, the button will be disabled
    */
@@ -37,13 +77,14 @@ export type CommonButtonProps = {
   /**
    * Element placed on the left side of the button label
    */
-  iconLeft?: React.ReactNode;
+  iconStart?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
    */
-  iconRight?: React.ReactNode;
+  iconEnd?: React.ReactNode;
   /**
    * The size of the button
+   * @default ButtonSize.Medium
    */
   size?: ButtonSize;
   /**
@@ -56,15 +97,15 @@ export type CommonButtonProps = {
   loadingText?: string;
 } & React.ComponentPropsWithoutRef<'button'>;
 
-// Supplementary variant requires iconLeft or iconRight
+// Supplementary variant requires iconStart or iconEnd
 export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
-  variant: 'supplementary';
+  variant: ButtonVariant.Supplementary;
 } & (
     | {
-        iconLeft: React.ReactNode;
+        iconStart: React.ReactNode;
       }
     | {
-        iconRight: React.ReactNode;
+        iconEnd: React.ReactNode;
       }
   );
 
@@ -83,11 +124,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled = false,
       fullWidth,
-      size = 'default',
-      theme = 'default',
-      variant = 'primary',
-      iconLeft,
-      iconRight,
+      size = ButtonSize.Medium,
+      theme = ButtonTheme.Bus,
+      variant = ButtonVariant.Primary,
+      iconStart,
+      iconEnd,
       isLoading = false,
       loadingText,
       onClick,
@@ -95,15 +136,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => {
-    const iconElementLeft = iconLeft ? (
+    // custom theme class that is applied to the root element
+    const customThemeClass = useTheme<ButtonCombinedTheme>(styles.button, theme);
+
+    const iconElementStart = iconStart ? (
       <div className={styles.icon} aria-hidden="true">
-        {iconLeft}
+        {iconStart}
       </div>
     ) : null;
 
-    const iconElementRight = iconRight ? (
+    const iconElementEnd = iconEnd ? (
       <div className={classNames(styles.icon)} aria-hidden="true">
-        {iconRight}
+        {iconEnd}
       </div>
     ) : null;
 
@@ -125,14 +169,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           styles[`size-${size}`],
           fullWidth ? styles.fullWidth : '',
           isLoading ? styles.isLoading : '',
+          customThemeClass,
           className,
         )}
         onClick={isLoading ? loadingOnClick : onClick}
         {...rest}
       >
-        {isLoading ? <LoadingSpinner small /> : iconElementLeft}
-        <span className={styles.label}>{isLoading ? loadingText : children}</span>
-        {isLoading ? null : iconElementRight}
+        {isLoading ? <LoadingSpinner small /> : iconElementStart}
+        <span>{isLoading ? loadingText : children}</span>
+        {isLoading ? null : iconElementEnd}
       </button>
     );
   },

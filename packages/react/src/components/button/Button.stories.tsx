@@ -3,13 +3,20 @@ import { action } from '@storybook/addon-actions';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
-import { Button } from './Button';
+import { Button, ButtonCustomTheme, ButtonSize, ButtonTheme, ButtonVariant } from './Button';
 
 const onClick = action('button-click');
+
+const getLabel = (label = 'Button'): string => label;
 
 export default {
   component: Button,
   title: 'Components/Button',
+  decorators: [
+    (storyFn) => (
+      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>{storyFn()}</div>
+    ),
+  ],
   parameters: {
     controls: { hideNoControlsWarning: true },
     docs: {
@@ -24,58 +31,136 @@ export default {
   },
 };
 
-export const Primary = () => <Button onClick={onClick}>Button</Button>;
+export const Primary = () => <Button onClick={onClick}>{getLabel()}</Button>;
 
 export const Secondary = () => (
-  <Button onClick={onClick} variant="secondary">
-    Button
+  <Button onClick={onClick} variant={ButtonVariant.Secondary}>
+    {getLabel()}
   </Button>
 );
 
 export const Supplementary = () => (
-  <Button onClick={onClick} variant="supplementary" iconLeft={<IconTrash />}>
-    Button
+  <Button onClick={onClick} variant={ButtonVariant.Supplementary} iconStart={<IconTrash />}>
+    {getLabel()}
   </Button>
 );
 
 export const Small = () => (
-  <Button onClick={onClick} size="small">
-    Button
+  <Button onClick={onClick} size={ButtonSize.Small}>
+    {getLabel()}
+  </Button>
+);
+
+export const Danger = () => (
+  <Button onClick={onClick} variant={ButtonVariant.Danger}>
+    {getLabel()}
+  </Button>
+);
+
+export const Disabled = () => (
+  <Button onClick={onClick} disabled>
+    {getLabel()}
+  </Button>
+);
+
+export const Success = () => (
+  <Button onClick={onClick} variant={ButtonVariant.Success}>
+    {getLabel()}
   </Button>
 );
 
 export const FullWidth = () => (
   <Button onClick={onClick} fullWidth>
-    Button
+    {getLabel()}
   </Button>
 );
 FullWidth.storyName = 'Full width';
 
 export const Icons = () => (
   <>
-    <Button onClick={onClick} iconLeft={<IconShare />}>
-      Button
+    <Button onClick={onClick} iconStart={<IconShare />}>
+      {getLabel()}
     </Button>
 
-    <br />
-    <br />
-
-    <Button onClick={onClick} iconRight={<IconAngleRight />}>
-      Button
+    <Button onClick={onClick} iconEnd={<IconAngleRight />}>
+      {getLabel()}
     </Button>
 
-    <br />
-    <br />
+    <Button onClick={onClick} iconStart={<IconShare />} iconEnd={<IconAngleRight />}>
+      {getLabel()}
+    </Button>
 
-    <Button onClick={onClick} iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-      Button
+    <Button onClick={onClick} iconStart={<IconShare />} size={ButtonSize.Small}>
+      {getLabel()}
+    </Button>
+
+    <Button onClick={onClick} iconEnd={<IconAngleRight />} size={ButtonSize.Small}>
+      {getLabel()}
+    </Button>
+
+    <Button onClick={onClick} iconStart={<IconShare />} iconEnd={<IconAngleRight />} size={ButtonSize.Small}>
+      {getLabel()}
     </Button>
   </>
 );
 
+export const Themes = () => (
+  <>
+    <Button onClick={onClick} theme={ButtonTheme.Coat}>
+      {getLabel('coat')}
+    </Button>
+
+    <Button onClick={onClick} theme={ButtonTheme.Coat} variant={ButtonVariant.Secondary}>
+      {getLabel('coat')}
+    </Button>
+
+    <Button
+      onClick={onClick}
+      theme={ButtonTheme.Coat}
+      variant={ButtonVariant.Supplementary}
+      iconEnd={<IconAngleRight />}
+    >
+      {getLabel('coat')}
+    </Button>
+
+    <Button theme={ButtonTheme.Black} onClick={onClick} variant={ButtonVariant.Primary}>
+      {getLabel('black')}
+    </Button>
+
+    <Button theme={ButtonTheme.Black} onClick={onClick} variant={ButtonVariant.Secondary}>
+      {getLabel('black')}
+    </Button>
+
+    <Button
+      theme={ButtonTheme.Black}
+      onClick={onClick}
+      iconEnd={<IconAngleRight />}
+      variant={ButtonVariant.Supplementary}
+    >
+      {getLabel('black')}
+    </Button>
+  </>
+);
+
+export const CustomTheme = () => {
+  const customTheme: ButtonCustomTheme = {
+    '--background-color-active': 'darkorange',
+    '--background-color-focus': 'orange',
+    '--background-color-hover': 'orange',
+    '--background-color': 'grey',
+    '--border-color-active': 'darkorange',
+    '--border-color': 'grey',
+  };
+  return (
+    <Button onClick={onClick} theme={customTheme} variant={ButtonVariant.Primary}>
+      {getLabel('custom')}
+    </Button>
+  );
+};
+
 export const Loading = () => (
   <Button isLoading loadingText="Saving your changes">
-    Button
+    {getLabel()}
   </Button>
 );
 
@@ -97,12 +182,12 @@ export const LoadingOnClick = (args) => {
   }, [isLoading]);
   return (
     <Button
-      {...{ ...args, iconLeft: args.variant === 'supplementary' ? <IconTrash /> : undefined }}
+      {...{ ...args, iconStart: args.variant === ButtonVariant.Supplementary ? <IconTrash /> : undefined }}
       onClick={onButtonClick}
       isLoading={isLoading}
       loadingText="Saving your changes"
     >
-      Button
+      {getLabel()}
     </Button>
   );
 };
@@ -117,8 +202,8 @@ export const Playground = ({
   size,
   disabled,
   fullWidth,
-  iconLeft,
-  iconRight,
+  iconStart,
+  iconEnd,
   isLoading,
   loadingText,
   ...args
@@ -130,8 +215,8 @@ export const Playground = ({
       disabled={disabled}
       fullWidth={fullWidth}
       size={size}
-      iconLeft={iconLeft ? <IconFaceSmile /> : null}
-      iconRight={iconRight ? <IconFaceSmile /> : null}
+      iconStart={iconStart ? <IconFaceSmile /> : null}
+      iconEnd={iconEnd ? <IconFaceSmile /> : null}
       isLoading={isLoading}
       loadingText={loadingText}
       {...args}
@@ -152,14 +237,14 @@ Playground.parameters = {
 };
 
 Playground.args = {
-  label: 'Button',
-  variant: 'primary',
-  theme: 'default',
-  size: 'default',
+  label: getLabel(),
+  variant: ButtonVariant.Primary,
+  theme: ButtonTheme.Bus,
+  size: ButtonSize.Medium,
   disabled: false,
   fullWidth: false,
-  iconLeft: false,
-  iconRight: false,
+  iconStart: false,
+  iconEnd: false,
   isLoading: false,
   loadingText: 'Saving your changes',
 };
@@ -170,11 +255,11 @@ Playground.argTypes = {
     control: { type: 'radio' },
   },
   theme: {
-    options: ['default', 'coat', 'black'],
+    options: ['bus', 'coat', 'black'],
     control: { type: 'radio' },
   },
   size: {
-    options: ['default', 'small'],
+    options: ['medium', 'small'],
     control: { type: 'radio' },
   },
 };
@@ -185,6 +270,7 @@ export const LinkButton = () => (
       window.open('/');
     }}
     role="link"
+    aria-label='Link to "/"'
   >
     Button used as a link
   </Button>

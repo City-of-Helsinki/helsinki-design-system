@@ -20,7 +20,6 @@ export * from './linkbox';
 export * from './loadingSpinner';
 export * from './login';
 export * from './logo';
-export * from './newButton';
 export * from './notification';
 export * from './numberInput';
 export * from './pagination';
