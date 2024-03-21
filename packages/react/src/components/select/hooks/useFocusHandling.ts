@@ -14,6 +14,7 @@ import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 import { useElementDetection } from './useElementDetection';
+import { KnownElementType } from '../types';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
@@ -25,6 +26,7 @@ export function useFocusHandling(): ReturnObject {
   const { getEventElementType, getListItemSiblings, getElementUsingActiveDescendant, getElementId } =
     useElementDetection();
   const { refs, focusTarget } = getMetaData();
+  const elementsThatCloseMenuOnFocus: KnownElementType[] = ['tag', 'tagList', 'clearAllButton', 'showAllButton'];
   const eventTracker = useCallback(
     (
       type: keyof typeof eventTypes,
@@ -75,6 +77,9 @@ export function useFocusHandling(): ReturnObject {
         } else {
           markActiveDescendant(null);
         }
+        if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType)) {
+          trigger({ id: eventIds.generic, type: eventTypes.blur });
+        }
       }
     },
     [getMetaData, updateMetaData],
@@ -88,7 +93,12 @@ export function useFocusHandling(): ReturnObject {
 
   useEffect(() => {
     if (focusTarget) {
-      setFocus(refs[focusTarget]);
+      if (focusTarget === 'tag') {
+        const current = refs.tagList.current && (refs.tagList.current.querySelectorAll('* > div')[0] as HTMLElement);
+        setFocus({ current });
+      } else {
+        setFocus(refs[focusTarget]);
+      }
       updateMetaData({ focusTarget: undefined });
     }
   });

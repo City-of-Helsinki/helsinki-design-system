@@ -18,6 +18,7 @@ import {
   eventTypes,
   isClearOptionsClickEvent,
   isCloseEvent,
+  isCloseOnFocusMoveEvent,
   isFilterChangeEvent,
   isGenericBlurEvent,
   isGroupClickEvent,
@@ -27,6 +28,7 @@ import {
   isSearchChangeEvent,
   isSearchUpdateEvent,
   isShowAllClickEvent,
+  isTagEventId,
 } from './events';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
@@ -39,6 +41,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   }
   // console.log('-.-', id, type);
   const openOrClose = (open: boolean) => {
+    if (current.open === open) {
+      return false;
+    }
     const now = Date.now();
     if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
       return false;
@@ -92,6 +97,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     openOrClose(id !== eventIds.tag && current.multiSelect);
     if (id === eventIds.listItem && !current.multiSelect) {
       setFocusTarget('dropdownButton');
+    } else if (isTagEventId(id)) {
+      const hasSelectedItems = !!dataHandlers.getMetaData().selectedOptions.length;
+      setFocusTarget(hasSelectedItems ? 'tag' : 'dropdownButton');
     }
     return true;
   }
@@ -114,6 +122,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
   if (isClearOptionsClickEvent(id, type)) {
     const newGroups = clearAllEnabledSelectedOptions(current.groups);
     updateGroups(newGroups);
+    setFocusTarget('dropdownButton');
     return true;
   }
 
@@ -122,6 +131,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
       setFocusTarget('dropdownButton');
       return true;
     }
+  }
+  if (isCloseOnFocusMoveEvent(id, type)) {
+    return openOrClose(false);
   }
 
   if (isFilterChangeEvent(id, type)) {
@@ -144,6 +156,7 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
 
   if (isShowAllClickEvent(id, type)) {
     dataHandlers.updateMetaData({ showAllTags: !showAllTags });
+    setFocusTarget('tag');
     return true;
   }
 
@@ -209,16 +222,16 @@ const debouncedSearch = debounce(
 export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateMetaData, updateData, getData, getMetaData } = dataHandlers;
   const { onSearch, onChange } = getData();
-  dataUpdater(event, dataHandlers);
+  const dataChanged = dataUpdater(event, dataHandlers);
   // dataUpdater sets these metadata values to "true":
   const { didSearchChange, didSelectionsChange } = getMetaData();
 
-  if (didSearchChange && onSearch) {
+  if (dataChanged && didSearchChange && onSearch) {
     dataHandlers.updateMetaData({ isSearching: !!getMetaData().search, didSearchChange: false });
     debouncedSearch(dataHandlers, onSearch);
   }
 
-  if (didSelectionsChange) {
+  if (dataChanged && didSelectionsChange) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
     const newProps = onChange(getMetaData().selectedOptions, lastClickedOption as Option, current);
@@ -231,11 +244,11 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
         updateMetaData({
           selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
         });
+        return true;
       }
-      const { error, assistiveText } = newProps;
-      updateData({ error, assistiveText });
+      // const { error, assistiveText } = newProps;
+      // updateData({ error, assistiveText });
     }
   }
-  // needs fixing:
-  return true;
+  return dataChanged;
 };

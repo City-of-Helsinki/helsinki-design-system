@@ -99,7 +99,9 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   lastToggleCommand: number;
   cancelCurrentSearch: (() => void) | undefined;
   showAllTags: boolean;
-  focusTarget: Extract<KnownElementType, 'list' | 'dropdownButton' | 'container' | 'searchOrFilterInput'> | undefined;
+  focusTarget:
+    | Extract<KnownElementType, 'list' | 'dropdownButton' | 'container' | 'searchOrFilterInput' | 'tag'>
+    | undefined;
   activeDescendant: string | undefined;
   selectedOptions: Option[];
   listInputType?: Extract<EventId, 'filter' | 'search'>;
