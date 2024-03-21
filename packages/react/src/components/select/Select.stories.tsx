@@ -363,6 +363,9 @@ export const Error = () => {
       return selectedValue && !isError ? `Good choice!` : 'Please, choose a healthy option!';
     }
     if (key === 'error') {
+      if (!selectedOptions.length) {
+        return 'Choose a healthy option!';
+      }
       return isError ? `You choose poorly!` : '';
     }
     return `${key}!!`;
@@ -370,16 +373,7 @@ export const Error = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return (
-    <Select
-      groups={groups}
-      onChange={onChange}
-      icon={<IconLocation />}
-      required
-      error="Choose a healthy option!"
-      texts={textsAsFunction}
-    />
-  );
+  return <Select groups={groups} onChange={onChange} icon={<IconLocation />} required texts={textsAsFunction} />;
 };
 
 export const SingleselectWithFiltering = () => {
@@ -551,7 +545,6 @@ export const MultiselectWithMinMax = () => {
   ];
   const groupStorage = useExternalGroupStorage({ groups: initialGroups });
   const history = useSelectionHistory();
-  const [error, setError] = useState<string | undefined>(undefined);
   const selectionCount = useRef(0);
   const hasSelectedSomething = useRef(false);
   const requiredCount = 1;
@@ -620,7 +613,7 @@ export const MultiselectWithMinMax = () => {
 
   const onBlur: SelectProps['onBlur'] = useCallback(async () => {
     if (selectionCount.current < requiredCount) {
-      setError(getAssistiveText(selectionCount.current));
+      // setError(getAssistiveText(selectionCount.current));
     }
   }, []);
   return (
@@ -631,7 +624,6 @@ export const MultiselectWithMinMax = () => {
       filter={defaultFilter}
       icon={<IconLocation />}
       onBlur={onBlur}
-      error={error}
       texts={textsAsFunction}
     />
   );
