@@ -3,12 +3,13 @@ import React from 'react';
 import styles from '../Select.module.scss';
 import { DivElementProps, SelectDataHandlers } from '../types';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
+import { getTextKeyFromDataHandlers } from '../texts';
 
-function createAssistiveTextProps({ getData }: SelectDataHandlers): DivElementProps {
-  const { assistiveText } = getData();
+function createAssistiveTextProps(dataHandlers: SelectDataHandlers): DivElementProps {
+  const assistive = getTextKeyFromDataHandlers('assistive', dataHandlers);
   return {
     className: styles.assistiveText,
-    children: assistiveText || '',
+    children: assistive,
   };
 }
 

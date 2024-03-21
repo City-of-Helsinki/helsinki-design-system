@@ -327,3 +327,10 @@ export function createSelectedOptionsList(currentSelections: Option[], groups: S
   const selectedValues = new Set(stillSelected.map((opt) => opt.value));
   return [...stillSelected, ...selections.filter((opt) => !selectedValues.has(opt.value))];
 }
+
+export function pickSelectedValues(selectedOptions?: Option[]): string[] {
+  if (!selectedOptions || !selectedOptions.length) {
+    return [];
+  }
+  return selectedOptions.map((opt) => opt.value);
+}

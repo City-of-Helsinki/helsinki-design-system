@@ -51,6 +51,7 @@ export type SelectProps<P = unknown> = {
   noTags?: boolean;
   ariaLabel?: string;
   visibleOptions?: number;
+  texts?: Partial<Texts> | TextProvider;
 };
 
 export type SelectData = Required<
@@ -116,6 +117,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     clearAllButton: string;
   };
   getOptionId: (option: Option) => string;
+  textProvider: TextProvider;
 };
 
 export type DivElementProps = HTMLAttributes<HTMLDivElement>;
@@ -149,3 +151,6 @@ export type TextKey =
   | 'searchWithAnotherTerm'
   | 'filterWithAnotherTerm'
   | 'buttonClearAllAriaLabel';
+
+export type TextProvider = (key: TextKey, selectedOptions: Option[]) => string;
+export type Texts = Record<TextKey, string>;
