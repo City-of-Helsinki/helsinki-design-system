@@ -30,17 +30,14 @@ Always keep these core principles in mind when making design decisions:
 ## Setting up
 
 ### Install the tools
-The HDS design workflow is based on **Sketch** and **Abstract** (if you have access to Helsinki organisation):
-- <ExternalLink href="https://www.sketch.com/">Sketch</ExternalLink> is a <strong>vector graphics editor</strong> and is widely adopted by designers to create user interface designs for web and mobile services.
-- <ExternalLink href="https://www.abstract.com/">Abstract</ExternalLink> is a <strong>design collaboration and version and management tool</strong> that enables designers to share Sketch files and libraries easily. By leveraging and extending the technology of Git, Abstract provides design teams with a lightweight workflow and stable tools so designers can work together with confidence.
+The HDS design library can be accessed in **Figma** (if you have access to Helsinki organisation):
+- <ExternalLink href="https://www.figma.com/">Figma</ExternalLink> is a <strong>vector graphics editor</strong> and is widely adopted by designers to create user interface designs for web and mobile services.
 
+If you are a newcomer to Figma,  there are great tutorials and help over at: 
 
-If you are a newcomer to Sketch or Abstract, they both offer some great tutorials and help 
+- <ExternalLink href="https://help.figma.com/hc/">Figma help center</ExternalLink>
 
-- <ExternalLink href="https://www.sketchapp.com/docs/">Sketch help docs</ExternalLink>
-- <ExternalLink href="https://www.abstract.com/help/">Abstract help docs</ExternalLink>
-
-**You do not necessarily need Abstract to use HDS design libraries.** Abstract is a convenient way to access and update Sketch libraries, but we also offer a downloadable HDS design kit. <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-design-kit.zip">Download the latest HDS Design kit from the HDS GitHub repository</ExternalLink>. Please note that if you use the design kit outside of Abstract, you need to manually download the kit again to gain access to the newest updates.
+**You do not necessarily need access to Helsinki city organisation to use HDS design library.** We offer a downloadable HDS design Kit alongside Git releases. <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-design-kit.zip">Download the latest HDS Design kit from the HDS GitHub repository</ExternalLink>. Please note that if you use the design kit outside of Helsinki organisation, you need to manually download the kit again to gain access to the newest updates. We are working toward releasing the design kit as a community file that receives updates automatically when we have a release.  
 
 
 ### Install fonts
@@ -48,36 +45,30 @@ Make sure that you have the <ExternalLink href="https://camelot-typefaces.com/he
 
 Helsinki Grotesk font can be purchased from <ExternalLink href="https://camelot-typefaces.com/helsinki-grotesk">Camelot Typefaces website</ExternalLink>
 
-### Set up your Abstract project
-To set up a project in Abstract, you will need to:
+### Set up your Figma project
+To set up a project in Figma, you will need to:
 
-1. Create a new Abstract project
-2. Add at least one design (Sketch) file to the project
-3. Link HDS libraries to your project
-4. Create a branch and start making design changes
+1. Create a new Figma project in All Helsinki projects-team
+2. Add a new design file
+3. Add HDS UI Kit library to your project
+4. Start making design changes
 
-**If you are new to Abstract**, please read <InternalLink href="/getting-started/tutorials/abstract-tutorial">HDS Getting started with Abstract tutorial</InternalLink> for more information on how to set up and use Abstract.
 
 ## Get familiar with HDS
 Before you start designing, it is a good idea to get familiar with the HDS offering.
 
-For designers, a good place to start is to browse through design collections in the HDS Abstract project. 
-- <ExternalLink href="https://share.goabstract.com/7b92ffce-5566-4aa1-be7a-3555b8d7a11c">Abstract Collection - Components</ExternalLink>
-- <ExternalLink href="https://share.goabstract.com/1dd17c91-0b9e-463a-9492-66af1301e52a">Abstract Collection - Design Tokens</ExternalLink>
-- <ExternalLink href="https://share.goabstract.com/cd813835-b6de-42a7-8686-0ea8aec21663">Abstract Collection - Patterns</ExternalLink>
-- <ExternalLink href="https://share.goabstract.com/1dd17c91-0b9e-463a-9492-66af1301e52a">Abstract Collection - Design Tokens</ExternalLink>
-- <ExternalLink href="https://share.goabstract.com/34245a50-f1a5-4160-9059-c4ccf320c7d2">Abstract Collection - Icons</ExternalLink>
-- <ExternalLink href="https://share.goabstract.com/e6aa2ebd-1a49-4cb1-90ef-a44a6486c28b">Abstract Collection - Example Custom Components</ExternalLink>
+For designers, a good place to start is to browse through <ExternalLink href="https://www.figma.com/file/Kxwg3R0zNRHj55nQqFu6VS/HDS-UI-Kit-v3?type=design&node-id=2688%3A137088&mode=design&t=JMnhoneDpxxvmQfg-1">HDS UI Kit overview</ExternalLink>
 
-### Customising component symbols
-The component symbols use _smart layout_ for easy resizing. You can also configure the content and styling of symbol parts from the _Overrides_ section of symbol properties.
 
-_When changing the colour or other styles of component symbols, be sure your custom design adheres to the design guidelines._ Styles within components are carefully considered. We do not recommend detaching the symbol to change default styles.
+### Customising components
+The components use _autolayout_ for easy resizing. In Figma when you bring an asset into your file from the library it creates an _instance_ of the main component that is easily customisable. You can configure the content and styling of component instance parts from the property section.
+
+_When changing the colour or other styles of component instances, be sure your custom design adheres to the design guidelines._ Styles within components are carefully considered. We do not recommend detaching the instance to change default styles.
 
 <Image src="/images/getting-started/designers/component-overrides.png" alt="Customising symbol overrides" style={{ width: '100%', maxwidth: 850, marginbottom: 24 }} viewable/>
 
 ### Styling text elements
-Linking the HDS Typography library to your project adds the possibility to give HDS text styles to your text elements. You can add text styles to your layout in two ways:
+HDS Figma library includes typography styles you can conveniently add to your elements. You can browse the library’s text styles when you have a text element selected.
 
 1. You can add a new text element with appropriate text style from the Insert menu: Select the HDS Typography from the Text styles section, choose the desired text style, and click anywhere on your artboard. This creates a new text element with the chosen style.
 <Image src="/images/getting-started/designers/typography-header-insert.png" alt="Inserting header styles" style={{ width: '100%', maxwidth: 850, marginbottom: 24 }} viewable/>
