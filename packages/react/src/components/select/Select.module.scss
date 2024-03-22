@@ -342,6 +342,14 @@
   > span {
     padding-top: var(--spacing-layout-2-xs);
   }
+
+  .screenReaderNotifications {
+    @extend %visuallyHidden;
+  }
+
+  &.screenReaderOnly {
+    @extend %visuallyHidden;
+  }
 }
 
 .tagListContainer {

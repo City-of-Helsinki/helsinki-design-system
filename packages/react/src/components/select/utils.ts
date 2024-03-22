@@ -334,3 +334,10 @@ export function pickSelectedValues(selectedOptions?: Option[]): string[] {
   }
   return selectedOptions.map((opt) => opt.value);
 }
+
+export function pickSelectedLabels(selectedOptions?: Option[]): string[] {
+  if (!selectedOptions || !selectedOptions.length) {
+    return [];
+  }
+  return selectedOptions.map((opt) => opt.label);
+}

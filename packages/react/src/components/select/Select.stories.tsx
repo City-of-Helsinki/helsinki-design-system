@@ -6,7 +6,7 @@ import { Select } from './Select';
 import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
 import { useExternalGroupStorage, useSelectionHistory } from './controlHelpers';
-import { defaultFilter, getSelectedOptions, pickSelectedValues } from './utils';
+import { defaultFilter, getSelectedOptions, pickSelectedLabels, pickSelectedValues } from './utils';
 import { Tag } from '../tag/Tag';
 
 export default {
@@ -245,7 +245,7 @@ export const WithValidation = () => {
       return selectedValue && !isError ? `Good choice!` : 'Please, choose a healthy option!';
     }
     if (key === 'error') {
-      return isError ? `You choose poorly!` : '';
+      return isError ? `You chose poorly!` : '';
     }
     return `${key}!!`;
   }, []);
@@ -261,7 +261,7 @@ export const DynamicTexts = () => {
       label: 'Bad choices',
       options: [
         { value: 'Candy with choco', label: 'Candy' },
-        { value: 'wrong', label: 'Do not choose me!' },
+        { value: 'error', label: "I'll show errors!" },
       ],
     },
     {
@@ -283,15 +283,19 @@ export const DynamicTexts = () => {
     if (textFromObj) {
       return textFromObj;
     }
+    const selectedLabels = pickSelectedLabels(selectedOptions);
     if (key === 'assistive') {
-      if (selectedOptions.length >= requiredCount) {
-        return 'All selections done';
+      if (selectedLabels.length >= requiredCount) {
+        return `You have selected enough items! Selected items: ${selectedLabels.join(', ')}.`;
       }
-      return `Make at least ${requiredCount - selectedOptions.length} selections! Current selections ${pickSelectedValues(selectedOptions).join(' ')}`;
+      if (!selectedLabels.length) {
+        return `Select at least ${requiredCount} items!`;
+      }
+      return `Make ${requiredCount - selectedOptions.length} more selections!`;
     }
     if (key === 'error') {
-      if (pickSelectedValues(selectedOptions).includes('wrong')) {
-        return `You choose poorly!`;
+      if (pickSelectedValues(selectedOptions).includes('error')) {
+        return `You chose the error one!`;
       }
       return '';
     }
@@ -340,7 +344,7 @@ export const Error = () => {
       label: 'Bad choices',
       options: [
         { value: 'Candy with choco', label: 'Candy' },
-        { value: 'wrong', label: 'Do not choose me!' },
+        { value: 'error', label: "I'll show errors!" },
       ],
     },
     {
@@ -358,7 +362,7 @@ export const Error = () => {
       return textFromObj;
     }
     const selectedValue = selectedOptions.length > 0 ? selectedOptions[0].value : '';
-    const isError = selectedValue === 'wrong';
+    const isError = selectedValue === 'error';
     if (key === 'assistive') {
       return selectedValue && !isError ? `Good choice!` : 'Please, choose a healthy option!';
     }
@@ -366,7 +370,7 @@ export const Error = () => {
       if (!selectedOptions.length) {
         return 'Choose a healthy option!';
       }
-      return isError ? `You choose poorly!` : '';
+      return isError ? `You chose wrong option!` : '';
     }
     return `${key}!!`;
   }, []);
