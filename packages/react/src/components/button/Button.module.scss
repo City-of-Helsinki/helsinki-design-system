@@ -1,13 +1,13 @@
 .button {
-  composes: new-hds-button from 'hds-core/lib/components/button/button.css';
+  composes: hds-button from 'hds-core/lib/components/button/button.css';
 }
 
 .fullWidth {
-  composes: new-hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
 }
 
 .size-small {
-  composes: new-hds-button--small from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--small from 'hds-core/lib/components/button/button.css';
 }
 
 .icon {
@@ -15,33 +15,33 @@
 }
 
 .isLoading {
-  composes: new-hds-button--loading from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--loading from 'hds-core/lib/components/button/button.css';
 }
 
 .primary {
-  composes: new-hds-button--primary from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--primary from 'hds-core/lib/components/button/button.css';
 }
 
 .secondary {
-  composes: new-hds-button--secondary from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--secondary from 'hds-core/lib/components/button/button.css';
 }
 
 .supplementary {
-  composes: new-hds-button--supplementary from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--supplementary from 'hds-core/lib/components/button/button.css';
 }
 
 .success {
-  composes: new-hds-button--success from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--success from 'hds-core/lib/components/button/button.css';
 }
 
 .danger {
-  composes: new-hds-button--danger from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--danger from 'hds-core/lib/components/button/button.css';
 }
 
 .theme-coat {
-  composes: new-hds-button--theme-coat from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--theme-coat from 'hds-core/lib/components/button/button.css';
 }
 
 .theme-black {
-  composes: new-hds-button--theme-black from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--theme-black from 'hds-core/lib/components/button/button.css';
 }

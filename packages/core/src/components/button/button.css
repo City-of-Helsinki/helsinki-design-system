@@ -23,22 +23,22 @@
   --computed-color-hover: var(--color-hover, var(--computed-color-focus, inherit));
   --computed-color-active: var(--color-active, var(--computed-color-hover, inherit));
   --computed-color-disabled: var(--color-disabled, var(--color-white, inherit));
-  --computed-border-color: var(--border-color, var(--computed-bacground-color));
+  --computed-border-color: var(--border-color, var(--computed-background-color));
   --computed-border-color-focus: var(--border-color-focus, var(--computed-border-color, transparent));
   --computed-border-color-hover: var(--border-color-hover, var(--computed-border-color-focus, transparent));
-  --computed-border-color-active: var(--border-color-active, var(--br-color-hover, transparent));
-  --computed-border-color-disabled: var(--border-color-disabled, var(--computed-bacground-color-disabled, transparent));
+  --computed-border-color-active: var(--border-color-active, var(--computed-border-color-hover, transparent));
+  --computed-border-color-disabled: var(--border-color-disabled, var(--computed-background-color-disabled, transparent));
   --computed-focus-outline-color: var(--focus-outline-color, transparent);
 
   align-content: flex-start;
   align-items: center;
-  background-color: var(--computed-bacground-color);
-  border: var(--border-width) solid var(--computed-bacground-color);
+  background-color: var(--computed-background-color);
+  border: var(--border-width) solid var(--computed-border-color);
   border-radius: 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: var(--txt-color, inherit);
+  color: var(--computed-color, inherit);
   column-gap: var(--horizontal-gap);
   cursor: var(--cursor, pointer);
   display: inline-flex;
@@ -80,7 +80,7 @@ button.hds-button,
 
 /* focus */
 .hds-button:focus-visible {
-  background-color: var(--computed-bacground-color-focus);
+  background-color: var(--computed-background-color-focus);
   border-color: var(--computed-border-color-focus);
   color: var(--computed-color-focus);
   outline: var(--focus-outline-width) solid var(--computed-focus-outline-color);
