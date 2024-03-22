@@ -56,6 +56,10 @@
   --color: var(--color-black-90);
   --color-disabled: var(--color-black-90);
   --cursor: wait;
+
+  &:disabled {
+    cursor: wait !important;
+  }
 }
 
 /* UTILITY */
