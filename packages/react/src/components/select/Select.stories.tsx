@@ -1177,6 +1177,10 @@ export const WithRerenderDataStoring = () => {
       [],
     );
 
+    const texts = useMemo(() => {
+      return { label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' };
+    }, []);
+
     const onChange: SelectProps['onChange'] = useCallback(() => {
       // track changes
     }, []);
@@ -1189,7 +1193,7 @@ export const WithRerenderDataStoring = () => {
           multiSelect
           filter={defaultFilter}
           icon={<IconLocation />}
-          texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
+          texts={texts}
         />
       </div>
     );
