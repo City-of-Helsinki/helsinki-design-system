@@ -73,7 +73,6 @@ export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
   const Content = () => {
     // aria-hidden is not passed to checkbox, so added a wrapper to hide it.
     // checkbox's label does not expand to full width so had to add external
-
     return (
       <div aria-hidden className={styles.checkboxContainer}>
         <Checkbox {...checkboxProps} />
@@ -94,6 +93,7 @@ export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
     </li>
   );
 }
+
 export function MultiSelectOption(props: SelectItemProps & { isInGroup: boolean }) {
   const elementProps = createMultiSelectItemProps(props);
   return <MultiSelectOptionElement {...elementProps} />;
