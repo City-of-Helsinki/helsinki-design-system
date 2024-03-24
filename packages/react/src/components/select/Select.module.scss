@@ -218,13 +218,6 @@
         }
       }
 
-      .virtualizedListItem {
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-
       .singleSelectListItem {
         --menu-item-background-hover: var(--color-bus-light);
         --menu-item-background-selected: var(--color-bus);
@@ -301,6 +294,13 @@
           box-shadow: 0 0 0 2px var(--color-coat-of-arms) inset;
           outline: none;
         }
+      }
+
+      .virtualizedListItem {
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
       }
 
       &.shiftOptions {

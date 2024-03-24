@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import styles from '../../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
@@ -53,3 +53,10 @@ export function SingleSelectOption(props: SelectItemProps) {
   const { children, ...attr } = createSingleSelectItemProps(props);
   return <li {...attr}>{children}</li>;
 }
+
+export const MemoizedSingleSelectOption = memo<SelectItemProps>(
+  SingleSelectOption,
+  ({ option: oldOption }, { option: newOption }) => {
+    return oldOption.selected === newOption.selected && oldOption.disabled === newOption.disabled;
+  },
+);

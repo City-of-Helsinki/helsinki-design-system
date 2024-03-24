@@ -844,7 +844,7 @@ export const MultiselectWithControls = () => {
   );
 };
 
-export const VirtualizedMultiselect = () => {
+export const VirtualizedMultiselectWithGroups = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -875,13 +875,14 @@ export const VirtualizedMultiselect = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
+      filter={defaultFilter}
       virtualize
       icon={<IconLocation />}
       texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
     />
   );
 };
-export const VirtualizedSingleselect = () => {
+export const VirtualizedSingleselectWithGroups = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -918,7 +919,7 @@ export const VirtualizedSingleselect = () => {
     />
   );
 };
-export const VirtualizationWithoutGroups = () => {
+export const VirtualizationMultiselectWithoutGroups = () => {
   let count = 0;
   const makeUniqueOption = (value: string) => {
     const valueWithCount = `${value} ${count}`;
@@ -946,6 +947,40 @@ export const VirtualizationWithoutGroups = () => {
       onChange={onChange}
       virtualize
       multiSelect
+      filter={defaultFilter}
+      icon={<IconLocation />}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
+    />
+  );
+};
+export const VirtualizedSingleselectWithoutGroups = () => {
+  let count = 0;
+  const makeUniqueOption = (value: string) => {
+    const valueWithCount = `${value} ${count}`;
+    count += 1;
+    return {
+      label: value,
+      value: valueWithCount,
+    };
+  };
+
+  const options: SelectProps['options'] = [
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    return {
+      assistiveText: `You have selected ${selected.length} option(s)`,
+    };
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      virtualize
       filter={defaultFilter}
       icon={<IconLocation />}
       texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
