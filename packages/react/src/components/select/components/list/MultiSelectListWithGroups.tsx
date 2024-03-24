@@ -2,26 +2,24 @@ import React, { RefObject } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
-import { SelectDataHandlers, SelectMetaData, DivElementProps, Group } from '../../types';
+import { SelectDataHandlers, SelectMetaData, DivElementProps, Group, SelectData } from '../../types';
 import { getSelectedOptionsPerc, getGroupLabelOption, getAllOptions } from '../../utils';
-import { MultiSelectOption } from './listItems/MultiSelectOption';
+import { MemoizedMultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
-import { VirtualizedMSLWG } from './VirtualizedMSLWG';
 
-export type GroupContent = { groupProps: DivElementProps & { key: string }; children: (JSX.Element | null)[] };
+const getGroupLabelIntermediateState = (target: Group): boolean => {
+  const perc = getSelectedOptionsPerc(target);
+  return perc < 1 && perc > 0;
+};
+const getGroupLabelDisabledState = (target: Group): boolean => {
+  return !target.options.some((opt) => !opt.isGroupLabel && !opt.disabled);
+};
 
-const createGroupOptionElements = (
+export const createGroupOptionElements = (
   group: Group,
   { trigger, getOptionId }: Pick<SelectDataHandlers, 'trigger'> & Pick<SelectMetaData, 'getOptionId'>,
 ) => {
-  const getGroupLabelIntermediateState = (target: Group): boolean => {
-    const perc = getSelectedOptionsPerc(target);
-    return perc < 1 && perc > 0;
-  };
-  const getGroupLabelDisabledState = (target: Group): boolean => {
-    return !target.options.some((opt) => !opt.isGroupLabel && !opt.disabled);
-  };
   return group.options
     .map((option) => {
       if (!option.visible) {
@@ -36,12 +34,18 @@ const createGroupOptionElements = (
             getOptionId={getOptionId}
             isIntermediate={getGroupLabelIntermediateState(group)}
             isGroupDisabled={getGroupLabelDisabledState(group)}
-            key={option.label}
+            key={option.value}
           />
         );
       }
       return (
-        <MultiSelectOption option={option} trigger={trigger} isInGroup key={option.value} getOptionId={getOptionId} />
+        <MemoizedMultiSelectOption
+          option={option}
+          trigger={trigger}
+          isInGroup
+          key={option.value}
+          getOptionId={getOptionId}
+        />
       );
     })
     .filter((option) => !!option);
@@ -57,24 +61,15 @@ const createGroupProps = (group: Group) => {
   return {
     role: 'group',
     'aria-label': (labelOption && labelOption.label) || '',
+    key: labelOption && labelOption.label,
   };
 };
 
-const createGroupContents = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
-  const { groups } = getData();
-  const { getOptionId } = getMetaData();
-
-  return groups.reduce((arr: GroupContent[], group: Group) => {
-    const attr = createGroupProps(group);
-    const children = createGroupOptionElements(group, { trigger, getOptionId });
-    return [...arr, { groupProps: { ...attr, key: attr['aria-label'] }, children }];
-  }, []);
-};
-
-const createGroups = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
-  const { groups } = getData();
-  const { getOptionId } = getMetaData();
-
+export const createGroups = ({
+  groups,
+  getOptionId,
+  trigger,
+}: Pick<SelectData, 'groups'> & Pick<SelectMetaData, 'getOptionId'> & Pick<SelectDataHandlers, 'trigger'>) => {
   return groups.map((group) => {
     const attr = createGroupProps(group);
     const children = createGroupOptionElements(group, { trigger, getOptionId });
@@ -86,7 +81,7 @@ const createGroups = ({ getData, trigger, getMetaData }: SelectDataHandlers) => 
   });
 };
 
-const createContainerProps = ({
+export const createContainerProps = ({
   getMetaData,
 }: SelectDataHandlers): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
   const { elementIds, refs } = getMetaData() as SelectMetaData;
@@ -103,17 +98,13 @@ const createContainerProps = ({
 
 export function MultiSelectListWithGroups() {
   const dataHandlers = useSelectDataHandlers();
-  const { getData, getMetaData } = dataHandlers;
-  const { virtualize, open, groups } = getData();
-  const { isSearching } = getMetaData();
+  const { getData, getMetaData, trigger } = dataHandlers;
+  const { open, groups } = getData();
+  const { isSearching, getOptionId } = getMetaData();
   const attr = createContainerProps(dataHandlers);
   const choiceCount = getAllOptions(groups).length;
   const shouldRenderOptions = open && !isSearching;
-  if (virtualize) {
-    const groupContents = shouldRenderOptions ? createGroupContents(dataHandlers) : [];
-    return <VirtualizedMSLWG groupContents={groupContents} containerProps={attr} />;
-  }
-  const children = shouldRenderOptions ? createGroups(dataHandlers) : [];
+  const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
   return (
     <div {...attr}>
       <span className={styles.visuallyHidden}>{`${choiceCount} choices`}</span>

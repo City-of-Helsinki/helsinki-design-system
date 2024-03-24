@@ -2,21 +2,22 @@ import React from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
-import { SelectDataHandlers, SelectMetaData } from '../../types';
+import { SelectData, SelectDataHandlers, SelectMetaData } from '../../types';
 import { getAllOptions } from '../../utils';
-import { MultiSelectOption } from './listItems/MultiSelectOption';
-import { SingleSelectOption } from './listItems/SingleSelectOption';
+import { MemoizedMultiSelectOption } from './listItems/MultiSelectOption';
+import { MemoizedSingleSelectOption } from './listItems/SingleSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { SingleSelectGroupLabel } from './listItems/SingleSelectGroupLabel';
 import { SelectItemProps } from './common';
-import { VirtualizedSSAGL } from './VirtualizedSSAGL';
 
-const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandlers) => {
-  const { groups, multiSelect, open } = getData();
-  const { isSearching, getOptionId } = getMetaData();
-  if (!open || isSearching) {
-    return [];
-  }
+export const createOptionElements = ({
+  groups,
+  multiSelect,
+  getOptionId,
+  trigger,
+}: Pick<SelectData, 'groups' | 'multiSelect'> &
+  Pick<SelectMetaData, 'getOptionId'> &
+  Pick<SelectDataHandlers, 'trigger'>) => {
   return getAllOptions(groups, false)
     .map((option) => {
       if (!option.visible) {
@@ -29,18 +30,17 @@ const createOptionElements = ({ getData, trigger, getMetaData }: SelectDataHandl
         getOptionId,
       };
       if (multiSelect) {
-        return <MultiSelectOption {...props} isInGroup={false} />;
+        return <MemoizedMultiSelectOption {...props} isInGroup={false} />;
       }
       if (option.isGroupLabel) {
         return <SingleSelectGroupLabel {...props} />;
       }
-      return <SingleSelectOption {...props} />;
+      return <MemoizedSingleSelectOption {...props} />;
     })
     .filter((option) => !!option);
 };
 
-const createListElementProps = ({ getMetaData }: SelectDataHandlers) => {
-  const { refs, elementIds } = getMetaData() as SelectMetaData;
+export const createListElementProps = ({ refs, elementIds }: Pick<SelectMetaData, 'refs' | 'elementIds'>) => {
   return {
     className: classNames(styles.list),
     ref: refs.list,
@@ -51,12 +51,12 @@ const createListElementProps = ({ getMetaData }: SelectDataHandlers) => {
 };
 
 export function SingleSelectAndGrouplessList() {
-  const dataHandlers = useSelectDataHandlers();
-  const { virtualize } = dataHandlers.getData();
-  const attr = createListElementProps(dataHandlers);
-  const children = createOptionElements(dataHandlers);
-  if (virtualize) {
-    return <VirtualizedSSAGL {...attr}>{children}</VirtualizedSSAGL>;
-  }
+  const { getData, trigger, getMetaData } = useSelectDataHandlers();
+  const { open, groups, multiSelect } = getData();
+  const { isSearching, getOptionId, refs, elementIds } = getMetaData();
+  const attr = createListElementProps({ refs, elementIds });
+  const shouldRenderOptions = open && !isSearching;
+
+  const children = shouldRenderOptions ? createOptionElements({ groups, trigger, multiSelect, getOptionId }) : null;
   return <ul {...attr}>{children}</ul>;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import styles from '../../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
@@ -98,3 +98,10 @@ export function MultiSelectOption(props: SelectItemProps & { isInGroup: boolean 
   const elementProps = createMultiSelectItemProps(props);
   return <MultiSelectOptionElement {...elementProps} />;
 }
+
+export const MemoizedMultiSelectOption = memo<SelectItemProps & { isInGroup: boolean }>(
+  MultiSelectOption,
+  ({ option: oldOption }, { option: newOption }) => {
+    return oldOption.selected === newOption.selected && oldOption.disabled === newOption.disabled;
+  },
+);
