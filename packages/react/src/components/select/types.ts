@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, RefObject } from 'react';
+import { ButtonHTMLAttributes, HTMLAttributes, ReactElement, ReactNode, RefObject } from 'react';
 
 import { DataHandlers } from '../dataProvider/DataContext';
 import { EventId } from './events';
@@ -21,14 +21,16 @@ export type SearchFunction = (
   data: SelectData,
 ) => Promise<SearchResult>;
 
-export type SelectProps<P = unknown> = {
+export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
   label?: string;
-  groups?: Array<{
-    label: string;
-    options: (OptionInProps | string)[];
-  }>;
+  groups?:
+    | Array<{
+        label: string;
+        options: (OptionInProps | string)[];
+      }>
+    | SelectData['groups'];
   onChange: (
     selectedOptions: Option[],
     clickedOption: Option,

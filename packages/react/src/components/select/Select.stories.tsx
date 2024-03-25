@@ -5,9 +5,17 @@ import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
-import { useExternalGroupStorage, useSelectionHistory } from './controlHelpers';
-import { defaultFilter, getSelectedOptions, pickSelectedLabels, pickSelectedValues } from './utils';
+import { useExternalGroupStorage } from './controlHelpers';
+import {
+  defaultFilter,
+  getNewSelections,
+  getSelectedOptions,
+  iterateAndCopyGroup,
+  pickSelectedLabels,
+  pickSelectedValues,
+} from './utils';
 import { Tag } from '../tag/Tag';
+import { useSelectStorage } from './hooks/useSelectStorage';
 
 export default {
   component: Select,
@@ -529,107 +537,6 @@ export const ExternalLabel = () => {
         texts={{ placeholder: 'Choose three or more', dropdownButtonAriaLabel: 'Choose anything' }}
       />
     </div>
-  );
-};
-
-export const MultiselectWithMinMax = () => {
-  const initialGroups = [
-    {
-      label: 'Healthy choices',
-      options: generateOptionLabels(6).map((option) => {
-        return { label: option, value: option, disabled: false };
-      }),
-    },
-    {
-      label: 'More healthy choices',
-      options: generateOptionLabels(6).map((option) => {
-        return { label: option, value: option, disabled: false };
-      }),
-    },
-  ];
-  const groupStorage = useExternalGroupStorage({ groups: initialGroups });
-  const history = useSelectionHistory();
-  const selectionCount = useRef(0);
-  const hasSelectedSomething = useRef(false);
-  const requiredCount = 1;
-  const maxCount = 2;
-  const getAssistiveText = (selectedCount: number) => {
-    return selectedCount >= requiredCount
-      ? `Required number of selections done!`
-      : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
-  };
-  const onChange: SelectProps['onChange'] = useCallback((selectedValues, lastClickedOption) => {
-    if (!hasSelectedSomething.current && selectedValues.length) {
-      hasSelectedSomething.current = true;
-    }
-    // If a group was selected, there might be an overflow of selections.
-    const getAllowedSelections = (allSelections: Option[]) => {
-      const overflow = allSelections.length - maxCount;
-      if (lastClickedOption && lastClickedOption.isGroupLabel && history.getLatestOptions().length === maxCount) {
-        return [];
-      }
-      if (overflow > 0) {
-        const newSelections = [...history.getLatestOptions(), ...history.filterNewSelections(allSelections)];
-        const allowed = newSelections.slice(0, maxCount);
-        return allowed;
-      }
-      return allSelections;
-    };
-    const filteredSelections = getAllowedSelections(selectedValues).map((option) => option.value);
-    selectionCount.current = filteredSelections.length;
-    const maxReached = filteredSelections.length === maxCount;
-
-    groupStorage.update(groupStorage.get(), (option) => {
-      const isSelected = option.isGroupLabel ? option.selected : filteredSelections.includes(option.value);
-      return {
-        ...option,
-        selected: isSelected,
-        disabled: maxReached ? !isSelected : false,
-      };
-    });
-    history.add(getSelectedOptions(groupStorage.get()), lastClickedOption);
-
-    const returnProps = {
-      groups: groupStorage.getAsProp(),
-    };
-
-    return returnProps;
-  }, []);
-
-  const texts: Partial<Texts> = {
-    label: 'Select multiple fruits or vegetables',
-    placeholder: 'Choose three or more',
-  };
-  const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
-    const textFromObj = texts[key];
-    if (textFromObj) {
-      return textFromObj;
-    }
-    const hasClearedSelections = hasSelectedSomething.current && !selectedOptions.length;
-    if (key === 'assistive') {
-      return getAssistiveText(selectedOptions.length);
-    }
-    if (key === 'error') {
-      return hasClearedSelections ? `Please select ${requiredCount}-${maxCount} items` : '';
-    }
-    return `${key}!!`;
-  }, []);
-
-  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
-    if (selectionCount.current < requiredCount) {
-      // setError(getAssistiveText(selectionCount.current));
-    }
-  }, []);
-  return (
-    <Select
-      groups={groupStorage.getAsProp()}
-      onChange={onChange}
-      multiSelect
-      filter={defaultFilter}
-      icon={<IconLocation />}
-      onBlur={onBlur}
-      texts={textsAsFunction}
-    />
   );
 };
 
@@ -1275,7 +1182,6 @@ export const ChangeLanguage = () => {
 
   const updateOptionLanguage = (newLang: string) => {
     const selectedValues = getSelectedOptions(groupStorage.get()).map((option) => option.value);
-    console.log('selectedValues', selectedValues);
     groupStorage.update(groupStorage.get(), (option) => {
       return {
         ...option,
@@ -1335,3 +1241,227 @@ export const ChangeLanguage = () => {
     </>
   );
 };
+
+export const MultiselectWithMinMax = () => {
+  const render = useForceRender();
+  const [updateKey, setUpdateKey] = useState<string>('fi');
+  const initialGroups = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(6).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(6).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
+    },
+  ];
+
+  const bundledTextAndChanges = useMemo<Pick<SelectProps, 'texts' | 'onChange'>>(() => {
+    const requiredCount = 1;
+    const maxCount = 2;
+
+    const texts: Partial<Texts> = {
+      label: 'Select multiple fruits or vegetables',
+      placeholder: 'Choose three or more',
+    };
+
+    const changeTracking: { hasSelectedSomething: boolean; previousSelections: Option[] } = {
+      hasSelectedSomething: false,
+      previousSelections: [],
+    };
+
+    const textsAsFunction: TextProvider = (key, selectedOptions) => {
+      const textFromObj = texts[key];
+      if (textFromObj) {
+        return textFromObj;
+      }
+      if (key === 'assistive') {
+        const selectedCount = selectedOptions.length;
+        return selectedCount >= requiredCount
+          ? `Required number of selections done!`
+          : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
+      }
+
+      return '';
+    };
+    const onChange: SelectProps['onChange'] = (selectedValues, lastClickedOption, data) => {
+      if (!changeTracking.hasSelectedSomething && selectedValues.length > 0) {
+        changeTracking.hasSelectedSomething = true;
+      }
+      const getAllowedSelections = (allSelections: Option[]) => {
+        const overflow = allSelections.length - maxCount;
+
+        if (overflow > 0) {
+          const selections = [
+            ...changeTracking.previousSelections,
+            ...getNewSelections(changeTracking.previousSelections, allSelections),
+          ];
+          const allowed = selections.slice(0, maxCount);
+          return allowed;
+        }
+        return allSelections;
+      };
+      const filteredSelections = getAllowedSelections(selectedValues).map((option) => option.value);
+      const maxReached = filteredSelections.length >= maxCount;
+
+      const newGroups = iterateAndCopyGroup(data.groups, (option) => {
+        const isSelected = option.isGroupLabel ? option.selected : filteredSelections.includes(option.value);
+        return {
+          ...option,
+          selected: isSelected,
+          disabled: maxReached ? !isSelected : false,
+        };
+      });
+      changeTracking.previousSelections = selectedValues;
+
+      return {
+        groups: newGroups,
+      };
+    };
+    return {
+      texts: textsAsFunction,
+      onChange,
+    };
+  }, []);
+
+  const resetKey = () => {
+    setUpdateKey('en');
+  };
+
+  const groupStorage = useSelectStorage({
+    groups: initialGroups,
+    multiSelect: true,
+    ...bundledTextAndChanges,
+    updateKey,
+  });
+
+  return (
+    <>
+      <style>
+        {`
+      .buttons{
+        margin-top: 20px;
+      }
+      .buttons > *{
+        margin-right: 10px;
+      }
+  `}
+      </style>
+      <div>
+        <Select {...groupStorage.getProps()} />{' '}
+        <div className="buttons">
+          <Button onClick={resetKey}>Reset key to &quot;en&quot;</Button>
+        </div>
+        <Button onClick={render}>Re-render</Button>
+      </div>
+    </>
+  );
+};
+
+/*
+
+export const MultiselectWithMinMax = () => {
+  const initialGroups = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(6).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(6).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
+    },
+  ];
+  const groupStorage = useExternalGroupStorage({ groups: initialGroups });
+  const history = useSelectionHistory();
+  const selectionCount = useRef(0);
+  const hasSelectedSomething = useRef(false);
+  const requiredCount = 1;
+  const maxCount = 2;
+  const getAssistiveText = (selectedCount: number) => {
+    return selectedCount >= requiredCount
+      ? `Required number of selections done!`
+      : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
+  };
+  const onChange: SelectProps['onChange'] = useCallback((selectedValues, lastClickedOption) => {
+    if (!hasSelectedSomething.current && selectedValues.length) {
+      hasSelectedSomething.current = true;
+    }
+    // If a group was selected, there might be an overflow of selections.
+    const getAllowedSelections = (allSelections: Option[]) => {
+      const overflow = allSelections.length - maxCount;
+      if (lastClickedOption && lastClickedOption.isGroupLabel && history.getLatestOptions().length === maxCount) {
+        return [];
+      }
+      if (overflow > 0) {
+        const newSelections = [...history.getLatestOptions(), ...history.filterNewSelections(allSelections)];
+        const allowed = newSelections.slice(0, maxCount);
+        return allowed;
+      }
+      return allSelections;
+    };
+    const filteredSelections = getAllowedSelections(selectedValues).map((option) => option.value);
+    selectionCount.current = filteredSelections.length;
+    const maxReached = filteredSelections.length === maxCount;
+
+    groupStorage.update(groupStorage.get(), (option) => {
+      const isSelected = option.isGroupLabel ? option.selected : filteredSelections.includes(option.value);
+      return {
+        ...option,
+        selected: isSelected,
+        disabled: maxReached ? !isSelected : false,
+      };
+    });
+    history.add(getSelectedOptions(groupStorage.get()), lastClickedOption);
+
+    const returnProps = {
+      groups: groupStorage.getAsProp(),
+    };
+
+    return returnProps;
+  }, []);
+
+  const texts: Partial<Texts> = {
+    label: 'Select multiple fruits or vegetables',
+    placeholder: 'Choose three or more',
+  };
+  const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
+    const textFromObj = texts[key];
+    if (textFromObj) {
+      return textFromObj;
+    }
+    const hasClearedSelections = hasSelectedSomething.current && !selectedOptions.length;
+    if (key === 'assistive') {
+      return getAssistiveText(selectedOptions.length);
+    }
+    if (key === 'error') {
+      return hasClearedSelections ? `Please select ${requiredCount}-${maxCount} items` : '';
+    }
+    return `${key}!!`;
+  }, []);
+
+  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
+    if (selectionCount.current < requiredCount) {
+      // setError(getAssistiveText(selectionCount.current));
+    }
+  }, []);
+  return (
+    <Select
+      groups={groupStorage.getAsProp()}
+      onChange={onChange}
+      multiSelect
+      filter={defaultFilter}
+      icon={<IconLocation />}
+      onBlur={onBlur}
+      texts={textsAsFunction}
+    />
+  );
+};
+*/
