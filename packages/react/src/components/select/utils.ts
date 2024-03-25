@@ -215,6 +215,10 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
   if (!props.groups && !props.options) {
     return undefined;
   }
+  // if group has options and the first option is a group label, groups/options have been parsed already
+  if (props.groups && props.groups[0] && getGroupLabelOption(props.groups[0] as Group)) {
+    return props.groups as Group[];
+  }
   if (props.groups) {
     return props.groups.map((group) => {
       const labelOption: Option = createGroupLabel(group.label);
@@ -261,7 +265,7 @@ export function filterOptions(groups: SelectData['groups'], filterStr: string, f
   return groups;
 }
 
-export function childrenToGroups(children: SelectProps<ReactElement>['children']): SelectData['groups'] | undefined {
+export function childrenToGroups(children: SelectProps['children']): SelectData['groups'] | undefined {
   if (!children || typeof children !== 'object') {
     return undefined;
   }
@@ -340,4 +344,12 @@ export function pickSelectedLabels(selectedOptions?: Option[]): string[] {
     return [];
   }
   return selectedOptions.map((opt) => opt.label);
+}
+
+export function getNewSelections(prev: Option[], current: Option[]): Option[] {
+  if (!prev.length) {
+    return current;
+  }
+  const prevValues = pickSelectedValues(prev);
+  return current.filter((opt) => !prevValues.includes(opt.value));
 }

@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import React, { ReactElement, useMemo, createRef, useEffect } from 'react';
+import React, { useMemo, createRef, useEffect } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData, Option } from './types';
 import { Container } from './components/Container';
@@ -46,7 +46,7 @@ export function Select({
   visibleOptions,
   filter,
   texts,
-}: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
+}: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
