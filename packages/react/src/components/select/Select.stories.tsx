@@ -1256,3 +1256,82 @@ export const WithRerenderDataStoring = () => {
 
   return <Main />;
 };
+
+export const ChangeLanguage = () => {
+  const [lang, setLang] = useState<string>('fi');
+  const addLang = (value: string, language?: string) => {
+    const withoutLang = value.split('(')[0];
+    return `${withoutLang} (${language || lang})`;
+  };
+  const createOptionWithLanguage = (value: string) => {
+    const labelAndValue = addLang(value);
+    return { label: labelAndValue, value };
+  };
+  const options = generateOptionLabels(10).map(createOptionWithLanguage);
+
+  const groupStorage = useExternalGroupStorage({ options });
+
+  // const reRender = useForceRender();
+
+  const updateOptionLanguage = (newLang: string) => {
+    const selectedValues = getSelectedOptions(groupStorage.get()).map((option) => option.value);
+    console.log('selectedValues', selectedValues);
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        label: addLang(option.label, newLang),
+        selected: selectedValues.includes(option.value),
+      };
+    });
+  };
+
+  const changeLang = (newLang: string) => {
+    updateOptionLanguage(newLang);
+    setLang(newLang);
+  };
+  const setFinnish = () => {
+    changeLang('fi');
+  };
+  const setEnglish = () => {
+    changeLang('en');
+  };
+
+  const onChange: SelectProps['onChange'] = useCallback((selected) => {
+    const selectedValues = selected.map((option) => option.value);
+    groupStorage.update(groupStorage.get(), (option) => {
+      return {
+        ...option,
+        selected: selectedValues.includes(option.value),
+      };
+    });
+  }, []);
+
+  const texts = { placeholder: addLang('Choose'), label: addLang('Controlled select') };
+  return (
+    <>
+      <style>
+        {`
+          .buttons{
+            margin-top: 20px;
+          }
+          .buttons > *{
+            margin-right: 10px;
+          }
+      `}
+      </style>
+      <div>
+        <Select
+          groups={groupStorage.getAsProp()}
+          onChange={onChange}
+          multiSelect
+          filter={defaultFilter}
+          texts={texts}
+        />
+        <div className="buttons">
+          <Button onClick={setFinnish}>Finnish</Button>
+          <Button onClick={setEnglish}>English</Button>
+        </div>
+      </div>
+    </>
+  );
+};
