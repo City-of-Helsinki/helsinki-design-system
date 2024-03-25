@@ -149,7 +149,6 @@ export function ScreenReaderNotifications({ search, filter, isSearching, resultC
   }
 
   updateDataRef({ lastRenderedNotification: dataRef.current.currentText });
-  console.log('RENDER--->', dataRef.current.currentText);
   return (
     <div aria-live="polite" className={styles.screenReaderNotifications}>
       {dataRef.current.currentText}
