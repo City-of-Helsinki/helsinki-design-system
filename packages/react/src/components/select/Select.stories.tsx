@@ -647,14 +647,8 @@ export const MultiselectWithControls = () => {
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, clickedOption, data) => {
-    return {
-      groups: iterateAndCopyGroup(data.groups, (option) => {
-        return {
-          ...option,
-        };
-      }),
-    };
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // not needed
   }, []);
 
   const groupStorage = useSelectStorage({
@@ -1024,16 +1018,41 @@ export const FocusListenerExample = () => {
 };
 
 export const WithMultipleComponents = () => {
-  const [selectedTopCategory, updateSelectedTopCategory] = useState<Option | null>(null);
-  const [subCategoryOptions, updateSubcategoryOptions] = useState<OptionInProps[]>([]);
+  const forceRender = useForceRender();
   const [selectedItems, updateSelectedItems] = useState<Record<string, Option[]>>({});
-  const topCategoryOptions = fruitsAndVegetables.sort().map((option) => {
-    return {
-      label: capitalise(option),
-      value: option,
-      selected: !!(selectedTopCategory && selectedTopCategory.value === option),
-    };
+
+  const onTopCategoryChange: SelectProps['onChange'] = () => {
+    forceRender();
+  };
+
+  const topCategoryStorage = useSelectStorage({
+    options: fruitsAndVegetables.sort().map((option) => {
+      return {
+        label: capitalise(option),
+        value: option,
+        selected: false,
+      };
+    }),
+    onChange: onTopCategoryChange,
+    texts: { label: 'Select your favourite', placeholder: 'Choose one' },
   });
+
+  const getSelectedTopCategoryValue = () => {
+    return (topCategoryStorage.getSelectedOptions()[0] || ({} as Option)).value || '';
+  };
+
+  const createSubCategoryOptions = () => {
+    const currentTopCategory = getSelectedTopCategoryValue();
+    if (!currentTopCategory) {
+      return [];
+    }
+    const selected = selectedItems[currentTopCategory] || [];
+    return adjectives.sort().map((value) => {
+      const label = capitalise(`${value} ${currentTopCategory}`);
+      return { label, value, selected: !!selected.find((opt) => opt.value === value) };
+    });
+  };
+
   const addToSelectedItems = (topCat: string, selections: Option[]) => {
     if (topCat) {
       const copy = { ...selectedItems };
@@ -1041,40 +1060,36 @@ export const WithMultipleComponents = () => {
       updateSelectedItems(copy);
     }
   };
+
+  const onSubCategoryChange: SelectProps['onChange'] = (selectedValues) => {
+    addToSelectedItems(getSelectedTopCategoryValue(), selectedValues);
+  };
+
+  const subCategoryStorage = useSelectStorage({
+    options: createSubCategoryOptions(),
+    onChange: onSubCategoryChange,
+    multiSelect: true,
+    noTags: true,
+    texts: { label: 'Select types', placeholder: 'Choose multiple' },
+    updateKey: getSelectedTopCategoryValue(),
+    open: false,
+    disabled: false,
+  });
+
   const removeFromSelectedItems = (topCat: string, subCat: string) => {
     const topCatLowerCase = topCat.toLowerCase();
     const items = selectedItems[topCatLowerCase] || [];
     const newItems = items.filter((e) => e.value !== subCat);
     addToSelectedItems(topCatLowerCase, newItems);
-    if (selectedTopCategory?.value.toLowerCase() === topCatLowerCase) {
-      updateSubcategoryOptions(
-        subCategoryOptions.map((opt) => {
-          return {
-            ...opt,
-            selected: !!newItems.find((o) => o.value === opt.value),
-          };
-        }),
-      );
-    }
-  };
 
-  const onTopCategoryChange: SelectProps['onChange'] = (selectedValues) => {
-    const selection = selectedValues[0] || {};
-    updateSelectedTopCategory(selection);
-    if (selection.value) {
-      const newSubCategoryOptions: OptionInProps[] = [];
-      const selected = selectedItems[selection.value] || [];
-      adjectives.sort().forEach((value) => {
-        const label = capitalise(`${value} ${selection.value}`);
-        newSubCategoryOptions.push({ label, value, selected: !!selected.find((opt) => opt.value === value) });
+    if (getSelectedTopCategoryValue().toLowerCase() === topCatLowerCase) {
+      subCategoryStorage.updateAllOptions((opt) => {
+        return {
+          ...opt,
+          selected: !!newItems.find((o) => o.value === opt.value),
+        };
       });
-      updateSubcategoryOptions(newSubCategoryOptions);
-    } else {
-      updateSubcategoryOptions([]);
     }
-  };
-  const onSubCategoryChange: SelectProps['onChange'] = (selectedValues) => {
-    addToSelectedItems(String(selectedTopCategory && selectedTopCategory.value), selectedValues);
   };
 
   const SelectedValues = () => {
@@ -1125,20 +1140,8 @@ export const WithMultipleComponents = () => {
 
   return (
     <div>
-      <Select
-        options={topCategoryOptions}
-        onChange={onTopCategoryChange}
-        texts={{ label: 'Select your favourite', placeholder: 'Choose one' }}
-      />
-      {subCategoryOptions.length ? (
-        <Select
-          options={subCategoryOptions}
-          onChange={onSubCategoryChange}
-          multiSelect
-          noTags
-          texts={{ label: 'Select types', placeholder: 'Choose multiple' }}
-        />
-      ) : null}
+      <Select {...topCategoryStorage.getProps()} />
+      {getSelectedTopCategoryValue() ? <Select {...subCategoryStorage.getProps()} /> : null}
       <SelectedValues />
     </div>
   );

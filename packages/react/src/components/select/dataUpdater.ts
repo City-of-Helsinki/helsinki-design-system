@@ -238,7 +238,6 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
     updateMetaData({ didSelectionsChange: false });
     if (newProps) {
       if (newProps.groups) {
-        // NOTE: propsToGroups loses group labels selected status:
         const groups = propsToGroups({ groups: newProps.groups }) || [];
         updateData({ groups });
         updateMetaData({
