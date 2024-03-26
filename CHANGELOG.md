@@ -60,6 +60,7 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 - [Component] What has been changed
 - [CookieConsent] Cookie guidelines recommend using subdomains
+- [CookieConsent] Updated the list of cookies
 
 #### Fixed
 
