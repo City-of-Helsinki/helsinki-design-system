@@ -7,6 +7,7 @@ import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
 import {
   defaultFilter,
+  getElementIds,
   getNewSelections,
   getSelectedOptions,
   iterateAndCopyGroup,
@@ -521,13 +522,15 @@ export const ExternalLabel = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
+  const selectId = 'labelless-select';
+  const { dropdownButton: buttonId, label: labelId } = getElementIds(selectId);
   return (
     <div>
-      <label htmlFor="labelless-select-main-button" id="labelless-select-label">
+      <label htmlFor={buttonId} id={labelId}>
         External label
       </label>
       <Select
-        id="labelless-select"
+        id={selectId}
         groups={groups}
         onChange={onChange}
         multiSelect

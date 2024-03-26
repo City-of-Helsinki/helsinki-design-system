@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option, OptionInProps, FilterFunction } from './types';
+import { SelectData, Group, SelectProps, Option, OptionInProps, FilterFunction, SelectMetaData } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -352,4 +352,20 @@ export function getNewSelections(prev: Option[], current: Option[]): Option[] {
   }
   const prevValues = pickSelectedValues(prev);
   return current.filter((opt) => !prevValues.includes(opt.value));
+}
+
+export function getElementIds(containerId: string): SelectMetaData['elementIds'] {
+  return {
+    container: containerId,
+    dropdownButton: `${containerId}-dropdown-button`,
+    list: `${containerId}-list`,
+    clearButton: `${containerId}-clear-button`,
+    arrowButton: `${containerId}-arrow-button`,
+    label: `${containerId}-label`,
+    tagList: `${containerId}-tag-list`,
+    searchOrFilterInput: `${containerId}-input-element`,
+    searchOrFilterInputLabel: `${containerId}-input-element-label`,
+    clearAllButton: `${containerId}-clear-all-button`,
+    showAllButton: `${containerId}-show-all-button`,
+  };
 }

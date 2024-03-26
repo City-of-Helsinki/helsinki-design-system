@@ -5,7 +5,7 @@ import { SelectProps, SelectMetaData, SelectData, Option } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
-import { propsToGroups, childrenToGroups, getSelectedOptions } from './utils';
+import { propsToGroups, childrenToGroups, getSelectedOptions, getElementIds } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -102,19 +102,7 @@ export function Select({
         dropdownButton: createRef<HTMLButtonElement>(),
         searchOrFilterInput: createRef<HTMLInputElement>(),
       },
-      elementIds: {
-        container: containerId,
-        dropdownButton: `${containerId}-dropdown-button`,
-        list: `${containerId}-list`,
-        clearButton: `${containerId}-clear-button`,
-        arrowButton: `${containerId}-arrow-button`,
-        label: `${containerId}-label`,
-        tagList: `${containerId}-tag-list`,
-        searchOrFilterInput: `${containerId}-input-element`,
-        searchOrFilterInputLabel: `${containerId}-input-element-label`,
-        clearAllButton: `${containerId}-clear-all-button`,
-        showAllButton: `${containerId}-show-all-button`,
-      },
+      elementIds: getElementIds(containerId),
       selectedOptions: getSelectedOptions(initialData.groups),
       getOptionId: (option: Option) => {
         const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
