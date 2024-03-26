@@ -47,10 +47,19 @@ export function useSelectStorage(props: StorageProps) {
     updateGroups: (groups: Group[]) => {
       groupsStorage.current = groups;
     },
+    getGroups: () => {
+      return groupsStorage.current;
+    },
     updateTexts: (texts: Partial<Texts>) => {
       if (!texts) {
         //
       }
+    },
+    updateProps: (newProps: Partial<SelectProps>) => {
+      propsStorage.current = {
+        ...propsStorage.current,
+        ...newProps,
+      };
     },
     getUpdateKey: () => {
       return props.updateKey;
