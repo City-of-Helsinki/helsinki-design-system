@@ -5,7 +5,6 @@ import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
 import useForceRender from '../../hooks/useForceRender';
-import { useExternalGroupStorage } from './controlHelpers';
 import {
   defaultFilter,
   getNewSelections,
@@ -648,74 +647,82 @@ export const MultiselectWithControls = () => {
     },
   ];
 
-  const groupStorage = useExternalGroupStorage({ groups: initialGroups });
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, clickedOption, data) => {
+    return {
+      groups: iterateAndCopyGroup(data.groups, (option) => {
+        return {
+          ...option,
+        };
+      }),
+    };
+  }, []);
 
-  const propsRef = useRef<Partial<SelectProps>>({});
+  const groupStorage = useSelectStorage({
+    groups: initialGroups,
+    onChange,
+    multiSelect: true,
+    filter: defaultFilter,
+    disabled: false,
+    open: false,
+    texts: { placeholder: 'Choose', label: 'Controlled select' },
+  });
 
   const reRender = useForceRender();
 
   const resetSelections = () => {
-    groupStorage.update(groupStorage.get(), (option) => {
+    groupStorage.updateAllOptions((option) => {
       return {
         ...option,
         selected: false,
         disabled: false,
       };
     });
-    propsRef.current.open = false;
+    groupStorage.updateProps({ open: false });
     reRender();
   };
   const invertSelections = () => {
-    groupStorage.update(groupStorage.get(), (option) => {
+    groupStorage.updateAllOptions((option) => {
       return {
         ...option,
         selected: !option.selected,
         disabled: false,
       };
     });
-    propsRef.current.open = false;
+    groupStorage.updateProps({ open: false });
     reRender();
   };
   const selectAll = () => {
-    groupStorage.update(groupStorage.get(), (option) => {
+    groupStorage.updateAllOptions((option) => {
       return {
         ...option,
         selected: true,
         disabled: false,
       };
     });
-    propsRef.current.open = false;
+    groupStorage.updateProps({ open: false });
     reRender();
   };
   const toggleGroupDisable = () => {
-    groupStorage.update(groupStorage.get(), (option) => {
+    groupStorage.updateAllOptions((option) => {
       return {
         ...option,
         disabled: !option.disabled,
       };
     });
-    propsRef.current.open = false;
+    groupStorage.updateProps({ open: false });
     reRender();
   };
   const toggleDisable = () => {
-    propsRef.current = { ...propsRef.current, disabled: !propsRef.current.disabled };
+    const current = groupStorage.getProps().disabled;
+    groupStorage.updateProps({ disabled: !current });
     reRender();
   };
   const toggleMenu = () => {
-    propsRef.current = { ...propsRef.current, open: !propsRef.current.open };
+    const current = groupStorage.getProps().open;
+    groupStorage.updateProps({ open: !current });
     reRender();
   };
 
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValues = selected.map((option) => option.value);
-    groupStorage.update(groupStorage.get(), (option) => {
-      return {
-        ...option,
-        selected: selectedValues.includes(option.value),
-        disabled: !option.disabled,
-      };
-    });
-  }, []);
   return (
     <>
       <style>
@@ -729,15 +736,7 @@ export const MultiselectWithControls = () => {
       `}
       </style>
       <div>
-        <Select
-          groups={groupStorage.getAsProp()}
-          onChange={onChange}
-          multiSelect
-          filter={defaultFilter}
-          disabled={propsRef.current.disabled}
-          open={propsRef.current.open}
-          texts={{ placeholder: 'Choose', label: 'Controlled select' }}
-        />
+        <Select {...groupStorage.getProps()} />
         <div className="buttons">
           <Button onClick={resetSelections}>Reset selections</Button>
           <Button onClick={invertSelections}>Invert selections</Button>
@@ -1215,19 +1214,31 @@ export const ChangeLanguage = () => {
   };
   const options = generateOptionLabels(10).map(createOptionWithLanguage);
 
-  const groupStorage = useExternalGroupStorage({ options });
+  const onChange: SelectProps['onChange'] = useCallback((selected, clickedOption, data) => {
+    const selectedValues = selected.map((option) => option.value);
+    return {
+      groups: iterateAndCopyGroup(data.groups, (option) => {
+        return {
+          ...option,
+          selected: selectedValues.includes(option.value),
+        };
+      }),
+    };
+  }, []);
 
-  // const reRender = useForceRender();
+  const groupStorage = useSelectStorage({ options, onChange });
 
   const updateOptionLanguage = (newLang: string) => {
-    const selectedValues = getSelectedOptions(groupStorage.get()).map((option) => option.value);
-    groupStorage.update(groupStorage.get(), (option) => {
-      return {
-        ...option,
-        label: addLang(option.label, newLang),
-        selected: selectedValues.includes(option.value),
-      };
-    });
+    const selectedValues = getSelectedOptions(groupStorage.getGroups()).map((option) => option.value);
+    groupStorage.updateGroups(
+      iterateAndCopyGroup(groupStorage.getGroups(), (option) => {
+        return {
+          ...option,
+          label: addLang(option.label, newLang),
+          selected: selectedValues.includes(option.value),
+        };
+      }),
+    );
   };
 
   const changeLang = (newLang: string) => {
@@ -1240,16 +1251,6 @@ export const ChangeLanguage = () => {
   const setEnglish = () => {
     changeLang('en');
   };
-
-  const onChange: SelectProps['onChange'] = useCallback((selected) => {
-    const selectedValues = selected.map((option) => option.value);
-    groupStorage.update(groupStorage.get(), (option) => {
-      return {
-        ...option,
-        selected: selectedValues.includes(option.value),
-      };
-    });
-  }, []);
 
   const texts = { placeholder: addLang('Choose'), label: addLang('Controlled select') };
   return (
@@ -1265,13 +1266,7 @@ export const ChangeLanguage = () => {
       `}
       </style>
       <div>
-        <Select
-          groups={groupStorage.getAsProp()}
-          onChange={onChange}
-          multiSelect
-          filter={defaultFilter}
-          texts={texts}
-        />
+        <Select {...groupStorage.getProps()} multiSelect filter={defaultFilter} texts={texts} />
         <div className="buttons">
           <Button onClick={setFinnish}>Finnish</Button>
           <Button onClick={setEnglish}>English</Button>
