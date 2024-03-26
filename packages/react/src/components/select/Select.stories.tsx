@@ -897,8 +897,58 @@ export const VirtualizedSingleselectWithoutGroups = () => {
 
 export const FocusListenerExample = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const groups: SelectProps['groups'] = useMemo(
-    () => [
+
+  const setIsFocusedInHook = useCallback(
+    (focusValue: boolean) => {
+      setIsFocused(focusValue);
+    },
+    [setIsFocused],
+  );
+
+  const bundledTextAndChanges = useMemo(() => {
+    const texts: Partial<Texts> = {
+      label: 'Select multiple fruits or vegetables',
+      placeholder: 'Choose three or more',
+      error: '',
+    };
+
+    const changeTracking: { selectedOptions: Option[] } = {
+      selectedOptions: [],
+    };
+
+    const textsAsFunction: TextProvider = (key) => {
+      const textFromObj = texts[key];
+      if (textFromObj) {
+        return textFromObj;
+      }
+
+      return '';
+    };
+    const onChange: SelectProps['onChange'] = (selectedOptions) => {
+      changeTracking.selectedOptions = selectedOptions;
+    };
+
+    return {
+      texts,
+      textsAsFunction,
+      onChange,
+      changeTracking,
+    };
+  }, []);
+
+  const onFocus: SelectProps['onFocus'] = useCallback(async () => {
+    bundledTextAndChanges.texts.error = '';
+    setIsFocusedInHook(true);
+  }, []);
+  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
+    if (!bundledTextAndChanges.changeTracking.selectedOptions.length) {
+      bundledTextAndChanges.texts.error = 'Select something';
+    }
+    setIsFocusedInHook(false);
+  }, []);
+
+  const storage = useSelectStorage({
+    groups: [
       {
         label: 'Healthy choices',
         options: generateOptionLabels(4),
@@ -908,17 +958,15 @@ export const FocusListenerExample = () => {
         options: generateOptionLabels(4),
       },
     ],
-    [],
-  );
-  const onFocus: SelectProps['onFocus'] = useCallback(async () => {
-    setIsFocused(true);
-  }, []);
-  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
-    setIsFocused(false);
-  }, []);
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    //
-  }, []);
+    texts: bundledTextAndChanges.textsAsFunction,
+    onChange: bundledTextAndChanges.onChange,
+    onFocus,
+    onBlur,
+    multiSelect: true,
+    filter: defaultFilter,
+    icon: <IconLocation />,
+  });
+
   return (
     <>
       <style>
@@ -965,22 +1013,13 @@ export const FocusListenerExample = () => {
         `}
       </style>
       <div className={isFocused ? 'focused' : 'blurred'}>
-        <Select
-          groups={groups}
-          onChange={onChange}
-          multiSelect
-          filter={defaultFilter}
-          icon={<IconLocation />}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
-        />
+        <Select {...storage.getProps()} />
       </div>
       <div className="indicators">
         <div className="indicator">Focused</div>
         <div className="indicator blurIndicator">Blurred</div>
       </div>
-      <Button>This is focusable</Button>
+      <Button>This is just a focus target</Button>
     </>
   );
 };
