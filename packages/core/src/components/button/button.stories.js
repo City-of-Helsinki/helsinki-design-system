@@ -100,14 +100,12 @@ export const IconsWithClasses = () => `
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--primary">
-    ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon--end">
+    Button
   </button>
 
-  <button type="button" class="hds-button hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    ${getLabel()}
+  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon--start">
+    Button
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
 

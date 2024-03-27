@@ -35,17 +35,17 @@
   --icon-size: var(--spacing-layout-l);
 }
 
-.hds-icon--start {
+[class^="hds-icon--start"] {
   &:before {
-    --margin: 0 0 0 0;
+    --margin: 0;
   
     background-color: currentcolor;
     content: "";
     display: inline-flex;
     height: var(--icon-size, 24px);
     margin: var(--margin);
-    -webkit-mask-image: var(--mask-image);
-    mask-image: var(--mask-image);
+    -webkit-mask-image: var(--mask-image-before);
+    mask-image: var(--mask-image-before);
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: contain;
@@ -53,17 +53,17 @@
   }
 }
 
-.hds-icon-end {
+[class^="hds-icon--end"] {
   &:after {
-    --margin: 0 0 0 0;
+    --margin: 0;
   
     background-color: currentcolor;
     content: "";
     display: inline-flex;
     height: var(--icon-size, 24px);
     margin: var(--margin);
-    -webkit-mask-image: var(--mask-image);
-    mask-image: var(--mask-image);
+    -webkit-mask-image: var(--mask-image-after);
+    mask-image: var(--mask-image-after);
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: contain;
