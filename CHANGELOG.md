@@ -57,9 +57,8 @@ Changes that are not related to specific components
 
 #### Changed
 
-Changes that are not related to specific components
-- [Component] What has been changed
 - [CookieConsent] Cookie guidelines recommend using subdomains
+- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 
 #### Fixed
 
