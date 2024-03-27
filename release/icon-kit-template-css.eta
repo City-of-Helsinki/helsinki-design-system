@@ -4,13 +4,9 @@
 }
 
 .hds-icon-start--<%= it.componentCSSName %> {
-  &:before {
-    --mask-image-before: var(--mask-image--<%= it.componentCSSName %>);
-  }
+  --mask-image-before: var(--mask-image--<%= it.componentCSSName %>);
 }
 
 .hds-icon-end--<%= it.componentCSSName %> {
-  &:after {
-    --mask-image-after: var(--mask-image--<%= it.componentCSSName %>);
-  }
+  --mask-image-after: var(--mask-image--<%= it.componentCSSName %>);
 }
