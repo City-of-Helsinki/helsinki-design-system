@@ -9,29 +9,3 @@
 html {
   -webkit-text-size-adjust: 100%;
 }
-
-[class^="hds-icon-start"],
-[class^="hds-icon-end"] {
-  --icon-size: 24px;
-  --margin: 0 0 0 0;
-
-  /* stylelint-disable-next-line value-keyword-case */
-  background-color: currentColor;
-  content: "";
-  display: inline-flex;
-  height: var(--icon-size);
-  -webkit-mask-image: var(--mask-image);
-  mask-image: var(--mask-image);
-  mask-position: center;
-  mask-repeat: no-repeat;
-  mask-size: contain;
-  width: var(--icon-size);
-}
-
-[class^="hds-icon-start"] {
-  margin: var(--margin)
-}
-
-[class^="hds-icon-end"] {
-  margin: var(--margin)
-}
