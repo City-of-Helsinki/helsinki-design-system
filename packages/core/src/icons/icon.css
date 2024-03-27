@@ -4,6 +4,8 @@
   background-color: currentcolor;
   display: inline-block;
   height: var(--icon-size);
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
   -webkit-mask-position: center;
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
@@ -37,7 +39,7 @@
   &:before {
     --margin: 0 0 0 0;
   
-    background-color: currentColor;
+    background-color: currentcolor;
     content: "";
     display: inline-flex;
     height: var(--icon-size, 24px);
