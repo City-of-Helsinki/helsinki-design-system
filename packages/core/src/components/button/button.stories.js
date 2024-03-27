@@ -25,7 +25,7 @@ export const Secondary = () => `
 
 export const Supplementary = () => `
   <button type="button" class="hds-button hds-button--supplementary">
-    <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--trash"></span>
     ${getLabel()}
   </button>
 `;
@@ -63,41 +63,41 @@ export const Disabled = () => `
 
 export const Icons = () => `
   <button type="button" class="hds-button hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
     ${getLabel()}
   </button>
 
   <button type="button" class="hds-button hds-button--primary">
     ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
     ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
     ${getLabel()}
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">
     ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
     ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 `;
 
 export const IconsWithClasses = () => `
   <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share">
-    Buttoni
+    Button
   </button>
 
   <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
@@ -108,20 +108,16 @@ export const IconsWithClasses = () => `
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    ${getLabel()}
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--share hds-icon-start--share">
+    Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary">
-    ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
+    Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    ${getLabel()}
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--share hds-icon--angle-right hds-icon-start--share hds-icon-end--angle-right">
+    Button
   </button>
 `;
 

@@ -9,6 +9,7 @@
   --vertical-padding: var(--spacing-s);
   --padding: calc(var(--vertical-padding) - var(--border-width)) calc(var(--horizontal-padding) - var(--border-width));
   --icon-reposition: calc(-1 * var(--spacing-2-xs));
+  --icon-size: var(--spacing-m);
 
   /* logics, always falls back to previous (upper) if not given ->
   (no) active color -> (no) hover color -> (no) focus color -> default color 
@@ -58,6 +59,15 @@
   text-decoration: none;
   text-transform: none;
   vertical-align: top;
+
+  /* repositioning the icons, after & before usage */
+  &:after {
+    margin-right: var(--icon-reposition);
+  }
+
+  &:before {
+    margin-left: var(--icon-reposition);
+  }
 }
 
 .hds-button--small {
@@ -112,8 +122,8 @@ button.hds-button,
 
 /* icons */
 .hds-button .hds-icon {
-  height: var(--spacing-m);
-  width: var(--spacing-m);
+  height: var(--icon-size);
+  width: var(--icon-size);
 }
 
 /* start-side icon */
