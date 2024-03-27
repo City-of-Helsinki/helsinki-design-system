@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 
-import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguage } from '../../LanguageContext';
+import { LanguageOption, useActiveLanguage, useAvailableLanguages } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
 import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
@@ -8,6 +8,8 @@ import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
 import classes from './HeaderLanguageSelector.module.scss';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
+import { Tooltip } from '../../../tooltip';
+import { Link } from '../../../link';
 
 /* eslint-disable react/no-unused-prop-types */
 type LanguageSelectorComponentProps = {
@@ -39,21 +41,30 @@ type LanguageSelectorConsumerProps = LanguageSelectorProps & {
 
 export const LanguageButton = ({ value, label }: LanguageOption) => {
   const activeLanguage = useActiveLanguage();
-  const setLanguage = useSetLanguage();
+  const [showToolTip, setShowToolTip] = useState(false);
   const className = classNames(classes.item, { [classes.activeItem]: activeLanguage === value });
-  const selectLanguage = withDefaultPrevented(() => setLanguage(value));
-
+  const selectLanguage = withDefaultPrevented(() => setShowToolTip(true));
   return (
-    <button
-      key={value}
-      lang={value}
-      onClick={selectLanguage}
-      type="button"
-      className={className}
-      aria-current={activeLanguage === value}
-    >
-      <span>{label}</span>
-    </button>
+    <>
+      <button
+        key={value}
+        lang={value}
+        onClick={selectLanguage}
+        type="button"
+        className={className}
+        aria-current={activeLanguage === value}
+      >
+        <span>{label}</span>
+      </button>
+      {showToolTip && (
+        <Tooltip hiddenButton open placement="bottom">
+          <p>This page is not available in selected language.</p>
+          <p>
+            <Link href="https://go.to">Return to the home page.</Link>
+          </p>
+        </Tooltip>
+      )}
+    </>
   );
 };
 

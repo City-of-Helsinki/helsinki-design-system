@@ -40,6 +40,14 @@ type TooltipProps = React.PropsWithChildren<{
    * Additional tooltip class names.
    */
   tooltipClassName?: string;
+  /**
+   * Testing....
+   */
+  hiddenButton?: boolean;
+  /**
+   * Testing....
+   */
+  open?: boolean;
 }>;
 
 export const Tooltip = ({
@@ -47,13 +55,14 @@ export const Tooltip = ({
   children,
   placement = 'auto',
   small = false,
+  hiddenButton = false,
   buttonLabel = 'Tooltip',
   tooltipLabel = 'Tooltip',
   className,
   buttonClassName,
   tooltipClassName,
 }: TooltipProps) => {
-  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [arrowRef, setArrowRef] = useState(null); // The ref for the arrow must be a callback ref
@@ -106,9 +115,11 @@ export const Tooltip = ({
     const handleOutsideClick = (event: Event) => {
       const target = event.target as Node;
       if (isTooltipOpen && !buttonRef.current.contains(target) && !tooltipRef.current.contains(target)) {
-        setIsTooltipOpen(false);
+        // console.log('CL3');
+        // setIsTooltipOpen(false);
       }
     };
+    tooltipRef.current.focus();
     document.addEventListener('keyup', handleEscKey);
     document.addEventListener('click', handleOutsideClick);
     return () => {
@@ -122,11 +133,13 @@ export const Tooltip = ({
       <button
         ref={buttonRef}
         type="button"
-        className={classNames(styles.button, buttonClassName)}
+        className={classNames(styles.button, buttonClassName, hiddenButton && styles.hidden)}
         title={buttonLabel}
         aria-label={buttonLabel}
         aria-expanded={isTooltipOpen}
         onClick={onButtonClick}
+        aria-hidden
+        tabIndex={-1}
       >
         <span aria-hidden="true">
           <IconQuestionCircle />
@@ -139,6 +152,8 @@ export const Tooltip = ({
           className={classNames(styles.tooltip, small && styles.small, boxShadow && styles.boxShadow, tooltipClassName)}
           style={popperStyles.popper}
           {...popperAttributes.popper}
+          aria-live="assertive"
+          tabIndex={-1}
         >
           {children}
           <div ref={setArrowRef} className={styles.arrow} style={popperStyles.arrow} {...popperAttributes.arrow} />

@@ -1,10 +1,11 @@
-@use "../../Header.module.scss";
+@use '../../Header.module.scss';
 @import '../../../../styles/common.scss';
 
 .languageSelector {
   display: flex;
   gap: var(--spacing-s);
   justify-content: space-between;
+  position: relative;
 }
 
 .languageSelectorDropdownIcon {
@@ -57,6 +58,7 @@ button.item,
   cursor: pointer;
   line-height: var(--lineheight-l);
   outline: 0;
+  position: relative;
   white-space: nowrap;
 
   &:focus-visible {
