@@ -57,7 +57,7 @@
   &:after {
     --margin: 0 0 0 0;
   
-    background-color: currentColor;
+    background-color: currentcolor;
     content: "";
     display: inline-flex;
     height: var(--icon-size, 24px);
