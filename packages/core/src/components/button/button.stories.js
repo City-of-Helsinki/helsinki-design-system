@@ -96,17 +96,16 @@ export const Icons = () => `
 `;
 
 export const IconsWithClasses = () => `
-  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon--start">
+  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share">
+    Buttoni
+  </button>
+
+  <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon--end">
+  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon--angle-right hds-icon-start--share hds-icon-end--angle-right">
     Button
-  </button>
-
-  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon--start">
-    Button
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">

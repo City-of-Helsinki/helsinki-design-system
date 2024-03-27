@@ -35,7 +35,7 @@
   --icon-size: var(--spacing-layout-l);
 }
 
-[class^="hds-icon--start"] {
+[class*="hds-icon-start--"] {
   &:before {
     --margin: 0;
   
@@ -53,7 +53,7 @@
   }
 }
 
-[class^="hds-icon--end"] {
+[class*="hds-icon-end--"] {
   &:after {
     --margin: 0;
   

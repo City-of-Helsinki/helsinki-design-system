@@ -1,15 +1,16 @@
 .hds-icon--<%= it.componentCSSName %> {
   --mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  --mask-image--<%= it.componentCSSName %>: var(--mask-image);
 }
 
 .hds-icon-start--<%= it.componentCSSName %> {
   &:before {
-    --mask-image-before: var(--mask-image);
+    --mask-image-before: var(--mask-image--<%= it.componentCSSName %>);
   }
 }
 
 .hds-icon-end--<%= it.componentCSSName %> {
   &:after {
-    --mask-image-after: var(--mask-image);
+    --mask-image-after: var(--mask-image--<%= it.componentCSSName %>);
   }
 }
