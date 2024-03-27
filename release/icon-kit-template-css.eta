@@ -1,6 +1,6 @@
 .hds-icon--<%= it.componentCSSName %> {
-  --mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
-  --mask-image-<%= it.componentCSSName %>: var(--mask-image);
+  --mask-image-<%= it.componentCSSName %>: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  --mask-image: var(--mask-image-<%= it.componentCSSName %>);
 }
 
 .hds-icon-start--<%= it.componentCSSName %> {
