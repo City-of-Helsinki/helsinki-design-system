@@ -1,4 +1,10 @@
 .hds-icon--<%= it.componentCSSName %> {
-  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
-  mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  --mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
+}
+
+.hds-icon-start--<%= it.componentCSSName %>,
+.hds-icon-end--<%= it.componentCSSName %> {
+  --mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
 }
