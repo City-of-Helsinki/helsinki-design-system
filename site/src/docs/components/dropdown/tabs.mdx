@@ -8,16 +8,27 @@ import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 import StatusLabel from '../../../components/StatusLabel';
+import Notification from '../../../components/Notification';
 
 # Dropdown
 
 <div class="status-label-description">
   <StatusLabel type="info">Stable</StatusLabel>
-  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
-  <StatusLabelTooltip/>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip />
 </div>
 
-<LeadParagraph>A dropdown offers a user a list of options, of which one or multiple can be selected. Dropdowns are often used as part of forms and filters. HDS offers two types of dropdowns, a Select and a Combobox component.</LeadParagraph>
+<LeadParagraph>
+  A dropdown offers a user a list of options, of which one or multiple can be selected. Dropdowns are often used as part
+  of forms and filters. HDS offers two types of dropdowns, a Select and a Combobox component.
+</LeadParagraph>
+
+<Notification type="alert" label="Dropdowns are deprecated" className="siteNotification">
+  <p>Combobox is deprecated and will be removed in the next major release.</p>
+  <p>Select is being redesigned and will have different props in the next major release.</p>
+</Notification>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>

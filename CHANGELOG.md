@@ -20,7 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 Changes that are not related to specific components
-- [Component] What has been changed
+
+- [Combobox] Marked the component as deprecated
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
 
 #### Fixed
@@ -40,6 +41,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 - [Link] Possibility to style a Link as button.
 
@@ -60,6 +62,7 @@ Changes that are not related to specific components
 #### Changed
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
+- [Dropdown] Added notification about deprecated Combobox and deprecated Select props
 - Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 - [Link] Added examples of styling Link as a button.
 
@@ -80,6 +83,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -99,6 +103,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -118,6 +123,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -137,6 +143,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
