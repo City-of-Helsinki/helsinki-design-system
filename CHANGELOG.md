@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
+- [Select] Marked most props as deprecated. The redesigned next major version will have different props.
 - [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
 - [Combobox] Marked the component as deprecated
 - [Footer.Base] Added `aria-hidden` to separators
