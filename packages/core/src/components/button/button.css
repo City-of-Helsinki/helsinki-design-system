@@ -89,7 +89,7 @@ button.hds-button,
 }
 
 /* focus */
-.hds-button:focus-visible {
+.hds-button:focus {
   background-color: var(--computed-background-color-focus);
   border-color: var(--computed-border-color-focus);
   color: var(--computed-color-focus);
