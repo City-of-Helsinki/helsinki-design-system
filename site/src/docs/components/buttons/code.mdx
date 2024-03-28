@@ -58,7 +58,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   import { Button, IconTrash } from 'hds-react';
 
   () => (
-    <Button variant="supplementary" iconLeft={<IconTrash />}>
+    <Button variant="supplementary" iconStart={<IconTrash />}>
       Supplementary
     </Button>
   )
@@ -83,9 +83,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
   () => (
     <div>
-      <Button iconLeft={<IconShare />}>Button</Button>
-      <Button iconRight={<IconAngleRight />}>Button</Button>
-      <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
+      <Button iconStart={<IconShare />}>Button</Button>
+      <Button iconEnd={<IconAngleRight />}>Button</Button>
+      <Button iconStart={<IconShare />} iconEnd={<IconAngleRight />}>
         Button
       </Button>
     </div>
@@ -165,10 +165,10 @@ import { Button, IconSaveDisketteFill, IconTrash} from 'hds-react';
 
 () => (
   <div>
-    <Button variant="success" iconLeft={<IconSaveDisketteFill />}>Save</Button>
+    <Button variant="success" iconStart={<IconSaveDisketteFill />}>Save</Button>
     <Button
       variant="danger"
-      iconLeft={<IconTrash />}
+      iconStart={<IconTrash />}
       style={{ marginLeft: 'var(--spacing-s)' }}
     >
       Delete
@@ -284,8 +284,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | ------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ | ------------- |
 | `variant`     | Variant of the button.                                            | `"primary"` `"secondary"` `"supplementary"` `"success"` `"danger"` | `"primary"`   |
 | `size`        | Size of the button.                                               | `"default"` `"small"`                                              | `"default"`   |
-| `iconLeft`    | Icon placed on the left side of the button label.                 | `ReactNode`                                                        | -             |
-| `iconRight`   | Icon placed on the right side of the button label.                | `ReactNode`                                                        | -             |
+| `iconStart`    | Icon placed on the left side of the button label.                 | `ReactNode`                                                        | -             |
+| `iconEnd`   | Icon placed on the right side of the button label.                | `ReactNode`                                                        | -             |
 | `fullWidth`   | If set to true, the button will take full width of its container. | `boolean`                                                          | false         |
 | `isLoading`   | If set to true, a loading spinner is displayed inside the button. | `boolean`                                                          | false         |
 | `loadingText` | Visible loading text to be shown next to the loading spinner.     | `string`                                                           | -             |

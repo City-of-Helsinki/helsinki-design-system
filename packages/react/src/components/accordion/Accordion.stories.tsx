@@ -121,7 +121,7 @@ export const CustomAccordion = () => {
   const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
   return (
     <>
-      <Button iconLeft={icon} {...buttonProps}>
+      <Button iconStart={icon} {...buttonProps}>
         Advanced filters
       </Button>
       <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>

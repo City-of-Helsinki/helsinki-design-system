@@ -50,7 +50,7 @@ dismiss functionalities. Note! Since supplementary buttons do not have borders, 
 clearly distinguish them from links and passive text elements.
 
 <PlaygroundPreview>
-  <Button variant="supplementary" iconLeft={<IconTrash />}>
+  <Button variant="supplementary" iconStart={<IconTrash />}>
     Supplementary
   </Button>
 </PlaygroundPreview>
@@ -61,9 +61,9 @@ icons to make important actions more distinguishable. It is not recommended to u
 label because users interpret icons in different ways. More information on icon usage in the icon guidelines.
 
 <PlaygroundPreview style={{ marginTop: 'var(--spacing-m)' }}>
-  <Button iconLeft={<IconShare />}>Button</Button>
-  <Button iconRight={<IconAngleRight />} style={{ marginLeft: 'var(--spacing-s)' }}>Button</Button>
-  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />} style={{ marginLeft: 'var(--spacing-s)' }}>Button</Button>
+  <Button iconStart={<IconShare />}>Button</Button>
+  <Button iconEnd={<IconAngleRight />} style={{ marginLeft: 'var(--spacing-s)' }}>Button</Button>
+  <Button iconStart={<IconShare />} iconEnd={<IconAngleRight />} style={{ marginLeft: 'var(--spacing-s)' }}>Button</Button>
 </PlaygroundPreview>
 
 #### Small
@@ -83,10 +83,10 @@ of these buttons can be used to better inform users of destructive or dangerous 
 requirement 1.4.1 Use of Color, these colours are more accessible when paired with an icon.
 
 <PlaygroundPreview style={{ marginTop: 'var(--spacing-m)' }}>
-  <Button variant="success" iconLeft={<IconSaveDisketteFill />}>Save</Button>
+  <Button variant="success" iconStart={<IconSaveDisketteFill />}>Save</Button>
   <Button 
     variant="danger" 
-    iconLeft={<IconTrash />} 
+    iconStart={<IconTrash />} 
     style={{ marginLeft: 'var(--spacing-s)' }}
   >Delete</Button>
 </PlaygroundPreview>

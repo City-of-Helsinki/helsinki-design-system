@@ -7,7 +7,7 @@ import isSameDay from 'date-fns/isSameDay';
 import { addMonths } from 'date-fns';
 
 import { DateInput, DateInputProps } from '.';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 import { IconCrossCircle } from '../../icons';
 import { LegendItem } from './components/datePicker';
 
@@ -113,7 +113,11 @@ export const WithExternalClearValueButton = (args) => {
   return (
     <div className="date-input--external-clear-value-button">
       <DateInput {...args} value={value} onChange={setValue} />
-      <Button variant="supplementary" onClick={() => setValue('')} iconLeft={<IconCrossCircle aria-hidden />}>
+      <Button
+        variant={ButtonVariant.Supplementary}
+        onClick={() => setValue('')}
+        iconStart={<IconCrossCircle aria-hidden />}
+      >
         Clear value
       </Button>
     </div>
