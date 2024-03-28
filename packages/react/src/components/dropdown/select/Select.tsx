@@ -83,6 +83,7 @@ type LabelType = Label | LabelledBy;
 export type CommonSelectProps<OptionType> = LabelType & {
   /**
    * When `true`, allows moving from the first item to the last item with Arrow Up, and vice versa using Arrow Down.
+   * @deprecated Will be removed in the next major release.
    */
   circularNavigation?: boolean;
   /**
@@ -91,6 +92,7 @@ export type CommonSelectProps<OptionType> = LabelType & {
   className?: string;
   /**
    * Flag for whether the clear selections button should be displayed
+   * @deprecated Will be removed in the next major release.
    */
   clearable?: boolean;
   /**
@@ -99,22 +101,27 @@ export type CommonSelectProps<OptionType> = LabelType & {
   disabled?: boolean;
   /**
    * Function used to generate an ARIA a11y message when an item is selected. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11yselectionmessage) for more information.
+   * @deprecated Will be removed in the next major release.
    */
   getA11ySelectionMessage?: (options: A11yStatusMessageOptions<OptionType>) => string;
   /**
    * Function used to generate an ARIA a11y message when the status changes. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11ystatusmessage) for more information.
+   * @deprecated Will be removed in the next major release.
    */
   getA11yStatusMessage?: (options: A11yStatusMessageOptions<OptionType>) => string;
   /**
    * A helper text that will be shown below the dropdown
+   * @deprecated Will be removed in the next major release.
    */
   helper?: React.ReactNode;
   /**
    * An error text that will be shown below the dropdown when `invalid` is true
+   * @deprecated Will be removed in the next major release.
    */
   error?: React.ReactNode;
   /**
    * Icon to be shown in the dropdown
+   * @deprecated Will be removed in the next major release.
    */
   icon?: React.ReactNode;
   /**
@@ -123,10 +130,12 @@ export type CommonSelectProps<OptionType> = LabelType & {
   id?: string;
   /**
    * If `true`, the input and `helper` will be displayed in an invalid state
+   * @deprecated Will be removed in the next major release.
    */
   invalid?: boolean;
   /**
    * A function used to detect whether an option is disabled
+   * @deprecated Will be removed in the next major release.
    */
   isOptionDisabled?: (option: OptionType, index: number) => boolean;
   /**
@@ -141,19 +150,23 @@ export type CommonSelectProps<OptionType> = LabelType & {
    * Sets the data item field that represents the item key. Key needs to be unique between items.
    * E.g. an `optionKeyField` value of `'bar'` and a data item `{ foo: 'Label', bar: 'value' }`, would use `'value'` as the key in the menu for that specific item
    * Uses value of `optionLabelField` by default.
+   * @deprecated Will be removed in the next major release.
    */
   optionKeyField?: string;
   /**
    * Sets the data item field that represents the item label
    * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
+   * @deprecated Will be removed in the next major release.
    */
   optionLabelField?: string;
   /**
    * Array of options that should be shown in the menu
+   * @deprecated Will be removed in the next major release.
    */
   options: OptionType[];
   /**
    * Short hint displayed in the dropdown before the user enters a value
+   * @deprecated Will be removed in the next major release.
    */
   placeholder?: string;
   /**
@@ -162,6 +175,7 @@ export type CommonSelectProps<OptionType> = LabelType & {
   required?: boolean;
   /**
    * Override or extend the root styles applied to the component
+   * @deprecated Will be removed in the next major release.
    */
   style?: React.CSSProperties;
   /**
@@ -179,14 +193,17 @@ export type CommonSelectProps<OptionType> = LabelType & {
   visibleOptions?: number;
   /**
    * Aria-label text for the tooltip
+   * @deprecated Will be removed in the next major release.
    */
   tooltipLabel?: string;
   /**
    * Aria-label text for the tooltip trigger button
+   * @deprecated Will be removed in the next major release.
    */
   tooltipButtonLabel?: string;
   /**
    * The text content of the tooltip
+   * @deprecated Will be removed in the next major release.
    */
   tooltipText?: string;
 };
@@ -194,14 +211,17 @@ export type CommonSelectProps<OptionType> = LabelType & {
 export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * The aria-label for the clear button
+   * @deprecated Will be removed in the next major release.
    */
   clearButtonAriaLabel?: string;
   /**
    * When `true`, enables selecting multiple values
+   * @deprecated Will be removed in the next major release.
    */
   multiselect?: false;
   /**
    * Value that should be selected when the dropdown is initialized
+   * @deprecated Will be removed in the next major release.
    */
   defaultValue?: OptionType | null;
   /**
@@ -210,6 +230,7 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   onChange?: (selected: OptionType) => void;
   /**
    * The selected value
+   * @deprecated Will be removed in the next major release.
    */
   value?: OptionType | null;
 };
@@ -217,18 +238,22 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
 export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * The aria-label for the clear button
+   * @deprecated Will be removed in the next major release.
    */
   clearButtonAriaLabel: string;
   /**
    * When `true`, enables selecting multiple values
+   * @deprecated Will be removed in the next major release.
    */
   multiselect: true;
   /**
    * Value(s) that should be selected when the dropdown is initialized
+   * @deprecated Will be removed in the next major release.
    */
   defaultValue?: OptionType[] | null;
   /**
    * Function used to generate an ARIA a11y message when an item is removed. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useMultipleSelection#geta11yremovalmessage) for more information.
+   * @deprecated Will be removed in the next major release.
    */
   getA11yRemovalMessage?: (options: A11yRemovalMessage<OptionType>) => string;
   /**
@@ -239,16 +264,19 @@ export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
    * The aria-label for the selected item remove button.
    * You can use a special {value} token that will be replaced with the actual item value.
    * E.g. an item with the label Foo and property value of `'Remove ${value}'` would become `aria-label="Remove Foo"`.
+   * @deprecated Will be removed in the next major release.
    */
   selectedItemRemoveButtonAriaLabel: string;
   /**
    * A label for the selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item.
    * You can use a special {value} token that will be replaced with the actual item value.
    * E.g. an item with the label Foo and property value of `'Selected item ${value}'` would become `aria-label="Selected item Foo"`.
+   * @deprecated Will be removed in the next major release.
    */
   selectedItemSrLabel?: string;
   /**
    * The selected value(s)
+   * @deprecated Will be removed in the next major release.
    */
   value?: OptionType[] | null;
 };
