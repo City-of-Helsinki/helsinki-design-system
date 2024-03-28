@@ -51,6 +51,10 @@ export type LinkProps = {
    * Additional styles
    */
   style?: React.CSSProperties;
+  /**
+   * Style the link as a button
+   */
+  useButtonStyles?: boolean;
 } & Omit<
   React.ComponentPropsWithoutRef<'a'>,
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
@@ -77,6 +81,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       openInNewTabAriaLabel,
       style = {},
       size = 'M',
+      useButtonStyles = false,
       ...rest
     }: LinkProps,
     ref: React.Ref<HTMLAnchorElement>,
@@ -104,15 +109,16 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       S: styles.verticalAlignSmallIcon,
     };
 
+    const linkStyles = classNames(
+      styles.link,
+      styles[`link${size}`],
+      disableVisitedStyles ? styles.disableVisitedStyles : '',
+    );
+
     return (
       <a
         aria-label={ariaLabel}
-        className={classNames(
-          styles.link,
-          styles[`link${size}`],
-          disableVisitedStyles ? styles.disableVisitedStyles : '',
-          className,
-        )}
+        className={classNames(!useButtonStyles ? linkStyles : styles.button, className)}
         href={href}
         style={style}
         {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
@@ -125,7 +131,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
             {iconLeft}
           </span>
         )}
-        {children}
+        {useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children}
         {external && (
           <IconLinkExternal
             size={mapLinkSizeToExternalIconSize[size]}

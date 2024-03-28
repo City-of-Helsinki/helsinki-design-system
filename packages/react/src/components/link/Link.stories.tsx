@@ -244,3 +244,12 @@ withCustomIcon.argTypes = {
     control: false,
   },
 };
+
+export const withButtonStyles = (args) => {
+  return (
+    <Link {...args} useButtonStyles>
+      Link with button styles
+    </Link>
+  );
+};
+withButtonStyles.storyName = 'With Button styles';
