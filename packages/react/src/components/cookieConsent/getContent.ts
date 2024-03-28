@@ -92,6 +92,11 @@ export function getCookieContent() {
   const tunnistamoUrl = 'api.hel.fi';
   const keycloakUrl = 'tunnistus.hel.fi';
   const suomiFiUrl = 'suomi.fi';
+  const currentSiteTranslations = {
+    fi: 'Tämä sivusto',
+    sv: 'Denna webbsida',
+    en: 'Current domain',
+  };
 
   return {
     texts: {
@@ -610,6 +615,20 @@ export function getCookieContent() {
           },
         ],
       },
+      hdsLoginComponent: {
+        ...commonLoginGroupTranslations,
+        cookies: [
+          {
+            commonCookie: 'oidc-ts-storage',
+          },
+          {
+            commonCookie: 'hds-api-token-storage',
+          },
+          {
+            commonCookie: 'hds-api-token-user-reference',
+          },
+        ],
+      },
     },
     commonCookies: {
       helConsentCookie: {
@@ -832,6 +851,67 @@ export function getCookieContent() {
         name: 'E-Identification-Lang',
         hostName: suomiFiUrl,
         ...commonLanguageTranslations,
+      },
+      'oidc-ts-storage': {
+        id: 'oidc-ts-storage',
+        name: 'oidc.user:*',
+        fi: {
+          hostName: currentSiteTranslations.fi,
+          description: 'Käyttäjän kirjautumistiedot tallennetaan selaimen muistiin (session storage).',
+          expiration: 'Istunto',
+        },
+        sv: {
+          hostName: currentSiteTranslations.sv,
+          description: 'Användarens inloggningsuppgifter lagras i webbläsarens minne (session storage).',
+          expiration: 'Session',
+        },
+        en: {
+          hostName: currentSiteTranslations.en,
+          description: "Authentication information of the user is saved to browser's memory (session storage).",
+          expiration: 'Session',
+        },
+      },
+      'hds-api-token-storage': {
+        id: 'hds_login_api_token_storage_key',
+        name: 'hds_login_api_token_storage_key',
+        fi: {
+          hostName: currentSiteTranslations.fi,
+          description:
+            'Kirjautuneen käyttäjän rajanpinta-avaimet (api tokens) tallennetaan selaimen muistiin (session storage).',
+          expiration: 'Istunto',
+        },
+        sv: {
+          hostName: currentSiteTranslations.sv,
+          description: 'Api-token för en autentiserad användare sparas i webbläsarens minne (session storage).',
+          expiration: 'Session',
+        },
+        en: {
+          hostName: currentSiteTranslations.en,
+          description: "Api tokens of an authenticated user is saved to browser's memory (session storage).",
+          expiration: 'Session',
+        },
+      },
+      'hds-api-token-user-reference': {
+        id: 'hds_login_api_token_user_reference',
+        name: 'hds_login_api_token_user_reference',
+        fi: {
+          hostName: currentSiteTranslations.fi,
+          description:
+            'Kirjautuneen käyttäjän pääsyoikeudet tallennetaan selaimen muistiin, jotta tunnistetaan kenen rajapinta-avaimet on tallessa.',
+          expiration: 'Istunto',
+        },
+        sv: {
+          hostName: currentSiteTranslations.sv,
+          description:
+            'Den inloggade användarens åtkomsträttigheter lagras i webbläsarens minne för att identifiera vems token som lagras.',
+          expiration: 'Session',
+        },
+        en: {
+          hostName: currentSiteTranslations.en,
+          description:
+            "Access token of an authenticated user is saved to browser's memory (session storage) to identify whose api tokens are stored.",
+          expiration: 'Session',
+        },
       },
     },
   };
