@@ -96,27 +96,27 @@ export const Icons = () => `
 `;
 
 export const IconsWithClasses = () => `
-  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share">
+  <button type="button" class="hds-button hds-button--primary hds-icon-start--share">
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
+  <button type="button" class="hds-button hds-button--primary hds-icon-end--angle-right">
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon--angle-right hds-icon-start--share hds-icon-end--angle-right">
+  <button type="button" class="hds-button hds-button--primary hds-icon-start--share hds-icon-end--angle-right">
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--share hds-icon-start--share">
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon-start--share">
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon-end--angle-right">
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--share hds-icon--angle-right hds-icon-start--share hds-icon-end--angle-right">
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon-start--share hds-icon-end--angle-right">
     Button
   </button>
 `;

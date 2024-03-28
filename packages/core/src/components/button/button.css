@@ -9,7 +9,7 @@
   --vertical-padding: var(--spacing-s);
   --padding: calc(var(--vertical-padding) - var(--border-width)) calc(var(--horizontal-padding) - var(--border-width));
   --icon-reposition: calc(-1 * var(--spacing-2-xs));
-  --icon-size: var(--spacing-m);
+
 
   /* logics, always falls back to previous (upper) if not given ->
   (no) active color -> (no) hover color -> (no) focus color -> default color 
@@ -30,6 +30,7 @@
   --computed-border-color-active: var(--border-color-active, var(--computed-border-color-hover, transparent));
   --computed-border-color-disabled: var(--border-color-disabled, var(--computed-background-color-disabled, transparent));
   --computed-focus-outline-color: var(--focus-outline-color, transparent);
+  --computed-icon-size: var(--icon-size, var(--spacing-m));
 
   align-content: flex-start;
   align-items: center;
@@ -89,7 +90,7 @@ button.hds-button,
 }
 
 /* focus */
-.hds-button:focus {
+.hds-button:focus-visible {
   background-color: var(--computed-background-color-focus);
   border-color: var(--computed-border-color-focus);
   color: var(--computed-color-focus);
@@ -122,8 +123,8 @@ button.hds-button,
 
 /* icons */
 .hds-button .hds-icon {
-  height: var(--icon-size);
-  width: var(--icon-size);
+  height: var(--computed-icon-size);
+  width: var(--computed-icon-size);
 }
 
 /* start-side icon */
