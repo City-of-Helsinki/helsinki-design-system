@@ -1,6 +1,4 @@
 .hds-icon {
-  --icon-size: 100%;
-
   background-color: currentcolor;
   display: inline-block;
   height: var(--icon-size);
