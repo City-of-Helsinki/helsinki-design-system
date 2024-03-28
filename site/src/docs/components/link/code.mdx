@@ -202,6 +202,30 @@ import { Link, IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-reac
 
 </Playground>
 
+### Links appearing as buttons
+
+<Playground scope={{ Link }}>
+
+
+```jsx
+import { Link } from 'hds-react';
+
+() => (
+  <Link useButtonStyles href="https://hds.hel.fi" aria-label="Button styled link. Opens in external domain">
+    Link with button styles
+  </Link>
+)
+```
+
+```html
+<div>
+  <a href="https://hds.hel.fi" class="hds-button hds-button--primary" aria-label="Button styled link. Opens in external domain">
+    <span class="hds-button__label">Link with button styles</span>
+  </a>
+</div>
+```
+
+</Playground>
 
 ### Packages
 
@@ -217,9 +241,10 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | Property                        | Description                                                                    | Values              | Default value |
 | ------------------------------- | ------------------------------------------------------------------------------ | ------------------- | ------------- |
 | `external`                      | If set to true, the link is marked as external (points outside of the domain). | `boolean`           | false         |
-| `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                              | `string`            | -             |
+| `href`                          | Hypertext reference of the link.                                               | `string`            | -             |
 | `iconLeft`                      | An icon placed on the left side of the link.                                   | `ReactNode`         | -             |
+| `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                              | `string`            | -             |
 | `openInNewTab`                  | If set to true, the link opens in a new tab.                                   | `boolean`           | false         |
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                   | `string`            | -             |
 | `size`                          | Controls the size of the link.                                                 | `"S"`, `"M"`, `"L"` | `"S"`         |
-| `href`                          | Hypertext reference of the link.                                               | `string`            | -             |
+| `useButtonStyles`               | Change the appearance to button.                                               | `boolean`           | false         |

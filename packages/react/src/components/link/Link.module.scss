@@ -37,3 +37,12 @@
 .linkL {
   composes: hds-link--large from 'hds-core/lib/components/link/link.css';
 }
+
+.button {
+  composes: hds-button from 'hds-core/lib/components/button/button.css';
+  composes: hds-button--primary from 'hds-core/lib/components/button/button.css';
+}
+
+.buttonLabel {
+  composes: hds-button__label from 'hds-core/lib/components/button/button.css';
+}
