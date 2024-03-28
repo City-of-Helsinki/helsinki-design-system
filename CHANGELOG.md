@@ -60,8 +60,13 @@ Changes that are not related to specific components
 #### Changed
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
-- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 - [Link] Added examples of styling Link as a button.
+- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
+  - This includes:
+    - Contributing guide
+    - FAQ
+    - Versioning
+    - Abstract tutorial -> Figma tutorial
 
 #### Fixed
 
@@ -75,7 +80,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 
 #### Changed
 
