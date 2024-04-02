@@ -118,8 +118,10 @@ function updateHiddenElementsCount(metaData: SelectMetaData) {
 }
 
 export function ButtonWithSelectedOptions() {
+  const dataHandlers = useSelectDataHandlers();
   const { options, placeholder, buttonRef, optionClassName, icon, ...attr } =
-    createButtonWithSelectedOptionsProps(useSelectDataHandlers());
+    createButtonWithSelectedOptionsProps(dataHandlers);
+
   const labels = options.length ? (
     options.map((opt) => (
       <span className={optionClassName} key={opt.value}>
@@ -129,8 +131,6 @@ export function ButtonWithSelectedOptions() {
   ) : (
     <span className={optionClassName}>{placeholder}</span>
   );
-
-  const dataHandlers = useSelectDataHandlers();
 
   useLayoutEffect(() => {
     updateHiddenElementsCount(dataHandlers.getMetaData());
