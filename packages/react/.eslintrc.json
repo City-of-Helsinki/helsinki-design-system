@@ -23,7 +23,7 @@
   "rules": {
     "no-use-before-define": "off",
     "default-param-last": "off",
-    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-use-before-define": "error",
     "no-shadow": "off", // replaced by ts-eslint rule below
     "@typescript-eslint/no-shadow": "error",
     "import/no-extraneous-dependencies": [
@@ -90,7 +90,7 @@
       }
     ],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error"]
+    "@typescript-eslint/no-unused-vars": "error"
   },
   "settings": {
     "react": {
