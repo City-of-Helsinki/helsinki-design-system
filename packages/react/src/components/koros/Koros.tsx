@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { uniqueId } from 'lodash';
 
 import '../../styles/base.module.css';
-import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';
+import classNames from '../../utils/classNames';
 
 export type KorosType = 'basic' | 'beat' | 'pulse' | 'wave' | 'vibration' | 'calm';
 

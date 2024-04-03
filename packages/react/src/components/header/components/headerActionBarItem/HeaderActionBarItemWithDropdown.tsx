@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import classes from './HeaderActionBarItemWithDropdown.module.scss';
 import { IconCross } from '../../../../icons';
 import { HeaderActionBarItem, HeaderActionBarItemProps } from './HeaderActionBarItem';
 import classNames from '../../../../utils/classNames';
-import classes from './HeaderActionBarItemWithDropdown.module.scss';
 
 type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
   /**

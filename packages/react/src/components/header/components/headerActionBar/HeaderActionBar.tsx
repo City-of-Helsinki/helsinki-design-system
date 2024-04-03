@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, MouseEventHandler, useEffect, useMemo, useRef } from 'react';
 
+import styles from './HeaderActionBar.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
@@ -8,7 +9,6 @@ import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } fro
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { elementIsFocusable } from '../../../../utils/elementIsFocusable';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
-import styles from './HeaderActionBar.module.scss';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { useHeaderContext } from '../../HeaderContext';

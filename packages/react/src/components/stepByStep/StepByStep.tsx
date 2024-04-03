@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
 import '../../styles/base.module.css';
+import styles from './StepByStep.module.scss';
 import { Button, ButtonProps } from '../button';
 import classNames from '../../utils/classNames';
 import { Link, LinkProps } from '../link';
-import styles from './StepByStep.module.scss';
 
 type StepType = {
   /**

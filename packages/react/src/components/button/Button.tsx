@@ -1,8 +1,8 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
-import { LoadingSpinner } from '../loadingSpinner';
 import styles from './Button.module.scss';
+import { LoadingSpinner } from '../loadingSpinner';
 import classNames from '../../utils/classNames';
 
 export type ButtonSize = 'default' | 'small';

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
+import styles from './Highlight.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import styles from './Highlight.module.scss';
 
 export interface HighlightTheme {
   '--accent-line-color'?: string;

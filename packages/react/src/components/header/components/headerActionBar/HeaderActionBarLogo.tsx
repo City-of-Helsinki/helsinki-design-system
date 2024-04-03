@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import styles from './HeaderActionBarLogo.module.scss';
+import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 
 type HeaderActionBarLogoProps = {
   /**

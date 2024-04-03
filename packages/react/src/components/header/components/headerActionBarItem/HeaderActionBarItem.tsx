@@ -1,7 +1,7 @@
 import React, { cloneElement, forwardRef, ReactNode } from 'react';
 
-import classNames from '../../../../utils/classNames';
 import classes from './HeaderActionBarItem.module.scss';
+import classNames from '../../../../utils/classNames';
 
 type ButtonAttributes = JSX.IntrinsicElements['button'];
 

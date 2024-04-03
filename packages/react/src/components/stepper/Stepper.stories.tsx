@@ -1,7 +1,7 @@
 import React, { useReducer, useRef } from 'react';
 
-import { Stepper } from './Stepper';
 import styles from './Stepper.module.scss';
+import { Stepper } from './Stepper';
 import { Step, StepState } from './Step';
 import { Button } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../../icons';

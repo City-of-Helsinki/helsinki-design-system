@@ -1,5 +1,7 @@
 import React, { ComponentType, FC } from 'react';
 
+import '../../styles/base.module.css';
+import styles from './Header.module.scss';
 import { styleBoundClassNames } from '../../utils/classNames';
 import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
@@ -12,8 +14,6 @@ import { HeaderSearch } from './components/headerSearch';
 import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { HeaderTheme } from './Header.type';
-import '../../styles/base.module.css';
-import styles from './Header.module.scss';
 import { useTheme } from '../../hooks/useTheme';
 
 const classNames = styleBoundClassNames(styles);

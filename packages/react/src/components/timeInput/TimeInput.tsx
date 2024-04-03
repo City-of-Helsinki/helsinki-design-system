@@ -1,10 +1,10 @@
 import React, { FocusEventHandler, useEffect, useRef, useState } from 'react';
 
 import '../../styles/base.module.css';
+import styles from './TimeInput.module.scss';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput/TextInput';
 import textInputStyles from '../textInput/TextInput.module.css';
-import styles from './TimeInput.module.scss';
 import classNames from '../../utils/classNames';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';

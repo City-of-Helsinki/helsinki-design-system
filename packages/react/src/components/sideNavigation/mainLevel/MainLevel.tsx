@@ -1,7 +1,7 @@
 import React, { cloneElement, isValidElement, ReactNode, useContext, useEffect, useState } from 'react';
 
-import classNames from '../../../utils/classNames';
 import styles from './MainLevel.module.scss';
+import classNames from '../../../utils/classNames';
 import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';

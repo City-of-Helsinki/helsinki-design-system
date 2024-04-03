@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from './LoginButton.module.scss';
 import { useAuthenticatedUser, useOidcClient } from '../client/hooks';
 import { useSignalTrackingWithReturnValue } from '../beacon/hooks';
 import {
@@ -9,7 +10,6 @@ import {
 } from '../client/signals';
 import { Button, ButtonProps } from '../../button/Button';
 import { LoadingSpinner } from '../../loadingSpinner';
-import styles from './LoginButton.module.scss';
 import { IconAlertCircleFill } from '../../../icons';
 
 export type LoginButtonProps = { spinnerColor?: string; errorText: string } & ButtonProps;
