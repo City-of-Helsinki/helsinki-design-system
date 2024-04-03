@@ -36,6 +36,14 @@
       "error",
       {
         "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
+        "pathGroups": [
+          {
+            "pattern": "./**/*.{css,scss}",
+            "group": "sibling",
+            "position": "before"
+          }
+        ],
+        "distinctGroup": false,
         "newlines-between": "always"
       }
     ],
