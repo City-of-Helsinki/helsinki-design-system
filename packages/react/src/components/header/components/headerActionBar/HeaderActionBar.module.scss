@@ -1,6 +1,5 @@
-@use "../../Header.module.scss";
-@use "../../../../styles/common.scss";
-@use "./_typography.scss";
+@use '../../../../styles/common.scss';
+@use './_typography.scss';
 @value medium-down from "../../../../styles/breakpoints.scss";
 
 .headerActionBar {
