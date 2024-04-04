@@ -12,7 +12,8 @@ import type {
   ContentContextType,
 } from './contexts/ContentContext';
 import { getCookieContent } from './getContent';
-import { COOKIE_NAME } from './cookieConsentController';
+import { COOKIE_NAME, getCookieDomainFromUrl } from './cookieConsentController';
+import { VERSION_COOKIE_NAME } from './cookieStorageProxy';
 
 type ContentSourceCookieData = Partial<CookieData> & {
   commonGroup?: string;
@@ -161,15 +162,16 @@ function mergeObjects(target: MergableContent, source: MergableContent, paths: s
   });
 }
 
-function buildCookieGroups(props: CookieContentSource): {
-  requiredCookies: CookieGroup[];
-  optionalCookies: CookieGroup[];
-} {
+function buildCookieGroups(
+  props: CookieContentSource,
+  cookieDomain: string,
+): { requiredCookies: CookieGroup[]; optionalCookies: CookieGroup[] } {
   const requiredCookies = [];
   const optionalCookies = [];
   const groupMap = new Map<string, CookieGroup>();
   const { currentLanguage, noCommonConsentCookie } = props;
   let helConsentCookieFound = false;
+  let helConsentCookieVersionFound = false;
 
   const parseGroup = (groupSource: ContentSourceCookieGroup, isRequired: boolean) => {
     let consentGroup: CookieGroup | undefined;
@@ -245,6 +247,9 @@ function buildCookieGroups(props: CookieContentSource): {
       if (cookie.id === COOKIE_NAME) {
         helConsentCookieFound = true;
       }
+      if (cookie.id === VERSION_COOKIE_NAME) {
+        helConsentCookieVersionFound = true;
+      }
     });
   }
   if (props.optionalCookies?.cookies) {
@@ -253,12 +258,24 @@ function buildCookieGroups(props: CookieContentSource): {
       if (cookie.id === COOKIE_NAME) {
         helConsentCookieFound = true;
       }
+      if (cookie.id === VERSION_COOKIE_NAME) {
+        helConsentCookieVersionFound = true;
+      }
     });
   }
   if (!noCommonConsentCookie && !helConsentCookieFound) {
     const consentCookie: Partial<CookieData> = getCommonCookie(currentLanguage, 'helConsentCookie');
     consentCookie.id = COOKIE_NAME;
+    consentCookie.name = COOKIE_NAME;
+    consentCookie.hostName = cookieDomain;
     parseGroup({ commonGroup: 'sharedConsents', cookies: [consentCookie] }, true);
+  }
+  if (!noCommonConsentCookie && !helConsentCookieVersionFound) {
+    const consentVersionCookie: Partial<CookieData> = getCommonCookie(currentLanguage, 'helConsentCookieVersion');
+    consentVersionCookie.id = VERSION_COOKIE_NAME;
+    consentVersionCookie.name = VERSION_COOKIE_NAME;
+    consentVersionCookie.hostName = cookieDomain;
+    parseGroup({ commonGroup: 'sharedConsents', cookies: [consentVersionCookie] }, true);
   }
   return {
     requiredCookies,
@@ -286,7 +303,7 @@ function buildConsentCategories(
   return data as Category;
 }
 
-export function createContent(props: CookieContentSource): Content {
+export function createContent(props: CookieContentSource, cookieDomain?: string): Content {
   const { siteName, language, currentLanguage, optionalCookies, requiredCookies, focusTargetSelector } = props;
   const content: Partial<Content> = {
     texts: getTexts(currentLanguage, siteName),
@@ -296,7 +313,7 @@ export function createContent(props: CookieContentSource): Content {
   if (props.texts) {
     mergeObjects(content.texts, props.texts, ['sections.main', 'sections.details', 'ui', 'tableHeadings']);
   }
-  const consentGroups = buildCookieGroups(props);
+  const consentGroups = buildCookieGroups(props, cookieDomain || getCookieDomainFromUrl());
   const categoryDescriptions = getCategoryDescriptions(currentLanguage);
   content.optionalCookies = buildConsentCategories(
     categoryDescriptions.optionalCookies,
@@ -318,7 +335,7 @@ export function pickConsentIdsFromContentSource(contentSource: Partial<CookieCon
   let required: string[] = [];
   let optional: string[] = [];
 
-  const cookieGroups = buildCookieGroups(contentSource as CookieContentSource);
+  const cookieGroups = buildCookieGroups(contentSource as CookieContentSource, '');
 
   cookieGroups.requiredCookies.forEach((group) => {
     if (group.cookies) {
