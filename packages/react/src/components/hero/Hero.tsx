@@ -27,6 +27,10 @@ export type HeroProps = React.PropsWithChildren<
      */
     imageSrc?: string;
     /**
+     * Additional information seen below the hero. Usually photographer information. The element has aria-hidden like the img element.
+     */
+    information?: string;
+    /**
      * Koros properties. Accepts also boolean "hide", which hides the koros.
      * @see KorosProps
      */
@@ -55,6 +59,11 @@ export interface HeroCustomTheme {
    * Default --color-white
    */
   '--background-color'?: string;
+  /**
+   * Background color of the bottom area with arrow and information
+   * Default transparent
+   */
+  '--bottom-background-color'?: string;
   /**
    * Text color
    * Default --color-black-90
@@ -101,6 +110,16 @@ export interface HeroCustomTheme {
    * Default --spacing-layout-xs
    */
   '--horizontal-padding-x-large'?: string;
+  /**
+   * Text color of the information text.
+   * Default inherit
+   */
+  '--information-color'?: string;
+  /**
+   * Extra top padding for the information element. Has no effect when Hero variant is 'imageLeft' or 'imageRight'.
+   * Default 0
+   */
+  '--information-padding-top'?: string;
 }
 
 export const Hero = ({
@@ -109,6 +128,7 @@ export const Hero = ({
   imageSrc,
   showArrowIcon,
   centeredContent,
+  information,
   theme,
   koros,
   ...elementAttributes
@@ -139,19 +159,27 @@ export const Hero = ({
       customThemeClass,
       styles[currentVariant],
       (elementAttributes as HTMLElementAttributes).className,
-      showArrowIcon && styles.arrowIconSpacingAfter,
     ),
   };
 
-  const ContentWithArrowIconWrapper = ({ children: innerChildren }: { children: React.ReactNode }) => {
+  const ContentWithArrowIconAndInfoWrapper = ({ children: innerChildren }: { children: React.ReactNode }) => {
     return (
       <>
         {innerChildren}
-        {showArrowIcon && (
-          <div className={styles.arrowIconContainer}>
-            <IconArrowDown className={styles.arrowIcon} />
+        <div className={styles.bottomContainer} aria-hidden="true">
+          <div className={styles.bottomContentAligner}>
+            {showArrowIcon && (
+              <div className={styles.arrowIconContainer}>
+                <IconArrowDown className={styles.arrowIcon} />
+              </div>
+            )}
+            {information && (
+              <div className={classNames(styles.informationContainer)}>
+                <span>{information}</span>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </>
     );
   };
@@ -203,7 +231,7 @@ export const Hero = ({
   if (currentVariant === 'backgroundImage') {
     return (
       <div {...heroElementAttributes}>
-        <ContentWithArrowIconWrapper>
+        <ContentWithArrowIconAndInfoWrapper>
           <div className={styles.withBackgroundContainer}>
             <div className={classNames(styles.withBackgroundBackground)}>
               <Image />
@@ -214,7 +242,7 @@ export const Hero = ({
               <div className={styles.emptyColumn} />
             </div>
           </div>
-        </ContentWithArrowIconWrapper>
+        </ContentWithArrowIconAndInfoWrapper>
       </div>
     );
   }
@@ -222,7 +250,7 @@ export const Hero = ({
   if (currentVariant === 'diagonalKoros') {
     return (
       <div {...heroElementAttributes}>
-        <ContentWithArrowIconWrapper>
+        <ContentWithArrowIconAndInfoWrapper>
           <div className={styles.diagonalKorosWithBackgroundContainer}>
             <div className={styles.content}>
               <div className={styles.contentColums}>
@@ -237,7 +265,7 @@ export const Hero = ({
             </div>
             <ImageAsBackground className={styles.diagonalKorosBackgroundContainer} />
           </div>
-        </ContentWithArrowIconWrapper>
+        </ContentWithArrowIconAndInfoWrapper>
       </div>
     );
   }
@@ -245,10 +273,11 @@ export const Hero = ({
   const hideKoros = !!koros?.hide;
   const flipVertical = koros?.flipVertical;
   const hasImage = !!imageSrc && currentVariant !== 'noImage';
+  // const hasBottomArea = !!showArrowIcon || !!information;
   const columnStyle = hasImage && currentVariant !== 'imageBottom' ? styles.twoColumns : styles.singleColumn;
   return (
     <div {...heroElementAttributes}>
-      <ContentWithArrowIconWrapper>
+      <ContentWithArrowIconAndInfoWrapper>
         <div className={styles.container}>
           <div key="content" className={classNames(styles.content, columnStyle)}>
             {hasImage && currentVariant === 'imageLeft' && <TwoColumsImage />}
@@ -257,13 +286,20 @@ export const Hero = ({
           </div>
         </div>
         {!hasImage && !hideKoros && (
-          <KorosInContainer
-            {...korosStyle}
-            inward={!flipVertical}
-            flipVertical={flipVertical}
-            containerClassName={flipVertical ? styles.korosContainerOverflowBottom : undefined}
-          />
+          <div key="korosAndImageContainer" className={classNames(styles.korosAndImageContainer)}>
+            <KorosInContainer
+              {...korosStyle}
+              inward={!flipVertical}
+              flipVertical={flipVertical}
+              containerClassName={flipVertical ? styles.korosContainerOverflowBottom : undefined}
+            />
+          </div>
         )}
+        {/*! hasImage && !hideKoros && hasBottomArea && (
+          <div key="korosAndImageContainer" className={classNames(styles.korosAndImageContainer)}>
+            <KorosInContainer {...korosStyle} flipVertical={flipVertical} inward={!flipVertical} />
+          </div>
+        ) */}
         {hasImage && (
           <div key="korosAndImageContainer" className={classNames(styles.korosAndImageContainer)}>
             <KorosInContainer {...korosStyle} flipVertical={flipVertical !== false} />
@@ -272,7 +308,7 @@ export const Hero = ({
             </div>
           </div>
         )}
-      </ContentWithArrowIconWrapper>
+      </ContentWithArrowIconAndInfoWrapper>
     </div>
   );
 };
