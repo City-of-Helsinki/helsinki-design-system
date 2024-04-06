@@ -52,21 +52,32 @@ Loki is using the Chrome browser inside a Docker container, so Docker needs to a
 
 To run the visual regression tests, you must first build the storybook by running `yarn build-storybook`. Then you can proceed with the test run by running `yarn visual-test`.
 
-### Updating reference images
+### Updating all reference images
 
-When adding a new component or after making visual changes to some existing component, you must update the corresponding reference image. Before you can do this, you must first build the storybook by running `yarn build-storybook`.
+Remove all reference images and create new ones. Before you can do this, you must first build the storybook by running `yarn build-storybook`.
 
 Then you can issue this command:
 
 ```bash
-yarn update-reference-images --storiesFilter "<name or part of the name of the story>"
+yarn update-reference-images
 ```
 
-You should pass the component's story name with --storiesFilter flag to update the reference images only for that single component story.
-For example, to update Button story reference images, you can run:
+### Updating reference images of a single story
+
+When adding a new component or after making visual changes to some existing component, you must update the corresponding reference images. Before you can do this, you must first build the storybook by running `yarn build-storybook`.
+
+Then you can issue this command:
 
 ```bash
-yarn update-reference-images --storiesFilter "Button"
+yarn update-story-images <name or part of the name of the story>
 ```
+
+You must pass the component's story name after the command. For example, to update Button story reference images, you can run:
+
+```bash
+yarn update-story-images Button
+```
+
+This script automatically adds loki's "--storiesFilter" command-line argument to the command.
 
 [Here](https://github.com/oblador/loki/blob/master/docs/command-line-arguments.md) is more info about Loki-tests' command-line arguments
