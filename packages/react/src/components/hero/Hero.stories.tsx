@@ -378,6 +378,7 @@ export const PlaygroundForKoros = (args: HeroProps & Record<string, string> & { 
       type: args.type,
       dense: !!args.dense,
       hide: !!args.hide,
+      flipVertical: !!args.flipVertical,
       ...args.koros,
     },
     theme: {
@@ -388,6 +389,8 @@ export const PlaygroundForKoros = (args: HeroProps & Record<string, string> & { 
     },
     imageSrc: imageFile,
     variant: args.variant,
+    information: args.information,
+    showArrowIcon: !!args.showArrowIcon,
   };
   return (
     <div>
@@ -531,6 +534,7 @@ export const PlaygroundForTheme = (args: HeroProps & Record<string, string>) => 
     imageSrc: imageFile,
     variant: args.variant,
     information: args.information,
+    showArrowIcon: args.showArrowIcon,
   };
   return (
     <div>
