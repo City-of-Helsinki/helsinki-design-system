@@ -376,6 +376,7 @@ export const PlaygroundForKoros = (args) => {
       type: args.type,
       dense: !!args.dense,
       hide: !!args.hide,
+      flipVertical: !!args.flipVertical,
       ...args.koros,
     },
     theme: {
@@ -386,6 +387,8 @@ export const PlaygroundForKoros = (args) => {
     },
     imageSrc: imageFile,
     variant: args.variant,
+    information: args.information,
+    showArrowIcon: !!args.showArrowIcon,
   };
   return (
     <div>
@@ -529,6 +532,7 @@ export const PlaygroundForTheme = (args) => {
     imageSrc: imageFile,
     variant: args.variant,
     information: args.information,
+    showArrowIcon: args.showArrowIcon,
   };
   return (
     <div>
