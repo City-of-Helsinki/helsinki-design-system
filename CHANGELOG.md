@@ -11,15 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 
 #### Added
 
-- [Component] What is added?
+- [Hero] New information element below the hero for photographer credits
 
 #### Changed
 
-- [Component] What has been changed
+- [Hero] The optional arrow element does not overlap with the element below
 
 #### Fixed
 
@@ -29,11 +29,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 
 #### Added
 
-- [Component] What is added?
+- [Hero] New information element below the hero for photographer credits
 
 #### Changed
 
@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Component] What has been changed
+- [Hero] Added documentation and examples for new information element
 
 #### Fixed
 
@@ -72,6 +72,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Component] What is added?
 
 #### Changed
+
+Changes that are not related to specific components
 
 - [Component] What has been changed
 
@@ -90,6 +92,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Component] What is added?
 
 #### Changed
+
+Changes that are not related to specific components
 
 - [Component] What has been changed
 
