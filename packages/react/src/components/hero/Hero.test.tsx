@@ -24,6 +24,8 @@ describe('<Hero /> spec', () => {
     const heroProps: HeroProps = {
       ...props,
       imageSrc: props.variant !== 'noImage' ? imageSrc : undefined,
+      showArrowIcon: true,
+      information: 'Test info',
     };
     return (
       <Hero {...heroProps}>
