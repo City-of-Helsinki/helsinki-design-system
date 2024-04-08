@@ -19,15 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Notification] Changed size prop to enum (NotificationSize.Small, NotificationSize.Medium and NotificationSize.Large) or without using Typescript ("small", "medium" and "large"). The "default" size was removed and replaced with "medium".
 - [ErrorSummary] Changed size prop to enum (ErrorSummarySize.Medium and ErrorSummarySize.Large) or without using Typescript ("medium" and "large"). The "default" size was removed and replaced with "medium".
 - [Icon] Icon size changed to enum (IconSize.ExtraSmall, IconSize.Small, IconSize.Medium, IconSize.Large and IconSize.ExtraLarge) or without Typescript ("extraSmall", "small", "medium", "large" and "extraLarge").
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 
 #### Added
 
-- [Component] What is added?
+- [Hero] New information element below the hero for photographer credits
 
 #### Changed
 
 Changes that are not related to specific components
-- [Component] What has been changed
+
+- [Hero] The optional arrow element does not overlap with the element below
 - [Notification] Change auto closing notification progressbar to decrease instead of increase.
 - [LinkBox] Change size prop to an enum (LinkboxSize.Small, LinkboxSize.Medium, LinkboxSize.Large), not a breaking change though since the enum values are identical to the old ones.
 - [Logo] Changed size prop to enum (LogoSize.Small, LogoSize.Medium, LogoSize.Large and LogoSize.Full) which correspond to previous values "small", "medium", "large" and "full".
@@ -40,18 +42,19 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
 - [Link] Renamed hds-icon-left class to hds-icon-start
 
 #### Added
 
-- [Component] What is added?
+- [Hero] New information element below the hero for photographer credits
 
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -71,7 +74,8 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
-- [Component] What has been changed
+
+- [Hero] Added documentation and examples for new information element
 - [Tag] Document the new Tag component and it's uses
 - [Button] Renewed Button component with theming support
 - [Notification] Changed according to new size enum.
@@ -95,6 +99,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -114,6 +119,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -133,6 +139,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -152,6 +159,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -208,6 +216,7 @@ Changes that are not related to specific components
 ### Figma
 
 #### Added
+
 - [Header] New functionalities for Actionbar: Action items can have an option for dropdown menus. For now only Logged in user has custom user menu and button (Header.Login)
 - [Header] In mobile breakpoints (XS-M) login button and logged-in user menu jump inside the Header.Mobilemenu that has a special accordion menu for dropdown.
 - [Header] Added missing Breadcrumbs to dark theme.
@@ -217,11 +226,13 @@ Changes that are not related to specific components
 - [PhoneInput, PasswordInput] Added missing read-only focus ring.
 
 #### Fixed
+
 - [Header] Mobilemenu link 2nd level names changed to Second level.
 - [Header] Mobilemenu now aligned to right border. Menu button should always be the rightmost element in mobile breakpoints.
 - [Hero] Flipped image 180 degrees in imageLeft, imageRight, imageBottom in XS size and diagonalKoros in all sizes.
 
 #### Changed
+
 - [Header] Login button now has sign-in icon instead of user - old Login actionitem is removed, please use Header.Login.
 - [Header] Breakpoint width numbers added to property names to match Footer
 - [Header] Nested instances revealed
