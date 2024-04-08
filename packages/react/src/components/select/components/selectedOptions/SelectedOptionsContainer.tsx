@@ -22,6 +22,7 @@ export function SelectedOptionsContainer(props: Partial<DivElementProps>) {
       <ButtonWithSelectedOptions />
       <ClearButton />
       <ArrowButton />
+      <ClearButton visuallyhidden />
     </div>
   );
 }

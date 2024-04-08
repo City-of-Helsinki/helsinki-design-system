@@ -23,7 +23,7 @@ const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHan
 export function ArrowButton() {
   const props = createArrowButtonProps(useSelectDataHandlers());
   return (
-    <button type="button" {...props} aria-hidden>
+    <button type="button" {...props} aria-hidden tabIndex={-1}>
       <IconAngleDown className={styles.angleIcon} aria-hidden />
     </button>
   );
