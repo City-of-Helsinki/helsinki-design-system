@@ -19,16 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Notification] Changed size prop to enum (NotificationSize.Small, NotificationSize.Medium and NotificationSize.Large) or without using Typescript ("small", "medium" and "large"). The "default" size was removed and replaced with "medium".
 - [ErrorSummary] Changed size prop to enum (ErrorSummarySize.Medium and ErrorSummarySize.Large) or without using Typescript ("medium" and "large"). The "default" size was removed and replaced with "medium".
 - [Icon] Icon size changed to enum (IconSize.ExtraSmall, IconSize.Small, IconSize.Medium, IconSize.Large and IconSize.ExtraLarge) or without Typescript ("extraSmall", "small", "medium", "large" and "extraLarge").
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 
 #### Added
 
-- [Component] What is added?
+- [Hero] New information element below the hero for photographer credits
 
 #### Changed
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Hero] The optional arrow element does not overlap with the element below
 - [Notification] Change auto closing notification progressbar to decrease instead of increase.
 - [LinkBox] Change size prop to an enum (LinkboxSize.Small, LinkboxSize.Medium, LinkboxSize.Large), not a breaking change though since the enum values are identical to the old ones.
 - [Logo] Changed size prop to enum (LogoSize.Small, LogoSize.Medium, LogoSize.Large and LogoSize.Full) which correspond to previous values "small", "medium", "large" and "full".
@@ -41,14 +42,14 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
 - [Link] Renamed hds-icon-left class to hds-icon-start
 
 #### Added
 
-- [Component] What is added?
+- [Hero] New information element below the hero for photographer credits
 
 #### Changed
 
@@ -74,7 +75,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Hero] Added documentation and examples for new information element
 - [Tag] Document the new Tag component and it's uses
 - [Button] Renewed Button component with theming support
 - [Notification] Changed according to new size enum.
