@@ -22,13 +22,13 @@ const createClearButtonProps = (
   return {
     className: classNames(
       styles.dropdownButton,
-      styles.withVisibleFocus,
+      !visuallyHidden && styles.withVisibleFocus,
       styles.icon,
       disabled && styles.disabledButton,
       visuallyHidden && styles.visuallyHidden,
     ),
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
-    id: elementIds.clearButton,
+    id: !visuallyHidden ? elementIds.clearButton : undefined,
     disabled,
     'aria-label': `Remove all ${selectedOptions.length} selections`,
     'aria-hidden': !visuallyHidden,
