@@ -20,7 +20,7 @@ type Props = {
 export function ScreenReaderNotifications({ search, filter, isSearching, resultCount }: Props) {
   const forceRender = useForceRender();
   const dataRef = useRef<ScreenReaderAlertData>({});
-  const delayTime = 500;
+  const delayTime = 800;
   const updateDataRef = useCallback(
     (newProps: Partial<ScreenReaderAlertData>) => {
       dataRef.current = {
@@ -69,6 +69,7 @@ export function ScreenReaderNotifications({ search, filter, isSearching, resultC
   );
 
   const showPendingNotification = useCallback(() => {
+    console.log('show pedn');
     updateDataRef({
       currentText: dataRef.current.pendingNotification,
       pendingNotification: undefined,
@@ -77,13 +78,14 @@ export function ScreenReaderNotifications({ search, filter, isSearching, resultC
   }, [dataRef, updateDataRef]);
 
   const startPendingNotificationTimer = useCallback(() => {
+    console.log('start pedn');
     clearTimeout(dataRef.current.timeoutId);
     dataRef.current.timeoutId = setTimeout(() => {
       showPendingNotification();
       forceRender();
     }, delayTime);
   }, [dataRef, delayTime, forceRender, showPendingNotification]);
-
+  /*
   const shouldRender = () => {
     if (!dataRef.current.currentText) {
       return false;
@@ -93,7 +95,7 @@ export function ScreenReaderNotifications({ search, filter, isSearching, resultC
     }
     return true;
   };
-
+*/
   const screenReaderTexts = {
     none: '',
     isSearching: `Searching for "${search}"`,
@@ -144,14 +146,15 @@ export function ScreenReaderNotifications({ search, filter, isSearching, resultC
     };
   }, [dataRef, clearPendingNotification, startPendingNotificationTimer]);
 
+  /*
   if (!shouldRender()) {
     return null;
-  }
+  } */
 
   updateDataRef({ lastRenderedNotification: dataRef.current.currentText });
   return (
     <div aria-live="polite" className={styles.screenReaderNotifications}>
-      {dataRef.current.currentText}
+      {dataRef.current.currentText || ''}
     </div>
   );
 }
