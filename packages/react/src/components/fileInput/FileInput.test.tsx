@@ -173,6 +173,8 @@ describe('<FileInput /> spec', () => {
     const firstFile = new File(['test-jpg'], firstFileName, { type: 'image/jpeg' });
     const secondFileName = 'test-file-b.json';
     const secondFile = new File(['test-json'], secondFileName, { type: 'application/json' });
+    const thirdFileName = 'test-file-c.JPG';
+    const thirdFile = new File(['test-JPG'], thirdFileName, { type: 'image/jpeg' });
     render(
       <FileInput
         id="test-file-input"
@@ -185,10 +187,10 @@ describe('<FileInput /> spec', () => {
       />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
-    userEvent.upload(fileUpload, [firstFile, secondFile]);
+    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
-    expect(screen.getByText('1/2 file(s) added', { exact: false })).toBeInTheDocument();
-    expect(screen.getByText('File processing failed for 1/2 files:', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
     expect(
       screen.getByText(`The file type, ${secondFileName}, is not supported. Only .jpg and .png files.`, {
         exact: false,

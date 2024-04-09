@@ -300,9 +300,9 @@ const getExtension = (path: string): string => {
 const validateAccept =
   (language: Language, accept: string) =>
   (file: File): true | ValidationError => {
-    const extension: string = getExtension(file.name);
+    const extension: string = getExtension(file.name).toLocaleLowerCase();
     const fileType: string = file.type;
-    const acceptedExtensions = accept.split(',').map((str) => str.trim());
+    const acceptedExtensions = accept.split(',').map((str) => str.trim().toLocaleLowerCase());
     const isMatchingType = !!acceptedExtensions.find(
       (acceptExtension) =>
         acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
