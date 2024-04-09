@@ -15,13 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [CookieConsent] A new cookie is set containing version number of consents.
 
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
+- [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
 
 #### Fixed
 
@@ -40,6 +42,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 - [Link] Possibility to style a Link as button.
 
@@ -61,12 +64,9 @@ Changes that are not related to specific components
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
 - [Link] Added examples of styling Link as a button.
+- [CookieConsent] Updated the list of cookies
 - Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
-  - This includes:
-    - Contributing guide
-    - FAQ
-    - Versioning
-    - Abstract tutorial -> Figma tutorial
+  - This includes: Contributing guide, FAQ, Versioning, and a new Figma tutorial
 
 #### Fixed
 
@@ -85,6 +85,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -104,6 +105,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -123,6 +125,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -142,6 +145,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
