@@ -139,11 +139,11 @@ export function ButtonWithSelectedOptions() {
   return (
     <button type="button" {...attr} ref={buttonRef}>
       {icon && <span key="icon">{icon}</span>}
-      <div className={styles.labels} key="labels">
+      <div className={styles.labels} key="labels" aria-hidden>
         {labels}
       </div>
       {options.length > 1 && (
-        <span className={styles.count} key="count">
+        <span className={styles.count} key="count" aria-hidden>
           <span className="count" key="number">
             +1
           </span>

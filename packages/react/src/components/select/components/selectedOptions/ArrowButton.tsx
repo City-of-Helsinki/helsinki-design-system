@@ -12,7 +12,7 @@ const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHan
   const { elementIds } = getMetaData();
   const { disabled } = getData();
   return {
-    className: classNames(styles.dropdownButton, styles.icon, disabled && styles.disabledButton),
+    className: classNames(styles.dropdownButton, styles.icon, styles.arrowButton, disabled && styles.disabledButton),
     ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
     id: elementIds.arrowButton,
     disabled,
