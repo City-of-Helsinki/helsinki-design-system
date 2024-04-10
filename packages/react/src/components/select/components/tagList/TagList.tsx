@@ -37,6 +37,7 @@ function makeHiddenElementsUnfocusable(metaData: SelectMetaData) {
     tags.forEach((el) => {
       if (el && (el as HTMLElement).setAttribute) {
         (el as HTMLElement).setAttribute('tabindex', index < firstHidden ? '0' : '-1');
+        (el as HTMLElement).setAttribute('aria-hidden', index < firstHidden ? 'false' : 'true');
       }
       index += 1;
     });

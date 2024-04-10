@@ -145,12 +145,12 @@ export function Select({
             <List />
             <SearchAndFilterInfo />
           </ListAndInputContainer>
-          <ClearButton visuallyhidden />
+          <ClearButton visuallyHidden />
         </SelectionsAndListsContainer>
         <ErrorNotification />
         <AssistiveText />
-        <ScreenReaderNotifications />
         <TagList />
+        <ScreenReaderNotifications />
       </Container>
     </DataProvider>
   );

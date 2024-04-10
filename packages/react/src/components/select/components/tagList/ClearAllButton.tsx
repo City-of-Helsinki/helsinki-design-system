@@ -10,7 +10,7 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 const clearAllButtonPropSetter = ({ getData, trigger, getMetaData }: SelectDataHandlers): ButtonProps => {
   const { disabled } = getData();
-  const { elementIds } = getMetaData();
+  const { elementIds, selectedOptions } = getMetaData();
   return {
     ...createOnClickListener({ id: eventIds.clearAllButton, trigger }),
     children: 'Clear all',
@@ -18,6 +18,7 @@ const clearAllButtonPropSetter = ({ getData, trigger, getMetaData }: SelectDataH
     className: styles.clearAllButton,
     disabled,
     id: elementIds.clearAllButton,
+    'aria-label': `Clear all ${selectedOptions.length} selected options.`,
   };
 };
 

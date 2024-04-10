@@ -10,6 +10,8 @@ import {
   clearAllEnabledSelectedOptions,
   propsToGroups,
   createSelectedOptionsList,
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
 } from './utils';
 import {
   EventId,
@@ -98,8 +100,15 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
     if (id === eventIds.listItem && !current.multiSelect) {
       setFocusTarget('dropdownButton');
     } else if (isTagEventId(id)) {
-      const hasSelectedItems = !!dataHandlers.getMetaData().selectedOptions.length;
+      const remainingOptions = dataHandlers.getMetaData().selectedOptions.length;
+      const hasSelectedItems = !!remainingOptions;
       setFocusTarget(hasSelectedItems ? 'tag' : 'dropdownButton');
+      const notification = createScreenReaderNotification(
+        'tagRemoved',
+        `Selection removed. There are ${remainingOptions} selections remaining.`,
+      );
+
+      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
     }
     return true;
   }
@@ -156,7 +165,9 @@ const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandl
 
   if (isShowAllClickEvent(id, type)) {
     dataHandlers.updateMetaData({ showAllTags: !showAllTags });
-    setFocusTarget('tag');
+    if (!showAllTags) {
+      setFocusTarget('tag');
+    }
     return true;
   }
 

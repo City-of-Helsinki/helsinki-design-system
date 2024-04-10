@@ -8,10 +8,10 @@ import { createOnClickListener } from '../../utils';
 import { eventTypes, eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
-type Props = { visuallyhidden?: boolean };
+type Props = { visuallyHidden?: boolean };
 
 const createClearButtonProps = (
-  visuallyHidden: Props['visuallyhidden'],
+  visuallyHidden: Props['visuallyHidden'],
   { getData, getMetaData, trigger }: SelectDataHandlers,
 ): ButtonElementProps | null => {
   const { elementIds, selectedOptions } = getMetaData();
@@ -36,8 +36,8 @@ const createClearButtonProps = (
   };
 };
 
-export function ClearButton({ visuallyhidden }: Props) {
-  const buttonProps = createClearButtonProps(visuallyhidden, useSelectDataHandlers());
+export function ClearButton({ visuallyHidden }: Props) {
+  const buttonProps = createClearButtonProps(visuallyHidden, useSelectDataHandlers());
   if (!buttonProps) {
     return null;
   }

@@ -351,10 +351,6 @@
     padding-top: var(--spacing-layout-2-xs);
   }
 
-  .screenReaderNotifications {
-    @extend %visuallyHidden;
-  }
-
   &.screenReaderOnly {
     @extend %visuallyHidden;
   }
@@ -426,4 +422,8 @@
 
 .assistiveText {
   margin-bottom: var(--spacing-2-xs);
+}
+
+.screenReaderNotifications {
+  @extend %visuallyHidden;
 }

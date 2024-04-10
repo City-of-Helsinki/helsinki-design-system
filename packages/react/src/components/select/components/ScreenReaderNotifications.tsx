@@ -7,6 +7,10 @@ import { ScreenReaderNotification } from '../types';
 
 export function ScreenReaderNotifications() {
   const { getMetaData, updateMetaData } = useSelectDataHandlers();
+  const lastCleaningRef = useRef(0);
+  if (!lastCleaningRef.current) {
+    lastCleaningRef.current = Date.now();
+  }
   const forceRender = useForceRender();
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hideTime = 1000;
@@ -21,9 +25,10 @@ export function ScreenReaderNotifications() {
       }
       return false;
     };
-    if (getMetaData().screenReaderNotifications.length > 10) {
+    if (timeNow - lastCleaningRef.current > 10000) {
       const cleanedList = getMetaData().screenReaderNotifications.filter(hasPassedShowTimeOrIsEmpty);
       updateMetaData({ screenReaderNotifications: cleanedList });
+      lastCleaningRef.current = Date.now();
     }
     const notificationFilter = (n: ScreenReaderNotification) => {
       if (hasPassedShowTimeOrIsEmpty(n)) {
@@ -59,8 +64,10 @@ export function ScreenReaderNotifications() {
   return (
     <div aria-live="polite" className={styles.screenReaderNotifications}>
       {nextNotifications.map((n) => {
-        // eslint-disable-next-line no-param-reassign
-        n.showTime = timeNow;
+        if (!n.showTime) {
+          // eslint-disable-next-line no-param-reassign
+          n.showTime = timeNow;
+        }
         return <span key={n.content}>{n.content}</span>;
       })}
     </div>
