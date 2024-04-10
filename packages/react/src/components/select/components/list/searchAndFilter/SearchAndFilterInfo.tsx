@@ -2,11 +2,15 @@ import React, { useRef } from 'react';
 
 import styles from '../../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
-import { countVisibleOptions } from '../../../utils';
+import {
+  addOrUpdateScreenReaderNotificationByType,
+  countVisibleOptions,
+  removeScreenReaderNotification,
+} from '../../../utils';
 import { LoadingSpinner } from '../../../../loadingSpinner';
 import { DivElementProps } from '../../../types';
 import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
-import { ScreenReaderNotifications } from './ScreenReaderNotifications';
+import { getScreenReaderNotification } from './getScreenReaderNotification';
 
 const createSearchAndFilterInfoProps = (forScreenReaderOnly: boolean): DivElementProps => {
   return {
@@ -15,10 +19,13 @@ const createSearchAndFilterInfoProps = (forScreenReaderOnly: boolean): DivElemen
 };
 
 export function SearchAndFilterInfo() {
-  const { getData, getMetaData } = useSelectDataHandlers();
+  const dataHandlers = useSelectDataHandlers();
+  const { getData, getMetaData } = dataHandlers;
   const shouldRenderScreenReaderNotificationsRef = useRef(false);
-  const { groups, open } = getData();
-  const { isSearching, search, filter } = getMetaData();
+  const data = getData();
+  const { groups, open } = data;
+  const metaData = getMetaData();
+  const { isSearching, search, filter } = metaData;
   const count = countVisibleOptions(groups);
   if (!shouldRenderScreenReaderNotificationsRef.current && (isSearching || filter)) {
     shouldRenderScreenReaderNotificationsRef.current = true;
@@ -29,6 +36,13 @@ export function SearchAndFilterInfo() {
       : [];
   const loadingText = isSearching ? 'Loading options' : '';
   const shouldBeVisible = noResultsTexts.length > 0 || loadingText;
+
+  const notification = getScreenReaderNotification(data, metaData);
+  if (!notification.content) {
+    removeScreenReaderNotification(notification, dataHandlers);
+  } else {
+    addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+  }
 
   if (!open || (!shouldBeVisible && !shouldRenderScreenReaderNotificationsRef.current)) {
     return null;
@@ -50,7 +64,6 @@ export function SearchAndFilterInfo() {
           <span aria-hidden>{noResultsTexts[1]}</span>
         </>
       )}
-      <ScreenReaderNotifications isSearching={isSearching} search={search} filter={filter} resultCount={count} />
     </div>
   );
 }

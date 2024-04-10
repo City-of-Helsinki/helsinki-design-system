@@ -1,6 +1,16 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option, OptionInProps, FilterFunction, SelectMetaData } from './types';
+import {
+  SelectData,
+  Group,
+  SelectProps,
+  Option,
+  OptionInProps,
+  FilterFunction,
+  SelectMetaData,
+  SelectDataHandlers,
+  ScreenReaderNotification,
+} from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -368,4 +378,55 @@ export function getElementIds(containerId: string): SelectMetaData['elementIds']
     clearAllButton: `${containerId}-clear-all-button`,
     showAllButton: `${containerId}-show-all-button`,
   };
+}
+
+export function createScreenReaderNotification(type: string, content: string, delay = 0): ScreenReaderNotification {
+  return {
+    type,
+    content,
+    delay,
+    showTime: 0,
+    addTime: Date.now(),
+  };
+}
+
+/**
+ *
+ * @param notification
+ * @param dataHandlers
+ * @returns Returns true, if notification was added
+ */
+export function addOrUpdateScreenReaderNotificationByType(
+  notification: ScreenReaderNotification,
+  dataHandlers: SelectDataHandlers,
+) {
+  const { screenReaderNotifications } = dataHandlers.getMetaData();
+  const indexOfSameType = screenReaderNotifications.findIndex((n) => n.type === notification.type);
+  if (indexOfSameType > -1) {
+    const updatedList = [...dataHandlers.getMetaData().screenReaderNotifications];
+    updatedList[indexOfSameType] = notification;
+    dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
+    return false;
+  }
+  const updatedList = [...dataHandlers.getMetaData().screenReaderNotifications, notification];
+  dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
+  return true;
+}
+
+export function removeScreenReaderNotification(
+  target: Partial<ScreenReaderNotification>,
+  dataHandlers: SelectDataHandlers,
+) {
+  const { screenReaderNotifications } = dataHandlers.getMetaData();
+  const indexOfMatch = screenReaderNotifications.findIndex((n) => {
+    const hasTypeMatch = !target.type || n.type === target.type;
+    const hasContentMatch = !target.content || n.content === target.content;
+    return hasTypeMatch && hasContentMatch;
+  });
+  if (indexOfMatch > -1) {
+    screenReaderNotifications.splice(indexOfMatch, 1);
+    dataHandlers.updateMetaData({ screenReaderNotifications });
+    return true;
+  }
+  return false;
 }

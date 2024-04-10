@@ -21,6 +21,7 @@ import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWi
 import { ClearButton } from './components/selectedOptions/ClearButton';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
+import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 
 export function Select({
   options,
@@ -117,6 +118,7 @@ export function Select({
       },
       listInputType: getListInputType(),
       textProvider: createTextProvider(texts),
+      screenReaderNotifications: [],
     };
   }, [id, initialData.groups, initialData.onSearch, initialData.filterFunction, texts]);
   useEffect(() => {
@@ -147,6 +149,7 @@ export function Select({
         </SelectionsAndListsContainer>
         <ErrorNotification />
         <AssistiveText />
+        <ScreenReaderNotifications />
         <TagList />
       </Container>
     </DataProvider>

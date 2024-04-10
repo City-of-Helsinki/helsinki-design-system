@@ -122,6 +122,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   };
   getOptionId: (option: Option) => string;
   textProvider: TextProvider;
+  screenReaderNotifications: ScreenReaderNotification[];
 };
 
 export type DivElementProps = HTMLAttributes<HTMLDivElement>;
@@ -158,3 +159,10 @@ export type TextKey =
 
 export type TextProvider = (key: TextKey, selectedOptions: Option[]) => string;
 export type Texts = Record<TextKey, string>;
+export type ScreenReaderNotification = {
+  type: string;
+  content: string;
+  showTime: number;
+  delay: number;
+  addTime: number;
+};
