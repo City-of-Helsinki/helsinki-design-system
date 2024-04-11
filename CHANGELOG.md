@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.7.0] - Month, XX, 202X
 
 ### React
 
@@ -19,15 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
 - [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
+- [Combobox] Marked the component as deprecated
+- [Footer.Base] Added `aria-hidden` to separators
 
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [FileInput] FileInput accepts capitalized extensions (.png vs .PNG)
+- [TextInput] Fix info, success and error icon shrinking when the description was long.
 
 ### Core
 
@@ -49,6 +50,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [TextInput] Fix info, success and error icon shrinking when the description was long.
 
 ### Documentation
 
@@ -58,11 +60,12 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Hero] Added note that hero should not be used with side navigation.
 
 #### Changed
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
+- [Dropdown] Added notification about deprecated Combobox and deprecated Select props
 - [Link] Added examples of styling Link as a button.
 - [CookieConsent] Updated the list of cookies
 - Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
@@ -70,7 +73,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Typography] Fixed typo in Typography table, mobile heading title had extra x.
 
 ### Figma
 
