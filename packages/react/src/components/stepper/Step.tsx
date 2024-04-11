@@ -1,8 +1,8 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
-import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 import styles from './Stepper.module.scss';
+import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 import classNames from '../../utils/classNames';
 
 export enum StepState {

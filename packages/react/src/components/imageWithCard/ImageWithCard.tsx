@@ -1,8 +1,8 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
-import classNames from '../../utils/classNames';
 import styles from './ImageWithCard.module.css';
+import classNames from '../../utils/classNames';
 
 export type ImageWithCardAlignment = 'left' | 'right';
 export type ImageWithCardLayout = 'hover' | 'split';

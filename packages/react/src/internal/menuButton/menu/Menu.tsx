@@ -1,8 +1,8 @@
 import React, { cloneElement, isValidElement, useEffect, useRef, useState, MouseEvent } from 'react';
 import { RectReadOnly } from 'react-use-measure';
 
-import classNames from '../../../utils/classNames';
 import styles from './Menu.module.scss';
+import classNames from '../../../utils/classNames';
 
 type MenuStyles = {
   top?: number;

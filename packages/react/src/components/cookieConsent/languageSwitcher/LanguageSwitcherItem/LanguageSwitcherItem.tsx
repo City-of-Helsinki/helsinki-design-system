@@ -1,9 +1,9 @@
 import React from 'react';
 
+import styles from './LanguageSwitcherItem.module.scss';
 import classNames from '../../../../utils/classNames';
 import { MergeElementProps } from '../../../../common/types';
 import { useMobile } from '../../../../hooks/useMobile';
-import styles from './LanguageSwitcherItem.module.scss';
 
 type ItemProps = {
   /**

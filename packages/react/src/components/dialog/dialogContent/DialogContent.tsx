@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import classNames from '../../../utils/classNames';
 import styles from './DialogContent.module.scss';
+import classNames from '../../../utils/classNames';
 import { DialogContext } from '../DialogContext';
 
 export type DialogContentProps = React.PropsWithChildren<{

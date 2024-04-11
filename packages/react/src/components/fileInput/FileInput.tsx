@@ -2,12 +2,12 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { uniqueId } from 'lodash';
 
 import '../../styles/base.module.css';
+import styles from './FileInput.module.scss';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
 import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
-import styles from './FileInput.module.scss';
 
 type Language = 'en' | 'fi' | 'sv';
 

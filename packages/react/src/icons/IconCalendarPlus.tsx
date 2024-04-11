@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { IconProps } from './Icon.interface';
 import styles from './Icon.module.css';
+import { IconProps } from './Icon.interface';
 
 export const IconCalendarPlus = ({
   ariaLabel = 'calendar-plus',
