@@ -19,11 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
 - [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
+- [Combobox] Marked the component as deprecated
 
 #### Fixed
 
@@ -63,6 +61,7 @@ Changes that are not related to specific components
 #### Changed
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
+- [Dropdown] Added notification about deprecated Combobox and deprecated Select props
 - Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 - [Link] Added examples of styling Link as a button.
 - [CookieConsent] Updated the list of cookies
