@@ -1,7 +1,7 @@
 import React, { RefObject, useContext, useEffect } from 'react';
 
-import { IconCross } from '../../../icons';
 import styles from './DialogHeader.module.scss';
+import { IconCross } from '../../../icons';
 import { DialogContext } from '../DialogContext';
 
 export type DialogHeaderProps = {

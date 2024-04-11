@@ -110,7 +110,9 @@ export const FooterBase = ({
                 return (
                   // eslint-disable-next-line react/no-array-index-key
                   <Fragment key={index}>
-                    <span className={styles.separator}>|</span>
+                    <span className={styles.separator} aria-hidden>
+                      |
+                    </span>
                     {cloneElement(child as React.ReactElement, {
                       variant: FooterVariant.Base,
                     })}

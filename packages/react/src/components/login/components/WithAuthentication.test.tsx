@@ -1,5 +1,6 @@
 import React from 'react';
 import { RenderResult, render } from '@testing-library/react';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { createUserAndPlaceUserToStorage } from '../testUtils/userTestUtil';
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
@@ -23,10 +24,19 @@ const elementIds = {
 };
 
 const loginProps = getDefaultOidcClientTestProps();
+loginProps.userManagerSettings.automaticSilentRenew = false;
 
 afterEach(() => {
   jest.restoreAllMocks();
   sessionStorage.clear();
+});
+
+beforeAll(() => {
+  enableFetchMocks();
+});
+
+afterAll(() => {
+  disableFetchMocks();
 });
 
 describe('"WithAuth..." components render children conditionally', () => {

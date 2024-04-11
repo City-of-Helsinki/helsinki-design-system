@@ -97,10 +97,10 @@ export const forceFocusToElement = (elementSelector: string): void => {
   }
 };
 
-export const Provider = ({ children, contentSource }: ConsentContextProps): React.ReactElement => {
+export const Provider = ({ children, contentSource, cookieDomain }: ConsentContextProps): React.ReactElement => {
   const language = contentSource.currentLanguage;
   const contextData: ContentContextType = useMemo(() => {
-    const content = createContent(contentSource);
+    const content = createContent(contentSource, cookieDomain);
     const callbacks = {
       onAllConsentsGiven: contentSource.onAllConsentsGiven,
       onConsentsParsed: contentSource.onConsentsParsed,

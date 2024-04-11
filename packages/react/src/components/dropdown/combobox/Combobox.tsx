@@ -72,7 +72,9 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
     });
   };
 }
-
+/**
+ * @deprecated Will be removed in the next major release.
+ */
 export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   // we can't destructure all the props. after destructuring, the link
   // between the multiselect prop and the value, onChange etc. props would vanish

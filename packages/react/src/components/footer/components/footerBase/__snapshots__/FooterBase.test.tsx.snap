@@ -76,6 +76,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
               class="links"
             >
               <span
+                aria-hidden="true"
                 class="separator"
               >
                 |
@@ -88,6 +89,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 </span>
               </a>
               <span
+                aria-hidden="true"
                 class="separator"
               >
                 |
@@ -100,6 +102,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 </span>
               </a>
               <span
+                aria-hidden="true"
                 class="separator"
               >
                 |

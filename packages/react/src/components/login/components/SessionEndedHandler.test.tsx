@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, act, waitFor, screen, fireEvent } from '@testing-library/react';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
@@ -10,6 +11,8 @@ import { SessionPollerError, sessionPollerErrors } from '../sessionPoller/sessio
 import { OidcClient, oidcClientNamespace } from '../client';
 
 const loginProps = getDefaultOidcClientTestProps();
+loginProps.userManagerSettings.automaticSilentRenew = false;
+
 const content: SessionEndedHandlerProps['content'] = {
   title: 'Session has ended!',
   text: 'Your session on the server has ended. You will be logged out in this window too.',
@@ -25,6 +28,14 @@ const ids: SessionEndedHandlerProps['ids'] = {
 afterEach(() => {
   jest.restoreAllMocks();
   sessionStorage.clear();
+});
+
+beforeAll(() => {
+  enableFetchMocks();
+});
+
+afterAll(() => {
+  disableFetchMocks();
 });
 
 describe('SessionEndedHandler', () => {

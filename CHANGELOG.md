@@ -5,6 +5,81 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] - April, 11, 2024
+
+### React
+
+#### Added
+
+- [CookieConsent] A new cookie is set containing version number of consents.
+
+#### Changed
+
+- [Link] Possibility to style a Link as button with `useButtonStyles` prop.
+- [Header] Fixed an issue with inconsistent css-class order in SSR.
+- [Select] Marked most props as deprecated. The redesigned next major version will have different props.
+- [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
+- [Combobox] Marked the component as deprecated
+- [Footer.Base] Added `aria-hidden` to separators
+
+#### Fixed
+
+- [FileInput] FileInput accepts capitalized extensions (.png vs .PNG)
+- [TextInput] Fix info, success and error icon shrinking when the description was long.
+
+### Core
+
+#### Changed
+
+- [Link] Possibility to style a Link as button.
+
+#### Fixed
+
+- [TextInput] Fix info, success and error icon shrinking when the description was long.
+
+### Documentation
+
+#### Added
+
+- [Hero] Added note that hero should not be used with side navigation.
+
+#### Changed
+
+- [CookieConsent] Cookie guidelines recommend using subdomains
+- [Dropdown] Added notification about deprecated Combobox and deprecated Select props
+- [Link] Added examples of styling Link as a button.
+- [CookieConsent] Updated the list of cookies
+- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
+  - This includes: Contributing guide, FAQ, Versioning, and a new Figma tutorial
+
+#### Fixed
+
+- [Typography] Fixed typo in Typography table, mobile heading title had extra x.
+
+### Figma
+
+### Changed
+
+– [Design kit] The name on the project, file and cover is updated from HDS UI kit to HDS Design kit as per change of naming conventions to match the implementation more.
+– [Footer] Copyright year updated from 2023 to 2024
+
+### Fixed
+
+– [Button] Focus ring stroke width fixed from 2px to 3px
+– [Dialog] Fixed icon on Danger-dialog from info to alert to match implementation
+– [NavigationPattern] Broken hero on NavigationPattern medium size example fixed.
+
+### Changed
+
+– [Design kit] The name on the project, file and cover is updated from HDS UI kit to HDS Design kit as per change of naming conventions to match the implementation more.
+– [Footer] Copyright year updated from 2023 to 2024
+
+### Fixed
+
+– [Button] Focus ring stroke width fixed from 2px to 3px
+– [Dialog] Fixed icon on Danger-dialog from info to alert to match implementation
+– [NavigationPattern] Broken hero on NavigationPattern medium size example fixed.
+
 ## [3.6.0] - March, 6, 2024
 
 ### React

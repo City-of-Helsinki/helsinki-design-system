@@ -95,3 +95,10 @@ export const withCustomIcon = () => `
   </a>
 `
 withCustomIcon.storyName = 'With a custom icon';
+
+export const withButtonStyles = () => `
+  <a href="https://hds.hel.fi" class="hds-button hds-button--primary" aria-label="Button styled link. Opens in external domain">
+    <span class="hds-button__label">Link with button styles</span>
+  </a>
+`
+withButtonStyles.storyName = 'With Button styles';

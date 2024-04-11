@@ -1,9 +1,9 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
+import styles from './Section.module.css';
 import classNames from '../../utils/classNames';
 import { Koros, KorosType } from '../koros';
-import styles from './Section.module.css';
 
 export type SectionColor = 'primary' | 'secondary' | 'tertiary' | 'plain';
 

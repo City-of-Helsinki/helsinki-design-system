@@ -13,6 +13,7 @@ import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
 import { Modifier, usePopper } from 'react-popper';
 
+import styles from './DatePicker.module.scss';
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
@@ -20,7 +21,6 @@ import { MonthTable } from '../monthTable';
 import { Legend } from '../legend';
 import { Button } from '../../../button';
 import { IconCheck, IconCross } from '../../../../icons';
-import styles from './DatePicker.module.scss';
 import classNames from '../../../../utils/classNames';
 import { scrollIntoViewIfNeeded } from '../../../../utils/scrollIntoViewIfNeeded';
 

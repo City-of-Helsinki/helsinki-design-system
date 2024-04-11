@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 
+import classes from './HeaderLanguageSelector.module.scss';
 import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguage } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
 import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
 import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
-import classes from './HeaderLanguageSelector.module.scss';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
 

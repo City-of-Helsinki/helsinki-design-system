@@ -1,9 +1,9 @@
 import React, { cloneElement, Fragment, isValidElement } from 'react';
 
 import '../../../../styles/base.module.css';
+import styles from './FooterNavigationGroup.module.scss';
 import { FooterVariant } from '../../Footer.interface';
 import { useMediaQueryLessThan } from '../../../../hooks/useMediaQuery';
-import styles from './FooterNavigationGroup.module.scss';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 

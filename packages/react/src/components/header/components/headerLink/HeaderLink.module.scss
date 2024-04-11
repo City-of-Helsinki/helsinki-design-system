@@ -1,5 +1,4 @@
-@use "../../Header.module.scss";
-@import "../../../../styles/common.scss";
+@import '../../../../styles/common.scss';
 
 .headerLink.headerLink {
   --link-color: var(--color-black-90);
@@ -31,7 +30,6 @@
   padding-left: var(--header-focus-outline-width);
 }
 
-
 .navigationLinkWrapper {
   align-items: center;
   display: flex;
@@ -53,7 +51,7 @@
   }
 }
 
-.headerLink.isNotLargeScreen{
+.headerLink.isNotLargeScreen {
   align-self: center;
   border: none;
   box-sizing: border-box;
@@ -63,5 +61,7 @@
   padding: 0;
   word-wrap: break-word;
 
-  &:focus { border: none }
+  &:focus {
+    border: none;
+  }
 }

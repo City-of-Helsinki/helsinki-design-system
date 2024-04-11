@@ -1,11 +1,11 @@
 import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth, max } from 'date-fns';
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 
+import styles from './DateInput.module.scss';
 import { IconCalendar } from '../../icons';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { TextInput, TextInputProps } from '../textInput';
 import { DatePicker, LegendItem } from './components/datePicker';
-import styles from './DateInput.module.scss';
 
 export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
   /**

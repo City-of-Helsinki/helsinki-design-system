@@ -1,7 +1,7 @@
 import React from 'react';
 
-import classNames from '../../utils/classNames';
 import styles from './visible.module.scss';
+import classNames from '../../utils/classNames';
 
 type Breakpoint = 's' | 'm' | 'l' | 'xl';
 

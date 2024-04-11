@@ -1,8 +1,8 @@
 import React, { cloneElement, isValidElement, MouseEventHandler, TransitionEvent, useEffect, useRef } from 'react';
 
+import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { getChildrenAsArray } from '../../../../utils/getChildren';
 import { HeaderLink } from '../headerLink';
 import { IconAngleLeft } from '../../../../icons';

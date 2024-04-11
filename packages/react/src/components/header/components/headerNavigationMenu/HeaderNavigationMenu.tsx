@@ -1,10 +1,10 @@
 import React, { cloneElement, isValidElement, useEffect } from 'react';
 
 import '../../../../styles/base.module.css';
+import styles from './HeaderNavigationMenu.module.scss';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween, getChildrenAsArray } from '../../../../utils/getChildren';
-import styles from './HeaderNavigationMenu.module.scss';
 
 export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   /**

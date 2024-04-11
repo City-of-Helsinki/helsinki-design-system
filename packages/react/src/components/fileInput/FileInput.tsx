@@ -2,12 +2,12 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { uniqueId } from 'lodash';
 
 import '../../styles/base.module.css';
+import styles from './FileInput.module.scss';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
 import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
-import styles from './FileInput.module.scss';
 
 type Language = 'en' | 'fi' | 'sv';
 
@@ -300,9 +300,9 @@ const getExtension = (path: string): string => {
 const validateAccept =
   (language: Language, accept: string) =>
   (file: File): true | ValidationError => {
-    const extension: string = getExtension(file.name);
+    const extension: string = getExtension(file.name).toLocaleLowerCase();
     const fileType: string = file.type;
-    const acceptedExtensions = accept.split(',').map((str) => str.trim());
+    const acceptedExtensions = accept.split(',').map((str) => str.trim().toLocaleLowerCase());
     const isMatchingType = !!acceptedExtensions.find(
       (acceptExtension) =>
         acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),

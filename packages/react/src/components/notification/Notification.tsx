@@ -3,8 +3,8 @@ import { animated, useSpring } from '@react-spring/web';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import '../../styles/base.module.css';
-import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
+import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
