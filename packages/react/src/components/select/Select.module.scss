@@ -8,7 +8,7 @@
   flex-direction: column;
   max-width: 420px;
 
-  &.error {
+  &.invalid {
     border-color: var(--color-error);
   }
 
@@ -30,7 +30,7 @@
     }
   }
 
-  &.error {
+  &.invalid {
     border-color: var(--dropdown-border-color-invalid);
 
     &:hover {

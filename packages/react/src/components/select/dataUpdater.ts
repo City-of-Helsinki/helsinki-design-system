@@ -32,6 +32,7 @@ import {
   isShowAllClickEvent,
   isTagEventId,
 } from './events';
+import { getTextKeyFromDataHandlers } from './texts';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
@@ -259,6 +260,13 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
       // const { error, assistiveText } = newProps;
       // updateData({ error, assistiveText });
     }
+  }
+  const { invalid } = getData();
+  const errorText = getTextKeyFromDataHandlers('error', dataHandlers);
+  const shouldBeInvalid = typeof errorText !== 'undefined' ? !!errorText : invalid;
+  if (invalid !== shouldBeInvalid) {
+    updateData({ invalid: shouldBeInvalid });
+    return true;
   }
   return dataChanged;
 };

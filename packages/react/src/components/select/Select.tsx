@@ -47,6 +47,7 @@ export function Select({
   visibleOptions,
   filter,
   texts,
+  invalid,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -54,6 +55,7 @@ export function Select({
       label,
       open: !!open,
       required: !!required,
+      invalid: !!invalid,
       disabled: !!disabled,
       multiSelect: !!multiSelect,
       virtualize: !!virtualize,
@@ -69,7 +71,7 @@ export function Select({
       onBlur,
       filterFunction: filter,
     };
-  }, [options, open, groups, disabled]);
+  }, [options, open, groups, disabled, invalid]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;

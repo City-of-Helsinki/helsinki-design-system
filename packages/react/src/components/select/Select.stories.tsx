@@ -239,7 +239,7 @@ export const WithValidation = () => {
     },
   ];
   const texts: Partial<Texts> = {
-    label: 'Select many fruits or vegetables',
+    label: 'Select a fruit or vegetable',
     placeholder: 'Choose many',
   };
   const textsAsFunction: TextProvider = useCallback((key, selectedOptions) => {
@@ -385,7 +385,9 @@ export const Error = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return <Select groups={groups} onChange={onChange} icon={<IconLocation />} required texts={textsAsFunction} />;
+  return (
+    <Select groups={groups} onChange={onChange} icon={<IconLocation />} invalid required texts={textsAsFunction} />
+  );
 };
 
 export const SingleselectWithFiltering = () => {
@@ -661,6 +663,7 @@ export const MultiselectWithControls = () => {
     filter: defaultFilter,
     disabled: false,
     open: false,
+    invalid: false,
     texts: { placeholder: 'Choose', label: 'Controlled select' },
   });
 
@@ -720,6 +723,12 @@ export const MultiselectWithControls = () => {
     reRender();
   };
 
+  const toggleInvalid = () => {
+    const current = groupStorage.getProps().invalid;
+    groupStorage.updateProps({ invalid: !current });
+    reRender();
+  };
+
   return (
     <>
       <style>
@@ -741,6 +750,7 @@ export const MultiselectWithControls = () => {
           <Button onClick={toggleDisable}>Disable/enable component</Button>
           <Button onClick={toggleGroupDisable}>Disable/enable options</Button>
           <Button onClick={toggleMenu}>Open/Close list</Button>
+          <Button onClick={toggleInvalid}>Set valid/invalid</Button>
         </div>
       </div>
     </>

@@ -43,6 +43,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   children?: P | P[];
   multiSelect?: boolean;
   required?: boolean;
+  invalid?: boolean;
   placeholder?: string;
   id?: string;
   icon?: ReactNode;
@@ -63,6 +64,7 @@ export type SelectData = Required<
     | 'multiSelect'
     | 'placeholder'
     | 'required'
+    | 'invalid'
     | 'assistiveText'
     | 'virtualize'
     | 'onChange'
@@ -157,7 +159,7 @@ export type TextKey =
   | 'filterWithAnotherTerm'
   | 'buttonClearAllAriaLabel';
 
-export type TextProvider = (key: TextKey, selectedOptions: Option[]) => string;
+export type TextProvider = (key: TextKey, selectedOptions: Option[]) => string | undefined;
 export type Texts = Record<TextKey, string>;
 export type ScreenReaderNotification = {
   type: string;

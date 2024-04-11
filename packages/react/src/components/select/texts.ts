@@ -26,11 +26,15 @@ export const createTextProvider = (texts: SelectProps['texts']): TextProvider =>
   };
 };
 
-export const getTextKeyFromMetaData = (key: TextKey, textProvider: TextProvider, metaData: SelectMetaData): string => {
+export const getTextKeyFromMetaData = (
+  key: TextKey,
+  textProvider: TextProvider,
+  metaData: SelectMetaData,
+): string | undefined => {
   return textProvider(key, metaData.selectedOptions);
 };
 
-export const getTextKeyFromDataHandlers = (key: TextKey, dataHandlers: SelectDataHandlers): string => {
+export const getTextKeyFromDataHandlers = (key: TextKey, dataHandlers: SelectDataHandlers): string | undefined => {
   const metaData = dataHandlers.getMetaData();
   return getTextKeyFromMetaData(key, metaData.textProvider, metaData);
 };

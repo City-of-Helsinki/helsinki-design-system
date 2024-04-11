@@ -9,10 +9,10 @@ function createComponentProps(
   props: React.PropsWithChildren<unknown>,
   { getData }: SelectDataHandlers,
 ): DivElementProps {
-  const { error, open } = getData();
+  const { invalid, open } = getData();
   return {
     ...props,
-    className: classNames(styles.selectAndListContainer, error && styles.error, open && styles.open),
+    className: classNames(styles.selectAndListContainer, invalid && styles.invalid, open && styles.open),
   };
 }
 
