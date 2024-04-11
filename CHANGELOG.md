@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
 - [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
 - [Combobox] Marked the component as deprecated
+- [Footer.Base] Added `aria-hidden` to separators
 
 #### Fixed
 
