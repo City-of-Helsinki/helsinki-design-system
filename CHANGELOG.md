@@ -58,7 +58,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Hero] Added note that hero should not be used with side navigation.
 
 #### Changed
 
