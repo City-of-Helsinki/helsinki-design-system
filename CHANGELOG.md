@@ -66,9 +66,10 @@ Changes that are not related to specific components
 
 - [CookieConsent] Cookie guidelines recommend using subdomains
 - [Dropdown] Added notification about deprecated Combobox and deprecated Select props
-- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 - [Link] Added examples of styling Link as a button.
 - [CookieConsent] Updated the list of cookies
+- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
+  - This includes: Contributing guide, FAQ, Versioning, and a new Figma tutorial
 
 #### Fixed
 
@@ -82,7 +83,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 
 #### Changed
 
