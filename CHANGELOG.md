@@ -5,6 +5,98 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.X.X] - Month, XX, 202X
+
+### React
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Core
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Documentation
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Figma
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Sketch/Abstract
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
 ## [3.7.0] - April, 11, 2024
 
 ### React
