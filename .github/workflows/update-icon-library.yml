@@ -31,16 +31,19 @@ jobs:
       # Don't do anything if we're on release-x.x.x AND the icon-kit has the same version number (already built for the release)
       # Skip this step if workflow was triggered by workflow_dispatch
       - name: Check if icon library has already been built for this release
+        id: build_checker
         if: github.event_name != 'workflow_dispatch'
         run: |
           PKG_VER=`node -pe "require('./packages/react/package.json').version"`
           ICON_KIT_VER=`sed -n -E 's/.*version[[:space:]]+([0-9]+([.][0-9]+)*).*/\1/p' ./release/icon-kit-template-CHANGELOG.txt`
           if [[ ${PKG_VER} == ${ICON_KIT_VER} ]]; then
             echo "Icon library has already been built for this release, skipping"
+            echo "SKIP_REST_STEPS=true" >> $GITHUB_OUTPUT
             exit 0
           fi
 
       - name: Run Glypfig
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
           npx glypfig \
             --apikey $API_KEY \
@@ -61,46 +64,58 @@ jobs:
           NODE_ID: '172:2478'
 
       - name: Append React interface into index file
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
           echo -e "export { IconProps } from './Icon.interface';\n" | \
           cat - ./icon-library/react/tsx/index.ts > temp && mv temp ./icon-library/react/tsx/index.ts
 
       - name: Bump version in Changelog
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
           PKG_VER=`node -pe "require('./packages/react/package.json').version"`
           sed -i -E "s/version [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/version ${PKG_VER}/" ./release/icon-kit-template-CHANGELOG.txt
 
       - name: Copy Changelog file to icon library
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: cp ./release/icon-kit-template-CHANGELOG.txt ./icon-library/CHANGELOG.txt
 
       - name: Create release zip file
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         uses: TheDoctor0/zip-release@0.7.6
         with:
           filename: 'release/hds-icon-kit.zip'
           path: './icon-library'
 
       - name: Copy svg files to repo folders
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: cp ./icon-library/svg/* ./packages/core/src/svg
 
       - name: Copy css files to repo folders
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: cp ./icon-library/css/* ./packages/core/src/icons
 
       - name: Copy react files to repo folders
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: cp ./icon-library/react/tsx/* ./packages/react/src/icons
 
       - name: Install React package NPM dependencies
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: (cd ./packages/react && yarn)
 
       - name: Lint React files
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: npx prettier --write './packages/react/src/icons/*.{ts,tsx}'
 
       - name: Code analysis for React files
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: npx eslint --debug -c './packages/react/.eslintrc.json' --ignore-path './packages/react/.eslintignore' --fix  './packages/react/src/icons/*.{ts,tsx}'
 
       - name: Remove icon library build directory
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: rm -rf ./icon-library
 
       - name: Commit changed files
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
           git config --global user.email "hds@hel.fi"
           git config --global user.name "Github Actions"
