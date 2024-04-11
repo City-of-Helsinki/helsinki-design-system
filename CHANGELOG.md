@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [FileInput] FileInput accepts capitalized extensions (.png vs .PNG)
+- [TextInput] Fix info, success and error icon shrinking when the description was long.
 
 ### Core
 
@@ -47,6 +49,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [TextInput] Fix info, success and error icon shrinking when the description was long.
 
 ### Documentation
 
