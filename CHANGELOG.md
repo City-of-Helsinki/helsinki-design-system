@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.7.0] - Month, XX, 202X
 
 ### React
 
@@ -15,14 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [CookieConsent] A new cookie is set containing version number of consents.
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Combobox] Marked the component as deprecated
 - [Link] Possibility to style a Link as button with `useButtonStyles` prop.
+- [CookieConsent] Consent cookie's default domain was changed to window.location.hostname.
+- [Combobox] Marked the component as deprecated
 
 #### Fixed
 
@@ -57,7 +56,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Hero] Added note that hero should not be used with side navigation.
 
 #### Changed
 
@@ -65,10 +64,11 @@ Changes that are not related to specific components
 - [Dropdown] Added notification about deprecated Combobox and deprecated Select props
 - Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
 - [Link] Added examples of styling Link as a button.
+- [CookieConsent] Updated the list of cookies
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Typography] Fixed typo in Typography table, mobile heading title had extra x.
 
 ### Figma
 
