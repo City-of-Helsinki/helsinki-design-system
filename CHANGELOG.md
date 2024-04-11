@@ -5,13 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.7.0] - Month, XX, 202X
+## [3.7.0] - April, 11, 2024
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -28,37 +24,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [FileInput] FileInput accepts capitalized extensions (.png vs .PNG)
 - [TextInput] Fix info, success and error icon shrinking when the description was long.
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Link] Possibility to style a Link as button.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [TextInput] Fix info, success and error icon shrinking when the description was long.
 
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -79,83 +58,27 @@ Changes that are not related to specific components
 
 ### Figma
 
-#### Breaking
+### Changed
 
-- [Component] What are the breaking changes?
+– [Design kit] The name on the project, file and cover is updated from HDS UI kit to HDS Design kit as per change of naming conventions to match the implementation more.
+– [Footer] Copyright year updated from 2023 to 2024
 
-#### Added
+### Fixed
 
-- Updated Getting started-section for designers from Sketch/Abstract guidelines to Figma guidelines
+– [Button] Focus ring stroke width fixed from 2px to 3px
+– [Dialog] Fixed icon on Danger-dialog from info to alert to match implementation
+– [NavigationPattern] Broken hero on NavigationPattern medium size example fixed.
 
-#### Changed
+### Changed
 
-Changes that are not related to specific components
+– [Design kit] The name on the project, file and cover is updated from HDS UI kit to HDS Design kit as per change of naming conventions to match the implementation more.
+– [Footer] Copyright year updated from 2023 to 2024
 
-- [Component] What has been changed
+### Fixed
 
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Sketch/Abstract
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+– [Button] Focus ring stroke width fixed from 2px to 3px
+– [Dialog] Fixed icon on Danger-dialog from info to alert to match implementation
+– [NavigationPattern] Broken hero on NavigationPattern medium size example fixed.
 
 ## [3.6.0] - March, 6, 2024
 
