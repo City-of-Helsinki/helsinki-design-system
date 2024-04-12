@@ -29,6 +29,8 @@ const createListAndInputContainerProps = (
     ),
     ref: refs.listContainer,
     outsideClickTrigger,
+    'aria-hidden': !open,
+    ...(hasInput && { role: 'dialog' }),
   };
 };
 

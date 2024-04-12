@@ -21,7 +21,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
   const { getData, getMetaData, trigger } = dataHandlers;
   const { disabled, open, invalid } = getData();
   const { icon, refs, elementIds, activeDescendant, selectedOptions, listInputType } = getMetaData();
-  const placeholder = getTextKeyFromDataHandlers('placeholder', dataHandlers);
+  const placeholder = getTextKeyFromDataHandlers('placeholder', dataHandlers) || '';
   const label = getTextKeyFromDataHandlers('label', dataHandlers);
   const ariaLabel = getTextKeyFromDataHandlers('dropdownButtonAriaLabel', dataHandlers);
   const hasInput = !listInputType;
@@ -55,7 +55,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
   return {
     'aria-controls': getAriaControlsId(),
     'aria-expanded': open,
-    'aria-haspopup': 'listbox',
+    'aria-haspopup': hasInput ? 'dialog' : 'listbox',
     'aria-invalid': invalid,
     'aria-label': getAriaLabel(),
     'aria-activedescendant': hasInput ? undefined : activeDescendant,

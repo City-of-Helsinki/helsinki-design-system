@@ -36,7 +36,7 @@ const createFilterInputProps = (
     'aria-expanded': true,
     'aria-activedescendant': activeDescendant || '',
     'aria-labelledby': `${elementIds.searchOrFilterInputLabel} ${elementIds.label}`,
-    'aria-haspopup': 'true',
+    'aria-haspopup': 'listbox',
     role: 'combobox',
     labelId: elementIds.searchOrFilterInputLabel,
     clearButton: true,
