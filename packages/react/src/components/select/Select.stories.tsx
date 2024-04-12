@@ -467,6 +467,32 @@ export const MultiselectWithGroups = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
+      icon={<IconLocation />}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}
+    />
+  );
+};
+
+export const MultiselectWithFilter = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      multiSelect
       filter={defaultFilter}
       icon={<IconLocation />}
       texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose three or more' }}

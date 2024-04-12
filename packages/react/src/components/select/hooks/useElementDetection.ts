@@ -1,7 +1,7 @@
 import { RefObject, MouseEvent, KeyboardEvent, FocusEvent, BaseSyntheticEvent } from 'react';
 import { isElement } from 'lodash';
 
-import { KnownElementType } from '../types';
+import { Group, KnownElementType, Option } from '../types';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 import {
   isSingleSelectElement,
@@ -9,6 +9,7 @@ import {
   multiSelectElementSelector,
   singleSelectElementSelector,
 } from '../components/list/common';
+import { findSelectableOptionIndex } from '../utils';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
@@ -212,6 +213,14 @@ export function useElementDetection() {
     return getElementByKnownType('dropdownButton');
   };
 
+  const getOptionListItem = (groups: Group[], option: Option, isMultiSelect: boolean): HTMLElement | null => {
+    const index = findSelectableOptionIndex(groups, (groupOption) => groupOption.value === option.value, isMultiSelect);
+    if (index === -1 || !refs.list.current) {
+      return null;
+    }
+    return (getListItems(refs.list.current)[index] as HTMLElement) || null;
+  };
+
   return {
     getEventElementType,
     getElementType,
@@ -220,6 +229,7 @@ export function useElementDetection() {
     getElementUsingActiveDescendant,
     getElementByKnownType,
     getElementId,
+    getOptionListItem,
   };
 }
 

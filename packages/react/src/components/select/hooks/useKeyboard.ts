@@ -1,6 +1,7 @@
-import { KeyboardEvent, useCallback } from 'react';
+import { KeyboardEvent, useCallback, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
+import { defaultFilter, filterSelectableOptions } from '../utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,
@@ -44,8 +45,9 @@ export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
 };
 
 export function useKeyboard() {
-  const { getEventElementType, getListItemSiblings } = useElementDetection();
-  const { trigger, getData, getMetaData } = useSelectDataHandlers();
+  const { getEventElementType, getListItemSiblings, getOptionListItem } = useElementDetection();
+  const { trigger, getData, getMetaData, updateMetaData } = useSelectDataHandlers();
+  const keyCacheRef = useRef<string | null>(null);
 
   const onKeyUp = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
@@ -67,13 +69,57 @@ export function useKeyboard() {
       };
 
       const wasArrowDownPressed = isArrowDownKey(e);
+      const wasAlphaNumKeyPressed = isAlphaNumKey(e);
       const wasArrowUpPressed = !wasArrowDownPressed && isArrowUpKey(e);
       const wasClickKeyPressed = !wasArrowUpPressed && !wasArrowDownPressed && isClickKey(e);
-      const hasInput = !getMetaData().listInputType;
+      const { listInputType, refs } = getMetaData();
+      const hasInput = !!listInputType;
+
+      const shouldKeepKeyCache = () => {
+        if (!keyCacheRef.current) {
+          return true;
+        }
+        if (!wasAlphaNumKeyPressed) {
+          return false;
+        }
+        if (isInSelectedOptionsType(type) || isListType(type) || isListItemType(type)) {
+          return true;
+        }
+        return false;
+      };
+
+      if (!shouldKeepKeyCache()) {
+        keyCacheRef.current = null;
+      }
+
+      const shouldPreventDefault = () => {
+        if (!wasArrowDownPressed && !wasArrowUpPressed) {
+          return false;
+        }
+        if (isInSelectedOptionsType(type) || isListType(type) || isListItemType(type)) {
+          return true;
+        }
+        return false;
+      };
+
+      if (shouldPreventDefault()) {
+        e.preventDefault();
+      }
+
       if (isEscKey(e) && getData().open) {
         trigger({ id: eventIds.generic, type: eventTypes.close });
-      } else if (isInSelectedOptionsType(type) && wasArrowDownPressed) {
-        trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+      } else if (isInSelectedOptionsType(type)) {
+        if (wasArrowDownPressed) {
+          trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+        } else if (wasAlphaNumKeyPressed) {
+          keyCacheRef.current = (keyCacheRef.current || '') + e.key;
+          trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+          if (listInputType) {
+            updateMetaData({ [listInputType]: keyCacheRef.current });
+          } else {
+            // if focus is in list use filter to find element
+          }
+        }
       } else if (isSearchOrFilterInputType(type) && wasArrowDownPressed) {
         moveFocusToFirstListItem();
       } else if (isAnyListChildType(type) && (wasArrowDownPressed || wasArrowUpPressed)) {
@@ -87,14 +133,29 @@ export function useKeyboard() {
       } else if (isListItemType(type) && wasClickKeyPressed && element) {
         element.click();
         scrollToFocusedElement();
+      } else if (isListItemType(type) && wasAlphaNumKeyPressed && !hasInput) {
+        keyCacheRef.current = (keyCacheRef.current || '') + e.key;
+        const { groups, filterFunction, multiSelect } = getData();
+        const hits = keyCacheRef.current
+          ? filterSelectableOptions(groups, keyCacheRef.current, filterFunction || defaultFilter, multiSelect).filter(
+              (opt) => opt.label.toLowerCase().indexOf(keyCacheRef.current as string) === 0,
+            )
+          : [];
+        if (hits[0]) {
+          const listItem = getOptionListItem(groups, hits[0], multiSelect);
+          if (listItem && listItem.focus) {
+            listItem.focus();
+            scrollToFocusedElement();
+          }
+        }
       } else if (isListType(type) && wasArrowDownPressed && hasInput) {
         moveFocusToFirstListItem();
       } else if (
         (isListType(type) || isAnyListChildType(type)) &&
         hasInput &&
-        (isAlphaNumKey(e) || isBackspaceKey(e))
+        (wasAlphaNumKeyPressed || isBackspaceKey(e))
       ) {
-        const inputRef = getMetaData().refs.searchOrFilterInput;
+        const inputRef = refs.searchOrFilterInput;
         if (inputRef && inputRef.current) {
           if (!isBackspaceKey(e)) {
             inputRef.current.value = e.key;
@@ -103,7 +164,7 @@ export function useKeyboard() {
         }
       }
     },
-    [trigger, getData, getMetaData],
+    [trigger, getData, getMetaData, updateMetaData],
   );
 
   return {

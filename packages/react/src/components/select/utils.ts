@@ -275,6 +275,23 @@ export function filterOptions(groups: SelectData['groups'], filterStr: string, f
   return groups;
 }
 
+export function filterSelectableOptions(
+  groups: SelectData['groups'],
+  filterStr: string,
+  filterFunc: FilterFunction,
+  isMultiSelect: boolean,
+) {
+  return getAllOptions(groups, !isMultiSelect).filter((option) => filterFunc(option, filterStr));
+}
+
+export function findSelectableOptionIndex(
+  groups: SelectData['groups'],
+  iterator: (option: Option) => boolean,
+  isMultiSelect: boolean,
+) {
+  return getAllOptions(groups, !isMultiSelect).findIndex(iterator);
+}
+
 export function childrenToGroups(children: SelectProps['children']): SelectData['groups'] | undefined {
   if (!children || typeof children !== 'object') {
     return undefined;
