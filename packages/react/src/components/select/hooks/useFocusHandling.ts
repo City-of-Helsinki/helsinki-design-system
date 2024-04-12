@@ -25,7 +25,7 @@ export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData, trigger } = useSelectDataHandlers();
   const { getEventElementType, getListItemSiblings, getElementUsingActiveDescendant, getElementId } =
     useElementDetection();
-  const { refs, focusTarget } = getMetaData();
+  const { refs, focusTarget, activeDescendant } = getMetaData();
   const elementsThatCloseMenuOnFocus: KnownElementType[] = ['tag', 'tagList', 'clearAllButton', 'showAllButton'];
   const eventTracker = useCallback(
     (
@@ -100,6 +100,12 @@ export function useFocusHandling(): ReturnObject {
         setFocus(refs[focusTarget]);
       }
       updateMetaData({ focusTarget: undefined });
+    }
+    if (activeDescendant) {
+      const activeElement = document.getElementById(activeDescendant);
+      if (activeElement && activeElement !== document.activeElement) {
+        activeElement.focus();
+      }
     }
   });
 
