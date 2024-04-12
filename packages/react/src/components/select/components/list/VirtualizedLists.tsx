@@ -37,8 +37,7 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
     const children = shouldRenderOptions ? createGroups({ groups: createVirtualGroups(), getOptionId, trigger }) : null;
     return <div {...attr}>{children}</div>;
   }
-
-  const attr = createListElementProps({ refs, elementIds });
+  const attr = createListElementProps({ refs, elementIds, multiSelect });
   const children = shouldRenderOptions
     ? createOptionElements({ groups: createVirtualGroups(), trigger, multiSelect, getOptionId })
     : null;

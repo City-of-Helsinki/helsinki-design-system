@@ -5,6 +5,7 @@ import { DROPDOWN_MENU_ITEM_HEIGHT, getVisibleGroupLabels } from '../../utils';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectListWithGroups } from './MultiSelectListWithGroups';
 import { SingleSelectAndGrouplessList } from './SingleSelectAndGrouplessList';
+import { SingleSelectListWithGroups } from './SingleSelectListWithGroups';
 import classNames from '../../../../utils/classNames';
 import { VirtualizedLists } from './VirtualizedLists';
 
@@ -23,7 +24,10 @@ export const List = () => {
     if (virtualize) {
       return <VirtualizedLists forMultiSelectWithGroups={isMultiSelectAndHasGroupLabels} />;
     }
-    return isMultiSelectAndHasGroupLabels ? <MultiSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
+    if (!multiSelect) {
+      return hasVisibleGroupLabels ? <SingleSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
+    }
+    return <MultiSelectListWithGroups />;
   };
   return (
     <div className={classes} style={styleObj}>

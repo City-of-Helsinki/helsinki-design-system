@@ -12,6 +12,7 @@ export const createSingleSelectGroupLabelProps = ({ option, getOptionId }: Selec
     children: label,
     tabIndex: -1,
     id: getOptionId(option),
+    role: 'presentation',
   };
 };
 

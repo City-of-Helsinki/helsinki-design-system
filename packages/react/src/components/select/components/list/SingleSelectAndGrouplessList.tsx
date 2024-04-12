@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -40,20 +40,25 @@ export const createOptionElements = ({
     .filter((option) => !!option);
 };
 
-export const createListElementProps = ({ refs, elementIds }: Pick<SelectMetaData, 'refs' | 'elementIds'>) => {
+export function createListElementProps<T = HTMLUListElement>({
+  refs,
+  elementIds,
+  multiSelect,
+}: Pick<SelectMetaData, 'refs' | 'elementIds'> & Pick<SelectData, 'multiSelect'>) {
   return {
     className: classNames(styles.list),
-    ref: refs.list,
+    ref: refs.list as unknown as RefObject<T>,
     id: elementIds.list,
     role: 'listbox',
+    'aria-multiselectable': multiSelect,
   };
-};
+}
 
 export function SingleSelectAndGrouplessList() {
   const { getData, trigger, getMetaData } = useSelectDataHandlers();
   const { open, groups, multiSelect } = getData();
   const { isSearching, getOptionId, refs, elementIds } = getMetaData();
-  const attr = createListElementProps({ refs, elementIds });
+  const attr = createListElementProps({ refs, elementIds, multiSelect });
   const shouldRenderOptions = open && !isSearching;
 
   const children = shouldRenderOptions ? createOptionElements({ groups, trigger, multiSelect, getOptionId }) : null;

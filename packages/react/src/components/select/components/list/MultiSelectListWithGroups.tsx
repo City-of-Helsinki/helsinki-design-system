@@ -56,7 +56,7 @@ export function MultiSelectGroup(props: DivElementProps) {
   return <div {...attr}>{children}</div>;
 }
 
-const createGroupProps = (group: Group) => {
+export const createGroupProps = (group: Group) => {
   const labelOption = getGroupLabelOption(group);
   return {
     role: 'group',

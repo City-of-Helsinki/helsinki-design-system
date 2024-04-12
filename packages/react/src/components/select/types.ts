@@ -87,7 +87,7 @@ export type SelectData = Required<
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   refs: {
     listContainer: RefObject<HTMLDivElement>;
-    list: RefObject<HTMLUListElement>;
+    list: RefObject<HTMLUListElement | HTMLDivElement>;
     container: RefObject<HTMLDivElement>;
     tagList: RefObject<HTMLDivElement>;
     showAllButton: RefObject<HTMLButtonElement>;
