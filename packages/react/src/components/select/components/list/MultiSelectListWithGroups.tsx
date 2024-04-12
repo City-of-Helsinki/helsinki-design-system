@@ -87,12 +87,11 @@ export const createContainerProps = ({
   const { elementIds, refs } = getMetaData() as SelectMetaData;
 
   return {
-    'aria-labelledby': elementIds.label,
+    'aria-labelledby': `${elementIds.label} ${elementIds.choicesCount}`,
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
     role: 'group',
-    tabIndex: 0,
   };
 };
 
@@ -100,14 +99,14 @@ export function MultiSelectListWithGroups() {
   const dataHandlers = useSelectDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups } = getData();
-  const { isSearching, getOptionId } = getMetaData();
+  const { isSearching, getOptionId, elementIds } = getMetaData();
   const attr = createContainerProps(dataHandlers);
   const choiceCount = getAllOptions(groups).length;
   const shouldRenderOptions = open && !isSearching;
   const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
   return (
     <div {...attr}>
-      <span className={styles.visuallyHidden}>{`${choiceCount} choices`}</span>
+      <span className={styles.visuallyHidden} id={elementIds.choicesCount}>{`${choiceCount} choices`}</span>
       {children}
     </div>
   );

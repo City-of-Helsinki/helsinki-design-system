@@ -35,6 +35,7 @@ const createMultiSelectGroupLabelProps = ({
     'aria-checked': isIntermediate ? 'mixed' : option.selected,
     role: 'checkbox',
     'aria-disabled': disabled || isGroupDisabled,
+    'aria-label': `${label} (choose all)`,
     tabIndex: -1,
     isInGroup: true,
     onClick: (originalEvent: React.MouseEvent) => {

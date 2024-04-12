@@ -44,7 +44,6 @@ export const createListElementProps = ({ refs, elementIds }: Pick<SelectMetaData
   return {
     className: classNames(styles.list),
     ref: refs.list,
-    tabIndex: 0,
     id: elementIds.list,
     role: 'listbox',
   };
