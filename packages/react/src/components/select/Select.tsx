@@ -84,8 +84,6 @@ export function Select({
       return initialData.onSearch ? eventIds.search : eventIds.filter;
     };
     return {
-      didSearchChange: false,
-      didSelectionsChange: false,
       filter: '',
       search: '',
       isSearching: false,

@@ -94,8 +94,6 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     dropdownButton: RefObject<HTMLButtonElement>;
     searchOrFilterInput: RefObject<HTMLInputElement>;
   };
-  didSearchChange: boolean;
-  didSelectionsChange: boolean;
   filter: string;
   search: string;
   isSearching: boolean;
