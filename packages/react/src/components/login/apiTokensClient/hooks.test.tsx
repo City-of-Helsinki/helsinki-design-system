@@ -293,12 +293,13 @@ describe('apiToken hooks testing', () => {
         expect(getInnerHtml(elementIds.lastSignal)).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
         expect(getInnerHtml(elementIds.error)).toBe('');
       });
-      it('Tracks renewal', async () => {
+      it('Tracks renewal and handles renewal errors.', async () => {
         const user = createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
         setUserReferenceToStorage(user.access_token);
         setApiTokensToStorage(apiTokens);
         const { emit, getInnerHtml } = init({
           component: 'errorTracking',
+          // force renewal to fail
           responses: [{ returnedStatus: HttpStatusCode.OK, body: '"invalid{json' }],
         });
         act(() => {
