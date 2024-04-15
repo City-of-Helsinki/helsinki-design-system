@@ -130,7 +130,13 @@ All component properties are listed on the <ApiPageAnchorLink anchor="logincallb
 #### LoginProvider
 
 This component creates a React context and initialises all modules. All components and hooks are required to render inside the LoginProvider or React Context will throw an error.
-Position the context in the component tree like any other React context. The context does not change and cause re-renders often, so it can be at the top level.
+Position the context in the component tree like any other React context.
+
+The value of context does not change every time one of its modules changes. Therefore, it does not cause re-renders, so it can be at the top level. For example, if user data or API tokens are renewed, the value of the context is not updated. Only its modules. This way, the application using the LoginProvider is not constantly re-rendered.
+
+Up-to-date user data or API tokens can be accessed from the modules with hooks.
+
+The <AnchorLink>useSignalListener</AnchorLink> can be used to update a component when a module of the LoginProvider changes.
 
 <PlaygroundPreview>
 

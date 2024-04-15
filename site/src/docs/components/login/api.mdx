@@ -78,7 +78,6 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
 
 - <AnchorLink>Beacon</AnchorLink>
 - <AnchorLink>Signals</AnchorLink>
-- <AnchorLink anchor="important-1">Important</AnchorLink>
 
 ### Components
 
@@ -670,7 +669,7 @@ Only custom modules can emit signals. See the <CustomisationPageAnchorLink ancho
 
 See also <CustomisationPageAnchorLink anchor="custom-namespaced-beacons-for-modules">custom namespaced beacons</CustomisationPageAnchorLink>.
 
-#### Important
+##### Important
 
 If a listener is added while signaling and it is triggered by the currently emitted signal, a loop could be created. This could occur when using hooks and not memoizing listeners. Avoid emitting signals inside listeners.
 
