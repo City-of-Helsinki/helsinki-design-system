@@ -4,16 +4,16 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
-import { NumberInput } from './NumberInput';
-
-const numberInputProps = {
-  id: 'numberInputTestId',
-  label: 'Test label number input',
-  plusStepButtonAriaLabel: 'Add 10 euros',
-  minusStepButtonAriaLabel: 'Decrease 10 euros',
-};
+import { NumberInput, NumberInputProps } from './NumberInput';
 
 describe('<NumberInput /> spec', () => {
+  const numberInputProps: NumberInputProps = {
+    id: 'numberInputTestId',
+    label: 'Test label number input',
+    plusStepButtonAriaLabel: 'Add 10 euros',
+    minusStepButtonAriaLabel: 'Decrease 10 euros',
+  };
+
   const getAriaLiveElement = (result: RenderResult) => {
     return result.container.querySelector('[aria-live="assertive"]');
   };
