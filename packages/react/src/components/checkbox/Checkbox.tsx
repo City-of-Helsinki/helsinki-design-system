@@ -108,7 +108,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     }
 
     const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, undefined, undefined);
-
     return (
       <div className={classNames(styles.checkbox, className)} style={style}>
         <input
@@ -120,7 +119,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           disabled={disabled}
           checked={checked}
-          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
+          aria-describedby={ariaDescribedBy}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label, !label ? styles.noLabel : '')}>

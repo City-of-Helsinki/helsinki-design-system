@@ -301,7 +301,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
             onKeyUp={onHoursKeyUp}
             onFocus={onInputFocus}
             onBlur={onHoursBlur}
-            aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : undefined}
+            aria-describedby={ariaDescribedBy}
             placeholder="--"
           />
           <div className={styles.divider}>:</div>
@@ -321,7 +321,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
             onKeyDown={onMinutesKeyDown}
             onFocus={onInputFocus}
             onBlur={onMinutesBlur}
-            aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : undefined}
+            aria-describedby={ariaDescribedBy}
             placeholder="--"
           />
         </div>
