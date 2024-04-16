@@ -43,29 +43,29 @@ jobs:
           yarn config set network-timeout 300000 
           yarn
 
-      # - name: build site package
-      #   run: PATH_PREFIX='/hds-demo/pr_${{ github.event.number }}' yarn build -- --prefix-paths
+      - name: build site package
+        run: PATH_PREFIX='/hds-demo/pr_${{ github.event.number }}' yarn build
 
-      # - name: Checkout code hds-demo
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: City-of-Helsinki/hds-demo
-      #     path: hds-demo
+      - name: Checkout code hds-demo
+        uses: actions/checkout@v4
+        with:
+          repository: City-of-Helsinki/hds-demo
+          path: hds-demo
 
-      # - name: Clean old directory
-      #   run: |
-      #     rm -fr ./hds-demo/pr_${{ github.event.number }}
-      #     mkdir -p ./hds-demo/pr_${{ github.event.number }}
+      - name: Clean old directory
+        run: |
+          rm -fr ./hds-demo/pr_${{ github.event.number }}
+          mkdir -p ./hds-demo/pr_${{ github.event.number }}
 
-      # - name: Copy build results
-      #   run: cp -r ./public/* ./hds-demo/pr_${{ github.event.number }}
+      - name: Copy build results
+        run: cp -r ./public/* ./hds-demo/pr_${{ github.event.number }}
 
-      # - name: Commit 
-      #   run: |
-      #     git config --global user.email "hds@hel.fi"
-      #     git config --global user.name "Github Actions"
-      #     git status
-      #     git add .
-      #     git commit -m "Updated pr ${{ github.event.number }}"
-      #     # git push
-      #   working-directory: ./hds-demo
+      - name: Commit 
+        run: |
+          git config --global user.email "hds@hel.fi"
+          git config --global user.name "Github Actions"
+          git status
+          git add .
+          git commit -m "Updated pr ${{ github.event.number }}"
+          # git push
+        working-directory: ./hds-demo
