@@ -17,10 +17,15 @@
     "start:core": "lerna run --scope hds-core start",
     "start:react": "lerna run --scope hds-react start",
     "release": "lerna publish from-package --yes",
+    "test:e2e:install": "yarn playwright install",
+    "test:e2e:ci": "npx playwright test",
+    "test:e2e:start": "npx playwright test",
+    "test:e2e:record": "npx playwright codegen https://hds.hel.fi",
     "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes",
     "update-changelog": "node ./scripts/changelog/update-changelog.js"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
     "lerna": "^7.0.1",
     "rimraf": "^5.0.1"
   },
