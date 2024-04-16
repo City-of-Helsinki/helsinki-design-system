@@ -11,6 +11,9 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
+    env:
+      PATH_PREFIX: "/hds-demo/pr_${{ github.event.number }}"
+
     steps:
       - name: Checkout code hds
         uses: actions/checkout@v4
@@ -25,6 +28,7 @@ jobs:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
 
+      # Github cache
       - name: get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
@@ -49,9 +53,28 @@ jobs:
           yarn config set network-timeout 300000 
           yarn
 
-      - name: build site package
-        run: PATH_PREFIX='/hds-demo/pr_${{ github.event.number }}' yarn build
+      # Build
+      - name: build design tokens package
+        run: yarn build
+        working-directory: ./packages/design-tokens
 
+      - name: build core package
+        run: yarn build
+        working-directory: ./packages/core
+
+      - name: build react package
+        run: yarn build
+        working-directory: ./packages/react
+
+      - name: build hds-js package
+        run: yarn build:hds-js
+        working-directory: ./packages/react
+
+      - name: build site package
+        run: yarn build --prefix-paths
+        working-directory: ./site
+
+      # Publish to hds-demo
       - name: Checkout code hds-demo
         uses: actions/checkout@v4
         with:
