@@ -11,9 +11,6 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
-    env:
-      PATH_PREFIX: "/hds-demo/pr_${{ github.event.number }}" 
-
     steps:
       - name: Checkout code hds
         uses: actions/checkout@v4
@@ -47,8 +44,7 @@ jobs:
           yarn
 
       - name: build site package
-        run: yarn build -- --prefix-paths
-
+        run: PATH_PREFIX='/hds-demo/pr_${{ github.event.number }}' yarn build -- --prefix-paths
 
       - name: Checkout code hds-demo
         uses: actions/checkout@v4
