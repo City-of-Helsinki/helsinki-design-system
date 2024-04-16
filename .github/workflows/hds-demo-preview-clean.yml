@@ -18,10 +18,11 @@ jobs:
         with:
           repository: City-of-Helsinki/hds-demo
           path: hds-demo
+          ssh-key: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
 
       - name: Remove PR directory
         run: |
-          rm -fr pr_${{ github.event.number }}
+          rm -fr ./docs/pr_${{ github.event.number }}
         working-directory: ./hds-demo
 
       - name: Commit 
@@ -31,5 +32,5 @@ jobs:
           git status
           git add .
           git commit -m "Updated pr ${{ github.event.number }}"
-          # git push
+          git push
         working-directory: ./hds-demo

@@ -25,11 +25,11 @@ jobs:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Get yarn cache directory path
+      - name: get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
         
-      - name: Restore yarn cache
+      - name: restore yarn cache
         uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -62,14 +62,14 @@ jobs:
       - name: Clean old directory
         run: |
           rm -fr ./hds-demo/pr_${{ github.event.number }}
-          mkdir -p ./hds-demo/pr_${{ github.event.number }}
+          rm -fr ./hds-demo/docs/pr_${{ github.event.number }}
+          mkdir -p ./hds-demo/docs/pr_${{ github.event.number }}
 
       - name: Copy build results
-        run: cp -r ./site/public/* ./hds-demo/pr_${{ github.event.number }}
+        run: cp -r ./site/public/* ./hds-demo/docs/pr_${{ github.event.number }}
 
       - name: Commit 
         run: |
-          git config --get remote.origin.url
           git config --global user.email "hds@hel.fi"
           git config --global user.name "Github Actions"
           git status
