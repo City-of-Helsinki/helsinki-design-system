@@ -58,7 +58,7 @@ jobs:
           mkdir -p ./hds-demo/pr_${{ github.event.number }}
 
       - name: Copy build results
-        run: cp -r ./public/* ./hds-demo/pr_${{ github.event.number }}
+        run: cp -r ./site/public/* ./hds-demo/pr_${{ github.event.number }}
 
       - name: Commit 
         run: |
