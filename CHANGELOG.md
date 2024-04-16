@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Footer] Fix Koros height issue (Calm type was of wrong height)
 
 ### Core
 
