@@ -164,8 +164,8 @@ const getCloseTransition = (duration: number) => ({
  * @param duration
  */
 const getAutoCloseTransition = (duration: number) => ({
-  from: { transform: 'translate3d(-100%, 0, 0)' },
-  to: { transform: 'translate3d(0%, 0, 0)' },
+  from: { transform: 'translate3d(0%, 0, 0)' },
+  to: { transform: 'translate3d(-100%, 0, 0)' },
   config: {
     duration,
   },

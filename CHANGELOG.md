@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Component] What has been changed
+- [Notification] Change auto closing notification progressbar to decrease instead of increase.
 
 #### Fixed
 
