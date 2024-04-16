@@ -57,6 +57,7 @@ jobs:
         with:
           repository: City-of-Helsinki/hds-demo
           path: hds-demo
+          ssh-key: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
 
       - name: Clean old directory
         run: |
