@@ -8,6 +8,8 @@ describe('<Checkbox /> spec', () => {
   const checkboxProps: CheckboxProps = {
     label: 'label text',
     id: 'test',
+    helperText: 'Helper text',
+    errorText: 'Error text',
   };
 
   it('renders the component', () => {

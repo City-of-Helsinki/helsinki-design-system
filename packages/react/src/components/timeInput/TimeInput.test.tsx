@@ -10,6 +10,8 @@ describe('<TimeInput /> spec', () => {
     id: 'time',
     hoursLabel: 'hours',
     minutesLabel: 'minutes',
+    helperText: 'Helper text',
+    errorText: 'Error text',
   };
 
   const inputWithCapsProps: TimeInputProps = {

@@ -14,6 +14,7 @@ describe('<PasswordInput /> spec', () => {
     label: 'passwordInput label',
     revealPasswordButtonAriaLabel: 'Show password',
     concealPasswordButtonAriaLabel: 'Hide password',
+    errorText: 'Error text',
   };
 
   const getInputElement = (container: HTMLElement) => {

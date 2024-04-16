@@ -13,21 +13,22 @@ describe('<FileInput /> spec', () => {
     language: 'en',
     accept: '.png,.jpg',
     onChange: () => {},
+    helperText: 'Helper text',
   };
 
   it('renders the component', () => {
-    const { asFragment } = render(<FileInput {...defaultInputProps} />);
+    const { asFragment } = render(<FileInput {...defaultInputProps} errorText="Error text" />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<FileInput {...defaultInputProps} />);
+    const { container } = render(<FileInput {...defaultInputProps} errorText="Error text" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
   it('should not have accessibility issues when there are files added', async () => {
-    const { container } = render(<FileInput {...defaultInputProps} multiple />);
+    const { container } = render(<FileInput {...defaultInputProps} multiple errorText="Error text" />);
     const fileUpload = screen.getByLabelText(defaultInputProps.label);
     userEvent.upload(fileUpload, [
       new File(['test-a'], 'test-file-a.png', { type: 'image/png' }),

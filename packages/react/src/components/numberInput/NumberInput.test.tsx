@@ -12,6 +12,8 @@ describe('<NumberInput /> spec', () => {
     label: 'Test label number input',
     plusStepButtonAriaLabel: 'Add 10 euros',
     minusStepButtonAriaLabel: 'Decrease 10 euros',
+    helperText: 'Helper text',
+    errorText: 'Error text',
   };
 
   const getAriaLiveElement = (result: RenderResult) => {

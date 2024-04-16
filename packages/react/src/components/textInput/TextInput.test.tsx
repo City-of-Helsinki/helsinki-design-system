@@ -11,6 +11,8 @@ describe('<TextInput /> spec', () => {
     id: 'hdsInput',
     label: 'HDS input field',
     placeholder: 'A placeholder text',
+    helperText: 'Helper text',
+    errorText: 'Error text',
   };
   it('renders the component', () => {
     const { asFragment } = render(<TextInput {...textInputProps} />);
