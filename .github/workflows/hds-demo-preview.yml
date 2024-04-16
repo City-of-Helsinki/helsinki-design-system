@@ -38,6 +38,12 @@ jobs:
           restore-keys: |
             yarn-cache-folder-
 
+      - name: restore lerna
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
+
       - name: install dependencies
         run: |
           yarn config set network-timeout 300000 
@@ -62,10 +68,12 @@ jobs:
 
       - name: Commit 
         run: |
+          git config --get remote.origin.url
           git config --global user.email "hds@hel.fi"
           git config --global user.name "Github Actions"
           git status
           git add .
           git commit -m "Updated pr ${{ github.event.number }}"
+          git status
           # git push
         working-directory: ./hds-demo
