@@ -1,0 +1,62 @@
+name: hds-demo-preview
+
+on:
+  pull_request:
+    branches:
+      - development
+
+
+jobs:
+ build_and_publish_demo:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+
+    env:
+      PATH_PREFIX: "/hds-demo/pr_${{ github.event.number }}" 
+
+    steps:
+      - name: Checkout code hds
+        uses: actions/checkout@v4
+
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install dependencies
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
+
+      - name: build site package
+        run: npm run build -- --prefix-paths
+
+
+      - name: Checkout code hds-demo
+        uses: actions/checkout@v4
+        with:
+          repository: City-of-Helsinki/hds-demo
+          path: hds-demo
+
+      - name: Clean old directory
+        run: |
+          rm -fr ./hds-demo/pr_${{ github.event.number }}
+          mkdir -p ./hds-demo/pr_${{ github.event.number }}
+
+      - name: Copy build results
+        run: cp -r ./public/* ./hds-demo/pr_${{ github.event.number }}
+
+      - name: Commit 
+        run: |
+          git config --global user.email "hds@hel.fi"
+          git config --global user.name "Github Actions"
+          git status
+          git add .
+          git commit -m "Updated pr ${{ github.event.number }}"
+          # git push
+        working-directory: ./hds-demo
