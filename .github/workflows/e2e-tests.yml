@@ -1,0 +1,39 @@
+name: e2e-tests
+
+on:
+  workflow_dispatch:
+#   pull_request:
+#   push:
+#     branches:
+#       - development
+#       - master
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install dependencies
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
+
+      - name: install test tools
+        run: |
+          yarn test:e2e:install
+          
+      - name: run tests
+        run: |
+          yarn test:e2e:start
