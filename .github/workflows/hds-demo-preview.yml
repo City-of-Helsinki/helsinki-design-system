@@ -75,5 +75,5 @@ jobs:
           git add .
           git commit -m "Updated pr ${{ github.event.number }}"
           git status
-          # git push
+          git push
         working-directory: ./hds-demo
