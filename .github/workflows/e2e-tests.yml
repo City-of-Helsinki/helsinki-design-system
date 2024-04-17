@@ -11,6 +11,7 @@ on:
 jobs:
   e2e-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,6 +38,8 @@ jobs:
       - name: run tests
         run: |
           yarn test:e2e:start
+        env:
+          E2E_TESTS_ENV_URL: "https://hds.hel.fi"
 
       - name: upload test results in case of failure
         uses: actions/upload-artifact@v4
