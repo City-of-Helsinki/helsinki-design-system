@@ -1,10 +1,14 @@
 name: hds-demo-preview
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - development
-
+  push:
+    branches:
+      - development
+    
 
 jobs:
  build_and_publish_demo:
@@ -12,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PATH_PREFIX: "/hds-demo/pr_${{ github.event.number }}"
+      PATH_PREFIX: "/hds-demo/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}"
+      DEMO_NAME: preview_${{ github.event.number != '' && github.event.number || github.ref_name }}
 
     steps:
       - name: Checkout code hds
@@ -102,10 +107,11 @@ jobs:
       - name: Clean old directory
         run: |
           rm -fr ./hds-demo/docs/pr_${{ github.event.number }}
-          mkdir -p ./hds-demo/docs/pr_${{ github.event.number }}
+          rm -fr ./hds-demo/docs/$DEMO_NAME
+          mkdir -p ./hds-demo/docs/$DEMO_NAME
 
       - name: Copy build results
-        run: cp -r ./site/public/* ./hds-demo/docs/pr_${{ github.event.number }}
+        run: cp -r ./site/public/* ./hds-demo/docs/$DEMO_NAME
 
       - name: Commit 
         run: |
@@ -113,7 +119,7 @@ jobs:
           git config --global user.name "Github Actions"
           git status
           git add .
-          git commit -m "Updated pr ${{ github.event.number }}"
+          git commit -m "Updated preview to $DEMO_NAME"
           git status
-          git push
+          # git push
         working-directory: ./hds-demo

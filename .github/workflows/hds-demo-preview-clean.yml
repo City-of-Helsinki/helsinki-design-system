@@ -22,7 +22,7 @@ jobs:
 
       - name: Remove PR directory
         run: |
-          rm -fr ./docs/pr_${{ github.event.number }}
+          rm -fr ./docs/preview_${{ github.event.number }}
         working-directory: ./hds-demo
 
       - name: Commit 
