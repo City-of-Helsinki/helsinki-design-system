@@ -105,7 +105,6 @@ jobs:
 
       - name: Clean old directory
         run: |
-          rm -fr ./hds-demo/docs/pr_${{ github.event.number }}
           rm -fr ./hds-demo/docs/$DEMO_NAME
           mkdir -p ./hds-demo/docs/$DEMO_NAME
 
