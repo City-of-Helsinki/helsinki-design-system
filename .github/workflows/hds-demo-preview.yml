@@ -1,7 +1,6 @@
 name: hds-demo-preview
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - development
@@ -121,5 +120,5 @@ jobs:
           git add .
           git commit -m "Updated preview to $DEMO_NAME"
           git status
-          # git push
+          git push
         working-directory: ./hds-demo
