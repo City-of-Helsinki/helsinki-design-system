@@ -48,12 +48,13 @@ jobs:
           path: '**/node_modules'
           key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
 
+      # Build
       - name: install dependencies
         run: |
           yarn config set network-timeout 300000 
           yarn
 
-      # Build
+      # Build site
       - name: build design tokens package
         run: yarn build
         working-directory: ./packages/design-tokens
@@ -74,6 +75,22 @@ jobs:
         run: yarn build --prefix-paths
         working-directory: ./site
 
+      # Build core storybook
+      - name: build core storybook
+        run: yarn build-storybook
+        working-directory: ./packages/core
+
+      - name: move core storybook under site
+        run: mkdir ./site/public/storybook && mv ./packages/core/storybook-static $_/core
+
+      # Build react storybook
+      - name: build react storybook
+        run: yarn build-storybook
+        working-directory: ./packages/react
+
+      - name: move react storybook under site
+        run: mv ./packages/react/storybook-static ./site/public/storybook/react
+
       # Publish to hds-demo
       - name: Checkout code hds-demo
         uses: actions/checkout@v4
@@ -84,7 +101,6 @@ jobs:
 
       - name: Clean old directory
         run: |
-          rm -fr ./hds-demo/pr_${{ github.event.number }}
           rm -fr ./hds-demo/docs/pr_${{ github.event.number }}
           mkdir -p ./hds-demo/docs/pr_${{ github.event.number }}
 
