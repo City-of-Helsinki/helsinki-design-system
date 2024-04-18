@@ -1,7 +1,7 @@
 *.log
-.DS_Store
-.jest-*
 lib
 node_modules
 .idea/
 .vscode/
+report/
+test-results/
