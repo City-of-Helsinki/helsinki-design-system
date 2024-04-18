@@ -9,14 +9,17 @@ import LeadParagraph from '../../../components/LeadParagraph';
 import InternalLink from '../../../components/InternalLink';
 
 # Migrate to version 4.0.0
-This guide helps you to start using HDS version 4.0.0. 
+
+This guide helps you to start using HDS version 4.0.0.
 
 ## Breaking changes
+
 This major release contains some breaking changes. Pay attention to these when you update your project to use the new version.
 
 ### Tag component rewritten
 
 #### React
+
 The Tag component has been rewritten and `iconStart` and `iconEnd` -properties have now been added.
 Prop `size` is now a Typescript enum with proper values (`TagSize.Small` and `TagSize.Large`).
 Prop `role`has been removed and the component itself handles it role.
@@ -24,59 +27,112 @@ Prop `role`has been removed and the component itself handles it role.
 There's also no separate delete-button inside the Tag in the Deletable variant.
 
 #### Core
+
 In Core-side also using hds-icons is now possible with classes without additional `<span>`'s.
 
 #### Both
+
 Theming has also been modified a bit with changed css-variable names. New design also makes slight changes to the stylings.
 
-- <InternalLink size="M" href="/components/tag">Documentation</InternalLink>
-- <InternalLink size="M" href="/storybook/react/?path=/story/components-tag">React storybook examples</InternalLink>
-- <InternalLink size="M" href="/storybook/core/?path=/story/components-tag">Core storybook examples</InternalLink>
+- <InternalLink size="M" href="/components/tag">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-tag">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-tag">
+    Core storybook examples
+  </InternalLink>
 
 ### Button component rewritten
 
 #### React
+
 The Button component has been rewritten and `iconLeft` and `iconRight` -properties have now been renamed as `iconStart` and `iconEnd` to support future implementation of RTL (right-to-left) languages.
 `Size`, `theme` and `variant` are all now Typescript enums with proper values (used to be Types and included "default" as value).
 Properties `isLoading` and `loadingText` have been removed and implementing a loading button is done by setting the Button's variant as `clear` (`ButtonVariant.Clear`), giving the Button a `<LoadingSpinner small />` as it's `iconStart` and changing the label to something that informs the user about the loading status. Also to consider is whether to add `disabled` prop or not.
 
 #### Core
+
 In Core-side also using hds-icons is now possible with classes without additional `<span>`'s.
 
 #### Both
+
 Theming has also been added through css-variables. New design also makes slight changes to the stylings.
 
-- <InternalLink size="M" href="/components/button">Documentation</InternalLink>
-- <InternalLink size="M" href="/storybook/react/?path=/story/components-button--primary">React storybook examples</InternalLink>
-- <InternalLink size="M" href="/storybook/core/?path=/story/components-button--primary">Core storybook examples</InternalLink>
+- <InternalLink size="M" href="/components/button">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-button--primary">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-button--primary">
+    Core storybook examples
+  </InternalLink>
 
 ### Link component changes
 
 #### React
+
 Link has changed props, `iconLeft` has been renamed to `iconStart`.
 Separate `ariaLabel` has been removed, replaced by using native `aria-label` -property.
 Size prop is now a Typescript-enum with values `LinkSize.Small`, `LinkSize.Medium` and `LinkSize.Large`, which correspond to string values `small`, `medium` and `large`.
 
 #### Core
+
 `hds-icon-left` class has been renamed to `hds-icon-start`
 
-- <InternalLink size="M" href="/components/link">Documentation</InternalLink>
-- <InternalLink size="M" href="/storybook/react/?path=/story/components-link">React storybook examples</InternalLink>
-- <InternalLink size="M" href="/storybook/core/?path=/story/components-link">Core storybook examples</InternalLink>
+- <InternalLink size="M" href="/components/link">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-link">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-link">
+    Core storybook examples
+  </InternalLink>
 
 ### Notification and ErrorSummary
 
 #### React
+
 Both Notification and ErrorSummary have their `size` prop changed to enum.
 Notification size is now `NotificationSize.Small`, `NotificationSize.Medium` or `NotificationSize.Large`
 while ErrorSummary has `ErrorSummarySize.Medium` and `ErrorSummarySize.Large` values. In both the medium value is the default.
 
-- <InternalLink size="M" href="/components/notification">Notification documentation</InternalLink>
-- <InternalLink size="M" href="/components/error-summary">ErrorSummary documentation</InternalLink>
+- <InternalLink size="M" href="/components/notification">
+    Notification documentation
+  </InternalLink>
+- <InternalLink size="M" href="/components/error-summary">
+    ErrorSummary documentation
+  </InternalLink>
 
 ### Icon size
 
 #### React
+
 The Icon size prop has been changed to enum (`IconSize.ExtraSmall`, `IconSize.Small`, `IconSize.Medium`, `IconSize.Large`, `IconSize.ExtraLarge`)
 
-- <InternalLink size="M" href="/components/icon">Documentation</InternalLink>
+- <InternalLink size="M" href="/components/icon">
+    Documentation
+  </InternalLink>
+
+### Hero component arrow icon takes space and may require a background color to be set
+
+#### React and core
+
+The arrow icon's container had `height:0`, but now it takes space and therefore a background color may be needed. By default the Hero's own `--background-color` is shown but it can be overridden with `--bottom-background-color`. In some cases `--bottom-background-color: var(--bottom-koros-color)` is sufficient.
+
+In HDS 3.x.x the arrow also overlapped with the element below. That is not the case any more and has to be achived now by adding negative `margin-top` to the element below.
+
+Documentation and examples
+
+- <InternalLink size="M" href="/components/hero">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-hero--image-bottom">
+    Core examples in Storybook
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-hero--image-bottom">
+    React examples in Storybook
+  </InternalLink>
