@@ -23,18 +23,23 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     koros={{ type: 'pulse', flipVertical: true }}
   >
     <Hero.Title>Hero without an image</Hero.Title>
-    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#fff', '--color': 'var(--color-bus)', '--border-color': '#fff' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>
 
 ### Principles
 
-- Hero is primarily intended only for landing pages. Do not use Hero, if the page has a side navigation. 
+- Hero is primarily intended only for landing pages. Do not use Hero, if the page has a side navigation.
 - Hero is highly recommended to be **the first element below the main navigation**.
 
 #### Use the Hero component when you want to:
@@ -44,6 +49,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Add emotion to the look and feel of the page.
 
 #### Functionalities
+
 - **Image:** There are both with-image and without-an-image options for Hero. Ensure the image adapts to various screen sizes to prevent clipping, especially with faces in the picture. On desktop, it's on the sides, while on mobile, it's below. Validate this for all screen sizes.
 - **Colour:** The background colour is recommended to be the primary colour of the colour palette selected for the site.
 - **Koro shapes:** Choose from six koro shapes (basic, beat, calm, pulse, vibration, and wave), which can be positioned at the bottom or over the Hero image at a 45-degree angle. To learn more about Koro shapes and their customization, refer to <InternalLink href="/components/koros">HDS Koros documentation</InternalLink>.
@@ -77,19 +83,22 @@ Use when you want to support the title's message with an image. Don't use an ima
   >
     <Hero.Title>Hero image on the right</Hero.Title>
     <Hero.Text>
-      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>
 
 #### Image as a background
 
-Use when you want to fill the background area with an image. Use an image that works when the title and intro container covers part of the image. 
+Use when you want to fill the background area with an image. Use an image that works when the title and intro container covers part of the image.
 
 <PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
   <Hero
@@ -101,13 +110,16 @@ Use when you want to fill the background area with an image. Use an image that w
   >
     <Hero.Title>Hero image as a background</Hero.Title>
     <Hero.Text>
-      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -127,13 +139,16 @@ Use when you want to create a dynamic Hero layout on your page. Ensure the image
   >
     <Hero.Title>Hero with a diagonal koro shape</Hero.Title>
     <Hero.Text>
-      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -153,13 +168,16 @@ Use when you want to emphasize the title and introduction text content over the 
   >
     <Hero.Title>Hero image below the title</Hero.Title>
     <Hero.Text>
-      This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -178,12 +196,17 @@ Use when you don't have a suitable image to support the title section's message 
     koros={{ type: 'pulse' }}
   >
     <Hero.Title>Hero without an image</Hero.Title>
-    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>
 
@@ -203,11 +226,44 @@ Used to indicate there's more content to follow.
     showArrowIcon
   >
     <Hero.Title>Hero with an arrow icon</Hero.Title>
-    <Hero.Text>This is an introduction text. The length is circa two sentences. The suitable total length of the title and introduction is around 230 characters, including spaces. The intro ends with a period.</Hero.Text>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
     <Button
       variant="secondary"
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
-    >Call to action</Button>
+    >
+      Call to action
+    </Button>
+  </Hero>
+</PlaygroundPreview>
+
+#### Additional information
+
+Used for example to give photo credits.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="imageBottom"
+    theme={{
+      '--background-color': '#fff',
+    }}
+    information="Photo: Firstname Lastname"
+  >
+    <Hero.Title>Hero with photographer information</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
   </Hero>
 </PlaygroundPreview>

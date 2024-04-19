@@ -1,0 +1,33 @@
+---
+slug: '/getting-started/tutorials/migrate-to-4.0.0'
+title: 'Migrate to 4.0.0'
+navTitle: 'Migrate to 4.0.0'
+---
+
+import InternalLink from '../../../components/InternalLink';
+
+# Migrate to version 4.0.0
+
+This guide helps you to start using HDS version 4.0.0.
+
+## Breaking changes
+
+This major release contains some breaking changes. Pay attention to these when you update your project to use the new version.
+
+### Hero component arrow icon takes space and may require a background color to be set
+
+The arrow icon's container had `height:0`, but now it takes space and therefore a background color may be needed. By default the Hero's own `--background-color` is shown but it can be overridden with `--bottom-background-color`. In some cases `--bottom-background-color: var(--bottom-koros-color)` is sufficient.
+
+In HDS 3.x.x the arrow also overlapped with the element below. That is not the case any more and has to be achived now by adding negative `margin-top` to the element below.
+
+Documentation and examples
+
+- <InternalLink size="M" href="/components/hero">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-hero--image-bottom">
+    Core examples in Storybook
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-hero--image-bottom">
+    React examples in Storybook
+  </InternalLink>

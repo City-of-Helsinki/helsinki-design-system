@@ -5,9 +5,13 @@ export default {
   title: 'Components/Hero',
 };
 
-const arrowIcon = `
-  <div class="hds-hero__arrow-icon-container">
-    <span class="hds-icon hds-hero--arrow-icon hds-icon--arrow-down" />
+const arrowIcon = `<span class="hds-icon hds-hero--arrow-icon hds-icon--arrow-down"></span>`;
+
+const photoInfo = `<span>Photo: Firstname Middlename Long-Lastname</span>`;
+
+const information = `
+  <div class="hds-hero__information-container">
+    ${photoInfo}
   </div>
 `;
 
@@ -72,11 +76,10 @@ export const ImageBottom = () => `
       </div>
     </div>
   </div>`;
-
 ImageBottom.storyName = 'Bottom image';
 
-export const ImageBottomWithArrow = () => `
-  <div class="hds-hero hds-hero--image-bottom hds-hero__arrow-icon-spacing-after" style="--koros-height:15px;">
+export const ImageBottomWithInformation = () => `
+  <div class="hds-hero hds-hero--image-bottom" style="--koros-height:15px;">
     <div class="hds-hero__container">
       <div class="hds-hero__content hds-hero__content--single-column">
         ${card}
@@ -90,10 +93,58 @@ export const ImageBottomWithArrow = () => `
         ${image}
       </div>
     </div>
-    ${arrowIcon}
+    <div class="hds-hero__bottom-container" aria-hidden="true">
+      <div class="hds-hero__bottom-content-aligner">
+        ${information}
+      </div>
+    </div>
   </div>`;
+ImageBottomWithInformation.storyName = 'Bottom image with information';
 
+export const ImageBottomWithArrow = () => `
+  <div class="hds-hero hds-hero--image-bottom" style="--koros-height:15px;">
+    <div class="hds-hero__container">
+      <div class="hds-hero__content hds-hero__content--single-column">
+        ${card}
+      </div>
+    </div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
+    <div class="hds-hero__bottom-container" aria-hidden="true">
+      ${arrowIcon}
+    </div>
+  </div>`;
 ImageBottomWithArrow.storyName = 'Bottom image with arrow icon';
+
+export const ImageBottomWithArrowAndInformation = () => `
+  <div class="hds-hero hds-hero--image-bottom" style="--koros-height:15px;">
+    <div class="hds-hero__container">
+      <div class="hds-hero__content hds-hero__content--single-column">
+        ${card}
+      </div>
+    </div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
+    <div class="hds-hero__bottom-container" aria-hidden="true">
+      <div class="hds-hero__bottom-content-aligner">
+        ${arrowIcon}
+        ${information}
+      </div>
+    </div>
+  </div>`;
+ImageBottomWithArrowAndInformation.storyName = 'Bottom image with arrow icon and information';
 
 export const DiagonalKoros = () => `
   <style type="text/css">
@@ -135,9 +186,57 @@ export const DiagonalKoros = () => `
         ${image}
       </div>
     </div>
-    ${arrowIcon}
   </div>`;
 DiagonalKoros.storyName = 'Diagonal koros';
+
+export const DiagonalKorosWithInformation = () => `
+  <style type="text/css">
+    .custom-theme {
+      content: "";
+      --background-color: #f5a3c7;
+      --koros-color: var(--background-color);
+      --color: #000;
+      --bottom-background-color: #fff;
+    }
+    /*
+      Koros is very high by default and the height can be set with css var "--koros-height".
+      Heights of different koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
+    */
+    .responsive-koros{
+      --koros-height: 15px;
+    }
+    @media only screen and (min-width: 992px){
+      .responsive-koros{
+        --koros-height: auto;
+      }
+    }
+  </style>
+  <div class="hds-hero custom-theme hds-hero--diagonal-koros">
+    <div class="hds-hero--with-background__container">
+      <div class="hds-hero__content">
+        <div class="hds-hero--with-background__content-columns">
+          ${card}
+          <div class="hds-hero--with-background__empty-column"></div>
+        </div>
+      </div>
+      <div class="hds-hero--diagonal-koros__koros-aligner">
+        <div class="responsive-koros hds-hero--diagonal-koros__koros-and-background">
+          <div class="hds-hero__koros-container">
+            ${getKoros(true)}
+          </div>
+        </div>
+      </div>
+      <div class="hds-hero--with-background__background">
+        ${image}
+      </div>
+    </div>
+    <div class="hds-hero__bottom-container" aria-hidden="true">
+      <div class="hds-hero__bottom-content-aligner">
+        ${information}
+      </div>
+    </div>
+  </div>`;
+DiagonalKorosWithInformation.storyName = 'Diagonal koros with information';
 
 export const WithoutImage = () => `
   <style type="text/css">
@@ -226,6 +325,74 @@ export const ImageRight = () => `
   </div>`;
 ImageRight.storyName = 'Image right';
 
+export const ImageRightWithArrowAndInformation = () => `
+  <style type="text/css">
+    .custom-theme {
+      content: "";
+      --background-color: #c2a251;
+      --color: #000;
+      --koros-color: var(--background-color);
+      --koros-height: 15px;
+      --bottom-background-color: #fff;
+    }
+  </style>
+  <div class="hds-hero custom-theme hds-hero--image-right">
+    <div class="hds-hero__container">
+      <div class="hds-hero__content hds-hero__content--two-columns">
+        ${card}
+        <div class="hds-hero__content--two-columns__image-container">${image}</div>
+      </div>
+    </div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
+    <div class="hds-hero__bottom-container" aria-hidden="true">
+      <div class="hds-hero__bottom-content-aligner">
+        ${arrowIcon}
+        ${information}
+      </div>
+    </div>
+  </div>`;
+ImageRightWithArrowAndInformation.storyName = 'Image right with arrow icon and information';
+
+export const BottomKorosWithInformation = () => `
+  <style type="text/css">
+    .custom-theme {
+      content: "";
+      --background-color: #c2a251;
+      --color: #000;
+      --koros-color: var(--background-color);
+      --koros-height: 15px;
+    }
+  </style>
+  <div class="hds-hero custom-theme hds-hero--image-right">
+    <div class="hds-hero__container">
+      <div class="hds-hero__content hds-hero__content--two-columns">
+        ${card}
+        <div class="hds-hero__content--two-columns__image-container">${image}</div>
+      </div>
+    </div>
+    <div class="hds-hero__koros-and-image-container">
+      <div class="hds-hero__koros-container">
+        ${getKoros()}
+      </div>
+      <div class="hds-hero__image-below-koros">
+        ${image}
+      </div>
+    </div>
+    <div class="hds-hero__bottom-container" aria-hidden="true">
+      <div class="hds-hero__bottom-content-aligner">
+        ${information}
+      </div>
+    </div>
+  </div>`;
+BottomKorosWithInformation.storyName = 'Information with bottom koros';
+
 export const ImageLeft = () => `
   <style type="text/css">
     .custom-theme {
@@ -302,10 +469,11 @@ export const BackgroundImageWithArrow = () => `
       --top-koros-color: var(--background-color);
       --koros-height: 15px;
       --arrow-icon-color: var(--color-brick);
+      --bottom-background-color: var(--bottom-koros-color);
     }
   </style>
   <div class="container">
-    <div class="hds-hero custom-theme hds-hero--background-image hds-hero__arrow-icon-spacing-after">
+    <div class="hds-hero custom-theme hds-hero--background-image">
       <div class="hds-hero--with-background__container">
         <div class="hds-hero--with-background__background">
           <div class="hds-hero--background-image__koros">
@@ -319,7 +487,92 @@ export const BackgroundImageWithArrow = () => `
           </div>
         </div>
       </div>
-      ${arrowIcon}
+      <div class="hds-hero__bottom-container" aria-hidden="true">
+        ${arrowIcon}
+      </div>
     </div>
   </div>`;
 BackgroundImageWithArrow.storyName = 'Background image with arrow icon';
+
+export const BackgroundImageWithInformation = () => `
+  <style type="text/css">
+    .container {
+      background: #ccc;
+      padding: 10px 10px 200px;
+    }
+    .custom-theme {
+      content: "";
+      --background-color: #fff;
+      --color: #000;
+      --bottom-koros-color: #ccc;
+      --top-koros-color: var(--background-color);
+      --koros-height: 15px;
+      --arrow-icon-color: var(--color-brick);
+      --bottom-background-color: var(--bottom-koros-color);
+    }
+  </style>
+  <div class="container">
+    <div class="hds-hero custom-theme hds-hero--background-image">
+      <div class="hds-hero--with-background__container">
+        <div class="hds-hero--with-background__background">
+          <div class="hds-hero--background-image__koros">
+            ${getKoros(true)}
+          </div>
+          ${image}
+        </div>
+        <div class="hds-hero__content">
+          ${card}
+          <div class="hds-hero--with-background__empty-column">
+          </div>
+        </div>
+      </div>
+      <div class="hds-hero__bottom-container" aria-hidden="true">
+        <div class="hds-hero__bottom-content-aligner">
+          ${information}
+        </div>
+      </div>
+    </div>
+  </div>`;
+BackgroundImageWithInformation.storyName = 'Background image with information';
+
+export const BackgroundImageWithArrowAndInformation = () => `
+  <style type="text/css">
+    .container {
+      background: #ccc;
+      padding: 10px 10px 200px;
+    }
+    .custom-theme {
+      content: "";
+      --background-color: #fff;
+      --color: #000;
+      --bottom-koros-color: #ccc;
+      --top-koros-color: var(--background-color);
+      --koros-height: 15px;
+      --arrow-icon-color: var(--color-brick);
+      --bottom-background-color: var(--bottom-koros-color);
+    }
+  </style>
+  <div class="container">
+    <div class="hds-hero custom-theme hds-hero--background-image">
+      <div class="hds-hero--with-background__container">
+        <div class="hds-hero--with-background__background">
+          <div class="hds-hero--background-image__koros">
+            ${getKoros(true)}
+          </div>
+          ${image}
+        </div>
+        <div class="hds-hero__content">
+          ${card}
+          <div class="hds-hero--with-background__empty-column">
+          </div>
+        </div>
+      </div>
+      <div class="hds-hero__bottom-container" aria-hidden="true">
+        <div class="hds-hero__bottom-content-aligner">
+          ${arrowIcon}
+          ${information}
+        </div>
+      </div>
+    </div>
+  </div>`;
+BackgroundImageWithArrowAndInformation.storyName = 'Background image with arrow icon and information';

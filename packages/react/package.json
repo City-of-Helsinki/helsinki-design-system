@@ -31,6 +31,7 @@
     "test": "jest --env=jest-environment-jsdom-sixteen",
     "prepublishOnly": "cp -r ./lib/. .",
     "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
+    "update-story-images": "loki update --requireReference --verboseRenderer --reactUri file:./storybook-static --storiesFilter ",
     "update-reference-images": "rimraf .loki/reference/ && loki update --requireReference --verboseRenderer --reactUri file:./storybook-static"
   },
   "devDependencies": {
