@@ -92,6 +92,7 @@ export const createContainerProps = ({
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
     role: 'group',
+    tabIndex: -1,
   };
 };
 

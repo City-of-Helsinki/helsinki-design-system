@@ -51,6 +51,7 @@ export function createListElementProps<T = HTMLUListElement>({
     id: elementIds.list,
     role: 'listbox',
     'aria-multiselectable': multiSelect,
+    tabIndex: -1,
   };
 }
 

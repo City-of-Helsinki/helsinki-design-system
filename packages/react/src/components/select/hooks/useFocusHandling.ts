@@ -49,6 +49,7 @@ export function useFocusHandling(): ReturnObject {
       const moveFocusToFirstListItem = () => {
         const closestListItems = getListItemSiblings(undefined, false);
         if (closestListItems.next) {
+          markActiveDescendant(closestListItems.next);
           closestListItems.next.focus();
         }
       };
@@ -71,8 +72,7 @@ export function useFocusHandling(): ReturnObject {
         const { type: eventElementType, element } = getEventElementType(e);
         if (eventElementType === 'list') {
           moveFocusToFirstListItem();
-        }
-        if (eventElementType === 'listItem' || eventElementType === 'listGroupLabel') {
+        } else if (eventElementType === 'listItem' || eventElementType === 'listGroupLabel') {
           markActiveDescendant(element);
         } else {
           markActiveDescendant(null);

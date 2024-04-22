@@ -167,7 +167,15 @@ export function useKeyboard() {
     [trigger, getData, getMetaData, updateMetaData],
   );
 
+  const onKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    const { type } = getEventElementType(e);
+    if (type && isAnyListChildType(type) && isClickKey(e)) {
+      e.preventDefault();
+    }
+  }, []);
+
   return {
     onKeyUp,
+    onKeyDown,
   };
 }
