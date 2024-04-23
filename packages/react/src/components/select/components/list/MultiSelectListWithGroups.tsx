@@ -84,14 +84,14 @@ export const createGroups = ({
 export const createContainerProps = ({
   getMetaData,
 }: SelectDataHandlers): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
-  const { elementIds, refs } = getMetaData() as SelectMetaData;
-
+  const { elementIds, refs, listInputType } = getMetaData();
+  const hasInput = !!listInputType;
   return {
     'aria-labelledby': `${elementIds.label} ${elementIds.choicesCount}`,
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
-    role: 'group',
+    role: hasInput ? 'dialog' : 'listbox',
     tabIndex: -1,
   };
 };

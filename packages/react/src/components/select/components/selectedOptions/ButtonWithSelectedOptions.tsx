@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
-import { createOnClickListener } from '../../utils';
+import { createOnClickListener, getVisibleGroupLabels } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 import { getTextKeyFromDataHandlers } from '../../texts';
 
@@ -19,18 +19,13 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
 
 const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
   const { getData, getMetaData, trigger } = dataHandlers;
-  const { disabled, open, invalid } = getData();
+  const { disabled, open, invalid, groups, multiSelect } = getData();
   const { icon, refs, elementIds, activeDescendant, selectedOptions, listInputType } = getMetaData();
   const placeholder = getTextKeyFromDataHandlers('placeholder', dataHandlers) || '';
   const label = getTextKeyFromDataHandlers('label', dataHandlers);
   const ariaLabel = getTextKeyFromDataHandlers('dropdownButtonAriaLabel', dataHandlers);
-  const hasInput = !listInputType;
-  const getAriaControlsId = () => {
-    if (hasInput) {
-      return elementIds.searchOrFilterInput;
-    }
-    return elementIds.list;
-  };
+  const hasInput = !!listInputType;
+
   const getAriaLabel = () => {
     const descriptiveLabel = label || ariaLabel;
     const labels = descriptiveLabel ? [`${descriptiveLabel}.`] : [];
@@ -52,10 +47,22 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
 
     return labels.join(' ');
   };
+
+  const getInputAndGroupRelatedProps = (): Partial<ButtonElementProps> => {
+    if (hasInput) {
+      return { role: undefined, 'aria-controls': elementIds.searchOrFilterInput, 'aria-haspopup': 'dialog' };
+    }
+    const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+    const isMultiSelectWithGroups = multiSelect && hasVisibleGroupLabels;
+    return {
+      role: 'combobox',
+      'aria-controls': elementIds.list,
+      'aria-haspopup': isMultiSelectWithGroups ? 'dialog' : 'listbox',
+    };
+  };
+
   return {
-    'aria-controls': getAriaControlsId(),
     'aria-expanded': open,
-    'aria-haspopup': hasInput ? 'dialog' : 'listbox',
     'aria-invalid': invalid,
     'aria-label': getAriaLabel(),
     'aria-activedescendant': hasInput ? undefined : activeDescendant,
@@ -68,12 +75,12 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     ),
     disabled,
     icon,
-    role: hasInput ? undefined : 'combobox',
     id: elementIds.dropdownButton,
     options: selectedOptions,
-    ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
     optionClassName: styles.dropdownButtonOption,
     placeholder,
+    ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
+    ...getInputAndGroupRelatedProps(),
   };
 };
 

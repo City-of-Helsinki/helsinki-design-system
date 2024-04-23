@@ -18,7 +18,7 @@ export function useElementDetection() {
   const { getMetaData, getData } = useSelectDataHandlers();
   const { refs, elementIds, listInputType } = getMetaData();
   const { open } = getData();
-  const hasInput = !listInputType;
+  const hasInput = !!listInputType;
 
   const elementIdEntries = Object.entries(elementIds) as [KnownElementType, string][];
   const getElementId = (element: HTMLElement): string | null => {

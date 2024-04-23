@@ -27,7 +27,7 @@ export const List = () => {
     if (!multiSelect) {
       return hasVisibleGroupLabels ? <SingleSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
     }
-    return <MultiSelectListWithGroups />;
+    return isMultiSelectAndHasGroupLabels ? <MultiSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
   };
   return (
     <div className={classes} style={styleObj}>

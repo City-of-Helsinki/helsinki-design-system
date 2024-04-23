@@ -143,6 +143,22 @@ export const Singleselect = () => {
     />
   );
 };
+export const SingleselectWithFilter = () => {
+  const options = generateOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      filter={defaultFilter}
+      required
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
+    />
+  );
+};
 export const Multiselect = () => {
   const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
@@ -154,6 +170,23 @@ export const Multiselect = () => {
       onChange={onChange}
       icon={<IconLocation />}
       required
+      multiSelect
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose one' }}
+    />
+  );
+};
+export const MultiselectWithFilter = () => {
+  const options = generateOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      filter={defaultFilter}
       multiSelect
       texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose one' }}
     />
@@ -390,7 +423,7 @@ export const Error = () => {
   );
 };
 
-export const SingleselectWithFiltering = () => {
+export const SingleselectWithFilteringAndGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -473,7 +506,7 @@ export const MultiselectWithGroups = () => {
   );
 };
 
-export const MultiselectWithFilter = () => {
+export const MultiselectWithFilterAndGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',

@@ -13,7 +13,7 @@ const createListAndInputContainerProps = (
 ) => {
   const { open } = getData();
   const { refs, listInputType } = getMetaData();
-  const hasInput = !listInputType;
+  const hasInput = !!listInputType;
   const outsideClickTrigger = useCallback(() => {
     if (!open) {
       return;
