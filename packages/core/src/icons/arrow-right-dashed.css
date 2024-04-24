@@ -1,4 +1,12 @@
 .hds-icon--arrow-right-dashed {
-  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath d='M14 5.5L12.5 7L17.5 12L12.5 17L14 18.5L20.5 12L14 5.5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M15.5 13L16.5 12L15.5 11H14V13H15.5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M10 11H12V13H10V11Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M8 13V11H6V13H8Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
-  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath d='M14 5.5L12.5 7L17.5 12L12.5 17L14 18.5L20.5 12L14 5.5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M15.5 13L16.5 12L15.5 11H14V13H15.5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M10 11H12V13H10V11Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M8 13V11H6V13H8Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image-arrow-right-dashed: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath d='M14 5.5L12.5 7L17.5 12L12.5 17L14 18.5L20.5 12L14 5.5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M15.5 13L16.5 12L15.5 11H14V13H15.5Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M10 11H12V13H10V11Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M8 13V11H6V13H8Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image: var(--mask-image-arrow-right-dashed);
+}
+
+.hds-icon-start--arrow-right-dashed {
+  --mask-image-before: var(--mask-image-arrow-right-dashed);
+}
+
+.hds-icon-end--arrow-right-dashed {
+  --mask-image-after: var(--mask-image-arrow-right-dashed);
 }
