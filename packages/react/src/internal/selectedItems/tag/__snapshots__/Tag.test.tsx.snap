@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tag /> spec renders properties of the component 1`] = `
+<DocumentFragment>
+  <div
+    class="tag tag-class"
+    id="tag-id"
+  >
+    <span
+      class="label label-class"
+      id="label-id"
+    >
+      <span
+        class="visuallyHidden"
+      >
+        Tag label for screen readers
+      </span>
+      <span
+        aria-hidden="true"
+      >
+        Tag label
+      </span>
+    </span>
+    <button
+      aria-label="delete me"
+      class="deleteButton"
+      id="tag-id-delete-button"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        aria-label="cross"
+        class="icon s icon"
+        role="img"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Tag /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="tag"
+    id="hds-tag"
+  >
+    <span
+      class="label"
+      id="hds-tag-label"
+    >
+      <span>
+        Foo
+      </span>
+    </span>
+  </div>
+</DocumentFragment>
+`;

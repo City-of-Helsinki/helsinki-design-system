@@ -1,7 +1,8 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { Tag, TagProps } from './Tag';
+import { IconShare, IconTrash } from '../../icons';
+import { Tag, TagSize, TagTheme, TagProps } from './Tag';
 
 export default {
   component: Tag,
@@ -10,108 +11,196 @@ export default {
     controls: { expanded: true },
   },
   args: {
-    children: 'Americum',
+    children: 'Label',
   },
 };
 
-export const DefaultTag = (args: TagProps) => <Tag {...args} />;
+const TagWrapper = (args) => (
+  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>{args.children}</div>
+);
 
-export const DefaultTagClickable = (args: TagProps) => (
-  <>
-    <Tag {...args} role="link" id="link" onClick={() => action(`Click: ${args.children}`)()}>
+export const InformativeTagsSmall = (args: TagProps) => (
+  <TagWrapper>
+    <Tag {...args} id="info-1" />
+    <Tag {...args} id="info-2" iconStart={<IconShare />} />
+    <Tag {...args} id="info-2" iconEnd={<IconTrash />} />
+    <Tag {...args} id="info-3" iconStart={<IconShare />} iconEnd={<IconTrash />} />
+  </TagWrapper>
+);
+
+export const InformativeTagsLarge = (args: TagProps) => <InformativeTagsSmall {...args} />;
+InformativeTagsLarge.args = { size: TagSize.Large };
+
+export const LinkTags = (args: TagProps) => (
+  <TagWrapper>
+    <Tag {...args} id="linktag-1" href="#linkTags" iconEnd={<IconShare />} aria-label="Open link to self" />
+    <Tag
+      {...args}
+      id="linktag-2"
+      href="#linkTags"
+      iconEnd={<IconShare />}
+      size={TagSize.Large}
+      aria-label="Open link to HDS-site"
+    />
+  </TagWrapper>
+);
+
+export const ActionTags = (args: TagProps) => (
+  <TagWrapper>
+    <Tag {...args} id="action-1" onClick={() => action(`Click: ${args.children}`)()} aria-label="run action 1">
       {args.children}
     </Tag>
     <Tag
       {...args}
-      role="button"
-      id="button"
-      style={{ marginLeft: 'var(--spacing-s)' }}
+      id="action-2"
       onClick={() => action(`Click: ${args.children}`)()}
+      iconStart={<IconTrash />}
+      aria-label="run action 2"
     >
       {args.children}
     </Tag>
-  </>
-);
-
-export const DefaultTagDeletable = (args: TagProps) => {
-  return (
     <Tag
       {...args}
-      deleteButtonAriaLabel={`Delete item: ${args.children}`}
-      srOnlyLabel="Tag label for screen readers"
-      onDelete={() => action(`Delete item: ${args.children}`)()}
+      size={TagSize.Large}
+      id="action-3"
+      onClick={() => action(`Click: ${args.children}`)()}
+      aria-label="run action 3"
     >
       {args.children}
     </Tag>
-  );
-};
-
-export const DefaultTagWithCustomTheme = (args: TagProps) => (
-  <Tag {...args} onClick={() => action(`Click: ${args.children}`)()}>
-    {args.children}
-  </Tag>
-);
-
-DefaultTagWithCustomTheme.args = {
-  theme: {
-    '--tag-background': 'var(--color-engel)',
-    '--tag-color': 'var(--color-black-90)',
-    '--tag-focus-outline-color': 'var(--color-black-90)',
-  },
-};
-
-export const LargeTag = (args: TagProps) => {
-  return (
-    <Tag {...args} size="l">
-      {args.children}
-    </Tag>
-  );
-};
-
-export const LargeTagDeletable = (args: TagProps) => {
-  return (
     <Tag
       {...args}
-      size="l"
-      deleteButtonAriaLabel="Delete item"
-      onDelete={() => action(`Delete item: ${args.children}`)()}
+      size={TagSize.Large}
+      id="action-4"
+      onClick={() => action(`Click: ${args.children}`)()}
+      iconStart={<IconTrash />}
+      aria-label="run action 4"
     >
       {args.children}
     </Tag>
+  </TagWrapper>
+);
+
+export const DeletableTags = (args: TagProps) => {
+  return (
+    <TagWrapper>
+      <Tag
+        {...args}
+        aria-label={`Delete item: ${args.children}`}
+        onDelete={() => action(`Delete item: ${args.children}`)()}
+      >
+        {args.children}
+      </Tag>
+      <Tag
+        size={TagSize.Large}
+        {...args}
+        aria-label={`Delete item: ${args.children}`}
+        onDelete={() => action(`Delete item: ${args.children}`)()}
+      >
+        {args.children}
+      </Tag>
+      <Tag
+        size={TagSize.Large}
+        {...args}
+        aria-label={`Delete item: ${args.children}`}
+        onDelete={() => action(`Delete item: ${args.children}`)()}
+        iconEnd={<IconTrash />}
+      >
+        {args.children}
+      </Tag>
+    </TagWrapper>
   );
 };
 
-export const DefaultTagWithLongText = (args: TagProps) => (
-  <Tag {...args} style={{ maxWidth: '300px' }}>
-    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
-  </Tag>
+export const CustomThemeTags = (args: TagProps) => {
+  const customA: TagTheme = {
+    '--background-color': 'var(--color-brick)',
+    '--color': 'var(--color-white)',
+    '--outline-color-focus': 'var(--color-black-90)',
+  };
+
+  const customB: TagTheme = {
+    '--background-color': 'var(--color-engel)',
+    '--color': 'var(--color-black-90)',
+    '--outline-color-focus': 'var(--color-black-90)',
+  };
+
+  const customC: TagTheme = {
+    '--background-color': 'var(--color-copper-dark)',
+    '--background-color-hover': 'var(--color-tram-dark)',
+    '--color': 'var(--color-white)',
+    '--outline-color-focus': 'var(--color-metro)',
+  };
+
+  const customD: TagTheme = {
+    '--background-color': 'var(--color-fog)',
+    '--color': 'var(--color-black-90)',
+    '--outline-color-focus': 'var(--color-black-90)',
+    '--background-color-hover': 'orange',
+  };
+
+  return (
+    <TagWrapper>
+      <Tag {...args} theme={customA}>
+        {args.children}
+      </Tag>
+      <Tag {...args} theme={customB} iconStart={<IconShare />}>
+        {args.children}
+      </Tag>
+      <Tag
+        {...args}
+        theme={customC}
+        size={TagSize.Large}
+        onClick={() => action(`Click: ${args.children}`)()}
+        aria-label="run custom action"
+      >
+        {args.children}
+      </Tag>
+      <Tag
+        {...args}
+        theme={customD}
+        size={TagSize.Large}
+        iconStart={<IconShare />}
+        href="#customTags"
+        aria-label="open custom link"
+      >
+        {args.children}
+      </Tag>
+    </TagWrapper>
+  );
+};
+
+const longText =
+  'Label - This is a tag with a very long text which is not advisable and might span into multiple lines';
+
+const LongTextTags = (args: TagProps) => (
+  <div style={{ maxWidth: '300px' }}>
+    <TagWrapper>
+      <Tag {...args}>{longText}</Tag>
+      <Tag {...args} iconStart={<IconShare />}>
+        {longText}
+      </Tag>
+      <Tag {...args} iconEnd={<IconShare />}>
+        {longText}
+      </Tag>
+      <Tag {...args} iconStart={<IconShare />} iconEnd={<IconTrash />}>
+        {longText}
+      </Tag>
+      <Tag {...args} onDelete={() => action(`Delete item: ${args.children}`)()} aria-label="delete item">
+        {longText}
+      </Tag>
+      <Tag {...args} onClick={() => action(`Click item: ${args.children}`)()} aria-label="run custom action">
+        {longText}
+      </Tag>
+      <Tag {...args} href="#linkTagsSmall" aria-label="open custom link">
+        {longText}
+      </Tag>
+    </TagWrapper>
+  </div>
 );
 
-export const DefaultTagWithLongTextAndDeletable = (args: TagProps) => (
-  <Tag
-    {...args}
-    style={{ maxWidth: '300px' }}
-    deleteButtonAriaLabel="Delete item"
-    onDelete={() => action(`Delete item: ${args.children}`)()}
-  >
-    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
-  </Tag>
-);
+export const LongTextTagsSmall = (args: TagProps) => <LongTextTags {...args} />;
+LongTextTagsSmall.args = { multiline: true };
 
-export const LargeTagWithLongText = (args: TagProps) => (
-  <Tag {...args} size="l" style={{ maxWidth: '300px' }}>
-    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
-  </Tag>
-);
-
-export const LargeTagWithLongTextAndDeletable = (args: TagProps) => (
-  <Tag
-    {...args}
-    size="l"
-    style={{ maxWidth: '300px' }}
-    deleteButtonAriaLabel="Delete item"
-    onDelete={() => action(`Delete item: ${args.children}`)()}
-  >
-    Label - This is a tag with a very long text which is not advisable and might span into multiple lines
-  </Tag>
-);
+export const LongTextTagsLarge = (args: TagProps) => <LongTextTags {...args} />;
+LongTextTagsLarge.args = { size: TagSize.Large, multiline: true };
