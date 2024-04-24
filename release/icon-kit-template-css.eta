@@ -1,4 +1,12 @@
 .hds-icon--<%= it.componentCSSName %> {
-  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
-  mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  --mask-image-<%= it.componentCSSName %>: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  --mask-image: var(--mask-image-<%= it.componentCSSName %>);
+}
+
+.hds-icon-start--<%= it.componentCSSName %> {
+  --mask-image-before: var(--mask-image-<%= it.componentCSSName %>);
+}
+
+.hds-icon-end--<%= it.componentCSSName %> {
+  --mask-image-after: var(--mask-image-<%= it.componentCSSName %>);
 }

@@ -1,9 +1,9 @@
 .hds-icon {
-  --icon-size: 100%;
-
   background-color: currentcolor;
   display: inline-block;
   height: var(--icon-size);
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
   -webkit-mask-position: center;
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
@@ -13,22 +13,52 @@
   width: var(--icon-size);
 }
 
-.hds-icon.hds-icon--size-xs {
+.hds-icon--size-xs {
   --icon-size: var(--spacing-layout-2-xs);
 }
 
-.hds-icon.hds-icon--size-s {
+.hds-icon--size-s {
   --icon-size: var(--spacing-layout-xs);
 }
 
-.hds-icon.hds-icon--size-m {
+.hds-icon--size-m {
   --icon-size: var(--spacing-layout-s);
 }
 
-.hds-icon.hds-icon--size-l {
+.hds-icon--size-l {
   --icon-size: var(--spacing-layout-m);
 }
 
-.hds-icon.hds-icon--size-xl {
+.hds-icon--size-xl {
   --icon-size: var(--spacing-layout-l);
+}
+
+[class*="hds-icon-start--"] {
+  &:before {  
+    background-color: currentcolor;
+    content: "";
+    display: inline-flex;
+    height: var(--icon-size, 24px);
+    -webkit-mask-image: var(--mask-image-before);
+    mask-image: var(--mask-image-before);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    width: var(--icon-size, 24px);
+  }
+}
+
+[class*="hds-icon-end--"] {
+  &:after {
+    background-color: currentcolor;
+    content: "";
+    display: inline-flex;
+    height: var(--icon-size, 24px);
+    -webkit-mask-image: var(--mask-image-after);
+    mask-image: var(--mask-image-after);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    width: var(--icon-size, 24px);
+  }
 }
