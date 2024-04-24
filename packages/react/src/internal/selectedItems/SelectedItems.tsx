@@ -5,7 +5,7 @@ import { uniqueId } from 'lodash';
 import { ResizeObserver } from '@juggle/resize-observer';
 
 import styles from './SelectedItems.module.scss';
-import { Tag } from '../../components/tag';
+import { Tag } from './tag';
 import classNames from '../../utils/classNames';
 import { IconCrossCircle } from '../../icons';
 
