@@ -9,6 +9,7 @@ import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
 import { CookieModal } from './cookieModal/CookieModal';
+import { ReactTest } from '../cookieConsentCore/ReactTest';
 
 export default {
   component: CookieModal,
@@ -1080,4 +1081,8 @@ export const TunnistamoLoginCookies = (args) => {
 
 TunnistamoLoginCookies.parameters = {
   loki: { skip: true },
+};
+
+export const ExtClass = () => {
+  return <ReactTest />;
 };
