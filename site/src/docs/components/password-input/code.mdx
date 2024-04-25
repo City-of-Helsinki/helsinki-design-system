@@ -85,7 +85,7 @@ import { PasswordInput, Button, IconEyeCrossed, IconEye } from 'hds-react';
         <Button
           variant="supplementary"
           onClick={() => setRevealPassword(!revealPassword)}
-          iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+          iconStart={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
         >
           {revealPassword ? 'Hide password' : 'Show password'}
         </Button>

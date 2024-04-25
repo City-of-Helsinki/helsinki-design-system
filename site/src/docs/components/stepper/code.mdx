@@ -113,7 +113,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -121,7 +121,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
@@ -239,7 +239,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -247,7 +247,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
@@ -361,7 +361,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -369,7 +369,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
@@ -485,7 +485,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -493,7 +493,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>

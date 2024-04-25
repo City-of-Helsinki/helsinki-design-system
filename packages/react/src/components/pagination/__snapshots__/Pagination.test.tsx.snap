@@ -21,7 +21,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -45,9 +45,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -130,13 +128,11 @@ exports[`<Pagination /> spec renders the component 1`] = `
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -188,7 +184,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -212,9 +208,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -278,13 +272,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -334,7 +326,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -358,9 +350,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -449,14 +439,12 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       </ul>
       <button
         aria-disabled="true"
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         disabled=""
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -506,7 +494,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -530,9 +518,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -644,13 +630,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -700,7 +684,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -724,9 +708,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -862,13 +844,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -918,7 +898,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -942,9 +922,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1104,13 +1082,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1160,7 +1136,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1184,9 +1160,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1370,13 +1344,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1426,7 +1398,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1450,9 +1422,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1511,13 +1481,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1567,7 +1535,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1591,9 +1559,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1676,13 +1642,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1732,7 +1696,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1756,9 +1720,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1865,13 +1827,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1921,7 +1881,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1945,9 +1905,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2078,13 +2036,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2134,7 +2090,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2158,9 +2114,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2315,13 +2269,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2371,7 +2323,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2395,9 +2347,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2576,13 +2526,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2632,7 +2580,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2656,9 +2604,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2722,13 +2668,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2778,7 +2722,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2802,9 +2746,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2892,13 +2834,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2948,7 +2888,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2972,9 +2912,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3086,13 +3024,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3142,7 +3078,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -3166,9 +3102,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3304,13 +3238,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3360,7 +3292,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -3384,9 +3316,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3546,13 +3476,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3602,7 +3530,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -3626,9 +3554,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3812,13 +3738,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3869,7 +3793,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       </div>
       <button
         aria-disabled="true"
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         disabled=""
         type="button"
@@ -3894,9 +3818,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3918,14 +3840,12 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       </ul>
       <button
         aria-disabled="true"
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         disabled=""
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div

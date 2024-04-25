@@ -258,7 +258,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         )}
         <Button
           variant="secondary"
-          iconLeft={<IconArrowUndo aria-hidden />}
+          iconStart={<IconArrowUndo aria-hidden />}
           size="small"
           disabled={initialCode === code}
           onClick={reset}

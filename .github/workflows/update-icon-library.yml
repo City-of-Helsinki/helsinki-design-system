@@ -141,6 +141,3 @@ jobs:
           git add .
           git commit -m 'Updated icon library'
           git push
-
-      - name: End
-        run: echo "Done!"

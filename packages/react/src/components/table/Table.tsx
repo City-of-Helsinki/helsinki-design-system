@@ -9,7 +9,7 @@ import { SortingHeaderCell } from './components/SortingHeaderCell';
 import { TableBody } from './components/TableBody';
 import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
-import { Button } from '../button';
+import { Button, ButtonSize, ButtonVariant } from '../button';
 import classNames from '../../utils/classNames';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
@@ -359,8 +359,8 @@ export const Table = ({
                     onClick={() => {
                       selectAllRows();
                     }}
-                    variant="secondary"
-                    size="small"
+                    variant={ButtonVariant.Secondary}
+                    size={ButtonSize.Small}
                     disabled={selectedRows.length === rows.length}
                     className={styles.actionButton}
                     data-testid={`hds-table-select-all-button-${dataTestId}`}
@@ -371,8 +371,8 @@ export const Table = ({
                     onClick={() => {
                       deSelectAllRows();
                     }}
-                    variant="secondary"
-                    size="small"
+                    variant={ButtonVariant.Secondary}
+                    size={ButtonSize.Small}
                     disabled={selectedRows.length === 0}
                     className={styles.actionButton}
                     data-testid={`hds-table-deselect-all-button-${dataTestId}`}

@@ -2,31 +2,68 @@ import React from 'react';
 
 import '../../styles/base.module.css';
 import styles from './Button.module.scss';
-import { LoadingSpinner } from '../loadingSpinner';
 import classNames from '../../utils/classNames';
+import { useTheme } from '../../hooks/useTheme';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-export type ButtonSize = 'default' | 'small';
-export type ButtonTheme = 'default' | 'coat' | 'black';
-export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+export enum ButtonSize {
+  Small = 'small',
+  Medium = 'medium',
+}
+export interface ButtonTheme {
+  '--background-color'?: string;
+  '--background-color-focus'?: string;
+  '--background-color-hover'?: string;
+  '--background-color-active'?: string;
+  '--background-color-disabled'?: string;
+  '--border-color'?: string;
+  '--border-color-focus'?: string;
+  '--border-color-hover'?: string;
+  '--border-color-active'?: string;
+  '--border-color-disabled'?: string;
+  '--color'?: string;
+  '--color-focus'?: string;
+  '--color-hover'?: string;
+  '--color-active'?: string;
+  '--color-disabled'?: string;
+  '--outline-color-focus'?: string;
+  [key: string]: string;
+}
+
+export enum ButtonPresetTheme {
+  Bus = 'bus',
+  Coat = 'coat',
+  Black = 'black',
+}
+
+export enum ButtonVariant {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Supplementary = 'supplementary',
+  Success = 'success',
+  Danger = 'danger',
+  Clear = 'clear',
+}
 
 export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   /**
-   * The content of the button
+   * The content (label) of the button
    */
-  children: React.ReactNode;
+  children: string;
   /**
    * Additional class names to apply to the button
    */
   className?: string;
   /**
    * Defines the button variant
+   * @default ButtonVariant.Primary
    */
-  variant?: Exclude<ButtonVariant, 'supplementary'>;
+  variant?: Exclude<ButtonVariant, ButtonVariant.Supplementary>;
   /**
    * Defines the button theme
+   * @default ButtonTheme.Bus
    */
-  theme?: ButtonTheme;
+  theme?: ButtonPresetTheme | ButtonTheme;
   /**
    * If `true`, the button will be disabled
    */
@@ -37,49 +74,32 @@ export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   fullWidth?: boolean;
   /**
    * Element placed on the left side of the button label
-   * @deprecated Will be replaced with iconStart in the next major release.
    */
-  iconLeft?: React.ReactNode;
+  iconStart?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
-   * @deprecated Will be replaced with iconEnd in the next major release.
    */
-  iconRight?: React.ReactNode;
+  iconEnd?: React.ReactNode;
   /**
    * The size of the button
+   * @default ButtonSize.Medium
    */
   size?: ButtonSize;
-  /**
-   * If `true` a loading spinner is displayed inside the button along `loadingText`
-   * @deprecated Will be removed in the next major release
-   */
-  isLoading?: boolean;
-  /**
-   * Loading text to show alongside loading spinner
-   * @deprecated Will be removed in the next major release
-   */
-  loadingText?: string;
 };
 
-// Supplementary variant requires iconLeft or iconRight
+// Supplementary variant requires iconStart or iconEnd
 export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
-  variant: 'supplementary';
+  variant: ButtonVariant.Supplementary;
 } & (
     | {
-        iconLeft: React.ReactNode;
+        iconStart: React.ReactNode;
       }
     | {
-        iconRight: React.ReactNode;
+        iconEnd: React.ReactNode;
       }
   );
 
-// Loading button requires loading text
-export type LoadingButtonProps = Omit<CommonButtonProps, 'isLoading' | 'loadingText'> & {
-  isLoading: true;
-  loadingText: string;
-};
-
-export type ButtonProps = CommonButtonProps | SupplementaryButtonProps | LoadingButtonProps;
+export type ButtonProps = CommonButtonProps | SupplementaryButtonProps;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -88,56 +108,51 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled = false,
       fullWidth,
-      size = 'default',
-      theme = 'default',
-      variant = 'primary',
-      iconLeft,
-      iconRight,
-      isLoading = false,
-      loadingText,
+      size = ButtonSize.Medium,
+      theme = ButtonPresetTheme.Bus,
+      variant = ButtonVariant.Primary,
+      iconStart,
+      iconEnd,
       onClick,
       ...rest
     }: ButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => {
-    const iconElementLeft = iconLeft ? (
+    // custom theme class that is applied to the root element
+    const customThemeClass = useTheme<ButtonPresetTheme | ButtonTheme>(styles.button, theme);
+
+    const iconElementStart = iconStart ? (
       <div className={styles.icon} aria-hidden="true">
-        {iconLeft}
+        {iconStart}
       </div>
     ) : null;
 
-    const iconElementRight = iconRight ? (
+    const iconElementEnd = iconEnd ? (
       <div className={classNames(styles.icon)} aria-hidden="true">
-        {iconRight}
+        {iconEnd}
       </div>
     ) : null;
-
-    const loadingOnClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-      event.preventDefault();
-    };
 
     return (
       <button
         ref={ref}
         disabled={disabled}
-        aria-disabled={isLoading || disabled || undefined}
-        aria-label={isLoading ? loadingText : undefined}
         type="button"
         className={classNames(
           styles.button,
           styles[variant],
-          styles[`theme-${theme}`],
+          typeof theme === 'string' ? styles[`theme-${theme}`] : '',
           styles[`size-${size}`],
           fullWidth ? styles.fullWidth : '',
-          isLoading ? styles.isLoading : '',
+          customThemeClass,
           className,
         )}
-        onClick={isLoading ? loadingOnClick : onClick}
+        onClick={!disabled ? onClick : undefined}
         {...rest}
       >
-        {isLoading ? <LoadingSpinner small /> : iconElementLeft}
-        <span className={styles.label}>{isLoading ? loadingText : children}</span>
-        {isLoading ? null : iconElementRight}
+        {iconElementStart}
+        <span>{children}</span>
+        {iconElementEnd}
       </button>
     );
   },

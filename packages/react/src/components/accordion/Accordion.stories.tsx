@@ -4,7 +4,7 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import { Button } from '../button';
 import { Card } from '../card';
 import { Select } from '../dropdown/select';
-import { Accordion, AccordionProps } from './Accordion';
+import { Accordion, AccordionSize, AccordionProps } from './Accordion';
 import { useAccordion } from './useAccordion';
 
 export default {
@@ -24,11 +24,11 @@ export default {
 
 export const Default = (args: AccordionProps) => <Accordion {...args} />;
 
-export const Small = (args: AccordionProps) => <Accordion {...args} size="s" />;
+export const Small = (args: AccordionProps) => <Accordion {...args} size={AccordionSize.Small} />;
 
-export const Medium = (args: AccordionProps) => <Accordion {...args} size="m" />;
+export const Medium = (args: AccordionProps) => <Accordion {...args} size={AccordionSize.Medium} />;
 
-export const Large = (args: AccordionProps) => <Accordion {...args} size="l" />;
+export const Large = (args: AccordionProps) => <Accordion {...args} size={AccordionSize.Large} />;
 
 export const WithoutCloseButton = (args: AccordionProps) => <Accordion {...args} closeButton={false} />;
 WithoutCloseButton.storyName = 'Without close button';
@@ -52,11 +52,11 @@ export const CardAccordion = (args: AccordionProps) => (
     <h2>Card</h2>
     <Accordion {...args} card />
     <h2>Small card with border</h2>
-    <Accordion {...args} card border size="s" />
+    <Accordion {...args} card border size={AccordionSize.Small} />
     <h2>Medium card with border</h2>
-    <Accordion {...args} card border size="m" />
+    <Accordion {...args} card border size={AccordionSize.Medium} />
     <h2>Large card with border</h2>
-    <Accordion {...args} card border size="l" />
+    <Accordion {...args} card border size={AccordionSize.Large} />
   </>
 );
 CardAccordion.storyName = 'Card';
@@ -75,14 +75,12 @@ export const CustomTheme = (args: AccordionProps) => (
         '--border-color': 'var(--color-brick)',
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': 'var(--spacing-m)',
-        '--header-font-color': 'var(--color-black-90)',
+        '--header-color': 'var(--color-black-90)',
         '--header-font-size': 'var(--fontsize-heading-l)',
         '--header-font-weight': '400',
         '--header-line-height': 'var(--lineheight-s)',
         '--header-letter-spacing': '-0.4px',
-        '--button-size': '28px',
-        '--close-button-border-color-hover': 'var(--color-coat-of-arms)',
-        '--content-font-color': 'var(--color-black-90)',
+        '--content-color': 'var(--color-black-90)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
       }}
@@ -95,18 +93,19 @@ export const CustomTheme = (args: AccordionProps) => (
         '--background-color': 'var(--color-bus)',
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': '20px',
-        '--header-focus-outline-color': 'var(--color-gold)',
-        '--header-font-color': 'var(--color-white)',
+        '--header-outline-color-focus': 'var(--color-gold)',
+        '--header-color': 'var(--color-white)',
         '--header-font-size': 'var(--fontsize-heading-s)',
         '--header-font-weight': '500',
         '--header-letter-spacing': '0.2px',
         '--header-line-height': '1.4',
-        '--button-size': '28px',
-        '--close-button-border-color-hover': 'var(--color-white)',
-        '--content-font-color': 'var(--color-white)',
+        '--content-color': 'var(--color-white)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
+        '--close-button-color-focus': 'var(--color-black)',
+        '--close-button-background-color': 'orange',
         '--close-button-background-color-focus': 'var(--color-white)',
+        '--close-button-outline-color-focus': 'var(--color-brick)',
       }}
     />
   </>
@@ -121,7 +120,7 @@ export const CustomAccordion = () => {
   const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
   return (
     <>
-      <Button iconLeft={icon} {...buttonProps}>
+      <Button iconStart={icon} {...buttonProps}>
         Advanced filters
       </Button>
       <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>

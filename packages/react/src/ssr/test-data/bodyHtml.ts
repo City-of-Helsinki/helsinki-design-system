@@ -77,7 +77,7 @@ id="side-nav-components" href="/components"><span class="MainLevel-module_label_
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Accordion"
 id="side-nav-components-accordion" href="/components/accordion"><span class="MainLevel-module_label__uWKJ7">Accordion</span></a></li><li
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Button"
-id="side-nav-components-buttons" href="/components/buttons"><span class="MainLevel-module_label__uWKJ7">Button</span></a></li><li
+id="side-nav-components-buttons" href="/components/button"><span class="MainLevel-module_label__uWKJ7">Button</span></a></li><li
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Card"
 id="side-nav-components-card" href="/components/card"><span class="MainLevel-module_label__uWKJ7">Card</span></a></li><li
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Checkbox"
