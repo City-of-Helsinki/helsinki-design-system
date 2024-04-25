@@ -1,5 +1,7 @@
 import cookie, { CookieSerializeOptions } from 'cookie';
 
+import { isSsrEnvironment } from '../../utils/isSsrEnvironment';
+
 export type CookieSetOptions = CookieSerializeOptions;
 
 export const defaultCookieSetOptions: CookieSetOptions = {
@@ -10,6 +12,9 @@ export const defaultCookieSetOptions: CookieSetOptions = {
 };
 
 function getAll() {
+  if (isSsrEnvironment()) {
+    return {};
+  }
   return cookie.parse(document.cookie);
 }
 
@@ -19,7 +24,9 @@ function getNamedCookie(name: string): string | undefined {
 }
 
 function setNamedCookie(name: string, value: string, options?: CookieSerializeOptions) {
-  document.cookie = cookie.serialize(name, value, options);
+  if (!isSsrEnvironment()) {
+    document.cookie = cookie.serialize(name, value, options);
+  }
 }
 
 function createCookieController(
@@ -34,7 +41,7 @@ function createCookieController(
     ...options,
   };
 
-  if (typeof window === 'undefined') {
+  if (isSsrEnvironment()) {
     return {
       get: () => '',
       set: () => '',
