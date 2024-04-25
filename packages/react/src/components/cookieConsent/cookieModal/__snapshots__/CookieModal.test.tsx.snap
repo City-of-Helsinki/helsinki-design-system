@@ -897,24 +897,20 @@ exports[`<CookieModal /> spec renders the component 1`] = `
             class="buttons visuallyHiddenWithoutFocus"
           >
             <button
-              class="button secondary theme-default size-default"
+              class="button secondary theme-bus size-medium"
               data-testid="cookie-consent-approve-button"
               type="button"
             >
-              <span
-                class="label"
-              >
+              <span>
                 Hyväksy kaikki evästeet
               </span>
             </button>
             <button
-              class="button secondary theme-default size-default"
+              class="button secondary theme-bus size-medium"
               data-testid="cookie-consent-approve-required-button"
               type="button"
             >
-              <span
-                class="label"
-              >
+              <span>
                 Hyväksy vain välttämättömät evästeet
               </span>
             </button>

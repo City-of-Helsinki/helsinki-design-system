@@ -4,7 +4,7 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 import '../../styles/base.module.css';
 import styles from './Pagination.module.scss';
 import classNames from '../../utils/classNames';
-import { Button } from '../button';
+import { Button, ButtonPresetTheme, ButtonVariant } from '../button';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -239,10 +239,11 @@ export const Pagination = ({
             className={styles.buttonPrevious}
             data-testid={`${dataTestId}-previous-button`}
             disabled={pageIndex === 0 || pageCount === 1}
+            aria-disabled={pageIndex === 0 || pageCount === 1 || undefined}
             onClick={(event) => onChange(event, pageIndex - 1)}
-            variant="supplementary"
-            theme="black"
-            iconLeft={<IconAngleLeft />}
+            variant={ButtonVariant.Supplementary}
+            theme={ButtonPresetTheme.Black}
+            iconStart={<IconAngleLeft />}
           >
             {mapLangToPrevious(language)}
           </Button>
@@ -279,10 +280,11 @@ export const Pagination = ({
             className={styles.buttonNext}
             data-testid={`${dataTestId}-next-button`}
             disabled={pageIndex === pageCount - 1 || pageCount === 1}
+            aria-disabled={pageIndex === pageCount - 1 || pageCount === 1 || undefined}
             onClick={(event) => onChange(event, pageIndex + 1)}
-            variant="supplementary"
-            theme="black"
-            iconRight={<IconAngleRight className={styles.angleRightIcon} />}
+            variant={ButtonVariant.Supplementary}
+            theme={ButtonPresetTheme.Black}
+            iconEnd={<IconAngleRight className={styles.angleRightIcon} />}
           >
             {mapLangToNext(language)}
           </Button>

@@ -3,7 +3,7 @@ slug: '/components/accordion/code'
 title: 'Accordion - Code'
 ---
 
-import { Accordion, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp } from 'hds-react';
+import { Accordion, AccordionSize, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -57,7 +57,7 @@ import { Accordion } from 'hds-react';
 import { Accordion } from 'hds-react';
 
 () => (
-  <Accordion card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+  <Accordion card closeButton={false} border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
 )
@@ -67,19 +67,19 @@ import { Accordion } from 'hds-react';
 
 #### Accordion size variants
 
-<Playground scope={{ Accordion }}>
+<Playground scope={{ Accordion, AccordionSize }}>
 
 ```jsx
-import { Accordion } from 'hds-react';
+import { Accordion, AccordionSize } from 'hds-react';
 
 () => (<>
-  <Accordion size="s" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+  <Accordion size={AccordionSize.Small} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
-  <Accordion size="m" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
+  <Accordion size={AccordionSize.Medium} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
-  <Accordion size="l" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
+  <Accordion size={AccordionSize.Large} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
 </>)
@@ -89,20 +89,20 @@ import { Accordion } from 'hds-react';
 
 #### Stacked Accordions
 
-<Playground scope={{ Accordion }}>
+<Playground scope={{ Accordion, AccordionSize }}>
 
 ```jsx
-import { Accordion } from 'hds-react';
+import { Accordion, AccordionSize } from 'hds-react';
 
 () => (<>
   <h5>Stacked Accordions</h5>
-  <Accordion size="s" headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+  <Accordion size={AccordionSize.Small} headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
-  <Accordion size="s" headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', borderTop: 0 }}>
+  <Accordion size={AccordionSize.Small} headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', borderTop: 0 }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
-  <Accordion size="s" headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', borderTop: 0 }}>
+  <Accordion size={AccordionSize.Small} headingLevel={6} card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', borderTop: 0 }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
 </>)
@@ -125,7 +125,7 @@ import { Accordion, Card, IconAngleDown, IconAngleUp, Button, Select, useAccordi
   const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
   return (
     <>
-      <Button iconLeft={icon} {...buttonProps}>
+      <Button iconStart={icon} {...buttonProps}>
         Advanced filters
       </Button>
       <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
@@ -178,9 +178,9 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property        | Description                                                                    | Values    | Default value |
 | --------------- | ------------------------------------------------------------------------------ | --------- | ------------- |
-| `heading`       | Heading of the accordion                                                       | -         | -             |
-| `headingLevel`  | Sets the aria-level of the accordion header.                                   | 1-6       | 2             |
 | `border`        | If set to true, a border will be drawn around the accordion card.              | `boolean` | false         |
 | `card`          | If set to true, the accordion will use HDS Card as its background element.     | `boolean` | false         |
 | `closeButton`   | If set to true, a close button is shown at the bottom of an expanded accordion | `boolean` | true          |
+| `heading`       | Heading of the accordion                                                       | -         | -             |
+| `headingLevel`  | Sets the aria-level of the accordion header.                                   | 1-6       | 2             |
 | `initiallyOpen` | If set to true, the accordion will be initially opened.                        | `boolean` | false         |

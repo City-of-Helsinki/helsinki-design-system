@@ -36,7 +36,7 @@ import {
   LoginProvider,
   LoginProviderProps,
 } from './index';
-import { Button } from '../button/Button';
+import { Button, ButtonVariant } from '../button/Button';
 import { Accordion } from '../accordion/Accordion';
 import { Header } from '../header/Header';
 import { Notification } from '../notification/Notification';
@@ -256,7 +256,7 @@ const Nav = () => {
           {...(!authenticated ? { onClick } : {})}
         >
           {authenticated && (
-            <Button onClick={onClick} variant="supplementary" iconLeft={<IconSignout />}>
+            <Button onClick={onClick} variant={ButtonVariant.Supplementary} iconStart={<IconSignout />}>
               Log out
             </Button>
           )}

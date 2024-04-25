@@ -33,12 +33,12 @@ export function LoginButton({
   }
   const isActive = isLoggingIn && !loginError;
   // for some reason LoadingSpinner theme has no effect
-  const iconLeft = isActive ? (
+  const iconStart = isActive ? (
     <LoadingSpinner small style={{ '--spinner-color': spinnerColor } as React.HTMLProps<HTMLDivElement>['style']} />
   ) : undefined;
   const combinedButtonProps = {
     ...buttonProps,
-    iconLeft,
+    iconStart,
     disabled: isActive,
     onClick: () => {
       resetLoginError();
