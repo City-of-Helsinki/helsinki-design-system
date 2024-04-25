@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Hero, HeroCustomTheme, HeroProps } from './Hero';
-import { Button } from '../button/Button';
+import { Button, ButtonVariant } from '../button/Button';
 // @ts-ignore
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 import { Logo, logoFi } from '../logo';
@@ -182,7 +182,7 @@ const DefaultContent = (props: DefaultContentProps) => {
       <Hero.Title>{h1Text}</Hero.Title>
       <Hero.Text>{paragraphText}</Hero.Text>
       <Button
-        variant="secondary"
+        variant={ButtonVariant.Secondary}
         role="link"
         // @ts-ignore
         style={buttonTheme ? buttonStyle : {}}

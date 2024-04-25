@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { uniqueId, pickBy } from 'lodash';
+import { uniqueId } from 'lodash';
 
 import '../../styles/base.module.css';
 import styles from './Accordion.module.scss';
@@ -7,63 +7,33 @@ import classNames from '../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
-import { Button } from '../button';
+import { Button, ButtonTheme, ButtonSize, ButtonVariant } from '../button';
 import useHasMounted from '../../hooks/useHasMounted';
+import { ThemePrefixer } from '../../utils/themePrefixer';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-export interface AccordionCustomTheme {
+type CloseButtonTheme = ThemePrefixer<ButtonTheme, '--close-button'>;
+
+export interface AccordionTheme extends CloseButtonTheme {
   '--background-color'?: string;
   '--border-color'?: string;
-  '--padding-horizontal'?: string;
-  '--padding-vertical'?: string;
-  /**
-   * @deprecated Will be replaced with --header-color in the next major release
-   */
-  '--header-font-color'?: string;
+  '--content-color'?: string;
+  '--content-font-size'?: string;
+  '--content-line-height'?: string;
+  '--header-outline-color-focus'?: string;
+  '--header-color'?: string;
   '--header-font-size'?: string;
   '--header-font-weight'?: string;
   '--header-letter-spacing'?: string;
   '--header-line-height'?: string;
-  /**
-   * @deprecated Will be replaced with --icon-size in the next major release
-   */
-  '--button-size'?: string;
-  /**
-   * @deprecated Will be replaced with --header-outline-color-focus in the next major release
-   */
-  '--header-focus-outline-color'?: string;
-  '--content-font-color'?: string;
-  '--content-font-size'?: string;
-  '--content-line-height'?: string;
-  '--close-button-background-color-disabled'?: string;
-  '--close-button-background-color-focus'?: string;
-  /**
-   * @deprecated Will be removed in the next major release
-   */
-  '--close-button-background-color-hover-focus'?: string;
-  '--close-button-background-color-hover'?: string;
-  '--close-button-background-color'?: string;
-  '--close-button-border-color-active'?: string;
-  '--close-button-border-color-disabled'?: string;
-  '--close-button-border-color-focus'?: string;
-  /**
-   * @deprecated Will be removed in the next major release
-   */
-  '--close-button-border-color-hover-focus'?: string;
-  '--close-button-border-color-hover'?: string;
-  '--close-button-border-color'?: string;
-  '--close-button-color-disabled'?: string;
-  '--close-button-color-focus'?: string;
-  /**
-   * @deprecated Will be removed in the next major release
-   */
-  '--close-button-color-hover-focus'?: string;
-  '--close-button-color-hover'?: string;
-  '--close-button-color'?: string;
-  /**
-   * @deprecated Will be replaced with --close-button-outline-color-focus in the next major release
-   */
-  '--close-button-focus-outline-color'?: string;
+  '--padding-horizontal'?: string;
+  '--padding-vertical'?: string;
+}
+
+export enum AccordionSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
 }
 
 type Language = 'en' | 'fi' | 'sv';
@@ -116,9 +86,9 @@ export type CommonAccordionProps = React.PropsWithChildren<{
   language?: Language;
   /**
    * Size
-   * @default m
+   * @default AccordionSize.Medium
    */
-  size?: 's' | 'm' | 'l';
+  size?: AccordionSize;
   /**
    * Additional styles
    */
@@ -126,7 +96,7 @@ export type CommonAccordionProps = React.PropsWithChildren<{
   /**
    * Custom theme styles
    */
-  theme?: AccordionCustomTheme;
+  theme?: AccordionTheme;
 }>;
 
 export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> & {
@@ -162,75 +132,25 @@ export const Accordion = ({
   id,
   initiallyOpen = false,
   language = 'fi',
-  size = 'm',
+  size = AccordionSize.Medium,
   theme,
   ...rest
 }: AccordionProps) => {
-  const headerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLButtonElement>(null);
   const [beforeCloseButtonClick, setBeforeCloseButtonClick] = useState(false);
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
-  // Custom themes
-  const sovereignThemeVariables = theme && {
-    '--background-color': theme['--background-color'],
-    '--border-color': theme['--border-color'],
-    '--header-font-color': theme['--header-font-color'],
-    '--header-focus-outline-color': theme['--header-focus-outline-color'],
-    '--content-font-color': theme['--content-font-color'],
-    '--content-font-size': theme['--content-font-size'],
-    '--content-line-height': theme['--content-line-height'],
 
-    '--close-button-background-color-disabled': theme['--close-button-background-color-disabled'],
-    '--close-button-background-color-focus': theme['--close-button-background-color-focus'],
-    '--close-button-background-color-hover-focus': theme['--close-button-background-color-hover-focus'],
-    '--close-button-background-color-hover': theme['--close-button-background-color-hover'],
-    '--close-button-background-color': theme['--close-button-background-color'],
-    '--close-button-border-color-active': theme['--close-button-border-color-active'],
-    '--close-button-border-color-disabled': theme['--close-button-border-color-disabled'],
-    '--close-button-border-color-focus': theme['--close-button-border-color-focus'],
-    '--close-button-border-color-hover-focus': theme['--close-button-border-color-hover-focus'],
-    '--close-button-border-color-hover': theme['--close-button-border-color-hover'],
-    '--close-button-border-color': theme['--close-button-border-color'],
-    '--close-button-color-disabled': theme['--close-button-color-disabled'],
-    '--close-button-color-focus': theme['--close-button-color-focus'],
-    '--close-button-color-hover-focus': theme['--close-button-color-hover-focus'],
-    '--close-button-color-hover': theme['--close-button-color-hover'],
-    '--close-button-color': theme['--close-button-color'],
-    '--close-button-focus-outline-color': theme['--close-button-focus-outline-color'],
-  };
-
-  const filteredSovereignThemeVariables = pickBy(sovereignThemeVariables);
-
-  const sovereignThemeClass = useTheme<Partial<AccordionCustomTheme>>(
-    styles.accordion,
-    Object.keys(filteredSovereignThemeVariables).length > 0 ? filteredSovereignThemeVariables : undefined,
-  );
-
-  const sizeDependentThemeVariables = theme && {
-    '--header-font-size': theme['--header-font-size'],
-    '--padding-vertical': theme['--padding-vertical'],
-    '--padding-horizontal': theme['--padding-horizontal'],
-    '--header-font-weight': theme['--header-font-weight'],
-    '--header-letter-spacing': theme['--header-letter-spacing'],
-    '--header-line-height': theme['--header-line-height'],
-    '--button-size': theme['--button-size'],
-  };
-
-  const filteredSizeDependentThemeVariables = pickBy(sizeDependentThemeVariables);
-
-  const sizeDependentThemeClass = useTheme<Partial<AccordionCustomTheme>>(
-    styles[size],
-    Object.keys(filteredSizeDependentThemeVariables).length > 0 ? filteredSizeDependentThemeVariables : undefined,
-  );
+  const customThemeClass = useTheme<AccordionTheme>(styles.accordion, theme);
 
   // Accordion logic
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
 
   // Switch icon based on isOpen state
   const icon = isOpen ? (
-    <IconAngleUp aria-hidden className={styles.accordionButtonIcon} />
+    <IconAngleUp aria-hidden style={{ width: '100%', height: '100%' }} />
   ) : (
-    <IconAngleDown aria-hidden className={styles.accordionButtonIcon} />
+    <IconAngleDown aria-hidden style={{ width: '100%', height: '100%' }} />
   );
 
   const hasMounted = useHasMounted();
@@ -271,32 +191,23 @@ export const Accordion = ({
         card && border && styles.border,
         isOpen && styles.isOpen,
         styles[size],
-        sovereignThemeClass,
-        sizeDependentThemeClass,
+        customThemeClass,
         className,
       )}
       id={accordionId}
     >
       <div className={classNames(styles.accordionHeader)}>
         <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
-          <div
+          <Button
             ref={headerRef}
-            role="button"
-            tabIndex={0}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                buttonProps.onClick();
-              }
-            }}
-            className={styles.headingContainer}
             aria-labelledby={`${accordionId}-heading`}
+            iconEnd={icon}
             {...buttonProps}
-            {...(beforeCloseButtonClick ? { 'aria-expanded': false } : {})}
+            variant={ButtonVariant.Supplementary}
+            fullWidth
           >
-            <span className="label">{heading}</span>
-            {icon}
-          </div>
+            {heading}
+          </Button>
         </div>
       </div>
       <div
@@ -316,8 +227,7 @@ export const Accordion = ({
             data-testid={`${accordionId}-closeButton`}
             aria-label={`${getCloseMessage(language)} ${heading}`}
             className={classNames(styles.closeButton, closeButtonClassName)}
-            theme="black"
-            size="small"
+            size={ButtonSize.Small}
             onKeyPress={(e) => {
               if (e.key === ' ') {
                 onCloseButtonActivate();
@@ -326,8 +236,8 @@ export const Accordion = ({
             onClick={() => {
               onCloseButtonActivate();
             }}
-            variant="supplementary"
-            iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
+            variant={ButtonVariant.Supplementary}
+            iconEnd={<IconAngleUp aria-hidden />}
           >
             {getCloseMessage(language)}
           </Button>

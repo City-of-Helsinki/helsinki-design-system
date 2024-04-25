@@ -112,8 +112,11 @@
 }
 
 .playground-block-buttons {
-  > * {
-    margin-top: var(--spacing-s);
+  display: flex;
+  gap: var(--spacing-s);
+  margin-top: var(--spacing-s);
+
+  button {
     width: 100%;
   }
 }
@@ -124,16 +127,8 @@
 
 @media screen and (min-width: $breakpoint-m) {
   .playground-block-buttons {
-    display: flex;
-    margin-top: var(--spacing-s);
-
-    > * {
-      margin-top: 0;
+    button {
       width: auto;
-    }
-
-    > * + * {
-      margin-left: var(--spacing-s);
     }
   }
 }

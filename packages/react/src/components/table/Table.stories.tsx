@@ -4,7 +4,7 @@ import { parse, isBefore, isSameDay } from 'date-fns';
 
 import { Table, TableProps } from './Table';
 import workTrial from './story-example-work-trial.json';
-import { Button } from '../button';
+import { Button, ButtonSize, ButtonVariant } from '../button';
 import { IconTrash } from '../../icons';
 import { LoadingSpinner } from '../loadingSpinner';
 
@@ -778,9 +778,9 @@ export const WithCustomActions = (args: TableProps) => {
         flexGrow: 0,
       }}
       className="table-custom-action"
-      variant="secondary"
-      size="small"
-      iconLeft={<IconTrash />}
+      variant={ButtonVariant.Secondary}
+      size={ButtonSize.Small}
+      iconStart={<IconTrash />}
       disabled={selectedRows.length === 0}
     >
       Delete selected
@@ -798,8 +798,8 @@ export const WithCustomActions = (args: TableProps) => {
         flexGrow: 0,
       }}
       className="table-custom-action"
-      variant="secondary"
-      size="small"
+      variant={ButtonVariant.Secondary}
+      size={ButtonSize.Small}
       disabled={selectedRows.length === 0}
     >
       Copy selected
