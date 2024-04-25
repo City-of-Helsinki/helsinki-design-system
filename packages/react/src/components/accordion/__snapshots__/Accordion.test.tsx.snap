@@ -3,7 +3,7 @@
 exports[`<Accordion /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="accordion m"
+    class="accordion medium"
     id="accordion-1"
   >
     <div
@@ -14,34 +14,37 @@ exports[`<Accordion /> spec renders the component 1`] = `
         id="accordion-1-heading"
         role="heading"
       >
-        <div
+        <button
           aria-expanded="false"
           aria-labelledby="accordion-1-heading"
-          class="headingContainer"
-          role="button"
-          tabindex="0"
+          class="button supplementary theme-bus size-medium fullWidth"
+          type="button"
         >
-          <span
-            class="label"
-          >
+          <span>
             Foo
           </span>
-          <svg
+          <div
             aria-hidden="true"
-            aria-label="angle-down"
-            class="icon s accordionButtonIcon"
-            role="img"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
           >
-            <path
-              clip-rule="evenodd"
-              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </div>
+            <svg
+              aria-hidden="true"
+              aria-label="angle-down"
+              class="icon s"
+              role="img"
+              style="width: 100%; height: 100%;"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
       </div>
     </div>
     <div
@@ -54,13 +57,11 @@ exports[`<Accordion /> spec renders the component 1`] = `
       Bar
       <button
         aria-label="Sulje Foo"
-        class="button supplementary theme-black size-small closeButton"
+        class="button supplementary theme-bus size-small closeButton"
         data-testid="accordion-1-closeButton"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Sulje
         </span>
         <div
@@ -70,7 +71,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-up"
-            class="icon xs accordionButtonIcon"
+            class="icon s"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"

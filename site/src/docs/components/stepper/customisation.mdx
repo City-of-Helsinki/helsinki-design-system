@@ -134,7 +134,7 @@ import { Stepper } from 'hds-react';
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
           theme="black"
         >
           Previous
@@ -143,7 +143,7 @@ import { Stepper } from 'hds-react';
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
           theme="black"
         >
           {lastStep ? 'Send' : 'Next'}

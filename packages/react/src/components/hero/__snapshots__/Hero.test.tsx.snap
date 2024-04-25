@@ -24,13 +24,11 @@ exports[`<Hero /> spec renders the component 1`] = `
               Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
             </p>
             <button
-              class="button secondary theme-default size-default"
+              class="button secondary theme-bus size-medium"
               role="link"
               type="button"
             >
-              <span
-                class="label"
-              >
+              <span>
                 Click me
               </span>
             </button>
@@ -168,13 +166,11 @@ exports[`<Hero /> spec renders the component 2`] = `
             Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
           </p>
           <button
-            class="button secondary theme-default size-default"
+            class="button secondary theme-bus size-medium"
             role="link"
             type="button"
           >
-            <span
-              class="label"
-            >
+            <span>
               Click me
             </span>
           </button>
@@ -219,13 +215,11 @@ exports[`<Hero /> spec renders the component 3`] = `
             Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
           </p>
           <button
-            class="button secondary theme-default size-default"
+            class="button secondary theme-bus size-medium"
             role="link"
             type="button"
           >
-            <span
-              class="label"
-            >
+            <span>
               Click me
             </span>
           </button>
@@ -308,13 +302,11 @@ exports[`<Hero /> spec renders the component 4`] = `
             Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
           </p>
           <button
-            class="button secondary theme-default size-default"
+            class="button secondary theme-bus size-medium"
             role="link"
             type="button"
           >
-            <span
-              class="label"
-            >
+            <span>
               Click me
             </span>
           </button>
@@ -407,13 +399,11 @@ exports[`<Hero /> spec renders the component 5`] = `
             Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
           </p>
           <button
-            class="button secondary theme-default size-default"
+            class="button secondary theme-bus size-medium"
             role="link"
             type="button"
           >
-            <span
-              class="label"
-            >
+            <span>
               Click me
             </span>
           </button>
@@ -482,13 +472,11 @@ exports[`<Hero /> spec renders the component 6`] = `
             Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
           </p>
           <button
-            class="button secondary theme-default size-default"
+            class="button secondary theme-bus size-medium"
             role="link"
             type="button"
           >
-            <span
-              class="label"
-            >
+            <span>
               Click me
             </span>
           </button>

@@ -5,7 +5,7 @@ import '../../styles/base.module.css';
 import styles from './FileInput.module.scss';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
-import { Button } from '../button';
+import { Button, ButtonSize, ButtonPresetTheme, ButtonVariant } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 
@@ -606,8 +606,8 @@ export const FileInput = ({
             <Button
               aria-hidden
               tabIndex={-1}
-              variant="secondary"
-              iconLeft={<IconPlus aria-hidden />}
+              variant={ButtonVariant.Secondary}
+              iconStart={<IconPlus aria-hidden />}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -666,10 +666,10 @@ export const FileInput = ({
                 event.stopPropagation();
                 onRemoveFileFromList(item, index);
               }}
-              variant="supplementary"
-              size="small"
-              theme="black"
-              iconLeft={<IconCross />}
+              variant={ButtonVariant.Supplementary}
+              size={ButtonSize.Small}
+              theme={ButtonPresetTheme.Black}
+              iconStart={<IconCross />}
               aria-label={getRemoveButtonAriaLabel(language, item.file.name)}
               className={styles.fileListItemButton}
               disabled={disabled}

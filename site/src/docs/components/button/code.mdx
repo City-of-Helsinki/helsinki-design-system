@@ -1,9 +1,9 @@
 ---
-slug: '/components/buttons/code'
+slug: '/components/button/code'
 title: 'Button - Code'
 ---
 
-import { Button, IconTrash, IconAngleRight, Notification, IconShare, IconSaveDisketteFill } from 'hds-react';
+import { Button, ButtonVariant, LoadingSpinner, IconTrash, IconAngleRight, Notification, IconShare, IconSaveDisketteFill } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -23,9 +23,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   ```
 
   ```html
-  <button type="button" class="hds-button hds-button--primary">
-    <span class="hds-button__label">Primary</span>
-  </button>
+  <button type="button" class="hds-button hds-button--primary">Primary</button>
   ```
 
 </Playground>
@@ -42,9 +40,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   ```
 
   ```html
-  <button type="button" class="hds-button hds-button--secondary">
-    <span class="hds-button__label">Secondary</span>
-  </button>
+  <button type="button" class="hds-button hds-button--secondary">Secondary</button>
   ```
 
 </Playground>
@@ -58,16 +54,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   import { Button, IconTrash } from 'hds-react';
 
   () => (
-    <Button variant="supplementary" iconLeft={<IconTrash />}>
-      Supplementary
-    </Button>
+    <Button variant="supplementary" iconStart={<IconTrash />}>Supplementary</Button>
   )
   ```
 
   ```html
-  <button type="button" class="hds-button hds-button--supplementary">
-    <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
-    <span class="hds-button__label">Supplementary</span>
+  <button type="button" class="hds-button hds-button--supplementary hds-icon--trash hds-icon-start--trash">
+    Supplementary
   </button>
   ```
 
@@ -82,32 +75,24 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   import { Button, IconShare, IconAngleRight } from 'hds-react';
 
   () => (
-    <div>
-      <Button iconLeft={<IconShare />}>Button</Button>
-      <Button iconRight={<IconAngleRight />}>Button</Button>
-      <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
+    <div style={{ display: 'flex', gap: '12px' }}>
+      <Button iconStart={<IconShare />}>Button</Button>
+      <Button iconEnd={<IconAngleRight />}>Button</Button>
+      <Button iconStart={<IconShare />} iconEnd={<IconAngleRight />}>Button</Button>
     </div>
   )
   ```
 
   ```html
-  <div>
-    <button type="button" class="hds-button hds-button--primary">
-      <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-      <span class="hds-button__label">Button</span>
+  <div style="display: flex; gap: 12px;">
+    <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share">
+      Button
     </button>
-
-    <button type="button" class="hds-button hds-button--primary">
-      <span class="hds-button__label">Button</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
+      Button
     </button>
-
-    <button type="button" class="hds-button hds-button--primary">
-      <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-      <span class="hds-button__label">Button</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share hds-icon--angle-right hds-icon-end--angle-right">
+      Button
     </button>
   </div>
   ```
@@ -124,30 +109,24 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   import { Button } from 'hds-react';
 
   () => (
-    <div>
+    <div style={{ display: 'flex', gap: '12px' }}>
       <Button size="small">Primary</Button>
-      <Button variant="secondary" size="small">
-        Secondary
-      </Button>
-      <Button variant="supplementary" size="small">
-        Supplementary
-      </Button>
+      <Button variant="secondary" size="small">Secondary</Button>
+      <Button variant="supplementary" size="small">Supplementary</Button>
     </div>
   )
   ```
 
   ```html
-  <div>
+  <div style="display: flex; gap: 12px;">
     <button type="button" class="hds-button hds-button--primary hds-button--small">
-      <span class="hds-button__label">Primary</span>
+      <span>Primary</span>
     </button>
-
     <button type="button" class="hds-button hds-button--secondary hds-button--small">
-      <span class="hds-button__label">Secondary</span>
+      <span>Secondary</span>
     </button>
-
     <button type="button" class="hds-button hds-button--supplementary hds-button--small">
-      <span class="hds-button__label">Supplementary</span>
+      <span>Supplementary</span>
     </button>
   </div>
   ```
@@ -164,29 +143,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 import { Button, IconSaveDisketteFill, IconTrash} from 'hds-react';
 
 () => (
-  <div>
-    <Button variant="success" iconLeft={<IconSaveDisketteFill />}>Save</Button>
-    <Button
-      variant="danger"
-      iconLeft={<IconTrash />}
-      style={{ marginLeft: 'var(--spacing-s)' }}
-    >
-      Delete
-    </Button>
+  <div style={{ display: 'flex', gap: '12px' }}>
+    <Button variant="success" iconStart={<IconSaveDisketteFill />}>Save</Button>
+    <Button variant="danger" iconStart={<IconTrash />}>Delete</Button>
   </div>
 )
 ```
 
 ```html
-<div>
-  <button type="button" class="hds-button hds-button--success">
-    <span aria-hidden="true" class="hds-icon hds-icon--save-diskette-fill"></span>
-    <span class="hds-button__label">Save</span>
+<div style="display: flex; gap: 12px;">
+  <button type="button" class="hds-button hds-button--success hds-icon--save-diskette-fill hds-icon-start--save-diskette-fill">
+    Save
   </button>
-
-  <button type="button" class="hds-button hds-button--danger">
-    <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
-    <span class="hds-button__label">Delete</span>
+  <button type="button" class="hds-button hds-button--danger hds-icon--trash hds-icon-start--trash">
+    Delete
   </button>
 </div>
 ```
@@ -196,11 +166,11 @@ import { Button, IconSaveDisketteFill, IconTrash} from 'hds-react';
 
 #### Loading button
 
-<Playground scope={{ Button, Notification }}>
+<Playground scope={{ Button, ButtonVariant, LoadingSpinner, Notification }}>
 
 
   ```jsx
-  import { Button, Notification } from 'hds-react';
+  import { Button, ButtonVariant, LoadingSpinner, Notification } from 'hds-react';
 
   () => {
     const [isLoading, setIsLoading] = React.useState(false);
@@ -217,17 +187,24 @@ import { Button, IconSaveDisketteFill, IconTrash} from 'hds-react';
         clearTimeout(timeout);
       };
     }, [isLoading]);
+
+    const disabled = isLoading;
+    const iconStart = isLoading ? <LoadingSpinner small /> : null;
+    const variant = isLoading ? ButtonVariant.Clear : ButtonVariant.Primary;
+
     return (
       <>
         <Button
-          isLoading={isLoading}
-          loadingText="Saving form changes"
+          disabled={disabled}
+          iconStart={iconStart}
+          variant={variant}
           onClick={() => {
             setShowNotification(false);
             setIsLoading(true);
           }}
+          style={{ cursor: isLoading ? 'wait' : '' }}
         >
-          Save form
+          {isLoading ? 'Saving form changes' : 'Save form'}
         </Button>
         {showNotification && (
           <Notification
@@ -264,7 +241,7 @@ import { Button, IconSaveDisketteFill, IconTrash} from 'hds-react';
 
   ```html
   <button role="link" type="button" class="hds-button hds-button--primary" onclick="window.open('/')">
-    <span class="hds-button__label">Link to page</span>
+    Link to page
   </button>
   ```
 
@@ -282,10 +259,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property      | Description                                                       | Values                                                             | Default value |
 | ------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ | ------------- |
-| `variant`     | Variant of the button.                                            | `"primary"` `"secondary"` `"supplementary"` `"success"` `"danger"` | `"primary"`   |
-| `size`        | Size of the button.                                               | `"default"` `"small"`                                              | `"default"`   |
-| `iconLeft`    | Icon placed on the left side of the button label.                 | `ReactNode`                                                        | -             |
-| `iconRight`   | Icon placed on the right side of the button label.                | `ReactNode`                                                        | -             |
+| `variant`     | Variant of the button.                                            | `"primary"` `"secondary"` `"supplementary"` `"success"` `"danger"` `"clear"` | `"primary"`   |
+| `size`        | Size of the button.                                               | `"medium"` `"small"`                                              | `"medium"`   |
+| `iconStart`    | Icon placed on the left side of the button label.                 | `ReactNode`                                                        | -             |
+| `iconEnd`   | Icon placed on the right side of the button label.                | `ReactNode`                                                        | -             |
 | `fullWidth`   | If set to true, the button will take full width of its container. | `boolean`                                                          | false         |
-| `isLoading`   | If set to true, a loading spinner is displayed inside the button. | `boolean`                                                          | false         |
-| `loadingText` | Visible loading text to be shown next to the loading spinner.     | `string`                                                           | -             |

@@ -3,13 +3,20 @@ import { action } from '@storybook/addon-actions';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
-import { Button } from './Button';
+import { Button, ButtonTheme, ButtonSize, ButtonPresetTheme, ButtonVariant } from './Button';
+import { LoadingSpinner } from '../loadingSpinner';
 
 const onClick = action('button-click');
+const defaultLabel = 'Button';
 
 export default {
   component: Button,
   title: 'Components/Button',
+  decorators: [
+    (storyFn) => (
+      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>{storyFn()}</div>
+    ),
+  ],
   parameters: {
     controls: { hideNoControlsWarning: true },
     docs: {
@@ -27,19 +34,51 @@ export default {
 export const Primary = () => <Button onClick={onClick}>Button</Button>;
 
 export const Secondary = () => (
-  <Button onClick={onClick} variant="secondary">
+  <Button onClick={onClick} variant={ButtonVariant.Secondary}>
     Button
   </Button>
 );
 
 export const Supplementary = () => (
-  <Button onClick={onClick} variant="supplementary" iconLeft={<IconTrash />}>
+  <Button onClick={onClick} variant={ButtonVariant.Supplementary} iconStart={<IconTrash />}>
     Button
   </Button>
 );
 
 export const Small = () => (
-  <Button onClick={onClick} size="small">
+  <Button onClick={onClick} size={ButtonSize.Small}>
+    Button
+  </Button>
+);
+
+export const Danger = () => (
+  <Button onClick={onClick} variant={ButtonVariant.Danger}>
+    Button
+  </Button>
+);
+
+export const Disabled = () => (
+  <>
+    <Button onClick={onClick} disabled>
+      Button
+    </Button>
+    <Button onClick={onClick} variant={ButtonVariant.Secondary} disabled>
+      Button
+    </Button>
+    <Button iconStart={<IconTrash />} onClick={onClick} variant={ButtonVariant.Supplementary} disabled>
+      Button
+    </Button>
+    <Button onClick={onClick} variant={ButtonVariant.Success} disabled>
+      Button
+    </Button>
+    <Button onClick={onClick} variant={ButtonVariant.Danger} disabled>
+      Button
+    </Button>
+  </>
+);
+
+export const Success = () => (
+  <Button onClick={onClick} variant={ButtonVariant.Success}>
     Button
   </Button>
 );
@@ -53,29 +92,89 @@ FullWidth.storyName = 'Full width';
 
 export const Icons = () => (
   <>
-    <Button onClick={onClick} iconLeft={<IconShare />}>
+    <Button onClick={onClick} iconStart={<IconShare />}>
       Button
     </Button>
 
-    <br />
-    <br />
-
-    <Button onClick={onClick} iconRight={<IconAngleRight />}>
+    <Button onClick={onClick} iconEnd={<IconAngleRight />}>
       Button
     </Button>
 
-    <br />
-    <br />
+    <Button onClick={onClick} iconStart={<IconShare />} iconEnd={<IconAngleRight />}>
+      Button
+    </Button>
 
-    <Button onClick={onClick} iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
+    <Button onClick={onClick} iconStart={<IconShare />} size={ButtonSize.Small}>
+      Button
+    </Button>
+
+    <Button onClick={onClick} iconEnd={<IconAngleRight />} size={ButtonSize.Small}>
+      Button
+    </Button>
+
+    <Button onClick={onClick} iconStart={<IconShare />} iconEnd={<IconAngleRight />} size={ButtonSize.Small}>
       Button
     </Button>
   </>
 );
 
+export const Themes = () => (
+  <>
+    <Button onClick={onClick} theme={ButtonPresetTheme.Coat}>
+      Coat
+    </Button>
+
+    <Button onClick={onClick} theme={ButtonPresetTheme.Coat} variant={ButtonVariant.Secondary}>
+      Coat
+    </Button>
+
+    <Button
+      onClick={onClick}
+      theme={ButtonPresetTheme.Coat}
+      variant={ButtonVariant.Supplementary}
+      iconEnd={<IconAngleRight />}
+    >
+      Coat
+    </Button>
+
+    <Button theme={ButtonPresetTheme.Black} onClick={onClick} variant={ButtonVariant.Primary}>
+      Black
+    </Button>
+
+    <Button theme={ButtonPresetTheme.Black} onClick={onClick} variant={ButtonVariant.Secondary}>
+      Black
+    </Button>
+
+    <Button
+      theme={ButtonPresetTheme.Black}
+      onClick={onClick}
+      iconEnd={<IconAngleRight />}
+      variant={ButtonVariant.Supplementary}
+    >
+      Black
+    </Button>
+  </>
+);
+
+export const CustomTheme = () => {
+  const customTheme: ButtonTheme = {
+    '--background-color-active': 'darkorange',
+    '--background-color-focus': 'orange',
+    '--background-color-hover': 'orange',
+    '--background-color': 'grey',
+    '--border-color-active': 'darkorange',
+    '--border-color': 'grey',
+  };
+  return (
+    <Button onClick={onClick} theme={customTheme} variant={ButtonVariant.Primary}>
+      Custom
+    </Button>
+  );
+};
+
 export const Loading = () => (
-  <Button isLoading loadingText="Saving your changes">
-    Button
+  <Button disabled iconStart={<LoadingSpinner small />} variant={ButtonVariant.Clear} style={{ cursor: 'wait' }}>
+    Saving your changes
   </Button>
 );
 
@@ -95,14 +194,17 @@ export const LoadingOnClick = (args) => {
       clearTimeout(timeout);
     };
   }, [isLoading]);
+
+  const variant = isLoading ? ButtonVariant.Clear : args.variant;
+
   return (
     <Button
-      {...{ ...args, iconLeft: args.variant === 'supplementary' ? <IconTrash /> : undefined }}
+      {...{ ...args, variant, iconStart: isLoading ? <LoadingSpinner small /> : args.iconStart }}
       onClick={onButtonClick}
-      isLoading={isLoading}
-      loadingText="Saving your changes"
+      disabled={isLoading}
+      style={{ cursor: isLoading ? 'wait' : '' }}
     >
-      Button
+      {isLoading ? 'Saving your changes' : 'Button'}
     </Button>
   );
 };
@@ -110,19 +212,7 @@ LoadingOnClick.args = {
   variant: 'primary',
 };
 
-export const Playground = ({
-  label,
-  variant,
-  theme,
-  size,
-  disabled,
-  fullWidth,
-  iconLeft,
-  iconRight,
-  isLoading,
-  loadingText,
-  ...args
-}) => {
+export const Playground = ({ label, variant, theme, size, disabled, fullWidth, iconStart, iconEnd, ...args }) => {
   return (
     <Button
       variant={variant}
@@ -130,10 +220,8 @@ export const Playground = ({
       disabled={disabled}
       fullWidth={fullWidth}
       size={size}
-      iconLeft={iconLeft ? <IconFaceSmile /> : null}
-      iconRight={iconRight ? <IconFaceSmile /> : null}
-      isLoading={isLoading}
-      loadingText={loadingText}
+      iconStart={iconStart ? <IconFaceSmile /> : null}
+      iconEnd={iconEnd ? <IconFaceSmile /> : null}
       {...args}
     >
       {label}
@@ -152,30 +240,34 @@ Playground.parameters = {
 };
 
 Playground.args = {
-  label: 'Button',
-  variant: 'primary',
-  theme: 'default',
-  size: 'default',
+  label: defaultLabel,
+  variant: ButtonVariant.Primary,
+  theme: ButtonPresetTheme.Bus,
+  size: ButtonSize.Medium,
   disabled: false,
   fullWidth: false,
-  iconLeft: false,
-  iconRight: false,
-  isLoading: false,
-  loadingText: 'Saving your changes',
+  iconStart: false,
+  iconEnd: false,
 };
 
 Playground.argTypes = {
   variant: {
-    options: ['primary', 'secondary', 'supplementary', 'success', 'danger'],
+    options: Object.values(ButtonVariant),
     control: { type: 'radio' },
   },
   theme: {
-    options: ['default', 'coat', 'black'],
+    options: Object.values(ButtonPresetTheme),
     control: { type: 'radio' },
   },
   size: {
-    options: ['default', 'small'],
+    options: Object.values(ButtonSize),
     control: { type: 'radio' },
+  },
+  iconStart: {
+    control: { type: 'boolean' },
+  },
+  iconEnd: {
+    control: { type: 'boolean' },
   },
 };
 
@@ -185,6 +277,7 @@ export const LinkButton = () => (
       window.open('/');
     }}
     role="link"
+    aria-label='Link to "/"'
   >
     Button used as a link
   </Button>

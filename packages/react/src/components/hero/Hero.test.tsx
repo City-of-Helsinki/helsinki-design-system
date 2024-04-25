@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Hero, HeroProps } from './Hero';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 
 describe('<Hero /> spec', () => {
   const imageSrc = 'http://image.com/image.jpg';
@@ -12,7 +12,7 @@ describe('<Hero /> spec', () => {
       <>
         <h1>This is the heading</h1>
         <p>Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!</p>
-        <Button variant="secondary" role="link">
+        <Button variant={ButtonVariant.Secondary} role="link">
           Click me
         </Button>
       </>

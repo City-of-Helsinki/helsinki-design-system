@@ -19,7 +19,7 @@ import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
 import { Legend } from '../legend';
-import { Button } from '../../../button';
+import { Button, ButtonSize, ButtonVariant } from '../../../button';
 import { IconCheck, IconCross } from '../../../../icons';
 import classNames from '../../../../utils/classNames';
 import { scrollIntoViewIfNeeded } from '../../../../utils/scrollIntoViewIfNeeded';
@@ -386,9 +386,10 @@ export const DatePicker = (providedProps: DayPickerProps) => {
             {!disableConfirmation && (
               <Button
                 disabled={!selectedDate}
-                size="small"
-                variant="secondary"
-                iconLeft={<IconCheck aria-hidden />}
+                aria-disabled={!selectedDate}
+                size={ButtonSize.Small}
+                variant={ButtonVariant.Secondary}
+                iconStart={<IconCheck aria-hidden />}
                 onClick={handleConfirmClick}
                 data-testid="selectButton"
               >
@@ -396,9 +397,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
               </Button>
             )}
             <Button
-              size="small"
-              variant="supplementary"
-              iconLeft={<IconCross aria-hidden />}
+              size={ButtonSize.Small}
+              variant={ButtonVariant.Supplementary}
+              iconStart={<IconCross aria-hidden />}
               onClick={() => onCloseButtonClick()}
               data-testid="closeButton"
             >

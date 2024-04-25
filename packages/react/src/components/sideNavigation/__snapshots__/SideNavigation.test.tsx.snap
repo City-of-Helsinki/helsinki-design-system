@@ -11,12 +11,10 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
       aria-controls="sideNavigation-menu"
       aria-expanded="false"
       aria-haspopup="true"
-      class="button secondary theme-default size-default fullWidth toggleButton"
+      class="button secondary theme-bus size-medium fullWidth toggleButton"
       type="button"
     >
-      <span
-        class="label"
-      >
+      <span>
         Navigate to page
       </span>
       <div
