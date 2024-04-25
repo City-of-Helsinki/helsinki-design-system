@@ -11,7 +11,7 @@ export const VERSION_COOKIE_NAME = 'city-of-helsinki-consent-version';
 
 // the old version how default cookie domain was picked
 function getCookieDomainForMultiDomainAccess(): string {
-  if (typeof window === 'undefined') {
+  if (isSsrEnvironment()) {
     return '';
   }
 
@@ -20,7 +20,7 @@ function getCookieDomainForMultiDomainAccess(): string {
 
 // the new version how to pick default cookie domain
 export function getCookieDomainForSubDomainAccess(): string {
-  if (typeof window === 'undefined') {
+  if (isSsrEnvironment()) {
     return '';
   }
 
