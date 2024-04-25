@@ -22,7 +22,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
         >
           <button
             aria-hidden="true"
-            class="button secondary theme-default size-default"
+            class="button secondary theme-bus size-medium"
             tabindex="-1"
             type="button"
           >
@@ -46,9 +46,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
                 />
               </svg>
             </div>
-            <span
-              class="label"
-            >
+            <span>
               Add a file
             </span>
           </button>

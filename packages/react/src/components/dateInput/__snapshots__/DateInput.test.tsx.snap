@@ -1419,7 +1419,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="button secondary theme-default size-small"
+                class="button secondary theme-bus size-small"
                 data-testid="selectButton"
                 disabled=""
                 type="button"
@@ -1444,14 +1444,12 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Valitse
                 </span>
               </button>
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -1475,9 +1473,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Sulje
                 </span>
               </button>
@@ -2909,7 +2905,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="button secondary theme-default size-small"
+                class="button secondary theme-bus size-small"
                 data-testid="selectButton"
                 disabled=""
                 type="button"
@@ -2934,14 +2930,12 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Välj
                 </span>
               </button>
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -2965,9 +2959,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Stäng
                 </span>
               </button>
@@ -4404,7 +4396,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
               class="hds-datepicker__bottom-buttons"
             >
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -4428,9 +4420,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Close
                 </span>
               </button>
@@ -5862,7 +5852,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="button secondary theme-default size-small"
+                class="button secondary theme-bus size-small"
                 data-testid="selectButton"
                 disabled=""
                 type="button"
@@ -5887,14 +5877,12 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Select
                 </span>
               </button>
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -5918,9 +5906,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Close
                 </span>
               </button>
