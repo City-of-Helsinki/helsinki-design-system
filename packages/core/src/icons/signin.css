@@ -1,4 +1,12 @@
 .hds-icon--signin {
-  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21 2V22H8V17H10V20H19V4H10V7H8V2H21ZM12.5 7L17.5 12L12.5 17L11 15.5L13.5 12.999L2 13V11L13.499 10.999L11 8.5L12.5 7Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
-  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21 2V22H8V17H10V20H19V4H10V7H8V2H21ZM12.5 7L17.5 12L12.5 17L11 15.5L13.5 12.999L2 13V11L13.499 10.999L11 8.5L12.5 7Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image-signin: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21 2V22H8V17H10V20H19V4H10V7H8V2H21ZM12.5 7L17.5 12L12.5 17L11 15.5L13.5 12.999L2 13V11L13.499 10.999L11 8.5L12.5 7Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image: var(--mask-image-signin);
+}
+
+.hds-icon-start--signin {
+  --mask-image-before: var(--mask-image-signin);
+}
+
+.hds-icon-end--signin {
+  --mask-image-after: var(--mask-image-signin);
 }
