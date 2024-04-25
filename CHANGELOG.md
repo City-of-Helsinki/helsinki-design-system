@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Component] What has been changed
 - [Notification] Change auto closing notification progressbar to decrease instead of increase.
+- [CookieConsent] Fixed SSR problem with "document not defined"
 
 #### Fixed
 
