@@ -129,20 +129,18 @@ export function createSessionPoller(options: SessionPollerOptions = { pollInterv
     const stateChanged = storeStateChangeFromSignal(signal);
     const eventPayload = getEventSignalPayload(signal);
     if (eventPayload) {
-      if (eventPayload.type === oidcClientEvents.USER_RENEWAL_STARTED) {
-        stop();
-      }
       if (
+        eventPayload.type === oidcClientEvents.USER_RENEWAL_STARTED ||
+        eventPayload.type === oidcClientEvents.USER_REMOVED
+      ) {
+        stop();
+      } else if (
         eventPayload.type === oidcClientEvents.USER_UPDATED &&
         eventPayload.data &&
         currentState === oidcClientStates.VALID_SESSION
       ) {
         start();
       }
-    }
-    if (eventPayload && eventPayload.type === oidcClientEvents.USER_UPDATED) {
-      stop();
-      return;
     }
     if (stateChanged && currentState === oidcClientStates.VALID_SESSION) {
       start();
