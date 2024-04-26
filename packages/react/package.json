@@ -121,6 +121,7 @@
     "typescript": "4.6.4"
   },
   "dependencies": {
+    "@apollo/client": "^3.10.1",
     "@babel/runtime": "7.17.9",
     "@emotion/styled-base": "^11.0.0",
     "@hookform/resolvers": "^2.9.11",
