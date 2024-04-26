@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
+- [Login] Added a utility function to detect login callback error that could be ignored.
 
 #### Changed
 
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Component] What bugs/typos are fixed?
 - [Footer] Fix Koros height issue (Calm type was of wrong height)
+- [Login] Fixed initialization failure in React strict mode when external modules are used.
 
 ### Core
 
@@ -98,6 +100,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+### Hds-js
+
+#### Added
+
+- [login] Added a utility function to detect login callback error that could be ignored.
 
 ## [3.7.0] - April, 11, 2024
 
