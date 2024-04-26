@@ -3,16 +3,17 @@ import { fireEvent, render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
-import { TextInput } from './TextInput';
+import { TextInput, TextInputProps } from './TextInput';
 import { IconSearch } from '../../icons';
 
-const textInputProps = {
-  id: 'hdsInput',
-  label: 'HDS input field',
-  placeholder: 'A placeholder text',
-};
-
 describe('<TextInput /> spec', () => {
+  const textInputProps: TextInputProps = {
+    id: 'hdsInput',
+    label: 'HDS input field',
+    placeholder: 'A placeholder text',
+    helperText: 'Helper text',
+    errorText: 'Error text',
+  };
   it('renders the component', () => {
     const { asFragment } = render(<TextInput {...textInputProps} />);
     expect(asFragment()).toMatchSnapshot();

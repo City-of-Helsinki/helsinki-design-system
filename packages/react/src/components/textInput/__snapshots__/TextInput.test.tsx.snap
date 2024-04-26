@@ -15,12 +15,25 @@ exports[`<TextInput /> spec renders the component 1`] = `
       class="inputWrapper"
     >
       <input
+        aria-describedby="hdsInput-helper hdsInput-error"
         class="input"
         id="hdsInput"
         placeholder="A placeholder text"
         type="text"
         value=""
       />
+    </div>
+    <div
+      class="errorText"
+      id="hdsInput-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="hdsInput-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>
@@ -42,6 +55,7 @@ exports[`<TextInput /> spec renders the component with search clear button 1`] =
       class="inputWrapper"
     >
       <input
+        aria-describedby="hdsInput-helper hdsInput-error"
         class="input hasClearButton"
         id="hdsInput"
         placeholder="A placeholder text"
@@ -73,6 +87,18 @@ exports[`<TextInput /> spec renders the component with search clear button 1`] =
           </svg>
         </button>
       </div>
+    </div>
+    <div
+      class="errorText"
+      id="hdsInput-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="hdsInput-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>
@@ -124,12 +150,25 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
       class="inputWrapper"
     >
       <input
+        aria-describedby="hdsInput-helper hdsInput-error"
         class="input"
         id="hdsInput"
         placeholder="A placeholder text"
         type="text"
         value=""
       />
+    </div>
+    <div
+      class="errorText"
+      id="hdsInput-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="hdsInput-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>
