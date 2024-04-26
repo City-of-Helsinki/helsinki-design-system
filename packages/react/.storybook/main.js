@@ -20,7 +20,11 @@ module.exports = {
     '@storybook/addon-measure',
     '@storybook/addon-outline',
   ],
-  staticDirs: ['../src/fonts', { from: '../src/components/login/storybookStatic', to: '/static-login' }],
+  staticDirs: [
+    '../src/fonts',
+    { from: '../src/components/login/storybookStatic', to: '/static-login' },
+    { from: '../src/components/cookieConsentCore/example', to: '/static-cookie-consent' },
+  ],
   webpack: async (config) => ({
     ...config,
     resolve: {
