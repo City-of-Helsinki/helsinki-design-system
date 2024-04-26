@@ -8,7 +8,7 @@ import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
-import { IconUser } from '../../icons';
+import { IconUser, IconCogwheel, IconLinkExternal, IconPlusCircleFill } from '../../icons';
 import { Link } from '../link/Link';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 import { useMediaQueryGreaterThan, useMediaQueryLessThan } from '../../hooks/useMediaQuery';
@@ -704,6 +704,90 @@ export const WithFullFeaturesCustomTheme = (args) => {
         </Header.UniversalBar>
         <FullFeaturedActionBar I18n={I18n} lang={lang} theme={args.theme} />
         <FullFeaturedNavigationMenu I18n={I18n} href={href} setHref={setHref} />
+      </Header>
+      <div id="content" />
+    </>
+  );
+};
+
+export const ActionBarItems = (args) => {
+  const [href, setHref] = useState('');
+  const lang = 'fi';
+  const I18n = translations[lang];
+
+  return (
+    <>
+      <Header {...args}>
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
+        <Header.ActionBar
+          frontPageLabel={I18n.frontPage}
+          title={translations[lang].headerTitle}
+          titleAriaLabel={translations[lang].headerAriaLabel}
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
+          logoAriaLabel={I18n.ariaLogo}
+        >
+          <Header.ActionBarItem
+            label={translations[lang].headerLogin}
+            fixedRightPosition
+            icon={<IconUser />}
+            id="action-bar-login"
+            closeLabel={I18n.close}
+            preventButtonResize
+          >
+            <Header.ActionBarSubItem label="Heading" heading href="/" />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
+            <Header.ActionBarSubItem
+              label="Link"
+              href="/"
+              iconLeft={<IconCogwheel />}
+              iconRight={<IconLinkExternal />}
+            />
+            <Header.ActionBarSubItem
+              label="Link"
+              href="/"
+              iconLeft={<IconCogwheel />}
+              iconRight={<IconLinkExternal />}
+              iconNotification={<IconPlusCircleFill />}
+            />
+            <Header.ActionBarSubItem label="Subheading" subheading />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Subheading" subheading iconLeft={<IconCogwheel />} />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem
+              label="Subheading"
+              subheading
+              href="/"
+              iconLeft={<IconCogwheel />}
+              iconRight={<IconLinkExternal />}
+            />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Subheading" subheading />
+          </Header.ActionBarItem>
+        </Header.ActionBar>
+
+        <Header.NavigationMenu>
+          <Header.Link
+            label={I18n.healthAndSocialServices}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#sosiaali-_ja_terveyspalvelut');
+            }}
+            active={href.includes('#sosiaali-_ja_terveyspalvelut')}
+          />
+          <Header.Link
+            active={href.includes('#kasvatus_ja_koulutus')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#kasvatus_ja_koulutus');
+            }}
+            label={I18n.childhoodAndEducation}
+          />
+        </Header.NavigationMenu>
       </Header>
       <div id="content" />
     </>

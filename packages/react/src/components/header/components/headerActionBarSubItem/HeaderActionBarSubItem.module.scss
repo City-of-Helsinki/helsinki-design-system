@@ -1,0 +1,69 @@
+@use '../../../../styles/common.scss';
+
+.actionBarSubItem,
+.actionBarSubItem > a,
+.actionBarSubItem > div {
+  margin: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: var(--color-header);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+    outline-offset: calc(-1 * var(--header-focus-outline-width));
+  }
+}
+
+a.actionBarSubItem,
+.actionBarSubItem a {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h3.actionBarSubItem,
+h4.actionBarSubItem {
+  border-top: 1px solid var(--color-black-20);
+  border-bottom: 1px solid var(--color-black-20);
+  padding: 0px;
+}
+
+h3.actionBarSubItem {
+  line-height: 28px;
+  font-size: 18px;
+  padding: 0px;
+  & > a {
+    padding: 16px;
+  }
+}
+
+:first-child.actionBarSubItem {
+  border-top: 0px solid black;
+}
+
+:last-child.actionBarSubItem {
+  border-bottom: 0px solid black;
+}
+
+.actionBarSubItemLabel {
+  position: relative;
+}
+
+.actionBarSubItemIcon {
+  position: relative;
+  line-height: 24px;
+  height: 24px;
+}
+
+.iconNotification {
+  right: 0px;
+  flex-grow: 1;
+  text-align: right;
+}

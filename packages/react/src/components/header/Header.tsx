@@ -9,6 +9,7 @@ import { HeaderActionBar, TitleStyleType } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderLink } from './components/headerLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
+import { HeaderActionBarSubItem } from './components/headerActionBarSubItem';
 import { HeaderLanguageSelector, LanguageButton, SimpleLanguageOptions } from './components/headerLanguageSelector';
 import { HeaderSearch } from './components/headerSearch';
 import { SkipLink } from '../../internal/skipLink';
@@ -69,6 +70,7 @@ interface HeaderInterface extends FC<HeaderProps> {
   TitleStyleType: typeof TitleStyleType;
   NavigationMenu: typeof HeaderNavigationMenu;
   ActionBarItem: typeof HeaderActionBarItemWithDropdown;
+  ActionBarSubItem: typeof HeaderActionBarSubItem;
   Link: typeof HeaderLink;
   LanguageSelector: typeof HeaderLanguageSelector;
   Search: typeof HeaderSearch;
@@ -97,6 +99,7 @@ Header.TitleStyleType = TitleStyleType;
 Header.NavigationMenu = HeaderNavigationMenu;
 
 Header.ActionBarItem = HeaderActionBarItemWithDropdown;
+Header.ActionBarSubItem = HeaderActionBarSubItem;
 Header.Link = HeaderLink;
 
 Header.LanguageSelector = HeaderLanguageSelector;
