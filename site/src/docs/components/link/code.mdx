@@ -3,7 +3,7 @@ slug: '/components/link/code'
 title: 'Link - Code'
 ---
 
-import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link } from 'hds-react';
+import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link, LinkSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -55,14 +55,14 @@ import { Link } from 'hds-react';
 
 ### Standalone
 
-<Playground scope={{ Link }}>
+<Playground scope={{ Link, LinkSize }}>
 
 
 ```jsx
-import { Link } from 'hds-react';
+import { Link, LinkSize } from 'hds-react';
 
 () => (
-  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>
     Link to HDS
   </Link>
 )
@@ -77,7 +77,7 @@ import { Link } from 'hds-react';
 
 ### Internal and external links
 
-<Playground scope={{ Link }}>
+<Playground scope={{ Link, LinkSize }}>
 
 
 ```jsx
@@ -90,7 +90,7 @@ import { Link } from 'hds-react';
 
   <Link
     href="https://github.com/City-of-Helsinki/helsinki-design-system"
-    size="M"
+    size={LinkSize.Medium}
     external
     openInExternalDomainAriaLabel="Opens a different website."
     style={{ display: 'block', width: 'fit-content' }}
@@ -100,7 +100,7 @@ import { Link } from 'hds-react';
 
   <Link
     href="https://github.com/City-of-Helsinki/helsinki-design-system"
-    size="M"
+    size={LinkSize.Medium}
     external
     openInNewTab
     openInExternalDomainAriaLabel="Opens a different website."
@@ -150,40 +150,40 @@ import { Link } from 'hds-react';
 
 ### Links with icons
 
-<Playground scope={{ Link, IconDocument, IconPhone, IconEnvelope, IconPhoto }}>
+<Playground scope={{ Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto }}>
 
 
 ```jsx
-import { Link, IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-react';
+import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-react';
 
 () => (<>
   <Link
-    iconLeft={<IconDocument size="s" aria-hidden />}
-    size="M"
+    iconStart={<IconDocument size="s" aria-hidden />}
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >
     Document link
   </Link>
   <Link
-    iconLeft={<IconPhone size="s" aria-hidden />}
-    size="M"
+    iconStart={<IconPhone size="s" aria-hidden />}
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >
     Phone link
   </Link>
   <Link
-    iconLeft={<IconEnvelope size="s" aria-hidden />}
-    size="M"
+    iconStart={<IconEnvelope size="s" aria-hidden />}
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >
     Email link
   </Link>
   <Link
-    iconLeft={<IconPhoto size="s" aria-hidden />}
-    size="M"
+    iconStart={<IconPhoto size="s" aria-hidden />}
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >
@@ -194,10 +194,10 @@ import { Link, IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-reac
 
 ```html
 <div>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-left"><span class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></span></span>Document link</a>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-left"><span class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></span></span>Phone link</a>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-left"><span class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></span></span>Email link</a>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-left"><span class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></span></span>Photo link</a>
+  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></span></span>Document link</a>
+  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></span></span>Phone link</a>
+  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></span></span>Email link</a>
+  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></span></span>Photo link</a>
 </div>
 ```
 
@@ -243,11 +243,11 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | ------------------------------- | ------------------------------------------------------------------------------ | ------------------- | ------------- |
 | `external`                      | If set to true, the link is marked as external (points outside of the domain). | `boolean`           | false         |
 | `href`                          | Hypertext reference of the link.                                               | `string`            | -             |
-| `iconLeft`                      | An icon placed on the left side of the link.                                   | `ReactNode`         | -             |
+| `iconStart`                      | An icon placed on the start side of the link.                                   | `ReactNode`         | -             |
 | `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                              | `string`            | -             |
 | `openInNewTab`                  | If set to true, the link opens in a new tab.                                   | `boolean`           | false         |
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                   | `string`            | -             |
-| `size`                          | Controls the size of the link.                                                 | `"S"`, `"M"`, `"L"` | `"S"`         |
+| `size`                          | Controls the size of the link.                                                 | `LinkSize.Small`, `LinkSize.Medium`, `LinkSize.Large` | `LinkSize.Medium`         |
 | `useButtonStyles`               | Change the appearance to button.                                               | `boolean`           | false         |
 
 <NativeElementPropsInfo

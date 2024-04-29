@@ -60,7 +60,7 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
             class="links widerLinks"
           >
             <a
-              class="link linkM item utility"
+              class="link link-medium item utility"
               href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
             >
               <span>
@@ -68,7 +68,7 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
               </span>
             </a>
             <a
-              class="link linkM item utility"
+              class="link link-medium item utility"
               href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
             >
               <span>
@@ -76,7 +76,7 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
               </span>
             </a>
             <a
-              class="link linkM item utility"
+              class="link link-medium item utility"
               href="https://hel.fi/kanslia/neuvonta-fi"
             >
               <span>

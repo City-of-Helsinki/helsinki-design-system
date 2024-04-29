@@ -60,7 +60,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
             class="logoWrapper"
           >
             <a
-              class="link linkM item"
+              class="link link-medium item"
               tabindex="0"
             >
               <img
@@ -83,7 +83,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 |
               </span>
               <a
-                class="link linkM item base"
+                class="link link-medium item base"
               >
                 <span>
                   Link 1
@@ -96,7 +96,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 |
               </span>
               <a
-                class="link linkM item base"
+                class="link link-medium item base"
               >
                 <span>
                   Link 2
@@ -109,7 +109,7 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
                 |
               </span>
               <a
-                class="link linkM item base"
+                class="link link-medium item base"
               >
                 <span>
                   Link 3

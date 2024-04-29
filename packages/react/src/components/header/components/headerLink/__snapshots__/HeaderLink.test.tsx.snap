@@ -6,7 +6,7 @@ exports[`<HeaderLink /> spec renders the component 1`] = `
     class="navigationLinkWrapper depth-0"
   >
     <a
-      class="link linkM headerLink depth-0"
+      class="link link-medium headerLink depth-0"
       href="#"
     >
       Link

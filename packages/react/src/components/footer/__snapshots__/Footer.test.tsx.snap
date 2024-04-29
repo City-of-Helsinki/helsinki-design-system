@@ -60,7 +60,7 @@ exports[`<Footer /> spec renders the component 1`] = `
             class="logoWrapper"
           >
             <a
-              class="link linkM item"
+              class="link link-medium item"
               tabindex="0"
             >
               <img

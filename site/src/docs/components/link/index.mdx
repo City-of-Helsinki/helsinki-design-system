@@ -4,7 +4,7 @@ title: 'Link'
 navTitle: 'Link'
 ---
 
-import { IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-react';
+import { IconDocument, IconPhone, IconEnvelope, IconPhoto, LinkSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>
     Link to HDS
   </Link>
 </PlaygroundPreview>
@@ -61,7 +61,7 @@ Standalone links are used on their own or directly after the content, and they a
 Standalone links should not be used within sentences or paragraphs.
 
 <PlaygroundPreview>
-  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>Link to HDS</Link>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>Link to HDS</Link>
 </PlaygroundPreview>
 
 #### Internal and external links
@@ -71,13 +71,13 @@ All HDS links can either be internal or external. Internal links point to the cu
 <PlaygroundPreview>
 <Link 
   href="https://hds.hel.fi/" 
-  size="M" 
+  size={LinkSize.Medium} 
   style={{ display: 'block', width: 'fit-content' }}
 >Internal link</Link>
 
 <Link
   href="https://github.com/City-of-Helsinki/helsinki-design-system"
-  size="M"
+  size={LinkSize.Medium}
   external
   openInExternalDomainAriaLabel="Opens a different website."
   style={{ display: 'block', width: 'fit-content' }}
@@ -85,7 +85,7 @@ All HDS links can either be internal or external. Internal links point to the cu
 
 <Link 
   href="https://github.com/City-of-Helsinki/helsinki-design-system" 
-  size="M" 
+  size={LinkSize.Medium}
   external 
   openInNewTab
   openInExternalDomainAriaLabel="Opens a different website."
@@ -102,25 +102,25 @@ Note! These icons are meant to describe the link target. If you need a direction
 <PlaygroundPreview>
   <Link
     iconLeft={<IconDocument size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Document link</Link>
   <Link
     iconLeft={<IconPhone size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Phone link</Link>
   <Link
     iconLeft={<IconEnvelope size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Email link</Link>
   <Link
     iconLeft={<IconPhoto size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Photo link</Link>
