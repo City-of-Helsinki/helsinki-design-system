@@ -9,7 +9,7 @@ import { getElementAttributesMisMatches, getCommonElementTestProps } from '../..
 describe('<Link /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
-      <Link href="https://hds.hel.fi" ariaLabel="Link to hds.hel">
+      <Link href="https://hds.hel.fi" aria-label="Link to hds.hel">
         Test link
       </Link>,
     );

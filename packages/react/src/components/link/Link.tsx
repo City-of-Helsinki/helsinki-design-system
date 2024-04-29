@@ -6,13 +6,13 @@ import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
 
+export enum LinkSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
+
 export type LinkProps = {
-  /**
-   * aria-label for providing detailed information for screen readers about a link text.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
   /**
    * Link content
    */
@@ -33,7 +33,7 @@ export type LinkProps = {
    * Element placed on the left side of the link text
    * @deprecated Will be replaced with iconStart in the next major release.
    */
-  iconLeft?: React.ReactNode;
+  iconStart?: React.ReactNode;
   /**
    * Boolean indicating whether the link will open in new tab or not.
    */
@@ -49,7 +49,7 @@ export type LinkProps = {
   /**
    * Size of the link
    */
-  size?: 'S' | 'M' | 'L';
+  size?: LinkSize;
   /**
    * Additional styles
    */
@@ -58,32 +58,29 @@ export type LinkProps = {
    * Style the link as a button
    */
   useButtonStyles?: boolean;
-} & Omit<
-  React.ComponentPropsWithoutRef<'a'>,
-  'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
->;
+} & Omit<React.ComponentPropsWithoutRef<'a'>, 'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'>;
 
-type LinkToIconSizeMappingType = {
-  L: 'l';
-  M: 's';
-  S: 'xs';
-};
+enum LinkSizeToIconSize {
+  large = 'l',
+  medium = 's',
+  small = 'xs',
+}
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
-      ariaLabel,
+      'aria-label': ariaLabel,
       children,
       className,
       disableVisitedStyles = false,
       external = false,
       href,
-      iconLeft,
+      iconStart,
       openInNewTab = false,
       openInExternalDomainAriaLabel,
       openInNewTabAriaLabel,
       style = {},
-      size = 'M',
+      size = LinkSize.Medium,
       useButtonStyles = false,
       ...rest
     }: LinkProps,
@@ -101,20 +98,15 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
     };
 
-    const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
-      L: 'l',
-      M: 's',
-      S: 'xs',
-    };
     const mapLinkSizeToIconVerticalStyling = {
-      L: styles.verticalAlignBigIcon,
-      M: styles.verticalAlignMediumIcon,
-      S: styles.verticalAlignSmallIcon,
+      large: styles.verticalAlignBigIcon,
+      medium: styles.verticalAlignMediumIcon,
+      small: styles.verticalAlignSmallIcon,
     };
 
     const linkStyles = classNames(
       styles.link,
-      styles[`link${size}`],
+      styles[`link-${size}`],
       disableVisitedStyles ? styles.disableVisitedStyles : '',
     );
 
@@ -129,15 +121,15 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         ref={ref}
         {...rest}
       >
-        {iconLeft && (
-          <span className={styles.iconLeft} aria-hidden="true">
-            {iconLeft}
+        {iconStart && (
+          <span className={styles.iconStart} aria-hidden="true">
+            {iconStart}
           </span>
         )}
         {useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children}
         {external && (
           <IconLinkExternal
-            size={mapLinkSizeToExternalIconSize[size]}
+            size={LinkSizeToIconSize[size]}
             className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
             aria-hidden
           />

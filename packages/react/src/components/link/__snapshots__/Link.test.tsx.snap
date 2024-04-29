@@ -4,7 +4,7 @@ exports[`<Link /> spec external link that is opened in to a new tab should not h
 <DocumentFragment>
   <a
     aria-label="Test link. Avautuu uudessa välilehdessä. Siirtyy toiseen sivustoon."
-    class="link linkM"
+    class="link link-medium"
     href="https://hds.hel.fi"
     rel="noopener"
     target="_blank"
@@ -33,7 +33,7 @@ exports[`<Link /> spec renders the component 1`] = `
 <DocumentFragment>
   <a
     aria-label="Link to hds.hel."
-    class="link linkM"
+    class="link link-medium"
     href="https://hds.hel.fi"
   >
     Test link
