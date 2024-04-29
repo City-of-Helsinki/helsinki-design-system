@@ -3,7 +3,7 @@ import React, { RefObject } from 'react';
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { SelectDataHandlers, SelectMetaData, DivElementProps, Group, SelectData } from '../../types';
-import { getSelectedOptionsPerc, getGroupLabelOption, getAllOptions } from '../../utils';
+import { getSelectedOptionsPerc, getGroupLabelOption, getAllOptions, getVisibleGroupLabels } from '../../utils';
 import { MemoizedMultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
@@ -82,16 +82,19 @@ export const createGroups = ({
 };
 
 export const createContainerProps = ({
+  getData,
   getMetaData,
 }: SelectDataHandlers): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
+  const { groups } = getData();
   const { elementIds, refs, listInputType } = getMetaData();
   const hasInput = !!listInputType;
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   return {
     'aria-labelledby': `${elementIds.label} ${elementIds.choicesCount}`,
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
-    role: hasInput ? 'dialog' : 'listbox',
+    role: hasInput || hasVisibleGroupLabels ? 'dialog' : 'listbox',
     tabIndex: -1,
   };
 };

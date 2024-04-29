@@ -6,13 +6,15 @@ import { DivElementProps, SelectDataHandlers } from '../../types';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../../events';
+import { getVisibleGroupLabels } from '../../utils';
 
 const createListAndInputContainerProps = (
   props: DivElementProps,
   { getData, getMetaData, trigger }: SelectDataHandlers,
 ) => {
-  const { open } = getData();
+  const { open, groups } = getData();
   const { refs, listInputType } = getMetaData();
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const hasInput = !!listInputType;
   const outsideClickTrigger = useCallback(() => {
     if (!open) {
@@ -30,7 +32,7 @@ const createListAndInputContainerProps = (
     ref: refs.listContainer,
     outsideClickTrigger,
     'aria-hidden': !open,
-    ...(hasInput && { role: 'dialog' }),
+    ...((hasInput || hasVisibleGroupLabels) && { role: 'dialog' }),
   };
 };
 
