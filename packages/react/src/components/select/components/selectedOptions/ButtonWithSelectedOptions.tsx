@@ -24,6 +24,8 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
   const placeholder = getTextKeyFromDataHandlers('placeholder', dataHandlers) || '';
   const label = getTextKeyFromDataHandlers('label', dataHandlers);
   const ariaLabel = getTextKeyFromDataHandlers('dropdownButtonAriaLabel', dataHandlers);
+  const assistiveText = getTextKeyFromDataHandlers('assistive', dataHandlers);
+  const errorText = getTextKeyFromDataHandlers('error', dataHandlers);
   const hasInput = !!listInputType;
 
   const getAriaLabel = () => {
@@ -44,7 +46,12 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
         labels.push(`and ${length - 2} other options.`);
       }
     }
-
+    if (assistiveText) {
+      labels.push(assistiveText);
+    }
+    if (errorText) {
+      labels.push(errorText);
+    }
     return labels.join(' ');
   };
 
