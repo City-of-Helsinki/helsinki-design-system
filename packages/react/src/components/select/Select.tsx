@@ -145,7 +145,6 @@ export function Select({
             <List />
             <SearchAndFilterInfo />
           </ListAndInputContainer>
-          <ClearButton visuallyHidden />
         </SelectionsAndListsContainer>
         <ErrorNotification />
         <AssistiveText />
