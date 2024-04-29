@@ -124,7 +124,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
             </h4>
             <a
               aria-label="Selkosuomi. Siirtyy toiseen sivustoon."
-              class="link linkM"
+              class="link link-medium"
               href="www.example.com"
             >
               Selkosuomi
@@ -310,7 +310,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                   </h4>
                   <a
                     aria-label="Selkosuomi. Siirtyy toiseen sivustoon."
-                    class="link linkM"
+                    class="link link-medium"
                     href="www.example.com"
                   >
                     Selkosuomi

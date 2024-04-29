@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Component] What are the breaking changes?
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
-- [Accordion] Changed size prop to use AccordionSize enum (AccordionSize.Small, AccordionSize.Medium and AccordionSize.Large) or without usin Typescript ("small", "medium" and "large"). Also theming has changed variables.
+- [Accordion] Changed size prop to use AccordionSize enum (AccordionSize.Small, AccordionSize.Medium and AccordionSize.Large) or without using Typescript ("small", "medium" and "large"). Also theming has changed variables.
+- [Link] iconLeft prop is renamed to iconStart, size prop is now enum (LinkSize.Small, .Medium and .Large). Aria-label is now native so ariaLabel prop is now obsolete -> use aria-label.
 
 #### Added
 
@@ -37,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Component] What are the breaking changes?
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
+- [Link] Renamed hds-icon-left class to hds-icon-start
 
 #### Added
 
