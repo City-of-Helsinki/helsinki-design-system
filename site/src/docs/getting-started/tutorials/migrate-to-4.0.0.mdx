@@ -16,15 +16,18 @@ This major release contains some breaking changes. Pay attention to these when y
 
 ### Tag component rewritten
 
-#### React and Core
+#### React
 The Tag component has been rewritten and `iconStart` and `iconEnd` -properties have now been added.
 Prop `size` is now a Typescript enum with proper values (`TagSize.Small` and `TagSize.Large`).
 Prop `role`has been removed and the component itself handles it role.
 `deleteButtonAriaLabel`, `deleteButtonProps`, `labelProps` and `srOnlyLabel` have also been removed.
 There's also no separate delete-button inside the Tag in the Deletable variant.
-Theming has also been modified a bit with changed css-variable names.
+
+#### Core
 In Core-side also using hds-icons is now possible with classes without additional `<span>`'s.
-New design also makes slight changes to the stylings.
+
+#### Both
+Theming has also been modified a bit with changed css-variable names. New design also makes slight changes to the stylings.
 
 - <InternalLink size="M" href="/components/tag">Documentation</InternalLink>
 - <InternalLink size="M" href="/storybook/react/?path=/story/components-tag">React storybook examples</InternalLink>
@@ -32,13 +35,31 @@ New design also makes slight changes to the stylings.
 
 ### Button component rewritten
 
-#### React and Core
-The Button component has been rewritten and `iconLeft` and `iconRight` -properties have now been renamed as `iconStart` and `iconEnd` to support future implementation of RTL (right-to-left) languages. `Size`, `theme` and `variant` are all now Typescript enums with proper values (used to be Types and included "default" as value).
+#### React
+The Button component has been rewritten and `iconLeft` and `iconRight` -properties have now been renamed as `iconStart` and `iconEnd` to support future implementation of RTL (right-to-left) languages.
+`Size`, `theme` and `variant` are all now Typescript enums with proper values (used to be Types and included "default" as value).
 Properties `isLoading` and `loadingText` have been removed and implementing a loading button is done by setting the Button's variant as `clear` (`ButtonVariant.Clear`), giving the Button a `<LoadingSpinner small />` as it's `iconStart` and changing the label to something that informs the user about the loading status. Also to consider is whether to add `disabled` prop or not.
-Theming has also been added through css-variables.
+
+#### Core
 In Core-side also using hds-icons is now possible with classes without additional `<span>`'s.
-New design also makes slight changes to the stylings.
+
+#### Both
+Theming has also been added through css-variables. New design also makes slight changes to the stylings.
 
 - <InternalLink size="M" href="/components/button">Documentation</InternalLink>
 - <InternalLink size="M" href="/storybook/react/?path=/story/components-button--primary">React storybook examples</InternalLink>
 - <InternalLink size="M" href="/storybook/core/?path=/story/components-button--primary">Core storybook examples</InternalLink>
+
+### Link component changes
+
+#### React
+Link has changed props, `iconLeft` has been renamed to `iconStart`.
+Separate `ariaLabel` has been removed, replaced by using native `aria-label` -property.
+Size prop is now a Typescript-enum with values `LinkSize.Small`, `LinkSize.Medium` and `LinkSize.Large`, which correspond to string values `small`, `medium` and `large`.
+
+#### Core
+`hds-icon-left` class has been renamed to `hds-icon-start`
+
+- <InternalLink size="M" href="/components/link">Documentation</InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-link">React storybook examples</InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-link">Core storybook examples</InternalLink>

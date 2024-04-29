@@ -6,8 +6,8 @@
   composes: icon from 'hds-core/lib/components/link/link.css';
 }
 
-.iconLeft {
-  composes: hds-icon-left from 'hds-core/lib/components/link/link.css';
+.iconStart {
+  composes: hds-icon-start from 'hds-core/lib/components/link/link.css';
 }
 
 .verticalAlignMediumIcon {
@@ -26,15 +26,15 @@
   composes: hds-link--disable-visited-styles from 'hds-core/lib/components/link/link.css';
 }
 
-.linkS {
+.link-small {
   composes: hds-link--small from 'hds-core/lib/components/link/link.css';
 }
 
-.linkM {
+.link-medium {
   composes: hds-link--medium from 'hds-core/lib/components/link/link.css';
 }
 
-.linkL {
+.link-large {
   composes: hds-link--large from 'hds-core/lib/components/link/link.css';
 }
 
