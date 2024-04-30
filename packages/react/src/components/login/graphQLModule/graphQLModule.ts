@@ -11,11 +11,21 @@ import {
   graphQLModuleEvents,
   defaultOptions,
 } from '.';
-import { Disposer, SignalListener } from '../beacon/beacon';
-import { createEventTriggerProps, createInitTriggerProps, createNamespacedBeacon } from '../beacon/signals';
+import { Beacon, SignalListener } from '../beacon/beacon';
+import {
+  createEventTriggerProps,
+  createInitTriggerProps,
+  createNamespacedBeacon,
+  waitForSignals,
+} from '../beacon/signals';
 import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientNamespace } from '../apiTokensClient';
-import { isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
+import {
+  ApiTokensEventSignal,
+  isApiTokensRemovedSignal,
+  isApiTokensRenewalStartedSignal,
+  isApiTokensUpdatedSignal,
+} from '../apiTokensClient/signals';
 import { GraphQLModuleError } from './graphQLModuleError';
 
 export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
@@ -30,7 +40,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const dedicatedBeacon = createNamespacedBeacon(graphQLModuleNamespace);
-  const listenerDisposers: Disposer[] = [];
 
   const fetchAborter = createFetchAborter();
   let queryPromise: Promise<ApolloQueryResult<Q>> | undefined;
@@ -39,10 +48,10 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   let state: GraphQLModuleState = graphQLModuleStates.IDLE;
   let result: ApolloQueryResult<Q> | undefined;
   let error: GraphQLModuleError | undefined;
-  let apiTokensAreLoaded: boolean = false;
-
-  const isDisposed = () => {
-    return state === graphQLModuleStates.DISPOSED;
+  let apiTokensHaveBeenLoadedOnce: boolean = false;
+  let lastApiTokensSignal: ApiTokensEventSignal | null = null;
+  const emptyPromiseCatcher = () => {
+    // just catching to avoid "unhandled promise" exception
   };
 
   const getData: GraphQLModule<T, Q>['getData'] = () => {
@@ -53,18 +62,12 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     queryPromise = promise;
     promise
       .then((queryResult: ApolloQueryResult<Q>) => {
-        if (isDisposed()) {
-          return;
-        }
         result = queryResult;
         state = graphQLModuleStates.IDLE;
         dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS, getData());
         queryPromise = undefined;
       })
       .catch((queryError: ApolloError) => {
-        if (isDisposed()) {
-          return;
-        }
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
         if (isAbortError(queryError.networkError as Error)) {
@@ -80,10 +83,40 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     return promise;
   };
 
-  const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
-    if (isDisposed()) {
-      return Promise.reject(new Error('GraphQLModule is disposed'));
+  const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async (timeout = 0) => {
+    // store last apitoken signal?
+    let timeOutId: ReturnType<typeof setTimeout> | null = null;
+    const signalPromise = waitForSignals(dedicatedBeacon as unknown as Beacon, ['dd'], { rejectOn: ['fdf'] });
+
+    const timeoutPromise = timeout
+      ? new Promise((resolve, reject) => {
+          timeOutId = setTimeout(() => {
+            reject(new Error('Timeout for waitForApiTokens() reached'));
+            timeOutId = null;
+          }, timeout);
+        })
+      : null;
+
+    return timeoutPromise
+      ? Promise.race([signalPromise, timeoutPromise])
+          .finally(() => {
+            if (timeOutId) {
+              clearTimeout(timeOutId);
+              timeOutId = null;
+            }
+          })
+          .catch(emptyPromiseCatcher)
+      : signalPromise.catch(emptyPromiseCatcher);
+  };
+
+  const areApiTokensValid = () => {
+    if (!lastApiTokensSignal) {
+      return apiTokensHaveBeenLoadedOnce;
     }
+    return isApiTokensUpdatedSignal(lastApiTokensSignal);
+  };
+
+  const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
     // if aborting is not enabled and loading, return current promise
     if (queryPromise && !mergedOptions.abortIfLoading) {
       return queryPromise;
@@ -91,9 +124,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     // wait for current promise to abort
     if (queryPromise) {
       fetchAborter.abort();
-      await queryPromise.catch(() => {
-        // just catching with this empty function
-      });
+      await queryPromise.catch(emptyPromiseCatcher);
     }
     if (props.graphQLClient) {
       client = props.graphQLClient;
@@ -102,8 +133,12 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       return Promise.reject(new Error('No client defined'));
     }
 
-    if (mergedOptions.requireApiTokens && !apiTokensAreLoaded) {
+    if (mergedOptions.requireApiTokens && !apiTokensHaveBeenLoadedOnce) {
       return Promise.reject(new Error('Required apiTokens not loaded'));
+    }
+
+    if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !areApiTokensValid()) {
+      await waitForApiTokens(options.apiTokensWaitTime);
     }
 
     const queryDocument = props.query || query;
@@ -112,17 +147,28 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     }
 
     try {
-      const mergedProps: QueryOptions<OperationVariables, Q> = {
-        query: queryDocument,
-        ...{ ...queryOptions, ...props.queryOptions },
-        context: {
-          fetchOptions: {
-            // getSignal() will abort previous signal
-            signal: fetchAborter.getSignal(),
-          },
-        },
+      /*
+        add headers:
+          const [loadData, { loading, data }] = useLazyQuery(Query, {
+          context: { headers: { authorization: `Bearer ${token}` } }
+      })
+      */
+      const mergeProps = (): QueryOptions<OperationVariables, Q> => {
+        const context: QueryOptions['context'] = {
+          ...queryOptions?.context,
+          ...props.queryOptions?.context,
+        };
+        if (!context.fetchOptions) {
+          context.fetchOptions = {};
+        }
+        context.fetchOptions.signal = fetchAborter.getSignal();
+        return {
+          query: queryDocument,
+          ...{ ...queryOptions, ...props.queryOptions },
+          context,
+        };
       };
-      const promise = client.query<Q>(mergedProps);
+      const promise = client.query<Q>(mergeProps());
       state = graphQLModuleStates.LOADING;
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOADING);
       return handleQueryPromise(promise);
@@ -134,32 +180,32 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const autoLoadWithApiTokens = () => {
-    if (!result && !queryPromise && mergedOptions.autoFetch && apiTokensAreLoaded) {
+    if (!result && !queryPromise && mergedOptions.autoFetch && apiTokensHaveBeenLoadedOnce) {
       queryExecutor();
     }
   };
 
   const apiTokensClientEventListener: SignalListener = (signal) => {
-    apiTokensAreLoaded = apiTokensAreLoaded || isApiTokensUpdatedSignal(signal);
+    apiTokensHaveBeenLoadedOnce = apiTokensHaveBeenLoadedOnce || isApiTokensUpdatedSignal(signal);
+    if (isApiTokensRemovedSignal(signal) || isApiTokensRenewalStartedSignal(signal)) {
+      //
+    }
+    lastApiTokensSignal = signal as ApiTokensEventSignal;
     autoLoadWithApiTokens();
   };
 
   const apiTokensClientInitListener: SignalListener = (signal) => {
     const apiTokensClient = signal.context as ApiTokenClient;
     if (apiTokensClient && apiTokensClient.getTokens()) {
-      apiTokensAreLoaded = true;
+      apiTokensHaveBeenLoadedOnce = true;
       autoLoadWithApiTokens();
     }
   };
 
   const connectToApiTokenClient = () => {
     if (mergedOptions.requireApiTokens) {
-      listenerDisposers.push(
-        dedicatedBeacon.addListener(createEventTriggerProps(apiTokensClientNamespace), apiTokensClientEventListener),
-      );
-      listenerDisposers.push(
-        dedicatedBeacon.addListener(createInitTriggerProps(apiTokensClientNamespace), apiTokensClientInitListener),
-      );
+      dedicatedBeacon.addListener(createEventTriggerProps(apiTokensClientNamespace), apiTokensClientEventListener);
+      dedicatedBeacon.addListener(createInitTriggerProps(apiTokensClientNamespace), apiTokensClientInitListener);
     }
   };
 
@@ -194,14 +240,12 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       return fetchAborter.abort();
     },
     clear: () => {
-      state = graphQLModuleStates.DISPOSED;
-      listenerDisposers.forEach((d) => d());
-      listenerDisposers.length = 0;
       fetchAborter.abort();
       queryPromise = undefined;
       result = undefined;
       error = undefined;
-      client = undefined;
+      dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_CLEARED);
     },
+    waitForApiTokens,
   };
 }

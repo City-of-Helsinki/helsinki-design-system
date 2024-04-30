@@ -24,6 +24,7 @@ export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = C
   getQueryPromise: () => Promise<ApolloQueryResult<Q>>;
   cancel: () => void;
   clear: () => void;
+  waitForApiTokens: (timeout?: number) => Promise<unknown>;
 };
 
 export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQueryResult> = {
@@ -35,6 +36,7 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
     requireApiTokens: boolean;
     abortIfLoading: boolean;
     keepOldResultOnError: boolean;
+    apiTokensWaitTime: number;
   }>;
 };
 
@@ -44,7 +46,6 @@ export type GraphQLModuleEvent = keyof typeof graphQLModuleEvents;
 export const graphQLModuleStates = {
   IDLE: 'IDLE',
   LOADING: 'LOADING',
-  DISPOSED: 'DISPOSED',
 } as const;
 
 export const graphQLModuleEvents = {
@@ -60,6 +61,7 @@ export const defaultOptions: GraphQLModuleModuleProps['options'] = {
   requireApiTokens: true,
   abortIfLoading: true,
   keepOldResultOnError: true,
+  apiTokensWaitTime: 15000,
 };
 
 export const graphQLModuleNamespace = 'graphQLModule';
