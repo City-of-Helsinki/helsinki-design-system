@@ -2131,6 +2131,15 @@
   dependencies:
     postcss-value-parser "^4.2.0"
 
+"@csstools/postcss-sass@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@csstools/postcss-sass/-/postcss-sass-5.1.1.tgz#135921df13bc56bee50c7470a66e4e9f3d5c89ae"
+  integrity sha512-La7bgTcM6YwPBLqlaXg7lMLry82iLv1a+S1RmgvHq2mH2Zd57L2anjZvJC8ACUHWc4M9fXws93dq6gaK0kZyAw==
+  dependencies:
+    "@csstools/sass-import-resolve" "^1.0.0"
+    sass "^1.69.5"
+    source-map "~0.7.4"
+
 "@csstools/postcss-stepped-value-functions@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@csstools/postcss-stepped-value-functions/-/postcss-stepped-value-functions-1.0.1.tgz#f8772c3681cc2befed695e2b0b1d68e22f08c4f4"
@@ -2156,6 +2165,11 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@csstools/postcss-unset-value/-/postcss-unset-value-1.0.2.tgz#c99bb70e2cdc7312948d1eb41df2412330b81f77"
   integrity sha512-c8J4roPBILnelAsdLr4XOAR/GsTm0GJi4XpcfvoWk3U6KiTCqiFYc63KhRMQQX35jYMp4Ao8Ij9+IZRgMfJp1g==
+
+"@csstools/sass-import-resolve@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@csstools/sass-import-resolve/-/sass-import-resolve-1.0.0.tgz#32c3cdb2f7af3cd8f0dca357b592e7271f3831b5"
+  integrity sha512-pH4KCsbtBLLe7eqUrw8brcuFO8IZlN36JjdKlOublibVdAIPHCzEnpBWOVUXK5sCf+DpBi8ZtuWtjF0srybdeA==
 
 "@csstools/selector-specificity@^2.0.0", "@csstools/selector-specificity@^2.0.2":
   version "2.2.0"
@@ -15421,6 +15435,13 @@ gm@^1.23.1:
     cross-spawn "^4.0.0"
     debug "^3.1.0"
 
+gonzales-pe@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/gonzales-pe/-/gonzales-pe-4.3.0.tgz#fe9dec5f3c557eead09ff868c65826be54d067b3"
+  integrity sha512-otgSPpUmdWJ43VXyiNgEYE4luzHCL2pz4wQ0OnDluC6Eg4Ko3Vexy/SrSynglw/eR+OhkzmqFCZa/OFa/RgAOQ==
+  dependencies:
+    minimist "^1.2.5"
+
 gopd@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.0.1.tgz#29ff76de69dac7489b7c0918a5788e56477c332c"
@@ -23417,6 +23438,14 @@ postcss-safe-parser@^6.0.0:
   resolved "https://registry.yarnpkg.com/postcss-safe-parser/-/postcss-safe-parser-6.0.0.tgz#bb4c29894171a94bc5c996b9a30317ef402adaa1"
   integrity sha512-FARHN8pwH+WiS2OPCxJI8FuRJpTVnn6ZNFiqAM2aeW2LwTHWWmWgIyKC6cUo0L8aeKiF/14MNvnpls6R2PBeMQ==
 
+postcss-sass@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/postcss-sass/-/postcss-sass-0.5.0.tgz#a599717eef90165d267e6a974c66c2ed15376b77"
+  integrity sha512-qtu8awh1NMF3o9j/x9j3EZnd+BlF66X6NZYl12BdKoG2Z4hmydOt/dZj2Nq+g0kfk2pQy3jeYFBmvG9DBwynGQ==
+  dependencies:
+    gonzales-pe "^4.3.0"
+    postcss "^8.2.14"
+
 postcss-scss@^4.0.2:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-4.0.6.tgz#5d62a574b950a6ae12f2aa89b60d63d9e4432bfd"
@@ -23580,6 +23609,15 @@ postcss@^6.0.1:
     chalk "^2.4.1"
     source-map "^0.6.1"
     supports-color "^5.4.0"
+
+postcss@^8.2.14:
+  version "8.4.38"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.38.tgz#b387d533baf2054288e337066d81c6bee9db9e0e"
+  integrity sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==
+  dependencies:
+    nanoid "^3.3.7"
+    picocolors "^1.0.0"
+    source-map-js "^1.2.0"
 
 prebuild-install@^7.1.1:
   version "7.1.1"
@@ -25641,6 +25679,15 @@ sass@^1.49.9:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
+sass@^1.69.5:
+  version "1.76.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.76.0.tgz#fe15909500735ac154f0dc7386d656b62b03987d"
+  integrity sha512-nc3LeqvF2FNW5xGF1zxZifdW3ffIz5aBb7I7tSvOoNu7z1RQ6pFt9MBuiPtjgaI62YWrM/txjWlOCFiGtf2xpw==
+  dependencies:
+    chokidar ">=3.0.0 <4.0.0"
+    immutable "^4.0.0"
+    source-map-js ">=0.6.2 <2.0.0"
+
 sax@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
@@ -26212,6 +26259,11 @@ source-list-map@^2.0.0, source-list-map@^2.0.1:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
+source-map-js@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.2.0.tgz#16b809c162517b5b8c3e7dcd315a2a5c2612b2af"
+  integrity sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==
+
 source-map-loader@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/source-map-loader/-/source-map-loader-3.0.2.tgz#af23192f9b344daa729f6772933194cc5fa54fee"
@@ -26263,7 +26315,7 @@ source-map@^0.5.0, source-map@^0.5.6, source-map@^0.5.7:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==
 
-source-map@^0.7.0, source-map@^0.7.3:
+source-map@^0.7.0, source-map@^0.7.3, source-map@~0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.4.tgz#a9bbe705c9d8846f4e08ff6765acf0f1b0898656"
   integrity sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==
