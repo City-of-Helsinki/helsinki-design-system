@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import styles from '../../Select.module.scss';
-import { Button, ButtonProps } from '../../../button/Button';
+import { Button, ButtonProps, ButtonVariant } from '../../../button/Button';
 import {
   addOrUpdateScreenReaderNotificationByType,
   createOnClickListener,
@@ -20,14 +20,14 @@ const showAllButtonPropSetter = (
   const { showAllTags, refs, elementIds, selectedOptions } = getMetaData();
   return {
     ...createOnClickListener({ id: eventIds.showAllButton, trigger }),
-    children: showAllTags ? (
-      'Show less'
-    ) : (
-      <>
-        Show all (<span className="count">{selectedOptions.length}</span>)
-      </>
-    ),
-    variant: 'secondary',
+    children: showAllTags
+      ? 'Show less'
+      : ((
+          <>
+            Show all (<span className="count">{selectedOptions.length}</span>)
+          </>
+        ) as unknown as string),
+    variant: ButtonVariant.Secondary,
     buttonRef: refs.showAllButton,
     disabled,
     id: elementIds.showAllButton,
@@ -48,7 +48,7 @@ export function ShowAllButton() {
   }
   wasOpenRef.current = isOpen;
   return (
-    <Button {...attr} ref={buttonRef} iconRight={<IconAngleDown className={styles.arrowIcon} />}>
+    <Button {...attr} ref={buttonRef} iconEnd={<IconAngleDown className={styles.arrowIcon} />}>
       {children}
     </Button>
   );

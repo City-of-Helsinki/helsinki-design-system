@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '../../Select.module.scss';
-import { Button, ButtonProps } from '../../../button/Button';
+import { Button, ButtonProps, ButtonVariant } from '../../../button/Button';
 import { createOnClickListener } from '../../utils';
 import { IconCrossCircleFill } from '../../../../icons';
 import { SelectDataHandlers } from '../../types';
@@ -14,7 +14,7 @@ const clearAllButtonPropSetter = ({ getData, trigger, getMetaData }: SelectDataH
   return {
     ...createOnClickListener({ id: eventIds.clearAllButton, trigger }),
     children: 'Clear all',
-    variant: 'secondary',
+    variant: ButtonVariant.Secondary,
     className: styles.clearAllButton,
     disabled,
     id: elementIds.clearAllButton,
@@ -25,7 +25,7 @@ const clearAllButtonPropSetter = ({ getData, trigger, getMetaData }: SelectDataH
 export function ClearAllButton() {
   const { children, ...attr } = clearAllButtonPropSetter(useSelectDataHandlers());
   return (
-    <Button {...attr} iconRight={<IconCrossCircleFill />}>
+    <Button {...attr} iconEnd={<IconCrossCircleFill />}>
       {children}
     </Button>
   );
