@@ -12,12 +12,12 @@
     "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn cssToScss",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
-    "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
-    "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
+    "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
+    "postcss-watch": "postcss 'src/**/*.(css|scss)' --base src -d lib --watch",
     "cssToScss": "node scripts/cssToScss.js",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error",
-    "lint:styles": "yarn stylelint \"src/**/*.css\""
+    "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\""
   },
   "devDependencies": {
     "@csstools/postcss-sass": "^5.1.1",
@@ -43,6 +43,7 @@
     "postcss-preset-env": "6.7.0",
     "postcss-sass": "^0.5.0",
     "rimraf": "3.0.2",
+    "sass": "1.39.2",
     "stylelint": "^15.1.0",
     "stylelint-config-css-modules": "^4.2.0",
     "stylelint-config-standard": "^30.0.1",
