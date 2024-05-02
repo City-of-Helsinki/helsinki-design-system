@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { IconShare, IconTrash } from '../../icons';
-import { Tag, TagSize, TagTheme, TagProps } from './Tag';
+import { Tag, TagProps, TagSize, TagTheme } from './Tag';
 
 export default {
   component: Tag,

@@ -77,6 +77,10 @@ export type TagProps = MergeAndOverrideProps<
      * Will contain more properties in the next major release.
      */
     theme?: TagTheme;
+    /**
+     * Ref is set to the main element
+     */
+    ref?: React.Ref<HTMLDivElement> | React.Ref<HTMLAnchorElement>;
   }
 >;
 
