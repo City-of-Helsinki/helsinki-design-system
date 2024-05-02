@@ -209,6 +209,15 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     }
   };
 
+  const injectQueryOptions = (
+    extraOptions: Partial<QueryOptions<Q>>,
+    props: Partial<GraphQLModuleModuleProps<T, Q>> = {},
+  ) => {
+    const mergeResult = { ...props };
+    mergeResult.queryOptions = { ...mergeResult.queryOptions, ...extraOptions };
+    return mergeResult;
+  };
+
   return {
     namespace: 'graphQLModule',
     connect: (beacon) => {
@@ -247,5 +256,11 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_CLEARED);
     },
     waitForApiTokens,
+    queryCache: (props) => {
+      return queryExecutor(injectQueryOptions({ fetchPolicy: 'cache-only' }, props));
+    },
+    queryServer: (props) => {
+      return queryExecutor(injectQueryOptions({ fetchPolicy: 'network-only' }, props));
+    },
   };
 }

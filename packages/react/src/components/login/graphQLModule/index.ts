@@ -25,6 +25,8 @@ export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = C
   cancel: () => void;
   clear: () => void;
   waitForApiTokens: (timeout?: number) => Promise<unknown>;
+  queryCache: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
+  queryServer: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
 };
 
 export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQueryResult> = {
