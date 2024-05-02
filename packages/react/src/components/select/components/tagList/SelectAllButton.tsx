@@ -20,13 +20,7 @@ const showAllButtonPropSetter = (
   const { showAllTags, refs, elementIds, selectedOptions } = getMetaData();
   return {
     ...createOnClickListener({ id: eventIds.showAllButton, trigger }),
-    children: showAllTags
-      ? 'Show less'
-      : ((
-          <>
-            Show all (<span className="count">{selectedOptions.length}</span>)
-          </>
-        ) as unknown as string),
+    children: showAllTags ? 'Show less' : `Show all (${selectedOptions.length})`,
     variant: ButtonVariant.Secondary,
     buttonRef: refs.showAllButton,
     disabled,
