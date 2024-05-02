@@ -77,7 +77,7 @@ export type TagProps = {
   /**
    * Ref is set to the main element
    */
-  ref?: React.Ref<HTMLDivElement> | React.LegacyRef<HTMLAnchorElement>;
+  ref?: React.Ref<HTMLDivElement> | React.Ref<HTMLAnchorElement>;
 };
 
 export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, React.ComponentProps<'div'> & TagProps>(

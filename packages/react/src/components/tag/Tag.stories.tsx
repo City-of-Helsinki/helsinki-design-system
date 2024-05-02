@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { IconShare, IconTrash } from '../../icons';
-import { Tag, TagSize, TagTheme } from './Tag';
+import { Tag, TagProps, TagSize, TagTheme } from './Tag';
 
 export default {
   component: Tag,
@@ -19,7 +19,7 @@ const TagWrapper = (args) => (
   <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>{args.children}</div>
 );
 
-export const InformativeTagsSmall = (args) => (
+export const InformativeTagsSmall = (args: TagProps) => (
   <TagWrapper>
     <Tag {...args} id="info-1" />
     <Tag {...args} id="info-2" iconStart={<IconShare />} />
@@ -28,10 +28,10 @@ export const InformativeTagsSmall = (args) => (
   </TagWrapper>
 );
 
-export const InformativeTagsLarge = (args) => <InformativeTagsSmall {...args} />;
+export const InformativeTagsLarge = (args: TagProps) => <InformativeTagsSmall {...args} />;
 InformativeTagsLarge.args = { size: TagSize.Large };
 
-export const LinkTags = (args) => (
+export const LinkTags = (args: TagProps) => (
   <TagWrapper>
     <Tag {...args} id="linktag-1" href="#linkTags" iconEnd={<IconShare />} aria-label="Open link to self" />
     <Tag
@@ -45,7 +45,7 @@ export const LinkTags = (args) => (
   </TagWrapper>
 );
 
-export const ActionTags = (args) => (
+export const ActionTags = (args: TagProps) => (
   <TagWrapper>
     <Tag {...args} id="action-1" onClick={() => action(`Click: ${args.children}`)()} aria-label="run action 1">
       {args.children}
@@ -81,7 +81,7 @@ export const ActionTags = (args) => (
   </TagWrapper>
 );
 
-export const DeletableTags = (args) => {
+export const DeletableTags = (args: TagProps) => {
   return (
     <TagWrapper>
       <Tag
@@ -112,7 +112,7 @@ export const DeletableTags = (args) => {
   );
 };
 
-export const CustomThemeTags = (args) => {
+export const CustomThemeTags = (args: TagProps) => {
   const customA: TagTheme = {
     '--background-color': 'var(--color-brick)',
     '--color': 'var(--color-white)',
@@ -173,7 +173,7 @@ export const CustomThemeTags = (args) => {
 const longText =
   'Label - This is a tag with a very long text which is not advisable and might span into multiple lines';
 
-const LongTextTags = (args) => (
+const LongTextTags = (args: TagProps) => (
   <div style={{ maxWidth: '300px' }}>
     <TagWrapper>
       <Tag {...args}>{longText}</Tag>
@@ -199,8 +199,8 @@ const LongTextTags = (args) => (
   </div>
 );
 
-export const LongTextTagsSmall = (args) => <LongTextTags {...args} />;
+export const LongTextTagsSmall = (args: TagProps) => <LongTextTags {...args} />;
 LongTextTagsSmall.args = { multiline: true };
 
-export const LongTextTagsLarge = (args) => <LongTextTags {...args} />;
+export const LongTextTagsLarge = (args: TagProps) => <LongTextTags {...args} />;
 LongTextTagsLarge.args = { size: TagSize.Large, multiline: true };
