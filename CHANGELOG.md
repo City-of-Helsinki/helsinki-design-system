@@ -57,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Component] What has been changed
+- [Login] Login system is good enough to start using in production as well. We still welcome feedback and improve the component.
 
 #### Fixed
 
