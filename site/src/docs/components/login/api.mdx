@@ -101,6 +101,8 @@ Button text is passed and rendered as a child.
 | `onSuccess`                                                 | **Required**. The function is called when a response is handled successfully. The function is called with a <OidcClientTsLink>User</OidcClientTsLink> object. |
 | [Table 3: Properties of the LoginCallbackHandler component] |
 
+In some scenarios, when the component is rendered multiple times, usually in development mode with strict mode enabled, the `onError` callback is called with an error that can usually be ignored. The error indicates a login callback is already being handled. The error can be checked with the exported function `isHandlingLoginCallbackError(error)`.
+
 #### LoginProvider
 
 | Property                                             | Description                                                                                                                                                                                                                                                                                                                                                             |
