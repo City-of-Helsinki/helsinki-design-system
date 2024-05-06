@@ -53,7 +53,7 @@ function readLine (line) {
 
     const lineArr = line.split("|").map(item => item.trim());
 
-    if (lineArr[4] != '') {
+    if (lineArr[4] !== '') {
         iconArrayAddCommonUsage( lineArr[2].replaceAll('`', ''), lineArr[4])
     }
 }
@@ -81,10 +81,10 @@ function getIconGroup (icon) {
 }
 
 function iconArrayAddCommonUsage (coreName, commonusage) {
-    if (commonusage == '') return
+    if (commonusage === '') return
 
     iconArray.forEach(function(item) {
-        if (item.core == coreName) {
+        if (item.core === coreName) {
             item.commonusage = commonusage
         }
     })
@@ -97,10 +97,10 @@ function readIconFiles (iconfile) {
 
     const reactName = iconfile.substring(0,iconfile.indexOf(".tsx"));
     const coreName = convertCamelToSnake(reactName.substring(4));
-    if (coreName == '') return
+    if (coreName === '') return
 
     const groupName = getIconGroup(coreName);
-    if (groupName == '') return
+    if (groupName === '') return
 
     iconArray.push({group: groupName, core: coreName, react: reactName, commonusage: ''});
 }
