@@ -16,6 +16,13 @@ Closes #
 
 ## How Has This Been Tested?
 
+## Demos:
+[Docs](https://city-of-helsinki.github.io/hds-demo/preview_<PR_ID>/)
+
+[Core Storybook](https://city-of-helsinki.github.io/hds-demo/preview_<PR_ID>/storybook/core)
+
+[React Storybook](https://city-of-helsinki.github.io/hds-demo/preview_<PR_ID>/storybook/react)
+
 ## Screenshots (if appropriate):
 
 ## Add to changelog

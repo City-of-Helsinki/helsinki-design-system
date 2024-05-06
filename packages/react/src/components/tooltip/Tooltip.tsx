@@ -127,6 +127,7 @@ export const Tooltip = ({
         aria-label={buttonLabel}
         aria-expanded={isTooltipOpen}
         onClick={onButtonClick}
+        onBlur={() => setIsTooltipOpen(false)}
       >
         <span aria-hidden="true">
           <IconQuestionCircle />
