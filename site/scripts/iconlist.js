@@ -1,6 +1,9 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
+// This script generates icon list.mdx file from exists icon files
+// script should run from site -directory
+
 const listFileHeader = `---
 slug: '/foundation/visual-assets/icons/list'
 title: 'Icons - List of all icons'
@@ -15,12 +18,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## List of all icons
 `
 
-// const listMdx = 'site/src/docs/foundation/visual-assets/icons/list.mdx';
+let iconArray = [];
+
 const listMdx = 'src/docs/foundation/visual-assets/icons/list.mdx';
-// const listMdx = 't/short_list.mdx';
-// const listMdx = 't/list.mdx';
 const listMdxOutput = listMdx;
-// const listMdxOutput = 't/list_out.mdx';
+
 // icon_group.json is in site -directory, it has get on Github Workflow step
 const icon_groups_json = "./icon_group.json"; // <data from figma-api> | jq '.nodes."172:2478".document.children | .[] | {group: .name?, icon: .children[]?.name?}' | jq -s .> icon_group.json
 
@@ -45,7 +47,7 @@ const continueWarning = (msg) => {
     console.log(`${chalk.red.bold('Warning:')} ${chalk.italic(msg)}`);
 };
   
-
+// read common usage -from exists list-mdx
 function readLine (line) {
     if (! line.startsWith('| <HDS')) return;
 
@@ -56,6 +58,7 @@ function readLine (line) {
     }
 }
 
+// convert filenames from camel case to snake case
 function convertCamelToSnake(str){
     const snakeCase =  str.replace(/([a-zA-Z])(?=[A-Z])/g,'$1-').toLowerCase()
 
@@ -67,8 +70,8 @@ function convertCamelToSnake(str){
     return snakeCase
 }
 
+// get icon group
 function getIconGroup (icon) {
-
     if (!iconGroups.has(icon)) {
         continueWarning(`Icon ${icon} has not group!`)
         return ''
@@ -77,7 +80,6 @@ function getIconGroup (icon) {
     return iconGroups.get(icon);
 }
 
-let iconArray = [];
 function iconArrayAddCommonUsage (coreName, commonusage) {
     if (commonusage == '') return
 
@@ -88,6 +90,7 @@ function iconArrayAddCommonUsage (coreName, commonusage) {
     })
 }
 
+// read icon files from directory
 function readIconFiles (iconfile) {
     if (! iconfile.startsWith('Icon')) return;
     if (! iconfile.endsWith('.tsx')) return;
@@ -101,7 +104,6 @@ function readIconFiles (iconfile) {
 
     iconArray.push({group: groupName, core: coreName, react: reactName, commonusage: ''});
 }
-
 
 // from https://github.com/nijikokun/array-to-table
 function arrayToTable (array, columns, alignment = 'left') {
@@ -144,7 +146,6 @@ function outputGroupHeader(groupName) {
 function outputGroup(groupName, groupIcons) {
     return  outputGroupHeader(groupName) + arrayToTable(groupIcons, null, 'left')
 }
-
 function outputFile () {
     let iconTables = new Map();
 
@@ -166,6 +167,7 @@ function outputFile () {
     // generate output data
     let output = listFileHeader;
     let tableNumber = 1;
+    // sort icon groups
     const iconTablesSorted = new Map([...iconTables].sort());
     iconTablesSorted.forEach(function(groupIcons, groupName) {
         groupIcons.push({ Icon: `[Table ${tableNumber++}:${groupName} icons]` })

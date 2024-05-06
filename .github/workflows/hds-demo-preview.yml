@@ -68,7 +68,8 @@ jobs:
         working-directory: ./site
 
       - name: regenerate iconlist
-        run: yarn iconlist
+        run: |
+          yarn iconlist
         working-directory: ./site
 
       # Build

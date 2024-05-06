@@ -36,3 +36,6 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+# icon&group mapping 
+icon_group.json
