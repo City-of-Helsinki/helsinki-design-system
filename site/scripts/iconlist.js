@@ -21,7 +21,8 @@ const listMdx = 'src/docs/foundation/visual-assets/icons/list.mdx';
 // const listMdx = 't/list.mdx';
 const listMdxOutput = listMdx;
 // const listMdxOutput = 't/list_out.mdx';
-const icon_groups_json = "t/icon_group.json"; // <data from figma-api> | jq '.nodes."172:2478".document.children | .[] | {group: .name?, icon: .children[]?.name?}' | jq -s .> icon_group.json
+// icon_group.json is in site -directory, it has get on Github Workflow step
+const icon_groups_json = "./icon_group.json"; // <data from figma-api> | jq '.nodes."172:2478".document.children | .[] | {group: .name?, icon: .children[]?.name?}' | jq -s .> icon_group.json
 
 let iconGroups = new Map();
 const iconGroupsJson = JSON.parse(fs.readFileSync(icon_groups_json, 'utf-8'));
