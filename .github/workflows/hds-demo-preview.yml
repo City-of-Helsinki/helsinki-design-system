@@ -148,6 +148,6 @@ jobs:
         with:
           header: Preview url
           message: |
-            ## Preview https://city-of-helsinki.github.io/hds-demo/$DEMO_NAME
+            ## Preview https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }}
 
 
