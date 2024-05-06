@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Component] What is added?
 - [Login] Added a utility function to detect login callback error that could be ignored.
+- [DateInput] Added example how to handle date ranges.
 
 #### Changed
 
@@ -56,6 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - Added measure and outline addons to Storybook
+- [DateInput] Added examples how to handle date ranges and validation.
 
 #### Changed
 
