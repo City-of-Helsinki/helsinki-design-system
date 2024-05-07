@@ -56,6 +56,11 @@ HDS Login components cannot support SSR at the moment because of the session sto
 
 Silent session renewal requires a <UsagePageAnchorLink anchor="silent-renewal">dedicated HTML file</UsagePageAnchorLink> that redirects to the OIDC provider "silently" in an iframe.
 
+### Consents for storing data
+
+The data of the authenticated user is stored in the session storage. Users must give consent to storing data in the session storage, just like cookie consents.
+You can use the ready-made consents in the <InternalLink href="/patterns/cookies/common-helsinki-cookies/#hds-login-component">common Helsinki cookies</InternalLink>.
+
 ### Example Usage
 
 <PlaygroundPreview>

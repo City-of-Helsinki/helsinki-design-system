@@ -405,11 +405,9 @@ describe('Test all modules together', () => {
       ]);
       // api tokens are fetched. Oidc client requests are mock in the the client itself.
       expect(getRequestCount()).toBe(1);
-      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([
-        initSignalType,
-        sessionPollerEvents.SESSION_POLLING_STOPPED,
-      ]);
-      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(12);
+      // session poller will not emit signals until polling interval is reached.
+      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
+      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(11);
     });
     it("When user and user's tokens are already stored in sessionStorage, only polling starts", async () => {
       const { getReceivedSignalTypes } = await initAll({
@@ -479,6 +477,7 @@ describe('Test all modules together', () => {
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
+        apiTokensClientEvents.API_TOKENS_REMOVED,
       ]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([
         initSignalType,
@@ -500,6 +499,7 @@ describe('Test all modules together', () => {
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
+        apiTokensClientEvents.API_TOKENS_REMOVED,
         apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED,
         apiTokensClientEvents.API_TOKENS_UPDATED,
       ]);
@@ -507,7 +507,7 @@ describe('Test all modules together', () => {
       await renewPromise;
 
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(2);
-      expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
+      expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(1);
     });
     it('When user is logs out, api tokens are removed and session polling is stopped.', async () => {
       const { getReceivedSignalTypes } = await initAll({
@@ -526,7 +526,7 @@ describe('Test all modules together', () => {
         oidcClientStates.LOGGING_OUT,
         oidcClientEvents.USER_REMOVED,
       ]);
-      expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
+
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
@@ -538,7 +538,8 @@ describe('Test all modules together', () => {
       ]);
 
       expect(mockMapForSessionHttpPoller.getCalls('start')).toHaveLength(1);
-      expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(2);
+      // 3 calls caused by LOGGING_OUT, USER_REMOVED and VALID_SESSION changed to invalid.
+      expect(mockMapForSessionHttpPoller.getCalls('stop')).toHaveLength(3);
     });
   });
 });

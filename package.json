@@ -4,7 +4,8 @@
   "license": "MIT",
   "workspaces": [
     "packages/*",
-    "site"
+    "site",
+    "e2e"
   ],
   "scripts": {
     "build": "yarn build:code && yarn build:site",

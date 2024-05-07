@@ -1,0 +1,59 @@
+# this is reference workflow to run e2e tests and get test results
+name: e2e-tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - playwright_initial_HDS-2224
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install dependencies
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
+        working-directory: ./e2e
+
+      - name: install test tools
+        run: |
+          yarn inst
+        working-directory: ./e2e
+          
+      - name: run tests
+        run: |
+          yarn start
+        env:
+          E2E_TESTS_ENV_URL: "https://hds.hel.fi"
+        working-directory: ./e2e
+
+      - name: upload test results in case of failure
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e_test_report
+          path: e2e/report/**
+        # if: failure()
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            e2e/report/**/*.xml

@@ -3,10 +3,11 @@
 exports[`<Footer.Base /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
-    class="footer koros-basic theme-light"
+    class="footer theme-light"
   >
     <div
-      class="koros basic koros basic"
+      class="koros basic koros"
+      style="height: 15px;"
     >
       <svg
         aria-hidden="true"

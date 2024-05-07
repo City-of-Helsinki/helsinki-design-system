@@ -1,0 +1,15 @@
+{
+  "name": "e2e",
+  "private": true,
+  "description": "e2e tests using Playwright",
+  "version": "3.8.0",
+  "scripts": {
+    "inst": "yarn playwright install",
+    "ci": "npx playwright test",
+    "start": "npx playwright test",
+    "record": "npx playwright codegen https://hds.hel.fi"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1"
+  }
+}

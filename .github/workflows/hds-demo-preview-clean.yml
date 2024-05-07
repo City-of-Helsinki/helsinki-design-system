@@ -1,0 +1,45 @@
+name: hds-demo-preview-clean
+
+on:
+  pull_request:
+    branches:
+      - development
+      - release-*
+    types:
+      - closed
+
+jobs:
+ build_and_publish_demo:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code hds-demo
+        uses: actions/checkout@v4
+        with:
+          repository: City-of-Helsinki/hds-demo
+          path: hds-demo
+          ssh-key: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
+
+      - name: Remove PR directory
+        id: remove_preview
+        run: |
+          if [ -d "./docs/preview_${{ github.event.number }}" ] ; then
+            rm -fr ./docs/preview_${{ github.event.number }}
+            echo "preview_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "preview_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+        working-directory: ./hds-demo
+
+      - name: Commit
+        if: steps.remove_preview.outputs.preview_exists == 'true'
+        run: |
+          git config --global user.email "hds@hel.fi"
+          git config --global user.name "Github Actions"
+          git status
+          git add .
+          git commit -m "Updated pr ${{ github.event.number }}"
+          git push
+        working-directory: ./hds-demo

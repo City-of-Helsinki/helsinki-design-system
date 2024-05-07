@@ -1,13 +1,5 @@
 @value small-down, x-small-down, x-large-up from "../../styles/breakpoints.scss";
 
-$koros-heights: (
-  'basic': 15px,
-  'beat': 70px,
-  'pulse': 34px,
-  'wave': 35px,
-  'vibration': 54px,
-);
-
 .footer {
   --footer-background: var(--color-black-5);
   --footer-color: var(--color-black-90);
@@ -29,20 +21,6 @@ $koros-heights: (
 
 .koros {
   fill: var(--footer-background, transparent);
-  overflow: hidden;
-
-  svg {
-    left: 50%;
-    position: relative;
-    transform: translateX(-50%);
-    width: 4028px; /* can't use relative units here, as we want to have the koro waves always centered */
-  }
-
-  @each $type, $height in $koros-heights {
-    &.#{$type} {
-      height: #{$height};
-    }
-  }
 }
 
 .footerContent {

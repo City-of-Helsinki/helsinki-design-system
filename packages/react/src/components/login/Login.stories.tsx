@@ -37,12 +37,12 @@ import {
   LoginProviderProps,
 } from './index';
 import { Button } from '../button/Button';
-import { Accordion } from '../accordion/Accordion';
 import { Header } from '../header/Header';
 import { Notification } from '../notification/Notification';
 import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
+import { LoadingSpinner } from '../loadingSpinner';
 
 type StoryArgs = {
   useKeycloak?: boolean;
@@ -66,7 +66,7 @@ const useKeycloakArgs = {
   description: 'Only a storybook option. If true, Keycloak OIDC is used.',
 };
 
-// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/ and change
+// To use this in localhost, copy the settings from https://hds.hel.fi/components/login/#common-settings-for-localhost and change
 // with Tunnistamo
 // redirect_uri: `${window.origin}/static-login/callback.html`
 // or with Keycloak:
@@ -74,6 +74,12 @@ const useKeycloakArgs = {
 // with both
 // silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`
 // post_logout_redirect_uri: `${window.origin}/static-login/logout.html`
+
+// For hds-demo -site, use the localhost settings. The demo url must be https://city-of-helsinki.github.io/hds-demo/login
+// because that is registered to the OIDC provider.
+// All "_uri"s must be ${window.origin}/hds-demo/login/static-login/{xxx}.html
+// Also make this change to html files in the storybookStatic -folder:
+// const prefix = `${window.origin}/hds-demo/login/`;
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
@@ -316,11 +322,8 @@ const SimulateSessionEndButton = () => {
   return <Button onClick={onButtonClick}>Simulate session end</Button>;
 };
 
-const UserData = ({ user }: { user: User }) => {
+const ProfileData = ({ user }: { user: User }) => {
   const profile = user.profile as Profile;
-  const expiresAt = new Date();
-  expiresAt.setTime(user.expires_at ? user.expires_at * 1000 : Date.now());
-  const timezoneOffset = expiresAt.getTimezoneOffset();
   return (
     <div>
       <p>
@@ -334,11 +337,6 @@ const UserData = ({ user }: { user: User }) => {
       </p>
       <p>
         Your level of assurance is <strong>&quot;{profile.loa}&quot;</strong>.
-      </p>
-      <p>
-        Your tokens will expire{' '}
-        {new Intl.DateTimeFormat('en-FI', { dateStyle: 'full', timeStyle: 'long', timeZone: 'GMT' }).format(expiresAt)}
-        {timezoneOffset !== 0 ? `+ ${timezoneOffset / -60} hour(s)` : ''}
       </p>
     </div>
   );
@@ -400,6 +398,22 @@ const UserProfileOutput = ({ user }: { user: User }) => {
 const ApiTokenOutput = () => {
   const { getStoredApiTokens } = useApiTokens();
   const [, tokens] = getStoredApiTokens();
+  const listener = useCallback(() => true, []);
+  useSignalListener(listener);
+
+  const apiTokensClient = useApiTokensClient();
+  const oidcClient = useOidcClient();
+
+  const isRenewing = apiTokensClient.isRenewing() || oidcClient.isRenewing();
+  if (isRenewing) {
+    return (
+      <>
+        <LoadingSpinner small />
+        <span>Renewing data...</span>
+      </>
+    );
+  }
+
   return (
     <div>
       <p>This are your api tokens:</p>
@@ -446,6 +460,41 @@ const TrackAllSignals = () => {
   );
 };
 
+const DynamicUserData = () => {
+  const apiTokensClient = useApiTokensClient();
+  const oidcClient = useOidcClient();
+  const listener = useCallback(() => true, []);
+  useSignalListener(listener);
+
+  const isRenewing = apiTokensClient.isRenewing() || oidcClient.isRenewing();
+  if (isRenewing) {
+    return (
+      <>
+        <LoadingSpinner small />
+        <span>Renewing data...</span>
+      </>
+    );
+  }
+
+  const user = oidcClient.getUser() as User;
+  if (!user) {
+    return null;
+  }
+  const expiresAt = new Date();
+  expiresAt.setTime(user.expires_at ? user.expires_at * 1000 : Date.now());
+  const timezoneOffset = expiresAt.getTimezoneOffset();
+  return (
+    <div>
+      <p>
+        Your tokens will expire{' '}
+        {new Intl.DateTimeFormat('en-FI', { dateStyle: 'full', timeStyle: 'long', timeZone: 'GMT' }).format(expiresAt)}
+        {timezoneOffset !== 0 ? `+ ${timezoneOffset / -60} hour(s)` : ''}
+      </p>
+      <UserProfileOutput user={user} />
+    </div>
+  );
+};
+
 const AuthorizedContent = ({ user }: { user: User }) => {
   return (
     <Tabs>
@@ -456,10 +505,8 @@ const AuthorizedContent = ({ user }: { user: User }) => {
         <Tabs.Tab>Show errors</Tabs.Tab>
       </Tabs.TabList>
       <Tabs.TabPanel>
-        <UserData user={user} />
-        <Accordion heading="Show full user info">
-          <UserProfileOutput user={user} />
-        </Accordion>
+        <ProfileData user={user} />
+        <DynamicUserData />
       </Tabs.TabPanel>
       <Tabs.TabPanel>
         <ApiTokenOutput />

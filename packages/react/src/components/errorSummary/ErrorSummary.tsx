@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import '../../styles/base.module.css';
 import errorSummaryStyles from './ErrorSummary.module.scss';
 import notificationStyles from '../notification/Notification.module.css';
-import { IconAlertCircleFill } from '../../icons';
+import { IconErrorFill } from '../../icons';
 import classNames from '../../utils/classNames';
 
 export type ErrorSummarySize = 'default' | 'large';
@@ -62,7 +62,7 @@ export const ErrorSummary = React.forwardRef<HTMLDivElement, ErrorSummaryProps>(
             tabIndex={-1}
             ref={labelRef}
           >
-            <IconAlertCircleFill className={notificationStyles.icon} aria-hidden />
+            <IconErrorFill className={notificationStyles.icon} aria-hidden />
             {label}
           </div>
           <div className={(notificationStyles.body, errorSummaryStyles.errorSummaryBody)}>{children}</div>

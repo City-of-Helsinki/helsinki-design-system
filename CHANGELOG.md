@@ -5,6 +5,80 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.0] - May, 7, 2024
+
+### React
+
+#### Added
+
+- [CookieConsent] Data stored by the HDS login component is now in the common cookies.
+- [Login] Added a utility function to detect login callback error that could be ignored.
+- [DateInput] Added example how to handle date ranges.
+
+#### Changed
+
+- [Login] API tokens are removed when user token renewal starts
+- [Notification] Change auto closing notification progressbar to decrease instead of increase.
+- [CookieConsent] Fixed SSR problem with "document not defined"
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+- [Footer] Fix Koros height issue (Calm type was of wrong height)
+- [Login] Fixed initialization failure in React strict mode when external modules are used.
+- [ErrorSummary] Change wrong error icon to correct one
+
+### Core
+
+#### Changed
+
+- [ErrorSummary] Change wrong error icon to correct one
+
+### Documentation
+
+#### Added
+
+- [Login] Improved LoginProvider and api token client documentation.
+- Added measure and outline addons to Storybook
+- [DateInput] Added examples how to handle date ranges and validation.
+
+#### Changed
+
+- [Login] Login system is good enough to start using in production as well. We still welcome feedback and improve the component.
+- [CookieConsent] Data stored by the HDS login component added to common cookie list.
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+- [ErrorSummary] Change wrong error icon to correct one
+
+### Figma
+
+#### Added:
+- [Hero] Added secondary buttons and a responsive wrapper to buttons.
+- [Hero] Added buttons for the NoImage variant.
+- [Hero] Introduced XXL variant sizes.
+
+#### Fixed:
+- [Hero] Adjusted arrow and photographer info for improved responsiveness and ensured all variants are built using the same component structure.
+
+#### Removed:
+- [Hero] Replaced preselected images with placeholders.
+- [Hero] Replaced Diagonal variant's image with Placeholder image component (breaking change – resets used image).
+- [Hero] Replaced ImageBottom variant's links with buttons (breaking change).
+
+### Hds-js
+
+#### Added
+
+- [login] Added a utility function to detect login callback error that could be ignored.
+
+### Hds-js
+
+#### Changed
+
+- [Login] API tokens are removed when user token renewal starts
+
 ## [3.7.0] - April, 11, 2024
 
 ### React

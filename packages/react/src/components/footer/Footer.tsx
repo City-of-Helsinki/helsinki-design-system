@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../../styles/base.module.css';
 import styles from './Footer.module.scss';
-import { Koros, KorosType } from '../koros';
+import { Koros, KorosType, getShapeHeight } from '../koros';
 import classNames from '../../utils/classNames';
 import { FooterNavigation } from './components/footerNavigation/FooterNavigation';
 import { FooterNavigationGroup } from './components/footerNavigationGroup/FooterNavigationGroup';
@@ -55,20 +55,20 @@ export const Footer = ({
 }: FooterProps) => {
   // custom theme class that is applied to the root element
   const customThemeClass = useTheme<FooterTheme>(styles.footer, theme);
+  const korosHeight = getShapeHeight({ type: korosType });
 
   return (
     <footer
       {...footerProps}
       className={classNames(
         styles.footer,
-        styles[`koros-${korosType}`],
         typeof theme === 'string' && styles[`theme-${theme}`],
         customThemeClass,
         className,
       )}
       aria-label={ariaLabel}
     >
-      <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
+      <Koros className={classNames(styles.koros)} type={korosType} style={{ height: `${korosHeight}px` }} />
       <div className={styles.footerContent}>
         <div className={styles.footerSections}>
           {title && <h2 className={styles.title}>{title}</h2>}

@@ -6,6 +6,7 @@ exports[`<Checkbox /> spec renders the component 1`] = `
     class="checkbox"
   >
     <input
+      aria-describedby="test-helper test-error"
       class="input"
       id="test"
       type="checkbox"
@@ -17,6 +18,18 @@ exports[`<Checkbox /> spec renders the component 1`] = `
     >
       label text
     </label>
+    <div
+      class="errorText"
+      id="test-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="test-helper"
+    >
+      Helper text
+    </div>
   </div>
 </DocumentFragment>
 `;
