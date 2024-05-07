@@ -4,6 +4,7 @@ import { User } from 'oidc-client-ts';
 import { useOidcClient } from '../client/hooks';
 import { OidcClientError, oidcClientErrors } from '../client/oidcClientError';
 import { oidcClientStates } from '../client';
+import { createCallbackStateErrorMessage } from './LoginCallbackHandler.util';
 
 type LoginCallbackHandlerProps = {
   children: React.ReactNode | React.ReactNode[] | null;
@@ -34,12 +35,7 @@ export function LoginCallbackHandler({
   } else if (getState() === oidcClientStates.VALID_SESSION) {
     onSuccess(getUser() as User);
   } else {
-    onError(
-      new OidcClientError(
-        `Current state (${getState()}) cannot be handled by a callback`,
-        oidcClientErrors.SIGNIN_ERROR,
-      ),
-    );
+    onError(new OidcClientError(createCallbackStateErrorMessage(getState()), oidcClientErrors.SIGNIN_ERROR));
   }
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;

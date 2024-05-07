@@ -78,7 +78,6 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
 
 - <AnchorLink>Beacon</AnchorLink>
 - <AnchorLink>Signals</AnchorLink>
-- <AnchorLink anchor="important-1">Important</AnchorLink>
 
 ### Components
 
@@ -100,6 +99,8 @@ Button text is passed and rendered as a child.
 | `onError`                                                   | **Required**. The function is called when a login fails. The function is called with an <AnchorLink anchor="error-signal-types">OidcClientError</AnchorLink>. |
 | `onSuccess`                                                 | **Required**. The function is called when a response is handled successfully. The function is called with a <OidcClientTsLink>User</OidcClientTsLink> object. |
 | [Table 3: Properties of the LoginCallbackHandler component] |
+
+In some scenarios, when the component is rendered multiple times, usually in development mode with strict mode enabled, the `onError` callback is called with an error that can usually be ignored. The error indicates a login callback is already being handled. The error can be checked with the exported function `isHandlingLoginCallbackError(error)`.
 
 #### LoginProvider
 
@@ -331,6 +332,8 @@ Oidc client hooks are listed in the <AnchorLink anchor="oidc-client-hooks">hooks
 The `Api tokens client` listens to the `Oidc client` signals and waits until the user is authenticated and then fetches the API tokens. It retries if fetch fails and terminates when the maximum number of retries is reached.
 When the user is about to expire and renews, API tokens are also renewed automatically.
 
+When user renewal starts, API tokens are also removed to prevent usage of API tokens that are not possibly valid anymore. Use `isRenewing()` to check if API tokens are being renewed, and if it returns 'false', then use the API tokens returned by `getTokens()`.
+
 ##### Requirements
 
 URL where to get the tokens from. A user's access token is also required, so the user must be authenticated to fetch API tokens.
@@ -403,11 +406,11 @@ Returned errors are instances of the `ApiTokensClientError`. It is an extended E
 
 The `Api tokens client` also emits events when an action is complete or starting.
 
-| Event type                           | Description                                                                      | Utility function to check the signal      |
-| ------------------------------------ | -------------------------------------------------------------------------------- | ----------------------------------------- |
-| `API_TOKENS_UPDATED`                 | Tokens have changed. Includes also changes to `null`.                            | `isApiTokensUpdatedSignal(signal)`        |
-| `API_TOKENS_REMOVED`                 | Tokens have been removed. Happens usually when the user object has been removed. | `isApiTokensRemovedSignal(signal)`        |
-| `API_TOKENS_RENEWAL_STARTED`         | Api tokens are renewed. Happens usually right after user renewal.                | `isApiTokensRenewalStartedSignal(signal)` |
+| Event type                           | Description                                                                                    | Utility function to check the signal      |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `API_TOKENS_UPDATED`                 | Tokens have changed. Includes also changes to `null`.                                          | `isApiTokensUpdatedSignal(signal)`        |
+| `API_TOKENS_REMOVED`                 | Tokens have been removed. Happens usually when the user object has been removed or is renewed. | `isApiTokensRemovedSignal(signal)`        |
+| `API_TOKENS_RENEWAL_STARTED`         | Api tokens are renewed. Happens usually right after user renewal.                              | `isApiTokensRenewalStartedSignal(signal)` |
 | [Table 24: Api tokens client events] |
 
 ##### Dedicated signal triggers
@@ -666,7 +669,7 @@ Only custom modules can emit signals. See the <CustomisationPageAnchorLink ancho
 
 See also <CustomisationPageAnchorLink anchor="custom-namespaced-beacons-for-modules">custom namespaced beacons</CustomisationPageAnchorLink>.
 
-#### Important
+##### Important
 
 If a listener is added while signaling and it is triggered by the currently emitted signal, a loop could be created. This could occur when using hooks and not memoizing listeners. Avoid emitting signals inside listeners.
 

@@ -55,6 +55,9 @@ export * from './apiTokensClient/apiTokensClientError';
 export * from './client/oidcClientError';
 export * from './sessionPoller/sessionPollerError';
 
+// utils
+export { isHandlingLoginCallbackError } from './components/LoginCallbackHandler.util';
+
 // events
 export { apiTokensClientEvents } from './apiTokensClient/index';
 export { oidcClientEvents } from './client/index';

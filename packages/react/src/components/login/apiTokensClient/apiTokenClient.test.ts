@@ -575,7 +575,7 @@ describe(`apiTokenClient`, () => {
       expect(eventPayloads[currentEventCount].type).toBe(apiTokensClientEvents.API_TOKENS_REMOVED);
       expect(apiTokenClient.getTokens()).toBeNull();
     });
-    it('tokens are renewed, if user is renewed', async () => {
+    it('tokens are renewed, if user is updated', async () => {
       const newTokens = { tokens: 'renewed token' };
       const renewedAccessToken = 'an access token';
       const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({
@@ -604,7 +604,6 @@ describe(`apiTokenClient`, () => {
       expect(apiTokenClient.getTokens()).toMatchObject(newTokens);
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
-
     it('tokens are not renewed, if USER_UPDATED event has no valid user', async () => {
       const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({ removeUserAfterInit: true });
       const eventPayloads = getEmittedEventPayloads();
@@ -648,18 +647,39 @@ describe(`apiTokenClient`, () => {
       expect(emittedErrors[0].isFetchError).toBeTruthy();
       expect(apiTokenClient.getTokens()).toBeNull();
     });
-    it('isRenewal() changes to true when USER_RENEWAL_STARTED signal is received and false when renewal is complete', async () => {
-      const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit();
+    it('tokens are cleared when USER_RENEWAL_STARTED signal is received and renewed when USER_UPDATED signal is received.', async () => {
+      const renewedAccessToken = 'an access token';
+      const newTokens = { tokens: 'renewed token' };
+      const apiTokenClient = await initTestsWithDefaultPropsAndWaitForInit({
+        additionalResponses: [{ returnedStatus: HttpStatusCode.OK, body: JSON.stringify(newTokens) }],
+      });
+      const eventPayloadsBefore = getEmittedEventPayloads();
+      expect(eventPayloadsBefore).toHaveLength(2);
+      expect(eventPayloadsBefore[0].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloadsBefore[1].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
       emitEvent(currentBeacon, oidcClientNamespace, {
         type: oidcClientEvents.USER_RENEWAL_STARTED,
       });
       expect(apiTokenClient.isRenewing()).toBeTruthy();
+      const eventPayloadsDuring = getEmittedEventPayloads();
+      expect(eventPayloadsDuring).toHaveLength(3);
+      expect(eventPayloadsDuring[2].type).toBe(apiTokensClientEvents.API_TOKENS_REMOVED);
+
+      expect(apiTokenClient.getTokens()).toBeNull();
       emitEvent(currentBeacon, oidcClientNamespace, {
         type: oidcClientEvents.USER_UPDATED,
-        data: createUser({ signInResponseProps: { access_token: 'any token' } }),
+        data: createUser({ signInResponseProps: { access_token: renewedAccessToken } }),
       });
-      await advanceUntilPromiseResolved(waitForSignals(currentBeacon, [createErrorTriggerProps()]));
+      await advanceUntilPromiseResolved(
+        waitForSignals(currentBeacon, [
+          createApiTokensClientEventTriggerProps({ type: apiTokensClientEvents.API_TOKENS_UPDATED }),
+        ]),
+      );
       expect(apiTokenClient.isRenewing()).toBeFalsy();
+      const eventPayloadsAfter = getEmittedEventPayloads();
+      expect(eventPayloadsAfter).toHaveLength(5);
+      expect(eventPayloadsAfter[3].type).toBe(apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED);
+      expect(eventPayloadsAfter[4].type).toBe(apiTokensClientEvents.API_TOKENS_UPDATED);
     });
   });
 });

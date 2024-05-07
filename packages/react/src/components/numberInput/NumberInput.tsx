@@ -167,7 +167,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             ref={inputRef}
             required={required}
             type={type}
-            aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
+            aria-describedby={ariaDescribedBy}
             {...rest}
           />
           {step && (

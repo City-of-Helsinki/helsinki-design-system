@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import parse from 'date-fns/parse';
-import addDays from 'date-fns/addDays';
-import format from 'date-fns/format';
 import isWeekend from 'date-fns/isWeekend';
 import isSameDay from 'date-fns/isSameDay';
-import { addMonths } from 'date-fns';
+import { addMonths, addDays, format, subDays, isValid } from 'date-fns';
 
 import { DateInput, DateInputProps } from '.';
 import { Button, ButtonVariant } from '../button';
@@ -278,3 +276,101 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
 };
 WithCustomDayStyles.storyName = 'With custom day styles';
 WithCustomDayStyles.parameters = { loki: { skip: true } };
+
+export const WithRange = (args) => {
+  const [range, setRange] = useState<Array<Date | null>>([null, null]);
+  const [errors, setErrors] = useState<Array<string>>(['', '']);
+  const storeDate = (index: number, date: Date | null) => {
+    const newRange = [...range];
+    newRange[index] = date;
+    setRange(newRange);
+  };
+  const validate = (index: number, date: Date | null) => {
+    if (!date) {
+      setErrors(['', '']);
+      return true;
+    }
+    const comparison = range[index === 0 ? 1 : 0];
+    if (!comparison) {
+      setErrors(['', '']);
+      return true;
+    }
+    if (index === 0 && comparison <= date) {
+      setErrors(['The start date cannot be the same or after the end date', '']);
+      return false;
+    }
+    if (index === 1 && comparison >= date) {
+      setErrors(['', 'The end date cannot be the same or before the start date']);
+      return false;
+    }
+    setErrors(['', '']);
+    return true;
+  };
+
+  const setMinDate: DateInputProps['onChange'] = (str, date) => {
+    if (!validate(0, date)) {
+      return;
+    }
+    storeDate(0, date);
+  };
+  const setMaxDate: DateInputProps['onChange'] = (str, date) => {
+    if (!validate(1, date)) {
+      return;
+    }
+    storeDate(1, date);
+  };
+
+  const startMinDate = undefined;
+  const startMaxDate = range[1] ? subDays(range[1], 1) : undefined;
+
+  const endMinDate = range[0] ? addDays(range[0], 1) : undefined;
+  const endMaxDate = undefined;
+
+  const dateToString = (date: Date | null) => {
+    return date && isValid(date) ? format(date, 'dd.MM.yyyy') : '';
+  };
+
+  const rangeToString = () => {
+    if (range[0] && range[1]) {
+      return `You have selected a range between ${dateToString(range[0])} and ${dateToString(range[1])}.`;
+    }
+    if (range[0] && isValid(range[0])) {
+      return `You have selected a start date of ${dateToString(range[0])}.`;
+    }
+    if (range[1] && isValid(range[1])) {
+      return `You have selected a end date of ${dateToString(range[0])}.`;
+    }
+    return `Please select a range!`;
+  };
+
+  return (
+    <div>
+      <DateInput
+        {...args}
+        disableConfirmation
+        minDate={startMinDate}
+        maxDate={startMaxDate}
+        label="Select start date"
+        onChange={setMinDate}
+        helperText=""
+        invalid={!!errors[0]}
+        errorText={errors[0]}
+      />
+      <DateInput
+        {...args}
+        disableConfirmation
+        minDate={endMinDate}
+        maxDate={endMaxDate}
+        label="Select end date"
+        onChange={setMaxDate}
+        helperText=""
+        invalid={!!errors[1]}
+        errorText={errors[1]}
+      />
+      <p>{rangeToString()}</p>
+      <p>{formatHelperTextEnglish}</p>
+    </div>
+  );
+};
+
+WithRange.parameters = { loki: { skip: true } };

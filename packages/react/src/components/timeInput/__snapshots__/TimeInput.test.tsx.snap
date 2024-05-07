@@ -29,6 +29,7 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           hours
         </label>
         <input
+          aria-describedby="time-helper time-error"
           class="partialInput"
           id="time-hours"
           inputmode="numeric"
@@ -48,6 +49,7 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           minutes
         </label>
         <input
+          aria-describedby="time-helper time-error"
           class="partialInput"
           id="time-minutes"
           inputmode="numeric"
@@ -56,6 +58,18 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           value=""
         />
       </div>
+    </div>
+    <div
+      class="errorText"
+      id="time-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="time-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>

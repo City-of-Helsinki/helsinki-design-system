@@ -491,6 +491,7 @@ describe(`sessionPoller`, () => {
       payload: { type: oidcClientEvents.USER_UPDATED, data: createUser() },
     });
     expect(getHttpPollerStartCalls()).toHaveLength(2);
+    expect(getHttpPollerStopCalls()).toHaveLength(1);
   });
   it('Polling is not started again if renewal fails. No need to poll with old tokens', async () => {
     initTests({ setValidSession: true, responses: [successfulResponse, successfulResponse, successfulResponse] });
