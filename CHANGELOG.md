@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [CookieConsent] Data stored by the HDS login component is now in the common cookies.
 - [Login] Added a utility function to detect login callback error that could be ignored.
 - [DateInput] Added example how to handle date ranges.
 
@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Login] Login system is good enough to start using in production as well. We still welcome feedback and improve the component.
+- [CookieConsent] Data stored by the HDS login component added to common cookie list.
 
 #### Fixed
 
