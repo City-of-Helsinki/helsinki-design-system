@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 
 import {
   User,
@@ -43,6 +44,8 @@ import { Notification } from '../notification/Notification';
 import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
+import { createGraphQLModule } from './graphQLModule/graphQLModule';
+import MY_PROFILE from './graphQLModule/demoData/MyProfileQuery.graphql';
 
 type StoryArgs = {
   useKeycloak?: boolean;
@@ -146,6 +149,10 @@ function createSignalTracker(): ConnectedModule & {
 }
 
 const signalTracker = createSignalTracker();
+const profileGraphQL = createGraphQLModule({
+  query: MY_PROFILE,
+  graphQLClient: new ApolloClient({ uri: 'https://profile-api.dev.hel.ninja/graphql/', cache: new InMemoryCache() }),
+});
 
 const Wrapper = (props: React.PropsWithChildren<unknown>) => {
   return (
@@ -522,7 +529,7 @@ export const ExampleApplication = (args: StoryArgs) => {
   };
 
   return (
-    <LoginProvider {...loginProps} modules={[signalTracker]}>
+    <LoginProvider {...loginProps} modules={[signalTracker, profileGraphQL]}>
       <IFrameWarning />
       <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
     </LoginProvider>
