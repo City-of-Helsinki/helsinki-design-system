@@ -74,33 +74,33 @@ export const Disabled = () => `
 export const Icons = () => `
   <button type="button" class="hds-button hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    Button
+    <span>Button</span>
   </button>
 
   <button type="button" class="hds-button hds-button--primary">
-    Button
+    <span>Button</span>
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    Button
+    <span>Button</span>
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    Button
+    <span>Button</span>
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">
-    Button
+    <span>Button</span>
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
   <button type="button" class="hds-button hds-button--small hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    Button
+    <span>Button</span>
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 `;
