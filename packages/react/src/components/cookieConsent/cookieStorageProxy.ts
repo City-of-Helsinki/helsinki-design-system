@@ -1,5 +1,6 @@
 import { CookieSerializeOptions, parse } from 'cookie';
 
+import { isSsrEnvironment } from '../../utils/isSsrEnvironment';
 import { createCookieController, setNamedCookie, defaultCookieSetOptions, getAll } from './cookieController';
 
 export type CookieSetOptions = CookieSerializeOptions;
@@ -10,7 +11,7 @@ export const VERSION_COOKIE_NAME = 'city-of-helsinki-consent-version';
 
 // the old version how default cookie domain was picked
 function getCookieDomainForMultiDomainAccess(): string {
-  if (typeof window === 'undefined') {
+  if (isSsrEnvironment()) {
     return '';
   }
 
@@ -19,7 +20,7 @@ function getCookieDomainForMultiDomainAccess(): string {
 
 // the new version how to pick default cookie domain
 export function getCookieDomainForSubDomainAccess(): string {
-  if (typeof window === 'undefined') {
+  if (isSsrEnvironment()) {
     return '';
   }
 
@@ -53,6 +54,9 @@ export function createCookieStorageProxy(
   };
 
   const getConsentCookies = (): string[] => {
+    if (isSsrEnvironment()) {
+      return [];
+    }
     const cookies = document.cookie || '';
     if (!cookies || cookies.indexOf('=') < 0) {
       return [];

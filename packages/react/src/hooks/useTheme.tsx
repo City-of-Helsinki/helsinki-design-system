@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { uniqueId } from 'lodash';
 
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import { isSsrEnvironment } from '../utils/isSsrEnvironment';
 
 /**
  * Sets the given custom theme for the component
@@ -11,7 +12,7 @@ import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
  * @return The custom class name that should be applied to the component
  */
 const setComponentTheme = <T,>(selector: string, theme: T, customClass: string): void => {
-  if (typeof window === 'undefined') return;
+  if (isSsrEnvironment()) return;
 
   // checks if the given css rule contains the custom class selector
   const hasCustomRule = (rule: CSSStyleRule): boolean => rule.selectorText?.includes(`${selector}.${customClass}`);
