@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Component] What bugs/typos are fixed?
 - [Footer] Fix Koros height issue (Calm type was of wrong height)
 - [Login] Fixed initialization failure in React strict mode when external modules are used.
+- [ErrorSummary] Change wrong error icon to correct one
 
 ### Core
 
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Component] What has been changed
+- [ErrorSummary] Change wrong error icon to correct one
 
 #### Fixed
 
@@ -64,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [ErrorSummary] Change wrong error icon to correct one
 
 ### Figma
 
