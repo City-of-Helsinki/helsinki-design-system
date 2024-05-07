@@ -1,7 +1,6 @@
 /* eslint-disable jest/no-mocks-import */
 import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
-import { to } from 'await-to-js';
 import React, { useRef } from 'react';
 import { act, waitFor } from '@testing-library/react';
 
@@ -30,7 +29,6 @@ import { createApolloClientMock, mockedGraphQLUri } from './__mocks__/apolloClie
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace, TokenData } from '../apiTokensClient';
 import { mockResponse } from './__mocks__/mockResponses';
 import { USER_QUERY } from './__mocks__/mockData';
-import { advanceUntilPromiseResolved } from '../testUtils/timerTestUtil';
 import { useGraphQL, useGraphQLModule, UseGraphQLModuleHookObject, useGraphQLModuleTracking } from './hooks';
 import { HookTestUtil, createHookTestEnvironment } from '../testUtils/hooks.testUtil';
 import { getGraphQLModuleEventPayload } from './signals';
@@ -277,7 +275,7 @@ describe(`graphQLModule`, () => {
   const getEmittedErrors = () => {
     return getReceivedErrorSignalPayloads<GraphQLModuleError>(listenerModule);
   };
-  const emitApiTokensUpdatedStateChange = () => {};
+  // const emitApiTokensUpdatedStateChange = () => {};
 
   const getEmittedEventTypes = () => {
     return getReceivedEventSignalPayloads(listenerModule).map((payload) => payload.type);
