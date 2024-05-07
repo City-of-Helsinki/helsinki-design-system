@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Component] What has been changed
+- [Login] API tokens are removed when user token renewal starts
 - [Notification] Change auto closing notification progressbar to decrease instead of increase.
 - [CookieConsent] Fixed SSR problem with "document not defined"
 
@@ -59,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
+- [Login] Improved LoginProvider and api token client documentation.
 - Added measure and outline addons to Storybook
 - [DateInput] Added examples how to handle date ranges and validation.
 
@@ -112,6 +113,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [login] Added a utility function to detect login callback error that could be ignored.
+
+### Hds-js
+
+#### Changed
+
+- [Login] API tokens are removed when user token renewal starts
 
 ## [3.7.0] - April, 11, 2024
 

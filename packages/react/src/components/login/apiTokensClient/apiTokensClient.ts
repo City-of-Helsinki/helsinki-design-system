@@ -219,6 +219,12 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
     tokens = null;
   };
 
+  const clear = () => {
+    fetchCanceller.abort();
+    dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
+    removeAllTokens();
+  };
+
   const getStoredTokensForUser = (user: User): TokenData | null => {
     const userRef = getUserReferenceFromStorage();
     if (user.access_token === userRef) {
@@ -284,9 +290,7 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
     }
     const type = eventPayload.type as OidcClientEvent;
     if (type === oidcClientEvents.USER_REMOVED) {
-      fetchCanceller.abort();
-      removeAllTokens();
-      dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
+      clear();
       renewing = false;
     }
     if (type === oidcClientEvents.USER_UPDATED) {
@@ -312,6 +316,7 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
       );
     }
     if (type === oidcClientEvents.USER_RENEWAL_STARTED) {
+      clear();
       renewing = true;
     }
     return Promise.resolve();
@@ -322,12 +327,8 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
 
   return {
     fetch,
+    clear,
     getTokens: () => tokens,
-    clear: () => {
-      fetchCanceller.abort();
-      dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_REMOVED, null);
-      removeAllTokens();
-    },
     namespace: apiTokensClientNamespace,
     connect: (beacon) => {
       dedicatedBeacon.storeBeacon(beacon);

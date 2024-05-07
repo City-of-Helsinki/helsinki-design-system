@@ -477,6 +477,7 @@ describe('Test all modules together', () => {
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
+        apiTokensClientEvents.API_TOKENS_REMOVED,
       ]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([
         initSignalType,
@@ -498,6 +499,7 @@ describe('Test all modules together', () => {
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,
+        apiTokensClientEvents.API_TOKENS_REMOVED,
         apiTokensClientEvents.API_TOKENS_RENEWAL_STARTED,
         apiTokensClientEvents.API_TOKENS_UPDATED,
       ]);
