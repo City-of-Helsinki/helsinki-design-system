@@ -4,6 +4,7 @@ title: 'DateInput - Code'
 ---
 
 import { DateInput } from 'hds-react';
+import { format, addDays, subDays, parse, isWeekend, isValid } from 'date-fns';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -132,6 +133,157 @@ import { DateInput } from 'hds-react';
 
 </Playground>
 
+### With validation
+
+Selectable dates can be filtered and disabled with the `isDateDisabledBy` property. The component's invalid state can be set with the `invalid` property, and an error can be shown with the `errorText` property.
+
+<Playground scope={{ DateInput,parse, isWeekend }}>
+
+```jsx
+import { DateInput } from 'hds-react';
+
+() => {
+  const [value, setValue] = React.useState('');
+  const [errorText, setErrorText] = React.useState(undefined);
+  const dateHelperText = 'Only weekdays are available.';
+  const helperText = `${dateHelperText} Use format D.M.YYYY.`;
+
+  React.useEffect(() => {
+    if (!value) {
+      setErrorText(undefined);
+    } else {
+      const selectedDate = parse(value, 'dd.M.yyyy', new Date());
+      if (isWeekend(selectedDate)) {
+        setErrorText(`The date is a weekend day. ${dateHelperText}`);
+      } else {
+        setErrorText(undefined);
+      }
+    }
+  }, [value]);
+
+  return (
+    <div style={{ maxWidth: '400px' }}>
+      <DateInput
+        value={value}
+        onChange={setValue}
+        isDateDisabledBy={isWeekend}
+        helperText={helperText}
+        errorText={errorText}
+        invalid={!!errorText}
+      />
+    </div>
+  );
+}
+```
+
+</Playground>
+
+### With date range
+
+Selectable dates can be filtered and disabled with the `isDateDisabledBy` property. The component's invalid state can be set with the `invalid` property, and an error can be shown with the `errorText` property.
+
+<Playground scope={{ DateInput, format, addDays, subDays, isValid }}>
+
+```jsx
+import { DateInput } from 'hds-react';
+
+() => {
+  const [range, setRange] = React.useState([null, null]);
+  const [errors, setErrors] = React.useState(['', '']);
+  const storeDate = (index, date) => {
+    const newRange = [...range];
+    newRange[index] = date;
+    setRange(newRange);
+  };
+  const validate = (index, date) => {
+    if (!date) {
+      setErrors(['', '']);
+      return true;
+    }
+    const comparison = range[index === 0 ? 1 : 0];
+    if (!comparison) {
+      setErrors(['', '']);
+      return true;
+    }
+    if (index === 0 && comparison <= date) {
+      setErrors(['The start date cannot be the same or after the end date', '']);
+      return false;
+    }
+    if (index === 1 && comparison >= date) {
+      setErrors(['', 'The end date cannot be the same or before the start date']);
+      return false;
+    }
+    setErrors(['', '']);
+    return true;
+  };
+
+  const setMinDate = (str, date) => {
+    if (!validate(0, date)) {
+      return;
+    }
+    storeDate(0, date);
+  };
+  const setMaxDate = (str, date) => {
+    if (!validate(1, date)) {
+      return;
+    }
+    storeDate(1, date);
+  };
+
+  const startMinDate = undefined;
+  const startMaxDate = range[1] ? subDays(range[1], 1) : undefined;
+
+  const endMinDate = range[0] ? addDays(range[0], 1) : undefined;
+  const endMaxDate = undefined;
+
+  const dateToString = (date) => {
+    return date && isValid(date) ? format(date, 'dd.MM.yyyy') : '';
+  };
+
+  const rangeToString = () => {
+    if (range[0] && range[1]) {
+      return `You have selected a range between ${dateToString(range[0])} and ${dateToString(range[1])}.`;
+    }
+    if (range[0] && isValid(range[0])) {
+      return `You have selected a start date of ${dateToString(range[0])}.`;
+    }
+    if (range[1] && isValid(range[1])) {
+      return `You have selected a end date of ${dateToString(range[0])}.`;
+    }
+    return `Please select a range!`;
+  };
+
+  return (
+    <div style={{ maxWidth: '400px' }}>
+      <DateInput
+        disableConfirmation
+        minDate={startMinDate}
+        maxDate={startMaxDate}
+        label="Select start date"
+        onChange={setMinDate}
+        helperText=""
+        invalid={!!errors[0]}
+        errorText={errors[0]}
+      />
+      <DateInput
+        disableConfirmation
+        minDate={endMinDate}
+        maxDate={endMaxDate}
+        label="Select end date"
+        onChange={setMaxDate}
+        helperText=""
+        invalid={!!errors[1]}
+        errorText={errors[1]}
+      />
+      <p>{rangeToString()}</p>
+      <p>Use format D.M.YYYY.</p>
+    </div>
+  );
+}
+```
+
+</Playground>
+
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                            | Source link                                                                                                                                                                                                                          |
@@ -166,11 +318,10 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `setDateAriaDescribedBy`       | Set aria-describedby for specific dates.                                | `function`            | -                                                |
 | [Table 1:DateInput properties] |                                                                         |                       |                                                  |
 
-| Property                        | Description                                                                           | Values   | Default value |
-| ------------------------------- | ------------------------------------------------------------------------------------- | -------- | ------------- |
-| `elementId`                     | Id for the legend item element. Used in `aria-describedby` for the related dates.     | `string` | -             |
-| `label`                         | Label to describe the legend item.                                                    | `string` | -             |
-| `relatedClassName`              | Class name for the legend item element so it has the same styles as the related date. | `string` | -             |
-| `selected`                      | Set to `true` and provide `label` prop to explain selected date's background colour. | `boolean` | -             |
-| [Table 2:LegendItem properties] |                                                                                       |          |               |
-
+| Property                        | Description                                                                           | Values    | Default value |
+| ------------------------------- | ------------------------------------------------------------------------------------- | --------- | ------------- |
+| `elementId`                     | Id for the legend item element. Used in `aria-describedby` for the related dates.     | `string`  | -             |
+| `label`                         | Label to describe the legend item.                                                    | `string`  | -             |
+| `relatedClassName`              | Class name for the legend item element so it has the same styles as the related date. | `string`  | -             |
+| `selected`                      | Set to `true` and provide `label` prop to explain selected date's background colour.  | `boolean` | -             |
+| [Table 2:LegendItem properties] |                                                                                       |           |               |
