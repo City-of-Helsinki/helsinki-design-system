@@ -5,13 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.8.0] - May, 7, 2024
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -34,28 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-- [Component] What has been changed
 - [ErrorSummary] Change wrong error icon to correct one
 
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -75,39 +54,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Figma
 
-#### Breaking
+#### Added:
+- [Hero] Added secondary buttons and a responsive wrapper to buttons.
+- [Hero] Added buttons for the NoImage variant.
+- [Hero] Introduced XXL variant sizes.
 
-- [Component] What are the breaking changes?
+#### Fixed:
+- [Hero] Adjusted arrow and photographer info for improved responsiveness and ensured all variants are built using the same component structure.
 
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Sketch/Abstract
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+#### Removed:
+- [Hero] Replaced preselected images with placeholders.
+- [Hero] Replaced Diagonal variant's image with Placeholder image component (breaking change – resets used image).
+- [Hero] Replaced ImageBottom variant's links with buttons (breaking change).
 
 ### Hds-js
 
