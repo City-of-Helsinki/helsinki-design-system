@@ -45,7 +45,10 @@ import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 import { createGraphQLModule } from './graphQLModule/graphQLModule';
-import MY_PROFILE from './graphQLModule/demoData/MyProfileQuery.graphql';
+import { MyProfileQuery } from './graphQLModule/demoData/MyProfileQuery';
+import { mergeAuthorizationHeaderToQueryOptions } from './graphQLModule/utils';
+import { useGraphQL, useGraphQLModule } from './graphQLModule/hooks';
+import { LoadingSpinner } from '../loadingSpinner';
 
 type StoryArgs = {
   useKeycloak?: boolean;
@@ -80,13 +83,14 @@ const useKeycloakArgs = {
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
-    authority: 'https://tunnistamo.test.hel.ninja/',
-    client_id: 'exampleapp-ui-test',
-    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofile https://api.hel.fi/auth/exampleapptest',
-    redirect_uri: `${window.origin}/storybook/react/static-login/callback.html`,
-    silent_redirect_uri: `${window.origin}/storybook/react/static-login/silent_renew.html`,
+    authority: 'https://tunnistamo.dev.hel.ninja/',
+    client_id: 'exampleapp-ui-dev',
+    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
+    redirect_uri: `${window.origin}/static-login/callback.html`,
+    silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
+    post_logout_redirect_uri: `${window.origin}/static-login/logout.html`,
   },
-  apiTokensClientSettings: { url: 'https://tunnistamo.test.hel.ninja/api-tokens/' },
+  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
@@ -150,8 +154,22 @@ function createSignalTracker(): ConnectedModule & {
 
 const signalTracker = createSignalTracker();
 const profileGraphQL = createGraphQLModule({
-  query: MY_PROFILE,
+  query: MyProfileQuery,
+  queryOptions: {
+    errorPolicy: 'all',
+  },
   graphQLClient: new ApolloClient({ uri: 'https://profile-api.dev.hel.ninja/graphql/', cache: new InMemoryCache() }),
+  queryHelper: (queryOptions, apiTokenClient) => {
+    if (!apiTokenClient) {
+      return queryOptions;
+    }
+    const apiTokens = apiTokenClient.getTokens();
+    const profileToken = apiTokens && apiTokens['https://api.hel.fi/auth/helsinkiprofiledev'];
+    if (profileToken) {
+      return mergeAuthorizationHeaderToQueryOptions(queryOptions, `Bearer ${profileToken}`);
+    }
+    return queryOptions;
+  },
 });
 
 const Wrapper = (props: React.PropsWithChildren<unknown>) => {
@@ -435,6 +453,55 @@ const NotifyIfErrorOccurs = () => {
   );
 };
 
+const ProfileData = () => {
+  const [, { data, error, loading }] = useGraphQL();
+  const module = useGraphQLModule();
+  const clientErrors = module.getClientErrors();
+  const profile = data && data.myProfile;
+  if (loading) {
+    return (
+      <div>
+        <LoadingSpinner small loadingText="Loading profile" loadingFinishedText="Profile loaded" />
+        Loading...
+      </div>
+    );
+  }
+  return (
+    <div>
+      <h2>Profile</h2>
+      {error && (
+        <Notification type="error">
+          Error: {error.type}, {error.originalError?.message}{' '}
+        </Notification>
+      )}
+      {!!clientErrors.length && (
+        <Notification type="alert">
+          {clientErrors.map((err) => {
+            return <p>Ignored error: {err.message} </p>;
+          })}{' '}
+        </Notification>
+      )}
+      <pre>{profile ? JSON.stringify(profile, null, 2) : 'No profile'}</pre>
+      <div className="buttons">
+        <Button
+          onClick={() => {
+            module.queryServer();
+          }}
+        >
+          Reload from server
+        </Button>
+        <Button
+          onClick={() => {
+            module.clear();
+          }}
+        >
+          Clear all data
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const TrackAllSignals = () => {
   const tracker = useConnectedModule<ReturnType<typeof createSignalTracker>>('signalTracker');
   // if a listener returns true, component using useSignalListener is re-rendered
@@ -461,6 +528,7 @@ const AuthorizedContent = ({ user }: { user: User }) => {
         <Tabs.Tab>Api tokens</Tabs.Tab>
         <Tabs.Tab>Log</Tabs.Tab>
         <Tabs.Tab>Show errors</Tabs.Tab>
+        <Tabs.Tab>Profile data</Tabs.Tab>
       </Tabs.TabList>
       <Tabs.TabPanel>
         <UserData user={user} />
@@ -476,6 +544,9 @@ const AuthorizedContent = ({ user }: { user: User }) => {
       </Tabs.TabPanel>
       <Tabs.TabPanel>
         <NotifyIfErrorOccurs />
+      </Tabs.TabPanel>
+      <Tabs.TabPanel>
+        <ProfileData />
       </Tabs.TabPanel>
     </Tabs>
   );
