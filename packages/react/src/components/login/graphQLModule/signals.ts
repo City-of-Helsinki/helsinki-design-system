@@ -89,14 +89,16 @@ function createGraphQLModuleClientErrorTrigger(error: GraphQLModuleErrorType): S
 }
 
 export const loadFailedErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(
-  graphQLModuleError.LOAD_FAILED,
+  graphQLModuleError.GRAPHQL_LOAD_FAILED,
 );
 
 export const noApiTokensErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(
-  graphQLModuleError.NO_API_TOKENS,
+  graphQLModuleError.GRAPHQL_NO_API_TOKENS,
 );
 
-export const noClientErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(graphQLModuleError.NO_CLIENT);
+export const noClientErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(
+  graphQLModuleError.GRAPHQL_NO_CLIENT,
+);
 
 /**
  *  is...EventSignal checkers
