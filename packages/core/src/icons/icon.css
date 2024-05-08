@@ -33,32 +33,28 @@
   --icon-size: var(--spacing-layout-l);
 }
 
-[class*="hds-icon-start--"] {
-  &:before {  
-    background-color: currentcolor;
-    content: "";
-    display: inline-flex;
-    height: var(--icon-size, 24px);
-    -webkit-mask-image: var(--mask-image-before);
-    mask-image: var(--mask-image-before);
-    mask-position: center;
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    width: var(--icon-size, 24px);
-  }
+[class*="hds-icon-start--"]:before {  
+  background-color: currentcolor;
+  content: "";
+  display: inline-flex;
+  height: var(--icon-size, 24px);
+  -webkit-mask-image: var(--mask-image-before);
+  mask-image: var(--mask-image-before);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  width: var(--icon-size, 24px);
 }
 
-[class*="hds-icon-end--"] {
-  &:after {
-    background-color: currentcolor;
-    content: "";
-    display: inline-flex;
-    height: var(--icon-size, 24px);
-    -webkit-mask-image: var(--mask-image-after);
-    mask-image: var(--mask-image-after);
-    mask-position: center;
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    width: var(--icon-size, 24px);
-  }
+[class*="hds-icon-end--"]:after {
+  background-color: currentcolor;
+  content: "";
+  display: inline-flex;
+  height: var(--icon-size, 24px);
+  -webkit-mask-image: var(--mask-image-after);
+  mask-image: var(--mask-image-after);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  width: var(--icon-size, 24px);
 }
