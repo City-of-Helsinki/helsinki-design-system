@@ -1,9 +1,9 @@
 export type GraphQLModuleErrorType = keyof typeof graphQLModuleError;
 
 export const graphQLModuleError = {
-  LOAD_FAILED: 'LOAD_FAILED',
-  NO_CLIENT: 'NO_CLIENT',
-  NO_API_TOKENS: 'NO_API_TOKENS',
+  GRAPHQL_LOAD_FAILED: 'GRAPHQL_LOAD_FAILED',
+  GRAPHQL_NO_CLIENT: 'GRAPHQL_NO_CLIENT',
+  GRAPHQL_NO_API_TOKENS: 'GRAPHQL_NO_API_TOKENS',
 } as const;
 
 export class GraphQLModuleError extends Error {
@@ -18,14 +18,14 @@ export class GraphQLModuleError extends Error {
   }
 
   get isLoadError() {
-    return this.type === graphQLModuleError.LOAD_FAILED;
+    return this.type === graphQLModuleError.GRAPHQL_LOAD_FAILED;
   }
 
   get isNoClientError() {
-    return this.type === graphQLModuleError.NO_CLIENT;
+    return this.type === graphQLModuleError.GRAPHQL_NO_CLIENT;
   }
 
   get isNoApiTokensError() {
-    return this.type === graphQLModuleError.NO_API_TOKENS;
+    return this.type === graphQLModuleError.GRAPHQL_NO_API_TOKENS;
   }
 }
