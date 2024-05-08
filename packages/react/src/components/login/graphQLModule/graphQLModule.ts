@@ -26,13 +26,14 @@ import {
   isApiTokensRenewalStartedSignal,
   isApiTokensUpdatedSignal,
 } from '../apiTokensClient/signals';
-import { GraphQLModuleError } from './graphQLModuleError';
+import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
 
 export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   graphQLClient,
   query,
   queryOptions,
   options = {},
+  queryHelper = (queryProps) => queryProps,
 }: GraphQLModuleModuleProps<T, Q>): GraphQLModule<T, Q> {
   const mergedOptions = {
     ...defaultOptions,
@@ -50,6 +51,10 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   let error: GraphQLModuleError | undefined;
   let apiTokensHaveBeenLoadedOnce: boolean = false;
   let lastApiTokensSignal: ApiTokensEventSignal | null = null;
+  const getApiTokensClient = () => {
+    const beacon = dedicatedBeacon.getBeacon();
+    return beacon ? (beacon.getSignalContext(apiTokensClientNamespace) as ApiTokenClient) : undefined;
+  };
   const emptyPromiseCatcher = () => {
     // just catching to avoid "unhandled promise" exception
   };
@@ -59,8 +64,11 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const handleQueryPromise = (promise: Promise<ApolloQueryResult<Q>>) => {
+    if (queryPromise) {
+      throw new Error('queryPromise already exists');
+    }
     queryPromise = promise;
-    promise
+    queryPromise
       .then((queryResult: ApolloQueryResult<Q>) => {
         result = queryResult;
         state = graphQLModuleStates.IDLE;
@@ -76,11 +84,11 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
         } else {
           result = undefined;
-          error = new GraphQLModuleError('LOAD_FAILED', 'LOAD_FAILED', queryError);
+          error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError);
           dedicatedBeacon.emitError(error);
         }
       });
-    return promise;
+    return queryPromise;
   };
 
   const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async (timeout = 0) => {
@@ -147,12 +155,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     }
 
     try {
-      /*
-        add headers:
-          const [loadData, { loading, data }] = useLazyQuery(Query, {
-          context: { headers: { authorization: `Bearer ${token}` } }
-      })
-      */
       const mergeProps = (): QueryOptions<OperationVariables, Q> => {
         const context: QueryOptions['context'] = {
           ...queryOptions?.context,
@@ -168,20 +170,20 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
           context,
         };
       };
-      const promise = client.query<Q>(mergeProps());
+      const promise = client.query<Q>(queryHelper(mergeProps(), getApiTokensClient(), dedicatedBeacon.getBeacon()));
       state = graphQLModuleStates.LOADING;
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOADING);
       return handleQueryPromise(promise);
     } catch (e) {
-      error = new GraphQLModuleError('LOAD_FAILED', 'LOAD_FAILED', e);
+      error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, e);
       dedicatedBeacon.emitError(error);
       return Promise.reject(e);
     }
   };
 
-  const autoLoadWithApiTokens = () => {
+  const autoLoadWithApiTokens = async () => {
     if (!result && !queryPromise && mergedOptions.autoFetch && apiTokensHaveBeenLoadedOnce) {
-      queryExecutor();
+      await queryExecutor().catch(emptyPromiseCatcher);
     }
   };
 
@@ -190,7 +192,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     if (isApiTokensRemovedSignal(signal) || isApiTokensRenewalStartedSignal(signal)) {
       //
     }
-    lastApiTokensSignal = signal as ApiTokensEventSignal;
+    lastApiTokensSignal = { ...signal } as ApiTokensEventSignal;
     autoLoadWithApiTokens();
   };
 
@@ -227,6 +229,20 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     getData,
     getError: () => {
       return error;
+    },
+    getClientErrors: () => {
+      if (error && error.originalError) {
+        return [error.originalError as ApolloError];
+      }
+      if (result) {
+        if (result.errors) {
+          return result.errors as unknown as ApolloError[];
+        }
+        if (result.error) {
+          return [result.error];
+        }
+      }
+      return [];
     },
     getResult: () => {
       return result;
