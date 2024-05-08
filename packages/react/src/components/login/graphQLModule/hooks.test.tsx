@@ -340,7 +340,7 @@ describe(`graphQLModule`, () => {
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
     ]);
-    expect(getEmittedErrors()[0].type).toEqual(graphQLModuleError.LOAD_FAILED);
+    expect(getEmittedErrors()[0].type).toEqual(graphQLModuleError.GRAPHQL_LOAD_FAILED);
   });
   it('Abort', async () => {
     const { clickLoadButton, clickCancelButton, waitForState } = initTests({
