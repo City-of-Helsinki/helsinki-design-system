@@ -5,9 +5,11 @@ import {
   QueryOptions,
   NormalizedCacheObject,
   ApolloQueryResult,
+  ApolloError,
 } from '@apollo/client/core';
 
-import { ConnectedModule } from '../beacon/beacon';
+import { ApiTokenClient } from '../apiTokensClient';
+import { Beacon, ConnectedModule } from '../beacon/beacon';
 import { GraphQLModuleError } from './graphQLModuleError';
 
 export type GraphQLQueryResult = { [key: string]: unknown };
@@ -21,6 +23,7 @@ export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = C
   query: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
   isLoading: () => boolean;
   getError: () => GraphQLModuleError | undefined;
+  getClientErrors: () => ApolloError[];
   getQueryPromise: () => Promise<ApolloQueryResult<Q>>;
   cancel: () => void;
   clear: () => void;
@@ -40,6 +43,11 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
     keepOldResultOnError: boolean;
     apiTokensWaitTime: number;
   }>;
+  queryHelper?: (
+    currentOptions: QueryOptions<OperationVariables, Q>,
+    apiTokenClient: ApiTokenClient | undefined,
+    beacon: Beacon | undefined,
+  ) => QueryOptions<OperationVariables, Q>;
 };
 
 export type GraphQLModuleState = keyof typeof graphQLModuleStates;
