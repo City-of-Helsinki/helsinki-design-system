@@ -16,26 +16,24 @@ export type GraphQLQueryResult = { [key: string]: unknown };
 export type GraphQLCache = NormalizedCacheObject;
 
 export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = ConnectedModule & {
-  getData: () => Q | undefined;
-  getState: () => GraphQLModuleState;
-  getResult: () => ApolloQueryResult<Q> | undefined;
-  setClient: (client: ApolloClient<T>) => void;
-  query: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
-  isLoading: () => boolean;
-  getError: () => GraphQLModuleError | undefined;
-  getClientErrors: () => ApolloError[];
-  getQueryPromise: () => Promise<ApolloQueryResult<Q>>;
   cancel: () => void;
   clear: () => void;
-  waitForApiTokens: (timeout?: number) => Promise<unknown>;
+  getClientErrors: () => ApolloError[];
+  getData: () => Q | undefined;
+  getError: () => GraphQLModuleError | undefined;
+  getQueryPromise: () => Promise<ApolloQueryResult<Q>>;
+  getResult: () => ApolloQueryResult<Q> | undefined;
+  getState: () => GraphQLModuleState;
+  isLoading: () => boolean;
+  query: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
   queryCache: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
   queryServer: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
+  setClient: (client: ApolloClient<T>) => void;
+  waitForApiTokens: (timeout?: number) => Promise<unknown>;
 };
 
 export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQueryResult> = {
   graphQLClient?: ApolloClient<T>;
-  query?: TypedDocumentNode<Q, OperationVariables>;
-  queryOptions?: Omit<QueryOptions<OperationVariables, Q>, 'query'>;
   options?: Partial<{
     autoFetch: boolean;
     requireApiTokens: boolean;
@@ -43,20 +41,25 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
     keepOldResultOnError: boolean;
     apiTokensWaitTime: number;
   }>;
+  query?: TypedDocumentNode<Q, OperationVariables>;
   queryHelper?: (
     currentOptions: QueryOptions<OperationVariables, Q>,
     apiTokenClient: ApiTokenClient | undefined,
     beacon: Beacon | undefined,
   ) => QueryOptions<OperationVariables, Q>;
+  queryOptions?: Omit<QueryOptions<OperationVariables, Q>, 'query'>;
 };
 
 export type GraphQLModuleState = keyof typeof graphQLModuleStates;
-export type GraphQLModuleEvent = keyof typeof graphQLModuleEvents;
+
+export const graphQLModuleNamespace = 'graphQLModule';
 
 export const graphQLModuleStates = {
   IDLE: 'IDLE',
   LOADING: 'LOADING',
 } as const;
+
+export type GraphQLModuleEvent = keyof typeof graphQLModuleEvents;
 
 export const graphQLModuleEvents = {
   GRAPHQL_MODULE_LOADING: 'GRAPHQL_MODULE_LOADING',
@@ -73,5 +76,3 @@ export const defaultOptions: GraphQLModuleModuleProps['options'] = {
   keepOldResultOnError: true,
   apiTokensWaitTime: 15000,
 };
-
-export const graphQLModuleNamespace = 'graphQLModule';
