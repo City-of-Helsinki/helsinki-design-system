@@ -18,7 +18,7 @@ export const ReactTest = () => {
     // monitorWithOverride: true, // If true, will override native writing to cookies and storage to monitor them. Defaults to false
     // block: true, // If true, will block setting unallowed cookies and storage. Defaults to false
     // blockWithErrors: true, // If true, will throw errors when trying to set unallowed cookies and storage. Defaults to false
-    tempCssPath: 'http://localhost:6006/static-cookie-consent/cookie-consent.min.css', // TODO: Remove this when the real build process can include css files
+    tempCssPath: 'http://localhost:6006/static-cookie-consent/cookieConsent.css', // TODO: Remove this when the real build process can include css files
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const instanceRef = useMemo(() => {
