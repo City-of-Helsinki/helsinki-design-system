@@ -1,7 +1,10 @@
 global.ResizeObserver =
   global.ResizeObserver ||
   function (callBack) {
-    let observer = new MutationObserver(callBack);
+    const wrapper = (entries) => {
+      callBack(global.ResizeObserverEntrySpy ? global.ResizeObserverEntrySpy(entries) : entries);
+    };
+    let observer = new MutationObserver(wrapper);
     return {
       disconnect: () => {
         observer.disconnect();
