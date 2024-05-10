@@ -19,9 +19,8 @@ import {
   waitForSignals,
 } from '../beacon/signals';
 import { createFetchAborter, isAbortError } from '../utils/abortFetch';
-import { ApiTokenClient, apiTokensClientNamespace } from '../apiTokensClient';
+import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
 import {
-  ApiTokensEventSignal,
   isApiTokensRemovedSignal,
   isApiTokensRenewalStartedSignal,
   isApiTokensUpdatedSignal,
@@ -40,17 +39,33 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     ...options,
   };
 
+  // custom beacon for sending signals in graphQLModuleNamespace
   const dedicatedBeacon = createNamespacedBeacon(graphQLModuleNamespace);
-
+  // abortController for requests
   const fetchAborter = createFetchAborter();
+  // tools for waiting for apiTokens and stopping awaits
+  let apiTokenAwaitPromise: Promise<unknown> | null;
+  const signalTypeToRejectApiTokenAwait = 'REJECT_API_TOKEN_AWAIT';
+  const emitApiTokenAwaitRejectionSignal = (targetBeacon?: Beacon) => {
+    if (!apiTokenAwaitPromise) {
+      return;
+    }
+    const beacon = targetBeacon || dedicatedBeacon.getBeacon();
+    if (beacon) {
+      beacon.emit({ type: signalTypeToRejectApiTokenAwait });
+    }
+  };
+
+  // current promise for a query
   let queryPromise: Promise<ApolloQueryResult<Q>> | undefined;
   let client: ApolloClient<T> | undefined = graphQLClient;
 
   let state: GraphQLModuleState = graphQLModuleStates.IDLE;
   let result: ApolloQueryResult<Q> | undefined;
   let error: GraphQLModuleError | undefined;
+  // if api tokens have been fetched once, no need to wait for initialization before quering
   let apiTokensHaveBeenLoadedOnce: boolean = false;
-  let lastApiTokensSignal: ApiTokensEventSignal | null = null;
+
   const getApiTokensClient = () => {
     const beacon = dedicatedBeacon.getBeacon();
     return beacon ? (beacon.getSignalContext(apiTokensClientNamespace) as ApiTokenClient) : undefined;
@@ -92,9 +107,21 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async (timeout = 0) => {
-    // store last apitoken signal?
+    if (apiTokenAwaitPromise) {
+      return apiTokenAwaitPromise;
+    }
     let timeOutId: ReturnType<typeof setTimeout> | null = null;
-    const signalPromise = waitForSignals(dedicatedBeacon as unknown as Beacon, ['dd'], { rejectOn: ['fdf'] });
+    const beacon = dedicatedBeacon.getBeacon() as Beacon;
+    if (!beacon) {
+      return Promise.reject(new Error('No Beacon found'));
+    }
+
+    apiTokenAwaitPromise = null;
+    const signalPromise = waitForSignals(
+      dedicatedBeacon.getBeacon() as Beacon,
+      [apiTokensClientEvents.API_TOKENS_UPDATED],
+      { rejectOn: [graphQLModuleEvents.GRAPHQL_MODULE_CLEARED, signalTypeToRejectApiTokenAwait] },
+    );
 
     const timeoutPromise = timeout
       ? new Promise((resolve, reject) => {
@@ -105,23 +132,24 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         })
       : null;
 
-    return timeoutPromise
+    apiTokenAwaitPromise = timeoutPromise
       ? Promise.race([signalPromise, timeoutPromise])
+      : signalPromise
           .finally(() => {
             if (timeOutId) {
               clearTimeout(timeOutId);
               timeOutId = null;
             }
+            apiTokenAwaitPromise = null;
           })
-          .catch(emptyPromiseCatcher)
-      : signalPromise.catch(emptyPromiseCatcher);
+          .catch(emptyPromiseCatcher);
+
+    return apiTokenAwaitPromise;
   };
 
-  const areApiTokensValid = () => {
-    if (!lastApiTokensSignal) {
-      return apiTokensHaveBeenLoadedOnce;
-    }
-    return isApiTokensUpdatedSignal(lastApiTokensSignal);
+  const doApiTokensExist = () => {
+    const apiTokenClient = getApiTokensClient();
+    return !!apiTokenClient && !!apiTokenClient.getTokens();
   };
 
   const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
@@ -145,7 +173,8 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       return Promise.reject(new Error('Required apiTokens not loaded'));
     }
 
-    if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !areApiTokensValid()) {
+    if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !doApiTokensExist()) {
+      // this might reject!
       await waitForApiTokens(options.apiTokensWaitTime);
     }
 
@@ -192,7 +221,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     if (isApiTokensRemovedSignal(signal) || isApiTokensRenewalStartedSignal(signal)) {
       //
     }
-    lastApiTokensSignal = { ...signal } as ApiTokensEventSignal;
     autoLoadWithApiTokens();
   };
 
@@ -261,10 +289,11 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       return queryPromise || Promise.reject(new Error(`No ${graphQLModuleNamespace} load promise`));
     },
     cancel: () => {
-      queryPromise = undefined;
-      return fetchAborter.abort();
+      emitApiTokenAwaitRejectionSignal();
+      fetchAborter.abort();
     },
     clear: () => {
+      emitApiTokenAwaitRejectionSignal();
       fetchAborter.abort();
       queryPromise = undefined;
       result = undefined;

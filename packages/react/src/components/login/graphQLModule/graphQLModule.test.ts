@@ -3,6 +3,7 @@ import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { to } from 'await-to-js';
 import { ApolloError } from '@apollo/client';
+import { act } from '@testing-library/react';
 
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
 import { emitInitializationSignals, EventPayload, eventSignalType } from '../beacon/signals';
@@ -46,6 +47,8 @@ describe(`graphQLModule`, () => {
   let currentBeacon: Beacon;
   let currentApolloClient: ReturnType<typeof createApolloClientMock>;
   let listenerModule: ReturnType<typeof createConnectedBeaconModule>;
+  let apiTokenStorage: TokenData | null = null;
+  const defaultApiTokens: TokenData = { token1: 'token1', token2: 'token2' };
 
   const initTests = ({
     responses,
@@ -78,7 +81,7 @@ describe(`graphQLModule`, () => {
     currentBeacon.addSignalContext(currentModule);
     currentBeacon.addSignalContext(listenerModule);
     if (createApiTokenClient || apiTokens) {
-      const apiTokenStorage: TokenData | null = apiTokens || null;
+      apiTokenStorage = apiTokens || null;
       const fakeApiTokensClient: ConnectedModule & Partial<ApiTokenClient> = {
         getTokens: () => {
           return apiTokenStorage;
@@ -95,7 +98,8 @@ describe(`graphQLModule`, () => {
     currentBeacon.emit({ type: eventSignalType, namespace: apiTokensClientNamespace, payload });
   };
 
-  const emitApiTokensUpdatedStateChange = () => {
+  const emitApiTokensUpdatedStateChange = (tokens: TokenData) => {
+    apiTokenStorage = tokens;
     const payload: EventPayload = { type: apiTokensClientEvents.API_TOKENS_UPDATED };
     emitApiTokensClientStateChange(payload);
   };
@@ -127,6 +131,7 @@ describe(`graphQLModule`, () => {
 
   afterEach(async () => {
     currentBeacon.clear();
+    apiTokenStorage = null;
     await cleanUp();
     if (currentModule) {
       currentModule.clear();
@@ -223,14 +228,17 @@ describe(`graphQLModule`, () => {
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
     ]);
   });
-  it('APiTOkens updated event triggers load', async () => {
+  it('ApiTokens updated event triggers load once', async () => {
     initTests({
       responses: [successfulResponse, successfulResponse],
       requireApiTokens: true,
+      createApiTokenClient: true,
     });
     expect(currentModule.getState()).toBe(graphQLModuleStates.IDLE);
     expect(currentModule.isLoading()).toBeFalsy();
-    emitApiTokensUpdatedStateChange();
+    act(() => {
+      emitApiTokensUpdatedStateChange(defaultApiTokens);
+    });
     expect(currentModule.isLoading()).toBeTruthy();
     const promise = currentModule.getQueryPromise();
     await advanceUntilPromiseResolved(promise);
@@ -238,7 +246,9 @@ describe(`graphQLModule`, () => {
     expect(currentModule.isLoading()).toBeFalsy();
     expect(result && result.data).toEqual(currentModule.getData());
     expect(currentModule.getData()).toEqual(getResponseDataObj(successfulResponse));
-    emitApiTokensUpdatedStateChange();
+    act(() => {
+      emitApiTokensUpdatedStateChange(defaultApiTokens);
+    });
     expect(currentModule.isLoading()).toBeFalsy();
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
@@ -248,7 +258,7 @@ describe(`graphQLModule`, () => {
   it('If apiTokens exists', async () => {
     initTests({
       responses: [successfulResponse, successfulResponse],
-      apiTokens: { token: '1244' },
+      apiTokens: defaultApiTokens,
       requireApiTokens: true,
     });
     expect(currentModule.getState()).toBe(graphQLModuleStates.LOADING);
