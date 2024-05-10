@@ -62,6 +62,8 @@ describe(`graphQLModule`, () => {
   let currentModule: GraphQLModule;
   let currentApolloClient: ReturnType<typeof createApolloClientMock>;
   let listenerModule: ReturnType<typeof createConnectedBeaconModule>;
+  let apiTokenStorage: TokenData | null = null;
+  const defaultApiTokens: TokenData = { token1: 'token1', token2: 'token2' };
 
   const Output = ({ obj }: { obj: UseGraphQLModuleHookObject<GraphQLCache, GraphQLQueryResult> }) => {
     const { data, loading, error } = obj;
@@ -181,7 +183,7 @@ describe(`graphQLModule`, () => {
     const modules: ConnectedModule[] = [currentModule, listenerModule];
 
     if (createApiTokenClient || apiTokens) {
-      const apiTokenStorage: TokenData | null = apiTokens || null;
+      apiTokenStorage = apiTokens || null;
       const fakeApiTokensClient: ConnectedModule & Partial<ApiTokenClient> = {
         getTokens: () => {
           return apiTokenStorage;
@@ -249,7 +251,8 @@ describe(`graphQLModule`, () => {
       await waitForValue(getState, advanceTime, state);
     };
 
-    const emitApiTokensClientStateChange = () => {
+    const emitApiTokensUpdatedStateChange = (tokens: TokenData) => {
+      apiTokenStorage = tokens;
       const payload: EventPayload = { type: apiTokensClientEvents.API_TOKENS_UPDATED };
       testUtil.emit({ type: eventSignalType, namespace: apiTokensClientNamespace, payload });
     };
@@ -264,7 +267,7 @@ describe(`graphQLModule`, () => {
       waitForStateChange,
       waitForDataChange,
       waitForState,
-      emitApiTokensClientStateChange,
+      emitApiTokensUpdatedStateChange,
     };
   };
 
@@ -296,8 +299,11 @@ describe(`graphQLModule`, () => {
 
   afterEach(async () => {
     await cleanUp();
+    apiTokenStorage = null;
     if (currentModule) {
-      currentModule.clear();
+      act(() => {
+        currentModule.clear();
+      });
     }
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
@@ -388,13 +394,17 @@ describe(`graphQLModule`, () => {
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
     ]);
   });
-  it('APiTOkens updated event triggers load', async () => {
-    const { waitForDataChange, waitForState, emitApiTokensClientStateChange } = initTests({
+  it('ApiTokens updated event triggers load', async () => {
+    const { waitForDataChange, waitForState, emitApiTokensUpdatedStateChange } = initTests({
       responses: [successfulResponse, successfulResponse],
       requireApiTokens: true,
+      createApiTokenClient: true,
     });
     await waitForState(graphQLModuleStates.IDLE);
-    emitApiTokensClientStateChange();
+    act(() => {
+      emitApiTokensUpdatedStateChange(defaultApiTokens);
+    });
+
     await waitForState(graphQLModuleStates.LOADING);
     await waitForDataChange(200);
     await waitForState(graphQLModuleStates.IDLE);
@@ -410,7 +420,7 @@ describe(`graphQLModule`, () => {
     await act(async () => {
       const { waitForDataChange, waitForState } = initTests({
         responses: [successfulResponse, successfulResponse],
-        apiTokens: { token: '1244' },
+        apiTokens: defaultApiTokens,
         requireApiTokens: true,
       });
       await waitForState(graphQLModuleStates.LOADING);
