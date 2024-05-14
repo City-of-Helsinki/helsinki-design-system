@@ -85,6 +85,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       throw new Error('queryPromise already exists');
     }
     queryPromise = promise;
+    // console.log('QUERY');
     queryPromise
       .then((queryResult: ApolloQueryResult<Q>) => {
         error = undefined;
@@ -94,13 +95,16 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         queryPromise = undefined;
       })
       .catch((queryError: ApolloError) => {
+        // console.log('fail', queryError);
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
         if (isAbortError(queryError.networkError as Error)) {
+          // console.log('abort dete');
           result = undefined;
           error = undefined;
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
         } else {
+          // console.log('fail x');
           result = undefined;
           error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError);
           dedicatedBeacon.emitError(error);
@@ -109,10 +113,18 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     return queryPromise;
   };
 
+  const doApiTokensExist = () => {
+    const apiTokenClient = getApiTokensClient();
+    return !!apiTokenClient && !!apiTokenClient.getTokens();
+  };
+
   // if query is started when api tokens are renewed, wait for it to complete.
   const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async (timeout = 0) => {
     if (apiTokenAwaitPromise) {
       return apiTokenAwaitPromise;
+    }
+    if (doApiTokensExist()) {
+      return Promise.resolve(true);
     }
     let timeOutId: ReturnType<typeof setTimeout> | null = null;
     const beacon = dedicatedBeacon.getBeacon() as Beacon;
@@ -123,8 +135,10 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     apiTokenAwaitPromise = null;
     const signalPromise = waitForSignals(
       dedicatedBeacon.getBeacon() as Beacon,
-      [apiTokensClientEvents.API_TOKENS_UPDATED],
-      { rejectOn: [graphQLModuleEvents.GRAPHQL_MODULE_CLEARED, signalTypeToRejectApiTokenAwait] },
+      [{ payload: { type: apiTokensClientEvents.API_TOKENS_UPDATED } }],
+      {
+        rejectOn: [{ payload: { type: graphQLModuleEvents.GRAPHQL_MODULE_CLEARED } }, signalTypeToRejectApiTokenAwait],
+      },
     );
 
     const timeoutPromise = timeout
@@ -136,28 +150,24 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         })
       : null;
 
-    apiTokenAwaitPromise = timeoutPromise
-      ? Promise.race([signalPromise, timeoutPromise])
-      : signalPromise
-          .finally(() => {
-            if (timeOutId) {
-              clearTimeout(timeOutId);
-              timeOutId = null;
-            }
-            apiTokenAwaitPromise = null;
-          })
-          .catch(emptyPromiseCatcher);
+    apiTokenAwaitPromise = (timeoutPromise ? Promise.race([signalPromise, timeoutPromise]) : signalPromise)
+      .then(() => {
+        if (timeOutId) {
+          clearTimeout(timeOutId);
+          timeOutId = null;
+        }
+        apiTokenAwaitPromise = null;
+        return Promise.resolve(true);
+      })
+      .catch(() => {
+        return Promise.resolve(false);
+      });
 
     return apiTokenAwaitPromise;
   };
 
-  const doApiTokensExist = () => {
-    const apiTokenClient = getApiTokensClient();
-    return !!apiTokenClient && !!apiTokenClient.getTokens();
-  };
-
   const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
-    // if aborting is not enabled and loading, return current promise
+    // if aborting is not enabled and there is an active query, return the current promise
     if (queryPromise && !mergedOptions.abortIfLoading) {
       return queryPromise;
     }
@@ -179,14 +189,19 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
 
     if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !doApiTokensExist()) {
       // this might reject!
+      // console.log('waitForApiTokens');
       await waitForApiTokens(options.apiTokensWaitTime);
+      if (!doApiTokensExist()) {
+        // console.log('failure');
+        return Promise.reject(new Error('ApiTokens timed out'));
+      }
     }
 
     const queryDocument = props.query || query;
     if (!queryDocument) {
       return Promise.reject(new Error('No query document (TypedDocumentNode)'));
     }
-
+    // console.log('doing...');
     try {
       const mergeProps = (): QueryOptions<OperationVariables, Q> => {
         const context: QueryOptions['context'] = {
@@ -284,6 +299,9 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     },
     isLoading: () => {
       return state === graphQLModuleStates.LOADING;
+    },
+    isPending: () => {
+      return !!(apiTokenAwaitPromise || queryPromise);
     },
     getState: () => {
       return state;
