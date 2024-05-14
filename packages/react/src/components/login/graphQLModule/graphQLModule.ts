@@ -20,12 +20,9 @@ import {
 } from '../beacon/signals';
 import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
-import {
-  isApiTokensRemovedSignal,
-  isApiTokensRenewalStartedSignal,
-  isApiTokensUpdatedSignal,
-} from '../apiTokensClient/signals';
+import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
+import { mergeQueryOptionsToModuleProps } from './utils';
 
 export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   graphQLClient,
@@ -46,11 +43,11 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   // tools for waiting for apiTokens and stopping awaits
   let apiTokenAwaitPromise: Promise<unknown> | null;
   const signalTypeToRejectApiTokenAwait = 'REJECT_API_TOKEN_AWAIT';
-  const emitApiTokenAwaitRejectionSignal = (targetBeacon?: Beacon) => {
+  const emitApiTokenAwaitRejectionSignal = () => {
     if (!apiTokenAwaitPromise) {
       return;
     }
-    const beacon = targetBeacon || dedicatedBeacon.getBeacon();
+    const beacon = dedicatedBeacon.getBeacon();
     if (beacon) {
       beacon.emit({ type: signalTypeToRejectApiTokenAwait });
     }
@@ -58,18 +55,22 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
 
   // current promise for a query
   let queryPromise: Promise<ApolloQueryResult<Q>> | undefined;
+  // store client
   let client: ApolloClient<T> | undefined = graphQLClient;
 
   let state: GraphQLModuleState = graphQLModuleStates.IDLE;
+  // saved last result
   let result: ApolloQueryResult<Q> | undefined;
+  // saved last error
   let error: GraphQLModuleError | undefined;
-  // if api tokens have been fetched once, no need to wait for initialization before quering
+  // if api tokens have been fetched once, no need to check existance again.
   let apiTokensHaveBeenLoadedOnce: boolean = false;
 
   const getApiTokensClient = () => {
     const beacon = dedicatedBeacon.getBeacon();
     return beacon ? (beacon.getSignalContext(apiTokensClientNamespace) as ApiTokenClient) : undefined;
   };
+
   const emptyPromiseCatcher = () => {
     // just catching to avoid "unhandled promise" exception
   };
@@ -78,6 +79,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     return result ? result.data : undefined;
   };
 
+  // attach .then and .catch to the promise
   const handleQueryPromise = (promise: Promise<ApolloQueryResult<Q>>) => {
     if (queryPromise) {
       throw new Error('queryPromise already exists');
@@ -85,6 +87,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     queryPromise = promise;
     queryPromise
       .then((queryResult: ApolloQueryResult<Q>) => {
+        error = undefined;
         result = queryResult;
         state = graphQLModuleStates.IDLE;
         dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS, getData());
@@ -106,6 +109,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     return queryPromise;
   };
 
+  // if query is started when api tokens are renewed, wait for it to complete.
   const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async (timeout = 0) => {
     if (apiTokenAwaitPromise) {
       return apiTokenAwaitPromise;
@@ -157,7 +161,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     if (queryPromise && !mergedOptions.abortIfLoading) {
       return queryPromise;
     }
-    // wait for current promise to abort
+    // abort and wait for current promise to end
     if (queryPromise) {
       fetchAborter.abort();
       await queryPromise.catch(emptyPromiseCatcher);
@@ -205,23 +209,35 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
       return handleQueryPromise(promise);
     } catch (e) {
       error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, e);
+      state = graphQLModuleStates.IDLE;
+      result = undefined;
       dedicatedBeacon.emitError(error);
       return Promise.reject(e);
     }
   };
 
+  const cancel = () => {
+    emitApiTokenAwaitRejectionSignal();
+    fetchAborter.abort();
+  };
+
+  // autoLoad is done only once
   const autoLoadWithApiTokens = async () => {
     if (!result && !queryPromise && mergedOptions.autoFetch && apiTokensHaveBeenLoadedOnce) {
       await queryExecutor().catch(emptyPromiseCatcher);
+      mergedOptions.autoFetch = false;
     }
   };
 
   const apiTokensClientEventListener: SignalListener = (signal) => {
-    apiTokensHaveBeenLoadedOnce = apiTokensHaveBeenLoadedOnce || isApiTokensUpdatedSignal(signal);
-    if (isApiTokensRemovedSignal(signal) || isApiTokensRenewalStartedSignal(signal)) {
-      //
+    const wasApiTokensUpdatedSignal = isApiTokensUpdatedSignal(signal);
+    apiTokensHaveBeenLoadedOnce = apiTokensHaveBeenLoadedOnce || wasApiTokensUpdatedSignal;
+    if (isApiTokensRemovedSignal(signal)) {
+      cancel();
+    } else if (wasApiTokensUpdatedSignal) {
+      // this causes multiple loads after clear etc?
+      autoLoadWithApiTokens();
     }
-    autoLoadWithApiTokens();
   };
 
   const apiTokensClientInitListener: SignalListener = (signal) => {
@@ -232,27 +248,18 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     }
   };
 
-  const connectToApiTokenClient = () => {
+  const listenToApiTokenClient = () => {
     if (mergedOptions.requireApiTokens) {
       dedicatedBeacon.addListener(createEventTriggerProps(apiTokensClientNamespace), apiTokensClientEventListener);
       dedicatedBeacon.addListener(createInitTriggerProps(apiTokensClientNamespace), apiTokensClientInitListener);
     }
   };
 
-  const injectQueryOptions = (
-    extraOptions: Partial<QueryOptions<Q>>,
-    props: Partial<GraphQLModuleModuleProps<T, Q>> = {},
-  ) => {
-    const mergeResult = { ...props };
-    mergeResult.queryOptions = { ...mergeResult.queryOptions, ...extraOptions };
-    return mergeResult;
-  };
-
   return {
     namespace: 'graphQLModule',
     connect: (beacon) => {
       dedicatedBeacon.storeBeacon(beacon);
-      connectToApiTokenClient();
+      listenToApiTokenClient();
     },
     getData,
     getError: () => {
@@ -288,13 +295,9 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     getQueryPromise: () => {
       return queryPromise || Promise.reject(new Error(`No ${graphQLModuleNamespace} load promise`));
     },
-    cancel: () => {
-      emitApiTokenAwaitRejectionSignal();
-      fetchAborter.abort();
-    },
+    cancel,
     clear: () => {
-      emitApiTokenAwaitRejectionSignal();
-      fetchAborter.abort();
+      cancel();
       queryPromise = undefined;
       result = undefined;
       error = undefined;
@@ -302,10 +305,10 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     },
     waitForApiTokens,
     queryCache: (props) => {
-      return queryExecutor(injectQueryOptions({ fetchPolicy: 'cache-only' }, props));
+      return queryExecutor(mergeQueryOptionsToModuleProps(props || {}, { fetchPolicy: 'cache-only' }));
     },
     queryServer: (props) => {
-      return queryExecutor(injectQueryOptions({ fetchPolicy: 'network-only' }, props));
+      return queryExecutor(mergeQueryOptionsToModuleProps(props || {}, { fetchPolicy: 'network-only' }));
     },
   };
 }

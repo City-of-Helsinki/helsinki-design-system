@@ -1,6 +1,8 @@
 import { QueryOptions } from '@apollo/client/core';
 import { merge } from 'lodash';
 
+import { GraphQLModuleModuleProps } from '.';
+
 type PartialContext = Partial<QueryOptions['context']>;
 type QueryHeaders = Record<string, unknown>;
 
@@ -28,4 +30,17 @@ export function mergeAuthorizationHeaderToQueryOptions(options: QueryOptions, au
     authorization: authHeader,
   };
   return mergeHeadersToQueryOptions(options, headers);
+}
+
+export function mergeQueryOptions(target: Partial<QueryOptions<unknown>>, overrides: Partial<QueryOptions<unknown>>) {
+  return merge(target, overrides);
+}
+
+export function mergeQueryOptionsToModuleProps<T, Q>(
+  target: Partial<GraphQLModuleModuleProps<T, Q>>,
+  queryOptions: Partial<QueryOptions<Q>>,
+) {
+  // eslint-disable-next-line no-param-reassign
+  target.queryOptions = mergeQueryOptions(target.queryOptions || {}, queryOptions);
+  return target;
 }

@@ -36,7 +36,7 @@ export const useGraphQL = <T = GraphQLCache, Q = GraphQLQueryResult>(): UseGraph
     });
     return promise as Promise<ApolloQueryResult<Q>>;
   };
-  // cause re-render when the module emits something
+  // causes re-render when the module emits something
   useGraphQLModuleTracking();
   const createReturnObject = useMemo<() => UseGraphQLModuleHookObject<T, Q>>(() => {
     return () => {

@@ -3,6 +3,7 @@ import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo
 import { GraphQLQueryResult } from '..';
 
 export const mockedGraphQLUri = 'https://apollo.backend.com';
+export const defaultAuthToken = 'default token';
 
 export function createApolloClientMock(): ApolloClient<GraphQLQueryResult> {
   const link = new HttpLink({
@@ -10,7 +11,7 @@ export function createApolloClientMock(): ApolloClient<GraphQLQueryResult> {
   });
 
   const authMiddleware = new ApolloLink((operation, forward) => {
-    const token = 'HEFFEFF';
+    const token = defaultAuthToken;
     if (token) {
       operation.setContext({
         headers: {
