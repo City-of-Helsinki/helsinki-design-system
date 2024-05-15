@@ -1,6 +1,6 @@
 import { GraphQLQueryResult } from '..';
 
-export const mockResponse: GraphQLQueryResult = {
+const mockResponse: GraphQLQueryResult = {
   data: {
     user: {
       id: 13,
@@ -10,4 +10,11 @@ export const mockResponse: GraphQLQueryResult = {
       },
     },
   },
+};
+
+export const createQueryResponse = (overrides: typeof mockResponse = {}) => {
+  return {
+    ...mockResponse,
+    ...overrides,
+  };
 };

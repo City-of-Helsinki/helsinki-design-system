@@ -38,8 +38,10 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
 
   // custom beacon for sending signals in graphQLModuleNamespace
   const dedicatedBeacon = createNamespacedBeacon(graphQLModuleNamespace);
+
   // abortController for requests
   const fetchAborter = createFetchAborter();
+
   // tools for waiting for apiTokens and stopping awaits
   let apiTokenAwaitPromise: Promise<unknown> | null;
   const signalTypeToRejectApiTokenAwait = 'REJECT_API_TOKEN_AWAIT';
@@ -72,22 +74,22 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const emptyPromiseCatcher = () => {
-    // just catching to avoid "unhandled promise" exception
+    // promise rejection catcher to avoid "unhandled promise" exception
   };
 
   const getData: GraphQLModule<T, Q>['getData'] = () => {
     return result ? result.data : undefined;
   };
 
-  // attach .then and .catch to the promise
+  // attaches .then and .catch to a promise
   const handleQueryPromise = (promise: Promise<ApolloQueryResult<Q>>) => {
     if (queryPromise) {
       throw new Error('queryPromise already exists');
     }
     queryPromise = promise;
-    // console.log('QUERY');
     queryPromise
       .then((queryResult: ApolloQueryResult<Q>) => {
+        console.log('THEN', queryResult);
         error = undefined;
         result = queryResult;
         state = graphQLModuleStates.IDLE;
@@ -95,16 +97,15 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         queryPromise = undefined;
       })
       .catch((queryError: ApolloError) => {
-        // console.log('fail', queryError);
+        console.log('CATCH');
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
         if (isAbortError(queryError.networkError as Error)) {
-          // console.log('abort dete');
+          console.log('AB');
           result = undefined;
           error = undefined;
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
         } else {
-          // console.log('fail x');
           result = undefined;
           error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError);
           dedicatedBeacon.emitError(error);
@@ -167,6 +168,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
+    console.log('queryExecutor');
     // if aborting is not enabled and there is an active query, return the current promise
     if (queryPromise && !mergedOptions.abortIfLoading) {
       return queryPromise;
@@ -196,6 +198,8 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         return Promise.reject(new Error('ApiTokens timed out'));
       }
     }
+
+    console.log('QUERY');
 
     const queryDocument = props.query || query;
     if (!queryDocument) {
@@ -250,7 +254,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     if (isApiTokensRemovedSignal(signal)) {
       cancel();
     } else if (wasApiTokensUpdatedSignal) {
-      // this causes multiple loads after clear etc?
       autoLoadWithApiTokens();
     }
   };
