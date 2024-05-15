@@ -89,7 +89,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     queryPromise = promise;
     queryPromise
       .then((queryResult: ApolloQueryResult<Q>) => {
-        console.log('THEN', queryResult);
         error = undefined;
         result = queryResult;
         state = graphQLModuleStates.IDLE;
@@ -97,11 +96,9 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         queryPromise = undefined;
       })
       .catch((queryError: ApolloError) => {
-        console.log('CATCH');
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
         if (isAbortError(queryError.networkError as Error)) {
-          console.log('AB');
           result = undefined;
           error = undefined;
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
@@ -168,7 +165,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   };
 
   const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
-    console.log('queryExecutor');
     // if aborting is not enabled and there is an active query, return the current promise
     if (queryPromise && !mergedOptions.abortIfLoading) {
       return queryPromise;
@@ -190,22 +186,16 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     }
 
     if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !doApiTokensExist()) {
-      // this might reject!
-      // console.log('waitForApiTokens');
       await waitForApiTokens(options.apiTokensWaitTime);
       if (!doApiTokensExist()) {
-        // console.log('failure');
         return Promise.reject(new Error('ApiTokens timed out'));
       }
     }
-
-    console.log('QUERY');
 
     const queryDocument = props.query || query;
     if (!queryDocument) {
       return Promise.reject(new Error('No query document (TypedDocumentNode)'));
     }
-    // console.log('doing...');
     try {
       const mergeProps = (): QueryOptions<OperationVariables, Q> => {
         const context: QueryOptions['context'] = {
@@ -305,9 +295,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     },
     isPending: () => {
       return !!(apiTokenAwaitPromise || queryPromise);
-    },
-    getState: () => {
-      return state;
     },
     setClient: (newClient) => {
       client = newClient;

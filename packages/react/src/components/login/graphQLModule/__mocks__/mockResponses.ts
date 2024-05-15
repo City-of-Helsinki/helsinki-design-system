@@ -1,6 +1,4 @@
-import { GraphQLQueryResult } from '..';
-
-const mockResponse: GraphQLQueryResult = {
+const mockResponse = {
   data: {
     user: {
       id: 13,
@@ -12,9 +10,20 @@ const mockResponse: GraphQLQueryResult = {
   },
 };
 
-export const createQueryResponse = (overrides: typeof mockResponse = {}) => {
+export const createQueryResponse = (overrides: Record<string, unknown> = {}) => {
   return {
-    ...mockResponse,
-    ...overrides,
+    data: {
+      user: {
+        ...mockResponse.data.user,
+        ...overrides,
+      },
+    },
+  };
+};
+
+export const createQueryResponseWithErrors = (overrides: Record<string, unknown> = {}) => {
+  return {
+    ...createQueryResponse(overrides),
+    errors: [new Error('error1')],
   };
 };

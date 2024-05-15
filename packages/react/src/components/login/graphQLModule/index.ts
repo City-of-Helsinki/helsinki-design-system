@@ -23,7 +23,6 @@ export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = C
   getError: () => GraphQLModuleError | undefined;
   getQueryPromise: () => Promise<ApolloQueryResult<Q>>;
   getResult: () => ApolloQueryResult<Q> | undefined;
-  getState: () => GraphQLModuleState;
   isLoading: () => boolean;
   isPending: () => boolean;
   query: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
