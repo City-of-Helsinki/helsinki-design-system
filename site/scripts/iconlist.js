@@ -24,7 +24,9 @@ const listMdx = 'src/docs/foundation/visual-assets/icons/list.mdx';
 const listMdxOutput = listMdx;
 
 // icon_group.json is in site -directory, it has get on Github Workflow step
-const icon_groups_json = "./icon_group.json"; // <data from figma-api> | jq '.nodes."172:2478".document.children | .[] | {group: .name?, icon: .children[]?.name?}' | jq -s .> icon_group.json
+// icon_group.json generation cmd
+//  <data from figma-api> | jq '.nodes."172:2478".document.children | .[] | {group: .name?, icon: .children[]?.name?}' | jq -s .> icon_group.json
+const icon_groups_json = "./icon_group.json"; 
 
 let iconGroups = new Map();
 const iconGroupsJson = JSON.parse(fs.readFileSync(icon_groups_json, 'utf-8'));
@@ -37,11 +39,6 @@ const iconDirectoryReact = '../packages/react/src/icons';
 
 const iconFilesCore = fs.readdirSync(iconDirectoryCore);
 const iconFilesReact = fs.readdirSync(iconDirectoryReact);
-
-// const exitError = (msg) => {
-//   console.log(`${chalk.red.bold('Error:')} ${chalk.italic(msg)}`);
-//   process.exit(1);
-// };
 
 const continueWarning = (msg) => {
     console.log(`${chalk.red.bold('Warning:')} ${chalk.italic(msg)}`);
