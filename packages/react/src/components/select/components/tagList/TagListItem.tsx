@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '../../Select.module.scss';
-import { Option } from '../../types';
+import { DivElementProps, Option } from '../../types';
 import classNames from '../../../../utils/classNames';
 import { Tag, TagProps } from '../../../tag/Tag';
 import { ChangeTrigger } from '../../../dataProvider/DataContext';
@@ -9,9 +9,14 @@ import { eventTypes, eventIds } from '../../events';
 
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger; disabled: boolean };
 
-const createDelectedTagProps = ({ option, trigger, disabled }: SelectedTagProps): TagProps => {
+const createDelectedTagProps = ({
+  option,
+  trigger,
+  disabled,
+}: SelectedTagProps): TagProps & Pick<DivElementProps, 'aria-label'> => {
   const componentOrOptionDisabled = disabled || option.disabled;
   return {
+    'aria-label': `Remove selection "${option.label}"`,
     className: classNames(styles.tag, componentOrOptionDisabled && styles.disabledTag),
     onClick: (e) => {
       e.stopPropagation();
