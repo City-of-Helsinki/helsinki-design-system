@@ -20,7 +20,7 @@ jobs:
       PATH_PREFIX: "/hds-demo/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}"
       DEMO_NAME: preview_${{ github.event.number != '' && github.event.number || github.ref_name }}
       NODE_ID: '172:2478'
-      FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
+        FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
 
     steps:
       - name: Checkout code hds
@@ -56,6 +56,12 @@ jobs:
           path: '**/node_modules'
           key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
 
+      # Build
+      - name: install dependencies
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
+
      # tryout iconlist -script
       # Regenerate list.mdx
       - name: Run curl to get data from figma
@@ -71,12 +77,6 @@ jobs:
         run: |
           yarn iconlist
         working-directory: ./site
-
-      # Build
-      - name: install dependencies
-        run: |
-          yarn config set network-timeout 300000 
-          yarn
 
       # Build site
       - name: build design tokens package
