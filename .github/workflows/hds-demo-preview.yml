@@ -148,6 +148,10 @@ jobs:
         with:
           header: Preview url
           message: |
-            ## Preview https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }}
+            Preview found from [hds-demo docs/${{ env.DEMO_NAME }}](https://github.com/City-of-Helsinki/hds-demo/tree/main/docs/${{ env.DEMO_NAME }})
+            ## Demos
+            [Docs](https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }})
+            [Core Storybook](https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }}/storybook/core)
+            [React Storybook](https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }}/storybook/react)
 
 
