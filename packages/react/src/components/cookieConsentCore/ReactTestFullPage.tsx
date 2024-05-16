@@ -4,7 +4,7 @@ import { CookieConsentCore } from './cookieConsentCore';
 
 // This is used to test "/classes" in React and Storybook
 // See also https://github.com/Wildhoney/ReactShadow
-export const ReactTest = () => {
+export const ReactTestFullPage = () => {
   const options = {
     siteSettingsJsonUrl: 'http://localhost:6006/static-cookie-consent/helfi_cookiesettings.json',
     language: 'fi', // Lang code defaults to 'en'
@@ -35,6 +35,7 @@ export const ReactTest = () => {
         nulla. Deleniti est maiores explicabo minus? Odio amet id perferendis nulla alias vitae, voluptate dignissimos
         deleniti voluptas officia nam facere iste, maiores porro rem dolorem modi molestiae provident illo.
       </p>
+      <div id="hds-cookie-consent-full-page" />
       <p>
         Ex consequatur perspiciatis pariatur, suscipit maiores officia vitae assumenda incidunt rem in, distinctio iure
         eos eius veniam temporibus expedita? Exercitationem qui animi sint adipisci voluptas autem facere similique
