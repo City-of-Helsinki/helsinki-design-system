@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 
 import { CookieConsentCore } from './cookieConsentCore';
 
@@ -21,8 +21,10 @@ export const ReactTest = () => {
     tempCssPath: 'http://localhost:6006/static-cookie-consent/cookieConsent.css', // TODO: Remove this when the real build process can include css files
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const instanceRef = useMemo(() => {
-    return new CookieConsentCore(options);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const instanceRef = useEffect(() => {
+    // eslint-disable-next-line no-new, @typescript-eslint/no-unused-vars
+    const instance = new CookieConsentCore(options);
   }, []);
   return (
     <main>
