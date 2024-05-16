@@ -3,8 +3,8 @@
 import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { to } from 'await-to-js';
-import { ApolloError, QueryResult, TypedDocumentNode } from '@apollo/client';
-import { act, waitFor } from '@testing-library/react';
+import { ApolloQueryResult, QueryResult, TypedDocumentNode } from '@apollo/client';
+import { waitFor } from '@testing-library/react';
 
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
 import { emitInitializationSignals, EventPayload, eventSignalType } from '../beacon/signals';
@@ -30,7 +30,6 @@ import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace, TokenD
 import { createQueryResponse, createQueryResponseWithErrors } from './__mocks__/mockResponses';
 import { USER_QUERY } from './__mocks__/mockData';
 import { advanceUntilPromiseResolved } from '../testUtils/timerTestUtil';
-import { isAbortError } from '../utils/abortFetch';
 import { getLastMockCallArgs } from '../../../utils/testHelpers';
 
 type ResponseType = { returnedStatus: HttpStatusCode; data?: GraphQLQueryResult | null; error?: Error };
@@ -42,10 +41,16 @@ type TestQueryStep = {
   expectPromiseToFail?: boolean;
   expectedQueryError?: GraphQLModuleErrorType;
   expectedResult?: unknown;
+  expectToKeepResults?: boolean;
+  expectToKeepError?: boolean;
   willLoad?: boolean;
   willBePending?: boolean;
   willHaveErrorsInResult?: boolean;
-  execute?: () => Promise<void>;
+  willAutoStart?: boolean;
+  execute?: () => Promise<void | ApolloQueryResult<GraphQLQueryResult>>;
+  postQueryTest?: (
+    promise: Promise<void | ApolloQueryResult<GraphQLQueryResult>>,
+  ) => Promise<void | ApolloQueryResult<GraphQLQueryResult>>;
 };
 
 type TestStepResult = { error: Error | GraphQLModuleError | null; data: GraphQLQueryResult | null };
@@ -147,10 +152,6 @@ describe(`graphQLModule`, () => {
     emitApiTokensClientStateChange(payload);
   };
 
-  const initResponder = () => {
-    setResponders([{ path: mockedGraphQLUri }]);
-  };
-
   const getEmittedErrors = () => {
     return getReceivedErrorSignalPayloads<GraphQLModuleError>(listenerModule);
   };
@@ -159,9 +160,20 @@ describe(`graphQLModule`, () => {
     return getReceivedEventSignalPayloads(listenerModule).map((payload) => payload.type);
   };
 
-  const getResponseDataObj = (response: ResponseType) => {
-    return response.data ? response.data.data : undefined;
-  };
+  /**
+   * Tests follow usually the same pattern:
+   * - define responses
+   * - query
+   * - await for query to end
+   * - check result / errors
+   * - check event / error signals
+   *
+   * "Steps" are metadata for that test pattern. They tell the runTestSequence() what to expect in each step of a test sequence.
+   * Instead of repeating same expect() calls, the runTestSequence() has all necessary tests.
+   *
+   * If a test does not want to call "module.query()" automatically, a "step" may have an "executor" that is called instead of query.
+   *
+   */
 
   const createSuccessfulStep = (id: number = 1): TestQueryStep => {
     const response = createSuccessResponse({ id });
@@ -171,6 +183,105 @@ describe(`graphQLModule`, () => {
       expectedResult: (response.data as GraphQLQueryResult).data,
       willBePending: true,
       willLoad: true,
+      expectPromiseToFail: false,
+      expectedQueryError: undefined,
+      errorSignals: [],
+    };
+  };
+
+  const createErrorStep = (): TestQueryStep => {
+    return {
+      response: errorResponse,
+      errorSignals: [graphQLModuleError.GRAPHQL_LOAD_FAILED],
+      expectedQueryError: graphQLModuleError.GRAPHQL_LOAD_FAILED,
+    };
+  };
+
+  const createClearStep = (): TestQueryStep => {
+    return {
+      execute: () => {
+        currentModule.clear();
+        return Promise.resolve();
+      },
+      expectPromiseToFail: false,
+      expectedQueryError: undefined,
+      expectedResult: undefined,
+      willBePending: false,
+      willLoad: false,
+      eventSignals: [graphQLModuleEvents.GRAPHQL_MODULE_CLEARED],
+    };
+  };
+
+  const createCancelStep = (expectToKeepResults = false, expectToKeepError = false): TestQueryStep => {
+    return {
+      execute: () => {
+        currentModule.cancel();
+        return Promise.resolve();
+      },
+      willBePending: false,
+      willLoad: false,
+      expectToKeepResults,
+      expectToKeepError,
+      eventSignals: [],
+    };
+  };
+
+  const createQueryStepWithCancelOrClear = (cancelOrClear: 'cancel' | 'clear'): TestQueryStep => {
+    const willClear = cancelOrClear === 'clear';
+    return {
+      execute: () => {
+        const promise = currentModule.query().catch(promiseCatcher);
+        if (willClear) {
+          // test isPending until clear() unsets promises
+          expect(currentModule.isPending()).toBeTruthy();
+          currentModule.clear();
+        } else {
+          currentModule.cancel();
+        }
+        return promise;
+      },
+      // clear() will unset promises and isPending() === false
+      willBePending: !willClear,
+      willLoad: true,
+      expectPromiseToFail: true,
+      response: createSuccessResponse({ id: 66 }),
+      eventSignals: willClear
+        ? [
+            graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+            graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
+            graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
+          ]
+        : [graphQLModuleEvents.GRAPHQL_MODULE_LOADING, graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED],
+    };
+  };
+
+  const createAutoStartingQueryStepProps = (): Partial<TestQueryStep> => {
+    return {
+      willAutoStart: true,
+      execute: () => {
+        return currentModule.getQueryPromise();
+      },
+      eventSignals: [graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS],
+    };
+  };
+
+  const createEmptyStep = (overrides: Partial<TestQueryStep> = {}): Partial<TestQueryStep> => {
+    return {
+      willHaveErrorsInResult: false,
+      willLoad: false,
+      willAutoStart: false,
+      willBePending: false,
+      errorSignals: undefined,
+      expectPromiseToFail: false,
+      expectToKeepError: false,
+      expectedResult: undefined,
+      expectToKeepResults: false,
+      expectedQueryError: undefined,
+      execute: () => {
+        return Promise.resolve();
+      },
+      eventSignals: undefined,
+      ...overrides,
     };
   };
 
@@ -179,7 +290,9 @@ describe(`graphQLModule`, () => {
     /* eslint-disable jest/no-conditional-expect, no-await-in-loop, no-restricted-syntax */
     // cannot use async/await with array.forEach
     const sequenceResults: Array<TestStepResult> = [];
+    const handlePromiseFailure = jest.fn();
     for (const step of sequence) {
+      console.log('step', step);
       const {
         execute,
         errorSignals,
@@ -189,6 +302,10 @@ describe(`graphQLModule`, () => {
         expectPromiseToFail,
         willBePending,
         willLoad,
+        expectToKeepResults,
+        expectToKeepError,
+        willAutoStart,
+        postQueryTest,
       } = step;
       const stepResults: TestStepResult = { error: null, data: null };
       const eventSignalsBefore = getEmittedEventTypes();
@@ -197,20 +314,24 @@ describe(`graphQLModule`, () => {
       if (queryPromise) {
         await to(queryPromise);
       }
-      promiseCatcher.mockReset();
+      handlePromiseFailure.mockReset();
 
       const willQuery = !!expectedResult || !!expectedQueryError;
       const isPendingResult = willBePending !== undefined ? willBePending : willQuery;
       const isLoadingResult = willLoad !== undefined ? willLoad : willQuery;
-      expect(currentModule.isLoading()).toBe(false);
-      expect(currentModule.isPending()).toBe(false);
-      queryPromise = execute ? execute() : currentModule.query().catch(promiseCatcher);
+      expect(currentModule.isLoading()).toBe(willAutoStart === true);
+      expect(currentModule.isPending()).toBe(willAutoStart === true);
+      queryPromise = execute ? execute() : currentModule.query().catch(handlePromiseFailure);
       expect(currentModule.isLoading()).toBe(isLoadingResult);
       expect(currentModule.isPending()).toBe(isPendingResult);
-
+      if (postQueryTest) {
+        await postQueryTest(queryPromise);
+      }
       await advanceUntilPromiseResolved(queryPromise);
-      const error = getLastMockCallArgs(promiseCatcher);
+      console.log('X DONE');
+      const error = getLastMockCallArgs(handlePromiseFailure);
       const result = (await queryPromise) as QueryResult;
+      console.log('Y DONE');
 
       expect(currentModule.isLoading()).toBe(false);
       expect(currentModule.isPending()).toBe(false);
@@ -226,6 +347,9 @@ describe(`graphQLModule`, () => {
         expect(currentModule.isLoading()).toBeFalsy();
         expect(currentModule.isPending()).toBeFalsy();
         expect(currentModule.getClientErrors()).toHaveLength(0);
+      } else if (expectToKeepResults) {
+        expect(currentModule.getData()).toBeDefined();
+        expect(currentModule.getResult()).toBeDefined();
       } else {
         expect(result).toBeUndefined();
         expect(currentModule.getData()).toBeUndefined();
@@ -236,6 +360,9 @@ describe(`graphQLModule`, () => {
         expect(error).toBeDefined();
         expect(currentModule.getClientErrors()).toHaveLength(1);
         expect((currentModule.getError() as GraphQLModuleError).type).toBe(expectedQueryError);
+      } else if (expectToKeepError) {
+        expect(currentModule.getClientErrors()).toHaveLength(1);
+        expect(currentModule.getError()).toBeDefined();
       } else {
         expect(error).toBeUndefined();
         expect(currentModule.getError()).toBeUndefined();
@@ -257,16 +384,27 @@ describe(`graphQLModule`, () => {
       sequenceResults.push(stepResults);
       /* eslint-enable jest/no-conditional-expect, no-await-in-loop, no-restricted-syntax */
     }
+    if (queryPromise) {
+      await to(queryPromise);
+    }
     return sequenceResults;
   };
 
+  const pickSequeceResponsesToInit = (sequence: TestQueryStep[]) => {
+    return sequence.map((s) => s.response).filter((r) => !!r) as ResponseType[];
+  };
+
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeAll(() => {
     enableFetchMocks();
+    // ApolloClient emits errors when cached data is invalid. That does not matter in these tests.
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => null);
   });
 
   beforeEach(() => {
     jest.useFakeTimers();
-    initResponder();
+    setResponders([{ path: mockedGraphQLUri }]);
   });
 
   afterEach(async () => {
@@ -286,6 +424,7 @@ describe(`graphQLModule`, () => {
 
   afterAll(() => {
     disableFetchMocks();
+    consoleErrorSpy.mockRestore();
   });
 
   it('The module is initiated in idle state.', async () => {
@@ -301,19 +440,11 @@ describe(`graphQLModule`, () => {
   });
 
   it('Query() executes a fetch and event signals are emitted. Result is stored', async () => {
-    const response = createSuccessResponse();
-    const testStep: TestQueryStep = {
-      response,
-      eventSignals: [graphQLModuleEvents.GRAPHQL_MODULE_LOADING, graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS],
-      expectedResult: (response.data as GraphQLQueryResult).data,
-      expectPromiseToFail: false,
-      expectedQueryError: undefined,
-      errorSignals: [],
-    };
+    const sequence = [createSuccessfulStep()];
     initTests({
-      responses: [testStep.response as ResponseType],
+      responses: pickSequeceResponsesToInit(sequence),
     });
-    const sequenceResults = await runTestSequence([testStep]);
+    const sequenceResults = await runTestSequence(sequence);
     const stepResult = sequenceResults[0];
     expect(sequenceResults).toHaveLength(1);
     expect(stepResult.error).toBeNull();
@@ -321,16 +452,11 @@ describe(`graphQLModule`, () => {
   });
 
   it('Failing queries are handled and error signals are emitted', async () => {
-    const testStep: TestQueryStep = {
-      response: errorResponse,
-      errorSignals: [graphQLModuleError.GRAPHQL_LOAD_FAILED],
-      expectedQueryError: graphQLModuleError.GRAPHQL_LOAD_FAILED,
-      expectPromiseToFail: false,
-    };
+    const sequence = [createErrorStep()];
     initTests({
-      responses: [testStep.response as ResponseType],
+      responses: pickSequeceResponsesToInit(sequence),
     });
-    const sequenceResults = await runTestSequence([testStep]);
+    const sequenceResults = await runTestSequence(sequence);
     const stepResult = sequenceResults[0];
     expect(sequenceResults).toHaveLength(1);
     expect(stepResult.error).not.toBeNull();
@@ -341,206 +467,204 @@ describe(`graphQLModule`, () => {
     expect(emittedErrors[0].originalError).toBeDefined();
   });
 
-  it('Clear() cancels query and removes all stored results', async () => {
+  it('Clear() cancels a query and removes all stored results and errors', async () => {
+    const successfulQueryWithClearStep: TestQueryStep = {
+      ...createQueryStepWithCancelOrClear('clear'),
+      response: createSuccessResponse({ id: 66 }),
+    };
+    const errorQueryWithClearStep: TestQueryStep = {
+      ...createErrorStep(),
+      ...createQueryStepWithCancelOrClear('clear'),
+      expectedQueryError: undefined,
+      errorSignals: undefined,
+    };
+
+    const sequence: TestQueryStep[] = [
+      createSuccessfulStep(),
+      createClearStep(),
+      successfulQueryWithClearStep,
+      errorQueryWithClearStep,
+    ];
     initTests({
-      responses: [successfulResponse, errorResponse, successfulResponse],
+      responses: pickSequeceResponsesToInit(sequence),
     });
-    const successPromise = currentModule.query();
-    await advanceUntilPromiseResolved(successPromise);
-    currentModule.clear();
-    expect(currentModule.getClientErrors()).toHaveLength(0);
-    expect(currentModule.getData()).toBeUndefined();
-    expect(currentModule.getError()).toBeUndefined();
-    expect(currentModule.getResult()).toBeUndefined();
-
-    const errorPromise = currentModule.query().catch(promiseCatcher);
-    await advanceUntilPromiseResolved(errorPromise);
-    currentModule.clear();
-    expect(currentModule.getClientErrors()).toHaveLength(0);
-    expect(currentModule.getData()).toBeUndefined();
-    expect(currentModule.getError()).toBeUndefined();
-    expect(currentModule.getResult()).toBeUndefined();
-
-    const abortedPromise = currentModule.query();
-    currentModule.clear();
-    await advanceUntilPromiseResolved(abortedPromise);
-    expect(currentModule.getClientErrors()).toHaveLength(0);
-    expect(currentModule.getData()).toBeUndefined();
-    expect(currentModule.getError()).toBeUndefined();
-    expect(currentModule.getResult()).toBeUndefined();
-
-    expect(getEmittedEventTypes()).toEqual([
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
-      graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
-    ]);
-  });
-
-  it('getQueryPromise() returns a the promise currently active query. Or a rejected promise if a query is not pending', async () => {
-    initTests({
-      responses: [successfulResponse],
-    });
-    const [err] = await to(currentModule.getQueryPromise());
-    expect(err).toBeDefined();
-    // this must be catched as it is returned from an async func
-    const promise = currentModule.query().catch(promiseCatcher);
-    // no need to catch this, it is catched in the module
-    const queryPromise = currentModule.getQueryPromise();
-    await advanceUntilPromiseResolved(promise);
-    const result1 = await queryPromise;
-    const result2 = await promise;
-    expect(result1).toMatchObject(result2);
+    const sequenceResults = await runTestSequence(sequence);
+    expect(sequenceResults).toHaveLength(4);
+    expect(getEmittedErrors()).toHaveLength(0);
+    expect(getEmittedEventTypes()).toHaveLength(9);
   });
 
   it('Cancel() aborts the query and emits signals', async () => {
+    const successfulQueryWithCancelStep: TestQueryStep = {
+      ...createQueryStepWithCancelOrClear('cancel'),
+      response: createSuccessResponse({ id: 66 }),
+    };
+    const errorQueryWithCancelStep: TestQueryStep = {
+      ...createErrorStep(),
+      ...createQueryStepWithCancelOrClear('cancel'),
+      expectedQueryError: undefined,
+      errorSignals: undefined,
+    };
+
+    const sequence: TestQueryStep[] = [
+      createSuccessfulStep(),
+      createCancelStep(true),
+      successfulQueryWithCancelStep,
+      createErrorStep(),
+      errorQueryWithCancelStep,
+    ];
     initTests({
-      responses: [successfulResponse, successfulResponse],
+      responses: pickSequeceResponsesToInit(sequence),
     });
-    expect(currentModule.isLoading()).toBeFalsy();
-    expect(currentModule.isPending()).toBeFalsy();
-    const abortedLoad = currentModule.query();
-    currentModule.cancel();
-    await advanceUntilPromiseResolved(abortedLoad);
-    const [abortErr, abortResult] = await to(abortedLoad);
-    expect(isAbortError((abortErr as ApolloError).networkError as Error)).toBeTruthy();
-    expect(abortResult).not.toBeDefined();
-    expect(currentModule.isLoading()).toBeFalsy();
-    expect(currentModule.isPending()).toBeFalsy();
-    expect(getEmittedEventTypes()).toEqual([
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
-    ]);
+    const sequenceResults = await runTestSequence(sequence);
+    expect(sequenceResults).toHaveLength(5);
+    expect(getEmittedErrors()).toHaveLength(1);
+    expect(getEmittedEventTypes()).toHaveLength(7);
   });
 
   it('Multiple query executions clear previous data and sets new', async () => {
-    const errorResponseStep: TestQueryStep = {
-      response: errorResponse,
-      errorSignals: [graphQLModuleError.GRAPHQL_LOAD_FAILED],
-      expectedQueryError: graphQLModuleError.GRAPHQL_LOAD_FAILED,
-    };
-    const abortStep: TestQueryStep = {
-      execute: () => {
-        const promise = currentModule.query().catch(promiseCatcher);
-        currentModule.cancel();
-        return promise;
-      },
-      willBePending: true,
-      willLoad: true,
-      expectPromiseToFail: true,
-      response: createSuccessResponse({ id: 66 }),
-      eventSignals: [graphQLModuleEvents.GRAPHQL_MODULE_LOADING, graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED],
-    };
-    const emptyCancel: TestQueryStep = {
-      execute: () => {
-        currentModule.cancel();
-        return Promise.resolve();
-      },
-    };
-    const emptyClear: TestQueryStep = {
-      execute: () => {
-        currentModule.clear();
-        return Promise.resolve();
-      },
-    };
     const sequence: TestQueryStep[] = [
       createSuccessfulStep(1),
+      createErrorStep(),
+      createCancelStep(false, true),
       createSuccessfulStep(2),
-      errorResponseStep,
-      abortStep,
+      createQueryStepWithCancelOrClear('cancel'),
       createSuccessfulStep(3),
-      errorResponseStep,
-      errorResponseStep,
-      emptyClear,
-      emptyCancel,
-      emptyCancel,
-      emptyClear,
+      createErrorStep(),
+      createErrorStep(),
+      createClearStep(),
+      createClearStep(),
+      createCancelStep(),
+      createCancelStep(),
+      createClearStep(),
       createSuccessfulStep(4),
       createSuccessfulStep(5),
     ];
     initTests({
-      responses: sequence.map((s) => s.response).filter((r) => !!r) as ResponseType[],
+      responses: pickSequeceResponsesToInit(sequence),
     });
 
     await runTestSequence(sequence);
   });
-  it('ApiToken update signal triggers load once', async () => {
+
+  it('If apiTokens exists on initialization, query is executed automatically', async () => {
+    const sequence: TestQueryStep[] = [{ ...createSuccessfulStep(), ...createAutoStartingQueryStepProps() }];
     initTests({
-      responses: [successfulResponse, successfulResponse],
+      responses: pickSequeceResponsesToInit(sequence),
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        requireApiTokens: true,
+      },
+    });
+    await runTestSequence(sequence);
+  });
+  it('ApiToken update signal triggers load only once', async () => {
+    const emitApiTokenChangeStepAndExpectQueryToStart: TestQueryStep = {
+      ...createSuccessfulStep(),
+      execute: async () => {
+        emitApiTokensUpdatedStateChange(defaultApiTokens);
+        return currentModule.getQueryPromise();
+      },
+    };
+
+    const emitApiTokenChangeStepWithNoChanges: TestQueryStep = {
+      ...createEmptyStep(),
+      execute: async () => {
+        emitApiTokensUpdatedStateChange(defaultApiTokens);
+        return Promise.resolve();
+      },
+    };
+
+    const sequence: TestQueryStep[] = [
+      createEmptyStep(),
+      emitApiTokenChangeStepAndExpectQueryToStart,
+      { ...emitApiTokenChangeStepWithNoChanges, expectToKeepResults: true },
+      createClearStep(),
+      emitApiTokenChangeStepWithNoChanges,
+    ];
+
+    initTests({
+      responses: pickSequeceResponsesToInit(sequence),
       moduleOptions: {
         requireApiTokens: true,
       },
       createApiTokenClient: true,
     });
     expect(currentModule.isLoading()).toBeFalsy();
-    act(() => {
-      emitApiTokensUpdatedStateChange(defaultApiTokens);
-    });
-    expect(currentModule.isLoading()).toBeTruthy();
-    const promise = currentModule.getQueryPromise();
-    await advanceUntilPromiseResolved(promise);
-    const [, result] = await to(promise);
-    expect(currentModule.isLoading()).toBeFalsy();
-    expect(result && result.data).toEqual(currentModule.getData());
-    expect(currentModule.getData()).toEqual(getResponseDataObj(successfulResponse));
-    act(() => {
-      emitApiTokensUpdatedStateChange(defaultApiTokens);
-    });
-    expect(currentModule.isLoading()).toBeFalsy();
-    expect(getEmittedEventTypes()).toEqual([
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
-    ]);
-    currentModule.clear();
-    act(() => {
-      emitApiTokensUpdatedStateChange(defaultApiTokens);
-    });
-    expect(currentModule.isLoading()).toBeFalsy();
+
+    await runTestSequence(sequence);
+
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
       graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
     ]);
   });
-  it('If apiTokens exists on initialization, query is executed automatically', async () => {
-    initTests({
-      responses: [successfulResponse, successfulResponse],
-      apiTokens: defaultApiTokens,
-      moduleOptions: {
-        requireApiTokens: true,
-      },
-    });
-    expect(currentModule.isLoading()).toBeTruthy();
-    const promise = currentModule.getQueryPromise();
-    await advanceUntilPromiseResolved(promise);
-    expect(getEmittedEventTypes()).toEqual([
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
-    ]);
-  });
   it('When querying twice and options.abortIfLoading is false, second query is not started and on-going promise is returned', async () => {
+    const queryAgainAfterFirstStep: TestQueryStep = {
+      ...createSuccessfulStep(),
+      postQueryTest: async () => {
+        const firstQueryPromise = currentModule.getQueryPromise();
+        currentModule.query();
+        const secondQueryPromise = currentModule.getQueryPromise();
+        expect(firstQueryPromise === secondQueryPromise).toBeTruthy();
+        return Promise.resolve();
+      },
+    };
+
+    const sequence = [queryAgainAfterFirstStep];
+
     initTests({
-      responses: [successfulResponse, successfulResponse],
+      responses: pickSequeceResponsesToInit(sequence),
       apiTokens: defaultApiTokens,
       moduleOptions: {
         abortIfLoading: false,
       },
     });
-    currentModule.query();
-    expect(getEmittedEventTypes()).toEqual([graphQLModuleEvents.GRAPHQL_MODULE_LOADING]);
-    const firstQueryPromise = currentModule.getQueryPromise();
-    currentModule.query();
-    const secondQueryPromise = currentModule.getQueryPromise();
-    expect(firstQueryPromise === secondQueryPromise).toBeTruthy();
-    await advanceUntilPromiseResolved(secondQueryPromise);
-    expect(getEmittedEventTypes()).toEqual([
-      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
-    ]);
+    await runTestSequence(sequence);
+  });
+  it.only('xxWhen querying twice and options.abortIfLoading is true (default), first query is aborted and new a one started', async () => {
+    const queryAgainAfterFirstStep: TestQueryStep = {
+      ...createSuccessfulStep(),
+      execute: async () => {
+        console.log('s1');
+        currentModule.query().catch(promiseCatcher);
+        const firstQueryPromise = currentModule.getQueryPromise();
+        console.log('s2');
+        const promise = currentModule.query().catch(promiseCatcher);
+
+        await waitFor(() => {
+          expect(getEmittedEventTypes()).toEqual([
+            graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+            graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
+            graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+          ]);
+        });
+
+        const secondQueryPromise = currentModule.getQueryPromise();
+        expect(firstQueryPromise === secondQueryPromise).toBeFalsy();
+        const res = await firstQueryPromise.catch(promiseCatcher);
+        console.log('F DONE', getLastMockCallArgs(promiseCatcher), res);
+        return secondQueryPromise;
+      },
+      eventSignals: [
+        graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+        graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
+        graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+        graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
+      ],
+    };
+
+    const sequence = [{ ...createEmptyStep(), response: createSuccessResponse() }, queryAgainAfterFirstStep];
+
+    initTests({
+      responses: pickSequeceResponsesToInit(sequence),
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        abortIfLoading: true,
+      },
+    });
+    await runTestSequence(sequence);
   });
   it('When querying twice and options.abortIfLoading is true (default), first query is aborted and new a one started', async () => {
     initTests({
@@ -574,6 +698,7 @@ describe(`graphQLModule`, () => {
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
     ]);
+    expect(promiseCatcher).toHaveBeenCalledTimes(1);
   });
   it('If apiTokens are required, but not ready, querying will return a rejected promise', async () => {
     initTests({
@@ -734,6 +859,21 @@ describe(`graphQLModule`, () => {
     expect(promiseCatcher).toHaveBeenCalledTimes(1);
     expect(currentModule.isLoading()).toBeFalsy();
     expect(result).toBeUndefined();
+  });
+  it('getQueryPromise() returns a the promise currently active query. Or a rejected promise if a query is not pending', async () => {
+    initTests({
+      responses: [successfulResponse],
+    });
+    const [err] = await to(currentModule.getQueryPromise());
+    expect(err).toBeDefined();
+    // this must be catched as it is returned from an async func
+    const promise = currentModule.query().catch(promiseCatcher);
+    // no need to catch this, it is catched in the module
+    const queryPromise = currentModule.getQueryPromise();
+    await advanceUntilPromiseResolved(promise);
+    const result1 = await queryPromise;
+    const result2 = await promise;
+    expect(result1).toMatchObject(result2);
   });
   it('props passed to query() override inital props passed when creating the module', async () => {
     const queryOptions: GraphQLModuleModuleProps['queryOptions'] = {
