@@ -14,22 +14,14 @@ import {
 } from '../testUtils/beaconTestUtil';
 import { createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
 import { createGraphQLModule } from './graphQLModule';
-import {
-  GraphQLCache,
-  GraphQLModule,
-  graphQLModuleEvents,
-  graphQLModuleNamespace,
-  GraphQLModuleState,
-  graphQLModuleStates,
-  GraphQLQueryResult,
-} from './index';
+import { GraphQLCache, GraphQLModule, graphQLModuleEvents, graphQLModuleNamespace, GraphQLQueryResult } from './index';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
 import { createApolloClientMock, mockedGraphQLUri } from './__mocks__/apolloClient.mock';
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace, TokenData } from '../apiTokensClient';
-import { mockResponse } from './__mocks__/mockResponses';
+import { createQueryResponse } from './__mocks__/mockResponses';
 import { USER_QUERY } from './__mocks__/mockData';
-import { useGraphQL, useGraphQLModule, UseGraphQLModuleHookObject, useGraphQLModuleTracking } from './hooks';
+import { useGraphQL, useGraphQLModule, useGraphQLModuleTracking } from './hooks';
 import { HookTestUtil, createHookTestEnvironment } from '../testUtils/hooks.testUtil';
 import { getGraphQLModuleEventPayload } from './signals';
 
@@ -37,13 +29,16 @@ const elementIds = {
   namespaceElement: 'graphql-namespace-element',
   errorElement: 'graphql-error-element',
   dataElement: 'graphql-data-element',
-  isLoadingElement: 'graphql-is-loading-element',
   queryButton: 'graphql-query-button',
   cancelButton: 'graphql-cancel-button',
+  clearButton: 'graphql-clear-button',
   refetchButton: 'graphql-refetch-button',
   lastSignal: 'last-signal-element',
   errorSignal: 'error-signal-element',
-  stateElement: 'graphql-state-element',
+  isLoading: 'graphql-is-loading-element',
+  isLoadingInHook: 'graphql-is-loading-in-hook-element',
+  isPending: 'graphql-is-pending-element',
+  notUpdatingRenderTime: 'graphql-not-updating-render-time-element',
 } as const;
 
 type ResponseType = { returnedStatus: HttpStatusCode; data?: GraphQLQueryResult | null; error?: Error };
@@ -52,7 +47,12 @@ let testUtil: HookTestUtil;
 const mockMapForAbort = createMockTestUtil();
 
 describe(`graphQLModule`, () => {
-  const successfulResponse: ResponseType = { returnedStatus: HttpStatusCode.OK, data: mockResponse };
+  const createSuccessResponse = (overrides: { id?: number; name?: string; profile?: unknown } = {}): ResponseType => {
+    return { returnedStatus: HttpStatusCode.OK, data: createQueryResponse(overrides) };
+  };
+
+  const successfulResponse: ResponseType = createSuccessResponse();
+
   const errorResponse: ResponseType = {
     returnedStatus: HttpStatusCode.SERVICE_UNAVAILABLE,
     error: new Error('Failed'),
@@ -65,55 +65,82 @@ describe(`graphQLModule`, () => {
   let apiTokenStorage: TokenData | null = null;
   const defaultApiTokens: TokenData = { token1: 'token1', token2: 'token2' };
 
-  const Output = ({ obj }: { obj: UseGraphQLModuleHookObject<GraphQLCache, GraphQLQueryResult> }) => {
-    const { data, loading, error } = obj;
+  const GraphQLHookOutput = () => {
+    const [, { data, loading, error }] = useGraphQL();
     return (
       <div>
         <span id={elementIds.dataElement}>{data ? JSON.stringify(data) : ''}</span>
-        <span id={elementIds.errorElement}>{error ? JSON.stringify(error.type) : ''}</span>
-        <span id={elementIds.isLoadingElement}>{String(loading)}</span>
+        <span id={elementIds.errorElement}>{error ? error.type : ''}</span>
+        <span id={elementIds.isLoadingInHook}>{String(loading)}</span>
       </div>
     );
   };
 
-  const Actions = ({ query, cancel }: Pick<GraphQLModule<GraphQLCache, GraphQLQueryResult>, 'query' | 'cancel'>) => {
+  const ActionButtons = () => {
+    const graphQLModule = useGraphQLModule();
+    const [query] = useGraphQL();
     const onQueryClick = () => {
       query();
     };
     const onCancelClick = () => {
-      cancel();
+      graphQLModule.cancel();
+    };
+    const onClearClick = () => {
+      graphQLModule.clear();
     };
     return (
       <div>
         <button type="button" id={elementIds.queryButton} onClick={onQueryClick}>
-          query
+          Query
         </button>
         <button type="button" id={elementIds.cancelButton} onClick={onCancelClick}>
-          cancel
+          Cancel
         </button>
+        <button type="button" id={elementIds.clearButton} onClick={onClearClick}>
+          Clear
+        </button>
+      </div>
+    );
+  };
+
+  const NotListeningComponent = () => {
+    const graphQLModule = useGraphQLModule<GraphQLCache, GraphQLQueryResult>();
+    return (
+      <div>
+        <span key="namespace" id={elementIds.namespaceElement}>
+          {graphQLModule.namespace}
+        </span>
+        <span key="notUpdatingRenderTime" id={elementIds.notUpdatingRenderTime}>
+          {Date.now()}
+        </span>
+      </div>
+    );
+  };
+
+  const ListeningComponent = () => {
+    useGraphQLModuleTracking();
+    const graphQLModule = useGraphQLModule<GraphQLCache, GraphQLQueryResult>();
+    return (
+      <div>
+        <span key="isLoading" id={elementIds.isLoading}>
+          {String(graphQLModule.isLoading())}
+        </span>
+        <span key="isPending" id={elementIds.isPending}>
+          {String(graphQLModule.isPending())}
+        </span>
       </div>
     );
   };
 
   const GraphQLModuleCheck = () => {
-    try {
-      const graphQLModule = useGraphQLModule<GraphQLCache, GraphQLQueryResult>();
-      const [query, obj] = useGraphQL();
-      return (
-        <div>
-          <span key="namespace" id={elementIds.namespaceElement}>
-            {graphQLModule.namespace}
-          </span>
-          <span key="state" id={elementIds.stateElement}>
-            {graphQLModule.getState()}
-          </span>
-          <Output key="output" obj={obj} />
-          <Actions key="actions" query={query} cancel={graphQLModule.cancel} />
-        </div>
-      );
-    } catch (error) {
-      return <span id={elementIds.errorElement}>{error ? error.message : ''}</span>;
-    }
+    return (
+      <div>
+        <ListeningComponent />
+        <NotListeningComponent />
+        <GraphQLHookOutput />
+        <ActionButtons />
+      </div>
+    );
   };
 
   const SignalCheck = () => {
@@ -206,17 +233,29 @@ describe(`graphQLModule`, () => {
     const getData = () => {
       return testUtil.getElementJSON(elementIds.dataElement);
     };
+    const getErrorType = () => {
+      return testUtil.getInnerHtml(elementIds.errorElement);
+    };
     const clickLoadButton = () => {
       return testUtil.clickElement(elementIds.queryButton);
     };
     const clickCancelButton = () => {
       return testUtil.clickElement(elementIds.cancelButton);
     };
-    const getIsLoading = () => {
-      return testUtil.getInnerHtml(elementIds.isLoadingElement) === 'true';
+    const clickClearButton = () => {
+      return testUtil.clickElement(elementIds.clearButton);
     };
-    const getState = () => {
-      return testUtil.getInnerHtml(elementIds.stateElement);
+    const getIsLoading = () => {
+      if (testUtil.getInnerHtml(elementIds.isLoading) !== testUtil.getInnerHtml(elementIds.isLoadingInHook)) {
+        throw new Error('isLoading hook mismatch');
+      }
+      return testUtil.getInnerHtml(elementIds.isLoading) === 'true';
+    };
+    const getIsPending = () => {
+      return testUtil.getInnerHtml(elementIds.isPending) === 'true';
+    };
+    const getNotListeningComponentRenderTime = () => {
+      return parseInt(testUtil.getInnerHtml(elementIds.notUpdatingRenderTime), 10);
     };
     const waitForReturnValueChange = async (func: () => unknown, advanceTime = 0) => {
       const current = func();
@@ -230,8 +269,8 @@ describe(`graphQLModule`, () => {
       });
     };
 
-    const waitForStateChange = async (advanceTime = 0) => {
-      await waitForReturnValueChange(getState, advanceTime);
+    const waitForIsLoadingChange = async (advanceTime = 0) => {
+      await waitForReturnValueChange(getIsLoading, advanceTime);
     };
     const waitForDataChange = async (advanceTime = 0) => {
       await waitForReturnValueChange(getData, advanceTime);
@@ -247,8 +286,8 @@ describe(`graphQLModule`, () => {
         }
       });
     };
-    const waitForState = async (state: GraphQLModuleState, advanceTime = 0) => {
-      await waitForValue(getState, advanceTime, state);
+    const waitForIsLoadingToMatch = async (isLoading: boolean, advanceTime = 0) => {
+      await waitForValue(getIsLoading, advanceTime, isLoading);
     };
 
     const emitApiTokensUpdatedStateChange = (tokens: TokenData) => {
@@ -260,13 +299,16 @@ describe(`graphQLModule`, () => {
     return {
       ...testUtil,
       getData,
-      getState,
+      getErrorType,
+      getIsPending,
       getIsLoading,
       clickLoadButton,
       clickCancelButton,
-      waitForStateChange,
+      clickClearButton,
+      waitForIsLoadingChange,
       waitForDataChange,
-      waitForState,
+      waitForIsLoadingToMatch,
+      getNotListeningComponentRenderTime,
       emitApiTokensUpdatedStateChange,
     };
   };
@@ -315,20 +357,33 @@ describe(`graphQLModule`, () => {
     disableFetchMocks();
   });
 
-  it('blaa blaa ball', async () => {
-    const { clickLoadButton, getState, getIsLoading, waitForDataChange, getData, waitForState } = initTests({
+  it('Components can use hooks and make queries and components update when module updates.', async () => {
+    const {
+      clickLoadButton,
+      getIsPending,
+      getIsLoading,
+      waitForDataChange,
+      getData,
+      getErrorType,
+      waitForIsLoadingToMatch,
+      getNotListeningComponentRenderTime,
+    } = initTests({
       responses: [successfulResponse, errorResponse],
     });
-    expect(getState()).toBe(graphQLModuleStates.IDLE);
+    // track re-render time of the component using just the useGraphQLModule
+    const initialRenderTime = getNotListeningComponentRenderTime();
     expect(getIsLoading()).toBeFalsy();
+    expect(getIsPending()).toBeFalsy();
     clickLoadButton();
-    await waitForState(graphQLModuleStates.LOADING);
+    await waitForIsLoadingToMatch(true);
 
     expect(getIsLoading()).toBeTruthy();
+    expect(getIsPending()).toBeTruthy();
 
     await waitForDataChange(200);
-    expect(getState()).toBe(graphQLModuleStates.IDLE);
+    await waitForIsLoadingToMatch(false);
     expect(getIsLoading()).toBeFalsy();
+    expect(getIsPending()).toBeFalsy();
 
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
@@ -336,96 +391,150 @@ describe(`graphQLModule`, () => {
     ]);
 
     expect(getData()).toEqual(getResponseDataObj(successfulResponse));
+    expect(getErrorType()).toEqual('');
 
     clickLoadButton();
-    await waitForState(graphQLModuleStates.LOADING);
-    await waitForState(graphQLModuleStates.IDLE);
+    await waitForIsLoadingToMatch(true);
+    await waitForIsLoadingToMatch(false);
     expect(getIsLoading()).toBeFalsy();
+    expect(getIsPending()).toBeFalsy();
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
     ]);
     expect(getEmittedErrors()[0].type).toEqual(graphQLModuleError.GRAPHQL_LOAD_FAILED);
+    expect(getErrorType()).toEqual(graphQLModuleError.GRAPHQL_LOAD_FAILED);
+    expect(getData()).toEqual(null);
+    // make sure the component using just the useGraphQLModule hook is not auto-rerendered
+    expect(getNotListeningComponentRenderTime()).toBe(initialRenderTime);
   });
-  it('Abort', async () => {
-    const { clickLoadButton, clickCancelButton, waitForState } = initTests({
+  it('Cancel() works', async () => {
+    const { clickLoadButton, clickCancelButton, waitForIsLoadingToMatch, getErrorType, getData } = initTests({
       responses: [successfulResponse, successfulResponse],
     });
     clickLoadButton();
-    await waitForState(graphQLModuleStates.LOADING);
+    await waitForIsLoadingToMatch(true);
     clickCancelButton();
-    await waitForState(graphQLModuleStates.IDLE);
+    await waitForIsLoadingToMatch(false);
     expect(getEmittedErrors().length).toBe(0);
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
     ]);
+    expect(getErrorType()).toEqual('');
+    expect(getData()).toEqual(null);
+  });
+  it('clear() works', async () => {
+    const { clickLoadButton, clickClearButton, waitForDataChange, getData, getErrorType, waitForIsLoadingToMatch } =
+      initTests({
+        responses: [successfulResponse, successfulResponse],
+      });
+
+    clickLoadButton();
+    await waitForIsLoadingToMatch(true);
+    await waitForDataChange(200);
+    clickLoadButton();
+    await waitForIsLoadingToMatch(true);
+
+    clickClearButton();
+    await waitForIsLoadingToMatch(false);
+
+    expect(getEmittedEventTypes()).toEqual([
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
+    ]);
+    expect(getData()).toEqual(null);
+    expect(getErrorType()).toEqual('');
   });
 
-  it('Multiload', async () => {
-    const { clickLoadButton, getState, getIsLoading, waitForDataChange, getData, waitForState } = initTests({
-      responses: [successfulResponse, successfulResponse],
+  it('Calling query multiple times is handled', async () => {
+    const responses = [
+      createSuccessResponse({ id: 1 }),
+      createSuccessResponse({ id: 2 }),
+      errorResponse,
+      createSuccessResponse({ id: 3 }),
+      createSuccessResponse({ id: 4 }),
+    ];
+    const { clickLoadButton, getErrorType, waitForDataChange, getData, waitForIsLoadingToMatch } = initTests({
+      responses,
     });
     clickLoadButton();
-    await waitForState(graphQLModuleStates.LOADING);
-
-    expect(getIsLoading()).toBeTruthy();
-
     await waitForDataChange(200);
-    expect(getState()).toBe(graphQLModuleStates.IDLE);
-    expect(getIsLoading()).toBeFalsy();
+    await waitForIsLoadingToMatch(false);
 
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
     ]);
 
-    expect(getData()).toEqual(getResponseDataObj(successfulResponse));
+    expect(getData()).toEqual(getResponseDataObj(responses[0]));
+    expect(getErrorType()).toEqual('');
 
     clickLoadButton();
-    await waitForState(graphQLModuleStates.LOADING);
-    await waitForState(graphQLModuleStates.IDLE);
-    expect(getIsLoading()).toBeFalsy();
+    await waitForDataChange(200);
+    await waitForIsLoadingToMatch(false);
+    expect(getData()).toEqual(getResponseDataObj(responses[1]));
+    expect(getErrorType()).toEqual('');
+
+    clickLoadButton();
+    await waitForDataChange(200);
+    await waitForIsLoadingToMatch(false);
+    expect(getData()).toEqual(null);
+    expect(getErrorType()).toEqual(graphQLModuleError.GRAPHQL_LOAD_FAILED);
+
+    clickLoadButton();
+    await waitForIsLoadingToMatch(true);
+    // second load aborts previous signal
+    clickLoadButton();
+    await waitForIsLoadingToMatch(false);
+    expect(getData()).toEqual(getResponseDataObj(responses[4]));
+    expect(getErrorType()).toEqual('');
+
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
     ]);
   });
   it('ApiTokens updated event triggers load', async () => {
-    const { waitForDataChange, waitForState, emitApiTokensUpdatedStateChange } = initTests({
+    const { waitForDataChange, waitForIsLoadingToMatch, emitApiTokensUpdatedStateChange } = initTests({
       responses: [successfulResponse, successfulResponse],
       requireApiTokens: true,
       createApiTokenClient: true,
     });
-    await waitForState(graphQLModuleStates.IDLE);
+    await waitForIsLoadingToMatch(false);
     act(() => {
       emitApiTokensUpdatedStateChange(defaultApiTokens);
     });
 
-    await waitForState(graphQLModuleStates.LOADING);
+    await waitForIsLoadingToMatch(true);
     await waitForDataChange(200);
-    await waitForState(graphQLModuleStates.IDLE);
+    await waitForIsLoadingToMatch(false);
     expect(getEmittedEventTypes()).toEqual([
       graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
       graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
     ]);
   });
-  it('If apiTokens exists', async () => {
-    // An error with "....inside a test was not wrapped in act" is shown with or without act.
-    // Keeping it here to show it has been attempted.
-    // Signals will auto render component, which causes this
+  it('If apiTokens exists, query is triggered automatically.', async () => {
     await act(async () => {
-      const { waitForDataChange, waitForState } = initTests({
+      const { waitForDataChange, waitForIsLoadingToMatch } = initTests({
         responses: [successfulResponse, successfulResponse],
         apiTokens: defaultApiTokens,
         requireApiTokens: true,
       });
-      await waitForState(graphQLModuleStates.LOADING);
+      await waitForIsLoadingToMatch(true);
       await waitForDataChange(200);
-      await waitForState(graphQLModuleStates.IDLE);
+      await waitForIsLoadingToMatch(false);
       expect(getEmittedEventTypes()).toEqual([
         graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
         graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,

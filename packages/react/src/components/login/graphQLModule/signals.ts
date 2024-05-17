@@ -12,6 +12,7 @@ import {
   checkErrorSignalPayload,
   createErrorTriggerProps,
   checkEventSignalPayload,
+  createEventTriggerProps,
 } from '../beacon/signals';
 import { graphQLModuleError, GraphQLModuleError, GraphQLModuleErrorType } from './graphQLModuleError';
 
@@ -47,7 +48,7 @@ export function isGraphQLModuleNoClientErrorSignal(signal: Signal): boolean {
   );
 }
 
-export function isGraphQLModuleLoadErrorSignal(signal: Signal): boolean {
+export function isGraphQLModuleLoadFailedSignal(signal: Signal): boolean {
   return (
     isGraphQLModuleSignal(signal) &&
     checkErrorSignalPayload(signal, (errorPayload) => (errorPayload as GraphQLModuleError).isLoadError)
@@ -60,8 +61,8 @@ export function isGraphQLModuleLoadErrorSignal(signal: Signal): boolean {
 
 export function createGraphQLModuleEventSignal({
   type,
-  data,
-}: GraphQLModuleEventSignal['payload']): GraphQLModuleEventSignal {
+  data = null,
+}: Partial<GraphQLModuleEventSignal['payload']>): GraphQLModuleEventSignal {
   return createEventSignal(graphQLModuleNamespace, {
     type,
     data,
@@ -72,32 +73,64 @@ export function createGraphQLModuleErrorSignal(error: GraphQLModuleError): Error
   return createErrorSignal(graphQLModuleNamespace, error);
 }
 
+/**
+ *  trigger creators
+ */
+
 export function createTriggerPropsForAllGraphQLModuleSignals(): SignalTriggerProps {
   return createTriggerPropsForAllSignals(graphQLModuleNamespace);
 }
 
+function createGraphQLModuleErrorTrigger(error: GraphQLModuleErrorType): SignalTrigger {
+  return createSignalTrigger(createErrorTriggerProps(graphQLModuleNamespace, error));
+}
+
+function createGraphQLModuleEventTrigger(type: GraphQLModuleEvent): SignalTrigger {
+  return createSignalTrigger(createEventTriggerProps(graphQLModuleNamespace, type));
+}
+
 /**
- *  trigger creators
+ * Triggers
  */
 
 export const triggerForAllGraphQLModuleSignals: SignalTrigger = createSignalTrigger(
   createTriggerPropsForAllGraphQLModuleSignals(),
 );
 
-function createGraphQLModuleClientErrorTrigger(error: GraphQLModuleErrorType): SignalTrigger {
-  return createSignalTrigger(createErrorTriggerProps(graphQLModuleNamespace, error));
-}
+export const triggerForAllGraphQLModuleEvents: SignalTrigger = createSignalTrigger(
+  createEventTriggerProps(graphQLModuleNamespace),
+);
 
-export const loadFailedErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(
+export const triggerForAllGraphQLModuleErrors: SignalTrigger = createSignalTrigger(
+  createErrorTriggerProps(graphQLModuleNamespace),
+);
+
+export const loadFailedErrorTrigger: SignalTrigger = createGraphQLModuleErrorTrigger(
   graphQLModuleError.GRAPHQL_LOAD_FAILED,
 );
 
-export const noApiTokensErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(
+export const noApiTokensErrorTrigger: SignalTrigger = createGraphQLModuleErrorTrigger(
   graphQLModuleError.GRAPHQL_NO_API_TOKENS,
 );
 
-export const noClientErrorTrigger: SignalTrigger = createGraphQLModuleClientErrorTrigger(
+export const noClientErrorTrigger: SignalTrigger = createGraphQLModuleErrorTrigger(
   graphQLModuleError.GRAPHQL_NO_CLIENT,
+);
+
+export const graphQLModuleClearedTrigger: SignalTrigger = createGraphQLModuleEventTrigger(
+  graphQLModuleEvents.GRAPHQL_MODULE_CLEARED,
+);
+
+export const graphQLModuleLoadingTrigger: SignalTrigger = createGraphQLModuleEventTrigger(
+  graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+);
+
+export const graphQLModuleLoadAbortedTrigger: SignalTrigger = createGraphQLModuleEventTrigger(
+  graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED,
+);
+
+export const graphQLModuleLoadSuccessTrigger: SignalTrigger = createGraphQLModuleEventTrigger(
+  graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
 );
 
 /**

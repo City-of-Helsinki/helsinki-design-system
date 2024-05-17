@@ -92,18 +92,17 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         error = undefined;
         result = queryResult;
         state = graphQLModuleStates.IDLE;
-        dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS, getData());
         queryPromise = undefined;
+        dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS, getData());
       })
       .catch((queryError: ApolloError) => {
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
+        result = undefined;
         if (isAbortError(queryError.networkError as Error)) {
-          result = undefined;
           error = undefined;
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
         } else {
-          result = undefined;
           error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError);
           dedicatedBeacon.emitError(error);
         }
