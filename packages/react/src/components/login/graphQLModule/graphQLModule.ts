@@ -89,7 +89,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     queryPromise = promise;
     queryPromise
       .then((queryResult: ApolloQueryResult<Q>) => {
-        console.log('Q end ok');
         error = undefined;
         result = queryResult;
         state = graphQLModuleStates.IDLE;
@@ -97,7 +96,6 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         queryPromise = undefined;
       })
       .catch((queryError: ApolloError) => {
-        console.log('Q end fail');
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
         if (isAbortError(queryError.networkError as Error)) {
@@ -160,6 +158,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
         return Promise.resolve(true);
       })
       .catch(() => {
+        apiTokenAwaitPromise = null;
         return Promise.resolve(false);
       });
 
@@ -173,10 +172,8 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
     }
     // abort and wait for current promise to end
     if (queryPromise) {
-      console.log('----A');
       fetchAborter.abort();
       await queryPromise.catch(emptyPromiseCatcher);
-      console.log('----B');
     }
     if (props.graphQLClient) {
       client = props.graphQLClient;
