@@ -22,19 +22,21 @@ import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
 import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
-import { mergeQueryOptionsToModuleProps } from './utils';
+import { mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps, setBearerToQueryOptions } from './utils';
 
 export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   graphQLClient,
   query,
   queryOptions,
   options = {},
-  queryHelper = (queryProps) => queryProps,
+  queryHelper,
 }: GraphQLModuleModuleProps<T, Q>): GraphQLModule<T, Q> {
   const mergedOptions = {
     ...defaultOptions,
     ...options,
   };
+
+  const optionModifier = mergeQueryOptionModifiers({ options, queryHelper });
 
   // custom beacon for sending signals in graphQLModuleNamespace
   const dedicatedBeacon = createNamespacedBeacon(graphQLModuleNamespace);
@@ -212,7 +214,7 @@ export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
           context,
         };
       };
-      const promise = client.query<Q>(queryHelper(mergeProps(), getApiTokensClient(), dedicatedBeacon.getBeacon()));
+      const promise = client.query<Q>(optionModifier(mergeProps(), getApiTokensClient(), dedicatedBeacon.getBeacon()));
       state = graphQLModuleStates.LOADING;
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOADING);
       return handleQueryPromise(promise);

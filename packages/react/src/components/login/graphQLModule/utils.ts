@@ -2,6 +2,7 @@ import { QueryOptions } from '@apollo/client/core';
 import { merge } from 'lodash';
 
 import { GraphQLModuleModuleProps } from '.';
+import { ApiTokenClient } from '../apiTokensClient';
 
 type PartialContext = Partial<QueryOptions['context']>;
 type QueryHeaders = Record<string, unknown>;
@@ -14,7 +15,6 @@ export function mergeQueryOptionContexts(options: QueryOptions, overrideContext:
   const context: PartialContext = options.context || {};
   // eslint-disable-next-line no-param-reassign
   options.context = mergeQueryOptionsContexts(context, overrideContext);
-
   return options;
 }
 
@@ -33,7 +33,10 @@ export function mergeAuthorizationHeaderToQueryOptions(options: QueryOptions, au
 }
 
 export function mergeQueryOptions(target: Partial<QueryOptions<unknown>>, overrides: Partial<QueryOptions<unknown>>) {
-  return merge(target, overrides);
+  const { query } = overrides;
+  // eslint-disable-next-line no-param-reassign
+  target.query = undefined;
+  return { ...merge(target, overrides), query };
 }
 
 export function mergeQueryOptionsToModuleProps<T, Q>(
@@ -43,4 +46,48 @@ export function mergeQueryOptionsToModuleProps<T, Q>(
   // eslint-disable-next-line no-param-reassign
   target.queryOptions = mergeQueryOptions(target.queryOptions || {}, queryOptions);
   return target;
+}
+
+export function setBearerToQueryOptions(token: string, queryOptions: QueryOptions) {
+  if (!token) {
+    return queryOptions;
+  }
+  return mergeAuthorizationHeaderToQueryOptions(queryOptions, `Bearer ${token}`);
+}
+
+export function mergeQueryOptionModifiers({
+  options,
+  queryHelper,
+}: Pick<GraphQLModuleModuleProps, 'queryHelper' | 'options'>): Required<GraphQLModuleModuleProps>['queryHelper'] {
+  const { apiTokenKey } = options || {};
+  if (!apiTokenKey || !queryHelper) {
+    return (opt: QueryOptions) => opt;
+  }
+
+  if (!apiTokenKey) {
+    return queryHelper;
+  }
+
+  const tokenPicker = (apiTokenClient: ApiTokenClient, key: string) => {
+    if (!apiTokenClient) {
+      return undefined;
+    }
+    const tokens = apiTokenClient.getTokens();
+    return tokens ? tokens[key] : undefined;
+  };
+
+  const apiTokenSetter: GraphQLModuleModuleProps['queryHelper'] = (opt, apiTokenClient) => {
+    if (!apiTokenKey || !apiTokenClient) {
+      return opt;
+    }
+    const token = tokenPicker(apiTokenClient, apiTokenKey);
+    if (token) {
+      return setBearerToQueryOptions(token, opt);
+    }
+    return opt;
+  };
+
+  return (opt, apiTokenClient, beacon) => {
+    return queryHelper(apiTokenSetter(opt, apiTokenClient, beacon), apiTokenClient, beacon);
+  };
 }

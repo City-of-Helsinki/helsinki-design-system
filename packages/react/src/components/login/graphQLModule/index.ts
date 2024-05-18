@@ -40,6 +40,7 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
     abortIfLoading: boolean;
     keepOldResultOnError: boolean;
     apiTokensWaitTime: number;
+    apiTokenKey?: string;
   }>;
   query?: TypedDocumentNode<Q, OperationVariables>;
   queryHelper?: (
