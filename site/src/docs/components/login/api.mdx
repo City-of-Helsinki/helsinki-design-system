@@ -70,10 +70,12 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Oidc Client</AnchorLink>
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
+  - <AnchorLink>GraphQL module</AnchorLink>
 
 - <AnchorLink>Oidc client hooks</AnchorLink>
 - <AnchorLink>Api tokens client hooks</AnchorLink>{' '}
 - <AnchorLink>Session poller hooks</AnchorLink>{' '}
+- <AnchorLink>GraphQL module hooks</AnchorLink>{' '}
 - <AnchorLink>Generic signal hooks</AnchorLink>{' '}
 
 - <AnchorLink>Beacon</AnchorLink>
@@ -563,6 +565,125 @@ If the given signal is not from the `Session poller` or is not given type, the f
 | `getSessionPollerEventPayload`                    | `null` or `{type, data}`. The data is usually tokens.                                       |
 | [Table 37: Session poller signal payload getters] |
 
+#### GraphQL Module
+
+Loading data from a graphQL server sometimes requires user authentication and api tokens. The GraphQL module can be set to listen the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
+
+The module can also be used without api tokens and can be controlled manually.
+
+##### Requirements
+
+Uri for the server, ApolloClient and a query document. No other requirements unless the query needs authentication.
+
+##### Settings
+
+| Property                            | Type                                                                                                   | Description                                                                                                             | Default value |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `graphQLClient`                     | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink> | Optional property, but must be set before query in executed. Can be set with ´setApolloClient´ or when calling `query`. | -             |
+| `query`                             | `TypedDocumentNode<Q, OperationVariables> or DocumentNode`                                             | ---- .                                                                                                                  | -             |
+| `queryHelper`                       | `(current:QueryOptions, apiTokenClient?: ApiTokenClient, beacon?:Beacon)=>QueryOptions`                | ---- .                                                                                                                  | -             |
+| `options`                           | ---                                                                                                    | ---- .                                                                                                                  | -             |
+| `options.autoFetch`                 | `boolean`                                                                                              | ---- .                                                                                                                  | -             |
+| `options.requireApiTokens`          | `boolean`                                                                                              | ---- .                                                                                                                  | -             |
+| `options.abortIfLoading`            | `boolean`                                                                                              | ---- .                                                                                                                  | -             |
+| `options.keepOldResultOnError`      | `boolean`                                                                                              | ---- .                                                                                                                  | -             |
+| `options.apiTokensWaitTime`         | `number`                                                                                               | ---- .                                                                                                                  | -             |
+| `options.apiTokenKey`               | `string`                                                                                               | ---- .                                                                                                                  | -             |
+| `queryOptions`                      | `Omit<QueryOptions<OperationVariables, Q>, 'query'>`                                                   | ---- .                                                                                                                  | -             |
+| [Table 29: GraphQL module settings] |
+
+##### Methods
+
+| Property                           | Description | Argument(s) | Return value |
+| ---------------------------------- | ----------- | ----------- | ------------ |
+| `query`                            | ----        |             | ------------ |
+| [Table 30: GraphQL module methods] |
+
+##### Other exported utility functions
+
+The following function can be imported and used without the `GraphQL module` module:
+
+| Property                                   | Description         | Argument(s)           | Return value    |
+| ------------------------------------------ | ------------------- | --------------------- | --------------- |
+| `createGraphQLModule(options)`             | Creates the module. | GraphQLModuleOptions. | `GraphQLModule` |
+| [Table 31: Other GraphQL module functions] |
+
+<PlaygroundPreview>
+
+```jsx
+import { createSessionPoller } from 'hds-react';
+
+const sessionPoller = createSessionPoller();
+```
+
+</PlaygroundPreview>
+
+##### State change signals
+
+The `Session poller` has no state changes.
+
+##### Error signal types
+
+Returned errors are instances of the `SessionPollerError`. It is an extended Error object with type property and multiple `.is...` getters for checking error types. The error object also contains the thrown error in `error.originalError` property.
+
+| Error type                                   | Description                                                  | Error object property to check  | Utility function to check the signal    |
+| -------------------------------------------- | ------------------------------------------------------------ | ------------------------------- | --------------------------------------- |
+| `SESSION_ENDED`                              | The server returned a forbidden or unauthorized status code. | `error.isSessionEnded`          | `isSessionEndedSignal(signal) `         |
+| `SESSION_POLLING_FAILED`                     | Polling has failed and max retries have been reached.        | `error.isSessionPollingFailure` | `isSessionPollingFailureSignal(signal)` |
+| [Table 32: Other Session poller error types] |
+
+##### Event signals
+
+The `Session poller` also emits events when an action is complete or starting.
+
+| Event type                                   | Description          | Utility function to check the signal   |
+| -------------------------------------------- | -------------------- | -------------------------------------- |
+| `SESSION_POLLING_STARTED`                    | Polling has started. | `isSessionPollerStartedSignal(signal)` |
+| `SESSION_POLLING_STOPPED`                    | Polling has stopped. | `isSessionPollerStoppedSignal(signal)` |
+| [Table 33: Other Session poller event types] |
+
+##### Dedicated signal triggers
+
+Triggers for `Session poller`signals. These trigger signals only originated from the `Session poller`.
+
+| Generic triggers                    | Required signal props to trigger the listener |
+| ----------------------------------- | --------------------------------------------- |
+| `triggerForAllSessionPollerErrors`  | `Session poller` namespace and type `error`.  |
+| `triggerForAllSessionPollerEvents`  | `Session poller` namespace and type `event`.  |
+| `triggerForAllSessionPollerSignals` | `Session poller` namespace.                   |
+| [Table 34: Session poller triggers] |
+
+Event triggers require the signal to have a `Session poller` namespace and type `event`.
+`Signal.payload.type` contains one of the <AnchorLink anchor="event-signals-2">events</AnchorLink>.
+
+| Event triggers                            | Required signal props to trigger the listener |
+| ----------------------------------------- | --------------------------------------------- |
+| `sessionPollingStartedTrigger`            | `payload.type` has a matching event.          |
+| `sessionPollingStoppedTrigger`            | `payload.type` has a matching event.          |
+| [Table 35: Session poller event triggers] |
+
+Error triggers require the signal to have a `Session poller`namespace and type `error`.
+`Signal.payload.type` contains one of the <AnchorLink anchor="error-signal-types-2">errors</AnchorLink>.
+
+| Error triggers                            | Required signal props to trigger the listener |
+| ----------------------------------------- | --------------------------------------------- |
+| `sessionEndedTrigger`                     | `payload.type` has a matching error.          |
+| `sessionPollingFailedTrigger`             | `payload.type` has a matching error.          |
+| [Table 36: Session poller error triggers] |
+
+##### Getting signal payloads
+
+Sometimes the most significant part of a signal is the payload. There are predefined payload getters for the `Session poller`.
+If the given signal is not from the `Session poller` or is not given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                    | Returns                                                                                     |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `getSessionPollerErrorPayload`                    | `null` or <AnchorLink anchor="error-signal-types-2">SessionPollerError</AnchorLink> object. |
+| `getSessionPollerEventPayload`                    | `null` or `{type, data}`. The data is usually tokens.                                       |
+| [Table 37: Session poller signal payload getters] |
+
+xxxx
+
 #### Oidc client hooks
 
 | Hook                          | Description                                                                                                                                                       | Return value                                        |
@@ -593,6 +714,16 @@ The usage of the `Api tokens client` hooks is described in the <UsagePageAnchorL
 | `useSessionPoller`               | Returns the `Session poller`.                                                                                                                                   | `SessionPoller`                                  |
 | `useSessionPollerTracking`       | Returns an array of `[Signal, resetFunction, sessionPoller instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[Signal or undefined, ()=>void, SessionPoller]` |
 | [Table 40: Session poller hooks] |
+
+The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink anchor="usesessionpoller">usage</UsagePageAnchorLink> section.
+
+#### GraphQL module hooks
+
+| Hook                             | Description                                                                                                                                                     | Return value                                     |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `useSessionPoller`               | Returns the `Session poller`.                                                                                                                                   | `SessionPoller`                                  |
+| `useSessionPollerTracking`       | Returns an array of `[Signal, resetFunction, sessionPoller instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[Signal or undefined, ()=>void, SessionPoller]` |
+| [Table 4x: Session poller hooks] |
 
 The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink anchor="usesessionpoller">usage</UsagePageAnchorLink> section.
 
