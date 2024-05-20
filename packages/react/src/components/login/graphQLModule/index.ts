@@ -6,6 +6,7 @@ import {
   NormalizedCacheObject,
   ApolloQueryResult,
   ApolloError,
+  DocumentNode,
 } from '@apollo/client/core';
 
 import { ApiTokenClient } from '../apiTokensClient';
@@ -42,7 +43,7 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
     apiTokensWaitTime: number;
     apiTokenKey?: string;
   }>;
-  query?: TypedDocumentNode<Q, OperationVariables>;
+  query?: TypedDocumentNode<Q, OperationVariables> | DocumentNode;
   queryHelper?: (
     currentOptions: QueryOptions<OperationVariables, Q>,
     apiTokenClient: ApiTokenClient | undefined,

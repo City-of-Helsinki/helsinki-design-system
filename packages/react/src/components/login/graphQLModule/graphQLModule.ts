@@ -22,7 +22,7 @@ import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
 import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
-import { mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps, setBearerToQueryOptions } from './utils';
+import { mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
 
 export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
   graphQLClient,
