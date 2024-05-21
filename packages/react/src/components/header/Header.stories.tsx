@@ -8,7 +8,7 @@ import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
-import { IconCross, IconUser, IconCogwheel, IconPlusCircleFill, IconSignout } from '../../icons';
+import { IconCross, IconUser, IconCogwheel, IconSignout } from '../../icons';
 import { Link } from '../link/Link';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 import { useMediaQueryGreaterThan, useMediaQueryLessThan } from '../../hooks/useMediaQuery';
@@ -765,13 +765,7 @@ export const ActionBarItems = (args) => {
               iconRight={<IconUser />}
               external
             />
-            <Header.ActionBarSubItem
-              label="Link"
-              href="/"
-              iconLeft={<IconCogwheel />}
-              external
-              iconNotification={<IconPlusCircleFill />}
-            />
+            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} external notificationCount="2" />
             <Header.ActionBarSubItem label="Heading" heading />
             <Header.ActionBarSubItem label="Link" href="/" notificationCount="3" />
             <Header.ActionBarSubItem label="Link" href="/" bold />

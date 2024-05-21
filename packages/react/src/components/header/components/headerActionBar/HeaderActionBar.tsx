@@ -12,7 +12,7 @@ import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { useHeaderContext } from '../../HeaderContext';
-import { HeaderActionBarItemProps, HeaderActionBarItem } from '../headerActionBarItem/HeaderActionBarItem';
+import { HeaderActionBarItemProps } from '../headerActionBarItem/HeaderActionBarItem';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -279,7 +279,7 @@ export const HeaderActionBar = ({
             logo={logo}
             logoProps={logoProps}
             openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-            actionBarItems={children as (typeof HeaderActionBarItem)[]}
+            actionBarItems={children as HeaderActionBarItemProps[]}
           />
         )}
       </div>
