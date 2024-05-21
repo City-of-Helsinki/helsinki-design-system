@@ -186,10 +186,10 @@
 }
 
 .mobileMenuOpen {
+  background-color: var(--nav-mobile-menu-bottom-background-color);
   display: flex;
   flex-direction: column;
   height: min-content;
-  background-color: var(--nav-mobile-menu-bottom-background-color);
   transform: translateY(0%);
   transition:
     var(--animation-duration-dropwdown) transform 0ms,

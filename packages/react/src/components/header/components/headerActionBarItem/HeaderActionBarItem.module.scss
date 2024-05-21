@@ -14,38 +14,40 @@ button.actionBarItem {
     outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
+
   &.fullWidth,
   &:focus-visible {
     outline-offset: calc(-1 * var(--header-focus-outline-width)) !important;
   }
 
   &.fullWidth {
+    border: 2px solid var(--header-color);
     display: flex;
+    gap: 8px;
     justify-content: center;
+    line-height: 24px;
     margin: 18px;
     padding: 16px 24px;
-    border: 2px solid var(--header-color);
-    gap: 8px;
-    line-height: 24px;
 
     & > * {
+      margin: 0;
+      padding: 0;
       text-align: left;
       vertical-align: center;
-      padding: 0;
-      margin: 0;
     }
+
     & > *.actionBarItemLabel {
       flex-grow: 1;
     }
 
     &.hasSubItems {
-      border: 0px !important;
-      width: 100%;
+      align-items: center;
+      border: 0 !important;
       display: flex;
       justify-content: flex-start;
-      align-items: center;
       margin: 0;
       padding: 16px;
+      width: 100%;
     }
   }
 
@@ -53,23 +55,24 @@ button.actionBarItem {
     display: inline-block;
     vertical-align: middle;
   }
+
   & > svg {
-    vertical-align: middle;
     margin: 2px;
+    vertical-align: middle;
   }
 
   & > .avatar {
     background: var(--color-bus);
-    width: 50px;
-    height: 50px;
     border-radius: 25px;
     color: white;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 50px;
     display: inline-block;
     flex-grow: 0;
+    font-size: 18px;
+    font-weight: 500;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
+    width: 50px;
   }
 }
 
@@ -80,12 +83,6 @@ button.actionBarItem {
   padding: 3px 0 0;
   pointer-events: none;
   width: var(--icon-size);
-
-  & > svg {
-    display: block;
-    height: 100%;
-    width: auto;
-  }
 }
 
 .actionBarItemLabel {
@@ -95,10 +92,6 @@ button.actionBarItem {
   margin: 0 auto;
   pointer-events: none;
   white-space: nowrap;
-
-  & > svg {
-    display: block;
-  }
 }
 
 .labelOnRight {

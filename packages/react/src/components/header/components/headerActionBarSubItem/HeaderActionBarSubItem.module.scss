@@ -3,32 +3,27 @@
 .actionBarSubItem,
 .actionBarSubItem > a,
 .actionBarSubItem > div {
-  margin: 0px;
+  align-items: center;
   box-sizing: border-box;
-  text-decoration: none;
   color: var(--color-header);
   display: flex;
   flex-direction: row;
-  align-items: center;
   gap: 8px;
-  width: 100%;
+  margin: 0;
   padding: 12px 16px;
+  text-decoration: none;
+  width: 100%;
+
+  &.bold {
+   font-weight: bold;
+  }
 
   &:focus-visible {
     border: none;
     outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: calc(-1 * var(--header-focus-outline-width));
   }
-}
 
-.actionBarSubItem {
-  &.bold {
-   font-weight: bold;
-  }
-}
-
-a.actionBarSubItem,
-.actionBarSubItem a {
   &:hover {
     text-decoration: underline;
   }
@@ -36,15 +31,15 @@ a.actionBarSubItem,
 
 h4.actionBarSubItem {
   border-top: 1px solid var(--color-black-20);
-  padding: 0px;
+  padding: 0;
 }
 
 :first-child.actionBarSubItem {
-  border-top: 0px solid black;
+  border-top: 0 solid black;
 }
 
 :last-child.actionBarSubItem {
-  border-bottom: 0px solid black;
+  border-bottom: 0 solid black;
 }
 
 .actionBarSubItemLabel {
@@ -52,24 +47,25 @@ h4.actionBarSubItem {
 }
 
 .actionBarSubItemIcon {
-  position: relative;
-  line-height: 24px;
   height: 24px;
+  line-height: 24px;
+  position: relative;
 }
 
 .grow {
   flex-grow: 1;
 }
+
 .notificationCount {
-  right: 0px;
-  text-align: center;
   background: var(--color-error);
-  color: white;
-  padding: 0px 6px;
   border-radius: 12px;
-  display: inline-block;
   box-sizing: border-box;
-  min-width: 24px;
-  line-height: 24px;
+  color: white;
+  display: inline-block;
   font-size: 14px;
+  line-height: 24px;
+  min-width: 24px;
+  padding: 0 6px;
+  right: 0;
+  text-align: center;
 }
