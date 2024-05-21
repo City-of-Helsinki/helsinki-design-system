@@ -507,7 +507,9 @@ export const HeaderActionBarNavigationMenu = ({
       id="hds-mobile-menu"
       onTransitionEnd={animationDone}
     >
-      {actionBarItems.map((item: typeof HeaderActionBarItem) => React.cloneElement(item, { fullWidth: true }))}
+      {actionBarItems.map((item: typeof HeaderActionBarItem) =>
+        React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true }),
+      )}
       <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
         {getMenuLevels().map((data, i) => {
           const { links, previousLink, activeLink, key } = getMenuContents(i);
