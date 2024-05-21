@@ -14,7 +14,8 @@ button.actionBarItem {
     outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
-  &.fullWidth, &:focus-visible {
+  &.fullWidth,
+  &:focus-visible {
     outline-offset: calc(-1 * var(--header-focus-outline-width)) !important;
   }
 

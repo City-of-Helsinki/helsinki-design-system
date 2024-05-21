@@ -45,7 +45,8 @@
   overflow: hidden;
   position: absolute;
   transform: translateY(-100%) translateY(1px);
-  transition: var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
+  transition:
+    var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
     var(--animation-duration-dropwdown) min-height
       calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
   width: 100%;
@@ -188,9 +189,11 @@
   display: flex;
   flex-direction: column;
   height: min-content;
-  transform: translateY(0%);
-  transition: var(--animation-duration-dropwdown) transform 0ms, var(--animation-duration-dropwdown) min-height 0ms;
   background-color: var(--nav-mobile-menu-bottom-background-color);
+  transform: translateY(0%);
+  transition:
+    var(--animation-duration-dropwdown) transform 0ms,
+    var(--animation-duration-dropwdown) min-height 0ms;
 }
 
 .mobileNavigationLink {

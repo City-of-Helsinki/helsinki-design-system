@@ -38,7 +38,7 @@
     display: flex;
     justify-content: center;
 
-    >.dropdownWrapper {
+    > .dropdownWrapper {
       left: 0;
       position: relative;
       transform: none;
@@ -47,7 +47,6 @@
       display: block;
     }
   }
-
 }
 
 .icon {
@@ -61,7 +60,8 @@
   position: relative;
   right: 0;
   transform: translateY(-100%);
-  transition: var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
+  transition:
+    var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
     0ms visibility calc((var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown)));
   visibility: hidden;
 
@@ -81,11 +81,13 @@
 
   &.visible {
     transform: translateY(0%);
-    transition: var(--animation-duration-dropwdown) transform 0ms, 0ms visibility 0ms;
+    transition:
+      var(--animation-duration-dropwdown) transform 0ms,
+      0ms visibility 0ms;
     visibility: visible;
   }
 
-  >* {
+  > * {
     padding: var(--spacing-xs) var(--spacing-s);
     width: 100%;
   }

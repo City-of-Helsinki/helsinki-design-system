@@ -509,6 +509,7 @@ export const HeaderActionBarNavigationMenu = ({
       onTransitionEnd={animationDone}
     >
       {!!actionBarItems &&
+        Array.isArray(actionBarItems) &&
         actionBarItems.map((item: HeaderActionBarItemProps) =>
           React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() }),
         )}

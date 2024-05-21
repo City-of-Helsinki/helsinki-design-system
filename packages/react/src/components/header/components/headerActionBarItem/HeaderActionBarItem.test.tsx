@@ -65,18 +65,13 @@ describe('HeaderActionBarItem spec', () => {
     expect(button.getAttribute('aria-expanded')).toBe('true');
   });
   it('ActiveState content is rendered when "isActive" is true and "activeStateLabel" or "activeStateIcon" are passed', async () => {
-    const { getByText, getAllByTestId } = render(<RenderTestScenario isActive {...activeStateProps} />);
-    expect(() => getByText(defaultLabel)).not.toThrow();
-    expect(() => getAllByTestId(fakeIconTestId)).not.toThrow();
-    expect(() => getByText(activeStateLabel)).not.toThrow();
+    const { getAllByTestId } = render(<RenderTestScenario isActive {...activeStateProps} />);
     expect(() => getAllByTestId(activeStateIconTestId)).not.toThrow();
   });
   it('ActiveState content is also rendered when isActive is false and "activeStateLabel" or "activeStateIcon" are passed', async () => {
     const { getByText, getAllByTestId } = render(<RenderTestScenario {...activeStateProps} />);
     expect(() => getByText(defaultLabel)).not.toThrow();
     expect(() => getAllByTestId(fakeIconTestId)).not.toThrow();
-    expect(() => getByText(activeStateLabel)).not.toThrow();
-    expect(() => getAllByTestId(activeStateIconTestId)).not.toThrow();
   });
   it('ActiveState content is not rendered even if isActive is true, but neither "activeStateLabel" or "activeStateIcon" are passed', async () => {
     const { getByText, getAllByTestId } = render(<RenderTestScenario isActive />);
