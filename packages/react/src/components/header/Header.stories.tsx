@@ -8,7 +8,7 @@ import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
-import { IconUser, IconCogwheel, IconLinkExternal, IconPlusCircleFill } from '../../icons';
+import { IconCross, IconUser, IconCogwheel, IconPlusCircleFill, IconSignout } from '../../icons';
 import { Link } from '../link/Link';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 import { useMediaQueryGreaterThan, useMediaQueryLessThan } from '../../hooks/useMediaQuery';
@@ -733,40 +733,55 @@ export const ActionBarItems = (args) => {
             icon={<IconUser />}
             id="action-bar-login"
             closeLabel={I18n.close}
-            preventButtonResize
-          >
-            <Header.ActionBarSubItem label="Heading" heading href="/" />
+            closeIcon={<IconCross />}
+          />
+          <Header.ActionBarItem label="Test Username" avatar="TU" fixedRightPosition>
+            <Header.ActionBarSubItem label="Link" href="/" notificationCount="2" />
+            <Header.ActionBarSubItem label="Omat tiedot" href="/" />
+            <Header.ActionBarSubItem label="Viestit" href="/" notificationCount="5" />
+            <Header.ActionBarSubItem label="Kirjaudu ulos" href="/" bold iconRight={<IconSignout />} />
+          </Header.ActionBarItem>
+          <Header.ActionBarItem icon={<IconCogwheel />} label="Test">
+            <Header.ActionBarSubItem label="Static" />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="External Link" href="/" external />
+            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
+            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconUser />} iconRight={<IconCogwheel />} />
+            <Header.ActionBarSubItem
+              label="External Link with right icon"
+              href="/"
+              external
+              iconLeft={<IconUser />}
+              iconRight={<IconCogwheel />}
+            />
+          </Header.ActionBarItem>
+          <Header.ActionBarItem icon={<IconCogwheel />} label="Another Test">
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem
               label="Link"
               href="/"
               iconLeft={<IconCogwheel />}
-              iconRight={<IconLinkExternal />}
+              iconRight={<IconUser />}
+              external
             />
             <Header.ActionBarSubItem
               label="Link"
               href="/"
               iconLeft={<IconCogwheel />}
-              iconRight={<IconLinkExternal />}
+              external
               iconNotification={<IconPlusCircleFill />}
             />
-            <Header.ActionBarSubItem label="Subheading" subheading />
+            <Header.ActionBarSubItem label="Heading" heading />
+            <Header.ActionBarSubItem label="Link" href="/" notificationCount="3" />
+            <Header.ActionBarSubItem label="Link" href="/" bold />
+            <Header.ActionBarSubItem label="Link" href="/" notificationCount="882" />
+            <Header.ActionBarSubItem label="Heading" heading iconLeft={<IconCogwheel />} />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Subheading" heading href="/" iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Subheading" subheading iconLeft={<IconCogwheel />} />
-            <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem
-              label="Subheading"
-              subheading
-              href="/"
-              iconLeft={<IconCogwheel />}
-              iconRight={<IconLinkExternal />}
-            />
-            <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Subheading" subheading />
+            <Header.ActionBarSubItem label="Heading" heading />
           </Header.ActionBarItem>
         </Header.ActionBar>
 

@@ -21,6 +21,12 @@
   }
 }
 
+.actionBarSubItem {
+  &.bold {
+   font-weight: bold;
+  }
+}
+
 a.actionBarSubItem,
 .actionBarSubItem a {
   &:hover {
@@ -28,20 +34,9 @@ a.actionBarSubItem,
   }
 }
 
-h3.actionBarSubItem,
 h4.actionBarSubItem {
   border-top: 1px solid var(--color-black-20);
-  border-bottom: 1px solid var(--color-black-20);
   padding: 0px;
-}
-
-h3.actionBarSubItem {
-  line-height: 28px;
-  font-size: 18px;
-  padding: 0px;
-  & > a {
-    padding: 16px;
-  }
 }
 
 :first-child.actionBarSubItem {
@@ -62,8 +57,19 @@ h3.actionBarSubItem {
   height: 24px;
 }
 
-.iconNotification {
-  right: 0px;
+.grow {
   flex-grow: 1;
-  text-align: right;
+}
+.notificationCount {
+  right: 0px;
+  text-align: center;
+  background: var(--color-error);
+  color: white;
+  padding: 0px 6px;
+  border-radius: 12px;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 24px;
+  line-height: 24px;
+  font-size: 14px;
 }

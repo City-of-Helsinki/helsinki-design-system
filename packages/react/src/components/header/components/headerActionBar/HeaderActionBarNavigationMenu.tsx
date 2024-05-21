@@ -8,6 +8,7 @@ import { HeaderLink } from '../headerLink';
 import { IconAngleLeft } from '../../../../icons';
 import { LinkProps } from '../../../../internal/LinkItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
+import { HeaderActionBarItem } from '../headerActionBarItem';
 import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
 import useForceRender from '../../../../hooks/useForceRender';
 
@@ -177,6 +178,7 @@ type HeaderActionBarNavigationMenuProps = {
    */
   logoProps: LinkProps;
   openFrontPageLinksAriaLabel?: string;
+  actionBarItems: (typeof HeaderActionBarItem)[];
 };
 export const HeaderActionBarNavigationMenu = ({
   frontPageLabel,
@@ -184,6 +186,7 @@ export const HeaderActionBarNavigationMenu = ({
   logo,
   logoProps,
   openFrontPageLinksAriaLabel,
+  actionBarItems,
 }: HeaderActionBarNavigationMenuProps) => {
   const { navigationContent, mobileMenuOpen, hasUniversalContent, universalContent } = useHeaderContext();
   const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
@@ -504,6 +507,7 @@ export const HeaderActionBarNavigationMenu = ({
       id="hds-mobile-menu"
       onTransitionEnd={animationDone}
     >
+      {actionBarItems.map((item: typeof HeaderActionBarItem) => React.cloneElement(item, { fullWidth: true }))}
       <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
         {getMenuLevels().map((data, i) => {
           const { links, previousLink, activeLink, key } = getMenuContents(i);

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import classes from './HeaderActionBarItemWithDropdown.module.scss';
-import { IconCross } from '../../../../icons';
 import { HeaderActionBarItem, HeaderActionBarItemProps } from './HeaderActionBarItem';
 import classNames from '../../../../utils/classNames';
+import { useHeaderContext } from '../../HeaderContext';
 
 type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
   /**
@@ -54,6 +54,10 @@ type HeaderActionBarItemWithDropdownProps = React.PropsWithChildren<{
    * Menu button resizing is prevented by rendering button's active state to a separate element.
    */
   preventButtonResize?: boolean;
+  /**
+   * Initials for avatar which replace icon.
+   */
+  avatar?: string | JSX.Element;
 }> &
   React.ComponentPropsWithoutRef<'div'>;
 
@@ -68,17 +72,19 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     dropdownClassName: dropdownClassNameProp,
     closeLabel,
     icon,
-    closeIcon = <IconCross />,
+    closeIcon,
     ariaLabel,
     labelOnRight,
     fixedRightPosition,
     preventButtonResize,
+    avatar,
     ...props
   } = properties;
   const dropdownContentElementRef = useRef<HTMLElement>(null);
   const containerElementRef = useRef<HTMLDivElement>(null);
-  const [visible, setDisplayProperty] = useState(false);
   const [hasContent, setHasContent] = useState(false);
+  const { isNotLargeScreen } = useHeaderContext();
+  const [visible, setDisplayProperty] = useState(false);
 
   const getContainer = () => containerElementRef.current as HTMLDivElement;
 
@@ -114,13 +120,15 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
     setHasContent(dropdownContentElementRef.current?.childNodes.length !== 0);
   }, [children]);
 
-  const iconLabel = visible && !preventButtonResize ? closeLabel : label;
-  const iconClass = visible && !preventButtonResize ? closeIcon : icon;
+  const iconLabel = visible && closeLabel ? closeLabel : label;
+  const iconClass = visible && closeIcon ? closeIcon : icon;
+  const hasSubItems = React.Children.count(children) > 0;
   const visibilityClasses = {
     visible,
     [classes.visible]: visible,
     [classes.hasContent]: hasContent,
-    [classes.fullWidth]: fullWidth,
+    [classes.fullWidth]: fullWidth || isNotLargeScreen,
+    [classes.hasSubItems]: hasSubItems,
   };
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
@@ -145,18 +153,23 @@ export const HeaderActionBarItemWithDropdown = (properties: HeaderActionBarItemW
         labelOnRight={labelOnRight}
         fixedRightPosition={fixedRightPosition}
         isActive={visible}
+        fullWidth={fullWidth}
+        hasSubItems={hasSubItems}
+        avatar={avatar}
         {...buttonOverlayProps}
       />
-      <div className={classes.dropdownWrapper}>
-        <aside id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
-          {children}
-        </aside>
-      </div>
+      {hasSubItems && (
+        <div className={classes.dropdownWrapper}>
+          <aside id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
+            {visible && !fullWidth && <h3>{label}</h3>}
+            {children}
+          </aside>
+        </div>
+      )}
     </div>
   );
 };
 
 HeaderActionBarItemWithDropdown.defaultProps = {
   fullWidth: false,
-  closeLabel: 'Sulje',
 };

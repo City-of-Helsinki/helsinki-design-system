@@ -2,6 +2,7 @@ import React, { cloneElement, forwardRef, ReactNode } from 'react';
 
 import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
+import { IconLinkExternal } from '../../../../icons';
 
 export interface HeaderActionBarSubItemProps {
   /**
@@ -17,28 +18,42 @@ export interface HeaderActionBarSubItemProps {
    */
   iconRight?: ReactNode;
   /**
-   * Icon element (on the right side of the item) for the action bar item.
+   * Count for the right aligned red notification circle
    */
-  iconNotification?: ReactNode;
+  notificationCount?: number;
   /**
    * Label for the action bar item.
    */
   label?: string | JSX.Element;
+  /**
+   * If heading style is used
+   */
   heading?: boolean;
-  subheading?: boolean;
+  /**
+   * If bold
+   */
+  bold?: boolean;
   /**
    * Hypertext Reference of the link.
    * @default #
    */
   href?: string;
+  /**
+   * If external link
+   */
+  external?: boolean;
   className?: string;
 }
 
 export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderActionBarSubItemProps>(
-  ({ iconLeft, iconRight, iconNotification, label, heading, subheading, href, className, ariaLabel, ...rest }, ref) => {
+  (
+    { iconLeft, iconRight, notificationCount, label, heading, href, className, bold, external, ariaLabel, ...rest },
+    ref,
+  ) => {
     const itemClassName = classNames({
       [classes.actionBarSubItem]: true,
       ...(className && { [className]: true }),
+      [classes.bold]: bold,
     });
 
     const Icon = ({ element, elementClassName }: { element: ReactNode; elementClassName?: string }) => {
@@ -61,11 +76,13 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       <>
         <Icon element={iconLeft} elementClassName={classNames(classes.actionBarSubItemIcon)} />
         <Label text={label} />
-        <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
-        <Icon
-          element={iconNotification}
-          elementClassName={classNames(classes.actionBarSubItemIcon, classes.iconNotification)}
-        />
+        {external ? (
+          <IconLinkExternal />
+        ) : (
+          <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
+        )}
+        <span className={classNames(classes.grow)} />
+        <span className={classNames(classes.notificationCount)}>{notificationCount}</span>
       </>
     );
 
@@ -89,10 +106,6 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
 
     /* eslint-disable-next-line no-nested-ternary */
     return heading ? (
-      <h3 className={itemClassName}>
-        <LinkOrStatic {...linkAttr} />
-      </h3>
-    ) : subheading ? (
       <h4 className={itemClassName}>
         <LinkOrStatic {...linkAttr} />
       </h4>

@@ -34,9 +34,20 @@
     position: relative;
   }
 
-  &.fullWidth>.dropdownWrapper {
-    left: 0;
+  &.fullWidth {
+    display: flex;
+    justify-content: center;
+
+    >.dropdownWrapper {
+      left: 0;
+      position: relative;
+      transform: none;
+    }
+    &.hasSubItems {
+      display: block;
+    }
   }
+
 }
 
 .icon {
@@ -56,6 +67,16 @@
 
   &.fullWidth {
     left: 0;
+    border: 0px;
+    background: transparent;
+  }
+
+  & > h3 {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 28px;
+    padding: 16px;
+    margin: 0px;
   }
 
   &.visible {

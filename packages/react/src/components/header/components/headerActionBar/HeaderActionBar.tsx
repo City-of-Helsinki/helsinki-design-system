@@ -262,9 +262,9 @@ export const HeaderActionBar = ({
             {componentExists && (
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
-            {childrenLeft}
+            {!isNotLargeScreen && childrenLeft}
             <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuClick} />
-            {childrenRight.length > 0 && (
+            {!isNotLargeScreen && childrenRight.length > 0 && (
               <>
                 <hr aria-hidden="true" />
                 {childrenRight}
@@ -279,6 +279,7 @@ export const HeaderActionBar = ({
             logo={logo}
             logoProps={logoProps}
             openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
+            actionBarItems={children}
           />
         )}
       </div>

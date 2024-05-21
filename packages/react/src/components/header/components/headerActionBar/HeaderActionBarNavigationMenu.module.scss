@@ -190,6 +190,7 @@
   height: min-content;
   transform: translateY(0%);
   transition: var(--animation-duration-dropwdown) transform 0ms, var(--animation-duration-dropwdown) min-height 0ms;
+  background-color: var(--nav-mobile-menu-bottom-background-color);
 }
 
 .mobileNavigationLink {

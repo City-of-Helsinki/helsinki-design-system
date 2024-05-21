@@ -2,6 +2,7 @@ import React, { cloneElement, forwardRef, ReactNode } from 'react';
 
 import classes from './HeaderActionBarItem.module.scss';
 import classNames from '../../../../utils/classNames';
+import { IconAngleDown, IconAngleUp } from '../../../../icons';
 
 type ButtonAttributes = JSX.IntrinsicElements['button'];
 
@@ -43,6 +44,18 @@ export interface HeaderActionBarItemProps extends ButtonAttributes {
    * Indicates button is in active state
    */
   isActive?: boolean;
+  /**
+   * Possibility to use a full-width version of the dropdown, for example in mobile use.
+   */
+  fullWidth?: boolean;
+  /**
+   * If SubItems
+   */
+  hasSubItems?: boolean;
+  /**
+   * Initials for avatar which replace icon.
+   */
+  avatar?: string | JSX.Element;
 }
 
 export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
@@ -58,6 +71,9 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
       activeStateLabel,
       activeStateIcon,
       isActive,
+      fullWidth,
+      hasSubItems,
+      avatar,
       ...rest
     },
     ref,
@@ -68,6 +84,8 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
       [className]: true,
       [classes.fixedRightPosition]: fixedRightPosition,
       [classes.isActive]: hasActiveState && isActive,
+      [classes.fullWidth]: fullWidth,
+      [classes.hasSubItems]: hasSubItems,
     });
     const iconClassName = classNames({ [classes.actionBarItemIcon]: true, [classes.labelOnRight]: labelOnRight });
     const labelClassName = classNames({ [classes.actionBarItemLabel]: true, [classes.labelOnRight]: labelOnRight });
@@ -107,26 +125,28 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
       );
     };
 
-    const Content = () => {
-      return (
-        <>
-          <Icon element={icon} elementClassName={iconClassName} />
-          <Label text={label} />
-        </>
-      );
-    };
+    const showCloseButton = hasActiveState && isActive && (!fullWidth || !hasSubItems);
+    const showOpenButton = hasSubItems && !isActive;
+    const showCollapseButton = hasSubItems && isActive;
+    const showAvatar = avatar !== undefined && !showCloseButton;
+    const showLabel = label !== undefined && !(showAvatar && !fullWidth) && !showCloseButton;
+    const showIcon = icon !== undefined && avatar === undefined && !showCloseButton;
+    const showIconOrLabel = !showAvatar && (showIcon || showLabel);
 
-    const ActiveStateContent = () => {
-      if (!hasActiveState) {
-        return null;
-      }
-      return (
-        <div className={classes.activeStateContent}>
-          <Icon element={activeStateIcon} elementClassName={iconClassName} />
-          <Label text={activeStateLabel} isForActiveState />
-        </div>
-      );
-    };
+    const avatarAndLabel = (
+      <>
+        <span className={classNames(classes.avatar)}>{avatar}</span>
+        {showLabel && <Label text={label} isForActiveState={!fullWidth && hasActiveState && isActive} />}
+      </>
+    );
+
+    const iconAndLabel = (
+      <>
+        {showIcon && <Icon element={icon} elementClassName={iconClassName} />}
+        {showLabel && <Label text={label} isForActiveState={!fullWidth && hasActiveState && isActive} />}
+      </>
+    );
+
     return (
       <button
         type="button"
@@ -136,8 +156,11 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
         className={buttonClassName}
         ref={ref}
       >
-        <Content />
-        <ActiveStateContent />
+        {showAvatar && avatarAndLabel}
+        {showIconOrLabel && (fullWidth ? iconAndLabel : <span>{iconAndLabel}</span>)}
+        {showCloseButton && <Icon element={activeStateIcon} elementClassName={iconClassName} />}
+        {showOpenButton && <IconAngleDown />}
+        {showCollapseButton && <IconAngleUp />}
       </button>
     );
   },
