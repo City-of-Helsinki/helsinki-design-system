@@ -24,8 +24,6 @@ const listMdx = 'src/docs/foundation/visual-assets/icons/list.mdx';
 const listMdxOutput = listMdx;
 
 // icon_group.json is in site -directory, it has get on Github Workflow step
-// icon_group.json generation cmd
-//  <data from figma-api> | jq '.nodes."172:2478".document.children | .[] | {group: .name?, icon: .children[]?.name?}' | jq -s .> icon_group.json
 const icon_groups_json = "./icon_group.json"; 
 
 let iconGroups = new Map();
@@ -170,8 +168,6 @@ function outputFile () {
         groupIcons.push({ Icon: `[Table ${tableNumber++}:${groupName} icons]` })
         output += outputGroup(groupName, groupIcons)
     })
-
-    console.log(output)
 
     fs.writeFileSync(listMdxOutput, output);
 }
