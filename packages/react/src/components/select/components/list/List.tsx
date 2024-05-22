@@ -9,6 +9,26 @@ import { SingleSelectListWithGroups } from './SingleSelectListWithGroups';
 import classNames from '../../../../utils/classNames';
 import { VirtualizedLists } from './VirtualizedLists';
 
+const ListComponent = ({
+  virtualize,
+  multiSelect,
+  isMultiSelectAndHasGroupLabels,
+  hasVisibleGroupLabels,
+}: {
+  virtualize: boolean;
+  multiSelect: boolean;
+  isMultiSelectAndHasGroupLabels: boolean;
+  hasVisibleGroupLabels: boolean;
+}) => {
+  if (virtualize) {
+    return <VirtualizedLists forMultiSelectWithGroups={isMultiSelectAndHasGroupLabels} />;
+  }
+  if (!multiSelect) {
+    return hasVisibleGroupLabels ? <SingleSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
+  }
+  return isMultiSelectAndHasGroupLabels ? <MultiSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
+};
+
 export const List = () => {
   const dataHandlers = useSelectDataHandlers();
   const { getData, getMetaData } = dataHandlers;
@@ -20,18 +40,15 @@ export const List = () => {
 
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isMultiSelectAndHasGroupLabels = multiSelect && hasVisibleGroupLabels;
-  const ListComponent = () => {
-    if (virtualize) {
-      return <VirtualizedLists forMultiSelectWithGroups={isMultiSelectAndHasGroupLabels} />;
-    }
-    if (!multiSelect) {
-      return hasVisibleGroupLabels ? <SingleSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
-    }
-    return isMultiSelectAndHasGroupLabels ? <MultiSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
-  };
+
   return (
     <div className={classes} style={styleObj}>
-      <ListComponent />
+      <ListComponent
+        multiSelect
+        isMultiSelectAndHasGroupLabels={isMultiSelectAndHasGroupLabels}
+        virtualize={virtualize}
+        hasVisibleGroupLabels={hasVisibleGroupLabels}
+      />
     </div>
   );
 };

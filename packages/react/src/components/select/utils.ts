@@ -421,12 +421,16 @@ export function addOrUpdateScreenReaderNotificationByType(
   const { screenReaderNotifications } = dataHandlers.getMetaData();
   const indexOfSameType = screenReaderNotifications.findIndex((n) => n.type === notification.type);
   if (indexOfSameType > -1) {
-    const updatedList = [...dataHandlers.getMetaData().screenReaderNotifications];
+    const updatedList = [...screenReaderNotifications];
+    const prev = updatedList[indexOfSameType];
+    if (prev.content === notification.content) {
+      return false;
+    }
     updatedList[indexOfSameType] = notification;
     dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
     return false;
   }
-  const updatedList = [...dataHandlers.getMetaData().screenReaderNotifications, notification];
+  const updatedList = [...screenReaderNotifications, notification];
   dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
   return true;
 }

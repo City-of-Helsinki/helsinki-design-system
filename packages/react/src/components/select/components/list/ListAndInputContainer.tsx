@@ -6,16 +6,18 @@ import { DivElementProps, SelectDataHandlers } from '../../types';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../../events';
-import { getVisibleGroupLabels } from '../../utils';
+import { countVisibleOptions, getVisibleGroupLabels } from '../../utils';
+import { getTextKeyFromDataHandlers } from '../../texts';
 
-const createListAndInputContainerProps = (
-  props: DivElementProps,
-  { getData, getMetaData, trigger }: SelectDataHandlers,
-) => {
-  const { open, groups } = getData();
+const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {
+  const { getData, getMetaData, trigger } = dataHandlers;
+  const { open, groups, multiSelect } = getData();
   const { refs, listInputType } = getMetaData();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const hasInput = !!listInputType;
+  const label = getTextKeyFromDataHandlers('label', dataHandlers);
+  const ariaLabel =
+    multiSelect && hasVisibleGroupLabels && !hasInput ? `${label}. ${countVisibleOptions(groups)} choices.` : label;
   const outsideClickTrigger = useCallback(() => {
     if (!open) {
       return;
@@ -32,7 +34,7 @@ const createListAndInputContainerProps = (
     ref: refs.listContainer,
     outsideClickTrigger,
     'aria-hidden': !open,
-    ...((hasInput || hasVisibleGroupLabels) && { role: 'dialog' }),
+    ...((hasInput || hasVisibleGroupLabels) && { role: 'dialog', 'aria-label': ariaLabel }),
   };
 };
 

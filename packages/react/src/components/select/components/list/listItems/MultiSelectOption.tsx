@@ -45,6 +45,7 @@ const createMultiSelectItemProps = ({
       if (disabled) {
         return;
       }
+      originalEvent.preventDefault();
       trigger({
         id: eventIds.listItem,
         type: eventTypes.click,
@@ -55,6 +56,25 @@ const createMultiSelectItemProps = ({
     id: getOptionId(option),
   };
 };
+
+function ScreenReaderHiddenContent({
+  checkboxProps,
+  label,
+  checkboxId,
+}: {
+  checkboxProps: CheckboxProps;
+  label: string;
+  checkboxId: string;
+}) {
+  // aria-hidden is not passed to checkbox, so added a wrapper to hide it.
+  // checkbox's label does not expand to full width so had to add external
+  return (
+    <div aria-hidden className={styles.checkboxContainer}>
+      <Checkbox {...checkboxProps} />
+      <label htmlFor={checkboxId}>{label}</label>
+    </div>
+  );
+}
 
 export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
   const { label, disabled, checked, indeterminate, isInGroup, ...attr } = props;
@@ -69,33 +89,24 @@ export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
     checked,
     tabIndex: -1,
   };
-  const Content = () => {
-    // aria-hidden is not passed to checkbox, so added a wrapper to hide it.
-    // checkbox's label does not expand to full width so had to add external
-    return (
-      <div aria-hidden className={styles.checkboxContainer}>
-        <Checkbox {...checkboxProps} />
-        <label htmlFor={checkboxId}>{label}</label>
-      </div>
-    );
-  };
+
   if (isInGroup) {
     return (
-      <div {...(attr as DivElementProps)}>
-        <Content />
+      <div {...(attr as DivElementProps)} key={label}>
+        <ScreenReaderHiddenContent checkboxProps={checkboxProps} checkboxId={checkboxId} label={label} />
       </div>
     );
   }
   return (
     <li {...(attr as LiElementProps)}>
-      <Content />
+      <ScreenReaderHiddenContent checkboxProps={checkboxProps} checkboxId={checkboxId} label={label} />
     </li>
   );
 }
 
 export function MultiSelectOption(props: SelectItemProps & { isInGroup: boolean }) {
   const elementProps = createMultiSelectItemProps(props);
-  return <MultiSelectOptionElement {...elementProps} />;
+  return <MultiSelectOptionElement {...elementProps} key={elementProps.label} />;
 }
 
 export const MemoizedMultiSelectOption = memo<SelectItemProps & { isInGroup: boolean }>(

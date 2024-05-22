@@ -3,7 +3,7 @@ import React, { RefObject } from 'react';
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { SelectDataHandlers, SelectMetaData, DivElementProps, Group, SelectData } from '../../types';
-import { getSelectedOptionsPerc, getGroupLabelOption, getAllOptions, getVisibleGroupLabels } from '../../utils';
+import { getSelectedOptionsPerc, getGroupLabelOption, getVisibleGroupLabels, countVisibleOptions } from '../../utils';
 import { MemoizedMultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
@@ -73,6 +73,9 @@ export const createGroups = ({
   return groups.map((group) => {
     const attr = createGroupProps(group);
     const children = createGroupOptionElements(group, { trigger, getOptionId });
+    if (!children.length) {
+      return null;
+    }
     return (
       <MultiSelectGroup {...attr} key={attr['aria-label']}>
         {children}
@@ -89,12 +92,13 @@ export const createContainerProps = ({
   const { elementIds, refs, listInputType } = getMetaData();
   const hasInput = !!listInputType;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const shouldBeDialog = hasInput || hasVisibleGroupLabels;
   return {
-    'aria-labelledby': `${elementIds.label} ${elementIds.choicesCount}`,
+    'aria-labelledby': shouldBeDialog ? elementIds.choicesCount : `${elementIds.label} ${elementIds.choicesCount}`,
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
-    role: hasInput || hasVisibleGroupLabels ? 'dialog' : 'listbox',
+    role: shouldBeDialog ? 'dialog' : 'listbox',
     tabIndex: -1,
   };
 };
@@ -105,7 +109,7 @@ export function MultiSelectListWithGroups() {
   const { open, groups } = getData();
   const { isSearching, getOptionId, elementIds } = getMetaData();
   const attr = createContainerProps(dataHandlers);
-  const choiceCount = getAllOptions(groups).length;
+  const choiceCount = countVisibleOptions(groups);
   const shouldRenderOptions = open && !isSearching;
   const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
   return (

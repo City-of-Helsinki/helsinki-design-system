@@ -5,15 +5,17 @@ import { TextInput, TextInputProps } from '../../../../textInput/TextInput';
 import { IconSearch } from '../../../../../icons';
 import { SelectDataHandlers, SelectMetaData } from '../../../types';
 import classNames from '../../../../../utils/classNames';
-import { createInputOnChangeListener } from '../../../utils';
+import { createInputOnChangeListener, getVisibleGroupLabels } from '../../../utils';
 import { eventIds } from '../../../events';
 import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
 
 const createFilterInputProps = (
-  { getMetaData, trigger }: SelectDataHandlers,
+  { getMetaData, trigger, getData }: SelectDataHandlers,
   inputType: Exclude<SelectMetaData['listInputType'], undefined>,
 ): TextInputProps => {
   const { filter, elementIds, refs, search, activeDescendant } = getMetaData();
+  const { multiSelect, groups } = getData();
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isSearchInput = inputType === 'search';
   const value = isSearchInput ? search : filter;
   return {
@@ -36,7 +38,7 @@ const createFilterInputProps = (
     'aria-expanded': true,
     'aria-activedescendant': activeDescendant || '',
     'aria-labelledby': `${elementIds.searchOrFilterInputLabel} ${elementIds.label}`,
-    'aria-haspopup': 'listbox',
+    'aria-haspopup': multiSelect && hasVisibleGroupLabels ? 'dialog' : 'listbox',
     role: 'combobox',
     labelId: elementIds.searchOrFilterInputLabel,
     clearButton: true,

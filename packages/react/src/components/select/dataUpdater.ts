@@ -58,7 +58,7 @@ const dataUpdater = (
   if (current.disabled) {
     return returnValue;
   }
-  // console.log('-.-', id, type);
+  // console.log('-.-', id, type, { ...payload });
   const openOrClose = (open: boolean) => {
     if (current.open === open) {
       return false;

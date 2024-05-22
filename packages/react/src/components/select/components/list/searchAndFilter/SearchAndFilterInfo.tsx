@@ -26,6 +26,9 @@ export function SearchAndFilterInfo() {
   const { groups, open } = data;
   const metaData = getMetaData();
   const { isSearching, search, filter } = metaData;
+  const previousValueRef = useRef(search || filter);
+  const didChange = previousValueRef.current !== (search || filter);
+  previousValueRef.current = search || filter;
   const count = countVisibleOptions(groups);
   if (!shouldRenderScreenReaderNotificationsRef.current && (isSearching || filter)) {
     shouldRenderScreenReaderNotificationsRef.current = true;
@@ -37,11 +40,13 @@ export function SearchAndFilterInfo() {
   const loadingText = isSearching ? 'Loading options' : '';
   const shouldBeVisible = noResultsTexts.length > 0 || loadingText;
 
-  const notification = getScreenReaderNotification(data, metaData);
-  if (!notification.content) {
-    removeScreenReaderNotification(notification, dataHandlers);
-  } else {
-    addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+  if (didChange) {
+    const notification = getScreenReaderNotification(data, metaData);
+    if (!notification.content) {
+      removeScreenReaderNotification(notification, dataHandlers);
+    } else {
+      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+    }
   }
 
   if (!open || (!shouldBeVisible && !shouldRenderScreenReaderNotificationsRef.current)) {
