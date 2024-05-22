@@ -24,7 +24,7 @@ import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokens
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
 import { mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
 
-export function createGraphQLModule<T = GraphQLCache, Q = GraphQLQueryResult>({
+export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
   graphQLClient,
   query,
   queryOptions,

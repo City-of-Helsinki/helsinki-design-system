@@ -13,6 +13,7 @@ import {
   createErrorTriggerProps,
   checkEventSignalPayload,
   createEventTriggerProps,
+  getErrorSignalPayload,
 } from '../beacon/signals';
 import { graphQLModuleError, GraphQLModuleError, GraphQLModuleErrorType } from './graphQLModuleError';
 
@@ -29,6 +30,10 @@ export function isGraphQLModuleSignal(signal: Signal) {
 
 export function getGraphQLModuleEventPayload(signal: Signal): EventPayload | null {
   return isGraphQLModuleSignal(signal) ? (getEventSignalPayload(signal) as EventPayload) : null;
+}
+
+export function getApiTokensClientErrorPayload(signal: Signal): GraphQLModuleError | null {
+  return isGraphQLModuleSignal(signal) ? (getErrorSignalPayload(signal) as GraphQLModuleError) : null;
 }
 
 /**

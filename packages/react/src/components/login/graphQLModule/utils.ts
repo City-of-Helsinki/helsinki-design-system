@@ -39,6 +39,7 @@ export function mergeQueryOptions(target: Partial<QueryOptions<unknown>>, overri
   return { ...merge(target, overrides), query };
 }
 
+/* No need to export to hds-react package */
 export function mergeQueryOptionsToModuleProps<T, Q>(
   target: Partial<GraphQLModuleModuleProps<T, Q>>,
   queryOptions: Partial<QueryOptions<Q>>,
@@ -48,13 +49,14 @@ export function mergeQueryOptionsToModuleProps<T, Q>(
   return target;
 }
 
-export function setBearerToQueryOptions(token: string, queryOptions: QueryOptions) {
+export function setBearerToQueryOptions(queryOptions: QueryOptions, token: string) {
   if (!token) {
     return queryOptions;
   }
   return mergeAuthorizationHeaderToQueryOptions(queryOptions, `Bearer ${token}`);
 }
 
+/* No need to export to hds-react package */
 export function mergeQueryOptionModifiers({
   options,
   queryHelper,
@@ -82,7 +84,7 @@ export function mergeQueryOptionModifiers({
     }
     const token = tokenPicker(apiTokenClient, apiTokenKey);
     if (token) {
-      return setBearerToQueryOptions(token, opt);
+      return setBearerToQueryOptions(opt, token);
     }
     return opt;
   };
