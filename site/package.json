@@ -82,7 +82,8 @@
     "lint:js": "yarn eslint . --ext js",
     "lint:scss": "stylelint \"**/*.scss\"",
     "lint": "yarn lint:js && yarn lint:scss",
-    "scaffold": "node scripts/scaffold.js"
+    "scaffold": "node scripts/scaffold.js",
+    "iconlist": "node scripts/iconlist.js"
   },
   "repository": {
     "type": "git",
