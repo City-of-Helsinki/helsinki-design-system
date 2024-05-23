@@ -56,17 +56,31 @@ export function setBearerToQueryOptions(queryOptions: QueryOptions, token: strin
   return mergeAuthorizationHeaderToQueryOptions(queryOptions, `Bearer ${token}`);
 }
 
+export function appendFetchOptions(queryOptions: QueryOptions, newOptions: Partial<Parameters<typeof fetch>[1]>) {
+  if (!queryOptions.context) {
+    // eslint-disable-next-line no-param-reassign
+    queryOptions.context = {};
+  }
+
+  // eslint-disable-next-line no-param-reassign
+  queryOptions.context.fetchOptions = {
+    ...queryOptions.context.fetchOptions,
+    ...newOptions,
+  };
+  return queryOptions;
+}
+
 /* No need to export to hds-react package */
 export function mergeQueryOptionModifiers({
   options,
   queryHelper,
 }: Pick<GraphQLModuleModuleProps, 'queryHelper' | 'options'>): Required<GraphQLModuleModuleProps>['queryHelper'] {
   const { apiTokenKey } = options || {};
-  if (!apiTokenKey || !queryHelper) {
+  if (!apiTokenKey && !queryHelper) {
     return (opt: QueryOptions) => opt;
   }
 
-  if (!apiTokenKey) {
+  if (!apiTokenKey && queryHelper) {
     return queryHelper;
   }
 
@@ -88,6 +102,10 @@ export function mergeQueryOptionModifiers({
     }
     return opt;
   };
+
+  if (!queryHelper) {
+    return apiTokenSetter;
+  }
 
   return (opt, apiTokenClient, beacon) => {
     return queryHelper(apiTokenSetter(opt, apiTokenClient, beacon), apiTokenClient, beacon);

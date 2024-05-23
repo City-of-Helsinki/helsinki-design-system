@@ -74,6 +74,6 @@ export const defaultOptions: GraphQLModuleModuleProps['options'] = {
   autoFetch: true,
   requireApiTokens: true,
   abortIfLoading: true,
-  keepOldResultOnError: true,
+  keepOldResultOnError: false,
   apiTokensWaitTime: 15000,
 };

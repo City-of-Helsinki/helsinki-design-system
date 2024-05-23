@@ -1,10 +1,12 @@
 import { DocumentNode, QueryOptions } from '@apollo/client';
 
 import {
+  appendFetchOptions,
   mergeAuthorizationHeaderToQueryOptions,
   mergeHeadersToQueryOptions,
   mergeQueryOptionContexts,
   mergeQueryOptions,
+  setBearerToQueryOptions,
 } from './utils';
 
 describe(`Utils`, () => {
@@ -154,6 +156,44 @@ describe(`Utils`, () => {
       expect(mergeAuthorizationHeaderToQueryOptions(options1, expectedResult.authorization).context?.headers).toEqual(
         expectedResult,
       );
+    });
+  });
+  describe(`setBearerToQueryOptions`, () => {
+    it(`Adds a authorization Bearer to context headers`, () => {
+      const options1 = createQueryOptions({ id: 'one' });
+      const token = 'token-1234';
+      const expectedResult = {
+        ...options1.context.headers,
+        authorization: `Bearer ${token}`,
+      };
+      expect(setBearerToQueryOptions(options1, token).context?.headers).toEqual(expectedResult);
+    });
+  });
+  describe(`appendFetchOptions`, () => {
+    it(`Adds given props to context fetch Options`, () => {
+      const options1 = createQueryOptions({ id: 'one' });
+      const fetchOptions = {
+        signal: 'fake-test-signal' as unknown as AbortSignal,
+        method: 'POST',
+      };
+      const expectedResult = {
+        ...options1.context.fetchOptions,
+        ...fetchOptions,
+      };
+      expect(appendFetchOptions(options1, fetchOptions).context?.fetchOptions).toEqual(expectedResult);
+    });
+    it(`Adds context and fetchOptions if not found`, () => {
+      const options1 = {} as QueryOptions;
+      const fetchOptions = {
+        signal: 'fake-test-signal' as unknown as AbortSignal,
+        method: 'POST',
+      };
+      const expectedResult = {
+        context: {
+          fetchOptions,
+        },
+      };
+      expect(appendFetchOptions(options1, fetchOptions)).toEqual(expectedResult);
     });
   });
 });

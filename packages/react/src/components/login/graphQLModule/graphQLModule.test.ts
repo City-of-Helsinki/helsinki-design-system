@@ -3,7 +3,7 @@
 import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { to } from 'await-to-js';
-import { ApolloQueryResult, QueryResult, TypedDocumentNode } from '@apollo/client';
+import { ApolloQueryResult, QueryResult, TypedDocumentNode, QueryOptions } from '@apollo/client';
 import { waitFor } from '@testing-library/react';
 
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
@@ -54,7 +54,7 @@ type TestQueryStep = {
 type TestStepResult = { error: Error | GraphQLModuleError | null; data: GraphQLQueryResult | null };
 
 describe(`graphQLModule`, () => {
-  const defaultApiTokens: TokenData = { token1: 'token1', token2: 'token2' };
+  const defaultApiTokens: TokenData = { token1: 'token1Value', token2: 'token2Value' };
   const { cleanUp, setResponders, addResponse } = createControlledFetchMockUtil([{ path: mockedGraphQLUri }]);
 
   let currentModule: GraphQLModule<GraphQLQueryResult>;
@@ -81,6 +81,7 @@ describe(`graphQLModule`, () => {
     queryOptions = {},
     noApolloClient = false,
     noQuery = false,
+    queryHelper,
   }: {
     responses: ResponseType[];
     createApiTokenClient?: boolean;
@@ -89,6 +90,7 @@ describe(`graphQLModule`, () => {
     apiTokens?: TokenData;
     moduleOptions?: GraphQLModuleModuleProps['options'];
     queryOptions?: GraphQLModuleModuleProps['queryOptions'];
+    queryHelper?: GraphQLModuleModuleProps['queryHelper'];
   }) => {
     const defaultTestingModuleOptions: GraphQLModuleModuleProps['options'] = {
       requireApiTokens: false,
@@ -106,6 +108,7 @@ describe(`graphQLModule`, () => {
         ...queryOptions,
       },
       options: { ...defaultTestingModuleOptions, ...moduleOptions },
+      queryHelper,
     });
     // A module for listening and tracking all events.
     listenerModule = createTestListenerModule(graphQLModuleNamespace, 'graphQLModuleListener');
@@ -453,6 +456,10 @@ describe(`graphQLModule`, () => {
       const willQuery = !!expectedResult || !!expectedQueryError;
       const isPendingResult = willBePending !== undefined ? willBePending : willQuery;
       const isLoadingResult = willLoad !== undefined ? willLoad : willQuery;
+      const dataNow = expectToKeepResults ? currentModule.getData() : undefined;
+      const resultNow = expectToKeepResults ? currentModule.getResult() : undefined;
+      const errorNow = expectToKeepError ? currentModule.getError() : undefined;
+      const clientErrorsNow = expectToKeepError ? currentModule.getClientErrors() : undefined;
       // auto-started queries should already be running
       expect(currentModule.isLoading()).toBe(willAutoStart === true);
       expect(currentModule.isPending()).toBe(willAutoStart === true);
@@ -485,8 +492,8 @@ describe(`graphQLModule`, () => {
         expect(currentModule.isPending()).toBeFalsy();
         expect(currentModule.getClientErrors()).toHaveLength(0);
       } else if (expectToKeepResults) {
-        expect(currentModule.getData()).toBeDefined();
-        expect(currentModule.getResult()).toBeDefined();
+        expect(currentModule.getData()).toBe(dataNow);
+        expect(currentModule.getResult()).toBe(resultNow);
       } else {
         expect(result).toBeUndefined();
         expect(currentModule.getData()).toBeUndefined();
@@ -498,8 +505,8 @@ describe(`graphQLModule`, () => {
         expect(currentModule.getClientErrors()).toHaveLength(1);
         expect((currentModule.getError() as GraphQLModuleError).type).toBe(expectedQueryError);
       } else if (expectToKeepError) {
-        expect(currentModule.getClientErrors()).toHaveLength(1);
-        expect(currentModule.getError()).toBeDefined();
+        expect(currentModule.getClientErrors()).toEqual(clientErrorsNow);
+        expect(currentModule.getError()).toBe(errorNow);
       } else {
         expect(error).toBeUndefined();
         expect(currentModule.getError()).toBeUndefined();
@@ -643,7 +650,8 @@ describe(`graphQLModule`, () => {
     const sequence: TestQueryStep[] = [
       createSuccessfulStep(),
       createCancelModuleStep(true),
-      createQueryWithCancelOrClearStep('cancel'),
+      // cancel does not clear results
+      { ...createQueryWithCancelOrClearStep('cancel'), expectToKeepResults: true },
       createErrorStep(),
       errorQueryWithCancelStep,
     ];
@@ -662,7 +670,7 @@ describe(`graphQLModule`, () => {
       createErrorStep(),
       createCancelModuleStep(false, true),
       createSuccessfulStep(2),
-      createQueryWithCancelOrClearStep('cancel'),
+      { ...createQueryWithCancelOrClearStep('cancel'), expectToKeepResults: true },
       createSuccessfulStep(3),
       createErrorStep(),
       createErrorStep(),
@@ -785,6 +793,18 @@ describe(`graphQLModule`, () => {
       apiTokens: defaultApiTokens,
       moduleOptions: {
         abortIfLoading: true,
+      },
+    });
+    await runTestSequence(sequence);
+  });
+  it('When options.keepOldResultOnError is true, failed request does not clear previous result', async () => {
+    const sequence: TestQueryStep[] = [createSuccessfulStep(), { ...createErrorStep(), expectToKeepResults: true }];
+
+    initTests({
+      responses: pickSequeceResponsesToInit(sequence),
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        keepOldResultOnError: true,
       },
     });
     await runTestSequence(sequence);
@@ -994,6 +1014,142 @@ describe(`graphQLModule`, () => {
     await advanceUntilPromiseResolved(lastPromise);
     expect(getQueryParams()).toMatchObject({ ...queryOptions, ...abortOverride });
     expect(getQueryParams().context.fetchOptions.signal).toBeDefined();
+  });
+
+  it('queryHelper receives current options, api token client and beacon as  arguments. Returned value is passed to client.query()', async () => {
+    const queryOptions: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'cache-only',
+      errorPolicy: 'all',
+      variables: {
+        initial: true,
+      },
+    };
+    const queryHelperReturnValue: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: undefined,
+      variables: {
+        helper: true,
+      },
+    };
+    const queryHelper = jest.fn().mockImplementation((opt) => {
+      return {
+        ...opt,
+        ...queryHelperReturnValue,
+      };
+    });
+    initTests({
+      responses: [successfulResponse, successfulResponse],
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        requireApiTokens: false,
+      },
+      queryHelper,
+      queryOptions,
+    });
+
+    const promise = currentModule.query().catch(promiseCatcher);
+    await advanceUntilPromiseResolved(promise);
+    expect(getQueryParams()).toMatchObject({
+      ...queryOptions,
+      ...queryHelperReturnValue,
+    });
+    expect(getLastMockCallArgs(queryHelper)).toMatchObject([
+      queryOptions,
+      currentBeacon.getSignalContext(apiTokensClientNamespace),
+      currentBeacon,
+    ]);
+
+    const secondQuery: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'network-only',
+      variables: {
+        initial: false,
+        override: true,
+      },
+    };
+
+    const newPromise = currentModule.query({ queryOptions: secondQuery }).catch(promiseCatcher);
+    await advanceUntilPromiseResolved(newPromise);
+    expect(getQueryParams()).toMatchObject({
+      ...queryOptions,
+      ...queryHelperReturnValue,
+    });
+  });
+
+  it('If apiTokenKey is set, query headers will include the token. QueryHelper receives the token too', async () => {
+    const queryOptions: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'cache-only',
+      errorPolicy: 'all',
+      variables: {
+        initial: true,
+      },
+    };
+
+    const queryHelperReturnValue: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: undefined,
+      variables: {
+        helper: true,
+      },
+    };
+    const queryHelper = jest.fn().mockImplementation((opt) => {
+      return {
+        ...opt,
+        ...queryHelperReturnValue,
+      };
+    });
+    const apiTokenKey = 'token2';
+    initTests({
+      responses: [successfulResponse, successfulResponse],
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        requireApiTokens: false,
+        apiTokenKey,
+      },
+      queryHelper,
+      queryOptions,
+    });
+
+    const expectedHeaders = {
+      authorization: `Bearer ${(apiTokenStorage as TokenData)[apiTokenKey]}`,
+    };
+    const promise = currentModule.query().catch(promiseCatcher);
+    await advanceUntilPromiseResolved(promise);
+    const queryParams = getQueryParams() as QueryOptions;
+    expect(queryParams).toMatchObject({
+      ...queryOptions,
+      ...queryHelperReturnValue,
+    });
+    expect(queryParams.context?.headers).toMatchObject(expectedHeaders);
+    expect(getLastMockCallArgs(queryHelper)).toMatchObject([
+      queryOptions,
+      currentBeacon.getSignalContext(apiTokensClientNamespace),
+      currentBeacon,
+    ]);
+
+    const secondQueryOptions: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'network-only',
+      variables: {
+        initial: false,
+        override: true,
+      },
+      context: {
+        headers: {
+          secondAuth: 'token1',
+        },
+      },
+    };
+
+    const newPromise = currentModule.query({ queryOptions: secondQueryOptions }).catch(promiseCatcher);
+    await advanceUntilPromiseResolved(newPromise);
+    const queryParams2 = getQueryParams() as QueryOptions;
+    expect(queryParams2).toMatchObject({
+      ...secondQueryOptions,
+      ...queryHelperReturnValue,
+    });
+    expect(queryParams2.context?.headers).toMatchObject({ ...expectedHeaders, ...secondQueryOptions.context?.headers });
+    expect(getLastMockCallArgs(queryHelper)).toMatchObject([
+      secondQueryOptions,
+      currentBeacon.getSignalContext(apiTokensClientNamespace),
+      currentBeacon,
+    ]);
   });
 
   it('queryCache() sets queryOptions.fetchPolicy to "cache-only". Function args override module options.', async () => {

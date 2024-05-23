@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloError, ApolloQueryResult, OperationVariables, QueryOptions } from '@apollo/client/core';
+import { ApolloClient, ApolloError, ApolloQueryResult, QueryOptions } from '@apollo/client/core';
 
 import {
   GraphQLModuleModuleProps,
@@ -22,7 +22,8 @@ import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
 import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
-import { mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
+import { appendFetchOptions, mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
+import { cloneObject } from '../../../utils/cloneObject';
 
 export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
   graphQLClient,
@@ -35,8 +36,6 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
     ...defaultOptions,
     ...options,
   };
-
-  const optionModifier = mergeQueryOptionModifiers({ options, queryHelper });
 
   // custom beacon for sending signals in graphQLModuleNamespace
   const dedicatedBeacon = createNamespacedBeacon(graphQLModuleNamespace);
@@ -100,11 +99,13 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       .catch((queryError: ApolloError) => {
         state = graphQLModuleStates.IDLE;
         queryPromise = undefined;
-        result = undefined;
         if (isAbortError(queryError.networkError as Error)) {
           error = undefined;
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
         } else {
+          if (!mergedOptions.keepOldResultOnError) {
+            result = undefined;
+          }
           error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError);
           dedicatedBeacon.emitError(error);
         }
@@ -199,29 +200,39 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       return Promise.reject(new Error('No query document (TypedDocumentNode)'));
     }
     try {
-      const mergeProps = (): QueryOptions<OperationVariables, Q> => {
-        const context: QueryOptions['context'] = {
-          ...queryOptions?.context,
-          ...props.queryOptions?.context,
-        };
-        if (!context.fetchOptions) {
-          context.fetchOptions = {};
-        }
-        context.fetchOptions.signal = fetchAborter.getSignal();
+      const cloneAndMergeOptions = () => {
+        const initialContext = queryOptions && queryOptions.context ? cloneObject(queryOptions.context) : {};
+        const propsContext =
+          props && props.queryOptions && props.queryOptions.context ? cloneObject(props.queryOptions.context) : {};
         return {
           query: queryDocument,
           ...{ ...queryOptions, ...props.queryOptions },
-          context,
+          context: {
+            ...initialContext,
+            ...propsContext,
+          },
         };
       };
-      const promise = client.query<Q>(optionModifier(mergeProps(), getApiTokensClient(), dedicatedBeacon.getBeacon()));
+
+      const addAbortSignalToQueryOptions = (currentOptions: QueryOptions) => {
+        return appendFetchOptions(currentOptions, { signal: fetchAborter.getSignal() });
+      };
+
+      const queryOptionsModifier = mergeQueryOptionModifiers({ options, queryHelper });
+      const promise = client.query<Q>(
+        addAbortSignalToQueryOptions(
+          queryOptionsModifier(cloneAndMergeOptions(), getApiTokensClient(), dedicatedBeacon.getBeacon()),
+        ),
+      );
       state = graphQLModuleStates.LOADING;
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOADING);
       return handleQueryPromise(promise);
     } catch (e) {
       error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, e);
       state = graphQLModuleStates.IDLE;
-      result = undefined;
+      if (!mergedOptions.keepOldResultOnError) {
+        result = undefined;
+      }
       dedicatedBeacon.emitError(error);
       return Promise.reject(e);
     }
