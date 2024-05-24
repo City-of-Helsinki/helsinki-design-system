@@ -379,7 +379,7 @@ const SessionPollerHooks = () => {
 
 ### GraphQL module hooks
 
-More detailed information about <AnchorLink>GraphQL module</AnchorLink> and its hooks are listed on the <ApiPageAnchorLink anchor="graphql-module">API page</ApiPageAnchorLink>.
+More detailed information about <AnchorLink>GraphQL module</AnchorLink> hooks are listed on the <ApiPageAnchorLink anchor="graphql-module">API page</ApiPageAnchorLink>.
 
 #### useGraphQLModule
 
@@ -616,13 +616,18 @@ Detailed information about these hooks is listed on the <ApiPageAnchorLink ancho
 
 #### GraphQL module
 
-Loading data from a graphQL server sometimes requires user authentication and api tokens. The `GraphQL module` can be set to listen the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
+Loading data from a graphQL server may require user authentication and api tokens. The GraphQL module can be set to listen to the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
 
 The module can also be used without api tokens and can be controlled manually.
 
 ##### Requirements
 
-Uri for the server. No other requirements unless the query needs authentication.
+To execute a query, the following requirements must be met:
+
+- A graphQLClient (ApolloClient) must be configured and passed to the `GraphQL module`.
+- A query document must be provided.
+
+Detailed information about authenticated queries is on the <ApiPageAnchorLink anchor="requirements-2">API page</ApiPageAnchorLink>.
 
 ##### API
 

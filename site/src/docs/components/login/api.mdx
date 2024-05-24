@@ -569,11 +569,11 @@ If the given signal is not from the `Session poller` or is not given type, the f
 
 #### GraphQL Module
 
-Loading data from a graphQL server sometimes requires user authentication and api tokens. The GraphQL module can be set to listen the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
+Loading data from a graphQL server may require user authentication and api tokens. The GraphQL module can be set to listen to the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
 
 The module can also be used without api tokens and can be controlled manually.
 
-Unlike `Api token client` and `Session Poller`, the `GraphQL Module` must be manually added to the `<LoginProvider>`.
+Unlike the `Api token client` and `Session Poller`, the `GraphQL Module` must be manually added to the `<LoginProvider>`.
 
 <PlaygroundPreview>
 
@@ -616,13 +616,13 @@ If the graphQL end-point requires an authentication, then the authentication hea
 
 ##### Important
 
-The module props do not require a `query` document or a `graphQLClient`, but a query cannot be executed without them. Both can also be passed as arguments to the `query(options)`. The client can also be set by calling `setClient(client)`.
+The module props do not require a query document or a graphQLClient, but a query cannot be executed without them. Both can also be passed as arguments to the `query(options)`. The client can also be set by calling `setClient(client)`.
 
-Once set, the client is stored and there is not need to pass it again. Given query document is not stored, so different query can be used everytime.
+Once set, the client is stored, and there is no need to pass it again. The query document is not stored, so different queries can be used every time.
 
-When used with Helsinki City Profile, the `queryOptions.errorPolicy` should be set to `all`. Otherwise queries will fail, when a weakly authenticaticated user tries to get the profile. The resulting data will include (dismissable) errors and ApolloClient query will fail when data has an `errors` property.
+When used with Helsinki City Profile, the `queryOptions.errorPolicy` should be set to "all". Otherwise, queries will fail when a weakly authenticated user tries to get the profile. The resulting data will include (dismissable) errors, and an ApolloClient query will fail when the data has an error property.
 
-The `createGraphQLModule` function is a Generic Typescript function with two types: `createGraphQLModule<Q = GraphQLQueryResult, T = NormalizedCacheObject>`. The first type, `Q`, defines what kind of results the query returns. The latter, `T` only describes the cache type of the ApolloClient and is not usually changed.
+The `createGraphQLModule` function is a Generic Typescript function with two types: `createGraphQLModule<Q = GraphQLQueryResult, T = NormalizedCacheObject>`. The first type, `Q`, defines what kind of results the query returns. The latter, `T`, only describes the cache type of the ApolloClient and is not usually changed.
 
 ##### Settings
 
@@ -630,44 +630,46 @@ The `createGraphQLModule` function is a Generic Typescript function with two typ
 
 | Property                            | Type                                                                                                   | Description                                                                                                                                                       | Default value |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `graphQLClient`                     | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink> | Optional property, but must be set before query in executed. Can be set with ´setApolloClient´ or when calling `query`.                                           | -             |
+| `graphQLClient`                     | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink> | Optional property, but must be set before the query is executed. Can be set with ´setApolloClient´ or when calling a `query(options)`.                            | -             |
 | `query`                             | `TypedDocumentNode or DocumentNode`                                                                    | A graphQL query document.                                                                                                                                         | -             |
-| `queryHelper`                       | `(currentOptions:QueryOptions, apiTokenClient?: ApiTokenClient, beacon?:Beacon)=>QueryOptions`         | This function is called before a query is executed. The options object returned by the function is used as query options.                                         | -             |
+| `queryHelper`                       | `(currentOptions:QueryOptions, apiTokenClient?: ApiTokenClient, beacon?:Beacon) => QueryOptions`       | This function is called before a query is executed. The options object returned by the function is used as query options.                                         | -             |
 | `options`                           | `object`                                                                                               | GraphQL module options.                                                                                                                                           | {}            |
 | `options.autoFetch`                 | `boolean`                                                                                              | Should query be executed automatically on initialization.                                                                                                         | `true`        |
 | `options.requireApiTokens`          | `boolean`                                                                                              | Are api tokens required for queries.                                                                                                                              | `true`        |
-| `options.abortIfLoading`            | `boolean`                                                                                              | Should an on-going query be aborted when `query()` is called again. If false, the `query()` will return a pending promise and a new query is not started.         | `true`        |
-| `options.keepOldResultOnError`      | `boolean`                                                                                              | Should old result be kept, if a newer query fails.                                                                                                                | `true`        |
+| `options.abortIfLoading`            | `boolean`                                                                                              | Should an on-going query be aborted when `query()` is called again. If false, the `query()` will return a pending promise, and a new query is not started.        | `true`        |
+| `options.keepOldResultOnError`      | `boolean`                                                                                              | Should old result be kept, if a newer query fails.                                                                                                                | `false`       |
 | `options.apiTokensWaitTime`         | `number`                                                                                               | How long in milliseconds should api tokens be awaited before rejecting a query.                                                                                   | 15 000        |
-| `options.apiTokenKey`               | `string`                                                                                               | An object key for the api token to use in a query. Token is picked with `apiTokens[key]`.                                                                         | -             |
-| `queryOptions`                      | `QueryOptions` excluding `query` property                                                              | Other <ExternalLink href="https://www.apollographql.com/docs/react/api/core/ApolloClient#query">ApolloClient queryOptions</ExternalLink> except `query` document. | -             |
+| `options.apiTokenKey`               | `string`                                                                                               | An object key for the api token to use in a query. The token is picked with `apiTokens[key]`.                                                                     | -             |
+| `queryOptions`                      | `QueryOptions` excluding the `query` property                                                          | Other <ExternalLink href="https://www.apollographql.com/docs/react/api/core/ApolloClient#query">ApolloClient queryOptions</ExternalLink> except `query` document. | -             |
 | [Table 29: GraphQL module settings] |
 
 </div>
 
 ##### Methods
 
-| Property                           | Description                                                                                 | Argument(s)                                                                                                      | Return value                                     |
-| ---------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `cancel`                           | Cancels current query. Pending query is aborted.                                            | -                                                                                                                | -                                                |
-| `clear`                            | Calls `cancel()` and also clears errors and results. Emits an GRAPHQL_MODULE_CLEARED event. | -                                                                                                                | -                                                |
-| `getClientErrors`                  | Returns array of query errors and/or errors in the result data.                             | -                                                                                                                | `ApolloError[]`                                  |
-| `getData`                          | Returns an query error.                                                                     | -                                                                                                                | The `result.data` of latest query or `undefined` |
-| `getError`                         | Returns an query error.                                                                     | -                                                                                                                | `ApolloError` or `undefined`                     |
-| `getQueryPromise`                  | Returns current pending query promise or a immediately rejected promise.                    | -                                                                                                                | `Promise<ApolloQueryResult>`                     |
-| `getResult`                        | Returns latest query result                                                                 | -                                                                                                                | `ApolloQueryResult` or `undefined`               |
-| `isLoading`                        | Returns true if an query fetch is active.                                                   | -                                                                                                                | `boolean`                                        |
-| `isPending`                        | Returns true if the module is waiting for api tokens or query results.                      | -                                                                                                                | `boolean`                                        |
-| `query`                            | Executes a query by calling ApolloClient.query                                              | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
-| `queryCache`                       | Calls `query(options)` with `fetchPolicy: 'cache-only'` in options.                         | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
-| `queryServer`                      | Calls `query(options)` with `fetchPolicy: 'network-only'` in options.                       | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
-| `setClient`                        | Sets the graphQLClient.                                                                     | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink>           | -                                                |
-| `waitForApiTokens`                 | Returns a promise that is resolved when api tokens are found.                               | `timeout?: number`. Time in milliseconds when the Promise is rejected. If omitted, the promise will not timeout. | `Promise<void>`                                  |
+| Property                           | Description                                                                                | Argument(s)                                                                                                      | Return value                                     |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `cancel`                           | Cancels current query. The pending query is aborted.                                       | -                                                                                                                | -                                                |
+| `clear`                            | Calls `cancel()` and also clears errors and results. Emits a GRAPHQL_MODULE_CLEARED event. | -                                                                                                                | -                                                |
+| `getClientErrors`                  | Returns array of query errors and/or errors in the result data.                            | -                                                                                                                | `ApolloError[]`                                  |
+| `getData`                          | Returns a query error.                                                                     | -                                                                                                                | The `result.data` of latest query or `undefined` |
+| `getError`                         | Returns a query error.                                                                     | -                                                                                                                | `ApolloError` or `undefined`                     |
+| `getQueryPromise`                  | Returns the current pending query promise or an immediately rejected promise.              | -                                                                                                                | `Promise<ApolloQueryResult>`                     |
+| `getResult`                        | Returns the latest query result.                                                           | -                                                                                                                | `ApolloQueryResult` or `undefined`               |
+| `isLoading`                        | Returns true if a query fetch is currently active.                                         | -                                                                                                                | `boolean`                                        |
+| `isPending`                        | Returns true if the module is waiting for api tokens or query results.                     | -                                                                                                                | `boolean`                                        |
+| `query`                            | Executes a query.                                                                          | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
+| `queryCache`                       | Calls `query(options)` with `fetchPolicy: 'cache-only'` in options.                        | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
+| `queryServer`                      | Calls `query(options)` with `fetchPolicy: 'network-only'` in options.                      | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
+| `setClient`                        | Sets the graphQLClient.                                                                    | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink>           | -                                                |
+| `waitForApiTokens`                 | Returns a promise that is resolved when api tokens are found.                              | `timeout?: number`. Time in milliseconds when the Promise is rejected. If omitted, the promise will not timeout. | `Promise<void>`                                  |
 | [Table 30: GraphQL module methods] |
 
 ##### Other exported utility functions
 
 The following functions can be imported and used without the `GraphQL module` module:
+
+<div className="container-for-table-10-50-30-10">
 
 | Function                                     | Description                                                                                                       | Argument(s)                             | Return value    |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- | --------------- |
@@ -677,8 +679,10 @@ The following functions can be imported and used without the `GraphQL module` mo
 | `mergeAuthorizationHeaderToQueryOptions`     | Sets `authorization: <given header>` to `queryOptions.context.headers`. Typically the value is `Bearer: <token>`. | `QueryOptions, string`                  | QueryOptions    |
 | `mergeQueryOptions`                          | Deep merges given queryOptions to another queryOptions object                                                     | `QueryOptions, QueryOptions`            | QueryOptions    |
 | `setBearerToQueryOptions`                    | Shortcut for calling `mergeAuthorizationHeaderToQueryOptions(options, 'Bearer: <token>')`.                        | `QueryOptions, string`                  | QueryOptions    |
+| `appendFetchOptions`                         | Appends fetchOptions to `queryOptions.context`.                                                                   | `QueryOptions, Partial<RequestInit>`    | QueryOptions    |
 | [Table 31: Other GraphQL module functions]   |
 
+</div>
 ##### State change signals
 
 The `GraphQL module` has no state changes.
