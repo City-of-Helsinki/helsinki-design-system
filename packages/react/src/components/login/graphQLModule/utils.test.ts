@@ -1,5 +1,6 @@
 import { DocumentNode, QueryOptions } from '@apollo/client';
 
+import { cloneWithJSONConversion } from '../../../utils/cloneObject';
 import {
   appendFetchOptions,
   mergeAuthorizationHeaderToQueryOptions,
@@ -55,10 +56,6 @@ describe(`Utils`, () => {
     };
   };
 
-  const cloneObject = (obj: unknown) => {
-    return JSON.parse(JSON.stringify(obj));
-  };
-
   const getEmptyQueryOptions = () => {
     return {} as QueryOptions;
   };
@@ -67,8 +64,8 @@ describe(`Utils`, () => {
     it(`Deep merges a new context to existing context. Passed options are mutated. Passed context is not mutated.`, () => {
       const options1 = createQueryOptions({ id: 'one' });
       const options2 = createQueryOptions({ id: 'two', fetchPolicy: 'cache-only', errorPolicy: 'ignore' });
-      const options1Clone = cloneObject(options1);
-      const options2ContextClone = cloneObject(options2.context);
+      const options1Clone = cloneWithJSONConversion(options1);
+      const options2ContextClone = cloneWithJSONConversion(options2.context);
       const expectedResult = {
         uri: options2.context.uri,
         fetchOptions: {
@@ -97,8 +94,8 @@ describe(`Utils`, () => {
     it(`Deep merges two queryOption objects. Second argument is merged to first, second is not mutated. Query objects are not deep merged.`, () => {
       const options1 = createQueryOptions({ id: 'one' });
       const options2 = createQueryOptions({ id: 'two', fetchPolicy: 'cache-only', errorPolicy: 'ignore' });
-      const options1Clone = cloneObject(options1);
-      const options2Clone = cloneObject(options2);
+      const options1Clone = cloneWithJSONConversion(options1);
+      const options2Clone = cloneWithJSONConversion(options2);
       const expectedContext = {
         uri: options2.context.uri,
         fetchOptions: {

@@ -812,7 +812,7 @@ describe(`graphQLModule`, () => {
 
   it('If apiTokens are required, but not ready, querying will return a rejected promise. Query auto-starts after api tokens update.', async () => {
     const sequence: TestQueryStep[] = [
-      createFailingQueryWithoutEmittedSignalsStep(),
+      { ...createFailingQueryWithoutEmittedSignalsStep(), errorSignals: [graphQLModuleError.GRAPHQL_NO_API_TOKENS] },
       createEmitApiTokenChangeAndReturnQueryPromiseStep(),
     ];
 
@@ -878,7 +878,12 @@ describe(`graphQLModule`, () => {
   it('If apiTokens are awaited, cancel() will fulfill the pending api token promise and reject query() promise.', async () => {
     const sequence: TestQueryStep[] = [
       createEmitApiTokensRemovedWithNoChangesStep(),
-      { ...createQueryButCancelWithApiTokenAwaitCheckStep(), willLoad: false, eventSignals: [] },
+      {
+        ...createQueryButCancelWithApiTokenAwaitCheckStep(),
+        willLoad: false,
+        eventSignals: [],
+        errorSignals: [graphQLModuleError.GRAPHQL_NO_API_TOKENS],
+      },
     ];
 
     initTests({
@@ -922,19 +927,50 @@ describe(`graphQLModule`, () => {
     expect(promiseCatcher).toHaveBeenCalledTimes(0);
   });
 
+  it('If api tokens are not set and a query is executed, it is immediately rejected', async () => {
+    initTests({
+      responses: [successfulResponse],
+      moduleOptions: {
+        requireApiTokens: true,
+        autoFetch: false,
+      },
+    });
+    await currentModule.query().catch(promiseCatcher);
+    expect((getLastMockCallArgs(promiseCatcher)[0] as GraphQLModuleError).isNoApiTokensError).toBeTruthy();
+    expect(getEmittedErrors().map((e) => e.type)).toEqual([graphQLModuleError.GRAPHQL_NO_API_TOKENS]);
+  });
+  it('If api tokens are removed and a query is executed, api tokens are loaded. Timing out rejects the query.', async () => {
+    initTests({
+      responses: [successfulResponse],
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        requireApiTokens: true,
+        autoFetch: false,
+      },
+    });
+    apiTokenStorage = null;
+    await advanceUntilPromiseResolved(currentModule.query().catch(promiseCatcher));
+    expect(promiseCatcher).toHaveBeenCalledTimes(1);
+    expect((getLastMockCallArgs(promiseCatcher)[0] as GraphQLModuleError).isNoApiTokensError).toBeTruthy();
+    expect(getEmittedErrors().map((e) => e.type)).toEqual([graphQLModuleError.GRAPHQL_NO_API_TOKENS]);
+  });
+
   it('If client is not defined, query() is rejected immediately', async () => {
     initTests({
       responses: [successfulResponse],
       apiTokens: defaultApiTokens,
       moduleOptions: {
         requireApiTokens: true,
+        autoFetch: false,
       },
       noApolloClient: true,
     });
     const result = await currentModule.query().catch(promiseCatcher);
     expect(promiseCatcher).toHaveBeenCalledTimes(1);
+    expect((getLastMockCallArgs(promiseCatcher)[0] as GraphQLModuleError).isNoClientError).toBeTruthy();
     expect(currentModule.isLoading()).toBeFalsy();
     expect(result).toBeUndefined();
+    expect(getEmittedErrors().map((e) => e.type)).toEqual([graphQLModuleError.GRAPHQL_NO_CLIENT]);
   });
 
   it('If query is not defined, query() is rejected immediately', async () => {

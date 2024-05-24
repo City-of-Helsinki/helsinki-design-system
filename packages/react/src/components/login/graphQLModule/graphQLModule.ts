@@ -82,6 +82,14 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
     return result ? result.data : undefined;
   };
 
+  const setAndEmitError = (graphQLEror: GraphQLModuleError) => {
+    if (!mergedOptions.keepOldResultOnError) {
+      result = undefined;
+    }
+    error = graphQLEror;
+    dedicatedBeacon.emitError(error);
+  };
+
   // attaches .then and .catch to a promise
   const handleQueryPromise = (promise: Promise<ApolloQueryResult<Q>>) => {
     if (queryPromise) {
@@ -103,11 +111,9 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
           error = undefined;
           dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED);
         } else {
-          if (!mergedOptions.keepOldResultOnError) {
-            result = undefined;
-          }
-          error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError);
-          dedicatedBeacon.emitError(error);
+          setAndEmitError(
+            new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, queryError),
+          );
         }
       });
     return queryPromise;
@@ -181,23 +187,31 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       client = props.graphQLClient;
     }
     if (!client) {
-      return Promise.reject(new Error('No client defined'));
+      setAndEmitError(new GraphQLModuleError('No client defined', graphQLModuleError.GRAPHQL_NO_CLIENT));
+      return Promise.reject(error);
     }
 
     if (mergedOptions.requireApiTokens && !apiTokensHaveBeenLoadedOnce) {
-      return Promise.reject(new Error('Required apiTokens not loaded'));
+      setAndEmitError(
+        new GraphQLModuleError('Required apiTokens not loaded', graphQLModuleError.GRAPHQL_NO_API_TOKENS),
+      );
+      return Promise.reject(error);
     }
 
     if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !doApiTokensExist()) {
-      await waitForApiTokens(options.apiTokensWaitTime);
+      await waitForApiTokens(mergedOptions.apiTokensWaitTime);
       if (!doApiTokensExist()) {
-        return Promise.reject(new Error('ApiTokens timed out'));
+        setAndEmitError(new GraphQLModuleError('ApiTokens timed out', graphQLModuleError.GRAPHQL_NO_API_TOKENS));
+        return Promise.reject(error);
       }
     }
 
     const queryDocument = props.query || query;
     if (!queryDocument) {
-      return Promise.reject(new Error('No query document (TypedDocumentNode)'));
+      setAndEmitError(
+        new GraphQLModuleError('No query document (TypedDocumentNode)', graphQLModuleError.GRAPHQL_LOAD_FAILED),
+      );
+      return Promise.reject(error);
     }
     try {
       const cloneAndMergeOptions = () => {
@@ -228,13 +242,9 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_LOADING);
       return handleQueryPromise(promise);
     } catch (e) {
-      error = new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, e);
       state = graphQLModuleStates.IDLE;
-      if (!mergedOptions.keepOldResultOnError) {
-        result = undefined;
-      }
-      dedicatedBeacon.emitError(error);
-      return Promise.reject(e);
+      setAndEmitError(new GraphQLModuleError('Graphql query failed', graphQLModuleError.GRAPHQL_LOAD_FAILED, e));
+      return Promise.reject(error);
     }
   };
 
