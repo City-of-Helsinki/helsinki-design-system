@@ -7,6 +7,11 @@ import * as settingsJSON from './example/helfi_sitesettings.json';
 type Options = {
   siteSettingsJsonUrl: string;
   language: string;
+  targetSelector?: string;
+  spacerParentSelector?: string;
+  pageContentSelector?: string;
+  submitEvent?: string;
+  settingsPageSelector?: string;
   tempCssPath: string;
 };
 
@@ -26,17 +31,13 @@ describe('cookieConsentCore', () => {
 
   const options: Options = {
     siteSettingsJsonUrl: 'http://localhost/helfi_sitesettings.json',
+    // siteSettingsObj,
     language: 'fi', // Lang code defaults to 'en'
     // targetSelector: 'body', // Defaults to 'body'
     // spacerParentSelector: 'body', // Defaults to 'body'
     // pageContentSelector: 'body', // Defaults to 'body'
     // submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
-    // settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
-    // monitorInterval: 500, // Monitors cookies that JS can see (same domain, not hidden from js) for misconfiguration. Defaults to 500ms, set to 0 to disable monitoring
-    // remove: true, // If true, will remove unallowed cookies and storage. Defaults to false
-    // monitorWithOverride: true, // If true, will override native writing to cookies and storage to monitor them. Defaults to false
-    // block: true, // If true, will block setting unallowed cookies and storage. Defaults to false
-    // blockWithErrors: true, // If true, will throw errors when trying to set unallowed cookies and storage. Defaults to false
+    settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
     tempCssPath: 'http://localhost:6006/static-cookie-consent/cookieConsent.css', // TODO: Remove this when the real build process can include css files
   };
 
@@ -196,6 +197,7 @@ describe('cookieConsentCore', () => {
       }
       return Promise.reject(new Error(`Unknown url ${req.url}`));
     });
+    // @ts-ignore next-line
     global.ResizeObserverEntrySpy = addMutationEntries;
   });
 
@@ -223,6 +225,7 @@ describe('cookieConsentCore', () => {
   });
   afterAll(() => {
     disableFetchMocks();
+    // @ts-ignore next-line
     global.ResizeObserverEntrySpy = undefined;
   });
 
