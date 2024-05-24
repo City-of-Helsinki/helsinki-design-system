@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/dom';
 import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { CookieConsentCore } from './cookieConsentCore';
-import * as settingsJSON from './example/helfi_cookiesettings.json';
+import * as settingsJSON from './example/helfi_sitesettings.json';
 
 type Options = {
   siteSettingsJsonUrl: string;
@@ -25,7 +25,7 @@ describe('cookieConsentCore', () => {
   const containerSelector = `.hds-cc__container`;
 
   const options: Options = {
-    siteSettingsJsonUrl: 'http://localhost/helfi_cookiesettings.json',
+    siteSettingsJsonUrl: 'http://localhost/helfi_sitesettings.json',
     language: 'fi', // Lang code defaults to 'en'
     // targetSelector: 'body', // Defaults to 'body'
     // spacerParentSelector: 'body', // Defaults to 'body'
