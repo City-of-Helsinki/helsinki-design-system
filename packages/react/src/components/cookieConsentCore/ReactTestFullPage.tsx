@@ -6,7 +6,7 @@ import { CookieConsentCore } from './cookieConsentCore';
 // See also https://github.com/Wildhoney/ReactShadow
 export const ReactTestFullPage = () => {
   const options = {
-    siteSettingsJsonUrl: 'http://localhost:6006/static-cookie-consent/helfi_cookiesettings.json',
+    siteSettingsJsonUrl: 'http://localhost:6006/static-cookie-consent/helfi_sitesettings.json',
     language: 'fi', // Lang code defaults to 'en'
     // targetSelector: 'body', // Defaults to 'body'
     // spacerParentSelector: 'body', // Defaults to 'body'
