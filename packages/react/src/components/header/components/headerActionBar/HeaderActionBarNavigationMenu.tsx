@@ -502,7 +502,6 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   const { isClosingOrOpening } = getState();
-
   return (
     <div
       className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}
