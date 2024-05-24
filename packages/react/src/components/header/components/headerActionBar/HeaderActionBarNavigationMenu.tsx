@@ -502,6 +502,7 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   const { isClosingOrOpening } = getState();
+
   return (
     <div
       className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}
@@ -510,9 +511,12 @@ export const HeaderActionBarNavigationMenu = ({
     >
       {!!actionBarItems &&
         Array.isArray(actionBarItems) &&
-        actionBarItems.map((item: HeaderActionBarItemProps) =>
-          React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() }),
-        )}
+        actionBarItems.map((item: HeaderActionBarItemProps) => {
+          if (typeof item === 'object') {
+            return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() });
+          }
+          return null;
+        })}
       <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
         {getMenuLevels().map((data, i) => {
           const { links, previousLink, activeLink, key } = getMenuContents(i);
