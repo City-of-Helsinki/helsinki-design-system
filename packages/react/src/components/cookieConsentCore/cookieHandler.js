@@ -90,9 +90,8 @@ export default class CookieHandler {
     // Checksums for all groups calculated in parallel without waiting for each
     await Promise.all(
       siteSettingsGroups.map(async (group) => {
-        const groupCopy = { ...group }; // Create a copy of the 'group' object
-        groupCopy.checksum = await this.#getChecksum(group); // Assign the checksum to the copied object
-        return groupCopy;
+        // eslint-disable-next-line no-param-reassign
+        group.checksum = await this.#getChecksum(group);
       }),
     );
 
@@ -369,9 +368,8 @@ export default class CookieHandler {
     // Checksums for all groups calculated in parallel without waiting for each
     await Promise.all(
       siteSettingsGroups.map(async (group) => {
-        const updatedGroup = { ...group }; // Create a copy of the group object
-        updatedGroup.checksum = await this.#getChecksum(group); // Assign the checksum to the copied object
-        return updatedGroup; // Return the updated group
+        // eslint-disable-next-line no-param-reassign
+        group.checksum = await this.#getChecksum(group); // This await is needed to ensure that all checksums are calculated before continuing
       }),
     );
 
