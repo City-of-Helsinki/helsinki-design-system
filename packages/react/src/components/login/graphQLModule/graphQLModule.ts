@@ -219,12 +219,12 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
         const propsContext =
           props && props.queryOptions && props.queryOptions.context ? cloneObject(props.queryOptions.context) : {};
         return {
-          query: queryDocument,
           ...{ ...queryOptions, ...props.queryOptions },
           context: {
             ...initialContext,
             ...propsContext,
           },
+          query: queryDocument,
         };
       };
 

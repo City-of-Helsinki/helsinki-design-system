@@ -32,11 +32,11 @@ export function mergeAuthorizationHeaderToQueryOptions(options: QueryOptions, au
   return mergeHeadersToQueryOptions(options, headers);
 }
 
-export function mergeQueryOptions(target: Partial<QueryOptions<unknown>>, overrides: Partial<QueryOptions<unknown>>) {
-  const { query } = overrides;
-  // eslint-disable-next-line no-param-reassign
-  target.query = undefined;
-  return { ...merge(target, overrides), query };
+export function mergeQueryOptions(
+  target: Partial<GraphQLModuleModuleProps['queryOptions']>,
+  overrides: Partial<GraphQLModuleModuleProps['queryOptions']>,
+) {
+  return merge(target, overrides);
 }
 
 /* No need to export to hds-react package */
@@ -44,8 +44,13 @@ export function mergeQueryOptionsToModuleProps<T, Q>(
   target: Partial<GraphQLModuleModuleProps<T, Q>>,
   queryOptions: Partial<QueryOptions<Q>>,
 ) {
+  const { query, ...rest } = queryOptions;
   // eslint-disable-next-line no-param-reassign
-  target.queryOptions = mergeQueryOptions(target.queryOptions || {}, queryOptions);
+  target.queryOptions = mergeQueryOptions(target.queryOptions || {}, rest);
+  if (query) {
+    // eslint-disable-next-line no-param-reassign
+    target.query = query;
+  }
   return target;
 }
 

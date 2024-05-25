@@ -31,6 +31,7 @@ import { createQueryResponse, createQueryResponseWithErrors } from './__mocks__/
 import { USER_QUERY } from './__mocks__/mockData';
 import { advanceUntilPromiseResolved } from '../testUtils/timerTestUtil';
 import { getLastMockCallArgs } from '../../../utils/testHelpers';
+import { cloneObject } from '../../../utils/cloneObject';
 
 type ResponseType = { returnedStatus: HttpStatusCode; data?: GraphQLQueryResult | null; error?: Error };
 
@@ -62,10 +63,10 @@ describe(`graphQLModule`, () => {
   let currentApolloClient: ReturnType<typeof createApolloClientMock>;
   let listenerModule: ReturnType<typeof createConnectedBeaconModule>;
   let apiTokenStorage: TokenData | null = null;
+  let apolloClientQuerySpy: jest.SpyInstance | undefined;
 
   const promiseCatcher = jest.fn();
 
-  let apolloClientQuerySpy: jest.SpyInstance | undefined;
   const getQueryParams = () => {
     if (!apolloClientQuerySpy) {
       return undefined;
@@ -110,7 +111,7 @@ describe(`graphQLModule`, () => {
       options: { ...defaultTestingModuleOptions, ...moduleOptions },
       queryHelper,
     });
-    // A module for listening and tracking all events.
+    // A module for listening and tracking all events in graphQLModule
     listenerModule = createTestListenerModule(graphQLModuleNamespace, 'graphQLModuleListener');
     currentBeacon = createBeacon();
     currentBeacon.addSignalContext(currentModule);
@@ -126,9 +127,19 @@ describe(`graphQLModule`, () => {
       };
       currentBeacon.addSignalContext(fakeApiTokensClient);
     }
+    // initialize all modules
     emitInitializationSignals(currentBeacon);
   };
 
+  const getEmittedErrors = () => {
+    return getReceivedErrorSignalPayloads<GraphQLModuleError>(listenerModule);
+  };
+
+  const getEmittedEventTypes = () => {
+    return getReceivedEventSignalPayloads(listenerModule).map((payload) => payload.type);
+  };
+
+  // helpers for emitting api token signals
   const emitApiTokensClientStateChange = (payload: EventPayload) => {
     currentBeacon.emit({ type: eventSignalType, namespace: apiTokensClientNamespace, payload });
   };
@@ -145,14 +156,7 @@ describe(`graphQLModule`, () => {
     emitApiTokensClientStateChange(payload);
   };
 
-  const getEmittedErrors = () => {
-    return getReceivedErrorSignalPayloads<GraphQLModuleError>(listenerModule);
-  };
-
-  const getEmittedEventTypes = () => {
-    return getReceivedEventSignalPayloads(listenerModule).map((payload) => payload.type);
-  };
-
+  // standard fetch responses
   const createSuccessResponse = (overrides: { id?: number; name?: string; profile?: unknown } = {}): ResponseType => {
     return { returnedStatus: HttpStatusCode.OK, data: createQueryResponse(overrides) };
   };
@@ -170,16 +174,16 @@ describe(`graphQLModule`, () => {
    * - query
    * - await for query to end
    * - check result / errors
-   * - check event / error signals
+   * - check emitted event / error signals
    *
-   * "Steps" are metadata for that test pattern. They tell the runTestSequence() what to expect in each step of a test sequence.
+   * "TestQueryStep" is metadata for the test pattern described above. Steps tell the runTestSequence() what to expect in each step of a test sequence.
    * Instead of repeating same expect() calls, the runTestSequence() has all necessary tests.
    *
-   * If a test does not want to call "module.query()" automatically, a "step" may have an "executor" that is called instead of "module.query()".
+   * Each step calls automatically graphQLModule.query(), unless a test step has an "executor()" that is called instead.
    *
    */
 
-  // step for doing nothing and useful as a base for some other step
+  // step for doing nothing and useful as a base for some other steps
   const createEmptyStep = (overrides: Partial<TestQueryStep> = {}): Partial<TestQueryStep> => {
     return {
       willHaveErrorsInResult: false,
@@ -200,7 +204,7 @@ describe(`graphQLModule`, () => {
     };
   };
 
-  // when a query() is run successfully, this data should match the process and results
+  // basic successful query and its expected results.
   const createSuccessfulStep = (id: number = 1): TestQueryStep => {
     const response = createSuccessResponse({ id });
     return {
@@ -215,7 +219,7 @@ describe(`graphQLModule`, () => {
     };
   };
 
-  // when a query() is run and fails, this data should match the process and results
+  // basic unsuccessful query and its expected results.
   const createErrorStep = (): TestQueryStep => {
     return {
       response: errorResponse,
@@ -225,7 +229,7 @@ describe(`graphQLModule`, () => {
     };
   };
 
-  // calls module.clear() and expects no results or rejections or errors
+  // step for calling just module.clear() and expects no results or rejections or errors
   const createClearModuleStep = (): TestQueryStep => {
     return {
       execute: () => {
@@ -241,7 +245,7 @@ describe(`graphQLModule`, () => {
     };
   };
 
-  // calls module.cancel() and expects module to keep previous results/errors and not to emit signals
+  // step for calling module.cancel() and expects module to keep previous results/errors and not to emit signals
   const createCancelModuleStep = (expectToKeepResults = false, expectToKeepError = false): TestQueryStep => {
     return {
       execute: () => {
@@ -255,7 +259,7 @@ describe(`graphQLModule`, () => {
     };
   };
 
-  // calls module.query(), but calls module.clear/cancel() after that
+  // step for calling module.query(), but calls module.clear/cancel() after that
   const createQueryWithCancelOrClearStep = (cancelOrClear: 'cancel' | 'clear'): TestQueryStep => {
     const willClear = cancelOrClear === 'clear';
     return {
@@ -296,7 +300,7 @@ describe(`graphQLModule`, () => {
     };
   };
 
-  // test props for a scenario where module.query() fails before actual client.query() is called.
+  // test props for a scenario where module.query() fails before actual apolloClient.query() is called.
   const createFailingQueryWithoutEmittedSignalsStep = (): Partial<TestQueryStep> => {
     return {
       ...createSuccessfulStep(),
@@ -1004,13 +1008,14 @@ describe(`graphQLModule`, () => {
     expect(result1).toMatchObject(result2);
   });
 
-  it('props passed to query() override inital props passed when creating the module', async () => {
+  it('props passed to query() override inital props passed when creating the module. Initial or passed object are not mutated.', async () => {
     const queryOptions: GraphQLModuleModuleProps['queryOptions'] = {
       fetchPolicy: 'cache-only',
       variables: {
         initial: true,
       },
     };
+    const clonedQueryOptions = cloneObject(queryOptions);
     initTests({
       responses: [successfulResponse, successfulResponse, successfulResponse],
       moduleOptions: {
@@ -1023,7 +1028,7 @@ describe(`graphQLModule`, () => {
     const promise = currentModule.query().catch(promiseCatcher);
     await promise;
     expect(promiseCatcher).toHaveBeenCalledTimes(0);
-    expect(getQueryParams()).toMatchObject(queryOptions);
+    expect(getQueryParams()).toMatchObject({ ...queryOptions, query: USER_QUERY });
 
     const overrides: GraphQLModuleModuleProps['queryOptions'] = {
       fetchPolicy: 'network-only',
@@ -1032,7 +1037,9 @@ describe(`graphQLModule`, () => {
         override: true,
       },
     };
-    const newPromise = currentModule.query({ queryOptions: overrides }).catch(promiseCatcher);
+    const clonedOverrides = cloneObject(overrides);
+    const query: GraphQLModuleModuleProps['query'] = 'queryDocument' as unknown as TypedDocumentNode;
+    const newPromise = currentModule.query({ queryOptions: overrides, query }).catch(promiseCatcher);
     currentModule.cancel();
     await advanceUntilPromiseResolved(newPromise);
     expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides });
@@ -1043,6 +1050,7 @@ describe(`graphQLModule`, () => {
       },
       context: { fetchOptions: { mode: 'no-cors', priority: 'high' } },
     };
+    const clonedAbortOverride = cloneObject(abortOverride);
     const lastPromise = currentModule
       .query({ queryOptions: abortOverride, query: { fake: true } as unknown as TypedDocumentNode })
       .catch(promiseCatcher);
@@ -1050,6 +1058,10 @@ describe(`graphQLModule`, () => {
     await advanceUntilPromiseResolved(lastPromise);
     expect(getQueryParams()).toMatchObject({ ...queryOptions, ...abortOverride });
     expect(getQueryParams().context.fetchOptions.signal).toBeDefined();
+
+    expect(clonedQueryOptions).toMatchObject(queryOptions);
+    expect(clonedOverrides).toMatchObject(overrides);
+    expect(clonedAbortOverride).toMatchObject(abortOverride);
   });
 
   it('queryHelper receives current options, api token client and beacon as  arguments. Returned value is passed to client.query()', async () => {
@@ -1210,9 +1222,10 @@ describe(`graphQLModule`, () => {
         override: true,
       },
     };
+    const query: GraphQLModuleModuleProps['query'] = 'queryCacheQuery' as unknown as TypedDocumentNode;
     // this query has "cache-only", so no fetch is done
-    await currentModule.queryCache({ queryOptions: overrides }).catch(promiseCatcher);
-    expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides, fetchPolicy: 'cache-only' });
+    await currentModule.queryCache({ queryOptions: overrides, query }).catch(promiseCatcher);
+    expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides, fetchPolicy: 'cache-only', query });
   });
 
   it('queryServer() sets queryOptions.fetchPolicy to "network-only". Function args override module options.', async () => {
@@ -1237,9 +1250,10 @@ describe(`graphQLModule`, () => {
         override: true,
       },
     };
+    const query: GraphQLModuleModuleProps['query'] = 'queryServerQuery' as unknown as TypedDocumentNode;
     // this query has "cache-only", so no fetch is done
-    const promise = currentModule.queryServer({ queryOptions: overrides }).catch(promiseCatcher);
-    expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides, fetchPolicy: 'network-only' });
+    const promise = currentModule.queryServer({ query, queryOptions: overrides }).catch(promiseCatcher);
+    expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides, fetchPolicy: 'network-only', query });
     await advanceUntilPromiseResolved(promise);
   });
 

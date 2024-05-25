@@ -477,7 +477,7 @@ const ProfileData = () => {
       {!!clientErrors.length && (
         <Notification type="alert">
           {clientErrors.map((err) => {
-            return <p>Ignored error: {err.message} </p>;
+            return <p key={err.message}>Ignored error: {err.message} </p>;
           })}{' '}
         </Notification>
       )}
@@ -485,8 +485,9 @@ const ProfileData = () => {
       <div className="buttons">
         <Button
           onClick={() => {
-            module.queryServer();
+            module.queryServer().catch(() => {});
           }}
+          key="reload"
         >
           Reload from server
         </Button>
@@ -494,6 +495,7 @@ const ProfileData = () => {
           onClick={() => {
             module.clear();
           }}
+          key="clear"
         >
           Clear all data
         </Button>

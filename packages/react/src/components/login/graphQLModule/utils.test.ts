@@ -94,6 +94,8 @@ describe(`Utils`, () => {
     it(`Deep merges two queryOption objects. Second argument is merged to first, second is not mutated. Query objects are not deep merged.`, () => {
       const options1 = createQueryOptions({ id: 'one' });
       const options2 = createQueryOptions({ id: 'two', fetchPolicy: 'cache-only', errorPolicy: 'ignore' });
+      Reflect.deleteProperty(options1, 'query');
+      Reflect.deleteProperty(options2, 'query');
       const options1Clone = cloneWithJSONConversion(options1);
       const options2Clone = cloneWithJSONConversion(options2);
       const expectedContext = {
@@ -119,6 +121,7 @@ describe(`Utils`, () => {
           ...options2.variables,
         },
       };
+
       const result1 = mergeQueryOptions(options1, options2);
       expect(result1).toEqual(expectedResult);
       expect(options1).toEqual(expectedResult);
