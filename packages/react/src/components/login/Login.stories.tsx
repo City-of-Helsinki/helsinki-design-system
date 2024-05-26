@@ -46,7 +46,6 @@ import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 import { createGraphQLModule } from './graphQLModule/graphQLModule';
 import { MyProfileQuery } from './graphQLModule/demoData/MyProfileQuery';
-import { mergeAuthorizationHeaderToQueryOptions } from './graphQLModule/utils';
 import { useGraphQL, useGraphQLModule } from './graphQLModule/hooks';
 import { LoadingSpinner } from '../loadingSpinner';
 
@@ -156,19 +155,12 @@ const signalTracker = createSignalTracker();
 const profileGraphQL = createGraphQLModule({
   query: MyProfileQuery,
   queryOptions: {
+    // this is needed with Profile BE, because it returns an error in result.data with weak authentication
     errorPolicy: 'all',
   },
   graphQLClient: new ApolloClient({ uri: 'https://profile-api.dev.hel.ninja/graphql/', cache: new InMemoryCache() }),
-  queryHelper: (queryOptions, apiTokenClient) => {
-    if (!apiTokenClient) {
-      return queryOptions;
-    }
-    const apiTokens = apiTokenClient.getTokens();
-    const profileToken = apiTokens && apiTokens['https://api.hel.fi/auth/helsinkiprofiledev'];
-    if (profileToken) {
-      return mergeAuthorizationHeaderToQueryOptions(queryOptions, `Bearer ${profileToken}`);
-    }
-    return queryOptions;
+  options: {
+    apiTokenKey: 'https://api.hel.fi/auth/helsinkiprofiledev',
   },
 });
 
@@ -477,6 +469,9 @@ const ProfileData = () => {
       {!!clientErrors.length && (
         <Notification type="alert">
           {clientErrors.map((err) => {
+            if (error && error.message === err.message) {
+              return null;
+            }
             return <p key={err.message}>Ignored error: {err.message} </p>;
           })}{' '}
         </Notification>
