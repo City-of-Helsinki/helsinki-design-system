@@ -27,6 +27,9 @@ export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = C
   isLoading: () => boolean;
   isPending: () => boolean;
   query: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
+  queryCache: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
+  queryServer: (props?: Partial<GraphQLModuleModuleProps<T, Q>>) => Promise<ApolloQueryResult<Q>>;
+  setClient: (client: ApolloClient<T>) => void;
   waitForApiTokens: (timeout?: number) => Promise<unknown>;
 };
 

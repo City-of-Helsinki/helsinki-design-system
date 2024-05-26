@@ -1200,6 +1200,79 @@ describe(`graphQLModule`, () => {
     ]);
   });
 
+  it('queryCache() sets queryOptions.fetchPolicy to "cache-only". Function args override module options.', async () => {
+    const queryOptions: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'network-only',
+      variables: {
+        initial: true,
+      },
+    };
+    initTests({
+      responses: [],
+      moduleOptions: {
+        requireApiTokens: false,
+      },
+      queryOptions,
+    });
+
+    const overrides: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'no-cache',
+      variables: {
+        initial: false,
+        override: true,
+      },
+    };
+    const query: GraphQLModuleModuleProps['query'] = 'queryCacheQuery' as unknown as TypedDocumentNode;
+    // this query has "cache-only", so no fetch is done
+    await currentModule.queryCache({ queryOptions: overrides, query }).catch(promiseCatcher);
+    expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides, fetchPolicy: 'cache-only', query });
+  });
+
+  it('queryServer() sets queryOptions.fetchPolicy to "network-only". Function args override module options.', async () => {
+    const queryOptions: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'cache-only',
+      variables: {
+        initial: true,
+      },
+    };
+    initTests({
+      responses: [successfulResponse],
+      moduleOptions: {
+        requireApiTokens: false,
+      },
+      queryOptions,
+    });
+
+    const overrides: GraphQLModuleModuleProps['queryOptions'] = {
+      fetchPolicy: 'no-cache',
+      variables: {
+        initial: false,
+        override: true,
+      },
+    };
+    const query: GraphQLModuleModuleProps['query'] = 'queryServerQuery' as unknown as TypedDocumentNode;
+    // this query has "cache-only", so no fetch is done
+    const promise = currentModule.queryServer({ query, queryOptions: overrides }).catch(promiseCatcher);
+    expect(getQueryParams()).toMatchObject({ ...queryOptions, ...overrides, fetchPolicy: 'network-only', query });
+    await advanceUntilPromiseResolved(promise);
+  });
+
+  it('setClient() sets and stores a client', async () => {
+    initTests({
+      responses: [successfulResponse],
+      apiTokens: defaultApiTokens,
+      moduleOptions: {
+        requireApiTokens: true,
+      },
+      noApolloClient: true,
+    });
+    await currentModule.query().catch(promiseCatcher);
+    expect(promiseCatcher).toHaveBeenCalledTimes(1);
+    currentModule.setClient(createApolloClientMock());
+    await advanceUntilPromiseResolved(currentModule.query().catch(promiseCatcher));
+    expect(promiseCatcher).toHaveBeenCalledTimes(1);
+  });
+
   it('getClientErrors() returns an array of actual errors or errors in returned data', async () => {
     initTests({
       responses: [{ returnedStatus: HttpStatusCode.OK, data: createQueryResponseWithErrors() }, errorResponse],

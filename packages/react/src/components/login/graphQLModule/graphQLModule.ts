@@ -22,7 +22,7 @@ import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
 import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
-import { appendFetchOptions, mergeQueryOptionModifiers } from './utils';
+import { appendFetchOptions, mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
 import { cloneObject } from '../../../utils/cloneObject';
 
 export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
@@ -319,6 +319,9 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
     isPending: () => {
       return !!(apiTokenAwaitPromise || queryPromise);
     },
+    setClient: (newClient) => {
+      client = newClient;
+    },
     query: queryExecutor,
     getQueryPromise: () => {
       return queryPromise || Promise.reject(new Error(`No ${graphQLModuleNamespace} load promise`));
@@ -332,5 +335,11 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       dedicatedBeacon.emitEvent(graphQLModuleEvents.GRAPHQL_MODULE_CLEARED);
     },
     waitForApiTokens,
+    queryCache: (props) => {
+      return queryExecutor(mergeQueryOptionsToModuleProps(props || {}, { fetchPolicy: 'cache-only' }));
+    },
+    queryServer: (props) => {
+      return queryExecutor(mergeQueryOptionsToModuleProps(props || {}, { fetchPolicy: 'network-only' }));
+    },
   };
 }
