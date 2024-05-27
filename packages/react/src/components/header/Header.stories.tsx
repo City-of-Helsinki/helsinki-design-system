@@ -741,21 +741,12 @@ export const ActionBarItems = (args) => {
             <Header.ActionBarSubItem label="Viestit" href="/" notificationCount="5" />
             <Header.ActionBarSubItem label="Kirjaudu ulos" href="/" bold iconRight={<IconSignout />} />
           </Header.ActionBarItem>
-          <Header.ActionBarItem icon={<IconCogwheel />} label="Test">
-            <Header.ActionBarSubItem label="Static" />
+          <Header.ActionBarItem icon={<IconCogwheel />}>
             <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="External Link" href="/" external />
-            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
-            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconUser />} iconRight={<IconCogwheel />} />
-            <Header.ActionBarSubItem
-              label="External Link with right icon"
-              href="/"
-              external
-              iconLeft={<IconUser />}
-              iconRight={<IconCogwheel />}
-            />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="Link" href="/" />
           </Header.ActionBarItem>
-          <Header.ActionBarItem icon={<IconCogwheel />} label="Another Test">
+          <Header.ActionBarItem label="Another Test">
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem
@@ -776,6 +767,20 @@ export const ActionBarItems = (args) => {
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Heading" heading />
+          </Header.ActionBarItem>
+          <Header.ActionBarItem icon={<IconCogwheel />} label="Test">
+            <Header.ActionBarSubItem label="Static" />
+            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItem label="External Link" href="/" external />
+            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
+            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconUser />} iconRight={<IconCogwheel />} />
+            <Header.ActionBarSubItem
+              label="External Link with right icon"
+              href="/"
+              external
+              iconLeft={<IconUser />}
+              iconRight={<IconCogwheel />}
+            />
           </Header.ActionBarItem>
         </Header.ActionBar>
 

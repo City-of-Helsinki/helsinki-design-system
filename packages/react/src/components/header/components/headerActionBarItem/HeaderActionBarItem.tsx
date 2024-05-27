@@ -112,9 +112,6 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
       text: HeaderActionBarItemProps['label'];
       isForActiveState?: boolean;
     }) => {
-      if (!text) {
-        return null;
-      }
       return (
         <span
           className={classNames(labelClassName, isForActiveState && classes.activeStateContentLabel)}
@@ -129,7 +126,7 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
     const showOpenButton = hasSubItems && !isActive;
     const showCollapseButton = hasSubItems && isActive;
     const showAvatar = avatar !== undefined && !showCloseButton;
-    const showLabel = label !== undefined && !(showAvatar && !fullWidth) && !showCloseButton;
+    const showLabel = !(showAvatar && !fullWidth) && !showCloseButton;
     const showIcon = icon !== undefined && avatar === undefined && !showCloseButton;
     const showIconOrLabel = !showAvatar && (showIcon || showLabel);
 
