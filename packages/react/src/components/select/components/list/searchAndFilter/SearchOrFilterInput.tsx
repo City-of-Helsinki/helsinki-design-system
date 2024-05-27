@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from '../../../Select.module.scss';
 import { TextInput, TextInputProps } from '../../../../textInput/TextInput';
-import { IconSearch } from '../../../../../icons';
 import { SelectDataHandlers, SelectMetaData } from '../../../types';
 import classNames from '../../../../../utils/classNames';
 import { createInputOnChangeListener, getVisibleGroupLabels } from '../../../utils';
@@ -26,14 +25,11 @@ const createFilterInputProps = (
     },
     id: elementIds.searchOrFilterInput,
     key: elementIds.searchOrFilterInput,
-    buttonAriaLabel: isSearchInput ? `Search for "${value}"` : `Filter options with "${value}"`,
-    buttonIcon: <IconSearch />,
     clearButtonAriaLabel: `Clear ${inputType}`,
-    label: inputType,
+    label: isSearchInput ? 'Search' : 'Filter',
     value,
-    placeholder: isSearchInput ? 'Search ' : 'Filter',
+    placeholder: isSearchInput ? 'Type a search term' : 'Type text to filter results with',
     ref: refs.searchOrFilterInput,
-    hideLabel: true,
     'aria-controls': elementIds.list,
     'aria-expanded': true,
     'aria-activedescendant': activeDescendant || '',
