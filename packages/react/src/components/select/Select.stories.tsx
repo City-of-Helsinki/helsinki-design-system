@@ -597,7 +597,7 @@ export const ExternalLabel = () => {
         multiSelect
         filter={defaultFilter}
         icon={<IconLocation />}
-        texts={{ placeholder: 'Choose three or more', dropdownButtonAriaLabel: 'Choose anything' }}
+        texts={{ placeholder: 'Choose three or more', dropdownButtonAriaLabel: 'External label. Choose anything.' }}
       />
     </div>
   );
