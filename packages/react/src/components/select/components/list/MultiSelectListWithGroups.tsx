@@ -92,13 +92,32 @@ export const createContainerProps = ({
   const { elementIds, refs, listInputType } = getMetaData();
   const hasInput = !!listInputType;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
-  const shouldBeDialog = hasInput || hasVisibleGroupLabels;
+  const hasInputAndGroups = hasInput || hasVisibleGroupLabels;
+  const hasOnlyGroups = !hasInput && hasVisibleGroupLabels;
+  const getRole = (): DivElementProps['role'] => {
+    if (hasOnlyGroups) {
+      return undefined;
+    }
+    if (hasInputAndGroups) {
+      return 'dialog';
+    }
+    return 'listbox';
+  };
+  const getAriaLabelledby = (): DivElementProps['aria-labelledby'] => {
+    if (hasOnlyGroups) {
+      return undefined;
+    }
+    if (hasInputAndGroups) {
+      return elementIds.choicesCount;
+    }
+    return `${elementIds.label} ${elementIds.choicesCount}`;
+  };
   return {
-    'aria-labelledby': shouldBeDialog ? elementIds.choicesCount : `${elementIds.label} ${elementIds.choicesCount}`,
+    'aria-labelledby': getAriaLabelledby(),
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
-    role: shouldBeDialog ? 'dialog' : 'listbox',
+    role: getRole(),
     tabIndex: -1,
   };
 };
