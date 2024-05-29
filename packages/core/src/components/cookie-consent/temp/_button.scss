@@ -19,7 +19,7 @@
     $fullwidth:false,
 
     // icon
-    $icon:false
+    $icon:false,
   ){
   @if $all or $base {
     .hds-button {
@@ -335,7 +335,8 @@
     /* PRIMARY */
 
     /* default (bus) */
-    .hds-button--primary {
+    .hds-button--primary,
+    .hds-theme--bus .hds-button--primary {
       --background-color: var(--color-bus);
       --background-color-hover: var(--color-bus-dark);
       --background-color-focus: var(--color-bus);
@@ -360,7 +361,8 @@
     /* SECONDARY */
 
     /* default (bus) */
-    .hds-button--secondary {
+    .hds-button--secondary,
+    .hds-theme--bus .hds-button--secondary {
       --background-color: transparent;
       --background-color-hover: var(--color-bus-light);
       --background-color-focus: transparent;
@@ -384,7 +386,8 @@
   @if $all or $supplementary {
     /* SUPPLEMENTARY */
 
-    .hds-button--supplementary {
+    .hds-button--supplementary,
+    .hds-theme--bus .hds-button--supplementary {
       --background-color: transparent;
       --background-color-hover: var(--color-bus-light);
       --background-color-focus: transparent;
@@ -408,7 +411,8 @@
   @if $all or $loading {
     /* LOADING */
 
-    .hds-button--loading {
+    .hds-button--loading,
+    .hds-theme--bus .hds-button--loading {
       --background-color: transparent;
       --background-color-hover: transparent;
       --background-color-focus: transparent;
@@ -433,7 +437,8 @@
     /* UTILITY */
 
     /* success */
-    .hds-button--success {
+    .hds-button--success,
+    .hds-theme--bus .hds-button--success {
       --background-color: var(--color-success);
       --background-color-hover: var(--color-success-dark);
       --background-color-focus: var(--color-success);
@@ -452,7 +457,8 @@
 
   @if $all or $danger {
     /* danger */
-    .hds-button--danger {
+    .hds-button--danger,
+    .hds-theme--bus .hds-button--danger {
       --background-color: var(--color-error);
       --background-color-hover: var(--color-error-dark);
       --background-color-focus: var(--color-error);
@@ -473,6 +479,8 @@
     /* THEMES */
 
     /* coat */
+    .hds-theme--coat .hds-button--primary,
+    .hds-theme--coat.hds-button--primary,
     .hds-button--primary.hds-button--theme-coat {
       --background-color: var(--color-coat-of-arms);
       --background-color-hover: var(--color-coat-of-arms-dark);
@@ -490,6 +498,8 @@
   }
 
   @if $all or ($secondary and $theme-coat) {
+    .hds-theme--coat .hds-button--secondary,
+    .hds-theme--coat.hds-button--secondary,
     .hds-button--secondary.hds-button--theme-coat {
       --background-color: transparent;
       --background-color-hover: var(--color-coat-of-arms-light);
@@ -507,6 +517,8 @@
   }
 
   @if $all or ($supplementary and $theme-coat) {
+    .hds-theme--coat .hds-button--supplementary,
+    .hds-theme--coat.hds-button--supplementary,
     .hds-button--supplementary.hds-button--theme-coat {
       --background-color: transparent;
       --background-color-hover: var(--color-coat-of-arms-light);
@@ -524,7 +536,8 @@
   }
 
   @if $all or ($primary and $theme-black) {
-    /* black */
+    .hds-theme--black .hds-button--primary,
+    .hds-theme--black.hds-button--primary,
     .hds-button--primary.hds-button--theme-black {
       --background-color: var(--color-black);
       --background-color-hover: var(--color-black);
@@ -542,6 +555,8 @@
   }
 
   @if $all or ($secondary and $theme-black) {
+    .hds-theme--black .hds-button--secondary,
+    .hds-theme--black.hds-button--secondary,
     .hds-button--secondary.hds-button--theme-black {
       --background-color: transparent;
       --background-color-hover: var(--color-black-5);
@@ -559,6 +574,8 @@
   }
 
   @if $all or ($supplementary and $theme-black) {
+    .hds-theme--black .hds-button--supplementary,
+    .hds-theme--black.hds-button--supplementary,
     .hds-button--supplementary.hds-button--theme-black {
       --background-color: transparent;
       --background-color-hover: var(--color-black-5);
