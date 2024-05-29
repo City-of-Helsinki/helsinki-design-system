@@ -1,7 +1,5 @@
 @use 'sass:math';
-@use 'temp/button' as Button;
-@use 'temp/checkbox' as Checkbox;
-@use 'temp/icon' as Icon;
+@use 'temp/cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
 @use '../../icons/angle-down.css';
 @use 'temp/table' as Table;
 
