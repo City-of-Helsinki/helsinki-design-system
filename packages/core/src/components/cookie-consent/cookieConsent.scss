@@ -1,5 +1,7 @@
 @use 'sass:math';
 @use 'temp/cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
+@use 'temp/mixin-animate' as animate;
+@use 'temp/mixin-helpers' as helpers;
 @use 'temp/font-face' as font-face;
 @use 'temp/button' as button;
 @use 'temp/checkbox' as checkbox;
@@ -16,32 +18,7 @@
   $font-weight-500: true, // Medium
   $font-weight-700: true, // Bold
   $font-weight-900: false, // Black is not needed by cookie consent
-);
-
-$base-font-size: 16px;
-
-/// remify-pixels
-/// Convert px to rem units
-///
-/// @param {Number} value - value in px to be converted to rem units.
-/// @param {Number} base-size - font-size of html element in pixels; defaults to $rem-base-size.
-@function remify-pixels($value, $base-size: $base-font-size) {
-  /* stylelint-disable-next-line length-zero-no-unit */
-  @return math.div($value, $base-size) + 0rem;
-}
-
-@mixin visually-hidden() {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
+)
 
 // Include only used button styles
 @include button.hds-button(
@@ -162,11 +139,11 @@ html {
 }
 
 .visually-hidden {
-  @include visually-hidden;
+  @include helpers.visually-hidden;
 }
 
 .hds-cc__heading {
-  font-size: remify-pixels(32px);
+  font-size: 2rem;
   font-weight: 400;
   line-height: 1; // 32px
   margin: 0;
@@ -241,7 +218,7 @@ html {
   }
 }
 
-@include animateheight(
+@include animate.height(
   '.hds-cc__group-details',
   ':not([aria-expanded=' true ']) + .hds-cc__group-details',
   '.hds-cc__group-details__animator'
@@ -262,8 +239,8 @@ html {
 
 :not([aria-expanded='true']) > .hds-cc__accordion-button-hide,
 [aria-expanded='true'] > .hds-cc__accordion-button-show,
+.hds-cc--page .hds-cc__all-cookies-button,
 [aria-controls='hds-cc-form'][aria-expanded='true'] ~ .hds-cc__buttons .hds-cc__all-cookies-button,
-// .hds-cc--page .hds-cc__all-cookies-button,
 .hds-cc--banner [aria-controls='hds-cc-form']:not([aria-expanded='true']) ~ .hds-cc__buttons .hds-cc__selected-cookies-button {
   display: none;
 }
