@@ -33,5 +33,6 @@ const createDelectedTagProps = ({
 
 export function TagListItem(props: SelectedTagProps) {
   const { children, ...attr } = createDelectedTagProps(props);
+  // @ts-ignore
   return <Tag {...attr}>{children}</Tag>;
 }

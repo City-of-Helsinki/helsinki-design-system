@@ -3,31 +3,25 @@
 exports[`<Select /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="wrapper"
+    class="wrapper root"
     id="hds-select-1"
     tabindex="-1"
   >
-    <label
-      class="label "
-      for="hds-select-1-main-button"
-      id="hds-select-1-label"
-    >
-      Label
-      <span
-        class="indicator"
-      >
-        *
-      </span>
-    </label>
     <div
-      class="root container"
+      class="selectAndListContainer"
     >
       <div
         class="selectedOptionsContainer"
       >
         <button
-          class="button selectedOptions placeholder spaceForOneDigit"
-          id="hds-select-1-main-button"
+          aria-controls="hds-select-1-list"
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          aria-invalid="false"
+          aria-label="0 options. . 0 options selected."
+          class="dropdownButton selectedOptions placeholder spaceForOneDigit"
+          id="hds-select-1-dropdown-button"
+          role="combobox"
           type="button"
         >
           <span>
@@ -48,19 +42,19 @@ exports[`<Select /> spec renders the component 1`] = `
             </svg>
           </span>
           <div
+            aria-hidden="true"
             class="labels"
           >
             <span
-              class="buttonOption"
-            >
-              Choose one
-            </span>
+              class="dropdownButtonOption"
+            />
           </div>
         </button>
         <button
           aria-hidden="true"
-          class="button icon"
+          class="dropdownButton icon arrowButton"
           id="hds-select-1-arrow-button"
+          tabindex="-1"
           type="button"
         >
           <svg
@@ -81,9 +75,27 @@ exports[`<Select /> spec renders the component 1`] = `
         </button>
       </div>
       <div
+        aria-hidden="true"
         class="listAndInputContainer"
-      />
+      >
+        <div
+          class="listContainer hidden"
+          style="max-height: 286px;"
+        >
+          <ul
+            aria-multiselectable="false"
+            class="list"
+            id="hds-select-1-list"
+            role="listbox"
+            tabindex="-1"
+          />
+        </div>
+      </div>
     </div>
+    <div
+      aria-live="polite"
+      class="screenReaderNotifications"
+    />
   </div>
 </DocumentFragment>
 `;

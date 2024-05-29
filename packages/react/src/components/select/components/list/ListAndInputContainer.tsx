@@ -34,7 +34,7 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
     ref: refs.listContainer,
     outsideClickTrigger,
     'aria-hidden': !open,
-    ...((hasInput || hasVisibleGroupLabels) && { role: 'dialog', 'aria-label': ariaLabel }),
+    ...((hasInput || (multiSelect && hasVisibleGroupLabels)) && { role: 'dialog', 'aria-label': ariaLabel }),
   };
 };
 

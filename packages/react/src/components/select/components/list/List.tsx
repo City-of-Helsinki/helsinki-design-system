@@ -44,7 +44,7 @@ export const List = () => {
   return (
     <div className={classes} style={styleObj}>
       <ListComponent
-        multiSelect
+        multiSelect={multiSelect}
         isMultiSelectAndHasGroupLabels={isMultiSelectAndHasGroupLabels}
         virtualize={virtualize}
         hasVisibleGroupLabels={hasVisibleGroupLabels}
