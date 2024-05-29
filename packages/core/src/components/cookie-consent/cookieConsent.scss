@@ -1,21 +1,10 @@
 @use 'sass:math';
 @use 'temp/cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
+@use 'temp/button' as button;
+@use 'temp/checkbox' as checkbox;
+@use 'temp/icon' as icon;
 @use '../../icons/angle-down.css';
-@use 'temp/table' as Table;
-
-// Include only used button styles
-@include Button.hds-button($all: false, $base: true, $secondary: true, $supplementary: true, $small: true, $icon: true);
-
-// Include only used checkbox styles (no indeterminate)
-@include Checkbox.hds-checkbox($all: false, $base: true, $error-text: true, $disabled: true);
-
-// Include only used icon styles (no sizes needed at the moment)
-@include Icon.hds-icon($all: false, $base: true);
-
-// Angle down icon is included without mixin
-
-// Include only used table styles
-@include Table.hds-table($all: false, $base: true, $dark: true);
+@use 'temp/table' as table;
 
 $font-weight-regular: 400;
 $font-weight-medium: 500;
@@ -214,141 +203,57 @@ $base-font-size: 16px;
   // --lineheight-xl: 1.75;
 }
 
-.hds-cc {
-  // HDBT overrides
-  --container-width-xl: 1312px;
-  // --hds-cc-border-color: #000000;
+// Include only used button styles
+@include button.hds-button(
+  $all: false,
+  $base: true,
+  $secondary: true,
+  $supplementary: true,
+  $small: true,
+  $icon: true,
+  $theme-coat: true,
+  $theme-black: true
+);
+
+// Include only used checkbox styles (no indeterminate)
+@include checkbox.hds-checkbox(
+  $all: false,
+  $base: true,
+  $error-text: true,
+  $disabled: true,
+  $theme-coat: true,
+  $theme-black: true
+);
+
+// Include only used icon styles (no sizes needed at the moment)
+@include icon.hds-icon(
+  $all: false,
+  $base: true
+);
+
+// Include only used table styles
+@include table.hds-table(
+  $all: false,
+  $base: true,
+  $light: true
+);
+
+// // HDBT overrides
+// :host {
+//   --container-width-override: 1312px;
+//   --color-focus-outline: var(--color-black);
+//   --focus-outline-color: var(--color-black);
+//   --focus-outline-offset: 2px;
+// }
+
+// Since coat-of-arms theme color is so close to bus color, it's better to change the stripe from bus to coat-of-arms unlike in black theme.
+.hds-theme--coat,
+.hds-theme--coat-of-arms {
+  --hds-cc-border-color: var(--color-coat-of-arms);
 }
 
 .hds-cc--page {
   margin-block: var(--spacing-layout-xs);
-}
-
-$font-path: '../fonts';
-
-/* Webfont: HelsinkiGrotesk-Regular */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-regular;
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.svg#HelsinkiGrotesk-Regular') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-RegularItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-regular;
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.ttf')
-      format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.svg#HelsinkiGrotesk-RegularItalic')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-Medium */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-medium;
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.svg#HelsinkiGrotesk-Medium') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-MediumItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-medium;
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.ttf')
-      format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.svg#HelsinkiGrotesk-MediumItalic')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-Bold */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-bold;
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.ttf') format('truetype'),
-    /* Safari, Android, iOS */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.svg#HelsinkiGrotesk-Bold')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-BoldItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-bold;
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.svg#HelsinkiGrotesk-BoldItalic') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-Black */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-black;
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.svg#HelsinkiGrotesk-Black') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-BlackItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-black;
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.svg#HelsinkiGrotesk-BlackItalic')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
 }
 
 // Border box is applied to all elements but individual elements can change this setting if required.
@@ -362,15 +267,13 @@ $font-path: '../fonts';
  * Normalize.css rule
  */
 html {
-  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-text-size-adjust: 100%;
 }
 
-/* stylelint-disable-next-line no-duplicate-selectors */
 .hds-cc {
   --autoheight-open-time: 0.15s;
   --common-spacing: var(--spacing-s);
-  --focus-outline-color: var(--color-coat-of-arms);
+  --focus-outline-color: var(--focus-outline-color-override, var(--color-focus-outline, var(--color-coat-of-arms)));
   --outline-width: 3px;
 
   color: var(--color-black-90);
@@ -407,7 +310,7 @@ html {
 
 .hds-cc__aligner {
   margin-inline: auto;
-  max-width: var(--container-width-xl);
+  max-width: var(--container-width-override, var(--container-width-xl));
 
   .hds-cc--banner & {
     padding: var(--spacing-layout-2-xs);
@@ -445,20 +348,6 @@ html {
   line-height: 1.5; // 24px
   margin-bottom: var(--spacing-layout-2-xs);
 }
-
-// .hds-cc__accordion-button {
-//   background: transparent;
-//   border: 0 none;
-//   color: var(--color-bus);
-//   cursor: pointer;
-//   font-size: 16px;
-//   font-weight: 500;
-//   line-height: 1.5; // 24px
-
-//   &:hover {
-//     background-color: var(--color-bus-light);
-//   }
-// }
 
 .hds-cc__accordion-button {
   .hds-icon {

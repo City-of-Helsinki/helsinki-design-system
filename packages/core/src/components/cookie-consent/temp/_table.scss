@@ -9,7 +9,7 @@
     $dense: false,
     $zebra: false,
     $with-vertical-header: false,
-    $text-align-right: false
+    $text-align-right: false,
   ){
   @if $all or $base {
     .hds-table-container {
