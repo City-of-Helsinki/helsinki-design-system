@@ -15,6 +15,7 @@ import { getScreenReaderNotification } from './getScreenReaderNotification';
 const createSearchAndFilterInfoProps = (forScreenReaderOnly: boolean): DivElementProps => {
   return {
     className: classNames(styles.searchAndFilterInfoContainer, forScreenReaderOnly && styles.screenReaderOnly),
+    'data-testid': 'search-and-filter-info',
   };
 };
 

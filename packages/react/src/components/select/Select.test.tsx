@@ -1,13 +1,14 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { isNull, isUndefined } from 'lodash';
 
 import { Select } from './Select';
 import { IconLocation } from '../../icons';
-import { SelectProps } from './types';
+import { SearchResult, SelectProps } from './types';
 import { defaultFilter, getElementIds } from './utils';
 import { isMultiSelectElement } from './components/list/common';
+import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 
 type ElementAttributes = {
   button: React.HTMLAttributes<HTMLButtonElement>;
@@ -30,7 +31,7 @@ type TestScenario = {
   groupCount: number;
   hasInput: boolean;
 };
-type AxeViolation = Awaited<ReturnType<typeof axe>>['violations'][number];
+// type AxeViolation = Awaited<ReturnType<typeof axe>>['violations'][number];
 
 describe('<Select />', () => {
   const onChangeTracker = jest.fn();
@@ -72,6 +73,8 @@ describe('<Select />', () => {
   const selectors = {
     listAndInputContainer: `#${selectId} > div:nth-child(2) > div:nth-child(2)`,
     extraGroup: `#${elementIds.list} > xx`,
+    screenReaderNotifications: `#${selectId} div[data-testid="screen-reader-notifications"]`,
+    searchAndFilterInfo: `#${selectId} div[data-testid="search-and-filter-info"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"] > div[role="group"]`,
     groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="group"] > div[role="checkbox"]:first-child`,
     options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
@@ -196,7 +199,7 @@ describe('<Select />', () => {
     };
 
     const getInputElement = () => {
-      return getElementById(elementIds.searchOrFilterInput) as HTMLButtonElement;
+      return getElementById(elementIds.searchOrFilterInput) as HTMLInputElement;
     };
 
     const getListElement = () => {
@@ -223,6 +226,14 @@ describe('<Select />', () => {
       return result.container.querySelector(selectors.listAndInputContainer) as HTMLDivElement;
     };
 
+    const getScreenReaderNotificationContainer = () => {
+      return result.container.querySelector(selectors.screenReaderNotifications) as HTMLDivElement;
+    };
+
+    const getSearchAndFilterInfoContainer = () => {
+      return result.container.querySelector(selectors.searchAndFilterInfo) as HTMLDivElement;
+    };
+
     const clickButton = (id: string) => {
       const el = getElementById(id);
       fireEvent.click(el);
@@ -232,6 +243,17 @@ describe('<Select />', () => {
       return Array.from(getOptionElements()).map((node) =>
         node.children.length ? node.children[0].innerHTML : node.innerHTML,
       );
+    };
+
+    const getScreenReaderNotifications = () => {
+      return Array.from(getScreenReaderNotificationContainer().children).map((node) => node.innerHTML);
+    };
+
+    const getSearchAndFilterInfoTexts = () => {
+      // span filtering removes the spinner
+      return Array.from(getSearchAndFilterInfoContainer().children)
+        .filter((node) => node.nodeName === 'SPAN')
+        .map((node) => node.innerHTML);
     };
 
     const isListOpen = (): boolean => {
@@ -276,6 +298,15 @@ describe('<Select />', () => {
       await sleepUntilMinInteractionTimePassed();
     };
 
+    const setInputValue = async (value: string) => {
+      act(() => {
+        fireEvent.change(getInputElement(), { target: { value } });
+      });
+      await waitFor(() => {
+        expect(getInputElement().getAttribute('value')).toBe(value);
+      });
+    };
+
     return {
       ...result,
       openList,
@@ -291,6 +322,9 @@ describe('<Select />', () => {
       getOptionElements,
       getAllListElements,
       clickOptionAndWaitForRerender,
+      setInputValue,
+      getScreenReaderNotifications,
+      getSearchAndFilterInfoTexts,
     };
   };
   describe('spec', () => {
@@ -767,6 +801,81 @@ describe('<Select />', () => {
           });
         });
       });
+    });
+  });
+  describe('Filter', () => {
+    it('Filter hides options and clearing filtering restores options', async () => {
+      const { openList, getOptionElements, setInputValue } = renderWithHelpers({
+        ...defaultTestProps,
+        ...propsForSingleSelectNoGroupsFilterInput,
+      });
+      await openList();
+      expect(getOptionElements()).toHaveLength(3);
+      await setInputValue('Option 1');
+      await waitFor(() => {
+        expect(getOptionElements()).toHaveLength(1);
+      });
+      await setInputValue('');
+      await waitFor(() => {
+        expect(getOptionElements()).toHaveLength(3);
+      });
+    });
+    it('Screen reader notifications are rendered', async () => {
+      const { openList, setInputValue, getScreenReaderNotifications } = renderWithHelpers({
+        ...defaultTestProps,
+        ...propsForSingleSelectNoGroupsFilterInput,
+      });
+      await openList();
+      await setInputValue('Option 1');
+      await waitFor(
+        () => {
+          expect(getScreenReaderNotifications()).toHaveLength(1);
+        },
+        { interval: 500 },
+      );
+      const notification = getScreenReaderNotifications()[0] as string;
+      expect(notification.includes('Option 1')).toBeTruthy();
+      expect(notification.includes('Found 1 option')).toBeTruthy();
+    });
+  });
+  describe('Search', () => {
+    it('Search updates all data', async () => {
+      const resultArray = ['Result 1', 'Result 2'];
+      const onSearch: SelectProps['onSearch'] = () => {
+        return createTimedPromise({ options: resultArray }, 300) as Promise<SearchResult>;
+      };
+      const { openList, getOptionElements, setInputValue, getListItemLabels } = renderWithHelpers({
+        ...defaultTestProps,
+        ...propsForSingleSelectNoGroupsNoInput,
+        onSearch,
+      });
+      await openList();
+      expect(getOptionElements()).toHaveLength(3);
+      await setInputValue('Option 1');
+      await waitFor(() => {
+        expect(getListItemLabels()).toEqual(resultArray);
+      });
+      await setInputValue('');
+      await waitFor(() => {
+        expect(getOptionElements()).toHaveLength(0);
+      });
+    });
+    it('User is notified if there are no results', async () => {
+      const { openList, setInputValue, getSearchAndFilterInfoTexts } = renderWithHelpers({
+        ...defaultTestProps,
+        ...propsForSingleSelectNoGroupsNoInput,
+        onSearch: () => createTimedPromise({ options: [] }, 300) as Promise<SearchResult>,
+      });
+      await openList();
+      await setInputValue('Option 1');
+      await waitFor(
+        () => {
+          expect(getSearchAndFilterInfoTexts()).toHaveLength(2);
+        },
+        { interval: 500 },
+      );
+      const notification = getSearchAndFilterInfoTexts()[0] as string;
+      expect(notification.includes(`No options found for "Option 1"`)).toBeTruthy();
     });
   });
 });

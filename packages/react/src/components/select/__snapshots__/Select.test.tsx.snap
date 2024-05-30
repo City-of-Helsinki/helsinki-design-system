@@ -156,6 +156,7 @@ exports[`<Select /> spec renders multi select component with groups and filter i
     <div
       aria-live="polite"
       class="screenReaderNotifications"
+      data-testid="screen-reader-notifications"
     />
   </div>
 </DocumentFragment>
@@ -317,6 +318,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
     <div
       aria-live="polite"
       class="screenReaderNotifications"
+      data-testid="screen-reader-notifications"
     />
   </div>
 </DocumentFragment>

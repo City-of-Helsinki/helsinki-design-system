@@ -70,7 +70,7 @@ export function ScreenReaderNotifications() {
   const timeNow = Date.now();
   prevRenderedContentRef.current = getJoinedContents(nextNotifications);
   return (
-    <div aria-live="polite" className={styles.screenReaderNotifications}>
+    <div aria-live="polite" className={styles.screenReaderNotifications} data-testid="screen-reader-notifications">
       {nextNotifications.map((n) => {
         if (!n.showTime) {
           // eslint-disable-next-line no-param-reassign
