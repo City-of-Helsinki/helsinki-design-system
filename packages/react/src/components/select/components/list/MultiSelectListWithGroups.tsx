@@ -133,10 +133,12 @@ export function MultiSelectListWithGroups() {
   const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
   return (
     <div {...attr}>
-      <div role="group">
-        <span className={styles.visuallyHidden} id={elementIds.choicesCount}>{`${choiceCount} choices`}</span>
-        {children}
-      </div>
+      {open ? (
+        <div role="group">
+          <span className={styles.visuallyHidden} id={elementIds.choicesCount}>{`${choiceCount} choices`}</span>
+          {children}
+        </div>
+      ) : null}
     </div>
   );
 }

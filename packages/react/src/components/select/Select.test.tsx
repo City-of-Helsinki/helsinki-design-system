@@ -1,13 +1,13 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
-import { cloneDeep, isNull, isUndefined } from 'lodash';
+import { isNull, isUndefined } from 'lodash';
 
 import { Select } from './Select';
 import { IconLocation } from '../../icons';
 import { SelectProps } from './types';
 import { defaultFilter, getElementIds } from './utils';
-import { isMultiSelectElement, isSingleSelectElement } from './components/list/common';
+import { isMultiSelectElement } from './components/list/common';
 
 type ElementAttributes = {
   button: React.HTMLAttributes<HTMLButtonElement>;
@@ -17,6 +17,7 @@ type ElementAttributes = {
   selectedOptions: React.HTMLAttributes<HTMLLIElement> | React.HTMLAttributes<HTMLDivElement>;
   listElementNodeName: string | undefined;
   group: React.HTMLAttributes<HTMLDivElement> | undefined;
+  extraGroupElement: React.HTMLAttributes<HTMLDivElement> | undefined;
   groupElementNodeName: string | undefined;
   groupLabel: React.HTMLAttributes<HTMLLIElement> | React.HTMLAttributes<HTMLDivElement> | undefined;
   input: React.HTMLAttributes<HTMLInputElement> | undefined;
@@ -29,6 +30,7 @@ type TestScenario = {
   groupCount: number;
   hasInput: boolean;
 };
+type AxeViolation = Awaited<ReturnType<typeof axe>>['violations'][number];
 
 describe('<Select />', () => {
   const onChangeTracker = jest.fn();
@@ -62,14 +64,17 @@ describe('<Select />', () => {
       ],
     },
   ];
+  const optionCountInGroups = groupsAndOptions.reduce((count, group) => {
+    return count + group.options.length;
+  }, 0);
   const selectId = 'select-component';
   const elementIds = getElementIds(selectId);
   const selectors = {
     listAndInputContainer: `#${selectId} > div:nth-child(2) > div:nth-child(2)`,
     extraGroup: `#${elementIds.list} > xx`,
-    groups: `#${elementIds.list} > ul, #${elementIds.list} > div`,
-    groupLabels: `#${elementIds.list} > ul > li[role="presentation"]`,
-    options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"]`,
+    groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"] > div[role="group"]`,
+    groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="group"] > div[role="checkbox"]:first-child`,
+    options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
     allListItems: `created below`,
   };
   selectors.allListItems = `${selectors.groupLabels}, ${selectors.options}`;
@@ -98,13 +103,33 @@ describe('<Select />', () => {
     },
   };
 
+  const getText = (props: SelectProps, key: string) => {
+    if (!props || !props.texts) {
+      throw new Error('No texts found');
+    }
+    if (typeof props.texts === 'object') {
+      return props.texts[key];
+    }
+    return 'none';
+  };
+
   const propsForSingleSelectNoGroupsNoInput: Partial<SelectProps> = {
     options,
+  };
+
+  const propsForMultiSelectNoGroupsNoInput: Partial<SelectProps> = {
+    ...propsForSingleSelectNoGroupsNoInput,
+    multiSelect: true,
   };
 
   const propsForSingleSelectNoGroupsFilterInput: Partial<SelectProps> = {
     options,
     filter: defaultFilter,
+  };
+
+  const propsForMultiSelectNoGroupsFilterInput: Partial<SelectProps> = {
+    ...propsForSingleSelectNoGroupsFilterInput,
+    multiSelect: true,
   };
 
   const propsForSingleSelectWithGroupsNoInput: Partial<SelectProps> = {
@@ -114,6 +139,16 @@ describe('<Select />', () => {
   const propsForSingleSelectWithGroupsFilterInput: Partial<SelectProps> = {
     groups: groupsAndOptions,
     filter: defaultFilter,
+  };
+
+  const propsForMultiSelectWithGroupsFilterInput: Partial<SelectProps> = {
+    ...propsForSingleSelectWithGroupsFilterInput,
+    multiSelect: true,
+  };
+
+  const propsForMultiSelectWithGroupsNoInput: Partial<SelectProps> = {
+    ...propsForSingleSelectWithGroupsNoInput,
+    multiSelect: true,
   };
 
   const convertToSameAttributeType = (target: unknown, comparedValue: unknown) => {
@@ -145,8 +180,8 @@ describe('<Select />', () => {
     return mismatches;
   };
 
-  const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
-    const result = render(<Select {...{ ...defaultTestProps, ...selectProps }} />);
+  const renderWithHelpers = (selectProps: SelectProps = defaultTestProps) => {
+    const result = render(<Select {...selectProps} />);
 
     const getElementById = (id: string) => {
       return result.container.querySelector(`#${id}`) as HTMLElement;
@@ -180,7 +215,7 @@ describe('<Select />', () => {
       return Array.from(result.container.querySelectorAll(selectors.options)) as HTMLElement[];
     };
 
-    const gatAllListElements = () => {
+    const getAllListElements = () => {
       return Array.from(result.container.querySelectorAll(selectors.allListItems)) as HTMLElement[];
     };
 
@@ -207,7 +242,7 @@ describe('<Select />', () => {
 
     const clickOptionAndWaitForRerender = async (index: number) => {
       const option = getOptionElements()[index];
-      const menuWillCloseOnClick = isSingleSelectElement(option);
+      const menuWillCloseOnClick = !selectProps.multiSelect;
       const getInitialState = () => {
         if (menuWillCloseOnClick) {
           return isListOpen();
@@ -229,6 +264,9 @@ describe('<Select />', () => {
     };
 
     const openList = async () => {
+      if (isListOpen()) {
+        return;
+      }
       await sleepUntilMinInteractionTimePassed();
       clickButton(getMainButtonElementId());
       await waitFor(() => {
@@ -251,30 +289,34 @@ describe('<Select />', () => {
       getGroupLabelElements,
       getGroupElements,
       getOptionElements,
-      gatAllListElements,
+      getAllListElements,
       clickOptionAndWaitForRerender,
     };
   };
-  describe.skip('spec', () => {
-    const Wrapped = () => {
-      return (
-        <Select
-          options={options}
-          label="Label"
-          onChange={onChangeTracker}
-          placeholder="Choose one"
-          icon={<IconLocation />}
-          required
-        />
+  describe('spec', () => {
+    it('renders single select component with groups and filter input', () => {
+      const { asFragment } = render(
+        <Select {...{ ...defaultTestProps, ...propsForSingleSelectWithGroupsFilterInput }} />,
       );
-    };
-    it('renders the component', () => {
-      const { asFragment } = render(<Wrapped />);
       expect(asFragment()).toMatchSnapshot();
     });
-    it('should not have basic accessibility issues', async () => {
-      const { container } = render(<Wrapped />);
+    it('renders multi select component with groups and filter input', () => {
+      const { asFragment } = render(
+        <Select {...{ ...defaultTestProps, ...propsForMultiSelectWithGroupsFilterInput }} />,
+      );
+      expect(asFragment()).toMatchSnapshot();
+    });
+    it('single select component with groups and filter input should not have basic accessibility issues', async () => {
+      const { container } = render(<Select {...{ ...defaultTestProps, ...propsForSingleSelectNoGroupsFilterInput }} />);
       const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+    it('multi select component with groups and filter input should not have basic accessibility issues', async () => {
+      const { container } = render(
+        <Select {...{ ...defaultTestProps, ...propsForMultiSelectWithGroupsFilterInput }} />,
+      );
+      const results = await axe(container);
+
       expect(results).toHaveNoViolations();
     });
   });
@@ -322,6 +364,7 @@ describe('<Select />', () => {
         group: undefined,
         groupLabel: undefined,
         input: undefined,
+        extraGroupElement: undefined,
       },
       groupCount: 0,
       hasInput: false,
@@ -358,6 +401,7 @@ describe('<Select />', () => {
           role: 'presentation',
         },
         input: undefined,
+        extraGroupElement: undefined,
       },
       groupCount: groupsAndOptions.length,
       hasInput: false,
@@ -377,8 +421,7 @@ describe('<Select />', () => {
         listAndInputContainer: {
           ...singleSelectNoGroupsNoInput.expectedAttributes.listAndInputContainer,
           role: 'dialog',
-          // @ts-ignore-next-line
-          'aria-label': defaultTestProps.texts.label,
+          'aria-label': getText(defaultTestProps, 'label'),
         },
         list: {
           ...singleSelectNoGroupsNoInput.expectedAttributes.list,
@@ -393,6 +436,7 @@ describe('<Select />', () => {
         groupElementNodeName: '',
         group: undefined,
         groupLabel: undefined,
+        extraGroupElement: undefined,
         input: {
           role: 'combobox',
           'aria-controls': elementIds.list,
@@ -402,6 +446,84 @@ describe('<Select />', () => {
       },
       groupCount: 0,
       hasInput: true,
+    };
+
+    const multiSelectNoGroupsNoInput: TestScenario = {
+      description: 'Multiselect no groups no inputs',
+      selectOptions: propsForMultiSelectNoGroupsNoInput,
+      expectedAttributes: {
+        button: {
+          ...singleSelectNoGroupsNoInput.expectedAttributes.button,
+        },
+        listAndInputContainer: {
+          ...singleSelectNoGroupsNoInput.expectedAttributes.listAndInputContainer,
+        },
+        list: {
+          'aria-multiselectable': 'true',
+          role: 'listbox',
+        },
+        options: {
+          'aria-selected': 'false',
+          role: 'option',
+        },
+        selectedOptions: {
+          'aria-selected': 'true',
+          role: 'option',
+        },
+        listElementNodeName: 'ul',
+        groupElementNodeName: '',
+        group: undefined,
+        groupLabel: undefined,
+        input: undefined,
+        extraGroupElement: undefined,
+      },
+      groupCount: 0,
+      hasInput: false,
+    };
+
+    const multiSelectWithGroupsNoInput: TestScenario = {
+      description: 'Multiselect with groups no inputs',
+      selectOptions: propsForMultiSelectWithGroupsNoInput,
+      expectedAttributes: {
+        button: {
+          ...singleSelectNoGroupsNoInput.expectedAttributes.button,
+          'aria-haspopup': 'dialog',
+        },
+        listAndInputContainer: {
+          'aria-hidden': true,
+          role: 'dialog',
+          'aria-label': `${getText(defaultTestProps, 'label')}. ${optionCountInGroups} choices.`,
+        },
+        list: {
+          // these undefined values indicate that the element should not have special attributes
+          'aria-multiselectable': undefined,
+          role: undefined,
+        },
+        options: {
+          'aria-checked': 'false',
+          role: 'checkbox',
+        },
+        selectedOptions: {
+          'aria-checked': 'true',
+          role: 'checkbox',
+        },
+        listElementNodeName: 'div',
+        extraGroupElement: {
+          role: 'group',
+        },
+        group: {
+          role: 'group',
+          'aria-label': undefined,
+        },
+        groupElementNodeName: 'div',
+        groupLabel: {
+          role: 'checkbox',
+          'aria-checked': false,
+        },
+        input: undefined,
+      },
+      groupCount: groupsAndOptions.length,
+      hasInput: false,
     };
 
     const singleSelectWithGroupsFilterInput: TestScenario = {
@@ -418,8 +540,7 @@ describe('<Select />', () => {
         listAndInputContainer: {
           ...singleSelectNoGroupsNoInput.expectedAttributes.listAndInputContainer,
           role: 'dialog',
-          // @ts-ignore-next-line
-          'aria-label': defaultTestProps.texts.label,
+          'aria-label': getText(defaultTestProps, 'label'),
         },
         list: {
           ...singleSelectNoGroupsNoInput.expectedAttributes.list,
@@ -440,32 +561,126 @@ describe('<Select />', () => {
           'aria-activedescendant': '', // this should change!
           'aria-haspopup': 'listbox',
         },
+        extraGroupElement: undefined,
+      },
+      groupCount: groupsAndOptions.length,
+      hasInput: true,
+    };
+
+    const multiSelectWithGroupsFilterInput: TestScenario = {
+      description: 'MultiSelect with groups with filter input',
+      selectOptions: propsForMultiSelectWithGroupsFilterInput,
+      expectedAttributes: {
+        button: {
+          role: undefined,
+          'aria-expanded': false,
+          'aria-controls': elementIds.searchOrFilterInput,
+          'aria-haspopup': 'dialog',
+          'aria-activedescendant': undefined,
+        },
+        listAndInputContainer: {
+          ...singleSelectNoGroupsNoInput.expectedAttributes.listAndInputContainer,
+          role: 'dialog',
+          'aria-label': getText(defaultTestProps, 'label'),
+        },
+        list: {
+          'aria-multiselectable': undefined,
+          'aria-labelledby': elementIds.choicesCount,
+          role: 'dialog',
+        },
+        options: {
+          ...multiSelectWithGroupsNoInput.expectedAttributes.options,
+        },
+        selectedOptions: {
+          ...multiSelectWithGroupsNoInput.expectedAttributes.selectedOptions,
+        },
+        listElementNodeName: 'div',
+        groupElementNodeName: 'div',
+        group: {
+          role: 'group',
+          'aria-label': undefined,
+        },
+        groupLabel: {
+          role: 'checkbox',
+          'aria-checked': false,
+        },
+        input: {
+          role: 'combobox',
+          'aria-controls': elementIds.list,
+          'aria-activedescendant': '', // this should change!
+          'aria-haspopup': 'dialog',
+        },
+        extraGroupElement: {
+          role: 'group',
+        },
+      },
+      groupCount: groupsAndOptions.length,
+      hasInput: true,
+    };
+    const multiSelectNoGroupsFilterInput: TestScenario = {
+      description: 'MultiSelect no groups with filter input',
+      selectOptions: propsForMultiSelectNoGroupsFilterInput,
+      expectedAttributes: {
+        button: {
+          role: undefined,
+          'aria-expanded': false,
+          'aria-controls': elementIds.searchOrFilterInput,
+          'aria-haspopup': 'dialog',
+          'aria-activedescendant': undefined,
+        },
+        listAndInputContainer: {
+          ...multiSelectWithGroupsFilterInput.expectedAttributes.listAndInputContainer,
+        },
+        list: {
+          ...multiSelectNoGroupsNoInput.expectedAttributes.list,
+        },
+        options: {
+          ...multiSelectNoGroupsNoInput.expectedAttributes.options,
+        },
+        selectedOptions: {
+          ...multiSelectNoGroupsNoInput.expectedAttributes.selectedOptions,
+        },
+        listElementNodeName: 'ul',
+        groupElementNodeName: undefined,
+        group: undefined,
+        groupLabel: undefined,
+        input: {
+          ...singleSelectNoGroupsWithInput.expectedAttributes.input,
+        },
+        extraGroupElement: undefined,
       },
       groupCount: 0,
       hasInput: true,
     };
-
     [
       singleSelectNoGroupsNoInput,
       singleSelectWithGroupsNoInput,
       singleSelectNoGroupsWithInput,
       singleSelectWithGroupsFilterInput,
+      multiSelectNoGroupsNoInput,
+      multiSelectWithGroupsNoInput,
+      multiSelectNoGroupsFilterInput,
+      multiSelectWithGroupsFilterInput,
     ].forEach(({ selectOptions, description, expectedAttributes, groupCount, hasInput }) => {
+      const mergedProps = {
+        ...defaultTestProps,
+        ...selectOptions,
+      };
       describe(`${description}`, () => {
         it('Button has correct attributes before and after opened', async () => {
-          const { openList, getButtonElement, gatAllListElements } = renderWithHelpers(selectOptions);
+          const { openList, getButtonElement, getAllListElements } = renderWithHelpers(mergedProps);
           expect(getMismatchingElementAttributes(getButtonElement(), expectedAttributes.button)).toHaveLength(0);
           await openList();
           expect(
             getMismatchingElementAttributes(getButtonElement(), {
               ...expectedAttributes.button,
               'aria-expanded': true,
-              'aria-activedescendant': hasInput ? undefined : String(gatAllListElements()[0].getAttribute('id')),
+              'aria-activedescendant': hasInput ? undefined : String(getAllListElements()[0].getAttribute('id')),
             }),
           ).toHaveLength(0);
         });
         it('List and input container has correct attributes', async () => {
-          const { openList, getListAndInputContainer } = renderWithHelpers(selectOptions);
+          const { openList, getListAndInputContainer } = renderWithHelpers(mergedProps);
           expect(
             getMismatchingElementAttributes(getListAndInputContainer(), expectedAttributes.listAndInputContainer),
           ).toHaveLength(0);
@@ -478,14 +693,14 @@ describe('<Select />', () => {
           ).toHaveLength(0);
         });
         it('List element has correct attributes and node', async () => {
-          const { getListElement } = renderWithHelpers(selectOptions);
+          const { getListElement } = renderWithHelpers(mergedProps);
           const listElement = getListElement();
           // no need to open it.
           expect(getMismatchingElementAttributes(listElement, expectedAttributes.list)).toHaveLength(0);
           expect(listElement.nodeName.toLowerCase()).toBe(expectedAttributes.listElementNodeName);
         });
         it('Groups are created inside the list and have correct attributes', async () => {
-          const { getGroupElements, openList } = renderWithHelpers(selectOptions);
+          const { getGroupElements, openList } = renderWithHelpers(mergedProps);
           expect(getGroupElements()).toHaveLength(0);
           if (!groupCount) {
             return;
@@ -500,7 +715,7 @@ describe('<Select />', () => {
           });
         });
         it('Group labels have correct attributes', async () => {
-          const { getGroupLabelElements, openList } = renderWithHelpers(selectOptions);
+          const { getGroupLabelElements, openList } = renderWithHelpers(mergedProps);
           expect(getGroupLabelElements()).toHaveLength(0);
           if (!groupCount) {
             return;
@@ -513,7 +728,7 @@ describe('<Select />', () => {
           });
         });
         it('Input element has correct attributes', async () => {
-          const { getInputElement, openList } = renderWithHelpers(selectOptions);
+          const { getInputElement, openList } = renderWithHelpers(mergedProps);
           if (!hasInput) {
             return;
           }
@@ -521,26 +736,34 @@ describe('<Select />', () => {
           expect(getMismatchingElementAttributes(getInputElement(), expectedAttributes.input)).toHaveLength(0);
         });
         it('Options have correct attributes before and after selections', async () => {
-          const { openList, getOptionElements, isListOpen, clickOptionAndWaitForRerender } =
-            renderWithHelpers(selectOptions);
+          const { openList, getOptionElements, isListOpen, clickOptionAndWaitForRerender, getGroupLabelElements } =
+            renderWithHelpers(mergedProps);
           await openList();
 
           getOptionElements().forEach((optionElement) => {
             expect(getMismatchingElementAttributes(optionElement, expectedAttributes.options)).toHaveLength(0);
             expect(isElementSelected(optionElement)).toBeFalsy();
           });
+          // do not click #0 option or multiselect group is selected
+          const indexOfClickedOption = 1;
           expect(filterSelectedOptions(getOptionElements())).toHaveLength(0);
-          await clickOptionAndWaitForRerender(0);
-          expect(isListOpen()).toBeFalsy();
+          await clickOptionAndWaitForRerender(indexOfClickedOption);
+          expect(isListOpen()).toBe(!!selectOptions.multiSelect);
           await openList();
+          const groupLabels = getGroupLabelElements();
           getOptionElements().forEach((optionElement, index) => {
-            expect(
-              getMismatchingElementAttributes(optionElement, {
-                ...expectedAttributes.options,
-                'aria-selected': index === 0,
-              }),
-            ).toHaveLength(0);
-            expect(isElementSelected(optionElement)).toBe(index === 0);
+            const expectedOptionAttributes =
+              index === indexOfClickedOption
+                ? { ...expectedAttributes.selectedOptions }
+                : { ...expectedAttributes.options };
+            const isMultiSelectGroupLabel =
+              mergedProps.multiSelect && groupCount > 0 && groupLabels.includes(optionElement);
+            const isGroupLabelOfSelectedOption = isMultiSelectGroupLabel && index < indexOfClickedOption;
+            if (isGroupLabelOfSelectedOption) {
+              expectedOptionAttributes['aria-checked'] = 'mixed';
+            }
+            expect(getMismatchingElementAttributes(optionElement, expectedOptionAttributes)).toHaveLength(0);
+            expect(isElementSelected(optionElement)).toBe(index === indexOfClickedOption);
           });
         });
       });

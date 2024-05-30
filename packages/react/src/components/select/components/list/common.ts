@@ -15,6 +15,7 @@ export const isMultiSelectElement = (element: HTMLElement) => {
 
 export const singleSelectElementSelector = 'li';
 
+// NOTE: multiselect with no groups or input has the same element!
 export const isSingleSelectElement = (element: HTMLElement) => {
   return element.nodeName === 'LI' && element.getAttribute('role') === 'option';
 };
