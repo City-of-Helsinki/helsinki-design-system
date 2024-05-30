@@ -13,12 +13,13 @@
  * @param {string} translations.approveRequiredAndSelectedConsents - The text for the "Approve Required and Selected Consents" button.
  * @param {string} translations.approveOnlyRequiredConsents - The text for the "Approve Only Required Consents" button.
  * @param {string} groupsHtml - The HTML for the consent groups.
+ * @param {string} theme - The theme for the banner.
  * @param {boolean} isBanner - Indicates if the code is rendered as banner or part of a page.
  * @return {string} The HTML for the cookie banner.
  */
-export function getCookieBannerHtml(translations, groupsHtml, isBanner = true) {
+export function getCookieBannerHtml(translations, groupsHtml, theme, isBanner = true) {
   return `
-<div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'}" tabindex="-1" role="region" aria-label="${translations.bannerAriaLabel}">
+<div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${translations.bannerAriaLabel}">
   <div class="hds-cc__container">
     <div class="hds-cc__aligner">
 
@@ -103,7 +104,7 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
               <div class="hds-cc__group-details" id="hds-cc-group-details-${groupUniqueId}">
                 <div class="hds-cc__group-details__animator">
                   <div class="hds-table-container" tabindex="0" role="region">
-                    <table class="hds-table hds-table--dark">
+                    <table class="hds-table hds-table--light">
                       <thead>
                         <tr class="hds-table__header-row">
                         <th scope="col">${translations.tableHeadingsName}</th>
@@ -120,7 +121,8 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
                   </div>
                 </div>
               </div>
-            </div>`;
+            </div>
+            `;
 }
 
 /**

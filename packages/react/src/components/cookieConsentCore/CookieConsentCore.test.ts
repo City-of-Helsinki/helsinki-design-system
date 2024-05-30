@@ -7,6 +7,7 @@ import * as settingsJSON from './example/helfi_sitesettings.json';
 type Options = {
   siteSettingsJsonUrl: string;
   language: string;
+  theme?: string;
   targetSelector?: string;
   spacerParentSelector?: string;
   pageContentSelector?: string;
@@ -33,6 +34,7 @@ describe('cookieConsentCore', () => {
     siteSettingsJsonUrl: 'http://localhost/helfi_sitesettings.json',
     // siteSettingsObj,
     language: 'fi', // Lang code defaults to 'en'
+    // theme: 'black', // Defaults to 'bus'
     // targetSelector: 'body', // Defaults to 'body'
     // spacerParentSelector: 'body', // Defaults to 'body'
     // pageContentSelector: 'body', // Defaults to 'body'
