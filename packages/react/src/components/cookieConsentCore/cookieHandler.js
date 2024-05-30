@@ -11,6 +11,7 @@ export default class CookieHandler {
   #shadowDomUpdateCallback;
   #siteSettings;
   #cookie_name;
+  #formReference;
 
   /**
    * Represents a CookieHandler object.
@@ -25,12 +26,21 @@ export default class CookieHandler {
     siteSettingsJsonUrl, // Path to JSON file with site settings
     siteSettingsObj, // Site settings object
     shadowDomUpdateCallback, // Callback function to update shadow DOM checkboxes
-    backReference, // Reference to the back reference object
   }) {
     this.#SITE_SETTINGS_JSON_URL = siteSettingsJsonUrl;
     this.#SITE_SETTINGS_OBJ = siteSettingsObj;
-    this.#shadowDomUpdateCallback = (consentedGroupNames) =>
-      shadowDomUpdateCallback(consentedGroupNames, backReference);
+    this.#shadowDomUpdateCallback = (consentedGroupNames) => {
+      shadowDomUpdateCallback(consentedGroupNames, this.#formReference);
+    };
+  }
+
+  /**
+   * Sets the form reference for the cookie handler.
+   *
+   * @param {Object} formReference - The reference to the form.
+   */
+  setFormReference(formReference) {
+    this.#formReference = formReference;
   }
 
   /**
