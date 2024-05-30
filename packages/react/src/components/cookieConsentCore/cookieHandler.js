@@ -95,8 +95,10 @@ export default class CookieHandler {
       }),
     );
 
+    const newAcceptedGroupsArray = [...new Set([...currentlyAccepted, ...acceptedGroupsArray])];
+
     // Save accepted groups and update checkbox state
-    this.saveConsentedGroups([...currentlyAccepted, ...acceptedGroupsArray], showBanner);
+    this.saveConsentedGroups(newAcceptedGroupsArray, showBanner);
     return true;
   }
 
@@ -164,7 +166,7 @@ export default class CookieHandler {
   }
 
   /**
-   * Saves the consented cookie groups to cookie, unsets others.
+   * Saves the consented cookie groups (and required groups) to cookie, unsets others.
    * @private
    * @param {Array} consentedGroupNames - The names of the consented cookie groups.
    * @param {boolean} showBanner - Whether to show the banner or not.
@@ -173,11 +175,12 @@ export default class CookieHandler {
     // console.log('Saving consented cookie groups:', consentedGroupNames, showBanner);
 
     const consentedGroups = {};
+    const consentedGroupAndRequiredGroupNames = [...this.getRequiredGroupNames(), ...consentedGroupNames];
 
     // Find group checksums for consented groups
     const allGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
     allGroups.forEach((group) => {
-      if (consentedGroupNames.includes(group.groupId)) {
+      if (consentedGroupAndRequiredGroupNames.includes(group.groupId)) {
         consentedGroups[group.groupId] = group.checksum;
       }
     });
@@ -310,11 +313,11 @@ export default class CookieHandler {
       Object.keys(browserCookieState.groups).forEach((groupName) => {
         const group = browserCookieState.groups[groupName];
         if (siteSettingsGroupsChecksums[groupName] && siteSettingsGroupsChecksums[groupName] === group) {
-          newCookieGroups.push(group.groupId);
+          newCookieGroups.push(groupName);
         } else {
           invalidGroupsFound = true;
           // eslint-disable-next-line no-console
-          console.info(`Invalid group found in browser cookie: '${group.groupId}', removing from cookie.`);
+          console.info(`Invalid group found in browser cookie: '${groupName}', removing from cookie.`);
         }
       });
     }
