@@ -2,6 +2,12 @@ import React, { useEffect } from 'react';
 
 import { CookieConsentCore } from './cookieConsentCore';
 
+declare global {
+  interface Window {
+    hds: undefined;
+  }
+}
+
 // This is used to test "/classes" in React and Storybook
 // See also https://github.com/Wildhoney/ReactShadow
 export const ReactTest = () => {
@@ -22,6 +28,21 @@ export const ReactTest = () => {
     // eslint-disable-next-line no-new, @typescript-eslint/no-unused-vars
     const instance = new CookieConsentCore(options);
   }, []);
+
+  const addChatCookie = async () => {
+    // eslint-disable-next-line no-console
+    console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']));
+  };
+  const addUnallowedCookie = async () => {
+    // eslint-disable-next-line no-console
+    console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['unallowed']));
+  };
+  const removeConsentCookie = async () => {
+    const cookieName = `helfi-cookie-consents`;
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    // eslint-disable-next-line no-console
+    console.log('Cookie removed:', cookieName);
+  };
   return (
     <main>
       <p>
@@ -33,6 +54,15 @@ export const ReactTest = () => {
         nulla. Deleniti est maiores explicabo minus? Odio amet id perferendis nulla alias vitae, voluptate dignissimos
         deleniti voluptas officia nam facere iste, maiores porro rem dolorem modi molestiae provident illo.
       </p>
+      <button type="button" onClick={addChatCookie}>
+        Add chat group
+      </button>
+      <button type="button" onClick={addUnallowedCookie}>
+        Add unallowed group
+      </button>
+      <button type="button" onClick={removeConsentCookie}>
+        Remove consent cookie
+      </button>
       <p>
         Ex consequatur perspiciatis pariatur, suscipit maiores officia vitae assumenda incidunt rem in, distinctio iure
         eos eius veniam temporibus expedita? Exercitationem qui animi sint adipisci voluptas autem facere similique

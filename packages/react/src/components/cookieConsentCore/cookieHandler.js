@@ -95,6 +95,18 @@ export default class CookieHandler {
       }),
     );
 
+    const groupsWhitelistedForApi = siteSettings.groupsWhitelistedForApi || [];
+
+    // Check that all accepted groups are in the whitelisted groups and return false if not
+    const notWhitelistedGroups = acceptedGroupsArray.filter((group) => !groupsWhitelistedForApi.includes(group));
+    if (notWhitelistedGroups.length > 0) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `Cookie consent: The group(s) "${notWhitelistedGroups.join('", "')}" not found in groupsWhitelistedForApi: "${groupsWhitelistedForApi.join('", "')}".`,
+      );
+      return false;
+    }
+
     const newAcceptedGroupsArray = [...new Set([...currentlyAccepted, ...acceptedGroupsArray])];
 
     // Save accepted groups and update checkbox state

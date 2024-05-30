@@ -661,5 +661,8 @@
       "name": "cacheStorage_robot",
       "type": 5
     }
+  ],
+  "groupsWhitelistedForApi": [
+    "chat"
   ]
 }
