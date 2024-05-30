@@ -18,7 +18,7 @@
   $font-weight-500: true, // Medium
   $font-weight-700: true, // Bold
   $font-weight-900: false, // Black is not needed by cookie consent
-)
+);
 
 // Include only used button styles
 @include button.hds-button(

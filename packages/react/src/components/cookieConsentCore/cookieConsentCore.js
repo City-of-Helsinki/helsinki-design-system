@@ -14,6 +14,7 @@ import CookieHandler from './cookieHandler';
 export class CookieConsentCore {
   // MARK: Private properties
   #LANGUAGE;
+  #THEME;
   #TARGET_SELECTOR;
   #SPACER_PARENT_SELECTOR;
   #PAGE_CONTENT_SELECTOR;
@@ -45,6 +46,7 @@ export class CookieConsentCore {
    * @param {Object} options - The options for configuring the CookieConsent instance.
    * @param {string} options.siteSettingsJsonUrl - The path to the JSON file with site settings.
    * @param {string} [options.language='en'] - The page language.
+   * @param {string} [options.theme='bus'] - The theme for the banner.
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
@@ -57,6 +59,7 @@ export class CookieConsentCore {
     siteSettingsJsonUrl, // Path to JSON file with site settings
     siteSettingsObj, // Object with site settings to use instead of the url
     language = 'en', // Page language
+    theme = 'bus', // Theme for the banner
     targetSelector = 'body', // Where to inject the banner
     spacerParentSelector = 'body', // Where to inject the spacer
     pageContentSelector = 'body', // Where to add scroll-margin-bottom
@@ -69,6 +72,7 @@ export class CookieConsentCore {
     }
 
     this.#LANGUAGE = language;
+    this.#THEME = theme;
     this.#TARGET_SELECTOR = targetSelector;
     this.#SPACER_PARENT_SELECTOR = spacerParentSelector;
     this.#PAGE_CONTENT_SELECTOR = pageContentSelector;
@@ -429,7 +433,7 @@ export class CookieConsentCore {
     ].join('');
 
     // Create banner HTML
-    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, isBanner);
+    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, this.#THEME, isBanner);
 
     // Add button events
     const shadowRootForm = shadowRoot.querySelector('form');

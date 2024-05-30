@@ -9,6 +9,7 @@ export const ReactTestFullPage = () => {
     siteSettingsJsonUrl: 'http://localhost:6006/static-cookie-consent/helfi_sitesettings.json',
     // siteSettingsObj,
     language: 'fi', // Lang code defaults to 'en'
+    theme: 'coat', // Defaults to 'bus'
     // targetSelector: 'body', // Defaults to 'body'
     // spacerParentSelector: 'body', // Defaults to 'body'
     // pageContentSelector: 'body', // Defaults to 'body'
