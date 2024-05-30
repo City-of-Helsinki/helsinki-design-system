@@ -87,25 +87,19 @@ export class CookieConsentCore {
      * Updates the shadow DOM checkboxes based on the consented group names.
      *
      * @param {Array<string>} consentedGroupNames - The array of consented group names.
-     * @param {Object} backReference - The back reference object, as in: current class instance.
      */
-    const shadowDomUpdateCallback = (consentedGroupNames, backReference) => {
-      const { shadowRoot } = backReference;
-      if (shadowRoot) {
-        const form = shadowRoot.querySelector('form');
-        if (form) {
-          const formCheckboxes = form.querySelectorAll('input');
-          formCheckboxes.forEach((check) => {
-            // eslint-disable-next-line no-param-reassign
-            check.checked = consentedGroupNames.includes(check.dataset.group);
-          });
-        }
+    const shadowDomUpdateCallback = (consentedGroupNames, formReference) => {
+      if (formReference) {
+        const formCheckboxes = formReference.querySelectorAll('input');
+        formCheckboxes.forEach((check) => {
+          // eslint-disable-next-line no-param-reassign
+          check.checked = consentedGroupNames.includes(check.dataset.group);
+        });
       }
     };
 
     const cookieHandlerOptions = {
       shadowDomUpdateCallback,
-      backReference: this,
     };
     // Prefer siteSettingsObj over siteSettingsJsonUrl to avoid extra network traffic
     if (siteSettingsObj) {
@@ -400,6 +394,7 @@ export class CookieConsentCore {
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
     this.shadowRoot = shadowRoot;
+    this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
 
     // Inject CSS styles
     await this.#injectCssStyles(shadowRoot);
