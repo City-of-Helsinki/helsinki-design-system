@@ -197,7 +197,7 @@ html {
 @include animate.height(
   '.hds-cc--banner .hds-cc__form',
   '.hds-cc--banner :not([aria-expanded=' true ']) + .hds-cc__form',
-  '.hds-cc--banner .hds-cc__form__animator'
+  '.hds-cc__form__animator'
 );
 
 .hds-cc--page .hds-cc__accordion-button--details {
