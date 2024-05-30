@@ -147,7 +147,7 @@ export default class MonitorAncCleanBrowserStorages {
    * @return {Promise<array>} A promise that resolves to an array containing the names of all cache storages. If there are no cache storages, an empty array is returned.
    */
   async #getCacheStorageNamesString() {
-    if (caches) {
+    if ('caches' in window) {
       const cacheNames = await caches.keys();
       return cacheNames;
     }
@@ -333,7 +333,7 @@ export default class MonitorAncCleanBrowserStorages {
       );
     }
 
-    if (caches) {
+    if ('caches' in window) {
       this.#monitor(
         'cacheStorage',
         consentedKeys.cacheStorage,
