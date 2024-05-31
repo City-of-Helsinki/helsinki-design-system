@@ -203,6 +203,7 @@ export class CookieConsentCore {
     switch (selection) {
       case 'required':
         acceptedGroups = this.#COOKIE_HANDLER.getRequiredGroupNames();
+        this.#COOKIE_HANDLER.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#MONITOR);
         this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
         break;
       case 'all':
@@ -211,6 +212,7 @@ export class CookieConsentCore {
         break;
       case 'selected':
         acceptedGroups = this.#getGroupCheckboxStatus(formReference);
+        this.#COOKIE_HANDLER.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#MONITOR);
         this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
         break;
       default:
