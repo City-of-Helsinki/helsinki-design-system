@@ -1,4 +1,5 @@
 import React, {
+  ReactElement,
   PropsWithChildren,
   MouseEventHandler,
   EventHandler,
@@ -245,18 +246,24 @@ export const HeaderActionBar = ({
     titleProps.onKeyPress = handleKeyPress;
     titleProps.onClick = handleClick;
   }
+  const childrenWithId = (Array.isArray(children) ? children : [children])
+    .filter((item) => React.isValidElement(item))
+    .map((item) => item as ReactElement)
+    .map((item, idx) => ((item.props as HeaderActionBarItemProps)?.id ? item : { ...item, id: `item${idx}` }));
 
-  const childrenLeft = Array.isArray(children)
-    ? children.filter(
-        (item) => React.isValidElement(item) && !(item.props as HeaderActionBarItemProps).fixedRightPosition,
-      )
-    : [children];
-  const childrenRight = Array.isArray(children)
-    ? children.filter(
-        (item) => React.isValidElement(item) && !!(item.props as HeaderActionBarItemProps).fixedRightPosition,
-      )
-    : [];
-  const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(children);
+  const childrenLeft =
+    childrenWithId.length > 1
+      ? childrenWithId.filter(
+          (item) => React.isValidElement(item) && !(item.props as HeaderActionBarItemProps).fixedRightPosition,
+        )
+      : [childrenWithId];
+  const childrenRight =
+    childrenWithId.length > 1
+      ? childrenWithId.filter(
+          (item) => React.isValidElement(item) && !!(item.props as HeaderActionBarItemProps).fixedRightPosition,
+        )
+      : [];
+  const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(childrenWithId);
   const languageSelectorChildren = useMemo(() => {
     return lsChildren ? getChildElementsEvenIfContainersInbetween(lsChildren) : null;
   }, [lsChildren]);

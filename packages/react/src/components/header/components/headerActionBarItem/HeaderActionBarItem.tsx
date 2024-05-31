@@ -81,7 +81,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     avatar,
     ...props
   } = properties;
-  const dropdownContentElementRef = useRef<HTMLElement>(null);
+  const dropdownContentElementRef = useRef<HTMLDivElement>(null);
   const containerElementRef = useRef<HTMLDivElement>(null);
   const [hasContent, setHasContent] = useState(false);
   const { isNotLargeScreen } = useHeaderContext();
@@ -162,10 +162,10 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       />
       {hasSubItems && (
         <div className={classes.dropdownWrapper}>
-          <aside id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
+          <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
             {visible && !fullWidth && <h3>{label}</h3>}
             {children}
-          </aside>
+          </div>
         </div>
       )}
     </div>
