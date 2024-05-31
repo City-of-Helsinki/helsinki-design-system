@@ -13,15 +13,6 @@ export default class MonitorAncCleanBrowserStorages {
   #REMOVE;
   #COOKIE_HANDLER;
 
-  // Initial keys found when script is initialized
-  #INITIAL_STORED_KEYS = {
-    cookie: [],
-    localStorage: [],
-    sessionStorage: [],
-    indexedDB: [],
-    cacheStorage: [],
-  };
-
   // Keys already reported via event
   #reportedKeys = {
     cookie: [],
@@ -42,21 +33,11 @@ export default class MonitorAncCleanBrowserStorages {
 
   // MARK: Public methods
   /**
-   * Constructs a new instance of the MonitorAndCleanBrowserStorages class.
-   * @param {number} [monitorInterval=500] - The interval in milliseconds at which to monitor the stored keys.
-   * @param {boolean} [remove=false] - Indicates whether to remove the stored keys or not.
-   */
-  constructor() {
-    this.#initializeStoredKeys();
-  }
-
-  /**
    * Retrieves the status of various browser storages.
    * @return {Promise<Object>} The status object containing information about the initial, current, reported, and removalFailed keys.
    */
   async getStatus() {
     const status = {
-      initial: this.#INITIAL_STORED_KEYS,
       current: {
         cookie: this.#getCookieNamesArray(),
         localStorage: Object.keys(localStorage),
@@ -73,25 +54,6 @@ export default class MonitorAncCleanBrowserStorages {
   }
 
   // MARK: Private methods
-
-  /**
-   * Initializes the stored keys for the browser storages.
-   * @private
-   */
-  async #initializeStoredKeys() {
-    this.#INITIAL_STORED_KEYS.localStorage = Object.keys(localStorage);
-    this.#INITIAL_STORED_KEYS.sessionStorage = Object.keys(sessionStorage);
-
-    const [cookie, indexedDB, cacheStorage] = await Promise.all([
-      this.#getCookieNamesArray(),
-      this.#getIndexedDBNamesArray(),
-      this.#getCacheStorageNamesString(),
-    ]);
-
-    this.#INITIAL_STORED_KEYS.cookie = cookie;
-    this.#INITIAL_STORED_KEYS.indexedDB = indexedDB;
-    this.#INITIAL_STORED_KEYS.cacheStorage = cacheStorage;
-  }
 
   /**
    * Returns a string containing the names of all cookies.
@@ -187,19 +149,11 @@ export default class MonitorAncCleanBrowserStorages {
    * @private
    * @param {string} typeString - The type of keys being monitored.
    * @param {string[]} consentedKeysArray - An array of consented keys.
-   * @param {string[]} initialStoredKeysArray - The initial stored keys.
    * @param {string[]} reportedKeysArray - An array of reported keys.
    * @param {string[]} currentStoredKeysArray - An array of current stored keys.
    * @param {string} consentedGroups - The consented groups.
    */
-  #monitor(
-    typeString,
-    consentedKeysArray,
-    initialStoredKeysArray,
-    reportedKeysArray,
-    currentStoredKeysArray,
-    consentedGroups,
-  ) {
+  #monitor(typeString, consentedKeysArray, reportedKeysArray, currentStoredKeysArray, consentedGroups) {
     // Find items that appear only in currentStoredKeysArray and filter out the ones that are already in consentedKeysArray
     const unapprovedKeys = currentStoredKeysArray.filter((key) => {
       if (
@@ -298,7 +252,6 @@ export default class MonitorAncCleanBrowserStorages {
     this.#monitor(
       'cookie',
       consentedKeys.cookie,
-      this.#INITIAL_STORED_KEYS.cookie,
       this.#reportedKeys.cookie,
       this.#getCookieNamesArray(),
       consentedGroups,
@@ -307,7 +260,6 @@ export default class MonitorAncCleanBrowserStorages {
     this.#monitor(
       'localStorage',
       consentedKeys.localStorage,
-      this.#INITIAL_STORED_KEYS.localStorage,
       this.#reportedKeys.localStorage,
       Object.keys(localStorage),
       consentedGroups,
@@ -316,7 +268,6 @@ export default class MonitorAncCleanBrowserStorages {
     this.#monitor(
       'sessionStorage',
       consentedKeys.sessionStorage,
-      this.#INITIAL_STORED_KEYS.sessionStorage,
       this.#reportedKeys.sessionStorage,
       Object.keys(sessionStorage),
       consentedGroups,
@@ -326,7 +277,6 @@ export default class MonitorAncCleanBrowserStorages {
       this.#monitor(
         'indexedDB',
         consentedKeys.indexedDB,
-        await this.#INITIAL_STORED_KEYS.indexedDB,
         this.#reportedKeys.indexedDB,
         await this.#getIndexedDBNamesArray(),
         consentedGroups,
@@ -337,7 +287,6 @@ export default class MonitorAncCleanBrowserStorages {
       this.#monitor(
         'cacheStorage',
         consentedKeys.cacheStorage,
-        await this.#INITIAL_STORED_KEYS.cacheStorage,
         this.#reportedKeys.cacheStorage,
         await this.#getCacheStorageNamesString(),
         consentedGroups,
