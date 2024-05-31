@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorNotification /> renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="errorText"
+  >
+    THIS IS AN ERROR
+  </div>
+</DocumentFragment>
+`;

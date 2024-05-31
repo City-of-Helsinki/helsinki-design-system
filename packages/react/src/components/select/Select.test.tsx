@@ -78,7 +78,10 @@ describe('<Select />', () => {
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"] > div[role="group"]`,
     groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="group"] > div[role="checkbox"]:first-child`,
     options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
+    tags: `#${elementIds.tagList} > div > span`,
     allListItems: `created below`,
+    selectionsInButton: `${elementIds.dropdownButton} > div > span`,
+    overflowCounter: `${elementIds.dropdownButton} > span`,
   };
   selectors.allListItems = `${selectors.groupLabels}, ${selectors.options}`;
   const getMainButtonElementId = () => elementIds.dropdownButton;
@@ -234,6 +237,20 @@ describe('<Select />', () => {
       return result.container.querySelector(selectors.searchAndFilterInfo) as HTMLDivElement;
     };
 
+    const getTags = () => {
+      return Array.from(result.container.querySelectorAll(selectors.tags)).map((node) => node.innerHTML);
+    };
+
+    const getSelectionsInButton = () => {
+      return Array.from(result.container.querySelectorAll(selectors.selectionsInButton)).map((node) => node.innerHTML);
+    };
+
+    const getOverflowCount = () => {
+      const element = result.container.querySelector(selectors.overflowCounter);
+      const num = element ? parseInt(element.innerHTML, 10) : NaN;
+      return Number.isNaN(num) ? -1 : num;
+    };
+
     const clickButton = (id: string) => {
       const el = getElementById(id);
       fireEvent.click(el);
@@ -325,6 +342,9 @@ describe('<Select />', () => {
       setInputValue,
       getScreenReaderNotifications,
       getSearchAndFilterInfoTexts,
+      getTags,
+      getOverflowCount,
+      getSelectionsInButton,
     };
   };
   describe('spec', () => {
