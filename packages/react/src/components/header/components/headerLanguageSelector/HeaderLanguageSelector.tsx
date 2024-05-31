@@ -4,7 +4,7 @@ import classes from './HeaderLanguageSelector.module.scss';
 import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguage } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
-import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
+import { HeaderActionBarItem } from '../headerActionBarItem';
 import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
@@ -128,7 +128,7 @@ export const HeaderLanguageSelectorConsumer = ({
     <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
       <div className={classNames(classes.languageNodes)}>{primaryLanguageNodes}</div>
       {(hasChildren || hasSecondaryLanguages) && (
-        <HeaderActionBarItemWithDropdown
+        <HeaderActionBarItem
           id="language-selection-more"
           iconClassName={classes.languageSelectorDropdownIcon}
           dropdownClassName={classes.languageSelectorDropdown}
@@ -142,7 +142,7 @@ export const HeaderLanguageSelectorConsumer = ({
         >
           <SecondaryLanguages />
           {children}
-        </HeaderActionBarItemWithDropdown>
+        </HeaderActionBarItem>
       )}
     </div>
   );

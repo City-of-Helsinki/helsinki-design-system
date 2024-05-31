@@ -1,0 +1,138 @@
+@use '../../../../styles/common.scss';
+
+button.actionBarItemButton {
+  align-self: center;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--header-color);
+  cursor: pointer;
+  padding: 10px;
+
+  &:focus-visible {
+    border: none;
+    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+    outline-offset: var(--header-focus-outline-width);
+  }
+
+  &.fullWidth,
+  &:focus-visible {
+    outline-offset: calc(-1 * var(--header-focus-outline-width)) !important;
+  }
+
+  &.fullWidth {
+    border: 2px solid var(--header-color);
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    line-height: 24px;
+    margin: 18px;
+    padding: 16px 24px;
+
+    & > * {
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      vertical-align: center;
+    }
+
+    & > *.actionBarItemButtonLabel {
+      flex-grow: 1;
+    }
+
+    &.hasSubItems {
+      align-items: center;
+      border: 0 !important;
+      display: flex;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 16px;
+      width: 100%;
+    }
+  }
+
+  & > span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  & > svg {
+    margin: 2px;
+    vertical-align: middle;
+  }
+
+  & > .avatar {
+    background: var(--color-bus);
+    border-radius: 25px;
+    color: white;
+    display: inline-block;
+    flex-grow: 0;
+    font-size: 18px;
+    font-weight: 500;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+  }
+}
+
+.actionBarItemButtonIcon {
+  display: block;
+  height: var(--icon-size);
+  margin: 0 auto;
+  padding: 3px 0 0;
+  pointer-events: none;
+  width: var(--icon-size);
+}
+
+.actionBarItemButtonLabel {
+  color: var(--action-bar-item-title-font-color);
+  display: block;
+  font-size: var(--fontsize-body-m);
+  margin: 0 auto;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.labelOnRight {
+  display: inline-block;
+}
+
+.fixedRightPosition {
+  display: block;
+}
+
+/*
+
+@mixin hiddenButTakingHorizontalSpace {
+  height: 0;
+  opacity: 0;
+}
+
+@mixin visibleAndTakingSpace {
+  height: auto;
+  opacity: 1;
+}
+
+.activeStateContent {
+  @include hiddenButTakingHorizontalSpace;
+}
+
+.activeStateContentLabel {
+  white-space: break-spaces;
+}
+
+.isActive {
+  .activeStateContent {
+    @include visibleAndTakingSpace;
+  }
+
+  > .actionBarItemButtonIcon {
+    display: none;
+  }
+
+  > .actionBarItemButtonLabel {
+    @include hiddenButTakingHorizontalSpace;
+  }
+}
+*/

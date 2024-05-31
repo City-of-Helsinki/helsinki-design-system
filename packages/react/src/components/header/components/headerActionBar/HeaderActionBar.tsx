@@ -1,4 +1,12 @@
-import React, { PropsWithChildren, MouseEventHandler, useEffect, useMemo, useRef } from 'react';
+import React, {
+  PropsWithChildren,
+  MouseEventHandler,
+  EventHandler,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import styles from './HeaderActionBar.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
@@ -8,11 +16,12 @@ import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { elementIsFocusable } from '../../../../utils/elementIsFocusable';
-import { HeaderActionBarMenuItem } from '../headerActionBarItem';
+import { HeaderActionBarItem } from '../headerActionBarItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
-import { useHeaderContext } from '../../HeaderContext';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import { HeaderActionBarItemProps } from '../headerActionBarItem/HeaderActionBarItem';
+import { IconCross, IconMenuHamburger } from '../../../../icons';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -183,7 +192,8 @@ export const HeaderActionBar = ({
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
-  const { isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
+  const { hasNavigationContent, mobileMenuOpen, isNotLargeScreen } = useHeaderContext();
+  const { setMobileMenuOpen } = useSetHeaderContext();
   const actionBarRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
@@ -204,6 +214,14 @@ export const HeaderActionBar = ({
     // Returning null from useEffect is prohibited, but undefined is fine
     return undefined;
   }, [actionBarRef, mobileMenuOpen]);
+
+  const handleMenuClickCapture = useCallbackIfDefined(onMenuClick);
+  const handleMenuClick: EventHandler<MouseEvent> = (event) => {
+    if (!event.isPropagationStopped()) {
+      setMobileMenuOpen(!mobileMenuOpen);
+    }
+    if (onMenuClick) onMenuClick(event);
+  };
 
   const logoProps: LinkProps = {
     'aria-label': logoAriaLabel,
@@ -263,7 +281,16 @@ export const HeaderActionBar = ({
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
             {!isNotLargeScreen && childrenLeft}
-            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuClick} />
+            {hasNavigationContent && isNotLargeScreen && (
+              <HeaderActionBarItem
+                id="Menu"
+                label="Menu"
+                ariaLabel={menuButtonAriaLabel}
+                onClick={handleMenuClick}
+                onClickCapture={handleMenuClickCapture}
+                icon={mobileMenuOpen ? <IconCross /> : <IconMenuHamburger />}
+              />
+            )}
             {!isNotLargeScreen && childrenRight.length > 0 && (
               <>
                 <hr aria-hidden="true" />

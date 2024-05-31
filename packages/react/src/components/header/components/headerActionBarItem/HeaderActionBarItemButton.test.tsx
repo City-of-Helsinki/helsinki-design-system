@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { HeaderActionBarItem, HeaderActionBarItemProps } from './HeaderActionBarItem';
+import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
 
 const clickHandler = jest.fn();
 
@@ -15,7 +15,7 @@ const activeStateIcon = <span data-testid={activeStateIconTestId} />;
 const ariaControlsId = 'aria-controls-id';
 const ariaLabel = 'aria label';
 
-const defaultProps: HeaderActionBarItemProps = {
+const defaultProps: HeaderActionBarItemButtonProps = {
   onClick: clickHandler,
   label: defaultLabel,
   icon: defaultIcon,
@@ -27,18 +27,18 @@ const defaultProps: HeaderActionBarItemProps = {
   isActive: false,
 };
 
-const activeStateProps: Pick<HeaderActionBarItemProps, 'activeStateIcon' | 'activeStateLabel'> = {
+const activeStateProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' | 'activeStateLabel'> = {
   activeStateLabel,
   activeStateIcon,
 };
 
-const RenderTestScenario = (props?: Partial<HeaderActionBarItemProps> & JSX.IntrinsicElements['button']) => {
+const RenderTestScenario = (props?: Partial<HeaderActionBarItemButtonProps> & JSX.IntrinsicElements['button']) => {
   const ref = useRef<HTMLButtonElement>(null);
   const combinedProps = { ...defaultProps, ...props };
-  return <HeaderActionBarItem {...combinedProps} ref={ref} data-testid="button" />;
+  return <HeaderActionBarItemButton {...combinedProps} ref={ref} data-testid="button" />;
 };
 
-describe('HeaderActionBarItem spec', () => {
+describe('HeaderActionBarItemButton spec', () => {
   it('renders the component correctly and adds all classNames from props', () => {
     const { asFragment } = render(
       <RenderTestScenario labelOnRight fixedRightPosition className="extra-class" {...activeStateProps} />,

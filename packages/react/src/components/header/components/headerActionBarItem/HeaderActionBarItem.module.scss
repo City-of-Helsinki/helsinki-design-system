@@ -1,138 +1,95 @@
-@use '../../../../styles/common.scss';
+.dropdownWrapper {
+  bottom: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  transform: translateY(100%) translateY(1px);
+  transition-duration: 0ms;
+  transition-property: max-height, padding-bottom;
+  z-index: 20;
+}
 
-button.actionBarItem {
-  align-self: center;
-  appearance: none;
-  background: transparent;
-  border: none;
-  color: var(--header-color);
-  cursor: pointer;
-  padding: 10px;
+.container {
+  display: flex;
 
-  &:focus-visible {
-    border: none;
-    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
-    outline-offset: var(--header-focus-outline-width);
+  .dropdownWrapper {
+    max-height: 0;
+    min-width: 320px;
+    padding-bottom: 0;
+    transition-delay: calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
   }
 
-  &.fullWidth,
-  &:focus-visible {
-    outline-offset: calc(-1 * var(--header-focus-outline-width)) !important;
+  &.visible .dropdownWrapper {
+    max-height: 1000vh;
+    padding-bottom: 20px;
+    transition-delay: 0ms;
   }
 
-  &.fullWidth {
-    border: 2px solid var(--header-color);
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    line-height: 24px;
-    margin: 18px;
-    padding: 16px 24px;
-
-    & > * {
-      margin: 0;
-      padding: 0;
-      text-align: left;
-      vertical-align: center;
-    }
-
-    & > *.actionBarItemLabel {
-      flex-grow: 1;
-    }
-
-    &.hasSubItems {
-      align-items: center;
-      border: 0 !important;
-      display: flex;
-      justify-content: flex-start;
-      margin: 0;
-      padding: 16px;
-      width: 100%;
-    }
-  }
-
-  & > span {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  & > svg {
-    margin: 2px;
-    vertical-align: middle;
-  }
-
-  & > .avatar {
-    background: var(--color-bus);
-    border-radius: 25px;
-    color: white;
-    display: inline-block;
-    flex-grow: 0;
-    font-size: 18px;
-    font-weight: 500;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    width: 50px;
-  }
-}
-
-.actionBarItemIcon {
-  display: block;
-  height: var(--icon-size);
-  margin: 0 auto;
-  padding: 3px 0 0;
-  pointer-events: none;
-  width: var(--icon-size);
-}
-
-.actionBarItemLabel {
-  color: var(--action-bar-item-title-font-color);
-  display: block;
-  font-size: var(--fontsize-body-m);
-  margin: 0 auto;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.labelOnRight {
-  display: inline-block;
-}
-
-.fixedRightPosition {
-  display: block;
-}
-
-/*
-
-@mixin hiddenButTakingHorizontalSpace {
-  height: 0;
-  opacity: 0;
-}
-
-@mixin visibleAndTakingSpace {
-  height: auto;
-  opacity: 1;
-}
-
-.activeStateContent {
-  @include hiddenButTakingHorizontalSpace;
-}
-
-.activeStateContentLabel {
-  white-space: break-spaces;
-}
-
-.isActive {
-  .activeStateContent {
-    @include visibleAndTakingSpace;
-  }
-
-  > .actionBarItemIcon {
+  &:not(.hasContent) {
     display: none;
   }
 
-  > .actionBarItemLabel {
-    @include hiddenButTakingHorizontalSpace;
+  &:not(.fullWidth) {
+    display: flex;
+    position: relative;
+  }
+
+  &.fullWidth {
+    display: flex;
+    justify-content: center;
+
+    > .dropdownWrapper {
+      left: 0;
+      position: relative;
+      transform: none;
+    }
+
+    &.hasSubItems {
+      display: block;
+    }
   }
 }
-*/
+
+.icon {
+  display: block;
+}
+
+.dropdown {
+  background: white;
+  border: 1px solid var(--color-black-10);
+  margin-top: -1px;
+  position: relative;
+  right: 0;
+  transform: translateY(-100%);
+  transition:
+    var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
+    0ms visibility calc((var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown)));
+  visibility: hidden;
+
+  &.fullWidth {
+    background: transparent;
+    border: 0;
+    left: 0;
+  }
+
+  & > h3 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 0;
+    padding: 16px;
+  }
+
+  &.visible {
+    transform: translateY(0%);
+    transition:
+      var(--animation-duration-dropwdown) transform 0ms,
+      0ms visibility 0ms;
+    visibility: visible;
+  }
+
+  > * {
+    padding: var(--spacing-xs) var(--spacing-s);
+    width: 100%;
+  }
+}
