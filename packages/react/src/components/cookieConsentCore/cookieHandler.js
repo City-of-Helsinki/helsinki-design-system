@@ -219,6 +219,22 @@ export default class CookieHandler {
   }
 
   /**
+   * Removes before saving the cookies and stored items that have consent withdrawn.
+   *
+   * @param {Array<string>} consentedGroupNames - The names of the consented groups.
+   * @param {object} monitorReference - The reference to the monitor object.
+   * @returns {void}
+   */
+  removeConsentWithdrawnCookiesBeforeSave(consentedGroupNames, monitorReference) {
+    const consentedKeysArray = this.getAllKeysInConsentedGroups(consentedGroupNames);
+    const reason = 'consent withdrawn';
+    monitorReference.BROWSER_STORAGES.forEach(async (storageType) => {
+      const currentStoredKeysArray = await monitorReference.getCurrentKeys(storageType);
+      monitorReference.deleteKeys(storageType, consentedKeysArray[storageType], currentStoredKeysArray, reason);
+    });
+  }
+
+  /**
    * Returns an array of required cookie group names.
    *
    * @return {string[]} An array of required cookie group names.
