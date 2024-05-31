@@ -23,7 +23,6 @@ export class CookieConsentCore {
   #MONITOR;
   #TEMP_CSS_PATH;
   #COOKIE_HANDLER;
-  shadowRoot = null;
 
   #bannerElements = {
     bannerContainer: null,
@@ -393,7 +392,6 @@ export class CookieConsentCore {
     renderTargetToPrepend.prepend(container);
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
-    this.shadowRoot = shadowRoot;
     this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
 
     // Inject CSS styles
