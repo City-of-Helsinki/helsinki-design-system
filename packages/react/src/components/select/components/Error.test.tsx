@@ -1,5 +1,4 @@
 import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
-import { SelectProps } from '../types';
 import { ErrorNotification } from './Error';
 
 jest.mock('./Container', () => {

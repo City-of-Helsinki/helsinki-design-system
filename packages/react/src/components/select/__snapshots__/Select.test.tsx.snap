@@ -4,15 +4,15 @@ exports[`<Select /> spec renders multi select component with groups and filter i
 <DocumentFragment>
   <div
     class="wrapper root"
-    id="select-component"
+    id="hds-select-2"
     tabindex="-1"
   >
     <label
       class="label "
-      for="select-component-dropdown-button"
-      id="select-component-label"
+      for="hds-select-2-dropdown-button"
+      id="hds-select-2-label"
     >
-      Label
+      Select label
     </label>
     <div
       class="selectAndListContainer"
@@ -21,13 +21,13 @@ exports[`<Select /> spec renders multi select component with groups and filter i
         class="selectedOptionsContainer"
       >
         <button
-          aria-controls="select-component-input-element"
+          aria-controls="hds-select-2-input-element"
           aria-expanded="false"
           aria-haspopup="dialog"
           aria-invalid="false"
-          aria-label="Label. . 0 options selected."
+          aria-label="Select label. . 0 options selected."
           class="dropdownButton selectedOptions placeholder spaceForOneDigit"
-          id="select-component-dropdown-button"
+          id="hds-select-2-dropdown-button"
           type="button"
         >
           <span>
@@ -59,7 +59,7 @@ exports[`<Select /> spec renders multi select component with groups and filter i
         <button
           aria-hidden="true"
           class="dropdownButton icon arrowButton"
-          id="select-component-arrow-button"
+          id="hds-select-2-arrow-button"
           tabindex="-1"
           type="button"
         >
@@ -82,7 +82,7 @@ exports[`<Select /> spec renders multi select component with groups and filter i
       </div>
       <div
         aria-hidden="true"
-        aria-label="Label"
+        aria-label="Select label"
         class="listAndInputContainer withSearchOrFilter"
         role="dialog"
       >
@@ -91,8 +91,8 @@ exports[`<Select /> spec renders multi select component with groups and filter i
         >
           <label
             class="label "
-            for="select-component-input-element"
-            id="select-component-input-element-label"
+            for="hds-select-2-input-element"
+            id="hds-select-2-input-element-label"
           >
             Filter
           </label>
@@ -101,12 +101,12 @@ exports[`<Select /> spec renders multi select component with groups and filter i
           >
             <input
               aria-activedescendant=""
-              aria-controls="select-component-list"
+              aria-controls="hds-select-2-list"
               aria-expanded="true"
               aria-haspopup="dialog"
-              aria-labelledby="select-component-input-element-label select-component-label"
+              aria-labelledby="hds-select-2-input-element-label hds-select-2-label"
               class="input hasClearButton"
-              id="select-component-input-element"
+              id="hds-select-2-input-element"
               placeholder="Type text to filter results with"
               role="combobox"
               type="text"
@@ -144,9 +144,9 @@ exports[`<Select /> spec renders multi select component with groups and filter i
           style="max-height: 286px;"
         >
           <div
-            aria-labelledby="select-component-choices-count"
+            aria-labelledby="hds-select-2-choices-count"
             class="list shiftOptions multiSelectList"
-            id="select-component-list"
+            id="hds-select-2-list"
             role="dialog"
             tabindex="-1"
           />
@@ -166,15 +166,15 @@ exports[`<Select /> spec renders single select component with groups and filter 
 <DocumentFragment>
   <div
     class="wrapper root"
-    id="select-component"
+    id="hds-select-1"
     tabindex="-1"
   >
     <label
       class="label "
-      for="select-component-dropdown-button"
-      id="select-component-label"
+      for="hds-select-1-dropdown-button"
+      id="hds-select-1-label"
     >
-      Label
+      Select label
     </label>
     <div
       class="selectAndListContainer"
@@ -183,13 +183,13 @@ exports[`<Select /> spec renders single select component with groups and filter 
         class="selectedOptionsContainer"
       >
         <button
-          aria-controls="select-component-input-element"
+          aria-controls="hds-select-1-input-element"
           aria-expanded="false"
           aria-haspopup="dialog"
           aria-invalid="false"
-          aria-label="Label. . 0 options selected."
+          aria-label="Select label. . 0 options selected."
           class="dropdownButton selectedOptions placeholder spaceForOneDigit"
-          id="select-component-dropdown-button"
+          id="hds-select-1-dropdown-button"
           type="button"
         >
           <span>
@@ -221,7 +221,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
         <button
           aria-hidden="true"
           class="dropdownButton icon arrowButton"
-          id="select-component-arrow-button"
+          id="hds-select-1-arrow-button"
           tabindex="-1"
           type="button"
         >
@@ -244,7 +244,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
       </div>
       <div
         aria-hidden="true"
-        aria-label="Label"
+        aria-label="Select label"
         class="listAndInputContainer withSearchOrFilter"
         role="dialog"
       >
@@ -253,8 +253,8 @@ exports[`<Select /> spec renders single select component with groups and filter 
         >
           <label
             class="label "
-            for="select-component-input-element"
-            id="select-component-input-element-label"
+            for="hds-select-1-input-element"
+            id="hds-select-1-input-element-label"
           >
             Filter
           </label>
@@ -263,12 +263,12 @@ exports[`<Select /> spec renders single select component with groups and filter 
           >
             <input
               aria-activedescendant=""
-              aria-controls="select-component-list"
+              aria-controls="hds-select-1-list"
               aria-expanded="true"
               aria-haspopup="listbox"
-              aria-labelledby="select-component-input-element-label select-component-label"
+              aria-labelledby="hds-select-1-input-element-label hds-select-1-label"
               class="input hasClearButton"
-              id="select-component-input-element"
+              id="hds-select-1-input-element"
               placeholder="Type text to filter results with"
               role="combobox"
               type="text"
@@ -308,7 +308,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
           <div
             aria-multiselectable="false"
             class="list"
-            id="select-component-list"
+            id="hds-select-1-list"
             role="listbox"
             tabindex="-1"
           />
