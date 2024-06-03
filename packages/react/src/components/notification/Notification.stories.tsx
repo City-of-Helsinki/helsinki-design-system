@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Notification, NotificationSizeInline, NotificationSizeToast } from './Notification';
+import { Notification, NotificationSize } from './Notification';
 import { Button } from '../button';
 
 const props = {
@@ -39,13 +39,13 @@ export const Success = () => (
 );
 
 export const Small = () => (
-  <Notification label="Only visible for screen readers" size="small">
+  <Notification label="Only visible for screen readers" size={NotificationSize.Small}>
     Message
   </Notification>
 );
 
 export const Large = () => (
-  <Notification {...props} size="large">
+  <Notification {...props} size={NotificationSize.Large}>
     {content}
   </Notification>
 );
@@ -182,11 +182,6 @@ export const Playground = (args) => {
     if (args.position === 'inline') setOpen(true);
   }, [args.position]);
 
-  let typedSize;
-  args.position === 'inline'
-    ? (typedSize = args.size as NotificationSizeInline)
-    : (typedSize = args.size as NotificationSizeToast);
-
   return (
     <>
       <Button
@@ -210,7 +205,7 @@ export const Playground = (args) => {
           type={args.type}
           onClose={() => setOpen(false)}
           position={args.position}
-          size={typedSize}
+          size={args.size}
           dismissible={args.dismissible}
           closeButtonLabelText={args.closeButtonLabelText}
           headingLevel={args.headingLevel}
@@ -238,7 +233,7 @@ Playground.args = {
   body: content,
   closeButtonLabelText: 'Close notification',
   type: 'info',
-  size: 'default',
+  size: NotificationSize.Medium,
   position: 'inline',
   invisible: false,
   dismissible: false,
@@ -254,7 +249,7 @@ Playground.argTypes = {
     control: { type: 'radio' },
   },
   size: {
-    options: ['default', 'small', 'large'],
+    options: [NotificationSize.Small, NotificationSize.Medium, NotificationSize.Large],
     control: { type: 'radio' },
   },
   position: {

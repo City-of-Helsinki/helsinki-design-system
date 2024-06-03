@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { ErrorSummary } from './ErrorSummary';
+import { ErrorSummary, ErrorSummarySize } from './ErrorSummary';
 
 describe('<ErrorSummary /> spec', () => {
   it('renders the component', () => {
@@ -9,7 +9,7 @@ describe('<ErrorSummary /> spec', () => {
       <ErrorSummary
         label="Form contains following errors"
         className="customClass"
-        size="default"
+        size={ErrorSummarySize.Medium}
         style={{ marginBottom: 'var(--spacing-m)' }}
       >
         <ul>

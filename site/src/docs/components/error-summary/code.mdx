@@ -3,7 +3,7 @@ slug: '/components/error-summary/code'
 title: 'ErrorSummary - Code'
 ---
 
-import { ErrorSummary } from 'hds-react';
+import { ErrorSummary, ErrorSummarySize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -67,15 +67,15 @@ import { ErrorSummary } from 'hds-react';
 
 | Package       | Included                                                                                        | Storybook link                                                                                                   | Source link                                                                                                                                                        |
 | ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-errorsummary--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/errorSummary/ErrorSummary.tsx">View source</ExternalLink> |
-| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-errorsummary--default">View in Storybook</Link>        | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/error-summary">View source</ExternalLink>           |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-errorsummary">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/errorSummary/ErrorSummary.tsx">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-errorsummary">View in Storybook</Link>        | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/error-summary">View source</ExternalLink>           |
 
 ### Properties
 
-Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-errorsummary--default">React Storybook.</Link>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-errorsummary">React Storybook.</Link>
 
 | Property  | Description                                             | Values      | Default value |
 | --------- | ------------------------------------------------------- | ----------- | ------------- |
 | `autofocus` | Automatically focus the label of the error summary.   | `boolean`   | false         |
 | `label`   | The label of the error summary.                         | `string`    | -             |
-| `size`    | The size of the error summary.                          | `"default"`, `"large"` | `"default"` |
+| `size`    | The size of the error summary.                          | `ErrorSummarySize.Medium`, `ErrorSummarySize.Large` | `ErrorSummarySize.Medium` |
