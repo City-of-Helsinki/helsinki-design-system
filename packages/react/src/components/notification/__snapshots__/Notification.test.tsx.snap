@@ -4,7 +4,7 @@ exports[`<Notification /> spec renders the component 1`] = `
 <DocumentFragment>
   <section
     aria-label="Notification"
-    class="inline notification default info"
+    class="inline notification medium info"
   >
     <div
       class="content"
@@ -45,7 +45,7 @@ exports[`<Notification /> spec renders the component without optional label 1`] 
 <DocumentFragment>
   <section
     aria-label="Notification"
-    class="inline notification default info"
+    class="inline notification medium info"
   >
     <div
       class="content"
@@ -64,7 +64,7 @@ exports[`<Notification /> spec uses toast notification props in non-inline notif
 <DocumentFragment>
   <section
     aria-label="Notification"
-    class="bottom-center notification default info"
+    class="bottom-center notification medium info"
     role="alert"
     style="transform: translate3d(-50%, 32px, 0); opacity: 0.66;"
   >
