@@ -3,7 +3,7 @@ slug: '/components/link/code'
 title: 'Link - Code'
 ---
 
-import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link, LinkSize } from 'hds-react';
+import { IconDocument, IconEnvelope, IconPhone, IconPhoto, IconSize, Link, LinkSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -149,15 +149,15 @@ import { Link } from 'hds-react';
 
 ### Links with icons
 
-<Playground scope={{ Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto }}>
+<Playground scope={{ Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto, IconSize }}>
 
 
 ```jsx
-import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-react';
+import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto, IconSize } from 'hds-react';
 
 () => (<>
   <Link
-    iconStart={<IconDocument size="s" aria-hidden />}
+    iconStart={<IconDocument size={IconSize.Small} aria-hidden />}
     size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
@@ -165,7 +165,7 @@ import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto } from
     Document link
   </Link>
   <Link
-    iconStart={<IconPhone size="s" aria-hidden />}
+    iconStart={<IconPhone size={IconSize.Small} aria-hidden />}
     size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
@@ -173,7 +173,7 @@ import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto } from
     Phone link
   </Link>
   <Link
-    iconStart={<IconEnvelope size="s" aria-hidden />}
+    iconStart={<IconEnvelope size={IconSize.Small} aria-hidden />}
     size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
@@ -181,7 +181,7 @@ import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto } from
     Email link
   </Link>
   <Link
-    iconStart={<IconPhoto size="s" aria-hidden />}
+    iconStart={<IconPhoto size={IconSize.Small} aria-hidden />}
     size={LinkSize.Medium}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}

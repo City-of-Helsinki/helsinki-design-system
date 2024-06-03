@@ -4,7 +4,7 @@ title: 'Link'
 navTitle: 'Link'
 ---
 
-import { IconDocument, IconPhone, IconEnvelope, IconPhoto, LinkSize } from 'hds-react';
+import { IconDocument, IconPhone, IconEnvelope, IconPhoto, IconSize, LinkSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -101,26 +101,26 @@ Note! These icons are meant to describe the link target. If you need a direction
 
 <PlaygroundPreview>
   <Link
-    iconLeft={<IconDocument size="s" aria-hidden />}
     size={LinkSize.Medium}
+    iconStart={<IconDocument size={IconSize.Small} aria-hidden />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Document link</Link>
   <Link
-    iconLeft={<IconPhone size="s" aria-hidden />}
     size={LinkSize.Medium}
+    iconStart={<IconPhone size={IconSize.Small} aria-hidden />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Phone link</Link>
   <Link
-    iconLeft={<IconEnvelope size="s" aria-hidden />}
     size={LinkSize.Medium}
+    iconStart={<IconEnvelope size={IconSize.Small} aria-hidden />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Email link</Link>
   <Link
-    iconLeft={<IconPhoto size="s" aria-hidden />}
     size={LinkSize.Medium}
+    iconStart={<IconPhoto size={IconSize.Small} aria-hidden />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Photo link</Link>
