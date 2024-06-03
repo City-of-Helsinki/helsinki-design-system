@@ -4,7 +4,7 @@ title: 'Linkbox'
 navTitle: 'Linkbox'
 ---
 
-import { Linkbox } from 'hds-react';
+import { Linkbox, LinkboxSize } from 'hds-react';
 import { withPrefix } from "gatsby"
 import TabsLayout from './tabs.mdx';
 
@@ -170,7 +170,7 @@ HDS offers styling for a Linkbox with an image as its content.
 
 #### Linkbox size variants
 
-HDS Linkbox includes three (3) size variants; small, default, and large.
+HDS Linkbox includes three (3) size variants; small, default, and large (LinkboxSize.Small, LinkboxSize.Medium and LinkboxSize.Large).
 You can use different sizes depending on the screen size or use case.
 Size variants differ in (default) heading size and inner spacing. Use the size property to alter the size.
 
@@ -182,7 +182,7 @@ Size variants differ in (default) heading size and inner spacing. Use the size p
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      size="small"
+      size={LinkboxSize.Small}
       imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 284, height: 181 }}
     />
   </div>
@@ -193,7 +193,7 @@ Size variants differ in (default) heading size and inner spacing. Use the size p
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      size="medium"
+      size={LinkboxSize.Medium}
       imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 384, height: 245 }}
     />
   </div>
@@ -204,7 +204,7 @@ Size variants differ in (default) heading size and inner spacing. Use the size p
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      size="large"
+      size={LinkboxSize.Large}
       imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 567, height: 363 }}
     />
   </div>
