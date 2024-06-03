@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErrorSummary } from './ErrorSummary';
+import { ErrorSummary, ErrorSummarySize } from './ErrorSummary';
 
 export default {
   component: ErrorSummary,
@@ -11,10 +11,17 @@ export default {
   decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   args: {
     label: 'Form contains following errors',
+    size: ErrorSummarySize.Medium,
+  },
+  argTypes: {
+    size: {
+      options: [ErrorSummarySize.Medium, ErrorSummarySize.Large],
+      control: { type: 'radio' },
+    },
   },
 };
 
-export const Default = (args) => (
+export const Playground = (args) => (
   <ErrorSummary {...args}>
     <ul>
       <li>
@@ -29,8 +36,3 @@ export const Default = (args) => (
     </ul>
   </ErrorSummary>
 );
-
-export const Large = (args) => <Default {...args} />;
-Large.args = {
-  size: 'large',
-};

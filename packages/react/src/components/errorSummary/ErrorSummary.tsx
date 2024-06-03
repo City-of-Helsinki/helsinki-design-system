@@ -5,8 +5,13 @@ import errorSummaryStyles from './ErrorSummary.module.scss';
 import notificationStyles from '../notification/Notification.module.css';
 import { IconErrorFill } from '../../icons';
 import classNames from '../../utils/classNames';
+import { NotificationSize } from '../notification';
 
-export type ErrorSummarySize = 'default' | 'large';
+// ErrorSummary doesn't have a size of small
+export enum ErrorSummarySize {
+  Medium = NotificationSize.Medium,
+  Large = NotificationSize.Large,
+}
 
 export type ErrorSummaryProps = React.PropsWithChildren<{
   /**
@@ -32,7 +37,10 @@ export type ErrorSummaryProps = React.PropsWithChildren<{
 }>;
 
 export const ErrorSummary = React.forwardRef<HTMLDivElement, ErrorSummaryProps>(
-  ({ autofocus = false, className, label, size = 'default', style, children }: ErrorSummaryProps, ref) => {
+  (
+    { autofocus = false, className, label, size = ErrorSummarySize.Medium, style, children }: ErrorSummaryProps,
+    ref,
+  ) => {
     const labelRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

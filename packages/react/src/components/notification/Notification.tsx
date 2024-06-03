@@ -8,8 +8,12 @@ import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
-export type NotificationSizeInline = 'default' | 'small' | 'large';
-export type NotificationSizeToast = Exclude<NotificationSizeInline, 'large'>;
+
+export enum NotificationSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
 
 export type NotificationPosition =
   | 'inline'
@@ -89,7 +93,7 @@ type CommonProps = React.PropsWithChildren<{
 }>;
 
 type PositionAndSize =
-  | { position?: 'inline'; size?: NotificationSizeInline }
+  | { position?: 'inline'; size?: NotificationSize }
   | {
       /**
        * The position of the notification
@@ -98,7 +102,7 @@ type PositionAndSize =
       /**
        * The size of the notification
        */
-      size?: NotificationSizeToast;
+      size?: Exclude<NotificationSize, NotificationSize.Large>;
     };
 
 type Dismissible =
@@ -198,7 +202,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       notificationAriaLabel = 'Notification',
       position = 'inline',
       onClose = () => null,
-      size = 'default',
+      size = NotificationSize.Medium,
       style,
       type = 'info',
       headingLevel = 2,
@@ -207,11 +211,11 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
   ) => {
     const isToast: boolean = position !== 'inline';
     // only allow size 'large' for inline notifications
-    if (isToast && size === 'large') {
+    if (isToast && size === NotificationSize.Large) {
       // eslint-disable-next-line no-console
       console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
       // eslint-disable-next-line no-param-reassign
-      size = 'default';
+      size = NotificationSize.Medium;
     }
     // don't allow autoClose for inline notifications
     if (!isToast && autoClose) {
@@ -278,7 +282,9 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
                 {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
               >
                 <Icon className={styles.icon} aria-hidden />
-                <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+                <ConditionalVisuallyHidden visuallyHidden={size === NotificationSize.Small}>
+                  {label}
+                </ConditionalVisuallyHidden>
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}

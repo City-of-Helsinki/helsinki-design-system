@@ -5,7 +5,7 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
   <div
     aria-atomic="true"
     aria-label="Error summary"
-    class="notification default error customClass"
+    class="notification medium error customClass"
   >
     <div
       class="content"
