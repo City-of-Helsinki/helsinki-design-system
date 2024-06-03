@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- [Notification] Change auto closing notification progressbar to decrease instead of increase.
+- [LinkBox] Change size prop to an enum (LinkboxSize.Small, LinkboxSize.Medium, LinkboxSize.Large), not a breaking change though since the enum values are identical to the old ones.
 
 #### Fixed
 
