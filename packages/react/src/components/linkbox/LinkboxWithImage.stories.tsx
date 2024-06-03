@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Linkbox } from './Linkbox';
+import { Linkbox, LinkboxSize } from './Linkbox';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import smallImage from '../../assets/img/linkbox/placeholder-small.png';
@@ -88,7 +88,7 @@ export const SmallSize = () => (
       heading="Linkbox title"
       text="Linkbox text"
       imgProps={{ src: smallImage, width: 284, height: 181 }}
-      size="small"
+      size={LinkboxSize.Small}
     />
   </div>
 );
@@ -102,7 +102,7 @@ export const MediumSize = () => (
       heading="Linkbox title"
       text="Linkbox text"
       imgProps={{ src: mediumImage, width: 384, height: 245 }}
-      size="medium"
+      size={LinkboxSize.Medium}
     />
   </div>
 );
@@ -116,7 +116,7 @@ export const LargeSize = () => (
       heading="Linkbox title"
       text="Linkbox text"
       imgProps={{ src: largeImage, width: 567, height: 363 }}
-      size="large"
+      size={LinkboxSize.Large}
     />
   </div>
 );
