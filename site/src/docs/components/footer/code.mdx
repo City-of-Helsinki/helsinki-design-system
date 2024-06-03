@@ -11,6 +11,7 @@ import {
   IconYoutube,
   IconTiktok,
   Logo,
+  LogoSize,
   logoFi,
   logoFiDark,
 } from 'hds-react';
@@ -27,10 +28,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, logoFi }}>
+<Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, LogoSize, logoFi }}>
 
 ```jsx
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, logoFi } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, LogoSize, logoFi } from 'hds-react';
 
 () => (
   <Footer title="Helsinki Design System">
@@ -60,7 +61,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
       logoHref="https://hel.fi"
       onLogoClick={(event) => event.preventDefault()}
     >
@@ -78,10 +79,10 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
 
 ### Color variations
 
-<Playground scope={{ Footer, Logo, logoFi, logoFiDark }}>
+<Playground scope={{ Footer, Logo, LogoSize, logoFi, logoFiDark }}>
 
 ```jsx
-import { Footer, Logo, logoFi, logoFiDark } from 'hds-react';
+import { Footer, Logo, LogoSize, logoFi, logoFiDark } from 'hds-react';
 
 () => (
   <>
@@ -98,7 +99,7 @@ import { Footer, Logo, logoFi, logoFiDark } from 'hds-react';
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Back to top"
-        logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+        logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
       >
         <Footer.Link label="Link" />
         <Footer.Link label="Link" />
@@ -119,7 +120,7 @@ import { Footer, Logo, logoFi, logoFiDark } from 'hds-react';
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Back to top"
-        logo={<Logo src={logoFiDark} size="medium" alt="Helsingin kaupunki" />}
+        logo={<Logo src={logoFiDark} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
       >
         <Footer.Link label="Link" />
         <Footer.Link label="Link" />
@@ -308,7 +309,7 @@ import { Link } from 'gatsby';
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link as={Link} label="Link" />
       <Footer.Link as={Link} label="Link" />
