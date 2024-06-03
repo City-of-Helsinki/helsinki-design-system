@@ -3,7 +3,7 @@ slug: '/components/logo/code'
 title: 'Logo - Code'
 ---
 
-import { Link, Logo, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from 'hds-react';
+import { Link, Logo, LogoSize, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -14,34 +14,34 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default and colour variants
-<Playground scope={{ Logo, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark }}>
+<Playground scope={{ Logo, LogoSize, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark }}>
 
 ```jsx
-import { Logo, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from 'hds-react';
+import { Logo, LogoSize, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from 'hds-react';
 
 () => (<>
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
-  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
-  <Logo src={logoRuDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoSv} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoRu} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFiDark} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
+  <Logo src={logoSvDark} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
+  <Logo src={logoRuDark} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)', background: 'black'}} alt="Helsingin kaupunki" />
 </>)
 ```
 
 </Playground>
 
 #### Size variants
-<Playground scope={{ Logo, logoFi }}>
+<Playground scope={{ Logo, LogoSize, logoFi }}>
 
 
 ```jsx
-import { Logo, logoFi } from 'hds-react';
+import { Logo, LogoSize, logoFi } from 'hds-react';
 
 () => (<>
-  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoFi} size="large" alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Small} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Large} alt="Helsingin kaupunki" />
 </>)
 ```
 
@@ -60,4 +60,4 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | Property              | Description                     | Values                                     | Default value  |
 | --------------------- | --------------------------------| ------------------------------------------ | -------------- |
 | `src`                 | Src of the logo. Can be base64-encoded, locally imported image or a URL.      | `string`                     | `-`         |
-| `size`                | Size of the logo.               | `"small"`, `"medium"`, `"large"`, `"full"` | `"full"`       |
+| `size`                | Size of the logo.               | `LogoSize.Small`, `LogoSize.Medium`, `LogoSize.Large`, `LogoSize.Full` | `LogoSize.Full`       |

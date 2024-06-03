@@ -4,7 +4,7 @@ title: 'Footer'
 navTitle: 'Footer'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant, Logo, logoFi, logoFiDark } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant, Logo, LogoSize, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -41,7 +41,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -106,7 +106,7 @@ The default footer uses the black text colour variant and includes three section
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -133,7 +133,7 @@ The Footer component supports light and dark themes.
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -154,7 +154,7 @@ The Footer component supports light and dark themes.
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFiDark} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFiDark} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
