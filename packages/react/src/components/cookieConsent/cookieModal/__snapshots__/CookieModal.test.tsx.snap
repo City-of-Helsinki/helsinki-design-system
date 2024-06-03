@@ -54,7 +54,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="angle-down"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
               <svg
                 aria-hidden="true"
                 aria-label="angle-up"
-                class="icon s"
+                class="icon small"
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
             <svg
               aria-hidden="true"
               aria-label="angle-down"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -284,7 +284,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -450,7 +450,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -635,7 +635,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -777,7 +777,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"

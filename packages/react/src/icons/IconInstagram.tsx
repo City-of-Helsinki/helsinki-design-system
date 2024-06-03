@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './Icon.module.css';
-import { IconProps } from './Icon.interface';
+import { IconProps, IconSize } from './Icon.interface';
 
 export const IconInstagram = ({
   ariaLabel = 'instagram',
@@ -9,7 +9,7 @@ export const IconInstagram = ({
   ariaHidden = true,
   className = '',
   color,
-  size = 's',
+  size = IconSize.Small,
   style = {},
 }: React.SVGProps<SVGSVGElement> & IconProps) => (
   <svg

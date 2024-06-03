@@ -1,5 +1,13 @@
 import { CSSProperties, SVGAttributes } from 'react';
 
+export enum IconSize {
+  ExtraSmall = 'extraSmall',
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+  ExtraLarge = 'extraLarge',
+}
+
 export type IconProps = SVGAttributes<SVGElement> & {
   /**
    * @deprecated Will be replaced in the next major release with "aria-label"
@@ -21,6 +29,6 @@ export type IconProps = SVGAttributes<SVGElement> & {
   /**
    * Icon size
    */
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
+  size?: IconSize;
   style?: CSSProperties;
 };

@@ -81,7 +81,7 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
             <svg
               aria-hidden="true"
               aria-label="minus"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
             <svg
               aria-hidden="true"
               aria-label="plus"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"

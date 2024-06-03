@@ -5,6 +5,7 @@ import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
+import { IconSize } from '../../icons/Icon.interface';
 
 export enum LinkSize {
   Small = 'small',
@@ -60,12 +61,6 @@ export type LinkProps = {
   useButtonStyles?: boolean;
 } & Omit<React.ComponentPropsWithoutRef<'a'>, 'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'>;
 
-enum LinkSizeToIconSize {
-  large = 'l',
-  medium = 's',
-  small = 'xs',
-}
-
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
@@ -98,10 +93,15 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
     };
 
+    const mapLinkSizeToExternalIconSize = {
+      [LinkSize.Large]: IconSize.Large,
+      [LinkSize.Medium]: IconSize.Small,
+      [LinkSize.Small]: IconSize.ExtraSmall,
+    };
     const mapLinkSizeToIconVerticalStyling = {
-      large: styles.verticalAlignBigIcon,
-      medium: styles.verticalAlignMediumIcon,
-      small: styles.verticalAlignSmallIcon,
+      [LinkSize.Large]: styles.verticalAlignBigIcon,
+      [LinkSize.Medium]: styles.verticalAlignMediumIcon,
+      [LinkSize.Small]: styles.verticalAlignSmallIcon,
     };
 
     const linkStyles = classNames(
@@ -129,7 +129,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children}
         {external && (
           <IconLinkExternal
-            size={LinkSizeToIconSize[size]}
+            size={mapLinkSizeToExternalIconSize[size]}
             className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
             aria-hidden
           />

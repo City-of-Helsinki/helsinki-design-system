@@ -3,7 +3,7 @@ slug: '/components/icon/code'
 title: 'Icon - Code'
 ---
 
-import { IconFaceSmile, IconPlusCircle } from 'hds-react';
+import { IconFaceSmile, IconPlusCircle, IconSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -32,18 +32,18 @@ import { IconFaceSmile } from 'hds-react';
 
 ### Icon sizes
 
-<Playground scope={{ IconFaceSmile }}>
+<Playground scope={{ IconFaceSmile, IconSize }}>
 
 
 ```jsx
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconSize } from 'hds-react';
 
 () => (<>
-  <IconFaceSmile size="xs" aria-hidden="true" />
-  <IconFaceSmile size="s" aria-hidden="true" />
-  <IconFaceSmile size="m" aria-hidden="true" />
-  <IconFaceSmile size="l" aria-hidden="true" />
-  <IconFaceSmile size="xl" aria-hidden="true" />
+  <IconFaceSmile size={IconSize.ExtraSmall} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.Small} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.Medium} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.Large} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.ExtraLarge} aria-hidden="true" />
 </>)
 ```
 
