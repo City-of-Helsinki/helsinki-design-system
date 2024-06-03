@@ -6,6 +6,7 @@ import { Step, StepState } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
+import { IconSize } from '../../icons/Icon.interface';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 type Language = 'en' | 'fi' | 'sv' | string;
@@ -206,7 +207,7 @@ export const Stepper = ({
             }}
             tabIndex={-1}
           >
-            <IconAngleLeft size="m" />
+            <IconAngleLeft size={IconSize.Medium} />
           </button>
         </div>
       )}
@@ -221,7 +222,7 @@ export const Stepper = ({
             }}
             tabIndex={-1}
           >
-            <IconAngleRight size="m" />
+            <IconAngleRight size={IconSize.Medium} />
           </button>
         </div>
       )}

@@ -109,7 +109,7 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="facebook"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="facebook"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"

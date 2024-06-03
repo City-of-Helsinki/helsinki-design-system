@@ -6,6 +6,7 @@ import { Link } from '../../../link';
 import classNames from '../../../../utils/classNames';
 import { IconAngleRight, IconLinkExternal } from '../../../../icons';
 import { FooterVariant } from '../../Footer.interface';
+import { IconSize } from '../../../../icons/Icon.interface';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 
 type ItemProps<Element> = React.PropsWithChildren<{
@@ -87,7 +88,11 @@ export const FooterLink = <T extends React.ElementType = 'a'>({
       {subItem && <IconAngleRight className={styles.subItemIcon} aria-hidden />}
       {label && <span>{label}</span>}
       {external && label && (
-        <IconLinkExternal size={variant === FooterVariant.Base ? 'xs' : 's'} className={styles.icon} aria-hidden />
+        <IconLinkExternal
+          size={variant === FooterVariant.Base ? IconSize.ExtraSmall : IconSize.Small}
+          className={styles.icon}
+          aria-hidden
+        />
       )}
     </Item>
   );
