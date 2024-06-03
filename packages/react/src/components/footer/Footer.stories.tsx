@@ -11,7 +11,7 @@ import { FooterUtilities } from './components/footerUtilities/FooterUtilities';
 import { FooterUtilityGroup } from './components/footerUtilityGroup/FooterUtilityGroup';
 import { FooterBase } from './components/footerBase/FooterBase';
 import { FooterCustom } from './components/footerCustom/FooterCustom';
-import { Logo, logoFi } from '../logo';
+import { Logo, LogoSize, logoFi } from '../logo';
 
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
@@ -82,7 +82,7 @@ const Base = () => (
     copyrightHolder="Copyright"
     copyrightText="All rights reserved"
     backToTopLabel="Back to top"
-    logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
   >
     {createArray(5).map((index) => (
       <Footer.Link
@@ -255,7 +255,7 @@ export const Example = (args: FooterProps) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
       logoHref="https://hel.fi"
       onLogoClick={(event: React.MouseEvent) => event.preventDefault()}
     >
@@ -349,7 +349,7 @@ export const UtilityGroups = (args: FooterProps) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -388,6 +388,9 @@ export const CustomSection = (args: FooterProps) => (
 
 export const Minimal = (args: FooterProps) => (
   <Footer {...args}>
-    <Footer.Base backToTopLabel="Back to top" logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />} />
+    <Footer.Base
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
+    />
   </Footer>
 );

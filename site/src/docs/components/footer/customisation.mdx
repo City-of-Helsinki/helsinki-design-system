@@ -3,7 +3,7 @@ slug: '/components/footer/customisation'
 title: 'Footer - Customisation'
 ---
 
-import { Footer, Logo, logoFi } from 'hds-react';
+import { Footer, Logo, LogoSize, logoFi } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -23,10 +23,10 @@ You can use the `theme` property to customise the component. See all available t
 
 ### Colour customisation example
 
-<Playground scope={{ Footer, Logo, logoFi }}>
+<Playground scope={{ Footer, Logo, LogoSize, logoFi }}>
 
 ```jsx
-import { Footer, Logo, logoFi } from 'hds-react';
+import { Footer, Logo, LogoSize, logoFi } from 'hds-react';
 
 () => (
   <Footer
@@ -50,7 +50,7 @@ import { Footer, Logo, logoFi } from 'hds-react';
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -64,10 +64,10 @@ import { Footer, Logo, logoFi } from 'hds-react';
 
 ### Custom section
 
-<Playground scope={{ Footer, Logo, logoFi }}>
+<Playground scope={{ Footer, Logo, LogoSize, logoFi }}>
 
 ```jsx
-import { Footer, Logo, logoFi } from 'hds-react';
+import { Footer, Logo, LogoSize, logoFi } from 'hds-react';
 
 () => (
   <Footer
@@ -88,7 +88,7 @@ import { Footer, Logo, logoFi } from 'hds-react';
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />

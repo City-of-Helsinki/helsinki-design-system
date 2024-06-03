@@ -4,7 +4,7 @@ title: 'Logo'
 navTitle: 'Logo'
 ---
 
-import { Logo, logoFi, logoSv, logoRu, logoFiDark, logoSvDark, logoRuDark } from 'hds-react';
+import { Logo, LogoSize, logoFi, logoSv, logoRu, logoFiDark, logoSvDark, logoRuDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Logo src={logoFi} size="medium" alt="logo"/>
+  <Logo src={logoFi} size={LogoSize.Medium} alt="logo"/>
 </PlaygroundPreview>
 
 The logo is used to identify the site or application.
@@ -36,12 +36,12 @@ See the <InternalLink size="M" href="/foundation/visual-assets/logo">logo visual
 The Helsinki logo included is offered in three (3) languages and their dark-mode variants (light-coloured to be visible on top of dark background).
 
 <PlaygroundPreview>
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoSv} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoRu} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoFiDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} alt="Helsingin kaupunki" />
-  <Logo src={logoSvDark} size="medium" style={{marginRight: 'var(--spacing-xs)', background: "black"}} alt="Helsingin kaupunki" />
-  <Logo src={logoRuDark} size="medium" style={{background: "black"}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoSv} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoRu} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFiDark} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)', background: "black"}} alt="Helsingin kaupunki" />
+  <Logo src={logoSvDark} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)', background: "black"}} alt="Helsingin kaupunki" />
+  <Logo src={logoRuDark} size={LogoSize.Medium} style={{background: "black"}} alt="Helsingin kaupunki" />
 </PlaygroundPreview>
 
 #### Sizes
@@ -49,7 +49,7 @@ The Helsinki logo included is offered in three (3) languages and their dark-mode
 The component includes three (3) size variants to fit the context. If omitted, the logo uses all available space.
 
 <PlaygroundPreview>
-  <Logo src={logoFi} size="small" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoFi} size="medium" style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
-  <Logo src={logoFi} size="large" alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Small} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Medium} style={{marginRight: 'var(--spacing-xs)'}} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Large} alt="Helsingin kaupunki" />
 </PlaygroundPreview>
