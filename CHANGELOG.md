@@ -28,6 +28,7 @@ Changes that are not related to specific components
 - [Component] What has been changed
 - [Notification] Change auto closing notification progressbar to decrease instead of increase.
 - [LinkBox] Change size prop to an enum (LinkboxSize.Small, LinkboxSize.Medium, LinkboxSize.Large), not a breaking change though since the enum values are identical to the old ones.
+- [Logo] Changed size prop to enum (LogoSize.Small, LogoSize.Medium, LogoSize.Large and LogoSize.Full) which correspond to previous values "small", "medium", "large" and "full".
 
 #### Fixed
 

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Footer } from './Footer';
-import { Logo } from '../logo';
+import { Logo, LogoSize } from '../logo';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Footer /> spec', () => {
@@ -14,7 +14,7 @@ describe('<Footer /> spec', () => {
           copyrightHolder="Copyright"
           copyrightText="All rights reserved"
           backToTopLabel="Ylös"
-          logo={<Logo alt="Helsingin kaupunki" size="medium" title="Helsingin kaupunki" src="dummyPath" />}
+          logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} title="Helsingin kaupunki" src="dummyPath" />}
         />
       </Footer>,
     );
