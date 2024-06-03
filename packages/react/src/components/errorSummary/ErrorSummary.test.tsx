@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { ErrorSummary } from './ErrorSummary';
+import { ErrorSummary, ErrorSummarySize } from './ErrorSummary';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<ErrorSummary /> spec', () => {
@@ -10,7 +10,7 @@ describe('<ErrorSummary /> spec', () => {
       <ErrorSummary
         label="Form contains following errors"
         className="customClass"
-        size="default"
+        size={ErrorSummarySize.Medium}
         style={{ marginBottom: 'var(--spacing-m)' }}
       >
         <ul>
@@ -31,7 +31,7 @@ describe('<ErrorSummary /> spec', () => {
   it('Native html props are passed to the element', async () => {
     const divProps = getCommonElementTestProps('div');
     const { getByTestId } = render(
-      <ErrorSummary {...divProps} label="Form contains following errors" size="default">
+      <ErrorSummary {...divProps} label="Form contains following errors" size={ErrorSummarySize.Medium}>
         <ul />
       </ErrorSummary>,
     );
