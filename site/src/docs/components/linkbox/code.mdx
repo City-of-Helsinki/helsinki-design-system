@@ -3,7 +3,7 @@ slug: '/components/linkbox/code'
 title: 'Linkbox - Code'
 ---
 
-import { Linkbox } from 'hds-react';
+import { Linkbox, LinkboxSize } from 'hds-react';
 import { withPrefix } from "gatsby"
 import TabsLayout from './tabs.mdx';
 
@@ -164,10 +164,10 @@ import { Linkbox } from 'hds-react';
 </Playground>
 
 ### Linkbox size variants
-<Playground scope={{ Linkbox, withPrefix }}>
+<Playground scope={{ Linkbox, LinkboxSize, withPrefix }}>
 
 ```jsx
-import { Linkbox } from 'hds-react';
+import { Linkbox, LinkboxSize } from 'hds-react';
 
 () => (
   <div style={{ backgroundColor: 'var(--color-black-5)', padding: 'var(--spacing-s)' }}>
@@ -178,7 +178,7 @@ import { Linkbox } from 'hds-react';
         href="https://hds.hel.fi"
         heading="Linkbox title"
         text="Linkbox text"
-        size="small"
+        size={LinkboxSize.Small}
         imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 284, height: 181 }}
       />
     </div>
@@ -189,7 +189,7 @@ import { Linkbox } from 'hds-react';
         href="https://hds.hel.fi"
         heading="Linkbox title"
         text="Linkbox text"
-        size="medium"
+        size={LinkboxSize.Medium}
         imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 384, height: 245 }}
       />
     </div>
@@ -200,7 +200,7 @@ import { Linkbox } from 'hds-react';
         href="https://hds.hel.fi"
         heading="Linkbox title"
         text="Linkbox text"
-        size="large"
+        size={LinkboxSize.Large}
         imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 567, height: 363 }}
       />
     </div>
@@ -227,7 +227,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                                                                                                                       | `string`                         | -             |
 | `openInNewTab`                  | If set to true, the link opens in a new tab.                                                                                                                            | `boolean`                        | false         |
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                                                                                                            | `string`                         | -             |
-| `size`                          | Controls the size of the Linkbox.                                                                                                                                       | `"small"`, `"medium"`, `"large"` | `"medium"`    |
+| `size`                          | Controls the size of the Linkbox.                                                                                                                                       | `LinkboxSize.Small`, `LinkboxSize.Medium`, `LinkboxSize.Large` | `LinkboxSize.Medium`    |
 | `href`                          | Hypertext reference of the link.                                                                                                                                        | `string`                         | -             |
 | `linkAriaLabel`                 | Aria-label for the link (arrow or external icon) that is located at the bottom of the linkbox.                                                                          | `string`                         | -             |
 | `linkboxAriaLabel`              | Aria label for the whole linkbox region. Remember to tell users of assistive technology that they are inside a linkbox. Check storybook examples on how it can be done. | `string`                         | -             |
