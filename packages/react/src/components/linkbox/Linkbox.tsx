@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Linkbox.module.scss';
 import { IconArrowRight, IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
+import { IconSize } from '../../icons/Icon.interface';
 
 export enum LinkboxSize {
   Small = 'small',
@@ -164,7 +165,7 @@ export const Linkbox = ({
                 ? styles.iconWhenNoBackground
                 : size === LinkboxSize.Large && styles.iconPositionForLinkboxLargeVariant,
             )}
-            size="l"
+            size={IconSize.Large}
             aria-hidden
           />
         ) : (
@@ -175,7 +176,7 @@ export const Linkbox = ({
                 ? styles.iconWhenNoBackground
                 : size === LinkboxSize.Large && styles.iconPositionForLinkboxLargeVariant,
             )}
-            size="l"
+            size={IconSize.Large}
             aria-hidden
           />
         )}

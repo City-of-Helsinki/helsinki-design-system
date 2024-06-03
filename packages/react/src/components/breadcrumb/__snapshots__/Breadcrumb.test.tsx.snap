@@ -25,7 +25,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon xs"
+            class="icon extraSmall"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon xs"
+            class="icon extraSmall"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon xs"
+            class="icon extraSmall"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon xs"
+            class="icon extraSmall"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         <svg
           aria-hidden="true"
           aria-label="angle-left"
-          class="icon s"
+          class="icon small"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

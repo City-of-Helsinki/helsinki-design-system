@@ -44,49 +44,39 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
           <div
             class="headerActions"
           >
-            <div
-              class="container visible hasContent menuItem"
-              id="Menu"
+            ActionBar
+            <button
+              aria-controls="hds-mobile-menu"
+              aria-expanded="true"
+              aria-label="menuButtonAriaLabel"
+              class="actionBarItem undefined"
+              type="button"
             >
-              <button
-                aria-controls="hds-mobile-menu"
-                aria-expanded="true"
-                aria-label="menuButtonAriaLabel"
-                class="actionBarItemButton icon"
-                type="button"
+              <span
+                class="actionBarItemIcon"
               >
-                <div
-                  class="buttonContent"
+                <svg
+                  aria-hidden="true"
+                  aria-label="cross"
+                  class="icon small"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <span>
-                    <span
-                      class="actionBarItemButtonIcon"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        aria-label="cross"
-                        class="icon s"
-                        role="img"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          clip-rule="evenodd"
-                          d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <span
-                      class="actionBarItemButtonLabel"
-                    >
-                      Menu
-                    </span>
-                  </span>
-                </div>
-              </button>
-            </div>
+                  <path
+                    clip-rule="evenodd"
+                    d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="actionBarItemLabel"
+              >
+                Menu
+              </span>
+            </button>
           </div>
         </div>
         <div
@@ -147,7 +137,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s chevron"
+                            class="icon small chevron"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +175,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -262,7 +252,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -346,7 +336,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s chevron"
+                            class="icon small chevron"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -384,7 +374,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -484,7 +474,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s chevron"
+                            class="icon small chevron"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -534,7 +524,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -611,7 +601,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"

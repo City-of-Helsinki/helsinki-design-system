@@ -4,7 +4,7 @@ title: 'Icon'
 navTitle: 'Icon'
 ---
 
-import { IconFaceSmile, IconPlusCircle } from 'hds-react';
+import { IconFaceSmile, IconPlusCircle, IconSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -36,11 +36,11 @@ See the <InternalLink href="/foundation/visual-assets/icons">the icon library</I
 #### Icon sizes
 
 <PlaygroundPreview>
-  <IconFaceSmile size="xs" aria-hidden="true" />
-  <IconFaceSmile size="s" aria-hidden="true" />
-  <IconFaceSmile size="m" aria-hidden="true" />
-  <IconFaceSmile size="l" aria-hidden="true" />
-  <IconFaceSmile size="xl" aria-hidden="true" />
+  <IconFaceSmile size={IconSize.ExtraSmall} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.Small} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.Medium} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.Large} aria-hidden="true" />
+  <IconFaceSmile size={IconSize.ExtraLarge} aria-hidden="true" />
 </PlaygroundPreview>
 
 ### Icon visible for assistive technologies
