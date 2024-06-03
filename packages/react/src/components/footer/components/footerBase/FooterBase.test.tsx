@@ -6,7 +6,7 @@ import { FooterBase } from './FooterBase';
 import { FooterWrapper } from '../../../../utils/test-utils';
 import { Footer } from '../../Footer';
 import { FooterVariant } from '../../Footer.interface';
-import { Logo } from '../../../logo';
+import { Logo, LogoSize } from '../../../logo';
 
 describe('<Footer.Base /> spec', () => {
   const mockDate = new Date(2020, 1, 1);
@@ -25,7 +25,7 @@ describe('<Footer.Base /> spec', () => {
 
   it('renders the component', () => {
     const { asFragment } = render(
-      <FooterBase logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}>
+      <FooterBase logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}>
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
         <Footer.Link label="Link 3" variant={FooterVariant.Base} />
@@ -43,7 +43,7 @@ describe('<Footer.Base /> spec', () => {
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Ylös"
-        logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+        logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
       >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
@@ -79,7 +79,7 @@ describe('<Footer.Base /> spec', () => {
         <FooterWrapper>
           <FooterBase
             backToTopLabel="Test label"
-            logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+            logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
           />
         </FooterWrapper>
       </>,
@@ -101,7 +101,7 @@ describe('<Footer.Base /> spec', () => {
     const { container } = render(
       <FooterWrapper>
         <FooterBase
-          logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+          logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
           logoHref={href}
           onLogoClick={onClick}
         >

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Logo, logoFi, logoSv, logoRu } from './Logo';
+import { Logo, LogoSize, logoFi, logoSv, logoRu } from './Logo';
 
 export default {
   component: Logo,
@@ -13,7 +13,7 @@ export default {
 export const Playground = (args) => <Logo {...args} />;
 
 Playground.args = {
-  size: 'full',
+  size: LogoSize.Full,
   src: logoFi,
   alt: 'Helsingin kaupunki',
   'aria-hidden': false,
@@ -21,7 +21,7 @@ Playground.args = {
 
 Playground.argTypes = {
   size: {
-    options: ['full', 'small', 'medium', 'large'],
+    options: [LogoSize.Full, LogoSize.Small, LogoSize.Medium, LogoSize.Large],
     control: { type: 'radio' },
   },
   src: {
