@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Stepper.module.scss';
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 import classNames from '../../utils/classNames';
+import { IconSize } from '../../icons/Icon.interface';
 
 export enum StepState {
   available,
@@ -165,8 +166,8 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
               </div>
             ) : (
               <div className={classNames(styles.circle)}>
-                {state === StepState.attention && <IconError size="xs" aria-hidden />}
-                {state === StepState.paused && <IconPlaybackPause size="xs" aria-hidden />}
+                {state === StepState.attention && <IconError size={IconSize.ExtraSmall} aria-hidden />}
+                {state === StepState.paused && <IconPlaybackPause size={IconSize.ExtraSmall} aria-hidden />}
                 {(state === StepState.available ||
                   state === StepState.disabled ||
                   (state === StepState.completed && selected)) && <span className={styles.number}>{index + 1}</span>}

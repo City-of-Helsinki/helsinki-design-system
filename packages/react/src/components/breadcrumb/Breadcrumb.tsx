@@ -6,6 +6,7 @@ import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { IconSize } from '../../icons/Icon.interface';
 
 export interface BreadcrumbCustomTheme {
   /**
@@ -59,7 +60,7 @@ const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) =>
   const isRightArrow = direction === 'right';
   const IconComponent = isRightArrow ? IconAngleRight : IconAngleLeft;
   const classList = isRightArrow ? styles.separator : styles.backArrow;
-  const size = isRightArrow ? 'xs' : 's';
+  const size = isRightArrow ? IconSize.ExtraSmall : IconSize.Small;
   return (
     <span className={classList} aria-hidden>
       <IconComponent size={size} />
