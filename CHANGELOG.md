@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 Changes that are not related to specific components
-- [FileInput](packages/react/src/components/fileInput/FileInput.tsx) Added `minSize` property (default 0) for cases when the uploaded file must have zon-zero length content
+- [FileInput](packages/react/src/components/fileInput/FileInput.tsx) Added `minSize` property (default 0) for cases when the uploaded file must have non-zero length content
 
 #### Fixed
 
