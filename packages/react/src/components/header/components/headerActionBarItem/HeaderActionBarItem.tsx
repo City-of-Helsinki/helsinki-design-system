@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from 'react';
+import { nanoid } from 'nanoid';
 
 import classes from './HeaderActionBarItem.module.scss';
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
@@ -181,12 +182,22 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
             <ul>
               {headerSubItems.map((headerSubItem) =>
                 headerSubItem[0] ? (
-                  <li>
+                  <li key={nanoid()}>
                     {headerSubItem[0]}
-                    <ul>{headerSubItem[1]?.map((subItem) => <li className={classes.dropdownItem}>{subItem}</li>)}</ul>
+                    <ul>
+                      {headerSubItem[1]?.map((subItem) => (
+                        <li key={nanoid()} className={classes.dropdownItem}>
+                          {subItem}
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ) : (
-                  headerSubItem[1]?.map((subItem) => <li className={classes.dropdownItem}>{subItem}</li>)
+                  headerSubItem[1]?.map((subItem) => (
+                    <li key={nanoid()} className={classes.dropdownItem}>
+                      {subItem}
+                    </li>
+                  ))
                 ),
               )}
             </ul>

@@ -97,14 +97,16 @@
     width: 100%;
   }
 
-  & ul, & li {
+  & ul,
+  & li {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   & .dropdownItem {
     padding: 12px 16px;
+
     &:focus-within {
       border: none;
       outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);

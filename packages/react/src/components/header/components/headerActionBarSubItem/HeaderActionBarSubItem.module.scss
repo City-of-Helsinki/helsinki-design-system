@@ -1,6 +1,12 @@
 @use '../../../../styles/common.scss';
 
 .actionBarSubItem,
+h4.actionBarSubItem {
+  border-top: 1px solid var(--color-black-20);
+  padding: 0;
+}
+
+.actionBarSubItem,
 .actionBarSubItem > a,
 .actionBarSubItem > div {
   align-items: center;
@@ -15,7 +21,7 @@
   width: 100%;
 
   &.bold {
-   font-weight: bold;
+    font-weight: bold;
   }
 
   &:focus-visible {
@@ -26,12 +32,6 @@
   &:hover {
     text-decoration: underline;
   }
-}
-.actionBarSubItem,
-
-h4.actionBarSubItem {
-  border-top: 1px solid var(--color-black-20);
-  padding: 0;
 }
 
 :first-child.actionBarSubItem {
