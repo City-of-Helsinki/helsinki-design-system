@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderActionBarItem spec renders the component correctly and adds all classNames from props 1`] = `
+exports[`HeaderActionBarItemButton spec renders the component correctly and adds all classNames from props 1`] = `
 <DocumentFragment>
   <button
     aria-controls="aria-controls-id"
     aria-expanded="false"
     aria-label="aria label"
-    class="actionBarItem extra-class fixedRightPosition"
+    class="actionBarItemButton extra-class fixedRightPosition"
     data-testid="button"
     type="button"
   >
     <span>
       <span
-        class="actionBarItemIcon labelOnRight"
+        class="actionBarItemButtonIcon labelOnRight"
       >
         <span
           aria-hidden="true"
@@ -20,7 +20,7 @@ exports[`HeaderActionBarItem spec renders the component correctly and adds all c
         />
       </span>
       <span
-        class="actionBarItemLabel labelOnRight"
+        class="actionBarItemButtonLabel labelOnRight"
       >
         button label
       </span>

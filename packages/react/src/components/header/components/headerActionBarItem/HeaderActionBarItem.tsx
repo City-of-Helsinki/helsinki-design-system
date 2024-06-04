@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from 'react';
 
 import classes from './HeaderActionBarItem.module.scss';
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
+import { HeaderActionBarSubItemProps } from '../headerActionBarSubItem';
 import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 
@@ -141,6 +143,18 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
           activeStateLabel: closeLabel,
         }
       : {};
+
+  const subItems = React.Children.toArray(children) as HeaderActionBarSubItemProps[];
+  const headerSubItems = [{ subItem: undefined, idx: -1 }]
+    .concat(subItems.map((subItem, idx) => ({ subItem, idx })).filter((obj) => (obj.subItem as any)?.props.heading))
+    .map((obj) => {
+      const nextHeadingIdx = subItems.findIndex((subItem, idx) => idx > obj.idx && (obj.subItem as any)?.props.heading);
+      return [
+        obj.subItem,
+        subItems.filter((subItem, idx) => idx > obj.idx && (nextHeadingIdx === -1 || idx < nextHeadingIdx)),
+      ];
+    }) as HeaderActionBarSubItemProps[];
+
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
     <div {...props} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
@@ -164,7 +178,18 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         <div className={classes.dropdownWrapper}>
           <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
             {visible && !fullWidth && <h3>{label}</h3>}
-            {children}
+            <ul>
+              {headerSubItems.map((headerSubItem) =>
+                headerSubItem[0] ? (
+                  <li>
+                    {headerSubItem[0]}
+                    <ul>{headerSubItem[1]?.map((subItem) => <li className={classes.dropdownItem}>{subItem}</li>)}</ul>
+                  </li>
+                ) : (
+                  headerSubItem[1]?.map((subItem) => <li className={classes.dropdownItem}>{subItem}</li>)
+                ),
+              )}
+            </ul>
           </div>
         </div>
       )}

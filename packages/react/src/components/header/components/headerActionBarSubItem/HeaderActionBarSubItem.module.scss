@@ -10,7 +10,7 @@
   flex-direction: row;
   gap: 8px;
   margin: 0;
-  padding: 12px 16px;
+  padding: 0;
   text-decoration: none;
   width: 100%;
 
@@ -20,14 +20,14 @@
 
   &:focus-visible {
     border: none;
-    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
-    outline-offset: calc(-1 * var(--header-focus-outline-width));
+    outline: 0;
   }
 
   &:hover {
     text-decoration: underline;
   }
 }
+.actionBarSubItem,
 
 h4.actionBarSubItem {
   border-top: 1px solid var(--color-black-20);

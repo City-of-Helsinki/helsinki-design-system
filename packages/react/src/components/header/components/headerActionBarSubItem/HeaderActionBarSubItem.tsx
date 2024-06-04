@@ -4,7 +4,7 @@ import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
 import { IconLinkExternal } from '../../../../icons';
 
-export interface HeaderActionBarSubItemProps {
+export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Aria label for the item.
    */
@@ -92,9 +92,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
           <Content />
         </a>
       ) : (
-        <div>
-          <Content />
-        </div>
+        <Content />
       );
 
     const isLink = href && href !== '';
