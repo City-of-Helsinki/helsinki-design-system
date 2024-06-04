@@ -2,6 +2,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable lines-between-class-members */
 
+import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
+
 import { getCookieBannerHtml, getGroupHtml, getTableRowHtml } from './template';
 import { getTranslation, getTranslationKeys } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
@@ -341,12 +343,9 @@ export class CookieConsentCore {
     // TODO: Replace this temporary CSS file hack with proper preprocess CSS inlining
     // Fetch the external CSS file
     try {
-      const response = await fetch(this.#TEMP_CSS_PATH);
-      const cssText = await response.text();
-
       // Create and inject the style
       const style = document.createElement('style');
-      style.textContent = cssText;
+      style.textContent = styles;
       shadowRoot.appendChild(style);
     } catch (error) {
       throw new Error(`Cookie consent: Failed to load the temporary CSS file solution: '${error}'`);
