@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.9.0] - June, X, 2024
 
 ### React
 
@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Header.LogoutSubmenuButton] Button to start the logout process from the menu and handle errors.
 - [Header.UserMenuButton] Button for a user menu that renders user's name and initials.
 - [Header.ActionBarButton] A Button without dropdown items (as in Header.ActionBarItem)
-- [Header.ActionBar] Add possibility to give the menu button a label with `menuButtonLabel` prop. 
+- [Header.ActionBar] Add possibility to give the menu button a label with `menuButtonLabel` prop.
 
 #### Changed
 
@@ -56,25 +56,21 @@ Changes that are not related to specific components
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
+- [Patterns] New page for Login pattern, instructions how HDS Login and Header.login should work together
+- [Getting started] Added a link to HDS Figma tutorial
 - [Header] Documented new features.
-- More detailed information on upcoming releases 4.0.0 and 5.0.0
 - [Login] GraphQL module documentation
+- More detailed information on upcoming releases 4.0.0 and 5.0.0
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
+- [Header] New documentation for ActionBarItems and Header.Login
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Getting started] Fixed old mentions of Abstract & Sketch
 
 ### Figma
 
