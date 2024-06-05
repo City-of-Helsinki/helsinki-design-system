@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from 'react';
-import { nanoid } from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
 
 import classes from './HeaderActionBarItem.module.scss';
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
@@ -188,18 +188,18 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
             <ul>
               {headerSubItems.map((headerSubItem) =>
                 headerSubItem.isHeading ? (
-                  <li key={nanoid()} className={classes.dropdownSubItem}>
+                  <li key={uuidv4()} className={classes.dropdownSubItem}>
                     {headerSubItem.item}
                     <ul>
                       {headerSubItem.childs?.map((subItem) => (
-                        <li key={nanoid()} className={classes.dropdownItem}>
+                        <li key={uuidv4()} className={classes.dropdownItem}>
                           {subItem}
                         </li>
                       ))}
                     </ul>
                   </li>
                 ) : (
-                  <li key={nanoid()} className={classes.dropdownItem}>
+                  <li key={uuidv4()} className={classes.dropdownItem}>
                     {headerSubItem.item}
                   </li>
                 ),

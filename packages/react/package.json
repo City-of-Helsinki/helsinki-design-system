@@ -142,7 +142,6 @@
     "kashe": "1.0.4",
     "lodash": "^4.17.21",
     "memoize-one": "5.2.1",
-    "nanoid": "^5.0.7",
     "oidc-client-ts": "^2.2.2",
     "postcss": "^8.4.21",
     "react-hook-form": "^7.43.3",
