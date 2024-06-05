@@ -2,6 +2,12 @@ import React, { useEffect } from 'react';
 
 import { CookieConsentCore } from './cookieConsentCore';
 
+declare global {
+  interface Window {
+    hds: undefined;
+  }
+}
+
 // This is used to test "/classes" in React and Storybook
 // See also https://github.com/Wildhoney/ReactShadow
 export const ReactTestFullPage = () => {
@@ -13,7 +19,7 @@ export const ReactTestFullPage = () => {
     // targetSelector: 'body', // Defaults to 'body'
     // spacerParentSelector: 'body', // Defaults to 'body'
     // pageContentSelector: 'body', // Defaults to 'body'
-    // submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
+    submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
     settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
     tempCssPath: 'http://localhost:6006/static-cookie-consent/cookieConsent.css', // TODO: Remove this when the real build process can include css files
   };
@@ -22,8 +28,41 @@ export const ReactTestFullPage = () => {
     // eslint-disable-next-line no-new, @typescript-eslint/no-unused-vars
     const instance = new CookieConsentCore(options);
   }, []);
+  const addChatCookie = async () => {
+    // eslint-disable-next-line no-console
+    console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']));
+  };
+  const addUnallowedCookie = async () => {
+    // eslint-disable-next-line no-console
+    console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['unallowed']));
+  };
+  const removeConsentCookie = async () => {
+    const cookieName = `helfi-cookie-consents`;
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    // eslint-disable-next-line no-console
+    console.log('Cookie removed:', cookieName);
+  };
+  const setIcareusDevice = async () => {
+    const cookieName = `icareus-device`;
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 2970 00:00:01 GMT;`;
+    // eslint-disable-next-line no-console
+    console.log('Cookie added:', cookieName);
+  };
   return (
     <main>
+      <button type="button" onClick={addChatCookie}>
+        Add chat group
+      </button>
+      <button type="button" onClick={addUnallowedCookie}>
+        Add unallowed group
+      </button>
+      <button type="button" onClick={removeConsentCookie}>
+        Remove consent cookie
+      </button>
+      <button type="button" onClick={setIcareusDevice}>
+        Set icareus-device
+      </button>
+
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus numquam, iste aspernatur excepturi quaerat a
         a ab explicabo aliquam totam, fuga reiciendis aliquid id nulla dicta soluta ullam voluptate! Dignissimos
