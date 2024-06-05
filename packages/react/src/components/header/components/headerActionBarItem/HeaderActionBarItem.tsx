@@ -146,15 +146,21 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       : {};
 
   const subItems = React.Children.toArray(children) as HeaderActionBarSubItemProps[];
-  const headerSubItems = [{ subItem: undefined, idx: -1 }]
-    .concat(subItems.map((subItem, idx) => ({ subItem, idx })).filter((obj) => (obj.subItem as any)?.props.heading))
-    .map((obj) => {
-      const nextHeadingIdx = subItems.findIndex((subItem, idx) => idx > obj.idx && (obj.subItem as any)?.props.heading);
-      return [
-        obj.subItem,
-        subItems.filter((subItem, idx) => idx > obj.idx && (nextHeadingIdx === -1 || idx < nextHeadingIdx)),
-      ];
-    }) as HeaderActionBarSubItemProps[];
+  const headerSubItems = subItems
+    .map((subItem, idx) => {
+      const firstHeadingIdx = subItems.findIndex((_subItem) => (_subItem as any)?.props.heading);
+      const nextHeadingIdx = subItems.findIndex((_subItem, _idx) => _idx > idx && (_subItem as any)?.props.heading);
+      const isHeading = (subItem as any)?.props.heading;
+
+      return {
+        isHeading,
+        item: isHeading || firstHeadingIdx === nextHeadingIdx ? subItem : null,
+        childs: !isHeading
+          ? []
+          : subItems.filter((_subItem, _idx) => _idx > idx && (nextHeadingIdx === -1 || _idx < nextHeadingIdx)),
+      };
+    })
+    .filter((item) => item.item !== null);
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
@@ -181,11 +187,11 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
             {visible && !fullWidth && <h3>{label}</h3>}
             <ul>
               {headerSubItems.map((headerSubItem) =>
-                headerSubItem[0] ? (
-                  <li key={nanoid()}>
-                    {headerSubItem[0]}
+                headerSubItem.isHeading ? (
+                  <li key={nanoid()} className={classes.dropdownSubItem}>
+                    {headerSubItem.item}
                     <ul>
-                      {headerSubItem[1]?.map((subItem) => (
+                      {headerSubItem.childs?.map((subItem) => (
                         <li key={nanoid()} className={classes.dropdownItem}>
                           {subItem}
                         </li>
@@ -193,11 +199,9 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
                     </ul>
                   </li>
                 ) : (
-                  headerSubItem[1]?.map((subItem) => (
-                    <li key={nanoid()} className={classes.dropdownItem}>
-                      {subItem}
-                    </li>
-                  ))
+                  <li key={nanoid()} className={classes.dropdownItem}>
+                    {headerSubItem.item}
+                  </li>
                 ),
               )}
             </ul>

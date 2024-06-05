@@ -766,7 +766,6 @@ export const ActionBarItems = (args) => {
             <Header.ActionBarSubItem label="Subheading" heading href="/" iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Heading" heading />
           </Header.ActionBarItem>
           <Header.ActionBarItem icon={<IconCogwheel />} label="Test">
             <Header.ActionBarSubItem label="Static" />
