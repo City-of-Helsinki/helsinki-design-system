@@ -806,3 +806,52 @@ export const ActionBarItems = (args) => {
     </>
   );
 };
+
+export const Login = (args) => {
+  const [href, setHref] = useState('');
+  const lang = 'fi';
+  const I18n = translations[lang];
+
+  return (
+    <>
+      <Header {...args}>
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
+        <Header.ActionBar
+          frontPageLabel={I18n.frontPage}
+          title={translations[lang].headerTitle}
+          titleAriaLabel={translations[lang].headerAriaLabel}
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
+          logoAriaLabel={I18n.ariaLogo}
+        >
+          <Header.ActionBarItem label="Test Username" avatar="TU" fixedRightPosition>
+            <Header.ActionBarSubItem label="Link" href="/" notificationCount={2} />
+            <Header.ActionBarSubItem label="Omat tiedot" href="/" />
+            <Header.ActionBarSubItem label="Viestit" href="/" notificationCount={2} />
+            <Header.ActionBarSubItem label="Kirjaudu ulos" href="/" bold iconRight={<IconSignout />} />
+          </Header.ActionBarItem>
+        </Header.ActionBar>
+
+        <Header.NavigationMenu>
+          <Header.Link
+            label={I18n.healthAndSocialServices}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#sosiaali-_ja_terveyspalvelut');
+            }}
+            active={href.includes('#sosiaali-_ja_terveyspalvelut')}
+          />
+          <Header.Link
+            active={href.includes('#kasvatus_ja_koulutus')}
+            onClick={(event) => {
+              event.preventDefault();
+              setHref('#kasvatus_ja_koulutus');
+            }}
+            label={I18n.childhoodAndEducation}
+          />
+        </Header.NavigationMenu>
+      </Header>
+      <div id="content" />
+    </>
+  );
+};

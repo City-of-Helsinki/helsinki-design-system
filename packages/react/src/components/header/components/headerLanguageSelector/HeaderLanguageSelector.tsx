@@ -5,7 +5,7 @@ import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguag
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
 import { HeaderActionBarItem } from '../headerActionBarItem';
-import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
+import { IconGlobe } from '../../../../icons';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
 
@@ -132,8 +132,6 @@ export const HeaderLanguageSelectorConsumer = ({
           id="language-selection-more"
           iconClassName={classes.languageSelectorDropdownIcon}
           dropdownClassName={classes.languageSelectorDropdown}
-          label={<IconAngleDown aria-hidden />}
-          closeLabel={<IconAngleUp aria-hidden />}
           icon={<IconGlobe aria-hidden />}
           closeIcon={<IconGlobe aria-hidden />}
           fullWidth={isNotLargeScreen}

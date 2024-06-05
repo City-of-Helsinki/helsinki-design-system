@@ -16,7 +16,7 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<{
   /**
    * Label for the action bar item.
    */
-  label: string | JSX.Element;
+  label?: string | JSX.Element;
   /**
    * Aria-label attribute for the dropdown button.
    */
@@ -133,6 +133,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     [classes.hasContent]: hasContent,
     [classes.fullWidth]: fullWidth || isNotLargeScreen,
     [classes.hasSubItems]: hasSubItems,
+    [classes.menuItem]: id === 'Menu',
   };
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
@@ -184,7 +185,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       {hasSubItems && (
         <div className={classes.dropdownWrapper}>
           <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
-            {visible && !fullWidth && <h3>{label}</h3>}
+            {visible && !fullWidth && label && <h3>{label}</h3>}
             <ul>
               {headerSubItems.map((headerSubItem) =>
                 headerSubItem.isHeading ? (

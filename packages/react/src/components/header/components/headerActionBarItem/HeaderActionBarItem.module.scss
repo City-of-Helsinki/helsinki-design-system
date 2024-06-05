@@ -11,7 +11,6 @@
 
 .container {
   display: flex;
-  border-bottom: 1px solid var(--color-black-20);
 
   .dropdownWrapper {
     max-height: 0;
@@ -36,6 +35,7 @@
   }
 
   &.fullWidth {
+    border-bottom: 1px solid var(--color-black-20);
     display: flex;
     justify-content: center;
 
@@ -49,6 +49,10 @@
       display: block;
     }
   }
+
+  &.menuItem {
+    border-bottom: 0;
+  }
 }
 
 .icon {
@@ -58,6 +62,7 @@
 .dropdown {
   background: white;
   border: 1px solid var(--color-black-10);
+  border-top: 1px solid var(--color-black-20) !important;
   margin-top: -1px;
   position: relative;
   right: 0;
@@ -66,7 +71,6 @@
     var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
     0ms visibility calc((var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown)));
   visibility: hidden;
-  border-top: 1px solid var(--color-black-20) !important;
 
   &.fullWidth {
     background: transparent;
@@ -109,7 +113,6 @@
   & ul {
     border-top: 1px solid var(--color-black-20);
   }
-
 
   & .dropdownItem {
     padding: 12px 16px;

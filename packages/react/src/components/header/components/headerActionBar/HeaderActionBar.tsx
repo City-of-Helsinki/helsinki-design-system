@@ -313,7 +313,7 @@ export const HeaderActionBar = ({
             logo={logo}
             logoProps={logoProps}
             openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-            actionBarItems={children as HeaderActionBarItemProps[]}
+            actionBarItems={(Array.isArray(children) ? children : [children]) as HeaderActionBarItemProps[]}
           />
         )}
       </div>
