@@ -72,23 +72,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
           </span>
           <span
             class="actionBarItemButtonLabel labelOnRight"
-          >
-            <svg
-              aria-hidden="true"
-              aria-label="angle-down"
-              class="icon s"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clip-rule="evenodd"
-                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          />
         </span>
         <svg
           aria-hidden="true"
@@ -285,23 +269,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                 </span>
                 <span
                   class="actionBarItemButtonLabel labelOnRight"
-                >
-                  <svg
-                    aria-hidden="true"
-                    aria-label="angle-down"
-                    class="icon s"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
+                />
               </span>
               <svg
                 aria-hidden="true"
