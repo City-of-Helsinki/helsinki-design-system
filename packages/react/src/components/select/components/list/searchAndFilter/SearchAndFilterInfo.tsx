@@ -27,10 +27,14 @@ export function SearchAndFilterInfo() {
   const { groups, open } = data;
   const metaData = getMetaData();
   const { isSearching, search, filter } = metaData;
-  const previousValueRef = useRef(search || filter);
-  const didChange = previousValueRef.current !== (search || filter);
-  previousValueRef.current = search || filter;
   const count = countVisibleOptions(groups);
+  const createCurrentState = () => {
+    return `${search} ${filter} ${count}`;
+  };
+  const previousValueRef = useRef(createCurrentState());
+  const currentState = createCurrentState();
+  const didChange = previousValueRef.current !== currentState;
+  previousValueRef.current = currentState;
   if (!shouldRenderScreenReaderNotificationsRef.current && (isSearching || filter)) {
     shouldRenderScreenReaderNotificationsRef.current = true;
   }

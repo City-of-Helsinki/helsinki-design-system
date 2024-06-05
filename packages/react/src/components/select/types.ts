@@ -126,8 +126,9 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   screenReaderNotifications: ScreenReaderNotification[];
 };
 
-export type DivElementProps = HTMLAttributes<HTMLDivElement>;
-export type ButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type DataTestIdAttr = { 'data-testid': string };
+export type DivElementProps = HTMLAttributes<HTMLDivElement> & DataTestIdAttr;
+export type ButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement> & DataTestIdAttr;
 export type UlElementProps = HTMLAttributes<HTMLUListElement>;
 export type LiElementProps = HTMLAttributes<HTMLLIElement>;
 
