@@ -69,6 +69,7 @@
     "@testing-library/user-event": "^12.8.1",
     "@types/jest": "^26.0.1",
     "@types/jest-axe": "^3.5.3",
+    "@types/lodash": "^4.17.4",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "@types/rollup-plugin-generate-package-json": "^3.2.8",
