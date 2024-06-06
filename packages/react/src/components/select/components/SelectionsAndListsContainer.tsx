@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
@@ -7,11 +7,13 @@ import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 
 function createComponentProps(
   props: React.PropsWithChildren<unknown>,
-  { getData }: SelectDataHandlers,
-): DivElementProps {
+  { getData, getMetaData }: SelectDataHandlers,
+): DivElementProps & { ref: RefObject<HTMLDivElement> } {
   const { invalid, open } = getData();
+  const { refs } = getMetaData();
   return {
     ...props,
+    ref: refs.selectionsAndListContainer,
     className: classNames(styles.selectAndListContainer, invalid && styles.invalid, open && styles.open),
   };
 }

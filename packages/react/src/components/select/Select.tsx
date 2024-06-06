@@ -102,6 +102,7 @@ export function Select({
         showAllButton: createRef<HTMLButtonElement>(),
         dropdownButton: createRef<HTMLButtonElement>(),
         searchOrFilterInput: createRef<HTMLInputElement>(),
+        selectionsAndListContainer: createRef<HTMLDivElement>(),
       },
       elementIds: getElementIds(containerId),
       selectedOptions: getSelectedOptions(initialData.groups),
