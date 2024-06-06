@@ -15,6 +15,7 @@ import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 import { useElementDetection } from './useElementDetection';
 import { KnownElementType } from '../types';
+import getFocusedElementFromBlurEvent from '../../../utils/getFocusedElementFromBlurEvent';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
@@ -25,13 +26,15 @@ export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData, trigger } = useSelectDataHandlers();
   const { getEventElementType, getListItemSiblings, getElementUsingActiveDescendant, getElementId } =
     useElementDetection();
-  const { refs, focusTarget, activeDescendant } = getMetaData();
+
   const elementsThatCloseMenuOnFocus: KnownElementType[] = ['tag', 'tagList', 'clearAllButton', 'showAllButton'];
   const eventTracker = useCallback(
     (
       type: keyof typeof eventTypes,
       e: FocusEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
     ) => {
+      const { refs } = getMetaData();
+      const { onFocus, onBlur, open } = getData();
       const markActiveDescendant = (element: HTMLElement | null) => {
         const id = (element && getElementId(element)) || '';
         updateMetaData({ activeDescendant: id });
@@ -55,7 +58,6 @@ export function useFocusHandling(): ReturnObject {
       };
 
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
-        const { onBlur } = getData();
         if (onBlur) {
           onBlur();
           trigger({ id: eventIds.generic, type: eventTypes.blur });
@@ -63,7 +65,6 @@ export function useFocusHandling(): ReturnObject {
         markActiveDescendant(null);
       }
       if (type === eventTypes.focus && getIsElementFocused(e as FocusEvent<HTMLDivElement>)) {
-        const { onFocus } = getData();
         if (onFocus) {
           onFocus();
         }
@@ -80,18 +81,28 @@ export function useFocusHandling(): ReturnObject {
         if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType)) {
           trigger({ id: eventIds.generic, type: eventTypes.blur });
         }
+      } else if (type === eventTypes.blur) {
+        if (open) {
+          const { selectionsAndListContainer } = refs;
+          const focusedElement = getFocusedElementFromBlurEvent(e as FocusEvent<HTMLDivElement>);
+          const focusIsInSelectionsAndListContainer =
+            !!selectionsAndListContainer.current && selectionsAndListContainer.current.contains(focusedElement);
+          if (!focusedElement || !focusIsInSelectionsAndListContainer) {
+            trigger({ id: eventIds.generic, type: eventTypes.focusMovedToNonListElement });
+          }
+        }
       }
     },
-    [getMetaData, updateMetaData],
+    [getMetaData, updateMetaData, getData, trigger],
   );
 
-  const setFocus = (targetRef?: RefObject<HTMLElement>) => {
-    if (targetRef && targetRef.current && targetRef.current.focus) {
-      targetRef.current.focus();
-    }
-  };
-
-  useEffect(() => {
+  const onRender = useCallback(() => {
+    const { refs, focusTarget, activeDescendant } = getMetaData();
+    const setFocus = (targetRef?: RefObject<HTMLElement>) => {
+      if (targetRef && targetRef.current && targetRef.current.focus) {
+        targetRef.current.focus();
+      }
+    };
     if (focusTarget) {
       if (focusTarget === 'tag') {
         const current = refs.tagList.current && (refs.tagList.current.querySelectorAll('* > div')[0] as HTMLElement);
@@ -107,6 +118,10 @@ export function useFocusHandling(): ReturnObject {
         activeElement.focus();
       }
     }
+  }, [getMetaData, updateMetaData]);
+
+  useEffect(() => {
+    onRender();
   });
 
   return {
@@ -117,6 +132,6 @@ export function useFocusHandling(): ReturnObject {
       eventTracker(eventTypes.blur, e);
     },
     tabIndex: -1,
-    ref: refs.container,
+    ref: getMetaData().refs.container,
   };
 }
