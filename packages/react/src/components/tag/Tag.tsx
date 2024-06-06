@@ -5,6 +5,7 @@ import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { CommonHTMLAttributes } from '../../utils/commonHTMLAttributes';
 
 export interface TagTheme {
   '--background-color-hover'?: string;
@@ -25,60 +26,60 @@ export enum TagSize {
   Large = 'large',
 }
 
-export type TagProps = {
-  /**
-   * The label for the tag
-   */
-  children: string;
-  /**
-   * Additional class names to apply to the tag
-   */
-  className?: string;
-  /**
-   * Url to go to after Link variant is clicked
-   */
-  href?: string;
-  /**
-   * Link's _target -attribute
-   */
-  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
-  /*
-  /**
-   * Element placed on the starting side of the label
-   */
-  iconStart?: React.ReactNode;
-  /**
-   * Element placed on the ending side of the label
-   */
-  iconEnd?: React.ReactNode;
-  /**
-   * Should Tag span to multiple lines
-   * @default false
-   */
-  multiline?: boolean;
-  /**
-   * Callback function fired when the tag is clicked. If set, the tag will be clickable.
-   */
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
-  /**
-   * Callback function fired when the tag is clicked. If set, a delete button will be shown.
-   */
-  onDelete?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
-  /**
-   * Size variant for the Tag.
-   * @default TagSize.Small
-   */
-  size?: TagSize;
-  /**
-   * Custom theme styles
-   * Will contain more properties in the next major release.
-   */
-  theme?: TagTheme;
-  /**
-   * Ref is set to the main element
-   */
-  ref?: React.Ref<HTMLDivElement> | React.Ref<HTMLAnchorElement>;
-};
+export type TagProps<T = HTMLDivElement> = CommonHTMLAttributes &
+  React.HTMLAttributes<T> & {
+    /**
+     * The label for the tag
+     */
+    children: string;
+    /**
+     * Additional class names to apply to the tag
+     */
+    className?: string;
+    /**
+     * Url to go to after Link variant is clicked
+     */
+    href?: string;
+    /**
+     * Link's _target -attribute
+     */
+    target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+    /**
+     * Element placed on the starting side of the label
+     */
+    iconStart?: React.ReactNode;
+    /**
+     * Element placed on the ending side of the label
+     */
+    iconEnd?: React.ReactNode;
+    /**
+     * Should Tag span to multiple lines
+     * @default false
+     */
+    multiline?: boolean;
+    /**
+     * Callback function fired when the tag is clicked. If set, the tag will be clickable.
+     */
+    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
+    /**
+     * Callback function fired when the tag is clicked. If set, a delete button will be shown.
+     */
+    onDelete?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
+    /**
+     * Size variant for the Tag.
+     * @default TagSize.Small
+     */
+    size?: TagSize;
+    /**
+     * Custom theme styles
+     * Will contain more properties in the next major release.
+     */
+    theme?: TagTheme;
+    /**
+     * Ref is set to the main element
+     */
+    ref?: React.Ref<T>;
+  };
 
 export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, React.ComponentProps<'div'> & TagProps>(
   (
