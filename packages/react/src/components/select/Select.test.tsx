@@ -17,7 +17,6 @@ type ElementAttributes = {
   selectedOptions: React.HTMLAttributes<HTMLLIElement> | React.HTMLAttributes<HTMLDivElement>;
   listElementNodeName: string | undefined;
   group: React.HTMLAttributes<HTMLDivElement> | undefined;
-  extraGroupElement: React.HTMLAttributes<HTMLDivElement> | undefined;
   groupElementNodeName: string | undefined;
   groupLabel: React.HTMLAttributes<HTMLLIElement> | React.HTMLAttributes<HTMLDivElement> | undefined;
   input: React.HTMLAttributes<HTMLInputElement> | undefined;
@@ -136,7 +135,6 @@ describe('<Select />', () => {
         group: undefined,
         groupLabel: undefined,
         input: undefined,
-        extraGroupElement: undefined,
       },
       groupCount: 0,
       hasInput: false,
@@ -173,7 +171,6 @@ describe('<Select />', () => {
           role: 'presentation',
         },
         input: undefined,
-        extraGroupElement: undefined,
       },
       groupCount: 3,
       hasInput: false,
@@ -208,7 +205,6 @@ describe('<Select />', () => {
         groupElementNodeName: '',
         group: undefined,
         groupLabel: undefined,
-        extraGroupElement: undefined,
         input: {
           role: 'combobox',
           'aria-controls': getElementIds(defaultId).list,
@@ -233,6 +229,7 @@ describe('<Select />', () => {
         list: {
           'aria-multiselectable': 'true',
           role: 'listbox',
+          'aria-label': undefined,
         },
         options: {
           'aria-selected': 'false',
@@ -247,7 +244,6 @@ describe('<Select />', () => {
         group: undefined,
         groupLabel: undefined,
         input: undefined,
-        extraGroupElement: undefined,
       },
       groupCount: 0,
       hasInput: false,
@@ -269,6 +265,7 @@ describe('<Select />', () => {
         list: {
           // these undefined values indicate that the element should not have special attributes
           'aria-multiselectable': undefined,
+          'aria-label': undefined,
           role: undefined,
         },
         options: {
@@ -280,9 +277,6 @@ describe('<Select />', () => {
           role: 'checkbox',
         },
         listElementNodeName: 'div',
-        extraGroupElement: {
-          role: 'group',
-        },
         group: {
           role: 'group',
           'aria-label': undefined,
@@ -333,7 +327,6 @@ describe('<Select />', () => {
           'aria-activedescendant': '', // this should change!
           'aria-haspopup': 'listbox',
         },
-        extraGroupElement: undefined,
       },
       groupCount: 3,
       hasInput: true,
@@ -357,7 +350,7 @@ describe('<Select />', () => {
         },
         list: {
           'aria-multiselectable': undefined,
-          'aria-labelledby': getElementIds(defaultId).choicesCount,
+          'aria-label': `12 choices.`,
           role: 'dialog',
         },
         options: {
@@ -381,9 +374,6 @@ describe('<Select />', () => {
           'aria-controls': getElementIds(defaultId).list,
           'aria-activedescendant': '', // this should change!
           'aria-haspopup': 'dialog',
-        },
-        extraGroupElement: {
-          role: 'group',
         },
       },
       groupCount: 3,
@@ -419,7 +409,6 @@ describe('<Select />', () => {
         input: {
           ...singleSelectNoGroupsWithInput.expectedAttributes.input,
         },
-        extraGroupElement: undefined,
       },
       groupCount: 0,
       hasInput: true,

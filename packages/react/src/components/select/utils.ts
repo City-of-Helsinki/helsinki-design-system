@@ -394,7 +394,6 @@ export function getElementIds(containerId: string): SelectMetaData['elementIds']
     searchOrFilterInputLabel: `${containerId}-input-element-label`,
     clearAllButton: `${containerId}-clear-all-button`,
     showAllButton: `${containerId}-show-all-button`,
-    choicesCount: `${containerId}-choices-count`,
   };
 }
 

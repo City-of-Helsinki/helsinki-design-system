@@ -7,6 +7,7 @@ import { getSelectedOptionsPerc, getGroupLabelOption, getVisibleGroupLabels, cou
 import { MemoizedMultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
+import { getTextKeyFromDataHandlers } from '../../texts';
 
 const getGroupLabelIntermediateState = (target: Group): boolean => {
   const perc = getSelectedOptionsPerc(target);
@@ -84,16 +85,18 @@ export const createGroups = ({
   });
 };
 
-export const createContainerProps = ({
-  getData,
-  getMetaData,
-}: SelectDataHandlers): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
+export const createContainerProps = (
+  dataHandlers: SelectDataHandlers,
+): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
+  const { getData, getMetaData } = dataHandlers;
   const { groups } = getData();
   const { elementIds, refs, listInputType } = getMetaData();
   const hasInput = !!listInputType;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const hasInputAndGroups = hasInput || hasVisibleGroupLabels;
   const hasOnlyGroups = !hasInput && hasVisibleGroupLabels;
+  const choiceCount = countVisibleOptions(groups);
+  const label = getTextKeyFromDataHandlers('label', dataHandlers);
   const getRole = (): DivElementProps['role'] => {
     if (hasOnlyGroups) {
       return undefined;
@@ -103,17 +106,17 @@ export const createContainerProps = ({
     }
     return 'listbox';
   };
-  const getAriaLabelledby = (): DivElementProps['aria-labelledby'] => {
+  const getAriaLabel = (): DivElementProps['aria-labelledby'] => {
     if (hasOnlyGroups) {
       return undefined;
     }
     if (hasInputAndGroups) {
-      return elementIds.choicesCount;
+      return `${choiceCount} choices.`;
     }
-    return `${elementIds.label} ${elementIds.choicesCount}`;
+    return `${label}. ${choiceCount} choices.`;
   };
   return {
-    'aria-labelledby': getAriaLabelledby(),
+    'aria-label': getAriaLabel(),
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
@@ -126,19 +129,10 @@ export function MultiSelectListWithGroups() {
   const dataHandlers = useSelectDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups } = getData();
-  const { isSearching, getOptionId, elementIds } = getMetaData();
+  const { isSearching, getOptionId } = getMetaData();
   const attr = createContainerProps(dataHandlers);
-  const choiceCount = countVisibleOptions(groups);
+
   const shouldRenderOptions = open && !isSearching;
   const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
-  return (
-    <div {...attr}>
-      {open ? (
-        <div role="group">
-          <span className={styles.visuallyHidden} id={elementIds.choicesCount}>{`${choiceCount} choices`}</span>
-          {children}
-        </div>
-      ) : null}
-    </div>
-  );
+  return <div {...attr}>{open ? children : null}</div>;
 }

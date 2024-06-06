@@ -144,7 +144,7 @@ exports[`<Select /> spec renders multi select component with groups and filter i
           style="max-height: 286px;"
         >
           <div
-            aria-labelledby="hds-select-2-choices-count"
+            aria-label="12 choices."
             class="list shiftOptions multiSelectList"
             id="hds-select-2-list"
             role="dialog"
