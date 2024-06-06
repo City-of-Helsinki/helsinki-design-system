@@ -25,6 +25,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [TextInput, TextArea] Fix read-only input focus styles.
 
 ### Core
 
@@ -44,6 +45,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [TextInput, TextArea] Fix read-only input focus styles.
 
 ### Documentation
 
