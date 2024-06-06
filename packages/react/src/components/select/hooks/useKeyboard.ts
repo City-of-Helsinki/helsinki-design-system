@@ -1,6 +1,7 @@
 import { KeyboardEvent, useCallback, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
+import { KnownElementType } from '../types';
 import { defaultFilter, filterSelectableOptions } from '../utils';
 import {
   useElementDetection,
@@ -47,12 +48,28 @@ export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
 export function useKeyboard() {
   const { getEventElementType, getListItemSiblings, getOptionListItem } = useElementDetection();
   const { trigger, getData, getMetaData, updateMetaData } = useSelectDataHandlers();
+  // Ehen there is an input and user starts typing and button is focused,
+  // the inputted text should be placed to the input after opening the dropdown.
+  // this cache stores the input
   const keyCacheRef = useRef<string | null>(null);
+  // An enter key keydown triggers a click on a button.
+  // That button click opens the dropwdown.
+  // The keyup event in the same event sequence triggers a selection because focus was moved.
+  // The keydown element type is stored to prevent this.
+  // If keydown type is different that keyup, then keydown shifted focus and keyup should be ignored.
+  const keyDownElementType = useRef<KnownElementType | null>(null);
 
   const onKeyUp = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       const { type, element } = getEventElementType(e);
       if (!type) {
+        return;
+      }
+      // If element types of down and up events differ, focused element was changed after down and before up
+      // Ignore the up event as down already triggered events
+      if (keyDownElementType.current && type !== keyDownElementType.current) {
+        e.preventDefault();
+        keyDownElementType.current = null;
         return;
       }
       const scrollToFocusedElement = () => {
@@ -131,6 +148,7 @@ export function useKeyboard() {
         }
         scrollToFocusedElement();
       } else if (isListItemType(type) && wasClickKeyPressed && element) {
+        console.log('element', element);
         element.click();
         scrollToFocusedElement();
       } else if (isListItemType(type) && wasAlphaNumKeyPressed && !hasInput) {
@@ -169,6 +187,7 @@ export function useKeyboard() {
 
   const onKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
     const { type } = getEventElementType(e);
+    keyDownElementType.current = type;
     if (type && isAnyListChildType(type) && isClickKey(e)) {
       e.preventDefault();
     }
