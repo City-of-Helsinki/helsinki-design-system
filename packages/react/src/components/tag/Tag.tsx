@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { ElementType, forwardRef } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './Tag.module.scss';
@@ -26,8 +26,8 @@ export enum TagSize {
   Large = 'large',
 }
 
-export type TagProps = MergeAndOverrideProps<
-  AllElementPropsWithoutRef<'div'>,
+export type TagProps<E extends ElementType = 'div'> = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<E>,
   {
     /**
      * The label for the tag
@@ -45,10 +45,9 @@ export type TagProps = MergeAndOverrideProps<
      * Link's _target -attribute
      */
     target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
-    /*
-  /**
-   * Element placed on the starting side of the label
-   */
+    /**
+     * Element placed on the starting side of the label
+     */
     iconStart?: React.ReactNode;
     /**
      * Element placed on the ending side of the label
@@ -80,7 +79,7 @@ export type TagProps = MergeAndOverrideProps<
     /**
      * Ref is set to the main element
      */
-    ref?: React.Ref<HTMLDivElement> | React.Ref<HTMLAnchorElement>;
+    ref?: React.Ref<React.ElementRef<E>>;
   }
 >;
 
