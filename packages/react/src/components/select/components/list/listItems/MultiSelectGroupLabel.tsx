@@ -39,6 +39,11 @@ const createMultiSelectGroupLabelProps = ({
     tabIndex: -1,
     isInGroup: true,
     onClick: (originalEvent: React.MouseEvent) => {
+      // Clicking the label triggers a click, of course.
+      // But the label is linked to checkbox with "htmlFor"
+      // Therefore the click also triggers checkbox click and this callback is called twice.
+      // Therefore preventDefault() is called.
+      originalEvent.preventDefault();
       if (isGroupDisabled) {
         return;
       }
