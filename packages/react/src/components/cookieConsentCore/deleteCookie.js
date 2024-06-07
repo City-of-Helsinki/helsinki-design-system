@@ -1,4 +1,4 @@
-import { serialize } from 'cookie/index';
+import { serialize } from 'cookie';
 
 /**
  * Deletes a cookie with the specified name in all contexts like subdomains.

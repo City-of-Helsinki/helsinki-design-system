@@ -1,7 +1,7 @@
 /* eslint-disable lines-between-class-members */
 /* eslint-disable class-methods-use-this */
 
-import { parse, serialize } from 'cookie/index';
+import { parse, serialize } from 'cookie';
 
 export default class CookieHandler {
   #SITE_SETTINGS_JSON_URL;
