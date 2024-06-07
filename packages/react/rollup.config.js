@@ -16,7 +16,7 @@ import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires , import/order
 const packageJSON = require('./package.json');
 
 const buildForHdsJs = !!process.env.hdsJS;
@@ -27,7 +27,7 @@ const hdsJsEsmOutput = 'hds-js-esm';
 const hdsJsCommonJsOutput = 'hds-js-cjs';
 
 const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
-const isHdsJsOutputFormat = (format) => format === hdsJsEsmOutput || format === hdsJsCommonJsOutput;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const hdsJsPackageJSON = require('../hds-js/package.json');
 
 const insertCssEsm = () => {

@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 
-import { parse } from 'cookie/index';
+import { parse } from 'cookie';
 
 import deleteCookie from './deleteCookie';
 
