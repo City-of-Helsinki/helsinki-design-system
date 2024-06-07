@@ -76,6 +76,7 @@
     background: transparent;
     border: 0;
     left: 0;
+    margin: -2px;
   }
 
   & > h3 {
@@ -114,6 +115,10 @@
     border-top: 1px solid var(--color-black-20);
   }
 
+  & ul:first-child {
+    border-top: 0;
+  }
+
   & .dropdownItem {
     padding: 12px 16px;
 
@@ -121,6 +126,27 @@
       border: none;
       outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
       outline-offset: calc(-1 * var(--header-focus-outline-width));
+    }
+
+    & > h4 {
+      padding: 0 !important;
+    }
+  }
+
+  & .dropdownItem button {
+    appearance: none !important;
+    background: transparent;
+    background-color: var(--lang-selector-dropdown-background-color);
+    border: var(--header-focus-outline-width) solid transparent;
+    color: var(--lang-selector-item-font-color);
+    cursor: pointer;
+    line-height: var(--lineheight-l);
+    outline: 0;
+    white-space: nowrap;
+
+    &:focus-visible {
+      border: var(--header-focus-outline-width) solid transparent;
+      outline: none;
     }
   }
 

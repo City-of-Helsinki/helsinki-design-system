@@ -101,26 +101,50 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
             <li
               class="dropdownItem"
             >
-              <button
-                aria-current="false"
-                class="item"
-                lang="es"
-                type="button"
+              <span
+                class="actionBarSubItemLabel"
               >
-                <span>
-                  Spanish
-                </span>
-              </button>
-              <button
-                aria-current="false"
-                class="item"
-                lang="no"
-                type="button"
+                <button
+                  aria-current="false"
+                  class="item"
+                  lang="es"
+                  type="button"
+                >
+                  <span>
+                    Spanish
+                  </span>
+                </button>
+              </span>
+              <span
+                class="grow"
+              />
+              <span
+                class="notificationCount"
+              />
+            </li>
+            <li
+              class="dropdownItem"
+            >
+              <span
+                class="actionBarSubItemLabel"
               >
-                <span>
-                  Norway
-                </span>
-              </button>
+                <button
+                  aria-current="false"
+                  class="item"
+                  lang="no"
+                  type="button"
+                >
+                  <span>
+                    Norway
+                  </span>
+                </button>
+              </span>
+              <span
+                class="grow"
+              />
+              <span
+                class="notificationCount"
+              />
             </li>
             <li
               class="dropdownItem"
@@ -298,26 +322,50 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                   <li
                     class="dropdownItem"
                   >
-                    <button
-                      aria-current="false"
-                      class="item"
-                      lang="es"
-                      type="button"
+                    <span
+                      class="actionBarSubItemLabel"
                     >
-                      <span>
-                        Spanish
-                      </span>
-                    </button>
-                    <button
-                      aria-current="false"
-                      class="item"
-                      lang="no"
-                      type="button"
+                      <button
+                        aria-current="false"
+                        class="item"
+                        lang="es"
+                        type="button"
+                      >
+                        <span>
+                          Spanish
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="grow"
+                    />
+                    <span
+                      class="notificationCount"
+                    />
+                  </li>
+                  <li
+                    class="dropdownItem"
+                  >
+                    <span
+                      class="actionBarSubItemLabel"
                     >
-                      <span>
-                        Norway
-                      </span>
-                    </button>
+                      <button
+                        aria-current="false"
+                        class="item"
+                        lang="no"
+                        type="button"
+                      >
+                        <span>
+                          Norway
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="grow"
+                    />
+                    <span
+                      class="notificationCount"
+                    />
                   </li>
                   <li
                     class="dropdownItem"

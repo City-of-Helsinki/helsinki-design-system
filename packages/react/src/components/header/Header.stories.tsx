@@ -9,7 +9,6 @@ import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
 import { IconCross, IconUser, IconCogwheel, IconSignout } from '../../icons';
-import { Link } from '../link/Link';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 import { useMediaQueryGreaterThan, useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
@@ -244,21 +243,13 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
       openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
     >
       <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
-        <h3>{I18n.infoOtherLanguages}</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          {I18n.clearFinnish}
-        </Link>
-        <Link external href="www.example.com" size="S" lang="fse">
-          {I18n.signLanguage}
-        </Link>
-        <h3>{I18n.forTravellers}</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          MyHelsinki.fi
-        </Link>
-        <h3>{I18n.forImmigrants}</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          InfoFinland.fi
-        </Link>
+        <Header.ActionBarSubItem label={I18n.infoOtherLanguages} heading />
+        <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
+        <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
+        <Header.ActionBarSubItem label={I18n.forTravellers} heading />
+        <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+        <Header.ActionBarSubItem label={I18n.forImmigrants} heading />
+        <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
       </Header.LanguageSelector>
       {isScreenGreaterThanSmall && (
         <Header.ActionBarItem

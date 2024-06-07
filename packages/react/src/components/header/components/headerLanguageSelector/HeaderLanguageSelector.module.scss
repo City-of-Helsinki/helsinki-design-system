@@ -7,7 +7,6 @@
 }
 
 .languageSelectorDropdownIcon {
-  align-items: center;
   margin-top: 1px;
   padding-top: 3px;
 
@@ -19,37 +18,15 @@
 .languageSelectorDropdown {
   align-items: flex-start;
   background-color: var(--lang-selector-dropdown-background-color);
+  border-bottom: 0 !important;
   display: flex;
   flex-flow: column nowrap;
-
-  > * {
-    align-items: center;
-    display: flex;
-    font-size: var(--fontsize-body-m);
-    line-height: var(--lineheight-l);
-    margin: 0;
-  }
-
-  > h3 {
-    border-bottom: solid 1px var(--header-divider-color);
-
-    &:not(:first-of-type) {
-      border-top: solid 1px var(--header-divider-color);
-    }
-  }
-
-  > a {
-    color: var(--lang-selector-item-font-color);
-    text-decoration: none;
-  }
-
-  > button {
-    border: var(--header-focus-outline-width) solid transparent;
-  }
+  width: 100%;
 }
 
 button.item,
-[type='button'].item {
+[type='button'].item,
+.languageSelectorDropdown button {
   appearance: none;
   background: transparent;
   color: var(--lang-selector-item-font-color);

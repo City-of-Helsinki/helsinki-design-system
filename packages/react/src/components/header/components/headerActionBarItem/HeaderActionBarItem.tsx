@@ -149,9 +149,9 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
   const subItems = React.Children.toArray(children) as HeaderActionBarSubItemProps[];
   const headerSubItems = subItems
     .map((subItem, idx) => {
-      const firstHeadingIdx = subItems.findIndex((_subItem) => (_subItem as any)?.props.heading);
-      const nextHeadingIdx = subItems.findIndex((_subItem, _idx) => _idx > idx && (_subItem as any)?.props.heading);
-      const isHeading = (subItem as any)?.props.heading;
+      const firstHeadingIdx = subItems.findIndex((_subItem) => (_subItem as any)?.props?.heading);
+      const nextHeadingIdx = subItems.findIndex((_subItem, _idx) => _idx > idx && (_subItem as any)?.props?.heading);
+      const isHeading = (subItem as any)?.props?.heading;
 
       return {
         isHeading,

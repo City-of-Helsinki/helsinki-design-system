@@ -5,6 +5,7 @@ import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguag
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
 import { HeaderActionBarItem } from '../headerActionBarItem';
+import { HeaderActionBarSubItem } from '../headerActionBarSubItem';
 import { IconGlobe } from '../../../../icons';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
@@ -57,14 +58,15 @@ export const LanguageButton = ({ value, label }: LanguageOption) => {
   );
 };
 
-const renderLanguageNode = (language: LanguageOption) => {
-  return <LanguageButton key={language.value} value={language.value} label={language.label} />;
+const renderLanguageNode = (language: LanguageOption, primary: boolean) => {
+  const Label = <LanguageButton key={language.value} value={language.value} label={language.label} />;
+  return primary ? Label : <HeaderActionBarSubItem label={Label} />;
 };
 
 export const SimpleLanguageOptions = ({ languages }: { languages: LanguageOption[] }) => {
   return (
     <div className={classNames(classes.languageNodes, classes.simpleLanguageNodes)}>
-      {languages.map(renderLanguageNode)}
+      {languages.map((node) => renderLanguageNode(node, true))}
     </div>
   );
 };
@@ -102,22 +104,10 @@ export const HeaderLanguageSelectorConsumer = ({
   const activeLanguage = useActiveLanguage();
 
   const [primaryLanguages, secondaryLanguages] = sortLanguageOptions(languages, activeLanguage);
-  const primaryLanguageNodes = primaryLanguages.map(renderLanguageNode);
+  const primaryLanguageNodes = primaryLanguages.map((node) => renderLanguageNode(node, true));
   // when its not large screen fullWidthForMobile -version can be used
   const show =
     (isNotLargeScreen && fullWidthForMobile && !mobileMenuOpen) || (!isNotLargeScreen && !fullWidthForMobile);
-
-  const SecondaryLanguages = () => {
-    if (secondaryLanguages.length === 0) {
-      return null;
-    }
-    return (
-      <>
-        {languageHeading && <h3>{languageHeading}</h3>}
-        {secondaryLanguages.map(renderLanguageNode)}
-      </>
-    );
-  };
 
   if (!show) {
     return null;
@@ -138,7 +128,8 @@ export const HeaderLanguageSelectorConsumer = ({
           ariaLabel={ariaLabel}
           labelOnRight
         >
-          <SecondaryLanguages />
+          {secondaryLanguages?.length && languageHeading && <HeaderActionBarSubItem label={languageHeading} heading />}
+          {secondaryLanguages?.length && secondaryLanguages.map((node) => renderLanguageNode(node, false))}
           {children}
         </HeaderActionBarItem>
       )}
