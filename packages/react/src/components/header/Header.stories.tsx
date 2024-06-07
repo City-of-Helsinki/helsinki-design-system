@@ -815,8 +815,7 @@ export const Login = (args) => {
           logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
           logoAriaLabel={I18n.ariaLogo}
         >
-          <Header.ActionBarItem label="Test Username" avatar="TU" fixedRightPosition>
-            <Header.ActionBarSubItem label="Link" href="/" notificationCount={2} />
+          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
             <Header.ActionBarSubItem label="Viestit" href="/" notificationCount={2} />
             <Header.ActionBarSubItem label="Kirjaudu ulos" href="/" bold iconRight={<IconSignout />} />
