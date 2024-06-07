@@ -175,7 +175,7 @@ const dataUpdater = (
       };
     }
   }
-  if (isCloseOnFocusMoveEvent(id, type)) {
+  if (isCloseOnFocusMoveEvent(id, type) && current.open) {
     return {
       ...returnValue,
       didDataChange: openOrClose(false),

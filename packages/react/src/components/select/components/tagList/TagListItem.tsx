@@ -9,7 +9,7 @@ import { eventTypes, eventIds } from '../../events';
 
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger; disabled: boolean };
 
-const createDelectedTagProps = ({
+const createSelectedTagProps = ({
   option,
   trigger,
   disabled,
@@ -32,7 +32,7 @@ const createDelectedTagProps = ({
 };
 
 export function TagListItem(props: SelectedTagProps) {
-  const { children, ...attr } = createDelectedTagProps(props);
+  const { children, ...attr } = createSelectedTagProps(props);
   // @ts-ignore
   return <Tag {...attr}>{children}</Tag>;
 }

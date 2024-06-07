@@ -24,7 +24,7 @@ type ReturnObject = Pick<
 
 export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData, trigger } = useSelectDataHandlers();
-  const { getEventElementType, getListItemSiblings, getElementUsingActiveDescendant, getElementId } =
+  const { getEventElementType, getListItemSiblings, getElementUsingActiveDescendant, getElementId, getElementType } =
     useElementDetection();
 
   const elementsThatCloseMenuOnFocus: KnownElementType[] = ['tag', 'tagList', 'clearAllButton', 'showAllButton'];
@@ -79,7 +79,9 @@ export function useFocusHandling(): ReturnObject {
           markActiveDescendant(null);
         }
         if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType)) {
-          trigger({ id: eventIds.generic, type: eventTypes.blur });
+          // console.log('OUT 2', element);
+          // updateMetaData({ focusTarget: 'tag' });
+          // trigger({ id: eventIds.generic, type: eventTypes.blur });
         }
       } else if (type === eventTypes.blur) {
         if (open) {
@@ -88,6 +90,14 @@ export function useFocusHandling(): ReturnObject {
           const focusIsInSelectionsAndListContainer =
             !!selectionsAndListContainer.current && selectionsAndListContainer.current.contains(focusedElement);
           if (!focusedElement || !focusIsInSelectionsAndListContainer) {
+            if (focusedElement) {
+              const focusedElementType = getElementType(focusedElement);
+              // when a tag is focused and blur event re-renders the component, the focus is lost from the tag
+              // this resets the focus to first tag which was the only possible focused element
+              if (focusedElementType === 'tag') {
+                updateMetaData({ focusTarget: focusedElementType });
+              }
+            }
             trigger({ id: eventIds.generic, type: eventTypes.focusMovedToNonListElement });
           }
         }
@@ -104,6 +114,7 @@ export function useFocusHandling(): ReturnObject {
       }
     };
     if (focusTarget) {
+      console.log('focusTarget', focusTarget);
       if (focusTarget === 'tag') {
         const current = refs.tagList.current && (refs.tagList.current.querySelectorAll('* > div')[0] as HTMLElement);
         setFocus({ current });
