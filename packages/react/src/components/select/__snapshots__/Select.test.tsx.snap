@@ -22,6 +22,7 @@ exports[`<Select /> spec renders multi select component with groups and filter i
       >
         <button
           aria-controls="hds-select-2-input-element"
+          aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="dialog"
           aria-invalid="false"
@@ -184,6 +185,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
       >
         <button
           aria-controls="hds-select-1-input-element"
+          aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="dialog"
           aria-invalid="false"

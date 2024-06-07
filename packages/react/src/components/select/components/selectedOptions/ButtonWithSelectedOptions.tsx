@@ -80,7 +80,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
       !selectedOptions.length && styles.placeholder,
       disabled && styles.disabledButton,
     ),
-    disabled,
+    'aria-disabled': disabled,
     icon,
     id: elementIds.dropdownButton,
     options: selectedOptions,

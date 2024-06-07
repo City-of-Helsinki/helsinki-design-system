@@ -114,7 +114,6 @@ export function useFocusHandling(): ReturnObject {
       }
     };
     if (focusTarget) {
-      console.log('focusTarget', focusTarget);
       if (focusTarget === 'tag') {
         const current = refs.tagList.current && (refs.tagList.current.querySelectorAll('* > div')[0] as HTMLElement);
         setFocus({ current });

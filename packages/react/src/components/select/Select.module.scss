@@ -46,7 +46,6 @@
 }
 
 .selectedOptionsContainer {
-  align-items: center;
   box-sizing: border-box;
   display: flex;
   min-height: var(--menu-item-height);
@@ -126,10 +125,6 @@
       color: var(--placeholder-color);
     }
 
-    &.placeholder:disabled {
-      color: var(--dropdown-color-disabled);
-    }
-
     &.spaceForOneDigit .labels {
       /* minus is option padding right, minus smth */
       padding-right: calc(24px - var(--spacing-2-xs));
@@ -157,6 +152,10 @@
 
       .count.count span {
         background-color: var(--dropdown-background-disabled);
+      }
+
+      &.placeholder {
+        color: var(--dropdown-color-disabled);
       }
     }
 
