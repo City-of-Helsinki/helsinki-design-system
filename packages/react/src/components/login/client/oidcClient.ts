@@ -285,11 +285,14 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
       const [err] = await to(userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps)));
       if (err) {
         emitError(new OidcClientError('Login redirect failed', oidcClientErrors.SIGNIN_ERROR, err));
+        emitStateChange(oidcClientStates.NO_SESSION);
       }
       return Promise.resolve();
     },
     logout: async (logoutProps) => {
       emitStateChange(oidcClientStates.LOGGING_OUT);
+      // errors are not handled like in login(), because signoutRedirect() cannot be reverted.
+      // The user is locally removed. The logout() should be called again when signoutRedirect() is rejected
       return userManager.signoutRedirect(convertLoginOrLogoutParams<LogoutProps>(logoutProps));
     },
     namespace: oidcClientNamespace,
