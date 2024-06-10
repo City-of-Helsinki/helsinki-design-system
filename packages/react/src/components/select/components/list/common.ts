@@ -19,3 +19,10 @@ export const singleSelectElementSelector = 'li';
 export const isSingleSelectElement = (element: HTMLElement) => {
   return element.nodeName === 'LI' && element.getAttribute('role') === 'option';
 };
+
+export const groupLabelSelectors = 'div[role=checkbox],li[role=checkbox]';
+
+export const createGroupLabelSelector = (elementId?: string) => {
+  const scope = elementId ? `#${elementId}` : ':scope';
+  return `${scope} > ul > li[role="presentation"], ${scope} > div[role="group"] > div[role="checkbox"]:first-child`;
+};

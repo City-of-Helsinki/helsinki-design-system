@@ -4,15 +4,78 @@ import { isElement } from 'lodash';
 import { Group, KnownElementType, Option } from '../types';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
 import {
-  isSingleSelectElement,
-  isMultiSelectElement,
   multiSelectElementSelector,
   singleSelectElementSelector,
+  createGroupLabelSelector,
 } from '../components/list/common';
 import { findSelectableOptionIndex } from '../utils';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
+
+const getElementId = (element: HTMLElement): string | null => {
+  return element.getAttribute('id');
+};
+
+const isDescendantOf = (parent: HTMLElement, assumendChild?: HTMLElement) => {
+  if (!parent || !assumendChild) {
+    return false;
+  }
+
+  if (parent === assumendChild) {
+    return false;
+  }
+  return parent.contains(assumendChild);
+};
+
+const isDirectChildOf = (child?: HTMLElement, assumedParent?: HTMLElement) => {
+  if (!assumedParent || !child) {
+    return false;
+  }
+
+  return child.parentElement === assumedParent;
+};
+
+const getElementSiblings = <T = HTMLElement>(
+  parent: HTMLElement,
+  target?: T,
+  loop = true,
+  allowSameElement = false,
+  children?: T[],
+) => {
+  const childElements = children || (parent.children ? ([...parent.children] as unknown as T[]) : []);
+  const index = target ? childElements.indexOf(target) : -1;
+  const getNewIndex = (dir: -1 | 1) => {
+    const newIndex = index + dir;
+    if (newIndex < 0) {
+      return loop ? childElements.length - 1 : 0;
+    }
+    if (newIndex >= childElements.length) {
+      return loop ? 0 : childElements.length - 1;
+    }
+    return newIndex;
+  };
+  const prevIndex = getNewIndex(-1);
+  const nextIndex = getNewIndex(1);
+  return {
+    prev: allowSameElement || prevIndex !== index ? childElements[prevIndex] : null,
+    next: allowSameElement || nextIndex !== index ? childElements[nextIndex] : null,
+  };
+};
+
+const isUIEvent = (e: HTMLElementSource) => {
+  return (e as BaseSyntheticEvent).nativeEvent instanceof Event;
+};
+
+const pickElement = (elementOrEvent: HTMLElementSource) => {
+  if (isElement(elementOrEvent)) {
+    return elementOrEvent as HTMLElement;
+  }
+  if (isUIEvent(elementOrEvent)) {
+    return (elementOrEvent as UIEvent).target as HTMLElement;
+  }
+  return null;
+};
 
 export function useElementDetection() {
   const { getMetaData, getData } = useSelectDataHandlers();
@@ -21,17 +84,14 @@ export function useElementDetection() {
   const hasInput = !!listInputType;
 
   const elementIdEntries = Object.entries(elementIds) as [KnownElementType, string][];
-  const getElementId = (element: HTMLElement): string | null => {
-    return element.getAttribute('id');
-  };
 
-  const getElementByKnownType = (id: KnownElementType): HTMLElement | null => {
-    return document.getElementById(elementIds[id]);
+  const getElementByKnownType = (type: KnownElementType): HTMLElement | null => {
+    const knownId = elementIds[type];
+    return knownId ? document.getElementById(knownId) : null;
   };
 
   const getKnownElementId = (element: HTMLElement): KnownElementType | null => {
     const id = getElementId(element);
-
     if (!id) {
       return null;
     }
@@ -41,36 +101,12 @@ export function useElementDetection() {
     return index > -1 ? elementIdEntries[index][0] : null;
   };
 
-  const isDescendantOf = (parent: HTMLElement, assumendChild?: HTMLElement) => {
-    if (!parent || !assumendChild) {
-      return false;
-    }
-
-    return parent.contains(assumendChild);
-  };
-
-  const isDirectChildOf = (child?: HTMLElement, assumedParent?: HTMLElement) => {
-    if (!assumedParent || !child) {
-      return false;
-    }
-
-    return child.parentElement === assumedParent;
-  };
-
   const isRefAncestorOf = (target?: RefObject<HTMLElement>, eventTarget?: HTMLElement) => {
     if (!target || !target.current || !eventTarget) {
       return false;
     }
 
     return isDescendantOf(target.current, eventTarget);
-  };
-
-  const isChildOfList = (element: HTMLElement) => {
-    return isRefAncestorOf(refs.list, element);
-  };
-
-  const isListItemElement = (element: HTMLElement) => {
-    return isSingleSelectElement(element) || isMultiSelectElement(element);
   };
 
   const isTagOrChild = (element: HTMLElement) => {
@@ -89,36 +125,14 @@ export function useElementDetection() {
     );
   };
 
-  const isListGroupLabel = (element: HTMLElement) => {
-    return element.nodeName === 'LI' && isChildOfList(element);
+  const getGroupLabels = () => {
+    const list = getElementByKnownType('list');
+    if (!list) {
+      return new NodeList();
+    }
+    return list.querySelectorAll(createGroupLabelSelector());
   };
 
-  const getElementSiblings = <T = HTMLElement>(
-    parent: HTMLElement,
-    target?: T,
-    loop = true,
-    allowSameElement = false,
-    children?: T[],
-  ) => {
-    const childElements = children || (parent.children ? ([...parent.children] as unknown as T[]) : []);
-    const index = target ? childElements.indexOf(target) : -1;
-    const getNewIndex = (dir: -1 | 1) => {
-      const newIndex = index + dir;
-      if (newIndex < 0) {
-        return loop ? childElements.length - 1 : 0;
-      }
-      if (newIndex >= childElements.length) {
-        return loop ? 0 : childElements.length - 1;
-      }
-      return newIndex;
-    };
-    const prevIndex = getNewIndex(-1);
-    const nextIndex = getNewIndex(1);
-    return {
-      prev: allowSameElement || prevIndex !== index ? childElements[prevIndex] : null,
-      next: allowSameElement || nextIndex !== index ? childElements[nextIndex] : null,
-    };
-  };
   const getListItems = (listElement: HTMLElement) => {
     const selector = `${multiSelectElementSelector},${singleSelectElementSelector}`;
     return listElement.querySelectorAll(selector);
@@ -128,6 +142,34 @@ export function useElementDetection() {
     const list = refs.list.current as HTMLElement;
     const listItems = getListItems(list) as unknown as HTMLLIElement[];
     return getElementSiblings<HTMLLIElement>(list, listItem, loop, false, [...listItems]);
+  };
+
+  const isListGroupLabel = (element: HTMLElement) => {
+    const labelElements = Array.from(getGroupLabels());
+    if (labelElements.includes(element)) {
+      return true;
+    }
+    return (
+      labelElements.findIndex((el) => {
+        return el.contains(element);
+      }) > -1
+    );
+  };
+
+  const isListItemElement = (element: HTMLElement) => {
+    const list = getElementByKnownType('list');
+    if (!list) {
+      return false;
+    }
+    const listItems = Array.from(getListItems(list));
+    if (listItems.includes(element)) {
+      return true;
+    }
+    return (
+      listItems.findIndex((el) => {
+        return el.contains(element);
+      }) > -1
+    );
   };
 
   const getTagSiblings = (tag: HTMLElement, loop = true) => {
@@ -141,30 +183,16 @@ export function useElementDetection() {
   };
 
   const narrowDownKnownElement = (element: HTMLElement, type: KnownElementType | null): KnownElementType | null => {
-    if (type === 'list' && isListItemElement(element)) {
-      return 'listItem';
-    }
     if (type === 'list' && isListGroupLabel(element)) {
       return 'listGroupLabel';
+    }
+    if (type === 'list' && isListItemElement(element)) {
+      return 'listItem';
     }
     if (type === 'tagList' && isTagOrChild(element)) {
       return 'tag';
     }
     return type;
-  };
-
-  const isUIEvent = (e: HTMLElementSource) => {
-    return (e as BaseSyntheticEvent).nativeEvent instanceof Event;
-  };
-
-  const pickElement = (elementOrEvent: HTMLElementSource) => {
-    if (isElement(elementOrEvent)) {
-      return elementOrEvent as HTMLElement;
-    }
-    if (isUIEvent(elementOrEvent)) {
-      return (elementOrEvent as UIEvent).target as HTMLElement;
-    }
-    return null;
   };
 
   const getClosestKnownElementById = (element: HTMLElement): KnownElementType | null => {
@@ -233,6 +261,10 @@ export function useElementDetection() {
   };
 }
 
+/**
+ is...Type helpers provide human readable element type conversions 
+ */
+
 export const isSelectedOptionsButtonType = (id: KnownElementType) => {
   return id === 'dropdownButton';
 };
@@ -251,6 +283,10 @@ export const isInSelectedOptionsType = (id: KnownElementType) => {
 
 export const isSearchOrFilterInputType = (id: KnownElementType) => {
   return id === 'searchOrFilterInput';
+};
+
+export const isSearchOrFilterInputLabelType = (id: KnownElementType) => {
+  return id === 'searchOrFilterInputLabel';
 };
 
 export const isListItemType = (id: KnownElementType) => {
@@ -287,4 +323,8 @@ export const isClearAllButtonType = (id: KnownElementType) => {
 
 export const isContainerType = (id: KnownElementType) => {
   return id === 'container';
+};
+
+export const isLabelType = (id: KnownElementType) => {
+  return id === 'label';
 };

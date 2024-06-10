@@ -95,8 +95,8 @@ describe('<Select />', () => {
       const { openList, getListItemLabels, options } = renderWithHelpers();
       await openList();
       const listItems = getListItemLabels();
-      options.forEach((label, i) => {
-        expect(listItems[i]).toBe(label);
+      options.forEach((option, i) => {
+        expect(listItems[i]).toBe(option.label);
       });
     });
   });

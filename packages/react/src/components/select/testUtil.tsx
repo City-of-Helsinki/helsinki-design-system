@@ -8,8 +8,10 @@ import { isMultiSelectElement } from './components/list/common';
 import { eventIds, eventTypes } from './events';
 import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
-import { SelectProps, SelectMetaData, SelectData, SearchResult, Group } from './types';
+import { SelectProps, SelectMetaData, SelectData, SearchResult, Group, Option } from './types';
 import { defaultFilter, getElementIds } from './utils';
+
+export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
 // storage for the target component to test
 const renderMockedComponent = jest.fn();
@@ -87,7 +89,20 @@ export const mockedContainer = () => {
 };
 
 const onChangeTracker = jest.fn();
-const options = ['Option 1', 'Option 2', 'Option 3'];
+const options: Partial<Option>[] = [
+  {
+    value: 'Option1Value',
+    label: 'Option 1',
+  },
+  {
+    value: 'Option2Value',
+    label: 'Option 2',
+  },
+  {
+    value: 'Option3Value',
+    label: 'Option 3',
+  },
+];
 const groupsAndOptions: SelectProps['groups'] = [
   {
     label: 'Group0',
@@ -126,11 +141,15 @@ export const getSelectProps = ({
   multiSelect,
   input,
   searchResults,
+  open,
+  hasSelections,
 }: {
   groups: boolean;
   multiSelect: boolean;
   input: SelectMetaData['listInputType'];
   searchResults?: SearchResult[];
+  open?: boolean;
+  hasSelections?: boolean;
 }) => {
   const selectProps: SelectProps = {
     options,
@@ -142,6 +161,7 @@ export const getSelectProps = ({
     texts: {
       label: defaultLabel,
     },
+    open,
   };
 
   if (input === 'filter') {
@@ -156,6 +176,22 @@ export const getSelectProps = ({
   if (groups) {
     selectProps.options = undefined;
     selectProps.groups = groupsAndOptions;
+  }
+  if (hasSelections) {
+    if (selectProps.options) {
+      (selectProps.options as Option[]).forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+    }
+    if (selectProps.groups) {
+      (selectProps.groups as Group[]).forEach((group) => {
+        (group.options as Option[]).forEach((opt) => {
+          // eslint-disable-next-line no-param-reassign
+          opt.selected = true;
+        });
+      });
+    }
   }
   return selectProps;
 };
@@ -245,7 +281,7 @@ export const renderWithHelpers = (
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
     groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="checkbox"]:first-child`,
     options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
-    tags: `#${elementIds.tagList} > div > span`,
+    tags: `#${elementIds.tagList} > div`,
     allListItems: `created below`,
     selectionsInButton: `${elementIds.dropdownButton} > div > span`,
     overflowCounter: `${elementIds.dropdownButton} > span`,
@@ -268,8 +304,6 @@ export const renderWithHelpers = (
       }, 0)
     : 0;
 
-  const getMainButtonElementId = () => elementIds.dropdownButton;
-  const getListElementId = () => elementIds.list;
   const isElementSelected = (optionElement: HTMLElement) => {
     if (isMultiSelectElement(optionElement)) {
       return optionElement.getAttribute('aria-checked') === 'true';
@@ -306,7 +340,9 @@ export const renderWithHelpers = (
   };
 
   const getOptionElements = () => {
-    return Array.from(result.container.querySelectorAll(selectors.options)) as HTMLElement[];
+    const groupLabelElements = getGroupLabelElements();
+    const optionElements = Array.from(result.container.querySelectorAll(selectors.options)) as HTMLElement[];
+    return optionElements.filter((e) => !groupLabelElements.includes(e));
   };
 
   const getAllListElements = () => {
@@ -325,8 +361,12 @@ export const renderWithHelpers = (
     return result.container.querySelector(selectors.searchAndFilterInfo) as HTMLDivElement;
   };
 
+  const getTagElements = () => {
+    return Array.from(result.container.querySelectorAll(selectors.tags)) as HTMLElement[];
+  };
+
   const getTags = () => {
-    return Array.from(result.container.querySelectorAll(selectors.tags)).map((node) => node.innerHTML);
+    return getTagElements().map((node) => node.innerHTML);
   };
 
   const getSelectionsInButton = () => {
@@ -362,8 +402,8 @@ export const renderWithHelpers = (
   };
 
   const isListOpen = (): boolean => {
-    const toggler = getElementById(getMainButtonElementId()) as HTMLElement;
-    const list = getElementById(getListElementId());
+    const toggler = getElementById(elementIds.dropdownButton) as HTMLElement;
+    const list = getElementById(elementIds.list);
     return toggler.getAttribute('aria-expanded') === 'true' && !!list;
   };
 
@@ -395,7 +435,7 @@ export const renderWithHelpers = (
       return;
     }
     await sleepUntilMinInteractionTimePassed();
-    clickButton(getMainButtonElementId());
+    clickButton(elementIds.dropdownButton);
     await waitFor(() => {
       expect(isListOpen()).toBeTruthy();
     });
@@ -426,7 +466,29 @@ export const renderWithHelpers = (
     getListAndInputContainer,
     getInputElement,
     getListElement,
+    getShowAllButton: () => {
+      return getElementById(elementIds.showAllButton);
+    },
+    getClearAllButton: () => {
+      return getElementById(elementIds.clearAllButton);
+    },
+    getClearButton: () => {
+      return getElementById(elementIds.clearButton);
+    },
+    getArrowButton: () => {
+      return getElementById(elementIds.arrowButton);
+    },
+    getLabel: () => {
+      return getElementById(elementIds.label);
+    },
+    getTagList: () => {
+      return getElementById(elementIds.tagList);
+    },
+    getSearchOrFilterInputLabel: () => {
+      return getElementById(elementIds.searchOrFilterInputLabel);
+    },
     getGroupLabelElements,
+    getTagElements,
     getGroupElements,
     getOptionElements,
     getAllListElements,
