@@ -5,7 +5,14 @@ import { SelectProps, SelectMetaData, SelectData, Option } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeChandler } from './dataUpdater';
-import { propsToGroups, childrenToGroups, getSelectedOptions, getElementIds } from './utils';
+import {
+  propsToGroups,
+  childrenToGroups,
+  getSelectedOptions,
+  getElementIds,
+  getVisibleGroupLabels,
+  countVisibleOptions,
+} from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -118,6 +125,9 @@ export function Select({
         return current;
       },
       listInputType: getListInputType(),
+      hasListInput: !!getListInputType(),
+      visibleOptionsCount: countVisibleOptions(initialData.groups),
+      hasVisibleGroups: getVisibleGroupLabels(initialData.groups).length > 0,
       textProvider: createTextProvider(texts),
       screenReaderNotifications: [],
     };

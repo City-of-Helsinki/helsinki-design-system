@@ -98,6 +98,9 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   filter: string;
   search: string;
   isSearching: boolean;
+  visibleOptionsCount: number;
+  hasVisibleGroups: boolean;
+  hasListInput: boolean;
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   cancelCurrentSearch: (() => void) | undefined;
