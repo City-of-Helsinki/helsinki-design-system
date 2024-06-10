@@ -1,5 +1,5 @@
-@use "../../styles/common.scss";
-@use "../../styles/layout.scss";
+@use '../../styles/common.scss';
+@use '../../styles/layout.scss';
 
 /* Note Container uses same spacing and max-width. Apply changes also to Container.module.scss */
 
@@ -50,7 +50,8 @@
   --nav-background-color: var(--color-white);
   --animation-duration-dropwdown: 250ms;
   --animation-close-delay-dropdown: 150ms;
-  
+  --header-spinner-color: var(--color-black-60);
+
   @include layout.below-large {
     --action-bar-container-height: 74px;
     --logo-height: 48px;
@@ -89,7 +90,8 @@
   */
 
   button,
-  input { /* 1 */
+  input {
+    /* 1 */
     overflow: visible;
   }
 
@@ -99,7 +101,8 @@
   */
 
   button,
-  select { /* 1 */
+  select {
+    /* 1 */
     text-transform: none;
   }
 
@@ -108,9 +111,9 @@
   */
 
   button,
-  [type="button"],
-  [type="reset"],
-  [type="submit"] {
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
     -webkit-appearance: button;
   }
 
@@ -119,9 +122,9 @@
   */
 
   button::-moz-focus-inner,
-  [type="button"]::-moz-focus-inner,
-  [type="reset"]::-moz-focus-inner,
-  [type="submit"]::-moz-focus-inner {
+  [type='button']::-moz-focus-inner,
+  [type='reset']::-moz-focus-inner,
+  [type='submit']::-moz-focus-inner {
     border-style: none;
     padding: 0;
   }
@@ -131,13 +134,12 @@
   */
 
   button:-moz-focusring,
-  [type="button"]:-moz-focusring,
-  [type="reset"]:-moz-focusring,
-  [type="submit"]:-moz-focusring {
+  [type='button']:-moz-focusring,
+  [type='reset']:-moz-focusring,
+  [type='submit']:-moz-focusring {
     outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
     outline-offset: var(--header-focus-outline-width);
   }
-
 
   &.theme-dark {
     --color-focus-outline: var(--color-white);
