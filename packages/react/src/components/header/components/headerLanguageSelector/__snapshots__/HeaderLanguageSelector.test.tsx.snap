@@ -40,7 +40,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
       </button>
     </div>
     <div
-      class="container hasContent hasSubItems"
+      class="container languageSelectorActionBarItem hasContent hasSubItems"
       id="language-selection-more"
     >
       <button
@@ -261,7 +261,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
             </button>
           </div>
           <div
-            class="container hasContent hasSubItems"
+            class="container languageSelectorActionBarItem hasContent hasSubItems"
             id="language-selection-more"
           >
             <button
