@@ -18,8 +18,10 @@
 .languageSelectorDropdown {
   align-items: flex-start;
   background-color: var(--lang-selector-dropdown-background-color);
+  box-sizing: border-box;
   display: flex;
   flex-flow: column nowrap;
+  margin-top: -2px !important;
   width: 100%;
 }
 
