@@ -120,6 +120,7 @@ export const HeaderLanguageSelectorConsumer = ({
       {(hasChildren || hasSecondaryLanguages) && (
         <HeaderActionBarItem
           id="language-selection-more"
+          className={classes.languageSelectorActionBarItem}
           iconClassName={classes.languageSelectorDropdownIcon}
           dropdownClassName={classes.languageSelectorDropdown}
           icon={<IconGlobe aria-hidden />}
