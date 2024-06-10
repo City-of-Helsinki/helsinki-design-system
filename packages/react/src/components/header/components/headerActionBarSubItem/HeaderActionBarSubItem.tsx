@@ -47,7 +47,20 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
 
 export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderActionBarSubItemProps>(
   (
-    { iconLeft, iconRight, notificationCount, label, heading, href, className, bold, external, ariaLabel, ...rest },
+    {
+      iconLeft,
+      iconRight,
+      notificationCount,
+      label,
+      heading,
+      href,
+      onClick,
+      className,
+      bold,
+      external,
+      ariaLabel,
+      ...rest
+    },
     ref,
   ) => {
     const itemClassName = classNames({
@@ -86,19 +99,29 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       </>
     );
 
-    const LinkOrStatic = (attr) =>
-      attr.href && attr.href !== '' ? (
-        <a {...attr}>
-          <Content />
-        </a>
-      ) : (
-        <Content />
-      );
+    const LinkOrStatic = (attr) => {
+      if (attr.href && attr.href !== '') {
+        return (
+          <a {...attr}>
+            <Content />
+          </a>
+        );
+      }
+      if (attr.onClick) {
+        return (
+          <button {...attr} type="button">
+            <Content />
+          </button>
+        );
+      }
+      return <Content />;
+    };
 
     const isLink = href && href !== '';
     const linkAttr = {
       ...(ariaLabel && { 'aria-label': ariaLabel }),
       ...(isLink && { href }),
+      ...(onClick && { onClick }),
       ...rest,
     };
 

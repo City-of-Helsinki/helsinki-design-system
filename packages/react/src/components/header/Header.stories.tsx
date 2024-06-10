@@ -726,11 +726,15 @@ export const ActionBarItems = (args) => {
             closeLabel={I18n.close}
             closeIcon={<IconCross />}
           />
-          <Header.ActionBarItem label="Test Username" avatar="TU" fixedRightPosition>
-            <Header.ActionBarSubItem label="Link" href="/" notificationCount="2" />
+          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
-            <Header.ActionBarSubItem label="Viestit" href="/" notificationCount="5" />
-            <Header.ActionBarSubItem label="Kirjaudu ulos" href="/" bold iconRight={<IconSignout />} />
+            <Header.ActionBarSubItem label="Viestit" href="/" notificationCount={2} />
+            <Header.ActionBarSubItem
+              label="Kirjaudu ulos"
+              bold
+              iconRight={<IconSignout />}
+              onClick={() => console.log('Signout')}
+            />
           </Header.ActionBarItem>
           <Header.ActionBarItem icon={<IconCogwheel />}>
             <Header.ActionBarSubItem label="Link" href="/" />
@@ -818,7 +822,12 @@ export const Login = (args) => {
           <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
             <Header.ActionBarSubItem label="Viestit" href="/" notificationCount={2} />
-            <Header.ActionBarSubItem label="Kirjaudu ulos" href="/" bold iconRight={<IconSignout />} />
+            <Header.ActionBarSubItem
+              label="Kirjaudu ulos"
+              bold
+              iconRight={<IconSignout />}
+              onClick={() => console.log('Signout')}
+            />
           </Header.ActionBarItem>
         </Header.ActionBar>
 
