@@ -17,6 +17,7 @@ import { SkipLink } from '../../internal/skipLink';
 import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { HeaderTheme } from './Header.type';
 import { useTheme } from '../../hooks/useTheme';
+import { HeaderError } from './components/headerError/HeaderError';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -61,6 +62,7 @@ const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, class
   return (
     <header className={headerClassNames} {...props} aria-label={ariaLabel}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>
+      <HeaderError />
     </header>
   );
 };

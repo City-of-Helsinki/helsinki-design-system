@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
+import { NotificationProps } from '../notification';
 
 export type HeaderContextType = {
   /**
@@ -17,14 +18,22 @@ export type HeaderContextType = {
    * Which main navigation link with dropdowns is open.
    */
   openMainNavIndex?: number;
+  error?: {
+    label: string;
+    text: string;
+    closeButtonAriaLabel: string;
+    notificationPosition?: NotificationProps['position'];
+    source: string;
+  };
 };
 
 export type HeaderDispatchContextType = {
-  setNavigationContent?: (children: React.ReactNode) => void;
-  setLanguageSelectorContent?: (children: React.ReactNode) => void;
-  setMobileMenuOpen?: (state: boolean) => void;
-  setUniversalContent?: (children: React.ReactNode) => void;
-  setOpenMainNavIndex?: (arg: number) => void;
+  setNavigationContent: (children: React.ReactNode) => void;
+  setLanguageSelectorContent: (children: React.ReactNode) => void;
+  setMobileMenuOpen: (state: boolean) => void;
+  setUniversalContent: (children: React.ReactNode) => void;
+  setOpenMainNavIndex: (arg: number) => void;
+  setError: (error: HeaderContextType['error']) => void;
 };
 
 const HeaderContext = createContext<HeaderContextType>({
@@ -38,6 +47,7 @@ const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
   setMobileMenuOpen() {}, // eslint-disable-line @typescript-eslint/no-empty-function
   setUniversalContent() {}, // eslint-disable-line @typescript-eslint/no-empty-function
   setOpenMainNavIndex() {}, // eslint-disable-line @typescript-eslint/no-empty-function
+  setError() {}, // eslint-disable-line @typescript-eslint/no-empty-function
 });
 HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
@@ -49,6 +59,7 @@ export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) =
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [universalContent, setUniversalContent] = useState(null);
   const [openMainNavIndex, setOpenMainNavIndex] = useState<number>(-1);
+  const [error, setError] = useState<HeaderContextType['error']>(undefined);
 
   useEffect(() => setMobileMenuOpen(false), [isNotLargeScreen]);
 
@@ -63,6 +74,7 @@ export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) =
     hasUniversalContent,
     universalContent,
     openMainNavIndex,
+    error,
   };
   const dispatchContext: HeaderDispatchContextType = {
     setNavigationContent,
@@ -70,6 +82,7 @@ export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) =
     setMobileMenuOpen,
     setUniversalContent,
     setOpenMainNavIndex,
+    setError,
   };
 
   return (
