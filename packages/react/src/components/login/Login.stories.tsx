@@ -41,7 +41,9 @@ import { Notification } from '../notification/Notification';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 import { LoadingSpinner } from '../loadingSpinner';
-import { HeaderLoginButton } from '../header/components/headerLoginButton/HeaderLoginButton';
+import { HeaderLoginButton } from '../header/components/headerUserItems/HeaderLoginButton';
+import { HeaderLogoutSubmenuButton } from '../header/components/headerUserItems/HeaderLogoutSubmenuButton';
+import { HeaderUserMenuButton } from '../header/components/headerUserItems/HeaderUserMenuButton';
 
 type StoryArgs = {
   useKeycloak?: boolean;
@@ -240,12 +242,24 @@ const Nav = () => {
         logoAriaLabel="Service logo"
       >
         <HeaderLoginButton
-          label="Login"
+          label="Log in"
           id="action-bar-login-action"
           errorLabel="Login failed!"
           errorText="Redirection to the OIDC server failed. Try again!"
           errorCloseAriaLabel="Close this error notification"
+          loggingInText="Logging in"
+          fixedRightPosition
         />
+        <HeaderUserMenuButton id="user-menu" fixedRightPosition>
+          <HeaderLogoutSubmenuButton
+            label="Log out"
+            errorLabel="Logout failed!"
+            errorText="Redirection to the OIDC server failed. Try again!"
+            errorCloseAriaLabel="Close this error notification"
+            id="logout-button"
+            loggingOutText="Logging out"
+          />
+        </HeaderUserMenuButton>
       </Header.ActionBar>
     </Header>
   );
