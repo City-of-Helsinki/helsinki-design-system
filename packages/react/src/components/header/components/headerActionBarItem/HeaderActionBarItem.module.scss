@@ -60,7 +60,7 @@
 }
 
 .dropdown {
-  background: white;
+  background: var(--header-background-color);
   border: 1px solid var(--color-black-10);
   border-top: 1px solid var(--color-black-20) !important;
   margin-top: -1px;
