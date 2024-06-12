@@ -90,12 +90,19 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
         <Icon element={iconLeft} elementClassName={classNames(classes.actionBarSubItemIcon)} />
         <Label text={label} />
         {external ? (
-          <IconLinkExternal />
+          <IconLinkExternal className={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconRight)} />
         ) : (
-          <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
+          <Icon
+            element={iconRight}
+            elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconRight)}
+          />
         )}
-        <span className={classNames(classes.grow)} />
-        <span className={classNames(classes.notificationCount)}>{notificationCount}</span>
+        {notificationCount !== undefined && (
+          <>
+            <span className={classNames(classes.grow)} />
+            <span className={classNames(classes.notificationCount)}>{notificationCount}</span>
+          </>
+        )}
       </>
     );
 

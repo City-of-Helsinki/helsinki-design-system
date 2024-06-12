@@ -769,11 +769,12 @@ export const ActionBarItems = (args) => {
             <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconUser />} iconRight={<IconCogwheel />} />
             <Header.ActionBarSubItem
-              label="External Link with right icon"
+              label="External Link with right icon and with too long description text"
               href="/"
               external
               iconLeft={<IconUser />}
               iconRight={<IconCogwheel />}
+              notificationCount="2"
             />
           </Header.ActionBarItem>
         </Header.ActionBar>

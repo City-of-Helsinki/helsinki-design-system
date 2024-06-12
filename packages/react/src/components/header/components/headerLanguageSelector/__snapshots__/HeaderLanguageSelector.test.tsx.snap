@@ -115,12 +115,6 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
                   </span>
                 </button>
               </span>
-              <span
-                class="grow"
-              />
-              <span
-                class="notificationCount"
-              />
             </li>
             <li
               class="dropdownItem"
@@ -139,12 +133,6 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
                   </span>
                 </button>
               </span>
-              <span
-                class="grow"
-              />
-              <span
-                class="notificationCount"
-              />
             </li>
             <li
               class="dropdownItem"
@@ -336,12 +324,6 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                         </span>
                       </button>
                     </span>
-                    <span
-                      class="grow"
-                    />
-                    <span
-                      class="notificationCount"
-                    />
                   </li>
                   <li
                     class="dropdownItem"
@@ -360,12 +342,6 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                         </span>
                       </button>
                     </span>
-                    <span
-                      class="grow"
-                    />
-                    <span
-                      class="notificationCount"
-                    />
                   </li>
                   <li
                     class="dropdownItem"

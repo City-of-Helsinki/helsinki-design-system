@@ -47,9 +47,14 @@ h4.actionBarSubItem {
 }
 
 .actionBarSubItemIcon {
+  flex-shrink: 0;
   height: 24px;
   line-height: 24px;
   position: relative;
+}
+
+.actionBarSubItemIconRight {
+  align-self: flex-start;
 }
 
 .grow {
