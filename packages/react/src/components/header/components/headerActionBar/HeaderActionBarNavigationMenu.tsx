@@ -10,7 +10,6 @@ import { IconAngleLeft } from '../../../../icons';
 import { LinkProps } from '../../../../internal/LinkItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { HeaderActionBarItemProps } from '../headerActionBarItem';
-import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
 import useForceRender from '../../../../hooks/useForceRender';
 
 type NavigationSectionType = {
@@ -419,20 +418,6 @@ export const HeaderActionBarNavigationMenu = ({
     setMobileMenuOpen(false);
   };
 
-  const setCurrentMenuHeight = () => {
-    const containerElement = navContainerRef.current;
-    if (!containerElement) {
-      return;
-    }
-    // Set the height of the menu container
-    const renderedChildIndex = getActiveMenuIndex();
-    const currentMenuSection = containerElement.children[renderedChildIndex];
-    if (!currentMenuSection) {
-      return;
-    }
-    navContainerRef.current.style.height = `${currentMenuSection.clientHeight}px`;
-  };
-
   const animationDone = async (e: TransitionEvent) => {
     if (e.propertyName !== 'transform') {
       return;
@@ -443,7 +428,6 @@ export const HeaderActionBarNavigationMenu = ({
     const { isChangingLevel, isClosingOrOpening } = getState();
     if (isNavContainer && isChangingLevel) {
       updateState({ shouldSetFocusToActiveLink: true });
-      setCurrentMenuHeight();
       resetMenusAfterAnimation();
     } else if (isMenuElement && isClosingOrOpening) {
       updateState({ isClosingOrOpening: false });
@@ -452,12 +436,6 @@ export const HeaderActionBarNavigationMenu = ({
       }
     }
   };
-
-  useIsomorphicLayoutEffect(() => {
-    if (mobileMenuOpen) {
-      setCurrentMenuHeight();
-    }
-  }, [mobileMenuOpen]);
 
   const RenderNavigationSection = ({
     links,

@@ -803,7 +803,6 @@ export const ActionBarItems = (args) => {
 };
 
 export const Login = (args) => {
-  const [href, setHref] = useState('');
   const lang = 'fi';
   const I18n = translations[lang];
 
@@ -830,25 +829,6 @@ export const Login = (args) => {
             />
           </Header.ActionBarItem>
         </Header.ActionBar>
-
-        <Header.NavigationMenu>
-          <Header.Link
-            label={I18n.healthAndSocialServices}
-            onClick={(event) => {
-              event.preventDefault();
-              setHref('#sosiaali-_ja_terveyspalvelut');
-            }}
-            active={href.includes('#sosiaali-_ja_terveyspalvelut')}
-          />
-          <Header.Link
-            active={href.includes('#kasvatus_ja_koulutus')}
-            onClick={(event) => {
-              event.preventDefault();
-              setHref('#kasvatus_ja_koulutus');
-            }}
-            label={I18n.childhoodAndEducation}
-          />
-        </Header.NavigationMenu>
       </Header>
       <div id="content" />
     </>

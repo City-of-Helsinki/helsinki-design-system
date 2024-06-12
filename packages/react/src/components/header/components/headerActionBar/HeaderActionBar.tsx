@@ -288,7 +288,7 @@ export const HeaderActionBar = ({
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
             {!isNotLargeScreen && childrenLeft}
-            {hasNavigationContent && isNotLargeScreen && (
+            {(hasNavigationContent || childrenWithId.length > 0) && isNotLargeScreen && (
               <HeaderActionBarItem
                 id="Menu"
                 label="Menu"
