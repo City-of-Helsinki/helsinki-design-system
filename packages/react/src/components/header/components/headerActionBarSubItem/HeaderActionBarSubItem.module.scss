@@ -34,6 +34,12 @@ h4.actionBarSubItem {
   }
 }
 
+.actionBarSubItem svg {
+  width: 16px;
+  height: 16px;
+  padding-top: 4px;
+}
+
 :first-child.actionBarSubItem {
   border-top: 0 solid black;
 }
