@@ -148,6 +148,7 @@ Playground.args = {
   buttonLabel: '',
   language: 'en',
   multiple: false,
+  minSize: 10,
   maxSize: 300 * 1024,
   accept: '.png,.jpg,.pdf,.json',
   defaultValue: undefined,

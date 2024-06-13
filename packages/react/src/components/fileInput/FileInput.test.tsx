@@ -167,6 +167,33 @@ describe('<FileInput /> spec', () => {
     ).toBeInTheDocument();
   });
 
+  it('should validate files based on minSize property', async () => {
+    const inputProps = {
+      ...defaultInputProps,
+      label: 'Choose files',
+      multiple: true,
+      accept: undefined,
+      minSize: 10,
+    };
+    const firstFileName = 'test-file-with-enaough-content';
+    const firstFile = new File(['01234567890'], firstFileName, { type: 'image/png' });
+    const secondFileName = 'test-file-with-too-small-content';
+    const secondFile = new File(['012345678'], secondFileName, { type: 'image/png' });
+    const thirdFileName = 'test-file-with-exactly-min-size-bytes';
+    const thirdFile = new File(['0123456789'], thirdFileName, { type: 'image/png' });
+    render(<FileInput {...inputProps} />);
+    const fileUpload = screen.getByLabelText(inputProps.label);
+    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
+    expect(screen.getByText(firstFileName)).toBeInTheDocument();
+    expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
+    expect(
+      screen.getByText(`File, ${secondFileName}, is too small (9 B). The minimum file size is 10 B.`, {
+        exact: false,
+      }),
+    ).toBeInTheDocument();
+  });
+
   it('should validate files based on accept file extension', async () => {
     const inputProps = {
       ...defaultInputProps,
