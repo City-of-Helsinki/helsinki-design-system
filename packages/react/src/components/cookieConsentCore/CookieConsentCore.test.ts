@@ -241,4 +241,11 @@ describe('cookieConsentCore', () => {
     fireEvent.click(getShowDetailsButtonElement());
     expect(isDetailsExpanded()).toBeTruthy();
   });
+
+  it('should throw an error if siteSettingsJsonUrl and siteSettingsObj is not defined', () => {
+    expect(() => {
+      // eslint-disable-next-line no-new
+      new CookieConsentCore({ ...options, siteSettingsJsonUrl: '' });
+    }).toThrow('Cookie consent: siteSettingsJsonUrl or siteSettingsObj is required');
+  });
 });
