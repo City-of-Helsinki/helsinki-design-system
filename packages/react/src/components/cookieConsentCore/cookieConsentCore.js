@@ -5,7 +5,7 @@
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
 import { getCookieBannerHtml, getGroupHtml, getTableRowHtml } from './template';
-import { getTranslation, getTranslationKeys } from './translations';
+import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
 
@@ -25,6 +25,7 @@ export class CookieConsentCore {
   #MONITOR;
   #TEMP_CSS_PATH;
   #COOKIE_HANDLER;
+  #SITE_SETTINGS;
 
   #bannerElements = {
     bannerContainer: null,
@@ -247,7 +248,7 @@ export class CookieConsentCore {
     ariaLive.setAttribute('aria-live', 'polite');
     ariaLive.style =
       'position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;';
-    ariaLive.textContent = getTranslation('settingsSaved', this.#LANGUAGE);
+    ariaLive.textContent = getTranslation(this.#SITE_SETTINGS.translations, 'settingsSaved', this.#LANGUAGE);
     ariaParentElement.appendChild(ariaLive);
 
     // Remove ariaLive after 5 seconds
@@ -271,24 +272,6 @@ export class CookieConsentCore {
   }
 
   /**
-   * Picks the proper translation from a given object of possible translations or returns the input string if not an object.
-   * Defaults to English ('en') if the specified translation is not found.
-   * @private
-   * @param {string|Object} translationObj - Either a string or an object containing language key to translation value pairs.
-   * @param {string} lang - Language key, e.g., 'fi' for Finnish.
-   * @return {string} - Translated string based on the provided language key, or the original string if `translationObj` is not an object.
-   */
-  #translateSetting(translationObj, lang) {
-    if (typeof translationObj === 'object') {
-      if (translationObj[lang] === undefined) {
-        return translationObj.en; // fallback to English translation
-      }
-      return translationObj[lang];
-    }
-    return translationObj;
-  }
-
-  /**
    * Retrieves the HTML representation of cookie groups.
    * @private
    * @param {Array} cookieGroupList - The list of cookie groups.
@@ -303,19 +286,19 @@ export class CookieConsentCore {
     let groupsHtml = '';
     let groupNumber = 0;
     cookieGroupList.forEach((cookieGroup) => {
-      const title = this.#translateSetting(cookieGroup.title, lang);
-      const description = this.#translateSetting(cookieGroup.description, lang);
+      const title = getTranslation(cookieGroup, 'title', lang);
+      const description = getTranslation(cookieGroup, 'description', lang);
       const isAccepted = acceptedGroups.includes(cookieGroup.groupId);
 
       // Build table rows
       let tableRowsHtml = '';
       cookieGroup.cookies.forEach((cookie) => {
         tableRowsHtml += getTableRowHtml({
-          name: this.#translateSetting(cookie.name, lang),
-          host: this.#translateSetting(cookie.host, lang),
-          description: this.#translateSetting(cookie.description, lang),
-          expiration: this.#translateSetting(cookie.expiration, lang),
-          type: getTranslation(`type_${cookie.type}`, lang),
+          name: getTranslation(cookie, 'name', lang),
+          host: getTranslation(cookie, 'host', lang),
+          description: getTranslation(cookie, 'description', lang),
+          expiration: getTranslation(cookie, 'expiration', lang),
+          type: getTranslation(this.#SITE_SETTINGS.translations, `type_${cookie.type}`, lang),
         });
       });
 
@@ -399,9 +382,10 @@ export class CookieConsentCore {
     await this.#injectCssStyles(shadowRoot);
 
     const translations = {};
-    const translationKeys = getTranslationKeys();
+    const translationKeys = Object.keys(this.#SITE_SETTINGS.translations);
+
     translationKeys.forEach((key) => {
-      translations[key] = getTranslation(key, lang, siteSettings);
+      translations[key] = getTranslation(this.#SITE_SETTINGS.translations, key, lang, siteSettings);
     });
 
     const browserCookie = this.#COOKIE_HANDLER.getCookie();
@@ -486,9 +470,8 @@ export class CookieConsentCore {
       settingsPageElement = document.querySelector(this.#SETTINGS_PAGE_SELECTOR);
     }
 
-    // const siteSettings = await this.#getSiteSettings();
-
     const siteSettings = await this.#COOKIE_HANDLER.init(this.#cookie_name);
+    this.#SITE_SETTINGS = siteSettings;
 
     if (settingsPageElement) {
       this.#settingsPageElement = settingsPageElement;
