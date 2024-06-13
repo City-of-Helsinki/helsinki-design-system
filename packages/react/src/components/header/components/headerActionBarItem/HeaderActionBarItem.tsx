@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import innerText from 'react-innertext';
 
 import classes from './HeaderActionBarItem.module.scss';
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
-import { HeaderActionBarSubItemProps } from '../headerActionBarSubItem';
 import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 
@@ -147,23 +144,6 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         }
       : {};
 
-  const subItems = React.Children.toArray(children) as HeaderActionBarSubItemProps[];
-  const headerSubItems = subItems
-    .map((subItem, idx) => {
-      const firstHeadingIdx = subItems.findIndex((_subItem) => (_subItem as any)?.props?.heading);
-      const nextHeadingIdx = subItems.findIndex((_subItem, _idx) => _idx > idx && (_subItem as any)?.props?.heading);
-      const isHeading = (subItem as any)?.props?.heading;
-
-      return {
-        isHeading,
-        item: isHeading || firstHeadingIdx === nextHeadingIdx ? subItem : null,
-        childs: !isHeading
-          ? []
-          : subItems.filter((_subItem, _idx) => _idx > idx && (nextHeadingIdx === -1 || _idx < nextHeadingIdx)),
-      };
-    })
-    .filter((item) => item.item !== null);
-
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
     <div {...props} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
@@ -173,7 +153,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         label={iconLabel}
         icon={iconClass}
         aria-expanded={visible}
-        aria-label={ariaLabel !== undefined ? ariaLabel : innerText(label)}
+        aria-label={ariaLabel !== undefined ? ariaLabel : String(label)}
         aria-controls={`${id}-dropdown`}
         labelOnRight={labelOnRight}
         fixedRightPosition={fixedRightPosition}
@@ -187,26 +167,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         <div className={classes.dropdownWrapper}>
           <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
             {visible && !fullWidth && label && <h3>{label}</h3>}
-            <ul>
-              {headerSubItems.map((headerSubItem) =>
-                headerSubItem.isHeading ? (
-                  <li key={uuidv4()} className={classes.dropdownSubItem}>
-                    {headerSubItem.item}
-                    <ul>
-                      {headerSubItem.childs?.map((subItem) => (
-                        <li key={uuidv4()} className={classes.dropdownItem}>
-                          {subItem}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ) : (
-                  <li key={uuidv4()} className={classes.dropdownItem}>
-                    {headerSubItem.item}
-                  </li>
-                ),
-              )}
-            </ul>
+            <ul>{children}</ul>
           </div>
         </div>
       )}

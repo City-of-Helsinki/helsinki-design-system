@@ -1,10 +1,10 @@
 import React, { cloneElement, forwardRef, ReactNode } from 'react';
-import innerText from 'react-innertext';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
 import { IconLinkExternal } from '../../../../icons';
+import parentClasses from '../headerActionBarItem/HeaderActionBarItem.module.scss';
 
 export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
@@ -82,7 +82,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
     });
 
     const composeAriaLabel = () => {
-      let linkText = ariaLabel || innerText(label);
+      let linkText = ariaLabel || String(label);
       const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 
       if (linkText && linkText.slice(-1) !== '.') {
@@ -160,12 +160,17 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
     };
 
     /* eslint-disable-next-line no-nested-ternary */
-    return heading ? (
-      <h4 className={itemClassName}>
-        <LinkOrStatic {...linkAttr} />
-      </h4>
-    ) : (
-      <LinkOrStatic className={itemClassName} ref={ref} {...linkAttr} />
+    return (
+      <li className={parentClasses.dropdownItem}>
+        {' '}
+        {heading ? (
+          <h4 className={itemClassName}>
+            <LinkOrStatic {...linkAttr} />
+          </h4>
+        ) : (
+          <LinkOrStatic className={itemClassName} ref={ref} {...linkAttr} />
+        )}
+      </li>
     );
   },
 );

@@ -243,13 +243,16 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
       openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
     >
       <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
-        <Header.ActionBarSubItem label={I18n.infoOtherLanguages} heading />
-        <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
-        <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
-        <Header.ActionBarSubItem label={I18n.forTravellers} heading />
-        <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
-        <Header.ActionBarSubItem label={I18n.forImmigrants} heading />
-        <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+        <Header.ActionBarSubItemGroup label={I18n.infoOtherLanguages}>
+          <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label={I18n.forTravellers}>
+          <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label={I18n.forImmigrants}>
+          <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
       {isScreenGreaterThanSmall && (
         <Header.ActionBarItem
@@ -765,25 +768,28 @@ export const ActionBarItems = (args) => {
               notificationCountAriaLabel="Uusia viestejä"
               notificationCount={2}
             />
-            <Header.ActionBarSubItem label="Heading" heading />
-            <Header.ActionBarSubItem
-              label="Link"
-              href="/"
-              notificationCountAriaLabel="Uusia käyttäjiä"
-              notificationCount="3"
-            />
-            <Header.ActionBarSubItem label="Link" href="/" bold />
-            <Header.ActionBarSubItem
-              label="Link"
-              href="/"
-              notificationCountAriaLabel="Tehtäviä tekemättä"
-              notificationCount={822}
-            />
-            <Header.ActionBarSubItem label="Heading" heading iconLeft={<IconCogwheel />} />
-            <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Subheading" heading href="/" iconLeft={<IconCogwheel />} />
-            <Header.ActionBarSubItem label="Link" href="/" />
-            <Header.ActionBarSubItem label="Link" href="/" />
+            <Header.ActionBarSubItemGroup label="Heading">
+              <Header.ActionBarSubItem
+                label="Link"
+                href="/"
+                notificationCountAriaLabel="Uusia käyttäjiä"
+                notificationCount="3"
+              />
+              <Header.ActionBarSubItem label="Link" href="/" bold />
+              <Header.ActionBarSubItem
+                label="Link"
+                href="/"
+                notificationCountAriaLabel="Tehtäviä tekemättä"
+                notificationCount={822}
+              />
+            </Header.ActionBarSubItemGroup>
+            <Header.ActionBarSubItemGroup label="Heading" iconLeft={<IconCogwheel />}>
+              <Header.ActionBarSubItem label="Link" href="/" />
+            </Header.ActionBarSubItemGroup>
+            <Header.ActionBarSubItemGroup label="Subheading" href="/" iconLeft={<IconCogwheel />}>
+              <Header.ActionBarSubItem label="Link" href="/" />
+              <Header.ActionBarSubItem label="Link" href="/" />
+            </Header.ActionBarSubItemGroup>
           </Header.ActionBarItem>
           <Header.ActionBarItem icon={<IconCogwheel />} label="Test">
             <Header.ActionBarSubItem label="Static" />
