@@ -242,10 +242,89 @@ describe('cookieConsentCore', () => {
     expect(isDetailsExpanded()).toBeTruthy();
   });
 
+  // ## Config
+  // - Is the settings file properly linked?
+
   it('should throw an error if siteSettingsJsonUrl and siteSettingsObj is not defined', () => {
     expect(() => {
       // eslint-disable-next-line no-new
       new CookieConsentCore({ ...options, siteSettingsJsonUrl: '' });
     }).toThrow('Cookie consent: siteSettingsJsonUrl or siteSettingsObj is required');
   });
+
+  /* eslint-disable jest/no-commented-out-tests */
+
+  // This is not yet working
+  // it('should throw an error if siteSettingsJsonUrl is not found', () => {
+  //   expect(() => {
+  //     fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
+  //     // eslint-disable-next-line no-new
+  //     new CookieConsentCore({ ...options });
+  //   }).toThrow('Unable to fetch cookie consent settings: Error: 404');
+  // });
+
+  // - If the banner is set for custom targets, are the selectors available on DOM?
+  // it('should throw error if targetSelector is set but not found on DOM', () => {});
+  // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
+  // it('should throw error if pageContentSelector is set but not found on DOM', () => {});
+
+  // - Are there whitelisted groups available in window scope?
+  // it('should not allow consenting from API to a group that is not whitelisted', () => {});
+
+  // - Does the settings file have required group set with consent cookie?
+  // it('should throw error if required group with the consent cookie is missing from siteSettings', () => {});
+
+  // - Is the settings file properly formatted?
+  // it('should throw error if required group properties can not be accessed', () => {});
+
+  // ## Functionalities
+  // - When user enters the site first time with empty cookies, does the banner show up?
+  // it('should render banner if the consent cookie is not set', () => {});
+
+  // - When user accepts essential cookies, the cookie should be written with essential groups.
+  // it('should add consentCookie with all groups when user consents to all groups', () => {});
+
+  // - When user accepts all cookies, the cookie should be written with all groups mentioned in settings.
+  // it('should add consentCookie with only required groups when user consents only to required groups', () => {});
+
+  // - When user selects certain groups, the cookie should be written according to those.
+  // it('should add consentCookie with required groups and selected groups when user consents to selected cookie groups', () => {});
+
+  // - If the user removes group permission, the groups should be removed from the consentCookie
+  // it('should modify consentCookie to contain only required and consented groups when user changes their consent', () => {});
+
+  // - If the user removes group permission, the related items should be removed.
+  // it('should remove cookies that were previously consented when user removes consent and it should not report them as illegal when monitoring', () => {});
+  // it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', () => {});
+  // it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', () => {});
+  // it('should remove indexedDb items that were previously consented when user removes consent and it should not report them as illegal when monitoring', () => {});
+  // it('should remove cache storage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', () => {});
+
+  // - It should monitor and report items that have not been consented to if monitor interval parameter is set in siteSettings above 0
+  // it('should monitor and report cookies that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
+  // it('should monitor and report localStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
+  // it('should monitor and report sessionStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
+  // it('should monitor and report indexedDb items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
+  // it('should monitor and report cache storage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
+
+  // - It should remove items that have not been consented to if remove parameter is set in siteSettings
+  // it('should remove cookies that have not been consented to if remove parameter is set in siteSettings', () => {});
+  // it('should remove localStorage items that have not been consented to if remove parameter is set in siteSettings', () => {});
+  // it('should remove sessionStorage items that have not been consented to if remove parameter is set in siteSettings', () => {});
+  // it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', () => {});
+  // it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', () => {});
+
+  // ## State changes
+  // - If the settings file has changed, the banner should appear
+  // it('should show banner if the hashes do not match in any consented group', () => {});
+
+  // - If the settings are changed, the banner should recognize the changes
+  // it('should remove only invalid (checksum mismatch) groups from cookie', () => {});
+
+  // ## Visual issues
+  // - Do the checkboxes in banner describe the accepted categories?
+  // it('should have same checkbox checked values with cookie string', () => {});
+
+  // - Does the banner hide footer?
+  // it('should have footer element offsetTop not overlapping with banner', () => {});
 });
