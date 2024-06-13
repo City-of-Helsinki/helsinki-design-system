@@ -21,7 +21,6 @@ export const ReactTestFullPage = () => {
     // pageContentSelector: 'body', // Defaults to 'body'
     submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
     settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
-    tempCssPath: 'http://localhost:6006/static-cookie-consent/cookieConsent.css', // TODO: Remove this when the real build process can include css files
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const instanceRef = useEffect(() => {

@@ -23,7 +23,6 @@ export class CookieConsentCore {
   #SUBMIT_EVENT = false;
   #SETTINGS_PAGE_SELECTOR;
   #MONITOR;
-  #TEMP_CSS_PATH;
   #COOKIE_HANDLER;
   #SITE_SETTINGS;
 
@@ -54,7 +53,6 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @param {string} [options.tempCssPath='/path/to/external.css'] - The temporary path to the external CSS file.
    * @throws {Error} Throws an error if siteSettingsJsonUrl is not provided.
    */
   constructor({
@@ -67,7 +65,6 @@ export class CookieConsentCore {
     pageContentSelector = 'body', // Where to add scroll-margin-bottom
     submitEvent = false, // if string, do not reload page, but submit the string as event after consent
     settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-    tempCssPath = '/path/to/external.css', // TODO: Remove this tempoarry path to external CSS file
   }) {
     if (!siteSettingsJsonUrl && !siteSettingsObj) {
       throw new Error('Cookie consent: siteSettingsJsonUrl or siteSettingsObj is required');
@@ -80,7 +77,6 @@ export class CookieConsentCore {
     this.#PAGE_CONTENT_SELECTOR = pageContentSelector;
     this.#SUBMIT_EVENT = submitEvent;
     this.#SETTINGS_PAGE_SELECTOR = settingsPageSelector;
-    this.#TEMP_CSS_PATH = tempCssPath;
 
     window.hds = window.hds || {};
     window.hds.cookieConsent = this;

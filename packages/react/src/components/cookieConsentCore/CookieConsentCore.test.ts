@@ -13,7 +13,6 @@ type Options = {
   pageContentSelector?: string;
   submitEvent?: string;
   settingsPageSelector?: string;
-  tempCssPath: string;
 };
 
 jest.mock('hds-core/lib/components/cookie-consent/cookieConsent', () => ({
@@ -44,7 +43,6 @@ describe('cookieConsentCore', () => {
     // pageContentSelector: 'body', // Defaults to 'body'
     // submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
     settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
-    tempCssPath: 'http://localhost:6006/static-cookie-consent/cookieConsent.css', // TODO: Remove this when the real build process can include css files
   };
 
   const getShadowRoot = () => {
@@ -175,14 +173,6 @@ describe('cookieConsentCore', () => {
       },
     });
 
-  const returnTempCSS = () =>
-    Promise.resolve({
-      body: 'div{}',
-      headers: {
-        'content-type': 'application/css',
-      },
-    });
-
   const waitForRoot = async () => {
     await waitFor(() => {
       const root = getRootElement();
@@ -197,9 +187,6 @@ describe('cookieConsentCore', () => {
     fetchMock.mockResponse((req) => {
       if (req.url.includes(options.siteSettingsJsonUrl)) {
         return returnSettingsJSON();
-      }
-      if (req.url.includes(options.tempCssPath)) {
-        return returnTempCSS();
       }
       return Promise.reject(new Error(`Unknown url ${req.url}`));
     });
@@ -229,6 +216,7 @@ describe('cookieConsentCore', () => {
       mockTextEncoderDisposer();
     }
   });
+
   afterAll(() => {
     disableFetchMocks();
     // @ts-ignore next-line
@@ -246,6 +234,7 @@ describe('cookieConsentCore', () => {
     expect(getEssentialCookiesCheckbox()).not.toBeNull();
     expect(isDetailsExpanded()).toBeFalsy();
   });
+
   it('Changes on button click', async () => {
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
