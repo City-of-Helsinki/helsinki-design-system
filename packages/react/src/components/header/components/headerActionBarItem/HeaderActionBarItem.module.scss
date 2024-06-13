@@ -136,7 +136,7 @@
   & .dropdownItem button {
     appearance: none !important;
     background: transparent;
-    border: var(--header-focus-outline-width) solid transparent;
+    border: 0;
     color: var(--lang-selector-item-font-color);
     cursor: pointer;
     line-height: var(--lineheight-l);
@@ -144,7 +144,7 @@
     white-space: nowrap;
 
     &:focus-visible {
-      border: var(--header-focus-outline-width) solid transparent;
+      border: 0;
       outline: none;
     }
   }
