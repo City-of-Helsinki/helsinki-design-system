@@ -1,4 +1,5 @@
 import React, { cloneElement, forwardRef, ReactNode } from 'react';
+import innerText from 'react-innertext';
 
 import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -22,6 +23,10 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
    */
   notificationCount?: number;
   /**
+   * Aria label for notification number.
+   */
+  notificationCountAriaLabel?: string;
+  /**
    * Label for the action bar item.
    */
   label?: string | JSX.Element;
@@ -42,6 +47,10 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
    * If external link
    */
   external?: boolean;
+  /**
+   * The aria-label for opening link in an external domain
+   */
+  openInExternalDomainAriaLabel?: string;
   className?: string;
 }
 
@@ -51,6 +60,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       iconLeft,
       iconRight,
       notificationCount,
+      notificationCountAriaLabel,
       label,
       heading,
       href,
@@ -58,6 +68,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       className,
       bold,
       external,
+      openInExternalDomainAriaLabel,
       ariaLabel,
       ...rest
     },
@@ -68,6 +79,17 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       ...(className && { [className]: true }),
       [classes.bold]: bold,
     });
+
+    const composeAriaLabel = () => {
+      let linkText = ariaLabel || innerText(label);
+      const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
+
+      if (linkText && linkText.slice(-1) !== '.') {
+        linkText = `${linkText}.`;
+      }
+
+      return [linkText, externalText].filter((text) => text).join(' ');
+    };
 
     const Icon = ({ element, elementClassName }: { element: ReactNode; elementClassName?: string }) => {
       if (!element && !React.isValidElement(element)) {
@@ -100,7 +122,12 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
         {notificationCount !== undefined && (
           <>
             <span className={classNames(classes.grow)} />
-            <span className={classNames(classes.notificationCount)}>{notificationCount}</span>
+            <span
+              className={classNames(classes.notificationCount)}
+              aria-label={`${notificationCountAriaLabel} ${notificationCount}`}
+            >
+              {notificationCount}
+            </span>
           </>
         )}
       </>
@@ -127,6 +154,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
     const isLink = href && href !== '';
     const linkAttr = {
       ...(ariaLabel && { 'aria-label': ariaLabel }),
+      ...((external || ariaLabel) && { 'aria-label': composeAriaLabel() }),
       ...(isLink && { href }),
       ...(onClick && { onClick }),
       ...rest,

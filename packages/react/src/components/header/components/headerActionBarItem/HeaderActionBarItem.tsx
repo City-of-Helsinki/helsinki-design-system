@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import innerText from 'react-innertext';
 
 import classes from './HeaderActionBarItem.module.scss';
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
@@ -172,7 +173,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         label={iconLabel}
         icon={iconClass}
         aria-expanded={visible}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel !== undefined ? ariaLabel : innerText(label)}
         aria-controls={`${id}-dropdown`}
         labelOnRight={labelOnRight}
         fixedRightPosition={fixedRightPosition}

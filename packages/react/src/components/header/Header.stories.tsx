@@ -725,10 +725,16 @@ export const ActionBarItems = (args) => {
             id="action-bar-login"
             closeLabel={I18n.close}
             closeIcon={<IconCross />}
+            ariaLabel="Test item"
           />
           <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
-            <Header.ActionBarSubItem label="Viestit" href="/" notificationCount={2} />
+            <Header.ActionBarSubItem
+              label="Viestit"
+              href="/"
+              notificationCountAriaLabel="Uusia viestejä"
+              notificationCount={2}
+            />
             <Header.ActionBarSubItem
               label="Kirjaudu ulos"
               bold
@@ -736,7 +742,7 @@ export const ActionBarItems = (args) => {
               onClick={() => console.log('Signout')}
             />
           </Header.ActionBarItem>
-          <Header.ActionBarItem icon={<IconCogwheel />}>
+          <Header.ActionBarItem icon={<IconCogwheel />} ariaLabel="Test items">
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
@@ -751,11 +757,28 @@ export const ActionBarItems = (args) => {
               iconRight={<IconUser />}
               external
             />
-            <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} external notificationCount="2" />
+            <Header.ActionBarSubItem
+              label="Link"
+              href="/"
+              iconLeft={<IconCogwheel />}
+              external
+              notificationCountAriaLabel="Uusia viestejä"
+              notificationCount={2}
+            />
             <Header.ActionBarSubItem label="Heading" heading />
-            <Header.ActionBarSubItem label="Link" href="/" notificationCount="3" />
+            <Header.ActionBarSubItem
+              label="Link"
+              href="/"
+              notificationCountAriaLabel="Uusia käyttäjiä"
+              notificationCount="3"
+            />
             <Header.ActionBarSubItem label="Link" href="/" bold />
-            <Header.ActionBarSubItem label="Link" href="/" notificationCount="882" />
+            <Header.ActionBarSubItem
+              label="Link"
+              href="/"
+              notificationCountAriaLabel="Tehtäviä tekemättä"
+              notificationCount={822}
+            />
             <Header.ActionBarSubItem label="Heading" heading iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Subheading" heading href="/" iconLeft={<IconCogwheel />} />
@@ -774,6 +797,7 @@ export const ActionBarItems = (args) => {
               external
               iconLeft={<IconUser />}
               iconRight={<IconCogwheel />}
+              notificationCountAriaLabel="Tehtäviä tekemättä"
               notificationCount="2"
             />
           </Header.ActionBarItem>
@@ -821,7 +845,12 @@ export const Login = (args) => {
         >
           <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
-            <Header.ActionBarSubItem label="Viestit" href="/" notificationCount={2} />
+            <Header.ActionBarSubItem
+              label="Viestit"
+              href="/"
+              notificationCountAriaLabel="Uusia viestejä"
+              notificationCount={2}
+            />
             <Header.ActionBarSubItem
               label="Kirjaudu ulos"
               bold
