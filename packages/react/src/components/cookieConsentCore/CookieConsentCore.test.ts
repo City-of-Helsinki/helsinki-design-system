@@ -16,6 +16,10 @@ type Options = {
   tempCssPath: string;
 };
 
+jest.mock('hds-core/lib/components/cookie-consent/cookieConsent', () => ({
+  default: '/* We are not using styles inside jest yet */',
+}));
+
 type CookieConsentClass = InstanceType<typeof CookieConsentCore>;
 
 describe('cookieConsentCore', () => {
