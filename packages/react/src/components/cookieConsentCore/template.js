@@ -85,7 +85,7 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
   return `
             <div class="hds-cc__group">
               <div class="hds-checkbox">
-                <input type="checkbox" id="${groupId}-cookies" class="hds-checkbox__input"${required}${accepted} data-group="${groupId}" />
+                <input type="checkbox" id="${groupId}-cookies" class="hds-checkbox__input" ${required} ${accepted} data-group="${groupId}" />
                 <label for="${groupId}-cookies" class="hds-checkbox__label">${translations.title}</label>
               </div>
               <p>${translations.description}</p>
