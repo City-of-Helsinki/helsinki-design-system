@@ -1,4 +1,12 @@
-import React, { cloneElement, forwardRef, ReactNode } from 'react';
+import React, {
+  cloneElement,
+  ForwardedRef,
+  forwardRef,
+  HTMLAttributes,
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+} from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classes from './HeaderActionBarSubItem.module.scss';
@@ -6,7 +14,7 @@ import classNames from '../../../../utils/classNames';
 import { IconLinkExternal } from '../../../../icons';
 import parentClasses from '../headerActionBarItem/HeaderActionBarItem.module.scss';
 
-export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   /**
    * Icon element (on the left side of the label) for the action bar item.
    */
@@ -51,7 +59,7 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
   className?: string;
 }
 
-export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderActionBarSubItemProps>(
+export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorElement, HeaderActionBarSubItemProps>(
   (
     {
       'aria-label': ariaLabel,
@@ -128,24 +136,6 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       </>
     );
 
-    const LinkOrStatic = (attr) => {
-      if (attr.href && attr.href !== '') {
-        return (
-          <a {...attr}>
-            <Content />
-          </a>
-        );
-      }
-      if (attr.onClick) {
-        return (
-          <button {...attr} type="button">
-            <Content />
-          </button>
-        );
-      }
-      return <Content />;
-    };
-
     const isLink = href && href !== '';
     const linkAttr = {
       ...((external || ariaLabel) && { 'aria-label': composeAriaLabel() }),
@@ -154,20 +144,44 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       ...rest,
     };
 
-    /* eslint-disable-next-line no-nested-ternary */
-    return (
-      <>
-        {' '}
-        {isHeading ? (
-          <h4 className={itemClassName}>
-            <LinkOrStatic {...linkAttr} />
-          </h4>
-        ) : (
+    const Wrapper = useCallback(
+      ({ children }: PropsWithChildren<unknown>) => {
+        return (
           <li className={parentClasses.dropdownItem}>
-            <LinkOrStatic className={itemClassName} ref={ref} {...linkAttr} />
+            {isHeading ? <h4 className={itemClassName}>{children}</h4> : (children as React.ReactElement)}{' '}
           </li>
-        )}
-      </>
+        );
+      },
+      [isHeading, itemClassName],
+    );
+
+    if (isLink) {
+      return (
+        <Wrapper>
+          <a
+            {...(linkAttr as unknown as HTMLAttributes<HTMLAnchorElement>)}
+            ref={ref as ForwardedRef<HTMLAnchorElement>}
+          >
+            <Content />
+          </a>
+        </Wrapper>
+      );
+    }
+
+    if (linkAttr.onClick) {
+      return (
+        <Wrapper>
+          <button type="button" className={itemClassName} ref={ref as ForwardedRef<HTMLButtonElement>} {...linkAttr}>
+            <Content />
+          </button>
+        </Wrapper>
+      );
+    }
+
+    return (
+      <li className={parentClasses.dropdownItem}>
+        <Content />
+      </li>
     );
   },
 );
