@@ -1,5 +1,6 @@
 import React, { cloneElement, forwardRef, ReactNode } from 'react';
 import innerText from 'react-innertext';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -122,10 +123,8 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
         {notificationCount !== undefined && (
           <>
             <span className={classNames(classes.grow)} />
-            <span
-              className={classNames(classes.notificationCount)}
-              aria-label={`${notificationCountAriaLabel} ${notificationCount}`}
-            >
+            <span className={classNames(classes.notificationCount)}>
+              {notificationCountAriaLabel && <VisuallyHidden>{`${notificationCountAriaLabel} `}</VisuallyHidden>}
               {notificationCount}
             </span>
           </>
