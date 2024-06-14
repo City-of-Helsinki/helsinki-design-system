@@ -129,8 +129,8 @@ export const HeaderLanguageSelectorConsumer = ({
           ariaLabel={ariaLabel}
           labelOnRight
         >
-          {secondaryLanguages?.length && languageHeading && <HeaderActionBarSubItem label={languageHeading} heading />}
-          {secondaryLanguages?.length && secondaryLanguages.map((node) => renderLanguageNode(node, false))}
+          {hasSecondaryLanguages && languageHeading && <HeaderActionBarSubItem label={languageHeading} heading />}
+          {secondaryLanguages.map((node) => renderLanguageNode(node, false))}
           {children}
         </HeaderActionBarItem>
       )}

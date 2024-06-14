@@ -68,10 +68,10 @@ h4.actionBarSubItem {
 }
 
 .notificationCount {
-  background: var(--color-error);
+  background: var(--notification-count-background-color);
   border-radius: 12px;
   box-sizing: border-box;
-  color: white;
+  color: var(--notification-count-text-color);
   display: inline-block;
   font-size: 14px;
   line-height: 24px;

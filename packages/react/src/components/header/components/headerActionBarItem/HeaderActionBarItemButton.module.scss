@@ -62,9 +62,9 @@ button.actionBarItemButton {
   }
 
   & > .avatar {
-    background: var(--color-bus);
+    background: var(--avatar-background-color);
     border-radius: 25px;
-    color: white;
+    color: var(--avatar-text-color);
     display: inline-block;
     flex-grow: 0;
     font-size: 18px;
@@ -101,38 +101,3 @@ button.actionBarItemButton {
 .fixedRightPosition {
   display: block;
 }
-
-/*
-
-@mixin hiddenButTakingHorizontalSpace {
-  height: 0;
-  opacity: 0;
-}
-
-@mixin visibleAndTakingSpace {
-  height: auto;
-  opacity: 1;
-}
-
-.activeStateContent {
-  @include hiddenButTakingHorizontalSpace;
-}
-
-.activeStateContentLabel {
-  white-space: break-spaces;
-}
-
-.isActive {
-  .activeStateContent {
-    @include visibleAndTakingSpace;
-  }
-
-  > .actionBarItemButtonIcon {
-    display: none;
-  }
-
-  > .actionBarItemButtonLabel {
-    @include hiddenButTakingHorizontalSpace;
-  }
-}
-*/

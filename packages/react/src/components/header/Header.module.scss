@@ -26,6 +26,10 @@
   --action-bar-item-gutter: 12px;
   --action-bar-item-title-font-size: var(--fontsize-body-s);
   --action-bar-item-title-font-color: var(--header-color);
+  --avatar-background-color: var(--color-bus);
+  --avatar-text-color: var(--color-white);
+  --notification-count-background-color: var(--color-error);
+  --notification-count-text-color: var(--color-white);
   --lang-selector-mobile-background-color: var(--color-silver-light);
   --lang-selector-item-font-color: var(--header-color);
   --lang-selector-dropdown-background-color: var(--color-white);
@@ -154,6 +158,10 @@
     --nav-background-color: var(--color-black-80);
     --nav-mobile-menu-background-color: var(--color-black-80);
     --nav-mobile-menu-bottom-background-color: var(--color-black-60);
+    --avatar-background-color: var(--color-black-10);
+    --avatar-text-color: var(--color-black-80);
+    --notification-count-background-color: var(--color-black-10);
+    --notification-count-text-color: var(--color-black);
   }
 
   background-color: var(--header-background-color);

@@ -683,6 +683,10 @@ export const WithFullFeaturesCustomTheme = (args) => {
     '--nav-drop-down-icon-color': 'var(--color-black)',
     '--header-background-color': 'var(--color-engel-light)',
     '--logo-height': '50px',
+    '--avatar-background-color': 'var(--color-metro-dark)',
+    '--avatar-text-color': 'var(--color-white)',
+    '--notification-count-background-color': 'var(--color-black-10)',
+    '--notification-count-text-color': 'var(--color-black)',
   };
 
   /* Logo height should be redacted on smaller viewports */
