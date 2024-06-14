@@ -4,8 +4,9 @@
   position: absolute;
   right: 0;
   transform: translateY(100%) translateY(1px);
-  transition-duration: 0ms;
+  transition-duration: var(--animation-duration-dropwdown);
   transition-property: max-height, padding-bottom;
+  transition-timing-function: ease;
   z-index: 20;
 }
 
@@ -16,13 +17,13 @@
     max-height: 0;
     min-width: 320px;
     padding-bottom: 0;
-    transition-delay: calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
+    transition-duration: var(--animation-duration-dropwdown);
+    transition-timing-function: ease;
   }
 
   &.visible .dropdownWrapper {
     max-height: 1000vh;
     padding-bottom: 20px;
-    transition-delay: 0ms;
   }
 
   &:not(.hasContent) {
@@ -68,8 +69,8 @@
   right: 0;
   transform: translateY(-100%);
   transition:
-    var(--animation-duration-dropwdown) transform var(--animation-close-delay-dropdown),
-    0ms visibility calc((var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown)));
+    transform var(--animation-duration-dropwdown) ease,
+    visibility var(--animation-duration-dropwdown) ease;
   visibility: hidden;
 
   &.fullWidth {
@@ -94,8 +95,8 @@
   &.visible {
     transform: translateY(0%);
     transition:
-      var(--animation-duration-dropwdown) transform 0ms,
-      0ms visibility 0ms;
+      var(--animation-duration-dropwdown) transform ease,
+      var(--animation-duration-dropwdown) visibility ease;
     visibility: visible;
   }
 
