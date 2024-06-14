@@ -110,15 +110,15 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
 
     const Content = () => (
       <>
-        <Icon element={iconLeft} elementClassName={classNames(classes.actionBarSubItemIcon)} />
+        <Icon
+          element={iconLeft}
+          elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconLeft)}
+        />
         <Label text={label} />
         {external ? (
-          <IconLinkExternal className={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconRight)} />
+          <IconLinkExternal className={classNames(classes.actionBarSubItemIcon)} />
         ) : (
-          <Icon
-            element={iconRight}
-            elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconRight)}
-          />
+          <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
         )}
         {notificationCount !== undefined && (
           <>
