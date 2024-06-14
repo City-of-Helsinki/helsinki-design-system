@@ -486,14 +486,9 @@ export const HeaderActionBarNavigationMenu = ({
       id="hds-mobile-menu"
       onTransitionEnd={animationDone}
     >
-      {!!actionBarItems &&
-        Array.isArray(actionBarItems) &&
-        actionBarItems.map((item: HeaderActionBarItemProps) => {
-          if (typeof item === 'object') {
-            return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() });
-          }
-          return null;
-        })}
+      {actionBarItems?.map?.((item: HeaderActionBarItemProps) => {
+        return React?.cloneElement?.(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() }) ?? null;
+      })}
       <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
         {getMenuLevels().map((data, i) => {
           const { links, previousLink, activeLink, key } = getMenuContents(i);
