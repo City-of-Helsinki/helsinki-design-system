@@ -101,6 +101,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
             <li
               class="dropdownItem"
             >
+               
               <span
                 class="actionBarSubItemLabel"
               >
@@ -119,6 +120,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
             <li
               class="dropdownItem"
             >
+               
               <span
                 class="actionBarSubItemLabel"
               >
@@ -134,9 +136,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
                 </button>
               </span>
             </li>
-            <li
-              class="dropdownItem"
-            >
+            <li>
               <div
                 data-testid="menu-content"
               >
@@ -310,6 +310,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                   <li
                     class="dropdownItem"
                   >
+                     
                     <span
                       class="actionBarSubItemLabel"
                     >
@@ -328,6 +329,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                   <li
                     class="dropdownItem"
                   >
+                     
                     <span
                       class="actionBarSubItemLabel"
                     >
@@ -343,9 +345,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                       </button>
                     </span>
                   </li>
-                  <li
-                    class="dropdownItem"
-                  >
+                  <li>
                     <div
                       data-testid="menu-content"
                     >
