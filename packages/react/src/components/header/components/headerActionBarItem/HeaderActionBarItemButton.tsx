@@ -1,4 +1,4 @@
-import React, { cloneElement, forwardRef, ReactNode } from 'react';
+import React, { cloneElement, forwardRef, ReactNode, RefObject } from 'react';
 
 import classes from './HeaderActionBarItemButton.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -48,6 +48,7 @@ export interface HeaderActionBarItemButtonProps extends ButtonAttributes {
    * Initials for avatar which replace icon.
    */
   avatar?: string | JSX.Element;
+  ref?: RefObject<HTMLButtonElement>;
   /**
    * Menu button resizing is prevented by rendering button's active state to a separate element.
    */
