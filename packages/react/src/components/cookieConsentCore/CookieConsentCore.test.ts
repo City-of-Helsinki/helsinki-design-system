@@ -207,6 +207,7 @@ describe('cookieConsentCore', () => {
   };
 
   beforeAll(() => {
+    // TODO: Comment out these debug logs when the tests are stable
     jest.spyOn(console, 'log').mockImplementation((message) => {
       process.stdout.write(`console.log: ${message}\n`);
     });
@@ -248,6 +249,7 @@ describe('cookieConsentCore', () => {
   });
 
   afterEach(() => {
+    mockedCookieControls.clear();
     if (mockCryptoDisposer) {
       mockCryptoDisposer();
     }
