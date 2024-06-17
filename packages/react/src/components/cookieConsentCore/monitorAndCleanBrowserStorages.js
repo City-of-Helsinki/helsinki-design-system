@@ -368,12 +368,11 @@ export default class MonitorAncCleanBrowserStorages {
 
   /**
    * Initializes the browser storage monitoring and cleaning when the cookie name has been read from the site settings.
-   * @param {string} cookieName - The name of the consent cookie.
    * @param {Object} cookieHandler - The cookie handler reference.
    * @param {number} [monitorInterval=500] - The interval in milliseconds at which to monitor the stored keys.
    * @param {boolean} [remove=false] - Indicates whether to remove the stored keys or not.
    */
-  init(cookieName, cookieHandler, monitorInterval = 500, remove = false) {
+  init(cookieHandler, monitorInterval = 500, remove = false) {
     this.#COOKIE_HANDLER = cookieHandler;
     this.#MONITOR_INTERVAL = Math.max(monitorInterval, 50);
     this.#REMOVE = remove;

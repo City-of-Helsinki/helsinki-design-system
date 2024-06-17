@@ -5,13 +5,12 @@ import { CookieConsentCore } from './cookieConsentCore';
 import * as settingsJSON from './example/helfi_sitesettings.json';
 
 type Options = {
-  siteSettingsJsonUrl: string;
-  language: string;
+  language?: string;
   theme?: string;
   targetSelector?: string;
   spacerParentSelector?: string;
   pageContentSelector?: string;
-  submitEvent?: string;
+  submitEvent?: boolean | string;
   settingsPageSelector?: string;
 };
 
@@ -33,9 +32,12 @@ describe('cookieConsentCore', () => {
   const essentialCookiesCheckboxSelector = `#essential-cookies`;
   const containerSelector = `.hds-cc__container`;
 
-  const options: Options = {
+  const urls = {
     siteSettingsJsonUrl: 'http://localhost/helfi_sitesettings.json',
-    // siteSettingsObj,
+    siteSettings404: 'http://localhost/404.json',
+  };
+
+  const options: Options = {
     language: 'fi', // Lang code defaults to 'en'
     // theme: 'black', // Defaults to 'bus'
     // targetSelector: 'body', // Defaults to 'body'
@@ -50,6 +52,7 @@ describe('cookieConsentCore', () => {
     const shadowRoots = Array.from(body.children).map((n) => n.shadowRoot);
     return shadowRoots[0] as ShadowRoot;
   };
+
   const getRootElement = () => {
     return getShadowRoot().getElementById(rootId) as HTMLDivElement;
   };
@@ -145,6 +148,7 @@ describe('cookieConsentCore', () => {
       }
     };
   };
+
   const initCryptoTextEncoder = (responseList: string[]) => {
     const current = global.crypto;
     const mockCrypto = {
@@ -183,10 +187,26 @@ describe('cookieConsentCore', () => {
   };
 
   beforeAll(() => {
+    jest.spyOn(console, 'log').mockImplementation((message) => {
+      process.stdout.write(`console.log: ${message}\n`);
+    });
+    jest.spyOn(console, 'error').mockImplementation((message) => {
+      process.stderr.write(`console.error: ${message}\n`);
+    });
+    jest.spyOn(console, 'warn').mockImplementation((message) => {
+      process.stdout.write(`console.warn: ${message}\n`);
+    });
+    jest.spyOn(console, 'info').mockImplementation((message) => {
+      process.stdout.write(`console.info: ${message}\n`);
+    });
     enableFetchMocks();
     fetchMock.mockResponse((req) => {
-      if (req.url.includes(options.siteSettingsJsonUrl)) {
+      if (req.url.includes(urls.siteSettingsJsonUrl)) {
         return returnSettingsJSON();
+      }
+      if (req.url.includes(urls.siteSettings404)) {
+        // return a 404 response
+        return Promise.resolve({ status: 404, ok: false, body: 'Not found' });
       }
       return Promise.reject(new Error(`Unknown url ${req.url}`));
     });
@@ -205,7 +225,6 @@ describe('cookieConsentCore', () => {
     }
     mockTextEncoderDisposer = initMockTextEncoder(['xx']);
     mockCryptoDisposer = initCryptoTextEncoder(['xx']);
-    instance = new CookieConsentCore(options);
   });
 
   afterEach(() => {
@@ -223,7 +242,11 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
+  // ---------------------------------------------------------------
+  // ## Test cases
+
   it('adds elements to shadowRoot', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     expect(instance).toBeDefined();
     expect(getFormElement()).not.toBeNull();
@@ -236,6 +259,7 @@ describe('cookieConsentCore', () => {
   });
 
   it('Changes on button click', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     fireEvent.click(getShowDetailsButtonElement());
@@ -245,26 +269,31 @@ describe('cookieConsentCore', () => {
   // ## Config
   // - Is the settings file properly linked?
 
-  it('should throw an error if siteSettingsJsonUrl and siteSettingsObj is not defined', () => {
-    expect(() => {
-      // eslint-disable-next-line no-new
-      new CookieConsentCore({ ...options, siteSettingsJsonUrl: '' });
-    }).toThrow('Cookie consent: siteSettingsJsonUrl or siteSettingsObj is required');
+  it('should throw an error if siteSettingsObj is not defined', () => {
+    expect(() => new CookieConsentCore(null, { ...options })).toThrow('Cookie consent: siteSettingsObj is required');
+  });
+
+  it('should throw an error if siteSettingsJsonUrl is not defined', async () => {
+    await expect(CookieConsentCore.load(null, { ...options })).rejects.toThrow(
+      'Cookie consent: siteSettingsJsonUrl is required',
+    );
+  });
+
+  it('should throw an error if siteSettingsJsonUrl is not found', async () => {
+    await expect(CookieConsentCore.load(urls.siteSettings404, { ...options })).rejects.toThrow(
+      'Cookie consent: Unable to fetch cookie consent settings: 404',
+    );
   });
 
   /* eslint-disable jest/no-commented-out-tests */
 
-  // This is not yet working
-  // it('should throw an error if siteSettingsJsonUrl is not found', () => {
-  //   expect(() => {
-  //     fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
-  //     // eslint-disable-next-line no-new
-  //     new CookieConsentCore({ ...options });
-  //   }).toThrow('Unable to fetch cookie consent settings: Error: 404');
-  // });
-
   // - If the banner is set for custom targets, are the selectors available on DOM?
-  // it('should throw error if targetSelector is set but not found on DOM', () => {});
+  // it('should throw error if targetSelector is set but not found on DOM', () => {
+  //   expect(() => {
+  //     // eslint-disable-next-line no-new
+  //     new CookieConsentCore({ ...options, targetSelector: '#not-found' });
+  //   }).toThrow("Cookie consent: targetSelector element '#not-found' was not found");
+  // });
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
   // it('should throw error if pageContentSelector is set but not found on DOM', () => {});
 

@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable lines-between-class-members */
 
@@ -38,36 +37,34 @@ export class CookieConsentCore {
     bannerHeightElement: null,
   };
 
-  #cookie_name = 'city-of-helsinki-cookie-consents'; // Overridable default value
-
   // MARK: Public methods
   /**
    * Creates a new instance of the CookieConsent class.
    * @constructor
    * @param {Object} options - The options for configuring the CookieConsent instance.
-   * @param {string} options.siteSettingsJsonUrl - The path to the JSON file with site settings.
    * @param {string} [options.language='en'] - The page language.
    * @param {string} [options.theme='bus'] - The theme for the banner.
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @throws {Error} Throws an error if siteSettingsJsonUrl is not provided.
+   * @throws {Error} Throws an error if siteSettingsObj is not provided.
    */
-  constructor({
-    siteSettingsJsonUrl, // Path to JSON file with site settings
+  constructor(
     siteSettingsObj, // Object with site settings to use instead of the url
-    language = 'en', // Page language
-    theme = 'bus', // Theme for the banner
-    targetSelector = 'body', // Where to inject the banner
-    spacerParentSelector = 'body', // Where to inject the spacer
-    pageContentSelector = 'body', // Where to add scroll-margin-bottom
-    submitEvent = false, // if string, do not reload page, but submit the string as event after consent
-    settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-  }) {
-    if (!siteSettingsJsonUrl && !siteSettingsObj) {
-      throw new Error('Cookie consent: siteSettingsJsonUrl or siteSettingsObj is required');
+    {
+      language = 'en', // Page language
+      theme = 'bus', // Theme for the banner
+      targetSelector = 'body', // Where to inject the banner
+      spacerParentSelector = 'body', // Where to inject the spacer
+      pageContentSelector = 'body', // Where to add scroll-margin-bottom
+      submitEvent = false, // if string, do not reload page, but submit the string as event after consent
+      settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+    },
+  ) {
+    if (!siteSettingsObj) {
+      throw new Error('Cookie consent: siteSettingsObj is required');
     }
 
     this.#LANGUAGE = language;
@@ -96,16 +93,7 @@ export class CookieConsentCore {
       }
     };
 
-    const cookieHandlerOptions = {
-      shadowDomUpdateCallback,
-    };
-    // Prefer siteSettingsObj over siteSettingsJsonUrl to avoid extra network traffic
-    if (siteSettingsObj) {
-      cookieHandlerOptions.siteSettingsObj = siteSettingsObj;
-    } else {
-      cookieHandlerOptions.siteSettingsJsonUrl = siteSettingsJsonUrl;
-    }
-    this.#COOKIE_HANDLER = new CookieHandler(cookieHandlerOptions);
+    this.#COOKIE_HANDLER = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj });
     this.#MONITOR = new MonitorAndCleanBrowserStorages();
 
     if (document.readyState === 'loading') {
@@ -115,6 +103,49 @@ export class CookieConsentCore {
     } else {
       this.#init();
     }
+  }
+
+  /**
+   * Loads siteSettingsJson from given url, parses it and creates a new instance of the CookieConsent class.
+   * @static
+   * @param {string} siteSettingsJsonUrl - The path to the JSON file with site settings.
+   * @param {Object} options - The options for configuring the CookieConsent instance.
+   * @param {string} [options.language='en'] - The page language.
+   * @param {string} [options.theme='bus'] - The theme for the banner.
+   * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
+   * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
+   * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
+   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @throws {Error} Throws an error if siteSettingsJsonUrl is not provided.
+   * @throws {Error} Throws an error if the fetch fails.
+   * @throws {Error} Throws an error if the JSON parsing fails.
+   */
+  static async load(
+    siteSettingsJsonUrl, // Path to JSON file with site settings
+    options,
+  ) {
+    if (!siteSettingsJsonUrl) {
+      throw new Error('Cookie consent: siteSettingsJsonUrl is required');
+    }
+
+    // Fetch the site settings JSON file
+    const siteSettingsRaw = await fetch(siteSettingsJsonUrl).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Cookie consent: Unable to fetch cookie consent settings: ${response.status}`);
+      }
+      return response.text();
+    });
+
+    // Parse the fetched site settings string to JSON
+    let siteSettingsObj;
+    try {
+      siteSettingsObj = JSON.parse(siteSettingsRaw);
+    } catch (error) {
+      throw new Error(`Cookie consent siteSettings JSON parsing failed: ${error}`);
+    }
+
+    return new CookieConsentCore(siteSettingsObj, options);
   }
 
   /**
@@ -466,7 +497,7 @@ export class CookieConsentCore {
       settingsPageElement = document.querySelector(this.#SETTINGS_PAGE_SELECTOR);
     }
 
-    const siteSettings = await this.#COOKIE_HANDLER.init(this.#cookie_name);
+    const siteSettings = await this.#COOKIE_HANDLER.init();
     this.#SITE_SETTINGS = siteSettings;
 
     if (settingsPageElement) {
@@ -483,7 +514,7 @@ export class CookieConsentCore {
 
     const monitorInterval = siteSettings.monitorInterval || 500;
     const remove = siteSettings.remove || false;
-    this.#MONITOR.init(this.#cookie_name, this.#COOKIE_HANDLER, monitorInterval, remove);
+    this.#MONITOR.init(this.#COOKIE_HANDLER, monitorInterval, remove);
   }
 }
 
