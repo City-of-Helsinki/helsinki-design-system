@@ -22,7 +22,7 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
   /**
    * Content for the right aligned red notification bubble
    */
-  notificationBubbleContent?: number;
+  notificationBubbleContent?: string;
   /**
    * Aria label for notification bubble.
    */
