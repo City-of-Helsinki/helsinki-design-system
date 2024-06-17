@@ -1,8 +1,8 @@
-// @ts-ignore
+/* eslint-disable jest/no-mocks-import */
 import { fireEvent, waitFor } from '@testing-library/dom';
 import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
-import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 
+import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { CookieConsentCore } from './cookieConsentCore';
 import * as settingsJSON from './example/helfi_sitesettings.json';
 
@@ -35,7 +35,11 @@ describe('cookieConsentCore', () => {
   const essentialCookiesCheckboxSelector = `#essential-cookies`;
   const containerSelector = `.hds-cc__container`;
 
-  const sleep = async (delay: int) => await new Promise(r => setTimeout(r, delay));
+  const sleep = async (delay) => {
+    return new Promise((r) => {
+      setTimeout(r, delay);
+    });
+  };
 
   const urls = {
     siteSettingsJsonUrl: 'http://localhost/helfi_sitesettings.json',
@@ -136,7 +140,7 @@ describe('cookieConsentCore', () => {
   };
 
   // Make simplified cheksum handling for testing purposes
-  const initMockTextEncoder = (responseList: string[]) => {
+  const initMockTextEncoder = () => {
     const current = global.TextEncoder;
     const mockTextEncoder = function MockTextEncoder() {
       this.prototype = Object.create(null).prototype;
@@ -155,7 +159,7 @@ describe('cookieConsentCore', () => {
     };
   };
 
-  const initCryptoTextEncoder = (responseList: string[]) => {
+  const initCryptoTextEncoder = () => {
     const current = global.crypto;
     const mockCrypto = {
       subtle: {
@@ -163,7 +167,7 @@ describe('cookieConsentCore', () => {
           let checksum = 0;
           let returnCheck = [''];
 
-          for (let i = 0; i < input.length; i++) {
+          for (let i = 0; i < input.length; i += 1) {
             checksum += input.charCodeAt(i);
           }
           checksum = (checksum % 256) * 123456789;
@@ -239,8 +243,8 @@ describe('cookieConsentCore', () => {
     } catch (e) {
       // it is normal to fail
     }
-    mockTextEncoderDisposer = initMockTextEncoder(['xx']);
-    mockCryptoDisposer = initCryptoTextEncoder(['xx']);
+    mockTextEncoderDisposer = initMockTextEncoder();
+    mockCryptoDisposer = initCryptoTextEncoder();
   });
 
   afterEach(() => {
@@ -286,10 +290,12 @@ describe('cookieConsentCore', () => {
   // - Is the settings file properly linked?
 
   it('should throw an error if siteSettingsObj is not defined', () => {
+    // @ts-ignore
     expect(() => new CookieConsentCore(null, { ...options })).toThrow('Cookie consent: siteSettingsObj is required');
   });
 
   it('should throw an error if siteSettingsJsonUrl is not defined', async () => {
+    // @ts-ignore
     await expect(CookieConsentCore.load(null, { ...options })).rejects.toThrow(
       'Cookie consent: siteSettingsJsonUrl is required',
     );
@@ -325,136 +331,146 @@ describe('cookieConsentCore', () => {
   // ## Functionalities
   // - When user enters the site first time with empty cookies, does the banner show up?
   it('should render banner if the consent cookie is not set', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    let banner = document.querySelector('.hds-cc__target');
+    const banner = document.querySelector('.hds-cc__target');
     expect(banner).not.toBeNull();
   });
 
   // - When user accepts all cookies, the cookie should be written with all groups mentioned in settings.
   it('should add consentCookie with all groups when user consents to all groups', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    let allButton = getShadowRoot().querySelector('button[data-approved="all"]');
-    fireEvent.click(allButton);
+    const allButton = getShadowRoot().querySelector('button[data-approved="all"]');
+    fireEvent.click(allButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
-    let parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
-    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'])?.groups || '';
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map(e => e.groupId);
+    const expectedGroups = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map((e) => e.groupId);
     expect(writtenKeys).toEqual(expectedGroups);
   });
 
   // - When user accepts essential cookies, the cookie should be written with essential groups.
   it('should add consentCookie with only required groups when user consents only to required groups', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    let requiredButton = getShadowRoot().querySelector('button[data-approved="required"]');
-    fireEvent.click(requiredButton);
+    const requiredButton = getShadowRoot().querySelector('button[data-approved="required"]');
+    fireEvent.click(requiredButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
-    let parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
-    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'])?.groups || '';
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups].map(e => e.groupId);
+    const expectedGroups = [...settingsJSON.requiredGroups].map((e) => e.groupId);
     expect(writtenKeys).toEqual(expectedGroups);
   });
 
   // - When user selects certain groups, the cookie should be written according to those.
   it('should add consentCookie with required groups and selected groups when user consents to selected cookie groups', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
-    fireEvent.click(openAccordionButton);
+    fireEvent.click(openAccordionButton as HTMLElement);
 
     // Approve essentials + statistics
     const statisticsCookiesCheckbox = getShadowRoot().querySelector('#statistics-cookies');
-    fireEvent.click(statisticsCookiesCheckbox);
+    fireEvent.click(statisticsCookiesCheckbox as HTMLElement);
 
-    let selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
-    fireEvent.click(selectedButton);
+    const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
+    fireEvent.click(selectedButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
-    let parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
-    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'])?.groups || '';
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups].map(e => e.groupId);
+    const expectedGroups = [...settingsJSON.requiredGroups].map((e) => e.groupId);
     expectedGroups.push('statistics');
     expect(writtenKeys).toEqual(expectedGroups);
   });
 
   // - If the user removes group permission, the groups should be removed from the consentCookie
   it('should modify consentCookie to contain only required and consented groups when user changes their consent', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     // Accept all
-    let allButton = getShadowRoot().querySelector('button[data-approved="all"]');
-    fireEvent.click(allButton);
+    const allButton = getShadowRoot().querySelector('button[data-approved="all"]');
+    fireEvent.click(allButton as HTMLElement);
     const cookiesAsString = mockedCookieControls.getCookie();
-    let parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
-    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'])?.groups || '';
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map(e => e.groupId);
+    const expectedGroups = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map((e) => e.groupId);
     expect(writtenKeys).toEqual(expectedGroups);
 
     // All cookies accepted, now open banner and remove statistics
     const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
-    fireEvent.click(openAccordionButton);
+    fireEvent.click(openAccordionButton as HTMLElement);
 
     // In testing the form doesn't update the checkboxes, it must be done
     // manually here. Checking all but statistics
     const checkboxes = getShadowRoot().querySelectorAll('.hds-checkbox input');
-    checkboxes.forEach(box => {
-      if (box.attributes['data-group'].value !== 'statistics' && !box.disabled) {
+    checkboxes.forEach((box) => {
+      const inputElement = box as HTMLInputElement;
+      if (box.attributes['data-group'].value !== 'statistics' && !inputElement.disabled) {
         fireEvent.click(box);
       }
     });
 
     // Save changes
-    let selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
-    fireEvent.click(selectedButton);
+    const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
+    fireEvent.click(selectedButton as HTMLElement);
 
     // Verify cookie changes
     const cookiesAsStringAfterRemoval = mockedCookieControls.getCookie();
-    let parsedAfterRemoval = mockedCookieControls.extractCookieOptions(cookiesAsStringAfterRemoval, '');
-    const writtenCookieGroupsAfterRemoval = JSON.parse(parsedAfterRemoval['helfi-cookie-consents'])?.groups || '';
+    const parsedAfterRemoval = mockedCookieControls.extractCookieOptions(cookiesAsStringAfterRemoval, '');
+    const writtenCookieGroupsAfterRemoval =
+      JSON.parse(parsedAfterRemoval['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeysAfterRemoval = Object.keys(writtenCookieGroupsAfterRemoval);
-    const expectedGroupsAfterRemoval = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map(e => e.groupId).filter(e => e != 'statistics');
+    const expectedGroupsAfterRemoval = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups]
+      .map((e) => e.groupId)
+      .filter((e) => e !== 'statistics');
     expect(writtenKeysAfterRemoval).toEqual(expectedGroupsAfterRemoval);
   });
 
   // - If the user removes group permission, the related items should be removed.
   it('should remove cookies that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
-    fireEvent.click(openAccordionButton);
+    fireEvent.click(openAccordionButton as HTMLElement);
 
     // Approve essentials + statistics
     const statisticsCookiesCheckbox = getShadowRoot().querySelector('#statistics-cookies');
-    fireEvent.click(statisticsCookiesCheckbox);
+    fireEvent.click(statisticsCookiesCheckbox as HTMLElement);
 
-    let selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
-    fireEvent.click(selectedButton);
+    const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
+    fireEvent.click(selectedButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
-    let parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
-    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'])?.groups || '';
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups].map(e => e.groupId);
+    const expectedGroups = [...settingsJSON.requiredGroups].map((e) => e.groupId);
     expectedGroups.push('statistics');
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find a statistics cookie
-    const statisticsCookies = settingsJSON.optionalGroups.find(e => e.groupId === 'statistics')
+    const statisticsCookies = settingsJSON.optionalGroups.find((e) => e.groupId === 'statistics');
+    // @ts-ignore
     const firstCookieValues = statisticsCookies.cookies[0];
-    const singleStatisticsCookie = {
-      [firstCookieValues.name]: 1
-    };
+    const singleStatisticsCookie = { [firstCookieValues.name]: 1 };
     // Write cookie
+    // @ts-ignore
     mockedCookieControls.add(singleStatisticsCookie);
     // Expect the cookie
     const statisticsCookieWritten = document.cookie.includes(firstCookieValues.name);
@@ -464,21 +480,22 @@ describe('cookieConsentCore', () => {
     // In testing the form doesn't update the checkboxes, it must be done
     // manually here. Checking all but statistics
     const checkboxes = getShadowRoot().querySelectorAll('.hds-checkbox input');
-    checkboxes.forEach(box => {
+    checkboxes.forEach((box) => {
       if (box.attributes['data-group'].value === 'statistics') {
         fireEvent.click(box);
       }
     });
 
     // Save changes
-    fireEvent.click(selectedButton);
+    fireEvent.click(selectedButton as HTMLElement);
 
     // Verify cookie changes
     const cookiesAsStringAfterRemoval = mockedCookieControls.getCookie();
-    let parsedAfterRemoval = mockedCookieControls.extractCookieOptions(cookiesAsStringAfterRemoval, '');
-    const writtenCookieGroupsAfterRemoval = JSON.parse(parsedAfterRemoval['helfi-cookie-consents'])?.groups || '';
+    const parsedAfterRemoval = mockedCookieControls.extractCookieOptions(cookiesAsStringAfterRemoval, '');
+    const writtenCookieGroupsAfterRemoval =
+      JSON.parse(parsedAfterRemoval['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeysAfterRemoval = Object.keys(writtenCookieGroupsAfterRemoval);
-    const expectedGroupsAfterRemoval = [...settingsJSON.requiredGroups].map(e => e.groupId);
+    const expectedGroupsAfterRemoval = [...settingsJSON.requiredGroups].map((e) => e.groupId);
     expect(writtenKeysAfterRemoval).toEqual(expectedGroupsAfterRemoval);
 
     // Give some time for cookie removal
@@ -491,11 +508,12 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    localStorage.unallowed = "delet this";
-    expect(localStorage.unallowed).toBe("delet this");
+    localStorage.unallowed = 'delete this';
+    expect(localStorage.unallowed).toBe('delete this');
     // Give some time for removal
     await sleep(500);
 
@@ -503,16 +521,16 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    sessionStorage.unallowed = "delet this";
-    expect(sessionStorage.unallowed).toBe("delet this");
+    sessionStorage.unallowed = 'delete this';
+    expect(sessionStorage.unallowed).toBe('delete this');
     // Give some time for removal
     await sleep(500);
 
     expect(sessionStorage.unallowed).toBeFalsy();
-
   });
 
   // These two API's don't seem to be supported
