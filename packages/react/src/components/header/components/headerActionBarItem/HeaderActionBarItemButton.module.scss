@@ -7,7 +7,7 @@ button.actionBarItemButton {
   border: none;
   color: var(--header-color);
   cursor: pointer;
-  padding: 10px;
+  padding: var(--spacing-xs);
 
   &:focus-visible {
     border: none;
@@ -23,11 +23,11 @@ button.actionBarItemButton {
   &.fullWidth {
     border: 2px solid var(--header-color);
     display: flex;
-    gap: 8px;
+    gap: calc(var(--spacing-s) / 2);
     justify-content: center;
-    line-height: 24px;
-    margin: 18px;
-    padding: 16px 24px;
+    line-height: var(--fontsize-heading-m);
+    margin: var(--spacing-xs);
+    padding: var(--spacing-s) var(--spacing-m);
 
     & > * {
       margin: 0;
@@ -37,6 +37,7 @@ button.actionBarItemButton {
     }
 
     & > *.actionBarItemButtonLabel {
+      font-weight: 700;
       flex-grow: 1;
     }
 
@@ -46,7 +47,7 @@ button.actionBarItemButton {
       display: flex;
       justify-content: flex-start;
       margin: 0;
-      padding: 12px;
+      padding: var(--spacing-xs);
       width: 100%;
     }
   }
@@ -67,7 +68,7 @@ button.actionBarItemButton {
     color: var(--avatar-text-color);
     display: inline-block;
     flex-grow: 0;
-    font-size: 18px;
+    font-size: var(--fontsize-heading-xs);
     font-weight: 500;
     height: 50px;
     line-height: 50px;

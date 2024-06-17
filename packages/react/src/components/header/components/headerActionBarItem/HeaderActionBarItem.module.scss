@@ -23,7 +23,7 @@
 
   &.visible .dropdownWrapper {
     max-height: 1000vh;
-    padding-bottom: 20px;
+    padding-bottom: var(--spacing-xs);
   }
 
   &:not(.hasContent) {
@@ -62,8 +62,7 @@
 
 .dropdown {
   background: var(--header-background-color);
-  border: 1px solid var(--color-black-10);
-  border-top: 1px solid var(--color-black-20) !important;
+  border: 1px solid var(--color-black-20);
   margin-top: -1px;
   position: relative;
   right: 0;
@@ -81,15 +80,17 @@
   }
 
   & > h3 {
-    font-size: 18px;
+    font-size: var(--fontsize-heading-xs);
     font-weight: bold;
     line-height: 28px;
     margin: 0;
-    padding: 16px;
+    padding: var(--spacing-s);
+    box-sizing: border-box;
   }
 
   & h4 {
-    padding: 12px 16px !important;
+    padding: var(--spacing-xs) var(--spacing-s) !important;
+    box-sizing: border-box;
   }
 
   &.visible {
@@ -121,7 +122,7 @@
   }
 
   & .dropdownItem {
-    padding: 12px 16px;
+    padding: var(--spacing-xs) var(--spacing-s);
 
     &:focus-within {
       border: none;
