@@ -3,7 +3,7 @@ slug: '/components/header/code'
 title: 'Header - Code'
 ---
 
-import { Header, IconSearch, IconUser, Logo, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
+import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -197,10 +197,10 @@ export const translations = {
 
 #### With all the components
 
-<Playground scope={{ Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
+<Playground scope={{ Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
 
 ```jsx
-import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
+import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
 
 () => {
   const languages = [
@@ -249,21 +249,16 @@ import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from '
           onMenuClick={(e) => e.stopPropagation()}
         >
           <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
-            <h3>{I18n.infoOtherLanguages}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              {I18n.clearFinnish}
-            </Link>
-            <Link external href="www.example.com" size="S" lang="fse">
-              {I18n.signLanguage}
-            </Link>
-            <h3>{I18n.forTravellers}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              MyHelsinki.fi
-            </Link>
-            <h3>{I18n.forImmigrants}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              InfoFinland.fi
-            </Link>
+            <Header.ActionBarSubItemGroup label={I18n.infoOtherLanguages}>
+              <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
+              <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
+            </Header.ActionBarSubItemGroup>
+            <Header.ActionBarSubItemGroup label={I18n.forTravellers}>
+              <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+            </Header.ActionBarSubItemGroup>
+            <Header.ActionBarSubItemGroup label={I18n.forImmigrants}>
+              <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+            </Header.ActionBarSubItemGroup>
           </Header.LanguageSelector>
           <Header.ActionBarItem
             label={I18n.headerSearch}
@@ -272,15 +267,20 @@ import { Header, IconSearch, IconUser, Logo, logoFi, logoSv, logoSvDark } from '
             onClick={searchAction}
             closeLabel={I18n.close}
           />
-          <Header.ActionBarItem
-            label={translations[lang].headerLogin}
-            fixedRightPosition
-            icon={<IconUser />}
-            id="action-bar-login"
-            closeLabel={I18n.close}
-            preventButtonResize
-          >
-            <h3>{I18n.loginOptions}</h3>
+          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
+            <Header.ActionBarSubItem label="Omat tiedot" href="/" />
+            <Header.ActionBarSubItem
+              label="Viestit"
+              href="/"
+              notificationBubbleAriaLabel="Uusia viestejä"
+              notificationBubbleContent="2"
+            />
+            <Header.ActionBarSubItem
+              label="Kirjaudu ulos"
+              bold
+              iconRight={<IconSignout />}
+              onClick={() => console.log('Signout')}
+            />
           </Header.ActionBarItem>
         </Header.ActionBar>
         <Header.NavigationMenu>

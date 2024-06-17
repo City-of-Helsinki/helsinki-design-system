@@ -4,7 +4,7 @@ title: 'Header'
 navTitle: 'Header'
 ---
 
-import { Header, IconBell, IconSearch, Logo, logoFi, logoFiDark } from 'hds-react';
+import { Header, IconBell, IconSearch, IconSignout, Logo, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 import Notification from '../../../components/Notification';
@@ -39,18 +39,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
-        <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
-        <Link href="www.example.com" size="S" lang="es">Español</Link>
-        <Link href="www.example.com" size="S" lang="fr">Français</Link>
-        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
-        <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
-        <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+        <Header.ActionBarSubItemGroup label="Muut kielet">
+          <Header.ActionBarSubItem label="Deutsch" external href="www.example.com" lang="de" />
+          <Header.ActionBarSubItem label="Español" external href="www.example.com" lang="es" />
+          <Header.ActionBarSubItem label="Français" external href="www.example.com" lang="fr" />
+          <Header.ActionBarSubItem label="Pусский" external href="www.example.com" lang="ru" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Tietoa muilla kielillä">
+          <Header.ActionBarSubItem label="Selkosuomi" external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label="Viittomakieli" external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Matkailijoille">
+          <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Maahanmuuttajille">
+          <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
     </Header.ActionBar>
     <Header.NavigationMenu>
@@ -156,9 +160,10 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
       onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+        <Header.ActionBarSubItemGroup label="Tietoa muilla kielillä">
+          <Header.ActionBarSubItem label="Selkosuomi" external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label="Viittomakieli" external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
     </Header.ActionBar>
   </Header>
@@ -225,9 +230,10 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
       onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+        <Header.ActionBarSubItemGroup label="Tietoa muilla kielillä">
+          <Header.ActionBarSubItem label="Selkosuomi" external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label="Viittomakieli" external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
     </Header.ActionBar>
   </Header>
@@ -324,12 +330,13 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
       onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S">Viittomakieli</Link>
+        <Header.ActionBarSubItemGroup label="Tietoa muilla kielillä">
+          <Header.ActionBarSubItem label="Selkosuomi" external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label="Viittomakieli" external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
       <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell />} id="action-bar-notifications">
-        <p>Ei uusi ilmoituksia.</p>
+        <Header.ActionBarSubItem label="Ei uusi ilmoituksia." />
       </Header.ActionBarItem>
     </Header.ActionBar>
     <Header.NavigationMenu>
@@ -415,18 +422,22 @@ The Header.NavigationMenu enables users to navigate to different pages of the se
       onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.LanguageSelector>
-        <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">Deutsch</Link>
-        <Link href="www.example.com" size="S" lang="es">Español</Link>
-        <Link href="www.example.com" size="S" lang="fr">Français</Link>
-        <Link href="www.example.com" size="S" lang="ru">Pусский</Link>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">Selkosuomi</Link>
-        <Link external href="www.example.com" size="S" lang="fi">Viittomakieli</Link>
-        <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">MyHelsinki.fi</Link>
-        <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">InfoFinland.fi</Link>
+        <Header.ActionBarSubItemGroup label="Muut kielet">
+          <Header.ActionBarSubItem label="Deutsch" external href="www.example.com" lang="de" />
+          <Header.ActionBarSubItem label="Español" external href="www.example.com" lang="es" />
+          <Header.ActionBarSubItem label="Français" external href="www.example.com" lang="fr" />
+          <Header.ActionBarSubItem label="Pусский" external href="www.example.com" lang="ru" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Tietoa muilla kielillä">
+          <Header.ActionBarSubItem label="Selkosuomi" external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label="Viittomakieli" external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Matkailijoille">
+          <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Maahanmuuttajille">
+          <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
     </Header.ActionBar>
     <Header.NavigationMenu>

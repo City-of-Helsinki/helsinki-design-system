@@ -1,12 +1,14 @@
 @use '../../../../styles/common.scss';
 
 button.actionBarItemButton {
+  align-items: center;
   align-self: center;
   appearance: none;
   background: transparent;
   border: none;
   color: var(--header-color);
   cursor: pointer;
+  display: flex;
   padding: var(--spacing-xs);
 
   &:focus-visible {
