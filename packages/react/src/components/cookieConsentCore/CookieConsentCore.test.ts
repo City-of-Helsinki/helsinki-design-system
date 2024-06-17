@@ -42,6 +42,7 @@ describe('cookieConsentCore', () => {
     siteSettings404: 'http://localhost/404.json',
   };
 
+  // MARK: Default options
   const options: Options = {
     language: 'fi', // Lang code defaults to 'en'
     // theme: 'black', // Defaults to 'bus'
@@ -51,6 +52,7 @@ describe('cookieConsentCore', () => {
     // submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
     settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
   };
+  const optionsEvent = { ...options, submitEvent: 'cookie-consent-changed' };
 
   const getShadowRoot = () => {
     const body = document.querySelector('body') as HTMLBodyElement;
@@ -202,6 +204,8 @@ describe('cookieConsentCore', () => {
     });
   };
 
+  // MARK: Hooks
+
   beforeAll(() => {
     // TODO: Comment out these debug logs when the tests are stable
     jest.spyOn(console, 'log').mockImplementation((message) => {
@@ -260,8 +264,7 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
-  // ---------------------------------------------------------------
-  // ## Test cases
+  // MARK: Basic tests
 
   it('adds elements to shadowRoot', async () => {
     instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
@@ -284,7 +287,7 @@ describe('cookieConsentCore', () => {
     expect(isDetailsExpanded()).toBeTruthy();
   });
 
-  // ## Config
+  // MARK: Config
   // - Is the settings file properly linked?
 
   it('should throw an error if siteSettingsObj is not defined', () => {
@@ -324,7 +327,7 @@ describe('cookieConsentCore', () => {
   // - Is the settings file properly formatted?
   // it('should throw error if required group properties can not be accessed', () => {});
 
-  // ## Functionalities
+  // MARK: Functionalities
   // - When user enters the site first time with empty cookies, does the banner show up?
   it('should render banner if the consent cookie is not set', async () => {
     await waitForRoot();
@@ -536,14 +539,14 @@ describe('cookieConsentCore', () => {
   // it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', () => {});
   // it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', () => {});
 
-  // ## State changes
+  // MARK: State changes
   // - If the settings file has changed, the banner should appear
   // it('should show banner if the hashes do not match in any consented group', () => {});
 
   // - If the settings are changed, the banner should recognize the changes
   // it('should remove only invalid (checksum mismatch) groups from cookie', () => {});
 
-  // ## Visual issues
+  // MARK: Visual issues
   // - Do the checkboxes in banner describe the accepted categories?
   // it('should have same checkbox checked values with cookie string', () => {});
 
