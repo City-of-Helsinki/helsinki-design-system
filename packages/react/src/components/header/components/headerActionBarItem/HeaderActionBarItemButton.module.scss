@@ -26,7 +26,7 @@ button.actionBarItemButton {
     gap: calc(var(--spacing-s) / 2);
     justify-content: center;
     line-height: var(--fontsize-heading-m);
-    margin: var(--spacing-xs);
+    margin: var(--spacing-s);
     padding: var(--spacing-s) var(--spacing-m);
 
     & > * {
@@ -37,8 +37,8 @@ button.actionBarItemButton {
     }
 
     & > *.actionBarItemButtonLabel {
-      font-weight: 700;
       flex-grow: 1;
+      font-weight: 700;
     }
 
     &.hasSubItems {
@@ -47,7 +47,7 @@ button.actionBarItemButton {
       display: flex;
       justify-content: flex-start;
       margin: 0;
-      padding: var(--spacing-xs);
+      padding: var(--spacing-s);
       width: 100%;
     }
   }

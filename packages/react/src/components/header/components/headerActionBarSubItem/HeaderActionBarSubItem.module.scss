@@ -35,9 +35,9 @@ h4.actionBarSubItem {
 }
 
 .actionBarSubItem svg {
-  height: 16px;
+  height: var(--spacing-s);
   padding-top: 4px;
-  width: 16px;
+  width: var(--spacing-s);
 }
 
 :first-child.actionBarSubItem {
@@ -54,8 +54,8 @@ h4.actionBarSubItem {
 
 .actionBarSubItemIcon {
   flex-shrink: 0;
-  height: 24px;
-  line-height: 24px;
+  height: var(--spacing-m);
+  line-height: var(--spacing-m);
   position: relative;
 }
 
@@ -67,15 +67,15 @@ h4.actionBarSubItem {
   flex-grow: 1;
 }
 
-.notificationCount {
+.notificationBubble {
   background: var(--notification-count-background-color);
-  border-radius: 12px;
+  border-radius: var(--spacing-xs);
   box-sizing: border-box;
   color: var(--notification-count-text-color);
   display: inline-block;
-  font-size: 14px;
-  line-height: 24px;
-  min-width: 24px;
+  font-size: var(--fontsize-body-s);
+  line-height: var(--spacing-m);
+  min-width: var(--spacing-m);
   padding: 0 6px;
   right: 0;
   text-align: center;

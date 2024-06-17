@@ -7,7 +7,7 @@ export const HeaderActionBarSubItemGroup = forwardRef<HTMLButtonElement, HeaderA
   ({ children, ...rest }, ref) => {
     return (
       <li className={classes.dropdownSubItem}>
-        <HeaderActionBarSubItem ref={ref} {...rest} heading />
+        <HeaderActionBarSubItem ref={ref} {...rest} isHeading />
         <ul>{children}</ul>
       </li>
     );

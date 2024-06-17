@@ -16,14 +16,12 @@
   .dropdownWrapper {
     max-height: 0;
     min-width: 320px;
-    padding-bottom: 0;
     transition-duration: var(--animation-duration-dropwdown);
     transition-timing-function: ease;
   }
 
   &.visible .dropdownWrapper {
     max-height: 1000vh;
-    padding-bottom: var(--spacing-xs);
   }
 
   &:not(.hasContent) {
@@ -80,17 +78,17 @@
   }
 
   & > h3 {
+    box-sizing: border-box;
     font-size: var(--fontsize-heading-xs);
     font-weight: bold;
     line-height: 28px;
     margin: 0;
     padding: var(--spacing-s);
-    box-sizing: border-box;
   }
 
   & h4 {
-    padding: var(--spacing-xs) var(--spacing-s) !important;
     box-sizing: border-box;
+    padding: var(--spacing-xs) var(--spacing-s) !important;
   }
 
   &.visible {

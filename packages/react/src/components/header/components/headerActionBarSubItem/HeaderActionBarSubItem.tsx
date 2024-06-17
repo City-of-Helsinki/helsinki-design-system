@@ -20,13 +20,13 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
    */
   iconRight?: ReactNode;
   /**
-   * Count for the right aligned red notification circle
+   * Content for the right aligned red notification bubble
    */
-  notificationCount?: number;
+  notificationBubbleContent?: number;
   /**
-   * Aria label for notification number.
+   * Aria label for notification bubble.
    */
-  notificationCountAriaLabel?: string;
+  notificationBubbleAriaLabel?: string;
   /**
    * Label for the action bar item.
    */
@@ -34,7 +34,7 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
   /**
    * If heading style is used
    */
-  heading?: boolean;
+  isHeading?: boolean;
   /**
    * If bold
    */
@@ -60,10 +60,10 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
     {
       iconLeft,
       iconRight,
-      notificationCount,
-      notificationCountAriaLabel,
+      notificationBubbleContent,
+      notificationBubbleAriaLabel,
       label,
-      heading,
+      isHeading,
       href,
       onClick,
       className,
@@ -120,12 +120,12 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
         ) : (
           <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
         )}
-        {notificationCount !== undefined && (
+        {notificationBubbleContent !== undefined && (
           <>
             <span className={classNames(classes.grow)} />
-            <span className={classNames(classes.notificationCount)}>
-              {notificationCountAriaLabel && <VisuallyHidden>{`${notificationCountAriaLabel} `}</VisuallyHidden>}
-              {notificationCount}
+            <span className={classNames(classes.notificationBubble)}>
+              {notificationBubbleAriaLabel && <VisuallyHidden>{`${notificationBubbleAriaLabel} `}</VisuallyHidden>}
+              {notificationBubbleContent}
             </span>
           </>
         )}
@@ -163,7 +163,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
     return (
       <li className={parentClasses.dropdownItem}>
         {' '}
-        {heading ? (
+        {isHeading ? (
           <h4 className={itemClassName}>
             <LinkOrStatic {...linkAttr} />
           </h4>
