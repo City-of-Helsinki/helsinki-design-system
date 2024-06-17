@@ -487,7 +487,10 @@ export const HeaderActionBarNavigationMenu = ({
       onTransitionEnd={animationDone}
     >
       {actionBarItems?.map?.((item: HeaderActionBarItemProps) => {
-        return React?.cloneElement?.(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() }) ?? null;
+        if (typeof item === 'object') {
+          return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() });
+        }
+        return null;
       })}
       <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
         {getMenuLevels().map((data, i) => {
