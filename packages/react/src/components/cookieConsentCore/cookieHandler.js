@@ -4,13 +4,11 @@
 import { parse, serialize } from 'cookie';
 
 export default class CookieHandler {
-  #SITE_SETTINGS_JSON_URL;
-  #SITE_SETTINGS_OBJ;
   #COOKIE_DAYS = 100;
   #ESSENTIAL_GROUP_NAME = 'essential';
   #shadowDomUpdateCallback;
   #siteSettings;
-  #cookie_name;
+  #cookieName = 'city-of-helsinki-cookie-consents'; // Overridable default value
   #formReference;
 
   /**
@@ -23,15 +21,15 @@ export default class CookieHandler {
    * @param {Object} options.backReference - Reference to the back reference object.
    */
   constructor({
-    siteSettingsJsonUrl, // Path to JSON file with site settings
     siteSettingsObj, // Site settings object
     shadowDomUpdateCallback, // Callback function to update shadow DOM checkboxes
   }) {
-    this.#SITE_SETTINGS_JSON_URL = siteSettingsJsonUrl;
-    this.#SITE_SETTINGS_OBJ = siteSettingsObj;
+    this.#siteSettings = siteSettingsObj;
     this.#shadowDomUpdateCallback = (consentedGroupNames) => {
       shadowDomUpdateCallback(consentedGroupNames, this.#formReference);
     };
+    this.#cookieName = this.#siteSettings.cookieName || this.#cookieName; // Optional override for cookie name
+    this.#verifySiteSettings();
   }
 
   /**
@@ -85,17 +83,7 @@ export default class CookieHandler {
       currentlyAccepted = Object.keys(browserCookie.groups);
     }
 
-    // Try to fetch the site settings from the JSON file
-    let siteSettings = null;
-    try {
-      siteSettings = await this.#getSiteSettings();
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(`Cookie consent: Unable to fetch cookie consent settings: ${err}`);
-      return false;
-    }
-
-    const siteSettingsGroups = [...siteSettings.requiredGroups, ...siteSettings.optionalGroups];
+    const siteSettingsGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
 
     // Checksums for all groups calculated in parallel without waiting for each
     await Promise.all(
@@ -105,7 +93,7 @@ export default class CookieHandler {
       }),
     );
 
-    const groupsWhitelistedForApi = siteSettings.groupsWhitelistedForApi || [];
+    const groupsWhitelistedForApi = this.#siteSettings.groupsWhitelistedForApi || [];
 
     // Check that all accepted groups are in the whitelisted groups and return false if not
     const notWhitelistedGroups = acceptedGroupsArray.filter((group) => !groupsWhitelistedForApi.includes(group));
@@ -148,8 +136,8 @@ export default class CookieHandler {
   getCookie(cookieName = undefined) {
     try {
       let cookieNameValue;
-      if (this && this.#cookie_name && !cookieName) {
-        cookieNameValue = this.#cookie_name;
+      if (this && this.#cookieName && !cookieName) {
+        cookieNameValue = this.#cookieName;
       } else if (!cookieName) {
         // `this` is not set, and cookieName is not provided
         return false;
@@ -175,9 +163,9 @@ export default class CookieHandler {
     const consentedKeys = {};
     consentedKeys.cookie = this.#getKeysInConsentedGroups(groupNames, 1);
 
-    // Make sure that consentedKeys.cookie array of strings contains this.#cookie_name string as one item
-    if (!consentedKeys.cookie.includes(this.#cookie_name)) {
-      consentedKeys.cookie.push(this.#cookie_name);
+    // Make sure that consentedKeys.cookie array of strings contains this.#cookieName string as one item
+    if (!consentedKeys.cookie.includes(this.#cookieName)) {
+      consentedKeys.cookie.push(this.#cookieName);
     }
 
     consentedKeys.localStorage = this.#getKeysInConsentedGroups(groupNames, 2);
@@ -289,7 +277,7 @@ export default class CookieHandler {
     // console.log('#setCookie', cookieData);
     const expiryDate = new Date();
     expiryDate.setDate(expiryDate.getDate() + this.#COOKIE_DAYS);
-    document.cookie = serialize(this.#cookie_name, JSON.stringify(cookieData), {
+    document.cookie = serialize(this.#cookieName, JSON.stringify(cookieData), {
       sameSite: 'strict',
       expires: expiryDate,
       path: '/',
@@ -330,13 +318,19 @@ export default class CookieHandler {
    * Removes invalid groups from the cookie based on the browser cookie state and site settings.
    *
    * @private
-   * @param {Array} siteSettingsGroups - Required and optional cookie groups combined array from site settings.
-   * @param {Object} browserCookieState - The browser cookie state object.
-   * @param {Object} siteSettings - The site settings object.
-   * @return {Object} - The updated site settings object.
    */
-  async #removeInvalidGroupsFromCookie(siteSettingsGroups, browserCookieState, siteSettings) {
-    // console.log('#removeInvalidGroupsFromCookie', siteSettingsGroups, browserCookieState, siteSettings);
+  async #removeInvalidGroupsFromCookie() {
+    const browserCookieState = this.getCookie();
+    const siteSettingsGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
+
+    // Checksums for all groups calculated in parallel without waiting for each
+    await Promise.all(
+      siteSettingsGroups.map(async (group) => {
+        // eslint-disable-next-line no-param-reassign
+        group.checksum = await this.#getChecksum(group); // This await is needed to ensure that all checksums are calculated before continuing
+      }),
+    );
+
     let invalidGroupsFound = false;
     const newCookieGroups = [];
 
@@ -364,38 +358,35 @@ export default class CookieHandler {
       const showBanner = true;
       this.saveConsentedGroups(newCookieGroups, showBanner);
     }
-
-    return siteSettings;
   }
 
   /**
-   * Retrieves the site settings and performs necessary checks.
+   * Verify siteSettings validity
+   * Checks done:
+   * * Required group 'essential' must exist
+   * * Required cookie must exist in 'essential' group
+   * * No duplicate group names
    * @private
-   * @return {Promise<unknown>} A promise that resolves to the result of removing invalid groups from the site settings.
    * @throws {Error} If the required group or cookie is missing in the site settings.
    * @throws {Error} If there are multiple cookie groups with identical names in the site settings.
    */
-  async #getAndVerifySiteSettings() {
-    const siteSettings = await this.#getSiteSettings();
-
-    this.#cookie_name = siteSettings.cookieName || this.#cookie_name; // Optional override for cookie name
-
-    const browserCookie = this.getCookie();
-
-    const essentialGroup = siteSettings.requiredGroups.find((group) => group.groupId === this.#ESSENTIAL_GROUP_NAME);
+  #verifySiteSettings() {
+    const essentialGroup = this.#siteSettings.requiredGroups.find(
+      (group) => group.groupId === this.#ESSENTIAL_GROUP_NAME,
+    );
     if (!essentialGroup) {
       // The site site settings must have required group named by ESSENTIAL_GROUP_NAME
       throw new Error(`Cookie consent error: '${this.#ESSENTIAL_GROUP_NAME}' group missing`);
     }
-    const requiredCookieFound = essentialGroup.cookies.find((cookie) => cookie.name === this.#cookie_name);
+    const requiredCookieFound = essentialGroup.cookies.find((cookie) => cookie.name === this.#cookieName);
     if (!requiredCookieFound) {
       // The required "essential" group must have cookie with name matching the root level 'cookieName'
       throw new Error(
-        `Cookie consent error: Missing cookie entry for '${this.#cookie_name}' in group '${this.#ESSENTIAL_GROUP_NAME}'`,
+        `Cookie consent error: Missing cookie entry for '${this.#cookieName}' in group '${this.#ESSENTIAL_GROUP_NAME}'`,
       );
     }
 
-    const siteSettingsGroups = [...siteSettings.requiredGroups, ...siteSettings.optionalGroups];
+    const siteSettingsGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
 
     const cookieNames = [];
     siteSettingsGroups.forEach((cookie) => {
@@ -405,61 +396,15 @@ export default class CookieHandler {
       }
       cookieNames.push(cookie.groupId);
     });
-
-    // Checksums for all groups calculated in parallel without waiting for each
-    await Promise.all(
-      siteSettingsGroups.map(async (group) => {
-        // eslint-disable-next-line no-param-reassign
-        group.checksum = await this.#getChecksum(group); // This await is needed to ensure that all checksums are calculated before continuing
-      }),
-    );
-
-    // Temporarily save the site settings to the instance, so that invalid groups can be removed from the cookie
-    this.#siteSettings = siteSettings;
-
-    return this.#removeInvalidGroupsFromCookie(siteSettingsGroups, browserCookie, siteSettings);
-  }
-
-  /**
-   * Fetches the site settings from Object or a JSON file and returns them as an object.
-   * @private
-   * @return {Promise<Object>} A promise that resolves to the site settings object.
-   * @throws {Error} If there is an error fetching the cookie consent settings or parsing the JSON.
-   */
-  async #getSiteSettings() {
-    // If site settings object is available, return it
-    if (this.#SITE_SETTINGS_OBJ) {
-      return this.#SITE_SETTINGS_OBJ;
-    }
-
-    // Fetch the site settings JSON file
-    let siteSettingsRaw;
-    try {
-      siteSettingsRaw = await fetch(this.#SITE_SETTINGS_JSON_URL).then((response) => response.text());
-    } catch (error) {
-      throw new Error(`Cookie consent: Unable to fetch cookie consent settings: ${error}`);
-    }
-
-    // Parse the fetched site settings string to JSON
-    let siteSettings;
-    try {
-      siteSettings = JSON.parse(siteSettingsRaw);
-    } catch (error) {
-      throw new Error(`Cookie consent settings parsing failed: ${error}`);
-    }
-
-    return siteSettings;
   }
 
   /**
    * Initializes the cookie handler.
    *
-   * @param {string} cookieName - The name of the consent cookie.
    * @return {Promise<Object>} - A promise that resolves to the site settings.
    */
-  async init(cookieName) {
-    this.#cookie_name = cookieName;
-    this.#siteSettings = await this.#getAndVerifySiteSettings();
+  async init() {
+    await this.#removeInvalidGroupsFromCookie();
     return this.#siteSettings;
   }
 }
