@@ -9,7 +9,29 @@ button.actionBarItemButton {
   color: var(--header-color);
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   padding: var(--spacing-xs);
+
+  .buttonContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .activeStateContent {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &.preventButtonResize {
+    & .buttonContent {
+      visibility: hidden;
+    }
+    & .activeStateContent {
+      visibility: visible;
+    }
+  }
+
 
   &:focus-visible {
     border: none;
@@ -24,23 +46,34 @@ button.actionBarItemButton {
 
   &.fullWidth {
     border: 2px solid var(--header-color);
-    display: flex;
-    gap: calc(var(--spacing-s) / 2);
-    justify-content: center;
     line-height: var(--fontsize-heading-m);
     margin: var(--spacing-s);
     padding: var(--spacing-s) var(--spacing-m);
+
+    .buttonContent {
+      width: 100%;
+      display: flex;
+      gap: calc(var(--spacing-s) / 2);
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+
+      & > *.actionBarItemButtonLabel {
+        flex-grow: 1;
+        font-weight: 700;
+      }
+    }
+
+    .activeStateContent {
+      position: absolute;
+      visibility: hidden;
+    }
 
     & > * {
       margin: 0;
       padding: 0;
       text-align: left;
       vertical-align: center;
-    }
-
-    & > *.actionBarItemButtonLabel {
-      flex-grow: 1;
-      font-weight: 700;
     }
 
     &.hasSubItems {
@@ -51,6 +84,8 @@ button.actionBarItemButton {
       margin: 0;
       padding: var(--spacing-s);
       width: 100%;
+      max-height: 100%;
+      justify-content: center;
     }
   }
 
@@ -64,7 +99,7 @@ button.actionBarItemButton {
     vertical-align: middle;
   }
 
-  & > .avatar {
+  & .avatar {
     background: var(--avatar-background-color);
     border-radius: 25px;
     color: var(--avatar-text-color);

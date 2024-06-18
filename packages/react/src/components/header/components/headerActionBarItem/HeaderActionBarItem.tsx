@@ -122,8 +122,8 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     setHasContent(dropdownContentElementRef.current?.childNodes.length !== 0);
   }, [children]);
 
-  const iconLabel = visible && closeLabel ? closeLabel : label;
-  const iconClass = visible && closeIcon ? closeIcon : icon;
+  const iconLabel = closeLabel && visible && !preventButtonResize ? closeLabel : label;
+  const iconClass = closeIcon && visible && !preventButtonResize ? closeIcon : icon;
   const hasSubItems = React.Children.count(children) > 0;
   const visibilityClasses = {
     visible,
@@ -161,6 +161,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         fullWidth={fullWidth}
         hasSubItems={hasSubItems}
         avatar={avatar}
+        preventButtonResize={preventButtonResize}
         {...buttonOverlayProps}
       />
       {hasSubItems && (
