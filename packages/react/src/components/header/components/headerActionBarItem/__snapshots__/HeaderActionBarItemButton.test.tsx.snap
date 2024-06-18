@@ -10,21 +10,43 @@ exports[`HeaderActionBarItemButton spec renders the component correctly and adds
     data-testid="button"
     type="button"
   >
-    <span>
+    <div
+      class="buttonContent"
+    >
+      <span>
+        <span
+          class="actionBarItemButtonIcon labelOnRight"
+        >
+          <span
+            aria-hidden="true"
+            data-testid="fake-icon-test-id"
+          />
+        </span>
+        <span
+          class="actionBarItemButtonLabel labelOnRight"
+        >
+          button label
+        </span>
+      </span>
+    </div>
+    <div
+      class="activeStateContent"
+    >
       <span
         class="actionBarItemButtonIcon labelOnRight"
       >
         <span
           aria-hidden="true"
-          data-testid="fake-icon-test-id"
+          data-testid="close-icon-test-id"
         />
       </span>
       <span
-        class="actionBarItemButtonLabel labelOnRight"
+        aria-hidden="true"
+        class="actionBarItemButtonLabel labelOnRight activeStateContentLabel"
       >
-        button label
+        close label
       </span>
-    </span>
+    </div>
   </button>
 </DocumentFragment>
 `;

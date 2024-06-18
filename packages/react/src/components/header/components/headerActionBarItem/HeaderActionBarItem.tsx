@@ -154,7 +154,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
         icon={iconClass}
         aria-expanded={visible}
         aria-label={ariaLabel !== undefined ? ariaLabel : String(label)}
-        aria-controls={`${id}-dropdown`}
+        aria-controls={id === 'Menu' ? `hds-mobile-menu` : `${id}-dropdown`}
         labelOnRight={labelOnRight}
         fixedRightPosition={fixedRightPosition}
         isActive={visible}

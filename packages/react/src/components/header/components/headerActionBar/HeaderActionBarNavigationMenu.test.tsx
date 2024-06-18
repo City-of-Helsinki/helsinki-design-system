@@ -1,4 +1,5 @@
 import { RenderResult, fireEvent, render, waitFor } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import React from 'react';
 
 import { getActiveElement } from '../../../cookieConsent/test.util';
@@ -371,6 +372,22 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     await openMobileMenu();
     expect(asFragment()).toMatchSnapshot();
   });
+  it('should not have basic accessibility issues when menu is open', async () => {
+    const { container, openMobileMenu } = renderHeader();
+    await openMobileMenu();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('should not have basic accessibility issues when user has navigated to the deepest level is open', async () => {
+    const { container, openMobileMenu, navigateTo } = renderHeader();
+    await openMobileMenu();
+    await navigateTo(getMenuItem([0]));
+    await navigateTo(getMenuItem([0, 2]));
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+    // this can take a long time so increased timeout
+  }, 10000);
 
   it('When mobile menu is opened, first level links are shown', async () => {
     const { openMobileMenu, findVisibleSectionLinksByMenuIds, getNavSections } = renderHeader();
