@@ -9,7 +9,7 @@ import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
-import { IconCross, IconUser, IconCogwheel, IconSignout } from '../../icons';
+import { IconCross, IconUser, IconCogwheel, IconSignout, IconScroll } from '../../icons';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
@@ -254,7 +254,7 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
           <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
         </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
-      <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
+      <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition id="action-bar-login">
         <Header.ActionBarSubItem label="Omat tiedot" href="/" />
         <Header.ActionBarSubItem
           label="Viestit"
@@ -562,7 +562,7 @@ export const ManualLanguageSorting = (args) => {
           ariaLabel={I18n.ariaLanguageSelection}
           languageHeading={I18n.otherLanguages}
         />
-        <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
+        <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition id="action-bar-login">
           <Header.ActionBarSubItem label="Omat tiedot" href="/" />
           <Header.ActionBarSubItem
             label="Viestit"
@@ -731,15 +731,16 @@ export const ActionBarItems = (args) => {
           logoAriaLabel={I18n.ariaLogo}
         >
           <Header.ActionBarItem
-            label={translations[lang].headerLogin}
+            label="Icon Test"
             fixedRightPosition
-            icon={<IconUser />}
-            id="action-bar-login"
+            icon={<IconScroll />}
+            id="action-bar-test-4"
+            preventButtonResize
             closeLabel={I18n.close}
             closeIcon={<IconCross />}
-            ariaLabel="Test item"
+            ariaLabel="Icon Test"
           />
-          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
+          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition id="action-bar-login">
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
             <Header.ActionBarSubItem
               label="Viestit"
@@ -754,12 +755,12 @@ export const ActionBarItems = (args) => {
               onClick={() => console.log('Signout')}
             />
           </Header.ActionBarItem>
-          <Header.ActionBarItem icon={<IconCogwheel />} ariaLabel="Test items">
+          <Header.ActionBarItem icon={<IconCogwheel />} ariaLabel="Test items" id="action-bar-test-3">
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" />
           </Header.ActionBarItem>
-          <Header.ActionBarItem label="Another Test">
+          <Header.ActionBarItem label="Another Test" id="action-bar-test-2">
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="Link" href="/" iconLeft={<IconCogwheel />} />
             <Header.ActionBarSubItem
@@ -800,7 +801,7 @@ export const ActionBarItems = (args) => {
               <Header.ActionBarSubItem label="Link" href="/" />
             </Header.ActionBarSubItemGroup>
           </Header.ActionBarItem>
-          <Header.ActionBarItem icon={<IconCogwheel />} label="Test">
+          <Header.ActionBarItem icon={<IconCogwheel />} label="Test" id="action-bar-test">
             <Header.ActionBarSubItem label="Static" />
             <Header.ActionBarSubItem label="Link" href="/" />
             <Header.ActionBarSubItem label="External Link" href="/" external />
@@ -858,7 +859,7 @@ export const Login = (args) => {
           logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
           logoAriaLabel={I18n.ariaLogo}
         >
-          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
+          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition id="action-bar-login">
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
             <Header.ActionBarSubItem
               label="Viestit"

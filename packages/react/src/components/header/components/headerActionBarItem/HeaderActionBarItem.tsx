@@ -51,7 +51,7 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<{
   /**
    * Icon for the action bar item.
    */
-  icon: JSX.Element;
+  icon?: JSX.Element;
   /**
    * Icon for the action bar item when dropdown is open.
    */
