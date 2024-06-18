@@ -56,9 +56,8 @@ describe('cookieConsentCore', () => {
   const optionsEvent = { ...options, submitEvent: 'cookie-consent-changed' };
 
   const getShadowRoot = () => {
-    const body = document.querySelector('body') as HTMLBodyElement;
-    const shadowRoots = Array.from(body.children).map((n) => n.shadowRoot);
-    return shadowRoots[0] as ShadowRoot;
+    const targetElement = document.querySelector('.hds-cc__target') as HTMLElement;
+    return targetElement.shadowRoot as ShadowRoot;
   };
 
   const getRootElement = () => {
@@ -130,6 +129,14 @@ describe('cookieConsentCore', () => {
 
   const addMutationEntries = (entries: ResizeObserverEntry[]) => {
     return entries.map((e) => {
+      if (getShadowRoot() === null || getRootElement() === null) {
+        return {
+          ...e,
+          contentRect: createDomRect({}),
+          target: document.body,
+        };
+      }
+
       return {
         ...e,
         contentRect: createDomRect({}),
