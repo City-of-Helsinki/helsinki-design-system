@@ -46,6 +46,7 @@ describe('cookieConsentCore', () => {
     siteSettings404: 'http://localhost/404.json',
   };
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Default options
   const options: Options = {
     language: 'fi', // Lang code defaults to 'en'
@@ -208,6 +209,7 @@ describe('cookieConsentCore', () => {
     });
   };
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Hooks
 
   beforeAll(() => {
@@ -268,6 +270,7 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Basic tests
 
   it('adds elements to shadowRoot', async () => {
@@ -283,7 +286,7 @@ describe('cookieConsentCore', () => {
     expect(isDetailsExpanded()).toBeFalsy();
   });
 
-  it('Changes on button click', async () => {
+  it('changes on button click', async () => {
     instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -291,6 +294,7 @@ describe('cookieConsentCore', () => {
     expect(isDetailsExpanded()).toBeTruthy();
   });
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Config
   // - Is the settings file properly linked?
 
@@ -321,6 +325,7 @@ describe('cookieConsentCore', () => {
   //     new CookieConsentCore({ ...options, targetSelector: '#not-found' });
   //   }).toThrow("Cookie consent: targetSelector element '#not-found' was not found");
   // });
+
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
   // it('should throw error if pageContentSelector is set but not found on DOM', () => {});
 
@@ -333,6 +338,7 @@ describe('cookieConsentCore', () => {
   // - Is the settings file properly formatted?
   // it('should throw error if required group properties can not be accessed', () => {});
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Functionalities
   // - When user enters the site first time with empty cookies, does the banner show up?
   it('should render banner if the consent cookie is not set', async () => {
@@ -556,6 +562,7 @@ describe('cookieConsentCore', () => {
   // it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', () => {});
   // it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', () => {});
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: State changes
   // - If the settings file has changed, the banner should appear
   // it('should show banner if the hashes do not match in any consented group', () => {});
@@ -563,6 +570,7 @@ describe('cookieConsentCore', () => {
   // - If the settings are changed, the banner should recognize the changes
   // it('should remove only invalid (checksum mismatch) groups from cookie', () => {});
 
+  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Visual issues
   // - Do the checkboxes in banner describe the accepted categories?
   // it('should have same checkbox checked values with cookie string', () => {});
