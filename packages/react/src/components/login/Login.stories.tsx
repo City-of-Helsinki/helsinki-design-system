@@ -41,9 +41,6 @@ import { Notification } from '../notification/Notification';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 import { LoadingSpinner } from '../loadingSpinner';
-import { HeaderLoginButton } from '../header/components/headerUserItems/HeaderLoginButton';
-import { HeaderLogoutSubmenuButton } from '../header/components/headerUserItems/HeaderLogoutSubmenuButton';
-import { HeaderUserMenuButton } from '../header/components/headerUserItems/HeaderUserMenuButton';
 
 type StoryArgs = {
   useKeycloak?: boolean;
@@ -241,7 +238,7 @@ const Nav = () => {
         logo={<Logo src={logoFi} alt="City of Helsinki" />}
         logoAriaLabel="Service logo"
       >
-        <HeaderLoginButton
+        <Header.LoginButton
           label="Log in"
           id="action-bar-login-action"
           errorLabel="Login failed!"
@@ -250,8 +247,8 @@ const Nav = () => {
           loggingInText="Logging in"
           fixedRightPosition
         />
-        <HeaderUserMenuButton id="user-menu" fixedRightPosition>
-          <HeaderLogoutSubmenuButton
+        <Header.UserMenuButton id="user-menu" fixedRightPosition>
+          <Header.LogoutSubmenuButton
             label="Log out"
             errorLabel="Logout failed!"
             errorText="Redirection to the OIDC server failed. Try again!"
@@ -259,7 +256,7 @@ const Nav = () => {
             id="logout-button"
             loggingOutText="Logging out"
           />
-        </HeaderUserMenuButton>
+        </Header.UserMenuButton>
       </Header.ActionBar>
     </Header>
   );

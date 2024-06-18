@@ -18,6 +18,9 @@ import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { HeaderTheme } from './Header.type';
 import { useTheme } from '../../hooks/useTheme';
 import { HeaderError } from './components/headerError/HeaderError';
+import { HeaderLoginButton } from './components/headerUserItems/HeaderLoginButton';
+import { HeaderLogoutSubmenuButton } from './components/headerUserItems/HeaderLogoutSubmenuButton';
+import { HeaderUserMenuButton } from './components/headerUserItems/HeaderUserMenuButton';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -81,6 +84,9 @@ interface HeaderInterface extends FC<HeaderProps> {
   SkipLink: typeof SkipLink;
   LanguageButton: typeof LanguageButton;
   SimpleLanguageOptions: typeof SimpleLanguageOptions;
+  LoginButton: typeof HeaderLoginButton;
+  LogoutSubmenuButton: typeof HeaderLogoutSubmenuButton;
+  UserMenuButton: typeof HeaderUserMenuButton;
 }
 
 export const Header: HeaderInterface = ({ onDidChangeLanguage, defaultLanguage, languages, ...props }: HeaderProps) => {
@@ -112,3 +118,7 @@ Header.Search = HeaderSearch;
 Header.SkipLink = SkipLink;
 Header.LanguageButton = LanguageButton;
 Header.SimpleLanguageOptions = SimpleLanguageOptions;
+
+Header.LoginButton = HeaderLoginButton;
+Header.LogoutSubmenuButton = HeaderLogoutSubmenuButton;
+Header.UserMenuButton = HeaderUserMenuButton;
