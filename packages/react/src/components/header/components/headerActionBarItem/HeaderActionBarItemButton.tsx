@@ -8,14 +8,6 @@ type ButtonAttributes = JSX.IntrinsicElements['button'];
 
 export interface HeaderActionBarItemButtonProps extends ButtonAttributes {
   /**
-   * Id of controlled dropdown menu.
-   */
-  ariaControls?: string;
-  /**
-   * Aria label for the item.
-   */
-  ariaLabel?: string;
-  /**
    * Fix the item position to the right side of the action bar.
    */
   fixedRightPosition?: boolean;
@@ -70,8 +62,6 @@ export const HeaderActionBarItemButton = forwardRef<HTMLButtonElement, HeaderAct
       labelOnRight,
       fixedRightPosition,
       className,
-      ariaLabel,
-      ariaControls,
       activeStateLabel,
       activeStateIcon,
       isActive,
@@ -162,14 +152,7 @@ export const HeaderActionBarItemButton = forwardRef<HTMLButtonElement, HeaderAct
     );
 
     return (
-      <button
-        type="button"
-        {...rest}
-        {...(ariaLabel && { 'aria-label': ariaLabel })}
-        {...(ariaControls && { 'aria-controls': ariaControls })}
-        className={buttonClassName}
-        ref={ref}
-      >
+      <button type="button" {...rest} className={buttonClassName} ref={ref}>
         <div className={classes.buttonContent}>
           {showAvatar && avatarAndLabel}
           {showIconOrLabel && (fullWidth ? iconAndLabel : <span>{iconAndLabel}</span>)}

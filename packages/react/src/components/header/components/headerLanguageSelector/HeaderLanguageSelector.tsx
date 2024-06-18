@@ -94,10 +94,10 @@ HeaderLanguageSelector.componentName = 'HeaderLanguageSelector';
 
 export const HeaderLanguageSelectorConsumer = ({
   children,
-  ariaLabel,
   languageHeading,
   sortLanguageOptions = defaultLanguageSorter,
   fullWidthForMobile = false,
+  ...rest
 }: LanguageSelectorConsumerProps) => {
   const { isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
   const languages = useAvailableLanguages();
@@ -114,6 +114,7 @@ export const HeaderLanguageSelectorConsumer = ({
   }
   const hasChildren = children && Array.isArray(children) && children.length > 0;
   const hasSecondaryLanguages = secondaryLanguages.length > 0;
+
   return (
     <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
       <div className={classNames(classes.languageNodes)}>{primaryLanguageNodes}</div>
@@ -126,8 +127,8 @@ export const HeaderLanguageSelectorConsumer = ({
           icon={<IconGlobe aria-hidden />}
           closeIcon={<IconGlobe aria-hidden />}
           fullWidth={isNotLargeScreen}
-          ariaLabel={ariaLabel}
           labelOnRight
+          {...rest}
         >
           {hasSecondaryLanguages && languageHeading && (
             <HeaderActionBarSubItemGroup label={languageHeading}>

@@ -8,10 +8,6 @@ import parentClasses from '../headerActionBarItem/HeaderActionBarItem.module.scs
 
 export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
-   * Aria label for the item.
-   */
-  ariaLabel?: string;
-  /**
    * Icon element (on the left side of the label) for the action bar item.
    */
   iconLeft?: ReactNode;
@@ -58,6 +54,7 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
 export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderActionBarSubItemProps>(
   (
     {
+      'aria-label': ariaLabel,
       iconLeft,
       iconRight,
       notificationBubbleContent,
@@ -70,7 +67,6 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
       bold,
       external,
       openInExternalDomainAriaLabel,
-      ariaLabel,
       ...rest
     },
     ref,
@@ -152,7 +148,6 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
 
     const isLink = href && href !== '';
     const linkAttr = {
-      ...(ariaLabel && { 'aria-label': ariaLabel }),
       ...((external || ariaLabel) && { 'aria-label': composeAriaLabel() }),
       ...(isLink && { href }),
       ...(onClick && { onClick }),
