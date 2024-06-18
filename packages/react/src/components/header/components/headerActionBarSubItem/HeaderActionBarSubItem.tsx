@@ -12,7 +12,7 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
 import { IconLinkExternal } from '../../../../icons';
-import parentClasses from '../headerActionBarItem/HeaderActionBarItem.module.scss';
+import actionBarItemClasses from '../headerActionBarItem/HeaderActionBarItem.module.scss';
 
 export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   /**
@@ -147,8 +147,8 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
     const Wrapper = useCallback(
       ({ children }: PropsWithChildren<unknown>) => {
         return (
-          <li className={parentClasses.dropdownItem}>
-            {isHeading ? <h4 className={itemClassName}>{children}</h4> : (children as React.ReactElement)}{' '}
+          <li className={actionBarItemClasses.dropdownItem}>
+            {isHeading ? <h4 className={itemClassName}>{children}</h4> : children}
           </li>
         );
       },
@@ -179,7 +179,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
     }
 
     return (
-      <li className={parentClasses.dropdownItem}>
+      <li className={actionBarItemClasses.dropdownItem}>
         <Content />
       </li>
     );
