@@ -107,7 +107,8 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     if (!visible) return;
     const container = getContainer();
     const eventTargetNode = event.relatedTarget;
-    if (!container.contains(eventTargetNode)) {
+    // close the dropdown if the focus is outside the container on large screens
+    if (!container.contains(eventTargetNode) && !isNotLargeScreen) {
       setDisplayProperty(false);
     }
   };
