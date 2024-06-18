@@ -320,11 +320,10 @@ describe('cookieConsentCore', () => {
   /* eslint-disable jest/no-commented-out-tests */
 
   // - If the banner is set for custom targets, are the selectors available on DOM?
-  // it('should throw error if targetSelector is set but not found on DOM', () => {
-  //   expect(() => {
-  //     // eslint-disable-next-line no-new
-  //     new CookieConsentCore({ ...options, targetSelector: '#not-found' });
-  //   }).toThrow("Cookie consent: targetSelector element '#not-found' was not found");
+  // it('should throw error if targetSelector is set but not found on DOM', async () => {
+  //   await expect(
+  //     CookieConsentCore.load(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
+  //   ).rejects.toThrow('Cookie consent: targetSelector is set but not found on DOM');
   // });
 
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
@@ -351,6 +350,7 @@ describe('cookieConsentCore', () => {
 
   // - When user accepts all cookies, the cookie should be written with all groups mentioned in settings.
   it('should add consentCookie with all groups when user consents to all groups', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     let allButton = getShadowRoot().querySelector('button[data-approved="all"]');
@@ -366,6 +366,7 @@ describe('cookieConsentCore', () => {
 
   // - When user accepts essential cookies, the cookie should be written with essential groups.
   it('should add consentCookie with only required groups when user consents only to required groups', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     let requiredButton = getShadowRoot().querySelector('button[data-approved="required"]');
@@ -381,6 +382,7 @@ describe('cookieConsentCore', () => {
 
   // - When user selects certain groups, the cookie should be written according to those.
   it('should add consentCookie with required groups and selected groups when user consents to selected cookie groups', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
@@ -405,6 +407,8 @@ describe('cookieConsentCore', () => {
 
   // - If the user removes group permission, the groups should be removed from the consentCookie
   it('should modify consentCookie to contain only required and consented groups when user changes their consent', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     // Accept all
@@ -447,6 +451,8 @@ describe('cookieConsentCore', () => {
 
   // - If the user removes group permission, the related items should be removed.
   it('should remove cookies that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
@@ -511,6 +517,7 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
@@ -523,6 +530,7 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
