@@ -4,7 +4,7 @@ import classes from './HeaderLanguageSelector.module.scss';
 import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguage } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
-import { HeaderActionBarItem } from '../headerActionBarItem';
+import { HeaderActionBarItem, HeaderActionBarSubItemGroup } from '../headerActionBarItem';
 import { HeaderActionBarSubItem } from '../headerActionBarSubItem';
 import { IconGlobe } from '../../../../icons';
 import { useHeaderContext } from '../../HeaderContext';
@@ -129,8 +129,11 @@ export const HeaderLanguageSelectorConsumer = ({
           ariaLabel={ariaLabel}
           labelOnRight
         >
-          {hasSecondaryLanguages && languageHeading && <HeaderActionBarSubItem label={languageHeading} isHeading />}
-          {secondaryLanguages.map((node) => renderLanguageNode(node, false))}
+          {hasSecondaryLanguages && languageHeading && (
+            <HeaderActionBarSubItemGroup label={languageHeading}>
+              {secondaryLanguages.map((node) => renderLanguageNode(node, false))}
+            </HeaderActionBarSubItemGroup>
+          )}
           {children}
         </HeaderActionBarItem>
       )}

@@ -161,16 +161,18 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement, HeaderAction
 
     /* eslint-disable-next-line no-nested-ternary */
     return (
-      <li className={parentClasses.dropdownItem}>
+      <>
         {' '}
         {isHeading ? (
           <h4 className={itemClassName}>
             <LinkOrStatic {...linkAttr} />
           </h4>
         ) : (
-          <LinkOrStatic className={itemClassName} ref={ref} {...linkAttr} />
+          <li className={parentClasses.dropdownItem}>
+            <LinkOrStatic className={itemClassName} ref={ref} {...linkAttr} />
+          </li>
         )}
-      </li>
+      </>
     );
   },
 );
