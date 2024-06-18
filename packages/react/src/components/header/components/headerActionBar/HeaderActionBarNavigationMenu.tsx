@@ -1,4 +1,12 @@
-import React, { cloneElement, isValidElement, MouseEventHandler, TransitionEvent, useEffect, useRef } from 'react';
+import React, {
+  cloneElement,
+  isValidElement,
+  MouseEventHandler,
+  TransitionEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './HeaderActionBarNavigationMenu.module.scss';
@@ -479,6 +487,18 @@ export const HeaderActionBarNavigationMenu = ({
     );
   };
 
+  const [keyMap] = useState(new Map<unknown, string>());
+
+  const getKey = (item: HeaderActionBarItemProps) => {
+    const currentKey = keyMap.get(item);
+    if (currentKey) {
+      return currentKey;
+    }
+    const key = uuidv4();
+    keyMap.set(item, key);
+    return key;
+  };
+
   const { isClosingOrOpening } = getState();
   return (
     <div
@@ -488,7 +508,7 @@ export const HeaderActionBarNavigationMenu = ({
     >
       {actionBarItems?.map?.((item: HeaderActionBarItemProps) => {
         if (typeof item === 'object') {
-          return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: uuidv4() });
+          return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: getKey(item) });
         }
         return null;
       })}
