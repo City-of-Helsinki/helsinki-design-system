@@ -12,7 +12,7 @@ declare global {
 // See also https://github.com/Wildhoney/ReactShadow
 export const ReactTestFullPage = () => {
   const options = {
-    siteSettingsJsonUrl: 'http://localhost:6006/static-cookie-consent/helfi_sitesettings.json',
+    siteSettingsJsonUrl: '/static-cookie-consent/helfi_sitesettings.json',
     // siteSettingsObj,
     language: 'fi', // Lang code defaults to 'en'
     theme: 'coat', // Defaults to 'bus'
