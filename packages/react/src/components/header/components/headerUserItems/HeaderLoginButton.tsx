@@ -14,12 +14,35 @@ import { HeaderErrorUsageType, useHeaderError } from '../headerError/useHeaderEr
 import { HeaderLoadIndicator } from '../headerLoadIndicator/HeaderLoadIndicator';
 
 export type HeaderLoginButtonProps = {
+  /**
+   * Color of the loading spinner.
+   * @default --header-spinner-color or --color-black-60
+   */
   spinnerColor?: string;
+  /**
+   * Label shown in the error notification.
+   */
   errorLabel: string;
+  /**
+   * Text shown in the error notification.
+   */
   errorText: string;
+  /**
+   * Aria-label of the close button in the error notification.
+   */
   errorCloseAriaLabel: string;
+  /**
+   * Position of the error notification.
+   * @default 'top-right'
+   */
   errorPosition?: NotificationProps['position'];
+  /**
+   * Screen reader text for the load indicator.
+   */
   loggingInText: string;
+  /**
+   * The id attribute of the element.
+   */
   id: string;
 } & HeaderActionBarItemButtonProps;
 

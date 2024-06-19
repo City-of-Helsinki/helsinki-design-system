@@ -45,7 +45,6 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
   bold?: boolean;
   /**
    * Hypertext Reference of the link.
-   * @default #
    */
   href?: string;
   /**
@@ -56,7 +55,6 @@ export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLBu
    * The aria-label for opening link in an external domain
    */
   openInExternalDomainAriaLabel?: string;
-  className?: string;
 }
 
 export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorElement, HeaderActionBarSubItemProps>(

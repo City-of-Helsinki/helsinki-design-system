@@ -5,6 +5,7 @@ title: 'Header - Code'
 
 import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
+import Notification from '../../../components/Notification';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -194,6 +195,11 @@ export const translations = {
 ## Code
 
 ### Code examples
+
+<Notification label="Note about Header login components">
+  The Header.LoginButton, Header.LogoutSubmenuButton and Header.UserMenuButton require a working <InternalLink href="/components/login/">Login Provider</InternalLink> that cannot not be configured here. Working examples can be seen in the <InternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</InternalLink>.
+
+</Notification>
 
 #### With all the components
 
@@ -718,3 +724,51 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `openDropdownAriaButtonLabel`    | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                           |
 | `wrapperClassName`               | Additional classNames for the element wrapping the link.                    | `string`          | -                                                           |
 | [Table 9:Header.Link properties] |
+
+| Property                                      | Description                                                            | Values                 | Default value |
+| --------------------------------------------- | ---------------------------------------------------------------------- | ---------------------- | ------------- |
+| `iconLeft`                                    | Icon element (on the left side of the label) for the action bar item.  | `ReactNode`            | -             |
+| `iconRight`                                   | Icon element (on the right side of the label) for the action bar item. | `ReactNode`            | -             |
+| `notificationBubbleContent`                   | Content for the right aligned red notification bubble.                 | `string`               | -             |
+| `notificationBubbleAriaLabel`                 | Aria label for notification bubble.                                    | `string`               | -             |
+| `label`                                       | Label for the action bar item.                                         | `string` `JSX.Element` | -             |
+| `isHeading`                                   | If heading style is used.                                              | `boolean`              | -             |
+| `bold`                                        | If bold.                                                               | `boolean`              | -             |
+| `href`                                        | Hypertext Reference of the link.                                       | `string`               | -             |
+| `external`                                    | If external link.                                                      | `boolean`              | -             |
+| `openInExternalDomainAriaLabel`               | The aria-label for opening link in an external domain.                 | `string`               | -             |
+| [Table 10:Header.ActionBarSubItem properties] |
+
+| Description                                                                               |     |
+| ---------------------------------------------------------------------------------------   | --- |
+| Same properties as the Header.ActionBarSubItem. The component sets `IsHeading` to `true`. |
+| [Table 11:Header.ActionBarSubItemGroup properties]                                        |
+
+| Property                                  | Description                                               | Values                          | Default value                                  |
+| ----------------------------------------- | --------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
+| `spinnerColor`                            | Color of the loading spinner.                             | `string`                        | `--header-spinner-color` or `--color-black-60` |
+| `errorLabel`                              | Label shown in the error notification.                    | `string`                        | -                                              |
+| `errorText`                               | Text shown in the error notification.                     | `string`                        | -                                              |
+| `errorCloseAriaLabel`                     | Aria-label of the close button in the error notification. | `string`                        | -                                              |
+| `errorPosition`                           | Position of the error notification.                       | `NotificationProps['position']` | `top-right`                                    |
+| `loggingInText`                           | Screen reader text for the load indicator.                | `string`                        | -                                              |
+| `id`                                      | The id attribute of the element.                          | `string`                        | -                                              |
+| `& Header.ActionBarItemButton properties` | Extends properties of the Header.ActionBarItemButton.     | -                               | -                                              |
+| [Table 12:Header.Loginbutton properties]  |
+
+| Property                                         | Description                                               | Values                          | Default value                                  |
+| ------------------------------------------------ | --------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
+| `spinnerColor`                                   | Color of the loading spinner.                             | `string`                        | `--header-spinner-color` or `--color-black-60` |
+| `errorLabel`                                     | Label shown in the error notification.                    | `string`                        | -                                              |
+| `errorText`                                      | Text shown in the error notification.                     | `string`                        | -                                              |
+| `errorCloseAriaLabel`                            | Aria-label of the close button in the error notification. | `string`                        | -                                              |
+| `errorPosition`                                  | Position of the error notification.                       | `NotificationProps['position']` | `top-right`                                    |
+| `loggingOutText`                                 | Screen reader text for the load indicator.                | `string`                        | -                                              |
+| `id`                                             | The id attribute of the element.                          | `string`                        | -                                              |
+| `& Header.ActionBarItemButton properties`        | Extends properties of the Header.ActionBarItemButton.     | -                               | -                                              |
+| [Table 13:Header.LogoutSubmenuButton properties] |
+
+| Description                                                        |     |
+| ------------------------------------------------------------------ | --- |
+| No properties to set. User data is picked from the Login Provider. |
+| [Table 14:Header.UserMenuButton properties]                        |

@@ -14,7 +14,6 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 You can use the `theme` property to customise the component. See all available theme variables in the table below.
 
-
 | Theme variable                              | Description                                                               |
 | ------------------------------------------- | ------------------------------------------------------------------------- |
 | `--actionbar-background-color`              | Background color of the action bar.                                       |
@@ -33,9 +32,10 @@ You can use the `theme` property to customise the component. See all available t
 | `--nav-button-hover-background-color`       | Hover background color of the navigation link's dropdown toggling button. |
 | `--nav-drop-down-icon-color`                | Color of the icon for the navigation link's dropdown toggling button.     |
 | `--universal-bar-background-color`          | Background color of the universal bar.                                    |
-
+| `--header-spinner-color`                    | Color of the loading spinner in the login and logut buttons.              |
 
 ### Customisation example
+
 <Playground scope={{ Header, Logo, logoFi }}>
 
 ```jsx
@@ -58,6 +58,7 @@ import { Header, Logo, logoFi } from 'hds-react';
       '--nav-button-hover-background-color': 'var(--color-black-40)',
       '--nav-drop-down-icon-color': 'var(--color-black)',
       '--header-background-color': 'var(--color-engel-light)',
+      '--header-spinner-color`': 'var(--color-black-10)',
     }}
   >
     <Header.SkipLink skipTo="#content" label="Skip To Content" />
@@ -108,4 +109,5 @@ import { Header, Logo, logoFi } from 'hds-react';
   </Header>
 )
 ```
+
 </Playground>
