@@ -28,10 +28,9 @@ export const ReactTestFullPage = () => {
   // }, []);
 
   useEffect(() => {
-    const loadCookieConsent = async () => {
-      await CookieConsentCore.load(siteSettingsJsonUrl, options);
-    };
-    loadCookieConsent();
+    // @ts-ignore
+    CookieConsentCore.create(siteSettingsJsonUrl, options);
+    // CookieConsentCore.create(siteSettingsObj, options);
   }, []);
 
   const addChatCookie = async () => {

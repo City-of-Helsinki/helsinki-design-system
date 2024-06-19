@@ -39,7 +39,7 @@ export class CookieConsentCore {
 
   // MARK: Public methods
   /**
-   * Creates a new instance of the CookieConsent class.
+   * Creates a new instance of the CookieConsent class. It's not meant to be called from outside.
    * @constructor
    * @param {Object} options - The options for configuring the CookieConsent instance.
    * @param {string} [options.language='en'] - The page language.
@@ -49,6 +49,8 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @param {boolean} [calledFromCreate=false] - Indicates if the constructor was called from the create method.
+   * @throws {Error} Throws an error if called from outside the create method.
    * @throws {Error} Throws an error if siteSettingsObj is not provided.
    */
   constructor(
@@ -62,7 +64,11 @@ export class CookieConsentCore {
       submitEvent = false, // if string, do not reload page, but submit the string as event after consent
       settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
     },
+    calledFromCreate = false,
   ) {
+    if (!calledFromCreate) {
+      throw new Error('Cookie consent: direct construction not allowed. Use `await CookieConsentCore.create` instead.');
+    }
     if (!siteSettingsObj) {
       throw new Error('Cookie consent: siteSettingsObj is required');
     }
@@ -95,20 +101,12 @@ export class CookieConsentCore {
 
     this.#COOKIE_HANDLER = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj });
     this.#MONITOR = new MonitorAndCleanBrowserStorages();
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.#init();
-      });
-    } else {
-      this.#init();
-    }
   }
 
   /**
-   * Loads siteSettingsJson from given url, parses it and creates a new instance of the CookieConsent class.
-   * @static
-   * @param {string} siteSettingsJsonUrl - The path to the JSON file with site settings.
+   * Creates and inits a new instance of the CookieConsent class.
+   * @constructor
+   * @param {Object} siteSettingsParam - The URL to the JSON file with site settings or contents of the site settings as an object.
    * @param {Object} options - The options for configuring the CookieConsent instance.
    * @param {string} [options.language='en'] - The page language.
    * @param {string} [options.theme='bus'] - The theme for the banner.
@@ -117,35 +115,44 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @throws {Error} Throws an error if siteSettingsJsonUrl is not provided.
-   * @throws {Error} Throws an error if the fetch fails.
-   * @throws {Error} Throws an error if the JSON parsing fails.
+   * @returns {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
+   * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
+   * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
+   * @throws {Error} Throws an error if siteSettingsParam is an URL string and the JSON parsing fails.
    */
-  static async load(
-    siteSettingsJsonUrl, // Path to JSON file with site settings
-    options,
-  ) {
-    if (!siteSettingsJsonUrl) {
-      throw new Error('Cookie consent: siteSettingsJsonUrl is required');
+  static async create(siteSettingsParam, options) {
+    let instance;
+    if (!siteSettingsParam && (typeof siteSettingsParam !== 'string' || typeof siteSettingsParam !== 'object')) {
+      throw new Error('Cookie consent: siteSettingsParam is required, it should be an URL string or an object.');
     }
+    if (typeof siteSettingsParam === 'string') {
+      // Fetch the site settings JSON file
+      const siteSettingsRaw = await fetch(siteSettingsParam).then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Cookie consent: Unable to fetch cookie consent settings: '${response.status}' from: '${siteSettingsParam}' `,
+          );
+        }
+        return response.text();
+      });
 
-    // Fetch the site settings JSON file
-    const siteSettingsRaw = await fetch(siteSettingsJsonUrl).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Cookie consent: Unable to fetch cookie consent settings: ${response.status}`);
+      // Parse the fetched site settings string to JSON
+      let siteSettingsObj;
+      try {
+        siteSettingsObj = JSON.parse(siteSettingsRaw);
+      } catch (error) {
+        throw new Error(`Cookie consent siteSettings JSON parsing failed: ${error}`);
       }
-      return response.text();
-    });
-
-    // Parse the fetched site settings string to JSON
-    let siteSettingsObj;
-    try {
-      siteSettingsObj = JSON.parse(siteSettingsRaw);
-    } catch (error) {
-      throw new Error(`Cookie consent siteSettings JSON parsing failed: ${error}`);
+      instance = new CookieConsentCore(siteSettingsObj, options, true);
+    } else {
+      instance = new CookieConsentCore(siteSettingsParam, options, true);
     }
 
-    return new CookieConsentCore(siteSettingsObj, options);
+    // Initialise the class instance
+    instance.#init();
+
+    // Return reference to the class instance
+    return instance;
   }
 
   /**
@@ -489,6 +496,14 @@ export class CookieConsentCore {
    * @return {Promise<void>} A promise that resolves when the initialization is complete.
    */
   async #init() {
+    await new Promise((resolve) => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+      } else {
+        resolve();
+      }
+    });
+
     this.#removeBanner();
 
     let settingsPageElement = null;
