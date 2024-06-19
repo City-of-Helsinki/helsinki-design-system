@@ -552,7 +552,9 @@ export const ExampleApplication = (args: StoryArgs) => {
             Click button below, or in the navigation, to start the login process with{' '}
             <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>.
           </p>
-          <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
+          <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
+            Log in{' '}
+          </LoginButton>
         </ContentAligner>
       </Wrapper>
     );
