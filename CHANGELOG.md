@@ -15,11 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [Header.LoginButton] Button to start the login process and handle errors.
+- [Header.LogoutSubmenuButton] Button to start the logout process from the menu and handle errors.
+- [Header.UserMenuButton] Button for a user menu that renders user's name and initials.
 
 #### Changed
 
 Changes that are not related to specific components
+
 - [FileInput](packages/react/src/components/fileInput/FileInput.tsx) Added `minSize` property (default 0) for cases when the uploaded file must have non-zero length content
 
 #### Fixed
@@ -40,6 +43,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -55,11 +59,12 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Header] Documented new features.
 
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -79,6 +84,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -98,6 +104,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -117,6 +124,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -136,6 +144,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -192,14 +201,17 @@ Changes that are not related to specific components
 ### Figma
 
 #### Added:
+
 - [Hero] Added secondary buttons and a responsive wrapper to buttons.
 - [Hero] Added buttons for the NoImage variant.
 - [Hero] Introduced XXL variant sizes.
 
 #### Fixed:
+
 - [Hero] Adjusted arrow and photographer info for improved responsiveness and ensured all variants are built using the same component structure.
 
 #### Removed:
+
 - [Hero] Replaced preselected images with placeholders.
 - [Hero] Replaced Diagonal variant's image with Placeholder image component (breaking change – resets used image).
 - [Hero] Replaced ImageBottom variant's links with buttons (breaking change).
