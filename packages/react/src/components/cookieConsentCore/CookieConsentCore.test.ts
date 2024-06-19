@@ -281,7 +281,8 @@ describe('cookieConsentCore', () => {
   // MARK: Basic tests
 
   it('adds elements to shadowRoot', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     expect(instance).toBeDefined();
     expect(getFormElement()).not.toBeNull();
@@ -294,7 +295,8 @@ describe('cookieConsentCore', () => {
   });
 
   it('changes on button click', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     fireEvent.click(getShowDetailsButtonElement());
@@ -305,31 +307,29 @@ describe('cookieConsentCore', () => {
   // MARK: Config
   // - Is the settings file properly linked?
 
-  it('should throw an error if siteSettingsObj is not defined', () => {
+  it('should throw an error if siteSettingsObj is not defined', async () => {
     // @ts-ignore
-    expect(() => new CookieConsentCore(null, { ...options })).toThrow('Cookie consent: siteSettingsObj is required');
-  });
-
-  it('should throw an error if siteSettingsJsonUrl is not defined', async () => {
-    // @ts-ignore
-    await expect(CookieConsentCore.load(null, { ...options })).rejects.toThrow(
-      'Cookie consent: siteSettingsJsonUrl is required',
+    return expect(async () => CookieConsentCore.create(null, options)).rejects.toThrow(
+      'Cookie consent: siteSettingsParam is required, it should be an URL string or an object.',
     );
   });
 
-  it('should throw an error if siteSettingsJsonUrl is not found', async () => {
-    await expect(CookieConsentCore.load(urls.siteSettings404, { ...options })).rejects.toThrow(
-      'Cookie consent: Unable to fetch cookie consent settings: 404',
+  it('should throw an error if siteSettings URL is not found', async () => {
+    // @ts-ignore
+    await expect(CookieConsentCore.create(urls.siteSettings404, { ...options })).rejects.toThrow(
+      `Cookie consent: Unable to fetch cookie consent settings: '404' from: '${urls.siteSettings404}' `,
     );
   });
 
   /* eslint-disable jest/no-commented-out-tests */
 
-  // - If the banner is set for custom targets, are the selectors available on DOM?
-  // it('should throw error if targetSelector is set but not found on DOM', async () => {
+  // // - If the banner is set for custom targets, are the selectors available on DOM?
+  // it.only('should throw error if targetSelector is set but not found on DOM', async () => {
+  //   // instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' });
   //   await expect(
-  //     CookieConsentCore.load(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
-  //   ).rejects.toThrow('Cookie consent: targetSelector is set but not found on DOM');
+  //     // @ts-ignore
+  //     await CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
+  //   ).rejects.toThrow("Cookie consent: targetSelector element '#not-found' was not found");
   // });
 
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
@@ -348,7 +348,8 @@ describe('cookieConsentCore', () => {
   // MARK: Functionalities
   // - When user enters the site first time with empty cookies, does the banner show up?
   it('should render banner if the consent cookie is not set', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, options);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     const banner = document.querySelector('.hds-cc__target');
@@ -357,7 +358,8 @@ describe('cookieConsentCore', () => {
 
   // - When user accepts all cookies, the cookie should be written with all groups mentioned in settings.
   it('should add consentCookie with all groups when user consents to all groups', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     const allButton = getShadowRoot().querySelector('button[data-approved="all"]');
@@ -373,7 +375,8 @@ describe('cookieConsentCore', () => {
 
   // - When user accepts essential cookies, the cookie should be written with essential groups.
   it('should add consentCookie with only required groups when user consents only to required groups', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     const requiredButton = getShadowRoot().querySelector('button[data-approved="required"]');
@@ -389,7 +392,8 @@ describe('cookieConsentCore', () => {
 
   // - When user selects certain groups, the cookie should be written according to those.
   it('should add consentCookie with required groups and selected groups when user consents to selected cookie groups', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
@@ -415,7 +419,8 @@ describe('cookieConsentCore', () => {
   // - If the user removes group permission, the groups should be removed from the consentCookie
   it('should modify consentCookie to contain only required and consented groups when user changes their consent', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     // Accept all
@@ -461,7 +466,8 @@ describe('cookieConsentCore', () => {
   // - If the user removes group permission, the related items should be removed.
   it('should remove cookies that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
@@ -527,7 +533,8 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
@@ -540,7 +547,8 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
-    instance = await CookieConsentCore.load(urls.siteSettingsJsonUrl, optionsEvent);
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
