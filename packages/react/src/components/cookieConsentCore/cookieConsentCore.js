@@ -350,23 +350,17 @@ export class CookieConsentCore {
   }
 
   /**
-   * Temporary solution to inject CSS styles into the shadow root.
+   * Inject CSS styles into the shadow root.
    * @private
    * @param {ShadowRoot} shadowRoot - The shadow root element to inject the styles into.
    * @return {Promise<void>} - A promise that resolves when the styles are injected successfully.
    * @throws {Error} - If there is an error fetching or injecting the styles.
    */
   async #injectCssStyles(shadowRoot) {
-    // TODO: Replace this temporary CSS file hack with proper preprocess CSS inlining
-    // Fetch the external CSS file
-    try {
-      // Create and inject the style
-      const style = document.createElement('style');
-      style.textContent = styles;
-      shadowRoot.appendChild(style);
-    } catch (error) {
-      throw new Error(`Cookie consent: Failed to load the temporary CSS file solution: '${error}'`);
-    }
+    // Create and inject the style
+    const style = document.createElement('style');
+    style.textContent = styles;
+    shadowRoot.appendChild(style);
   }
 
   /**
@@ -379,7 +373,6 @@ export class CookieConsentCore {
    * @throws {Error} If the targetSelector element is not found.
    * @throws {Error} If the spacerParentSelector element is not found.
    * @throws {Error} If the contentSelector element is not found.
-   * @throws {Error} If failed to load the temporary CSS file solution.
    */
   async #render(lang, siteSettings, isBanner, renderTarget = null) {
     let spacerParent;
