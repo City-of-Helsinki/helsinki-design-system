@@ -64,5 +64,5 @@ export function getTranslation(translations, key, lang, parameters) {
       return parameter;
     });
   }
-  throw new Error(`Missing translation: ${key}:${lang}`);
+  throw new Error(`Cookie consent: Missing translation: ${key}:${lang}`);
 }

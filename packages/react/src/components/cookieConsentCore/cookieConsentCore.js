@@ -125,7 +125,9 @@ export class CookieConsentCore {
   static async create(siteSettingsParam, options) {
     let instance;
     if (!siteSettingsParam && (typeof siteSettingsParam !== 'string' || typeof siteSettingsParam !== 'object')) {
-      throw new Error('Cookie consent: siteSettingsParam is required, it should be an URL string or an object.');
+      throw new Error(
+        'Cookie consent: siteSettingsParam is required, it should be an URL string or an siteSettings object.',
+      );
     }
     if (typeof siteSettingsParam === 'string') {
       // Fetch the site settings JSON file
@@ -143,7 +145,7 @@ export class CookieConsentCore {
       try {
         siteSettingsObj = JSON.parse(siteSettingsRaw);
       } catch (error) {
-        throw new Error(`Cookie consent siteSettings JSON parsing failed: ${error}`);
+        throw new Error(`Cookie consent: siteSettings JSON parsing failed: ${error}`);
       }
       instance = new CookieConsentCore(siteSettingsObj, options, privateSymbol);
     } else {
