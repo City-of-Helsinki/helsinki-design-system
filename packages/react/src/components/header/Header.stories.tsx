@@ -101,6 +101,7 @@ const translations = {
     infoOtherLanguages: 'Information in other languages',
     jobSeekers: 'Jobseekers',
     loginOptions: 'Login options',
+    menuLabel: 'Menu',
     news: 'News',
     online: 'Online',
     openJobs: 'Open jobs',
@@ -140,6 +141,7 @@ const translations = {
     infoOtherLanguages: 'Tietoa muilla kielillä',
     jobSeekers: 'Työnhakijat',
     loginOptions: 'Kirjautumisvalinnat',
+    menuLabel: 'Valikko',
     news: 'Uutiset',
     online: 'Asioi verkossa',
     openJobs: 'Avoimet työpaikat',
@@ -179,6 +181,7 @@ const translations = {
     infoOtherLanguages: 'information på andra språk',
     jobSeekers: 'Arbetssökande',
     loginOptions: 'Logga in optioner',
+    menuLabel: 'Meny',
     news: 'Nyheter',
     online: 'Göra affärer online',
     openJobs: 'Lediga jobb',
@@ -218,6 +221,7 @@ const translations = {
     infoOtherLanguages: 'Information en autres langues',
     jobSeekers: "Demandeurs d'emploi",
     loginOptions: 'Choix pour se connecter',
+    menuLabel: 'Menu',
     news: 'Actualités',
     online: 'e-Démarches',
     openJobs: 'Emplois ouverts',
@@ -239,6 +243,7 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
       logo={<Logo src={logoSrcFromLanguageAndTheme(lang, theme)} alt={I18n.headerTitle} />}
       logoAriaLabel={I18n.ariaLogo}
       logoHref="https://hel.fi"
+      menuButtonLabel={I18n.menuLabel}
       menuButtonAriaLabel={I18n.ariaMenuButton}
       openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
     >
