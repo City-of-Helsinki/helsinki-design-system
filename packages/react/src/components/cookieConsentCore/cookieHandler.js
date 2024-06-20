@@ -5,7 +5,6 @@ import { parse, serialize } from 'cookie';
 
 export default class CookieHandler {
   #COOKIE_DAYS = 100;
-  #ESSENTIAL_GROUP_NAME = 'essential';
   #shadowDomUpdateCallback;
   #siteSettings;
   #cookieName = 'city-of-helsinki-cookie-consents'; // Overridable default value
