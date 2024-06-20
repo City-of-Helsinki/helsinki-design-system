@@ -4,7 +4,9 @@ import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock'
 
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { CookieConsentCore } from './cookieConsentCore';
-import * as settingsJSON from './example/helfi_sitesettings.json';
+import * as siteSettingsObjRaw from './example/helfi_sitesettings.json';
+
+const siteSettingsObj = { ...siteSettingsObjRaw, monitorInterval: 50 };
 
 type Options = {
   language?: string;
@@ -41,9 +43,22 @@ describe('cookieConsentCore', () => {
     });
   };
 
+  /**
+   * Wait for console log to be called with a specific message
+   * @param level Console level, e.g. 'log', 'warn', 'error'
+   * @param messageToWait Message to wait for
+   */
+  async function waitForConsole(level, messageToWait) {
+    const consoleLogSpy = jest.spyOn(console, level);
+    await waitFor(() => {
+      expect(consoleLogSpy).toHaveBeenCalledWith(messageToWait);
+    });
+  }
+
   const urls = {
-    siteSettingsJsonUrl: 'http://localhost/helfi_sitesettings.json',
-    siteSettings404: 'http://localhost/404.json',
+    siteSettingsJsonUrl: '/helfi_sitesettings.json',
+    siteSettings404: '/404.json',
+    siteSettingsNotJSON: '/malformed.json',
   };
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -201,7 +216,15 @@ describe('cookieConsentCore', () => {
 
   const returnSettingsJSON = () =>
     Promise.resolve({
-      body: JSON.stringify(settingsJSON),
+      body: JSON.stringify(siteSettingsObj),
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+
+  const returnNotJSON = () =>
+    Promise.resolve({
+      body: 'This is not a JSON',
       headers: {
         'content-type': 'application/json',
       },
@@ -242,6 +265,9 @@ describe('cookieConsentCore', () => {
         // return a 404 response
         return Promise.resolve({ status: 404, ok: false, body: 'Not found' });
       }
+      if (req.url.includes(urls.siteSettingsNotJSON)) {
+        return returnNotJSON();
+      }
       return Promise.reject(new Error(`Unknown url ${req.url}`));
     });
     // @ts-ignore next-line
@@ -277,10 +303,16 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
+  // `Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}'  was not found`
+  // `Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`
+  // `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`
+  // `Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`
+  // `Cookie consent: Missing translation: ${key}:${lang}`
+
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Basic tests
 
-  it('adds elements to shadowRoot', async () => {
+  it('should add elements to shadowRoot', async () => {
     // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
@@ -294,7 +326,7 @@ describe('cookieConsentCore', () => {
     expect(isDetailsExpanded()).toBeFalsy();
   });
 
-  it('changes on button click', async () => {
+  it('should change on button click', async () => {
     // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
@@ -307,10 +339,26 @@ describe('cookieConsentCore', () => {
   // MARK: Config
   // - Is the settings file properly linked?
 
+  it('should throw an error if constructor is accessed directly without create method', () => {
+    // @ts-ignore
+    return expect(() => new CookieConsentCore(siteSettingsObj, options)).toThrow(
+      'Cookie consent: direct construction not allowed. Use `await CookieConsentCore.create()` instead.',
+    );
+  });
+
+  it('should accept siteSettingsObj as input instead of url', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(siteSettingsObj, options);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    fireEvent.click(getShowDetailsButtonElement());
+    expect(isDetailsExpanded()).toBeTruthy();
+  });
+
   it('should throw an error if siteSettingsObj is not defined', async () => {
     // @ts-ignore
     return expect(async () => CookieConsentCore.create(null, options)).rejects.toThrow(
-      'Cookie consent: siteSettingsParam is required, it should be an URL string or an object.',
+      'Cookie consent: siteSettingsParam is required, it should be an URL string or an siteSettings object.',
     );
   });
 
@@ -318,6 +366,13 @@ describe('cookieConsentCore', () => {
     // @ts-ignore
     await expect(CookieConsentCore.create(urls.siteSettings404, { ...options })).rejects.toThrow(
       `Cookie consent: Unable to fetch cookie consent settings: '404' from: '${urls.siteSettings404}' `,
+    );
+  });
+
+  it('should throw an error if siteSettings JSON is malformed', async () => {
+    // @ts-ignore
+    await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow(
+      'Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token T in JSON at position 0',
     );
   });
 
@@ -334,15 +389,94 @@ describe('cookieConsentCore', () => {
 
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
   // it('should throw error if pageContentSelector is set but not found on DOM', () => {});
+  // it('should throw error if Aria notification element is not found on DOM', () => {});
 
   // - Are there whitelisted groups available in window scope?
   // it('should not allow consenting from API to a group that is not whitelisted', () => {});
 
-  // - Does the settings file have required group set with consent cookie?
-  // it('should throw error if required group with the consent cookie is missing from siteSettings', () => {});
+  // - Do site settings contain a group for consent cookie?
+  it('should throw error if there is no required group to store consent cookie in', () => {
+    return expect(async () =>
+      // @ts-ignore
+      CookieConsentCore.create({ ...siteSettingsObj, requiredGroups: [] }, options),
+    ).rejects.toThrow(
+      "Cookie consent: At least one required group is needed to store consent in 'helfi-cookie-consents'.",
+    );
+  });
 
-  // - Is the settings file properly formatted?
-  // it('should throw error if required group properties can not be accessed', () => {});
+  // - Do site site settings contain consent cookie?
+  it('should throw error if there is no consent cookie in site settings required groups', () => {
+    return expect(async () =>
+      // @ts-ignore
+      CookieConsentCore.create(
+        {
+          ...siteSettingsObj,
+          requiredGroups: [
+            {
+              groupId: 'essential',
+              title: 'Essential without consent cookie',
+              description: '',
+              cookies: [
+                {
+                  name: 'not_consent_cookie',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 1,
+                },
+              ],
+            },
+          ],
+        },
+        options,
+      ),
+    ).rejects.toThrow("Cookie consent: No group found in requiredGroups that contains cookie 'helfi-cookie-consents'.");
+  });
+
+  // - Do site site settings have duplicate groups?
+  it('should throw error if site settings contains duplicate groups', () => {
+    return expect(async () =>
+      // @ts-ignore
+      CookieConsentCore.create(
+        {
+          ...siteSettingsObj,
+          requiredGroups: [
+            {
+              groupId: 'duplicate',
+              title: 'Duplicate group',
+              description: '',
+              cookies: [
+                {
+                  name: 'helfi-cookie-consents',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 1,
+                },
+              ],
+            },
+          ],
+          optionalGroups: [
+            {
+              groupId: 'duplicate',
+              title: 'Duplicate group',
+              description: '',
+              cookies: [
+                {
+                  name: 'cookie',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 1,
+                },
+              ],
+            },
+          ],
+        },
+        options,
+      ),
+    ).rejects.toThrow("Cookie consent: Groups 'duplicate' found multiple times in settings.");
+  });
 
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Functionalities
@@ -369,7 +503,7 @@ describe('cookieConsentCore', () => {
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
     const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map((e) => e.groupId);
+    const expectedGroups = [...siteSettingsObj.requiredGroups, ...siteSettingsObj.optionalGroups].map((e) => e.groupId);
     expect(writtenKeys).toEqual(expectedGroups);
   });
 
@@ -386,7 +520,7 @@ describe('cookieConsentCore', () => {
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
     const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups].map((e) => e.groupId);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
     expect(writtenKeys).toEqual(expectedGroups);
   });
 
@@ -411,7 +545,7 @@ describe('cookieConsentCore', () => {
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
     const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups].map((e) => e.groupId);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
     expectedGroups.push('statistics');
     expect(writtenKeys).toEqual(expectedGroups);
   });
@@ -430,7 +564,7 @@ describe('cookieConsentCore', () => {
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
     const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups].map((e) => e.groupId);
+    const expectedGroups = [...siteSettingsObj.requiredGroups, ...siteSettingsObj.optionalGroups].map((e) => e.groupId);
     expect(writtenKeys).toEqual(expectedGroups);
 
     // All cookies accepted, now open banner and remove statistics
@@ -457,7 +591,7 @@ describe('cookieConsentCore', () => {
     const writtenCookieGroupsAfterRemoval =
       JSON.parse(parsedAfterRemoval['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeysAfterRemoval = Object.keys(writtenCookieGroupsAfterRemoval);
-    const expectedGroupsAfterRemoval = [...settingsJSON.requiredGroups, ...settingsJSON.optionalGroups]
+    const expectedGroupsAfterRemoval = [...siteSettingsObj.requiredGroups, ...siteSettingsObj.optionalGroups]
       .map((e) => e.groupId)
       .filter((e) => e !== 'statistics');
     expect(writtenKeysAfterRemoval).toEqual(expectedGroupsAfterRemoval);
@@ -485,12 +619,12 @@ describe('cookieConsentCore', () => {
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
     const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeys = Object.keys(writtenCookieGroups);
-    const expectedGroups = [...settingsJSON.requiredGroups].map((e) => e.groupId);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
     expectedGroups.push('statistics');
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find a statistics cookie
-    const statisticsCookies = settingsJSON.optionalGroups.find((e) => e.groupId === 'statistics');
+    const statisticsCookies = siteSettingsObj.optionalGroups.find((e) => e.groupId === 'statistics');
     // @ts-ignore
     const firstCookieValues = statisticsCookies.cookies[0];
     const singleStatisticsCookie = { [firstCookieValues.name]: 1 };
@@ -520,12 +654,10 @@ describe('cookieConsentCore', () => {
     const writtenCookieGroupsAfterRemoval =
       JSON.parse(parsedAfterRemoval['helfi-cookie-consents'] as string)?.groups || '';
     const writtenKeysAfterRemoval = Object.keys(writtenCookieGroupsAfterRemoval);
-    const expectedGroupsAfterRemoval = [...settingsJSON.requiredGroups].map((e) => e.groupId);
+    const expectedGroupsAfterRemoval = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
     expect(writtenKeysAfterRemoval).toEqual(expectedGroupsAfterRemoval);
 
-    // Give some time for cookie removal
-    // If race condition issues arise, ramp up the sleep time
-    await sleep(100);
+    await waitForConsole('log', "Cookie consent will delete consent withdrawn cookie(s): 'nmstat'");
 
     // Expect the cookie to be removed
     const statisticsCookieWrittenAfterRemoval = document.cookie.includes(firstCookieValues.name);
@@ -540,8 +672,8 @@ describe('cookieConsentCore', () => {
 
     localStorage.unallowed = 'delete this';
     expect(localStorage.unallowed).toBe('delete this');
-    // Give some time for removal
-    await sleep(500);
+
+    await waitForConsole('log', "Cookie consent will delete unapproved localStorage(s): 'unallowed'");
 
     expect(localStorage.unallowed).toBeFalsy();
   });
@@ -554,8 +686,8 @@ describe('cookieConsentCore', () => {
 
     sessionStorage.unallowed = 'delete this';
     expect(sessionStorage.unallowed).toBe('delete this');
-    // Give some time for removal
-    await sleep(500);
+
+    await waitForConsole('log', "Cookie consent will delete unapproved sessionStorage(s): 'unallowed'");
 
     expect(sessionStorage.unallowed).toBeFalsy();
   });
