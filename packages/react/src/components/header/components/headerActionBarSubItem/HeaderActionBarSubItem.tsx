@@ -8,6 +8,10 @@ import parentClasses from '../headerActionBarItem/HeaderActionBarItem.module.scs
 
 export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
+   * Aria-label attribute for the action bar item.
+   */
+  'aria-label'?: React.ComponentProps<'button'>['aria-label'];
+  /**
    * Icon element (on the left side of the label) for the action bar item.
    */
   iconLeft?: ReactNode;
