@@ -8,6 +8,9 @@ import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
 
+// This private symbol is being used as a way to ensure that the constructor is not called without the create method.
+const privateSymbol = Symbol('private');
+
 /**
  * Represents a class for managing cookie consent.
  * @class
@@ -66,11 +69,10 @@ export class CookieConsentCore {
     },
     calledFromCreate = false,
   ) {
-    if (!calledFromCreate) {
-      throw new Error('Cookie consent: direct construction not allowed. Use `await CookieConsentCore.create` instead.');
-    }
-    if (!siteSettingsObj) {
-      throw new Error('Cookie consent: siteSettingsObj is required');
+    if (calledFromCreate !== privateSymbol) {
+      throw new Error(
+        'Cookie consent: direct construction not allowed. Use `await CookieConsentCore.create()` instead.',
+      );
     }
 
     this.#LANGUAGE = language;
@@ -143,9 +145,9 @@ export class CookieConsentCore {
       } catch (error) {
         throw new Error(`Cookie consent siteSettings JSON parsing failed: ${error}`);
       }
-      instance = new CookieConsentCore(siteSettingsObj, options, true);
+      instance = new CookieConsentCore(siteSettingsObj, options, privateSymbol);
     } else {
-      instance = new CookieConsentCore(siteSettingsParam, options, true);
+      instance = new CookieConsentCore(siteSettingsParam, options, privateSymbol);
     }
 
     // Initialise the class instance
