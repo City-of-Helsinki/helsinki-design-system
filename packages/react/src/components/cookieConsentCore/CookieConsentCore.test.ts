@@ -661,8 +661,134 @@ describe('cookieConsentCore', () => {
     const statisticsCookieWrittenAfterRemoval = document.cookie.includes(firstCookieValues.name);
     expect(statisticsCookieWrittenAfterRemoval).toBeFalsy();
   });
+  // it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
+  // it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
+  // it('should remove indexedDb items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
+  // it('should remove cache storage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
 
-  it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+  // - It should monitor and report items that have not been consented to if monitor interval parameter is set in siteSettings above 0
+  it('should monitor and report cookies that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    expect(document.cookie).toBeFalsy();
+    // @ts-ignore
+    mockedCookieControls.add({ 'rogue_cookie': 1 });
+    expect(document.cookie).toBeTruthy();
+    await waitForConsole('log', "Cookie consent found unapproved cookie(s): 'rogue_cookie'");
+    expect(document.cookie).toEqual('rogue_cookie=1');
+  });
+
+  it('should monitor and report localStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    localStorage.unallowed = 'delete this';
+    expect(localStorage.unallowed).toBe('delete this');
+
+    await waitForConsole('log', "Cookie consent found unapproved localStorage(s): 'unallowed'");
+
+    expect(localStorage.unallowed).not.toBeFalsy();
+    expect(localStorage.unallowed).toBe('delete this');
+  });
+
+  it('should monitor and report sessionStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    sessionStorage.unallowed = 'delete this';
+    expect(sessionStorage.unallowed).toBe('delete this');
+
+    await waitForConsole('log', "Cookie consent found unapproved sessionStorage(s): 'unallowed'");
+
+    expect(sessionStorage.unallowed).not.toBeFalsy();
+    expect(sessionStorage.unallowed).toBe('delete this');
+  });
+
+  it('should monitor and report indexedDb items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    async function createIndexedDb(key: string) {
+      // Open (or create) the database
+      return new Promise((resolve, reject) => {
+
+        let openRequest = indexedDB.open(key, 1);
+        let db: any;
+
+        openRequest.onupgradeneeded = function (event: any) {
+          // The database did not previously exist, so create object stores and indexes here
+          db = event.target.result;
+          db.createObjectStore(`${key}_testObjectStore`, { autoIncrement: true });
+        };
+
+        openRequest.onsuccess = function (event: any) {
+          // The database has been opened (or created)
+          db = event.target.result;
+
+          // Close the database connection, so that it can be deleted
+          db.close();
+          // @ts-ignore
+          return resolve(db);
+        };
+
+        openRequest.onerror = function (event: any) {
+          console.log("Error opening/creating database: ", event.target.errorCode);
+          reject(event.target.errorCode);
+        };
+      })
+    }
+
+    await (async function () {
+      expect(await indexedDB.databases()).toEqual([]);
+      await createIndexedDb('test1');
+      // @ts-ignore
+      expect((await indexedDB.databases())[0].name).toEqual('test1');
+      await waitForConsole('log', "Cookie consent found unapproved indexedDB(s): 'test1'");
+
+      expect((await indexedDB.databases())[0].name).toEqual('test1');
+    })();
+  });
+
+  it('should monitor and report cache storage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    await caches.open('test1')
+    const cacheBeforeReport = await caches.keys();
+    expect(cacheBeforeReport).toBeTruthy();
+    await waitForConsole('log', "Cookie consent found unapproved cacheStorage(s): 'test1'");
+    const cacheAfterReport = await caches.keys();
+    expect(cacheAfterReport.length).not.toEqual(0);
+    expect(cacheBeforeReport).toEqual(cacheAfterReport);
+  });
+
+  // - It should remove items that have not been consented to if remove parameter is set in siteSettings
+  it('should remove cookies that have not been consented to if remove parameter is set in siteSettings', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    expect(document.cookie).toBeFalsy();
+    // @ts-ignore
+    mockedCookieControls.add({ 'rogue_cookie': 1 });
+    expect(document.cookie).toBeTruthy();
+    await waitForConsole('log', "Cookie consent will delete unapproved cookie(s): 'rogue_cookie'");
+    expect(document.cookie).toBeFalsy();
+  });
+
+  it('should remove localStorage items that have not been consented to if remove parameter is set in siteSettings', async () => {
     // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
@@ -676,7 +802,7 @@ describe('cookieConsentCore', () => {
     expect(localStorage.unallowed).toBeFalsy();
   });
 
-  it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+  it('should remove sessionStorage items that have not been consented to if remove parameter is set in siteSettings', async () => {
     // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
@@ -690,23 +816,69 @@ describe('cookieConsentCore', () => {
     expect(sessionStorage.unallowed).toBeFalsy();
   });
 
-  // These two API's don't seem to be supported
-  // it('should remove indexedDb items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
-  // it('should remove cache storage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
+  it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
 
-  // - It should monitor and report items that have not been consented to if monitor interval parameter is set in siteSettings above 0
-  // it('should monitor and report cookies that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
-  // it('should monitor and report localStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
-  // it('should monitor and report sessionStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
-  // it('should monitor and report indexedDb items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
-  // it('should monitor and report cache storage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', () => {});
+    async function createIndexedDb(key: string) {
+      // Open (or create) the database
+      return new Promise((resolve, reject) => {
 
-  // - It should remove items that have not been consented to if remove parameter is set in siteSettings
-  // it('should remove cookies that have not been consented to if remove parameter is set in siteSettings', () => {});
-  // it('should remove localStorage items that have not been consented to if remove parameter is set in siteSettings', () => {});
-  // it('should remove sessionStorage items that have not been consented to if remove parameter is set in siteSettings', () => {});
-  // it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', () => {});
-  // it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', () => {});
+        let openRequest = indexedDB.open(key, 1);
+        let db: any;
+
+        openRequest.onupgradeneeded = function (event: any) {
+          // The database did not previously exist, so create object stores and indexes here
+          db = event.target.result;
+          db.createObjectStore(`${key}_testObjectStore`, { autoIncrement: true });
+        };
+
+        openRequest.onsuccess = function (event: any) {
+          // The database has been opened (or created)
+          db = event.target.result;
+
+          // Close the database connection, so that it can be deleted
+          db.close();
+          // @ts-ignore
+          return resolve(db);
+        };
+
+        openRequest.onerror = function (event: any) {
+          console.log("Error opening/creating database: ", event.target.errorCode);
+          reject(event.target.errorCode);
+        };
+      })
+    }
+
+    await (async function () {
+      expect(await indexedDB.databases()).toEqual([]);
+      await createIndexedDb('test1');
+      // @ts-ignore
+      expect((await indexedDB.databases())[0].name).toEqual('test1');
+      await waitForConsole('log', "Cookie consent will delete unapproved indexedDB(s): 'test1'");
+
+      expect(await indexedDB.databases()).toEqual([]);
+    })();
+
+
+  });
+
+  it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    await caches.open('test1')
+    const cacheBeforeDelete = await caches.keys();
+    expect(cacheBeforeDelete).toBeTruthy();
+    await waitForConsole('log', "Cache 'test1' has been deleted");
+    const cacheAfterDelete = await caches.keys();
+    expect(cacheAfterDelete.length).toEqual(0);
+    expect(cacheBeforeDelete).not.toEqual(cacheAfterDelete);
+  });
 
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: State changes
