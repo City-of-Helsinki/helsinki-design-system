@@ -300,11 +300,11 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
-  // `Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}'  was not found`
-  // `Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`
-  // `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`
-  // `Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`
-  // `Cookie consent: Missing translation: ${key}:${lang}`
+  // TODO: `Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}'  was not found`
+  // TODO: `Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`
+  // TODO: `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`
+  // TODO: `Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`
+
 
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Basic tests
@@ -880,6 +880,17 @@ describe('cookieConsentCore', () => {
   // - If the settings are changed, the banner should recognize the changes
   // it('should remove only invalid (checksum mismatch) groups from cookie', () => {});
 
+  // -------------------------------------------------------------------------------------------------------------------
+  // MARK: Special cases
+  // - Are robot-cookies allowed (cookies that are not set by the site, but set by a robot like Siteimprove crawler)
+  // it('should not complain or show details about pre-approved robot cookies', () => {});
+
+  // - Language tests
+  // it('should fallback to English texts if an unknown language key is provided and complain in console.error', () => {});
+  //   `Cookie consent: Missing translation: ${key}:${lang}`
+  // it('should fallback to first found language, if English text is not found and complain in console.error', () => {});
+  //   `Cookie consent: Missing translation: ${key}:${lang}`
+  // it('should throw an error if language key is not found in language file', () => {});
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Visual issues
   // - Do the checkboxes in banner describe the accepted categories?
