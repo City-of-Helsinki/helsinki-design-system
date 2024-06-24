@@ -129,6 +129,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   logoHref?: string;
   /**
+   * The label for the menu button.
+   */
+  menuButtonLabel?: string;
+  /**
    * The aria-label for the menu button to screen reader users.
    */
   menuButtonAriaLabel?: string;
@@ -175,6 +179,7 @@ export const HeaderActionBar = ({
   titleStyle,
   titleAriaLabel,
   logoAriaLabel,
+  menuButtonLabel = 'Menu',
   menuButtonAriaLabel,
   titleHref,
   logoHref,
@@ -292,7 +297,7 @@ export const HeaderActionBar = ({
             {(hasNavigationContent || childrenWithId.length > 0) && isNotLargeScreen && (
               <HeaderActionBarItem
                 id="Menu"
-                label="Menu"
+                label={menuButtonLabel}
                 ariaLabel={menuButtonAriaLabel}
                 onClick={handleMenuClick}
                 onClickCapture={handleMenuClickCapture}
