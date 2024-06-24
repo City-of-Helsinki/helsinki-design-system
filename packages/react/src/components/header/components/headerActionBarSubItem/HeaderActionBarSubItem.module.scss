@@ -41,11 +41,11 @@ h4.actionBarSubItem {
 }
 
 :first-child.actionBarSubItem {
-  border-top: 0 solid black;
+  border-top: none;
 }
 
 :last-child.actionBarSubItem {
-  border-bottom: 0 solid black;
+  border-bottom: none;
 }
 
 .actionBarSubItemLabel {
