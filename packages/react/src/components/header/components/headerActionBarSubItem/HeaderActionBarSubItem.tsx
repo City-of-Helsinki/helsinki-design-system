@@ -161,6 +161,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
       return (
         <Wrapper>
           <a
+            className={itemClassName}
             {...(linkAttr as unknown as HTMLAttributes<HTMLAnchorElement>)}
             ref={ref as ForwardedRef<HTMLAnchorElement>}
           >
