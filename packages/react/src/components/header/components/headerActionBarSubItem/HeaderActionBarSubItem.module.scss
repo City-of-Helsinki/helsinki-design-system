@@ -68,10 +68,10 @@ h4.actionBarSubItem {
 }
 
 .notificationBubble {
-  background: var(--notification-count-background-color);
+  background: var(--notification-bubble-background-color);
   border-radius: var(--spacing-xs);
   box-sizing: border-box;
-  color: var(--notification-count-text-color);
+  color: var(--notification-bubble-text-color);
   display: inline-block;
   font-size: var(--fontsize-body-s);
   line-height: var(--spacing-m);
