@@ -80,7 +80,7 @@ export default class MonitorAncCleanBrowserStorages {
       deleteKeys.forEach((key) => {
         // console.log('typeString', typeString, this.#removalFailedKeys, this.#removalFailedKeys[typeString]);
         if (!this.#removalFailedKeys[typeString].includes(key)) {
-          console.log(`Cookie consent will delete ${reason} ${typeString}(s): '${deleteKeys.join("', '")}'`);
+          console.log(`Cookie consent: will delete ${reason} ${typeString}(s): '${deleteKeys.join("', '")}'`);
 
           if (typeString === 'cookie') {
             deleteCookie(key);
@@ -95,24 +95,24 @@ export default class MonitorAncCleanBrowserStorages {
           } else if (typeString === 'indexedDB') {
             const request = indexedDB.deleteDatabase(key);
             request.onsuccess = () => {
-              // console.log(`IndexedDB database '${key}' deleted successfully.`);
+              console.log(`Cookie consent: IndexedDB database '${key}' deleted successfully.`);
               // Remove the key from the blacklist as the deletion was successful
               this.#removalFailedKeys.indexedDB = this.#removalFailedKeys.indexedDB.filter((item) => item !== key);
             };
             request.onerror = () => {
-              // console.error(`Error deleting IndexedDB database '${key}'`);
+              console.warn(`Cookie consent: Error deleting IndexedDB database '${key}'`);
               this.#removalFailedKeys.indexedDB.push(key);
             };
             request.onblocked = () => {
-              // console.warn(`IndexedDB database '${key}' deletion blocked.`);
+              console.error(`Cookie consent: IndexedDB database '${key}' deletion blocked.`);
               this.#removalFailedKeys.indexedDB.push(key);
             };
           } else if (typeString === 'cacheStorage') {
             caches.delete(key).then((response) => {
               if (response) {
-                console.log(`Cache '${key}' has been deleted`);
+                console.log(`Cookie consent: Cache '${key}' has been deleted`);
               } else {
-                console.log(`Cache '${key}' not found`);
+                console.log(`Cookie consent: Cache '${key}' not found`);
               }
             });
           }
@@ -235,7 +235,7 @@ export default class MonitorAncCleanBrowserStorages {
     });
 
     if (unapprovedKeys.length > 0) {
-      console.log(`Cookie consent found unapproved ${typeString}(s): '${unapprovedKeys.join("', '")}'`);
+      console.log(`Cookie consent: found unapproved ${typeString}(s): '${unapprovedKeys.join("', '")}'`);
 
       const event = new CustomEvent('hds-cookie-consent-unapproved-item-found', {
         detail: {
