@@ -1,4 +1,5 @@
-// @ts-ignore
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jest/no-mocks-import */
 import { fireEvent, waitFor } from '@testing-library/dom';
 import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
@@ -36,12 +37,6 @@ describe('cookieConsentCore', () => {
   const acceptRequiredButtonSelector = `.hds-cc__buttons button[data-approved="required"]`;
   const essentialCookiesCheckboxSelector = `#essential-cookies`;
   const containerSelector = `.hds-cc__container`;
-
-  const sleep = async (delay) => {
-    return new Promise((r) => {
-      setTimeout(r, delay);
-    });
-  };
 
   /**
    * Wait for console log to be called with a specific message
@@ -275,6 +270,7 @@ describe('cookieConsentCore', () => {
   });
 
   beforeEach(() => {
+    jest.useFakeTimers(); // Since monitor loop uses setInterval, we need to fake timers. It's here, so we can override this per test if needed
     try {
       const el = getRootElement();
       if (el) {
@@ -295,6 +291,7 @@ describe('cookieConsentCore', () => {
     if (mockTextEncoderDisposer) {
       mockTextEncoderDisposer();
     }
+    jest.resetModules();
   });
 
   afterAll(() => {
@@ -655,7 +652,7 @@ describe('cookieConsentCore', () => {
     const expectedGroupsAfterRemoval = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
     expect(writtenKeysAfterRemoval).toEqual(expectedGroupsAfterRemoval);
 
-    await waitForConsole('log', "Cookie consent will delete consent withdrawn cookie(s): 'nmstat'");
+    await waitForConsole('log', "Cookie consent: will delete consent withdrawn cookie(s): 'nmstat'");
 
     // Expect the cookie to be removed
     const statisticsCookieWrittenAfterRemoval = document.cookie.includes(firstCookieValues.name);
@@ -669,28 +666,28 @@ describe('cookieConsentCore', () => {
   // - It should monitor and report items that have not been consented to if monitor interval parameter is set in siteSettings above 0
   it('should monitor and report cookies that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     expect(document.cookie).toBeFalsy();
     // @ts-ignore
-    mockedCookieControls.add({ 'rogue_cookie': 1 });
+    mockedCookieControls.add({ rogue_cookie: 1 });
     expect(document.cookie).toBeTruthy();
-    await waitForConsole('log', "Cookie consent found unapproved cookie(s): 'rogue_cookie'");
+    await waitForConsole('log', "Cookie consent: found unapproved cookie(s): 'rogue_cookie'");
     expect(document.cookie).toEqual('rogue_cookie=1');
   });
 
   it('should monitor and report localStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     localStorage.unallowed = 'delete this';
     expect(localStorage.unallowed).toBe('delete this');
 
-    await waitForConsole('log', "Cookie consent found unapproved localStorage(s): 'unallowed'");
+    await waitForConsole('log', "Cookie consent: found unapproved localStorage(s): 'unallowed'");
 
     expect(localStorage.unallowed).not.toBeFalsy();
     expect(localStorage.unallowed).toBe('delete this');
@@ -698,14 +695,14 @@ describe('cookieConsentCore', () => {
 
   it('should monitor and report sessionStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     sessionStorage.unallowed = 'delete this';
     expect(sessionStorage.unallowed).toBe('delete this');
 
-    await waitForConsole('log', "Cookie consent found unapproved sessionStorage(s): 'unallowed'");
+    await waitForConsole('log', "Cookie consent: found unapproved sessionStorage(s): 'unallowed'");
 
     expect(sessionStorage.unallowed).not.toBeFalsy();
     expect(sessionStorage.unallowed).toBe('delete this');
@@ -713,24 +710,23 @@ describe('cookieConsentCore', () => {
 
   it('should monitor and report indexedDb items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     async function createIndexedDb(key: string) {
       // Open (or create) the database
       return new Promise((resolve, reject) => {
-
-        let openRequest = indexedDB.open(key, 1);
+        const openRequest = indexedDB.open(key, 1);
         let db: any;
 
-        openRequest.onupgradeneeded = function (event: any) {
+        openRequest.onupgradeneeded = function upgradeNeeded(event: any) {
           // The database did not previously exist, so create object stores and indexes here
           db = event.target.result;
           db.createObjectStore(`${key}_testObjectStore`, { autoIncrement: true });
         };
 
-        openRequest.onsuccess = function (event: any) {
+        openRequest.onsuccess = function success(event: any) {
           // The database has been opened (or created)
           db = event.target.result;
 
@@ -740,34 +736,33 @@ describe('cookieConsentCore', () => {
           return resolve(db);
         };
 
-        openRequest.onerror = function (event: any) {
-          console.log("Error opening/creating database: ", event.target.errorCode);
+        openRequest.onerror = function error(event: any) {
+          // eslint-disable-next-line no-console
+          console.log('Error opening/creating database: ', event.target.errorCode);
           reject(event.target.errorCode);
         };
-      })
+      });
     }
 
-    await (async function () {
-      expect(await indexedDB.databases()).toEqual([]);
-      await createIndexedDb('test1');
-      // @ts-ignore
-      expect((await indexedDB.databases())[0].name).toEqual('test1');
-      await waitForConsole('log', "Cookie consent found unapproved indexedDB(s): 'test1'");
+    expect(await indexedDB.databases()).toEqual([]);
+    await createIndexedDb('indexedDb_unapproved');
+    // @ts-ignore
+    expect((await indexedDB.databases())[0].name).toEqual('indexedDb_unapproved');
+    await waitForConsole('log', "Cookie consent: found unapproved indexedDB(s): 'indexedDb_unapproved'");
 
-      expect((await indexedDB.databases())[0].name).toEqual('test1');
-    })();
+    expect((await indexedDB.databases())[0].name).toEqual('indexedDb_unapproved');
   });
 
   it('should monitor and report cache storage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options),
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    await caches.open('test1')
+    await caches.open('cacheStorageMonitorTest');
     const cacheBeforeReport = await caches.keys();
     expect(cacheBeforeReport).toBeTruthy();
-    await waitForConsole('log', "Cookie consent found unapproved cacheStorage(s): 'test1'");
+    await waitForConsole('log', "Cookie consent: found unapproved cacheStorage(s): 'cacheStorageMonitorTest'");
     const cacheAfterReport = await caches.keys();
     expect(cacheAfterReport.length).not.toEqual(0);
     expect(cacheBeforeReport).toEqual(cacheAfterReport);
@@ -776,30 +771,30 @@ describe('cookieConsentCore', () => {
   // - It should remove items that have not been consented to if remove parameter is set in siteSettings
   it('should remove cookies that have not been consented to if remove parameter is set in siteSettings', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     expect(document.cookie).toBeFalsy();
     // @ts-ignore
-    mockedCookieControls.add({ 'rogue_cookie': 1 });
+    mockedCookieControls.add({ rogue_cookie: 1 });
     expect(document.cookie).toBeTruthy();
-    await waitForConsole('log', "Cookie consent will delete unapproved cookie(s): 'rogue_cookie'");
+    await waitForConsole('log', "Cookie consent: will delete unapproved cookie(s): 'rogue_cookie'");
     expect(document.cookie).toBeFalsy();
   });
 
   it('should remove localStorage items that have not been consented to if remove parameter is set in siteSettings', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    localStorage.unallowed = 'delete this';
-    expect(localStorage.unallowed).toBe('delete this');
+    localStorage.unallowedLocalStorage = 'delete this';
+    expect(localStorage.unallowedLocalStorage).toBe('delete this');
 
-    await waitForConsole('log', "Cookie consent will delete unapproved localStorage(s): 'unallowed'");
+    await waitForConsole('log', "Cookie consent: will delete unapproved localStorage(s): 'unallowedLocalStorage'");
 
-    expect(localStorage.unallowed).toBeFalsy();
+    expect(localStorage.unallowedLocalStorage).toBeFalsy();
   });
 
   it('should remove sessionStorage items that have not been consented to if remove parameter is set in siteSettings', async () => {
@@ -808,34 +803,34 @@ describe('cookieConsentCore', () => {
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    sessionStorage.unallowed = 'delete this';
-    expect(sessionStorage.unallowed).toBe('delete this');
+    sessionStorage.unallowedSessionStorage = 'delete this';
+    expect(sessionStorage.unallowedSessionStorage).toBe('delete this');
 
-    await waitForConsole('log', "Cookie consent will delete unapproved sessionStorage(s): 'unallowed'");
+    await waitForConsole('log', "Cookie consent: will delete unapproved sessionStorage(s): 'unallowedSessionStorage'");
 
-    expect(sessionStorage.unallowed).toBeFalsy();
+    expect(sessionStorage.unallowedSessionStorage).toBeFalsy();
   });
 
   it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', async () => {
+    jest.useRealTimers(); // Other tests work with fake timers, but indexedDB mock seems to need real timers
     // @ts-ignore
-    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
     async function createIndexedDb(key: string) {
       // Open (or create) the database
       return new Promise((resolve, reject) => {
-
-        let openRequest = indexedDB.open(key, 1);
+        const openRequest = indexedDB.open(key, 1);
         let db: any;
 
-        openRequest.onupgradeneeded = function (event: any) {
+        openRequest.onupgradeneeded = function upgradeNeeded(event: any) {
           // The database did not previously exist, so create object stores and indexes here
           db = event.target.result;
           db.createObjectStore(`${key}_testObjectStore`, { autoIncrement: true });
         };
 
-        openRequest.onsuccess = function (event: any) {
+        openRequest.onsuccess = function success(event: any) {
           // The database has been opened (or created)
           db = event.target.result;
 
@@ -845,36 +840,33 @@ describe('cookieConsentCore', () => {
           return resolve(db);
         };
 
-        openRequest.onerror = function (event: any) {
-          console.log("Error opening/creating database: ", event.target.errorCode);
+        openRequest.onerror = function error(event: any) {
+          // eslint-disable-next-line no-console
+          console.log('Error opening/creating database: ', event.target.errorCode);
           reject(event.target.errorCode);
         };
-      })
+      });
     }
 
-    await (async function () {
-      expect(await indexedDB.databases()).toEqual([]);
-      await createIndexedDb('test1');
-      // @ts-ignore
-      expect((await indexedDB.databases())[0].name).toEqual('test1');
-      await waitForConsole('log', "Cookie consent will delete unapproved indexedDB(s): 'test1'");
+    expect(await indexedDB.databases()).toEqual([]);
+    await createIndexedDb('indexedDb_remove');
+    // @ts-ignore
+    expect((await indexedDB.databases())[0].name).toEqual('indexedDb_remove');
+    await waitForConsole('log', "Cookie consent: IndexedDB database 'indexedDb_remove' deleted successfully.");
 
-      expect(await indexedDB.databases()).toEqual([]);
-    })();
-
-
+    expect(await indexedDB.databases()).toEqual([]);
   });
 
   it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', async () => {
     // @ts-ignore
-    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    await caches.open('test1')
+    await caches.open('cacheStorageTest');
     const cacheBeforeDelete = await caches.keys();
     expect(cacheBeforeDelete).toBeTruthy();
-    await waitForConsole('log', "Cache 'test1' has been deleted");
+    await waitForConsole('log', "Cookie consent: Cache 'cacheStorageTest' has been deleted");
     const cacheAfterDelete = await caches.keys();
     expect(cacheAfterDelete.length).toEqual(0);
     expect(cacheBeforeDelete).not.toEqual(cacheAfterDelete);
