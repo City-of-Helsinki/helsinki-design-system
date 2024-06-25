@@ -182,9 +182,9 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
     }
 
     return (
-      <li className={actionBarItemClasses.dropdownItem}>
+      <Wrapper>
         <Content />
-      </li>
+      </Wrapper>
     );
   },
 );
