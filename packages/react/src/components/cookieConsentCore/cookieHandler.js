@@ -210,7 +210,7 @@ export default class CookieHandler {
    *
    * @param {Array<string>} consentedGroupNames - The names of the consented groups.
    * @param {object} monitorReference - The reference to the monitor object.
-   * @returns {void}
+   * @return {void}
    */
   removeConsentWithdrawnCookiesBeforeSave(consentedGroupNames, monitorReference) {
     const consentedKeysArray = this.getAllKeysInConsentedGroups(consentedGroupNames);
@@ -378,9 +378,9 @@ export default class CookieHandler {
     }
 
     // Check that there is at least one required group that contains the cookie and its type is cookie
-    const requiredGroupWithCookie = this.#siteSettings.requiredGroups.find((group) => {
-      return group.cookies.some((cookie) => cookie.name === this.#cookieName && cookie.type === 1);
-    });
+    const requiredGroupWithCookie = this.#siteSettings.requiredGroups.find((group) =>
+      group.cookies.some((cookie) => cookie.name === this.#cookieName && cookie.type === 1),
+    );
 
     // If no required group contains the cookie, throw an error
     if (!requiredGroupWithCookie) {

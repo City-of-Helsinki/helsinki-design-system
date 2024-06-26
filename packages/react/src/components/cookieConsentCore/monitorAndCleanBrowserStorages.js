@@ -62,7 +62,6 @@ export default class MonitorAncCleanBrowserStorages {
    * @param {string[]} consentedKeysArray - An array of consented keys.
    * @param {string[]} currentStoredKeysArray - An array of current stored keys.
    * @param {string} reason - The reason for deleting the keys.
-   * @return {Promise<void>} A promise that resolves when the keys have been deleted.
    */
   deleteKeys(typeString, consentedKeysArray, currentStoredKeysArray, reason) {
     const deleteKeys = currentStoredKeysArray.filter((key) => {
@@ -251,60 +250,6 @@ export default class MonitorAncCleanBrowserStorages {
 
     if (this.#REMOVE) {
       this.deleteKeys(typeString, consentedKeysArray, currentStoredKeysArray, 'unapproved');
-      // const deleteKeys = currentStoredKeysArray.filter((key) => {
-      //   if (
-      //     key === '' || // If the key is empty, filter it out
-      //     this.#isKeyConsented(key, consentedKeysArray) // If key is consented (with possible wildcards), filter it out
-      //   ) {
-      //     return false;
-      //   }
-      //   return true;
-      // });
-
-      // if (deleteKeys.length > 0) {
-      //   // console.log('deleteKeys', deleteKeys, deleteKeys.length);
-      //   deleteKeys.forEach((key) => {
-      //     // console.log('typeString', typeString, this.#removalFailedKeys, this.#removalFailedKeys[typeString]);
-      //     if (!this.#removalFailedKeys[typeString].includes(key)) {
-      //       console.log(`Cookie consent will delete unapproved ${typeString}(s): '${deleteKeys.join("', '")}'`);
-
-      //       if (typeString === 'cookie') {
-      //         deleteCookie(key);
-      //         if (this.#getCookie(key)) {
-      //           console.error(`Error deleting cookie '${key}' will ignore it for now`);
-      //           this.#removalFailedKeys.cookie.push(key);
-      //         }
-      //       } else if (typeString === 'localStorage') {
-      //         localStorage.removeItem(key);
-      //       } else if (typeString === 'sessionStorage') {
-      //         sessionStorage.removeItem(key);
-      //       } else if (typeString === 'indexedDB') {
-      //         const request = indexedDB.deleteDatabase(key);
-      //         request.onsuccess = () => {
-      //           // console.log(`IndexedDB database '${key}' deleted successfully.`);
-      //           // Remove the key from the blacklist as the deletion was successful
-      //           this.#removalFailedKeys.indexedDB = this.#removalFailedKeys.indexedDB.filter((item) => item !== key);
-      //         };
-      //         request.onerror = () => {
-      //           // console.error(`Error deleting IndexedDB database '${key}'`);
-      //           this.#removalFailedKeys.indexedDB.push(key);
-      //         };
-      //         request.onblocked = () => {
-      //           // console.warn(`IndexedDB database '${key}' deletion blocked.`);
-      //           this.#removalFailedKeys.indexedDB.push(key);
-      //         };
-      //       } else if (typeString === 'cacheStorage') {
-      //         caches.delete(key).then((response) => {
-      //           if (response) {
-      //             console.log(`Cache '${key}' has been deleted`);
-      //           } else {
-      //             console.log(`Cache '${key}' not found`);
-      //           }
-      //         });
-      //       }
-      //     }
-      //   });
-      // }
     }
   }
 

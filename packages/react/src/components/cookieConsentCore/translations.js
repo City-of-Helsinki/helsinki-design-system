@@ -10,6 +10,7 @@
  * @return {string} - The translated string.
  * @throws {Error} - If the translation is missing for the provided key and language.
  */
+// eslint-disable-next-line import/prefer-default-export
 export function getTranslation(translations, key, lang, parameters) {
   // Debug mode, return key instead of translation
   if (lang === 'key') {
