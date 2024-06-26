@@ -100,6 +100,7 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
                 <span aria-hidden="true" class="hds-icon hds-icon--angle-down"></span>
                 <span class="hds-cc__accordion-button-show hds-button__label">${translations.showCookieSettings}</span>
                 <span class="hds-cc__accordion-button-hide hds-button__label">${translations.hideCookieSettings}</span>
+                <span class="visually-hidden">${translations.title}</span>
               </button>
               <div class="hds-cc__group-details" id="hds-cc-group-details-${groupUniqueId}">
                 <div class="hds-cc__group-details__animator">

@@ -15,6 +15,7 @@ const privateSymbol = Symbol('private');
  * Represents a class for managing cookie consent.
  * @class
  */
+// eslint-disable-next-line import/prefer-default-export
 export class CookieConsentCore {
   // MARK: Private properties
   #LANGUAGE;
@@ -31,6 +32,7 @@ export class CookieConsentCore {
   #bannerElements = {
     bannerContainer: null,
     spacer: null,
+    ariaLive: null,
   };
 
   #settingsPageElement = null;
@@ -44,6 +46,7 @@ export class CookieConsentCore {
   /**
    * Creates a new instance of the CookieConsent class. It's not meant to be called from outside.
    * @constructor
+   * @param {Object} siteSettingsObj - The site settings object to use instead of the URL.
    * @param {Object} options - The options for configuring the CookieConsent instance.
    * @param {string} [options.language='en'] - The page language.
    * @param {string} [options.theme='bus'] - The theme for the banner.
@@ -90,6 +93,7 @@ export class CookieConsentCore {
      * Updates the shadow DOM checkboxes based on the consented group names.
      *
      * @param {Array<string>} consentedGroupNames - The array of consented group names.
+     * @param {Array<string>} formReference - The reference to the form element.
      */
     const shadowDomUpdateCallback = (consentedGroupNames, formReference) => {
       if (formReference) {
@@ -117,7 +121,7 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @returns {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
+   * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
    * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the JSON parsing fails.
@@ -204,9 +208,11 @@ export class CookieConsentCore {
     // Remove banner elements
     if (this.#bannerElements.bannerContainer) {
       this.#bannerElements.bannerContainer.remove();
+      this.#bannerElements.bannerContainer = null;
     }
     if (this.#bannerElements.spacer) {
       this.#bannerElements.spacer.remove();
+      this.#bannerElements.spacer = null;
     }
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
@@ -266,14 +272,16 @@ export class CookieConsentCore {
       window.dispatchEvent(new CustomEvent(this.#SUBMIT_EVENT, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
         this.#removeBanner();
+        this.#announceSettingsSaved();
       }
-      this.#announceSettingsSaved();
     }
   }
 
-  #announceSettingsSaved() {
+  /**
+   * Prepares the aria-live element for announcements.
+   */
+  #prepareAriaLiveElement() {
     const ARIA_LIVE_ID = 'hds-cc-aria-live';
-    const SHOW_ARIA_LIVE_FOR_MS = 5000;
 
     // Handle selector and removal of banner depending on rendering mode: banner or page.
     const ariaParentElement = this.#settingsPageElement || document.querySelector(this.#TARGET_SELECTOR);
@@ -286,11 +294,35 @@ export class CookieConsentCore {
     ariaLive.setAttribute('aria-live', 'polite');
     ariaLive.style =
       'position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;';
-    ariaLive.textContent = getTranslation(this.#SITE_SETTINGS.translations, 'settingsSaved', this.#LANGUAGE);
-    ariaParentElement.appendChild(ariaLive);
+    ariaLive.textContent = '';
+
+    this.#bannerElements.ariaLive = ariaLive;
+
+    ariaParentElement.prepend(ariaLive);
+  }
+
+  /**
+   * Announces that the settings have been saved and removes the message after a set time.
+   */
+  #announceSettingsSaved() {
+    const SHOW_ARIA_LIVE_FOR_MS = 5000;
+    if (!this.#bannerElements.ariaLive) {
+      this.#prepareAriaLiveElement();
+    }
+
+    this.#bannerElements.ariaLive.textContent = getTranslation(
+      this.#SITE_SETTINGS.translations,
+      'settingsSaved',
+      this.#LANGUAGE,
+    );
 
     // Remove ariaLive after 5 seconds
-    setTimeout(() => ariaLive.remove(), SHOW_ARIA_LIVE_FOR_MS);
+    setTimeout(() => {
+      if (!this.#bannerElements.bannerContainer && this.#bannerElements.ariaLive) {
+        this.#bannerElements.ariaLive.remove();
+        this.#bannerElements.ariaLive = null;
+      }
+    }, SHOW_ARIA_LIVE_FOR_MS);
   }
 
   // MARK: Rendering
@@ -400,7 +432,7 @@ export class CookieConsentCore {
 
     const container = document.createElement('div');
     container.classList.add('hds-cc__target');
-    container.style.all = 'initial';
+    container.style.all = 'var(--hds-cc--all-override, initial)!important';
     if (!isBanner) {
       renderTargetToPrepend.innerHTML = '';
     }
@@ -481,6 +513,7 @@ export class CookieConsentCore {
 
       shadowRoot.querySelector('.hds-cc').focus();
     }
+    this.#prepareAriaLiveElement();
   }
 
   // MARK: Initializer

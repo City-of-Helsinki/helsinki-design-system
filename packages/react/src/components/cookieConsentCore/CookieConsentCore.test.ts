@@ -3,7 +3,7 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
 import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
-import mockDocumentCookie from './__mocks__/mockDocumentCookie';
+import mockDocumentCookie from './__mocks__/mockDocumentCookieCore';
 import { CookieConsentCore } from './cookieConsentCore';
 import * as siteSettingsObjRaw from './example/helfi_sitesettings.json';
 
@@ -304,7 +304,6 @@ describe('cookieConsentCore', () => {
   // TODO: `Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`
   // TODO: `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`
   // TODO: `Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`
-
 
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Basic tests

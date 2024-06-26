@@ -2,7 +2,7 @@
 @use 'temp/cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
 @use 'temp/mixin-animate' as animate;
 @use 'temp/mixin-helpers' as helpers;
-@use 'temp/font-face' as font-face;
+// @use 'temp/font-face' as font-face;
 @use 'temp/button' as button;
 @use 'temp/checkbox' as checkbox;
 @use 'temp/icon' as icon;
@@ -10,15 +10,15 @@
 @use 'temp/table' as table;
 
 
-// Include only font-face styles used by cookie consent
-@include font-face.font-face(
-  $all: false,
-  $font-style-italic: false, // Italic is not needed by cookie consent
-  $font-weight-400: true, // Normal or Regular
-  $font-weight-500: true, // Medium
-  $font-weight-700: true, // Bold
-  $font-weight-900: false, // Black is not needed by cookie consent
-);
+// // Include only font-face styles used by cookie consent
+// @include font-face.font-face(
+//   $all: false,
+//   $font-style-italic: false, // Italic is not needed by cookie consent
+//   $font-weight-400: true, // Normal or Regular
+//   $font-weight-500: true, // Medium
+//   $font-weight-700: true, // Bold
+//   $font-weight-900: false, // Black is not needed by cookie consent
+// );
 
 // Include only used button styles
 @include button.hds-button(
@@ -41,6 +41,10 @@
   $theme-coat: true,
   $theme-black: true
 );
+
+:host .hds-cc__form .hds-checkbox {
+  --label-color-disabled: var(--color-black-60); // Make disabled label color a bit darker to pass 4.5 contrast ratio for accessibility
+}
 
 // Include only used icon styles (no sizes needed at the moment)
 @include icon.hds-icon(
