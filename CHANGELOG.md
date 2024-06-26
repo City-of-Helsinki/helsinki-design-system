@@ -55,7 +55,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- More detailed information on upcoming releases 4.0.0 and 5.0.0
 
 #### Changed
 
