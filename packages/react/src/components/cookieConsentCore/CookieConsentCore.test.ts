@@ -300,7 +300,7 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
-  // TODO: `Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}'  was not found`
+  // TODO: `Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}' was not found`
   // TODO: `Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`
   // TODO: `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`
   // TODO: `Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`

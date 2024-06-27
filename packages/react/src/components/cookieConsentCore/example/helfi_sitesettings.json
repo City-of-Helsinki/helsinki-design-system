@@ -3,6 +3,7 @@
   "cookieName": "helfi-cookie-consents",
   "monitorInterval": 500,
   "remove": true,
+  "fallbackLanguage": "fi",
   "requiredGroups": [
     {
       "groupId": "essential",
@@ -755,6 +756,11 @@
       "fi": "Asetukset tallennettu!",
       "sv": "Inställningar sparade!",
       "en": "Settings saved!"
+    },
+    "notificationAriaLabel": {
+      "fi": "Ilmoitus",
+      "sv": "Meddelande",
+      "en": "Annoucement"
     },
     "type_1": {
       "fi": "Eväste",
