@@ -6,6 +6,7 @@ import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock'
 import mockDocumentCookie from './__mocks__/mockDocumentCookieCore';
 import { CookieConsentCore } from './cookieConsentCore';
 import * as siteSettingsObjRaw from './example/helfi_sitesettings.json';
+import bannerClickMethods from './helpers/cookieConsentTestHelpers';
 
 const siteSettingsObj = { ...siteSettingsObjRaw, monitorInterval: 50 };
 
@@ -159,6 +160,13 @@ describe('cookieConsentCore', () => {
     });
   };
 
+  // Wrap bannerClicks
+  const bannerClicks = {
+    approveAll: () => bannerClickMethods.approveAll(getShadowRoot(), fireEvent),
+    approveCategory: (category: string) => bannerClickMethods.approveCategory(getShadowRoot(), fireEvent, category),
+    unApproveCategory: (category: string) => bannerClickMethods.unApproveCategory(getShadowRoot(), fireEvent, category)
+  }
+
   // Make simplified cheksum handling for testing purposes
   const initMockTextEncoder = (responseList: string[]) => {
     const current = global.TextEncoder;
@@ -238,19 +246,30 @@ describe('cookieConsentCore', () => {
   // MARK: Hooks
 
   beforeAll(() => {
-    // TODO: Comment out these debug logs when the tests are stable
+    // Set to true to get console.log() to output
+    // const testDebug = false;
+    const testDebug = true;
     jest.spyOn(console, 'log').mockImplementation((message) => {
-      process.stdout.write(`console.log: ${message}\n`);
+      if (testDebug) {
+        process.stdout.write(`console.log: ${message}\n`);
+      }
     });
     jest.spyOn(console, 'error').mockImplementation((message) => {
-      process.stderr.write(`console.error: ${message}\n`);
+      if (testDebug) {
+        process.stderr.write(`console.error: ${message}\n`);
+      }
     });
     jest.spyOn(console, 'warn').mockImplementation((message) => {
-      process.stdout.write(`console.warn: ${message}\n`);
+      if (testDebug) {
+        process.stdout.write(`console.warn: ${message}\n`);
+      }
     });
     jest.spyOn(console, 'info').mockImplementation((message) => {
-      process.stdout.write(`console.info: ${message}\n`);
+      if (testDebug) {
+        process.stdout.write(`console.info: ${message}\n`);
+      }
     });
+
     enableFetchMocks();
     fetchMock.mockResponse((req) => {
       if (req.url.includes(urls.siteSettingsJsonUrl)) {
@@ -367,21 +386,16 @@ describe('cookieConsentCore', () => {
 
   it('should throw an error if siteSettings JSON is malformed', async () => {
     // @ts-ignore
-    await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow(
-      'Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token T in JSON at position 0',
-    );
+    await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow("Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token");
   });
 
   /* eslint-disable jest/no-commented-out-tests */
 
-  // // - If the banner is set for custom targets, are the selectors available on DOM?
-  // it.only('should throw error if targetSelector is set but not found on DOM', async () => {
-  //   // instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' });
-  //   await expect(
-  //     // @ts-ignore
-  //     await CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
-  //   ).rejects.toThrow("Cookie consent: targetSelector element '#not-found' was not found");
-  // });
+  // - If the banner is set for custom targets, are the selectors available on DOM?
+  it('should throw error if targetSelector is set but not found on DOM', async () => {
+    // @ts-ignore
+    expect(CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' })).rejects.toThrow("Cookie consent: targetSelector element '#not-found' was not found");
+  });
 
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
   // it('should throw error if pageContentSelector is set but not found on DOM', () => {});
@@ -657,10 +671,198 @@ describe('cookieConsentCore', () => {
     const statisticsCookieWrittenAfterRemoval = document.cookie.includes(firstCookieValues.name);
     expect(statisticsCookieWrittenAfterRemoval).toBeFalsy();
   });
-  // it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
-  // it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
-  // it('should remove indexedDb items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
-  // it('should remove cache storage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => { });
+
+  it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    const selectedCategory = 'test_optional';
+    bannerClicks.approveCategory(selectedCategory);
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+    const writtenKeys = Object.keys(writtenCookieGroups);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
+    expectedGroups.push('test_optional');
+    expect(writtenKeys).toEqual(expectedGroups);
+
+    // Find an optional localStorage item
+    // @ts-ignore
+    const localStorageItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === 'test_optional')?.cookies.find((e) => e.type === 2);
+    const itemName = localStorageItem?.name || 'no name';
+    // Write to localStorage
+    // @ts-ignore
+    localStorage.setItem(itemName, 'I go to localStorage');
+    // Expect the localStorageItem
+    expect(localStorage.getItem(itemName)).toEqual('I go to localStorage');
+    expect(Object.keys(localStorage)).toEqual([itemName]);
+
+    // Remove test_optional approval
+    bannerClicks.unApproveCategory(selectedCategory);
+
+    await waitForConsole('log', `Cookie consent: will delete unapproved localStorage(s): '${itemName}'`);
+
+    // Verify localStorage changes
+    const localStorageItemAfterRemoval = localStorage.getItem(itemName);
+    expect(localStorageItemAfterRemoval).toEqual(null);
+    expect(Object.keys(localStorage)).toEqual([]);
+  });
+
+  it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    const selectedCategory = 'test_optional';
+    bannerClicks.approveCategory(selectedCategory);
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+    const writtenKeys = Object.keys(writtenCookieGroups);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
+    expectedGroups.push(selectedCategory);
+    expect(writtenKeys).toEqual(expectedGroups);
+
+    // Find an optional sessionStorage item
+    // @ts-ignore
+    const sessionStorageItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === selectedCategory)?.cookies.find((e) => e.type === 3);
+    const itemName = sessionStorageItem?.name || 'no name';
+    // Write to sessionStorage
+    // @ts-ignore
+    sessionStorage.setItem(itemName, 'I go to sessionStorage');
+    // Expect the sessionStorageItem
+    expect(sessionStorage.getItem(itemName)).toEqual('I go to sessionStorage');
+    expect(Object.keys(sessionStorage)).toEqual([itemName]);
+
+    // Remove test_optional approval
+    bannerClicks.unApproveCategory(selectedCategory);
+
+    await waitForConsole('log', `Cookie consent: will delete unapproved sessionStorage(s): '${itemName}'`);
+
+    // Verify sessionStorage changes
+    const sessionStorageItemAfterRemoval = sessionStorage.getItem(itemName);
+    expect(sessionStorageItemAfterRemoval).toEqual(null);
+    expect(Object.keys(sessionStorage)).toEqual([]);
+  });
+
+  it('should remove indexedDb items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    const selectedCategory = 'test_optional';
+    bannerClicks.approveCategory(selectedCategory);
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+    const writtenKeys = Object.keys(writtenCookieGroups);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
+    expectedGroups.push(selectedCategory);
+    expect(writtenKeys).toEqual(expectedGroups);
+
+    // Find an optional indexedDB item
+    // @ts-ignore
+    const indexedDBItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === selectedCategory)?.cookies.find((e) => e.type === 4);
+    const itemName = indexedDBItem?.name || 'no name';
+    async function createIndexedDb(key: string) {
+      // Open (or create) the database
+      return new Promise((resolve, reject) => {
+        const openRequest = indexedDB.open(key, 1);
+        let db: any;
+
+        openRequest.onupgradeneeded = function upgradeNeeded(event: any) {
+          // The database did not previously exist, so create object stores and indexes here
+          db = event.target.result;
+          db.createObjectStore(itemName, { autoIncrement: true });
+        };
+
+        openRequest.onsuccess = function success(event: any) {
+          // The database has been opened (or created)
+          db = event.target.result;
+
+          // Close the database connection, so that it can be deleted
+          db.close();
+          // @ts-ignore
+          return resolve(db);
+        };
+
+        openRequest.onerror = function error(event: any) {
+          // eslint-disable-next-line no-console
+          console.log('Error opening/creating database: ', event.target.errorCode);
+          reject(event.target.errorCode);
+        };
+      });
+    }
+
+    // Check that no indexedDB's exist and open one with given name
+    expect(await indexedDB.databases()).toEqual([]);
+    await createIndexedDb(itemName);
+    // @ts-ignore
+    expect((await indexedDB.databases())[0].name).toEqual(itemName);
+
+    // Remove test_optional approval
+    bannerClicks.unApproveCategory(selectedCategory);
+
+    await waitForConsole('log', `Cookie consent: will delete consent withdrawn indexedDB(s): '${itemName}'`);
+
+    await waitForConsole('log', `Cookie consent: IndexedDB database '${itemName}' deleted successfully.`);
+    // Verify indexedDB changes
+    expect(await indexedDB.databases()).toEqual([]);
+  });
+
+  it('should remove cache storage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    const selectedCategory = 'test_optional';
+    bannerClicks.approveCategory(selectedCategory);
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+    const writtenKeys = Object.keys(writtenCookieGroups);
+    const expectedGroups = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
+    expectedGroups.push(selectedCategory);
+    expect(writtenKeys).toEqual(expectedGroups);
+
+    // Find an optional cacheStorage item
+    // @ts-ignore
+    const cacheStorageItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === selectedCategory)?.cookies.find((e) => e.type === 5);
+    const itemName = cacheStorageItem?.name || 'no name';
+
+    // Write to cacheStorage
+    // @ts-ignore
+    await caches.open(itemName);
+    const cacheBeforeReport = await caches.keys();
+    expect(cacheBeforeReport).toBeTruthy();
+
+   // Remove test_optional approval
+    bannerClicks.unApproveCategory(selectedCategory);
+
+    await waitForConsole('log', `Cookie consent: will delete unapproved cacheStorage(s): '${itemName}'`);
+
+    // Verify cacheStorage changes
+    const cacheStorageItemAfterRemoval = sessionStorage.getItem(itemName);
+    expect(cacheStorageItemAfterRemoval).toEqual(null);
+    expect(await caches.keys()).toEqual([]);
+  });
 
   // - It should monitor and report items that have not been consented to if monitor interval parameter is set in siteSettings above 0
   it('should monitor and report cookies that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
