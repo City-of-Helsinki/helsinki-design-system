@@ -70,6 +70,14 @@ describe('cookieConsentCore', () => {
   };
   const optionsEvent = { ...options, submitEvent: 'cookie-consent-changed' };
 
+  const STORAGE_TYPE = {
+    cookie: 1,
+    localStorage: 2,
+    sessionStorage: 3,
+    indexedDB: 4,
+    cacheStorage: 5,
+  };
+
   const getShadowRoot = () => {
     const targetElement = document.querySelector('.hds-cc__target') as HTMLElement;
     return targetElement.shadowRoot as ShadowRoot;
@@ -164,8 +172,8 @@ describe('cookieConsentCore', () => {
   const bannerClicks = {
     approveAll: () => bannerClickMethods.approveAll(getShadowRoot(), fireEvent),
     approveCategory: (category: string) => bannerClickMethods.approveCategory(getShadowRoot(), fireEvent, category),
-    unApproveCategory: (category: string) => bannerClickMethods.unApproveCategory(getShadowRoot(), fireEvent, category)
-  }
+    unApproveCategory: (category: string) => bannerClickMethods.unApproveCategory(getShadowRoot(), fireEvent, category),
+  };
 
   // Make simplified cheksum handling for testing purposes
   const initMockTextEncoder = (responseList: string[]) => {
@@ -386,15 +394,20 @@ describe('cookieConsentCore', () => {
 
   it('should throw an error if siteSettings JSON is malformed', async () => {
     // @ts-ignore
-    await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow("Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token");
+    await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow(
+      'Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token',
+    );
   });
 
   /* eslint-disable jest/no-commented-out-tests */
 
   // - If the banner is set for custom targets, are the selectors available on DOM?
   it('should throw error if targetSelector is set but not found on DOM', async () => {
-    // @ts-ignore
-    expect(CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' })).rejects.toThrow("Cookie consent: targetSelector element '#not-found' was not found");
+    // eslint-disable-next-line jest/valid-expect
+    expect(
+      // @ts-ignore
+      CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
+    ).rejects.toThrow("Cookie consent: targetSelector element '#not-found' was not found");
   });
 
   // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
@@ -693,7 +706,9 @@ describe('cookieConsentCore', () => {
 
     // Find an optional localStorage item
     // @ts-ignore
-    const localStorageItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === 'test_optional')?.cookies.find((e) => e.type === 2);
+    const localStorageItem = siteSettingsObj?.optionalGroups
+      .find((e) => e.groupId === 'test_optional')
+      ?.cookies.find((e) => e.type === STORAGE_TYPE.localStorage);
     const itemName = localStorageItem?.name || 'no name';
     // Write to localStorage
     // @ts-ignore
@@ -734,7 +749,9 @@ describe('cookieConsentCore', () => {
 
     // Find an optional sessionStorage item
     // @ts-ignore
-    const sessionStorageItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === selectedCategory)?.cookies.find((e) => e.type === 3);
+    const sessionStorageItem = siteSettingsObj?.optionalGroups
+      .find((e) => e.groupId === selectedCategory)
+      ?.cookies.find((e) => e.type === STORAGE_TYPE.sessionStorage);
     const itemName = sessionStorageItem?.name || 'no name';
     // Write to sessionStorage
     // @ts-ignore
@@ -775,7 +792,9 @@ describe('cookieConsentCore', () => {
 
     // Find an optional indexedDB item
     // @ts-ignore
-    const indexedDBItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === selectedCategory)?.cookies.find((e) => e.type === 4);
+    const indexedDBItem = siteSettingsObj?.optionalGroups
+      .find((e) => e.groupId === selectedCategory)
+      ?.cookies.find((e) => e.type === STORAGE_TYPE.indexedDB);
     const itemName = indexedDBItem?.name || 'no name';
     async function createIndexedDb(key: string) {
       // Open (or create) the database
@@ -844,7 +863,9 @@ describe('cookieConsentCore', () => {
 
     // Find an optional cacheStorage item
     // @ts-ignore
-    const cacheStorageItem = siteSettingsObj?.optionalGroups.find((e) => e.groupId === selectedCategory)?.cookies.find((e) => e.type === 5);
+    const cacheStorageItem = siteSettingsObj?.optionalGroups
+      .find((e) => e.groupId === selectedCategory)
+      ?.cookies.find((e) => e.type === STORAGE_TYPE.cacheStorage);
     const itemName = cacheStorageItem?.name || 'no name';
 
     // Write to cacheStorage
@@ -853,7 +874,7 @@ describe('cookieConsentCore', () => {
     const cacheBeforeReport = await caches.keys();
     expect(cacheBeforeReport).toBeTruthy();
 
-   // Remove test_optional approval
+    // Remove test_optional approval
     bannerClicks.unApproveCategory(selectedCategory);
 
     await waitForConsole('log', `Cookie consent: will delete unapproved cacheStorage(s): '${itemName}'`);
