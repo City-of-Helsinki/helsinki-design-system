@@ -3,7 +3,7 @@
 
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
-import { getCookieBannerHtml, getGroupHtml, getTableRowHtml } from './template';
+import { getCookieBannerHtml, getGroupHtml, getTableRowHtml, getNotificationHtml, getAriaLiveHtml } from './template';
 import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
@@ -28,6 +28,9 @@ export class CookieConsentCore {
   #MONITOR;
   #COOKIE_HANDLER;
   #SITE_SETTINGS;
+  #ARIA_LIVE_ID = 'hds-cc-aria-live';
+
+  #shadowRootElement = null;
 
   #bannerElements = {
     bannerContainer: null,
@@ -272,33 +275,21 @@ export class CookieConsentCore {
       window.dispatchEvent(new CustomEvent(this.#SUBMIT_EVENT, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
         this.#removeBanner();
-        this.#announceSettingsSaved();
       }
+      this.#announceSettingsSaved();
     }
   }
 
   /**
    * Prepares the aria-live element for announcements.
    */
-  #prepareAriaLiveElement() {
-    const ARIA_LIVE_ID = 'hds-cc-aria-live';
+  #prepareAnnouncementElement() {
+    if (!this.#bannerElements.ariaLive) {
+      const ariaLiveElement = this.#shadowRootElement.querySelector(`#${this.#ARIA_LIVE_ID}`);
 
-    // Handle selector and removal of banner depending on rendering mode: banner or page.
-    const ariaParentElement = this.#settingsPageElement || document.querySelector(this.#TARGET_SELECTOR);
-    if (!ariaParentElement) {
-      throw new Error(`Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}'  was not found`);
+      // Render aria-live element depending on rendering mode: page or banner.
+      this.#bannerElements.ariaLive = ariaLiveElement;
     }
-
-    const ariaLive = document.createElement('div');
-    ariaLive.id = ARIA_LIVE_ID;
-    ariaLive.setAttribute('aria-live', 'polite');
-    ariaLive.style =
-      'position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;';
-    ariaLive.textContent = '';
-
-    this.#bannerElements.ariaLive = ariaLive;
-
-    ariaParentElement.prepend(ariaLive);
   }
 
   /**
@@ -306,21 +297,70 @@ export class CookieConsentCore {
    */
   #announceSettingsSaved() {
     const SHOW_ARIA_LIVE_FOR_MS = 5000;
+
     if (!this.#bannerElements.ariaLive) {
-      this.#prepareAriaLiveElement();
+      this.#prepareAnnouncementElement();
     }
 
-    this.#bannerElements.ariaLive.textContent = getTranslation(
+    const message = getTranslation(
       this.#SITE_SETTINGS.translations,
       'settingsSaved',
       this.#LANGUAGE,
+      this.#SITE_SETTINGS.fallbackLanguage,
     );
+    const notificationAriaLabel = getTranslation(
+      this.#SITE_SETTINGS.translations,
+      'notificationAriaLabel',
+      this.#LANGUAGE,
+      this.#SITE_SETTINGS.fallbackLanguage,
+    );
+
+    if (this.#settingsPageElement) {
+      const notificationHtml = getNotificationHtml(message, notificationAriaLabel);
+      this.#bannerElements.ariaLive.innerHTML = notificationHtml;
+    } else {
+      this.#bannerElements.ariaLive.textContent = message;
+    }
 
     // Remove ariaLive after 5 seconds
     setTimeout(() => {
-      if (!this.#bannerElements.bannerContainer && this.#bannerElements.ariaLive) {
-        this.#bannerElements.ariaLive.remove();
-        this.#bannerElements.ariaLive = null;
+      if (this.#bannerElements.ariaLive) {
+        // If banner has been removed, remove ariaLive element too
+        if (!this.#bannerElements.bannerContainer) {
+          if (this.#settingsPageElement) {
+            const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
+            if (notificationElem) {
+              notificationElem.classList.remove('enter');
+              notificationElem.classList.add('exit');
+              notificationElem.addEventListener('animationend', () => {
+                notificationElem.remove();
+                this.#bannerElements.ariaLive = null;
+              });
+            } else {
+              this.#bannerElements.ariaLive.innerHTML = '';
+              this.#bannerElements.ariaLive = null;
+            }
+          } else {
+            this.#bannerElements.ariaLive.remove();
+            this.#bannerElements.ariaLive = null;
+          }
+
+          // Otherwise, clear the content
+        } else {
+          // this.#bannerElements.ariaLive.innerHTML = '';
+          const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
+          if (notificationElem) {
+            notificationElem.classList.remove('enter');
+            notificationElem.classList.add('exit');
+            notificationElem.addEventListener('animationend', () => {
+              notificationElem.remove();
+              this.#bannerElements.ariaLive = null;
+            });
+          } else {
+            this.#bannerElements.ariaLive.innerHTML = '';
+            this.#bannerElements.ariaLive = null;
+          }
+        }
       }
     }, SHOW_ARIA_LIVE_FOR_MS);
   }
@@ -356,19 +396,24 @@ export class CookieConsentCore {
     let groupsHtml = '';
     let groupNumber = 0;
     cookieGroupList.forEach((cookieGroup) => {
-      const title = getTranslation(cookieGroup, 'title', lang);
-      const description = getTranslation(cookieGroup, 'description', lang);
+      const title = getTranslation(cookieGroup, 'title', lang, this.#SITE_SETTINGS.fallbackLanguage);
+      const description = getTranslation(cookieGroup, 'description', lang, this.#SITE_SETTINGS.fallbackLanguage);
       const isAccepted = acceptedGroups.includes(cookieGroup.groupId);
 
       // Build table rows
       let tableRowsHtml = '';
       cookieGroup.cookies.forEach((cookie) => {
         tableRowsHtml += getTableRowHtml({
-          name: getTranslation(cookie, 'name', lang),
-          host: getTranslation(cookie, 'host', lang),
-          description: getTranslation(cookie, 'description', lang),
-          expiration: getTranslation(cookie, 'expiration', lang),
-          type: getTranslation(this.#SITE_SETTINGS.translations, `type_${cookie.type}`, lang),
+          name: getTranslation(cookie, 'name', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          host: getTranslation(cookie, 'host', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          description: getTranslation(cookie, 'description', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          expiration: getTranslation(cookie, 'expiration', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          type: getTranslation(
+            this.#SITE_SETTINGS.translations,
+            `type_${cookie.type}`,
+            lang,
+            this.#SITE_SETTINGS.fallbackLanguage,
+          ),
         });
       });
 
@@ -438,6 +483,12 @@ export class CookieConsentCore {
     }
     renderTargetToPrepend.prepend(container);
 
+    if (isBanner) {
+      const ariaLiveElement = getAriaLiveHtml(this.#ARIA_LIVE_ID, 'hds-cc__aria-live-container');
+      container.insertAdjacentHTML('beforebegin', ariaLiveElement);
+      this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${this.#ARIA_LIVE_ID}`);
+    }
+
     const shadowRoot = container.attachShadow({ mode: 'open' });
     this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
 
@@ -448,7 +499,13 @@ export class CookieConsentCore {
     const translationKeys = Object.keys(this.#SITE_SETTINGS.translations);
 
     translationKeys.forEach((key) => {
-      translations[key] = getTranslation(this.#SITE_SETTINGS.translations, key, lang, siteSettings);
+      translations[key] = getTranslation(
+        this.#SITE_SETTINGS.translations,
+        key,
+        lang,
+        this.#SITE_SETTINGS.fallbackLanguage,
+        siteSettings,
+      );
     });
 
     const browserCookie = this.#COOKIE_HANDLER.getCookie();
@@ -474,7 +531,9 @@ export class CookieConsentCore {
     ].join('');
 
     // Create banner HTML
-    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, this.#THEME, isBanner);
+    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, this.#THEME, this.#ARIA_LIVE_ID, isBanner);
+
+    this.#shadowRootElement = shadowRoot;
 
     // Add button events
     const shadowRootForm = shadowRoot.querySelector('form');
@@ -513,7 +572,7 @@ export class CookieConsentCore {
 
       shadowRoot.querySelector('.hds-cc').focus();
     }
-    this.#prepareAriaLiveElement();
+    this.#prepareAnnouncementElement();
   }
 
   // MARK: Initializer

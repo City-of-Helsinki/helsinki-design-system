@@ -1,0 +1,242 @@
+@mixin hds-notification(
+    $all: true,
+    $base: false,
+
+    $small: false,
+    $large: false,
+
+    $toast: false,
+
+    $success: false,
+    $alert: false,
+    $error: false,
+
+    $box-shadow: false,
+  ){
+  @if $all or $base {
+    // TODO: Talk about how to handle dependencies
+    // @import url("../../../icons/icon.css");
+    // @import url("../../../icons/alert-circle-fill.css");
+    // @import url("../../../icons/check-circle-fill.css");
+    // @import url("../../../icons/error-fill.css");
+    // @import url("../../../icons/info-circle-fill.css");
+
+    .hds-notification {
+      --notification-background-color: var(--color-info-light);
+      --notification-border-color: var(--color-info);
+      --notification-border-width: var(--spacing-2-xs);
+      --notification-icon-color: var(--color-info);
+      --notification-color: var(--color-black-90);
+      --notification-max-width-inline: none;
+      --notification-max-width-toast: 21rem;
+      --notification-z-index-inline: auto;
+      --notification-z-index-toast: 99;
+      --notification-offset: var(--spacing-layout-s);
+      --notification-padding: var(--spacing-s);
+
+      background-color: var(--notification-background-color);
+      border: solid var(--notification-border-color);
+      border-width: 0 0 0 var(--notification-border-width);
+      box-sizing: border-box;
+      color: var(--notification-color);
+      max-width: var(--notification-max-width-inline);
+      padding: var(--notification-padding);
+      position: relative;
+      width: 100%;
+      z-index: var(--notification-z-index-inline);
+    }
+
+    /* CONTENT */
+
+    .hds-notification__content {
+      display: grid;
+      gap: var(--spacing-s);
+    }
+
+    /* LABEL */
+
+    .hds-notification__label {
+      align-items: flex-start;
+      display: flex;
+      font-size: var(--fontsize-heading-xs);
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      line-height: 24px;
+      margin-right: var(--spacing-l);
+    }
+
+    .hds-notification__label > .hds-icon {
+      color: var(--notification-icon-color);
+      flex: none;
+      margin-right: var(--spacing-2-xs);
+    }
+
+    /* BODY */
+
+    .hds-notification__body {
+      font-size: var(--fontsize-body-s);
+      line-height: 24px;
+    }
+  }
+
+  @if $all or $small {
+    /* SMALL */
+
+    .hds-notification--small {
+      --notification-padding: var(--spacing-2-xs);
+    }
+
+    .hds-notification--small .hds-notification__content {
+      display: flex;
+      gap: 0;
+    }
+
+    .hds-notification--small .hds-notification__label {
+      margin-right: 0;
+    }
+
+    .hds-notification--small .hds-notification__body {
+      margin-right: var(--spacing-l);
+    }
+  }
+
+  @if $all or $large {
+    /* LARGE */
+
+    .hds-notification--large {
+      --notification-padding: var(--spacing-l);
+    }
+
+    .hds-notification--large .hds-notification__label {
+      margin-right: 0;
+    }
+  }
+
+  @if $all or $base {
+    /* ICON */
+
+    .hds-notification .hds-icon {
+      --icon-size: var(--spacing-layout-xs);
+    }
+
+    /* CLOSE BUTTON */
+
+    .hds-notification__close-button {
+      --notification-close-button-offset: var(--spacing-s);
+
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      outline: none;
+      padding: 0;
+      position: absolute;
+      right: var(--notification-close-button-offset);
+      top: var(--notification-close-button-offset);
+    }
+
+  }
+
+  @if $all or $small or $large {
+    .hds-notification--small .hds-notification__close-button,
+    .hds-notification--large .hds-notification__close-button {
+      --notification-close-button-offset: var(--spacing-2-xs);
+    }
+  }
+
+  @if $all or $base {
+    .hds-notification__close-button:focus {
+      box-shadow: 0 0 0 3px var(--color-focus-outline);
+    }
+  }
+
+  @if $all or $toast {
+    /* TOAST POSITIONS */
+
+    .hds-notification--top-left,
+    .hds-notification--top-center,
+    .hds-notification--top-right,
+    .hds-notification--bottom-left,
+    .hds-notification--bottom-center,
+    .hds-notification--bottom-right {
+      border-width: var(--notification-border-width) 0 0;
+      max-width: var(--notification-max-width-toast);
+      position: fixed;
+      width: calc(100% - var(--spacing-l));
+      z-index: var(--notification-z-index-toast);
+    }
+
+    .hds-notification--top-left {
+      left: var(--notification-offset);
+      top: var(--notification-offset);
+    }
+
+    .hds-notification--top-center {
+      left: 50%;
+      top: var(--notification-offset);
+      transform: translateX(-50%);
+    }
+
+    .hds-notification--top-right {
+      right: var(--notification-offset);
+      top: var(--notification-offset);
+    }
+
+    .hds-notification--bottom-left {
+      bottom: var(--notification-offset);
+      left: var(--notification-offset);
+    }
+
+    .hds-notification--bottom-center {
+      bottom: var(--notification-offset);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hds-notification--bottom-right {
+      bottom: var(--notification-offset);
+      right: var(--notification-offset);
+    }
+  }
+
+  @if $all or $base {
+    @media only screen and (max-width: 765.98px) {
+      .hds-notification {
+        --notification-offset: var(--spacing-s);
+      }
+    }
+
+    /* TYPES */  }
+
+  @if $all or $success {
+    .hds-notification--success {
+      --notification-background-color: var(--color-success-light);
+      --notification-border-color: var(--color-success);
+      --notification-icon-color: var(--color-success);
+    }
+  }
+
+  @if $all or $alert {
+    .hds-notification--alert {
+      --notification-background-color: var(--color-alert-light);
+      --notification-border-color: var(--color-alert-dark);
+      --notification-icon-color: var(--color-alert-dark);
+    }
+  }
+
+  @if $all or $error {
+    .hds-notification--error {
+      --notification-background-color: var(--color-error-light);
+      --notification-border-color: var(--color-error);
+      --notification-icon-color: var(--color-error);
+    }
+  }
+
+  @if $all or $box-shadow {
+    /* BOX SHADOW */
+
+    .hds-notification--box-shadow {
+      box-shadow: var(--box-shadow-l);
+    }
+  }
+}

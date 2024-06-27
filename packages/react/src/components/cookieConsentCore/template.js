@@ -1,4 +1,14 @@
 /**
+ * Generates the HTML for the aria-live region.
+ * @param {string} ariaLiveId - The ID for the aria-live region.
+ * @param {string} ariaLiveClass - The class for the aria-live region.
+ * @return {string} The HTML for the aria-live region.
+ */
+export function getAriaLiveHtml(ariaLiveId, ariaLiveClass) {
+  return `<div id="${ariaLiveId}" class="${ariaLiveClass}" aria-live="polite"></div>`;
+}
+
+/**
  * Generates the HTML for the cookie banner.
  *
  * @param {Object} translations - The translations object containing the text for the banner.
@@ -14,10 +24,15 @@
  * @param {string} translations.approveOnlyRequiredConsents - The text for the "Approve Only Required Consents" button.
  * @param {string} groupsHtml - The HTML for the consent groups.
  * @param {string} theme - The theme for the banner.
+ * @param {string} ariaLiveId - The ID for the aria-live region.
  * @param {boolean} isBanner - Indicates if the code is rendered as banner or part of a page.
  * @return {string} The HTML for the cookie banner.
  */
-export function getCookieBannerHtml(translations, groupsHtml, theme, isBanner = true) {
+export function getCookieBannerHtml(translations, groupsHtml, theme, ariaLiveId, isBanner = true) {
+  let optionalAriaLiveElement = '';
+  if (!isBanner) {
+    optionalAriaLiveElement = getAriaLiveHtml(ariaLiveId, 'hds-cc__notification_container');
+  }
   return `
 <div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${translations.bannerAriaLabel}">
   <div class="hds-cc__container">
@@ -52,6 +67,7 @@ export function getCookieBannerHtml(translations, groupsHtml, theme, isBanner = 
           </div>
         </div>
       </form>
+      ${optionalAriaLiveElement}
       <div class="hds-cc__buttons">
         <button type="submit" class="hds-button hds-button--secondary hds-cc__selected-cookies-button" data-approved="selected">
         <span class="hds-button__label">${translations.approveRequiredAndSelectedConsents}</span>
@@ -147,4 +163,23 @@ export function getTableRowHtml(rowData) {
                       <td>${rowData.type}</td>
                     </tr>
                     `;
+}
+
+/**
+ * Generates the HTML for the notification.
+ *
+ * @param {string} message - The message to display in the notification.
+ * @param {string} notificationAriaLabel - The aria-label for the notification.
+ * @return {string} The HTML for the notification.
+ */
+export function getNotificationHtml(message, notificationAriaLabel) {
+  return `
+    <section aria-label="${notificationAriaLabel}" class="hds-notification hds-notification--small hds-notification--success enter">
+      <div class="hds-notification__content">
+        <div class="hds-notification__label">
+          <span class="hds-icon hds-icon--check-circle-fill" aria-hidden="true"></span>
+        </div>
+        <div class="hds-notification__body">${message}</div>
+      </div>
+    </section>`;
 }
