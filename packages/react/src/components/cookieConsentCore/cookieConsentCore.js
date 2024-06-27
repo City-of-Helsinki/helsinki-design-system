@@ -160,7 +160,7 @@ export class CookieConsentCore {
     }
 
     // Initialise the class instance
-    instance.#init();
+    await instance.#init();
 
     // Return reference to the class instance
     return instance;
