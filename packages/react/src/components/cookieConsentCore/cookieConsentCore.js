@@ -1,18 +1,21 @@
-/* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable lines-between-class-members */
 
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
-import { getCookieBannerHtml, getGroupHtml, getTableRowHtml } from './template';
+import { getCookieBannerHtml, getGroupHtml, getTableRowHtml, getNotificationHtml, getAriaLiveHtml } from './template';
 import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
+
+// This private symbol is being used as a way to ensure that the constructor is not called without the create method.
+const privateSymbol = Symbol('private');
 
 /**
  * Represents a class for managing cookie consent.
  * @class
  */
+// eslint-disable-next-line import/prefer-default-export
 export class CookieConsentCore {
   // MARK: Private properties
   #LANGUAGE;
@@ -25,10 +28,14 @@ export class CookieConsentCore {
   #MONITOR;
   #COOKIE_HANDLER;
   #SITE_SETTINGS;
+  #ARIA_LIVE_ID = 'hds-cc-aria-live';
+
+  #shadowRootElement = null;
 
   #bannerElements = {
     bannerContainer: null,
     spacer: null,
+    ariaLive: null,
   };
 
   #settingsPageElement = null;
@@ -38,36 +45,40 @@ export class CookieConsentCore {
     bannerHeightElement: null,
   };
 
-  #cookie_name = 'city-of-helsinki-cookie-consents'; // Overridable default value
-
   // MARK: Public methods
   /**
-   * Creates a new instance of the CookieConsent class.
+   * Creates a new instance of the CookieConsent class. It's not meant to be called from outside.
    * @constructor
+   * @param {Object} siteSettingsObj - The site settings object to use instead of the URL.
    * @param {Object} options - The options for configuring the CookieConsent instance.
-   * @param {string} options.siteSettingsJsonUrl - The path to the JSON file with site settings.
    * @param {string} [options.language='en'] - The page language.
    * @param {string} [options.theme='bus'] - The theme for the banner.
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @throws {Error} Throws an error if siteSettingsJsonUrl is not provided.
+   * @param {boolean} [calledFromCreate=false] - Indicates if the constructor was called from the create method.
+   * @throws {Error} Throws an error if called from outside the create method.
+   * @throws {Error} Throws an error if siteSettingsObj is not provided.
    */
-  constructor({
-    siteSettingsJsonUrl, // Path to JSON file with site settings
+  constructor(
     siteSettingsObj, // Object with site settings to use instead of the url
-    language = 'en', // Page language
-    theme = 'bus', // Theme for the banner
-    targetSelector = 'body', // Where to inject the banner
-    spacerParentSelector = 'body', // Where to inject the spacer
-    pageContentSelector = 'body', // Where to add scroll-margin-bottom
-    submitEvent = false, // if string, do not reload page, but submit the string as event after consent
-    settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-  }) {
-    if (!siteSettingsJsonUrl && !siteSettingsObj) {
-      throw new Error('Cookie consent: siteSettingsJsonUrl or siteSettingsObj is required');
+    {
+      language = 'en', // Page language
+      theme = 'bus', // Theme for the banner
+      targetSelector = 'body', // Where to inject the banner
+      spacerParentSelector = 'body', // Where to inject the spacer
+      pageContentSelector = 'body', // Where to add scroll-margin-bottom
+      submitEvent = false, // if string, do not reload page, but submit the string as event after consent
+      settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+    },
+    calledFromCreate = false,
+  ) {
+    if (calledFromCreate !== privateSymbol) {
+      throw new Error(
+        'Cookie consent: direct construction not allowed. Use `await CookieConsentCore.create()` instead.',
+      );
     }
 
     this.#LANGUAGE = language;
@@ -85,6 +96,7 @@ export class CookieConsentCore {
      * Updates the shadow DOM checkboxes based on the consented group names.
      *
      * @param {Array<string>} consentedGroupNames - The array of consented group names.
+     * @param {Array<string>} formReference - The reference to the form element.
      */
     const shadowDomUpdateCallback = (consentedGroupNames, formReference) => {
       if (formReference) {
@@ -96,25 +108,62 @@ export class CookieConsentCore {
       }
     };
 
-    const cookieHandlerOptions = {
-      shadowDomUpdateCallback,
-    };
-    // Prefer siteSettingsObj over siteSettingsJsonUrl to avoid extra network traffic
-    if (siteSettingsObj) {
-      cookieHandlerOptions.siteSettingsObj = siteSettingsObj;
-    } else {
-      cookieHandlerOptions.siteSettingsJsonUrl = siteSettingsJsonUrl;
-    }
-    this.#COOKIE_HANDLER = new CookieHandler(cookieHandlerOptions);
+    this.#COOKIE_HANDLER = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj });
     this.#MONITOR = new MonitorAndCleanBrowserStorages();
+  }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.#init();
-      });
-    } else {
-      this.#init();
+  /**
+   * Creates and inits a new instance of the CookieConsent class.
+   * @constructor
+   * @param {Object} siteSettingsParam - The URL to the JSON file with site settings or contents of the site settings as an object.
+   * @param {Object} options - The options for configuring the CookieConsent instance.
+   * @param {string} [options.language='en'] - The page language.
+   * @param {string} [options.theme='bus'] - The theme for the banner.
+   * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
+   * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
+   * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
+   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
+   * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
+   * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
+   * @throws {Error} Throws an error if siteSettingsParam is an URL string and the JSON parsing fails.
+   */
+  static async create(siteSettingsParam, options) {
+    let instance;
+    if (!siteSettingsParam && (typeof siteSettingsParam !== 'string' || typeof siteSettingsParam !== 'object')) {
+      throw new Error(
+        'Cookie consent: siteSettingsParam is required, it should be an URL string or an siteSettings object.',
+      );
     }
+    if (typeof siteSettingsParam === 'string') {
+      // Fetch the site settings JSON file
+      const siteSettingsRaw = await fetch(siteSettingsParam).then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Cookie consent: Unable to fetch cookie consent settings: '${response.status}' from: '${siteSettingsParam}' `,
+          );
+        }
+        return response.text();
+      });
+
+      // Parse the fetched site settings string to JSON
+      let siteSettingsObj;
+      try {
+        siteSettingsObj = JSON.parse(siteSettingsRaw);
+      } catch (error) {
+        throw new Error(`Cookie consent: siteSettings JSON parsing failed: ${error}`);
+      }
+      instance = new CookieConsentCore(siteSettingsObj, options, privateSymbol);
+    } else {
+      instance = new CookieConsentCore(siteSettingsParam, options, privateSymbol);
+    }
+
+    // Initialise the class instance
+    await instance.#init();
+
+    // Return reference to the class instance
+    return instance;
   }
 
   /**
@@ -162,9 +211,11 @@ export class CookieConsentCore {
     // Remove banner elements
     if (this.#bannerElements.bannerContainer) {
       this.#bannerElements.bannerContainer.remove();
+      this.#bannerElements.bannerContainer = null;
     }
     if (this.#bannerElements.spacer) {
       this.#bannerElements.spacer.remove();
+      this.#bannerElements.spacer = null;
     }
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
@@ -229,26 +280,89 @@ export class CookieConsentCore {
     }
   }
 
+  /**
+   * Prepares the aria-live element for announcements.
+   */
+  #prepareAnnouncementElement() {
+    if (!this.#bannerElements.ariaLive) {
+      const ariaLiveElement = this.#shadowRootElement.querySelector(`#${this.#ARIA_LIVE_ID}`);
+
+      // Render aria-live element depending on rendering mode: page or banner.
+      this.#bannerElements.ariaLive = ariaLiveElement;
+    }
+  }
+
+  /**
+   * Announces that the settings have been saved and removes the message after a set time.
+   */
   #announceSettingsSaved() {
-    const ARIA_LIVE_ID = 'hds-cc-aria-live';
     const SHOW_ARIA_LIVE_FOR_MS = 5000;
 
-    // Handle selector and removal of banner depending on rendering mode: banner or page.
-    const ariaParentElement = this.#settingsPageElement || document.querySelector(this.#TARGET_SELECTOR);
-    if (!ariaParentElement) {
-      throw new Error(`Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}'  was not found`);
+    if (!this.#bannerElements.ariaLive) {
+      this.#prepareAnnouncementElement();
     }
 
-    const ariaLive = document.createElement('div');
-    ariaLive.id = ARIA_LIVE_ID;
-    ariaLive.setAttribute('aria-live', 'polite');
-    ariaLive.style =
-      'position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;';
-    ariaLive.textContent = getTranslation(this.#SITE_SETTINGS.translations, 'settingsSaved', this.#LANGUAGE);
-    ariaParentElement.appendChild(ariaLive);
+    const message = getTranslation(
+      this.#SITE_SETTINGS.translations,
+      'settingsSaved',
+      this.#LANGUAGE,
+      this.#SITE_SETTINGS.fallbackLanguage,
+    );
+    const notificationAriaLabel = getTranslation(
+      this.#SITE_SETTINGS.translations,
+      'notificationAriaLabel',
+      this.#LANGUAGE,
+      this.#SITE_SETTINGS.fallbackLanguage,
+    );
+
+    if (this.#settingsPageElement) {
+      const notificationHtml = getNotificationHtml(message, notificationAriaLabel);
+      this.#bannerElements.ariaLive.innerHTML = notificationHtml;
+    } else {
+      this.#bannerElements.ariaLive.textContent = message;
+    }
 
     // Remove ariaLive after 5 seconds
-    setTimeout(() => ariaLive.remove(), SHOW_ARIA_LIVE_FOR_MS);
+    setTimeout(() => {
+      if (this.#bannerElements.ariaLive) {
+        // If banner has been removed, remove ariaLive element too
+        if (!this.#bannerElements.bannerContainer) {
+          if (this.#settingsPageElement) {
+            const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
+            if (notificationElem) {
+              notificationElem.classList.remove('enter');
+              notificationElem.classList.add('exit');
+              notificationElem.addEventListener('animationend', () => {
+                notificationElem.remove();
+                this.#bannerElements.ariaLive = null;
+              });
+            } else {
+              this.#bannerElements.ariaLive.innerHTML = '';
+              this.#bannerElements.ariaLive = null;
+            }
+          } else {
+            this.#bannerElements.ariaLive.remove();
+            this.#bannerElements.ariaLive = null;
+          }
+
+          // Otherwise, clear the content
+        } else {
+          // this.#bannerElements.ariaLive.innerHTML = '';
+          const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
+          if (notificationElem) {
+            notificationElem.classList.remove('enter');
+            notificationElem.classList.add('exit');
+            notificationElem.addEventListener('animationend', () => {
+              notificationElem.remove();
+              this.#bannerElements.ariaLive = null;
+            });
+          } else {
+            this.#bannerElements.ariaLive.innerHTML = '';
+            this.#bannerElements.ariaLive = null;
+          }
+        }
+      }
+    }, SHOW_ARIA_LIVE_FOR_MS);
   }
 
   // MARK: Rendering
@@ -282,19 +396,24 @@ export class CookieConsentCore {
     let groupsHtml = '';
     let groupNumber = 0;
     cookieGroupList.forEach((cookieGroup) => {
-      const title = getTranslation(cookieGroup, 'title', lang);
-      const description = getTranslation(cookieGroup, 'description', lang);
+      const title = getTranslation(cookieGroup, 'title', lang, this.#SITE_SETTINGS.fallbackLanguage);
+      const description = getTranslation(cookieGroup, 'description', lang, this.#SITE_SETTINGS.fallbackLanguage);
       const isAccepted = acceptedGroups.includes(cookieGroup.groupId);
 
       // Build table rows
       let tableRowsHtml = '';
       cookieGroup.cookies.forEach((cookie) => {
         tableRowsHtml += getTableRowHtml({
-          name: getTranslation(cookie, 'name', lang),
-          host: getTranslation(cookie, 'host', lang),
-          description: getTranslation(cookie, 'description', lang),
-          expiration: getTranslation(cookie, 'expiration', lang),
-          type: getTranslation(this.#SITE_SETTINGS.translations, `type_${cookie.type}`, lang),
+          name: getTranslation(cookie, 'name', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          host: getTranslation(cookie, 'host', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          description: getTranslation(cookie, 'description', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          expiration: getTranslation(cookie, 'expiration', lang, this.#SITE_SETTINGS.fallbackLanguage),
+          type: getTranslation(
+            this.#SITE_SETTINGS.translations,
+            `type_${cookie.type}`,
+            lang,
+            this.#SITE_SETTINGS.fallbackLanguage,
+          ),
         });
       });
 
@@ -312,23 +431,17 @@ export class CookieConsentCore {
   }
 
   /**
-   * Temporary solution to inject CSS styles into the shadow root.
+   * Inject CSS styles into the shadow root.
    * @private
    * @param {ShadowRoot} shadowRoot - The shadow root element to inject the styles into.
    * @return {Promise<void>} - A promise that resolves when the styles are injected successfully.
    * @throws {Error} - If there is an error fetching or injecting the styles.
    */
   async #injectCssStyles(shadowRoot) {
-    // TODO: Replace this temporary CSS file hack with proper preprocess CSS inlining
-    // Fetch the external CSS file
-    try {
-      // Create and inject the style
-      const style = document.createElement('style');
-      style.textContent = styles;
-      shadowRoot.appendChild(style);
-    } catch (error) {
-      throw new Error(`Cookie consent: Failed to load the temporary CSS file solution: '${error}'`);
-    }
+    // Create and inject the style
+    const style = document.createElement('style');
+    style.textContent = styles;
+    shadowRoot.appendChild(style);
   }
 
   /**
@@ -341,7 +454,6 @@ export class CookieConsentCore {
    * @throws {Error} If the targetSelector element is not found.
    * @throws {Error} If the spacerParentSelector element is not found.
    * @throws {Error} If the contentSelector element is not found.
-   * @throws {Error} If failed to load the temporary CSS file solution.
    */
   async #render(lang, siteSettings, isBanner, renderTarget = null) {
     let spacerParent;
@@ -365,11 +477,17 @@ export class CookieConsentCore {
 
     const container = document.createElement('div');
     container.classList.add('hds-cc__target');
-    container.style.all = 'initial';
+    container.style.all = 'var(--hds-cc--all-override, initial)!important';
     if (!isBanner) {
       renderTargetToPrepend.innerHTML = '';
     }
     renderTargetToPrepend.prepend(container);
+
+    if (isBanner) {
+      const ariaLiveElement = getAriaLiveHtml(this.#ARIA_LIVE_ID, 'hds-cc__aria-live-container');
+      container.insertAdjacentHTML('beforebegin', ariaLiveElement);
+      this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${this.#ARIA_LIVE_ID}`);
+    }
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
     this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
@@ -381,7 +499,13 @@ export class CookieConsentCore {
     const translationKeys = Object.keys(this.#SITE_SETTINGS.translations);
 
     translationKeys.forEach((key) => {
-      translations[key] = getTranslation(this.#SITE_SETTINGS.translations, key, lang, siteSettings);
+      translations[key] = getTranslation(
+        this.#SITE_SETTINGS.translations,
+        key,
+        lang,
+        this.#SITE_SETTINGS.fallbackLanguage,
+        siteSettings,
+      );
     });
 
     const browserCookie = this.#COOKIE_HANDLER.getCookie();
@@ -407,7 +531,9 @@ export class CookieConsentCore {
     ].join('');
 
     // Create banner HTML
-    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, this.#THEME, isBanner);
+    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, this.#THEME, this.#ARIA_LIVE_ID, isBanner);
+
+    this.#shadowRootElement = shadowRoot;
 
     // Add button events
     const shadowRootForm = shadowRoot.querySelector('form');
@@ -446,6 +572,7 @@ export class CookieConsentCore {
 
       shadowRoot.querySelector('.hds-cc').focus();
     }
+    this.#prepareAnnouncementElement();
   }
 
   // MARK: Initializer
@@ -458,6 +585,14 @@ export class CookieConsentCore {
    * @return {Promise<void>} A promise that resolves when the initialization is complete.
    */
   async #init() {
+    await new Promise((resolve) => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+      } else {
+        resolve();
+      }
+    });
+
     this.#removeBanner();
 
     let settingsPageElement = null;
@@ -466,7 +601,7 @@ export class CookieConsentCore {
       settingsPageElement = document.querySelector(this.#SETTINGS_PAGE_SELECTOR);
     }
 
-    const siteSettings = await this.#COOKIE_HANDLER.init(this.#cookie_name);
+    const siteSettings = await this.#COOKIE_HANDLER.init();
     this.#SITE_SETTINGS = siteSettings;
 
     if (settingsPageElement) {
@@ -483,7 +618,7 @@ export class CookieConsentCore {
 
     const monitorInterval = siteSettings.monitorInterval || 500;
     const remove = siteSettings.remove || false;
-    this.#MONITOR.init(this.#cookie_name, this.#COOKIE_HANDLER, monitorInterval, remove);
+    this.#MONITOR.init(this.#COOKIE_HANDLER, monitorInterval, remove);
   }
 }
 

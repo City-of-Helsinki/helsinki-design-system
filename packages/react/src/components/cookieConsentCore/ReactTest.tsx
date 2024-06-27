@@ -11,9 +11,8 @@ declare global {
 // This is used to test "/classes" in React and Storybook
 // See also https://github.com/Wildhoney/ReactShadow
 export const ReactTest = () => {
+  const siteSettingsJsonUrl = '/static-cookie-consent/helfi_sitesettings.json';
   const options = {
-    siteSettingsJsonUrl: '/static-cookie-consent/helfi_sitesettings.json',
-    // siteSettingsObj,
     language: 'fi', // Lang code defaults to 'en'
     theme: 'black', // Defaults to 'bus'
     // targetSelector: 'body', // Defaults to 'body'
@@ -22,10 +21,16 @@ export const ReactTest = () => {
     // submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
     settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const instanceRef = useEffect(() => {
-    // eslint-disable-next-line no-new, @typescript-eslint/no-unused-vars
-    const instance = new CookieConsentCore(options);
+  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const instanceRef = useEffect(() => {
+  //   // eslint-disable-next-line no-new, @typescript-eslint/no-unused-vars
+  //   const instance = new CookieConsentCore(siteSettingsObj, options);
+  // }, []);
+
+  useEffect(() => {
+    // @ts-ignore
+    CookieConsentCore.create(siteSettingsJsonUrl, options);
+    // CookieConsentCore.create(siteSettingsObj, options);
   }, []);
 
   const addChatCookie = async () => {
