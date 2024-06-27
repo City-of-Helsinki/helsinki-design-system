@@ -11,7 +11,7 @@ declare global {
 // This is used to test "/classes" in React and Storybook
 // See also https://github.com/Wildhoney/ReactShadow
 export const ReactTestFullPage = () => {
-  const siteSettingsJsonUrl = 'http://localhost:6006/static-cookie-consent/helfi_sitesettings.json';
+  const siteSettingsJsonUrl = '/static-cookie-consent/helfi_sitesettings.json';
   const options = {
     language: 'fi', // Lang code defaults to 'en'
     theme: 'coat', // Defaults to 'bus'
