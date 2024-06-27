@@ -13,6 +13,11 @@ global.ResizeObserver =
       observe: (el) => {
         observer.observe(el, { childList: true, attributes: true, subtree: true });
       },
-      unobserve: () => observer.unobserve(),
+      unobserve: () => {
+        if (observer && observer.unobserve) {
+          return observer.unobserve()
+        }
+        return undefined;
+      },
     };
   };

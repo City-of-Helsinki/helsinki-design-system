@@ -2,23 +2,26 @@
 @use 'temp/cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
 @use 'temp/mixin-animate' as animate;
 @use 'temp/mixin-helpers' as helpers;
-@use 'temp/font-face' as font-face;
+
+// @use 'temp/font-face' as font-face;
 @use 'temp/button' as button;
 @use 'temp/checkbox' as checkbox;
 @use 'temp/icon' as icon;
 @use '../../icons/angle-down.css';
+@use '../../icons/check-circle-fill.css';
+@use 'temp/notification' as notification;
 @use 'temp/table' as table;
 
 
-// Include only font-face styles used by cookie consent
-@include font-face.font-face(
-  $all: false,
-  $font-style-italic: false, // Italic is not needed by cookie consent
-  $font-weight-400: true, // Normal or Regular
-  $font-weight-500: true, // Medium
-  $font-weight-700: true, // Bold
-  $font-weight-900: false, // Black is not needed by cookie consent
-);
+// // Include only font-face styles used by cookie consent
+// @include font-face.font-face(
+//   $all: false,
+//   $font-style-italic: false, // Italic is not needed by cookie consent
+//   $font-weight-400: true, // Normal or Regular
+//   $font-weight-500: true, // Medium
+//   $font-weight-700: true, // Bold
+//   $font-weight-900: false, // Black is not needed by cookie consent
+// );
 
 // Include only used button styles
 @include button.hds-button(
@@ -42,10 +45,22 @@
   $theme-black: true
 );
 
+:host .hds-cc__form .hds-checkbox {
+  --label-color-disabled: var(--color-black-60); // Make disabled label color a bit darker to pass 4.5 contrast ratio for accessibility
+}
+
 // Include only used icon styles (no sizes needed at the moment)
 @include icon.hds-icon(
   $all: false,
   $base: true
+);
+
+// Include only used notification styles
+@include notification.hds-notification(
+  $all: false,
+  $base: true,
+  $small: true,
+  $success: true,
 );
 
 // Include only used table styles
@@ -205,7 +220,37 @@ html {
 }
 
 .hds-cc__groups {
-  padding-bottom: var(--spacing-layout-xs);
+  padding-bottom: var(--spacing-layout-s);
+}
+
+.hds-cc__notification_container .hds-notification {
+  margin-bottom: var(--spacing-layout-s);
+}
+
+@keyframes entryAnimation {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes exitAnimation {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
+
+.hds-notification.enter {
+  animation: entryAnimation 0.5s ease-out forwards;
+}
+
+.hds-notification.exit {
+  animation: exitAnimation 0.5s ease-out forwards;
+}
+
+// Check if user prefers reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .hds-notification.enter,
+  .hds-notification.exit {
+    animation-duration: 0s !important;
+  }
 }
 
 .hds-cc__group {

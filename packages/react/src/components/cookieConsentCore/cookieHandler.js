@@ -5,7 +5,6 @@ import { parse, serialize } from 'cookie';
 
 export default class CookieHandler {
   #COOKIE_DAYS = 100;
-  #ESSENTIAL_GROUP_NAME = 'essential';
   #shadowDomUpdateCallback;
   #siteSettings;
   #cookieName = 'city-of-helsinki-cookie-consents'; // Overridable default value
@@ -211,7 +210,7 @@ export default class CookieHandler {
    *
    * @param {Array<string>} consentedGroupNames - The names of the consented groups.
    * @param {object} monitorReference - The reference to the monitor object.
-   * @returns {void}
+   * @return {void}
    */
   removeConsentWithdrawnCookiesBeforeSave(consentedGroupNames, monitorReference) {
     const consentedKeysArray = this.getAllKeysInConsentedGroups(consentedGroupNames);
@@ -363,39 +362,46 @@ export default class CookieHandler {
   /**
    * Verify siteSettings validity
    * Checks done:
-   * * Required group 'essential' must exist
-   * * Required cookie must exist in 'essential' group
+   * * At least one required group is needed
+   * * One of the required groups must contain the consent cookie
    * * No duplicate group names
    * @private
    * @throws {Error} If the required group or cookie is missing in the site settings.
    * @throws {Error} If there are multiple cookie groups with identical names in the site settings.
    */
   #verifySiteSettings() {
-    const essentialGroup = this.#siteSettings.requiredGroups.find(
-      (group) => group.groupId === this.#ESSENTIAL_GROUP_NAME,
-    );
-    if (!essentialGroup) {
-      // The site site settings must have required group named by ESSENTIAL_GROUP_NAME
-      throw new Error(`Cookie consent error: '${this.#ESSENTIAL_GROUP_NAME}' group missing`);
-    }
-    const requiredCookieFound = essentialGroup.cookies.find((cookie) => cookie.name === this.#cookieName);
-    if (!requiredCookieFound) {
-      // The required "essential" group must have cookie with name matching the root level 'cookieName'
+    // Check that there is at least one required group
+    if (this.#siteSettings.requiredGroups.length === 0) {
       throw new Error(
-        `Cookie consent error: Missing cookie entry for '${this.#cookieName}' in group '${this.#ESSENTIAL_GROUP_NAME}'`,
+        `Cookie consent: At least one required group is needed to store consent in '${this.#cookieName}'.`,
       );
+    }
+
+    // Check that there is at least one required group that contains the cookie and its type is cookie
+    const requiredGroupWithCookie = this.#siteSettings.requiredGroups.find((group) =>
+      group.cookies.some((cookie) => cookie.name === this.#cookieName && cookie.type === 1),
+    );
+
+    // If no required group contains the cookie, throw an error
+    if (!requiredGroupWithCookie) {
+      throw new Error(`Cookie consent: No group found in requiredGroups that contains cookie '${this.#cookieName}'.`);
     }
 
     const siteSettingsGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
 
-    const cookieNames = [];
-    siteSettingsGroups.forEach((cookie) => {
-      if (cookieNames.includes(cookie.groupId)) {
-        // The site settings must not contain cookie groups that have identical names
-        throw new Error(`Cookie consent error: Group '${cookie.groupId}' found multiple times in settings.`);
+    const cookieNames = new Set();
+    const duplicateGroupNames = new Set();
+    siteSettingsGroups.forEach((group) => {
+      if (cookieNames.has(group.groupId)) {
+        duplicateGroupNames.add(group.groupId);
       }
-      cookieNames.push(cookie.groupId);
+      cookieNames.add(group.groupId);
     });
+    if (duplicateGroupNames.size > 0) {
+      throw new Error(
+        `Cookie consent: Groups '${Array.from(duplicateGroupNames).join(', ')}' found multiple times in settings.`,
+      );
+    }
   }
 
   /**

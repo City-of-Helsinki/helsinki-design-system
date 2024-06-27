@@ -6,14 +6,21 @@
  * @param {object} translations - The translations object.
  * @param {string} key - The translation key.
  * @param {string} lang - The language code.
+ * @param {string} fallbackLang - The fallback language code in case the translation is missing in the provided language.
  * @param {object} parameters - The parameters used to replace placeholders in the translation.
  * @return {string} - The translated string.
  * @throws {Error} - If the translation is missing for the provided key and language.
  */
-export function getTranslation(translations, key, lang, parameters) {
+// eslint-disable-next-line import/prefer-default-export
+export function getTranslation(translations, key, lang, fallbackLang, parameters) {
   // Debug mode, return key instead of translation
   if (lang === 'key') {
     return key;
+  }
+
+  // Fallback language is English by default
+  if (!fallbackLang) {
+    fallbackLang = 'en';
   }
 
   // Normal strings as template strings, use like:
@@ -34,13 +41,13 @@ export function getTranslation(translations, key, lang, parameters) {
     return index(obj[is[0]], is.slice(1), value);
   }
 
-  // Find translation based on key, fallback to English
+  // Find translation based on key, fallback if not found
   let translation = null;
   if (translations[key]) {
     if (typeof translations[key] === 'string') {
       translation = translations[key];
     } else if (typeof translations[key] === 'object') {
-      translation = translations[key][lang] || translations[key].en || null;
+      translation = translations[key][lang] || translations[key][fallbackLang] || null;
     }
   }
 
@@ -56,13 +63,13 @@ export function getTranslation(translations, key, lang, parameters) {
           return parameter[lang];
         }
 
-        // Use English as fallback language where possible
-        if (parameter.en) {
-          return parameter.en;
+        // Use fallback language if translation is missing
+        if (parameter[fallbackLang]) {
+          return parameter[fallbackLang];
         }
       }
       return parameter;
     });
   }
-  throw new Error(`Missing translation: ${key}:${lang}`);
+  throw new Error(`Cookie consent: Missing translation: ${key}:${lang}`);
 }
