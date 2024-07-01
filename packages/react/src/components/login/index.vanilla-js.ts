@@ -6,6 +6,7 @@
 export * from './types';
 export { ApiTokenClientProps, TokenData, ApiTokenClient, ApiTokensClientEvent } from './apiTokensClient/index';
 export { SessionPoller, SessionPollerEvent, SessionPollerOptions } from './sessionPoller/sessionPoller';
+export { GraphQLModule, GraphQLModuleModuleProps, GraphQLModuleEvent } from './graphQLModule/index';
 export {
   OidcClient,
   OidcClientEvent,
@@ -46,6 +47,7 @@ export {
 export * from './client/oidcClient';
 export * from './apiTokensClient/apiTokensClient';
 export { createSessionPoller } from './sessionPoller/sessionPoller';
+export { createGraphQLModule } from './graphQLModule/graphQLModule';
 
 // beacon
 export { createBeacon, createSignalTrigger } from './beacon/beacon';
@@ -54,14 +56,24 @@ export { createBeacon, createSignalTrigger } from './beacon/beacon';
 export * from './apiTokensClient/apiTokensClientError';
 export * from './client/oidcClientError';
 export * from './sessionPoller/sessionPollerError';
+export * from './graphQLModule/graphQLModuleError';
 
 // utils
 export { isHandlingLoginCallbackError } from './components/LoginCallbackHandler.util';
+export {
+  appendFetchOptions,
+  setBearerToQueryOptions,
+  mergeQueryOptions,
+  mergeAuthorizationHeaderToQueryOptions,
+  mergeHeadersToQueryOptions,
+  mergeQueryOptionContexts,
+} from './graphQLModule/utils';
 
 // events
 export { apiTokensClientEvents } from './apiTokensClient/index';
 export { oidcClientEvents } from './client/index';
 export { sessionPollerEvents } from './sessionPoller/sessionPoller';
+export { graphQLModuleEvents } from './graphQLModule/index';
 
 // stateChanges
 export { oidcClientStates } from './client/index';
@@ -73,11 +85,13 @@ export { createLoginSystem } from './createLoginSystem';
 export { apiTokensClientNamespace } from './apiTokensClient/index';
 export { oidcClientNamespace } from './client/index';
 export { sessionPollerNamespace } from './sessionPoller/sessionPoller';
+export { graphQLModuleNamespace } from './graphQLModule/index';
 
 // signals
 export * from './apiTokensClient/signals';
 export * from './client/signals';
 export * from './sessionPoller/signals';
+export * from './graphQLModule/signals';
 export {
   initSignalType,
   errorSignalType,

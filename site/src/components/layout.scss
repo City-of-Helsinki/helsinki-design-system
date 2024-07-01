@@ -1,10 +1,10 @@
 @charset "utf-8";
-@import "~hds-core/lib/base.min.css";
-@import "~hds-core/lib/components/all.min.css";
-@import "~hds-core/lib/icons/icon.min.css";
-@import "~hds-core/lib/icons/icons.min.css";
-@import "~hds-design-tokens/lib/all.scss";
-@import "utils.scss";
+@import '~hds-core/lib/base.min.css';
+@import '~hds-core/lib/components/all.min.css';
+@import '~hds-core/lib/icons/icon.min.css';
+@import '~hds-core/lib/icons/icons.min.css';
+@import '~hds-design-tokens/lib/all.scss';
+@import 'utils.scss';
 
 :root {
   --page-border-color: var(--color-black-20);
@@ -14,56 +14,56 @@
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/565d73a693abe0776c801607ac28f0bf.woff") format("woff");
+  src: url('../fonts/565d73a693abe0776c801607ac28f0bf.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: 400;
-  src: url("../fonts/5bb29e3b7b1d3ef30121229bbe67c3e1.woff") format("woff");
+  src: url('../fonts/5bb29e3b7b1d3ef30121229bbe67c3e1.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: 500;
-  src: url("../fonts/7c46f288e8133b87e6b12b45dac71865.woff") format("woff");
+  src: url('../fonts/7c46f288e8133b87e6b12b45dac71865.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: 500;
-  src: url("../fonts/e62dc97e83a385e4d8cdc939cf1e4213.woff") format("woff");
+  src: url('../fonts/e62dc97e83a385e4d8cdc939cf1e4213.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: 700;
-  src: url("../fonts/533af26cf28d7660f24c2884d3c27eac.woff") format("woff");
+  src: url('../fonts/533af26cf28d7660f24c2884d3c27eac.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: 700;
-  src: url("../fonts/20d494430c87e15e194932b729d48270.woff") format("woff");
+  src: url('../fonts/20d494430c87e15e194932b729d48270.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: 900;
-  src: url("../fonts/a50a1bd245ce63abcc0d1da80ff790d2.woff") format("woff");
+  src: url('../fonts/a50a1bd245ce63abcc0d1da80ff790d2.woff') format('woff');
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: 900;
-  src: url("../fonts/62a1781d8b396fbb025b0552cf6304d2.woff") format("woff");
+  src: url('../fonts/62a1781d8b396fbb025b0552cf6304d2.woff') format('woff');
 }
 
 html {
@@ -273,4 +273,44 @@ code {
   font-family: courier, monospace;
   padding: var(--spacing-4-xs) var(--spacing-3-xs);
   word-wrap: break-word;
+}
+
+.container-for-table-10-30-50-10 table {
+  table-layout: fixed;
+
+  td:first-of-type {
+    width: 10%;
+  }
+
+  td:nth-of-type(2) {
+    width: 30%;
+  }
+
+  td:nth-of-type(3) {
+    width: 50%;
+  }
+
+  td:nth-of-type(4) {
+    width: 10%;
+  }
+}
+
+.container-for-table-10-50-30-10 table {
+  table-layout: fixed;
+
+  td:first-of-type {
+    width: 10%;
+  }
+
+  td:nth-of-type(2) {
+    width: 50%;
+  }
+
+  td:nth-of-type(3) {
+    width: 30%;
+  }
+
+  td:nth-of-type(4) {
+    width: 10%;
+  }
 }

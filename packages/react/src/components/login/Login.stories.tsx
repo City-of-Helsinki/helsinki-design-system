@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 
 import {
   User,
@@ -42,6 +43,9 @@ import { Notification } from '../notification/Notification';
 import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
+import { createGraphQLModule } from './graphQLModule/graphQLModule';
+import { MyProfileQuery } from './graphQLModule/demoData/MyProfileQuery';
+import { useGraphQL, useGraphQLModule } from './graphQLModule/hooks';
 import { LoadingSpinner } from '../loadingSpinner';
 
 type StoryArgs = {
@@ -152,6 +156,17 @@ function createSignalTracker(): ConnectedModule & {
 }
 
 const signalTracker = createSignalTracker();
+const profileGraphQL = createGraphQLModule({
+  query: MyProfileQuery,
+  queryOptions: {
+    // this is needed with Profile BE, because it returns an error in result.data with weak authentication
+    errorPolicy: 'all',
+  },
+  graphQLClient: new ApolloClient({ uri: 'https://profile-api.test.hel.ninja/graphql/', cache: new InMemoryCache() }),
+  options: {
+    apiTokenKey: 'https://api.hel.fi/auth/helsinkiprofile',
+  },
+});
 
 const Wrapper = (props: React.PropsWithChildren<unknown>) => {
   return (
@@ -322,8 +337,11 @@ const SimulateSessionEndButton = () => {
   return <Button onClick={onButtonClick}>Simulate session end</Button>;
 };
 
-const ProfileData = ({ user }: { user: User }) => {
+const UserData = ({ user }: { user: User }) => {
   const profile = user.profile as Profile;
+  const expiresAt = new Date();
+  expiresAt.setTime(user.expires_at ? user.expires_at * 1000 : Date.now());
+  const timezoneOffset = expiresAt.getTimezoneOffset();
   return (
     <div>
       <p>
@@ -337,6 +355,11 @@ const ProfileData = ({ user }: { user: User }) => {
       </p>
       <p>
         Your level of assurance is <strong>&quot;{profile.loa}&quot;</strong>.
+      </p>
+      <p>
+        Your tokens will expire{' '}
+        {new Intl.DateTimeFormat('en-FI', { dateStyle: 'full', timeStyle: 'long', timeZone: 'GMT' }).format(expiresAt)}
+        {timezoneOffset !== 0 ? `+ ${timezoneOffset / -60} hour(s)` : ''}
       </p>
     </div>
   );
@@ -442,6 +465,59 @@ const NotifyIfErrorOccurs = () => {
   );
 };
 
+const ProfileData = () => {
+  const [, { data, error, loading }] = useGraphQL();
+  const module = useGraphQLModule();
+  const clientErrors = module.getClientErrors();
+  const profile = data && data.myProfile;
+  const hasCriticalError = !profile && (!!error || clientErrors.length > 0);
+  if (loading) {
+    return (
+      <div>
+        <LoadingSpinner small loadingText="Loading profile" loadingFinishedText="Profile loaded" />
+        Loading...
+      </div>
+    );
+  }
+  return (
+    <div>
+      <h2>Profile</h2>
+      {!!clientErrors.length && (
+        <Notification type={hasCriticalError ? 'error' : 'alert'}>
+          {clientErrors.map((err) => {
+            if (error && error.message === err.message) {
+              return null;
+            }
+            if (hasCriticalError) {
+              return <p key={err.message}>An error occured: {err.message}</p>;
+            }
+            return <p key={err.message}>An ignorable error was returned with results: {err.message}</p>;
+          })}{' '}
+        </Notification>
+      )}
+      <pre>{profile ? JSON.stringify(profile, null, 2) : 'No profile'}</pre>
+      <div className="buttons">
+        <Button
+          onClick={() => {
+            module.queryServer().catch(() => {});
+          }}
+          key="reload"
+        >
+          Reload from server
+        </Button>
+        <Button
+          onClick={() => {
+            module.clear();
+          }}
+          key="clear"
+        >
+          Clear all data
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const TrackAllSignals = () => {
   const tracker = useConnectedModule<ReturnType<typeof createSignalTracker>>('signalTracker');
   // if a listener returns true, component using useSignalListener is re-rendered
@@ -503,9 +579,10 @@ const AuthorizedContent = ({ user }: { user: User }) => {
         <Tabs.Tab>Api tokens</Tabs.Tab>
         <Tabs.Tab>Log</Tabs.Tab>
         <Tabs.Tab>Show errors</Tabs.Tab>
+        <Tabs.Tab>Profile data</Tabs.Tab>
       </Tabs.TabList>
       <Tabs.TabPanel>
-        <ProfileData user={user} />
+        <UserData user={user} />
         <DynamicUserData />
       </Tabs.TabPanel>
       <Tabs.TabPanel>
@@ -516,6 +593,9 @@ const AuthorizedContent = ({ user }: { user: User }) => {
       </Tabs.TabPanel>
       <Tabs.TabPanel>
         <NotifyIfErrorOccurs />
+      </Tabs.TabPanel>
+      <Tabs.TabPanel>
+        <ProfileData />
       </Tabs.TabPanel>
     </Tabs>
   );
@@ -569,7 +649,7 @@ export const ExampleApplication = (args: StoryArgs) => {
   };
 
   return (
-    <LoginProvider {...loginProps} modules={[signalTracker]}>
+    <LoginProvider {...loginProps} modules={[signalTracker, profileGraphQL]}>
       <IFrameWarning />
       <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
     </LoginProvider>
