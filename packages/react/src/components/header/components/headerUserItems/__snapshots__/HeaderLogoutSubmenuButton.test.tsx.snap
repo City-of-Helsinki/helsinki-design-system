@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderLogoutSubmenuButton The button is rendered 1`] = `
+<button
+  class="actionBarSubItem bold"
+  data-hds-header-error-usage="logout"
+  id="logout-button"
+  type="button"
+>
+  <span
+    class="actionBarSubItemLabel"
+  >
+    Button label
+  </span>
+  <span
+    class="actionBarSubItemIcon"
+  >
+    <svg
+      aria-hidden="true"
+      aria-label="signout"
+      class="icon s"
+      role="img"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M16 2V7H14V4H5V20H14V17H16V22H3V2H16ZM18 7L23 12L18 17L16.5 15.5L19 12.999L8 13V11L18.999 10.999L16.5 8.5L18 7Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+</button>
+`;

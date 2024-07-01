@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderLoginButton The button is rendered 1`] = `
+<button
+  aria-label="Button label"
+  class="actionBarItemButton undefined"
+  data-hds-header-error-usage="login"
+  id="login-button"
+  type="button"
+>
+  <div
+    class="buttonContent"
+  >
+    <span>
+      <span
+        class="actionBarItemButtonIcon"
+      >
+        <svg
+          aria-hidden="true"
+          aria-label="signin"
+          class="icon s"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M21 2V22H8V17H10V20H19V4H10V7H8V2H21ZM12.5 7L17.5 12L12.5 17L11 15.5L13.5 12.999L2 13V11L13.499 10.999L11 8.5L12.5 7Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <span
+        class="actionBarItemButtonLabel"
+      >
+        Button label
+      </span>
+    </span>
+  </div>
+</button>
+`;

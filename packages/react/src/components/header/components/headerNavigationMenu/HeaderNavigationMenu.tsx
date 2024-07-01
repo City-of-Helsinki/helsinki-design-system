@@ -21,13 +21,13 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   id?: string;
 }>;
 
-const renderHeaderNavigationMenuItem = (child, index, isNotLargeScreen) => {
-  const linkContentClass = isNotLargeScreen
+const renderHeaderNavigationMenuItem = (child, index, isSmallScreen) => {
+  const linkContentClass = isSmallScreen
     ? styles.headerNavigationMenuLinkContentMobile
     : styles.headerNavigationMenuLinkContent;
 
   const activeLinkClassName = classNames(linkContentClass, styles.headerNavigationMenuLinkContentActive);
-  const linkContainerClasses = child.props.active && !isNotLargeScreen ? activeLinkClassName : linkContentClass;
+  const linkContainerClasses = child.props.active && !isSmallScreen ? activeLinkClassName : linkContentClass;
 
   // Pass several className props downwards
   const mobileNode = cloneElement(child as React.ReactElement, {
@@ -44,7 +44,7 @@ const renderHeaderNavigationMenuItem = (child, index, isNotLargeScreen) => {
     index,
   });
 
-  const node = isNotLargeScreen ? mobileNode : desktopNode;
+  const node = isSmallScreen ? mobileNode : desktopNode;
 
   return (
     // eslint-disable-next-line react/no-array-index-key
@@ -55,20 +55,20 @@ const renderHeaderNavigationMenuItem = (child, index, isNotLargeScreen) => {
 };
 
 export const HeaderNavigationMenuContent = () => {
-  const { isNotLargeScreen, navigationContent } = useHeaderContext();
+  const { isSmallScreen, navigationContent } = useHeaderContext();
   const navigationLinks = getChildrenAsArray(navigationContent);
   return (
     <>
       {navigationLinks.map((child, index) => {
         if (!isValidElement(child)) return null;
-        return renderHeaderNavigationMenuItem(child, index, isNotLargeScreen);
+        return renderHeaderNavigationMenuItem(child, index, isSmallScreen);
       })}
     </>
   );
 };
 
 export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigationMenuProps) => {
-  const { isNotLargeScreen } = useHeaderContext();
+  const { isSmallScreen } = useHeaderContext();
   const { setNavigationContent } = useSetHeaderContext();
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
     setNavigationContent(navigationContent);
   }, [children]);
 
-  if (isNotLargeScreen) return null;
+  if (isSmallScreen) return null;
 
   return (
     <div className={styles.headerNavigationMenuContainer}>

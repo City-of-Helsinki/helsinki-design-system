@@ -6,7 +6,7 @@
   display: flex;
   margin: 0 auto;
   max-width: var(--header-max-width);
-  min-height: 48px;
+  min-height: var(--spacing-2-xl);
   padding: 0 var(--header-margin);
   width: 100%;
 }

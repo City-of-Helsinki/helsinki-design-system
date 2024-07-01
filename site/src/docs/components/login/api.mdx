@@ -85,10 +85,11 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
 
 #### LoginButton
 
-| Property                                           | Description                                                                     | Default              |
-| -------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------- |
-| `errorText`                                        | **Required**. An error text is shown if the OIDC server rejects the connection. | none                 |
-| `spinnerColor`                                     | Optional. Colour of the loading spinner.                                        | `var(--color-white)` |
+| Property                                           | Description                                                                     | Default                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `errorText`                                        | **Required**. An error text is shown if the OIDC server rejects the connection. | none                                                        |
+| `loggingInText`                                    | Text read by the screen reader when the button is clicked.                      | Default of the "loadingText" property of the LoadingSpinner |
+| `spinnerColor`                                     | Optional. Colour of the loading spinner.                                        | `var(--color-white)`                                        |
 | [Table 2: Properties of the LoginButton component] |
 
 Button text is passed and rendered as a child.

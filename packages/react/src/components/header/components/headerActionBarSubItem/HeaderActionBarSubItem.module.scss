@@ -1,0 +1,82 @@
+@use '../../../../styles/common.scss';
+
+.actionBarSubItem,
+h4.actionBarSubItem {
+  border-top: 1px solid var(--color-black-20);
+  padding: 0;
+}
+
+.actionBarSubItem,
+.actionBarSubItem > a,
+.actionBarSubItem > div {
+  align-items: center;
+  box-sizing: border-box;
+  color: var(--color-header);
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  width: 100%;
+
+  &.bold {
+    font-weight: bold;
+  }
+
+  &:focus-visible {
+    border: none;
+    outline: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.actionBarSubItem svg {
+  height: var(--spacing-s);
+  padding-top: 4px;
+  width: var(--spacing-s);
+}
+
+:first-child.actionBarSubItem {
+  border-top: none;
+}
+
+:last-child.actionBarSubItem {
+  border-bottom: none;
+}
+
+.actionBarSubItemLabel {
+  position: relative;
+}
+
+.actionBarSubItemIcon {
+  flex-shrink: 0;
+  height: var(--spacing-m);
+  line-height: var(--spacing-m);
+  position: relative;
+}
+
+.actionBarSubItemIconLeft {
+  align-self: flex-start;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.notificationBubble {
+  background: var(--notification-bubble-background-color);
+  border-radius: var(--spacing-xs);
+  box-sizing: border-box;
+  color: var(--notification-bubble-text-color);
+  display: inline-block;
+  font-size: var(--fontsize-body-s);
+  line-height: var(--spacing-m);
+  min-width: var(--spacing-m);
+  padding: 0 6px;
+  right: 0;
+  text-align: center;
+}

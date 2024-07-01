@@ -37,7 +37,7 @@
   justify-content: space-between;
   position: relative;
 
-  &.isNotLargeScreen {
+  &.isSmallScreen {
     width: 100%;
 
     &,
@@ -51,7 +51,7 @@
   }
 }
 
-.headerLink.isNotLargeScreen {
+.headerLink.isSmallScreen {
   align-self: center;
   border: none;
   box-sizing: border-box;

@@ -7,7 +7,6 @@ import {
   useSignalListener,
   useConnectedModule,
   useSignalTrackingWithCallback,
-  useAuthenticatedUser,
   Profile,
   useBeacon,
   LoginCallbackHandler,
@@ -40,7 +39,6 @@ import {
 import { Button } from '../button/Button';
 import { Header } from '../header/Header';
 import { Notification } from '../notification/Notification';
-import { IconSignout, IconUser } from '../../icons';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 import { createGraphQLModule } from './graphQLModule/graphQLModule';
@@ -245,20 +243,6 @@ const ListContainer = (props: React.PropsWithChildren<unknown>) => {
 };
 
 const Nav = () => {
-  const user = useAuthenticatedUser();
-  const { login, logout } = useOidcClient();
-  const authenticated = !!user;
-  const userName = user && user.profile.given_name;
-  const label = userName ? String(userName) : 'Log in';
-  const onClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-
-    if (authenticated) {
-      logout();
-    } else {
-      login();
-    }
-  };
   return (
     <Header>
       <Header.ActionBar
@@ -269,19 +253,25 @@ const Nav = () => {
         logo={<Logo src={logoFi} alt="City of Helsinki" />}
         logoAriaLabel="Service logo"
       >
-        <Header.ActionBarItem
-          label={label}
-          fixedRightPosition
-          icon={<IconUser />}
+        <Header.LoginButton
+          label="Log in"
           id="action-bar-login-action"
-          {...(!authenticated ? { onClick } : {})}
-        >
-          {authenticated && (
-            <Button onClick={onClick} variant="supplementary" iconLeft={<IconSignout />}>
-              Log out
-            </Button>
-          )}
-        </Header.ActionBarItem>
+          errorLabel="Login failed!"
+          errorText="Redirection to the OIDC server failed. Try again!"
+          errorCloseAriaLabel="Close this error notification"
+          loggingInText="Logging in"
+          fixedRightPosition
+        />
+        <Header.UserMenuButton id="user-menu" fixedRightPosition>
+          <Header.LogoutSubmenuButton
+            label="Log out"
+            errorLabel="Logout failed!"
+            errorText="Redirection to the OIDC server failed. Try again!"
+            errorCloseAriaLabel="Close this error notification"
+            id="logout-button"
+            loggingOutText="Logging out"
+          />
+        </Header.UserMenuButton>
       </Header.ActionBar>
     </Header>
   );
@@ -642,7 +632,9 @@ export const ExampleApplication = (args: StoryArgs) => {
             Click button below, or in the navigation, to start the login process with{' '}
             <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>.
           </p>
-          <LoginButton errorText="Login failed. Try again!">Log in </LoginButton>
+          <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
+            Log in{' '}
+          </LoginButton>
         </ContentAligner>
       </Wrapper>
     );

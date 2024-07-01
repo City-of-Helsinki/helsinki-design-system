@@ -9,7 +9,7 @@ button.button {
   padding: 0;
   width: 24px;
 
-  &.isNotLargeScreen {
+  &.isSmallScreen {
     background: transparent;
     border-left: 1px solid var(--nav-button-background-color);
     box-sizing: border-box;
