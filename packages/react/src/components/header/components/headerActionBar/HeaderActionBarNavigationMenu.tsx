@@ -1,4 +1,13 @@
-import React, { cloneElement, isValidElement, MouseEventHandler, TransitionEvent, useEffect, useRef } from 'react';
+import React, {
+  cloneElement,
+  isValidElement,
+  MouseEventHandler,
+  TransitionEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './HeaderActionBarNavigationMenu.module.scss';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
@@ -8,7 +17,7 @@ import { HeaderLink } from '../headerLink';
 import { IconAngleLeft } from '../../../../icons';
 import { LinkProps } from '../../../../internal/LinkItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
-import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
+import { HeaderActionBarItemProps } from '../headerActionBarItem';
 import useForceRender from '../../../../hooks/useForceRender';
 
 type NavigationSectionType = {
@@ -177,6 +186,7 @@ type HeaderActionBarNavigationMenuProps = {
    */
   logoProps: LinkProps;
   openFrontPageLinksAriaLabel?: string;
+  actionBarItems: HeaderActionBarItemProps[];
 };
 export const HeaderActionBarNavigationMenu = ({
   frontPageLabel,
@@ -184,6 +194,7 @@ export const HeaderActionBarNavigationMenu = ({
   logo,
   logoProps,
   openFrontPageLinksAriaLabel,
+  actionBarItems,
 }: HeaderActionBarNavigationMenuProps) => {
   const { navigationContent, mobileMenuOpen, hasUniversalContent, universalContent } = useHeaderContext();
   const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
@@ -415,20 +426,6 @@ export const HeaderActionBarNavigationMenu = ({
     setMobileMenuOpen(false);
   };
 
-  const setCurrentMenuHeight = () => {
-    const containerElement = navContainerRef.current;
-    if (!containerElement) {
-      return;
-    }
-    // Set the height of the menu container
-    const renderedChildIndex = getActiveMenuIndex();
-    const currentMenuSection = containerElement.children[renderedChildIndex];
-    if (!currentMenuSection) {
-      return;
-    }
-    navContainerRef.current.style.height = `${currentMenuSection.clientHeight}px`;
-  };
-
   const animationDone = async (e: TransitionEvent) => {
     if (e.propertyName !== 'transform') {
       return;
@@ -439,7 +436,6 @@ export const HeaderActionBarNavigationMenu = ({
     const { isChangingLevel, isClosingOrOpening } = getState();
     if (isNavContainer && isChangingLevel) {
       updateState({ shouldSetFocusToActiveLink: true });
-      setCurrentMenuHeight();
       resetMenusAfterAnimation();
     } else if (isMenuElement && isClosingOrOpening) {
       updateState({ isClosingOrOpening: false });
@@ -448,12 +444,6 @@ export const HeaderActionBarNavigationMenu = ({
       }
     }
   };
-
-  useIsomorphicLayoutEffect(() => {
-    if (mobileMenuOpen) {
-      setCurrentMenuHeight();
-    }
-  }, [mobileMenuOpen]);
 
   const RenderNavigationSection = ({
     links,
@@ -497,6 +487,18 @@ export const HeaderActionBarNavigationMenu = ({
     );
   };
 
+  const [keyMap] = useState(new Map<unknown, string>());
+
+  const getKey = (item: HeaderActionBarItemProps) => {
+    const currentKey = keyMap.get(item);
+    if (currentKey) {
+      return currentKey;
+    }
+    const key = uuidv4();
+    keyMap.set(item, key);
+    return key;
+  };
+
   const { isClosingOrOpening } = getState();
   return (
     <div
@@ -504,6 +506,12 @@ export const HeaderActionBarNavigationMenu = ({
       id="hds-mobile-menu"
       onTransitionEnd={animationDone}
     >
+      {actionBarItems?.map?.((item: HeaderActionBarItemProps) => {
+        if (typeof item === 'object') {
+          return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: getKey(item) });
+        }
+        return null;
+      })}
       <div className={classNames(styles.navigationWrapper, getMenuPositionStyle())} ref={navContainerRef}>
         {getMenuLevels().map((data, i) => {
           const { links, previousLink, activeLink, key } = getMenuContents(i);

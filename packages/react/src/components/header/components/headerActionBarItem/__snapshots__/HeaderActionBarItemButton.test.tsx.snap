@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderActionBarItemButton spec renders the component correctly and adds all classNames from props 1`] = `
+<DocumentFragment>
+  <button
+    aria-controls="aria-controls-id"
+    aria-expanded="false"
+    aria-label="aria label"
+    class="actionBarItemButton extra-class fixedRightPosition"
+    data-testid="button"
+    type="button"
+  >
+    <div
+      class="buttonContent"
+    >
+      <span>
+        <span
+          class="actionBarItemButtonIcon labelOnRight"
+        >
+          <span
+            aria-hidden="true"
+            data-testid="fake-icon-test-id"
+          />
+        </span>
+        <span
+          class="actionBarItemButtonLabel labelOnRight"
+        >
+          button label
+        </span>
+      </span>
+      <div
+        class="activeStateContent"
+      >
+        <span
+          class="actionBarItemButtonIcon labelOnRight"
+        >
+          <span
+            aria-hidden="true"
+            data-testid="close-icon-test-id"
+          />
+        </span>
+        <span
+          aria-hidden="true"
+          class="actionBarItemButtonLabel labelOnRight activeStateContentLabel"
+        >
+          close label
+        </span>
+      </div>
+    </div>
+  </button>
+</DocumentFragment>
+`;

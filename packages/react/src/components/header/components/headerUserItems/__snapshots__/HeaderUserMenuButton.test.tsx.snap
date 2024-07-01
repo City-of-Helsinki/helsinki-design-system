@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderLogoutSubmenuButton The button is rendered 1`] = `
+<button
+  aria-controls="user-menu-dropdown"
+  aria-expanded="false"
+  aria-label="Authenticated User"
+  class="actionBarItemButton icon fixedRightPosition hasSubItems"
+  type="button"
+>
+  <div
+    class="buttonContent"
+  >
+    <span
+      class="avatar"
+    >
+      AZ
+    </span>
+    <svg
+      aria-hidden="true"
+      aria-label="angle-down"
+      class="icon s"
+      role="img"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </div>
+</button>
+`;

@@ -15,8 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
 - [Login] GraphQL module with api token integration
+- [Header.LoginButton] Button to start the login process and handle errors.
+- [Header.LogoutSubmenuButton] Button to start the logout process from the menu and handle errors.
+- [Header.UserMenuButton] Button for a user menu that renders user's name and initials.
+- [Header.ActionBarButton] A Button without dropdown items (as in Header.ActionBarItem)
+- [Header.ActionBar] Add possibility to give the menu button a label with `menuButtonLabel` prop. 
 
 #### Changed
 
@@ -58,6 +62,7 @@ Changes that are not related to specific components
 
 #### Added
 
+- [Header] Documented new features.
 - More detailed information on upcoming releases 4.0.0 and 5.0.0
 - [Login] GraphQL module documentation
 

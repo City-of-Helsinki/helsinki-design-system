@@ -16,6 +16,7 @@ const buttonText = 'Log in';
 const props: Omit<LoginButtonProps, 'children'> = {
   errorText: 'Cannot login',
   variant: 'danger',
+  loggingInText: 'Logging in',
 };
 
 beforeEach(() => {
@@ -56,7 +57,7 @@ describe('LoginButton', () => {
   };
 
   const getButtonElement = () => (screen.getByText(buttonText) as HTMLElement).parentNode as HTMLElement;
-  const getErrorElement = () => screen.getByText(props.errorText) as HTMLElement;
+  const getErrorElement = () => screen.getAllByText(props.errorText)[0] as HTMLElement;
   const spyOnOidcClientLogin = (reject: boolean) => {
     const oidcClient = beacon.getSignalContext(oidcClientNamespace) as OidcClient;
     const promise = createTimedPromise(reject ? new Error('Login failed') : null);

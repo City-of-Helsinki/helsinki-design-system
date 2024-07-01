@@ -20,4 +20,5 @@ export interface HeaderCustomTheme {
   '--nav-button-hover-background-color'?: string;
   '--nav-drop-down-icon-color'?: string;
   '--universal-bar-background-color'?: string;
+  '--header-spinner-color'?: string;
 }

@@ -1,4 +1,13 @@
-import React, { PropsWithChildren, MouseEventHandler, useEffect, useMemo, useRef } from 'react';
+import React, {
+  ReactElement,
+  PropsWithChildren,
+  MouseEventHandler,
+  EventHandler,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import styles from './HeaderActionBar.module.scss';
 import { styleBoundClassNames } from '../../../../utils/classNames';
@@ -8,11 +17,12 @@ import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { elementIsFocusable } from '../../../../utils/elementIsFocusable';
-import { HeaderActionBarMenuItem } from '../headerActionBarItem';
+import { HeaderActionBarItem } from '../headerActionBarItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
-import { useHeaderContext } from '../../HeaderContext';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import { HeaderActionBarItemProps } from '../headerActionBarItem/HeaderActionBarItem';
+import { IconCross, IconMenuHamburger } from '../../../../icons';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -119,6 +129,10 @@ export type HeaderActionBarProps = PropsWithChildren<{
    */
   logoHref?: string;
   /**
+   * The label for the menu button.
+   */
+  menuButtonLabel?: string;
+  /**
    * The aria-label for the menu button to screen reader users.
    */
   menuButtonAriaLabel?: string;
@@ -165,6 +179,7 @@ export const HeaderActionBar = ({
   titleStyle,
   titleAriaLabel,
   logoAriaLabel,
+  menuButtonLabel = 'Menu',
   menuButtonAriaLabel,
   titleHref,
   logoHref,
@@ -183,7 +198,8 @@ export const HeaderActionBar = ({
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
-  const { isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
+  const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
+  const { setMobileMenuOpen } = useSetHeaderContext();
   const actionBarRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
@@ -205,8 +221,17 @@ export const HeaderActionBar = ({
     return undefined;
   }, [actionBarRef, mobileMenuOpen]);
 
+  const handleMenuClickCapture = useCallbackIfDefined(onMenuClick);
+  const handleMenuClick: EventHandler<MouseEvent> = (event) => {
+    if (!event.isPropagationStopped()) {
+      setMobileMenuOpen(!mobileMenuOpen);
+    }
+    if (onMenuClick) onMenuClick(event);
+  };
+
   const logoProps: LinkProps = {
     'aria-label': logoAriaLabel,
+    role: 'link',
     href: logoHref,
     className: classNames(styles.titleAndLogoContainer, styles.logo),
     onClick: handleLogoClick,
@@ -227,18 +252,24 @@ export const HeaderActionBar = ({
     titleProps.onKeyPress = handleKeyPress;
     titleProps.onClick = handleClick;
   }
+  const childrenWithId = (Array.isArray(children) ? children : [children])
+    .filter((item) => React.isValidElement(item))
+    .map((item) => item as ReactElement)
+    .map((item, idx) => ((item.props as HeaderActionBarItemProps)?.id ? item : { ...item, id: `item${idx}` }));
 
-  const childrenLeft = Array.isArray(children)
-    ? children.filter(
-        (item) => React.isValidElement(item) && !(item.props as HeaderActionBarItemProps).fixedRightPosition,
-      )
-    : [children];
-  const childrenRight = Array.isArray(children)
-    ? children.filter(
-        (item) => React.isValidElement(item) && !!(item.props as HeaderActionBarItemProps).fixedRightPosition,
-      )
-    : [];
-  const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(children);
+  const childrenLeft =
+    childrenWithId.length > 1
+      ? childrenWithId.filter(
+          (item) => React.isValidElement(item) && !(item.props as HeaderActionBarItemProps).fixedRightPosition,
+        )
+      : [childrenWithId];
+  const childrenRight =
+    childrenWithId.length > 1
+      ? childrenWithId.filter(
+          (item) => React.isValidElement(item) && !!(item.props as HeaderActionBarItemProps).fixedRightPosition,
+        )
+      : [];
+  const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(childrenWithId);
   const languageSelectorChildren = useMemo(() => {
     return lsChildren ? getChildElementsEvenIfContainersInbetween(lsChildren) : null;
   }, [lsChildren]);
@@ -262,9 +293,18 @@ export const HeaderActionBar = ({
             {componentExists && (
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
-            {childrenLeft}
-            <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuClick} />
-            {childrenRight.length > 0 && (
+            {!isSmallScreen && childrenLeft}
+            {(hasNavigationContent || childrenWithId.length > 0) && isSmallScreen && (
+              <HeaderActionBarItem
+                id="Menu"
+                label={menuButtonLabel}
+                ariaLabel={menuButtonAriaLabel}
+                onClick={handleMenuClick}
+                onClickCapture={handleMenuClickCapture}
+                icon={mobileMenuOpen ? <IconCross /> : <IconMenuHamburger />}
+              />
+            )}
+            {!isSmallScreen && childrenRight.length > 0 && (
               <>
                 <hr aria-hidden="true" />
                 {childrenRight}
@@ -272,13 +312,14 @@ export const HeaderActionBar = ({
             )}
           </div>
         </div>
-        {isNotLargeScreen && (
+        {isSmallScreen && (
           <HeaderActionBarNavigationMenu
             frontPageLabel={frontPageLabel}
             titleHref={titleHref}
             logo={logo}
             logoProps={logoProps}
             openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
+            actionBarItems={(Array.isArray(children) ? children : [children]) as HeaderActionBarItemProps[]}
           />
         )}
       </div>
