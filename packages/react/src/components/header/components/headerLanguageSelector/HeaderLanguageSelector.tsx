@@ -60,7 +60,7 @@ export const LanguageButton = ({ value, label }: LanguageOption) => {
 
 const renderLanguageNode = (language: LanguageOption, primary: boolean) => {
   const Label = <LanguageButton key={language.value} value={language.value} label={language.label} />;
-  return primary ? Label : <HeaderActionBarSubItem label={Label} />;
+  return primary ? Label : <HeaderActionBarSubItem label={Label} key={language.value} />;
 };
 
 export const SimpleLanguageOptions = ({ languages }: { languages: LanguageOption[] }) => {

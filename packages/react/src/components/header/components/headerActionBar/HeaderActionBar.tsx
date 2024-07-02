@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  ReactNode,
 } from 'react';
 
 import styles from './HeaderActionBar.module.scss';
@@ -252,24 +253,20 @@ export const HeaderActionBar = ({
     titleProps.onKeyPress = handleKeyPress;
     titleProps.onClick = handleClick;
   }
-  const childrenWithId = (Array.isArray(children) ? children : [children])
-    .filter((item) => React.isValidElement(item))
-    .map((item) => item as ReactElement)
-    .map((item, idx) => ((item.props as HeaderActionBarItemProps)?.id ? item : { ...item, id: `item${idx}` }));
+  const validatedChildren = (Array.isArray(children) ? children : [children]).filter((item) =>
+    React.isValidElement(item),
+  );
 
-  const childrenLeft =
-    childrenWithId.length > 1
-      ? childrenWithId.filter(
-          (item) => React.isValidElement(item) && !(item.props as HeaderActionBarItemProps).fixedRightPosition,
-        )
-      : [childrenWithId];
-  const childrenRight =
-    childrenWithId.length > 1
-      ? childrenWithId.filter(
-          (item) => React.isValidElement(item) && !!(item.props as HeaderActionBarItemProps).fixedRightPosition,
-        )
-      : [];
-  const { children: lsChildren, props: lsProps, componentExists } = getLanguageSelectorComponentProps(childrenWithId);
+  const getFixedRightPosition = (item: ReactElement | ReactNode) =>
+    !!((item as ReactElement).props as HeaderActionBarItemProps).fixedRightPosition;
+
+  const childrenLeft = validatedChildren.filter((item) => !getFixedRightPosition(item));
+  const childrenRight = validatedChildren.filter((item) => getFixedRightPosition(item));
+  const {
+    children: lsChildren,
+    props: lsProps,
+    componentExists,
+  } = getLanguageSelectorComponentProps(validatedChildren);
   const languageSelectorChildren = useMemo(() => {
     return lsChildren ? getChildElementsEvenIfContainersInbetween(lsChildren) : null;
   }, [lsChildren]);
@@ -293,8 +290,8 @@ export const HeaderActionBar = ({
             {componentExists && (
               <HeaderLanguageSelectorConsumer {...lsProps}>{languageSelectorChildren}</HeaderLanguageSelectorConsumer>
             )}
-            {!isSmallScreen && childrenLeft}
-            {(hasNavigationContent || childrenWithId.length > 0) && isSmallScreen && (
+            {childrenLeft}
+            {(hasNavigationContent || childrenRight.length > 0) && isSmallScreen && (
               <HeaderActionBarItem
                 id="Menu"
                 label={menuButtonLabel}
@@ -319,7 +316,7 @@ export const HeaderActionBar = ({
             logo={logo}
             logoProps={logoProps}
             openFrontPageLinksAriaLabel={openFrontPageLinksAriaLabel}
-            actionBarItems={(Array.isArray(children) ? children : [children]) as HeaderActionBarItemProps[]}
+            actionBarItems={childrenRight as HeaderActionBarItemProps[]}
           />
         )}
       </div>

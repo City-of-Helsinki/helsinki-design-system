@@ -10,7 +10,7 @@ import { HeaderLink } from './components/headerLink/HeaderLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { HeaderTheme } from './Header.type';
 import { LanguageOption } from './LanguageContext';
-import { IconSignout, IconSignin } from '../../icons';
+import { IconSignout, IconSignin, IconSearch } from '../../icons';
 import { Logo, logoFi, logoFiDark, logoSv, logoSvDark } from '../logo';
 import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
@@ -260,6 +260,12 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
           <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
         </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
+      <Header.ActionBarButton
+        label="Haku"
+        icon={<IconSearch />}
+        id="action-bar-search"
+        onClick={() => action(`Search clicked`)()}
+      />
       <Header.ActionBarButton
         label="Kirjaudu"
         icon={<IconSignin />}
@@ -703,7 +709,7 @@ export const WithFullFeaturesCustomTheme = (args) => {
   );
 };
 
-export const Login = (args) => {
+export const WithUserMenu = (args) => {
   const lang = 'fi';
   const I18n = translations[lang];
 
