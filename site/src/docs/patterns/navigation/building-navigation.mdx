@@ -155,34 +155,22 @@ The header's consistent placement and appearance across all pages make it easily
       menuButtonAriaLabel="Menu"
     >
       <Header.LanguageSelector>
-        <h3>Muut kielet</h3>
-        <Link href="www.example.com" size="S" lang="de">
-          Deutsch
-        </Link>
-        <Link href="www.example.com" size="S" lang="es">
-          Español
-        </Link>
-        <Link href="www.example.com" size="S" lang="fr">
-          Français
-        </Link>
-        <Link href="www.example.com" size="S" lang="ru">
-          Pусский
-        </Link>
-        <h3>Tietoa muilla kielillä</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          Selkosuomi
-        </Link>
-        <Link external href="www.example.com" size="S" lang="fi">
-          Viittomakieli
-        </Link>
-        <h3>Matkailijoille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          MyHelsinki.fi
-        </Link>
-        <h3>Maahanmuuttajille</h3>
-        <Link external href="www.example.com" size="S" lang="fi">
-          InfoFinland.fi
-        </Link>
+        <Header.ActionBarSubItemGroup label="Muut kielet">
+          <Header.ActionBarSubItem label="Deutsch" external href="www.example.com" lang="de" />
+          <Header.ActionBarSubItem label="Español" external href="www.example.com" lang="es" />
+          <Header.ActionBarSubItem label="Français" external href="www.example.com" lang="fr" />
+          <Header.ActionBarSubItem label="Pусский" external href="www.example.com" lang="ru" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Tietoa muilla kielillä">
+          <Header.ActionBarSubItem label="Selkosuomi" external href="www.example.com" lang="fi" />
+          <Header.ActionBarSubItem label="Viittomakieli" external href="www.example.com" lang="fse" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Matkailijoille">
+          <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
+        <Header.ActionBarSubItemGroup label="Maahanmuuttajille">
+          <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+        </Header.ActionBarSubItemGroup>
       </Header.LanguageSelector>
     </Header.ActionBar>
     <Header.NavigationMenu>
