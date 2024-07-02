@@ -72,6 +72,15 @@ export default class CookieHandler {
    * @return {Promise<boolean>} - A promise that resolves to true if the groups' status is successfully set to accepted, otherwise false.
    */
   async setGroupsStatusToAccepted(acceptedGroupsArray) {
+    // Console error if acceptedGroupsArray is not an Array
+    if (!Array.isArray(acceptedGroupsArray)) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Cookie consent: Accepted groups must be provided as an array to setGroupsStatusToAccepted function.',
+      );
+      return false;
+    }
+
     const browserCookie = this.getCookie();
     // If cookie is not set, or it has a showBanner set to true, we need to set the banner to be shown
     const showBanner = !browserCookie || browserCookie.showBanner || false;
@@ -100,6 +109,18 @@ export default class CookieHandler {
       // eslint-disable-next-line no-console
       console.error(
         `Cookie consent: The group(s) "${notWhitelistedGroups.join('", "')}" not found in groupsWhitelistedForApi: "${groupsWhitelistedForApi.join('", "')}".`,
+      );
+      return false;
+    }
+
+    // Check that all acceptedGroupsArray items can be found in site settings
+    const notFoundGroups = acceptedGroupsArray.filter(
+      (group) => !siteSettingsGroups.some((siteGroup) => siteGroup.groupId === group),
+    );
+    if (notFoundGroups.length > 0) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `Cookie consent: The group(s) "${notFoundGroups.join('", "')}" not found in required or optional groups in site settings.`,
       );
       return false;
     }
