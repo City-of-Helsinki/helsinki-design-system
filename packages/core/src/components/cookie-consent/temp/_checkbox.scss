@@ -3,7 +3,9 @@
     $base:false,
     $error-text:false,
     $indeterminate: false,
-    $disabled: false
+    $disabled: false,
+    $theme-coat: false,
+    $theme-black: false,
   ){
   @if $all or $base {
     .hds-checkbox {
@@ -15,6 +17,23 @@
       --outline-width: 3px;
       --label-font-size: var(--fontsize-body-m);
       --label-padding: var(--spacing-2-xs);
+      --icon-size: var(--spacing-m);
+
+      display: flex;
+      flex-wrap: wrap;
+      min-height: var(--size);
+      position: relative;
+    }
+
+    .hds-checkbox,
+    .hds-checkbox *,
+    .hds-checkbox *:before,
+    .hds-checkbox *:after {
+      box-sizing: border-box;
+    }
+
+    .hds-checkbox,
+    .hds-theme--bus .hds-checkbox {
       --background-unselected: transparent;
       --background-selected: var(--color-bus);
       --background-hover: var(--color-bus-dark);
@@ -31,21 +50,30 @@
       --icon-color-disabled: var(--color-white);
       --label-color: var(--color-black-90);
       --label-color-disabled: var(--color-black-40);
-      --icon-size: var(--spacing-m);
-
-      display: flex;
-      flex-wrap: wrap;
-      min-height: var(--size);
-      position: relative;
     }
+  }
 
-    .hds-checkbox,
-    .hds-checkbox *,
-    .hds-checkbox *:before,
-    .hds-checkbox *:after {
-      box-sizing: border-box;
+  @if $all or $theme-coat {
+    .hds-theme--coat .hds-checkbox {
+      --background-selected: var(--color-coat-of-arms);
+      --background-hover: var(--color-coat-of-arms-dark);
+      --border-color-selected: var(--color-coat-of-arms);
+      --border-color-selected-hover: var(--color-coat-of-arms-dark);
+      --border-color-selected-focus: var(--color-coat-of-arms);
     }
+  }
 
+  @if $all or $theme-black {
+    .hds-theme--black .hds-checkbox {
+      --background-selected: var(--color-black);
+      --background-hover: var(--color-black-80);
+      --border-color-selected: var(--color-black);
+      --border-color-selected-hover: var(--color-black-80);
+      --border-color-selected-focus: var(--color-black);
+    }
+  }
+
+  @if $all or $base {
     .hds-checkbox:not(:first-of-type) {
       margin-top: var(--spacing-2-xs);
     }
@@ -97,10 +125,11 @@
     }
 
     .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label:before {
-      box-shadow: 0 0 0 var(--outline-width) var(--color-focus-outline);
+      outline: var(--outline-width) solid var(--focus-outline-color, var(--color-focus-outline));
+      outline-offset: var(--focus-outline-offset, 0);
       transform: translate3d(0, 0, 0);
       transition: 85ms ease-out;
-      transition-property: box-shadow, transform;
+      transition-property: outline, outline-offset, transform;
     }
 
     .hds-checkbox .hds-checkbox__input {
