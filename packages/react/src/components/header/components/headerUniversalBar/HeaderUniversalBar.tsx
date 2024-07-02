@@ -47,7 +47,7 @@ export const HeaderUniversalBar = ({
   primaryLinkText,
   role,
 }: HeaderUniversalBarProps) => {
-  const { isNotLargeScreen } = useHeaderContext();
+  const { isSmallScreen } = useHeaderContext();
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   const { setUniversalContent } = useSetHeaderContext();
 
@@ -56,7 +56,7 @@ export const HeaderUniversalBar = ({
     setUniversalContent(universalContent);
   }, [children]);
 
-  if (isNotLargeScreen) return null;
+  if (isSmallScreen) return null;
 
   return (
     <div className={styles.headerUniversalBarContainer}>

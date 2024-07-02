@@ -45,12 +45,14 @@ const activeLanguageTestId = 'active-language';
 
 const MenuContent = () => {
   return (
-    <div data-testid={menuTestId}>
-      <h4>{menuH4}</h4>
-      <Link external href="www.example.com">
-        {linkText}
-      </Link>
-    </div>
+    <li>
+      <div data-testid={menuTestId}>
+        <h4>{menuH4}</h4>
+        <Link external href="www.example.com">
+          {linkText}
+        </Link>
+      </div>
+    </li>
   );
 };
 

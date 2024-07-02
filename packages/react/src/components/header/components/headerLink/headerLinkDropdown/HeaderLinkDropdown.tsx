@@ -67,7 +67,7 @@ export const HeaderLinkDropdown = ({
   dropdownButtonClassName,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
-  const { isNotLargeScreen } = useHeaderContext();
+  const { isSmallScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const [dropdownPosition, setDropdownPosition] = useState<{ left?: number; right?: number }>({ left: 0 });
 
@@ -130,7 +130,7 @@ export const HeaderLinkDropdown = ({
     <>
       <button
         type="button"
-        className={classNames(styles.button, { isNotLargeScreen }, depthClassName, dropdownButtonClassName)}
+        className={classNames(styles.button, { isSmallScreen }, depthClassName, dropdownButtonClassName)}
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
         aria-label={getDefaultButtonAriaLabel()}
@@ -140,7 +140,7 @@ export const HeaderLinkDropdown = ({
       </button>
       <ul
         style={isFirstLevelDropdown ? dropdownPosition : {}}
-        className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
+        className={classNames(dropdownDirectionClass, { isSmallScreen }, className)}
         {...(!open && { style: { display: 'none' } })}
         data-testid={`dropdown-menu-${index}`}
         ref={ref}

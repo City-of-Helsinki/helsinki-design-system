@@ -3,6 +3,7 @@
 .hds-text-input {
   --border-width: 2px;
   --outline-width: 3px;
+  --outline-offset-readonly: 4px;
   --input-height: 56px;
   --textarea-height: 149px;
   --icon-size: var(--spacing-m);
@@ -280,10 +281,26 @@
   background-color: transparent;
   border: 0;
   color: var(--input-color-default);
+  outline-offset: var(--outline-offset-readonly);
   padding: 0;
-
+  
   /* fixes faded text color on Safari */
   -webkit-text-fill-color: var(--input-color-default);
+  transform: translate3d(0, 0, 0);
+  transition: 85ms ease-out;
+  transition-property: outline, transform;
+}
+
+.hds-text-input__input-wrapper:focus-within input.hds-text-input__input[readonly] {
+  /* the following calculation and margin is needed to keep the outline not to overlap
+  the other content vertically and make it look nice */
+  height: calc(var(--input-height) - 2 * var(--outline-offset-readonly));
+  margin: var(--outline-offset-readonly) 0;
+  outline: var(--color-focus-outline) solid var(--outline-width);
+}
+
+.hds-text-input__input-wrapper:focus-within textarea.hds-text-input__input[readonly] {
+  outline: var(--color-focus-outline) solid var(--outline-width);
 }
 
 /* BUTTON */

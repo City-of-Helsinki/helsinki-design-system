@@ -1,144 +1,182 @@
-import React, { cloneElement, forwardRef, ReactNode } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useRef, useState } from 'react';
 
 import classes from './HeaderActionBarItem.module.scss';
+import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
+import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 
-type ButtonAttributes = JSX.IntrinsicElements['button'];
-
-export interface HeaderActionBarItemProps extends ButtonAttributes {
+export type HeaderActionBarItemProps = React.PropsWithChildren<{
   /**
-   * Id of controlled dropdown menu.
+   * Possibility to use a full-width version of the dropdown, for example in mobile use.
    */
-  ariaControls?: string;
-  /**
-   * Aria label for the item.
-   */
-  ariaLabel?: string;
-  /**
-   * Fix the item position to the right side of the action bar.
-   */
-  fixedRightPosition?: boolean;
-  /**
-   * Icon element for the action bar item.
-   */
-  icon?: ReactNode;
+  fullWidth?: boolean;
   /**
    * Label for the action bar item.
    */
   label?: string | JSX.Element;
   /**
-   * Positions the label to the right side of the icon.
-   * @internal
+   * Aria-label attribute for the dropdown button.
+   */
+  ariaLabel?: string;
+  /**
+   * Positions the label right side of the icon.
    */
   labelOnRight?: boolean;
   /**
-   * Label shown only visually when button is in active state. Screenreaders see only the "label".
+   * Fix the item position to the right side of the action bar.
    */
-  activeStateLabel?: string | JSX.Element;
+  fixedRightPosition?: boolean;
   /**
-   * Icon shown when button is in active state.
+   * Initials for avatar which replace icon.
    */
-  activeStateIcon?: ReactNode;
+  avatar?: string | JSX.Element;
+
   /**
-   * Indicates button is in active state
+   * ID of the dropdown item.
    */
-  isActive?: boolean;
-}
+  id: string;
+  /**
+   * Additional classname for the icon.
+   */
+  iconClassName?: string;
+  /**
+   * Additional classname for the dropdown element.
+   */
+  dropdownClassName?: string;
+  /**
+   * Label for the action bar item when dropdown is open.
+   */
+  closeLabel?: string | JSX.Element;
+  /**
+   * Icon for the action bar item.
+   */
+  icon?: JSX.Element;
+  /**
+   * Icon for the action bar item when dropdown is open.
+   */
+  closeIcon?: JSX.Element;
+  /**
+   * Menu button resizing is prevented by rendering button's active state to a separate element.
+   */
+  preventButtonResize?: boolean;
+}> &
+  React.ComponentPropsWithoutRef<'div'>;
 
-export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBarItemProps>(
-  (
-    {
-      icon,
-      label,
-      labelOnRight,
-      fixedRightPosition,
-      className,
-      ariaLabel,
-      ariaControls,
-      activeStateLabel,
-      activeStateIcon,
-      isActive,
-      ...rest
-    },
-    ref,
-  ) => {
-    const hasActiveState = !!(activeStateLabel || activeStateIcon);
-    const buttonClassName = classNames({
-      [classes.actionBarItem]: true,
-      [className]: true,
-      [classes.fixedRightPosition]: fixedRightPosition,
-      [classes.isActive]: hasActiveState && isActive,
-    });
-    const iconClassName = classNames({ [classes.actionBarItemIcon]: true, [classes.labelOnRight]: labelOnRight });
-    const labelClassName = classNames({ [classes.actionBarItemLabel]: true, [classes.labelOnRight]: labelOnRight });
+export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
+  const {
+    id,
+    children,
+    label,
+    fullWidth,
+    className: classNameProp,
+    iconClassName: iconClassNameProp,
+    dropdownClassName: dropdownClassNameProp,
+    closeLabel,
+    icon,
+    closeIcon,
+    ariaLabel,
+    labelOnRight,
+    fixedRightPosition,
+    preventButtonResize,
+    avatar,
+    ...props
+  } = properties;
+  const dropdownContentElementRef = useRef<HTMLDivElement>(null);
+  const containerElementRef = useRef<HTMLDivElement>(null);
+  const [hasContent, setHasContent] = useState(false);
+  const { isSmallScreen } = useHeaderContext();
+  const [visible, setDisplayProperty] = useState(false);
 
-    const Icon = ({
-      element,
-      elementClassName,
-    }: {
-      element: HeaderActionBarItemProps['icon'];
-      elementClassName?: string;
-    }) => {
-      if (!element && !React.isValidElement(element)) {
-        return null;
-      }
-      return (
-        <span className={elementClassName}>{cloneElement(element as React.ReactElement, { 'aria-hidden': true })}</span>
-      );
-    };
+  const getContainer = () => containerElementRef.current as HTMLDivElement;
 
-    const Label = ({
-      text,
-      isForActiveState,
-    }: {
-      text: HeaderActionBarItemProps['label'];
-      isForActiveState?: boolean;
-    }) => {
-      if (!text) {
-        return null;
-      }
-      return (
-        <span
-          className={classNames(labelClassName, isForActiveState && classes.activeStateContentLabel)}
-          {...(isForActiveState ? { 'aria-hidden': true } : {})}
-        >
-          {text}
-        </span>
-      );
-    };
+  const handleButtonClick = () => {
+    setDisplayProperty(!visible);
+  };
 
-    const Content = () => {
-      return (
-        <>
-          <Icon element={icon} elementClassName={iconClassName} />
-          <Label text={label} />
-        </>
-      );
-    };
+  const handleDocumentClick = (event) => {
+    if (!visible) return;
+    const container = getContainer();
+    const eventTargetNode = event.target;
+    if (!container.contains(eventTargetNode)) {
+      setDisplayProperty(false);
+    }
+  };
 
-    const ActiveStateContent = () => {
-      if (!hasActiveState) {
-        return null;
-      }
-      return (
-        <div className={classes.activeStateContent}>
-          <Icon element={activeStateIcon} elementClassName={iconClassName} />
-          <Label text={activeStateLabel} isForActiveState />
+  const handleBlur = (event) => {
+    if (!visible) return;
+    const container = getContainer();
+    const eventTargetNode = event.relatedTarget;
+    // close the dropdown if the focus is outside the container on large screens
+    if (!container.contains(eventTargetNode) && !isSmallScreen) {
+      setDisplayProperty(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleDocumentClick);
+    return () => document.removeEventListener('click', handleDocumentClick);
+  }, [containerElementRef.current]);
+
+  // Hide the component if there is no content
+  useEffect(() => {
+    setHasContent(dropdownContentElementRef.current?.childNodes.length !== 0);
+  }, [children]);
+
+  const iconLabel = closeLabel && visible && !preventButtonResize ? closeLabel : label;
+  const iconClass = closeIcon && visible && !preventButtonResize ? closeIcon : icon;
+  const hasSubItems = React.Children.count(children) > 0;
+  const visibilityClasses = {
+    visible,
+    [classes.visible]: visible,
+    [classes.hasContent]: hasContent,
+    [classes.fullWidth]: fullWidth || isSmallScreen,
+    [classes.hasSubItems]: hasSubItems,
+    [classes.menuItem]: id === 'Menu',
+  };
+  const className = classNames(classes.container, classNameProp, visibilityClasses);
+  const iconClassName = classNames(classes.icon, iconClassNameProp);
+  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, visibilityClasses);
+  const buttonOverlayProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' | 'activeStateLabel'> =
+    preventButtonResize
+      ? {
+          activeStateIcon: closeIcon,
+          activeStateLabel: closeLabel,
+        }
+      : {};
+
+  /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+  return (
+    <div {...props} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
+      <HeaderActionBarItemButton
+        className={iconClassName}
+        onClick={handleButtonClick}
+        label={iconLabel}
+        icon={iconClass}
+        aria-expanded={visible}
+        aria-label={ariaLabel !== undefined ? ariaLabel : String(label)}
+        aria-controls={id === 'Menu' ? `hds-mobile-menu` : `${id}-dropdown`}
+        labelOnRight={labelOnRight}
+        fixedRightPosition={fixedRightPosition}
+        isActive={visible}
+        fullWidth={fullWidth}
+        hasSubItems={hasSubItems}
+        avatar={avatar}
+        preventButtonResize={preventButtonResize}
+        {...buttonOverlayProps}
+      />
+      {hasSubItems && (
+        <div className={classes.dropdownWrapper}>
+          <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
+            {visible && !fullWidth && label && <h3>{label}</h3>}
+            <ul>{children}</ul>
+          </div>
         </div>
-      );
-    };
-    return (
-      <button
-        type="button"
-        {...rest}
-        {...(ariaLabel && { 'aria-label': ariaLabel })}
-        {...(ariaControls && { 'aria-controls': ariaControls })}
-        className={buttonClassName}
-        ref={ref}
-      >
-        <Content />
-        <ActiveStateContent />
-      </button>
-    );
-  },
-);
+      )}
+    </div>
+  );
+};
+
+HeaderActionBarItem.defaultProps = {
+  fullWidth: false,
+};

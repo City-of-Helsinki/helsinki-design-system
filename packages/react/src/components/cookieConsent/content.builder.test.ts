@@ -7,6 +7,7 @@ import { CookieData, CookieGroup, Content, Category } from './contexts/ContentCo
 import { COOKIE_NAME } from './cookieConsentController';
 import mockWindowLocation from '../../utils/mockWindowLocation';
 import { VERSION_COOKIE_NAME } from './cookieStorageProxy';
+import { cloneWithJSONConversion } from '../../utils/cloneObject';
 
 describe(`content.builder.ts`, () => {
   const mockedWindowControls = mockWindowLocation();
@@ -124,7 +125,7 @@ describe(`content.builder.ts`, () => {
 
   // jest toEqual fails if functions exist.
   const filterContentWithoutFunctions = (content: Content): Content => {
-    return JSON.parse(JSON.stringify(content));
+    return cloneWithJSONConversion(content) as Content;
   };
 
   afterAll(() => {

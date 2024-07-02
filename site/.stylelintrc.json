@@ -16,6 +16,7 @@
     "scss/percent-placeholder-pattern": "([a-z][A-z]*)",
     "selector-class-pattern": null,
     "selector-not-notation": "simple",
-    "selector-pseudo-element-colon-notation": "single"
+    "selector-pseudo-element-colon-notation": "single",
+    "declaration-no-important": [ true, { "severity": "warning" }]
   }
 }

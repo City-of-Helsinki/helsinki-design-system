@@ -40,7 +40,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
         
       - name: restore yarn cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -49,7 +49,7 @@ jobs:
             yarn-cache-folder-
 
       - name: restore lerna
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: '**/node_modules'
           key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
@@ -123,3 +123,17 @@ jobs:
           git status
           git push
         working-directory: ./hds-demo
+
+      - name: Preview url to PR comment
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: Preview url
+          message: |
+            Preview found from [hds-demo docs/${{ env.DEMO_NAME }}](https://github.com/City-of-Helsinki/hds-demo/tree/main/docs/${{ env.DEMO_NAME }})
+            ## Demos
+            [Docs](https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }})
+            [Core Storybook](https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }}/storybook/core)
+            [React Storybook](https://city-of-helsinki.github.io/hds-demo/${{ env.DEMO_NAME }}/storybook/react)
+
+
