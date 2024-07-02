@@ -17,10 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Header.UserMenuButton] Button for a user menu that renders user's name and initials.
 - [Header.ActionBarButton] A Button without dropdown items (as in Header.ActionBarItem)
 - [Header.ActionBar] Add possibility to give the menu button a label with `menuButtonLabel` prop.
+- [Header.ActionBarSubItem] Component for creating menus in Header
+- [Header.ActionBarSubItemGroup] Container for creating grouped subitems with headings.
 
 #### Changed
-
-Changes that are not related to specific components
 
 - [FileInput](packages/react/src/components/fileInput/FileInput.tsx) Added `minSize` property (default 0) for cases when the uploaded file must have non-zero length content
 
@@ -32,7 +32,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [TextInput, TextArea] Fix read-only input focus styles.
 
 ### Documentation
