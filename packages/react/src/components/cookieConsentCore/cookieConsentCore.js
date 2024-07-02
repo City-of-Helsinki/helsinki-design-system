@@ -461,7 +461,7 @@ export class CookieConsentCore {
     if (isBanner) {
       const bannerTarget = document.querySelector(this.#TARGET_SELECTOR);
       if (!bannerTarget) {
-        throw new Error(`Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`);
+        throw new Error(`Cookie consent: The targetSelector element '${this.#TARGET_SELECTOR}' was not found`);
       }
       spacerParent = document.querySelector(this.#SPACER_PARENT_SELECTOR);
       if (!spacerParent) {
@@ -470,7 +470,9 @@ export class CookieConsentCore {
         );
       }
       if (!document.querySelector(this.#PAGE_CONTENT_SELECTOR)) {
-        throw new Error(`Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`);
+        throw new Error(
+          `Cookie consent: The pageContentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`,
+        );
       }
       renderTargetToPrepend = bannerTarget;
     }

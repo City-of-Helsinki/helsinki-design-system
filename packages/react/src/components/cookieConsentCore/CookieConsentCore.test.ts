@@ -327,11 +327,6 @@ describe('cookieConsentCore', () => {
     global.ResizeObserverEntrySpy = undefined;
   });
 
-  // TODO: `Cookie consent: Aria notification parent element '${this.#TARGET_SELECTOR}' was not found`
-  // TODO: `Cookie consent: targetSelector element '${this.#TARGET_SELECTOR}' was not found`
-  // TODO: `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`
-  // TODO: `Cookie consent: contentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`
-
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Basic tests
 
@@ -407,15 +402,211 @@ describe('cookieConsentCore', () => {
     expect(
       // @ts-ignore
       CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
-    ).rejects.toThrow("Cookie consent: targetSelector element '#not-found' was not found");
+    ).rejects.toThrow("Cookie consent: The targetSelector element '#not-found' was not found");
   });
 
-  // it('should throw error if spacerParentSelector is set but not found on DOM', () => {});
-  // it('should throw error if pageContentSelector is set but not found on DOM', () => {});
-  // it('should throw error if Aria notification element is not found on DOM', () => {});
+  // - If the banner is set for custom targets, are the selectors available on DOM?
+  it('should throw error if spacerParentSelector is set but not found on DOM', async () => {
+    // eslint-disable-next-line jest/valid-expect
+    expect(
+      // @ts-ignore
+      CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, spacerParentSelector: '#not-found' }),
+    ).rejects.toThrow("Cookie consent: The spacerParentSelector element '#not-found' was not found");
+  });
+
+  // - If the banner is set for custom targets, are the selectors available on DOM?
+  it('should throw error if pageContentSelector is set but not found on DOM', async () => {
+    // eslint-disable-next-line jest/valid-expect
+    expect(
+      // @ts-ignore
+      CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, pageContentSelector: '#not-found' }),
+    ).rejects.toThrow("Cookie consent: The pageContentSelector element '#not-found' was not found");
+  });
 
   // - Are there whitelisted groups available in window scope?
-  // it('should not allow consenting from API to a group that is not whitelisted', () => {});
+  it('should allow consenting from API to a group that is whitelisted', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(
+      {
+        ...siteSettingsObj,
+        requiredGroups: [
+          {
+            groupId: 'essential',
+            title: 'Essential without consent cookie',
+            description: '-',
+            cookies: [
+              {
+                name: 'helfi-cookie-consents',
+                host: '-',
+                description: '-',
+                expiration: '-',
+                type: 1,
+              },
+            ],
+          },
+        ],
+        optionalGroups: [
+          {
+            groupId: 'chat',
+            title: 'Chat',
+            description: '-',
+            cookies: [
+              {
+                name: 'chat-cookie',
+                host: '-',
+                description: '-',
+                expiration: '-',
+                type: 1,
+              },
+            ],
+          },
+        ],
+        groupsWhitelistedForApi: ['chat'],
+      },
+      optionsEvent,
+    );
+    await waitForRoot();
+
+    // @ts-ignore
+    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']);
+    expect(result).toBeTruthy();
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const helfiCookie = parsed['helfi-cookie-consents'];
+    const writtenCookieGroups = JSON.parse(helfiCookie as string)?.groups || '';
+    const writtenKeys = Object.keys(writtenCookieGroups);
+    const expectedGroups = ['essential', 'chat'];
+    expect(writtenKeys).toEqual(expectedGroups);
+  });
+
+  it('should not allow consenting from API to a group that is not whitelisted', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(
+      {
+        ...siteSettingsObj,
+        requiredGroups: [
+          {
+            groupId: 'essential',
+            title: 'Essential without consent cookie',
+            description: '-',
+            cookies: [
+              {
+                name: 'helfi-cookie-consents',
+                host: '-',
+                description: '-',
+                expiration: '-',
+                type: 1,
+              },
+            ],
+          },
+        ],
+        optionalGroups: [
+          {
+            groupId: 'chat',
+            title: 'Chat',
+            description: '-',
+            cookies: [
+              {
+                name: 'chat-cookie',
+                host: '-',
+                description: '-',
+                expiration: '-',
+                type: 1,
+              },
+            ],
+          },
+        ],
+        groupsWhitelistedForApi: ['not-chat'],
+      },
+      optionsEvent,
+    );
+    await waitForRoot();
+
+    // @ts-ignore
+    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']);
+    expect(result).toBeFalsy();
+
+    await waitForConsole(
+      'error',
+      'Cookie consent: The group(s) "chat" not found in groupsWhitelistedForApi: "not-chat".',
+    );
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const cookieContent = parsed['helfi-cookie-consents'];
+    expect(cookieContent).toBeUndefined();
+  });
+
+  it('should complain in console if setGroupsStatusToAccepted is not given an array', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(siteSettingsObj, optionsEvent);
+    await waitForRoot();
+
+    // @ts-ignore
+    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted('not-an-array');
+
+    await waitForConsole(
+      'error',
+      'Cookie consent: Accepted groups must be provided as an array to setGroupsStatusToAccepted function.',
+    );
+
+    expect(result).toBeFalsy();
+  });
+
+  it('should complain in console if group can not be found in site settings', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(
+      {
+        ...siteSettingsObj,
+        requiredGroups: [
+          {
+            groupId: 'essential',
+            title: 'Essential without consent cookie',
+            description: '-',
+            cookies: [
+              {
+                name: 'helfi-cookie-consents',
+                host: '-',
+                description: '-',
+                expiration: '-',
+                type: 1,
+              },
+            ],
+          },
+        ],
+        optionalGroups: [],
+        groupsWhitelistedForApi: ['group_not_defined_in_essential_or_optional'],
+      },
+      optionsEvent,
+    );
+    await waitForRoot();
+
+    // @ts-ignore
+    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted([
+      'group_not_defined_in_essential_or_optional',
+    ]);
+
+    await waitForConsole(
+      'error',
+      'Cookie consent: The group(s) "group_not_defined_in_essential_or_optional" not found in required or optional groups in site settings.',
+    );
+
+    expect(result).toBeFalsy();
+  });
+
+  it('should complain in console if groupNamesArray is not an array when calling API getConsentStatus', async () => {
+    // @ts-ignore
+    instance = await CookieConsentCore.create(siteSettingsObj, optionsEvent);
+    await waitForRoot();
+
+    // @ts-ignore
+    const result = await window.hds.cookieConsent.getConsentStatus('chat');
+
+    await waitForConsole('error', 'Cookie consent: Group names must be provided as an non-empty array.');
+
+    expect(result).toBeFalsy();
+  });
 
   // - Do site settings contain a group for consent cookie?
   it('should throw error if there is no required group to store consent cookie in', () => {
@@ -705,9 +896,9 @@ describe('cookieConsentCore', () => {
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find an optional localStorage item
-    // @ts-ignore
     const localStorageItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === 'test_optional')
+      // @ts-ignore
       ?.cookies.find((e) => e.type === STORAGE_TYPE.localStorage);
     const itemName = localStorageItem?.name || 'no name';
     // Write to localStorage
@@ -748,9 +939,9 @@ describe('cookieConsentCore', () => {
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find an optional sessionStorage item
-    // @ts-ignore
     const sessionStorageItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === selectedCategory)
+      // @ts-ignore
       ?.cookies.find((e) => e.type === STORAGE_TYPE.sessionStorage);
     const itemName = sessionStorageItem?.name || 'no name';
     // Write to sessionStorage
@@ -791,9 +982,9 @@ describe('cookieConsentCore', () => {
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find an optional indexedDB item
-    // @ts-ignore
     const indexedDBItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === selectedCategory)
+      // @ts-ignore
       ?.cookies.find((e) => e.type === STORAGE_TYPE.indexedDB);
     const itemName = indexedDBItem?.name || 'no name';
     async function createIndexedDb(key: string) {
@@ -862,9 +1053,9 @@ describe('cookieConsentCore', () => {
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find an optional cacheStorage item
-    // @ts-ignore
     const cacheStorageItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === selectedCategory)
+      // @ts-ignore
       ?.cookies.find((e) => e.type === STORAGE_TYPE.cacheStorage);
     const itemName = cacheStorageItem?.name || 'no name';
 
