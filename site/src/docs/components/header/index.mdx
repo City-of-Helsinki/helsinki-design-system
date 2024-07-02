@@ -132,6 +132,8 @@ Variations are presented in the same order that they should be declared in insid
 - [With Header.ActionBar](#with-action-bar)
   - [With Header.LanguageSelector](#with-language-selector) inside the action bar
   - [With Header.Search](#with-search) inside the action bar
+  - [With Login components](#with-hds-login) inside the action bar
+  - [With other components](#actionbaritem-and-actionbarbutton) inside the action bar
 - [With Header.NavigationMenu](#with-navigation-menu)
 
 #### With skip link
@@ -257,6 +259,7 @@ Header.LanguageSelector offers the languages for the whole service. It is recomm
 - Under large sized screens (992px and down) the Header.LanguageSelector moves under the Header.ActionBar.
 
 Use the Header.LanguageSelector when
+
 - There are no reasons not to. This is the default and fulfills almost all needs and use cases.
 - Responsive mobile view is needed. There is no room for many options unless some are placed in a dropdown.
 - There are many selectable languages, some primary and some secondary. Primary languages are usually shown outside of the dropdown.
@@ -271,10 +274,47 @@ Use the Header.SimpleLanguageOptions when
 
 Note that you have to handle mobile views manually.
 
+##### With HDS login
+
+Header offers UI components to use with <InternalLink href="/components/login">HDS Login</InternalLink>. These components handle login and logout requests, connection errors, and pick user data for the user menu. The components do not work without HDS login context, but `ActionBarItem` and `ActionBarButton` components can be used to achieve the same results without HDS Login.
+
+###### Header Login button
+
+The Login button is a variant of [ActionBarItem](#actionbaritem). It uses the `fixedRightPosition` prop to have special functionality for mobile breakpoints.
+
+Clicking the button starts the login process. The component also indicates loading progress and handles errors.
+
+**Note:** the Login button will not render anything if the user is logged in. It can be used without manually checking the user's login state.
+
+###### Header User Menu button
+
+The user menu button is also a variant of [ActionBarItem](#actionbaritem). It also sets the `fixedRightPosition` to `true`.
+
+The component button auto-fills the `avatar` and `label` properties from user data.
+
+Any number of submenu items can be placed inside the component. The `Header.LogoutSubmenuButton` should be placed as the last item.
+
+**Note:** The user menu button will not render anything if the user is not logged in. It can be used without manually checking the user's login state.
+
+###### Header Logout Submenu button
+
+Clicking the button starts the logout process and logs the user out. The component also indicates loading progress and handles errors.
+
+The button must be placed inside an [ActionBarItem](#actionbaritem). There is no Logout button that can be placed in the Header like the Login button
+
+###### Learn more
+
+- See <InternalLink href="/patterns/login/building-login">Login pattern</InternalLink> to learn how HDS Login components and Header.Login are meant to work together.
+- See HDS Figma for more <ExternalLink href="https://www.figma.com/design/Kxwg3R0zNRHj55nQqFu6VS/HDS-Design-Kit-v3?m=auto&node-id=3303-141047&t=yPojDwVuEBeUb1KW-1">Header functionality examples.</ExternalLink>
+- See React Storybook <InternalLink href="/storybook/react/?path=/story/components-login--example-application">for a live demo.</InternalLink>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.
+
 ##### With search
 
 <Notification label="A work in progress!" className="siteNotification">
-  The Header.Search component is still in design process! We are working on it and will provide a full-featured component later on.
+  The Header.Search component is still in design process! We are working on it and will provide a full-featured
+  component later on.
 </Notification>
 
 The Header.Search component is to be used for whole site wide search. Currently HDS recommends putting the SearchIcon inside the Header.ActionBar, and making it open search in separate search page by pressing the search icon. This enables using all needed search functionalities. A code example can be found in the <InternalLink href="/components/header/code/#with-all-the-components">Code</InternalLink> page.
@@ -310,8 +350,18 @@ The Header.ActionBarItem is a generic component for displaying icon buttons on t
 Header.ActionBarButton is a generic button component for displaying buttons without dropdowns.
 
 - Both Header.ActionBarItem and Header.ActionBarButton extend native button element's attributes.
-- The item can be positioned behind a dividing line, setting it apart from the rest of the items with the prop `fixedRightPosition`. This is mainly reserved for log in button.
-- Please note that under the S breakpoint (576px) the ActionBarItems and ActionBarButtons don't fit in the screen well and hiding them should be considered. We are working on a solution for this.
+- The item can be positioned behind a dividing line, setting it apart from the rest of the items with the prop `fixedRightPosition`. This is mainly reserved for [Header.Login](#with-login).
+- From breakpoint M (≥ 768px) and down Header.ActionBarItem using the `fixedRightPosition` prop is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu alongside NavigationMenu.
+- It is higly recommended to have maximum 2 ActionBarItems that use this high priority position, to conserve mobile menu's usability.
+
+ActionBarItems can
+
+- Have an icon and text, but **not only** an icon.
+- Have only text. The text is centered like on ActionBar language selection.
+
+**Note:** If one item has icon, all should have an icon.
+
+Any ActionBarItem with a functionality that opens a dropdown, must have an indication, or a variation that visually tells the user how to close it as well. (e.g. Menu and Close button, Chevron angle up and down). Read more in <InternalLink href="/components/header/accessibility">accessibility notes.</InternalLink>
 
 <PlaygroundPreview>
   <Header
@@ -333,7 +383,14 @@ Header.ActionBarButton is a generic button component for displaying buttons with
       <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell />} id="action-bar-notifications">
         <Header.ActionBarSubItem label="Ei uusi ilmoituksia." />
       </Header.ActionBarItem>
-      <Header.ActionBarButton label="Kirjaudu" icon={<IconSignin />} onClick={() => { window.alert("Kirjaudu clicked"); }} fixedRightPosition />
+      <Header.ActionBarButton
+        label="Kirjaudu"
+        icon={<IconSignin />}
+        onClick={() => {
+          window.alert('Kirjaudu clicked');
+        }}
+        fixedRightPosition
+      />
     </Header.ActionBar>
     <Header.NavigationMenu>
       <Header.Link
@@ -392,13 +449,48 @@ Header.ActionBarButton is a generic button component for displaying buttons with
 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
 
+##### ActionBarSubItem and ActionBarSubItemGroup
+
+<Notification label="A work in progress!" className="siteNotification">
+  The Header.ActionBarSubItem and Header.ActionBarSubItemGroup components are subject to change.
+</Notification>
+
+Header.ActionBarSubItems are placed inside a Header.ActionBarItem. The component can have text and an icon before and/or after it. It can behave like a link or a button. It depends on the given props.
+
+**Note:** If one subitem has an icon, all related subitems should have an icon.
+
+The Header.ActionBarSubItemGroup renders its children as a list and forms a group for screen readers. Its children should be Header.ActionBarSubItems.
+
+<PlaygroundPreview>
+  <Header>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
+    >
+      <Header.ActionBarItem label="Valikko" id="action-bar-submenu">
+        <Header.ActionBarSubItemGroup label="Alaryhmä">
+          <Header.ActionBarSubItem label="Alavalikko 1" href="/" />
+          <Header.ActionBarSubItem label="Alavalikko 2" href="/" />
+        </Header.ActionBarSubItemGroup>
+      </Header.ActionBarItem>
+    </Header.ActionBar>
+  </Header>
+</PlaygroundPreview>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
+
 #### With navigation menu
 
 The Header.NavigationMenu enables users to navigate to different pages of the service. The navigation menu supports up to 3 levels of page hierarchy. For more information and recommendations, see also <InternalLink href="/patterns/navigation/building-navigation">Navigation pattern.</InternalLink>.
 
 - The Header.NavigationMenu component should come after [the Header.ActionBar component](#with-action-bar).
 - Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word. See also our <InternalLink href="/components/header/accessibility">accessibility notes</InternalLink> about navigation menu's hierarchy.
-- Under large sized screens (992px and down) the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
+- From breakpoint M (≥ 768px) and down the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
 <PlaygroundPreview>
   <Header
@@ -565,12 +657,13 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
     }}
   >
     <Header
-      theme="dark" 
+      theme="dark"
       languages={[
         { label: 'Suomi', value: 'fi', isPrimary: true },
         { label: 'Svenska', value: 'sv', isPrimary: true },
         { label: 'English', value: 'en', isPrimary: true },
-      ]}>
+      ]}
+    >
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleHref="https://hel.fi"
