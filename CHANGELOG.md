@@ -5,13 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.9.0] - June, X, 2024
+## [3.9.0] - June, 2nd, 2024
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -30,24 +26,9 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [TextInput, TextArea] Fix read-only input focus styles.
 
 ### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
 
 #### Fixed
 
@@ -74,83 +55,29 @@ Changes that are not related to specific components
 
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
+- [Header] New functionalities for Actionbar: Action items can have an option for dropdown menus. For now only Logged in user has custom user menu and button (Header.Login)
+- [Header] In mobile breakpoints (XS-M) login button and logged-in user menu jump inside the Header.Mobilemenu that has a special accordion menu for dropdown.
+- [Header] Added missing Breadcrumbs to dark theme.
+- [Linkbox] Added four more tags into all variants. Reveal more tags from the layers. Nested instances also revealed. Example added to component frame.
+- [Navigation pattern] Added header functionalities documentation for Header.Login (in the future these will be on Header component page)
+- [TextInput, TextArea] Added missing read-only variants and redesigned focus ring.
+- [PhoneInput, PasswordInput] Added missing read-only focus ring.
 
 #### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Sketch/Abstract
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
+- [Header] Mobilemenu link 2nd level names changed to Second level.
+- [Header] Mobilemenu now aligned to right border. Menu button should always be the rightmost element in mobile breakpoints.
+- [Hero] Flipped image 180 degrees in imageLeft, imageRight, imageBottom in XS size and diagonalKoros in all sizes.
 
 #### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Login] GraphQL module with api token integration
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Header] Login button now has sign-in icon instead of user - old Login actionitem is removed, please use Header.Login.
+- [Header] Breakpoint width numbers added to property names to match Footer
+- [Header] Nested instances revealed
+- [Header] Actionitems have an updated focus styles
+- [Header] Some header subcomponents have updated names. Header.Actionbar.Mobilemenu -> Header.Mobilemenu , to accommodate new features such as Header.Mobilemenu.Login
+- [Header] Language select dropdown is now 320px wide like other Actionbar dropdowns.
+- [Linkbox] Border-variants now have inside stroke, for better experience when building layouts
+- [PhoneInput, PasswordInput] Read-only variants renamed to ReadOnly for consistency.
 
 ## [3.8.0] - May, 7, 2024
 
