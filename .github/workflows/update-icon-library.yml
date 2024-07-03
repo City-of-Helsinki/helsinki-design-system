@@ -118,6 +118,7 @@ jobs:
 
       # Update docsite icon list
       - name: Run curl to get data from figma
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
           curl  -H "X-FIGMA-TOKEN: ${API_KEY}" "https://api.figma.com/v1/files/${FILE_KEY}/nodes?ids=${NODE_ID}&depth=2" | \
              jq --arg nodeid $NODE_ID '.nodes[$nodeid].document.children | .[] | {group: .name?, icon: .children[]?.name?}' | \
@@ -127,6 +128,7 @@ jobs:
         working-directory: ./site
 
       - name: regenerate iconlist
+        if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
           yarn iconlist
         working-directory: ./site
@@ -139,3 +141,6 @@ jobs:
           git add .
           git commit -m 'Updated icon library'
           git push
+
+      - name: End
+        run: echo "Done!"
