@@ -331,7 +331,6 @@ describe('cookieConsentCore', () => {
   // MARK: Basic tests
 
   it('should add elements to shadowRoot', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     expect(instance).toBeDefined();
@@ -345,7 +344,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should change on button click', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -365,7 +363,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should accept siteSettingsObj as input instead of url', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(siteSettingsObj, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -374,33 +371,27 @@ describe('cookieConsentCore', () => {
   });
 
   it('should throw an error if siteSettingsObj is not defined', async () => {
-    // @ts-ignore
     return expect(async () => CookieConsentCore.create(null, options)).rejects.toThrow(
       'Cookie consent: siteSettingsParam is required, it should be an URL string or an siteSettings object.',
     );
   });
 
   it('should throw an error if siteSettings URL is not found', async () => {
-    // @ts-ignore
     await expect(CookieConsentCore.create(urls.siteSettings404, { ...options })).rejects.toThrow(
       `Cookie consent: Unable to fetch cookie consent settings: '404' from: '${urls.siteSettings404}' `,
     );
   });
 
   it('should throw an error if siteSettings JSON is malformed', async () => {
-    // @ts-ignore
     await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow(
       'Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token',
     );
   });
 
-  /* eslint-disable jest/no-commented-out-tests */
-
   // - If the banner is set for custom targets, are the selectors available on DOM?
   it('should throw error if targetSelector is set but not found on DOM', async () => {
     // eslint-disable-next-line jest/valid-expect
     expect(
-      // @ts-ignore
       CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '#not-found' }),
     ).rejects.toThrow("Cookie consent: The targetSelector element '#not-found' was not found");
   });
@@ -409,7 +400,6 @@ describe('cookieConsentCore', () => {
   it('should throw error if spacerParentSelector is set but not found on DOM', async () => {
     // eslint-disable-next-line jest/valid-expect
     expect(
-      // @ts-ignore
       CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, spacerParentSelector: '#not-found' }),
     ).rejects.toThrow("Cookie consent: The spacerParentSelector element '#not-found' was not found");
   });
@@ -418,14 +408,12 @@ describe('cookieConsentCore', () => {
   it('should throw error if pageContentSelector is set but not found on DOM', async () => {
     // eslint-disable-next-line jest/valid-expect
     expect(
-      // @ts-ignore
       CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, pageContentSelector: '#not-found' }),
     ).rejects.toThrow("Cookie consent: The pageContentSelector element '#not-found' was not found");
   });
 
   // - Are there whitelisted groups available in window scope?
   it('should allow consenting from API to a group that is whitelisted', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(
       {
         ...siteSettingsObj,
@@ -481,7 +469,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should not allow consenting from API to a group that is not whitelisted', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(
       {
         ...siteSettingsObj,
@@ -539,7 +526,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should complain in console if setGroupsStatusToAccepted is not given an array', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(siteSettingsObj, optionsEvent);
     await waitForRoot();
 
@@ -555,7 +541,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should complain in console if group can not be found in site settings', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(
       {
         ...siteSettingsObj,
@@ -596,7 +581,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should complain in console if groupNamesArray is not an array when calling API getConsentStatus', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(siteSettingsObj, optionsEvent);
     await waitForRoot();
 
@@ -611,7 +595,6 @@ describe('cookieConsentCore', () => {
   // - Do site settings contain a group for consent cookie?
   it('should throw error if there is no required group to store consent cookie in', () => {
     return expect(async () =>
-      // @ts-ignore
       CookieConsentCore.create({ ...siteSettingsObj, requiredGroups: [] }, options),
     ).rejects.toThrow(
       "Cookie consent: At least one required group is needed to store consent in 'helfi-cookie-consents'.",
@@ -621,7 +604,6 @@ describe('cookieConsentCore', () => {
   // - Do site site settings contain consent cookie?
   it('should throw error if there is no consent cookie in site settings required groups', () => {
     return expect(async () =>
-      // @ts-ignore
       CookieConsentCore.create(
         {
           ...siteSettingsObj,
@@ -650,7 +632,6 @@ describe('cookieConsentCore', () => {
   // - Do site site settings have duplicate groups?
   it('should throw error if site settings contains duplicate groups', () => {
     return expect(async () =>
-      // @ts-ignore
       CookieConsentCore.create(
         {
           ...siteSettingsObj,
@@ -696,7 +677,6 @@ describe('cookieConsentCore', () => {
   // MARK: Functionalities
   // - When user enters the site first time with empty cookies, does the banner show up?
   it('should render banner if the consent cookie is not set', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -706,7 +686,6 @@ describe('cookieConsentCore', () => {
 
   // - When user accepts all cookies, the cookie should be written with all groups mentioned in settings.
   it('should add consentCookie with all groups when user consents to all groups', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -723,7 +702,6 @@ describe('cookieConsentCore', () => {
 
   // - When user accepts essential cookies, the cookie should be written with essential groups.
   it('should add consentCookie with only required groups when user consents only to required groups', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -740,7 +718,6 @@ describe('cookieConsentCore', () => {
 
   // - When user selects certain groups, the cookie should be written according to those.
   it('should add consentCookie with required groups and selected groups when user consents to selected cookie groups', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -767,7 +744,6 @@ describe('cookieConsentCore', () => {
   // - If the user removes group permission, the groups should be removed from the consentCookie
   it('should modify consentCookie to contain only required and consented groups when user changes their consent', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -812,7 +788,6 @@ describe('cookieConsentCore', () => {
   // - If the user removes group permission, the related items should be removed.
   it('should remove cookies that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -878,7 +853,6 @@ describe('cookieConsentCore', () => {
 
   it('should remove localStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -921,7 +895,6 @@ describe('cookieConsentCore', () => {
 
   it('should remove sessionStorage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -964,7 +937,6 @@ describe('cookieConsentCore', () => {
 
   it('should remove indexedDb items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1035,7 +1007,6 @@ describe('cookieConsentCore', () => {
 
   it('should remove cache storage items that were previously consented when user removes consent and it should not report them as illegal when monitoring', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1078,7 +1049,6 @@ describe('cookieConsentCore', () => {
 
   // - It should monitor and report items that have not been consented to if monitor interval parameter is set in siteSettings above 0
   it('should monitor and report cookies that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1092,7 +1062,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should monitor and report localStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1107,7 +1076,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should monitor and report sessionStorage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1122,7 +1090,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should monitor and report indexedDb items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1167,7 +1134,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should monitor and report cache storage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1183,7 +1149,6 @@ describe('cookieConsentCore', () => {
 
   // - It should remove items that have not been consented to if remove parameter is set in siteSettings
   it('should remove cookies that have not been consented to if remove parameter is set in siteSettings', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1197,7 +1162,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove localStorage items that have not been consented to if remove parameter is set in siteSettings', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1211,7 +1175,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove sessionStorage items that have not been consented to if remove parameter is set in siteSettings', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1226,7 +1189,6 @@ describe('cookieConsentCore', () => {
 
   it('should remove indexedDb items that have not been consented to if remove parameter is set in siteSettings', async () => {
     jest.useRealTimers(); // Other tests work with fake timers, but indexedDB mock seems to need real timers
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1271,7 +1233,6 @@ describe('cookieConsentCore', () => {
   });
 
   it('should remove cache storage items that have not been consented to if remove parameter is set in siteSettings', async () => {
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1292,9 +1253,7 @@ describe('cookieConsentCore', () => {
 
   // - If the settings are changed, the banner should recognize the changes
   it('should remove only invalid (checksum mismatch) groups from cookie', async () => {
-    // @ts-ignore
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
@@ -1309,7 +1268,6 @@ describe('cookieConsentCore', () => {
 
     // Init banner to verify it doesn't render due to existing cookie - simulate
     // loading the page with cookies untouched
-    // @ts-ignore
     await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     let rootNotFound = false;
     try {
@@ -1324,7 +1282,6 @@ describe('cookieConsentCore', () => {
     const changedCookiesObj = { ...siteSettingsObj, optionalGroups: newOptionalGroups };
 
     // Init banner once more, it should appear due to removed 'chat' settings
-    // @ts-ignore
     await CookieConsentCore.create(changedCookiesObj, optionsEvent);
     await waitForConsole('info', "Invalid group found in browser cookie: 'chat', removing from cookie.");
     await waitForRoot();
@@ -1346,7 +1303,6 @@ describe('cookieConsentCore', () => {
   // - Are robot-cookies allowed (cookies that are not set by the site, but set by a robot like Siteimprove crawler)
   it('should not complain or show details about pre-approved robot cookies', async () => {
     document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
-    // @ts-ignore
     instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
