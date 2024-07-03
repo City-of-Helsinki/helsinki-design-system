@@ -114,7 +114,6 @@ export class CookieConsentCore {
 
   /**
    * Creates and inits a new instance of the CookieConsent class.
-   * @constructor
    * @param {Object} siteSettingsParam - The URL to the JSON file with site settings or contents of the site settings as an object.
    * @param {Object} options - The options for configuring the CookieConsent instance.
    * @param {string} [options.language='en'] - The page language.
@@ -396,29 +395,19 @@ export class CookieConsentCore {
     let groupsHtml = '';
     let groupNumber = 0;
     cookieGroupList.forEach((cookieGroup) => {
-      const title = getTranslation(cookieGroup, 'title', lang, this.#SITE_SETTINGS.fallbackLanguage);
-      const description = getTranslation(cookieGroup, 'description', lang, this.#SITE_SETTINGS.fallbackLanguage);
       const isAccepted = acceptedGroups.includes(cookieGroup.groupId);
 
       // Build table rows
       let tableRowsHtml = '';
       cookieGroup.cookies.forEach((cookie) => {
-        tableRowsHtml += getTableRowHtml({
-          name: getTranslation(cookie, 'name', lang, this.#SITE_SETTINGS.fallbackLanguage),
-          host: getTranslation(cookie, 'host', lang, this.#SITE_SETTINGS.fallbackLanguage),
-          description: getTranslation(cookie, 'description', lang, this.#SITE_SETTINGS.fallbackLanguage),
-          expiration: getTranslation(cookie, 'expiration', lang, this.#SITE_SETTINGS.fallbackLanguage),
-          type: getTranslation(
-            this.#SITE_SETTINGS.translations,
-            `type_${cookie.type}`,
-            lang,
-            this.#SITE_SETTINGS.fallbackLanguage,
-          ),
-        });
+        tableRowsHtml += getTableRowHtml(cookie, translations, lang, this.#SITE_SETTINGS.fallbackLanguage);
       });
 
       groupsHtml += getGroupHtml(
-        { ...translations, title, description },
+        cookieGroup,
+        translations,
+        lang,
+        this.#SITE_SETTINGS.fallbackLanguage,
         cookieGroup.groupId,
         `${cookieGroupCategoryName}_${groupNumber}`,
         tableRowsHtml,
@@ -497,19 +486,6 @@ export class CookieConsentCore {
     // Inject CSS styles
     await this.#injectCssStyles(shadowRoot);
 
-    const translations = {};
-    const translationKeys = Object.keys(this.#SITE_SETTINGS.translations);
-
-    translationKeys.forEach((key) => {
-      translations[key] = getTranslation(
-        this.#SITE_SETTINGS.translations,
-        key,
-        lang,
-        this.#SITE_SETTINGS.fallbackLanguage,
-        siteSettings,
-      );
-    });
-
     const browserCookie = this.#COOKIE_HANDLER.getCookie();
     const listOfAcceptedGroups = browserCookie ? Object.keys(browserCookie.groups) : [];
 
@@ -517,7 +493,7 @@ export class CookieConsentCore {
       this.#getCookieGroupsHtml(
         siteSettings.requiredGroups,
         lang,
-        translations,
+        siteSettings.translations,
         true,
         'required',
         listOfAcceptedGroups,
@@ -525,7 +501,7 @@ export class CookieConsentCore {
       this.#getCookieGroupsHtml(
         siteSettings.optionalGroups,
         lang,
-        translations,
+        siteSettings.translations,
         false,
         'optional',
         listOfAcceptedGroups,
@@ -533,7 +509,16 @@ export class CookieConsentCore {
     ].join('');
 
     // Create banner HTML
-    shadowRoot.innerHTML += getCookieBannerHtml(translations, groupsHtml, this.#THEME, this.#ARIA_LIVE_ID, isBanner);
+    shadowRoot.innerHTML += getCookieBannerHtml(
+      siteSettings.translations,
+      lang,
+      siteSettings.fallbackLanguage,
+      siteSettings,
+      groupsHtml,
+      this.#THEME,
+      this.#ARIA_LIVE_ID,
+      isBanner,
+    );
 
     this.#shadowRootElement = shadowRoot;
 
