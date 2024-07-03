@@ -1251,7 +1251,76 @@ describe('cookieConsentCore', () => {
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: State changes
   // - If the settings file has changed, the banner should appear
-  // it('should show banner if the hashes do not match in any consented group', () => {});
+  it('should show banner if the hashes do not match in any consented group', async () => {
+    // @ts-ignore
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    fireEvent.click(getShowDetailsButtonElement());
+    expect(isDetailsExpanded()).toBeTruthy();
+
+    // Write the cookie with all groups accepted
+    bannerClicks.approveAll();
+
+    // Delete banner
+    document.body.innerHTML = '';
+
+    // Init banner to verify it doesn't render due to existing cookie - simulate
+    // loading the page with cookies untouched
+    // @ts-ignore
+    await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    let rootNotFound = false;
+    try {
+      await waitForRoot();
+    } catch (err) {
+      rootNotFound = true;
+    }
+    expect(rootNotFound).toBe(true);
+
+    // Modify cookie group descriptions
+    const changedCookiesObj = { ...siteSettingsObj };
+    let totalGroups = 0;
+    changedCookiesObj.requiredGroups.forEach((group) => {
+      group.description = 'this has changed';
+      totalGroups++;
+    })
+    changedCookiesObj.optionalGroups.forEach((group) => {
+      group.description = 'this has changed';
+      totalGroups++;
+    })
+
+    const cookieReader = () => {
+      const cookiesAsString = mockedCookieControls.getCookie();
+      // @ts-ignore
+      const { 'helfi-cookie-consents': parsed } = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+      // @ts-ignore
+      const categories = JSON.parse(parsed).groups;
+      return categories;
+    }
+
+    const { essential: cookiesBeforeRemoval } = cookieReader();
+
+    // Init banner once more, it should appear due to changed category descriptions
+    // @ts-ignore
+    await CookieConsentCore.create(changedCookiesObj, optionsEvent);
+
+    const consoleLogSpy = jest.spyOn(console, 'info');
+    await waitFor(() => {
+      expect(consoleLogSpy).toHaveBeenCalledTimes(totalGroups);
+    });
+
+    const { essential: cookiesAfterRemoval } = cookieReader();
+
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    fireEvent.click(getShowDetailsButtonElement());
+    expect(isDetailsExpanded()).toBeTruthy();
+
+    // Chat should be removed from accepted cookie categories string
+    expect(cookiesAfterRemoval).not.toEqual(cookiesBeforeRemoval);
+  });
 
   // - If the settings are changed, the banner should recognize the changes
   it('should remove only invalid (checksum mismatch) groups from cookie', async () => {
