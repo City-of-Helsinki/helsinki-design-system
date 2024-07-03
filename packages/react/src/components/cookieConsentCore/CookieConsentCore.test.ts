@@ -1291,12 +1291,100 @@ describe('cookieConsentCore', () => {
   // it('should show banner if the hashes do not match in any consented group', () => {});
 
   // - If the settings are changed, the banner should recognize the changes
-  // it('should remove only invalid (checksum mismatch) groups from cookie', () => {});
+  it('should remove only invalid (checksum mismatch) groups from cookie', async () => {
+    // @ts-ignore
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    fireEvent.click(getShowDetailsButtonElement());
+    expect(isDetailsExpanded()).toBeTruthy();
+
+    // Write the cookie with all groups accepted
+    bannerClicks.approveAll();
+
+    // Delete banner
+    document.body.innerHTML = '';
+
+    // Init banner to verify it doesn't render due to existing cookie - simulate
+    // loading the page with cookies untouched
+    // @ts-ignore
+    await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    let rootNotFound = false;
+    try {
+      await waitForRoot();
+    } catch (err) {
+      rootNotFound = true;
+    }
+    expect(rootNotFound).toBe(true);
+
+    let newOptionalGroups = siteSettingsObj.optionalGroups;
+    newOptionalGroups = newOptionalGroups.filter(e => e.groupId !== 'chat');
+    const changedCookiesObj = { ...siteSettingsObj, optionalGroups: newOptionalGroups };
+
+    // Init banner once more, it should appear due to removed 'chat' settings
+    // @ts-ignore
+    await CookieConsentCore.create(changedCookiesObj, optionsEvent);
+    await waitForConsole('info', "Invalid group found in browser cookie: 'chat', removing from cookie.");
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    fireEvent.click(getShowDetailsButtonElement());
+    expect(isDetailsExpanded()).toBeTruthy();
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    // @ts-ignore
+    const { 'helfi-cookie-consents': parsed } = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    // @ts-ignore
+    const categories = JSON.parse(parsed).groups;
+    // Chat should be removed from accepted cookie categories string
+    expect(categories['chat']).toEqual(undefined);
+  });
 
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Special cases
   // - Are robot-cookies allowed (cookies that are not set by the site, but set by a robot like Siteimprove crawler)
-  // it('should not complain or show details about pre-approved robot cookies', () => {});
+  it('should not complain or show details about pre-approved robot cookies', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    // @ts-ignore
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Find and add a robot cookie
+    // @ts-ignore
+    const firstRobotCookieValues = siteSettingsObj.robotCookies[0];
+    // @ts-ignore
+    const singleRobotCookie = { [firstRobotCookieValues.name]: 1 };
+    // @ts-ignore
+    mockedCookieControls.add(singleRobotCookie);
+
+    // Add unlisted cookie
+    // @ts-ignore
+    mockedCookieControls.add({ rogue_cookie: 1 });
+
+    // Find and add statistics cookie
+    const statisticsCookies = siteSettingsObj.optionalGroups.find((e) => e.groupId === 'statistics');
+    // @ts-ignore
+    const firstStatisticsCookieValues = statisticsCookies.cookies[0];
+    const singleStatisticsCookie = { [firstStatisticsCookieValues.name]: 1 };
+    // @ts-ignore
+    mockedCookieControls.add(singleStatisticsCookie);
+
+    // Expect the cookies to be written
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    expect(parsed['helfi_accordions_open']).toBeTruthy();
+    expect(parsed['nmstat']).toBeTruthy();
+    expect(parsed['rogue_cookie']).toBeTruthy();
+
+    // Let the Cookie Monster finish it's work
+    await waitForConsole('log', `Cookie consent: found unapproved cookie(s): 'rogue_cookie', '${firstStatisticsCookieValues.name}'`);
+
+   // Expect the robot cookie to be the only one to exist afterwards
+    const robotCookieWritten = document.cookie.includes(firstRobotCookieValues.name);
+    expect(robotCookieWritten).toBeTruthy();
+  });
 
   // - Language tests
   // it('should fallback to English texts if an unknown language key is provided and complain in console.error', () => {});
