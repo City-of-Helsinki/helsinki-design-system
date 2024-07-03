@@ -1320,7 +1320,7 @@ describe('cookieConsentCore', () => {
     expect(rootNotFound).toBe(true);
 
     let newOptionalGroups = siteSettingsObj.optionalGroups;
-    newOptionalGroups = newOptionalGroups.filter(e => e.groupId !== 'chat');
+    newOptionalGroups = newOptionalGroups.filter((e) => e.groupId !== 'chat');
     const changedCookiesObj = { ...siteSettingsObj, optionalGroups: newOptionalGroups };
 
     // Init banner once more, it should appear due to removed 'chat' settings
@@ -1338,7 +1338,7 @@ describe('cookieConsentCore', () => {
     // @ts-ignore
     const categories = JSON.parse(parsed).groups;
     // Chat should be removed from accepted cookie categories string
-    expect(categories['chat']).toEqual(undefined);
+    expect(categories.chat).toEqual(undefined);
   });
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -1374,14 +1374,17 @@ describe('cookieConsentCore', () => {
     // Expect the cookies to be written
     const cookiesAsString = mockedCookieControls.getCookie();
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
-    expect(parsed['helfi_accordions_open']).toBeTruthy();
-    expect(parsed['nmstat']).toBeTruthy();
-    expect(parsed['rogue_cookie']).toBeTruthy();
+    expect(parsed.helfi_accordions_open).toBeTruthy();
+    expect(parsed.nmstat).toBeTruthy();
+    expect(parsed.rogue_cookie).toBeTruthy();
 
     // Let the Cookie Monster finish it's work
-    await waitForConsole('log', `Cookie consent: found unapproved cookie(s): 'rogue_cookie', '${firstStatisticsCookieValues.name}'`);
+    await waitForConsole(
+      'log',
+      `Cookie consent: found unapproved cookie(s): 'rogue_cookie', '${firstStatisticsCookieValues.name}'`,
+    );
 
-   // Expect the robot cookie to be the only one to exist afterwards
+    // Expect the robot cookie to be the only one to exist afterwards
     const robotCookieWritten = document.cookie.includes(firstRobotCookieValues.name);
     expect(robotCookieWritten).toBeTruthy();
   });
