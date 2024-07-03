@@ -1,3 +1,5 @@
+import { getTranslation } from './translations';
+
 /**
  * Generates the HTML for the aria-live region.
  * @param {string} ariaLiveId - The ID for the aria-live region.
@@ -12,37 +14,39 @@ export function getAriaLiveHtml(ariaLiveId, ariaLiveClass) {
  * Generates the HTML for the cookie banner.
  *
  * @param {Object} translations - The translations object containing the text for the banner.
- * @param {string} translations.bannerAriaLabel - The aria-label for the banner.
- * @param {string} translations.heading - The heading text for the banner.
- * @param {string} translations.description - The description text for the banner.
- * @param {string} translations.showDetails - The text for the "Show Details" button.
- * @param {string} translations.hideDetails - The text for the "Hide Details" button.
- * @param {string} translations.form_heading - The heading text for the form.
- * @param {string} translations.form_text - The text for the form.
- * @param {string} translations.approveAllConsents - The text for the "Approve All Consents" button.
- * @param {string} translations.approveRequiredAndSelectedConsents - The text for the "Approve Required and Selected Consents" button.
- * @param {string} translations.approveOnlyRequiredConsents - The text for the "Approve Only Required Consents" button.
+ * @param {string} lang - The language code.
+ * @param {string} fallbackLang - The fallback language code.
+ * @param {Object} translationParams - The parameters used to replace placeholders in the translation.
  * @param {string} groupsHtml - The HTML for the consent groups.
  * @param {string} theme - The theme for the banner.
  * @param {string} ariaLiveId - The ID for the aria-live region.
  * @param {boolean} isBanner - Indicates if the code is rendered as banner or part of a page.
  * @return {string} The HTML for the cookie banner.
  */
-export function getCookieBannerHtml(translations, groupsHtml, theme, ariaLiveId, isBanner = true) {
+export function getCookieBannerHtml(
+  translations,
+  lang,
+  fallbackLang,
+  translationParams,
+  groupsHtml,
+  theme,
+  ariaLiveId,
+  isBanner = true,
+) {
   let optionalAriaLiveElement = '';
   if (!isBanner) {
     optionalAriaLiveElement = getAriaLiveHtml(ariaLiveId, 'hds-cc__notification_container');
   }
   return `
-<div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${translations.bannerAriaLabel}">
+<div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${getTranslation(translations, 'bannerAriaLabel', lang, fallbackLang)}">
   <div class="hds-cc__container">
     <div class="hds-cc__aligner">
 
       <h2 class="hds-cc__heading">
-        ${translations.heading}
+        ${getTranslation(translations, 'heading', lang, fallbackLang, translationParams)}
       </h2>
       <p class="hds-cc__description">
-        ${translations.description}
+        ${getTranslation(translations, 'description', lang, fallbackLang)}
       </p>
 
       <button
@@ -53,14 +57,14 @@ export function getCookieBannerHtml(translations, groupsHtml, theme, ariaLiveId,
         aria-expanded="false"
         aria-live="polite">
         <span aria-hidden="true" class="hds-icon hds-icon--angle-down"></span>
-        <span class="hds-cc__accordion-button-show hds-button__label">${translations.showDetails}</span>
-        <span class="hds-cc__accordion-button-hide hds-button__label">${translations.hideDetails}</span>
+        <span class="hds-cc__accordion-button-show hds-button__label">${getTranslation(translations, 'showDetails', lang, fallbackLang)}</span>
+        <span class="hds-cc__accordion-button-hide hds-button__label">${getTranslation(translations, 'hideDetails', lang, fallbackLang)}</span>
       </button>
 
       <form action="" class="hds-cc__form" id="hds-cc-form">
         <div class="hds-cc__form__animator">
-          <h3>${translations.form_heading}</h3>
-          <p>${translations.form_text}</p>
+          <h3>${getTranslation(translations, 'form_heading', lang, fallbackLang)}</h3>
+          <p>${getTranslation(translations, 'form_text', lang, fallbackLang)}</p>
 
           <div class="hds-cc__groups">
             ${groupsHtml}
@@ -70,13 +74,13 @@ export function getCookieBannerHtml(translations, groupsHtml, theme, ariaLiveId,
       ${optionalAriaLiveElement}
       <div class="hds-cc__buttons">
         <button type="submit" class="hds-button hds-button--secondary hds-cc__selected-cookies-button" data-approved="selected">
-        <span class="hds-button__label">${translations.approveRequiredAndSelectedConsents}</span>
+        <span class="hds-button__label">${getTranslation(translations, 'approveRequiredAndSelectedConsents', lang, fallbackLang)}</span>
         </button>
         <button type="submit" class="hds-button hds-button--secondary hds-cc__all-cookies-button" data-approved="all">
-          <span class="hds-button__label">${translations.approveAllConsents}</span>
+          <span class="hds-button__label">${getTranslation(translations, 'approveAllConsents', lang, fallbackLang)}</span>
         </button>
         <button type="submit" class="hds-button hds-button--secondary hds-cc__required-cookies-button" data-approved="required">
-          <span class="hds-button__label">${translations.approveOnlyRequiredConsents}</span>
+          <span class="hds-button__label">${getTranslation(translations, 'approveOnlyRequiredConsents', lang, fallbackLang)}</span>
         </button>
       </div>
     </div>
@@ -87,7 +91,10 @@ export function getCookieBannerHtml(translations, groupsHtml, theme, ariaLiveId,
 /**
  * Generates the HTML for a cookie group.
  *
+ * @param {Object} groupData - The data for the cookie group.
  * @param {Object} translations - The translations object containing the text for the group.
+ * @param {string} lang - The language code.
+ * @param {string} fallbackLang - The fallback language code.
  * @param {string} groupId - The ID of the cookie group.
  * @param {string} groupUniqueId - The unique ID of the cookie group.
  * @param {string} tableRowsHtml - The HTML for the table rows.
@@ -95,16 +102,28 @@ export function getCookieBannerHtml(translations, groupsHtml, theme, ariaLiveId,
  * @param {boolean} isAccepted - Indicates if the group is accepted.
  * @return {string} The generated HTML for the cookie group.
  */
-export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml, groupRequired, isAccepted) {
+export function getGroupHtml(
+  groupData,
+  translations,
+  lang,
+  fallbackLang,
+  groupId,
+  groupUniqueId,
+  tableRowsHtml,
+  groupRequired,
+  isAccepted,
+) {
   const required = groupRequired ? ' checked disabled' : '';
   const accepted = isAccepted ? 'checked' : '';
+  const title = getTranslation(groupData, 'title', lang, fallbackLang);
+  const description = getTranslation(groupData, 'description', lang, fallbackLang);
   return `
             <div class="hds-cc__group">
               <div class="hds-checkbox">
                 <input type="checkbox" id="${groupId}-cookies" class="hds-checkbox__input" ${required} ${accepted} data-group="${groupId}" />
-                <label for="${groupId}-cookies" class="hds-checkbox__label">${translations.title}</label>
+                <label for="${groupId}-cookies" class="hds-checkbox__label">${title}</label>
               </div>
-              <p>${translations.description}</p>
+              <p>${description}</p>
 
               <button
                 type="button"
@@ -114,9 +133,9 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
                 aria-expanded="false"
                 aria-live="polite">
                 <span aria-hidden="true" class="hds-icon hds-icon--angle-down"></span>
-                <span class="hds-cc__accordion-button-show hds-button__label">${translations.showCookieSettings}</span>
-                <span class="hds-cc__accordion-button-hide hds-button__label">${translations.hideCookieSettings}</span>
-                <span class="visually-hidden">${translations.title}</span>
+                <span class="hds-cc__accordion-button-show hds-button__label">${getTranslation(translations, 'showCookieSettings', lang, fallbackLang)}</span>
+                <span class="hds-cc__accordion-button-hide hds-button__label">${getTranslation(translations, 'hideCookieSettings', lang, fallbackLang)}</span>
+                <span class="visually-hidden">${title}</span>
               </button>
               <div class="hds-cc__group-details" id="hds-cc-group-details-${groupUniqueId}">
                 <div class="hds-cc__group-details__animator">
@@ -124,11 +143,11 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
                     <table class="hds-table hds-table--light">
                       <thead>
                         <tr class="hds-table__header-row">
-                        <th scope="col">${translations.tableHeadingsName}</th>
-                        <th scope="col">${translations.tableHeadingsHostName}</th>
-                        <th scope="col">${translations.tableHeadingsDescription}</th>
-                        <th scope="col">${translations.tableHeadingsExpiration}</th>
-                        <th scope="col">${translations.tableHeadingsType}</th>
+                        <th scope="col">${getTranslation(translations, 'tableHeadingsName', lang, fallbackLang)}</th>
+                        <th scope="col">${getTranslation(translations, 'tableHeadingsHostName', lang, fallbackLang)}</th>
+                        <th scope="col">${getTranslation(translations, 'tableHeadingsDescription', lang, fallbackLang)}</th>
+                        <th scope="col">${getTranslation(translations, 'tableHeadingsExpiration', lang, fallbackLang)}</th>
+                        <th scope="col">${getTranslation(translations, 'tableHeadingsType', lang, fallbackLang)}</th>
                         </tr>
                       </thead>
                       <tbody class="hds-table__content">
@@ -151,16 +170,19 @@ export function getGroupHtml(translations, groupId, groupUniqueId, tableRowsHtml
  * @param {string} rowData.description - The description of the cookie.
  * @param {string} rowData.expiration - The expiration of the cookie.
  * @param {string} rowData.type - The type of the cookie/storage item.
+ * @param {Object} translations - The translations object containing the text for the table.
+ * @param {string} lang - The language code.
+ * @param {string} fallbackLang - The fallback language code.
  * @return {string} The HTML for the table row.
  */
-export function getTableRowHtml(rowData) {
+export function getTableRowHtml(rowData, translations, lang, fallbackLang) {
   return `
                     <tr>
-                      <td>${rowData.name}</td>
-                      <td>${rowData.host}</td>
-                      <td>${rowData.description}</td>
-                      <td>${rowData.expiration}</td>
-                      <td>${rowData.type}</td>
+                      <td>${getTranslation(rowData, 'name', lang, fallbackLang)}</td>
+                      <td>${getTranslation(rowData, 'host', lang, fallbackLang)}</td>
+                      <td>${getTranslation(rowData, 'description', lang, fallbackLang)}</td>
+                      <td>${getTranslation(rowData, 'expiration', lang, fallbackLang)}</td>
+                      <td>${getTranslation(translations, `type_${rowData.type}`, lang, fallbackLang)}</td>
                     </tr>
                     `;
 }

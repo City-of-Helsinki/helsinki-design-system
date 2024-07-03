@@ -43,12 +43,49 @@ export function getTranslation(translations, key, lang, fallbackLang, parameters
 
   // Find translation based on key, fallback if not found
   let translation = null;
-  if (translations[key]) {
-    if (typeof translations[key] === 'string') {
-      translation = translations[key];
-    } else if (typeof translations[key] === 'object') {
-      translation = translations[key][lang] || translations[key][fallbackLang] || null;
+
+  const translationNotFound = !translations[key];
+  const translationIsAnArray = Array.isArray(translations[key]);
+  const translationIsObjectAndHasNoKeys =
+    typeof translations[key] === 'object' && !translationIsAnArray && Object.keys(translations[key]).length === 0;
+
+  // Tries to find translation in
+  //   given language,
+  //   fallback language or
+  //   first available language,
+  // in that order, returns translation key if not found
+
+  if (translationNotFound || translationIsObjectAndHasNoKeys) {
+    // If translation is missing, return key
+
+    translation = key;
+    // eslint-disable-next-line no-console
+    console.error(`Cookie consent: Missing translation key: ${key}, falling back to key as translation`);
+  } else if (typeof translations[key] === 'string' || typeof translations[key] === 'number') {
+    // Same translation for all languages.
+    translation = translations[key];
+  } else if (typeof translations[key] === 'object' && !translationIsAnArray) {
+    // Different translations for different languages.
+    if (translations[key][lang]) {
+      // Translation was found in given language, use it
+      translation = translations[key][lang];
+    } else if (translations[key][fallbackLang]) {
+      // Translation was not found in given language, but it was found in fallback language, use it
+      translation = translations[key][fallbackLang];
+      // eslint-disable-next-line no-console
+      console.error(`Cookie consent: Missing translation: ${key}:${lang}, using fallback language: ${fallbackLang}`);
+    } else {
+      // Translation was not found in given language or fallback language, use first available translation
+      const firstLang = Object.keys(translations[key])[0];
+      translation = translations[key][firstLang];
+      // eslint-disable-next-line no-console
+      console.error(
+        `Cookie consent: Missing primary and fallback translation: ${key}:${lang}/${fallbackLang}, using first known language: ${firstLang}`,
+      );
     }
+  } else {
+    // Translation is not a string, number or object
+    throw new Error(`Cookie consent: Invalid translation: ${key}, should be string, number or object`);
   }
 
   if (translation) {
@@ -66,6 +103,12 @@ export function getTranslation(translations, key, lang, fallbackLang, parameters
         // Use fallback language if translation is missing
         if (parameter[fallbackLang]) {
           return parameter[fallbackLang];
+        }
+
+        // Use first available language if translation is missing
+        const firstLang = Object.keys(parameter)[0];
+        if (firstLang) {
+          return parameter[firstLang];
         }
       }
       return parameter;

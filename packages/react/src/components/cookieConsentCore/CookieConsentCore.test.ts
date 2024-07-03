@@ -1346,11 +1346,77 @@ describe('cookieConsentCore', () => {
   });
 
   // - Language tests
-  // it('should fallback to English texts if an unknown language key is provided and complain in console.error', () => {});
-  //   `Cookie consent: Missing translation: ${key}:${lang}`
-  // it('should fallback to first found language, if English text is not found and complain in console.error', () => {});
-  //   `Cookie consent: Missing translation: ${key}:${lang}`
-  // it('should throw an error if language key is not found in language file', () => {});
+  it('should fall back to fallback language if the wanted language is not found in site settings and complain in console.error', async () => {
+    instance = await CookieConsentCore.create(siteSettingsObj, { ...optionsEvent, language: 'ru' });
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    await waitForConsole('error', 'Cookie consent: Missing translation: description:ru, using fallback language: fi');
+    const showButton = getShowDetailsButtonElement();
+    expect(showButton).not.toBeNull();
+  });
+
+  it('should fall back to key if the wanted language and fallback is not found in site settings and complain in console.error', async () => {
+    instance = await CookieConsentCore.create(
+      { ...siteSettingsObj, fallbackLanguage: 'non-existing-fallback' },
+      { ...optionsEvent, language: 'ru' },
+    );
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    await waitForConsole(
+      'error',
+      'Cookie consent: Missing primary and fallback translation: description:ru/non-existing-fallback, using first known language: fi',
+    );
+    const showButton = getShowDetailsButtonElement();
+    expect(showButton).not.toBeNull();
+  });
+
+  it('should complain in console.error and use key as final fallback if UI translation is missing from siteSettings', async () => {
+    const siteSettingsObjWithoutATranslation = siteSettingsObj;
+    // @ts-ignore
+    delete siteSettingsObjWithoutATranslation.translations.showDetails;
+
+    instance = await CookieConsentCore.create(siteSettingsObjWithoutATranslation, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    await waitForConsole(
+      'error',
+      'Cookie consent: Missing translation key: showDetails, falling back to key as translation',
+    );
+    const showButton = getShowDetailsButtonElement();
+    expect(showButton).not.toBeNull();
+    expect(showButton.textContent).toContain('showDetails');
+  });
+
+  it('should complain in console.error if cookie translation is missing from siteSettings', async () => {
+    const siteSettingsObjWithoutATranslation = siteSettingsObj;
+    // @ts-ignore
+    delete siteSettingsObjWithoutATranslation.requiredGroups[0].title;
+
+    instance = await CookieConsentCore.create(siteSettingsObjWithoutATranslation, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    await waitForConsole('error', 'Cookie consent: Missing translation key: title, falling back to key as translation');
+
+    const showButton = getShowDetailsButtonElement();
+    expect(showButton).not.toBeNull();
+  });
+
+  it('should throw an error if needed cookie translations contain other than string, number or objects', async () => {
+    return expect(async () =>
+      CookieConsentCore.create(
+        {
+          ...siteSettingsObj,
+          translations: {
+            ...siteSettingsObj.translations,
+            showDetails: ['Array', 'not', 'ok', 'translation'],
+          },
+        },
+        optionsEvent,
+      ),
+    ).rejects.toThrow('Cookie consent: Invalid translation: showDetails, should be string, number or object');
+  });
+
+  /* eslint-disable jest/no-commented-out-tests */
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: Visual issues
   // - Do the checkboxes in banner describe the accepted categories?
