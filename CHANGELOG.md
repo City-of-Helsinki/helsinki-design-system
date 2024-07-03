@@ -78,6 +78,12 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 
+### Design tokens
+
+#### Breaking
+
+- Changed colour `black-60` from `#666666` to `#595959` due to contrast issues and the accessibility and readability improvement. 
+
 ### Documentation
 
 #### Breaking
