@@ -166,49 +166,6 @@ export class CookieConsentCore {
   }
 
   /**
-   * Loads siteSettingsJson from given url, parses it and creates a new instance of the CookieConsent class.
-   * @static
-   * @param {string} siteSettingsJsonUrl - The path to the JSON file with site settings.
-   * @param {Object} options - The options for configuring the CookieConsent instance.
-   * @param {string} [options.language='en'] - The page language.
-   * @param {string} [options.theme='bus'] - The theme for the banner.
-   * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
-   * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
-   * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
-   * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @throws {Error} Throws an error if siteSettingsJsonUrl is not provided.
-   * @throws {Error} Throws an error if the fetch fails.
-   * @throws {Error} Throws an error if the JSON parsing fails.
-   */
-  static async load(
-    siteSettingsJsonUrl, // Path to JSON file with site settings
-    options,
-  ) {
-    if (!siteSettingsJsonUrl) {
-      throw new Error('Cookie consent: siteSettingsJsonUrl is required');
-    }
-
-    // Fetch the site settings JSON file
-    const siteSettingsRaw = await fetch(siteSettingsJsonUrl).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Cookie consent: Unable to fetch cookie consent settings: ${response.status}`);
-      }
-      return response.text();
-    });
-
-    // Parse the fetched site settings string to JSON
-    let siteSettingsObj;
-    try {
-      siteSettingsObj = JSON.parse(siteSettingsRaw);
-    } catch (error) {
-      throw new Error(`Cookie consent siteSettings JSON parsing failed: ${error}`);
-    }
-
-    return new CookieConsentCore(siteSettingsObj, options);
-  }
-
-  /**
    * Get the consent status for the specified cookie group names.
    * @param {string[]} groupNamesArray - An array of group names.
    * @return {Promise<boolean>} A promise that resolves to true if all the groups are accepted, otherwise false.
@@ -312,10 +269,6 @@ export class CookieConsentCore {
         break;
     }
     if (!this.#SUBMIT_EVENT) {
-      // Test environment check TODO: refactor this
-      if (navigator.userAgent.includes('jsdom')) {
-        return;
-      }
       window.location.reload();
     } else {
       window.dispatchEvent(new CustomEvent(this.#SUBMIT_EVENT, { detail: { acceptedGroups } }));
