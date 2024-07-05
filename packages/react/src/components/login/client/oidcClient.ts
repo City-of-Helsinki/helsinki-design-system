@@ -285,11 +285,25 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
       const [err] = await to(userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps)));
       if (err) {
         emitError(new OidcClientError('Login redirect failed', oidcClientErrors.SIGNIN_ERROR, err));
+        emitStateChange(oidcClientStates.NO_SESSION);
       }
       return Promise.resolve();
     },
     logout: async (logoutProps) => {
+      const sessionOnStart = state;
       emitStateChange(oidcClientStates.LOGGING_OUT);
+      // The only way logout may fail before redirection, is failure while fetching the metadata.
+      // Metadata exists unless logged in user refreshes the browser.
+      // The signoutRedirect() fetches the metadata too, but also clears the user data.
+      // To avoid rare case of cleared local user and failing to getMetaData and failed to logout,
+      // the metadata fetching is attempted first.
+      const [error, endPoint] = await to(userManager.metadataService.getEndSessionEndpoint());
+      if (error || !endPoint) {
+        emitStateChange(sessionOnStart);
+        return Promise.reject(new Error('Failed to get logout endpoint'));
+      }
+      // errors are not handled like in login(), because signoutRedirect() cannot be reverted.
+      // The user is locally removed. The logout() should be called again when signoutRedirect() is rejected
       return userManager.signoutRedirect(convertLoginOrLogoutParams<LogoutProps>(logoutProps));
     },
     namespace: oidcClientNamespace,

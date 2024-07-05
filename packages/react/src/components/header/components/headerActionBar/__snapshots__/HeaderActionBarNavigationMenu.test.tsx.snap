@@ -3,7 +3,7 @@
 exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu can be opened 1`] = `
 <DocumentFragment>
   <header
-    class="hds-header header isNotLargeScreen"
+    class="hds-header header isSmallScreen"
   >
     <div
       class="headerBackgroundWrapper"
@@ -22,6 +22,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
             aria-label="logoAriaLabel"
             class="titleAndLogoContainer logo"
             href="https://hel.fi"
+            role="link"
           >
             <span
               class="logoWrapper"
@@ -43,39 +44,49 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
           <div
             class="headerActions"
           >
-            ActionBar
-            <button
-              aria-controls="hds-mobile-menu"
-              aria-expanded="true"
-              aria-label="menuButtonAriaLabel"
-              class="actionBarItem undefined"
-              type="button"
+            <div
+              class="container visible hasContent fullWidth menuItem"
+              id="Menu"
             >
-              <span
-                class="actionBarItemIcon"
+              <button
+                aria-controls="hds-mobile-menu"
+                aria-expanded="true"
+                aria-label="menuButtonAriaLabel"
+                class="actionBarItemButton icon"
+                type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  aria-label="cross"
-                  class="icon small"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  class="buttonContent"
                 >
-                  <path
-                    clip-rule="evenodd"
-                    d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="actionBarItemLabel"
-              >
-                Menu
-              </span>
-            </button>
+                  <span>
+                    <span
+                      class="actionBarItemButtonIcon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        aria-label="cross"
+                        class="icon small"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="actionBarItemButtonLabel"
+                    >
+                      Menu
+                    </span>
+                  </span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
         <div
@@ -84,7 +95,6 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
         >
           <div
             class="navigationWrapper left0"
-            style="height: 0px;"
           >
             <section
               aria-hidden="false"
@@ -103,10 +113,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                       class="activeLinkWrapper"
                     >
                       <span
-                        class="isNotLargeScreen navigationLinkWrapper depth-0"
+                        class="isSmallScreen navigationLinkWrapper depth-0"
                       >
                         <a
-                          class="link link-medium headerLink depth-0 activeMobileLink isNotLargeScreen"
+                          class="link link-medium headerLink depth-0 activeMobileLink isSmallScreen"
                           href="https://domain.fi"
                         >
                           frontPageLabel
@@ -119,10 +129,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                       class="mobileNavigationLink"
                     >
                       <span
-                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                        class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link link-medium headerLink depth-0 mobileLink isNotLargeScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-0.com"
                         >
                           TestLabel_0
@@ -130,7 +140,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         <button
                           aria-expanded="false"
                           aria-label="Avaa alasvetovalikko."
-                          class="button isNotLargeScreen depth-0 mobileLinkDropdownButton"
+                          class="button isSmallScreen depth-0 mobileLinkDropdownButton"
                           data-testid="dropdown-button-0"
                           type="button"
                         >
@@ -151,16 +161,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </svg>
                         </button>
                         <ul
-                          class="dropdownMenu isNotLargeScreen mobileLinkDropdown"
+                          class="dropdownMenu isSmallScreen mobileLinkDropdown"
                           data-testid="dropdown-menu-0"
                           style="display: none;"
                         >
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-0_0.com"
                               >
                                 TestLabel_0_0
@@ -168,7 +178,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               <button
                                 aria-expanded="false"
                                 aria-label="Avaa alasvetovalikko."
-                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                class="button isSmallScreen depth-1 mobileLinkDropdownButton"
                                 data-testid="dropdown-button-0"
                                 type="button"
                               >
@@ -189,16 +199,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </svg>
                               </button>
                               <ul
-                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                class="dropdownMenu right isSmallScreen mobileLinkDropdown"
                                 data-testid="dropdown-menu-0"
                                 style="display: none;"
                               >
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_0_0.com"
                                     >
                                       TestLabel_0_0_0
@@ -207,10 +217,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_0_1.com"
                                     >
                                       TestLabel_0_0_1
@@ -222,10 +232,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </li>
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-0_1.com"
                               >
                                 TestLabel_0_1
@@ -234,10 +244,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </li>
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-0_2.com"
                               >
                                 TestLabel_0_2
@@ -245,7 +255,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               <button
                                 aria-expanded="false"
                                 aria-label="Avaa alasvetovalikko."
-                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                class="button isSmallScreen depth-1 mobileLinkDropdownButton"
                                 data-testid="dropdown-button-2"
                                 type="button"
                               >
@@ -266,16 +276,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </svg>
                               </button>
                               <ul
-                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                class="dropdownMenu right isSmallScreen mobileLinkDropdown"
                                 data-testid="dropdown-menu-2"
                                 style="display: none;"
                               >
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_2_0.com"
                                     >
                                       TestLabel_0_2_0
@@ -284,10 +294,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_2_1.com"
                                     >
                                       TestLabel_0_2_1
@@ -296,10 +306,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_2_2.com"
                                     >
                                       TestLabel_0_2_2
@@ -318,10 +328,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                       class="mobileNavigationLink"
                     >
                       <span
-                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                        class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link link-medium headerLink depth-0 mobileLink isNotLargeScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-1.com"
                         >
                           TestLabel_1
@@ -329,7 +339,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         <button
                           aria-expanded="false"
                           aria-label="Avaa alasvetovalikko."
-                          class="button isNotLargeScreen depth-0 mobileLinkDropdownButton"
+                          class="button isSmallScreen depth-0 mobileLinkDropdownButton"
                           data-testid="dropdown-button-1"
                           type="button"
                         >
@@ -350,16 +360,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </svg>
                         </button>
                         <ul
-                          class="dropdownMenu isNotLargeScreen mobileLinkDropdown"
+                          class="dropdownMenu isSmallScreen mobileLinkDropdown"
                           data-testid="dropdown-menu-1"
                           style="display: none;"
                         >
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-1_0.com"
                               >
                                 TestLabel_1_0
@@ -367,7 +377,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               <button
                                 aria-expanded="false"
                                 aria-label="Avaa alasvetovalikko."
-                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                class="button isSmallScreen depth-1 mobileLinkDropdownButton"
                                 data-testid="dropdown-button-0"
                                 type="button"
                               >
@@ -388,16 +398,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </svg>
                               </button>
                               <ul
-                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                class="dropdownMenu right isSmallScreen mobileLinkDropdown"
                                 data-testid="dropdown-menu-0"
                                 style="display: none;"
                               >
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-1_0_0.com"
                                     >
                                       TestLabel_1_0_0
@@ -406,10 +416,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-1_0_1.com"
                                     >
                                       TestLabel_1_0_1
@@ -418,10 +428,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-1_0_2.com"
                                     >
                                       TestLabel_1_0_2
@@ -440,10 +450,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                       class="mobileNavigationLink"
                     >
                       <span
-                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                        class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link link-medium headerLink depth-0 mobileLink isNotLargeScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-2.com"
                         >
                           TestLabel_2
@@ -456,10 +466,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                       class="mobileNavigationLink"
                     >
                       <span
-                        class="isNotLargeScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
+                        class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link link-medium headerLink depth-0 mobileLink isNotLargeScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-3.com"
                         >
                           TestLabel_3
@@ -467,7 +477,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         <button
                           aria-expanded="false"
                           aria-label="Avaa alasvetovalikko."
-                          class="button isNotLargeScreen depth-0 mobileLinkDropdownButton"
+                          class="button isSmallScreen depth-0 mobileLinkDropdownButton"
                           data-testid="dropdown-button-3"
                           type="button"
                         >
@@ -488,16 +498,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </svg>
                         </button>
                         <ul
-                          class="dropdownMenu isNotLargeScreen mobileLinkDropdown"
+                          class="dropdownMenu isSmallScreen mobileLinkDropdown"
                           data-testid="dropdown-menu-3"
                           style="display: none;"
                         >
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-3_0.com"
                               >
                                 TestLabel_3_0
@@ -506,10 +516,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </li>
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-3_1.com"
                               >
                                 TestLabel_3_1
@@ -517,7 +527,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               <button
                                 aria-expanded="false"
                                 aria-label="Avaa alasvetovalikko."
-                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                class="button isSmallScreen depth-1 mobileLinkDropdownButton"
                                 data-testid="dropdown-button-1"
                                 type="button"
                               >
@@ -538,16 +548,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </svg>
                               </button>
                               <ul
-                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                class="dropdownMenu right isSmallScreen mobileLinkDropdown"
                                 data-testid="dropdown-menu-1"
                                 style="display: none;"
                               >
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_1_0.com"
                                     >
                                       TestLabel_3_1_0
@@ -556,10 +566,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_1_1.com"
                                     >
                                       TestLabel_3_1_1
@@ -568,10 +578,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_1_2.com"
                                     >
                                       TestLabel_3_1_2
@@ -583,10 +593,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           </li>
                           <li>
                             <span
-                              class="isNotLargeScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
+                              class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link link-medium headerLink depth-1 dropdownLink isNotLargeScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-3_2.com"
                               >
                                 TestLabel_3_2
@@ -594,7 +604,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               <button
                                 aria-expanded="false"
                                 aria-label="Avaa alasvetovalikko."
-                                class="button isNotLargeScreen depth-1 mobileLinkDropdownButton"
+                                class="button isSmallScreen depth-1 mobileLinkDropdownButton"
                                 data-testid="dropdown-button-2"
                                 type="button"
                               >
@@ -615,16 +625,16 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </svg>
                               </button>
                               <ul
-                                class="dropdownMenu right isNotLargeScreen mobileLinkDropdown"
+                                class="dropdownMenu right isSmallScreen mobileLinkDropdown"
                                 data-testid="dropdown-menu-2"
                                 style="display: none;"
                               >
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_2_0.com"
                                     >
                                       TestLabel_3_2_0
@@ -633,10 +643,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_2_1.com"
                                     >
                                       TestLabel_3_2_1
@@ -645,10 +655,10 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 </li>
                                 <li>
                                   <span
-                                    class="isNotLargeScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
+                                    class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link link-medium headerLink depth-2 dropdownLink isNotLargeScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_2_2.com"
                                     >
                                       TestLabel_3_2_2
@@ -674,6 +684,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                   aria-label="logoAriaLabel"
                   class="titleAndLogoContainer logo logoLink"
                   href="https://hel.fi"
+                  role="link"
                 >
                   <span
                     class="logoWrapper"

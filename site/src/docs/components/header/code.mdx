@@ -3,8 +3,9 @@ slug: '/components/header/code'
 title: 'Header - Code'
 ---
 
-import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
+import { Header, IconSearch, IconUser, IconSignout, IconSignin, Logo, LogoSize, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
+import Notification from '../../../components/Notification';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -56,6 +57,7 @@ export const translations = {
     infoOtherLanguages: 'Information in other languages',
     jobSeekers: 'Jobseekers',
     loginOptions: 'Login options',
+    menuLabel: 'Menu',
     news: 'News',
     online: 'Online',
     openJobs: 'Open jobs',
@@ -97,6 +99,7 @@ export const translations = {
     infoOtherLanguages: 'Tietoa muilla kielillä',
     jobSeekers: 'Työnhakijat',
     loginOptions: 'Kirjautumisvalinnat',
+    menuLabel: 'Valikko',
     news: 'Uutiset',
     online: 'Asioi verkossa',
     openJobs: 'Avoimet työpaikat',
@@ -138,6 +141,7 @@ export const translations = {
     infoOtherLanguages: 'information på andra språk',
     jobSeekers: 'Arbetssökande',
     loginOptions: 'Logga in optioner',
+    menuLabel: 'Meny',
     news: 'Nyheter',
     online: 'Göra affärer online',
     openJobs: 'Lediga jobb',
@@ -179,6 +183,7 @@ export const translations = {
     infoOtherLanguages: 'Information en autres langues',
     jobSeekers: "Demandeurs d'emploi",
     loginOptions: 'Choix pour se connecter',
+    menuLabel: 'Menu',
     news: 'Actualités',
     online: 'e-Démarches',
     openJobs: 'Emplois ouverts',
@@ -195,12 +200,21 @@ export const translations = {
 
 ### Code examples
 
+<Notification label="Note about Header login components">
+  The Header.LoginButton, Header.LogoutSubmenuButton and Header.UserMenuButton require a working <InternalLink href="/components/login/">Login Provider</InternalLink> that cannot not be configured here. Working examples can be seen in the <InternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</InternalLink>.
+
+</Notification>
+
 #### With all the components
 
 <Playground scope={{ Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
 
 ```jsx
 import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDark } from 'hds-react';
+<Playground scope={{ Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
+
+```jsx
+import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
 
 () => {
   const languages = [
@@ -244,26 +258,22 @@ import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDar
           logo={<Logo src={logoSrcFromLanguageAndTheme(lang, 'light')} alt={I18n.headerTitle} />}
           logoAriaLabel={I18n.ariaLogo}
           logoHref="https://hel.fi"
+          menuButtonLabel={I18n.menuLabel}
           menuButtonAriaLabel={I18n.ariaMenuButton}
           openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
           onMenuClick={(e) => e.stopPropagation()}
         >
           <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
-            <h3>{I18n.infoOtherLanguages}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              {I18n.clearFinnish}
-            </Link>
-            <Link external href="www.example.com" size="S" lang="fse">
-              {I18n.signLanguage}
-            </Link>
-            <h3>{I18n.forTravellers}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              MyHelsinki.fi
-            </Link>
-            <h3>{I18n.forImmigrants}</h3>
-            <Link external href="www.example.com" size="S" lang="fi">
-              InfoFinland.fi
-            </Link>
+            <Header.ActionBarSubItemGroup label={I18n.infoOtherLanguages}>
+              <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
+              <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
+            </Header.ActionBarSubItemGroup>
+            <Header.ActionBarSubItemGroup label={I18n.forTravellers}>
+              <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
+            </Header.ActionBarSubItemGroup>
+            <Header.ActionBarSubItemGroup label={I18n.forImmigrants}>
+              <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
+            </Header.ActionBarSubItemGroup>
           </Header.LanguageSelector>
           <Header.ActionBarItem
             label={I18n.headerSearch}
@@ -272,15 +282,20 @@ import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDar
             onClick={searchAction}
             closeLabel={I18n.close}
           />
-          <Header.ActionBarItem
-            label={translations[lang].headerLogin}
-            fixedRightPosition
-            icon={<IconUser />}
-            id="action-bar-login"
-            closeLabel={I18n.close}
-            preventButtonResize
-          >
-            <h3>{I18n.loginOptions}</h3>
+          <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
+            <Header.ActionBarSubItem label="Omat tiedot" href="/" />
+            <Header.ActionBarSubItem
+              label="Viestit"
+              href="/"
+              notificationBubbleAriaLabel="Uusia viestejä"
+              notificationBubbleContent="2"
+            />
+            <Header.ActionBarSubItem
+              label="Kirjaudu ulos"
+              bold
+              iconRight={<IconSignout />}
+              onClick={() => console.log('Signout')}
+            />
           </Header.ActionBarItem>
         </Header.ActionBar>
         <Header.NavigationMenu>
@@ -446,14 +461,15 @@ import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDar
 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
 
-#### Custom Link
+#### Custom Link and ActionBarButton
 
 The Header.Link component has the `as` prop which you can use to use your own navigation link instead of our Header.Link, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
+The Header.ActionBarButton can be used as a plain button element without a dropdown like in Header.ActionBarItem.
 
-<Playground scope={{ Header, Link, Logo, logoFi }}>
+<Playground scope={{ Header, Link, Logo, logoFi, IconSignin }}>
 
 ```jsx
-import { Header, Logo, logoFi } from 'hds-react';
+import { Header, Logo, logoFi, IconSignin } from 'hds-react';
 import { Link } from 'gatsby';
 
 () => {
@@ -476,7 +492,14 @@ import { Link } from 'gatsby';
           logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
           menuButtonAriaLabel="Menu"
           onMenuClick={(e) => e.stopPropagation()}
-        />
+        >
+          <Header.ActionBarButton
+            label="Kirjaudu"
+            icon={<IconSignin />}
+            onClick={() => { window.alert("Kirjaudu clicked"); }}
+            fixedRightPosition
+          />
+        </Header.ActionBar>
         <Header.NavigationMenu>
           <Header.Link
             as={Link}
@@ -649,6 +672,7 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `logoAriaLabel`                       | Aria-label for the logo.                                                                 | `string`                                      | -             |
 | `logoHref`                            | URL for the logo.                                                                        | `string`                                      | -             |
 | `logo`                                | Logo component.                                                                          | `Logo`                                        | -             |
+| `menuButtonLabel`                     | Label for the menu button.                                                               | `string`                                      | `Menu`        |
 | `menuButtonAriaLabel`                 | Aria-label for the menu button.                                                          | `string`                                      | -             |
 | `onLogoClick`                         | Callback function for when the logo is clicked.                                          | `MouseEventHandler`                           | -             |
 | `onMenuClick`                         | Callback function for when the menu button is clicked.                                   | `MouseEventHandler`                           | -             |
@@ -677,30 +701,42 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `preventButtonResize`                     | If true, menu button resizing is prevented by rendering button's active state to a separate element.                                 | `boolean`              | `false`       |
 | [Table 5:Header.ActionBarItem properties] |
 
+| Property                                  | Description                                                                                                                          | Values                 | Default value |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
+| `ariaLabel`                               | Aria-label for describing the item.                                                                                                  | `string`               | -             |
+| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line.                              | `boolean`              | `false`       |
+| `fullwidth`                               | Boolean to set the item to be fullwidth under the ActionBar. Example use is automatically done with LanguageSelector in mobile view. | `boolean`              | `false`       |
+| `icon`                                    | Icon for the item.                                                                                                                   | `ReactNode`            | -             |
+| `iconClassName`                           | Additional class name for the icon.                                                                                                  | `string`               | -             |
+| `id`                                      | ID for the ActionBarButton.                                                                                                            | `string`               | -             |
+| `label`                                   | Label for the item.                                                                                                                  | `string` `JSX.Element` | -             |
+| `labelOnRight`                            | Boolean to set the label to the right side of the icon.                                                                              | `boolean`              | `false`       |
+| [Table 6:Header.ActionBarButton properties] |
+
 | Property                                     | Description                                                                                                                                                                                | Values                                                                                          | Default value |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ------------- |
 | `ariaLabel`                                  | Aria-label for describing the dropdown button.                                                                                                                                             | `string`                                                                                        | -             |
 | `languageHeading`                            | Heading for the list of languages inside the dropdown.                                                                                                                                     | `string`                                                                                        | -             |
 | `sortLanguageOptions`                        | Function for sorting language options into primary and secondary. By default, all primary `LanguageOptions` as shown. If a secondary `LanguageOption` is selected, only that one is shown. | `(options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]]` | -             |
-| [Table 6:Header.LanguageSelector properties] |
+| [Table 7:Header.LanguageSelector properties] |
 
 | Property                                          | Description                   | Values             | Default value |
 | ------------------------------------------------- | ----------------------------- | ------------------ | ------------- |
 | `languages`                                       | Array of languages to render. | `[LanguageOption]` | -             |
-| [Table 7:Header.SimpleLanguageOptions properties] |
+| [Table 8:Header.SimpleLanguageOptions properties] |
 
 | Property                           | Description                                    | Values                         | Default value |
 | ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
 | `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
 | `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
 | `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
-| [Table 8:Header.Search properties] |
+| [Table 9:Header.Search properties] |
 
 | Property                                   | Description                               | Values   | Default value |
 | ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
 | `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
 | `id`                                       | ID for the NavigationMenu.                | `string` | -             |
-| [Table 9:Header.NavigationMenu properties] |
+| [Table 10:Header.NavigationMenu properties] |
 
 | Property                         | Description                                                                 | Values            | Default value                                               |
 | -------------------------------- | --------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------------- |
@@ -717,4 +753,52 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `onDropdownButtonClick`          | Callback fired when the dropdown button is clicked.                         | `function`        | -                                                           |
 | `openDropdownAriaButtonLabel`    | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                           |
 | `wrapperClassName`               | Additional classNames for the element wrapping the link.                    | `string`          | -                                                           |
-| [Table 9:Header.Link properties] |
+| [Table 11:Header.Link properties] |
+
+| Property                                      | Description                                                            | Values                 | Default value |
+| --------------------------------------------- | ---------------------------------------------------------------------- | ---------------------- | ------------- |
+| `iconLeft`                                    | Icon element (on the left side of the label) for the action bar item.  | `ReactNode`            | -             |
+| `iconRight`                                   | Icon element (on the right side of the label) for the action bar item. | `ReactNode`            | -             |
+| `notificationBubbleContent`                   | Content for the right aligned red notification bubble.                 | `string`               | -             |
+| `notificationBubbleAriaLabel`                 | Aria label for notification bubble.                                    | `string`               | -             |
+| `label`                                       | Label for the action bar item.                                         | `string` `JSX.Element` | -             |
+| `isHeading`                                   | If heading style is used.                                              | `boolean`              | -             |
+| `bold`                                        | If bold.                                                               | `boolean`              | -             |
+| `href`                                        | Hypertext Reference of the link.                                       | `string`               | -             |
+| `external`                                    | If external link.                                                      | `boolean`              | -             |
+| `openInExternalDomainAriaLabel`               | The aria-label for opening link in an external domain.                 | `string`               | -             |
+| [Table 12:Header.ActionBarSubItem properties] |
+
+| Description                                                                               |     |
+| ---------------------------------------------------------------------------------------   | --- |
+| Same properties as the Header.ActionBarSubItem. The component sets `IsHeading` to `true`. |
+| [Table 13:Header.ActionBarSubItemGroup properties]                                        |
+
+| Property                                  | Description                                               | Values                          | Default value                                  |
+| ----------------------------------------- | --------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
+| `spinnerColor`                            | Color of the loading spinner.                             | `string`                        | `--header-spinner-color` or `--color-black-60` |
+| `errorLabel`                              | Label shown in the error notification.                    | `string`                        | -                                              |
+| `errorText`                               | Text shown in the error notification.                     | `string`                        | -                                              |
+| `errorCloseAriaLabel`                     | Aria-label of the close button in the error notification. | `string`                        | -                                              |
+| `errorPosition`                           | Position of the error notification.                       | `NotificationProps['position']` | `top-right`                                    |
+| `loggingInText`                           | Screen reader text for the load indicator.                | `string`                        | -                                              |
+| `id`                                      | The id attribute of the element.                          | `string`                        | -                                              |
+| `& Header.ActionBarItemButton properties` | Extends properties of the Header.ActionBarItemButton.     | -                               | -                                              |
+| [Table 14:Header.Loginbutton properties]  |
+
+| Property                                         | Description                                               | Values                          | Default value                                  |
+| ------------------------------------------------ | --------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
+| `spinnerColor`                                   | Color of the loading spinner.                             | `string`                        | `--header-spinner-color` or `--color-black-60` |
+| `errorLabel`                                     | Label shown in the error notification.                    | `string`                        | -                                              |
+| `errorText`                                      | Text shown in the error notification.                     | `string`                        | -                                              |
+| `errorCloseAriaLabel`                            | Aria-label of the close button in the error notification. | `string`                        | -                                              |
+| `errorPosition`                                  | Position of the error notification.                       | `NotificationProps['position']` | `top-right`                                    |
+| `loggingOutText`                                 | Screen reader text for the load indicator.                | `string`                        | -                                              |
+| `id`                                             | The id attribute of the element.                          | `string`                        | -                                              |
+| `& Header.ActionBarItemButton properties`        | Extends properties of the Header.ActionBarItemButton.     | -                               | -                                              |
+| [Table 15:Header.LogoutSubmenuButton properties] |
+
+| Description                                                        |     |
+| ------------------------------------------------------------------ | --- |
+| No properties to set. User data is picked from the Login Provider. |
+| [Table 16:Header.UserMenuButton properties]                        |

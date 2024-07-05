@@ -119,7 +119,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   ...rest
 }: HeaderNavigationLinkProps<T>) => {
   const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
-  const { isNotLargeScreen } = useHeaderContext();
+  const { isSmallScreen } = useHeaderContext();
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dynamicPosition, setDynamicPosition] = useState<null | DropdownMenuPosition>(null);
   const { openMainNavIndex } = useHeaderContext();
@@ -148,7 +148,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
 
   // Handle dropdown open state by calling either internal state or context
   const handleDropdownOpen = (val: boolean) => {
-    if (!isNotLargeScreen) {
+    if (!isSmallScreen) {
       setDropdownOpen(val);
     }
     if (onDropdownButtonClick) onDropdownButtonClick();
@@ -202,14 +202,14 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   }, [isDropdownOpen]);
 
   const navigationWrapperLinkClassName = classNames(
-    { isNotLargeScreen },
+    { isSmallScreen },
     styles.navigationLinkWrapper,
     styles[`depth-${depth}`],
     wrapperClassName,
   );
   const navigationLinkClassName = classNames(styles.headerLink, styles[`depth-${depth}`], className, {
     active,
-    isNotLargeScreen,
+    isSmallScreen,
   });
 
   return (

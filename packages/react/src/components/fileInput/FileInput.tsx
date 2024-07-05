@@ -71,6 +71,10 @@ type FileInputProps = {
    */
   language?: Language;
   /**
+   * Minimum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is smaller than the min size, the component will not add the file(s), and it will show an error message with the file name.
+   */
+  minSize?: number;
+  /**
    * Maximum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is larger than the max size, the component will not add the file(s), and it will show an error message with the file name.
    */
   maxSize?: number;
@@ -203,6 +207,16 @@ const getAddSuccessMessage = (language: Language, numberOfAdded: number, numberO
   }[language];
 };
 
+const getMinSizeMessage = (language: Language, minSize: number): string => {
+  const formattedMinSize = formatBytes(minSize);
+
+  return {
+    en: `The minimum file size is ${formattedMinSize}.`,
+    fi: `Pienin sallittu tiedostokoko on ${formattedMinSize}.`,
+    sv: `Den minimala filstorleken är ${formattedMinSize}.`,
+  }[language];
+};
+
 const getMaxSizeMessage = (language: Language, maxSize: number): string => {
   const formattedMaxSize = formatBytes(maxSize);
 
@@ -251,6 +265,16 @@ const getAcceptErrorMessage = (language: Language, file: File, accept: string): 
   }[language];
 };
 
+const getMinSizeErrorMessage = (language: Language, file: File, minSize: number): string => {
+  const fileSize = formatBytes(file.size);
+
+  return {
+    en: `File, ${file.name}, is too small (${fileSize}). ${getMinSizeMessage(language, minSize)}`,
+    fi: `Tiedosto, ${file.name} on liian pieni (${fileSize}). ${getMinSizeMessage(language, minSize)}`,
+    sv: `Filen, ${file.name}, är för liten (${fileSize}). ${getMinSizeMessage(language, minSize)}`,
+  }[language];
+};
+
 const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number): string => {
   const fileSize = formatBytes(file.size);
 
@@ -264,6 +288,7 @@ const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number)
 // eslint-disable-next-line no-shadow
 enum ValidationErrorType {
   accept = 'accept',
+  minSize = 'minSize',
   maxSize = 'maxSize',
 }
 
@@ -318,6 +343,17 @@ const validateAccept =
     );
   };
 
+const validateMinSize =
+  (language: Language, minSize: number) =>
+  (file: File): true | ValidationError => {
+    return (
+      file.size >= minSize || {
+        type: ValidationErrorType.minSize,
+        text: getMinSizeErrorMessage(language, file, minSize),
+      }
+    );
+  };
+
 const validateMaxSize =
   (language: Language, maxSize: number) =>
   (file: File): true | ValidationError => {
@@ -339,6 +375,7 @@ export const FileInput = ({
   dragAndDrop,
   dragAndDropLabel,
   dragAndDropInputLabel,
+  minSize = 0,
   maxSize,
   className = '',
   successText,
@@ -368,6 +405,7 @@ export const FileInput = ({
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
   const instructionsText = [
     accept && getAcceptMessage(language, accept),
+    minSize && getMinSizeMessage(language, minSize),
     maxSize && getMaxSizeMessage(language, maxSize),
   ]
     .filter((t) => !!t)
@@ -419,6 +457,7 @@ export const FileInput = ({
 
   const validationFns: ((file: File) => true | ValidationError)[] = [
     accept ? validateAccept(language, accept) : undefined,
+    minSize ? validateMinSize(language, minSize) : undefined,
     maxSize ? validateMaxSize(language, maxSize) : undefined,
   ].filter((fn) => !!fn);
 

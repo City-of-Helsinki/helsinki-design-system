@@ -30,13 +30,15 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
 
 ## Introduction
 
-HDS Login components include React context, components and hooks for handling user authorisation, API tokens and session polling. React is not a requirement, but currently, no plain JavaScript UI components exist.
+HDS Login components include React context, components and hooks for handling user authorisation, API tokens, session polling and graphQL queries. React is not a requirement, but currently, no plain JavaScript UI components exist.
 
 Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses <ExternalLink href="https://github.com/City-of-Helsinki/tunnistamo">Tunnistamo</ExternalLink>, but HDS login components can be used with any compatible OIDC provider. Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
 
 In the OIDC login process, the browser window is redirected to the OIDC provider. Authentication is fully handled by the server. That is why HDS does not provide login or registration forms.
 
 When the user has been authenticated, the OIDC server redirects back to the service. HDS provides components to handle the authentication process initiation and responses.
+
+For Login UI components see <InternalLink href="/components/header">**Header.Login**</InternalLink> on Header component page. For more information on how HDS Login and Header.Login components are meant to work together see <InternalLink href="/patterns/login/building-login">Login pattern page.</InternalLink> 
 
 ### Requirements
 
@@ -119,12 +121,14 @@ Detailed documentation is in the <UsagePageAnchorLink anchor="oidc-client-hooks"
 
 ### Modules
 
-There are three modules to handle the user's needs:
+There are four modules to handle the user's needs:
 
 - <UsagePageAnchorLink>Oidc client</UsagePageAnchorLink> for user data.
 - <UsagePageAnchorLink>Api tokens client</UsagePageAnchorLink> for acquiring backend tokens.
 - <UsagePageAnchorLink>Session poller</UsagePageAnchorLink> for checking if the user's session is still valid at the Oidc
   provider.
+- <UsagePageAnchorLink>GraphQL module</UsagePageAnchorLink> for fetching data from a graphQL server. Fetching can be automatically
+  linked to the Api Tokens client.
 
 If a module is not needed, it can be dropped with settings. <InternalLink href="/components/login/customisation">Custom modules</InternalLink> can also be added. All modules can be used without React and without each other. But a valid user object is required to get API tokens and poll the session.
 
@@ -144,6 +148,10 @@ This module exchanges the user's tokens for API tokens. API tokens are used for 
 
 This module polls the user's session from the Oidc provider and signals an error if polling returns an unauthorized response. If you have logged in with the same user in multiple browser windows, this module detects when the user is logged out in any browser window.
 
+#### GraphQL module
+
+This module was added to make it easier to use the login system with authenticated graphQL queries. The GraphQL module waits for api tokens and automatically picks a token and uses it in queries.
+
 #### Custom modules
 
 Other modules can be added. Detailed information is in the <InternalLink href="/components/login/customisation">custom modules section</InternalLink>.
@@ -160,6 +168,8 @@ Detailed information is in the <UsagePageAnchorLink anchor="signals">signals sec
 
 Every service must have its own `client_id` and `scope`, but these settings can be used for testing.
 They only work in `http://localhost:3000`. Make sure you have `redirect_uri`, `silent_redirect_uri` and `post_logout_redirect_uri` registered at the OIDC server.
+
+GraphQL module is not automatically added, but <ApiPageAnchorLink anchor="graphql-module">it's setup is simple</ApiPageAnchorLink>.
 
 ```js
 const loginProviderProps: LoginProviderProps = {

@@ -16,6 +16,7 @@ exports[`<HeaderActionBar /> spec renders the component 1`] = `
         >
           <span
             class="titleAndLogoContainer logo"
+            role="link"
           >
             <span
               class="logoWrapper"

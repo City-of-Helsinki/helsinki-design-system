@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import styles from './LoginButton.module.scss';
 import { useAuthenticatedUser, useOidcClient } from '../client/hooks';
@@ -11,8 +11,9 @@ import {
 import { Button, ButtonProps } from '../../button/Button';
 import { LoadingSpinner } from '../../loadingSpinner';
 import { IconAlertCircleFill } from '../../../icons';
+import { Notification } from '../../notification';
 
-export type LoginButtonProps = { spinnerColor?: string; errorText: string } & ButtonProps;
+export type LoginButtonProps = { spinnerColor?: string; errorText: string; loggingInText: string } & ButtonProps;
 /**
  * LoginButton handles the redirection to the OIDC server and also errors if the server rejects the request for OpenID configuration.
  * @param props LoginButtonProps
@@ -21,6 +22,7 @@ export function LoginButton({
   spinnerColor = 'var(--color-white)',
   children,
   errorText,
+  loggingInText,
   ...buttonProps
 }: LoginButtonProps): React.ReactElement | null {
   const { login } = useOidcClient();
@@ -28,21 +30,34 @@ export function LoginButton({
   const [lastSignal] = useSignalTrackingWithReturnValue(triggerForAllOidcClientStateChanges);
   const [loginError, resetLoginError] = useSignalTrackingWithReturnValue(triggerForAllOidcClientErrors);
   const isLoggingIn = isLoggingInSignal(lastSignal);
+  // login can be started in Header (or elsewhere too)
+  const wasClicked = useRef(false);
   if (user) {
     return null;
   }
-  const isActive = isLoggingIn && !loginError;
+  const isActive = isLoggingIn && wasClicked.current;
   // for some reason LoadingSpinner theme has no effect
   const iconStart = isActive ? (
-    <LoadingSpinner small style={{ '--spinner-color': spinnerColor } as React.HTMLProps<HTMLDivElement>['style']} />
+    <LoadingSpinner
+      loadingFinishedText=""
+      loadingText={loggingInText}
+      small
+      style={{ '--spinner-color': spinnerColor } as React.HTMLProps<HTMLDivElement>['style']}
+    />
   ) : undefined;
   const combinedButtonProps = {
     ...buttonProps,
     iconStart,
     disabled: isActive,
     onClick: () => {
+      if (isLoggingIn) {
+        return;
+      }
+      wasClicked.current = true;
       resetLoginError();
-      login();
+      login().then(() => {
+        wasClicked.current = false;
+      });
     },
   };
   return (
@@ -52,6 +67,9 @@ export function LoginButton({
         <div className={styles.loginError}>
           <IconAlertCircleFill className={styles.icon} />
           <span className={styles.text}>{errorText}</span>
+          <Notification type="alert" invisible>
+            {errorText}
+          </Notification>
         </div>
       )}
     </div>

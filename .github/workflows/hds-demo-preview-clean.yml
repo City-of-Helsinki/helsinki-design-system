@@ -5,11 +5,12 @@ on:
     branches:
       - development
       - release-*
+      - 'feature/*'
     types:
       - closed
 
 jobs:
- build_and_publish_demo:
+  build_and_publish_demo:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 

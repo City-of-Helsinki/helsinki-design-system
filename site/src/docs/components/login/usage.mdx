@@ -52,6 +52,12 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>useSessionPoller</AnchorLink>
   - <AnchorLink>useSessionPollerTracking</AnchorLink>
 
+- <AnchorLink>GraphQL module hooks</AnchorLink>{' '}
+
+  - <AnchorLink>useGraphQLModule</AnchorLink>
+  - <AnchorLink>useGraphQLModuleTracking</AnchorLink>
+  - <AnchorLink>useGraphQL</AnchorLink>
+
 - <AnchorLink>Generic signal hooks</AnchorLink>{' '}
 
   - <AnchorLink>useSignalListener</AnchorLink>
@@ -63,6 +69,7 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Oidc Client</AnchorLink>
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
+  - <AnchorLink>GraphQL module</AnchorLink>
 
 - <AnchorLink>Silent renewal</AnchorLink>
 
@@ -93,7 +100,9 @@ Button text is passed and rendered as a child.
 <PlaygroundPreview>
 
 ```jsx
-<LoginButton errorText="Login failed. Try again!">Log in</LoginButton>
+<LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
+  Log in
+</LoginButton>
 ```
 
 </PlaygroundPreview>
@@ -352,7 +361,7 @@ Returns the <AnchorLink>Session poller</AnchorLink> module.
 
 #### useSessionPollerTracking
 
-Returns an array of `[signal, reset function, sessionPoller instance]`. The hook re-renders the component each time the client emits a signal.
+Returns an array of `[signal, reset function, sessionPoller instance]`. The hook re-renders the component each time the poller emits a signal.
 
 <PlaygroundPreview>
 
@@ -371,6 +380,63 @@ const SessionPollerHooks = () => {
       Start polling!
     </Button>;
   }
+};
+```
+
+</PlaygroundPreview>
+
+### GraphQL module hooks
+
+More detailed information about <AnchorLink>GraphQL module</AnchorLink> hooks are listed on the <ApiPageAnchorLink anchor="graphql-module">API page</ApiPageAnchorLink>.
+
+#### useGraphQLModule
+
+Returns the <AnchorLink>GraphQL module</AnchorLink>.
+
+#### useGraphQLModuleTracking
+
+Returns an array of `[signal, reset function, GraphQL module instance]`. The hook re-renders the component each time the module emits a signal.
+
+#### useGraphQL
+
+This function mimics the <ExternalLink href="https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery">useLazyQuery</ExternalLink> hook of the Apollo GraphQL library.
+It returns an array of `[query, {data, error, loading, refetch}]`. The component using this hook is re-rendered each time the module changes and emits a signal. The returned array updates accordingly.
+
+<PlaygroundPreview>
+
+```jsx
+import { useGraphQL, Button, LoadingSpinner, Notification } from 'hds-react';
+
+const GraphQLModuleHooks = () => {
+  const [query, { data, error, loading, refetch }] = useGraphQL();
+  if (loading) {
+    return <LoadingSpinner loadingText="loading" />;
+  }
+  if (error) {
+    return (
+      <div>
+        <Notification type="error">An error occured.</Notification>
+        <Button
+          onClick={() => {
+            refetch();
+          }}
+        >
+          Try again.
+        </Button>;
+      </div>
+    );
+  }
+  if (data) {
+    // ...render data
+  }
+
+  <Button
+    onClick={() => {
+      query();
+    }}
+  >
+    Load data
+  </Button>;
 };
 ```
 
@@ -555,6 +621,41 @@ All `Session poller` settings, properties, methods and signals are detailed on t
 - <AnchorLink>useSessionPollerTracking</AnchorLink>
 
 Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="session-poller-hooks">API page</ApiPageAnchorLink>.
+
+#### GraphQL module
+
+Loading data from a graphQL server may require user authentication and api tokens. The GraphQL module can be set to listen to the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
+
+The module can also be used without api tokens and can be controlled manually.
+
+##### Requirements
+
+To execute a query, the following requirements must be met:
+
+- A graphQLClient (ApolloClient) must be configured and passed to the `GraphQL module`.
+- A query document must be provided.
+
+Detailed information about authenticated queries is on the <ApiPageAnchorLink anchor="requirements-2">API page</ApiPageAnchorLink>.
+
+##### API
+
+All `GraphQL module` settings, properties, methods and signals are detailed on the API page:
+
+- <ApiPageAnchorLink anchor="settings-3">Module settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="methods-3">Methods</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="other-exported-utility-functions-3">Utility functions</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="event-signals-3">Event signals</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="error-signal-types-3">Error signal types</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="dedicated-signal-triggers-3">Dedicated signal triggers</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="getting-signal-payloads-3">Getting signal payloads</ApiPageAnchorLink>.
+
+##### Hooks
+
+- <AnchorLink>useGraphQLModule</AnchorLink>
+- <AnchorLink>useGraphQLModuleTracking</AnchorLink>
+- <AnchorLink>useGraphQL</AnchorLink>
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="graphql-module-hooks">API page</ApiPageAnchorLink>.
 
 #### Silent renewal
 

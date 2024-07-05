@@ -1,87 +1,173 @@
-@use '../../../../styles/common.scss';
-
-button.actionBarItem {
-  align-self: center;
-  appearance: none;
-  background: transparent;
-  border: none;
-  color: var(--header-color);
-  cursor: pointer;
-  padding: 0;
-
-  &:focus-visible {
-    border: none;
-    outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
-    outline-offset: var(--header-focus-outline-width);
-  }
+.dropdownWrapper {
+  bottom: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  transform: translateY(100%) translateY(1px);
+  transition-duration: var(--animation-duration-dropwdown);
+  transition-property: max-height, padding-bottom;
+  transition-timing-function: ease;
+  z-index: 20;
 }
 
-.actionBarItemIcon {
-  display: block;
-  height: var(--icon-size);
-  margin: 0 auto;
-  padding: 3px 0 0;
-  pointer-events: none;
-  width: var(--icon-size);
+.container {
+  display: flex;
 
-  & > svg {
-    display: block;
-    height: 100%;
-    width: auto;
-  }
-}
-
-.actionBarItemLabel {
-  color: var(--action-bar-item-title-font-color);
-  display: block;
-  font-size: var(--action-bar-item-title-font-size);
-  margin: 0 auto;
-  pointer-events: none;
-  white-space: nowrap;
-
-  & > svg {
-    display: block;
-  }
-}
-
-.labelOnRight {
-  display: inline-block;
-}
-
-.fixedRightPosition {
-  display: block;
-}
-
-@mixin hiddenButTakingHorizontalSpace {
-  height: 0;
-  opacity: 0;
-}
-
-@mixin visibleAndTakingSpace {
-  height: auto;
-  opacity: 1;
-}
-
-.activeStateContent {
-  @include hiddenButTakingHorizontalSpace;
-
-  background-color: var(--actionbar-background-color);
-}
-
-.activeStateContentLabel {
-  white-space: break-spaces;
-}
-
-.isActive {
-  .activeStateContent {
-    @include visibleAndTakingSpace;
+  .dropdownWrapper {
+    max-height: 0;
+    min-width: 320px;
+    transition-duration: var(--animation-duration-dropwdown);
+    transition-timing-function: ease;
   }
 
-  > .actionBarItemIcon {
+  &.visible .dropdownWrapper {
+    max-height: 1000vh;
+  }
+
+  &:not(.hasContent) {
     display: none;
   }
 
-  > .actionBarItemLabel {
-    @include hiddenButTakingHorizontalSpace;
+  &:not(.fullWidth) {
+    display: flex;
+    position: relative;
+  }
+
+  &.fullWidth {
+    border-bottom: 1px solid var(--color-black-20);
+    display: flex;
+    justify-content: center;
+
+    > .dropdownWrapper {
+      left: 0;
+      position: relative;
+      transform: none;
+    }
+
+    &.hasSubItems {
+      display: block;
+    }
+  }
+
+  &.menuItem {
+    border-bottom: 0;
+  }
+}
+
+.icon {
+  display: block;
+}
+
+.dropdown {
+  background: var(--header-background-color);
+  border: 1px solid var(--color-black-20);
+  margin-top: -1px;
+  position: relative;
+  right: 0;
+  transform: translateY(-100%);
+  transition:
+    transform var(--animation-duration-dropwdown) ease,
+    visibility var(--animation-duration-dropwdown) ease;
+  visibility: hidden;
+
+  &.fullWidth {
+    background: transparent;
+    border: 0;
+    left: 0;
+    margin: -2px;
+  }
+
+  & > h3 {
+    box-sizing: border-box;
+    font-size: var(--fontsize-heading-xs);
+    font-weight: bold;
+    line-height: 28px;
+    margin: 0;
+    padding: var(--spacing-s);
+  }
+
+  & h4 {
+    box-sizing: border-box;
+    padding: var(--spacing-xs) var(--spacing-s) !important;
+  }
+
+  &.visible {
+    transform: translateY(0%);
+    transition:
+      var(--animation-duration-dropwdown) transform ease,
+      var(--animation-duration-dropwdown) visibility ease;
+    visibility: visible;
+  }
+
+  > * {
+    padding: var(--spacing-xs) var(--spacing-s);
+    width: 100%;
+  }
+
+  & ul,
+  & li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  // This is a hack currently for old type of usage of the HeaderActionBar children (without HeaderActionBarSubItems)
+  // TODO: remove in version 4
+  ul > *:not([class*="HeaderActionBar"]) {
+    padding: var(--spacing-xs) var(--spacing-s);
+
+    &:focus-within {
+      border: none;
+      outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+      outline-offset: calc(-1 * var(--header-focus-outline-width));
+    }
+
+    > *:focus-within, :focus-visible, :focus {
+      border: none;
+      outline: none;
+      outline-offset: none;
+    }
+  }
+
+  & ul {
+    border-top: 1px solid var(--color-black-20);
+  }
+
+  & ul:first-child {
+    border-top: 0;
+  }
+
+  & .dropdownItem {
+    padding: var(--spacing-xs) var(--spacing-s);
+
+    &:focus-within {
+      border: none;
+      outline: var(--header-focus-outline-width) solid var(--header-focus-outline-color);
+      outline-offset: calc(-1 * var(--header-focus-outline-width));
+    }
+
+    & > h4 {
+      padding: 0 !important;
+    }
+  }
+
+  & .dropdownItem button {
+    appearance: none !important;
+    background: transparent;
+    border: 0;
+    color: var(--lang-selector-item-font-color);
+    cursor: pointer;
+    line-height: var(--lineheight-l);
+    outline: 0;
+    white-space: nowrap;
+
+    &:focus-visible {
+      border: 0;
+      outline: none;
+    }
+  }
+
+  & .dropdownSubItem {
+    border-top: 1px solid var(--color-black-20);
   }
 }

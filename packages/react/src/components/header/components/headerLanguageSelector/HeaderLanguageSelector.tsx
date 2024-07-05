@@ -4,8 +4,9 @@ import classes from './HeaderLanguageSelector.module.scss';
 import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguage } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
-import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
-import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
+import { HeaderActionBarItem, HeaderActionBarSubItemGroup } from '../headerActionBarItem';
+import { HeaderActionBarSubItem } from '../headerActionBarSubItem';
+import { IconGlobe } from '../../../../icons';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
 
@@ -57,14 +58,15 @@ export const LanguageButton = ({ value, label }: LanguageOption) => {
   );
 };
 
-const renderLanguageNode = (language: LanguageOption) => {
-  return <LanguageButton key={language.value} value={language.value} label={language.label} />;
+const renderLanguageNode = (language: LanguageOption, primary: boolean) => {
+  const Label = <LanguageButton key={language.value} value={language.value} label={language.label} />;
+  return primary ? Label : <HeaderActionBarSubItem label={Label} key={language.value} />;
 };
 
 export const SimpleLanguageOptions = ({ languages }: { languages: LanguageOption[] }) => {
   return (
     <div className={classNames(classes.languageNodes, classes.simpleLanguageNodes)}>
-      {languages.map(renderLanguageNode)}
+      {languages.map((node) => renderLanguageNode(node, true))}
     </div>
   );
 };
@@ -92,57 +94,48 @@ HeaderLanguageSelector.componentName = 'HeaderLanguageSelector';
 
 export const HeaderLanguageSelectorConsumer = ({
   children,
-  ariaLabel,
   languageHeading,
   sortLanguageOptions = defaultLanguageSorter,
   fullWidthForMobile = false,
+  ...rest
 }: LanguageSelectorConsumerProps) => {
-  const { isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
+  const { isSmallScreen, mobileMenuOpen } = useHeaderContext();
   const languages = useAvailableLanguages();
   const activeLanguage = useActiveLanguage();
 
   const [primaryLanguages, secondaryLanguages] = sortLanguageOptions(languages, activeLanguage);
-  const primaryLanguageNodes = primaryLanguages.map(renderLanguageNode);
+  const primaryLanguageNodes = primaryLanguages.map((node) => renderLanguageNode(node, true));
   // when its not large screen fullWidthForMobile -version can be used
-  const show =
-    (isNotLargeScreen && fullWidthForMobile && !mobileMenuOpen) || (!isNotLargeScreen && !fullWidthForMobile);
-
-  const SecondaryLanguages = () => {
-    if (secondaryLanguages.length === 0) {
-      return null;
-    }
-    return (
-      <>
-        {languageHeading && <h3>{languageHeading}</h3>}
-        {secondaryLanguages.map(renderLanguageNode)}
-      </>
-    );
-  };
+  const show = (isSmallScreen && fullWidthForMobile && !mobileMenuOpen) || (!isSmallScreen && !fullWidthForMobile);
 
   if (!show) {
     return null;
   }
   const hasChildren = children && Array.isArray(children) && children.length > 0;
   const hasSecondaryLanguages = secondaryLanguages.length > 0;
+
   return (
     <div className={classNames(classes.languageSelector, { [classes.fullWidthForMobile]: fullWidthForMobile })}>
       <div className={classNames(classes.languageNodes)}>{primaryLanguageNodes}</div>
       {(hasChildren || hasSecondaryLanguages) && (
-        <HeaderActionBarItemWithDropdown
+        <HeaderActionBarItem
           id="language-selection-more"
+          className={classes.languageSelectorActionBarItem}
           iconClassName={classes.languageSelectorDropdownIcon}
           dropdownClassName={classes.languageSelectorDropdown}
-          label={<IconAngleDown aria-hidden />}
-          closeLabel={<IconAngleUp aria-hidden />}
           icon={<IconGlobe aria-hidden />}
           closeIcon={<IconGlobe aria-hidden />}
-          fullWidth={isNotLargeScreen}
-          ariaLabel={ariaLabel}
+          fullWidth={isSmallScreen}
           labelOnRight
+          {...rest}
         >
-          <SecondaryLanguages />
+          {hasSecondaryLanguages && languageHeading && (
+            <HeaderActionBarSubItemGroup label={languageHeading}>
+              {secondaryLanguages.map((node) => renderLanguageNode(node, false))}
+            </HeaderActionBarSubItemGroup>
+          )}
           {children}
-        </HeaderActionBarItemWithDropdown>
+        </HeaderActionBarItem>
       )}
     </div>
   );

@@ -30,7 +30,7 @@ import {
   getErrorSignals,
   getListenerSignals,
 } from '../testUtils/beaconTestUtil';
-import { advanceUntilListenerCalled, listenToPromise } from '../testUtils/timerTestUtil';
+import { advanceUntilListenerCalled, createTimedPromise, listenToPromise } from '../testUtils/timerTestUtil';
 import { OidcClientEventSignal, createOidcClientEventSignal } from './signals';
 import { createRenewalTestUtil, mockUserManagerRefreshResponse } from '../testUtils/renewalTestUtil';
 import {
@@ -120,6 +120,24 @@ describe('oidcClient', () => {
         },
       });
     });
+    it('changes state to LOGGING_IN when called. The state will not change unless an error occurs. Browser is redirected.', async () => {
+      const { userManager, oidcClient } = testData;
+      jest.spyOn(userManager, 'signinRedirect').mockReturnValue(createTimedPromise(undefined, 200) as Promise<void>);
+      const promise = oidcClient.login();
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_IN);
+      await promise;
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_IN);
+    });
+    it('When an error occurs, state is changed back to NO_SESSION.', async () => {
+      const { userManager, oidcClient } = testData;
+      jest
+        .spyOn(userManager, 'signinRedirect')
+        .mockReturnValue(createTimedPromise(new Error('FAILURE'), 200) as Promise<void>);
+      const promise = oidcClient.login().catch(jest.fn());
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_IN);
+      await promise;
+      expect(oidcClient.getState()).toBe(oidcClientStates.NO_SESSION);
+    });
   });
   describe('.logout()', () => {
     beforeEach(async () => {
@@ -169,6 +187,24 @@ describe('oidcClient', () => {
       await waitForLogoutToTimeout(mockedWindowControls);
       const userFromStorageAfterLogout = getUserFromStorage(userManagerProps);
       expect(userFromStorageAfterLogout).toBeNull();
+    });
+    it('changes state to LOGGING_OUT when called. Browser is redirected.', async () => {
+      const { userManager, oidcClient } = testData;
+      jest.spyOn(userManager, 'signoutRedirect').mockReturnValue(createTimedPromise(undefined, 200) as Promise<void>);
+      const promise = oidcClient.logout();
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_OUT);
+      await promise;
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_OUT);
+    });
+    it('When an error occurs, state is NOT changed back. User is locally cleared and session is still valid on oidc server.', async () => {
+      const { userManager, oidcClient } = testData;
+      jest
+        .spyOn(userManager, 'signoutRedirect')
+        .mockReturnValue(createTimedPromise(new Error('FAILURE'), 200) as Promise<void>);
+      const promise = oidcClient.logout().catch(jest.fn());
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_OUT);
+      await promise;
+      expect(oidcClient.getState()).toBe(oidcClientStates.LOGGING_OUT);
     });
   });
   describe('.handleCallback()', () => {

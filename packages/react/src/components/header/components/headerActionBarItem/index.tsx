@@ -1,2 +1,2 @@
-export * from './HeaderActionBarMenuItem';
-export * from './HeaderActionBarItemWithDropdown';
+export * from './HeaderActionBarItem';
+export * from './HeaderActionBarSubItemGroup';

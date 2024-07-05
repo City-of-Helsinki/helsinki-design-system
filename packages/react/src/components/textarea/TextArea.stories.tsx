@@ -35,6 +35,9 @@ export const Disabled = () => <TextArea {...textAreaProps} disabled defaultValue
 
 export const Invalid = () => <TextArea {...textAreaProps} invalid errorText="Error text" defaultValue={value} />;
 
+export const ReadOnly = () => <TextArea {...textAreaProps} readOnly />;
+ReadOnly.storyName = 'Read-only';
+
 export const Success = () => <TextArea {...textAreaProps} successText="Success text" defaultValue={value} />;
 
 export const Info = () => <TextArea {...textAreaProps} infoText="Info text" defaultValue={value} />;
