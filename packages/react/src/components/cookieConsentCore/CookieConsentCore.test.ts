@@ -1283,13 +1283,15 @@ describe('cookieConsentCore', () => {
     const changedCookiesObj = { ...siteSettingsObj };
     let totalGroups = 0;
     changedCookiesObj.requiredGroups.forEach((group) => {
+      // eslint-disable-next-line no-param-reassign
       group.description = 'this has changed';
-      totalGroups++;
-    })
+      totalGroups += 1;
+    });
     changedCookiesObj.optionalGroups.forEach((group) => {
+      // eslint-disable-next-line no-param-reassign
       group.description = 'this has changed';
-      totalGroups++;
-    })
+      totalGroups += 1;
+    });
 
     const cookieReader = () => {
       const cookiesAsString = mockedCookieControls.getCookie();
@@ -1298,7 +1300,7 @@ describe('cookieConsentCore', () => {
       // @ts-ignore
       const categories = JSON.parse(parsed).groups;
       return categories;
-    }
+    };
 
     const { essential: cookiesBeforeRemoval } = cookieReader();
 
