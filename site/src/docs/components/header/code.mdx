@@ -9,6 +9,8 @@ import {
   IconUser,
   IconSignout,
   IconSignin,
+  IconSignout,
+  IconSignin,
   Logo,
   LogoSize,
   logoFi,
@@ -256,12 +258,23 @@ export const IndexLink = ({ anchor, children }) => {
 
 ### <a id="sub-header">Header</a>
 
+<Notification label="Note about Header login components">
+  The Header.LoginButton, Header.LogoutSubmenuButton and Header.UserMenuButton require a working{' '}
+  <InternalLink href="/components/login/">Login Provider</InternalLink> that cannot not be configured here. Working
+  examples can be seen in the{' '}
+  <InternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</InternalLink>.
+</Notification>
+
 #### Example with all the components
 
 <Playground scope={{ Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
 
-```jsx
+````jsx
 import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDark } from 'hds-react';
+<Playground scope={{ Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
+
+```jsx
+import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
 
 () => {
   const languages = [
@@ -502,7 +515,7 @@ import { Header, IconSearch, IconUser, Logo, LogoSize, logoFi, logoSv, logoSvDar
     </>
   );
 };
-```
+````
 
 </Playground>
 

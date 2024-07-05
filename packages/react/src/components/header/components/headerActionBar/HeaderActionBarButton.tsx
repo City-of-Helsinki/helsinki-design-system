@@ -7,6 +7,24 @@ import {
   HeaderActionBarItemButtonProps,
 } from '../headerActionBarItem/HeaderActionBarItemButton';
 
+// make a component which uses Header.ActionBartItemButton but without excessive props
+
+export const HeaderActionBarButton: FC<
+  Omit<
+    HeaderActionBarItemButtonProps,
+    | 'avatar'
+    | 'closeIcon'
+    | 'closeLabel'
+    | 'hasSubItems'
+    | 'activeStateIcon'
+    | 'activeStateLabel'
+    | 'isActive'
+    | 'preventButtonResize'
+  >
+> = (props) => {
+  return <HeaderActionBarItemButton {...props} />;
+};
+
 export const HeaderActionBarButton: FC<
   Omit<
     HeaderActionBarItemButtonProps,
