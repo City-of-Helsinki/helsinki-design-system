@@ -32,7 +32,7 @@ export const NumericStepper = () => {
       const { value, min, max } = getData();
       const resolveNewValue = () => {
         if (type !== 'click') {
-          return parseInt(String((payload && payload.value) || '0'), 10);
+          return parseInt(String((payload && payload.value) || '0').replace(/[^0-9]/g, ''), 10);
         }
         const diff = id === 'increment' ? 1 : -1;
         return value + diff;
@@ -212,7 +212,7 @@ export const Form = () => {
             <RadioButton
               id={`radio${i}`}
               label={value}
-              key={value} // eslint-disable-line react/no-array-index-key
+              key={value}
               value={value}
               name="radio"
               checked={selectedAgeRange === value}
@@ -349,7 +349,7 @@ export const GroupedCheckBoxes = () => {
         <Checkbox
           id="parent"
           label="Select all"
-          key="parent" // eslint-disable-line react/no-array-index-key
+          key="parent"
           value="all"
           name="parent"
           checked={selectPercentage === 1}
@@ -362,7 +362,7 @@ export const GroupedCheckBoxes = () => {
             <Checkbox
               id={`option${i}`}
               label={value}
-              key={value} // eslint-disable-line react/no-array-index-key
+              key={value}
               value={value}
               checked={selectedValues.has(value)}
               onChange={handleChange}
