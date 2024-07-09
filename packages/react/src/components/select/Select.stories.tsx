@@ -115,14 +115,18 @@ function generateOptionLabels(count = -1): string[] {
   return Array.from(randomSet);
 }
 
+const dummyOnChange: SelectProps['onChange'] = () => ({});
+
 export const Example = () => {
   const options = generateOptionLabels(20);
-  return <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} />;
+  return (
+    <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} onChange={dummyOnChange} />
+  );
 };
 
 export const OptionsAsHtml = () => {
   return (
-    <Select label="Label" placeholder="Choose one">
+    <Select label="Label" placeholder="Choose one" onChange={dummyOnChange}>
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -152,7 +156,7 @@ export const WithGroups = () => {
   ];
 
   return (
-    <Select groups={groups} label="Label" placeholder="Choose one" icon={<IconLocation />}>
+    <Select groups={groups} label="Label" placeholder="Choose one" icon={<IconLocation />} onChange={dummyOnChange}>
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>

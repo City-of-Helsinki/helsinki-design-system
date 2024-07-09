@@ -17,6 +17,7 @@ const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
     placeholder: 'Placeholder',
     groups: propsToGroups({ options: ['Option 1'] }),
     open: false,
+    onChange: jest.fn(),
   },
 };
 
@@ -33,6 +34,9 @@ export function resetMockData() {
   mockData.current = {
     ...mockData.default,
   };
+  if (mockData.current.onChange) {
+    (mockData.current.onChange as jest.Mock).mockReset();
+  }
   mockDataUpdateTracker.mockReset();
 }
 
