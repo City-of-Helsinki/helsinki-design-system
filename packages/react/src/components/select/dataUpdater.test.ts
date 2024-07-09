@@ -1,3 +1,4 @@
+import { getLastMockCallArgs } from '../../utils/testHelpers';
 import { changeChandler } from './dataUpdater';
 import { eventIds, eventTypes } from './events';
 // eslint-disable-next-line jest/no-mocks-import
@@ -10,8 +11,8 @@ import {
   updateMockData,
   getCurrentMockData,
 } from './hooks/__mocks__/useSelectDataHandlers';
-import { Group, SelectData, SelectDataHandlers, SelectMetaData } from './types';
-import { getAllOptions, getSelectedOptions } from './utils';
+import { Group, OptionInProps, SelectData, SelectDataHandlers, SelectMetaData, SelectProps } from './types';
+import { getAllOptions, getSelectedOptions, propsToGroups, updateSelectedOptionInGroups } from './utils';
 
 describe('dataUpdater', () => {
   const getDataHandlers = () => {
@@ -53,6 +54,19 @@ describe('dataUpdater', () => {
   const getLastOpenUpdateFromEvents = () => {
     return filterLastDataUpdateFromEvents((args) => args.open !== undefined);
   };
+
+  const getOnChangeMock = () => {
+    return getCurrentMockData().onChange as jest.Mock;
+  };
+
+  const setOnChangeReturnValue = (value: Partial<SelectProps>) => {
+    getOnChangeMock().mockReturnValue(value);
+  };
+
+  const getOnChangeCallArgs = () => {
+    return getLastMockCallArgs(getOnChangeMock());
+  };
+
   let dateNowSpy: jest.SpyInstance | null = null;
   let dateNowTime = 0;
 
@@ -62,6 +76,20 @@ describe('dataUpdater', () => {
   };
 
   let dataHandlers: SelectDataHandlers;
+
+  const selectOptionByIndex = (index: number) => {
+    const options = getAllOptionsFromData();
+    const targetOption = options[index];
+    const updatedOption = { ...targetOption, selected: !targetOption.selected };
+    const updatedGroups = updateSelectedOptionInGroups(getCurrentGroupsFromData(), updatedOption);
+    const didUpdate = changeChandler(
+      { id: eventIds.listItem, type: eventTypes.click, payload: { value: targetOption } },
+      dataHandlers,
+    );
+
+    const selectedOptions = getSelectedOptions(updatedGroups);
+    return { selectedOption: targetOption, selectedOptions, updatedGroups, didUpdate };
+  };
 
   beforeEach(() => {
     resetAllMocks();
@@ -103,13 +131,9 @@ describe('dataUpdater', () => {
         open: true,
       });
       const options = getAllOptionsFromData();
-      const optionToSelect = options[3];
 
       // select an option
-      const didUpdate = changeChandler(
-        { id: eventIds.listItem, type: eventTypes.click, payload: { value: optionToSelect } },
-        dataHandlers,
-      );
+      const { didUpdate } = selectOptionByIndex(3);
       const updatedOptions = getAllOptionsFromLastUpdate();
       expect(didUpdate).toBeTruthy();
       const assumedResult = [...options];
@@ -176,6 +200,94 @@ describe('dataUpdater', () => {
       expect(didUpdateAgain).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(0);
       expect(getMetaDataUpdates()).toHaveLength(0);
+    });
+  });
+  describe('onChange', () => {
+    it('is called when selected options change.', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 0 }),
+      });
+      const dataBeforeChange = getCurrentMockData();
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+      // select option #1
+      const { selectedOption, updatedGroups, selectedOptions } = selectOptionByIndex(1);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(1);
+      expect(getOnChangeCallArgs()).toMatchObject([
+        selectedOptions,
+        selectedOption,
+        { ...dataBeforeChange, groups: updatedGroups },
+      ]);
+
+      const dataBeforeSecondChange = getCurrentMockData();
+      // select option #0
+      const {
+        selectedOption: selectedOption2,
+        updatedGroups: updatedGroups2,
+        selectedOptions: selectedOptions2,
+      } = selectOptionByIndex(0);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(2);
+      expect(getOnChangeCallArgs()).toMatchObject([
+        selectedOptions2,
+        selectedOption2,
+        { ...dataBeforeSecondChange, groups: updatedGroups2 },
+      ]);
+
+      const dataBeforeThirdChange = getCurrentMockData();
+      // unselect the previous selection by clicking it again
+      const {
+        selectedOption: selectedOption3,
+        updatedGroups: updatedGroups3,
+        selectedOptions: selectedOptions3,
+      } = selectOptionByIndex(0);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(3);
+      expect(getOnChangeCallArgs()).toMatchObject([
+        selectedOptions3,
+        selectedOption3,
+        { ...dataBeforeThirdChange, groups: updatedGroups3 },
+      ]);
+    });
+    it('is called when selected options change via clear button.', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
+      });
+      changeChandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
+      expect(getCurrentMockData().onChange).toHaveBeenCalledTimes(1);
+    });
+    it('is not called when selected options does not change.', () => {
+      changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      changeChandler({ id: eventIds.arrowButton, type: eventTypes.click }, dataHandlers);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+    });
+    it('can return a new set of options', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
+      });
+      const options: OptionInProps[] = [{ label: 'OptionX' }, { label: 'OptionZ', selected: true }];
+
+      const groupsBefore = getCurrentGroupsFromData();
+      const groupLabel = groupsBefore[0].options[0];
+      const expectedResult = [groupLabel, ...options];
+      setOnChangeReturnValue({ options });
+      selectOptionByIndex(1);
+      const optionsInData = getAllOptions(getCurrentGroupsFromData(), false);
+      expect(optionsInData).toMatchObject(expectedResult);
+    });
+    it('can return a new set of groups', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
+      });
+      const optionsInGroupA: OptionInProps[] = [{ label: 'GroupA_Option0' }, { label: 'GroupA_Option1' }];
+      const optionsInGroupB: OptionInProps[] = [{ label: 'GroupB_Option0' }, { label: 'GroupB_Option1' }];
+      const groups: SelectProps['groups'] = [
+        { label: 'GroupA', options: optionsInGroupA },
+        { label: 'GroupB', options: optionsInGroupB },
+      ];
+      setOnChangeReturnValue({ groups });
+      selectOptionByIndex(1);
+      const optionsInData = getAllOptions(getCurrentGroupsFromData(), false);
+      const expectedOptions = getAllOptions(propsToGroups({ groups }) as Group[], false);
+      expect(optionsInData).toMatchObject(expectedOptions);
+      expect(expectedOptions).toHaveLength(optionsInGroupA.length + optionsInGroupB.length + groups.length);
     });
   });
 });

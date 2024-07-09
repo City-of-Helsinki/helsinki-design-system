@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, RefObject } from 'react';
+import { ButtonHTMLAttributes, HTMLAttributes, ReactElement, ReactNode, RefObject } from 'react';
 
 import { DataHandlers } from '../dataProvider/DataContext';
 
@@ -13,21 +13,26 @@ export type Option = {
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
 
-export type SelectProps<P = unknown> = {
+export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
-  label: string;
+  label?: string;
   groups?: Array<{
     label: string;
     options: (OptionInProps | string)[];
   }>;
+  onChange: (
+    selectedOptions: Option[],
+    clickedOption: Option,
+    data: SelectData,
+  ) => Partial<SelectProps> | void | undefined;
   children?: P | P[];
   placeholder?: string;
   id?: string;
   icon?: ReactNode;
 };
 
-export type SelectData = Required<Pick<SelectProps, 'label' | 'open' | 'placeholder'>> & {
+export type SelectData = Required<Pick<SelectProps, 'open' | 'placeholder' | 'onChange'>> & {
   groups: Array<Group>;
   label?: string;
 };
@@ -39,6 +44,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     selectContainer: RefObject<HTMLDivElement>;
     selectionButton: RefObject<HTMLButtonElement>;
   };
+  lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   elementIds: {
     button: string;
