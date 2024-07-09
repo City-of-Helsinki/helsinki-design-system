@@ -22,6 +22,7 @@ export function Select({
   placeholder,
   icon,
   label,
+  onChange,
   id,
   children,
 }: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
@@ -31,13 +32,15 @@ export function Select({
       label,
       open: !!open,
       placeholder: placeholder || '',
+      onChange,
     };
-  }, [options, open, groups]);
+  }, [options, label, open, groups, onChange, placeholder]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
     return {
       lastToggleCommand: 0,
+      lastClickedOption: undefined,
       icon,
       refs: {
         listContainer: createRef<HTMLDivElement>(),

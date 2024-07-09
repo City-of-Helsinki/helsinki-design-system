@@ -1,6 +1,6 @@
 import { Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
-import { updateSelectedOptionInGroups, clearAllSelectedOptions } from './utils';
+import { updateSelectedOptionInGroups, clearAllSelectedOptions, propsToGroups, getSelectedOptions } from './utils';
 import {
   EventId,
   EventType,
@@ -60,6 +60,9 @@ const dataUpdater = (
       selected: !clickedOption.selected,
     });
     updateGroups(newGroups);
+    dataHandlers.updateMetaData({
+      lastClickedOption: clickedOption,
+    });
     openOrClose(false);
     return {
       ...returnValue,
@@ -91,6 +94,22 @@ const dataUpdater = (
 };
 
 export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
-  const { didDataChange } = dataUpdater(event, dataHandlers);
+  const { updateData, getData, getMetaData } = dataHandlers;
+  const { onChange } = getData();
+  const { didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
+
+  if (didSelectionsChange) {
+    const current = getData();
+    const { lastClickedOption } = getMetaData();
+    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    if (newProps) {
+      if (newProps.groups || newProps.options) {
+        const newGroups = propsToGroups(newProps) || [];
+        updateData({ groups: newGroups });
+        return true;
+      }
+    }
+  }
+
   return didDataChange;
 };
