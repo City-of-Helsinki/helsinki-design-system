@@ -1,4 +1,4 @@
-import { Option, SelectData, SelectMetaData } from './types';
+import { Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
 import { updateSelectedOptionInGroups, clearAllSelectedOptions } from './utils';
 import {
@@ -13,15 +13,23 @@ import {
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
-export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
+const dataUpdater = (
+  event: ChangeEvent,
+  dataHandlers: SelectDataHandlers,
+): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
+  const returnValue = {
+    didSearchChange: false,
+    didSelectionsChange: false,
+    didDataChange: false,
+  };
   const openOrClose = (open: boolean) => {
+    if (current.open === open) {
+      return false;
+    }
     const now = Date.now();
-    if (
-      dataHandlers.getMetaData().lastToggleCommand &&
-      now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS
-    ) {
+    if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
       return false;
     }
     dataHandlers.updateData({ open });
@@ -35,13 +43,17 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, da
 
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
-    return openOrClose(willOpen);
+    const didUpdate = openOrClose(willOpen);
+    return {
+      ...returnValue,
+      didDataChange: didUpdate,
+    };
   }
 
   if (isOptionClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
-      return false;
+      return returnValue;
     }
     const newGroups = updateSelectedOptionInGroups(current.groups, {
       ...clickedOption,
@@ -49,19 +61,36 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, da
     });
     updateGroups(newGroups);
     openOrClose(false);
-
-    return true;
+    return {
+      ...returnValue,
+      didSelectionsChange: true,
+      didDataChange: true,
+    };
   }
 
   if (isClearOptionsClickEvent(id, type)) {
     const newGroups = clearAllSelectedOptions(current.groups);
     updateGroups(newGroups);
-    return true;
+    return {
+      ...returnValue,
+      didSelectionsChange: true,
+      didDataChange: true,
+    };
   }
 
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
-    return openOrClose(false);
+    if (openOrClose(false)) {
+      return {
+        ...returnValue,
+        didDataChange: true,
+      };
+    }
   }
 
-  return false;
+  return returnValue;
+};
+
+export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
+  const { didDataChange } = dataUpdater(event, dataHandlers);
+  return didDataChange;
 };
