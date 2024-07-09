@@ -1,4 +1,4 @@
-import { dataUpdater } from './dataUpdater';
+import { changeChandler } from './dataUpdater';
 import { eventIds, eventTypes } from './events';
 // eslint-disable-next-line jest/no-mocks-import
 import {
@@ -77,19 +77,19 @@ describe('dataUpdater', () => {
 
   describe('open/close events', () => {
     it('updates the "open" prop in data and the "lastToggleCommand" in metaData.', () => {
-      const didUpdate = dataUpdater({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      const didUpdate = changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdate).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: true });
       expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
     });
     it('concurrent events do not make changes until certain time has passed. This prevents button click and immediate outside click events to cancel each other', () => {
-      dataUpdater({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       const updateTime = getMetaDataOfLastMetaDataUpdate().lastToggleCommand;
-      const didUpdateAgain = dataUpdater({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      const didUpdateAgain = changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdateAgain).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(1);
       mockDateNow(updateTime + 201);
-      const didUpdateNow = dataUpdater({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      const didUpdateNow = changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdateNow).toBeTruthy();
       expect(getDataUpdates()).toHaveLength(2);
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
@@ -106,7 +106,7 @@ describe('dataUpdater', () => {
       const optionToSelect = options[3];
 
       // select an option
-      const didUpdate = dataUpdater(
+      const didUpdate = changeChandler(
         { id: eventIds.listItem, type: eventTypes.click, payload: { value: optionToSelect } },
         dataHandlers,
       );
@@ -125,7 +125,7 @@ describe('dataUpdater', () => {
       });
       const updateCount = getDataUpdates().length;
 
-      const didUpdate = dataUpdater({ id: eventIds.listItem, type: eventTypes.click, payload: {} }, dataHandlers);
+      const didUpdate = changeChandler({ id: eventIds.listItem, type: eventTypes.click, payload: {} }, dataHandlers);
       expect(didUpdate).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(updateCount);
     });
@@ -139,7 +139,7 @@ describe('dataUpdater', () => {
       const options = getAllOptionsFromData();
       expect(getSelectedOptions(getCurrentGroupsFromData())).toHaveLength(10);
 
-      const didUpdate = dataUpdater({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
+      const didUpdate = changeChandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
       const updatedOptions = getAllOptionsFromLastUpdate();
       expect(didUpdate).toBeTruthy();
       expect(getSelectedOptions(getCurrentGroupsFromData())).toHaveLength(0);
@@ -148,17 +148,34 @@ describe('dataUpdater', () => {
     });
   });
   describe('outside click and close events', () => {
-    it('updates the "open" prop in data to false and the "lastToggleCommand" in metaData.', () => {
-      const didUpdate = dataUpdater({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+    it('if "open" is true, "open" prop is set to false and the "lastToggleCommand" in metaData is updated.', () => {
+      updateMockData({
+        open: true,
+      });
+      const didUpdate = changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
       expect(didUpdate).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
       expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
 
       mockDateNow(getMetaDataOfLastMetaDataUpdate().lastToggleCommand + 201);
 
-      const didUpdateAgain = dataUpdater({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
+      updateMockData({
+        open: true,
+      });
+      const didUpdateAgain = changeChandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
       expect(didUpdateAgain).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
+    });
+    it('if "open" is already false, nothing is updated.', () => {
+      const didUpdate = changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      expect(didUpdate).toBeFalsy();
+      expect(getDataUpdates()).toHaveLength(0);
+      expect(getMetaDataUpdates()).toHaveLength(0);
+
+      const didUpdateAgain = changeChandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
+      expect(didUpdateAgain).toBeFalsy();
+      expect(getDataUpdates()).toHaveLength(0);
+      expect(getMetaDataUpdates()).toHaveLength(0);
     });
   });
 });
