@@ -7,9 +7,12 @@ import { IconLocation } from '../../icons';
 
 describe('<Select />', () => {
   const options = ['Option 1', 'Option 2', 'Option 3'];
+  const onChange = jest.fn();
   describe('spec', () => {
     const Wrapped = () => {
-      return <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} />;
+      return (
+        <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} onChange={onChange} />
+      );
     };
     it('renders the component', () => {
       const { asFragment } = render(<Wrapped />);
@@ -28,7 +31,14 @@ describe('<Select />', () => {
 
     const renderWithHelpers = () => {
       const result = render(
-        <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} id={selectId} />,
+        <Select
+          options={options}
+          label="Label"
+          placeholder="Choose one"
+          icon={<IconLocation />}
+          id={selectId}
+          onChange={onChange}
+        />,
       );
 
       const getElementById = (id: string) => {
