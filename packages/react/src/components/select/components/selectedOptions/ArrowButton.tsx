@@ -8,12 +8,14 @@ import { eventTypes, eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { IconAngleDown } from '../../../../icons';
 
-const createArrowButtonProps = ({ getMetaData, trigger }: SelectDataHandlers): ButtonElementProps => {
+const createArrowButtonProps = ({ getMetaData, trigger, getData }: SelectDataHandlers): ButtonElementProps => {
   const { elementIds } = getMetaData();
+  const { disabled } = getData();
   return {
-    className: classNames(styles.button, styles.icon),
+    className: classNames(styles.dropdownButton, styles.icon, styles.arrowButton, disabled && styles.disabledButton),
     ...createOnClickListener({ id: eventIds.arrowButton, type: eventTypes.click, trigger }),
     id: elementIds.arrowButton,
+    disabled,
     'aria-hidden': true,
   };
 };
@@ -21,7 +23,7 @@ const createArrowButtonProps = ({ getMetaData, trigger }: SelectDataHandlers): B
 export function ArrowButton() {
   const props = createArrowButtonProps(useSelectDataHandlers());
   return (
-    <button type="button" {...props} aria-hidden>
+    <button type="button" {...props} aria-hidden tabIndex={-1}>
       <IconAngleDown className={styles.angleIcon} aria-hidden />
     </button>
   );

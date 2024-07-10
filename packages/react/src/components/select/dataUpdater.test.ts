@@ -10,6 +10,7 @@ import {
   createDataWithSelectedOptions,
   updateMockData,
   getCurrentMockData,
+  getCurrentMockMetaData,
 } from './hooks/__mocks__/useSelectDataHandlers';
 import { Group, OptionInProps, SelectData, SelectDataHandlers, SelectMetaData, SelectProps } from './types';
 import { getAllOptions, getSelectedOptions, propsToGroups, updateSelectedOptionInGroups } from './utils';
@@ -288,6 +289,43 @@ describe('dataUpdater', () => {
       const expectedOptions = getAllOptions(propsToGroups({ groups }) as Group[], false);
       expect(optionsInData).toMatchObject(expectedOptions);
       expect(expectedOptions).toHaveLength(optionsInGroupA.length + optionsInGroupB.length + groups.length);
+    });
+  });
+  describe('disabled', () => {
+    it('when disabled, data or metadata is not updated', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 0 }),
+        disabled: true,
+      });
+      const dataBeforeChange = getCurrentMockData();
+      const metadataBeforeChange = getCurrentMockMetaData();
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+      // select option #1
+      selectOptionByIndex(1);
+      changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      changeChandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
+      changeChandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
+      changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      expect(getCurrentMockData() === dataBeforeChange).toBeTruthy();
+      expect(getCurrentMockMetaData() === metadataBeforeChange).toBeTruthy();
+    });
+  });
+  describe('metaData.selectedOptions', () => {
+    it('is updated when selected option changes', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 0 }),
+      });
+      const getSelectedOptionsInMetaData = () => {
+        return getCurrentMockMetaData().selectedOptions || [];
+      };
+      expect(getSelectedOptionsInMetaData()).toHaveLength(0);
+      const { selectedOption } = selectOptionByIndex(1);
+      expect(getSelectedOptionsInMetaData()[0]).toMatchObject({ ...selectedOption, selected: true });
+      const { selectedOption: selectedOption2 } = selectOptionByIndex(3);
+      expect(getSelectedOptionsInMetaData()[0]).toMatchObject({ ...selectedOption2, selected: true });
+      // unselect by clicking the selected item
+      selectOptionByIndex(3);
+      expect(getSelectedOptionsInMetaData()).toHaveLength(0);
     });
   });
 });
