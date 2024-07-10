@@ -17,22 +17,29 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   options?: (OptionInProps | string)[];
   open?: boolean;
   label?: string;
-  groups?: Array<{
-    label: string;
-    options: (OptionInProps | string)[];
-  }>;
+  groups?:
+    | Array<{
+        label: string;
+        options: (OptionInProps | string)[];
+      }>
+    | SelectData['groups'];
   onChange: (
     selectedOptions: Option[],
     clickedOption: Option,
     data: SelectData,
   ) => Partial<SelectProps> | void | undefined;
   children?: P | P[];
+  required?: boolean;
+  invalid?: boolean;
   placeholder?: string;
   id?: string;
   icon?: ReactNode;
+  disabled?: boolean;
 };
 
-export type SelectData = Required<Pick<SelectProps, 'open' | 'placeholder' | 'onChange'>> & {
+export type SelectData = Required<
+  Pick<SelectProps, 'open' | 'placeholder' | 'required' | 'invalid' | 'onChange' | 'disabled'>
+> & {
   groups: Array<Group>;
   label?: string;
 };
@@ -46,6 +53,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   };
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
+  selectedOptions: Option[];
   elementIds: {
     button: string;
     label: string;

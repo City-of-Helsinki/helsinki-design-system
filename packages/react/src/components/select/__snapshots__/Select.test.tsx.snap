@@ -21,9 +21,11 @@ exports[`<Select /> spec renders the component 1`] = `
       >
         <button
           aria-controls="hds-select-1-sl-container"
+          aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="listbox"
-          class="button selectedOptions placeholder spaceForOneDigit"
+          aria-invalid="false"
+          class="dropdownButton selectedOptions placeholder spaceForOneDigit"
           id="hds-select-1-main-button"
           type="button"
         >
@@ -48,7 +50,7 @@ exports[`<Select /> spec renders the component 1`] = `
             class="labels"
           >
             <span
-              class="buttonOption"
+              class="dropdownButtonOption"
             >
               Choose one
             </span>
@@ -56,8 +58,9 @@ exports[`<Select /> spec renders the component 1`] = `
         </button>
         <button
           aria-hidden="true"
-          class="button icon"
+          class="dropdownButton icon arrowButton"
           id="hds-select-1-arrow-button"
+          tabindex="-1"
           type="button"
         >
           <svg
