@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { SelectProps } from './types';
+import { Group, SelectProps } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
+import { Button } from '../button/Button';
+import { clearAllSelectedOptions, propsToGroups } from './utils';
 
 export default {
   component: Select,
@@ -161,5 +163,82 @@ export const WithGroups = () => {
         <option value="label">Text</option>
       </optgroup>
     </Select>
+  );
+};
+
+export const WithControls = () => {
+  const initialGroups = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // not needed
+  }, []);
+
+  const [props, updateProps] = useState<SelectProps>({
+    groups: propsToGroups({ groups: initialGroups }),
+    onChange,
+    required: true,
+    disabled: false,
+    open: false,
+    invalid: false,
+    placeholder: 'Choose',
+    label: 'Controlled select',
+  });
+
+  const resetSelections = () => {
+    updateProps({ ...props, groups: clearAllSelectedOptions(props.groups as Group[]), open: false });
+  };
+
+  const toggleDisable = () => {
+    const current = props.disabled;
+    updateProps({ ...props, disabled: !current });
+  };
+
+  const toggleMenu = () => {
+    const current = props.open;
+    updateProps({ ...props, open: !current });
+  };
+
+  const toggleInvalid = () => {
+    const current = props.invalid;
+    updateProps({ ...props, invalid: !current });
+  };
+
+  const toggleRequired = () => {
+    const current = props.required;
+    updateProps({ ...props, required: !current });
+  };
+  return (
+    <>
+      <style>
+        {`
+          .buttons{
+            margin-top: 20px;
+          }
+          .buttons > *{
+            margin-right: 10px;
+          }
+      `}
+      </style>
+
+      <div>
+        <Select {...props} />
+        <div className="buttons">
+          <Button onClick={resetSelections}>Reset selections</Button>
+          <Button onClick={toggleDisable}>Disable/enable component</Button>
+          <Button onClick={toggleMenu}>Open/Close list</Button>
+          <Button onClick={toggleInvalid}>Set valid/invalid</Button>
+          <Button onClick={toggleRequired}>Toggle required</Button>
+        </div>
+      </div>
+    </>
   );
 };

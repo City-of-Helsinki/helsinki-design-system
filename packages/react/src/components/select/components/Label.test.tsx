@@ -27,11 +27,21 @@ describe('<Label />', () => {
     const data = { label: 'Label text' };
     updateMockData(data);
     const result = render(<Label />);
-    expect(getLabelElement(result).innerHTML).toBe(data.label);
+    const html = getLabelElement(result).innerHTML;
+    expect(html).toBe(data.label);
+    expect(html.includes('*')).toBeFalsy();
   });
   it("Label's id is set as the id in the getMetaData()", () => {
     const metaData = getCurrentMockMetaData();
     const result = render(<Label />);
     expect(getLabelElement(result).getAttribute('id')).toBe(metaData.elementIds.label);
+  });
+  it('Label is marked as required when value is true', () => {
+    const data = { label: 'Label text', required: true };
+    updateMockData(data);
+    const result = render(<Label />);
+    const html = getLabelElement(result).innerHTML;
+    expect(html.includes(data.label)).toBeTruthy();
+    expect(html.includes('*')).toBeTruthy();
   });
 });
