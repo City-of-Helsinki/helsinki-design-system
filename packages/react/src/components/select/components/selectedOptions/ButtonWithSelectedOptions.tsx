@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
-import { getSelectedOptions, createOnClickListener } from '../../utils';
+import { createOnClickListener } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
@@ -21,21 +21,27 @@ const createButtonWithSelectedOptionsProps = ({
   getMetaData,
   trigger,
 }: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { groups, placeholder, open } = getData();
-  const { icon, refs, elementIds } = getMetaData();
-  const selectedOptions = getSelectedOptions(groups);
+  const { disabled, open, invalid, placeholder } = getData();
+  const { icon, refs, elementIds, selectedOptions } = getMetaData();
   return {
-    className: classNames(styles.button, styles.selectedOptions, !selectedOptions.length && styles.placeholder),
-    options: selectedOptions,
-    ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
-    placeholder,
-    icon,
-    optionClassName: styles.buttonOption,
-    buttonRef: refs.selectionButton,
-    id: elementIds.button,
     'aria-controls': elementIds.selectionsAndListsContainer,
     'aria-expanded': open,
     'aria-haspopup': 'listbox',
+    'aria-invalid': invalid,
+    buttonRef: refs.selectionButton,
+    className: classNames(
+      styles.dropdownButton,
+      styles.selectedOptions,
+      !selectedOptions.length && styles.placeholder,
+      disabled && styles.disabledButton,
+    ),
+    'aria-disabled': disabled,
+    icon,
+    id: elementIds.button,
+    options: selectedOptions,
+    optionClassName: styles.dropdownButtonOption,
+    placeholder,
+    ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
   };
 };
 
@@ -92,7 +98,6 @@ export function ButtonWithSelectedOptions() {
   ) : (
     <span className={optionClassName}>{placeholder}</span>
   );
-
   const dataHandlers = useSelectDataHandlers();
 
   useLayoutEffect(() => {

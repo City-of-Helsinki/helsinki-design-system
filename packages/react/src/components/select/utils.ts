@@ -149,8 +149,15 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
   }
   if (props.groups) {
     return props.groups.map((group) => {
+      const hasLabelOptionAlready = !!group.options[0].isGroupLabel;
+      const groupOptions = group.options.map(validateOption) as Option[];
+      if (hasLabelOptionAlready) {
+        return {
+          options: [group.options[0], ...groupOptions.slice(1)],
+        };
+      }
       const labelOption: Option = createGroupLabel(group.label);
-      const groupOptions = group.options.map(validateOption);
+
       return {
         options: [labelOption, ...groupOptions],
       };
@@ -164,7 +171,7 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
   ];
 }
 
-export function childrenToGroups(children: SelectProps<ReactElement>['children']): SelectData['groups'] | undefined {
+export function childrenToGroups(children: SelectProps['children']): SelectData['groups'] | undefined {
   if (!children || typeof children !== 'object') {
     return undefined;
   }
@@ -193,4 +200,12 @@ export function childrenToGroups(children: SelectProps<ReactElement>['children']
     });
   }
   return [{ options: [createGroupLabel(''), ...childArray.map(optionElementToOption)] }];
+}
+
+export function createSelectedOptionsList(currentSelections: Option[], groups: SelectData['groups']) {
+  const selections = getSelectedOptions(groups);
+  const selectionsAsValues = new Set(selections.map((opt) => opt.value));
+  const stillSelected = currentSelections.filter((opt) => selectionsAsValues.has(opt.value));
+  const selectedValues = new Set(stillSelected.map((opt) => opt.value));
+  return [...stillSelected, ...selections.filter((opt) => !selectedValues.has(opt.value))];
 }

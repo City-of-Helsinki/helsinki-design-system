@@ -179,4 +179,16 @@ describe('<SelectedOptionsContainer />', () => {
       expect(isClearOptionsClickEvent(triggeredEvent.id, triggeredEvent.type)).toBeTruthy();
     });
   });
+  describe('When Select is disabled', () => {
+    it('the buttons are also disabled with attributes', () => {
+      const { getElementById, metaData } = initTests({ ...createDataWithSelectedOptions(), disabled: true });
+      const button = getButton({ getElementById, metaData });
+      const clearButton = getElementById(metaData.elementIds.clearButton) as HTMLButtonElement;
+      const arrowButton = getElementById(metaData.elementIds.arrowButton) as HTMLButtonElement;
+      // the main button does not have "disabled"-attribute or it cannot get focus and is invisible to screen readers
+      expect(button.getAttribute('aria-disabled')).toBe('true');
+      expect(clearButton.getAttribute('disabled')).not.toBeNull();
+      expect(arrowButton.getAttribute('disabled')).not.toBeNull();
+    });
+  });
 });
