@@ -2,7 +2,7 @@ import { getMockCalls } from '../../../../utils/testHelpers';
 import { ChangeEvent } from '../../../dataProvider/DataContext';
 import { EventId, EventType } from '../../events';
 import { Group, OptionInProps, SelectData, SelectMetaData } from '../../types';
-import { propsToGroups } from '../../utils';
+import { getSelectedOptions, propsToGroups } from '../../utils';
 
 export type OptionalSelectData = Partial<SelectData>;
 export type OptionalSelectMetaData = Omit<Partial<SelectMetaData>, 'elementIds' | 'refs'> & {
@@ -28,6 +28,10 @@ export function updateMockData(data: OptionalSelectData) {
     ...mockData.current,
     ...data,
   };
+  // metadata has selectedOptions, which is synced with selections in dataUpdater.
+  const selectedOptions = data && data.groups ? getSelectedOptions(data.groups) : [];
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  updateMockMetaData({ selectedOptions });
 }
 
 export function resetMockData() {
@@ -54,13 +58,14 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
       arrowButton: 'arrow-id',
       clearButton: 'clear-id',
     },
+    selectedOptions: [],
     refs: {
       selectionButton: { current: null },
     },
   },
 };
 
-export function updateMockMetaData(data: OptionalSelectMetaData) {
+export function updateMockMetaData(data: Partial<OptionalSelectMetaData>) {
   mockMetaData.current = {
     ...mockMetaData.current,
     ...data,
