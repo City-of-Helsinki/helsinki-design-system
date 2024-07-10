@@ -112,12 +112,21 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
     const current = getData();
     const { lastClickedOption } = getMetaData();
     const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    let newPropsHasChanges = false;
     if (newProps) {
-      if (newProps.groups || newProps.options) {
+      const { groups, options, invalid } = newProps;
+      if (groups || options) {
         const newGroups = propsToGroups(newProps) || [];
         updateData({ groups: newGroups });
-        return true;
+        newPropsHasChanges = true;
       }
+      if (invalid !== undefined && invalid !== current.invalid) {
+        updateData({ invalid });
+        newPropsHasChanges = true;
+      }
+    }
+    if (newPropsHasChanges) {
+      return true;
     }
   }
 
