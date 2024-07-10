@@ -273,6 +273,19 @@ describe('dataUpdater', () => {
       const optionsInData = getAllOptions(getCurrentGroupsFromData(), false);
       expect(optionsInData).toMatchObject(expectedResult);
     });
+    it('can return the invalid prop and store it', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
+      });
+
+      expect(getCurrentMockData().invalid).toBeFalsy();
+      setOnChangeReturnValue({ invalid: true });
+      selectOptionByIndex(1);
+      expect(getCurrentMockData().invalid).toBeTruthy();
+      setOnChangeReturnValue({ invalid: false });
+      selectOptionByIndex(2);
+      expect(getCurrentMockData().invalid).toBeFalsy();
+    });
     it('can return a new set of groups', () => {
       updateMockData({
         ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),

@@ -242,3 +242,29 @@ export const WithControls = () => {
     </>
   );
 };
+
+export const WithValidation = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(3),
+    },
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'invalid1', label: 'Candy cane' },
+        { value: 'invalid2', label: 'Sugar bomb' },
+        { value: 'invalid3', label: 'Dr. Pepper' },
+      ],
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = (selectedOptions) => {
+    const hasErrorSelection = !!selectedOptions.find((option) => option.value.includes('invalid'));
+    return {
+      invalid: hasErrorSelection,
+    };
+  };
+
+  return <Select groups={groups} label="Pick a healty choice" placeholder="Choose one" onChange={onChange} />;
+};
