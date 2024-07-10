@@ -1,6 +1,12 @@
 import { Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
-import { updateSelectedOptionInGroups, clearAllSelectedOptions, propsToGroups, getSelectedOptions } from './utils';
+import {
+  updateSelectedOptionInGroups,
+  clearAllSelectedOptions,
+  propsToGroups,
+  getSelectedOptions,
+  createSelectedOptionsList,
+} from './utils';
 import {
   EventId,
   EventType,
@@ -24,6 +30,9 @@ const dataUpdater = (
     didSelectionsChange: false,
     didDataChange: false,
   };
+  if (current.disabled) {
+    return returnValue;
+  }
   const openOrClose = (open: boolean) => {
     if (current.open === open) {
       return false;
@@ -37,8 +46,12 @@ const dataUpdater = (
     return true;
   };
 
-  const updateGroups = (groups: SelectData['groups']) => {
+  const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
     dataHandlers.updateData({ groups });
+    dataHandlers.updateMetaData({
+      selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
+      lastClickedOption: clickedOption,
+    });
   };
 
   if (isOpenOrCloseEvent(id, type)) {
@@ -59,10 +72,7 @@ const dataUpdater = (
       ...clickedOption,
       selected: !clickedOption.selected,
     });
-    updateGroups(newGroups);
-    dataHandlers.updateMetaData({
-      lastClickedOption: clickedOption,
-    });
+    updateGroups(newGroups, clickedOption);
     openOrClose(false);
     return {
       ...returnValue,
