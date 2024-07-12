@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Label /> is rendered without errors and with "*" when data.required is true 1`] = `
+<DocumentFragment>
+  <label
+    class="label "
+    for="hds-select-1-main-button"
+    id="hds-select-1-label"
+  >
+    This is the label
+    <span
+      class="indicator"
+    >
+      *
+    </span>
+  </label>
+</DocumentFragment>
+`;
+
+exports[`<Label /> is rendered without errors and without "*" when data.required is false 1`] = `
+<DocumentFragment>
+  <label
+    class="label "
+    for="hds-select-2-main-button"
+    id="hds-select-2-label"
+  >
+    This is the label
+  </label>
+</DocumentFragment>
+`;
