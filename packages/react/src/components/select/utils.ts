@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option, OptionInProps } from './types';
+import { SelectData, Group, SelectProps, Option, OptionInProps, SelectMetaData } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -208,4 +208,16 @@ export function createSelectedOptionsList(currentSelections: Option[], groups: S
   const stillSelected = currentSelections.filter((opt) => selectionsAsValues.has(opt.value));
   const selectedValues = new Set(stillSelected.map((opt) => opt.value));
   return [...stillSelected, ...selections.filter((opt) => !selectedValues.has(opt.value))];
+}
+
+export function getElementIds(containerId: string): SelectMetaData['elementIds'] {
+  return {
+    container: containerId,
+    button: `${containerId}-main-button`,
+    list: `${containerId}-list`,
+    clearButton: `${containerId}-clear-button`,
+    arrowButton: `${containerId}-arrow-button`,
+    label: `${containerId}-label`,
+    selectionsAndListsContainer: `${containerId}-sl-container`,
+  };
 }

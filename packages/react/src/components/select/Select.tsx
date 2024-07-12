@@ -74,6 +74,8 @@ export function Select({
             <List />
           </ListAndInputContainer>
         </SelectionsAndListsContainer>
+        <ErrorNotification />
+        <AssistiveText />
       </Container>
     </DataProvider>
   );
