@@ -1,86 +1,67 @@
-import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Select } from './Select';
-import { IconLocation } from '../../icons';
+import { renderWithHelpers } from './testUtil';
 
 describe('<Select />', () => {
-  const options = ['Option 1', 'Option 2', 'Option 3'];
-  const onChange = jest.fn();
   describe('spec', () => {
-    const Wrapped = () => {
-      return (
-        <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} onChange={onChange} />
-      );
-    };
     it('renders the component', () => {
-      const { asFragment } = render(<Wrapped />);
+      const { asFragment } = renderWithHelpers({
+        texts: { label: 'Label', assistive: 'Assistive text', error: 'Error text', language: 'en' },
+        invalid: true,
+        required: true,
+      });
       expect(asFragment()).toMatchSnapshot();
     });
     it('should not have basic accessibility issues', async () => {
-      const { container } = render(<Wrapped />);
+      const { container } = renderWithHelpers({
+        texts: { label: 'Label', assistive: 'Assistive text', error: 'Error text', language: 'en' },
+        invalid: true,
+        required: true,
+      });
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
   });
-  describe('List is opened', () => {
-    const selectId = 'select-component';
-    const getMainButtonElementId = () => `${selectId}-main-button`;
-    const getListElementId = () => `${selectId}-list`;
-
-    const renderWithHelpers = () => {
-      const result = render(
-        <Select
-          options={options}
-          label="Label"
-          placeholder="Choose one"
-          icon={<IconLocation />}
-          id={selectId}
-          onChange={onChange}
-        />,
-      );
-
-      const getElementById = (id: string) => {
-        return result.container.querySelector(`#${id}`) as HTMLElement;
-      };
-
-      const clickButton = (id: string) => {
-        const el = getElementById(id);
-        fireEvent.click(el);
-      };
-
-      const getListItemLabels = () => {
-        const list = getElementById(getListElementId());
-        return Array.from(list.querySelectorAll('li')).map((node) => node.innerHTML);
-      };
-
-      const isListOpen = (): boolean => {
-        const toggler = getElementById(getMainButtonElementId()) as HTMLElement;
-        const list = getElementById(getListElementId());
-        return String(toggler.getAttribute('aria-expanded')) === 'true' && !!list;
-      };
-
-      const openList = async () => {
-        clickButton(getMainButtonElementId());
-        await waitFor(() => {
-          expect(isListOpen()).toBeTruthy();
-        });
-      };
-
-      return {
-        ...result,
-        openList,
-        isListOpen,
-        getListItemLabels,
-      };
-    };
+  describe('List is opened and closed', () => {
     it('list opens via button click', async () => {
-      const { openList, getListItemLabels } = renderWithHelpers();
+      const { openList, getListItemLabels, options } = renderWithHelpers();
       await openList();
       const listItems = getListItemLabels();
-      options.forEach((label, i) => {
-        expect(listItems[i]).toBe(label);
+      expect(options).toHaveLength(3);
+      options.forEach((option, i) => {
+        expect(listItems[i]).toBe(option.label);
+      });
+    });
+    it('list closes via outside click', async () => {
+      const { openList, container, isListOpen } = renderWithHelpers();
+      await openList();
+      expect(isListOpen()).toBeTruthy();
+      fireEvent.click(container);
+      await waitFor(() => {
+        if (isListOpen()) {
+          throw new Error('Not closed');
+        }
+      });
+    });
+    it('Clicking an option selects it and closes the menu', async () => {
+      const { openList, isListOpen, clickOptionAndWaitForRerender, getSelectionsInButton, options } =
+        renderWithHelpers();
+      const selectionIndex = 2;
+      await openList();
+      await clickOptionAndWaitForRerender(2);
+      expect(isListOpen()).toBeFalsy();
+      expect(getSelectionsInButton()).toHaveLength(1);
+      expect(getSelectionsInButton()[0]).toBe(options[selectionIndex].label);
+    });
+    it('Clicking the clear button removes all selections', async () => {
+      const { openList, getClearButton, clickOptionAndWaitForRerender, getSelectionsInButton } = renderWithHelpers();
+      await openList();
+      await clickOptionAndWaitForRerender(2);
+      expect(getSelectionsInButton()).toHaveLength(1);
+      fireEvent.click(getClearButton());
+      await waitFor(() => {
+        expect(getSelectionsInButton()).toHaveLength(0);
       });
     });
   });
