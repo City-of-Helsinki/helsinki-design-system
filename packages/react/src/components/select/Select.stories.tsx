@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Group, SelectProps } from './types';
+import { Group, SelectProps, Texts } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
@@ -118,17 +118,21 @@ function generateOptionLabels(count = -1): string[] {
 }
 
 const dummyOnChange: SelectProps['onChange'] = () => ({});
+const defaultTexts: Partial<Texts> = {
+  label: 'Label',
+  placeholder: 'Choose one',
+  selectedOptionsLabel: 'Selected options',
+  error: 'Wrong choice!',
+};
 
 export const Example = () => {
   const options = generateOptionLabels(20);
-  return (
-    <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} onChange={dummyOnChange} />
-  );
+  return <Select options={options} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts} />;
 };
 
 export const OptionsAsHtml = () => {
   return (
-    <Select label="Label" placeholder="Choose one" onChange={dummyOnChange}>
+    <Select onChange={dummyOnChange} texts={defaultTexts}>
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -158,7 +162,7 @@ export const WithGroups = () => {
   ];
 
   return (
-    <Select groups={groups} label="Label" placeholder="Choose one" icon={<IconLocation />} onChange={dummyOnChange}>
+    <Select groups={groups} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts}>
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
@@ -189,8 +193,7 @@ export const WithControls = () => {
     disabled: false,
     open: false,
     invalid: false,
-    placeholder: 'Choose',
-    label: 'Controlled select',
+    texts: { ...defaultTexts, label: 'Controlled select' },
   });
 
   const resetSelections = () => {
@@ -259,12 +262,17 @@ export const WithValidation = () => {
     },
   ];
 
+  const texts = { ...defaultTexts, label: 'Pick a healty choice' };
+
   const onChange: SelectProps['onChange'] = (selectedOptions) => {
     const hasErrorSelection = !!selectedOptions.find((option) => option.value.includes('invalid'));
     return {
       invalid: hasErrorSelection,
+      texts: {
+        assistive: hasErrorSelection || !selectedOptions.length ? '' : 'Excellent choice!',
+      },
     };
   };
 
-  return <Select groups={groups} label="Pick a healty choice" placeholder="Choose one" onChange={onChange} />;
+  return <Select groups={groups} onChange={onChange} texts={texts} />;
 };

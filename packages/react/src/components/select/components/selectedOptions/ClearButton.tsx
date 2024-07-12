@@ -7,9 +7,11 @@ import classNames from '../../../../utils/classNames';
 import { createOnClickListener } from '../../utils';
 import { eventTypes, eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
+import { getTextFromMetaData } from '../../texts';
 
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
-  const { elementIds, selectedOptions } = getMetaData();
+  const metaData = getMetaData();
+  const { elementIds, selectedOptions } = metaData;
   const { disabled } = getData();
   if (!selectedOptions.length) {
     return null;
@@ -24,7 +26,7 @@ const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHan
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
     id: elementIds.clearButton,
     disabled,
-    'aria-label': `Remove all ${selectedOptions.length} selections`,
+    'aria-label': getTextFromMetaData('clearButtonAriaLabel', metaData),
   };
 };
 
