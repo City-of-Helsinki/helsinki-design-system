@@ -13,8 +13,6 @@ export type OptionalSelectMetaData = Omit<Partial<SelectMetaData>, 'elementIds' 
 const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
   current: {},
   default: {
-    label: 'Label',
-    placeholder: 'Placeholder',
     groups: propsToGroups({ options: ['Option 1'] }),
     open: false,
     onChange: jest.fn(),
@@ -62,6 +60,8 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     refs: {
       selectionButton: { current: null },
     },
+    textContent: { selectionCount: 0 },
+    textProvider: (key) => key,
   },
 };
 

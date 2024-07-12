@@ -4,9 +4,10 @@ import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
-import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option } from '../../types';
+import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option, TextKey } from '../../types';
 import { createOnClickListener } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
+import { getTextKey } from '../../texts';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   options: Option[];
@@ -16,18 +17,56 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   buttonRef: SelectMetaData['refs']['selectionButton'];
 };
 
-const createButtonWithSelectedOptionsProps = ({
-  getData,
-  getMetaData,
-  trigger,
-}: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
-  const { disabled, open, invalid, placeholder } = getData();
-  const { icon, refs, elementIds, selectedOptions } = getMetaData();
+const getTexts = (metaData: SelectMetaData) => {
+  const getter = (key: TextKey) => getTextKey(key, metaData) as string;
+  return {
+    placeholder: getter('placeholder') || '',
+    label: getter('label'),
+    ariaLabel: getter('dropdownButtonAriaLabel'),
+    assistiveText: getter('assistive'),
+    errorText: getter('error'),
+    noSelectedOptionsText: getter('noSelectedOptions'),
+    selectedOptionsCount: getter('selectedOptionsCount'),
+    noSelectedOptions: getter('noSelectedOptions'),
+    selectedOptionsLabel: getter('selectedOptionsLabel'),
+  };
+};
+
+const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
+  const { getData, getMetaData, trigger } = dataHandlers;
+  const { disabled, open, invalid } = getData();
+  const metaData = getMetaData();
+  const { icon, refs, elementIds, selectedOptions } = metaData;
+  const { placeholder, label, ariaLabel, errorText, assistiveText, noSelectedOptions, selectedOptionsLabel } =
+    getTexts(metaData);
+
+  const getAriaLabel = () => {
+    const descriptiveLabel = label || ariaLabel;
+    const labels = descriptiveLabel ? [`${descriptiveLabel}.`] : [];
+    const { length } = selectedOptions;
+    if (!length) {
+      labels.push(`${placeholder}. ${noSelectedOptions}.`);
+    } else {
+      labels.push(selectedOptionsLabel);
+      if (selectedOptions[0]) {
+        labels.push(`"${selectedOptions[0].label}"`);
+      }
+    }
+    if (assistiveText) {
+      labels.push(assistiveText);
+    }
+    if (invalid && errorText) {
+      labels.push(errorText);
+    }
+    return labels.join(' ');
+  };
+
   return {
     'aria-controls': elementIds.selectionsAndListsContainer,
     'aria-expanded': open,
     'aria-haspopup': 'listbox',
     'aria-invalid': invalid,
+    'aria-label': getAriaLabel(),
     buttonRef: refs.selectionButton,
     className: classNames(
       styles.dropdownButton,
@@ -87,8 +126,10 @@ function updateHiddenElementsCount(metaData: SelectMetaData) {
 }
 
 export function ButtonWithSelectedOptions() {
+  const dataHandlers = useSelectDataHandlers();
   const { options, placeholder, buttonRef, optionClassName, icon, ...attr } =
-    createButtonWithSelectedOptionsProps(useSelectDataHandlers());
+    createButtonWithSelectedOptionsProps(dataHandlers);
+
   const labels = options.length ? (
     options.map((opt) => (
       <span className={optionClassName} key={opt.value}>
@@ -98,7 +139,6 @@ export function ButtonWithSelectedOptions() {
   ) : (
     <span className={optionClassName}>{placeholder}</span>
   );
-  const dataHandlers = useSelectDataHandlers();
 
   useLayoutEffect(() => {
     updateHiddenElementsCount(dataHandlers.getMetaData());
@@ -107,12 +147,11 @@ export function ButtonWithSelectedOptions() {
   return (
     <button type="button" {...attr} ref={buttonRef}>
       {icon && <span key="icon">{icon}</span>}
-      <div className={styles.labels} key="labels">
+      <div className={styles.labels} key="labels" aria-hidden>
         {labels}
       </div>
       {options.length > 1 && (
-        <span className={styles.count} key="count">
-          {/* This className deliberately a string so js finds the span with span.count */}
+        <span className={styles.count} key="count" aria-hidden>
           <span className="count" key="number">
             +1
           </span>
