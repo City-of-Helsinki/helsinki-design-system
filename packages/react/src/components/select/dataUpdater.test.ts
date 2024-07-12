@@ -12,7 +12,17 @@ import {
   getCurrentMockData,
   getCurrentMockMetaData,
 } from './hooks/__mocks__/useSelectDataHandlers';
-import { Group, OptionInProps, SelectData, SelectDataHandlers, SelectMetaData, SelectProps } from './types';
+import { getTextKey } from './texts';
+import {
+  Group,
+  OptionInProps,
+  SelectData,
+  SelectDataHandlers,
+  SelectMetaData,
+  SelectProps,
+  TextKey,
+  Texts,
+} from './types';
 import { getAllOptions, getSelectedOptions, propsToGroups, updateSelectedOptionInGroups } from './utils';
 
 describe('dataUpdater', () => {
@@ -302,6 +312,26 @@ describe('dataUpdater', () => {
       const expectedOptions = getAllOptions(propsToGroups({ groups }) as Group[], false);
       expect(optionsInData).toMatchObject(expectedOptions);
       expect(expectedOptions).toHaveLength(optionsInGroupA.length + optionsInGroupB.length + groups.length);
+    });
+    it('can return new texts', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
+      });
+      const textKeys: Array<TextKey> = ['assistive', 'label', 'error', 'placeholder'];
+      const createTextObjectFromArray = (arr: Array<TextKey>, prefix = '') => {
+        return arr.reduce((texts, key) => {
+          return {
+            ...texts,
+            [key]: `${prefix}${getTextKey(key, getCurrentMockMetaData() as SelectMetaData)}`,
+          };
+        }, {});
+      };
+      const currentTexts: Partial<Texts> = createTextObjectFromArray(textKeys);
+      const newTexts: Partial<Texts> = createTextObjectFromArray(textKeys.slice(2), 'New ');
+      setOnChangeReturnValue({ texts: newTexts });
+      selectOptionByIndex(1);
+      const updatedTexts = createTextObjectFromArray(textKeys);
+      expect(updatedTexts).toMatchObject({ ...currentTexts, ...newTexts });
     });
   });
   describe('disabled', () => {
