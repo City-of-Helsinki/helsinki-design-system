@@ -4,6 +4,24 @@
  */
 export default class cookieConsentTestHelpers {
   /**
+   * Call cookieConsent instance from window.hds to set the status of the given groups to accepted
+   * @param {string[]} groupsArray Groups to set status to accepted
+   * @return {Promise<boolean>} - A promise that resolves to true if the groups' status is successfully set to accepted, otherwise false.
+   */
+    static async setGroupsStatusToAccepted(groupsArray) {
+      return window.hds.cookieConsent.setGroupsStatusToAccepted(groupsArray);
+    }
+
+    /**
+     * Get the consent status for the specified cookie group names.
+     * @param {string[]} groupNamesArray - An array of group names.
+     * @return {Promise<boolean>} A promise that resolves to true if all the groups are accepted, otherwise false.
+     */
+    static async getConsentStatus(groupNamesArray) {
+      return window.hds.cookieConsent.getConsentStatus(groupNamesArray);
+    }
+
+  /**
    * Approve all cookies
    * @param {*} shadowroot - The shadowroot of the component
    * @param {*} fireEvent - The fireEvent function from testing-library

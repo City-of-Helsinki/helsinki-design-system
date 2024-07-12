@@ -6,7 +6,7 @@ import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock'
 import mockDocumentCookie from './__mocks__/mockDocumentCookieCore';
 import { CookieConsentCore } from './cookieConsentCore';
 import * as siteSettingsObjRaw from './example/helfi_sitesettings.json';
-import bannerClickMethods from './helpers/cookieConsentTestHelpers';
+import helpers from './helpers/cookieConsentTestHelpers';
 
 const siteSettingsObj = { ...siteSettingsObjRaw, monitorInterval: 50 };
 
@@ -170,9 +170,9 @@ describe('cookieConsentCore', () => {
 
   // Wrap bannerClicks
   const bannerClicks = {
-    approveAll: () => bannerClickMethods.approveAll(getShadowRoot(), fireEvent),
-    approveCategory: (category: string) => bannerClickMethods.approveCategory(getShadowRoot(), fireEvent, category),
-    unApproveCategory: (category: string) => bannerClickMethods.unApproveCategory(getShadowRoot(), fireEvent, category),
+    approveAll: () => helpers.approveAll(getShadowRoot(), fireEvent),
+    approveCategory: (category: string) => helpers.approveCategory(getShadowRoot(), fireEvent, category),
+    unApproveCategory: (category: string) => helpers.unApproveCategory(getShadowRoot(), fireEvent, category),
   };
 
   // Make simplified cheksum handling for testing purposes
@@ -455,8 +455,7 @@ describe('cookieConsentCore', () => {
     );
     await waitForRoot();
 
-    // @ts-ignore
-    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']);
+    const result = await helpers.setGroupsStatusToAccepted(['chat']);
     expect(result).toBeTruthy();
 
     const cookiesAsString = mockedCookieControls.getCookie();
@@ -510,8 +509,7 @@ describe('cookieConsentCore', () => {
     );
     await waitForRoot();
 
-    // @ts-ignore
-    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']);
+    const result = await helpers.setGroupsStatusToAccepted(['chat']);
     expect(result).toBeFalsy();
 
     await waitForConsole(
@@ -530,7 +528,7 @@ describe('cookieConsentCore', () => {
     await waitForRoot();
 
     // @ts-ignore
-    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted('not-an-array');
+    const result = await helpers.setGroupsStatusToAccepted('not-an-array');
 
     await waitForConsole(
       'error',
@@ -567,10 +565,7 @@ describe('cookieConsentCore', () => {
     );
     await waitForRoot();
 
-    // @ts-ignore
-    const result = await window.hds.cookieConsent.setGroupsStatusToAccepted([
-      'group_not_defined_in_essential_or_optional',
-    ]);
+    const result = await helpers.setGroupsStatusToAccepted(['group_not_defined_in_essential_or_optional']);
 
     await waitForConsole(
       'error',
@@ -585,7 +580,7 @@ describe('cookieConsentCore', () => {
     await waitForRoot();
 
     // @ts-ignore
-    const result = await window.hds.cookieConsent.getConsentStatus('chat');
+    const result = await helpers.getConsentStatus('chat');
 
     await waitForConsole('error', 'Cookie consent: Group names must be provided as an non-empty array.');
 
@@ -813,8 +808,9 @@ describe('cookieConsentCore', () => {
     expect(writtenKeys).toEqual(expectedGroups);
 
     // Find a statistics cookie
-    const statisticsCookies = siteSettingsObj.optionalGroups.find((e) => e.groupId === 'statistics');
-    // @ts-ignore
+    type SiteSettings = typeof siteSettingsObj;
+    type OptionalGroup = SiteSettings['optionalGroups'][0];
+    const statisticsCookies = siteSettingsObj.optionalGroups.find((e) => e.groupId === 'statistics') as OptionalGroup;
     const firstCookieValues = statisticsCookies.cookies[0];
     const singleStatisticsCookie = { [firstCookieValues.name]: 1 };
     // Write cookie
