@@ -16,6 +16,7 @@ import {
   isOptionClickEvent,
   isOutsideClickEvent,
 } from './events';
+import { appendTexts } from './texts';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
@@ -51,6 +52,8 @@ const dataUpdater = (
     dataHandlers.updateMetaData({
       selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
       lastClickedOption: clickedOption,
+      // textContent is re-created, when a textProvider is called
+      textContent: undefined,
     });
   };
 
@@ -107,14 +110,13 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
   const { updateData, getData, getMetaData } = dataHandlers;
   const { onChange } = getData();
   const { didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
-
   if (didSelectionsChange) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
     const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     let newPropsHasChanges = false;
     if (newProps) {
-      const { groups, options, invalid } = newProps;
+      const { groups, options, invalid, texts } = newProps;
       if (groups || options) {
         const newGroups = propsToGroups(newProps) || [];
         updateData({ groups: newGroups });
@@ -122,6 +124,10 @@ export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event,
       }
       if (invalid !== undefined && invalid !== current.invalid) {
         updateData({ invalid });
+        newPropsHasChanges = true;
+      }
+      if (texts) {
+        appendTexts(texts, getMetaData());
         newPropsHasChanges = true;
       }
     }
