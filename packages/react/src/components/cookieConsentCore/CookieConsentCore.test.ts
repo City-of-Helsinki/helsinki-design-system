@@ -1489,12 +1489,41 @@ describe('cookieConsentCore', () => {
     ).rejects.toThrow('Cookie consent: Invalid translation: showDetails, should be string, number or object');
   });
 
-  /* eslint-disable jest/no-commented-out-tests */
-  // -------------------------------------------------------------------------------------------------------------------
   // MARK: Visual issues
   // - Do the checkboxes in banner describe the accepted categories?
-  // it('should have same checkbox checked values with cookie string', () => {});
+  it('should have same checkbox checked values with cookie string', async () => {
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
 
-  // - Does the banner hide footer?
-  // it('should have footer element offsetTop not overlapping with banner', () => {});
+    // Approve essentials + test_optional + chat
+    bannerClicks.approveCategory('test_optional');
+    bannerClicks.approveCategory('chat');
+
+    const cookiesAsString = mockedCookieControls.getCookie();
+    const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    const writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+
+    // Delete banner
+    document.body.innerHTML = '';
+
+    document.body.innerHTML = `<div id="${options?.settingsPageSelector?.replace('#', '')}">Page settings will be loaded here instead of banner.</div>`;
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Go through checkboxes
+    const checkboxes = getShadowRoot().querySelectorAll('.hds-checkbox input');
+    const checkedCategories = {};
+    checkboxes.forEach((box) => {
+      // @ts-ignore
+      if (box.checked) {
+        checkedCategories[box.attributes['data-group'].value] = 1;
+      }
+    });
+
+    // Verify that the form checkboxes match the cookie accepted categories
+    expect(Object.keys(checkedCategories)).toEqual(Object.keys(writtenCookieGroups));
+  });
 });
