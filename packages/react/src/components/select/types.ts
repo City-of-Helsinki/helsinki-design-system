@@ -16,7 +16,6 @@ export type Group = { options: Option[] };
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
-  label?: string;
   groups?:
     | Array<{
         label: string;
@@ -31,17 +30,14 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   children?: P | P[];
   required?: boolean;
   invalid?: boolean;
-  placeholder?: string;
   id?: string;
   icon?: ReactNode;
   disabled?: boolean;
+  texts?: Partial<Texts> | TextProvider;
 };
 
-export type SelectData = Required<
-  Pick<SelectProps, 'open' | 'placeholder' | 'required' | 'invalid' | 'onChange' | 'disabled'>
-> & {
+export type SelectData = Required<Pick<SelectProps, 'open' | 'required' | 'invalid' | 'onChange' | 'disabled'>> & {
   groups: Array<Group>;
-  label?: string;
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
@@ -54,6 +50,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   selectedOptions: Option[];
+  textContent?: TextInterpolationContent;
   elementIds: {
     button: string;
     label: string;
@@ -63,6 +60,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     arrowButton: string;
     selectionsAndListsContainer: string;
   };
+  textProvider: TextProvider;
 };
 
 export type DivElementProps = HTMLAttributes<HTMLDivElement>;
@@ -71,3 +69,20 @@ export type UlElementProps = HTMLAttributes<HTMLUListElement>;
 export type LiElementProps = HTMLAttributes<HTMLLIElement>;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
+export type TextKey =
+  | 'label'
+  | 'placeholder'
+  | 'error'
+  | 'assistive'
+  | 'selectedOptionsCount'
+  | 'selectedOptionsLabel'
+  | 'noSelectedOptions'
+  | 'clearButtonAriaLabel'
+  | 'dropdownButtonAriaLabel';
+
+export type TextInterpolationKeys = 'selectionCount';
+
+export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
+export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;
+export type SupportedLanguage = 'fi' | 'sv' | 'en';
+export type Texts = Record<TextKey, string> & { language?: SupportedLanguage };
