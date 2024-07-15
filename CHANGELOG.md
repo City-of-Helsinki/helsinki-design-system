@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Header] Fixed an issue with ActionBarItem dropdowns not inside the menu in mobile
+- [Header] Fix broken layout in mobile menu animations
 
 ### Core
 
