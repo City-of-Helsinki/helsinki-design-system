@@ -130,7 +130,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     visible,
     [classes.visible]: visible,
     [classes.hasContent]: hasContent,
-    [classes.fullWidth]: fullWidth || isSmallScreen,
+    [classes.fullWidth]: fullWidth || (isSmallScreen && fixedRightPosition),
     [classes.hasSubItems]: hasSubItems,
     [classes.menuItem]: id === 'Menu',
   };
