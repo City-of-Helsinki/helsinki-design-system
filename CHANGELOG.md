@@ -20,11 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Header] Fixed an issue with ActionBarItem dropdowns not inside the menu in mobile
 
 ### Core
 
@@ -39,11 +40,18 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+### Design tokens
+
+#### Changed
+
+- Changed colour `black-60` from `#666666` to `#595959` due to contrast issues and the accessibility and readability improvement.
 
 ### Documentation
 
@@ -58,6 +66,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -77,6 +86,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -96,6 +106,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -115,6 +126,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -134,6 +146,7 @@ Changes that are not related to specific components
 #### Changed
 
 Changes that are not related to specific components
+
 - [Component] What has been changed
 
 #### Fixed
@@ -190,6 +203,7 @@ Changes that are not related to specific components
 ### Figma
 
 #### Added
+
 - [Header] New functionalities for Actionbar: Action items can have an option for dropdown menus. For now only Logged in user has custom user menu and button (Header.Login)
 - [Header] In mobile breakpoints (XS-M) login button and logged-in user menu jump inside the Header.Mobilemenu that has a special accordion menu for dropdown.
 - [Header] Added missing Breadcrumbs to dark theme.
@@ -199,11 +213,13 @@ Changes that are not related to specific components
 - [PhoneInput, PasswordInput] Added missing read-only focus ring.
 
 #### Fixed
+
 - [Header] Mobilemenu link 2nd level names changed to Second level.
 - [Header] Mobilemenu now aligned to right border. Menu button should always be the rightmost element in mobile breakpoints.
 - [Hero] Flipped image 180 degrees in imageLeft, imageRight, imageBottom in XS size and diagonalKoros in all sizes.
 
 #### Changed
+
 - [Header] Login button now has sign-in icon instead of user - old Login actionitem is removed, please use Header.Login.
 - [Header] Breakpoint width numbers added to property names to match Footer
 - [Header] Nested instances revealed
