@@ -381,13 +381,13 @@ Any ActionBarItem with a functionality that opens a dropdown, must have an indic
       onMenuClick={(e) => e.stopPropagation()}
     >
       <Header.ActionBarItem label="Ilmoitukset" icon={<IconBell />} id="action-bar-notifications">
-        <Header.ActionBarSubItem label="Ei uusi ilmoituksia." />
+        <Header.ActionBarSubItem label="Ei uusia ilmoituksia" />
       </Header.ActionBarItem>
       <Header.ActionBarButton
         label="Kirjaudu"
         icon={<IconSignin />}
         onClick={() => {
-          window.alert('Kirjaudu clicked');
+          window.alert('Kirjaudu painettu');
         }}
         fixedRightPosition
       />
