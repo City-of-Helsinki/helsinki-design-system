@@ -1,6 +1,6 @@
 @charset "utf-8";
-@import "~hds-design-tokens/lib/all.scss";
-@import "./utils.scss";
+@import '~hds-design-tokens/lib/all.scss';
+@import './utils.scss';
 
 .playground-block {
   --focus-border-width: 2px;
@@ -75,7 +75,7 @@
   &:after {
     border: var(--focus-border-width) solid transparent;
     box-sizing: border-box;
-    content: "";
+    content: '';
     height: 100%;
     pointer-events: none;
     position: absolute;
@@ -116,6 +116,10 @@
     margin-top: var(--spacing-s);
     width: 100%;
   }
+}
+
+.playground-clipped-view-area {
+  clip-path: polygon(0 0, 100% 0, 100% 1000px, 0 1000px);
 }
 
 @media screen and (min-width: $breakpoint-m) {
