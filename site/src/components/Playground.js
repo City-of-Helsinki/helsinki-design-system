@@ -1,6 +1,6 @@
 import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useMDXComponents } from '@mdx-js/react'
+import { useMDXComponents } from '@mdx-js/react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import sanitizeHtml from 'sanitize-html';
 import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
@@ -79,11 +79,21 @@ export default Playground;
 
 const playgroundPreviewClassName = 'playground-block-preview';
 
-const PlaygroundPreviewComponent = ({ children, className, ...props }) => (
-  <div {...props} className={`${playgroundPreviewClassName} ${className ?? ''}`}>
-    {children}
-  </div>
-);
+const PlaygroundPreviewComponent = ({ children, className, clipped, ...props }) => {
+  const classNames = `${playgroundPreviewClassName} ${className || ''}`;
+  if (clipped) {
+    return (
+      <div {...props} className={classNames}>
+        <div className={'playground-clipped-view-area'}>{children}</div>
+      </div>
+    );
+  }
+  return (
+    <div {...props} className={classNames}>
+      {children}
+    </div>
+  );
+};
 
 export const PlaygroundPreview = ({ ...props }) => (
   <PlaygroundPreviewComponent className="playground-block-preview-light" {...props} />
@@ -273,7 +283,7 @@ const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = (props) => {
   const mdxComponents = useMDXComponents();
-  const scopeComponents = {...mdxComponents, ...props.scope};
+  const scopeComponents = { ...mdxComponents, ...props.scope };
 
   const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
   const codeBlocks = childrenArray
@@ -317,7 +327,8 @@ export const PlaygroundBlock = (props) => {
                 transformCode={(code) => `${transformCode(code)}`}
                 scope={scopeComponents}
                 language={language}
-                noInline={true}>
+                noInline={true}
+              >
                 <div className="playground-block-content">
                   <PreviewComponent />
                   <EditorWithLive
