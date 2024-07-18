@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [ssr] getCriticalHdsRulesSync, a syncronous version of the getCriticalHdsRules
 
 #### Changed
 
@@ -62,13 +62,13 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [ssr] Solution to use HDS styles with Next.js app router.
 
 #### Changed
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [ssr] Improved documentation about using HDS styles with Next.js pages router.
 
 #### Fixed
 
