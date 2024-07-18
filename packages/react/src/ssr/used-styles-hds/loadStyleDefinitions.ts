@@ -319,7 +319,7 @@ const toFlattenArray = (ast: StyleAst): StylesLookupTable =>
  * (synchronously) creates style definition from a given set of style data
  * @param data a data in form of {fileName: fileContent}
  */
-function parseProjectStyles(data: Readonly<StyleFiles>): SyncStyleDefinition {
+export function parseProjectStyles(data: Readonly<StyleFiles>): SyncStyleDefinition {
   const ast = astFromFiles(data);
 
   return {
