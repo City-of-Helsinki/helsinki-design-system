@@ -4,7 +4,7 @@
  */
 import { extractAllUnmatchable } from './used-styles-hds/extractAllUnmatchable';
 import { getRawCriticalRules, assertIsReady } from './used-styles-hds/getRawCriticalRules';
-import { loadStyleDefinitions } from './used-styles-hds/loadStyleDefinitions';
+import { loadStyleDefinitions, parseProjectStyles } from './used-styles-hds/loadStyleDefinitions';
 import { StyleDefinition, StyleSelector, SelectionFilter } from './used-styles-hds/types';
 
 const createUsedFilter = () => {
@@ -46,6 +46,22 @@ export async function getCriticalHdsRules(markup: string, allHDSStyles: string):
     await styleData;
 
     return getCriticalRules(markup, styleData);
+  }
+
+  return '';
+}
+
+/**
+ * Syncronous version of the getCriticalHdsRules() that does not load any files.
+ * @param markup
+ * @param allHDSStyles
+ * @returns
+ */
+
+export function getCriticalHdsRulesSync(markup: string, allHDSStyles: string): string {
+  if (markup && markup.length > 0 && allHDSStyles && allHDSStyles.length > 0) {
+    const styles = parseProjectStyles({ 'index.css': allHDSStyles }) as StyleDefinition;
+    return getCriticalRules(markup, styles);
   }
 
   return '';
