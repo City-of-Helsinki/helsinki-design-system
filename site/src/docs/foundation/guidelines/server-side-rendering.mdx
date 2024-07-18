@@ -1,16 +1,19 @@
 ---
-slug: "/foundation/guidelines/server-side-rendering"
-title: "Server-side rendering"
+slug: '/foundation/guidelines/server-side-rendering'
+title: 'Server-side rendering'
 navTitle: 'Server-side rendering'
 ---
+
 import { Accordion } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Notification from '../../../components/Notification';
 
 # Server-side rendering
 
-<LeadParagraph>The server-side rendering support of the Helsinki Design System makes the user's landing experience to pages smooth without
-  flashes of unstyled content.</LeadParagraph>
+<LeadParagraph>
+  The server-side rendering support of the Helsinki Design System makes the user's landing experience to pages smooth
+  without flashes of unstyled content.
+</LeadParagraph>
 
 ## What is server-side rendering?
 
@@ -26,11 +29,11 @@ that are being used into the initially rendered HTML on the server's side. For h
 the provided CSS files yourself. For hds-react HDS provides multiple options, which we will cover next.
 
 <Notification label="Critical CSS" className="siteNotification">
-Critical CSS is applied to above-the-fold elements. It provides the styles for the immediately visible content in the browser
-viewport when the user opens your website. Critical CSS does not usually have the styles of the elements that are in the
-scrollable content outside of the browser viewport. There is one exception though, and that is if you have anchor links on the page.
-When user opens website from an URL that includes an anchor link, the browser automatically scrolls the page so that the link
-will be visible.
+  Critical CSS is applied to above-the-fold elements. It provides the styles for the immediately visible content in the
+  browser viewport when the user opens your website. Critical CSS does not usually have the styles of the elements that
+  are in the scrollable content outside of the browser viewport. There is one exception though, and that is if you have
+  anchor links on the page. When user opens website from an URL that includes an anchor link, the browser automatically
+  scrolls the page so that the link will be visible.
 </Notification>
 
 ### Option 1: getCriticalHdsRules tool to get critical styles (recommended)
@@ -77,7 +80,7 @@ a style tag, that we will then inject into the finally rendered HTML document. I
 See below for more complete examples:
 
 <Accordion
-  heading="Next.js"
+  heading="Next.js (pages router)"
   headingLevel="4"
   language="en"
   size={"s"}
@@ -87,36 +90,62 @@ See below for more complete examples:
 >
   In the Next.js framework, create a file called _document.js in folder pages, and add this code to it:
 
-  ```js
-  // pages/_document.js - tested with next.js version: 10.0.5
-  import Document, { Html, Head, Main, NextScript } from 'next/document'
-  import { getCriticalHdsRules, hdsStyles } from 'hds-react';
+```js
+// pages/_document.js - tested with next.js version: 10.0.5 and 13.3.0
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { getCriticalHdsRules, hdsStyles } from 'hds-react';
 
-  class MyDocument extends Document {
-    static async getInitialProps(ctx) {
-      const initialProps = await Document.getInitialProps(ctx)
-      const hdsCriticalRules = await getCriticalHdsRules(initialProps.html, hdsStyles);
+class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    const hdsCriticalRules = await getCriticalHdsRules(initialProps.html, hdsStyles);
 
-      return {...initialProps, hdsCriticalRules}
-    }
-
-    render() {
-      return (
-        <Html>
-          <Head>
-            <style data-used-styles dangerouslySetInnerHTML={{ __html: this.props.hdsCriticalRules }} />
-          </Head>
-          <body>
-            <Main />
-            <NextScript />
-          </body>
-        </Html>
-      )
-    }
+    return { ...initialProps, hdsCriticalRules };
   }
 
-  export default MyDocument
-  ```
+  render() {
+    return (
+      <Html>
+        <Head>
+          <style data-used-styles dangerouslySetInnerHTML={{ __html: this.props.hdsCriticalRules }} />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
+```
+
+The styles can also be set in the `getInitialProps`
+
+```js
+  //  tested with next.js version: 13.3.0
+  static async getInitialProps(ctx: any) {
+    try {
+      const initialProps = await Document.getInitialProps(ctx);
+      const hdsCriticalRules = await getCriticalHdsRules(initialProps.html, hdsStyles);
+      const otherCSS = `div {
+        background:#ff0;
+      }`;
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            <style id="hds-styles" dangerouslySetInnerHTML={{ __html: hdsCriticalRules }} />
+            <style>{otherCSS}</style>
+            {initialProps.styles}
+          </>
+        ),
+      };
+    } finally {
+    }
+  }
+```
 
 </Accordion>
 
@@ -131,27 +160,25 @@ See below for more complete examples:
 >
   In the Gatsby framework, create a file called gatsby-ssr.js at the root of the project, and add this code to it:
 
-  ```js
-  // gatsby-ssr.js - tested with gatsby version 4.17.0
-  import React from 'react';
-  import { getCriticalHdsRules, hdsStyles } from 'hds-react';
-  import { renderToString } from 'react-dom/server';
+```js
+// gatsby-ssr.js - tested with gatsby version 4.17.0
+import React from 'react';
+import { getCriticalHdsRules, hdsStyles } from 'hds-react';
+import { renderToString } from 'react-dom/server';
 
-  export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
-    const bodyHTML = renderToString(bodyComponent);
+export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
+  const bodyHTML = renderToString(bodyComponent);
 
-    if (hdsStyles && hdsStyles.length > 0 && bodyHTML && bodyHTML.length > 0) {
-      const cssRules = await getCriticalHdsRules(bodyHTML, hdsStyles);
-      const HeadComponents = [
-        <style data-used-styles dangerouslySetInnerHTML={{ __html: cssRules }} />
-      ];
+  if (hdsStyles && hdsStyles.length > 0 && bodyHTML && bodyHTML.length > 0) {
+    const cssRules = await getCriticalHdsRules(bodyHTML, hdsStyles);
+    const HeadComponents = [<style data-used-styles dangerouslySetInnerHTML={{ __html: cssRules }} />];
 
-      return setHeadComponents(HeadComponents);
-    }
-
-    return;
+    return setHeadComponents(HeadComponents);
   }
-  ```
+
+  return;
+};
+```
 
 </Accordion>
 
@@ -164,6 +191,7 @@ called `hdsStyles`:
 ```js
 import { hdsStyles } from 'hds-react';
 ```
+
 This variable holds all the styles of HDS React components compiled into a single string. It might be tempting to include
 all the styles in `hdsStyles` or `index.css` to your HTML, and call it a day. This is not optimal because the size of the
 HDS styles is large and probably growing as new components are added to it. Adding all the styles might have an impact on the
