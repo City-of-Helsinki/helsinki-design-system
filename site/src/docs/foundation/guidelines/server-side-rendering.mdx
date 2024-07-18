@@ -77,6 +77,8 @@ Calling it returns a string containing the critical CSS styles. The rest is easy
 a style tag, that we will then inject into the finally rendered HTML document. It can be wise to cache the result of
 `getCriticalHdsRules` based on the function parameters in order to improve performance.
 
+**Note: There is also a new `getCriticalHdsRulesSync` function that is a syncronous version of `getCriticalHdsRules`.**
+
 See below for more complete examples:
 
 <Accordion
@@ -145,6 +147,82 @@ The styles can also be set in the `getInitialProps`
     } finally {
     }
   }
+```
+
+</Accordion>
+<Accordion
+  heading="Next.js (app router)"
+  headingLevel="4"
+  language="en"
+  size={"s"}
+  theme={{
+    '--padding-vertical': 'var(--spacing-s)',
+  }}
+>
+  The newer version of Next.js has an app router. The router does not expose outputted HTML contents anymore, so the HTML needs to be rendered separately.
+
+Create a new component `HdsStylePicker.tsx` in `src/components`.
+
+```js
+// tested with next.js version: 14.2.5
+
+import ReactDOMServer from "react-dom/server";
+import { useServerInsertedHTML } from "next/navigation";
+import { useRef } from "react";
+// hds-react does not have export named "hdsStyles" in index.d.ts.
+// The object exists in the bundle, typescript just does not recognise it.
+//@ts-ignore
+import { hdsStyles } from "hds-react";
+import { getCriticalHdsRulesSync } from "@/utils/ssr";
+
+export default function HdsStylePicker({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const creationData = useRef<{ isSet: boolean; result: undefined | string }>({ isSet: false, result: undefined });
+
+  if (creationData.current.result === undefined) {
+    const res = ReactDOMServer.renderToString(<>{children}</>);
+    // using newer getCriticalHdsRulesSync and not older getCriticalHdsRules
+    const hdsCriticalRules = getCriticalHdsRulesSync(res, hdsStyles);
+    creationData.current = { ...creationData.current, result: hdsCriticalRules };
+  }
+
+  useServerInsertedHTML(() => {
+    // this function is called twice without "isSet" check.
+    // https://github.com/vercel/next.js/discussions/49354
+    if (!creationData.current.isSet) {
+      creationData.current = { ...creationData.current, isSet: true };
+      if (creationData.current.result) {
+        const contents = <style data-used-styles>{creationData.current.result}</style>;
+        return <>{contents}</>;
+      }
+      return undefined;
+    }
+  });
+  return <>{children}</>;
+}
+
+```
+
+This component cannot be used in the `layout.tsx`, so every page must be wrapped with it. Note that `"use client";` must be added as the first line.
+
+```js
+'use client';
+import HdsStylePicker from '@/components/HdsStylePicker';
+
+export default function Home() {
+  return (
+    <HdsStylePicker>
+      <main>
+        {
+          // page contents
+        }
+      </main>
+    </HdsStylePicker>
+  );
+}
 ```
 
 </Accordion>
