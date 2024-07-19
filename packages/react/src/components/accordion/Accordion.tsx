@@ -9,6 +9,7 @@ import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
 import useHasMounted from '../../hooks/useHasMounted';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface AccordionCustomTheme {
   '--background-color'?: string;
@@ -115,7 +116,7 @@ export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> &
   card: true;
 };
 
-export type AccordionProps = CommonAccordionProps | CardAccordionProps;
+export type AccordionProps = AllElementPropsWithoutRef<'div'> & (CommonAccordionProps | CardAccordionProps);
 
 const getCloseMessage = (language: Language): string => {
   return {
@@ -138,14 +139,13 @@ export const Accordion = ({
   initiallyOpen = false,
   language = 'fi',
   size = 'm',
-  style,
   theme,
+  ...rest
 }: AccordionProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [beforeCloseButtonClick, setBeforeCloseButtonClick] = useState(false);
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
-
   // Custom themes
   const sovereignThemeVariables = theme && {
     '--background-color': theme['--background-color'],
@@ -240,6 +240,7 @@ export const Accordion = ({
 
   return (
     <div
+      {...rest}
       className={classNames(
         styles.accordion,
         card && styles.card,
@@ -250,7 +251,6 @@ export const Accordion = ({
         sizeDependentThemeClass,
         className,
       )}
-      style={style}
       id={accordionId}
     >
       <div className={classNames(styles.accordionHeader)}>
