@@ -4,9 +4,6 @@ name: e2e-tests
 on:
   workflow_dispatch:
   pull_request:
-  push:
-    branches:
-      - playwright_initial_HDS-2224
 
 jobs:
   e2e-test:
@@ -26,31 +23,67 @@ jobs:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
 
+      # added to build react-storybook for testing
+      - name: install dependencies
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
+
+      - name: build design tokens package
+        run: yarn build
+        working-directory: ./packages/design-tokens
+
+      - name: build core package
+        run: yarn build
+        working-directory: ./packages/core
+
+      - name: build react package
+        run: yarn build
+        working-directory: ./packages/react
+
+      - name: build react storybook
+        run: yarn build-storybook
+        working-directory: ./packages/react
+
+      # added to build react-storybook for testing
+
       - name: install dependencies
         run: |
           yarn config set network-timeout 300000 
           yarn
         working-directory: ./e2e
 
+      - name: install playwright dependencies
+        run: |
+          yarn install-deps
+        working-directory: ./e2e
+
       - name: install test tools
         run: |
           yarn inst
         working-directory: ./e2e
-          
+
       - name: run tests
         run: |
           yarn start
         env:
-          E2E_TESTS_ENV_URL: "https://hds.hel.fi"
+          E2E_TESTS_ENV_URL: 'https://hds.hel.fi'
         working-directory: ./e2e
 
       - name: upload test results in case of failure
         uses: actions/upload-artifact@v4
         with:
           name: e2e_test_report
-          path: e2e/report/**
+          path: e2e/report/
           include-hidden-files: true
-        # if: failure()
+        if: failure()
+
+      - name: upload screenshot differences in case of failure
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e_test_results
+          path: e2e/test-results/
+        if: failure()
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
