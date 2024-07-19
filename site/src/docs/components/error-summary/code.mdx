@@ -5,6 +5,7 @@ title: 'ErrorSummary - Code'
 
 import { ErrorSummary } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -79,3 +80,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `autofocus` | Automatically focus the label of the error summary.   | `boolean`   | false         |
 | `label`   | The label of the error summary.                         | `string`    | -             |
 | `size`    | The size of the error summary.                          | `"default"`, `"large"` | `"default"` |
+
+<NativeElementPropsInfo nodeName="div" />
