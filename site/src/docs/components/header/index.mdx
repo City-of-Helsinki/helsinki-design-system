@@ -15,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Example
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header
     languages={[
       { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -143,7 +143,7 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
 - Using the Header.SkipLink component is optional but we recommend using it if you have any other header components beside the ActionBar.
 - The Header.SkipLink supports `ariaLabel` prop which gives possibility to define more informative text for screen readers.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header
     languages={[
       { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -182,7 +182,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
 - Keep the link labels clear and concise. Prefer max 1-2 word long labels so the labels don't go to the next line on smaller screens. Avoid starting multiple link labels with the same word.
 - Under large sized screens (992px and down) the Header.UniversalBar is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header>
     <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
       <Header.Link href="#" label="Uutiset" />
@@ -214,7 +214,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
   - The contents of Header.NavigationMenu and Header.UniversalBar, if you have provided either of them, will move inside Header.ActionBar's menu.
   - The Header.LanguageSelector moves under the ActionBar.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header
     languages={[
       { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -319,7 +319,7 @@ The button must be placed inside an [ActionBarItem](#actionbaritem). There is no
 
 The Header.Search component is to be used for whole site wide search. Currently HDS recommends putting the SearchIcon inside the Header.ActionBar, and making it open search in separate search page by pressing the search icon. This enables using all needed search functionalities. A code example can be found in the <InternalLink href="/components/header/code/#with-all-the-components">Code</InternalLink> page.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header>
     <Header.SkipLink skipTo="#content" label="Skip To Content" />
     <Header.ActionBar
@@ -363,7 +363,7 @@ ActionBarItems can
 
 Any ActionBarItem with a functionality that opens a dropdown, must have an indication, or a variation that visually tells the user how to close it as well. (e.g. Menu and Close button, Chevron angle up and down). Read more in <InternalLink href="/components/header/accessibility">accessibility notes.</InternalLink>
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header
     languages={[
       { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -461,7 +461,7 @@ Header.ActionBarSubItems are placed inside a Header.ActionBarItem. The component
 
 The Header.ActionBarSubItemGroup renders its children as a list and forms a group for screen readers. Its children should be Header.ActionBarSubItems.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header>
     <Header.ActionBar
       title="Helsingin kaupunki"
@@ -492,7 +492,7 @@ The Header.NavigationMenu enables users to navigate to different pages of the se
 - Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word. See also our <InternalLink href="/components/header/accessibility">accessibility notes</InternalLink> about navigation menu's hierarchy.
 - From breakpoint M (≥ 768px) and down the Header.NavigationMenu is hidden and the contents are moved inside the [the Header.ActionBar component's](#with-action-bar) menu.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <Header
     languages={[
       { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -591,7 +591,7 @@ Header offers two variations with different backgrounds - one with white and one
 Header supports also custom theming. Read more at <InternalLink href="/components/header/customisation">customisation page</InternalLink>.
 When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
-<PlaygroundPreview>
+<PlaygroundPreview clipped>
   <div
     style={{
       marginBottom: '1rem',
