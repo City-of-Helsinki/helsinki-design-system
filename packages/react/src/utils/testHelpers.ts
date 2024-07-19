@@ -1,4 +1,4 @@
-import { ElementType, HTMLAttributes } from 'react';
+import { ElementType, HTMLAttributes, HTMLProps } from 'react';
 
 import { CommonHTMLAttributes } from './commonHTMLAttributes';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from './elementTypings';
@@ -40,7 +40,18 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
   const mismatches: string[] = [];
   const removeNonStyleChars = /[^(0-9a-z: )]/gi;
   Object.entries(expectedAttributes).forEach(([key, value]) => {
-    if (key === 'className') {
+    const valueType = typeof value;
+    const attributeValue = elem.getAttribute(key);
+    if (valueType === 'undefined') {
+      return;
+    }
+    if (valueType === 'boolean') {
+      // <input required=""> matches required:true
+      const attributeValueAsBoolean = attributeValue === '' || !!attributeValue;
+      if (attributeValueAsBoolean !== value) {
+        mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  ${value}.`);
+      }
+    } else if (key === 'className') {
       if (!String(elem.getAttribute('class')).includes(value)) {
         mismatches.push(
           `Attribute "class" does not include "${value}". Attribute has value "${elem.getAttribute('class')}".`,
@@ -51,7 +62,7 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
         key !== 'style'
           ? String(value)
           : `${JSON.stringify(value).replace(removeNonStyleChars, '').replace(':', ': ')};`;
-      const attributeValue = elem.getAttribute(key);
+
       if (expectedValue !== attributeValue) {
         mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  ${expectedValue}.`);
       }
@@ -66,7 +77,9 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
 ): MergeAndOverrideProps<AllElementPropsWithoutRef<T>, C> {
   const nativeProps: {
     all: HTMLAttributes<HTMLElement> & CommonHTMLAttributes;
-    div: HTMLAttributes<HTMLDivElement> & CommonHTMLAttributes;
+    div: HTMLAttributes<HTMLDivElement>;
+    // HTMLAttributes<HTMLInput> does not work properly.
+    input: HTMLProps<'input'>;
   } = {
     all: {
       'data-testid': 'testId',
@@ -79,6 +92,11 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
       tabIndex: 100,
     },
     div: {},
+    input: {
+      maxLength: 10,
+      pattern: '[A-Za-z]{3}',
+      required: true,
+    },
   };
   return { ...nativeProps.all, ...nativeProps[elem.toLowerCase()], ...extraTestAttributes };
 }
