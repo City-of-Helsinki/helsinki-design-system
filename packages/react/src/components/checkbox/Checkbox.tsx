@@ -6,65 +6,69 @@ import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { Tooltip } from '../tooltip';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
-export type CheckboxProps = {
-  /**
-   * If `true`, the component is checked
-   */
-  checked?: boolean;
-  /**
-   * Additional class names to apply to the checkbox
-   */
-  className?: string;
-  /**
-   * If `true`, the checkbox will be disabled
-   */
-  disabled?: boolean;
-  /**
-   * The error text content that will be shown below the checkbox
-   */
-  errorText?: string;
-  /**
-   * The helper text content that will be shown below the checkbox
-   */
-  helperText?: string;
-  /**
-   * The id of the input element
-   */
-  id: string;
-  /**
-   * Boolean indicating indeterminate status of the checkbox
-   */
-  indeterminate?: boolean;
-  /**
-   * The label for the checkbox
-   */
-  label?: string | React.ReactNode;
-  /**
-   * Callback fired when the state is changed
-   */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /**
-   * Override or extend the styles applied to the component
-   */
-  style?: React.CSSProperties;
-  /**
-   * The value of the component
-   */
-  value?: string;
-  /**
-   * Tooltip text for the checkbox
-   */
-  tooltipText?: string;
-  /**
-   * Aria-label text for the tooltip
-   */
-  tooltipLabel?: string;
-  /**
-   * Aria-label text for the tooltip trigger button
-   */
-  tooltipButtonLabel?: string;
-} & React.ComponentPropsWithoutRef<'input'>;
+export type CheckboxProps = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<'input'>,
+  {
+    /**
+     * If `true`, the component is checked
+     */
+    checked?: boolean;
+    /**
+     * Additional class names to apply to the checkbox
+     */
+    className?: string;
+    /**
+     * If `true`, the checkbox will be disabled
+     */
+    disabled?: boolean;
+    /**
+     * The error text content that will be shown below the checkbox
+     */
+    errorText?: string;
+    /**
+     * The helper text content that will be shown below the checkbox
+     */
+    helperText?: string;
+    /**
+     * The id of the input element
+     */
+    id: string;
+    /**
+     * Boolean indicating indeterminate status of the checkbox
+     */
+    indeterminate?: boolean;
+    /**
+     * The label for the checkbox
+     */
+    label?: string | React.ReactNode;
+    /**
+     * Callback fired when the state is changed
+     */
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    /**
+     * Override or extend the styles applied to the component
+     */
+    style?: React.CSSProperties;
+    /**
+     * The value of the component
+     */
+    value?: string;
+    /**
+     * Tooltip text for the checkbox
+     */
+    tooltipText?: string;
+    /**
+     * Aria-label text for the tooltip
+     */
+    tooltipLabel?: string;
+    /**
+     * Aria-label text for the tooltip trigger button
+     */
+    tooltipButtonLabel?: string;
+  }
+>;
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -88,7 +92,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref: React.Ref<HTMLInputElement>,
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
-
     useEffect(() => {
       if (ref) {
         /**
