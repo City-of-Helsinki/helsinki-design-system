@@ -5,6 +5,7 @@ title: 'FileInput - Code'
 
 import { FileInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -104,3 +105,8 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `language`    | The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels.                                            | `string` (fi, en, sv) | fi            |
 | `maxSize`     | Maximum file size in bytes.                                                                                                                                                  | `number`              | -             |
 | `multiple`    | If set to true, the input allows selecting multiple files.                                                                                                                   | `boolean`             | false         |
+
+<NativeElementPropsInfo
+  nodeName="div"
+  splitProps={['id']}
+/>

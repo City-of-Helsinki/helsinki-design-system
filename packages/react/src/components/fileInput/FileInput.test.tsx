@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { act } from 'react-dom/test-utils';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { FileInput, formatBytes } from './FileInput';
+import { FileInput, FileInputProps, formatBytes } from './FileInput';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<FileInput /> spec', () => {
   const defaultInputProps: Parameters<typeof FileInput>[0] = {
@@ -25,6 +26,19 @@ describe('<FileInput /> spec', () => {
     const { container } = render(<FileInput {...defaultInputProps} errorText="Error text" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps<'div', Pick<FileInputProps, 'onChange' | 'defaultValue'>>('div');
+    const { getByTestId } = render(<FileInput {...divProps} {...defaultInputProps} errorText="Error text" />);
+    const element = getByTestId(divProps['data-testid']);
+    // id is set to the input element, others to wrapper
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...(divProps as unknown as HTMLAttributes<HTMLDivElement>),
+        id: undefined,
+      }),
+    ).toHaveLength(0);
   });
 
   it('should not have accessibility issues when there are files added', async () => {
