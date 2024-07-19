@@ -1,3 +1,8 @@
+import { ElementType, HTMLAttributes } from 'react';
+
+import { CommonHTMLAttributes } from './commonHTMLAttributes';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from './elementTypings';
+
 export function getMockCalls(func: jest.Mock | jest.SpyInstance) {
   return func.mock ? func.mock.calls : [];
 }
@@ -26,4 +31,54 @@ export function filterMockCallArgs(func: jest.Mock | jest.SpyInstance, filter: (
 
 export function hasListenerBeenCalled(listener: jest.Mock) {
   return listener && getMockCalls(listener).length > 0;
+}
+
+export function getElementAttributesMisMatches<T = HTMLElement>(
+  elem: HTMLElement,
+  expectedAttributes: HTMLAttributes<T>,
+) {
+  const mismatches: string[] = [];
+  const removeNonStyleChars = /[^(0-9a-z: )]/gi;
+  Object.entries(expectedAttributes).forEach(([key, value]) => {
+    if (key === 'className') {
+      if (!String(elem.getAttribute('class')).includes(value)) {
+        mismatches.push(
+          `Attribute "class" does not include "${value}". Attribute has value "${elem.getAttribute('class')}".`,
+        );
+      }
+    } else {
+      const expectedValue =
+        key !== 'style'
+          ? String(value)
+          : `${JSON.stringify(value).replace(removeNonStyleChars, '').replace(':', ': ')};`;
+      const attributeValue = elem.getAttribute(key);
+      if (expectedValue !== attributeValue) {
+        mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  ${expectedValue}.`);
+      }
+    }
+  });
+  return mismatches;
+}
+
+export function getCommonElementTestProps<T extends ElementType = 'div', C = unknown>(
+  elem: HTMLElement['nodeName'],
+  extraTestAttributes?: AllElementPropsWithoutRef<T>,
+): MergeAndOverrideProps<AllElementPropsWithoutRef<T>, C> {
+  const nativeProps: {
+    all: HTMLAttributes<HTMLElement> & CommonHTMLAttributes;
+    div: HTMLAttributes<HTMLDivElement> & CommonHTMLAttributes;
+  } = {
+    all: {
+      'data-testid': 'testId',
+      'data-hds-prop': 'hdsProp',
+      style: { padding: '100px' },
+      className: 'test-class-name',
+      id: 'element-id',
+      'aria-label': 'aria-label',
+      'aria-describedby': 'aria-describedby',
+      tabIndex: 100,
+    },
+    div: {},
+  };
+  return { ...nativeProps.all, ...nativeProps[elem.toLowerCase()], ...extraTestAttributes };
 }
