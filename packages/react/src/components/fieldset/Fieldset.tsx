@@ -4,8 +4,9 @@ import '../../styles/base.module.css';
 import styles from './Fieldset.module.scss';
 import classNames from '../../utils/classNames';
 import { Tooltip } from '../tooltip';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-export type FieldsetProps = {
+export type FieldsetProps = AllElementPropsWithoutRef<'fieldset'> & {
   /**
    * Heading text inside legend element
    */
@@ -34,7 +35,7 @@ export type FieldsetProps = {
    * Aria-label text for the tooltip trigger button
    */
   tooltipButtonLabel?: string;
-} & React.HTMLProps<HTMLFieldSetElement>;
+};
 
 export const Fieldset = ({
   heading,
