@@ -31,28 +31,32 @@ export default {
   },
 };
 
-export const Primary = () => <Button onClick={onClick}>Button</Button>;
+export const Primary = () => (
+  <Button data-playwright onClick={onClick}>
+    Button
+  </Button>
+);
 
 export const Secondary = () => (
-  <Button onClick={onClick} variant={ButtonVariant.Secondary}>
+  <Button data-playwright onClick={onClick} variant={ButtonVariant.Secondary}>
     Button
   </Button>
 );
 
 export const Supplementary = () => (
-  <Button onClick={onClick} variant={ButtonVariant.Supplementary} iconStart={<IconTrash />}>
+  <Button data-playwright onClick={onClick} variant={ButtonVariant.Supplementary} iconStart={<IconTrash />}>
     Button
   </Button>
 );
 
 export const Small = () => (
-  <Button onClick={onClick} size={ButtonSize.Small}>
+  <Button data-playwright onClick={onClick} size={ButtonSize.Small}>
     Button
   </Button>
 );
 
 export const Danger = () => (
-  <Button onClick={onClick} variant={ButtonVariant.Danger}>
+  <Button data-playwright onClick={onClick} variant={ButtonVariant.Danger}>
     Button
   </Button>
 );
@@ -78,13 +82,13 @@ export const Disabled = () => (
 );
 
 export const Success = () => (
-  <Button onClick={onClick} variant={ButtonVariant.Success}>
+  <Button data-playwright onClick={onClick} variant={ButtonVariant.Success}>
     Button
   </Button>
 );
 
 export const FullWidth = () => (
-  <Button onClick={onClick} fullWidth>
+  <Button data-playwright onClick={onClick} fullWidth>
     Button
   </Button>
 );
@@ -92,7 +96,7 @@ FullWidth.storyName = 'Full width';
 
 export const Icons = () => (
   <>
-    <Button onClick={onClick} iconStart={<IconShare />}>
+    <Button data-playwright onClick={onClick} iconStart={<IconShare />}>
       Button
     </Button>
 
@@ -104,7 +108,7 @@ export const Icons = () => (
       Button
     </Button>
 
-    <Button onClick={onClick} iconStart={<IconShare />} size={ButtonSize.Small}>
+    <Button data-playwright onClick={onClick} iconStart={<IconShare />} size={ButtonSize.Small}>
       Button
     </Button>
 
@@ -120,15 +124,16 @@ export const Icons = () => (
 
 export const Themes = () => (
   <>
-    <Button onClick={onClick} theme={ButtonPresetTheme.Coat}>
+    <Button data-playwright onClick={onClick} theme={ButtonPresetTheme.Coat}>
       Coat
     </Button>
 
-    <Button onClick={onClick} theme={ButtonPresetTheme.Coat} variant={ButtonVariant.Secondary}>
+    <Button data-playwright onClick={onClick} theme={ButtonPresetTheme.Coat} variant={ButtonVariant.Secondary}>
       Coat
     </Button>
 
     <Button
+      data-playwright
       onClick={onClick}
       theme={ButtonPresetTheme.Coat}
       variant={ButtonVariant.Supplementary}
@@ -137,15 +142,16 @@ export const Themes = () => (
       Coat
     </Button>
 
-    <Button theme={ButtonPresetTheme.Black} onClick={onClick} variant={ButtonVariant.Primary}>
+    <Button data-playwright theme={ButtonPresetTheme.Black} onClick={onClick} variant={ButtonVariant.Primary}>
       Black
     </Button>
 
-    <Button theme={ButtonPresetTheme.Black} onClick={onClick} variant={ButtonVariant.Secondary}>
+    <Button data-playwright theme={ButtonPresetTheme.Black} onClick={onClick} variant={ButtonVariant.Secondary}>
       Black
     </Button>
 
     <Button
+      data-playwright
       theme={ButtonPresetTheme.Black}
       onClick={onClick}
       iconEnd={<IconAngleRight />}
@@ -273,6 +279,7 @@ Playground.argTypes = {
 
 export const LinkButton = () => (
   <Button
+    data-playwright
     onClick={() => {
       window.open('/');
     }}
