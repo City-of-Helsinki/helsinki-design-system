@@ -6,6 +6,8 @@ title: 'Dialog - Code'
 import { Dialog, Button, IconAlertCircle, IconInfoCircle, IconQuestionCircle, IconTrash, TextArea, TextInput } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
+
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -375,3 +377,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `variant`                | Defines the dialog variant.                                                                           | primary, danger | primary       |
 | `close`                  | A function called when a dialog close button is pressed. The button if shown if this property exists. | `function`      | -             |
 | `closeButtonLabelText`   | The aria-label for the close button. Required with `close` property.                                  | `string`        | -             |
+
+<NativeElementPropsInfo nodeName="div" />
