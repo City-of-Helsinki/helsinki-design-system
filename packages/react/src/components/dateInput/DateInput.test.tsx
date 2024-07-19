@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
-import React, { useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -8,7 +8,8 @@ import '@testing-library/jest-dom/extend-expect';
 import { axe } from 'jest-axe';
 import isWeekend from 'date-fns/isWeekend';
 
-import { DateInput } from './DateInput';
+import { DateInput, DateInputProps } from './DateInput';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<DateInput /> spec', () => {
   const RealDate = Date;
@@ -74,6 +75,31 @@ describe('<DateInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('native html props are passed to the element', async () => {
+    const inputProps = getCommonElementTestProps<
+      'input',
+      { defaultValue: string; value: string; onChange: DateInputProps['onChange']; id: string }
+    >('input');
+    const { getByTestId } = render(<DateInput label="Foo" {...inputProps} value="11.11.2012" />);
+    const element = getByTestId(inputProps['data-testid']);
+    // className and style props are applied to a wrapper element and not testable
+    const inputElementProps = {
+      ...inputProps,
+      style: undefined,
+      className: undefined,
+    };
+    expect(
+      getElementAttributesMisMatches(element, inputElementProps as unknown as HTMLAttributes<HTMLInputElement>),
+    ).toHaveLength(0);
+    const wrapper = (element.parentElement as HTMLElement).parentElement as HTMLElement;
+    expect(
+      getElementAttributesMisMatches(wrapper, {
+        style: inputProps.style,
+        className: inputProps.className,
+      }),
+    ).toHaveLength(0);
+  });
+
   it('opens and closes the date picker', async () => {
     render(<DateInput id="date" label="Foo" />);
 
@@ -108,7 +134,7 @@ describe('<DateInput /> spec', () => {
     expect(screen.getByLabelText('Year')).toHaveValue('2021');
 
     // Get the current date cell
-    const cellElement = container.querySelector('td[aria-current="date"]');
+    const cellElement = container.querySelector('td[aria-current="date"]') as HTMLElement;
 
     // Current date cell should have a button with the current date as content
     expect(cellElement.querySelectorAll('button > span')[0]).toHaveTextContent('17');
@@ -131,7 +157,7 @@ describe('<DateInput /> spec', () => {
     expect(container.querySelector('td[aria-current="date"]')).toBeNull();
 
     // Select the date 2022-02-10
-    userEvent.click(container.querySelector('button[data-date="2022-02-10"]'));
+    userEvent.click(container.querySelector('button[data-date="2022-02-10"]') as HTMLButtonElement);
 
     // The button should now have aria-pressed="true" attribute and selected class
     const currentDateButton = container.querySelector('button[data-date="2022-02-10"]');
@@ -152,7 +178,7 @@ describe('<DateInput /> spec', () => {
     userEvent.selectOptions(screen.getByLabelText('Year'), '2022');
 
     // Select the date 2022-02-10
-    userEvent.click(container.querySelector('button[data-date="2022-02-10"]'));
+    userEvent.click(container.querySelector('button[data-date="2022-02-10"]') as HTMLButtonElement);
 
     // Confirm the date selection by clicking the Select button
     userEvent.click(screen.getByTestId('selectButton'));
@@ -177,7 +203,7 @@ describe('<DateInput /> spec', () => {
     userEvent.selectOptions(screen.getByLabelText('Year'), '2022');
 
     // Select the date 2022-02-10
-    userEvent.click(container.querySelector('button[data-date="2022-02-10"]'));
+    userEvent.click(container.querySelector('button[data-date="2022-02-10"]') as HTMLButtonElement);
 
     // Close with the Close button
     userEvent.click(screen.getByTestId('closeButton'));
@@ -202,7 +228,7 @@ describe('<DateInput /> spec', () => {
     userEvent.selectOptions(screen.getByLabelText('Year'), '2022');
 
     // Select the date 2022-02-10
-    userEvent.click(container.querySelector('button[data-date="2022-02-10"]'));
+    userEvent.click(container.querySelector('button[data-date="2022-02-10"]') as HTMLButtonElement);
 
     // Click outside the calendar
     await act(async () => {
@@ -229,7 +255,7 @@ describe('<DateInput /> spec', () => {
     userEvent.selectOptions(screen.getByLabelText('Year'), '2022');
 
     // Select the date 2022-02-10
-    userEvent.click(container.querySelector('button[data-date="2022-02-10"]'));
+    userEvent.click(container.querySelector('button[data-date="2022-02-10"]') as HTMLButtonElement);
 
     // Calendar should become hidden
     expect(screen.queryByRole('dialog')).toBeNull();
