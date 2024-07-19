@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Breadcrumb, BreadcrumbProps } from './Breadcrumb';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Breadcrumb /> spec', () => {
   const defaultProps: BreadcrumbProps = {
@@ -24,6 +25,18 @@ describe('<Breadcrumb /> spec', () => {
     const { container } = render(<Breadcrumb {...defaultProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const navProps = getCommonElementTestProps<'nav'>('nav');
+    // BreadCrumb has prop "ariaLabel". It will override "aria-label".
+    navProps['aria-label'] = defaultProps.ariaLabel;
+    const expectedProps = {
+      ...navProps,
+      ...defaultProps,
+    };
+    const { getByTestId } = render(<Breadcrumb {...expectedProps} />);
+    const element = getByTestId(navProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, navProps)).toHaveLength(0);
   });
   it('Mobile view renders the last item with a path. That item is rendered twice: in the desktop and mobile views.', async () => {
     const { getAllByText, getByText, container } = render(<Breadcrumb {...defaultProps} />);
