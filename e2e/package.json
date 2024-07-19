@@ -5,11 +5,13 @@
   "version": "3.10.0",
   "scripts": {
     "inst": "yarn playwright install",
+    "install-deps": "npx playwright install-deps",
     "ci": "npx playwright test",
     "start": "npx playwright test",
+    "update-snapshots": "npx playwright test --update-snapshots",
     "record": "npx playwright codegen https://hds.hel.fi"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1"
+    "@playwright/test": "^1.45.1"
   }
 }
