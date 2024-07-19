@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { ErrorSummary } from './ErrorSummary';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<ErrorSummary /> spec', () => {
   it('renders the component', () => {
@@ -26,5 +27,15 @@ describe('<ErrorSummary /> spec', () => {
       </ErrorSummary>,
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('Native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(
+      <ErrorSummary {...divProps} label="Form contains following errors" size="default">
+        <ul />
+      </ErrorSummary>,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 });
