@@ -122,6 +122,7 @@ jobs:
           git add .
           git commit -m "Updated preview to $DEMO_NAME"
           git status
+          git pull --rebase
           git push
         working-directory: ./hds-demo
 
