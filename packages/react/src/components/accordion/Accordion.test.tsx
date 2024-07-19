@@ -4,6 +4,7 @@ import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
 import { Accordion } from './Accordion';
+import { getElementAttributesMisMatches, getCommonElementTestProps } from '../../utils/testHelpers';
 
 describe('<Accordion /> spec', () => {
   afterAll(() => {
@@ -19,6 +20,17 @@ describe('<Accordion /> spec', () => {
     const { container } = render(<Accordion heading="Foo">Bar</Accordion>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const divProps = { ...getCommonElementTestProps('div') };
+    const { getByTestId } = render(
+      <Accordion heading="Foo" {...divProps}>
+        Bar
+      </Accordion>,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 
   it('should open the accordion when accordion header is clicked', async () => {
