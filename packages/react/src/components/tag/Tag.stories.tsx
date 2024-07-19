@@ -33,8 +33,16 @@ InformativeTagsLarge.args = { size: TagSize.Large };
 
 export const LinkTags = (args: TagProps) => (
   <TagWrapper>
-    <Tag {...args} id="linktag-1" href="#linkTags" iconEnd={<IconShare />} aria-label="Open link to self" />
     <Tag
+      data-playwright
+      {...args}
+      id="linktag-1"
+      href="#linkTags"
+      iconEnd={<IconShare />}
+      aria-label="Open link to self"
+    />
+    <Tag
+      data-playwright
       {...args}
       id="linktag-2"
       href="#linkTags"
@@ -47,7 +55,13 @@ export const LinkTags = (args: TagProps) => (
 
 export const ActionTags = (args: TagProps) => (
   <TagWrapper>
-    <Tag {...args} id="action-1" onClick={() => action(`Click: ${args.children}`)()} aria-label="run action 1">
+    <Tag
+      data-playwright
+      {...args}
+      id="action-1"
+      onClick={() => action(`Click: ${args.children}`)()}
+      aria-label="run action 1"
+    >
       {args.children}
     </Tag>
     <Tag
@@ -60,6 +74,7 @@ export const ActionTags = (args: TagProps) => (
       {args.children}
     </Tag>
     <Tag
+      data-playwright
       {...args}
       size={TagSize.Large}
       id="action-3"
@@ -85,6 +100,7 @@ export const DeletableTags = (args: TagProps) => {
   return (
     <TagWrapper>
       <Tag
+        data-playwright
         {...args}
         aria-label={`Delete item: ${args.children}`}
         onDelete={() => action(`Delete item: ${args.children}`)()}
@@ -92,6 +108,7 @@ export const DeletableTags = (args: TagProps) => {
         {args.children}
       </Tag>
       <Tag
+        data-playwright
         size={TagSize.Large}
         {...args}
         aria-label={`Delete item: ${args.children}`}
