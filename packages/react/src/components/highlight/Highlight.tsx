@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Highlight.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface HighlightTheme {
   '--accent-line-color'?: string;
@@ -13,7 +14,7 @@ export interface HighlightTheme {
 export type HighlightType = 'highlight' | 'quote';
 export type HighlightSize = 's' | 'm' | 'l';
 
-export type HighlightProps = {
+export type HighlightProps = AllElementPropsWithoutRef<'figure'> & {
   /**
    * Highlight Theme
    */
@@ -36,13 +37,16 @@ export type HighlightProps = {
   reference?: string;
 };
 
-export const Highlight = ({ theme, size, type, text, reference }: HighlightProps) => {
+export const Highlight = ({ theme, size, type, text, reference, className, ...rest }: HighlightProps) => {
   // custom theme
   const customThemeClass = useTheme<HighlightTheme>(styles.highlight, theme || {});
   const isQuote = type && type === 'quote';
 
   return (
-    <figure className={classNames(styles.highlight, size && styles[`size-${size}`], customThemeClass)}>
+    <figure
+      {...rest}
+      className={classNames(styles.highlight, size && styles[`size-${size}`], customThemeClass, className)}
+    >
       <blockquote className={styles.highlightBlockquote}>
         <p className={classNames(styles.text, isQuote && styles.quote)}>{text}</p>
       </blockquote>
