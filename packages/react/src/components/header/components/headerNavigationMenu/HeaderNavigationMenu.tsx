@@ -5,21 +5,24 @@ import styles from './HeaderNavigationMenu.module.scss';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween, getChildrenAsArray } from '../../../../utils/getChildren';
+import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 
-export type HeaderNavigationMenuProps = React.PropsWithChildren<{
-  /**
-   * Aria-label for describing universal bar.
-   */
-  ariaLabel?: string;
-  /**
-   * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
-   */
-  children?: React.ReactNode;
-  /**
-   * ID of the header element.
-   */
-  id?: string;
-}>;
+export type HeaderNavigationMenuProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'nav'> & {
+    /**
+     * Aria-label for describing universal bar.
+     */
+    ariaLabel?: string;
+    /**
+     * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
+     */
+    children?: React.ReactNode;
+    /**
+     * ID of the header element.
+     */
+    id?: string;
+  }
+>;
 
 const renderHeaderNavigationMenuItem = (child, index, isSmallScreen) => {
   const linkContentClass = isSmallScreen
@@ -67,7 +70,7 @@ export const HeaderNavigationMenuContent = () => {
   );
 };
 
-export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigationMenuProps) => {
+export const HeaderNavigationMenu = ({ ariaLabel, children, className, ...rest }: HeaderNavigationMenuProps) => {
   const { isSmallScreen } = useHeaderContext();
   const { setNavigationContent } = useSetHeaderContext();
 
@@ -80,7 +83,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
 
   return (
     <div className={styles.headerNavigationMenuContainer}>
-      <nav aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
+      <nav {...rest} aria-label={ariaLabel} className={classNames(styles.headerNavigationMenu, className)}>
         <ul className={styles.headerNavigationMenuList}>
           <HeaderNavigationMenuContent />
         </ul>

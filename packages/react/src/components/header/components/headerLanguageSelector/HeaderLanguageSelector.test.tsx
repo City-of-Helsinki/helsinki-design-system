@@ -13,10 +13,13 @@ import { Link } from '../../../link/Link';
 import {
   HeaderLanguageSelector,
   HeaderLanguageSelectorConsumer,
+  LanguageButton,
   LanguageSelectorProps,
+  SimpleLanguageOptions,
 } from './HeaderLanguageSelector';
 import { HeaderActionBar } from '../headerActionBar/HeaderActionBar';
 import { Logo } from '../../../logo/Logo';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 type StrFn = (str: string) => string;
 type TestScenarioProps = LanguageProviderProps &
@@ -79,6 +82,7 @@ const RenderTestScenario = ({
   doNotRenderMenuItems = false,
   renderActiveLanguage = false,
   consumerOnly = false,
+  ...rest
 }: TestScenarioProps) => {
   return (
     <LanguageProvider onDidChangeLanguage={onDidChangeLanguage} defaultLanguage={defaultLanguage} languages={languages}>
@@ -91,7 +95,7 @@ const RenderTestScenario = ({
           titleHref="https://hel.fi"
           logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
         >
-          <HeaderLanguageSelector ariaLabel={ariaLabel}>
+          <HeaderLanguageSelector {...rest} ariaLabel={ariaLabel}>
             {!doNotRenderMenuItems && <MenuContent />}
           </HeaderLanguageSelector>
         </HeaderActionBar>
@@ -131,6 +135,32 @@ describe('<Header.LanguageSelector /> spec', () => {
     const { container } = render(<LanguageSelectorConsumerOnly />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(<LanguageSelectorWithActionBar {...divProps} />);
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
+  });
+
+  it('Native html props are passed to the SimpleLanguageOptions element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(
+      <SimpleLanguageOptions
+        languages={[defaultLanguages[0], defaultLanguages[1], defaultLanguages[2]]}
+        {...divProps}
+      />,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
+  });
+
+  it('native html props are passed to the LanguageButton element', async () => {
+    const buttonProps = getCommonElementTestProps<'button', { value: string }>('button');
+    const { getByTestId } = render(<LanguageButton {...defaultLanguages[0]} {...buttonProps} />);
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Language selector props and children are rendered by the consumers', async () => {

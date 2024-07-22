@@ -4,11 +4,12 @@ import classes from './HeaderLanguageSelector.module.scss';
 import { LanguageOption, useActiveLanguage, useAvailableLanguages, useSetLanguage } from '../../LanguageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
-import { HeaderActionBarItem, HeaderActionBarSubItemGroup } from '../headerActionBarItem';
+import { HeaderActionBarItem, HeaderActionBarItemProps, HeaderActionBarSubItemGroup } from '../headerActionBarItem';
 import { HeaderActionBarSubItem } from '../headerActionBarSubItem';
 import { IconGlobe } from '../../../../icons';
 import { useHeaderContext } from '../../HeaderContext';
 import { getComponentFromChildren } from '../../../../utils/getChildren';
+import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 
 /* eslint-disable react/no-unused-prop-types */
 type LanguageSelectorComponentProps = {
@@ -24,7 +25,7 @@ type LanguageSelectorComponentProps = {
    * Function for sorting language options into primary and secondary.
    */
   sortLanguageOptions?: (options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]];
-};
+} & Partial<HeaderActionBarItemProps>;
 /* eslint-enable react/no-unused-prop-types */
 
 export type LanguageSelectorProps = PropsWithChildren<LanguageSelectorComponentProps>;
@@ -38,19 +39,28 @@ type LanguageSelectorConsumerProps = LanguageSelectorProps & {
   fullWidthForMobile?: boolean;
 };
 
-export const LanguageButton = ({ value, label }: LanguageOption) => {
+export const LanguageButton = ({
+  value,
+  label,
+  // isPrimary is picked so it won't be in ...rest and end up in the html
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  isPrimary,
+  className,
+  ...rest
+}: LanguageOption & AllElementPropsWithoutRef<'button'>) => {
   const activeLanguage = useActiveLanguage();
   const setLanguage = useSetLanguage();
-  const className = classNames(classes.item, { [classes.activeItem]: activeLanguage === value });
+  const classList = classNames(classes.item, { [classes.activeItem]: activeLanguage === value }, className);
   const selectLanguage = withDefaultPrevented(() => setLanguage(value));
 
   return (
     <button
+      {...rest}
       key={value}
       lang={value}
       onClick={selectLanguage}
       type="button"
-      className={className}
+      className={classList}
       aria-current={activeLanguage === value}
     >
       <span>{label}</span>
@@ -63,9 +73,13 @@ const renderLanguageNode = (language: LanguageOption, primary: boolean) => {
   return primary ? Label : <HeaderActionBarSubItem label={Label} key={language.value} />;
 };
 
-export const SimpleLanguageOptions = ({ languages }: { languages: LanguageOption[] }) => {
+export const SimpleLanguageOptions = ({
+  languages,
+  className,
+  ...rest
+}: { languages: LanguageOption[] } & AllElementPropsWithoutRef<'div'>) => {
   return (
-    <div className={classNames(classes.languageNodes, classes.simpleLanguageNodes)}>
+    <div {...rest} className={classNames(classes.languageNodes, classes.simpleLanguageNodes, className)}>
       {languages.map((node) => renderLanguageNode(node, true))}
     </div>
   );

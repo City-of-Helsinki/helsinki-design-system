@@ -1,4 +1,4 @@
-import { ElementType, AnchorHTMLAttributes, HTMLAttributes, HTMLProps } from 'react';
+import { ElementType, AnchorHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes, HTMLProps } from 'react';
 
 import { CommonHTMLAttributes } from './commonHTMLAttributes';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from './elementTypings';
@@ -49,7 +49,7 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
       // <input required=""> matches required:true
       const attributeValueAsBoolean = attributeValue === '' || !!attributeValue;
       if (attributeValueAsBoolean !== value) {
-        mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  ${value}.`);
+        mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  "${value}".`);
       }
     } else if (key === 'className') {
       if (!String(elem.getAttribute('class')).includes(value)) {
@@ -78,6 +78,7 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
   const nativeProps: {
     all: HTMLAttributes<HTMLElement> & CommonHTMLAttributes;
     div: HTMLAttributes<HTMLDivElement>;
+    button: ButtonHTMLAttributes<HTMLButtonElement>;
     // HTMLAttributes<HTMLInput> does not work properly.
     input: HTMLProps<'input'>;
     a: AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -102,6 +103,10 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
       href: 'href',
       target: '_blank',
       rel: 'rel',
+    },
+    button: {
+      type: 'button',
+      name: 'buttonName',
     },
   };
   return { ...nativeProps.all, ...nativeProps[elem.toLowerCase()], ...extraTestAttributes };
