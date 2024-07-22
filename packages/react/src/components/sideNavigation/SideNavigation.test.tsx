@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { SideNavigation } from './SideNavigation';
+import { SideNavigation, SideNavigationProps } from './SideNavigation';
 import { IconHome } from '../../icons';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 const labels = {
   mainLevel1: 'Main level 1',
@@ -50,6 +51,25 @@ describe('<SideNavigation /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps<'nav', Pick<SideNavigationProps, 'ariaLabel' | 'id'>>('nav');
+    // Element has prop "ariaLabel". It will override "aria-label".
+    divProps.ariaLabel = 'Real aria-label';
+    const { getByTestId } = render(
+      <SideNavigation {...divProps} toggleButtonLabel={labels.toggleButton} aria-label="This will be overridden">
+        <p>Hello</p>
+      </SideNavigation>,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...divProps,
+        ariaLabel: undefined,
+        'aria-label': divProps.ariaLabel,
+      } as HTMLAttributes<HTMLElement>),
+    ).toHaveLength(0);
+  });
+
   it('should show sub level when main level is clicked', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
@@ -60,7 +80,7 @@ describe('<SideNavigation /> spec', () => {
     );
 
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
-    userEvent.click(queryButton('mainLevel1'));
+    userEvent.click(queryButton('mainLevel1') as HTMLButtonElement);
     expect(queryLink('subLevel1')).toBeInTheDocument();
   });
 
@@ -115,22 +135,22 @@ describe('<SideNavigation /> spec', () => {
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevelButton1);
+    userEvent.click(mainLevelButton1 as HTMLButtonElement);
     expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'true');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevelButton2);
+    userEvent.click(mainLevelButton2 as HTMLButtonElement);
     expect(mainLevelButton2).toHaveAttribute('aria-expanded', 'true');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).toBeInTheDocument();
 
-    userEvent.click(mainLevelButton2);
+    userEvent.click(mainLevelButton2 as HTMLButtonElement);
     expect(mainLevelButton2).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevelButton1);
+    userEvent.click(mainLevelButton1 as HTMLButtonElement);
     expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
