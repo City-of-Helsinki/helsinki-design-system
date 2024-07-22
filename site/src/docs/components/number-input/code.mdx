@@ -5,6 +5,7 @@ title: 'NumberInput - Code'
 
 import { NumberInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -165,3 +166,8 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `plusStepButtonAriaLabel`        | The aria label for plus step button.                                       | `string` | -             |
 | `unit`                           | Unit characters of the input. Example: €                                   | `string` | -             |
 | [Table 1:NumberInput properties] |
+
+<NativeElementPropsInfo
+  nodeName="input"
+  splitProps={['id', 'className', 'style']}
+/>
