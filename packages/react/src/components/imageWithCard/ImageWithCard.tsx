@@ -3,19 +3,22 @@ import React from 'react';
 import '../../styles/base.module.css';
 import styles from './ImageWithCard.module.css';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type ImageWithCardAlignment = 'left' | 'right';
 export type ImageWithCardLayout = 'hover' | 'split';
 export type ImageWithCardColor = 'primary' | 'secondary' | 'tertiary' | 'plain';
 
-export type ImageWithCardProps = React.PropsWithChildren<{
-  src: string;
-  fullWidth?: boolean;
-  cardAlignment?: ImageWithCardAlignment;
-  cardLayout?: ImageWithCardLayout;
-  color?: ImageWithCardColor;
-  className?: string;
-}>;
+export type ImageWithCardProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'div'> & {
+    src: string;
+    fullWidth?: boolean;
+    cardAlignment?: ImageWithCardAlignment;
+    cardLayout?: ImageWithCardLayout;
+    color?: ImageWithCardColor;
+    className?: string;
+  }
+>;
 
 export const ImageWithCard = ({
   src,
@@ -24,9 +27,11 @@ export const ImageWithCard = ({
   cardAlignment = 'left',
   color = 'plain',
   cardLayout = null,
-  className = null,
+  className,
+  ...rest
 }: ImageWithCardProps) => (
   <div
+    {...rest}
     className={classNames(
       styles.wrapper,
       styles[`${cardAlignment}Alignment`],
