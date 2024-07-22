@@ -5,6 +5,7 @@ title: 'StatusLabel - Code'
 
 import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -111,3 +112,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `type`     | The type of the status label.                        | `"neutral"` `"success"` `"info"` `"alert"` `"error"` | `"neutral"`   |
 | `iconLeft` | Element placed on the left side of the status label. | `ReactNode`                                          | -             |
 [Table 1:StatusLabel properties]|
+
+<NativeElementPropsInfo
+  nodeName="span"
+  overlappingProps={['native data-testid/dataTestId']}
+/>
