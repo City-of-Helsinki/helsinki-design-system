@@ -3,45 +3,49 @@ import React from 'react';
 import '../../styles/base.module.css';
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
-export type RadioButtonProps = {
-  /**
-   * If `true`, the component is checked
-   */
-  checked?: boolean;
-  /**
-   * Additional class names to apply to the radio button
-   */
-  className?: string;
-  /**
-   * If `true`, the radio button will be disabled
-   */
-  disabled?: boolean;
-  /**
-   * The helper text content that will be shown below the input
-   */
-  helperText?: string;
-  /**
-   * The id of the input element
-   */
-  id: string;
-  /**
-   * The label for the radio button
-   */
-  label?: string | React.ReactNode;
-  /**
-   * Callback fired when the state is changed
-   */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /**
-   * Override or extend the styles applied to the component
-   */
-  style?: React.CSSProperties;
-  /**
-   * The value of the component
-   */
-  value?: string;
-} & React.ComponentPropsWithoutRef<'input'>;
+export type RadioButtonProps = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<'input'>,
+  {
+    /**
+     * If `true`, the component is checked
+     */
+    checked?: boolean;
+    /**
+     * Additional class names to apply to the radio button
+     */
+    className?: string;
+    /**
+     * If `true`, the radio button will be disabled
+     */
+    disabled?: boolean;
+    /**
+     * The helper text content that will be shown below the input
+     */
+    helperText?: string;
+    /**
+     * The id of the input element
+     */
+    id: string;
+    /**
+     * The label for the radio button
+     */
+    label?: string | React.ReactNode;
+    /**
+     * Callback fired when the state is changed
+     */
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    /**
+     * Override or extend the styles applied to the component
+     */
+    style?: React.CSSProperties;
+    /**
+     * The value of the component
+     */
+    value?: string;
+  }
+>;
 
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   (
