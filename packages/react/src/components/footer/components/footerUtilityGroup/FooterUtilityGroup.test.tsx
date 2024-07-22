@@ -6,6 +6,7 @@ import { Footer } from '../../Footer';
 import { FooterUtilitiesWrapper } from '../../../../utils/test-utils';
 import { FooterVariant } from '../../Footer.interface';
 import { IconFacebook } from '../../../../icons';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('<Footer.UtilityGroup /> spec', () => {
   it('renders the utility groups', () => {
@@ -98,5 +99,20 @@ describe('<Footer.UtilityGroup /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(
+      <Footer.UtilityGroup {...divProps}>
+        <Footer.GroupHeading
+          href="https://google.com"
+          onClick={(e) => e.preventDefault()}
+          label="Main Page"
+          variant={FooterVariant.Utility}
+        />
+      </Footer.UtilityGroup>,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 });
