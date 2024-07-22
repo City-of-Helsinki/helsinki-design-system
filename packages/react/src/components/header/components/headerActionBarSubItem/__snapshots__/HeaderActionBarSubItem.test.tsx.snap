@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeaderActionBarSubItem /> spec renders the component 1`] = `
+<DocumentFragment>
+  <header
+    class="hds-header header"
+  >
+    <div
+      class="headerBackgroundWrapper"
+    >
+      <div
+        class="container hasContent hasSubItems"
+        id="actionBarItem-id"
+      >
+        <button
+          aria-controls="actionBarItem-id-dropdown"
+          aria-expanded="false"
+          aria-label="label"
+          class="actionBarItemButton icon hasSubItems"
+          type="button"
+        >
+          <div
+            class="buttonContent"
+          >
+            <span>
+              <span
+                class="actionBarItemButtonLabel"
+              >
+                label
+              </span>
+            </span>
+            <svg
+              aria-hidden="true"
+              aria-label="angle-down"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+        <div
+          class="dropdownWrapper"
+        >
+          <div
+            class="dropdown hasContent hasSubItems"
+            id="actionBarItem-id-dropdown"
+          >
+            <ul>
+              <li
+                class="dropdownSubItem"
+              >
+                <h4
+                  class="actionBarSubItem"
+                >
+                  <span
+                    class="actionBarSubItemLabel"
+                  >
+                    label
+                  </span>
+                </h4>
+                <ul>
+                  <li
+                    class="dropdownItem"
+                  >
+                    <a
+                      aria-label="MyHelsinki.fi. Siirtyy toiseen sivustoon."
+                      class="actionBarSubItem"
+                      href="www.example.com"
+                      lang="fi"
+                    >
+                      <span
+                        class="actionBarSubItemIcon actionBarSubItemIconLeft"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          aria-label="alert-circle"
+                          class="icon s"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM13 16V18H11V16H13ZM13 6V14H11V6H13Z"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="actionBarSubItemLabel"
+                      >
+                        MyHelsinki.fi
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        aria-label="link-external"
+                        class="icon s actionBarSubItemIcon"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</DocumentFragment>
+`;

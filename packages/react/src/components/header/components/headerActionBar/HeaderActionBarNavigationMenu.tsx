@@ -1,5 +1,6 @@
 import React, {
   cloneElement,
+  HTMLAttributes,
   isValidElement,
   MouseEventHandler,
   TransitionEvent,
@@ -20,10 +21,15 @@ import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { HeaderActionBarItemProps } from '../headerActionBarItem';
 import useForceRender from '../../../../hooks/useForceRender';
 
-type NavigationSectionType = {
+/**
+ * This HeaderActionBarNavigationMenu is used only internally in <HeaderActionBar />
+ * The component is not export to hds-react, so it does not need to have typings from AllElementPropsWithoutRef
+ */
+
+type NavigationSectionType = HTMLAttributes<HTMLElement> & {
   logo: React.ReactNode;
   universalLinks: React.ReactNode[];
-} & React.ComponentPropsWithoutRef<'section'>;
+};
 
 const NavigationSection = ({ children, className, logo, universalLinks, ...rest }: NavigationSectionType) => {
   return (

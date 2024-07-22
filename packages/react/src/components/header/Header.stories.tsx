@@ -251,7 +251,7 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
       <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
         <Header.ActionBarSubItemGroup label={I18n.infoOtherLanguages}>
           <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
-          <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
+          <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="se" />
         </Header.ActionBarSubItemGroup>
         <Header.ActionBarSubItemGroup label={I18n.forTravellers}>
           <Header.ActionBarSubItem label="MyHelsinki.fi" external href="www.example.com" lang="fi" />
