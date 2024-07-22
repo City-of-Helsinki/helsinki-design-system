@@ -1,4 +1,4 @@
-import { ElementType, HTMLAttributes, HTMLProps } from 'react';
+import { ElementType, AnchorHTMLAttributes, HTMLAttributes, HTMLProps } from 'react';
 
 import { CommonHTMLAttributes } from './commonHTMLAttributes';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from './elementTypings';
@@ -80,6 +80,7 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
     div: HTMLAttributes<HTMLDivElement>;
     // HTMLAttributes<HTMLInput> does not work properly.
     input: HTMLProps<'input'>;
+    a: AnchorHTMLAttributes<HTMLAnchorElement>;
   } = {
     all: {
       'data-testid': 'testId',
@@ -96,6 +97,11 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
       maxLength: 10,
       pattern: '[A-Za-z]{3}',
       required: true,
+    },
+    a: {
+      href: 'href',
+      target: '_blank',
+      rel: 'rel',
     },
   };
   return { ...nativeProps.all, ...nativeProps[elem.toLowerCase()], ...extraTestAttributes };
