@@ -6,11 +6,12 @@ import classNames from '../../utils/classNames';
 import { RequiredIndicator } from '../../internal/required-indicator/RequiredIndicator';
 import { Tooltip } from '../tooltip';
 import { getChildrenAsArray } from '../../utils/getChildren';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type Direction = 'vertical' | 'horizontal';
 
 export type SelectionGroupProps = React.PropsWithChildren<
-  {
+  AllElementPropsWithoutRef<'fieldset'> & {
     /**
      * The label for the selection group.
      */
@@ -47,7 +48,7 @@ export type SelectionGroupProps = React.PropsWithChildren<
      * Additional class names
      */
     className?: string;
-  } & React.HTMLProps<HTMLFieldSetElement>
+  }
 >;
 
 export const SelectionGroup = ({
