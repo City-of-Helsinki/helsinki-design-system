@@ -1,4 +1,11 @@
-import { ElementType, AnchorHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes, HTMLProps } from 'react';
+import {
+  ElementType,
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+  HTMLProps,
+  ImgHTMLAttributes,
+} from 'react';
 
 import { CommonHTMLAttributes } from './commonHTMLAttributes';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from './elementTypings';
@@ -82,6 +89,7 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
     // HTMLAttributes<HTMLInput> does not work properly.
     input: HTMLProps<'input'>;
     a: AnchorHTMLAttributes<HTMLAnchorElement>;
+    img: ImgHTMLAttributes<HTMLImageElement>;
   } = {
     all: {
       'data-testid': 'testId',
@@ -107,6 +115,12 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
     button: {
       type: 'button',
       name: 'buttonName',
+    },
+    img: {
+      height: 100,
+      width: 100,
+      loading: 'lazy',
+      useMap: '#mapName',
     },
   };
   return { ...nativeProps.all, ...nativeProps[elem.toLowerCase()], ...extraTestAttributes };
