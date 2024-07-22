@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Hero.Text /> spec renders the component 1`] = `
+<DocumentFragment>
+  <p
+    aria-describedby="aria-describedby"
+    aria-label="aria-label"
+    class="text test-class-name"
+    data-hds-prop="hdsProp"
+    data-testid="testId"
+    id="element-id"
+    style="padding: 100px;"
+    tabindex="0"
+  >
+    Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+  </p>
+</DocumentFragment>
+`;
