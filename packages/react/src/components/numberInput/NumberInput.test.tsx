@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
 import { NumberInput, NumberInputProps } from './NumberInput';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<NumberInput /> spec', () => {
   const numberInputProps: NumberInputProps = {
@@ -38,6 +39,19 @@ describe('<NumberInput /> spec', () => {
     const { container } = render(<NumberInput step={10} {...numberInputProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const inputProps = getCommonElementTestProps<
+      'input',
+      Pick<NumberInputProps, 'step' | 'max' | 'min' | 'value' | 'defaultValue'>
+    >('input');
+    const { getByTestId } = render(<NumberInput {...numberInputProps} {...inputProps} step={10} />);
+    const element = getByTestId(inputProps['data-testid']);
+    // id, className and style are set to the wrapper element, others to input
+    expect(
+      getElementAttributesMisMatches(element, { ...inputProps, id: undefined, style: undefined, className: undefined }),
+    ).toHaveLength(0);
   });
 
   it('should increase value correct amount when user clicks step up button', async () => {
