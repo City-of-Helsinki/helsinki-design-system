@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Hero.Title /> spec renders the component 1`] = `
+<DocumentFragment>
+  <h3
+    aria-describedby="aria-describedby"
+    aria-label="aria-label"
+    class="title test-class-name"
+    data-hds-prop="hdsProp"
+    data-testid="testId"
+    id="element-id"
+    style="padding: 100px;"
+    tabindex="0"
+  >
+    This is the heading
+  </h3>
+</DocumentFragment>
+`;
