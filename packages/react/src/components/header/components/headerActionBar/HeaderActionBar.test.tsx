@@ -7,6 +7,7 @@ import { HeaderWrapper } from '../../../../utils/test-utils';
 import { DEFAULT_LANGUAGE, LanguageOption, useActiveLanguage } from '../../LanguageContext';
 import { Header } from '../../Header';
 import { Logo, logoFi, logoSv } from '../../../logo';
+import { getElementAttributesMisMatches, getCommonElementTestProps } from '../../../../utils/testHelpers';
 
 type StrFn = (str: string) => string;
 
@@ -60,6 +61,28 @@ describe('<HeaderActionBar /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    // check that removed specific "role" props is still added in ...rest
+    divProps.role = 'role';
+    // header has "ariaLabel", which should override "aria-label"
+    divProps['aria-label'] = 'Real ariaLabel';
+    const { getByTestId } = render(
+      <HeaderActionBar
+        {...divProps}
+        title="Test"
+        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        frontPageLabel="Etusivu"
+        titleHref="#"
+        aria-label="Is overridden"
+        ariaLabel="Real ariaLabel"
+      />,
+      { wrapper: HeaderWrapper },
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 
   it('has a language context that correctly dispatches language change events', async () => {

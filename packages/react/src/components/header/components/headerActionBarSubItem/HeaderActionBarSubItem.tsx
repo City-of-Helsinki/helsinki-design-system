@@ -13,8 +13,12 @@ import classes from './HeaderActionBarSubItem.module.scss';
 import classNames from '../../../../utils/classNames';
 import { IconLinkExternal } from '../../../../icons';
 import actionBarItemClasses from '../headerActionBarItem/HeaderActionBarItem.module.scss';
+import { CommonHTMLAttributes } from '../../../../utils/commonHTMLAttributes';
 
-export interface HeaderActionBarSubItemProps extends React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+// AllElementPropsWithoutRef not used here, because intersection types cannot be extended and ts errors are shown
+type ElementProps = React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> & CommonHTMLAttributes;
+
+export interface HeaderActionBarSubItemProps extends ElementProps {
   /**
    * Aria-label attribute for the action bar item.
    */
