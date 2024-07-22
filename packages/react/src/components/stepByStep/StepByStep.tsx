@@ -5,6 +5,7 @@ import styles from './StepByStep.module.scss';
 import { Button, ButtonProps } from '../button';
 import classNames from '../../utils/classNames';
 import { Link, LinkProps } from '../link';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 type StepType = {
   /**
@@ -30,7 +31,7 @@ type StepType = {
   title: string;
 };
 
-type StepByStepPropsType = {
+type StepByStepProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * Additional class names to apply to the container element.
    */
@@ -103,7 +104,7 @@ const StepComponent = ({ title, description, buttons = [], links = [] }: StepTyp
   );
 };
 
-export const StepByStep: FC<StepByStepPropsType> = ({
+export const StepByStep: FC<StepByStepProps> = ({
   className,
   title,
   helpText,
@@ -111,13 +112,14 @@ export const StepByStep: FC<StepByStepPropsType> = ({
   numberedList = false,
   headerClassName,
   headerLevel = 2,
+  ...rest
 }) => {
   const wrapperClassName = classNames(styles.container, className);
   const titleComponent =
     title && React.createElement(`h${headerLevel}`, { className: classNames(styles.title, headerClassName) }, title);
 
   return (
-    <div className={wrapperClassName}>
+    <div {...rest} className={wrapperClassName}>
       <div>
         {titleComponent}
         <p className={styles.description}>{helpText}</p>

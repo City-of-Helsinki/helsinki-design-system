@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { StepByStep } from './StepByStep';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 const steps = [
   {
@@ -37,5 +38,11 @@ describe('<StepByStep /> spec', () => {
     const { container } = render(<StepByStep steps={steps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(<StepByStep {...divProps} steps={steps} />);
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, { ...divProps })).toHaveLength(0);
   });
 });
