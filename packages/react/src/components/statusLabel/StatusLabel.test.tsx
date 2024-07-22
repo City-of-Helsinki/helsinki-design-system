@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { StatusLabel, StatusLabelType } from './StatusLabel';
+import { StatusLabel, StatusLabelProps, StatusLabelType } from './StatusLabel';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<StatusLabel /> spec', () => {
   it('renders the component', () => {
@@ -13,6 +14,20 @@ describe('<StatusLabel /> spec', () => {
     const { container } = render(<StatusLabel />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const spanProps = getCommonElementTestProps<'span', Pick<StatusLabelProps, 'dataTestId'>>('span');
+    // Element has prop "dataTestId", but ..rest is applied after it so, data-testid will override it.
+    spanProps.dataTestId = 'This is overridden';
+    const { getByTestId } = render(<StatusLabel {...spanProps} />);
+    const element = getByTestId(spanProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...spanProps,
+        dataTestId: undefined,
+      } as unknown as HTMLAttributes<HTMLSpanElement>),
+    ).toHaveLength(0);
   });
 
   (['neutral', 'info', 'success', 'alert', 'error'] as StatusLabelType[]).map((status) =>
