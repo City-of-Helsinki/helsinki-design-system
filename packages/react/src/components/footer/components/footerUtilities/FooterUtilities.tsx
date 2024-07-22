@@ -5,8 +5,9 @@ import styles from './FooterUtilities.module.scss';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
+import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 
-export type FooterUtilitiesProps = {
+export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * aria-label for describing Footer.Utilities.
    */
@@ -30,10 +31,17 @@ export type FooterUtilitiesProps = {
   role?: string;
 };
 
-export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionProps, role }: FooterUtilitiesProps) => {
+export const FooterUtilities = ({
+  ariaLabel,
+  children,
+  soMeLinks,
+  soMeSectionProps,
+  className,
+  ...rest
+}: FooterUtilitiesProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
-    <div className={styles.utilities} aria-label={ariaLabel} role={role}>
+    <div {...rest} className={classNames(styles.utilities, className)} aria-label={ariaLabel}>
       <hr className={styles.divider} aria-hidden />
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>
         {childElements.map((child, childIndex) => {
