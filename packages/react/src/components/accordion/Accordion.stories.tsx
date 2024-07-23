@@ -4,7 +4,7 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import { Button } from '../button';
 import { Card } from '../card';
 import { Select } from '../dropdown/select';
-import { Accordion } from './Accordion';
+import { Accordion, AccordionProps } from './Accordion';
 import { useAccordion } from './useAccordion';
 
 export default {
@@ -22,18 +22,18 @@ export default {
   },
 };
 
-export const Default = (args) => <Accordion {...args} />;
+export const Default = (args: AccordionProps) => <Accordion {...args} />;
 
-export const Small = (args) => <Accordion {...args} size="s" />;
+export const Small = (args: AccordionProps) => <Accordion {...args} size="s" />;
 
-export const Medium = (args) => <Accordion {...args} size="m" />;
+export const Medium = (args: AccordionProps) => <Accordion {...args} size="m" />;
 
-export const Large = (args) => <Accordion {...args} size="l" />;
+export const Large = (args: AccordionProps) => <Accordion {...args} size="l" />;
 
-export const WithoutCloseButton = (args) => <Accordion {...args} closeButton={false} />;
+export const WithoutCloseButton = (args: AccordionProps) => <Accordion {...args} closeButton={false} />;
 WithoutCloseButton.storyName = 'Without close button';
 
-export const StackedAccordionCards = (args) => (
+export const StackedAccordionCards = (args: AccordionProps) => (
   <>
     <h1>Stacked Accordions in Cards</h1>
     <Accordion {...args} card border style={{ maxWidth: '360px' }} />
@@ -44,10 +44,10 @@ export const StackedAccordionCards = (args) => (
 
 StackedAccordionCards.storyName = 'Stacked cards';
 
-export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
+export const InitiallyOpen = (args: AccordionProps) => <Accordion {...args} initiallyOpen />;
 InitiallyOpen.storyName = 'Initially open';
 
-export const CardAccordion = (args) => (
+export const CardAccordion = (args: AccordionProps) => (
   <>
     <h2>Card</h2>
     <Accordion {...args} card />
@@ -64,7 +64,7 @@ CardAccordion.args = {
   style: { marginBottom: 'var(--spacing-m)', maxWidth: '360px' },
 };
 
-export const CustomTheme = (args) => (
+export const CustomTheme = (args: AccordionProps) => (
   <>
     <Accordion
       {...args}
@@ -81,7 +81,7 @@ export const CustomTheme = (args) => (
         '--header-line-height': 'var(--lineheight-s)',
         '--header-letter-spacing': '-0.4px',
         '--button-size': '28px',
-        '--button-border-color-hover': 'var(--color-coat-of-arms)',
+        '--close-button-border-color-hover': 'var(--color-coat-of-arms)',
         '--content-font-color': 'var(--color-black-90)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
@@ -102,7 +102,7 @@ export const CustomTheme = (args) => (
         '--header-letter-spacing': '0.2px',
         '--header-line-height': '1.4',
         '--button-size': '28px',
-        '--button-border-color-hover': 'var(--color-white)',
+        '--close-button-border-color-hover': 'var(--color-white)',
         '--content-font-color': 'var(--color-white)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
