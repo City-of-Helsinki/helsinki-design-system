@@ -88,6 +88,7 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
     button: ButtonHTMLAttributes<HTMLButtonElement>;
     // HTMLAttributes<HTMLInput> does not work properly.
     input: HTMLProps<'input'>;
+    textarea: HTMLProps<'textarea'>;
     a: AnchorHTMLAttributes<HTMLAnchorElement>;
     img: ImgHTMLAttributes<HTMLImageElement>;
   } = {
@@ -105,6 +106,10 @@ export function getCommonElementTestProps<T extends ElementType = 'div', C = unk
     input: {
       maxLength: 10,
       pattern: '[A-Za-z]{3}',
+      required: true,
+    },
+    textarea: {
+      maxLength: 500,
       required: true,
     },
     a: {
