@@ -3,10 +3,28 @@ import { action } from '@storybook/addon-actions';
 import { uniqueId } from 'lodash';
 
 import { Button } from '../../button';
-import { Combobox } from './Combobox';
+import { Combobox, ComboboxProps } from './Combobox';
 import { IconFaceSmile, IconLocation } from '../../../icons';
+import { MultiSelectProps } from '../select';
 
 type Option = { label: string };
+type MultiSelectEssentials = Pick<MultiSelectProps<Option>, 'onChange' | 'multiselect'>;
+// when aria-labelledby is set, label must be undefined
+type MultiSelectArgsWithLabel = ComboboxProps<Option> & { 'aria-labelledby': undefined } & MultiSelectEssentials;
+type DefaultArgs = Pick<
+  Required<ComboboxProps<Option>>,
+  | 'id'
+  | 'label'
+  | 'helper'
+  | 'placeholder'
+  | 'clearButtonAriaLabel'
+  | 'options'
+  | 'onBlur'
+  | 'onFocus'
+  | 'toggleButtonAriaLabel'
+> & { multiselect: false; onChange: (option: Option | Option[]) => void };
+
+type StoryArgs = DefaultArgs & Partial<ComboboxProps<Option>>;
 
 function getId(): string {
   return uniqueId('hds-combobox-');
@@ -61,19 +79,19 @@ export default {
     onChange: (change) => action('onChange')(change),
     onFocus: action('onFocus'),
     toggleButtonAriaLabel: 'Open the combobox',
-  },
+  } as DefaultArgs,
 };
 
-export const Default = (args) => <Combobox {...args} />;
+export const Default = (args: StoryArgs) => <Combobox {...args} />;
 
-export const WithClearButton = (args) => <Combobox {...args} />;
+export const WithClearButton = (args: StoryArgs) => <Combobox {...args} />;
 WithClearButton.storyName = 'With clear button';
 WithClearButton.args = {
   clearable: true,
 };
 WithClearButton.parameters = { loki: { skip: true } };
 
-export const Multiselect = (args) => <Combobox {...args} />;
+export const Multiselect = (args: StoryArgs) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
@@ -81,27 +99,27 @@ Multiselect.args = {
   selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 
-export const Invalid = (args) => <Combobox {...args} />;
+export const Invalid = (args: StoryArgs) => <Combobox {...args} />;
 Invalid.args = {
   invalid: true,
   error: 'Wrong item!',
 };
 
-export const Disabled = (args) => <Combobox {...args} />;
+export const Disabled = (args: StoryArgs) => <Combobox {...args} />;
 Disabled.args = {
   disabled: true,
 };
 
-export const Controlled = (args) => {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedItems, setSelectedItems] = useState(null);
+export const Controlled = (args: StoryArgs) => {
+  const [selectedItem, setSelectedItem] = useState<Option | null>(null);
+  const [selectedItems, setSelectedItems] = useState<Option[] | null>(null);
 
-  const handleChange = (item) => {
+  const handleChange = (item: Option) => {
     action('onChange')(item);
     setSelectedItem(item);
   };
 
-  const handleMultiSelectChange = (item) => {
+  const handleMultiSelectChange = (item: Option[]) => {
     action('onChange')(item);
     setSelectedItems(item);
   };
@@ -113,12 +131,13 @@ export const Controlled = (args) => {
         Select first option
       </Button>
       <Combobox
-        {...args}
+        {...(args as DefaultArgs)}
         id={getId()}
         label="Combobox"
         onChange={handleChange}
         value={selectedItem}
         style={{ marginTop: 'var(--spacing-s)' }}
+        toggleButtonAriaLabel="Open the combobox"
       />
 
       <Button onClick={() => setSelectedItems(null)} style={{ marginTop: 'var(--spacing-l)' }}>
@@ -131,7 +150,7 @@ export const Controlled = (args) => {
         Select all
       </Button>
       <Combobox
-        {...args}
+        {...(args as unknown as MultiSelectArgsWithLabel)}
         id={getId()}
         label="Multi-select combobox"
         multiselect
@@ -144,14 +163,14 @@ export const Controlled = (args) => {
   );
 };
 
-export const DisabledOptions = (args) => {
-  const getIsDisabled = (item, index): boolean => index % 2 === 1;
+export const DisabledOptions = (args: StoryArgs) => {
+  const getIsDisabled = (item: Option, index: number): boolean => index % 2 === 1;
 
   return (
     <>
-      <Combobox {...args} id={getId()} label="Combobox" isOptionDisabled={getIsDisabled} />
+      <Combobox {...(args as DefaultArgs)} id={getId()} label="Combobox" isOptionDisabled={getIsDisabled} />
       <Combobox
-        {...args}
+        {...(args as unknown as MultiSelectArgsWithLabel)}
         id={getId()}
         label="Multi-select combobox"
         multiselect
@@ -164,10 +183,10 @@ export const DisabledOptions = (args) => {
 };
 DisabledOptions.storyName = 'With disabled options';
 
-export const Icon = (args) => <Combobox {...args} icon={<IconFaceSmile />} />;
+export const Icon = (args: ComboboxProps<Option>) => <Combobox {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
-export const MultiselectWithIcon = (args) => <Combobox {...args} icon={<IconLocation />} />;
+export const MultiselectWithIcon = (args: ComboboxProps<Option>) => <Combobox {...args} icon={<IconLocation />} />;
 MultiselectWithIcon.storyName = 'Multi-select with icon';
 MultiselectWithIcon.args = {
   multiselect: true,
@@ -177,7 +196,7 @@ MultiselectWithIcon.args = {
 
 MultiselectWithIcon.parameters = { loki: { skip: true } };
 
-export const Tooltip = (args) => <Combobox {...args} />;
+export const Tooltip = (args: ComboboxProps<Option>) => <Combobox {...args} />;
 Tooltip.storyName = 'With tooltip';
 Tooltip.args = {
   tooltipLabel: 'Tooltip',
@@ -186,8 +205,12 @@ Tooltip.args = {
     'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
 };
 
-export const CustomTheme = (args) => (
-  <Combobox {...args} multiselect selectedItemRemoveButtonAriaLabel="Remove {value}" />
+export const CustomTheme = (args: StoryArgs) => (
+  <Combobox
+    {...(args as unknown as MultiSelectArgsWithLabel)}
+    multiselect
+    selectedItemRemoveButtonAriaLabel="Remove {value}"
+  />
 );
 CustomTheme.storyName = 'With custom theme';
 CustomTheme.args = {
@@ -230,20 +253,22 @@ CustomTheme.args = {
   },
 };
 
-export const ComboboxExample = (args) => {
+export const ComboboxExample = (args: ComboboxProps<Option>) => {
   return (
-    <Combobox<Option>
+    <Combobox
       {...args}
       placeholder="Type to search"
-      getA11yComboboxionMessage={({ selectedItem }) => `${selectedItem.label} selected`}
+      getA11ySelectionMessage={({ selectedItem }) => {
+        return selectedItem ? `${selectedItem.label} selected` : '';
+      }}
     />
   );
 };
 ComboboxExample.storyName = 'Combobox example';
 
-export const MultiSelectExample = (args) => {
+export const MultiSelectExample = (args: MultiSelectArgsWithLabel) => {
   return (
-    <Combobox<Option>
+    <Combobox
       {...args}
       label="Items"
       helper="Choose items"
@@ -253,13 +278,14 @@ export const MultiSelectExample = (args) => {
       selectedItemRemoveButtonAriaLabel="Remove {value}"
       selectedItemSrLabel="Selected item {value}"
       getA11yRemovalMessage={({ removedSelectedItem }) => `${removedSelectedItem.label} was removed`}
+      toggleButtonAriaLabel="Open the combobox"
     />
   );
 };
 MultiSelectExample.storyName = 'Multi-select combobox example';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const WithExternalLabel = (args) => {
+export const WithExternalLabel = (args: ComboboxProps<Option>) => {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr' }}>
       <p id="externalLabelId">External label for the combobox</p>
@@ -282,7 +308,7 @@ export const WithExternalLabel = (args) => {
 WithExternalLabel.storyName = 'With external label';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const MultiSelectWithDefaultValue = (args) => {
+export const MultiSelectWithDefaultValue = (args: DefaultArgs) => {
   // this story also tests very long labels are displayed correctly.
   const optionsWithLongText = [
     { label: 'This is a long text that is wider than the container, but should still be visible' },
