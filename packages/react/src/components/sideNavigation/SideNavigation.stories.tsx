@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SideNavigation } from './SideNavigation';
+import { SideNavigation, SideNavigationProps } from './SideNavigation';
 import { IconHome } from '../../icons';
 
 export default {
@@ -24,7 +24,7 @@ const handleClick = (setActive) => (ev) => {
   setActive(ev.currentTarget.getAttribute('href'));
 };
 
-export const Default = (args) => {
+export const Default = (args: SideNavigationProps) => {
   const [active, setActive] = React.useState('/sub-level-1');
 
   return (
@@ -107,7 +107,7 @@ export const Default = (args) => {
   );
 };
 
-export const WithIcons = (args) => {
+export const WithIcons = (args: SideNavigationProps) => {
   const [active, setActive] = React.useState('/sub-level-2');
 
   return (
@@ -204,7 +204,7 @@ const skipLinkTheme = {
   '--top': '0px',
 };
 
-export const WithSkipLink = (args) => {
+export const WithSkipLink = (args: SideNavigationProps) => {
   const [active, setActive] = React.useState('/sub-level-1');
 
   return (
@@ -289,7 +289,7 @@ export const WithSkipLink = (args) => {
   );
 };
 
-export const CustomTheme = (args) => Default(args);
+export const CustomTheme = (args: SideNavigationProps) => Default(args);
 CustomTheme.args = {
   theme: {
     '--side-navigation-background-color': 'var(--color-white)',

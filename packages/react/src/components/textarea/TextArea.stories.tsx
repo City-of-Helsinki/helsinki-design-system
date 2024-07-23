@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
-import { TextArea } from './TextArea';
+import { TextArea, TextAreaProps } from './TextArea';
 
 const textAreaProps = {
   helperText: 'Assistive text',
@@ -55,7 +55,7 @@ export const WithTooltip = () => (
 );
 WithTooltip.storyName = 'With tooltip';
 
-export const Playground = (args) => (
+export const Playground = (args: TextAreaProps & Record<string, string>) => (
   <TextArea
     id={args.id}
     label={args.label}

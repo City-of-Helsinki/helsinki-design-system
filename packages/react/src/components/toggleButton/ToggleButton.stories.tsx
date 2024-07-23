@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ToggleButton } from './ToggleButton';
+import { ToggleButton, ToggleButtonProps } from './ToggleButton';
 
 export default {
   component: ToggleButton,
@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Default = (args) => {
+export const Default = (args: ToggleButtonProps) => {
   const [checked, setChecked] = useState<boolean>(args.checked);
   const [oppositeChecked, setOppositeChecked] = useState<boolean>(!args.checked);
   return (
@@ -34,7 +34,7 @@ export const Default = (args) => {
   );
 };
 
-export const Disabled = (args) => {
+export const Disabled = (args: ToggleButtonProps) => {
   const [checked, setChecked] = useState(false);
   const [oppositeChecked, setOppositeChecked] = useState<boolean>(!args.checked);
 
@@ -57,7 +57,7 @@ Disabled.args = {
   disabled: true,
 };
 
-export const WithTooltip = (args) => {
+export const WithTooltip = (args: ToggleButtonProps) => {
   const [checked, setChecked] = useState<boolean>(args.checked);
   return <ToggleButton {...args} label="Allow notifications" checked={checked} onChange={() => setChecked(!checked)} />;
 };
@@ -71,7 +71,7 @@ WithTooltip.args = {
 
 WithTooltip.storyName = 'With tooltip';
 
-export const Inline = (args) => {
+export const Inline = (args: ToggleButtonProps) => {
   const [checked, setChecked] = useState<boolean>(args.checked);
   const [checkedWithTooltip, setCheckedWithTooltip] = useState<boolean>(args.checked);
 
@@ -109,7 +109,7 @@ Inline.args = {
 
 WithTooltip.storyName = 'With tooltip';
 
-export const CustomTheme = (args) => {
+export const CustomTheme = (args: ToggleButtonProps) => {
   const customThemes = [
     {
       id: 'error',
@@ -159,8 +159,8 @@ CustomTheme.args = {
 
 CustomTheme.storyName = 'Custom theme';
 
-export const Playground = (args) => {
-  const [checked, setChecked] = useState(args.value);
+export const Playground = (args: ToggleButtonProps) => {
+  const [checked, setChecked] = useState(!!args.value);
 
   return (
     <ToggleButton

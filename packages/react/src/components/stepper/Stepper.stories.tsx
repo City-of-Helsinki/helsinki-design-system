@@ -1,7 +1,7 @@
 import React, { useReducer, useRef } from 'react';
 
 import styles from './Stepper.module.scss';
-import { Stepper } from './Stepper';
+import { Stepper, StepperProps } from './Stepper';
 import { Step, StepState } from './Step';
 import { Button } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../../icons';
@@ -80,7 +80,7 @@ const commonReducer = (stepsTotal) => (state, action) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Default = (args) => {
+export const Default = (args: StepperProps) => {
   const reducer = commonReducer(5);
 
   const initialState = {
@@ -162,7 +162,7 @@ Default.parameters = {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Small = (args) => {
+export const Small = (args: StepperProps) => {
   const reducer = commonReducer(5);
 
   const initialState = {
@@ -238,7 +238,7 @@ export const Small = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const WithStepHeading = (args) => {
+export const WithStepHeading = (args: StepperProps) => {
   const reducer = commonReducer(5);
 
   const initialState = {
@@ -316,7 +316,7 @@ export const WithStepHeading = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Overflow = (args) => {
+export const Overflow = (args: StepperProps) => {
   const reducer = commonReducer(12);
 
   const initialState = {
@@ -419,7 +419,7 @@ export const Overflow = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const WithCustomTheme = (args) => {
+export const WithCustomTheme = (args: StepperProps) => {
   const reducer = commonReducer(5);
 
   const initialState = {
@@ -511,7 +511,7 @@ WithCustomTheme.parameters = {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const SimpleFormExample = (args) => {
+export const SimpleFormExample = (args: StepperProps) => {
   const initialState = {
     showErrorSummary: false,
     activeStepIndex: 0,
@@ -725,6 +725,7 @@ export const SimpleFormExample = (args) => {
         onStepClick={(event, stepIndex) => {
           if (state.showErrorSummary && stepIndex !== state.activeStepIndex) {
             // focus to error summary label
+            // @ts-ignore
             errorRef.current.children[0].children[0].focus();
           }
           dispatch({ type: 'setActive', payload: stepIndex });
@@ -768,9 +769,9 @@ export const SimpleFormExample = (args) => {
               label="First name"
               invalid={state.fields.firstName.value.length === 0 && state.fields.firstName.visited === true}
               errorText={
-                state.fields.firstName.value.length === 0 &&
-                state.fields.firstName.visited === true &&
-                'Please enter your first name'
+                state.fields.firstName.value.length === 0 && state.fields.firstName.visited === true
+                  ? 'Please enter your first name'
+                  : ''
               }
               value={state.fields.firstName.value}
               onChange={(event) =>
@@ -786,9 +787,9 @@ export const SimpleFormExample = (args) => {
               label="Last name"
               invalid={state.fields.lastName.value.length === 0 && state.fields.lastName.visited === true}
               errorText={
-                state.fields.lastName.value.length === 0 &&
-                state.fields.lastName.visited === true &&
-                'Please enter your last name'
+                state.fields.lastName.value.length === 0 && state.fields.lastName.visited === true
+                  ? 'Please enter your last name'
+                  : ''
               }
               value={state.fields.lastName.value}
               onChange={(event) =>
@@ -806,9 +807,9 @@ export const SimpleFormExample = (args) => {
                 (!state.fields.age.value || state.fields.age.value.length === 0) && state.fields.age.visited === true
               }
               errorText={
-                (!state.fields.age.value || state.fields.age.value.length === 0) &&
-                state.fields.age.visited === true &&
-                'Please enter your age'
+                (!state.fields.age.value || state.fields.age.value.length === 0) && state.fields.age.visited === true
+                  ? 'Please enter your age'
+                  : ''
               }
               value={state.fields.age.value}
               onChange={(event) => dispatch({ type: 'changeField', fieldName: 'age', newValue: event.target.value })}
@@ -824,8 +825,9 @@ export const SimpleFormExample = (args) => {
               language="en"
               errorText={
                 (!state.fields.files.value || state.fields.files.value.length === 0) &&
-                state.fields.files.visited === true &&
-                'Please updload a file'
+                state.fields.files.visited === true
+                  ? 'Please updload a file'
+                  : ''
               }
               onChange={(event) => dispatch({ type: 'changeField', fieldName: 'files', newValue: event })}
             />
@@ -859,6 +861,7 @@ export const SimpleFormExample = (args) => {
           onClick={() => {
             if (state.showErrorSummary) {
               // focus to error summary label
+              // @ts-ignore
               errorRef.current.children[0].children[0].focus();
             }
             dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 });
@@ -873,6 +876,7 @@ export const SimpleFormExample = (args) => {
           onClick={() => {
             if (state.showErrorSummary) {
               // focus to error summary label
+              // @ts-ignore
               errorRef.current.children[0].children[0].focus();
             }
             dispatch({ type: 'completeStep', payload: state.activeStepIndex });
@@ -889,7 +893,7 @@ export const SimpleFormExample = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const States = (args) => {
+export const States = (args: StepperProps) => {
   return (
     <div className={styles.stepperContainer}>
       <div
@@ -934,7 +938,7 @@ export const States = (args) => {
   );
 };
 
-export const Playground = (args) => {
+export const Playground = (args: StepperProps & { activeStepIndex: number } & Record<string, string>) => {
   const reducer = commonReducer(5);
 
   const [state, dispatch] = useReducer(reducer, {

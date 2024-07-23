@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Highlight } from './Highlight';
+import { Highlight, HighlightProps } from './Highlight';
 
 export default {
   component: Highlight,
@@ -18,24 +18,24 @@ const highlightArgs = {
   text: 'You may select an highlight from the article to be displayed here. Select an excerpt that you want the user to pay attention to.',
 };
 
-export const DefaultHighlight = (args) => <Highlight {...args} />;
+export const DefaultHighlight = (args: HighlightProps) => <Highlight {...args} />;
 DefaultHighlight.args = {
   ...highlightArgs,
 };
 
-export const HighlightSmall = (args) => <Highlight {...args} />;
+export const HighlightSmall = (args: HighlightProps) => <Highlight {...args} />;
 HighlightSmall.args = {
   ...highlightArgs,
   size: 'small',
 };
 
-export const HighlightLarge = (args) => <Highlight {...args} />;
+export const HighlightLarge = (args: HighlightProps) => <Highlight {...args} />;
 HighlightLarge.args = {
   ...highlightArgs,
   size: 'l',
 };
 
-export const HighlightCustomAccentColor = (args) => <Highlight {...args} />;
+export const HighlightCustomAccentColor = (args: HighlightProps) => <Highlight {...args} />;
 HighlightCustomAccentColor.args = {
   ...highlightArgs,
   theme: {
@@ -43,7 +43,7 @@ HighlightCustomAccentColor.args = {
   },
 };
 
-export const HighlightCustomTextColor = (args) => <Highlight {...args} />;
+export const HighlightCustomTextColor = (args: HighlightProps) => <Highlight {...args} />;
 HighlightCustomTextColor.args = {
   ...highlightArgs,
   theme: {
@@ -51,24 +51,24 @@ HighlightCustomTextColor.args = {
   },
 };
 
-export const DefaultQuote = (args) => <Highlight {...args} />;
+export const DefaultQuote = (args: HighlightProps) => <Highlight {...args} />;
 DefaultQuote.args = {
   ...quoteArgs,
 };
 
-export const QuoteLarge = (args) => <Highlight {...args} />;
+export const QuoteLarge = (args: HighlightProps) => <Highlight {...args} />;
 QuoteLarge.args = {
   ...quoteArgs,
   size: 'l',
 };
 
-export const QuoteSmall = (args) => <Highlight {...args} />;
+export const QuoteSmall = (args: HighlightProps) => <Highlight {...args} />;
 QuoteSmall.args = {
   ...quoteArgs,
   size: 's',
 };
 
-export const QuoteCustomAccentColor = (args) => <Highlight {...args} />;
+export const QuoteCustomAccentColor = (args: HighlightProps) => <Highlight {...args} />;
 QuoteCustomAccentColor.args = {
   ...quoteArgs,
   theme: {
@@ -76,7 +76,7 @@ QuoteCustomAccentColor.args = {
   },
 };
 
-export const QuoteCustomTextColor = (args) => <Highlight {...args} />;
+export const QuoteCustomTextColor = (args: HighlightProps) => <Highlight {...args} />;
 QuoteCustomTextColor.args = {
   ...quoteArgs,
   theme: {

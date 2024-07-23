@@ -42,11 +42,11 @@ export default {
   },
 };
 
-export const Default = (args) => {
+export const Default = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
 
-export const WithMinAndMaxDate = (args) => {
+export const WithMinAndMaxDate = (args: DateInputProps) => {
   const minDate = new Date();
   minDate.setDate(4);
   const maxDate = addMonths(new Date(), 4);
@@ -55,7 +55,7 @@ export const WithMinAndMaxDate = (args) => {
 
 WithMinAndMaxDate.parameters = { loki: { skip: true } };
 
-export const WithoutConfirmation = (args) => {
+export const WithoutConfirmation = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
 WithoutConfirmation.storyName = 'Without confirmation';
@@ -63,7 +63,7 @@ WithoutConfirmation.args = {
   disableConfirmation: true,
 };
 
-export const Localisation = (args) => {
+export const Localisation = (args: DateInputProps) => {
   const bottomMargin = { marginBottom: 'var(--spacing-m)' };
   return (
     <div>
@@ -98,7 +98,7 @@ export const Localisation = (args) => {
   );
 };
 
-export const WithoutDatePicker = (args) => {
+export const WithoutDatePicker = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
 WithoutDatePicker.storyName = 'Without date picker';
@@ -106,7 +106,7 @@ WithoutDatePicker.args = {
   disableDatePicker: true,
 };
 
-export const WithExternalClearValueButton = (args) => {
+export const WithExternalClearValueButton = (args: DateInputProps) => {
   const [value, setValue] = useState<string>('10.2.2022');
   return (
     <div className="date-input--external-clear-value-button">
@@ -119,7 +119,7 @@ export const WithExternalClearValueButton = (args) => {
 };
 WithExternalClearValueButton.storyName = 'With external clear value button';
 
-export const WithDisabledDates = (args) => {
+export const WithDisabledDates = (args: DateInputProps) => {
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
   const dateHelperText = 'Only weekdays are available.';
@@ -153,7 +153,7 @@ export const WithDisabledDates = (args) => {
 WithDisabledDates.storyName = 'With disabled dates';
 WithDisabledDates.parameters = { loki: { skip: true } };
 
-export const WithSelectedDisabledDates = (args) => {
+export const WithSelectedDisabledDates = (args: DateInputProps) => {
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
@@ -193,7 +193,7 @@ export const WithSelectedDisabledDates = (args) => {
 WithSelectedDisabledDates.storyName = 'With selected disabled dates';
 WithSelectedDisabledDates.parameters = { loki: { skip: true } };
 
-export const Invalid = (args) => {
+export const Invalid = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
 Invalid.args = {
@@ -202,7 +202,7 @@ Invalid.args = {
   errorText: 'Date invalid',
 };
 
-export const Success = (args) => {
+export const Success = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
 Success.args = {
@@ -273,7 +273,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
 WithCustomDayStyles.storyName = 'With custom day styles';
 WithCustomDayStyles.parameters = { loki: { skip: true } };
 
-export const WithRange = (args) => {
+export const WithRange = (args: DateInputProps) => {
   const [range, setRange] = useState<Array<Date | null>>([null, null]);
   const [errors, setErrors] = useState<Array<string>>(['', '']);
   const storeDate = (index: number, date: Date | null) => {

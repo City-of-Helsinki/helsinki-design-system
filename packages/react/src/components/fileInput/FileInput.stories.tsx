@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { FileInput } from './FileInput';
+import { FileInput, FileInputProps } from './FileInput';
 
 const onFilesChanged = (files: File[] | undefined) => action('filesChanged')(files);
 
@@ -22,7 +22,7 @@ export default {
   },
 };
 
-export const Single = (args) => {
+export const Single = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -33,7 +33,7 @@ Single.args = {
   label: 'Choose a file',
 };
 
-export const Multiple = (args) => {
+export const Multiple = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -44,7 +44,7 @@ Multiple.args = {
   multiple: true,
 };
 
-export const WithDefaultValue = (args) => {
+export const WithDefaultValue = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -60,7 +60,7 @@ WithDefaultValue.args = {
   multiple: true,
 };
 
-export const WithDragAndDrop = (args) => {
+export const WithDragAndDrop = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -72,7 +72,7 @@ WithDragAndDrop.args = {
   dragAndDrop: true,
 };
 
-export const WithTooltip = (args) => {
+export const WithTooltip = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -85,7 +85,7 @@ WithTooltip.args = {
   tooltipText: 'The file input will accept most of the known image formats. Please notice the size limit.',
 };
 
-export const Disabled = (args) => {
+export const Disabled = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -98,7 +98,7 @@ Disabled.args = {
   accept: '.png,.jpg,.pdf,.json',
 };
 
-export const DisabledDragAndDrop = (args) => {
+export const DisabledDragAndDrop = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -112,7 +112,7 @@ DisabledDragAndDrop.args = {
   accept: '.png,.jpg,.pdf,.json',
 };
 
-export const Required = (args) => {
+export const Required = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
@@ -124,7 +124,7 @@ Required.args = {
   accept: 'image/*',
 };
 
-export const Playground = (args) => {
+export const Playground = (args: FileInputProps) => {
   const onChange = (files) => {
     onFilesChanged(files);
   };
@@ -169,7 +169,7 @@ Playground.argTypes = {
   },
 };
 
-export const Invalid = (args) => {
+export const Invalid = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 

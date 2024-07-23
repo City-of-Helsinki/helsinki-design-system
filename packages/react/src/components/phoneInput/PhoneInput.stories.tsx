@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { PhoneInput } from './PhoneInput';
+import { PhoneInput, PhoneInputProps } from './PhoneInput';
 import { Combobox } from '../dropdown/combobox';
 
 export default {
@@ -14,14 +14,14 @@ export default {
   args: {},
 };
 
-export const Default = (args) => <PhoneInput {...args} />;
+export const Default = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Default.args = {
   id: 'Default',
   helperText: 'Assistive text',
   label: 'Label',
 };
 
-export const Disabled = (args) => <PhoneInput {...args} />;
+export const Disabled = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Disabled.storyName = 'Disabled';
 Disabled.args = {
   id: 'Disabled',
@@ -31,7 +31,7 @@ Disabled.args = {
   disabled: true,
 };
 
-export const WithDefaultValue = (args) => <PhoneInput {...args} />;
+export const WithDefaultValue = (args: PhoneInputProps) => <PhoneInput {...args} />;
 WithDefaultValue.storyName = 'With a default value';
 WithDefaultValue.args = {
   id: 'WithDefaultValue',
@@ -40,7 +40,7 @@ WithDefaultValue.args = {
   label: 'Label for default value',
 };
 
-export const WithCountryCode = (args) => {
+export const WithCountryCode = (args: PhoneInputProps) => {
   const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
   return (
     <>
@@ -77,7 +77,7 @@ WithCountryCode.args = {
 };
 WithCountryCode.decorators = [(storyFn) => <div style={{ maxWidth: '516px' }}>{storyFn()}</div>];
 
-export const Invalid = (args) => <PhoneInput {...args} />;
+export const Invalid = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Invalid.args = {
   id: 'Invalid',
   invalid: true,
@@ -86,7 +86,7 @@ Invalid.args = {
   errorText: 'Invalid value',
 };
 
-export const Success = (args) => <PhoneInput {...args} />;
+export const Success = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Success.args = {
   id: 'Default',
   helperText: 'Assistive text',
