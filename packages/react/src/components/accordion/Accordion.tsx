@@ -18,9 +18,12 @@ export interface AccordionCustomTheme {
   '--padding-vertical'?: string;
   '--header-font-color'?: string;
   '--header-font-size'?: string;
+  '--header-font-weight'?: string;
+  '--header-letter-spacing'?: string;
   '--header-line-height'?: string;
   '--button-size'?: string;
   '--header-focus-outline-color'?: string;
+  '--content-font-color'?: string;
   '--content-font-size'?: string;
   '--content-line-height'?: string;
   '--close-button-background-color-disabled'?: string;
