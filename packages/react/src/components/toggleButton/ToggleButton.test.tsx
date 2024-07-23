@@ -3,7 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { ToggleButton } from './ToggleButton';
+import { ToggleButton, ToggleButtonProps } from './ToggleButton';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<ToggleButton /> spec', () => {
   it('renders the component', () => {
@@ -52,5 +53,11 @@ describe('<ToggleButton /> spec', () => {
     const button = screen.getByRole('button', { pressed: false });
     userEvent.click(button);
     expect(checked).toBeTruthy();
+  });
+  it('native html props are passed to the element', async () => {
+    const buttonProps = getCommonElementTestProps<'button', Pick<ToggleButtonProps, 'id'>>('button');
+    const { getByTestId } = render(<ToggleButton {...buttonProps} checked onChange={() => null} label="Test label" />);
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 });
