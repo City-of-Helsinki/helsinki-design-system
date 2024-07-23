@@ -11,6 +11,7 @@ import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 type Header = {
   /**
@@ -50,7 +51,7 @@ export interface TableCustomTheme {
 
 type SelectedRow = string | number;
 
-export type TableProps = {
+export type TableProps = AllElementPropsWithoutRef<'table'> & {
   /**
    * Aria-label for checkbox selection.
    * @default 'Rivin valinta'
@@ -194,7 +195,7 @@ export type TableProps = {
    * Boolean indicating whether the table has alternating row colors zebra style.
    */
   zebra?: boolean;
-} & React.ComponentPropsWithoutRef<'table'>;
+};
 
 const processRows = (rows, order, sorting, cols) => {
   const sortingEnabled = cols.some((column) => {
