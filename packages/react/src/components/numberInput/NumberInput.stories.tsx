@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NumberInput } from './NumberInput';
+import { NumberInput, NumberInputProps } from './NumberInput';
 
 export default {
   component: NumberInput,
@@ -18,12 +18,12 @@ export default {
   },
 };
 
-export const Default = (args) => <NumberInput {...args} />;
+export const Default = (args: NumberInputProps) => <NumberInput {...args} />;
 Default.args = {
   id: 'Default',
 };
 
-export const CustomStep = (args) => <NumberInput {...args} />;
+export const CustomStep = (args: NumberInputProps) => <NumberInput {...args} />;
 CustomStep.storyName = 'With a custom step value';
 CustomStep.args = {
   id: 'CustomStep',
@@ -34,7 +34,7 @@ CustomStep.args = {
   plusStepButtonAriaLabel: 'Increase by ten',
 };
 
-export const Disabled = (args) => <NumberInput {...args} />;
+export const Disabled = (args: NumberInputProps) => <NumberInput {...args} />;
 Disabled.storyName = 'Disabled';
 Disabled.args = {
   id: 'Disabled',
@@ -45,7 +45,7 @@ Disabled.args = {
   disabled: true,
 };
 
-export const WithMinAndMax = (args) => <NumberInput {...args} />;
+export const WithMinAndMax = (args: NumberInputProps) => <NumberInput {...args} />;
 WithMinAndMax.storyName = 'With min and max value';
 WithMinAndMax.args = {
   id: 'WithMinAndMax',
@@ -57,7 +57,7 @@ WithMinAndMax.args = {
   plusStepButtonAriaLabel: 'Increase by one',
 };
 
-export const WithDefaultValue = (args) => <NumberInput {...args} />;
+export const WithDefaultValue = (args: NumberInputProps) => <NumberInput {...args} />;
 WithDefaultValue.storyName = 'With a default value';
 WithDefaultValue.args = {
   id: 'WithDefaultValue',
@@ -68,14 +68,14 @@ WithDefaultValue.args = {
   plusStepButtonAriaLabel: 'Increase by ten',
 };
 
-export const Invalid = (args) => <NumberInput {...args} />;
+export const Invalid = (args: NumberInputProps) => <NumberInput {...args} />;
 Invalid.args = {
   id: 'Invalid',
   invalid: true,
   errorText: 'Invalid value',
 };
 
-export const Success = (args) => <NumberInput {...args} />;
+export const Success = (args: NumberInputProps) => <NumberInput {...args} />;
 Success.args = {
   id: 'Success',
   successText: 'Valid value',

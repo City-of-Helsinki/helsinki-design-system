@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 
-import { TextInput } from './TextInput';
+import { TextInput, TextInputProps } from './TextInput';
 import { Button } from '../button';
 import { IconSearch } from '../../icons';
 
@@ -73,7 +73,7 @@ export const UsingRef = () => {
 };
 UsingRef.storyName = 'Using ref';
 
-export const Playground = (args) => (
+export const Playground = (args: TextInputProps & { tooltipButtonAriaLabelText: string }) => (
   <TextInput
     id={args.id}
     label={args.label}
@@ -118,8 +118,8 @@ Playground.args = {
   tooltipButtonAriaLabelText: 'Tooltip',
 };
 
-export const SimpleSearchInput = (args) => {
-  const [inputValue, setInputValue] = React.useState('');
+export const SimpleSearchInput = (args: TextInputProps) => {
+  const [inputValue, setInputValue] = React.useState<string>('');
   const ref = useRef<HTMLInputElement>(null);
 
   const doSearch = (value: string | undefined) => {
@@ -158,7 +158,7 @@ export const SimpleSearchInput = (args) => {
 
 SimpleSearchInput.storyName = 'As search input';
 
-export const SimpleSearchInputWithDefaultValue = (args) => {
+export const SimpleSearchInputWithDefaultValue = (args: TextInputProps) => {
   return <SimpleSearchInput {...args} defaultValue="test input" />;
 };
 

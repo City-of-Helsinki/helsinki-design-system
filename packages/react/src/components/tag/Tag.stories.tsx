@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { Tag } from './Tag';
+import { Tag, TagProps } from './Tag';
 
 export default {
   component: Tag,
@@ -14,16 +14,15 @@ export default {
   },
 };
 
-export const DefaultTag = (args) => <Tag {...args} />;
+export const DefaultTag = (args: TagProps) => <Tag {...args} />;
 
-export const DefaultTagClickable = (args) => (
+export const DefaultTagClickable = (args: TagProps) => (
   <>
-    <Tag {...args} label="Link" role="link" id="link" onClick={() => action(`Click: ${args.children}`)()}>
+    <Tag {...args} role="link" id="link" onClick={() => action(`Click: ${args.children}`)()}>
       {args.children}
     </Tag>
     <Tag
       {...args}
-      label="Button"
       role="button"
       id="button"
       style={{ marginLeft: 'var(--spacing-s)' }}
@@ -34,12 +33,12 @@ export const DefaultTagClickable = (args) => (
   </>
 );
 
-export const DefaultTagDeletable = (args) => {
+export const DefaultTagDeletable = (args: TagProps) => {
   return (
     <Tag
       {...args}
       deleteButtonAriaLabel={`Delete item: ${args.children}`}
-      srOnlyLabel
+      srOnlyLabel="Tag label for screen readers"
       onDelete={() => action(`Delete item: ${args.children}`)()}
     >
       {args.children}
@@ -47,7 +46,7 @@ export const DefaultTagDeletable = (args) => {
   );
 };
 
-export const DefaultTagWithCustomTheme = (args) => (
+export const DefaultTagWithCustomTheme = (args: TagProps) => (
   <Tag {...args} onClick={() => action(`Click: ${args.children}`)()}>
     {args.children}
   </Tag>
@@ -61,7 +60,7 @@ DefaultTagWithCustomTheme.args = {
   },
 };
 
-export const LargeTag = (args) => {
+export const LargeTag = (args: TagProps) => {
   return (
     <Tag {...args} size="l">
       {args.children}
@@ -69,7 +68,7 @@ export const LargeTag = (args) => {
   );
 };
 
-export const LargeTagDeletable = (args) => {
+export const LargeTagDeletable = (args: TagProps) => {
   return (
     <Tag
       {...args}
@@ -82,13 +81,13 @@ export const LargeTagDeletable = (args) => {
   );
 };
 
-export const DefaultTagWithLongText = (args) => (
+export const DefaultTagWithLongText = (args: TagProps) => (
   <Tag {...args} style={{ maxWidth: '300px' }}>
     Label - This is a tag with a very long text which is not advisable and might span into multiple lines
   </Tag>
 );
 
-export const DefaultTagWithLongTextAndDeletable = (args) => (
+export const DefaultTagWithLongTextAndDeletable = (args: TagProps) => (
   <Tag
     {...args}
     style={{ maxWidth: '300px' }}
@@ -99,13 +98,13 @@ export const DefaultTagWithLongTextAndDeletable = (args) => (
   </Tag>
 );
 
-export const LargeTagWithLongText = (args) => (
+export const LargeTagWithLongText = (args: TagProps) => (
   <Tag {...args} size="l" style={{ maxWidth: '300px' }}>
     Label - This is a tag with a very long text which is not advisable and might span into multiple lines
   </Tag>
 );
 
-export const LargeTagWithLongTextAndDeletable = (args) => (
+export const LargeTagWithLongTextAndDeletable = (args: TagProps) => (
   <Tag
     {...args}
     size="l"

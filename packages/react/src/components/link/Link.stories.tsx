@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from './Link';
+import { Link, LinkProps } from './Link';
 import { IconDocument, IconEnvelope, IconPhone, IconPhoto } from '../../icons';
 
 export default {
@@ -15,9 +15,9 @@ export default {
   },
 };
 
-export const Default = (args) => <Link {...args}>Default link</Link>;
+export const Default = (args: LinkProps) => <Link {...args}>Default link</Link>;
 
-export const InternalLinks = (args) => {
+export const InternalLinks = (args: LinkProps) => {
   return (
     <>
       <Link {...args} href={args.href} size="S">
@@ -46,7 +46,7 @@ InternalLinks.argTypes = {
   },
 };
 
-export const ExternalLinks = (args) => {
+export const ExternalLinks = (args: LinkProps) => {
   return (
     <>
       <Link
@@ -94,7 +94,7 @@ ExternalLinks.argTypes = {
   },
 };
 
-export const OpenInNewTabLink = (args) => (
+export const OpenInNewTabLink = (args: LinkProps) => (
   <Link
     {...args}
     href="https://hds.hel.fi"
@@ -114,7 +114,7 @@ OpenInNewTabLink.args = {
   external: true,
 };
 
-export const visitedStylesDisabled = (args) => (
+export const visitedStylesDisabled = (args: LinkProps) => (
   <Link {...args} href={args.href} disableVisitedStyles={args.disableVisitedStyles}>
     Link without visited styles
   </Link>
@@ -124,7 +124,7 @@ visitedStylesDisabled.args = {
   disableVisitedStyles: true,
 };
 
-export const inlineLinks = (args) => {
+export const inlineLinks = (args: LinkProps) => {
   return (
     <>
       <p style={{ fontSize: '14px' }}>
@@ -158,7 +158,7 @@ inlineLinks.argTypes = {
   },
 };
 
-export const standaloneLink = (args) => {
+export const standaloneLink = (args: LinkProps) => {
   return (
     <Link {...args} size="L" style={{ display: 'block', marginBottom: '20px', width: 'fit-content' }}>
       Standalone link
@@ -168,7 +168,7 @@ export const standaloneLink = (args) => {
 
 standaloneLink.storyName = 'Standalone link';
 
-export const withCustomIcon = (args) => {
+export const withCustomIcon = (args: LinkProps) => {
   return (
     <div style={{ display: 'grid', columnGap: '10px', gridTemplateColumns: '1fr 1fr 1fr' }}>
       <div>
@@ -245,7 +245,7 @@ withCustomIcon.argTypes = {
   },
 };
 
-export const withButtonStyles = (args) => {
+export const withButtonStyles = (args: LinkProps) => {
   return (
     <Link {...args} useButtonStyles>
       Link with button styles

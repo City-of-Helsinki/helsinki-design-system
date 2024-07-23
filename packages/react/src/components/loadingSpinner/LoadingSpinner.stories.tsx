@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { LoadingSpinner } from './LoadingSpinner';
+import { LoadingSpinner, LoadingSpinnerProps } from './LoadingSpinner';
 import { Button } from '../button';
 
 export default {
@@ -8,14 +8,14 @@ export default {
   title: 'Components/LoadingSpinner',
 };
 
-export const Default = (args) => <LoadingSpinner {...args} />;
+export const Default = (args: LoadingSpinnerProps) => <LoadingSpinner {...args} />;
 
-export const Small = (args) => <LoadingSpinner {...args} />;
+export const Small = (args: LoadingSpinnerProps) => <LoadingSpinner {...args} />;
 Small.args = {
   small: true,
 };
 
-export const CustomTheme = (args) => (
+export const CustomTheme = (args: LoadingSpinnerProps) => (
   <>
     <LoadingSpinner {...args} multicolor={false} />
     <br />
@@ -32,7 +32,7 @@ CustomTheme.args = {
   },
 };
 
-export const MultipleSpinners = (args) => {
+export const MultipleSpinners = (args: LoadingSpinnerProps) => {
   const [showSpinner1, setShowSpinner1] = useState(false);
   const [showSpinner2, setShowSpinner2] = useState(false);
   const [showSpinner3, setShowSpinner3] = useState(false);

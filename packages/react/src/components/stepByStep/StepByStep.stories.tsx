@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StepByStep } from './StepByStep';
+import { StepByStep, StepByStepProps } from './StepByStep';
 
 export default {
   component: StepByStep,
@@ -51,14 +51,14 @@ export default {
   },
 };
 
-export const NumberedStepByStep = (args) => <StepByStep numberedList {...args} />;
+export const NumberedStepByStep = (args: StepByStepProps) => <StepByStep numberedList {...args} />;
 
 NumberedStepByStep.args = {
   title: 'Numbered step by step component',
   helpText: 'Numbered component is suitable for cases where the order of the steps is important.',
 };
 
-export const RegularStepByStep = (args) => <StepByStep {...args} />;
+export const RegularStepByStep = (args: StepByStepProps) => <StepByStep {...args} />;
 
 RegularStepByStep.args = {
   title: 'Numbered step by step component',

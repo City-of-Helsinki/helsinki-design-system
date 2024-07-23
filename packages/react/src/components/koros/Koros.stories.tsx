@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
-import { getShapeHeight, Koros } from './Koros';
+import { getShapeHeight, Koros, KorosProps } from './Koros';
 
 export default {
   component: Koros,
@@ -46,7 +46,7 @@ export const Dense = () => (
   </>
 );
 
-export const Flipped = (args) => (
+export const Flipped = (args: KorosProps) => (
   <>
     <Koros flipVertical={args.flipVertical} />
     <br />
@@ -68,7 +68,9 @@ Flipped.args = {
   flipVertical: true,
 };
 
-export const Rotated = (args) => <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />;
+export const Rotated = (args: KorosProps) => (
+  <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />
+);
 
 Rotated.args = {
   type: 'basic',
@@ -115,7 +117,7 @@ export const RotatedInContainer = () => {
 
 export const CustomColor = () => <Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
 
-export const ExactFit = (args) => {
+export const ExactFit = (args: KorosProps) => {
   const korosProps = {
     style: { fill: 'var(--color-coat-of-arms)' },
     ...args,
@@ -136,7 +138,9 @@ export const ExactFit = (args) => {
   );
 };
 
-export const Playground = (args) => <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />;
+export const Playground = (args: KorosProps) => (
+  <Koros type={args.type} flipVertical={args.flipVertical} rotate={args.rotate} />
+);
 
 Playground.parameters = {
   previewTabs: {

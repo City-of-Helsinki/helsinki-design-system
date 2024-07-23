@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Header } from '../header/Header';
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb, BreadcrumbProps } from './Breadcrumb';
 import { Link } from '../link';
 import { LanguageOption } from '../header/LanguageContext';
 import { Container } from '../container/Container';
@@ -32,9 +32,9 @@ const languages: LanguageOption[] = [
   { label: 'English', value: 'en' },
 ];
 
-export const Example = (args) => <Breadcrumb {...args} />;
+export const Example = (args: BreadcrumbProps) => <Breadcrumb {...args} />;
 
-export const ExampleInHeader = (args) => {
+export const ExampleInHeader = (args: BreadcrumbProps) => {
   return (
     <>
       <Header languages={languages}>
@@ -105,7 +105,7 @@ export const ExampleInHeader = (args) => {
 
 ExampleInHeader.storyName = 'Breadcrumb in header';
 
-export const LastItemIsLink = (args) => (
+export const LastItemIsLink = (args: BreadcrumbProps) => (
   <Breadcrumb
     {...args}
     list={[
@@ -120,7 +120,7 @@ export const LastItemIsLink = (args) => (
 
 LastItemIsLink.storyName = 'Last item a link';
 
-export const WithCustomTheme = (args) => (
+export const WithCustomTheme = (args: BreadcrumbProps) => (
   <Breadcrumb
     {...args}
     theme={{
