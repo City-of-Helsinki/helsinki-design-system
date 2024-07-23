@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { LanguageSelectorProps } from '.';
-import { Header } from './Header';
+import { Header, HeaderProps } from './Header';
 import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniversalBar';
 import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
 import { HeaderLink } from './components/headerLink/HeaderLink';
@@ -442,7 +442,7 @@ const FullFeaturedNavigationMenu = ({
   );
 };
 
-export const WithFullFeatures = (args) => {
+export const WithFullFeatures = (args: HeaderProps) => {
   const [href, setHref] = useState('');
   const [lang, setLang] = useState<string>('fi');
 
@@ -473,7 +473,7 @@ export const WithFullFeatures = (args) => {
   );
 };
 
-export const Minimal = (args) => {
+export const Minimal = (args: HeaderProps) => {
   const lang = 'fi';
   const I18n = translations[lang];
 
@@ -486,7 +486,12 @@ export const Minimal = (args) => {
           title={translations[lang].headerTitle}
           titleAriaLabel={translations[lang].headerAriaLabel}
           titleHref="https://hel.fi"
-          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
+          logo={
+            <Logo
+              src={logoSrcFromLanguageAndTheme(lang, args.theme as HeaderTheme)}
+              alt={translations[lang].headerTitle}
+            />
+          }
           logoAriaLabel={I18n.ariaLogo}
         />
       </Header>
@@ -495,7 +500,7 @@ export const Minimal = (args) => {
   );
 };
 
-export const MinimalWithCustomLogo = (args) => {
+export const MinimalWithCustomLogo = (args: HeaderProps) => {
   const lang = 'fi';
   const I18n = translations[lang];
 
@@ -522,7 +527,7 @@ export const MinimalWithCustomLogo = (args) => {
   );
 };
 
-export const ManualLanguageSorting = (args) => {
+export const ManualLanguageSorting = (args: HeaderProps) => {
   const [href, setHref] = useState('');
   const [lang, setLang] = useState<string>('fi');
 
@@ -559,7 +564,7 @@ export const ManualLanguageSorting = (args) => {
         title={I18n.headerTitle}
         titleAriaLabel={I18n.headerTitle}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={I18n.headerTitle} />}
+        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme as HeaderTheme)} alt={I18n.headerTitle} />}
       >
         <Header.LanguageSelector
           sortLanguageOptions={sortLanguageOptions}
@@ -597,7 +602,7 @@ export const ManualLanguageSorting = (args) => {
   );
 };
 
-export const ManualLanguageOptions = (args) => {
+export const ManualLanguageOptions = (args: HeaderProps) => {
   const [href, setHref] = useState('');
   const [lang, setLang] = useState<string>('fi');
 
@@ -619,7 +624,12 @@ export const ManualLanguageOptions = (args) => {
         title={translations[lang].headerTitle}
         titleAriaLabel={translations[lang].headerAriaLabel}
         titleHref="https://hel.fi"
-        logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
+        logo={
+          <Logo
+            src={logoSrcFromLanguageAndTheme(lang, args.theme as HeaderTheme)}
+            alt={translations[lang].headerTitle}
+          />
+        }
       >
         <Header.SimpleLanguageOptions languages={[languages[0], languages[1], languages[2]]} />
       </Header.ActionBar>
@@ -646,7 +656,7 @@ export const ManualLanguageOptions = (args) => {
   );
 };
 
-export const WithFullFeaturesCustomTheme = (args) => {
+export const WithFullFeaturesCustomTheme = (args: HeaderProps) => {
   const [href, setHref] = useState('');
   const [lang, setLang] = useState<string>('fi');
   const isSmallerThanLarge = useMediaQueryLessThan('l');
@@ -709,7 +719,7 @@ export const WithFullFeaturesCustomTheme = (args) => {
   );
 };
 
-export const WithUserMenu = (args) => {
+export const WithUserMenu = (args: HeaderProps) => {
   const lang = 'fi';
   const I18n = translations[lang];
 
@@ -722,7 +732,12 @@ export const WithUserMenu = (args) => {
           title={translations[lang].headerTitle}
           titleAriaLabel={translations[lang].headerAriaLabel}
           titleHref="https://hel.fi"
-          logo={<Logo src={logoSrcFromLanguageAndTheme(lang, args.theme)} alt={translations[lang].headerTitle} />}
+          logo={
+            <Logo
+              src={logoSrcFromLanguageAndTheme(lang, args.theme as HeaderTheme)}
+              alt={translations[lang].headerTitle}
+            />
+          }
           logoAriaLabel={I18n.ariaLogo}
         >
           <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition id="action-bar-login">

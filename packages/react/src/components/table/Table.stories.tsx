@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { parse, isBefore, isSameDay } from 'date-fns';
 
-import { Table } from './Table';
+import { Table, TableProps } from './Table';
 import workTrial from './story-example-work-trial.json';
 import { Button } from '../button';
 import { IconTrash } from '../../icons';
@@ -18,7 +18,7 @@ export default {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Default = (args) => {
+export const Default = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -55,7 +55,7 @@ export const Default = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Light = (args) => {
+export const Light = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -92,7 +92,7 @@ export const Light = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Dense = (args) => {
+export const Dense = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -129,7 +129,7 @@ export const Dense = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Zebra = (args) => {
+export const Zebra = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -206,7 +206,7 @@ export const Zebra = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const VerticalLines = (args) => {
+export const VerticalLines = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -243,7 +243,7 @@ export const VerticalLines = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const VerticalHeaders = (args) => {
+export const VerticalHeaders = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: '8-12', headerName: '8-12' },
@@ -291,7 +291,7 @@ export const VerticalHeaders = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Sorting = (args) => {
+export const Sorting = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -340,7 +340,7 @@ export const Sorting = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const SortingLightVariant = (args) => {
+export const SortingLightVariant = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -390,7 +390,7 @@ export const SortingLightVariant = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const InitiallySortedBy = (args) => {
+export const InitiallySortedBy = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -441,7 +441,7 @@ export const InitiallySortedBy = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomSortFunction = (args) => {
+export const CustomSortFunction = (args: TableProps) => {
   const cols = [
     { key: 'Paikka-ID', headerName: 'Paikka-ID', isSortable: true },
     { key: 'Paikan tyyppi', headerName: 'Paikan tyyppi', isSortable: false },
@@ -517,7 +517,7 @@ export const CustomSortFunction = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const SortingSideEffects = (args) => {
+export const SortingSideEffects = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -589,7 +589,7 @@ SortingSideEffects.parameters = {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CheckboxSelection = (args) => {
+export const CheckboxSelection = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -611,7 +611,7 @@ export const CheckboxSelection = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState<Array<string | number>>([]);
 
   return (
     <div style={{ maxWidth: '640px' }}>
@@ -635,7 +635,7 @@ export const CheckboxSelection = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CheckboxSelectionDense = (args) => {
+export const CheckboxSelectionDense = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -657,7 +657,7 @@ export const CheckboxSelectionDense = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState<Array<string | number>>([]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -682,7 +682,7 @@ export const CheckboxSelectionDense = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const InitiallySelectedRows = (args) => {
+export const InitiallySelectedRows = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -704,7 +704,7 @@ export const InitiallySelectedRows = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
-  const [selectedRows, setSelectedRows] = useState([1002, 1003]);
+  const [selectedRows, setSelectedRows] = useState<Array<string | number>>([1002, 1003]);
 
   return (
     <div style={{ maxWidth: '640px' }}>
@@ -729,7 +729,7 @@ export const InitiallySelectedRows = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const WithCustomActions = (args) => {
+export const WithCustomActions = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -754,7 +754,7 @@ export const WithCustomActions = (args) => {
   ];
 
   const [tableRows, setTableRows] = useState(rows);
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState<Array<string | number>>([]);
 
   const deleteSelectedButton = (
     <Button
@@ -829,7 +829,7 @@ export const WithCustomActions = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CheckboxSelectionWithSorting = (args) => {
+export const CheckboxSelectionWithSorting = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -854,7 +854,7 @@ export const CheckboxSelectionWithSorting = (args) => {
     { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
   ];
 
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState<Array<string | number>>([]);
 
   return (
     <div style={{ maxWidth: '640px' }}>
@@ -881,7 +881,7 @@ export const CheckboxSelectionWithSorting = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomBackgroundColorsForDarkVariant = (args) => {
+export const CustomBackgroundColorsForDarkVariant = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -931,7 +931,7 @@ export const CustomBackgroundColorsForDarkVariant = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomBackgroundColorsForLightVariant = (args) => {
+export const CustomBackgroundColorsForLightVariant = (args: TableProps) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },

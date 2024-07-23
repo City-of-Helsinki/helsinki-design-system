@@ -31,7 +31,7 @@ type StepType = {
   title: string;
 };
 
-type StepByStepProps = AllElementPropsWithoutRef<'div'> & {
+export type StepByStepProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * Additional class names to apply to the container element.
    */

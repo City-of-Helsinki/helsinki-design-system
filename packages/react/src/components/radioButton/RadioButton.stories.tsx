@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
-import { RadioButton } from './RadioButton';
+import { RadioButton, RadioButtonProps } from './RadioButton';
 
 export default {
   component: RadioButton,
@@ -66,7 +66,7 @@ Custom.storyName = 'With custom styles';
 
 export const WithHelperText = () => <RadioButton id="radio-with-helper" label="Label" helperText="Assistive text" />;
 
-export const Playground = (args) => {
+export const Playground = (args: RadioButtonProps & Record<string, string>) => {
   const [radioValue, setRadioValue] = useState('');
   const options = ['foo', 'bar', 'baz'];
 

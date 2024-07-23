@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from './Card';
+import { Card, CardProps } from './Card';
 import { Button } from '../button';
 
 export default {
@@ -11,28 +11,28 @@ export default {
   },
 };
 
-export const Empty = (args) => <Card {...args} />;
+export const Empty = (args: CardProps) => <Card {...args} />;
 
-export const WithBorder = (args) => <Card {...args} />;
+export const WithBorder = (args: CardProps) => <Card {...args} />;
 WithBorder.storyName = 'With border';
 WithBorder.args = {
   border: true,
 };
 
-export const WithBoxShadow = (args) => <Card {...args} />;
+export const WithBoxShadow = (args: CardProps) => <Card {...args} />;
 WithBoxShadow.storyName = 'With box shadow';
 WithBoxShadow.args = {
   boxShadow: true,
 };
 
-export const TextHeading = (args) => <Card {...args} />;
+export const TextHeading = (args: CardProps) => <Card {...args} />;
 TextHeading.storyName = 'With text & heading';
 TextHeading.args = {
   heading: 'Card',
   text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 };
 
-export const WithOtherComponents = (args) => (
+export const WithOtherComponents = (args: CardProps) => (
   <Card {...args}>
     <Button variant="secondary" theme="black" role="link">
       Button
@@ -45,7 +45,7 @@ WithOtherComponents.args = {
   text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 };
 
-export const WithCustomTheme = (args) => <Card {...args} />;
+export const WithCustomTheme = (args: CardProps) => <Card {...args} />;
 WithCustomTheme.storyName = 'With custom theme';
 WithCustomTheme.args = {
   border: true,

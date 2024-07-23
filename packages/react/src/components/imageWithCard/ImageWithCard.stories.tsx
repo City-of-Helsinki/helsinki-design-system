@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 
-import { ImageWithCard } from './ImageWithCard';
+import { ImageWithCard, ImageWithCardProps } from './ImageWithCard';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const contentTitle = 'Lorem ipsum';
@@ -60,7 +60,7 @@ export const SplitFullWidth = () => (
 );
 SplitFullWidth.storyName = 'Split full width';
 
-export const Playground = (args) => (
+export const Playground = (args: ImageWithCardProps & Record<string, string>) => (
   <ImageWithCard
     color={args.color}
     cardAlignment={args.cardAlignment}

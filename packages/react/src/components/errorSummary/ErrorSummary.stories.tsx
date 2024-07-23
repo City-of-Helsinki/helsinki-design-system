@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErrorSummary } from './ErrorSummary';
+import { ErrorSummary, ErrorSummaryProps } from './ErrorSummary';
 
 export default {
   component: ErrorSummary,
@@ -14,7 +14,7 @@ export default {
   },
 };
 
-export const Default = (args) => (
+export const Default = (args: ErrorSummaryProps) => (
   <ErrorSummary {...args}>
     <ul>
       <li>
@@ -30,7 +30,7 @@ export const Default = (args) => (
   </ErrorSummary>
 );
 
-export const Large = (args) => <Default {...args} />;
+export const Large = (args: ErrorSummaryProps) => <Default {...args} />;
 Large.args = {
   size: 'large',
 };

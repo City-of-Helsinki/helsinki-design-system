@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Logo, logoFi, logoSv, logoRu } from './Logo';
+import { Logo, logoFi, logoSv, logoRu, LogoProps } from './Logo';
 
 export default {
   component: Logo,
@@ -10,7 +10,7 @@ export default {
   },
 };
 
-export const Playground = (args) => <Logo {...args} />;
+export const Playground = (args: LogoProps & Record<string, string>) => <Logo {...args} />;
 
 Playground.args = {
   size: 'full',
