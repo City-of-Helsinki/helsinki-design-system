@@ -6,41 +6,44 @@ import '../../styles/base.module.css';
 import styles from './Tooltip.module.scss';
 import { IconQuestionCircle } from '../../icons/IconQuestionCircle';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-type TooltipProps = React.PropsWithChildren<{
-  /**
-   * Boolean indicating whether tooltip has box shadow or not.
-   */
-  boxShadow?: boolean;
-  /**
-   * The placement of the tooltip.
-   */
-  placement?: Placement;
-  /**
-   * Use the small tooltip variant.
-   */
-  small?: boolean;
-  /**
-   * Aria-label text for the tooltip trigger button.
-   */
-  buttonLabel?: string;
-  /**
-   * Aria-label text for the tooltip.
-   */
-  tooltipLabel?: string;
-  /**
-   * Additional wrapper class names.
-   */
-  className?: string;
-  /**
-   * Additional button class names.
-   */
-  buttonClassName?: string;
-  /**
-   * Additional tooltip class names.
-   */
-  tooltipClassName?: string;
-}>;
+export type TooltipProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'div'> & {
+    /**
+     * Boolean indicating whether tooltip has box shadow or not.
+     */
+    boxShadow?: boolean;
+    /**
+     * The placement of the tooltip.
+     */
+    placement?: Placement;
+    /**
+     * Use the small tooltip variant.
+     */
+    small?: boolean;
+    /**
+     * Aria-label text for the tooltip trigger button.
+     */
+    buttonLabel?: string;
+    /**
+     * Aria-label text for the tooltip.
+     */
+    tooltipLabel?: string;
+    /**
+     * Additional wrapper class names.
+     */
+    className?: string;
+    /**
+     * Additional button class names.
+     */
+    buttonClassName?: string;
+    /**
+     * Additional tooltip class names.
+     */
+    tooltipClassName?: string;
+  }
+>;
 
 export const Tooltip = ({
   boxShadow = false,
@@ -52,6 +55,7 @@ export const Tooltip = ({
   className,
   buttonClassName,
   tooltipClassName,
+  ...rest
 }: TooltipProps) => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -118,7 +122,7 @@ export const Tooltip = ({
   });
 
   return (
-    <div className={classNames(styles.root, className)}>
+    <div {...rest} className={classNames(styles.root, className)}>
       <button
         ref={buttonRef}
         type="button"
