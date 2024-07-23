@@ -5,6 +5,7 @@ title: 'TextArea - Code'
 
 import { TextArea } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -126,3 +127,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `tooltipButtonLabel` | The aria-label text for the tooltip trigger button.              | `string`    | -             |
 | `tooltipText`        | The text content of the tooltip.                                 | `string`    | -             |
 [Table 1:TextArea properties]|
+
+<NativeElementPropsInfo
+  nodeName="textarea"
+  splitProps={['className', 'style']}
+/>
