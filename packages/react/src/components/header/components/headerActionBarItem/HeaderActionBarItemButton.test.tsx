@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
 import { HeaderWrapper } from '../../../../utils/test-utils';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
+import { AllElementPropsWithRef } from '../../../../utils/elementTypings';
 
 const clickHandler = jest.fn();
 
@@ -34,7 +35,7 @@ const activeStateProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' |
   activeStateIcon,
 };
 
-const RenderTestScenario = (props?: Partial<HeaderActionBarItemButtonProps> & JSX.IntrinsicElements['button']) => {
+const RenderTestScenario = (props?: Partial<HeaderActionBarItemButtonProps> & AllElementPropsWithRef<'button'>) => {
   const ref = useRef<HTMLButtonElement>(null);
   const combinedProps = { ...defaultProps, ...props };
   return <HeaderActionBarItemButton ref={ref} data-testid="button" {...combinedProps} />;
