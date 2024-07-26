@@ -8,54 +8,53 @@ import classNames from '../../../../utils/classNames';
 
 export type HeaderActionBarItemProps = React.PropsWithChildren<{
   /**
-   * Possibility to use a full-width version of the dropdown, for example in mobile use.
-   */
-  fullWidth?: boolean;
-  /**
-   * Label for the action bar item.
-   */
-  label?: string | JSX.Element;
-  /**
    * Aria-label attribute for the dropdown button.
    */
   ariaLabel?: string;
   /**
-   * Positions the label right side of the icon.
-   */
-  labelOnRight?: boolean;
-  /**
-   * Fix the item position to the right side of the action bar.
-   */
-  fixedRightPosition?: boolean;
-  /**
-   * Initials for avatar which replace icon.
+   * An avatar which replaces the icon. Usually user's initials, but can be any Element.
    */
   avatar?: string | JSX.Element;
-
   /**
-   * ID of the dropdown item.
+   * Icon for the action bar item when dropdown is open.
    */
-  id: string;
-  /**
-   * Additional classname for the icon.
-   */
-  iconClassName?: string;
-  /**
-   * Additional classname for the dropdown element.
-   */
-  dropdownClassName?: string;
+  closeIcon?: JSX.Element;
   /**
    * Label for the action bar item when dropdown is open.
    */
   closeLabel?: string | JSX.Element;
   /**
+   * Additional classname for the dropdown element.
+   */
+  dropdownClassName?: string;
+  /**
+   * Fix the item position to the right side of the action bar.
+   */
+  fixedRightPosition?: boolean;
+  /**
+   * Possibility to use a full-width version of the dropdown, for example in mobile use.
+   */
+  fullWidth?: boolean;
+  /**
    * Icon for the action bar item.
    */
   icon?: JSX.Element;
   /**
-   * Icon for the action bar item when dropdown is open.
+   * Additional classname for the icon.
    */
-  closeIcon?: JSX.Element;
+  iconClassName?: string;
+  /**
+   * ID of the dropdown item.
+   */
+  id: string;
+  /**
+   * Label for the action bar item.
+   */
+  label?: string | JSX.Element;
+  /**
+   * Positions the label right side of the icon.
+   */
+  labelOnRight?: boolean;
   /**
    * Menu button resizing is prevented by rendering button's active state to a separate element.
    */
