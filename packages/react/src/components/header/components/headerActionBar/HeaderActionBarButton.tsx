@@ -10,14 +10,7 @@ import {
 export const HeaderActionBarButton: FC<
   Omit<
     HeaderActionBarItemButtonProps,
-    | 'avatar'
-    | 'closeIcon'
-    | 'closeLabel'
-    | 'hasSubItems'
-    | 'activeStateIcon'
-    | 'activeStateLabel'
-    | 'isActive'
-    | 'preventButtonResize'
+    'activeStateIcon' | 'activeStateLabel' | 'avatar' | 'hasSubItems' | 'isActive' | 'preventButtonResize'
   >
 > = (props) => {
   return <HeaderActionBarItemButton {...props} />;
