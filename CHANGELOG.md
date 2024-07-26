@@ -69,6 +69,7 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 
 - [ssr] Improved documentation about using HDS styles with Next.js pages router.
+- [Header] Added more detailed documentation.
 
 #### Fixed
 
