@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
-
 import '../../styles/base.module.css';
+import { uniqueId } from 'lodash';
+
 import styles from './Table.module.scss';
 import { TableContainer } from './components/TableContainer';
 import { HeaderRow } from './components/HeaderRow';
@@ -124,15 +125,11 @@ export type TableProps = AllElementPropsWithoutRef<'table'> & {
    */
   headingClassName?: string;
   /**
-   * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
-   * Default value `hds-table-heading-id` will be removed in the next major release.
-   * @default 'hds-table-heading-id'
+   * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used. An id is created from the `id` prop or with `lodash.uniqueId`, if a value is not passed.
    */
   headingId?: string;
   /**
-   * Id that is passed to the native html table element.
-   * Default value `hds-table-id` will be removed in the next major release.
-   * @default 'hds-table-id'
+   * Id that is passed to the native html table element and used as a prefix for the `id` attribute of the Checkbox component, if `checkboxSelection` is `true`. An unique id for the checkbox is created, if a value is not passed.
    */
   id?: string;
   /**
@@ -265,8 +262,8 @@ export const Table = ({
   heading,
   headingAriaLevel = 2,
   headingClassName,
-  headingId = 'hds-table-heading-id', // Default value will be removed in the next major release
-  id = 'hds-table-id', // Default value will be removed in the next major release
+  headingId,
+  id,
   indexKey,
   initialSortingColumnKey,
   initialSortingOrder,
@@ -274,7 +271,7 @@ export const Table = ({
   renderIndexCol = true,
   rows,
   selectAllRowsText = 'Valitse kaikki rivit',
-  selectedRows,
+  selectedRows = [],
   setSelectedRows,
   textAlignContentRight = false,
   theme,
@@ -301,6 +298,19 @@ export const Table = ({
   }
 
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
+  const checkboxIdPrefix = useMemo<string>(() => {
+    const prefix = id || uniqueId('hds-table-id-');
+    return `${prefix}-checkbox-`;
+  }, [id]);
+  const uniqueHeadingId = useMemo<string>(() => {
+    if (headingId) {
+      return headingId;
+    }
+    if (id) {
+      return `${id}-table-heading`;
+    }
+    return uniqueId('hds-table-heading-');
+  }, [headingId, id]);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
   const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
@@ -343,7 +353,7 @@ export const Table = ({
         <div className={styles.actionContainer}>
           {heading && (
             <div
-              id={headingId}
+              id={uniqueHeadingId}
               role="heading"
               aria-level={headingAriaLevel}
               className={classNames(styles.heading, headingClassName)}
@@ -398,7 +408,7 @@ export const Table = ({
         zebra={zebra}
         verticalLines={verticalLines}
         customThemeClass={customThemeClass}
-        headingId={heading ? headingId : undefined}
+        headingId={heading ? uniqueHeadingId : undefined}
         {...rest}
       >
         {caption && <caption className={styles.caption}>{caption}</caption>}
@@ -444,7 +454,7 @@ export const Table = ({
                 <td className={styles.checkboxData}>
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
-                    id={`${id}-checkbox-${row[indexKey]}`}
+                    id={`${checkboxIdPrefix}${row[indexKey]}`}
                     aria-label={`${ariaLabelCheckboxSelection} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {
