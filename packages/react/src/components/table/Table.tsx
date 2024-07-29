@@ -96,7 +96,6 @@ export type TableProps = {
   customActionButtons?: React.ReactNode[];
   /**
    * Test id attribute that is passed to the html table element.
-   * @default 'hds-table-data-testid'
    */
   dataTestId?: string;
   /**
@@ -249,7 +248,7 @@ export const Table = ({
   clearSelectionsText = 'Tyhjennä valinnat',
   cols,
   customActionButtons,
-  dataTestId = 'hds-table-data-testid',
+  dataTestId,
   dense = false,
   heading,
   headingAriaLevel = 2,
@@ -365,7 +364,7 @@ export const Table = ({
                     size={ButtonSize.Small}
                     disabled={selectedRows.length === rows.length}
                     className={styles.actionButton}
-                    data-testid={`hds-table-select-all-button-${dataTestId}`}
+                    data-testid={dataTestId ? `hds-table-select-all-button-${dataTestId}` : undefined}
                   >
                     {selectAllRowsText}
                   </Button>
@@ -377,7 +376,7 @@ export const Table = ({
                     size={ButtonSize.Small}
                     disabled={selectedRows.length === 0}
                     className={styles.actionButton}
-                    data-testid={`hds-table-deselect-all-button-${dataTestId}`}
+                    data-testid={dataTestId ? `hds-table-deselect-all-button-${dataTestId}` : undefined}
                   >
                     {clearSelectionsText}
                   </Button>

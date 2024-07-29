@@ -186,7 +186,7 @@ export type PaginationProps = {
 };
 
 export const Pagination = ({
-  dataTestId = 'hds-pagination',
+  dataTestId,
   hideNextButton = false,
   hidePrevButton = false,
   language = 'fi',
@@ -237,7 +237,7 @@ export const Pagination = ({
         {!hidePrevButton && (
           <Button
             className={styles.buttonPrevious}
-            data-testid={`${dataTestId}-previous-button`}
+            data-testid={dataTestId ? `${dataTestId}-previous-button` : undefined}
             disabled={pageIndex === 0 || pageCount === 1}
             aria-disabled={pageIndex === 0 || pageCount === 1 || undefined}
             onClick={(event) => onChange(event, pageIndex - 1)}
@@ -262,7 +262,7 @@ export const Pagination = ({
               <li key={pageItem}>
                 <a
                   className={classNames(styles.itemLink, pageIndex + 1 === pageItem ? styles.itemLinkActive : '')}
-                  data-testid={`${dataTestId}-page-${pageItem}`}
+                  data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
                   href={pageHref(pageItem as number)}
                   onClick={onChange ? (event) => onChange(event, (pageItem as number) - 1) : undefined}
                   title={mapLangToPageTitle(pageItem as number, language, pageItem === pageIndex + 1)}
@@ -278,7 +278,7 @@ export const Pagination = ({
         {!hideNextButton && (
           <Button
             className={styles.buttonNext}
-            data-testid={`${dataTestId}-next-button`}
+            data-testid={dataTestId ? `${dataTestId}-next-button` : undefined}
             disabled={pageIndex === pageCount - 1 || pageCount === 1}
             aria-disabled={pageIndex === pageCount - 1 || pageCount === 1 || undefined}
             onClick={(event) => onChange(event, pageIndex + 1)}

@@ -74,6 +74,7 @@ describe('<Table /> spec', () => {
       rows,
       indexKey,
       renderIndexCol,
+      dataTestId: 'hds-table-data-testid',
     };
   });
 
