@@ -51,6 +51,34 @@ export type SelectionGroupProps = React.PropsWithChildren<
   }
 >;
 
+const Legend = ({ label, required }: Pick<SelectionGroupProps, 'label' | 'required'>) => {
+  return (
+    <legend className={styles.label}>
+      {label} {required && <RequiredIndicator />}
+    </legend>
+  );
+};
+
+const LegendAndToolTip = ({
+  label,
+  required,
+  tooltipText,
+  tooltipLabel,
+  tooltipButtonLabel,
+}: Pick<SelectionGroupProps, 'label' | 'required' | 'tooltipLabel' | 'tooltipButtonLabel' | 'tooltipText'>) => {
+  if (!tooltipText) {
+    return <Legend label={label} required={required} />;
+  }
+  return (
+    <div className={styles.legendAndToolTipWrapper}>
+      <Legend label={label} required={required} />
+      <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
+        {tooltipText}
+      </Tooltip>
+    </div>
+  );
+};
+
 export const SelectionGroup = ({
   label,
   direction = 'vertical',
@@ -65,7 +93,13 @@ export const SelectionGroup = ({
   ...fieldSetProps
 }: SelectionGroupProps) => {
   const childElements = getChildrenAsArray(children);
-
+  const labelAndToolTipProps = {
+    label,
+    required,
+    tooltipLabel,
+    tooltipButtonLabel,
+    tooltipText,
+  };
   useEffect(() => {
     let hasRadios = false;
     let hasCheckedRadios = false;
@@ -88,14 +122,7 @@ export const SelectionGroup = ({
   }, [children]);
   return (
     <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
-      <legend className={styles.label}>
-        {label} {required && <RequiredIndicator />}
-      </legend>
-      {tooltipText && (
-        <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
-          {tooltipText}
-        </Tooltip>
-      )}
+      <LegendAndToolTip {...labelAndToolTipProps} />
       <div className={classNames(styles.items, styles[direction])}>
         {childElements.map(
           (child) =>
