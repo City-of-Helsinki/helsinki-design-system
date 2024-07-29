@@ -4,20 +4,13 @@
   composes: hds-selection-group from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
-.selectionGroup > *:not(.items) {
-  float: left;
+.label {
+  composes: hds-selection-group__legend from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
-.label {
-  /* Normalize.css rule
-   * Remove the padding so developers are not caught out when they zero out
-   * `fieldset` elements in all browsers.
-   */
-
-  @extend %inputLabel;
-
-  margin-bottom: var(--spacing-row);
-  padding: 0;
+.legendAndToolTipWrapper {
+  display: flex;
+  flex-direction: row;
 }
 
 .items {
