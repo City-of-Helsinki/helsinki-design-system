@@ -3,28 +3,57 @@
 exports[`<Table /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
+    class="actionContainer"
+  >
+    <div
+      aria-level="2"
+      class="heading"
+      id="heading-id"
+      role="heading"
+    >
+      Heading
+    </div>
+    <div
+      class="actionButtonContainer"
+    >
+      <button
+        class="button secondary theme-bus size-small actionButton"
+        data-testid="hds-table-select-all-button-hds-table-data-testid"
+        type="button"
+      >
+        <span>
+          Valitse kaikki rivit
+        </span>
+      </button>
+      <button
+        class="button secondary theme-bus size-small actionButton"
+        data-testid="hds-table-deselect-all-button-hds-table-data-testid"
+        disabled=""
+        type="button"
+      >
+        <span>
+          Tyhjennä valinnat
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
     class="container"
     tabindex="0"
   >
     <table
+      aria-labelledby="heading-id"
       class="table dark"
       data-testid="hds-table-data-testid"
-      id="hds-table-id"
+      id="table-id"
     >
-      <caption
-        class="caption"
-      >
-        <span>
-          <b>
-            Table 1
-          </b>
-          : Table description
-        </span>
-      </caption>
       <thead>
         <tr
           class="headerRow"
         >
+          <td
+            class="checkboxHeader"
+          />
           <th
             scope="col"
           >
@@ -52,6 +81,25 @@ exports[`<Table /> spec renders the component 1`] = `
       >
         <tr>
           <td
+            class="checkboxData"
+          >
+            <div
+              class="checkbox checkbox"
+            >
+              <input
+                aria-label="Rivin valinta Lauri"
+                class="input"
+                id="table-id-checkbox-1000"
+                type="checkbox"
+                value=""
+              />
+              <label
+                class="label noLabel"
+                for="table-id-checkbox-1000"
+              />
+            </div>
+          </td>
+          <td
             data-testid="firstName-0"
           >
             Lauri
@@ -77,6 +125,25 @@ exports[`<Table /> spec renders the component 1`] = `
           </td>
         </tr>
         <tr>
+          <td
+            class="checkboxData"
+          >
+            <div
+              class="checkbox checkbox"
+            >
+              <input
+                aria-label="Rivin valinta Maria"
+                class="input"
+                id="table-id-checkbox-1001"
+                type="checkbox"
+                value=""
+              />
+              <label
+                class="label noLabel"
+                for="table-id-checkbox-1001"
+              />
+            </div>
+          </td>
           <td
             data-testid="firstName-1"
           >
@@ -104,6 +171,25 @@ exports[`<Table /> spec renders the component 1`] = `
         </tr>
         <tr>
           <td
+            class="checkboxData"
+          >
+            <div
+              class="checkbox checkbox"
+            >
+              <input
+                aria-label="Rivin valinta Anneli"
+                class="input"
+                id="table-id-checkbox-1002"
+                type="checkbox"
+                value=""
+              />
+              <label
+                class="label noLabel"
+                for="table-id-checkbox-1002"
+              />
+            </div>
+          </td>
+          <td
             data-testid="firstName-2"
           >
             Anneli
@@ -130,6 +216,25 @@ exports[`<Table /> spec renders the component 1`] = `
         </tr>
         <tr>
           <td
+            class="checkboxData"
+          >
+            <div
+              class="checkbox checkbox"
+            >
+              <input
+                aria-label="Rivin valinta Osku"
+                class="input"
+                id="table-id-checkbox-1003"
+                type="checkbox"
+                value=""
+              />
+              <label
+                class="label noLabel"
+                for="table-id-checkbox-1003"
+              />
+            </div>
+          </td>
+          <td
             data-testid="firstName-3"
           >
             Osku
@@ -155,6 +260,25 @@ exports[`<Table /> spec renders the component 1`] = `
           </td>
         </tr>
         <tr>
+          <td
+            class="checkboxData"
+          >
+            <div
+              class="checkbox checkbox"
+            >
+              <input
+                aria-label="Rivin valinta Linda"
+                class="input"
+                id="table-id-checkbox-1004"
+                type="checkbox"
+                value=""
+              />
+              <label
+                class="label noLabel"
+                for="table-id-checkbox-1004"
+              />
+            </div>
+          </td>
           <td
             data-testid="firstName-4"
           >
