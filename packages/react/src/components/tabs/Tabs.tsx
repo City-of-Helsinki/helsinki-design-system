@@ -30,6 +30,7 @@ export type TabsProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * The initially active tab
+     * @default 0
      */
     initiallyActiveTab?: number;
     /**
