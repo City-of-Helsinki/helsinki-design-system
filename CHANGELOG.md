@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ErrorSummary] Changed size prop to enum (ErrorSummarySize.Medium and ErrorSummarySize.Large) or without using Typescript ("medium" and "large"). The "default" size was removed and replaced with "medium".
 - [Icon] Icon size changed to enum (IconSize.ExtraSmall, IconSize.Small, IconSize.Medium, IconSize.Large and IconSize.ExtraLarge) or without Typescript ("extraSmall", "small", "medium", "large" and "extraLarge").
 - [Hero] The optional arrow icon takes vertical space and may require background color to be set.
+- [SelectionGroup] Updated element spacings
 
 #### Added
 
@@ -49,6 +50,7 @@ Changes that are not related to specific components
 - [Table] id and headingId props do not have default values anymore. Affects also the id of the CheckBox inside the Table. Also removed default dataTestId
 - [Stepper] Removed default dataTestId.
 - [Pagination] Removed default dataTestId.
+- [SelectionGroup] Updated element spacings
 
 #### Added
 
