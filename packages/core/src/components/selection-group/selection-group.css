@@ -6,6 +6,8 @@
   --icon-size: var(--spacing-m);
 
   border: 0;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
 }
