@@ -2,9 +2,10 @@ import './selection-group.css';
 import '../../icons/icon.css';
 import '../../icons/share.css';
 import '../../icons/angle-right.css';
-import {useEffect} from "@storybook/client-api";
+import { useEffect } from '@storybook/client-api';
 
-const getHelperText = (text = 'Assistive text') => `<div class="helper-text">${text}</div>`;
+const getHelperText = (text = 'Assistive text') =>
+  `<div class="hds-selection-group__helper-text-gap helper-text">${text}</div>`;
 
 const getCheckboxLabel = (id = 'input', label = 'Option') =>
   `<label for="${id}"  class="hds-checkbox__label">${label}</label>`;
@@ -141,8 +142,6 @@ export const Invalid = () => `
   </fieldset>
 `;
 
-
-
 export const WithParent = () => {
   useEffect(() => {
     const checkbox = document.querySelector('#checkboxparent');
@@ -200,8 +199,8 @@ export const WithParent = () => {
         </li>
       </ul>
     </fieldset>
-  `
-}
+  `;
+};
 
 WithParent.storyName = 'With a parent';
 
