@@ -15,6 +15,7 @@ const renderPagination = ({ pageCount, pageIndex, siblingCount }) => {
       pageHref={() => '#'}
       language="en"
       siblingCount={siblingCount}
+      dataTestId="hds-pagination"
     />,
   );
 
