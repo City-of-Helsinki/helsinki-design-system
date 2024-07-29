@@ -1,13 +1,7 @@
-@import "../../styles/common.scss";
+@import '../../styles/common.scss';
 
 .selectionGroup {
-  --spacing-col: 1.25rem;
-  --spacing-row: var(--spacing-s);
-  --label-color-default: var(--color-black-90);
-  --icon-size: var(--spacing-m);
-
-  border: 0;
-  padding: 0;
+  composes: hds-selection-group from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
 .selectionGroup > *:not(.items) {
@@ -27,10 +21,7 @@
 }
 
 .items {
-  clear: left;
-  display: grid;
-  gap: var(--spacing-row) var(--spacing-col);
-  justify-content: start;
+  composes: hds-selection-group__items from 'hds-core/lib/components/selection-group/selection-group.css';
 
   &.vertical {
     grid-auto-flow: row;
@@ -51,4 +42,5 @@
 
 .helperText {
   composes: helper-text from 'hds-core/lib/utils/helpers.css';
+  composes: hds-selection-group__helper-text-gap from 'hds-core/lib/components/selection-group/selection-group.css';
 }
