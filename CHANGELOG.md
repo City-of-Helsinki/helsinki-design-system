@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Dialog] heading typography changes
 - [CookieConsent] heading typography changes
 - [Accordion] heading typography changes
+- [Pagination] Active element changed from "a" element to "span" element
 
 #### Added
 
@@ -61,6 +62,7 @@ Changes that are not related to specific components
 - [StepByStep] heading typography changes
 - [Notification] heading typography changes
 - [Highlight] heading typography changes
+- [Pagination] Active element changed from "a" element to "span" element
 
 #### Added
 
