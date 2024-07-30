@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import '../../styles/base.module.css';
@@ -199,7 +199,20 @@ export const Pagination = ({
   theme,
 }: PaginationProps) => {
   const initialPageIndex = useRef(pageIndex);
+  const activeItemRef = useRef<HTMLSpanElement>();
+  const userSelectedIndex = useRef(-1);
   const [hasUserChangedPage, setHasUserChangedPage] = useState<boolean>(false);
+
+  const onChangeWithInternalHandler = useCallback(
+    (event, index, wasButtonClick = false) => {
+      // do not shift focus away from buttons
+      userSelectedIndex.current = wasButtonClick ? -1 : index;
+      if (onChange) {
+        onChange(event, index);
+      }
+    },
+    [onChange],
+  );
 
   useEffect(() => {
     if (hasUserChangedPage === false) {
@@ -208,6 +221,14 @@ export const Pagination = ({
       }
     }
   }, [pageIndex, hasUserChangedPage]);
+
+  useEffect(() => {
+    if (userSelectedIndex.current > -1 && activeItemRef.current) {
+      // Active element changes from <a> to <span>, so focus is lost after re-render.
+      // Move it back manually
+      activeItemRef.current.focus();
+    }
+  }, [userSelectedIndex.current]);
 
   const itemList = useMemo(
     () => createPaginationItemList({ pageCount, pageIndex, siblingCount }),
@@ -240,7 +261,7 @@ export const Pagination = ({
             data-testid={dataTestId ? `${dataTestId}-previous-button` : undefined}
             disabled={pageIndex === 0 || pageCount === 1}
             aria-disabled={pageIndex === 0 || pageCount === 1 || undefined}
-            onClick={(event) => onChange(event, pageIndex - 1)}
+            onClick={(event) => onChangeWithInternalHandler(event, pageIndex - 1, true)}
             variant={ButtonVariant.Supplementary}
             theme={ButtonPresetTheme.Black}
             iconStart={<IconAngleLeft />}
@@ -268,6 +289,8 @@ export const Pagination = ({
                     data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
                     aria-label={`${mapLangToPageAriaLabel(pageItem, language)}. ${mapLangToPageTitle(pageItem, language, true)}.`}
                     aria-current="page"
+                    tabIndex={-1}
+                    ref={activeItemRef}
                   >
                     {pageItem}
                   </span>
@@ -276,7 +299,7 @@ export const Pagination = ({
                     className={classNames(styles.itemLink)}
                     data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
                     href={pageHref(pageItem)}
-                    onClick={onChange ? (event) => onChange(event, pageItem - 1) : undefined}
+                    onClick={(event) => onChangeWithInternalHandler(event, pageItem - 1)}
                     title={mapLangToPageTitle(pageItem, language, false)}
                     aria-label={mapLangToPageAriaLabel(pageItem, language)}
                   >
@@ -293,7 +316,7 @@ export const Pagination = ({
             data-testid={dataTestId ? `${dataTestId}-next-button` : undefined}
             disabled={pageIndex === pageCount - 1 || pageCount === 1}
             aria-disabled={pageIndex === pageCount - 1 || pageCount === 1 || undefined}
-            onClick={(event) => onChange(event, pageIndex + 1)}
+            onClick={(event) => onChangeWithInternalHandler(event, pageIndex + 1, true)}
             variant={ButtonVariant.Supplementary}
             theme={ButtonPresetTheme.Black}
             iconEnd={<IconAngleRight className={styles.angleRightIcon} />}
