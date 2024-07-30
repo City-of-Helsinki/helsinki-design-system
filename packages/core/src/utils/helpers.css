@@ -96,21 +96,21 @@
 .heading-s {
   font-size: var(--fontsize-heading-s);
   font-weight: 500;
-  letter-spacing: 0.2px;
+  letter-spacing: 0;
   line-height: var(--lineheight-l);
 }
 
 .heading-xs {
   font-size: var(--fontsize-heading-xs);
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0;
   line-height: var(--lineheight-l);
 }
 
 .heading-xxs {
   font-size: var(--fontsize-heading-xxs);
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.2px;
   line-height: var(--lineheight-l);
 }
 
