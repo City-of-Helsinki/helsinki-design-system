@@ -275,19 +275,31 @@ export const Pagination = ({
               );
             }
 
+            const isCurrent = pageIndex + 1 === pageItem;
+
             return (
               <li key={pageItem}>
-                <a
-                  className={classNames(styles.itemLink, pageIndex + 1 === pageItem ? styles.itemLinkActive : '')}
-                  data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
-                  href={pageHref(pageItem as number)}
-                  onClick={onChange ? (event) => onChange(event, (pageItem as number) - 1) : undefined}
-                  title={mapLangToPageTitle(pageItem as number, language, pageItem === pageIndex + 1)}
-                  aria-label={mapLangToPageAriaLabel(pageItem as number, language)}
-                  aria-current={pageIndex + 1 === pageItem ? 'page' : false}
-                >
-                  {pageItem}
-                </a>
+                {isCurrent ? (
+                  <span
+                    className={classNames(styles.itemLink, styles.itemLinkActive)}
+                    data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
+                    aria-label={`${mapLangToPageAriaLabel(pageItem, language)}. ${mapLangToPageTitle(pageItem, language, true)}.`}
+                    aria-current="page"
+                  >
+                    {pageItem}
+                  </span>
+                ) : (
+                  <a
+                    className={classNames(styles.itemLink)}
+                    data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
+                    href={pageHref(pageItem)}
+                    onClick={onChange ? (event) => onChange(event, pageItem - 1) : undefined}
+                    title={mapLangToPageTitle(pageItem, language, false)}
+                    aria-label={mapLangToPageAriaLabel(pageItem, language)}
+                  >
+                    {pageItem}
+                  </a>
+                )}
               </li>
             );
           })}
