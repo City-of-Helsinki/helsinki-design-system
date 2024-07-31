@@ -39,7 +39,7 @@
 /* LABEL */
 
 .hds-notification__label {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   font-size: var(--fontsize-heading-xs);
   font-weight: bold;
