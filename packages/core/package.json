@@ -9,11 +9,12 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn cssToScss",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
+    "cssToScss": "node scripts/cssToScss.js",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error",
     "lint:styles": "yarn stylelint \"src/**/*.css\""
@@ -34,6 +35,7 @@
     "cssnano": "4.1.10",
     "hds-design-tokens": "3.10.0",
     "postcss": "8.2.15",
+    "postcss-classes-to-mixins": "^3.0.1",
     "postcss-cli": "8.3.1",
     "postcss-import": "12.0.1",
     "postcss-inline-svg": "4.1.0",
