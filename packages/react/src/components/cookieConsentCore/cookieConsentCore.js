@@ -116,6 +116,7 @@ export class CookieConsentCore {
    * Creates and inits a new instance of the CookieConsent class.
    * @param {Object} siteSettingsParam - The URL to the JSON file with site settings or contents of the site settings as an object.
    * @param {Object} options - The options for configuring the CookieConsent instance.
+   * @param {Object} overrides - Optional override configurations.
    * @param {string} [options.language='en'] - The page language.
    * @param {string} [options.theme='bus'] - The theme for the banner.
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
@@ -128,7 +129,7 @@ export class CookieConsentCore {
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the JSON parsing fails.
    */
-  static async create(siteSettingsParam, options) {
+  static async create(siteSettingsParam, options, overrides = false) {
     let instance;
     if (!siteSettingsParam && (typeof siteSettingsParam !== 'string' || typeof siteSettingsParam !== 'object')) {
       throw new Error(
@@ -159,7 +160,7 @@ export class CookieConsentCore {
     }
 
     // Initialise the class instance
-    await instance.#init();
+    await instance.#init(overrides?.showBanner);
 
     // Return reference to the class instance
     return instance;
@@ -195,6 +196,11 @@ export class CookieConsentCore {
     };
   }
 
+  async openBanner(siteSettingsJsonUrl, options) {
+    this.#removeBanner();
+    await CookieConsentCore.create(siteSettingsJsonUrl, options, { showBanner: true });
+  }
+
   // MARK: Private methods
 
   /**
@@ -215,6 +221,10 @@ export class CookieConsentCore {
     if (this.#bannerElements.spacer) {
       this.#bannerElements.spacer.remove();
       this.#bannerElements.spacer = null;
+    }
+    if (this.#bannerElements.ariaLive) {
+      this.#bannerElements.ariaLive.remove();
+      this.#bannerElements.ariaLive = null;
     }
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
@@ -346,6 +356,7 @@ export class CookieConsentCore {
 
           // Otherwise, clear the content
         } else {
+          // TODO: remove
           // this.#bannerElements.ariaLive.innerHTML = '';
           const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
           if (notificationElem) {
@@ -569,9 +580,10 @@ export class CookieConsentCore {
    * and rendering the banner if necessary.
    *
    * @private
+   * @param {boolean} displayOverride - The override for opening banner from user actions.
    * @return {Promise<void>} A promise that resolves when the initialization is complete.
    */
-  async #init() {
+  async #init(displayOverride = false) {
     await new Promise((resolve) => {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -598,7 +610,7 @@ export class CookieConsentCore {
     } else {
       // Check if banner is needed or not
       const shouldDisplayBanner = this.#shouldDisplayBanner();
-      if (shouldDisplayBanner) {
+      if (shouldDisplayBanner || displayOverride) {
         await this.#render(this.#LANGUAGE, siteSettings, true);
       }
     }

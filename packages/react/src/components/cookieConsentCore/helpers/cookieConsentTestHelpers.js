@@ -62,4 +62,8 @@ export default class cookieConsentTestHelpers {
     const selectedButton = shadowroot.querySelector('button[data-approved="selected"]');
     fireEvent.click(selectedButton);
   }
+
+  static openBanner(siteSettingsJsonUrl, options) {
+    return window.hds.cookieConsent.openBanner(siteSettingsJsonUrl, options);
+  }
 }

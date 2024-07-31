@@ -1244,6 +1244,27 @@ describe('cookieConsentCore', () => {
     expect(cacheBeforeDelete).not.toEqual(cacheAfterDelete);
   });
 
+  it('should open banner when essentials are approved but user wants to enable embedded content', async () => {
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    bannerClicks.approveCategory('test_optional');
+
+    // Delete banner
+    document.body.innerHTML = '';
+    const banner = document.querySelector('.hds-cc__target');
+    expect(banner).toBeNull();
+
+    // Open banner via window scoped method
+    await helpers.openBanner(urls.siteSettingsJsonUrl, optionsEvent);
+
+    // Banner should spawn
+    const openedBanner = document.querySelector('.hds-cc__target');
+    expect(openedBanner).not.toBeNull();
+  });
+
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: State changes
   // - If the settings file has changed, the banner should appear

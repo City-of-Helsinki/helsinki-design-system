@@ -47,6 +47,9 @@ export const ReactTest = () => {
     // eslint-disable-next-line no-console
     console.log('Cookie removed:', cookieName);
   };
+  const openBanner = async () => {
+    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(siteSettingsJsonUrl, options));
+  };
   return (
     <main>
       <p>
@@ -66,6 +69,9 @@ export const ReactTest = () => {
       </button>
       <button type="button" onClick={removeConsentCookie}>
         Remove consent cookie
+      </button>
+      <button type="button" onClick={openBanner}>
+        Open banner
       </button>
       <p>
         Ex consequatur perspiciatis pariatur, suscipit maiores officia vitae assumenda incidunt rem in, distinctio iure
