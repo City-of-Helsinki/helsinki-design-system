@@ -283,7 +283,9 @@ export class CookieConsentCore {
     } else {
       window.dispatchEvent(new CustomEvent(this.#SUBMIT_EVENT, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
+        this.#announceSettingsSaved();
         this.#removeBanner();
+        return;
       }
       this.#announceSettingsSaved();
     }
