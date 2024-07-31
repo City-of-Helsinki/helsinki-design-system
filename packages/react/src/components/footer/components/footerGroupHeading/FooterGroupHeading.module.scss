@@ -1,3 +1,4 @@
+@use 'hds-core/lib/scss/helpers' as helpers;
 @import '../../common.scss';
 @value medium-down from "../../../../styles/breakpoints.scss";
 
@@ -13,7 +14,9 @@
 }
 
 .utility {
-  font-size: var(--fontsize-heading-m);
+  @include helpers.heading-m;
+
+  font-weight: bold;
 }
 
 @media medium-down {
