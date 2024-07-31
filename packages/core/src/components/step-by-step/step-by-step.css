@@ -17,6 +17,7 @@
   --title-line-height: var(--lineheight-xl);
 
   counter-reset: item;
+  letter-spacing: -0.2px;
   margin: 0;
   padding: 0;
 }
