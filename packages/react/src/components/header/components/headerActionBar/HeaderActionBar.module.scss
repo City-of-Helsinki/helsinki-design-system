@@ -83,10 +83,6 @@
   .bold > & {
     @include typography.title-bold;
   }
-
-  .black > & {
-    @include typography.title-black;
-  }
 }
 
 .logo {
