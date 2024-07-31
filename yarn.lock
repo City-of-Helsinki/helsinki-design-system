@@ -21674,6 +21674,11 @@ postcss-clamp@^4.1.0:
   dependencies:
     postcss-value-parser "^4.2.0"
 
+postcss-classes-to-mixins@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-classes-to-mixins/-/postcss-classes-to-mixins-3.0.1.tgz#f67de984346cb1599ddc2f31a33bc4223bd788fc"
+  integrity sha512-ZXolG2jenl5YT+DaZ+t6dPjYxrH16aLncP4IQiHjRO5DUNFFCvHe6gkrMJHuLg9ByEItMfI8/dVEConTBCi93g==
+
 postcss-cli@8.3.1:
   version "8.3.1"
   resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-8.3.1.tgz#865dad08300ac59ae9cecb7066780aa81c767a77"
