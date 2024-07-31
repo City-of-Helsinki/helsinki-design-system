@@ -74,7 +74,7 @@
   font-size: var(--fontsize-heading-xl);
   font-weight: normal;
   letter-spacing: -1px;
-  line-height: 1em;
+  line-height: var(--lineheight-s);
   margin-top: 0;
 }
 
@@ -410,6 +410,7 @@
   .hds-hero__title {
     font-size: var(--fontsize-heading-xxl);
     letter-spacing: -1.2px;
+    line-height: var(--lineheight-s);
   }
 
   .hds-hero--diagonal-koros .hds-hero__text {
