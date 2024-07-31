@@ -1,4 +1,4 @@
-.accordion {  
+.accordion {
   --background-color: var(--color-white);
   --border-color: var(--color-black-60);
   --header-color: var(--color-black-90);
@@ -87,8 +87,8 @@
   --header-font-size: var(--fontsize-heading-s);
   --padding-vertical: var(--spacing-s);
   --header-font-weight: 700;
-  --header-letter-spacing: 0.2px;
-  --header-line-height: 1.4;
+  --header-letter-spacing: 0;
+  --header-line-height: var(--lineheight-l);
   --padding-horizontal: var(--spacing-2-xs);
   --icon-size: 28px;
 
@@ -102,7 +102,7 @@
   --padding-vertical: var(--spacing-m);
   --header-font-weight: 500;
   --header-letter-spacing: -0.2px;
-  --header-line-height: 32px;
+  --header-line-height: var(--lineheight-m);
   --padding-horizontal: var(--spacing-m);
   --icon-size: 36px;
 }
@@ -112,7 +112,7 @@
   --padding-vertical: var(--spacing-l);
   --header-font-weight: 400;
   --header-letter-spacing: -0.4px;
-  --header-line-height: var(--lineheight-s);
+  --header-line-height: var(--lineheight-m);
   --padding-horizontal: var(--spacing-l);
   --icon-size: 52px;
 
@@ -156,7 +156,8 @@
     border: none;
     outline-offset: 0;
 
-    &:focus { // normally not needed in <Button />, but added here so focus stays visible after click
+    &:focus {
+      // normally not needed in <Button />, but added here so focus stays visible after click
       outline: 2px solid var(--header-outline-color-focus);
     }
   }
@@ -165,4 +166,3 @@
 .contentWithCloseButton {
   padding-bottom: 0;
 }
-
