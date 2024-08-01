@@ -10,45 +10,45 @@ export default {
 };
 
 export const Primary = () => `
-  <button type="button" class="hds-button hds-button--primary">
+  <button type="button" class="hds-button hds-button--primary" data-playwright="true">
     Button
   </button>
 `;
 
 export const Secondary = () => `
-  <button type="button" class="hds-button hds-button--secondary">
+  <button type="button" class="hds-button hds-button--secondary" data-playwright="true">
     Button
   </button>
 `;
 
 export const Supplementary = () => `
-  <button type="button" class="hds-button hds-button--supplementary">
+  <button type="button" class="hds-button hds-button--supplementary" data-playwright="true">
     <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
     Button
   </button>
 `;
 
 export const Success = () => `
-  <button type="button" class="hds-button hds-button--success">
+  <button type="button" class="hds-button hds-button--success" data-playwright="true">
     Button
   </button>
 `;
 
 export const Danger = () => `
-  <button type="button" class="hds-button hds-button--danger">
+  <button type="button" class="hds-button hds-button--danger" data-playwright="true">
     Button
   </button>
 `;
 
 export const FullWidth = () => `
-  <button type="button" class="hds-button hds-button--primary hds-button--fullwidth">
+  <button type="button" class="hds-button hds-button--primary hds-button--fullwidth" data-playwright="true">
     Button
   </button>
 `;
 FullWidth.storyName = 'Full width';
 
 export const Small = () => `
-  <button type="button" class="hds-button hds-button--primary hds-button--small">
+  <button type="button" class="hds-button hds-button--primary hds-button--small" data-playwright="true">
     Button
   </button>
 `;
@@ -72,7 +72,7 @@ export const Disabled = () => `
 `;
 
 export const Icons = () => `
-  <button type="button" class="hds-button hds-button--primary">
+  <button type="button" class="hds-button hds-button--primary" data-playwright="true">
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
     <span>Button</span>
   </button>
@@ -88,7 +88,7 @@ export const Icons = () => `
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary">
+  <button type="button" class="hds-button hds-button--small hds-button--primary" data-playwright="true">
     <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
     <span>Button</span>
   </button>
@@ -106,7 +106,7 @@ export const Icons = () => `
 `;
 
 export const IconsWithClasses = () => `
-  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share">
+  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share" data-playwright="true">
     Button
   </button>
 
@@ -118,7 +118,7 @@ export const IconsWithClasses = () => `
     Button
   </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--share hds-icon-start--share">
+  <button type="button" class="hds-button hds-button--small hds-button--primary hds-icon--share hds-icon-start--share" data-playwright="true">
     Button
   </button>
 
@@ -143,42 +143,39 @@ export const Loading = () => `
 `;
 
 export const Themes = () => `
-  <button type="button" class="hds-button hds-button--primary hds-button--theme-coat">
+  <button type="button" class="hds-button hds-button--primary hds-button--theme-coat" data-playwright="true">
     Coat
   </button>
 
-  <button type="button" class="hds-button hds-button--secondary hds-button--theme-coat">
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-coat" data-playwright="true">
     Coat
   </button>
 
-  <button type="button" class="hds-button hds-button--supplementary hds-button--theme-coat">
+  <button type="button" class="hds-button hds-button--supplementary hds-button--theme-coat" data-playwright="true">
     Coat
   </button>
 
-  <br>
-  <br>
-
-  <button type="button" class="hds-button hds-button--primary hds-button--theme-black">
+  <button type="button" class="hds-button hds-button--primary hds-button--theme-black" data-playwright="true">
     Black
   </button>
 
-  <button type="button" class="hds-button hds-button--secondary hds-button--theme-black">
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-black" data-playwright="true">
     Black
   </button>
 
-  <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black">
+  <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black" data-playwright="true">
     Black
   </button>
 `;
 
 export const LinkButton = () => `
-  <button role="link" type="button" class="hds-button hds-button--primary" onclick="window.open('/')">
+  <button role="link" type="button" class="hds-button hds-button--primary" onclick="window.open('/')" data-playwright="true">
     Button used as a link
   </button>
 `;
 
 export const Inputs = () => `
-  <input type="submit" class="hds-button hds-button--primary" value="Submit"/>
-  <input type="reset" class="hds-button hds-button--primary" value="Reset"/>
+  <input type="submit" class="hds-button hds-button--primary" value="Submit" />
+  <input type="reset" class="hds-button hds-button--primary" value="Reset" />
   <input type="button" class="hds-button hds-button--primary" value="Button" />
 `;
