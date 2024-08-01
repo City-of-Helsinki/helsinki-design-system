@@ -36,7 +36,9 @@ export type BreadcrumbListItem = { title: string; path: string | null };
 export type BreadcrumbProps = AllElementPropsWithoutRef<'nav'> & {
   /**
    * Aria-label for the created <nav> element
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel: string;
   /**
    * Array of items that should be shown in the breadcrumb.

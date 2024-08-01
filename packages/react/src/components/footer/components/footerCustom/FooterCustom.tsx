@@ -9,7 +9,9 @@ export type FooterCustomProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * aria-label for describing Footer.Custom.
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * Additional class names to apply.

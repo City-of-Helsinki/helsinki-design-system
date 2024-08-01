@@ -15,7 +15,9 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 type LanguageSelectorComponentProps = {
   /**
    * Aria-label attribute for the dropdown button.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Heading for the list of languages inside the dropdown

@@ -11,7 +11,9 @@ import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../ut
 type ItemProps<Element> = React.PropsWithChildren<{
   /**
    * aria-label for providing detailed information for screen readers about a link.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Element or component to use instead of the default link.

@@ -10,7 +10,9 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * aria-label for describing Footer.Utilities.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Children elements to render.
