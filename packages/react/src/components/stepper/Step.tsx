@@ -16,7 +16,9 @@ export enum StepState {
 export type StepProps = {
   /**
    * Data test id of step
+   * @deprecated Will be replaced in the next major release with "data-testid"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   dataTestId?: string;
   /**
    * The label of the step

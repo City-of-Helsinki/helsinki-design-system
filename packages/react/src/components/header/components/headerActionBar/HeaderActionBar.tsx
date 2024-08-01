@@ -109,7 +109,9 @@ export type HeaderActionBarProps = PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * Aria-label for describing ActionBar.
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * Additional class names to apply.
@@ -298,6 +300,7 @@ export const HeaderActionBar = ({
               <HeaderActionBarItem
                 id="Menu"
                 label={menuButtonLabel}
+                // eslint-disable-next-line react/forbid-component-props
                 ariaLabel={menuButtonAriaLabel}
                 onClick={handleMenuClick}
                 onClickCapture={handleMenuClickCapture}

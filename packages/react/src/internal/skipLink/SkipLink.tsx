@@ -15,7 +15,9 @@ export interface SkipLinkTheme {
 export type SkipLinkProps = AllElementPropsWithoutRef<'a'> & {
   /**
    * aria-label for describing SkipLink for screen readers.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Label for the SkipLink.

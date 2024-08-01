@@ -31,7 +31,9 @@ type HeaderAttributes = AllElementPropsWithRef<'header'>;
 export interface HeaderNodeProps extends HeaderAttributes {
   /**
    * Aria-label for describing Header.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Additional class names to apply to the header.

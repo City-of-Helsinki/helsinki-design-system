@@ -19,7 +19,9 @@ import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 export type FooterProps = React.PropsWithChildren<{
   /**
    * aria-label for describing Footer.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Additional class names to apply to the footer.

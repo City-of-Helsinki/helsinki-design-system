@@ -9,7 +9,9 @@ import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
 export type LinkProps = {
   /**
    * aria-label for providing detailed information for screen readers about a link text.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Link content
