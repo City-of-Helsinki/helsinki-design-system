@@ -48,7 +48,9 @@ export type SideNavigationProps = React.PropsWithChildren<
     id: string;
     /**
      * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * Override or extend the styles applied to the component

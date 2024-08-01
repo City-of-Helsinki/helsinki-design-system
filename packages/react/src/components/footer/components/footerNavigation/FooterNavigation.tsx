@@ -11,7 +11,9 @@ export type FooterNavigationProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * aria-label for describing Footer.Navigation.
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * ARIA role to describe the contents.

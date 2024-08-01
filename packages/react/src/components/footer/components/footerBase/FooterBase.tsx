@@ -16,7 +16,9 @@ export type FooterBaseProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * aria-label for describing Footer.Base.
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * Label for the "Back to top" button.
