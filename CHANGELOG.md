@@ -81,6 +81,7 @@ Changes that are not related to specific components
 - [Notification] Changed according to new size enum.
 - [ErrorSummary] Changed according to new size enum.
 - [Icon] Document the size prop as enum usage.
+- Changes to the line-heights in foundation/typography.
 
 #### Fixed
 
