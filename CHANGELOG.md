@@ -51,6 +51,29 @@ Changes that are not related to specific components
 - [TextInput] Component accepts all input element properties
 - [ToggleButton] Component accepts all button element properties
 - [ToolTip] Component accepts all div element properties
+- [BreadCrumb] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Base] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Custom] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Link] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Navigation] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Utilities] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.ActionBar] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.ActionBarItem] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.LanguageSelector] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.NavigationMenu] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.HeaderUniversalBar] ariaLabel is marked deprecated and aria-label should be used.
+- [Link] ariaLabel is marked deprecated and aria-label should be used.
+- [Logo] dataTestId is marked deprecated and data-testid should be used.
+- [Notification] dataTestId is marked deprecated and data-testid should be used.
+- [Pagination] dataTestId is marked deprecated and data-testid should be used.
+- [SideNavigation] ariaLabel is marked deprecated and aria-label should be used.
+- [StatusLabel] dataTestId is marked deprecated and data-testid should be used.
+- [Step] dataTestId is marked deprecated and data-testid should be used.
+- [Stepper] dataTestId is marked deprecated and data-testid should be used.
+- [Icon] ariaLabel, ariaLabelledby and ariaHidden are marked deprecated and aria-\* should be used.
+- [Skiplink] ariaLabel is marked deprecated and aria-label should be used.
+- [Table] dataTestId is marked deprecated and data-testid should be used.
 
 #### Fixed
 
