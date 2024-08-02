@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';

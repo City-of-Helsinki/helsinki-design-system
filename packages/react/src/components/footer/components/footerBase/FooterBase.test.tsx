@@ -71,6 +71,7 @@ describe('<Footer.Base /> spec', () => {
         backToTopLabel="Ylös"
         logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
         aria-label="Is overridden"
+        // eslint-disable-next-line react/forbid-component-props
         ariaLabel="Real ariaLabel"
       >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />

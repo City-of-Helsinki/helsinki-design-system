@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import React, { useState } from 'react';
 
 import { Pagination, PaginationProps } from './Pagination';
