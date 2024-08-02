@@ -37,6 +37,7 @@ describe('<HeaderUniversalBar /> spec', () => {
           primaryLinkText="hel.fi"
           primaryLinkHref="#"
           aria-label="Is overridden"
+          // eslint-disable-next-line react/forbid-component-props
           ariaLabel="Real ariaLabel"
         />
       </Header>,

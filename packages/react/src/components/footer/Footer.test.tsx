@@ -31,6 +31,7 @@ describe('<Footer /> spec', () => {
     // footer has "ariaLabel", which should override "aria-label"
     footerProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
+      // eslint-disable-next-line react/forbid-component-props
       <Footer footerProps={footerProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" title="Bar" />,
     );
     const element = getByTestId(footerProps['data-testid']);

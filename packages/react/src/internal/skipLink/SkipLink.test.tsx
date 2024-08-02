@@ -27,6 +27,7 @@ describe('<SkipToContentLink /> spec', () => {
         skipTo="content"
         label="skip to content"
         aria-label="Is overridden"
+        // eslint-disable-next-line react/forbid-component-props
         ariaLabel="Real ariaLabel"
         {...linkProps}
       />,

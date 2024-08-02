@@ -50,6 +50,7 @@ describe('<Footer.Utilities /> spec', () => {
     // element has "ariaLabel", which should override "aria-label"
     divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
+      // eslint-disable-next-line react/forbid-component-props
       <FooterUtilities {...divProps} aria-label="Is overridden" ariaLabel="Real ariaLabel">
         <FooterLink
           href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"

@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Hero, HeroCustomTheme, HeroProps } from './Hero';
