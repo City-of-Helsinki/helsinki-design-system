@@ -100,6 +100,7 @@ export function getCookieBannerHtml(
  * @param {string} tableRowsHtml - The HTML for the table rows.
  * @param {boolean} groupRequired - Indicates if the group is required.
  * @param {boolean} isAccepted - Indicates if the group is accepted.
+ * @param {Object} timestamp - Contains the date and time for category acceptance.
  * @return {string} The generated HTML for the cookie group.
  */
 export function getGroupHtml(
@@ -112,11 +113,19 @@ export function getGroupHtml(
   tableRowsHtml,
   groupRequired,
   isAccepted,
+  timestamp,
 ) {
   const required = groupRequired ? ' checked disabled' : '';
   const accepted = isAccepted ? 'checked' : '';
   const title = getTranslation(groupData, 'title', lang, fallbackLang);
   const description = getTranslation(groupData, 'description', lang, fallbackLang);
+  // TODO: confirm translations
+  const formatTimestamp = () => {
+    return timestamp
+      ? `<p class="timestamp" data-group="${groupId}"><strong>${getTranslation(translations, 'accepted', lang, fallbackLang)}:</strong> ${timestamp.date} ${getTranslation(translations, 'timeAt', lang, fallbackLang)} ${timestamp.time}</p>`
+      : '';
+  };
+
   return `
             <div class="hds-cc__group">
               <div class="hds-checkbox">
@@ -124,6 +133,7 @@ export function getGroupHtml(
                 <label for="${groupId}-cookies" class="hds-checkbox__label">${title}</label>
               </div>
               <p>${description}</p>
+              <p>${formatTimestamp()}</p>
 
               <button
                 type="button"

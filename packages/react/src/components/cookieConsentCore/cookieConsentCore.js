@@ -396,6 +396,21 @@ export class CookieConsentCore {
   /**
    * Retrieves the HTML representation of cookie groups.
    * @private
+   * @param {string} timestamp - UNIX timestamp.
+   * @return {Object} - Parsed timestamp with date and time separated to key-value pairs.
+   */
+  #formatDateTimeObject(timestamp) {
+    const formatted = {
+      date: new Date(timestamp).toLocaleDateString('fi-FI'),
+      time: new Date(timestamp).toLocaleTimeString('fi-FI', { hour: 'numeric', minute: 'numeric' }),
+    };
+
+    return formatted;
+  }
+
+  /**
+   * Retrieves the HTML representation of cookie groups.
+   * @private
    * @param {Array} cookieGroupList - The list of cookie groups.
    * @param {string} lang - The language code.
    * @param {Object} translations - The translations object.
@@ -407,8 +422,14 @@ export class CookieConsentCore {
   #getCookieGroupsHtml(cookieGroupList, lang, translations, groupRequired, cookieGroupCategoryName, acceptedGroups) {
     let groupsHtml = '';
     let groupNumber = 0;
+    // Collect accepted groupId's
+    const acceptedGroupIds = Object.keys(acceptedGroups);
     cookieGroupList.forEach((cookieGroup) => {
-      const isAccepted = acceptedGroups.includes(cookieGroup.groupId);
+      const isAccepted = acceptedGroupIds.includes(cookieGroup.groupId);
+      let timestamp = false;
+      if (isAccepted) {
+        timestamp = this.#formatDateTimeObject(acceptedGroups[cookieGroup.groupId].timestamp);
+      }
 
       // Build table rows
       let tableRowsHtml = '';
@@ -426,6 +447,7 @@ export class CookieConsentCore {
         tableRowsHtml,
         groupRequired,
         isAccepted,
+        timestamp,
       );
       groupNumber += 1;
     });
@@ -500,7 +522,7 @@ export class CookieConsentCore {
     await this.#injectCssStyles(shadowRoot);
 
     const browserCookie = this.#COOKIE_HANDLER.getCookie();
-    const listOfAcceptedGroups = browserCookie ? Object.keys(browserCookie.groups) : [];
+    const listOfAcceptedGroups = browserCookie ? browserCookie.groups : [];
 
     const groupsHtml = [
       this.#getCookieGroupsHtml(

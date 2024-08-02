@@ -1265,6 +1265,43 @@ describe('cookieConsentCore', () => {
     expect(openedBanner).not.toBeNull();
   });
 
+  // - The cookie should contain the timestamp of the consent
+  it('should write and keep cookie timestamp on the moment of first consent', async () => {
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    bannerClicks.approveCategory('test_optional');
+
+    let cookiesAsString = mockedCookieControls.getCookie();
+    let parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    let writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+    const essentialTimeStamp = writtenCookieGroups.essential.timestamp;
+
+    // Delete banner
+    document.body.innerHTML = '';
+    const banner = document.querySelector('.hds-cc__target');
+    expect(banner).toBeNull();
+
+    // Open banner via window scoped method
+    await helpers.openBanner(urls.siteSettingsJsonUrl, optionsEvent);
+
+    // Approve essentials + chat
+    bannerClicks.approveCategory('chat');
+    cookiesAsString = mockedCookieControls.getCookie();
+    parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
+    writtenCookieGroups = JSON.parse(parsed['helfi-cookie-consents'] as string)?.groups || '';
+
+    const chatTimeStamp = writtenCookieGroups.chat.timestamp;
+
+    // The timestamps should be different due to different approval times
+    // Note: do not run this on a supercomputer to avoid all cookie operations
+    // happening within a single millisecond
+    expect(essentialTimeStamp).not.toEqual(chatTimeStamp);
+    expect(essentialTimeStamp).toBeLessThan(chatTimeStamp);
+  });
+
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: State changes
   // - If the settings file has changed, the banner should appear

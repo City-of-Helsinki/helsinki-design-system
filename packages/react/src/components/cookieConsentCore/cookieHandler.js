@@ -207,11 +207,17 @@ export default class CookieHandler {
     const consentedGroups = {};
     const consentedGroupAndRequiredGroupNames = [...this.getRequiredGroupNames(), ...consentedGroupNames];
 
+    const { groups: browserCookieGroups } = this.getCookie();
+
     // Find group checksums for consented groups
     const allGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
     allGroups.forEach((group) => {
       if (consentedGroupAndRequiredGroupNames.includes(group.groupId)) {
-        consentedGroups[group.groupId] = group.checksum;
+        const existingTimeStamp = browserCookieGroups?.[group.groupId]?.timestamp;
+        consentedGroups[group.groupId] = {
+          checksum: group.checksum,
+          timestamp: existingTimeStamp || Date.now(),
+        };
       }
     });
 
@@ -364,7 +370,7 @@ export default class CookieHandler {
     if (browserCookieState.groups) {
       Object.keys(browserCookieState.groups).forEach((groupName) => {
         const group = browserCookieState.groups[groupName];
-        if (siteSettingsGroupsChecksums[groupName] && siteSettingsGroupsChecksums[groupName] === group) {
+        if (siteSettingsGroupsChecksums[groupName] && siteSettingsGroupsChecksums[groupName] === group.checksum) {
           newCookieGroups.push(groupName);
         } else {
           invalidGroupsFound = true;
