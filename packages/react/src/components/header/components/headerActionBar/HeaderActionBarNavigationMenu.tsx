@@ -463,6 +463,7 @@ export const HeaderActionBarNavigationMenu = ({
     activeLink: React.ReactElement;
     previousLink?: React.ReactElement;
     showPreviousLink?: boolean;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaHidden: boolean;
     className: string;
   }) => {
@@ -530,6 +531,7 @@ export const HeaderActionBarNavigationMenu = ({
           return (
             <RenderNavigationSection
               activeLink={activeLink}
+              // eslint-disable-next-line react/forbid-component-props
               ariaHidden={!mobileMenuOpen || !isCurrentMenu}
               className={isClosingOrOpening || shouldBeVisible ? styles.visible : styles.hidden}
               key={key}

@@ -120,6 +120,7 @@ export const useHeaderError = ({ usage, errorLabel, errorText, errorPosition, er
   };
 
   const getElementProps = (): React.HTMLAttributes<HTMLElement> & {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     dataTestId?: string;
     [dataAttributeName]?: string;
     onClose?: () => void;

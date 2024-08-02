@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import React from 'react';
 import { screen, render, fireEvent } from '@testing-library/react';
 import { axe } from 'jest-axe';

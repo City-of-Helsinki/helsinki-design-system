@@ -20,6 +20,7 @@ describe('<Header /> spec', () => {
     const headerProps = getCommonElementTestProps<'header'>('header');
     // header has "ariaLabel", which should override "aria-label"
     headerProps['aria-label'] = 'Real ariaLabel';
+    // eslint-disable-next-line react/forbid-component-props
     const { getByTestId } = render(<Header {...headerProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" />);
     const element = getByTestId(headerProps['data-testid']);
     expect(getElementAttributesMisMatches(element, headerProps)).toHaveLength(0);
