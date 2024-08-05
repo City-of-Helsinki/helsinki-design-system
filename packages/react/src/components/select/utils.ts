@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option, OptionInProps, SelectMetaData } from './types';
+import { SelectData, Group, SelectProps, Option, OptionInProps, SelectMetaData, GroupInProps } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -65,15 +65,38 @@ export function iterateAndCopyGroup(groups: Group[], iterator: OptionIterator): 
   });
 }
 
-export function updateSelectedOptionInGroups(
+export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0): number {
+  const optionCountWithoutGroupLabel = group.options.length - 1;
+  if (!optionCountWithoutGroupLabel) {
+    return 0;
+  }
+  return (
+    (group.options.filter((option) => !option.isGroupLabel && option.selected).length + pendingSelectionCount) /
+    optionCountWithoutGroupLabel
+  );
+}
+
+export function updateOptionInGroup(
   groups: SelectData['groups'],
   updatedOption: Option,
+  isMultiSelect: boolean,
 ): SelectData['groups'] {
+  if (updatedOption.isGroupLabel) {
+    throw new Error('Use updateGroupLabelAndOptions to update groupLabel and its related options');
+  }
   const groupIndex = getOptionGroupIndex(groups, updatedOption);
   return groups.map((group, index) => {
+    const selectedOptionPerc =
+      index === groupIndex && isMultiSelect ? getSelectedOptionsPerc(group, updatedOption.selected ? 1 : -1) : 0;
     return {
       options: group.options.map((option) => {
         if (option.isGroupLabel) {
+          if (index === groupIndex && isMultiSelect) {
+            return {
+              ...option,
+              selected: selectedOptionPerc === 1,
+            };
+          }
           return { ...option };
         }
         if (index === groupIndex && option.value === updatedOption.value) {
@@ -84,10 +107,35 @@ export function updateSelectedOptionInGroups(
         }
         return {
           ...option,
-          selected: false,
+          selected: !isMultiSelect ? false : option.selected,
         };
       }),
     };
+  });
+}
+
+export function updateGroupLabelAndOptions(groups: SelectData['groups'], updatedOption: Option): SelectData['groups'] {
+  if (!updatedOption.isGroupLabel) {
+    throw new Error('Use updateOptionInGroup to update non-groupLabel options.');
+  }
+  if (!updatedOption.visible) {
+    throw new Error('Cannot click an group label that is not visible (without a label)');
+  }
+  const targetGroupIndex = getOptionGroupIndex(groups, updatedOption);
+  if (targetGroupIndex < 0) {
+    return groups;
+  }
+
+  return iterateAndCopyGroup(groups, (option, group, optionIndex, groupIndex) => {
+    if (groupIndex !== targetGroupIndex) {
+      return { ...option };
+    }
+    return option.visible && !option.disabled
+      ? {
+          ...option,
+          selected: updatedOption.selected,
+        }
+      : { ...option };
   });
 }
 
@@ -148,7 +196,7 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
     return undefined;
   }
   if (props.groups) {
-    return props.groups.map((group) => {
+    return (props.groups as Group[]).map((group: Group) => {
       const hasLabelOptionAlready = !!group.options[0].isGroupLabel;
       const groupOptions = group.options.map(validateOption) as Option[];
       if (hasLabelOptionAlready) {
@@ -156,7 +204,7 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
           options: [group.options[0], ...groupOptions.slice(1)],
         };
       }
-      const labelOption: Option = createGroupLabel(group.label);
+      const labelOption: Option = createGroupLabel((group as GroupInProps).label);
 
       return {
         options: [labelOption, ...groupOptions],
