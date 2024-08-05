@@ -13,15 +13,15 @@ export type Option = {
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
 
+export type GroupInProps = {
+  label: string;
+  options: (OptionInProps | string)[];
+};
+
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
-  groups?:
-    | Array<{
-        label: string;
-        options: (OptionInProps | string)[];
-      }>
-    | SelectData['groups'];
+  groups?: Array<GroupInProps> | SelectData['groups'];
   onChange: (
     selectedOptions: Option[],
     clickedOption: Option,
@@ -34,9 +34,12 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   icon?: ReactNode;
   disabled?: boolean;
   texts?: Partial<Texts> | TextProvider;
+  multiSelect?: boolean;
 };
 
-export type SelectData = Required<Pick<SelectProps, 'open' | 'required' | 'invalid' | 'onChange' | 'disabled'>> & {
+export type SelectData = Required<
+  Pick<SelectProps, 'open' | 'required' | 'invalid' | 'onChange' | 'disabled' | 'multiSelect'>
+> & {
   groups: Array<Group>;
 };
 

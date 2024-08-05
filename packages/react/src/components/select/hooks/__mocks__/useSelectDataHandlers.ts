@@ -15,6 +15,7 @@ const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
   default: {
     groups: propsToGroups({ options: ['Option 1'] }),
     open: false,
+    multiSelect: false,
     onChange: jest.fn(),
   },
 };
@@ -121,7 +122,7 @@ export function createDataWithSelectedOptions({
   const options: OptionInProps[] = [];
   let selectCount = selectedOptionsCount;
   for (let y = 0; y < totalOptionsCount; y += 1) {
-    options.push({ label: `Option ${y}`, selected: selectCount > 0 });
+    options.push({ label: `Option ${y}`, selected: selectCount > 0, visible: true });
 
     selectCount -= 1;
   }
