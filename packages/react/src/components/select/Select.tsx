@@ -30,6 +30,7 @@ export function Select({
   disabled,
   texts,
   invalid,
+  multiSelect,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -38,6 +39,7 @@ export function Select({
       required: !!required,
       invalid: !!invalid,
       disabled: !!disabled,
+      multiSelect: !!multiSelect,
       onChange,
     };
   }, [options, open, groups, onChange, disabled, invalid, required]);
