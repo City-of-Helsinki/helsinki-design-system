@@ -756,15 +756,9 @@ describe('cookieConsentCore', () => {
     const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
     fireEvent.click(openAccordionButton as HTMLElement);
 
-    // In testing the form doesn't update the checkboxes, it must be done
-    // manually here. Checking all but statistics
-    const checkboxes = getShadowRoot().querySelectorAll('.hds-checkbox input');
-    checkboxes.forEach((box) => {
-      const inputElement = box as HTMLInputElement;
-      if (box.attributes['data-group'].value !== 'statistics' && !inputElement.disabled) {
-        fireEvent.click(box);
-      }
-    });
+    // Uncheck statistics
+    const statisticsBox = getShadowRoot().querySelector('.hds-checkbox input[data-group="statistics"]');
+    fireEvent.click(statisticsBox as HTMLElement);
 
     // Save changes
     const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
