@@ -116,7 +116,6 @@ export class CookieConsentCore {
    * Creates and inits a new instance of the CookieConsent class.
    * @param {Object} siteSettingsParam - The URL to the JSON file with site settings or contents of the site settings as an object.
    * @param {Object} options - The options for configuring the CookieConsent instance.
-   * @param {Object} overrides - Optional override configurations.
    * @param {string} [options.language='en'] - The page language.
    * @param {string} [options.theme='bus'] - The theme for the banner.
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
@@ -124,6 +123,8 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @param {Object} overrides - Optional override configurations.
+   * @param {string} [overrides.showBanner=true] - The override for banner show logic.
    * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
    * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
