@@ -516,7 +516,6 @@ export class CookieConsentCore {
     }
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
-    this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
 
     // Inject CSS styles
     await this.#injectCssStyles(shadowRoot);
@@ -556,6 +555,7 @@ export class CookieConsentCore {
     );
 
     this.#shadowRootElement = shadowRoot;
+    this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
 
     // Add button events
     const shadowRootForm = shadowRoot.querySelector('form');
