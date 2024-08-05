@@ -96,8 +96,10 @@ export default class CookieHandler {
     // Checksums for all groups calculated in parallel without waiting for each
     await Promise.all(
       siteSettingsGroups.map(async (group) => {
+        const { ...groupWithoutChecksum } = group;
+        delete groupWithoutChecksum.checksum;
         // eslint-disable-next-line no-param-reassign
-        group.checksum = await this.#getChecksum(group);
+        group.checksum = await this.#getChecksum(groupWithoutChecksum);
       }),
     );
 
