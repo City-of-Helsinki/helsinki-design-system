@@ -23,7 +23,13 @@ import {
   TextKey,
   Texts,
 } from './types';
-import { getAllOptions, getSelectedOptions, propsToGroups, updateSelectedOptionInGroups } from './utils';
+import {
+  getAllOptions,
+  getSelectedOptions,
+  propsToGroups,
+  updateGroupLabelAndOptions,
+  updateOptionInGroup,
+} from './utils';
 
 describe('dataUpdater', () => {
   const getDataHandlers = () => {
@@ -51,7 +57,7 @@ describe('dataUpdater', () => {
     const filteredData = getDataUpdates()
       .filter((args) => args[0] && filter(args[0]))
       .map((args) => args[0]);
-    return filteredData.length ? filteredData[filteredData.length - 1] : [];
+    return filteredData.length ? filteredData[filteredData.length - 1] : null;
   };
   const getLastGroupUpdateFromEvents = () => {
     const lastUpdateWithGroups = filterLastDataUpdateFromEvents((args) => !!args.groups);
@@ -92,9 +98,12 @@ describe('dataUpdater', () => {
     const options = getAllOptionsFromData();
     const targetOption = options[index];
     const updatedOption = { ...targetOption, selected: !targetOption.selected };
-    const updatedGroups = updateSelectedOptionInGroups(getCurrentGroupsFromData(), updatedOption);
+    const updatedGroups = updatedOption.isGroupLabel
+      ? updateGroupLabelAndOptions(getCurrentGroupsFromData(), updatedOption)
+      : updateOptionInGroup(getCurrentGroupsFromData(), updatedOption, false);
+    const eventId = updatedOption.isGroupLabel ? eventIds.listGroup : eventIds.listItem;
     const didUpdate = changeHandler(
-      { id: eventIds.listItem, type: eventTypes.click, payload: { value: targetOption } },
+      { id: eventId, type: eventTypes.click, payload: { value: targetOption } },
       dataHandlers,
     );
 
@@ -161,6 +170,31 @@ describe('dataUpdater', () => {
       const updateCount = getDataUpdates().length;
 
       const didUpdate = changeHandler({ id: eventIds.listItem, type: eventTypes.click, payload: {} }, dataHandlers);
+      expect(didUpdate).toBeFalsy();
+      expect(getDataUpdates()).toHaveLength(updateCount);
+    });
+  });
+  describe('group label click events', () => {
+    it('sets all options selected when not all are selected and does not close the menu', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 0, label: 'Group 1' }),
+        open: true,
+      });
+      // select an group label
+      const { didUpdate } = selectOptionByIndex(0);
+      const updatedOptions = getAllOptionsFromLastUpdate();
+      expect(didUpdate).toBeTruthy();
+      expect(updatedOptions.filter((opt) => !opt.selected)).toHaveLength(0);
+      expect(getLastOpenUpdateFromEvents()).toBeNull();
+    });
+    it('does nothing if payload does not have an option', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ label: 'Group 1' }),
+        open: true,
+      });
+      const updateCount = getDataUpdates().length;
+
+      const didUpdate = changeHandler({ id: eventIds.listGroup, type: eventTypes.click, payload: {} }, dataHandlers);
       expect(didUpdate).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(updateCount);
     });
@@ -235,7 +269,7 @@ describe('dataUpdater', () => {
         selectedOption: selectedOption2,
         updatedGroups: updatedGroups2,
         selectedOptions: selectedOptions2,
-      } = selectOptionByIndex(0);
+      } = selectOptionByIndex(2);
       expect(getOnChangeMock()).toHaveBeenCalledTimes(2);
       expect(getOnChangeCallArgs()).toMatchObject([
         selectedOptions2,
@@ -249,7 +283,7 @@ describe('dataUpdater', () => {
         selectedOption: selectedOption3,
         updatedGroups: updatedGroups3,
         selectedOptions: selectedOptions3,
-      } = selectOptionByIndex(0);
+      } = selectOptionByIndex(2);
       expect(getOnChangeMock()).toHaveBeenCalledTimes(3);
       expect(getOnChangeCallArgs()).toMatchObject([
         selectedOptions3,
