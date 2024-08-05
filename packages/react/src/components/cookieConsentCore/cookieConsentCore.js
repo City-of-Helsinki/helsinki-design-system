@@ -415,13 +415,11 @@ export class CookieConsentCore {
    * @param {string} lang - The language code.
    * @param {Object} translations - The translations object.
    * @param {boolean} groupRequired - Indicates if the group is required.
-   * @param {string} cookieGroupCategoryName - The name of the category for these groups (ie. 'required' or 'optional').
    * @param {Array} acceptedGroups - The list of accepted group IDs.
    * @return {string} - The HTML representation of cookie groups.
    */
-  #getCookieGroupsHtml(cookieGroupList, lang, translations, groupRequired, cookieGroupCategoryName, acceptedGroups) {
+  #getCookieGroupsHtml(cookieGroupList, lang, translations, groupRequired, acceptedGroups) {
     let groupsHtml = '';
-    let groupNumber = 0;
     // Collect accepted groupId's
     const acceptedGroupIds = Object.keys(acceptedGroups);
     cookieGroupList.forEach((cookieGroup) => {
@@ -443,13 +441,11 @@ export class CookieConsentCore {
         lang,
         this.#SITE_SETTINGS.fallbackLanguage,
         cookieGroup.groupId,
-        `${cookieGroupCategoryName}_${groupNumber}`,
         tableRowsHtml,
         groupRequired,
         isAccepted,
         timestamp,
       );
-      groupNumber += 1;
     });
     return groupsHtml;
   }
@@ -529,7 +525,6 @@ export class CookieConsentCore {
         lang,
         siteSettings.translations,
         true,
-        'required',
         listOfAcceptedGroups,
       ),
       this.#getCookieGroupsHtml(
@@ -537,7 +532,6 @@ export class CookieConsentCore {
         lang,
         siteSettings.translations,
         false,
-        'optional',
         listOfAcceptedGroups,
       ),
     ].join('');

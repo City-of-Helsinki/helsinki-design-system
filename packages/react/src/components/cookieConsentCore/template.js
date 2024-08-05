@@ -96,7 +96,6 @@ export function getCookieBannerHtml(
  * @param {string} lang - The language code.
  * @param {string} fallbackLang - The fallback language code.
  * @param {string} groupId - The ID of the cookie group.
- * @param {string} groupUniqueId - The unique ID of the cookie group.
  * @param {string} tableRowsHtml - The HTML for the table rows.
  * @param {boolean} groupRequired - Indicates if the group is required.
  * @param {boolean} isAccepted - Indicates if the group is accepted.
@@ -109,7 +108,6 @@ export function getGroupHtml(
   lang,
   fallbackLang,
   groupId,
-  groupUniqueId,
   tableRowsHtml,
   groupRequired,
   isAccepted,
@@ -133,13 +131,13 @@ export function getGroupHtml(
                 <label for="${groupId}-cookies" class="hds-checkbox__label">${title}</label>
               </div>
               <p>${description}</p>
-              <p>${formatTimestamp()}</p>
+              ${formatTimestamp()}
 
               <button
                 type="button"
                 class="hds-cc__accordion-button hds-cc__accordion-button--group-details hds-button hds-button--small hds-button--supplementary"
                 onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');"
-                aria-controls="hds-cc-group-details-${groupUniqueId}"
+                aria-controls="hds-cc-group-details-${groupId}"
                 aria-expanded="false"
                 aria-live="polite">
                 <span aria-hidden="true" class="hds-icon hds-icon--angle-down"></span>
@@ -147,7 +145,7 @@ export function getGroupHtml(
                 <span class="hds-cc__accordion-button-hide hds-button__label">${getTranslation(translations, 'hideCookieSettings', lang, fallbackLang)}</span>
                 <span class="visually-hidden">${title}</span>
               </button>
-              <div class="hds-cc__group-details" id="hds-cc-group-details-${groupUniqueId}">
+              <div class="hds-cc__group-details" id="hds-cc-group-details-${groupId}">
                 <div class="hds-cc__group-details__animator">
                   <div class="hds-table-container" tabindex="0" role="region">
                     <table class="hds-table hds-table--light">
