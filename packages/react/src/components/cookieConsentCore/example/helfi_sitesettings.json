@@ -714,13 +714,13 @@
     },
     "accepted": {
       "fi": "Hyväksytty",
-      "sv": "translateme",
+      "sv": "Accepterad",
       "en": "Accepted"
     },
     "timeAt": {
-      "fi": "klo",
-      "sv": "at translateme",
-      "en": "at"
+      "fi": "${date} klo ${time}",
+      "sv": "${date} kl. ${time}",
+      "en": "${date} at ${time}"
     },
     "tableHeadingsName": {
       "fi": "Nimi",

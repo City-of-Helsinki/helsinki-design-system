@@ -80,31 +80,34 @@ describe('cookieConsentCore', () => {
 
   const getShadowRoot = () => {
     const targetElement = document.querySelector('.hds-cc__target') as HTMLElement;
+    if (!targetElement) {
+      return null;
+    }
     return targetElement.shadowRoot as ShadowRoot;
   };
 
   const getRootElement = () => {
-    return getShadowRoot().getElementById(rootId) as HTMLDivElement;
+    return getShadowRoot()?.getElementById(rootId) as HTMLDivElement;
   };
 
   const getFormElement = () => {
-    return getShadowRoot().getElementById(formId) as HTMLFormElement;
+    return getShadowRoot()?.getElementById(formId) as HTMLFormElement;
   };
 
   const getContainerElement = () => {
-    return getRootElement().querySelector(containerSelector) as HTMLDivElement;
+    return getRootElement()?.querySelector(containerSelector) as HTMLDivElement;
   };
 
   const getShowDetailsButtonElement = () => {
-    return getRootElement().querySelector(showDetailsButtonSelector) as HTMLButtonElement;
+    return getRootElement()?.querySelector(showDetailsButtonSelector) as HTMLButtonElement;
   };
 
   const getAcceptAllButtonElement = () => {
-    return getRootElement().querySelector(acceptAllButtonSelector) as HTMLButtonElement;
+    return getRootElement()?.querySelector(acceptAllButtonSelector) as HTMLButtonElement;
   };
 
   const getAcceptRequiredButtonElement = () => {
-    return getRootElement().querySelector(acceptRequiredButtonSelector) as HTMLButtonElement;
+    return getRootElement()?.querySelector(acceptRequiredButtonSelector) as HTMLButtonElement;
   };
 
   const getEssentialCookiesCheckbox = () => {
@@ -684,7 +687,7 @@ describe('cookieConsentCore', () => {
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    const allButton = getShadowRoot().querySelector('button[data-approved="all"]');
+    const allButton = getShadowRoot()?.querySelector('button[data-approved="all"]');
     fireEvent.click(allButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
@@ -700,7 +703,7 @@ describe('cookieConsentCore', () => {
     instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    const requiredButton = getShadowRoot().querySelector('button[data-approved="required"]');
+    const requiredButton = getShadowRoot()?.querySelector('button[data-approved="required"]');
     fireEvent.click(requiredButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
@@ -717,14 +720,14 @@ describe('cookieConsentCore', () => {
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
+    const openAccordionButton = getShadowRoot()?.querySelector('.hds-cc__accordion-button--details');
     fireEvent.click(openAccordionButton as HTMLElement);
 
     // Approve essentials + statistics
-    const statisticsCookiesCheckbox = getShadowRoot().querySelector('#statistics-cookies');
+    const statisticsCookiesCheckbox = getShadowRoot()?.querySelector('#statistics-cookies');
     fireEvent.click(statisticsCookiesCheckbox as HTMLElement);
 
-    const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
+    const selectedButton = getShadowRoot()?.querySelector('button[data-approved="selected"]');
     fireEvent.click(selectedButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
@@ -743,7 +746,7 @@ describe('cookieConsentCore', () => {
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
     // Accept all
-    const allButton = getShadowRoot().querySelector('button[data-approved="all"]');
+    const allButton = getShadowRoot()?.querySelector('button[data-approved="all"]');
     fireEvent.click(allButton as HTMLElement);
     const cookiesAsString = mockedCookieControls.getCookie();
     const parsed = mockedCookieControls.extractCookieOptions(cookiesAsString, '');
@@ -753,15 +756,15 @@ describe('cookieConsentCore', () => {
     expect(writtenKeys).toEqual(expectedGroups);
 
     // All cookies accepted, now open banner and remove statistics
-    const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
+    const openAccordionButton = getShadowRoot()?.querySelector('.hds-cc__accordion-button--details');
     fireEvent.click(openAccordionButton as HTMLElement);
 
     // Uncheck statistics
-    const statisticsBox = getShadowRoot().querySelector('.hds-checkbox input[data-group="statistics"]');
+    const statisticsBox = getShadowRoot()?.querySelector('.hds-checkbox input[data-group="statistics"]');
     fireEvent.click(statisticsBox as HTMLElement);
 
     // Save changes
-    const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
+    const selectedButton = getShadowRoot()?.querySelector('button[data-approved="selected"]');
     fireEvent.click(selectedButton as HTMLElement);
 
     // Verify cookie changes
@@ -783,14 +786,14 @@ describe('cookieConsentCore', () => {
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
 
-    const openAccordionButton = getShadowRoot().querySelector('.hds-cc__accordion-button--details');
+    const openAccordionButton = getShadowRoot()?.querySelector('.hds-cc__accordion-button--details');
     fireEvent.click(openAccordionButton as HTMLElement);
 
     // Approve essentials + statistics
-    const statisticsCookiesCheckbox = getShadowRoot().querySelector('#statistics-cookies');
+    const statisticsCookiesCheckbox = getShadowRoot()?.querySelector('#statistics-cookies');
     fireEvent.click(statisticsCookiesCheckbox as HTMLElement);
 
-    const selectedButton = getShadowRoot().querySelector('button[data-approved="selected"]');
+    const selectedButton = getShadowRoot()?.querySelector('button[data-approved="selected"]');
     fireEvent.click(selectedButton as HTMLElement);
 
     const cookiesAsString = mockedCookieControls.getCookie();
@@ -817,12 +820,14 @@ describe('cookieConsentCore', () => {
     // Remove statistics
     // In testing the form doesn't update the checkboxes, it must be done
     // manually here. Checking all but statistics
-    const checkboxes = getShadowRoot().querySelectorAll('.hds-checkbox input');
-    checkboxes.forEach((box) => {
-      if (box.attributes['data-group'].value === 'statistics') {
-        fireEvent.click(box);
-      }
-    });
+    const checkboxes = getShadowRoot()?.querySelectorAll('.hds-checkbox input');
+    if (checkboxes) {
+      checkboxes.forEach((box) => {
+        if (box.attributes['data-group'].value === 'statistics') {
+          fireEvent.click(box);
+        }
+      });
+    }
 
     // Save changes
     fireEvent.click(selectedButton as HTMLElement);
@@ -1562,14 +1567,16 @@ describe('cookieConsentCore', () => {
     addBoundingClientRect(getContainerElement());
 
     // Go through checkboxes
-    const checkboxes = getShadowRoot().querySelectorAll('.hds-checkbox input');
+    const checkboxes = getShadowRoot()?.querySelectorAll('.hds-checkbox input');
     const checkedCategories = {};
-    checkboxes.forEach((box) => {
-      // @ts-ignore
-      if (box.checked) {
-        checkedCategories[box.attributes['data-group'].value] = 1;
-      }
-    });
+    if (checkboxes) {
+      checkboxes.forEach((box) => {
+        // @ts-ignore
+        if (box.checked) {
+          checkedCategories[box.attributes['data-group'].value] = 1;
+        }
+      });
+    }
 
     // Verify that the form checkboxes match the cookie accepted categories
     expect(Object.keys(checkedCategories)).toEqual(Object.keys(writtenCookieGroups));

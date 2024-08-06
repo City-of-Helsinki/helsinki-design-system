@@ -89,6 +89,24 @@ export function getCookieBannerHtml(
 }
 
 /**
+ * Formats the timestamp and returns the formatted string.
+ *
+ * @param {number} timestamp - The timestamp to be formatted.
+ * @param {string} groupId - The group ID associated with the timestamp.
+ * @param {object} translations - The translations object containing language translations.
+ * @param {string} lang - The current language.
+ * @param {string} fallbackLang - The fallback language.
+ * @return {string} - The formatted timestamp string.
+ */
+export function formatTimestamp(timestamp, groupId, translations, lang, fallbackLang) {
+  const acceptedTranslation = getTranslation(translations, 'accepted', lang, fallbackLang);
+  const timestampTranslation = getTranslation(translations, 'timeAt', lang, fallbackLang, timestamp);
+  return timestamp
+    ? `<p class="timestamp" data-group="${groupId}"><strong>${acceptedTranslation}:</strong> ${timestampTranslation}</p>`
+    : '';
+}
+
+/**
  * Generates the HTML for a cookie group.
  *
  * @param {Object} groupData - The data for the cookie group.
@@ -117,12 +135,6 @@ export function getGroupHtml(
   const accepted = isAccepted ? 'checked' : '';
   const title = getTranslation(groupData, 'title', lang, fallbackLang);
   const description = getTranslation(groupData, 'description', lang, fallbackLang);
-  // TODO: confirm translations
-  const formatTimestamp = () => {
-    return timestamp
-      ? `<p class="timestamp" data-group="${groupId}"><strong>${getTranslation(translations, 'accepted', lang, fallbackLang)}:</strong> ${timestamp.date} ${getTranslation(translations, 'timeAt', lang, fallbackLang)} ${timestamp.time}</p>`
-      : '';
-  };
 
   return `
             <div class="hds-cc__group">
@@ -131,7 +143,9 @@ export function getGroupHtml(
                 <label for="${groupId}-cookies" class="hds-checkbox__label">${title}</label>
               </div>
               <p>${description}</p>
-              ${formatTimestamp()}
+              <div data-timestamp="${groupId}">
+                ${formatTimestamp(timestamp, groupId, translations, lang, fallbackLang)}
+              </div>
 
               <button
                 type="button"

@@ -3,7 +3,14 @@
 
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
-import { getCookieBannerHtml, getGroupHtml, getTableRowHtml, getNotificationHtml, getAriaLiveHtml } from './template';
+import {
+  formatTimestamp,
+  getCookieBannerHtml,
+  getGroupHtml,
+  getTableRowHtml,
+  getNotificationHtml,
+  getAriaLiveHtml,
+} from './template';
 import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
@@ -250,6 +257,40 @@ export class CookieConsentCore {
     return groupSelections;
   }
 
+  timestampElementHandler(acceptedGroups, formReference) {
+    const timestampWrappers = formReference.querySelectorAll('div[data-timestamp]');
+    const cookie = this.#COOKIE_HANDLER.getCookie();
+    let groups = [];
+    if (cookie && cookie.groups) {
+      groups = cookie.groups;
+    }
+    timestampWrappers.forEach((timestampWrapper) => {
+      const elementGroup = timestampWrapper.dataset.timestamp;
+      let timestampHtml;
+      if (acceptedGroups.includes(elementGroup)) {
+        let timestamp;
+        const cookieGroup = groups[elementGroup];
+        if (cookieGroup) {
+          timestamp = cookieGroup.timestamp;
+        } else {
+          // This should not happen, but lets make sure all bases are covered.
+          timestamp = Date.now();
+        }
+        timestampHtml = formatTimestamp(
+          this.#formatDateTimeObject(timestamp),
+          elementGroup,
+          this.#SITE_SETTINGS.translations,
+          this.#LANGUAGE,
+          this.#SITE_SETTINGS.fallbackLanguage,
+        );
+      } else {
+        timestampHtml = '';
+      }
+      // eslint-disable-next-line no-param-reassign
+      timestampWrapper.innerHTML = timestampHtml;
+    });
+  }
+
   /**
    * Handles button events based on the selection.
    * @private
@@ -265,15 +306,18 @@ export class CookieConsentCore {
         acceptedGroups = this.#COOKIE_HANDLER.getRequiredGroupNames();
         this.#COOKIE_HANDLER.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#MONITOR);
         this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
+        this.timestampElementHandler(acceptedGroups, formReference);
         break;
       case 'all':
         acceptedGroups = this.#getGroupCheckboxStatus(formReference, true);
         this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
+        this.timestampElementHandler(acceptedGroups, formReference);
         break;
       case 'selected':
         acceptedGroups = this.#getGroupCheckboxStatus(formReference);
         this.#COOKIE_HANDLER.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#MONITOR);
         this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
+        this.timestampElementHandler(acceptedGroups, formReference);
         break;
       default:
         // We should not be here, better do nothing
