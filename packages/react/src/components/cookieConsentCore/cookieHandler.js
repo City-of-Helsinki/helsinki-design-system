@@ -3,10 +3,13 @@
 
 import { parse, serialize } from 'cookie';
 
+import { formatTimestamp } from './template';
+
 export default class CookieHandler {
   #COOKIE_DAYS = 100;
   #shadowDomUpdateCallback;
   #siteSettings;
+  #lang;
   #cookieName = 'city-of-helsinki-cookie-consents'; // Overridable default value
   #formReference;
 
@@ -14,16 +17,17 @@ export default class CookieHandler {
    * Represents a CookieHandler object.
    * @constructor
    * @param {Object} options - The options for the CookieHandler.
-   * @param {string} options.siteSettingsJsonUrl - Path to JSON file with site settings.
    * @param {Object} options.siteSettingsObj - Site settings object.
+   * @param {string} options.lang - Site language.
    * @param {Function} options.shadowDomUpdateCallback - Callback function to update shadow DOM.
-   * @param {Object} options.backReference - Reference to the back reference object.
    */
   constructor({
     siteSettingsObj, // Site settings object
+    lang, // Site language
     shadowDomUpdateCallback, // Callback function to update shadow DOM checkboxes
   }) {
     this.#siteSettings = siteSettingsObj;
+    this.#lang = lang;
     this.#shadowDomUpdateCallback = (consentedGroupNames) => {
       shadowDomUpdateCallback(consentedGroupNames, this.#formReference);
     };
@@ -198,6 +202,63 @@ export default class CookieHandler {
   }
 
   /**
+   * Retrieves the HTML representation of cookie groups.
+   * @private
+   * @param {string} timestamp - UNIX timestamp.
+   * @return {Object} - Parsed timestamp with date and time separated to key-value pairs.
+   */
+  #formatDateTimeObject(timestamp) {
+    const formatted = {
+      date: new Date(timestamp).toLocaleDateString('fi-FI'),
+      time: new Date(timestamp).toLocaleTimeString('fi-FI', { hour: 'numeric', minute: 'numeric' }),
+    };
+
+    return formatted;
+  }
+
+  /**
+   * Updates cookie consent timestamp elements in DOM.
+   * @param {Array} acceptedGroups - An array of cookie group names to be handled.
+   */
+  timestampElementHandler(acceptedGroups) {
+    // If banner is not visible, do not render timestamps either
+    if (!this.#formReference) {
+      return;
+    }
+    const timestampWrappers = this.#formReference.querySelectorAll('div[data-timestamp]');
+    const cookie = this.getCookie();
+    let groups = [];
+    if (cookie && cookie.groups) {
+      groups = cookie.groups;
+    }
+    timestampWrappers.forEach((timestampWrapper) => {
+      const elementGroup = timestampWrapper.dataset.timestamp;
+      let timestampHtml;
+      if (acceptedGroups.includes(elementGroup)) {
+        let timestamp;
+        const cookieGroup = groups[elementGroup];
+        if (cookieGroup) {
+          timestamp = cookieGroup.timestamp;
+        } else {
+          // This should not happen, but lets make sure all bases are covered.
+          timestamp = Date.now();
+        }
+        timestampHtml = formatTimestamp(
+          this.#formatDateTimeObject(timestamp),
+          elementGroup,
+          this.#siteSettings.translations,
+          this.#lang,
+          this.#siteSettings.fallbackLanguage,
+        );
+      } else {
+        timestampHtml = '';
+      }
+      // eslint-disable-next-line no-param-reassign
+      timestampWrapper.innerHTML = timestampHtml;
+    });
+  }
+
+  /**
    * Saves the consented cookie groups (and required groups) to cookie, unsets others.
    * @private
    * @param {Array} consentedGroupNames - The names of the consented cookie groups.
@@ -229,7 +290,8 @@ export default class CookieHandler {
     };
 
     this.#setCookie(data);
-
+    // Update consent timestamp dynamically
+    this.timestampElementHandler(consentedGroupNames);
     // Update shadow dom checkbox status
     this.#shadowDomUpdateCallback(consentedGroupNames);
   }
