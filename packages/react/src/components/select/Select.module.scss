@@ -326,6 +326,65 @@
   }
 }
 
+.tagListContainer {
+  display: flex;
+  flex-direction: column;
+
+  .tagList {
+    display: flex;
+    flex-flow: row wrap;
+    max-height: 78px;
+    overflow: hidden;
+    padding: var(--spacing-3-xs) 0;
+
+    .tag {
+      margin-bottom: var(--spacing-xs);
+      margin-right: var(--spacing-xs);
+
+      &.disabledTag {
+        pointer-events: none;
+      }
+    }
+  }
+
+  &.tagListExpanded {
+    .tagList {
+      max-height: unset;
+    }
+
+    .arrowIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  .tagListButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--spacing-2-xs);
+
+    > button:first-child {
+      margin-right: var(--spacing-xs);
+    }
+
+    .hiddenButton {
+      display: none;
+    }
+
+    .clearAllButton {
+      --background-color-hover: var(--color-error-light);
+      --background-color: var(--color-white);
+      --border-color: var(--color-error);
+      --border-color-hover: var(--color-error);
+      --border-color-focus: var(--color-error);
+      --border-color-hover-focus: var(--color-error);
+      --color: var(--color-error);
+      --color-hover: var(--color-error);
+      --color-focus: var(--color-error);
+      --color-hover-focus: var(--color-error);
+    }
+  }
+}
+
 .errorText {
   composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
   margin-bottom: var(--spacing-2-xs);

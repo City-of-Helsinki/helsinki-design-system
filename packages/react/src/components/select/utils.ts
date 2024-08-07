@@ -267,6 +267,9 @@ export function getElementIds(containerId: string): SelectMetaData['elementIds']
     arrowButton: `${containerId}-arrow-button`,
     label: `${containerId}-label`,
     selectionsAndListsContainer: `${containerId}-sl-container`,
+    tagList: `${containerId}-tag-list`,
+    clearAllButton: `${containerId}-clear-all-button`,
+    showAllButton: `${containerId}-show-all-button`,
   };
 }
 
