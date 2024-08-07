@@ -3,7 +3,13 @@ import { flatten } from 'lodash';
 import type { Writable } from 'type-fest';
 
 import { getIndexOfFirstVisibleChild } from './getIndexOfFirstVisibleChild';
-import { assignNewFakeElementChildren, createDomRect, createFakeElement, getRect } from './test-utils';
+import {
+  assignNewFakeElementChildren,
+  createDomRect,
+  createFakeElement,
+  getRect,
+  createElementGrid,
+} from './test-utils';
 
 describe('getIndexOfFirstVisibleChild returns index of the last child that fits inside parents bounding box', () => {
   // note about rect naming:
@@ -11,28 +17,6 @@ describe('getIndexOfFirstVisibleChild returns index of the last child that fits 
 
   const defaultRowHeight = 10;
   const defaultColumnWidth = 10;
-
-  /**
-   * Creates a grid like structure of fake HTML elements
-   */
-  const createElementGrid = (rows: number, cols: number, spacingX: number = 0, spacingY: number = 0) => {
-    const grid: HTMLElement[][] = [];
-    for (let y = 0; y < rows; y += 1) {
-      const column: HTMLElement[] = [];
-      for (let xx = 0; xx < cols; xx += 1) {
-        column.push(
-          createFakeElement({
-            width: defaultColumnWidth,
-            height: defaultRowHeight,
-            top: y * (defaultRowHeight + spacingY),
-            left: xx * (defaultColumnWidth + spacingX),
-          }),
-        );
-      }
-      grid[y] = column;
-    }
-    return grid;
-  };
 
   // A row of children expanding from top left 0,0 to right, bottom 50,10
   // size can be checked with createBoundingBoxToContainGivenBoxes(flatten(standardChildRow)));
