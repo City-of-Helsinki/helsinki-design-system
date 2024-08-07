@@ -93,6 +93,7 @@ exports[`<Select /> spec renders the component 1`] = `
       >
         <div
           class="listContainer hidden"
+          style="max-height: 286px;"
         >
           <ul
             aria-multiselectable="false"

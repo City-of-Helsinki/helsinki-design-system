@@ -36,10 +36,14 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   noTags?: boolean;
   texts?: Partial<Texts> | TextProvider;
   multiSelect?: boolean;
+  visibleOptions?: number;
 };
 
 export type SelectData = Required<
-  Pick<SelectProps, 'open' | 'required' | 'invalid' | 'onChange' | 'disabled' | 'multiSelect' | 'noTags'>
+  Pick<
+    SelectProps,
+    'open' | 'required' | 'invalid' | 'onChange' | 'disabled' | 'multiSelect' | 'noTags' | 'visibleOptions'
+  >
 > & {
   groups: Array<Group>;
 };

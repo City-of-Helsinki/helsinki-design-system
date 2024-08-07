@@ -18,6 +18,8 @@ export type OptionIterator = (
   groupIndex: number,
 ) => Option | undefined;
 
+export const DROPDOWN_MENU_ITEM_HEIGHT = 52;
+
 export function createOnClickListener(props: DomHandlerProps) {
   const { id, type = eventTypes.click, trigger } = props;
   return {

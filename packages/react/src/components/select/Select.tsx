@@ -33,6 +33,7 @@ export function Select({
   invalid,
   multiSelect,
   noTags,
+  visibleOptions,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -43,6 +44,7 @@ export function Select({
       disabled: !!disabled,
       multiSelect: !!multiSelect,
       noTags: !!noTags,
+      visibleOptions: visibleOptions || 5.5,
       onChange,
     };
   }, [options, open, groups, onChange, disabled, invalid, required, noTags]);
