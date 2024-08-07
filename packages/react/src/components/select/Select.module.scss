@@ -75,7 +75,9 @@
       display: flex;
       flex-flow: wrap;
       flex-grow: 1;
-      max-height: var(--lineheight-l);
+
+      /* this value must be higher than height of a selected item (.dropdownButtonOption) or none are considered visible in getIndexOfFirstVisibleChild() */
+      height: calc(var(--fontsize-body-l) * var(--lineheight-l) + 1px);
       overflow: hidden;
     }
 
@@ -213,7 +215,6 @@
         @extend %dropdownMenuItem;
 
         &.disabledOption.disabledOption {
-          color: var(--color-black-40);
           cursor: not-allowed;
 
           &:hover {
@@ -222,18 +223,50 @@
         }
       }
 
+      .singleSelectListItem {
+        --menu-item-background-hover: var(--color-bus-light);
+        --menu-item-background-selected: var(--color-bus);
+        --menu-item-background-selected-hover: var(--color-bus);
+        --menu-item-color-selected: var(--color-white);
+        --menu-item-color-selected-hover: var(--color-white);
+
+        &.disabledOption.disabledOption {
+          color: var(--color-black-40);
+        }
+
+        .singleSelectListItemLabel {
+          align-items: center;
+          display: flex;
+          flex-grow: 1;
+          justify-content: space-between;
+
+          > span {
+            height: 24px;
+            width: 24px;
+          }
+        }
+      }
+
       .multiSelectListItem {
         position: relative;
 
-        > div {
-          pointer-events: none;
-          width: 24px;
-        }
+        .checkboxContainer {
+          display: flex;
+          flex-direction: row;
 
-        label {
-          cursor: pointer;
-          flex-grow: 1;
-          padding-left: var(--spacing-2-xs);
+          > div {
+            flex-shrink: 0;
+            pointer-events: none;
+            width: 24px;
+
+            --background-unselected: var(--color-white);
+          }
+
+          label {
+            cursor: pointer;
+            flex-grow: 1;
+            padding-left: var(--spacing-xs);
+          }
         }
 
         &.disabledOption.disabledOption label {
@@ -252,12 +285,14 @@
         }
       }
 
-      .selectableListItem {
-        outline: none;
-
+      .selectableListItem:not(.selected) {
         &:hover {
           background-color: var(--menu-item-background-hover);
         }
+      }
+
+      .focusableListItem {
+        outline: none;
 
         &:focus,
         &:focus-within {
