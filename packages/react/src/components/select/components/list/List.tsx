@@ -7,16 +7,22 @@ import { MultiSelectListWithGroups } from './MultiSelectListWithGroups';
 import { SingleSelectAndGrouplessList } from './SingleSelectAndGrouplessList';
 import { SingleSelectListWithGroups } from './SingleSelectListWithGroups';
 import classNames from '../../../../utils/classNames';
+import { VirtualizedLists } from './VirtualizedLists';
 
 const ListComponent = ({
+  virtualize,
   multiSelect,
   isMultiSelectAndHasGroupLabels,
   hasVisibleGroupLabels,
 }: {
+  virtualize: boolean;
   multiSelect: boolean;
   isMultiSelectAndHasGroupLabels: boolean;
   hasVisibleGroupLabels: boolean;
 }) => {
+  if (virtualize) {
+    return <VirtualizedLists forMultiSelectWithGroups={isMultiSelectAndHasGroupLabels} />;
+  }
   if (!multiSelect) {
     return hasVisibleGroupLabels ? <SingleSelectListWithGroups /> : <SingleSelectAndGrouplessList />;
   }
@@ -26,7 +32,7 @@ const ListComponent = ({
 export const List = () => {
   const dataHandlers = useSelectDataHandlers();
   const { getData } = dataHandlers;
-  const { open, groups, multiSelect, visibleOptions } = getData();
+  const { open, groups, multiSelect, visibleOptions, virtualize } = getData();
   const isVisible = open;
   const classes = classNames(styles.listContainer, !isVisible && styles.hidden);
   const styleObj = { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions };
@@ -38,6 +44,7 @@ export const List = () => {
       <ListComponent
         multiSelect={multiSelect}
         isMultiSelectAndHasGroupLabels={isMultiSelectAndHasGroupLabels}
+        virtualize={virtualize}
         hasVisibleGroupLabels={hasVisibleGroupLabels}
       />
     </div>
