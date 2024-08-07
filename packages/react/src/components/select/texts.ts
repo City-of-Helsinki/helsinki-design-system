@@ -66,6 +66,7 @@ const createTextInterpolationContent = (metaData: SelectMetaData): TextInterpola
   const count = metaData.selectedOptions.length;
   return {
     selectionCount: count,
+    optionLabel: '',
   };
 };
 
@@ -98,13 +99,17 @@ export const appendTexts = (texts: Partial<SelectProps['texts']>, metaData: Sele
   };
 };
 
-export const getTextKey = (key: TextKey, metaData: SelectMetaData): string | undefined => {
+export const getTextKey = (
+  key: TextKey,
+  metaData: SelectMetaData,
+  customContent?: Partial<TextInterpolationContent>,
+): string | undefined => {
   if (!metaData.textContent) {
     // eslint-disable-next-line no-param-reassign
     metaData.textContent = createTextInterpolationContent(metaData);
   }
   const { textProvider } = metaData;
-  return textProvider(key, metaData.textContent);
+  return textProvider(key, { ...metaData.textContent, ...customContent });
 };
 
 export const getTextFromMetaData = (key: TextKey, metaData: SelectMetaData): string | undefined => {
