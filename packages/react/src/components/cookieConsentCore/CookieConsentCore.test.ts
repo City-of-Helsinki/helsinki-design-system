@@ -841,7 +841,7 @@ describe('cookieConsentCore', () => {
     const expectedGroupsAfterRemoval = [...siteSettingsObj.requiredGroups].map((e) => e.groupId);
     expect(writtenKeysAfterRemoval).toEqual(expectedGroupsAfterRemoval);
 
-    await waitForConsole('log', "Cookie consent: will delete consent withdrawn cookie(s): 'nmstat'");
+    await waitForConsole('log', `Cookie consent: will delete consent withdrawn cookie(s): '${firstCookieValues.name}'`);
 
     // Expect the cookie to be removed
     const statisticsCookieWrittenAfterRemoval = document.cookie.includes(firstCookieValues.name);

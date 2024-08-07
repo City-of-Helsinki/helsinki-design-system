@@ -53,6 +53,9 @@ export const ReactTestFullPage = () => {
     // eslint-disable-next-line no-console
     console.log('Cookie added:', cookieName);
   };
+  const openBanner = async () => {
+    console.log('Spawning banner', await window.hds.cookieConsent.openBanner());
+  };
   return (
     <main>
       <button type="button" onClick={addChatCookie}>
@@ -66,6 +69,9 @@ export const ReactTestFullPage = () => {
       </button>
       <button type="button" onClick={setIcareusDevice}>
         Set icareus-device
+      </button>
+      <button type="button" onClick={openBanner}>
+        Open banner
       </button>
 
       <p>

@@ -123,14 +123,12 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
-   * @param {Object} overrides - Optional override configurations.
-   * @param {string} [overrides.showBanner=true] - The override for banner show logic.
    * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
    * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the JSON parsing fails.
    */
-  static async create(siteSettingsParam, options, overrides = false) {
+  static async create(siteSettingsParam, options) {
     let instance;
     if (!siteSettingsParam && (typeof siteSettingsParam !== 'string' || typeof siteSettingsParam !== 'object')) {
       throw new Error(
@@ -161,7 +159,7 @@ export class CookieConsentCore {
     }
 
     // Initialise the class instance
-    await instance.#init(overrides?.showBanner);
+    await instance.#init();
 
     // Return reference to the class instance
     return instance;
@@ -197,9 +195,16 @@ export class CookieConsentCore {
     };
   }
 
-  async openBanner(siteSettingsJsonUrl, options) {
+  /**
+   * Opens banner when not on cookie settings page.
+   */
+  async openBanner(highlightedGroups = []) {
+    if (this.#SETTINGS_PAGE_SELECTOR && document.querySelector(this.#SETTINGS_PAGE_SELECTOR)) {
+      console.error(`Cookie consent: The user is already on settings page`);
+      return;
+    }
     this.#removeBanner();
-    await CookieConsentCore.create(siteSettingsJsonUrl, options, { showBanner: true });
+    await this.#render(this.#LANGUAGE, this.#SITE_SETTINGS, true, null, highlightedGroups);
   }
 
   // MARK: Private methods
@@ -472,11 +477,12 @@ export class CookieConsentCore {
    * @param {Object} siteSettings - The site settings object.
    * @param {boolean} isBanner - Indicates if rendering banner or page element.
    * @param {HTMLElement} renderTarget - The target element for rendering the page element, unset otherwise.
+   * @param {Array} highlightedGroups - The groups that need consent.
    * @throws {Error} If the targetSelector element is not found.
    * @throws {Error} If the spacerParentSelector element is not found.
    * @throws {Error} If the contentSelector element is not found.
    */
-  async #render(lang, siteSettings, isBanner, renderTarget = null) {
+  async #render(lang, siteSettings, isBanner, renderTarget = null, highlightedGroups = []) {
     let spacerParent;
     let renderTargetToPrepend = renderTarget;
     if (isBanner) {
@@ -590,6 +596,27 @@ export class CookieConsentCore {
       shadowRoot.querySelector('.hds-cc').focus();
     }
     this.#prepareAnnouncementElement();
+
+    // If highlights are requested, apply them
+    if (highlightedGroups.length > 0) {
+      let firstElement = null;
+      highlightedGroups.forEach((group) => {
+        const groupElement = shadowRootForm.querySelector(`div[data-group-id=${group}]`);
+        if (groupElement) {
+          groupElement.classList.add('hds-cc__group--highlight');
+          if (firstElement === null) {
+            firstElement = groupElement;
+          }
+        }
+      });
+
+      if (firstElement !== null) {
+        shadowRoot.querySelector('.hds-cc__accordion-button--details').click();
+        setTimeout(() => {
+          firstElement.scrollIntoView({ behavior: 'auto' });
+        }, 500);
+      }
+    }
   }
 
   // MARK: Initializer
@@ -599,10 +626,9 @@ export class CookieConsentCore {
    * and rendering the banner if necessary.
    *
    * @private
-   * @param {boolean} displayOverride - The override for opening banner from user actions.
    * @return {Promise<void>} A promise that resolves when the initialization is complete.
    */
-  async #init(displayOverride = false) {
+  async #init() {
     await new Promise((resolve) => {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -629,7 +655,7 @@ export class CookieConsentCore {
     } else {
       // Check if banner is needed or not
       const shouldDisplayBanner = this.#shouldDisplayBanner();
-      if (shouldDisplayBanner || displayOverride) {
+      if (shouldDisplayBanner) {
         await this.#render(this.#LANGUAGE, siteSettings, true);
       }
     }

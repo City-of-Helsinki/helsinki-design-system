@@ -48,7 +48,7 @@ export const ReactTest = () => {
     console.log('Cookie removed:', cookieName);
   };
   const openBanner = async () => {
-    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(siteSettingsJsonUrl, options));
+    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat']));
   };
   return (
     <main>

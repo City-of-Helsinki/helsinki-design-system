@@ -85,7 +85,12 @@ export function getCookieBannerHtml(
       </div>
     </div>
   </div>
-</div>`;
+</div>
+<style>
+  .hds-cc__group--highlight {
+    outline: solid red 2px;
+  }
+</style>`;
 }
 
 /**
@@ -135,9 +140,8 @@ export function getGroupHtml(
   const accepted = isAccepted ? 'checked' : '';
   const title = getTranslation(groupData, 'title', lang, fallbackLang);
   const description = getTranslation(groupData, 'description', lang, fallbackLang);
-
   return `
-            <div class="hds-cc__group">
+            <div class="hds-cc__group" data-group-id="${groupId}">
               <div class="hds-checkbox">
                 <input type="checkbox" id="${groupId}-cookies" class="hds-checkbox__input" ${required} ${accepted} data-group="${groupId}" />
                 <label for="${groupId}-cookies" class="hds-checkbox__label">${title}</label>
