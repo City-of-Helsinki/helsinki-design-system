@@ -19,6 +19,7 @@ const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
     open: false,
     multiSelect: false,
     onChange: jest.fn(),
+    visibleOptions: 5.5,
   },
 };
 
@@ -63,7 +64,7 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     refs: {
       selectionButton: { current: null },
     },
-    textContent: { selectionCount: 0 },
+    textContent: { selectionCount: 0, optionLabel: '' },
     textProvider: (key) => key,
     getOptionId: () => uniqueId('item'),
   },
