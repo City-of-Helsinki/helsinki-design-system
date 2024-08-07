@@ -37,12 +37,21 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   texts?: Partial<Texts> | TextProvider;
   multiSelect?: boolean;
   visibleOptions?: number;
+  virtualize?: boolean;
 };
 
 export type SelectData = Required<
   Pick<
     SelectProps,
-    'open' | 'required' | 'invalid' | 'onChange' | 'disabled' | 'multiSelect' | 'noTags' | 'visibleOptions'
+    | 'open'
+    | 'required'
+    | 'invalid'
+    | 'onChange'
+    | 'disabled'
+    | 'multiSelect'
+    | 'noTags'
+    | 'visibleOptions'
+    | 'virtualize'
   >
 > & {
   groups: Array<Group>;

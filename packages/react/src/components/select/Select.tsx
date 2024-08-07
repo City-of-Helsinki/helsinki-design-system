@@ -34,6 +34,7 @@ export function Select({
   multiSelect,
   noTags,
   visibleOptions,
+  virtualize,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -45,9 +46,10 @@ export function Select({
       multiSelect: !!multiSelect,
       noTags: !!noTags,
       visibleOptions: visibleOptions || 5.5,
+      virtualize: !!virtualize,
       onChange,
     };
-  }, [options, open, groups, onChange, disabled, invalid, required, noTags]);
+  }, [options, open, groups, onChange, disabled, invalid, required, noTags, virtualize, visibleOptions]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
