@@ -125,9 +125,49 @@ const defaultTexts: Partial<Texts> = {
   error: 'Wrong choice!',
 };
 
-export const Example = () => {
+export const Singleselect = () => {
   const options = generateOptionLabels(20);
-  return <Select options={options} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts} />;
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
+    />
+  );
+};
+
+export const SingleselectWithGroups = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(40),
+    },
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'Candy cane', label: 'Candy cane' },
+        { value: 'Sugar bomb', label: 'Sugar bomb' },
+        { value: 'Dr. Pepper', label: 'Dr. Pepper' },
+      ],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changess
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
+    />
+  );
 };
 
 export const OptionsAsHtml = () => {
@@ -275,4 +315,47 @@ export const WithValidation = () => {
   };
 
   return <Select groups={groups} onChange={onChange} texts={texts} />;
+};
+
+export const Multiselect = () => {
+  const options = generateOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      multiSelect
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
+    />
+  );
+};
+
+export const MultiselectWithGroups = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      multiSelect
+      icon={<IconLocation />}
+      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
+    />
+  );
 };
