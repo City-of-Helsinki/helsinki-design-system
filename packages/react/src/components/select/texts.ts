@@ -20,6 +20,7 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: '{{selectionCount}} selected options',
     selectedOptionsLabel: 'Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: '{{optionLabel}} (choose all)',
   },
   fi: {
     assistive: '',
@@ -31,6 +32,7 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: 'FI: {{selectionCount}} selected options',
     selectedOptionsLabel: 'FI: Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: 'FI: {{optionLabel}} (choose all)',
   },
   sv: {
     assistive: '',
@@ -42,6 +44,7 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: 'SV: {{selectionCount}} selected options',
     selectedOptionsLabel: 'SV: Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: 'SV: {{optionLabel}} (choose all)',
   },
 };
 

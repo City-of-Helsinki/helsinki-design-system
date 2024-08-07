@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SingleSelectAndGrouplessList /> Component is rendered 1`] = `
+<DocumentFragment>
+  <ul
+    aria-multiselectable="false"
+    class="list"
+    id="hds-select-1-list"
+    role="listbox"
+    tabindex="-1"
+  >
+    <li
+      aria-disabled="false"
+      aria-selected="false"
+      class="listItem selectableListItem singleSelectListItem focusableListItem"
+      id="hds-select-1-option-0"
+      role="option"
+      tabindex="-1"
+    >
+      <span
+        class="singleSelectListItemLabel"
+      >
+        Option 1
+      </span>
+    </li>
+    <li
+      aria-disabled="false"
+      aria-selected="false"
+      class="listItem selectableListItem singleSelectListItem focusableListItem"
+      id="hds-select-1-option-1"
+      role="option"
+      tabindex="-1"
+    >
+      <span
+        class="singleSelectListItemLabel"
+      >
+        Option 2
+      </span>
+    </li>
+    <li
+      aria-disabled="false"
+      aria-selected="false"
+      class="listItem selectableListItem singleSelectListItem focusableListItem"
+      id="hds-select-1-option-2"
+      role="option"
+      tabindex="-1"
+    >
+      <span
+        class="singleSelectListItemLabel"
+      >
+        Option 3
+      </span>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
