@@ -9,6 +9,8 @@ import {
   isGroupClickEvent,
   isOutsideClickEvent,
   isCloseEvent,
+  isTagEventId,
+  isShowAllClickEvent,
 } from './events';
 
 type TestProps = {
@@ -19,18 +21,18 @@ type TestProps = {
 
 describe('events', () => {
   const ids = Object.keys(eventIds);
-  const types = Object.keys(eventTypes);
+  const types = Object.keys(eventTypes) as EventType[];
   // given function return true when given id and type matches
 
   const successfulFunctionProps: TestProps[] = [
     {
       func: isClearOptionsClickEvent,
-      ids: [eventIds.clearButton],
+      ids: [eventIds.clearButton, eventIds.clearAllButton],
       types: [eventTypes.click],
     },
     {
       func: isOptionClickEvent,
-      ids: [eventIds.listItem],
+      ids: [eventIds.listItem, eventIds.tag],
       types: [eventTypes.click],
     },
     {
@@ -53,9 +55,20 @@ describe('events', () => {
       ids: [eventIds.generic],
       types: [eventTypes.close],
     },
+    {
+      func: isTagEventId,
+      ids: [eventIds.tag],
+      types,
+    },
+    {
+      func: isShowAllClickEvent,
+      ids: [eventIds.showAllButton],
+      types: [eventTypes.click],
+    },
   ];
   it('Func returns true only when certain ids and types match.', async () => {
     const successfulCalls: TestProps[] = [];
+    let expectedSuccessfulCalls = 0;
     ids.forEach((eventIdKey) => {
       const eventId = eventIds[eventIdKey];
       types.forEach((eventTypeKey) => {
@@ -73,7 +86,10 @@ describe('events', () => {
         });
       });
     });
-    // +1 is for matching both ids in "isOpenOrCloseEvent" test
-    expect(successfulCalls.length).toBe(successfulFunctionProps.length + 1);
+    // each test suite must have successful tests for each event id and event type
+    successfulFunctionProps.forEach((props) => {
+      expectedSuccessfulCalls += Math.max(props.ids.length, props.types.length);
+    });
+    expect(successfulCalls.length).toBe(expectedSuccessfulCalls);
   });
 });

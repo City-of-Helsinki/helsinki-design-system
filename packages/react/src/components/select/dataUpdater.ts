@@ -10,6 +10,7 @@ import {
 } from './utils';
 import {
   EventId,
+  eventIds,
   EventType,
   isClearOptionsClickEvent,
   isCloseEvent,
@@ -17,6 +18,7 @@ import {
   isOpenOrCloseEvent,
   isOptionClickEvent,
   isOutsideClickEvent,
+  isShowAllClickEvent,
 } from './events';
 import { appendTexts } from './texts';
 
@@ -82,7 +84,7 @@ const dataUpdater = (
       current.multiSelect,
     );
     updateGroups(newGroups, clickedOption);
-    openOrClose(current.multiSelect);
+    openOrClose(id !== eventIds.tag && current.multiSelect);
     return {
       ...returnValue,
       didSelectionsChange: true,
@@ -115,6 +117,15 @@ const dataUpdater = (
     return {
       ...returnValue,
       didSelectionsChange: true,
+      didDataChange: true,
+    };
+  }
+
+  if (isShowAllClickEvent(id, type)) {
+    const { showAllTags } = dataHandlers.getMetaData();
+    dataHandlers.updateMetaData({ showAllTags: !showAllTags });
+    return {
+      ...returnValue,
       didDataChange: true,
     };
   }
