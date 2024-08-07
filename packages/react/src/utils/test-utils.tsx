@@ -94,6 +94,12 @@ export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[
       return childList[childList.length - 1] || null;
     },
   });
+  Reflect.defineProperty(element, 'firstElementChild', {
+    ...baseDefineProps,
+    get() {
+      return childList[0] || null;
+    },
+  });
   Reflect.defineProperty(element, 'children', {
     ...baseDefineProps,
     get() {
@@ -130,6 +136,29 @@ export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[
   element.children = children;
 
   return element as HTMLElement;
+};
+
+export const createElementGrid = (rows: number, cols: number, width = 10, height = 10, spacingX = 0, spacingY = 0) => {
+  const grid: HTMLElement[][] = [];
+  for (let y = 0; y < rows; y += 1) {
+    const column: HTMLElement[] = [];
+    for (let xx = 0; xx < cols; xx += 1) {
+      const top = y * (height + spacingY);
+      const left = xx * (width + spacingX);
+      column.push(
+        createFakeElement({
+          width,
+          height,
+          top,
+          left,
+          right: left + width,
+          bottom: top + height,
+        }),
+      );
+    }
+    grid[y] = column;
+  }
+  return grid;
 };
 
 export const isRect = (element: HTMLElement | DOMRect) => {
