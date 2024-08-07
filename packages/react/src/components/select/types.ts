@@ -64,6 +64,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     selectionsAndListsContainer: string;
   };
   textProvider: TextProvider;
+  getOptionId: (option: Option) => string;
 };
 
 export type DivElementProps = HTMLAttributes<HTMLDivElement>;
@@ -81,7 +82,8 @@ export type TextKey =
   | 'selectedOptionsLabel'
   | 'noSelectedOptions'
   | 'clearButtonAriaLabel'
-  | 'dropdownButtonAriaLabel';
+  | 'dropdownButtonAriaLabel'
+  | 'multiSelectGroupAriaLabel';
 
 export type TextInterpolationKeys = 'selectionCount';
 

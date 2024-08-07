@@ -1,7 +1,7 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData } from './types';
+import { SelectProps, SelectMetaData, SelectData, Option } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
@@ -46,6 +46,8 @@ export function Select({
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
+    const optionIds = new Map<string, string>();
+    let optionIdCounter = 0;
     return {
       lastToggleCommand: 0,
       lastClickedOption: undefined,
@@ -59,6 +61,17 @@ export function Select({
       selectedOptions: getSelectedOptions(initialData.groups),
       elementIds: getElementIds(containerId),
       textProvider: createTextProvider(texts),
+      getOptionId: (option: Option) => {
+        const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
+        const current = optionIds.get(identifier);
+        if (!current) {
+          const optionId = `${containerId}-option-${optionIdCounter}`;
+          optionIdCounter += 1;
+          optionIds.set(identifier, optionId);
+          return optionId;
+        }
+        return current;
+      },
     };
   }, [id, initialData.groups]);
 
