@@ -1,3 +1,5 @@
+import { uniqueId } from 'lodash';
+
 import { getMockCalls } from '../../../../utils/testHelpers';
 import { ChangeEvent } from '../../../dataProvider/DataContext';
 import { EventId, EventType } from '../../events';
@@ -63,6 +65,7 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     },
     textContent: { selectionCount: 0 },
     textProvider: (key) => key,
+    getOptionId: () => uniqueId('item'),
   },
 };
 

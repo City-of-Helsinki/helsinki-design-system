@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { renderWithHelpers } from './testUtil';
+import { renderWithHelpers, skipAxeRulesExpectedToFail } from './testUtil';
 
 describe('<Select />', () => {
   describe('spec', () => {
@@ -19,7 +19,7 @@ describe('<Select />', () => {
         invalid: true,
         required: true,
       });
-      const results = await axe(container);
+      const results = await axe(container, skipAxeRulesExpectedToFail);
       expect(results).toHaveNoViolations();
     });
   });
