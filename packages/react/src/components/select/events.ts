@@ -6,6 +6,9 @@ export const eventIds = {
   listItem: 'listItem',
   listGroup: 'listGroup',
   clearButton: 'clearButton',
+  clearAllButton: 'clearAllButton',
+  showAllButton: 'showAllButton',
+  tag: 'tag',
   arrowButton: 'arrowButton',
   generic: 'generic',
 } as const;
@@ -18,10 +21,14 @@ export const eventTypes = {
   close: 'close',
 } as const;
 
+export const isTagEventId = (eventId: EventId) => {
+  return eventId === eventIds.tag;
+};
+
 const isClick = (eventType?: EventType) => eventType === eventTypes.click;
 const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
-const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem;
-const isIdForClear = (eventId: EventId) => eventId === eventIds.clearButton;
+const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isTagEventId(eventId);
+const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
 const isEventForListToggle = (eventId: EventId) =>
   eventId === eventIds.selectedOptions || eventId === eventIds.arrowButton;
 
@@ -47,4 +54,8 @@ export const isOutsideClickEvent = (eventId: EventId, eventType?: EventType) => 
 
 export const isCloseEvent = (eventId: EventId, eventType?: EventType) => {
   return isGenericEvent(eventId) && eventType === eventTypes.close;
+};
+
+export const isShowAllClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && eventId === eventIds.showAllButton;
 };
