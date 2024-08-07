@@ -123,6 +123,12 @@ const defaultTexts: Partial<Texts> = {
   placeholder: 'Choose one',
   selectedOptionsLabel: 'Selected options',
   error: 'Wrong choice!',
+  language: 'en',
+};
+const defaultTextsForMultiSelect: Partial<Texts> = {
+  ...defaultTexts,
+  label: 'Select multiple fruits or vegetables',
+  placeholder: 'Choose many',
 };
 
 export const Singleselect = () => {
@@ -130,15 +136,7 @@ export const Singleselect = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return (
-    <Select
-      options={options}
-      onChange={onChange}
-      icon={<IconLocation />}
-      required
-      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
-    />
-  );
+  return <Select options={options} onChange={onChange} icon={<IconLocation />} required texts={defaultTexts} />;
 };
 
 export const SingleselectWithGroups = () => {
@@ -159,15 +157,7 @@ export const SingleselectWithGroups = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changess
   }, []);
-  return (
-    <Select
-      groups={groups}
-      onChange={onChange}
-      icon={<IconLocation />}
-      required
-      texts={{ label: 'Select one fruit or vegetable', placeholder: 'Choose one' }}
-    />
-  );
+  return <Select groups={groups} onChange={onChange} icon={<IconLocation />} required texts={defaultTexts} />;
 };
 
 export const OptionsAsHtml = () => {
@@ -329,7 +319,7 @@ export const Multiselect = () => {
       icon={<IconLocation />}
       required
       multiSelect
-      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
+      texts={defaultTextsForMultiSelect}
     />
   );
 };
@@ -355,7 +345,34 @@ export const MultiselectWithGroups = () => {
       onChange={onChange}
       multiSelect
       icon={<IconLocation />}
-      texts={{ label: 'Select multiple fruits or vegetables', placeholder: 'Choose many' }}
+      texts={defaultTextsForMultiSelect}
+    />
+  );
+};
+
+export const MultiselectWithoutTags = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      multiSelect
+      icon={<IconLocation />}
+      texts={defaultTextsForMultiSelect}
+      noTags
     />
   );
 };
