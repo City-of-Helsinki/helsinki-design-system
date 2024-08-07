@@ -269,3 +269,20 @@ export function getElementIds(containerId: string): SelectMetaData['elementIds']
     selectionsAndListsContainer: `${containerId}-sl-container`,
   };
 }
+
+export function countVisibleOptions(groups: SelectData['groups']): number {
+  let count = 0;
+  groups.forEach((group) => {
+    group.options.forEach((option) => {
+      if (!option.isGroupLabel && option.visible) {
+        count += 1;
+      }
+    });
+  });
+  return count;
+}
+
+export function getGroupLabelOption(group: Group): Option | undefined {
+  const firstOption = group.options[0];
+  return firstOption && firstOption.isGroupLabel ? firstOption : undefined;
+}
