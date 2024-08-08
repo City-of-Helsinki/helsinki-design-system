@@ -19,13 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+Changes that are not related to specific components
 - [Component] What has been changed
-- [Notification] Change auto closing notification progressbar to decrease instead of increase.
 
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
-- [Footer] Fix Koros height issue (Calm type was of wrong height)
 
 ### Core
 
@@ -39,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+Changes that are not related to specific components
 - [Component] What has been changed
 
 #### Fixed
@@ -53,10 +53,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- Added measure and outline addons to Storybook
+- [Component] What is added?
 
 #### Changed
 
+Changes that are not related to specific components
 - [Component] What has been changed
 
 #### Fixed
@@ -75,6 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+Changes that are not related to specific components
 - [Component] What has been changed
 
 #### Fixed
@@ -93,11 +95,200 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+Changes that are not related to specific components
 - [Component] What has been changed
 
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+### Icon kit
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Hds-js
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+## [3.9.0] - June, 2nd, 2024
+
+### React
+
+#### Added
+
+- [Login] GraphQL module with api token integration
+- [Header.LoginButton] Button to start the login process and handle errors.
+- [Header.LogoutSubmenuButton] Button to start the logout process from the menu and handle errors.
+- [Header.UserMenuButton] Button for a user menu that renders user's name and initials.
+- [Header.ActionBarButton] A Button without dropdown items (as in Header.ActionBarItem)
+- [Header.ActionBar] Add possibility to give the menu button a label with `menuButtonLabel` prop.
+- [Header.ActionBarSubItem] Component for creating menus in Header
+- [Header.ActionBarSubItemGroup] Container for creating grouped subitems with headings.
+
+#### Changed
+
+- [FileInput](packages/react/src/components/fileInput/FileInput.tsx) Added `minSize` property (default 0) for cases when the uploaded file must have non-zero length content
+
+#### Fixed
+
+- [TextInput, TextArea] Fix read-only input focus styles.
+
+### Core
+
+#### Fixed
+
+- [TextInput, TextArea] Fix read-only input focus styles.
+
+### Documentation
+
+#### Added
+
+- [Patterns] New page for Login pattern, instructions how HDS Login and Header.login should work together
+- [Getting started] Added a link to HDS Figma tutorial
+- [Header] Documented new features.
+- [Login] GraphQL module documentation
+- More detailed information on upcoming releases 4.0.0 and 5.0.0
+
+#### Changed
+
+- [Header] New documentation for ActionBarItems and Header.Login
+
+#### Fixed
+
+- [Getting started] Fixed old mentions of Abstract & Sketch
+
+### Figma
+
+#### Added
+- [Header] New functionalities for Actionbar: Action items can have an option for dropdown menus. For now only Logged in user has custom user menu and button (Header.Login)
+- [Header] In mobile breakpoints (XS-M) login button and logged-in user menu jump inside the Header.Mobilemenu that has a special accordion menu for dropdown.
+- [Header] Added missing Breadcrumbs to dark theme.
+- [Linkbox] Added four more tags into all variants. Reveal more tags from the layers. Nested instances also revealed. Example added to component frame.
+- [Navigation pattern] Added header functionalities documentation for Header.Login (in the future these will be on Header component page)
+- [TextInput, TextArea] Added missing read-only variants and redesigned focus ring.
+- [PhoneInput, PasswordInput] Added missing read-only focus ring.
+
+#### Fixed
+- [Header] Mobilemenu link 2nd level names changed to Second level.
+- [Header] Mobilemenu now aligned to right border. Menu button should always be the rightmost element in mobile breakpoints.
+- [Hero] Flipped image 180 degrees in imageLeft, imageRight, imageBottom in XS size and diagonalKoros in all sizes.
+
+#### Changed
+- [Header] Login button now has sign-in icon instead of user - old Login actionitem is removed, please use Header.Login.
+- [Header] Breakpoint width numbers added to property names to match Footer
+- [Header] Nested instances revealed
+- [Header] Actionitems have an updated focus styles
+- [Header] Some header subcomponents have updated names. Header.Actionbar.Mobilemenu -> Header.Mobilemenu , to accommodate new features such as Header.Mobilemenu.Login
+- [Header] Language select dropdown is now 320px wide like other Actionbar dropdowns.
+- [Linkbox] Border-variants now have inside stroke, for better experience when building layouts
+- [PhoneInput, PasswordInput] Read-only variants renamed to ReadOnly for consistency.
+
+## [3.8.0] - May, 7, 2024
+
+### React
+
+#### Added
+
+- [CookieConsent] Data stored by the HDS login component is now in the common cookies.
+- [Login] Added a utility function to detect login callback error that could be ignored.
+- [DateInput] Added example how to handle date ranges.
+
+#### Changed
+
+- [Login] API tokens are removed when user token renewal starts
+- [Notification] Change auto closing notification progressbar to decrease instead of increase.
+- [CookieConsent] Fixed SSR problem with "document not defined"
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+- [Footer] Fix Koros height issue (Calm type was of wrong height)
+- [Login] Fixed initialization failure in React strict mode when external modules are used.
+- [ErrorSummary] Change wrong error icon to correct one
+
+### Core
+
+#### Changed
+
+- [ErrorSummary] Change wrong error icon to correct one
+
+### Documentation
+
+#### Added
+
+- [Login] Improved LoginProvider and api token client documentation.
+- Added measure and outline addons to Storybook
+- [DateInput] Added examples how to handle date ranges and validation.
+
+#### Changed
+
+- [Login] Login system is good enough to start using in production as well. We still welcome feedback and improve the component.
+- [CookieConsent] Data stored by the HDS login component added to common cookie list.
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+- [ErrorSummary] Change wrong error icon to correct one
+
+### Figma
+
+#### Added:
+
+- [Hero] Added secondary buttons and a responsive wrapper to buttons.
+- [Hero] Added buttons for the NoImage variant.
+- [Hero] Introduced XXL variant sizes.
+
+#### Fixed:
+
+- [Hero] Adjusted arrow and photographer info for improved responsiveness and ensured all variants are built using the same component structure.
+
+#### Removed:
+
+- [Hero] Replaced preselected images with placeholders.
+- [Hero] Replaced Diagonal variant's image with Placeholder image component (breaking change – resets used image).
+- [Hero] Replaced ImageBottom variant's links with buttons (breaking change).
+
+### Hds-js
+
+#### Added
+
+- [login] Added a utility function to detect login callback error that could be ignored.
+
+### Hds-js
+
+#### Changed
+
+- [Login] API tokens are removed when user token renewal starts
 
 ## [3.7.0] - April, 11, 2024
 

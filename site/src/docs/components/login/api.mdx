@@ -70,24 +70,26 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Oidc Client</AnchorLink>
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
+  - <AnchorLink>GraphQL module</AnchorLink>
 
 - <AnchorLink>Oidc client hooks</AnchorLink>
 - <AnchorLink>Api tokens client hooks</AnchorLink>{' '}
 - <AnchorLink>Session poller hooks</AnchorLink>{' '}
+- <AnchorLink>GraphQL module hooks</AnchorLink>{' '}
 - <AnchorLink>Generic signal hooks</AnchorLink>{' '}
 
 - <AnchorLink>Beacon</AnchorLink>
 - <AnchorLink>Signals</AnchorLink>
-- <AnchorLink anchor="important-1">Important</AnchorLink>
 
 ### Components
 
 #### LoginButton
 
-| Property                                           | Description                                                                     | Default              |
-| -------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------- |
-| `errorText`                                        | **Required**. An error text is shown if the OIDC server rejects the connection. | none                 |
-| `spinnerColor`                                     | Optional. Colour of the loading spinner.                                        | `var(--color-white)` |
+| Property                                           | Description                                                                     | Default                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `errorText`                                        | **Required**. An error text is shown if the OIDC server rejects the connection. | none                                                        |
+| `loggingInText`                                    | Text read by the screen reader when the button is clicked.                      | Default of the "loadingText" property of the LoadingSpinner |
+| `spinnerColor`                                     | Optional. Colour of the loading spinner.                                        | `var(--color-white)`                                        |
 | [Table 2: Properties of the LoginButton component] |
 
 Button text is passed and rendered as a child.
@@ -101,6 +103,8 @@ Button text is passed and rendered as a child.
 | `onSuccess`                                                 | **Required**. The function is called when a response is handled successfully. The function is called with a <OidcClientTsLink>User</OidcClientTsLink> object. |
 | [Table 3: Properties of the LoginCallbackHandler component] |
 
+In some scenarios, when the component is rendered multiple times, usually in development mode with strict mode enabled, the `onError` callback is called with an error that can usually be ignored. The error indicates a login callback is already being handled. The error can be checked with the exported function `isHandlingLoginCallbackError(error)`.
+
 #### LoginProvider
 
 | Property                                             | Description                                                                                                                                                                                                                                                                                                                                                             |
@@ -110,7 +114,7 @@ Button text is passed and rendered as a child.
 | `modules`                                            | Optional. An array of <CustomisationPageAnchorLink>custom modules</CustomisationPageAnchorLink>.                                                                                                                                                                                                                                                                        |
 | `sessionPollerSettings`                              | Optional. <AnchorLink anchor="settings-2">Settings for the Session poller</AnchorLink>. If omitted, the `Session poller` is not created. If default values are acceptable, an empty object is required to create the poller.                                                                                                                                            |
 | `userManagerSettings`                                | **Required**. The <AnchorLink anchor="oidc-client">HDS Oidc client</AnchorLink> uses <ExternalLink href="https://github.com/authts/oidc-client-ts">oidc-client-ts</ExternalLink> to handle redirect URLs, token parsing and expiration. Both use the same `userManagerSettings`, but <AnchorLink anchor="default-usermanager-settings">different defaults</AnchorLink>. |
-| [Table 1: Properties of the LoginProvider component] |
+| [Table 4: Properties of the LoginProvider component] |
 
 #### SessionEndedHandler
 
@@ -119,7 +123,7 @@ Button text is passed and rendered as a child.
 | `content`                                                  | **Required**. Textual content with properties `title`, `text`, `buttonText` and `closeButtonLabelText`.              |
 | `dialogProps`                                              | Optional. Additional <GitHubSourceLink path="dialog/Dialog.tsx">DialogProps</GitHubSourceLink> passed to the Dialog. |
 | `ids`                                                      | Optional. Ids for the dialog elements with properties `dialog`, `title`, and `text`. If omitted, ids are created.    |
-| [Table 4: Properties of the SessionEndedHandler component] |
+| [Table 5: Properties of the SessionEndedHandler component] |
 
 #### WithAuthentication
 
@@ -127,32 +131,34 @@ Button text is passed and rendered as a child.
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `AuthorisedComponent`                                     | Optional. Component to render if the user is authenticated. The <OidcClientTsLink>user</OidcClientTsLink> object is passed to the component. |
 | `UnauthorisedComponent`                                   | Optional. Component to render if the user is not authenticated.                                                                              |
-| [Table 5: Properties of the WithAuthentication component] |
+| [Table 6: Properties of the WithAuthentication component] |
 
 #### WithAuthenticatedUser
 
 | Property                                                     | Description                                                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
 | `children`                                                   | React children. A <OidcClientTsLink>user</OidcClientTsLink> object is passed to each child. |
-| [Table 6: Properties of the WithAuthenticatedUser component] |
+| [Table 7: Properties of the WithAuthenticatedUser component] |
 
 #### WithoutAuthenticatedUser
 
 | Property                                                     | Description     |
 | ------------------------------------------------------------ | --------------- |
 | `children`                                                   | React children. |
-| [Table 7: Properties of the WithAuthenticatedUser component] |
+| [Table 8: Properties of the WithAuthenticatedUser component] |
 
 ### Modules
 
 Usually, just logging in is not enough. The user must be able to fetch data from backend servers. That cannot be done unless the user's access token is exchanged for API tokens. Api tokens are sent in the headers of backend requests to authenticate the user.
 HDS Login modules include also API token handling. It is an independent module, but it communicates with the `Oidc client` and updates automatically when the user logs in or is updated. The modules emit signals that can be listened to and reacted to.
 
-There are three modules to handle the user's needs:
+There are four modules to handle the user's needs:
 
 - <AnchorLink>Oidc client</AnchorLink> for user data.
 - <AnchorLink>Api tokens client</AnchorLink> for acquiring backend tokens.
 - <AnchorLink>Session poller</AnchorLink> for checking if the user's session is still valid at the Oidc provider.
+- <AnchorLink>GraphQL module</AnchorLink> for fetching data from a graphQL server. Fetching can be automatically linked to
+  the Api Tokens client.
 
 All modules can be used without React and without each other. But a <OidcClientTsLink>>user</OidcClientTsLink> object is required to get API tokens and poll the session.
 
@@ -166,22 +172,22 @@ The `Oidc client` uses the <ExternalLink href="https://github.com/authts/oidc-cl
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `debug`                                | Optional. If true, debugging is enabled in the oidc-client-ts instance with `Log.setLevel(Log.Debug)` and `Log.setLogger(console)`. |
 | `userManagerSettings`                  | **Required**, but not all options. At least `authority`, `client_id` and `scope` must be set.                                       |
-| [Table 8: Settings of the Oidc client] |
+| [Table 9: Settings of the Oidc client] |
 
 ##### Default userManager settings
 
-| Property                                                    | Default value                      |
-| ----------------------------------------------------------- | ---------------------------------- |
-| `automaticSilentRenew`                                      | true                               |
-| `includeIdTokenInSilentRenew`                               | true                               |
-| `loadUserInfo`                                              | true                               |
-| `monitorSession`                                            | false                              |
-| `post_logout_redirect_uri`                                  | window.origin + /                  |
-| `redirect_uri`                                              | window.origin + /callback          |
-| `response_type`                                             | code                               |
-| `silent_redirect_uri`                                       | window.origin + /silent_renew.html |
-| `validateSubOnSilentRenew`                                  | false                              |
-| [Table 9: Default userManager settings of the Oidc client ] |
+| Property                                                     | Default value                      |
+| ------------------------------------------------------------ | ---------------------------------- |
+| `automaticSilentRenew`                                       | true                               |
+| `includeIdTokenInSilentRenew`                                | true                               |
+| `loadUserInfo`                                               | true                               |
+| `monitorSession`                                             | false                              |
+| `post_logout_redirect_uri`                                   | window.origin + /                  |
+| `redirect_uri`                                               | window.origin + /callback          |
+| `response_type`                                              | code                               |
+| `silent_redirect_uri`                                        | window.origin + /silent_renew.html |
+| `validateSubOnSilentRenew`                                   | false                              |
+| [Table 10: Default userManager settings of the Oidc client ] |
 
 These override the default settings of the <ExternalLink href="https://github.com/authts/oidc-client-ts/blob/main/src/UserManagerSettings.ts">oidc-client-ts</ExternalLink>.
 
@@ -200,7 +206,7 @@ These override the default settings of the <ExternalLink href="https://github.co
 | `login`                                | Calls the `authorization_endpoint` with given parameters. The browser window is redirected and the returned promise is fulfilled only, if an error occurs when redirecting.                                                                                                                                                                                              | `Promise<never>`                                             |
 | `logout`                               | Calls the `end_session_endpoint` with given parameters. The browser window is redirected so the returned promise is never fulfilled.                                                                                                                                                                                                                                     | `Promise<never>`                                             |
 | `renewUser`                            | For manual user renewal. The Promise will never be rejected.                                                                                                                                                                                                                                                                                                             | `Promise<User>`                                              |
-| [Table 10: Methods of the Oidc client] |
+| [Table 11: Methods of the Oidc client] |
 
 ##### Other exported utility functions
 
@@ -214,7 +220,7 @@ The following functions can be imported and used without the `Oidc client` modul
 | `isUserExpired(user)`                                    | Returns true if the user is expired.                             | <OidcClientTsLink>User</OidcClientTsLink> object.                                                                                      | `boolean`                                           |
 | `isValidUser(user)`                                      | Returns true if the user is not expired and has an access token. | <OidcClientTsLink>User</OidcClientTsLink> object.                                                                                      | `boolean`                                           |
 | `pickUserToken(user, tokenType)`                         | Returns one of the user's tokens: `access`, `id` or `refresh`.   | <OidcClientTsLink>User</OidcClientTsLink> object, token type ( `access`, `id` or `refresh`).                                           | `string` or `undefined`                             |
-| [Table 11: Other Oidc client and user-related functions] |
+| [Table 12: Other Oidc client and user-related functions] |
 
 <PlaygroundPreview>
 
@@ -242,7 +248,7 @@ There are utility functions for each state change. Use these to check if the emi
 | `LOGGING_OUT`                  | State changes to this when `logout()` is called.                         | `isLoggingOutSignal(signal)`            |
 | `NO_SESSION`                   | No valid user exists.                                                    | `isNoSessionSignal(signal)`             |
 | `VALID_SESSION`                | User is found and is valid.                                              | `isValidSessionSignal(signal)`          |
-| [Table 12: Oidc client states] |
+| [Table 13: Oidc client states] |
 
 ##### Error signal types
 
@@ -254,7 +260,7 @@ The error object also contains the thrown error in `error.originalError` propert
 | `INVALID_OR_EXPIRED_USER`      | The returned <OidcClientTsLink>user</OidcClientTsLink> object is expired or invalid. | `error.isInvalidUserError`     | `isInvalidUserErrorSignal(signal) `  |
 | `RENEWAL_FAILED`               | User renewal failed.                                                                 | `error.isRenewalError`         | `isRenewalErrorSignal(signal)`       |
 | `SIGNIN_ERROR`                 | Emitted when `handleCallback()` or `login()` failed.                                 | `error.isSignInError`          | `isSigninErroSignal(signal) `        |
-| [Table 13: Oidc client errors] |
+| [Table 14: Oidc client errors] |
 
 ##### Event signals
 
@@ -265,7 +271,7 @@ The `Oidc client` also emits event signals when an action is complete or startin
 | `USER_UPDATED`                 | User data has changed. Includes also changes to `null`, if login or renewal fail.                        | `isUserUpdatedSignal(signal) `        |
 | `USER_REMOVED`                 | User data was removed. Happens when the user logs out or tokens expire.                                  | `isUserRemovedSignal(signal) `        |
 | `USER_RENEWAL_STARTED`         | User is being renewed. Current access_token and API tokens may be invalid until the renewal is complete. | `isUserRenewalStartedSignal(signal) ` |
-| [Table 14: Oidc client events] |
+| [Table 15: Oidc client events] |
 
 ##### Dedicated signal triggers
 
@@ -277,7 +283,7 @@ Generic triggers for `Oidc client` signals. These trigger only if the signal ori
 | `triggerForAllOidcClientEvents`       | `Oidc client` namespace and type `event`.       |
 | `triggerForAllOidcClientSignals`      | `Oidc client` namespace.                        |
 | `triggerForAllOidcClientStateChanges` | `Oidc client` namespace and type `stateChange`. |
-| [Table 15: Oidc client triggers]      |
+| [Table 16: Oidc client triggers]      |
 
 State change triggers require the signal to have the `Oidc client` namespace and type `stateChange`.
 `Signal.payload.type` must contain one of the <AnchorLink anchor="state-change-signals">states</AnchorLink>.
@@ -288,7 +294,7 @@ State change triggers require the signal to have the `Oidc client` namespace and
 | `loggingOutTrigger`                           | `payload.type` has a matching state.          |
 | `noSessionTrigger`                            | `payload.type` has a matching state.          |
 | `validSessionTrigger`                         | `payload.type` has a matching state.          |
-| [Table 16: Oidc client state change triggers] |
+| [Table 17: Oidc client state change triggers] |
 
 Event triggers require the signal to have the `Oidc client` namespace and type `event`.
 `Signal.payload.type` contains one of the <AnchorLink anchor="event-signals">events</AnchorLink>.
@@ -298,7 +304,7 @@ Event triggers require the signal to have the `Oidc client` namespace and type `
 | `userRemovedTrigger`                   | `payload.type` has a matching event.          |
 | `userRenewalStartedTrigger`            | `payload.type` has a matching event.          |
 | `userUpdatedTrigger`                   | `payload.type` has a matching event.          |
-| [Table 17: Oidc client event triggers] |
+| [Table 18: Oidc client event triggers] |
 
 Error triggers require the signal to have the `Oidc client` namespace and type `error`.
 `Signal.payload.type` contains one of the <AnchorLink anchor="error-signal-types">errors</AnchorLink>.
@@ -308,7 +314,7 @@ Error triggers require the signal to have the `Oidc client` namespace and type `
 | `invalidUserErrorTrigger`              | `payload.type` has a matching error.          |
 | `renewalErrorTrigger`                  | `payload.type` has a matching error.          |
 | `signInErrorTrigger`                   | `payload.type` has a matching error.          |
-| [Table 18: Oidc client error triggers] |
+| [Table 19: Oidc client error triggers] |
 
 ##### Getting signal payloads
 
@@ -320,7 +326,7 @@ If the given signal is not from `Oidc client` or is not of the given type, the f
 | `getOidcClientEventPayload`                    | `null` or `{type, data}`. The data is usually a <OidcClientTsLink>user</OidcClientTsLink> object. |
 | `getOidcClientErrorPayload`                    | `null` or <AnchorLink anchor="error-signal-types">OidcClientError</AnchorLink> object.            |
 | `getOidcClientStateChangePayload`              | `null` or `{state, previousState}`.                                                               |
-| [Table 19: Oidc client signal payload getters] |
+| [Table 20: Oidc client signal payload getters] |
 
 ##### Hooks
 
@@ -330,6 +336,8 @@ Oidc client hooks are listed in the <AnchorLink anchor="oidc-client-hooks">hooks
 
 The `Api tokens client` listens to the `Oidc client` signals and waits until the user is authenticated and then fetches the API tokens. It retries if fetch fails and terminates when the maximum number of retries is reached.
 When the user is about to expire and renews, API tokens are also renewed automatically.
+
+When user renewal starts, API tokens are also removed to prevent usage of API tokens that are not possibly valid anymore. Use `isRenewing()` to check if API tokens are being renewed, and if it returns 'false', then use the API tokens returned by `getTokens()`.
 
 ##### Requirements
 
@@ -344,7 +352,7 @@ URL where to get the tokens from. A user's access token is also required, so the
 | `queryProps`                           | Optional. An object. Used with Keycloak api token requests. Contains properties `grantType` and `permission`. | none          |
 | `retryInterval`                        | Optional. Waiting time in milliseconds between failed requests.                                               | 500           |
 | `url`                                  | **Required**. URL to the API tokens endpoint.                                                                 | none          |
-| [Table 20: Api tokens client settings] |
+| [Table 21: Api tokens client settings] |
 
 ##### Methods
 
@@ -354,22 +362,22 @@ URL where to get the tokens from. A user's access token is also required, so the
 | `fetch`                               | Fetches the tokens from the given URI.        | `Promise<Tokens>` |
 | `getTokens`                           | Gets locally stored tokens.                   | `Tokens`          |
 | `isRenewing`                          | Returns true if tokens are currently fetched. | `boolean`         |
-| [Table 21: Api tokens client methods] |
+| [Table 22: Api tokens client methods] |
 
 ##### Other exported utility functions
 
 The following functions can be imported and used without the `Api tokens client` module:
 
-| Function                                              | Description                                        | Argument(s)                                                                                        | Return value                                                                                  |
-| ----------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `createApiTokenClient(props)`                         | Creates the client.                                | ApiTokenClientProps.                                                                               | `ApiTokensClient`                                                                             |
-| `getApiTokensFromStorage(storage)`                    | Gets the API tokens from session storage.          | Storage to get the tokens from. (optional, default is session storage).                            | <GitHubSourceLink path="login/apiTokensClient/index.ts">TokenData</GitHubSourceLink>`or`null` |
-| `getUserReferenceFromStorage(storage)`                | Gets the user's access token used as reference.    | Storage to get the reference from. (optional, default is session storage).                         | `string`                                                                                      |
-| `removeApiTokensFromStorage(storage)`                 | Removes the API tokens from session storage.       | Storage to remove the tokens from. (optional, default is session storage).                         | none                                                                                          |
-| `removeUserReferenceFromStorage(storage)`             | Removes the user's access token used as reference. | Storage to remove the reference from. (optional, default is session storage).                      | none                                                                                          |
-| `setApiTokensToStorage(tokens, storage)`              | Sets the API tokens to storage.                    | Tokens, storage to set the tokens to. (optional, default is session storage).                      | none                                                                                          |
-| `setUserReferenceToStorage(reference,storage)`        | Sets the user's access token used as reference.    | Reference as string, tokens, storage to set the tokens to. (optional, default is session storage). | none                                                                                          |
-| [Table 22: Other Api tokens client-related functions] |
+| Function                                              | Description                                        | Argument(s)                                                                                        | Return value                                                                                   |
+| ----------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `createApiTokenClient(props)`                         | Creates the client.                                | ApiTokenClientProps.                                                                               | `ApiTokensClient`                                                                              |
+| `getApiTokensFromStorage(storage)`                    | Gets the API tokens from session storage.          | Storage to get the tokens from. (optional, default is session storage).                            | <GitHubSourceLink path="login/apiTokensClient/index.ts">TokenData</GitHubSourceLink> or `null` |
+| `getUserReferenceFromStorage(storage)`                | Gets the user's access token used as reference.    | Storage to get the reference from. (optional, default is session storage).                         | `string`                                                                                       |
+| `removeApiTokensFromStorage(storage)`                 | Removes the API tokens from session storage.       | Storage to remove the tokens from. (optional, default is session storage).                         | none                                                                                           |
+| `removeUserReferenceFromStorage(storage)`             | Removes the user's access token used as reference. | Storage to remove the reference from. (optional, default is session storage).                      | none                                                                                           |
+| `setApiTokensToStorage(tokens, storage)`              | Sets the API tokens to storage.                    | Tokens, storage to set the tokens to. (optional, default is session storage).                      | none                                                                                           |
+| `setUserReferenceToStorage(reference,storage)`        | Sets the user's access token used as reference.    | Reference as string, tokens, storage to set the tokens to. (optional, default is session storage). | none                                                                                           |
+| [Table 23: Other Api tokens client-related functions] |
 
 <PlaygroundPreview>
 
@@ -397,18 +405,18 @@ Returned errors are instances of the `ApiTokensClientError`. It is an extended E
 | `API_TOKEN_FETCH_FAILED`             | Fetch failed.                           | `error.isFetchError`                | `isApiTokensFetchFailedErrorSignal(signal)` |
 | `INVALID_API_TOKENS`                 | The returned object is an invalid json. | `error.isInvalidTokensError`        | `isInvalidApiTokensErrorSignal(signal)`     |
 | `INVALID_USER_FOR_API_TOKENS`        | User is not valid.                      | `error.isInvalidApiTokensUserError` | `isInvalidApiTokensUserErrorSignal(signal)` |
-| [Table 23: Api tokens client errors] |
+| [Table 24: Api tokens client errors] |
 
 ##### Event signals
 
 The `Api tokens client` also emits events when an action is complete or starting.
 
-| Event type                           | Description                                                                      | Utility function to check the signal      |
-| ------------------------------------ | -------------------------------------------------------------------------------- | ----------------------------------------- |
-| `API_TOKENS_UPDATED`                 | Tokens have changed. Includes also changes to `null`.                            | `isApiTokensUpdatedSignal(signal)`        |
-| `API_TOKENS_REMOVED`                 | Tokens have been removed. Happens usually when the user object has been removed. | `isApiTokensRemovedSignal(signal)`        |
-| `API_TOKENS_RENEWAL_STARTED`         | Api tokens are renewed. Happens usually right after user renewal.                | `isApiTokensRenewalStartedSignal(signal)` |
-| [Table 24: Api tokens client events] |
+| Event type                           | Description                                                                                    | Utility function to check the signal      |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `API_TOKENS_UPDATED`                 | Tokens have changed. Includes also changes to `null`.                                          | `isApiTokensUpdatedSignal(signal)`        |
+| `API_TOKENS_REMOVED`                 | Tokens have been removed. Happens usually when the user object has been removed or is renewed. | `isApiTokensRemovedSignal(signal)`        |
+| `API_TOKENS_RENEWAL_STARTED`         | Api tokens are renewed. Happens usually right after user renewal.                              | `isApiTokensRenewalStartedSignal(signal)` |
+| [Table 25: Api tokens client events] |
 
 ##### Dedicated signal triggers
 
@@ -419,7 +427,7 @@ Triggers for `Api tokens client` signals. These trigger signals only originated 
 | `triggerForAllApiTokensClientErrors`   | `Api tokens client` namespace and type `error`. |
 | `triggerForAllApiTokensClientEvents`   | `Api tokens client` namespace and type `event`. |
 | `triggerForAllApiTokensClientSignals`  | `Api tokens client` namespace.                  |
-| [Table 25: Api tokens client triggers] |
+| [Table 26: Api tokens client triggers] |
 
 Event triggers require the signal to have `Api tokens client` namespace and type `event`.
 `Signal.payload.type` contains one of the <AnchorLink anchor="event-signals-1">events</AnchorLink>.
@@ -429,7 +437,7 @@ Event triggers require the signal to have `Api tokens client` namespace and type
 | `apiTokensRemovedTrigger`                    | `payload.type` has a matching event.          |
 | `apiTokensRenewalStartedTrigger`             | `payload.type` has a matching event.          |
 | `apiTokensUpdatedTrigger`                    | `payload.type` has a matching event.          |
-| [Table 26: Api tokens client event triggers] |
+| [Table 27: Api tokens client event triggers] |
 
 Error triggers require the signal to have `Api tokens client` namespace and type `error`.
 `Signal.payload.type` contains one of the <AnchorLink anchor="error-signal-types-1">errors</AnchorLink>.
@@ -439,7 +447,7 @@ Error triggers require the signal to have `Api tokens client` namespace and type
 | `apiTokensFetchFailedErrorTrigger`           | `payload.type` has a matching error.          |
 | `invalidApiTokensErrorTrigger`               | `payload.type` has a matching error.          |
 | `invalidApiTokensUserErrorTrigger`           | `payload.type` has a matching error.          |
-| [Table 27: Api tokens client error triggers] |
+| [Table 28: Api tokens client error triggers] |
 
 ##### Getting signal payloads
 
@@ -450,7 +458,7 @@ If the given signal is not from `Api tokens client` or is not given type, the fu
 | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `getApiTokensClientErrorPayload`                     | `null` or <AnchorLink anchor="error-signal-types-1">ApiTokensClientError</AnchorLink> object. |
 | `getApiTokensClientEventPayload`                     | `null` or `{type, data}`. The data is usually tokens.                                         |
-| [Table 28: Api tokens client signal payload getters] |
+| [Table 29: Api tokens client signal payload getters] |
 
 ##### Hooks
 
@@ -470,7 +478,7 @@ Polling requires a user and the `userManager` from the `Oidc client`. The pollin
 | Property                            | Description                                                                      | Default value |
 | ----------------------------------- | -------------------------------------------------------------------------------- | ------------- |
 | `pollIntervalInMs`                  | Optional. Waiting time between polls in milliseconds. The default is one minute. | 60000         |
-| [Table 29: Session poller settings] |
+| [Table 30: Session poller settings] |
 
 ##### Methods
 
@@ -478,7 +486,7 @@ Polling requires a user and the `userManager` from the `Oidc client`. The pollin
 | ---------------------------------- | ----------------------------------------------------------------------------------------------- | ------------ |
 | `start`                            | Starts the polling. The first check is done after pollIntervalInMs is expired. Not immediately. |              |
 | `stop`                             | Stops the polling and aborts current requests, if any.                                          | `Tokens`     |
-| [Table 30: Session poller methods] |
+| [Table 31: Session poller methods] |
 
 ##### Other exported utility functions
 
@@ -487,7 +495,7 @@ The following function can be imported and used without the `Session poller` mod
 | Property                                   | Description         | Argument(s)           | Return value    |
 | ------------------------------------------ | ------------------- | --------------------- | --------------- |
 | `createSessionPoller(options)`             | Creates the poller. | SessionPollerOptions. | `SessionPoller` |
-| [Table 31: Other Session poller functions] |
+| [Table 32: Other Session poller functions] |
 
 <PlaygroundPreview>
 
@@ -511,7 +519,7 @@ Returned errors are instances of the `SessionPollerError`. It is an extended Err
 | -------------------------------------------- | ------------------------------------------------------------ | ------------------------------- | --------------------------------------- |
 | `SESSION_ENDED`                              | The server returned a forbidden or unauthorized status code. | `error.isSessionEnded`          | `isSessionEndedSignal(signal) `         |
 | `SESSION_POLLING_FAILED`                     | Polling has failed and max retries have been reached.        | `error.isSessionPollingFailure` | `isSessionPollingFailureSignal(signal)` |
-| [Table 32: Other Session poller error types] |
+| [Table 33: Other Session poller error types] |
 
 ##### Event signals
 
@@ -521,7 +529,7 @@ The `Session poller` also emits events when an action is complete or starting.
 | -------------------------------------------- | -------------------- | -------------------------------------- |
 | `SESSION_POLLING_STARTED`                    | Polling has started. | `isSessionPollerStartedSignal(signal)` |
 | `SESSION_POLLING_STOPPED`                    | Polling has stopped. | `isSessionPollerStoppedSignal(signal)` |
-| [Table 33: Other Session poller event types] |
+| [Table 34: Other Session poller event types] |
 
 ##### Dedicated signal triggers
 
@@ -532,7 +540,7 @@ Triggers for `Session poller`signals. These trigger signals only originated from
 | `triggerForAllSessionPollerErrors`  | `Session poller` namespace and type `error`.  |
 | `triggerForAllSessionPollerEvents`  | `Session poller` namespace and type `event`.  |
 | `triggerForAllSessionPollerSignals` | `Session poller` namespace.                   |
-| [Table 34: Session poller triggers] |
+| [Table 35: Session poller triggers] |
 
 Event triggers require the signal to have a `Session poller` namespace and type `event`.
 `Signal.payload.type` contains one of the <AnchorLink anchor="event-signals-2">events</AnchorLink>.
@@ -541,7 +549,7 @@ Event triggers require the signal to have a `Session poller` namespace and type 
 | ----------------------------------------- | --------------------------------------------- |
 | `sessionPollingStartedTrigger`            | `payload.type` has a matching event.          |
 | `sessionPollingStoppedTrigger`            | `payload.type` has a matching event.          |
-| [Table 35: Session poller event triggers] |
+| [Table 36: Session poller event triggers] |
 
 Error triggers require the signal to have a `Session poller`namespace and type `error`.
 `Signal.payload.type` contains one of the <AnchorLink anchor="error-signal-types-2">errors</AnchorLink>.
@@ -550,7 +558,7 @@ Error triggers require the signal to have a `Session poller`namespace and type `
 | ----------------------------------------- | --------------------------------------------- |
 | `sessionEndedTrigger`                     | `payload.type` has a matching error.          |
 | `sessionPollingFailedTrigger`             | `payload.type` has a matching error.          |
-| [Table 36: Session poller error triggers] |
+| [Table 37: Session poller error triggers] |
 
 ##### Getting signal payloads
 
@@ -561,7 +569,193 @@ If the given signal is not from the `Session poller` or is not given type, the f
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | `getSessionPollerErrorPayload`                    | `null` or <AnchorLink anchor="error-signal-types-2">SessionPollerError</AnchorLink> object. |
 | `getSessionPollerEventPayload`                    | `null` or `{type, data}`. The data is usually tokens.                                       |
-| [Table 37: Session poller signal payload getters] |
+| [Table 38: Session poller signal payload getters] |
+
+#### GraphQL Module
+
+Loading data from a graphQL server may require user authentication and api tokens. The GraphQL module can be set to listen to the Api token client and start querying when api tokens are ready. It can pick the correct api token and set it to the query headers.
+
+The module can also be used without api tokens and can be controlled manually.
+
+Unlike the `Api token client` and `Session Poller`, the `GraphQL Module` must be manually added to the `<LoginProvider>`.
+
+<PlaygroundPreview>
+
+```jsx
+import { ApolloClient } from '@apollo/client/core';
+import { createGraphQLModule } from 'hds-react';
+import { queryDocument } from './<path to queries>';
+
+const graphQLClient = new ApolloClient({
+  uri: 'https://graphql.endpoint.com/graphql/',
+  cache: new InMemoryCache(),
+});
+
+const options = {
+  graphQLClient,
+  query: queryDocument,
+  queryOptions: {
+    errorPolicy: 'all',
+  },
+};
+const graphQLModule = createGraphQLModule(options);
+
+<LoginProvider {...loginProps} modules={[graphQLModule]}></LoginProvider>;
+```
+
+</PlaygroundPreview>
+
+##### Requirements
+
+To execute a query, the following requirements must be met:
+
+- A graphQLClient (ApolloClient) must be configured and passed to the `GraphQL module`.
+- A query document must be provided.
+
+If the graphQL end-point requires an authentication, then the authentication headers must be set by
+
+- Providing them in `queryOptions.header`.
+- Setting them in `queryHelper()`.
+- Requiring api tokens with `options.requireApiTokens` and setting `options.apiTokenKey`.
+
+##### Important
+
+The module props do not require a query document or a graphQLClient, but a query cannot be executed without them. Both can also be passed as arguments to the `query(options)`. The client can also be set by calling `setClient(client)`.
+
+Once set, the client is stored, and there is no need to pass it again. The query document is not stored, so different queries can be used every time.
+
+When used with Helsinki City Profile, the `queryOptions.errorPolicy` should be set to "all". Otherwise, queries will fail when a weakly authenticated user tries to get the profile. The resulting data will include (dismissable) errors, and an ApolloClient query will fail when the data has an error property.
+
+The `createGraphQLModule` function is a Generic Typescript function with two types: `createGraphQLModule<Q = GraphQLQueryResult, T = NormalizedCacheObject>`. The first type, `Q`, defines what kind of results the query returns. The latter, `T`, only describes the cache type of the ApolloClient and is not usually changed.
+
+##### Settings
+
+<div className="container-for-table-10-30-50-10">
+
+| Property                            | Type                                                                                                   | Description                                                                                                                                                       | Default value |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `graphQLClient`                     | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink> | Optional property, but must be set before the query is executed. Can be set with `setApolloClient` or when calling a `query(options)`.                            | -             |
+| `query`                             | `TypedDocumentNode or DocumentNode`                                                                    | A graphQL query document.                                                                                                                                         | -             |
+| `queryHelper`                       | `(currentOptions:QueryOptions, apiTokenClient?: ApiTokenClient, beacon?:Beacon) => QueryOptions`       | This function is called before a query is executed. The options object returned by the function is used as query options.                                         | -             |
+| `options`                           | `object`                                                                                               | GraphQL module options.                                                                                                                                           | {}            |
+| `options.autoFetch`                 | `boolean`                                                                                              | Should query be executed automatically on initialization.                                                                                                         | `true`        |
+| `options.requireApiTokens`          | `boolean`                                                                                              | Are api tokens required for queries.                                                                                                                              | `true`        |
+| `options.abortIfLoading`            | `boolean`                                                                                              | Should an on-going query be aborted when `query()` is called again. If false, the `query()` will return a pending promise, and a new query is not started.        | `true`        |
+| `options.keepOldResultOnError`      | `boolean`                                                                                              | Should old result be kept, if a newer query fails.                                                                                                                | `false`       |
+| `options.apiTokensWaitTime`         | `number`                                                                                               | How long in milliseconds should api tokens be awaited before rejecting a query.                                                                                   | 15 000        |
+| `options.apiTokenKey`               | `string`                                                                                               | An object key for the api token to use in a query. The token is picked with `apiTokens[key]`.                                                                     | -             |
+| `queryOptions`                      | `QueryOptions` excluding the `query` property                                                          | Other <ExternalLink href="https://www.apollographql.com/docs/react/api/core/ApolloClient#query">ApolloClient queryOptions</ExternalLink> except `query` document. | -             |
+| [Table 39: GraphQL module settings] |
+
+</div>
+
+##### Methods
+
+| Property                           | Description                                                                                | Argument(s)                                                                                                      | Return value                                     |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `cancel`                           | Cancels current query. The pending query is aborted.                                       | -                                                                                                                | -                                                |
+| `clear`                            | Calls `cancel()` and also clears errors and results. Emits a GRAPHQL_MODULE_CLEARED event. | -                                                                                                                | -                                                |
+| `getClientErrors`                  | Returns array of query errors and/or errors in the result data.                            | -                                                                                                                | `ApolloError[]`                                  |
+| `getData`                          | Returns the `data` property of last successful query result.                               | -                                                                                                                | The `result.data` of latest query or `undefined` |
+| `getError`                         | Returns a query error.                                                                     | -                                                                                                                | `ApolloError` or `undefined`                     |
+| `getQueryPromise`                  | Returns the current pending query promise or an immediately rejected promise.              | -                                                                                                                | `Promise<ApolloQueryResult>`                     |
+| `getResult`                        | Returns the latest query result.                                                           | -                                                                                                                | `ApolloQueryResult` or `undefined`               |
+| `isLoading`                        | Returns true if a query fetch is currently active.                                         | -                                                                                                                | `boolean`                                        |
+| `isPending`                        | Returns true if the module is waiting for api tokens or query results.                     | -                                                                                                                | `boolean`                                        |
+| `query`                            | Executes a query.                                                                          | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
+| `queryCache`                       | Calls `query(options)` with `fetchPolicy: 'cache-only'` in options.                        | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
+| `queryServer`                      | Calls `query(options)` with `fetchPolicy: 'network-only'` in options.                      | `Partial<GraphQLModuleModuleProps>`                                                                              | `Promise<QueryResult>`                           |
+| `setClient`                        | Sets the graphQLClient.                                                                    | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">Apollo Client</ExternalLink>           | -                                                |
+| `waitForApiTokens`                 | Returns a promise that is resolved when api tokens are found.                              | `timeout?: number`. Time in milliseconds when the Promise is rejected. If omitted, the promise will not timeout. | `Promise<void>`                                  |
+| [Table 40: GraphQL module methods] |
+
+##### Other exported utility functions
+
+The following functions can be imported and used without the `GraphQL module` module:
+
+<div className="container-for-table-10-50-30-10">
+
+| Function                                     | Description                                                                                                       | Argument(s)                             | Return value    |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- | --------------- |
+| `createGraphQLModule(options)`               | Creates the module.                                                                                               | `GraphQLModuleModuleProps`.             | `GraphQLModule` |
+| `mergeQueryOptionContexts(options, context)` | Deep merges given context to `queryOptions`.                                                                      | `QueryOptions, QueryOptions['context']` | QueryOptions    |
+| `mergeHeadersToQueryOptions`                 | Deep merges given headers to `queryOptions.context`.                                                              | `QueryOptions, Record`                  | QueryOptions    |
+| `mergeAuthorizationHeaderToQueryOptions`     | Sets `authorization: <given header>` to `queryOptions.context.headers`. Typically the value is `Bearer: <token>`. | `QueryOptions, string`                  | QueryOptions    |
+| `mergeQueryOptions`                          | Deep merges given queryOptions to another queryOptions object                                                     | `QueryOptions, QueryOptions`            | QueryOptions    |
+| `setBearerToQueryOptions`                    | Shortcut for calling `mergeAuthorizationHeaderToQueryOptions(options, 'Bearer: <token>')`.                        | `QueryOptions, string`                  | QueryOptions    |
+| `appendFetchOptions`                         | Appends fetchOptions to `queryOptions.context`.                                                                   | `QueryOptions, Partial<RequestInit>`    | QueryOptions    |
+| [Table 41: Other GraphQL module functions]   |
+
+</div>
+##### State change signals
+
+The `GraphQL module` has no state changes.
+
+##### Error signal types
+
+Returned errors are instances of the `GraphQLModuleError`. It is an extended Error object with type property and multiple `.is...` getters for checking error types. The error object also contains the thrown error in `error.originalError` property.
+
+| Error type                                    | Description                                                        | Error object property to check | Utility function to check the signal             |
+| --------------------------------------------- | ------------------------------------------------------------------ | ------------------------------ | ------------------------------------------------ |
+| `GRAPHQL_LOAD_FAILED`                         | Query failed.                                                      | `error.isLoadError`            | `isGraphQLModuleLoadFailedSignal(signal) `       |
+| `GRAPHQL_NO_CLIENT`                           | Query failed, because client is not provided.                      | `error.isNoClientError`        | `isGraphQLModuleNoClientErrorSignal(signal) `    |
+| `GRAPHQL_NO_API_TOKENS`                       | Api tokens are required, but not found or fetching them timed out. | `error.isNoApiTokensError`     | `isGraphQLModuleNoApiTokensErrorSignal(signal) ` |
+| [Table 42: GraphQL module error signal types] |
+
+##### Event signals
+
+The `GraphQL module` also emits events when an action is complete or starting.
+
+| Event type                                   | Description             | Utility function to check the signal       |
+| -------------------------------------------- | ----------------------- | ------------------------------------------ |
+| `GRAPHQL_MODULE_LOADING`                     | Query has started.      | `isGraphQLModuleLoadingSignal(signal)`     |
+| `GRAPHQL_MODULE_LOAD_SUCCESS`                | Query was successful.   | `isGraphQLModuleLoadSuccessSignal(signal)` |
+| `GRAPHQL_MODULE_LOAD_ABORTED`                | Query was aborted.      | `isGraphQLModuleLoadAbortedSignal(signal)` |
+| `GRAPHQL_MODULE_CLEARED`                     | The module was cleared. | `isGraphQLModuleClearedSignal(signal)`     |
+| [Table 43: Other GraphQL module event types] |
+
+##### Dedicated signal triggers
+
+Triggers for `GraphQL module`signals. These trigger signals only originated from the `GraphQL module`.
+
+| Generic triggers                    | Required signal props to trigger the listener |
+| ----------------------------------- | --------------------------------------------- |
+| `triggerForAllGraphQLModuleErrors`  | `GraphQL module` namespace and type `error`.  |
+| `triggerForAllGraphQLModuleEvents`  | `GraphQL module` namespace and type `event`.  |
+| `triggerForAllGraphQLModuleSignals` | `GraphQL module` namespace.                   |
+| [Table 44: GraphQL module triggers] |
+
+Event triggers require the signal to have a `GraphQL module` namespace and type `event`.
+`Signal.payload.type` contains one of the <AnchorLink anchor="event-signals-3">events</AnchorLink>.
+
+| Event triggers                            | Required signal props to trigger the listener |
+| ----------------------------------------- | --------------------------------------------- |
+| `graphQLModuleClearedTrigger`             | `payload.type` has a matching event.          |
+| `graphQLModuleLoadAbortedTrigger`         | `payload.type` has a matching event.          |
+| `graphQLModuleLoadingTrigger`             | `payload.type` has a matching event.          |
+| `graphQLModuleLoadSuccessTrigger`         | `payload.type` has a matching event.          |
+| [Table 45: GraphQL module event triggers] |
+
+Error triggers require the signal to have a `GraphQL module`namespace and type `error`.
+`Signal.payload.type` contains one of the <AnchorLink anchor="error-signal-types-3">errors</AnchorLink>.
+
+| Error triggers                            | Required signal props to trigger the listener |
+| ----------------------------------------- | --------------------------------------------- |
+| `loadFailedErrorTrigger`                  | `payload.type` has a matching error.          |
+| `noApiTokensErrorTrigger`                 | `payload.type` has a matching error.          |
+| `noClientErrorTrigger`                    | `payload.type` has a matching error.          |
+| [Table 46: GraphQL module error triggers] |
+
+##### Getting signal payloads
+
+Sometimes the most significant part of a signal is the payload. There are predefined payload getters for the `GraphQL module`.
+If the given signal is not from the `GraphQL module` or is not given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                    | Returns                                                                                     |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `getGraphQLModuleErrorPayload`                    | `null` or <AnchorLink anchor="error-signal-types-3">GraphQLModuleError</AnchorLink> object. |
+| `getGraphQLModuleEventPayload`                    | `null` or `{type, data}`.                                                                   |
+| [Table 47: GraphQL module signal payload getters] |
 
 #### Oidc client hooks
 
@@ -571,7 +765,7 @@ If the given signal is not from the `Session poller` or is not given type, the f
 | `useCachedAmr`                | Returns the user's `amr` value. It is cached because in some cases it must be decrypted from `id_token`.                                                          | `string[]`                                          |
 | `useOidcClient`               | Returns the `Oidc client`.                                                                                                                                        | `OidcClient`                                        |
 | `useOidcClientTracking`       | Returns an array of `[Signal, resetFunction, oidcClient instance]`. The hook forces the component using it to re-render each time the listener is triggered.      | `[Signal or undefined, ()=>void, OidcClient]`       |
-| [Table 38: Oidc client hooks] |
+| [Table 48: Oidc client hooks] |
 
 The usage of the `Oidc client` hooks is described in the <UsagePageAnchorLink anchor="useoidcclient">usage</UsagePageAnchorLink> section.
 
@@ -582,7 +776,7 @@ The usage of the `Oidc client` hooks is described in the <UsagePageAnchorLink an
 | `useApiTokens`                      | Returns functions for checking tokens and the status of renewal.                                                                                                  | `{getStoredApiTokens(), isRenewing()}`             |
 | `useApiTokensClient`                | Returns the `Api tokens client`.                                                                                                                                  | `ApiTokensClient`                                  |
 | `useApiTokensClientTracking`        | Returns an array of `[Signal, resetFunction, apiTokensClient instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[Signal or undefined, ()=>void, ApiTokensClient]` |
-| [Table 39: Api tokens client hooks] |
+| [Table 49: Api tokens client hooks] |
 
 The usage of the `Api tokens client` hooks is described in the <UsagePageAnchorLink anchor="useapitokensclient">usage</UsagePageAnchorLink> section.
 
@@ -592,9 +786,20 @@ The usage of the `Api tokens client` hooks is described in the <UsagePageAnchorL
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | `useSessionPoller`               | Returns the `Session poller`.                                                                                                                                   | `SessionPoller`                                  |
 | `useSessionPollerTracking`       | Returns an array of `[Signal, resetFunction, sessionPoller instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[Signal or undefined, ()=>void, SessionPoller]` |
-| [Table 40: Session poller hooks] |
+| [Table 50: Session poller hooks] |
 
 The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink anchor="usesessionpoller">usage</UsagePageAnchorLink> section.
+
+#### GraphQL module hooks
+
+| Hook                             | Description                                                                                                                                                                                                                                                                       | Return value                                        |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `useGraphQLModule`               | Returns the `GraphQL module`.                                                                                                                                                                                                                                                     | `GraphQLModule`                                     |
+| `useGraphQLModuleTracking`       | Returns `[Signal, resetFunction, GraphQL module instance]`. The hook forces the component using it to re-render each time the listener is triggered.                                                                                                                              | `[signal, reset function, GraphQL module instance]` |
+| `useGraphQL`                     | Mimics the <ExternalLink href="https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery">useLazyQuery</ExternalLink> hook of the Apollo GraphQL library. The hook forces the component using it to re-render each time the module emits a signal. | `[query, {data, error, loading, refetch}]`          |
+| [Table 51: GraphQL module hooks] |
+
+The usage of the `GraphQL module` hooks is described in the <UsagePageAnchorLink anchor="usegraphql">usage</UsagePageAnchorLink> section.
 
 #### Generic signal hooks
 
@@ -603,7 +808,7 @@ The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink
 | `useSignalListener(listener)`                           | The listener function. There are no trigger props. The listener is always called when any signal is emitted in any namespace. The listener should return `true` if the component should re-render. | An array of `[Signal or undefined, ()=>void]`. Latter is a reset function that clears the signal and re-renders the component. |
 | `useSignalTrackingWithCallback(triggerProps, callback)` | Signal props need to match the incoming signal to trigger the callback function. The hook never causes a re-render. The callback must do it.                                                       | none                                                                                                                           |
 | `useSignalTrackingWithReturnValue(triggerProps)`        | Signal props need to match the incoming signal to trigger re-rendering. The hook creates a trigger from the props and re-renders if the trigger returns `true`.                                    | Same as above.                                                                                                                 |
-| [Table 41: Generic signal listener hooks]               |
+| [Table 52: Generic signal listener hooks]               |
 
 **Important!** The listener passed to `useSignalListener` must be memoized or the hook will attach a new listener on each render because the props changed. The old one is disposed of but to avoid unnecessary listeners, use memoization with `useMemo` or `useCallback`. Note that all `triggerFor...` functions are constants and do not need memoization.
 
@@ -626,7 +831,7 @@ Modules are added and connected by calling `beacon.addContext(module)`. The beac
 | `emit(signal)`                      | A signal to emit.                                                                              | none                                         |
 | `getAllSignalContextsAsObject()`    | Returns all stored contexts as on object of `{[context.namespace]:context}`.                   | `Object`                                     |
 | `getSignalContext(module)`          | Returns context for the given namespace.                                                       | Context module or `undefined`.               |
-| [Table 42: Beacon methods]          |
+| [Table 53: Beacon methods]          |
 
 ##### Important
 
@@ -646,7 +851,7 @@ A signal is an object with the following properties:
 | `namespace`                          | **Required**. The namespace is the name of the module that emitted the signal.                                                                                                              | `string`   |
 | `payload`                            | Optional. The payload contains metadata. For example type of the event. A payload can also be an Error object.                                                                              | unknown    |
 | `type`                               | **Required**. Type of the signal. Can be any string, but HDS emits `init`, `error`, `event` and `stateChange` signals.                                                                      | `string`   |
-| [Table 43: Signal object properties] |
+| [Table 54: Signal object properties] |
 
 ##### Signal types and payloads
 
@@ -656,7 +861,7 @@ A signal is an object with the following properties:
 | `event`                               | `eventSignalType`       | Usually `{type:event type}` indicating what kind of event is emitted. May also have `data` property containing for example User or Tokens. |
 | `init`                                | `initSignalType`        | Emitted when all modules are connected and everything is ready. Emitted only once. Note that modules may emit other signals before this.   |
 | `stateChange`                         | `stateChangeSignalType` | `{state, previousState}` New state and the previous state, if any.                                                                         |
-| [Table 44: Signal types and payloads] |
+| [Table 55: Signal types and payloads] |
 
 Custom modules may emit any other kind of signal with different payloads.
 
@@ -666,7 +871,7 @@ Only custom modules can emit signals. See the <CustomisationPageAnchorLink ancho
 
 See also <CustomisationPageAnchorLink anchor="custom-namespaced-beacons-for-modules">custom namespaced beacons</CustomisationPageAnchorLink>.
 
-#### Important
+##### Important
 
 If a listener is added while signaling and it is triggered by the currently emitted signal, a loop could be created. This could occur when using hooks and not memoizing listeners. Avoid emitting signals inside listeners.
 
@@ -688,6 +893,7 @@ Instead of writing signal types as strings, it is better to use predefined trigg
 - <AnchorLink anchor="dedicated-signal-triggers">Oidc client triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers-1">Api tokens client triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers-2">Session poller triggers</AnchorLink>.
+- <AnchorLink anchor="dedicated-signal-triggers-3">GraphQL module triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers">Generic triggers</AnchorLink>.
 
 ##### Generic triggers
@@ -702,7 +908,7 @@ Generic `create...` functions create trigger functions from given props. Creator
 | `createStateChangeTriggerProps(namespace, state, previousState)` | Namespace to listen to. Given state and previousState must also match. Both are optional. | all namespaces |
 | `createTriggerForAllNamespaces()`                                | Listens to all signals in any namespace.                                                  | none           |
 | `createTriggerPropsForAllSignals(namespace)`                     | Namespace to listen to. If omitted listens to all signals.                                | all namespaces |
-| [Table 45: Generic trigger creators]                             |
+| [Table 56: Generic trigger creators]                             |
 
 See also <AnchorLink anchor="hooks">hooks</AnchorLink>.
 
@@ -717,7 +923,7 @@ Signals are easier to create with functions than by manually setting all propert
 | `createErrorSignal(namespace, payload)`                    | Creates an error signal with the given namespace and error payload.                |
 | `createEventSignal(namespace, payload)`                    | Creates an event signal with the given namespace and event payload.                |
 | `createStateChangeSignal(namespace, state, previousState)` | Creates a `stateChange` signal with the given namespace and `stateChange` payload. |
-| [Table 46: Generic signal creators]                        |
+| [Table 57: Generic signal creators]                        |
 
 ###### Check
 
@@ -730,7 +936,7 @@ Check the signal type or namespace with these utilities.
 | `isEventSignal(signal)`                 | Returns true if the given signal is an event signal.        |
 | `isNamespacedSignal(signal, namespace)` | Returns true if the given signal has given namespace.       |
 | `isStateChangeSignal(signal)`           | Returns true if the given signal is a `stateChange` signal. |
-| [Table 47: Generic signal checks]       |
+| [Table 58: Generic signal checks]       |
 
 ###### Get payloads
 
@@ -741,7 +947,7 @@ Returns signal payload if the signal type is a match.
 | `getErrorSignalPayload(signal)`       | Returns the payload if the given signal is an error signal. |
 | `getEventSignalPayload(signal)`       | Returns true if the given signal is an event signal.        |
 | `getStateChangeSignalPayload(signal)` | Returns true if the given signal is a `stateChange` signal. |
-| [Table 48: Generic payloads getters]  |
+| [Table 59: Generic payloads getters]  |
 
 ###### Convert and filter
 
@@ -749,7 +955,7 @@ Returns signal payload if the signal type is a match.
 | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `convertSignalToTrigger(signal)`               | Removes the `context` from the signal if the property exists. The given signal is not mutated. |
 | `filterSignals(arrayOfSignals, matchingProps)` | Filters signals from the array. Returns signals which match given props.                       |
-| [Table 49: Convert and filter signals]         |
+| [Table 60: Convert and filter signals]         |
 
 ##### waitForSignals
 
@@ -771,7 +977,7 @@ When the promise is resolved, it returns an array of received signals. If it is 
 | `options.allowSkipping`            | `boolean`  | If true, and triggers are in order A, B, C, D and signal "C" is received. "A", "B", "C" are all removed from the array and are not checked again. | `true`  |
 | `options.strictOrder`              | `boolean`  | If true, signals are not tracked in strict order. If true and signals are received in the wrong order, the promise is rejected.                   | `false` |
 | `options.rejectOn`                 | `Object[]` | Array of signals/signal props, which cause promise rejection, if a match is found.                                                                | none    |
-| [Table 50: waitForSignals utility] |
+| [Table 61: waitForSignals utility] |
 
 There is no timeout. The promise can be rejected by setting a custom signal type to `options.rejectOn` and emit a matching signal.
 

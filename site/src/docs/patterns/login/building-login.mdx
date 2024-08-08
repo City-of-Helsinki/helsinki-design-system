@@ -1,0 +1,110 @@
+---
+slug: '/patterns/login/building-login'
+title: 'Building login'
+navTitle: 'Building login'
+---
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+import StatusLabel from '../../../components/StatusLabel';
+import {
+  Breadcrumb,
+  Button,
+  Header,
+  Hero,
+  Navigation,
+  SideNavigation,
+  Tabs,
+  Footer,
+  IconCheck,
+  IconError,
+  IconFacebook,
+  IconTwitter,
+  IconInstagram,
+  IconYoutube,
+  IconTiktok,
+  IconLinkedin,
+  Logo,
+  logoFi,
+} from 'hds-react';
+
+# Building login
+
+<StatusLabel type="error">Draft</StatusLabel>
+
+<LeadParagraph>
+  The Login pattern describes how HDS Login components and HDS Header login functionalities are meant to work together.
+</LeadParagraph>
+
+## Principles
+
+### Login components
+
+<InternalLink href="/components/login">HDS Login</InternalLink> components include React context, components and hooks for
+handling user authorisation, API tokens, session polling and GraphQL queries.
+
+#### Requirements
+
+The following steps are required for user authentication:
+
+- The url of the service connecting to the OIDC server <InternalLink href="/components/login/usage/#loginprovider">must be registered with a scope and a client ID</InternalLink>.
+- The callback from the OIDC server should be handled with the <InternalLink href="/components/login/usage/#logincallbackhandler">LoginCallbackHandler</InternalLink> component.
+
+#### Log in process
+
+Logging in or out of an OIDC server requires browser redirections to the server and back. UI's only show login and logout buttons. No other form elements are needed.
+
+The `login` call is asyncronous and may fail if the OIDC server is offline or the service URL is not registered. UI's must indicate loading has started, and possible errors must be handled by the UI.
+
+The <InternalLink href="/patterns/login/building-login/#header-login-button">HDS Header Login button</InternalLink> handles all of these scenarios.
+
+#### Log out process
+
+Logging out is almost identical to the log-in process. It is also asyncronous and may fail.
+
+The <InternalLink href="/patterns/login/building-login/#header-logout-button">HDS Header Logout button</InternalLink> handles all of these scenarios.
+
+#### User data from the OIDC server
+
+User information is stored in tokens which are decrypted by the Login system and an user object is provided to UI's. It holds, for example, user's name and email address.
+
+User object can be accessed with the <InternalLink href="/components/login/usage/#useauthenticateduser">useAuthenticatedUser</InternalLink> hook.
+
+The <InternalLink href="/patterns/login/building-login/#header-user-menu">HDS Header User menu</InternalLink> automatically shows the user's name and initials.
+
+#### User data from the Profile Service
+
+<ExternalLink href="https://profiili.hel.fi">Profile information</ExternalLink> is not used by the HDS. It can be fetched
+with the GraphQL module, but it is not used in HDS components. The user object returned by the OIDC server has a `profile`
+property, but that is just an unfortunate naming convention. It is not the Helsinki Profile.
+
+### Header.Login components
+
+<InternalLink href="/components/header">HDS Header</InternalLink> has built-in functionalities for login button as well as
+a dropdown user menu. **The Header Login button** is a variant of <InternalLink href="/components/header/#actionbaritem">
+  Header.ActionBarItem
+</InternalLink> that uses the `fixedRightPosition` prop to have special functionalities in mobile breakpoints. From breakpoint
+M (≥ 768px) and down, the Login button is hidden, and the contents are moved inside the Header.ActionBar component's menu
+alongside NavigationMenu. See more documentation on <InternalLink href="/components/header/#with-login">
+  Header.Login
+</InternalLink> on the Header component page.
+
+All Header login components require the <InternalLink href="/components/login/">LoginProvider</InternalLink> React Context. Other Header components can be used to build identical functionalities, but user interactions and data must be handled manually.
+
+#### Header Login button
+
+The <InternalLink href="/components/header/#header-login-button">Login button</InternalLink> is an action item in the header. It indicates loading progress and handles connection errors.
+
+#### Header User Menu Button
+
+The <InternalLink href="/components/header/#header-user-menu-button">User Menu button</InternalLink> offers placement for user information.
+
+- The user's name and initials.
+- Can host links and icons.
+- Should host a logout button.
+
+#### Header Logout Submenu Button
+
+The <InternalLink href="/components/header/#header-logout-submenu-button">Logout Submenu button</InternalLink> is a submenu item in the header dropdown. It indicates loading progress and handles connection errors.
+
+To learn more about the <strong>Header</strong> component and its subcomponents, please refer to <InternalLink href="/components/header">the component page.</InternalLink>

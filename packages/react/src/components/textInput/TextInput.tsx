@@ -204,7 +204,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     return (
       <InputWrapper {...wrapperProps} ref={innerWrapperRef}>
         <input
-          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
+          aria-describedby={ariaDescribedBy}
           className={classNames(styles.input, hasButton && styles.hasButton, hasClearButton && styles.hasClearButton)}
           defaultValue={defaultValue}
           disabled={disabled}

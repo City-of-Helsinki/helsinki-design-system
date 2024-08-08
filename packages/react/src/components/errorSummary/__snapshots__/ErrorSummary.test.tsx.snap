@@ -18,7 +18,7 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
       >
         <svg
           aria-hidden="true"
-          aria-label="alert-circle-fill"
+          aria-label="error-fill"
           class="icon s icon"
           role="img"
           viewBox="0 0 24 24"
@@ -26,7 +26,7 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
         >
           <path
             clip-rule="evenodd"
-            d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3ZM13 16V18H11V16H13ZM13 6V14H11V6H13Z"
+            d="M11.175 3.45608C11.5239 2.86969 12.3977 2.84875 12.7842 3.39325L12.825 3.45608L21.8771 18.6666C22.2202 19.2432 21.8055 19.951 21.1235 19.9976L21.052 20H2.94799C2.24813 20 1.7987 19.3114 2.09013 18.7267L2.12295 18.6666L11.175 3.45608ZM13 16V18H11V16H13ZM13 8.5V14.5H11V8.5H13Z"
             fill="currentColor"
             fill-rule="evenodd"
           />

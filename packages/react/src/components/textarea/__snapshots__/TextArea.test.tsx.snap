@@ -15,10 +15,23 @@ exports[`<Textarea /> spec renders the component 1`] = `
       class="inputWrapper"
     >
       <textarea
+        aria-describedby="hdsInput-helper hdsInput-error"
         class="input"
         id="hdsInput"
         placeholder="A placeholder text"
       />
+    </div>
+    <div
+      class="errorText"
+      id="hdsInput-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="hdsInput-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>
@@ -70,10 +83,23 @@ exports[`<Textarea /> spec renders the component with tooltip 1`] = `
       class="inputWrapper"
     >
       <textarea
+        aria-describedby="hdsInput-helper hdsInput-error"
         class="input"
         id="hdsInput"
         placeholder="A placeholder text"
       />
+    </div>
+    <div
+      class="errorText"
+      id="hdsInput-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="hdsInput-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>

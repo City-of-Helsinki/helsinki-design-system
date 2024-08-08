@@ -2,15 +2,17 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { TextArea } from './TextArea';
-
-const textAreaProps = {
-  id: 'hdsInput',
-  label: 'HDS input field',
-  placeholder: 'A placeholder text',
-};
+import { TextArea, TextAreaProps } from './TextArea';
 
 describe('<Textarea /> spec', () => {
+  const textAreaProps: TextAreaProps = {
+    id: 'hdsInput',
+    label: 'HDS input field',
+    placeholder: 'A placeholder text',
+    helperText: 'Helper text',
+    errorText: 'Error text',
+  };
+
   it('renders the component', () => {
     const { asFragment } = render(<TextArea {...textAreaProps} />);
     expect(asFragment()).toMatchSnapshot();

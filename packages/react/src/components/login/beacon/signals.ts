@@ -26,6 +26,7 @@ export type NamespacedBeacon = {
   emitEvent: (eventType: EventType, data?: EventData) => void;
   emitStateChange: (state: StateChangeType, previousState?: StateChangeType) => void;
   namespace: SignalNamespace;
+  getBeacon: () => Beacon | undefined;
 };
 export type ScopedSignalListener = (signal: Signal, module: NamespacedBeacon, beacon: Beacon) => void;
 export const errorSignalType = 'error' as const;
@@ -64,6 +65,7 @@ export function createNamespacedBeacon(namespace: SignalNamespace): NamespacedBe
       });
       pendingListenerCalls.length = 0;
     },
+    getBeacon: () => beacon,
     emit(signalType, payload) {
       return beacon ? beacon.emit({ type: signalType, namespace, payload }) : undefined;
     },

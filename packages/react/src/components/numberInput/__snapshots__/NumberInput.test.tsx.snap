@@ -18,12 +18,25 @@ exports[`<NumberInput /> spec renders the component 1`] = `
         class="numberInputContainer"
       >
         <input
+          aria-describedby="numberInputTestId-helper numberInputTestId-error"
           class="input"
           id="numberInputTestId"
           type="number"
           value=""
         />
       </div>
+    </div>
+    <div
+      class="errorText"
+      id="numberInputTestId-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="numberInputTestId-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>
@@ -50,6 +63,7 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
         role="group"
       >
         <input
+          aria-describedby="numberInputTestId-helper numberInputTestId-error"
           class="input numberInputWithSteps"
           id="numberInputTestId"
           step="10"
@@ -107,6 +121,18 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
           </button>
         </div>
       </div>
+    </div>
+    <div
+      class="errorText"
+      id="numberInputTestId-error"
+    >
+      Error text
+    </div>
+    <div
+      class="helperText"
+      id="numberInputTestId-helper"
+    >
+      Helper text
     </div>
   </div>
 </DocumentFragment>

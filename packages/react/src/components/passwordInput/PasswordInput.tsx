@@ -145,7 +145,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
           ref={ref}
           required={required}
           type={resolveType()}
-          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
+          aria-describedby={ariaDescribedBy}
           {...passwordInputProps}
         />
         {includeShowPasswordButton && (

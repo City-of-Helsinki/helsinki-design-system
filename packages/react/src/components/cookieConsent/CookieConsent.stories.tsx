@@ -1057,8 +1057,28 @@ export const TunnistamoLoginCookies = (args) => {
     currentLanguage: language,
     requiredCookies: {
       groups: [
-        { commonGroup: 'tunnistamoLogin' },
-        { commonGroup: 'loadBalancing', cookies: [{ commonCookie: 'tunnistamo-login-loadbalancer' }] },
+        {
+          commonGroup: 'tunnistamoLogin',
+          cookies: [
+            {
+              commonCookie: 'oidc-ts-storage',
+            },
+            {
+              commonCookie: 'hds-api-token-storage',
+            },
+            {
+              commonCookie: 'hds-api-token-user-reference',
+            },
+          ],
+        },
+        {
+          commonGroup: 'loadBalancing',
+          cookies: [
+            {
+              commonCookie: 'tunnistamo-login-loadbalancer',
+            },
+          ],
+        },
         {
           commonGroup: 'informationSecurity',
           cookies: [{ commonCookie: 'tunnistamo-csrftoken' }],

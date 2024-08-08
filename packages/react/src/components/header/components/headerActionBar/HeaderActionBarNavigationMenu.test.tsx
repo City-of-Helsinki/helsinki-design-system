@@ -372,7 +372,6 @@ describe('<HeaderActionBarNavigationMenu /> spec', () => {
     await openMobileMenu();
     expect(asFragment()).toMatchSnapshot();
   });
-
   it('should not have basic accessibility issues when menu is open', async () => {
     const { container, openMobileMenu } = renderHeader();
     await openMobileMenu();

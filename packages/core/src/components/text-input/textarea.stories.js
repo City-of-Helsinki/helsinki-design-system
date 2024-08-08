@@ -28,6 +28,21 @@ export const Default = () => `
     </div>
 `;
 
+export const ReadOnly = () => `
+    <div class="hds-text-input">
+      ${getLabel('input3')}
+      <div class="hds-text-input__input-wrapper">
+        <textarea
+          id="input3"
+          class="hds-text-input__input"
+          placeholder="Placeholder"
+          readonly
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+      </div>
+      ${getHelperText()}
+    </div>
+`;
+
 export const Disabled = () => `
     <div class="hds-text-input">
       ${getLabel('input3')}

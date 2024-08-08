@@ -25,7 +25,7 @@ export const LoginProvider = ({
   apiTokensClientSettings,
   sessionPollerSettings,
   debug,
-  modules = [],
+  modules,
   children,
 }: React.PropsWithChildren<LoginProviderProps>) => {
   const loginProps: OidcClientProps = {
@@ -35,14 +35,15 @@ export const LoginProvider = ({
     debug,
   };
 
+  const mods = modules || [];
   if (sessionPollerSettings) {
-    modules.push(createSessionPoller(sessionPollerSettings));
+    mods.push(createSessionPoller(sessionPollerSettings));
   }
   if (apiTokensClientSettings) {
-    modules.push(createApiTokenClient(apiTokensClientSettings));
+    mods.push(createApiTokenClient(apiTokensClientSettings));
   }
   return (
-    <LoginContextProvider loginProps={loginProps} modules={modules}>
+    <LoginContextProvider loginProps={loginProps} modules={mods}>
       {children}
     </LoginContextProvider>
   );

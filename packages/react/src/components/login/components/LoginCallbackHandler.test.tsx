@@ -1,10 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { LoginContextProvider } from './LoginContext';
 import { LoginCallbackHandler } from './LoginCallbackHandler';
+import { isHandlingLoginCallbackError } from './LoginCallbackHandler.util';
 import { Beacon, ConnectedModule } from '../beacon/beacon';
 import { OidcClient, OidcClientState, oidcClientStates } from '../client';
 import { getLastMockCallArgs } from '../../../utils/testHelpers';
@@ -19,6 +20,9 @@ loginProps.userManagerSettings.automaticSilentRenew = false;
 const onError = jest.fn();
 const onSuccess = jest.fn();
 
+const getLastError = () => getLastMockCallArgs(onError)[0];
+const getReturnedUser = () => getLastMockCallArgs(onSuccess)[0];
+
 beforeEach(() => {
   jest.useFakeTimers();
 });
@@ -26,6 +30,8 @@ afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
   jest.restoreAllMocks();
+  onError.mockReset();
+  onSuccess.mockReset();
   sessionStorage.clear();
 });
 
@@ -40,6 +46,7 @@ afterAll(() => {
 describe('LoginCallbackHandler', () => {
   const notificationText = 'Logging in...';
   let beacon: Beacon;
+  const handleError = new Error('Handlecallback failed');
   const renderComponent = (state: OidcClientState, returnUser: boolean) => {
     const helperModule: ConnectedModule = {
       namespace: 'helper',
@@ -51,7 +58,7 @@ describe('LoginCallbackHandler', () => {
           jest.spyOn(oidcClient, 'getState').mockReturnValue(state);
           jest.spyOn(oidcClient, 'getUser').mockReturnValue(validUser);
           if (!returnUser) {
-            jest.spyOn(oidcClient, 'handleCallback').mockRejectedValue(new Error('failed'));
+            jest.spyOn(oidcClient, 'handleCallback').mockRejectedValue(handleError);
           } else {
             jest.spyOn(oidcClient, 'handleCallback').mockResolvedValue(validUser);
           }
@@ -72,21 +79,45 @@ describe('LoginCallbackHandler', () => {
 
   it('calls onSuccess with user object, if user already exists', async () => {
     renderComponent(oidcClientStates.VALID_SESSION, true);
-    expect(onSuccess).toHaveBeenCalledTimes(1);
-    expect(isValidUser(getLastMockCallArgs(onSuccess)[0])).toBeTruthy();
+    await waitFor(() => {
+      expect(onSuccess).toHaveBeenCalledTimes(1);
+    });
+    expect(isValidUser(getReturnedUser())).toBeTruthy();
   });
   it(`calls onError, if oidc client state is other than ${oidcClientStates.NO_SESSION} or ${oidcClientStates.VALID_SESSION} `, async () => {
     renderComponent(oidcClientStates.LOGGING_IN, true);
-    expect(onError).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(onError).toHaveBeenCalledTimes(1);
+    });
+    const error = getLastError() as OidcClientError;
+    expect(isHandlingLoginCallbackError(error)).toBeFalsy();
+    expect(error.isInvalidUserError).toBeFalsy();
+    expect(error.isRenewalError).toBeFalsy();
+    expect(error.isSignInError).toBeTruthy();
+  });
+  it(`isHandlingLoginCallbackError returns true when error.type === SIGNING_ERROR and error.message is certain.`, async () => {
+    renderComponent(oidcClientStates.HANDLING_LOGIN_CALLBACK, false);
+    await waitFor(() => {
+      expect(onError).toHaveBeenCalledTimes(1);
+    });
+    const error = getLastError() as OidcClientError;
+    expect(isHandlingLoginCallbackError(error)).toBeTruthy();
+    expect(error.isInvalidUserError).toBeFalsy();
+    expect(error.isRenewalError).toBeFalsy();
+    expect(error.isSignInError).toBeTruthy();
   });
   it('calls onSuccess when no session exists and handleCallback succeeds', async () => {
     renderComponent(oidcClientStates.NO_SESSION, true);
-    expect(onSuccess).toHaveBeenCalledTimes(1);
-    expect(isValidUser(getLastMockCallArgs(onSuccess)[0])).toBeTruthy();
+    await waitFor(() => {
+      expect(onSuccess).toHaveBeenCalledTimes(1);
+    });
+    expect(isValidUser(getReturnedUser())).toBeTruthy();
   });
   it('calls onError when no session exists and handleCallback fails', async () => {
     renderComponent(oidcClientStates.NO_SESSION, false);
-    expect(onError).toHaveBeenCalledTimes(1);
-    expect((getLastMockCallArgs(onError)[0] as OidcClientError).isSignInError).toBeTruthy();
+    await waitFor(() => {
+      expect(onError).toHaveBeenCalledTimes(1);
+    });
+    expect(getLastError()).toBe(handleError);
   });
 });

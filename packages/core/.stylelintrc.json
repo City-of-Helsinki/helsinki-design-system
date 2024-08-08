@@ -15,6 +15,7 @@
     "selector-class-pattern": null,
     "selector-not-notation": "simple",
     "selector-pseudo-element-colon-notation": "single",
-    "import-notation": "url"
+    "import-notation": "url",
+    "declaration-no-important": [true, { "severity": "warning" }]
   }
 }

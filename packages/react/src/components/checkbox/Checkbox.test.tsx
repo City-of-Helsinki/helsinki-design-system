@@ -2,14 +2,16 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Checkbox } from './Checkbox';
-
-const checkboxProps = {
-  label: 'label text',
-  id: 'test',
-};
+import { Checkbox, CheckboxProps } from './Checkbox';
 
 describe('<Checkbox /> spec', () => {
+  const checkboxProps: CheckboxProps = {
+    label: 'label text',
+    id: 'test',
+    helperText: 'Helper text',
+    errorText: 'Error text',
+  };
+
   it('renders the component', () => {
     const { asFragment } = render(<Checkbox {...checkboxProps} />);
     expect(asFragment()).toMatchSnapshot();
