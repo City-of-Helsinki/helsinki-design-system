@@ -70,7 +70,7 @@ const mapLangToOpenedPage = (pageNumber: number, language: Language): string => 
   return openedPage[language];
 };
 
-const range = (start, end) => {
+const range = (start: number, end: number): number[] => {
   const length = end - start + 1;
   return Array.from({ length }, (_, i) => start + i);
 };
@@ -114,14 +114,14 @@ const createPaginationItemList = ({
     ...startPages,
     // start ellipsis
     // eslint-disable-next-line no-nested-ternary
-    ...(siblingsStart > 3 ? ['start-ellipsis'] : pageCount - 1 > 2 ? [2] : []),
+    ...(siblingsStart > 3 ? [Ellipsis.start] : pageCount - 1 > 2 ? [2] : []),
 
     // Sibling pages
     ...range(siblingsStart, siblingsEnd),
 
     // End ellipsis
     // eslint-disable-next-line no-nested-ternary
-    ...(siblingsEnd < pageCount - 2 ? ['end-ellipsis'] : pageCount - 1 > 1 ? [pageCount - 1] : []),
+    ...(siblingsEnd < pageCount - 2 ? [Ellipsis.end] : pageCount - 1 > 1 ? [pageCount - 1] : []),
 
     ...endPages,
   ];
