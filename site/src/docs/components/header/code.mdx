@@ -3,8 +3,20 @@ slug: '/components/header/code'
 title: 'Header - Code'
 ---
 
-import { Header, IconSearch, IconUser, IconSignout, IconSignin, Logo, logoFi, logoFiDark, logoSv, logoSvDark } from 'hds-react';
+import {
+  Header,
+  IconSearch,
+  IconUser,
+  IconSignout,
+  IconSignin,
+  Logo,
+  logoFi,
+  logoFiDark,
+  logoSv,
+  logoSvDark,
+} from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
 import Notification from '../../../components/Notification';
 import TabsLayout from './tabs.mdx';
 
@@ -196,16 +208,53 @@ export const translations = {
   },
 };
 
+export const IndexLink = ({ anchor, children }) => {
+  const parsedAnchor = String(anchor || children)
+    .replace(/([A-Z])/g, ' $1')
+    .toLowerCase()
+    .trim();
+  return (
+    <>
+      <AnchorLink path="/components/header" anchor={parsedAnchor}>
+        Read more about the {children}
+      </AnchorLink>
+      .
+    </>
+  );
+};
+
 ## Code
 
-### Code examples
+### Table of contents
 
-<Notification label="Note about Header login components">
-  The Header.LoginButton, Header.LogoutSubmenuButton and Header.UserMenuButton require a working <InternalLink href="/components/login/">Login Provider</InternalLink> that cannot not be configured here. Working examples can be seen in the <InternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</InternalLink>.
+- <AnchorLink anchor="sub-header">Header</AnchorLink>
 
-</Notification>
+  - <AnchorLink>Example with all the components</AnchorLink>
+  - <AnchorLink>Example with dark theme</AnchorLink>
 
-#### With all the components
+- <AnchorLink>Header.SkipLink</AnchorLink>
+- <AnchorLink>Header.UniversalBar</AnchorLink>
+- <AnchorLink>Header.ActionBar</AnchorLink>
+- <AnchorLink>Header.ActionBarItem</AnchorLink>
+- <AnchorLink>Header.ActionBarButton</AnchorLink>
+- <AnchorLink>Header.LanguageSelector</AnchorLink>
+- <AnchorLink>Header.SimpleLanguageOptions</AnchorLink>
+- <AnchorLink>Header.Search</AnchorLink>
+- <AnchorLink>Header.NavigationMenu</AnchorLink>
+- <AnchorLink>Header.Link</AnchorLink>
+
+  - <AnchorLink>Custom Link and ActionBarButton</AnchorLink>
+
+- <AnchorLink>Header.ActionBarSubItem</AnchorLink>
+- <AnchorLink>Header.ActionBarSubItemGroup</AnchorLink>
+- <AnchorLink>Header.LoginButton</AnchorLink>
+- <AnchorLink>Header.LogoutSubmenuButton</AnchorLink>
+- <AnchorLink>Header.UserMenuButton</AnchorLink>
+- <AnchorLink>Packages</AnchorLink>
+
+### <a id="sub-header">Header</a>
+
+#### Example with all the components
 
 <Playground scope={{ Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
 
@@ -449,13 +498,245 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
       </Header>
       <div id="content" />
     </>
-  )
-}
+  );
+};
 ```
 
 </Playground>
 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
+
+#### Example with dark theme
+
+<Playground scope={{ Header, Logo, logoFiDark }}>
+
+```jsx
+import { Header, Logo, logoFiDark } from 'hds-react';
+
+() => (
+  <Header theme="dark">
+    <Header.SkipLink skipTo="#content" label="Skip To Content" />
+    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
+      <Header.Link href="#" label="Uutiset" />
+      <Header.Link href="#" label="Asioi verkossa" />
+      <Header.Link href="#" label="Anna palautetta" />
+    </Header.UniversalBar>
+    <Header.ActionBar
+      title="Helsingin kaupunki"
+      titleAriaLabel="Helsingin kaupunki"
+      titleHref="https://hel.fi"
+      logoAriaLabel="Service logo"
+      logoHref="https://hel.fi"
+      logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
+      menuButtonAriaLabel="Menu"
+      onMenuClick={(e) => e.stopPropagation()}
+    />
+    <Header.NavigationMenu>
+      <Header.Link
+        as={Link}
+        href="#"
+        label="Sosiaali- ja terveyspalvelut"
+        onClick={(event) => event.preventDefault()}
+        dropdownLinks={[
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Terveydenhoito"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Hammashoito" />,
+              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
+            ]}
+          />,
+          <Header.Link
+            as={Link}
+            href="#"
+            label="Senioripalvelut"
+            dropdownLinks={[
+              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
+              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
+            ]}
+          />,
+        ]}
+      />
+      <Header.Link as={Link} href="#" label="Kasvatus ja koulutus" />
+      <Header.Link as={Link} href="#" label="Asuminen" />
+    </Header.NavigationMenu>
+  </Header>
+);
+```
+
+</Playground>
+
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header with dark theme example in Storybook by changing the theme property.</Link>.
+
+#### Properties
+
+| Property                    | Description                                             | Values                              | Default value |
+| --------------------------- | ------------------------------------------------------- | ----------------------------------- | ------------- |
+| `ariaLabel`                 | Aria-label for describing header.                       | `string`                            | -             |
+| `className`                 | Additional class names to apply.                        | `string`                            | -             |
+| `defaultLanguage`           | Default selected language.                              | `LanguageType`                      | `fi`          |
+| `id`                        | Id for the element.                                     | `string`                            | -             |
+| `onDidChangeLanguage`       | Callback function for when user selects a new language. | `(newLanguage: string) => void`     | -             |
+| `languages`                 | List of selectable languages.                           | `light`,`dark`, `HeaderCustomTheme` | `light`       |
+| `theme`                     | Header theme.                                           | `LanguageOption[]`                  | `light`       |
+| [Table 1:Header properties] |
+
+The `languages` property is an array of `LanguageOption` objects. If `LanguageOption.isPrimary` is `true`, the option is shown outside of the dropdown, unless a non-primary language is selected.
+
+<IndexLink anchor="example">Header</IndexLink>
+### Header.SkipLink
+
+#### Properties
+
+| Property                             | Description                                        | Values          | Default value |
+| ------------------------------------ | -------------------------------------------------- | --------------- | ------------- |
+| `ariaLabel`                          | Aria-label for describing SkipLink in more detail. | `string`        | -             |
+| `label`                              | Label for the SkipLink.                            | `string`        | -             |
+| `skipTo`                             | Id of the element where the SkipLink jumps to.     | `string`        | -             |
+| `theme`                              | Custom styling for SkipLink.                       | `SkipLinkTheme` | -             |
+| [Table 2:Header.SkipLink properties] |
+
+<IndexLink anchor="with-skip-link">Header.SkipLink</IndexLink>
+
+### Header.UniversalBar
+
+Note: Under large sized screens (992px and down) the Header.UniversalBar is hidden and the contents are moved inside the the Header.ActionBar component's menu.
+
+#### Properties
+
+| Property                                 | Description                               | Values   | Default value |
+| ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                              | Aria-label for describing UniversalBar.   | `string` | -             |
+| `className`                              | Additional class names to apply.          | `string` | -             |
+| `id`                                     | ID for the UniversalBar element.          | `string` | -             |
+| `primaryLinkHref`                        | Hypertext reference for the primary link. | `string` | -             |
+| `primaryLinkText`                        | Link text for the primary link            | `string` | -             |
+| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
+| [Table 3:Header.UniversalBar properties] |
+
+<IndexLink anchor="with-universal-bar">Header.UniversalBar</IndexLink>
+
+### Header.ActionBar
+
+#### Properties
+
+| Property                              | Description                                                                              | Values                                        | Default value |
+| ------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
+| `ariaLabel`                           | Aria-label for describing ActionBar.                                                     | `string`                                      | -             |
+| `className`                           | Additional class names to apply.                                                         | `string`                                      | -             |
+| `frontPageLabel`                      | Label for front page link in mobile navigation menu.                                     | `string`                                      | -             |
+| `logoAriaLabel`                       | Aria-label for the logo.                                                                 | `string`                                      | -             |
+| `logoHref`                            | URL for the logo.                                                                        | `string`                                      | -             |
+| `logo`                                | Logo component.                                                                          | `Logo`                                        | -             |
+| `menuButtonLabel`                     | Label for the menu button.                                                               | `string`                                      | `Menu`        |
+| `menuButtonAriaLabel`                 | Aria-label for the menu button.                                                          | `string`                                      | -             |
+| `onLogoClick`                         | Callback function for when the logo is clicked.                                          | `MouseEventHandler`                           | -             |
+| `onMenuClick`                         | Callback function for when the menu button is clicked.                                   | `MouseEventHandler`                           | -             |
+| `onTitleClick`                        | Callback function for when the title is clicked.                                         | `MouseEventHandler`                           | -             |
+| `openFrontPageLinksAriaLabel`         | Aria-label for describing going back to main navigation links in mobile navigation menu. | `string`                                      | -             |
+| `role`                                | ARIA role to describe the contents.                                                      | `string`                                      | -             |
+| `title`                               | Service name.                                                                            | `string`                                      | -             |
+| `titleAriaLabel`                      | Aria-label for the title.                                                                | `string`                                      | -             |
+| `titleStyle`                          | Style for the service name.                                                              | `TitleStyleType.Normal` `TitleStyleType.Bold` | `Normal`      |
+| `titleHref`                           | URL for the title.                                                                       | `string`                                      | -             |
+| [Table 4:Header.ActionBar properties] |
+
+<IndexLink anchor="with-action-bar">Header.ActionBar</IndexLink>
+
+### Header.ActionBarItem
+
+#### Properties
+
+| Property                                  | Description                                                                                                                          | Values                 | Default value |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
+| `ariaLabel`                               | Aria-label for describing the item.                                                                                                  | `string`               | -             |
+| `avatar`                                  | An avatar which replaces the icon. Usually user's initials, but can be any Element.                                                  | `string` `JSX.Element` | -             |
+| `closeIcon`                               | Icon for the item when dropdown is open.                                                                                             | `ReactNode`            | -             |
+| `closeLabel`                              | Label for the item when dropdown is open.                                                                                            | `string` `JSX.Element` | -             |
+| `dropdownClassName`                       | Additional class name for the dropdown element.                                                                                      | `string`               | -             |
+| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line.                              | `boolean`              | `false`       |
+| `fullwidth`                               | Boolean to set the item to be fullwidth under the ActionBar. Example use is automatically done with LanguageSelector in mobile view. | `boolean`              | `false`       |
+| `icon`                                    | Icon for the item.                                                                                                                   | `ReactNode`            | -             |
+| `iconClassName`                           | Additional class name for the icon.                                                                                                  | `string`               | -             |
+| `id`                                      | ID for the ActionBarItem.                                                                                                            | `string`               | -             |
+| `label`                                   | Label for the item.                                                                                                                  | `string` `JSX.Element` | -             |
+| `labelOnRight`                            | Boolean to set the label to the right side of the icon.                                                                              | `boolean`              | `false`       |
+| `preventButtonResize`                     | If true, menu button resizing is prevented by rendering button's active state to a separate element.                                 | `boolean`              | `false`       |
+| [Table 5:Header.ActionBarItem properties] |
+
+<IndexLink anchor="actionbaritem-and-actionbarbutton">Header.ActionBarItem</IndexLink>
+
+### Header.ActionBarButton
+
+#### Properties
+
+| Property                                    | Description                                                                                                                          | Values                 | Default value |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
+| `fixedRightPosition`                        | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line.                              | `boolean`              | `false`       |
+| `fullwidth`                                 | Boolean to set the item to be fullwidth under the ActionBar. Example use is automatically done with LanguageSelector in mobile view. | `boolean`              | `false`       |
+| `icon`                                      | Icon for the item.                                                                                                                   | `ReactNode`            | -             |
+| `label`                                     | Label for the item.                                                                                                                  | `string` `JSX.Element` | -             |
+| `labelOnRight`                              | Boolean to set the label to the right side of the icon.                                                                              | `boolean`              | `false`       |
+| `ref`                                       | `RefObject` to store the element.                                                                                                    | `RefObject`            | -             |
+| [Table 6:Header.ActionBarButton properties] |
+
+<IndexLink anchor="actionbaritem-and-actionbarbutton">Header.ActionBarButton</IndexLink>
+
+### Header.LanguageSelector
+
+Language options, the default language, and a change listener are passed to the <AnchorLink anchor="#sub-header">Header component</AnchorLink>.
+
+#### Properties
+
+| Property                                     | Description                                                                                                                                                                                | Values                                                                                          | Default value |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ------------- |
+| `ariaLabel`                                  | Aria-label for describing the dropdown button.                                                                                                                                             | `string`                                                                                        | -             |
+| `languageHeading`                            | Heading for the list of languages inside the dropdown.                                                                                                                                     | `string`                                                                                        | -             |
+| `sortLanguageOptions`                        | Function for sorting language options into primary and secondary. By default, all primary `LanguageOptions` as shown. If a secondary `LanguageOption` is selected, only that one is shown. | `(options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]]` | -             |
+| [Table 7:Header.LanguageSelector properties] |
+
+<IndexLink anchor="with-language-selector">Header.LanguageSelector</IndexLink>
+
+### Header.SimpleLanguageOptions
+
+`Header.SimpleLanguageOptions` is an alternative to `Header.LanguageSelector`. Read more in <InternalLink href="/components/header/#simple-language-options">the usage page</InternalLink>.
+
+#### Properties
+
+| Property                                          | Description                   | Values             | Default value |
+| ------------------------------------------------- | ----------------------------- | ------------------ | ------------- |
+| `languages`                                       | Array of languages to render. | `LanguageOption[]` | -             |
+| [Table 8:Header.SimpleLanguageOptions properties] |
+
+<IndexLink anchor="simple-language-options">Header.SimpleLanguageOptions</IndexLink>
+
+### Header.Search
+
+#### Properties
+
+| Property                           | Description                                    | Values                         | Default value |
+| ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
+| `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
+| `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
+| `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
+| [Table 9:Header.Search properties] |
+
+<IndexLink anchor="with-search">Header.Search</IndexLink>
+
+### Header.NavigationMenu
+
+#### Properties
+
+| Property                                    | Description                               | Values   | Default value |
+| ------------------------------------------- | ----------------------------------------- | -------- | ------------- |
+| `ariaLabel`                                 | Aria-label for describing NavigationMenu. | `string` | -             |
+| `id`                                        | ID for the NavigationMenu.                | `string` | -             |
+| [Table 10:Header.NavigationMenu properties] |
+
+<IndexLink anchor="with-navigation-menu">Header.NavigationMenu</IndexLink>
+
+### Header.Link
 
 #### Custom Link and ActionBarButton
 
@@ -492,7 +773,9 @@ import { Link } from 'gatsby';
           <Header.ActionBarButton
             label="Kirjaudu"
             icon={<IconSignin />}
-            onClick={() => { window.alert("Kirjaudu clicked"); }}
+            onClick={() => {
+              window.alert('Kirjaudu clicked');
+            }}
             fixedRightPosition
           />
         </Header.ActionBar>
@@ -554,202 +837,36 @@ import { Link } from 'gatsby';
       </Header>
       <div id="content" />
     </>
-  )
-}
+  );
+};
 ```
 
 </Playground>
 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
 
-#### Dark theme
+#### Properties
 
-<Playground scope={{ Header, Logo, logoFiDark }}>
-
-```jsx
-import { Header, Logo, logoFiDark } from 'hds-react';
-
-() => (
-  <Header theme="dark">
-    <Header.SkipLink skipTo="#content" label="Skip To Content" />
-    <Header.UniversalBar primaryLinkHref="#" primaryLinkText="Helsingin kaupunki">
-      <Header.Link href="#" label="Uutiset" />
-      <Header.Link href="#" label="Asioi verkossa" />
-      <Header.Link href="#" label="Anna palautetta" />
-    </Header.UniversalBar>
-    <Header.ActionBar
-      title="Helsingin kaupunki"
-      titleAriaLabel="Helsingin kaupunki"
-      titleHref="https://hel.fi"
-      logoAriaLabel="Service logo"
-      logoHref="https://hel.fi"
-      logo={<Logo src={logoFiDark} alt="Helsingin kaupunki" />}
-      menuButtonAriaLabel="Menu"
-      onMenuClick={(e) => e.stopPropagation()}
-    />
-    <Header.NavigationMenu>
-      <Header.Link
-        as={Link}
-        href="#"
-        label="Sosiaali- ja terveyspalvelut"
-        onClick={(event) => event.preventDefault()}
-        dropdownLinks={[
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Terveydenhoito"
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Hammashoito" />,
-              <Header.Link as={Link} href="#" label="Julkinen terveydenhoito" />,
-            ]}
-          />,
-          <Header.Link
-            as={Link}
-            href="#"
-            label="Senioripalvelut"
-            dropdownLinks={[
-              <Header.Link as={Link} href="#" label="Viriketoiminta" />,
-              <Header.Link as={Link} href="#" label="Kuntouttavat palvelut" />,
-            ]}
-          />,
-        ]}
-      />
-      <Header.Link as={Link} href="#" label="Kasvatus ja koulutus" />
-      <Header.Link as={Link} href="#" label="Asuminen" />
-    </Header.NavigationMenu>
-  </Header>
-)
-```
-
-</Playground>
-
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header with dark theme example in Storybook by changing the theme property.</Link>.
-
-### Packages
-
-| Package       | Included                                                                                        | Storybook link                                                                                                                                                    | Source link                                                                                                                                                                                                         |
-| ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
-| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                 | -                                                                                                                                                                                                                   |
-
-### Properties
-
-| Property                    | Description                       | Values                              | Default value |
-| --------------------------- | --------------------------------- | ----------------------------------- | ------------- |
-| `ariaLabel`                 | Aria-label for describing header. | `string`                            | -             |
-| `className`                 | Additional class names to apply.  | `string`                            | -             |
-| `id`                        | Id for the element.               | `string`                            | -             |
-| `theme`                     | Header theme.                     | `light`,`dark`, `HeaderCustomTheme` | `light`       |
-| [Table 1:Header properties] |
-
-| Property                             | Description                                        | Values          | Default value |
-| ------------------------------------ | -------------------------------------------------- | --------------- | ------------- |
-| `ariaLabel`                          | Aria-label for describing SkipLink in more detail. | `string`        | -             |
-| `label`                              | Label for the SkipLink.                            | `string`        | -             |
-| `skipTo`                             | Id of the element where the SkipLink jumps to.     | `string`        | -             |
-| `theme`                              | Custom styling for SkipLink.                       | `SkipLinkTheme` | -             |
-| [Table 2:Header.SkipLink properties] |
-
-| Property                                 | Description                               | Values   | Default value |
-| ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
-| `ariaLabel`                              | Aria-label for describing UniversalBar.   | `string` | -             |
-| `className`                              | Additional class names to apply.          | `string` | -             |
-| `id`                                     | ID for the UniversalBar element.          | `string` | -             |
-| `primaryLinkHref`                        | Hypertext reference for the primary link. | `string` | -             |
-| `primaryLinkText`                        | Link text for the primary link            | `string` | -             |
-| `role`                                   | ARIA role to describe the contents.       | `string` | -             |
-| [Table 3:Header.UniversalBar properties] |
-
-| Property                              | Description                                                                              | Values                                        | Default value |
-| ------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| `ariaLabel`                           | Aria-label for describing ActionBar.                                                     | `string`                                      | -             |
-| `className`                           | Additional class names to apply.                                                         | `string`                                      | -             |
-| `frontPageLabel`                      | Label for front page link in mobile navigation menu.                                     | `string`                                      | -             |
-| `logoAriaLabel`                       | Aria-label for the logo.                                                                 | `string`                                      | -             |
-| `logoHref`                            | URL for the logo.                                                                        | `string`                                      | -             |
-| `logo`                                | Logo component.                                                                          | `Logo`                                        | -             |
-| `menuButtonLabel`                     | Label for the menu button.                                                               | `string`                                      | `Menu`        |
-| `menuButtonAriaLabel`                 | Aria-label for the menu button.                                                          | `string`                                      | -             |
-| `onLogoClick`                         | Callback function for when the logo is clicked.                                          | `MouseEventHandler`                           | -             |
-| `onMenuClick`                         | Callback function for when the menu button is clicked.                                   | `MouseEventHandler`                           | -             |
-| `onTitleClick`                        | Callback function for when the title is clicked.                                         | `MouseEventHandler`                           | -             |
-| `openFrontPageLinksAriaLabel`         | Aria-label for describing going back to main navigation links in mobile navigation menu. | `string`                                      | -             |
-| `title`                               | Service name.                                                                            | `string`                                      | -             |
-| `titleAriaLabel`                      | Aria-label for the title.                                                                | `string`                                      | -             |
-| `titleStyle`                          | Style for the service name.                                                              | `TitleStyleType.Normal` `TitleStyleType.Bold` | `Normal`      |
-| `titleHref`                           | URL for the title.                                                                       | `string`                                      | -             |
-| `role`                                | ARIA role to describe the contents.                                                      | `string`                                      | -             |
-| [Table 4:Header.ActionBar properties] |
-
-| Property                                  | Description                                                                                                                          | Values                 | Default value |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
-| `ariaLabel`                               | Aria-label for describing the item.                                                                                                  | `string`               | -             |
-| `closeIcon`                               | Icon for the item when dropdown is open.                                                                                             | `ReactNode`            | -             |
-| `closeLabel`                              | Label for the item when dropdown is open.                                                                                            | `string` `JSX.Element` | -             |
-| `dropdownClassName`                       | Additional class name for the dropdown element.                                                                                      | `string`               | -             |
-| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line.                              | `boolean`              | `false`       |
-| `fullwidth`                               | Boolean to set the item to be fullwidth under the ActionBar. Example use is automatically done with LanguageSelector in mobile view. | `boolean`              | `false`       |
-| `icon`                                    | Icon for the item.                                                                                                                   | `ReactNode`            | -             |
-| `iconClassName`                           | Additional class name for the icon.                                                                                                  | `string`               | -             |
-| `id`                                      | ID for the ActionBarItem.                                                                                                            | `string`               | -             |
-| `label`                                   | Label for the item.                                                                                                                  | `string` `JSX.Element` | -             |
-| `labelOnRight`                            | Boolean to set the label to the right side of the icon.                                                                              | `boolean`              | `false`       |
-| `preventButtonResize`                     | If true, menu button resizing is prevented by rendering button's active state to a separate element.                                 | `boolean`              | `false`       |
-| [Table 5:Header.ActionBarItem properties] |
-
-| Property                                  | Description                                                                                                                          | Values                 | Default value |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
-| `ariaLabel`                               | Aria-label for describing the item.                                                                                                  | `string`               | -             |
-| `fixedRightPosition`                      | Boolean to set the item in a fixed position on the right side of the action bar behind a dividing line.                              | `boolean`              | `false`       |
-| `fullwidth`                               | Boolean to set the item to be fullwidth under the ActionBar. Example use is automatically done with LanguageSelector in mobile view. | `boolean`              | `false`       |
-| `icon`                                    | Icon for the item.                                                                                                                   | `ReactNode`            | -             |
-| `iconClassName`                           | Additional class name for the icon.                                                                                                  | `string`               | -             |
-| `id`                                      | ID for the ActionBarButton.                                                                                                            | `string`               | -             |
-| `label`                                   | Label for the item.                                                                                                                  | `string` `JSX.Element` | -             |
-| `labelOnRight`                            | Boolean to set the label to the right side of the icon.                                                                              | `boolean`              | `false`       |
-| [Table 6:Header.ActionBarButton properties] |
-
-| Property                                     | Description                                                                                                                                                                                | Values                                                                                          | Default value |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ------------- |
-| `ariaLabel`                                  | Aria-label for describing the dropdown button.                                                                                                                                             | `string`                                                                                        | -             |
-| `languageHeading`                            | Heading for the list of languages inside the dropdown.                                                                                                                                     | `string`                                                                                        | -             |
-| `sortLanguageOptions`                        | Function for sorting language options into primary and secondary. By default, all primary `LanguageOptions` as shown. If a secondary `LanguageOption` is selected, only that one is shown. | `(options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]]` | -             |
-| [Table 7:Header.LanguageSelector properties] |
-
-| Property                                          | Description                   | Values             | Default value |
-| ------------------------------------------------- | ----------------------------- | ------------------ | ------------- |
-| `languages`                                       | Array of languages to render. | `[LanguageOption]` | -             |
-| [Table 8:Header.SimpleLanguageOptions properties] |
-
-| Property                           | Description                                    | Values                         | Default value |
-| ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
-| `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
-| `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
-| `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
-| [Table 9:Header.Search properties] |
-
-| Property                                   | Description                               | Values   | Default value |
-| ------------------------------------------ | ----------------------------------------- | -------- | ------------- |
-| `ariaLabel`                                | Aria-label for describing NavigationMenu. | `string` | -             |
-| `id`                                       | ID for the NavigationMenu.                | `string` | -             |
-| [Table 10:Header.NavigationMenu properties] |
-
-| Property                         | Description                                                                 | Values            | Default value                                               |
-| -------------------------------- | --------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------------- |
-| `active`                         | Set the link as the current page, giving it proper styles.                  | `boolean`         | -                                                           |
-| `as`                             | Element or component to use instead of Header.Link.                         | `Element`         | <InternalLink href="/components/Link">`Link`</InternalLink> |
-| `className`                      | Additional classNames to apply to the link.                                 | `string`          | -                                                           |
-| `closeDropdownAriaButtonLabel`   | Aria-label for the dropdown button to describe the closing of the dropdown. | `string`          | -                                                           |
-| `dropdownButtonClassName`        | Additional classNames to apply to the dropdown button.                      | `string`          | -                                                           |
-| `dropdownClassName`              | Additional classNames to apply to the dropdown menu.                        | `string`          | -                                                           |
-| `dropdownLinkClassName`          | Additional classNames to apply to the dropdown links.                       | `string`          | -                                                           |
-| `dropdownLinks`                  | Array of NavigationLink components to render in a dropdown.                 | `[<Header.Link>]` | -                                                           |
-| `href`                           | Hypertext Reference of the link.                                            | `string`          | -                                                           |
-| `label`                          | Label for the link.                                                         | `string`          | -                                                           |
-| `onDropdownButtonClick`          | Callback fired when the dropdown button is clicked.                         | `function`        | -                                                           |
-| `openDropdownAriaButtonLabel`    | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                           |
-| `wrapperClassName`               | Additional classNames for the element wrapping the link.                    | `string`          | -                                                           |
+| Property                          | Description                                                                 | Values            | Default value                                               |
+| --------------------------------- | --------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------------- |
+| `active`                          | Set the link as the current page, giving it proper styles.                  | `boolean`         | -                                                           |
+| `as`                              | Element or component to use instead of Header.Link.                         | `Element`         | <InternalLink href="/components/Link">`Link`</InternalLink> |
+| `className`                       | Additional classNames to apply to the link.                                 | `string`          | -                                                           |
+| `closeDropdownAriaButtonLabel`    | Aria-label for the dropdown button to describe the closing of the dropdown. | `string`          | -                                                           |
+| `dropdownButtonClassName`         | Additional classNames to apply to the dropdown button.                      | `string`          | -                                                           |
+| `dropdownClassName`               | Additional classNames to apply to the dropdown menu.                        | `string`          | -                                                           |
+| `dropdownLinkClassName`           | Additional classNames to apply to the dropdown links.                       | `string`          | -                                                           |
+| `dropdownLinks`                   | Array of NavigationLink components to render in a dropdown.                 | `[<Header.Link>]` | -                                                           |
+| `href`                            | Hypertext Reference of the link.                                            | `string`          | -                                                           |
+| `label`                           | Label for the link.                                                         | `string`          | -                                                           |
+| `onDropdownButtonClick`           | Callback fired when the dropdown button is clicked.                         | `function`        | -                                                           |
+| `openDropdownAriaButtonLabel`     | Aria-label for the dropdown button to describe the opening of the dropdown. | `string`          | -                                                           |
+| `wrapperClassName`                | Additional classNames for the element wrapping the link.                    | `string`          | -                                                           |
 | [Table 11:Header.Link properties] |
+
+### Header.ActionBarSubItem
+
+#### Properties
 
 | Property                                      | Description                                                            | Values                 | Default value |
 | --------------------------------------------- | ---------------------------------------------------------------------- | ---------------------- | ------------- |
@@ -765,10 +882,28 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `openInExternalDomainAriaLabel`               | The aria-label for opening link in an external domain.                 | `string`               | -             |
 | [Table 12:Header.ActionBarSubItem properties] |
 
+<IndexLink anchor="actionbarsubitem-and-actionbarsubitemgroup">Header.ActionBarSubItem</IndexLink>
+
+### Header.ActionBarSubItemGroup
+
+#### Properties
+
 | Description                                                                               |     |
-| ---------------------------------------------------------------------------------------   | --- |
-| Same properties as the Header.ActionBarSubItem. The component sets `IsHeading` to `true`. |
+| ----------------------------------------------------------------------------------------- | --- |
+| Same properties as the Header.ActionBarSubItem. The component sets `isHeading` to `true`. |
 | [Table 13:Header.ActionBarSubItemGroup properties]                                        |
+
+<IndexLink anchor="actionbarsubitem-and-actionbarsubitemgroup">Header.ActionBarSubItemGroup</IndexLink>
+
+### Header.LoginButton
+
+<Notification label="Note about Header login components">
+  The Header.LoginButton, Header.LogoutSubmenuButton and Header.UserMenuButton require a working{' '}
+  <InternalLink href="/components/login/">Login Provider</InternalLink> that cannot not be configured here. Working
+  examples can be seen in the{' '}
+  <InternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</InternalLink>.
+</Notification>
+<p> </p>
 
 | Property                                  | Description                                               | Values                          | Default value                                  |
 | ----------------------------------------- | --------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
@@ -780,7 +915,13 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `loggingInText`                           | Screen reader text for the load indicator.                | `string`                        | -                                              |
 | `id`                                      | The id attribute of the element.                          | `string`                        | -                                              |
 | `& Header.ActionBarItemButton properties` | Extends properties of the Header.ActionBarItemButton.     | -                               | -                                              |
-| [Table 14:Header.Loginbutton properties]  |
+| [Table 14:Header.LoginButton properties]  |
+
+<IndexLink>Header.LoginButton</IndexLink>
+
+### Header.LogoutSubmenuButton
+
+#### Properties
 
 | Property                                         | Description                                               | Values                          | Default value                                  |
 | ------------------------------------------------ | --------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
@@ -794,7 +935,24 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 | `& Header.ActionBarItemButton properties`        | Extends properties of the Header.ActionBarItemButton.     | -                               | -                                              |
 | [Table 15:Header.LogoutSubmenuButton properties] |
 
+<IndexLink>Header.LogoutSubmenuButton</IndexLink>
+
+### Header.UserMenuButton
+
+#### Properties
+
+This component uses the <AnchorLink>Header.ActionBarItem</AnchorLink> and automates its properties. A custom user menu can be built by copying the same process. The component should have child components, usually the <AnchorLink>Header.LogoutSubmenuButton</AnchorLink>.
+
 | Description                                                        |     |
 | ------------------------------------------------------------------ | --- |
 | No properties to set. User data is picked from the Login Provider. |
 | [Table 16:Header.UserMenuButton properties]                        |
+
+<IndexLink>Header.UserMenuButton</IndexLink>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                    | Source link                                                                                                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                 | -                                                                                                                                                                                                                   |
