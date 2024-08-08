@@ -63,7 +63,7 @@ export default class cookieConsentTestHelpers {
     fireEvent.click(selectedButton);
   }
 
-  static openBanner(siteSettingsJsonUrl, options) {
-    return window.hds.cookieConsent.openBanner(siteSettingsJsonUrl, options);
+  static openBanner(highlightedGroups = []) {
+    return window.hds.cookieConsent.openBanner(highlightedGroups);
   }
 }

@@ -1257,7 +1257,7 @@ describe('cookieConsentCore', () => {
     expect(banner).toBeNull();
 
     // Open banner via window scoped method
-    await helpers.openBanner(urls.siteSettingsJsonUrl, optionsEvent);
+    await helpers.openBanner([]);
 
     // Banner should spawn
     const openedBanner = document.querySelector('.hds-cc__target');
@@ -1284,7 +1284,7 @@ describe('cookieConsentCore', () => {
     expect(banner).toBeNull();
 
     // Open banner via window scoped method
-    await helpers.openBanner(urls.siteSettingsJsonUrl, optionsEvent);
+    await helpers.openBanner();
 
     // Approve essentials + chat
     bannerClicks.approveCategory('chat');
