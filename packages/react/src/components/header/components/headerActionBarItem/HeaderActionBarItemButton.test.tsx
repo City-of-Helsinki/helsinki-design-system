@@ -3,6 +3,9 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './HeaderActionBarItemButton';
+import { HeaderWrapper } from '../../../../utils/test-utils';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
+import { AllElementPropsWithRef } from '../../../../utils/elementTypings';
 
 const clickHandler = jest.fn();
 
@@ -32,10 +35,10 @@ const activeStateProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' |
   activeStateIcon,
 };
 
-const RenderTestScenario = (props?: Partial<HeaderActionBarItemButtonProps> & JSX.IntrinsicElements['button']) => {
+const RenderTestScenario = (props?: Partial<HeaderActionBarItemButtonProps> & AllElementPropsWithRef<'button'>) => {
   const ref = useRef<HTMLButtonElement>(null);
   const combinedProps = { ...defaultProps, ...props };
-  return <HeaderActionBarItemButton {...combinedProps} ref={ref} data-testid="button" />;
+  return <HeaderActionBarItemButton ref={ref} data-testid="button" {...combinedProps} />;
 };
 
 describe('HeaderActionBarItemButton spec', () => {
@@ -50,6 +53,14 @@ describe('HeaderActionBarItemButton spec', () => {
     const { container } = render(<RenderTestScenario />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const buttonProps = getCommonElementTestProps<'button'>('button');
+    const { getByTestId } = render(<RenderTestScenario {...buttonProps} isActive labelOnRight fixedRightPosition />, {
+      wrapper: HeaderWrapper,
+    });
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Label and icon are set', async () => {

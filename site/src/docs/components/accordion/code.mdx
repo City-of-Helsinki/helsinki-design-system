@@ -5,6 +5,7 @@ title: 'Accordion - Code'
 
 import { Accordion, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -184,3 +185,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `card`          | If set to true, the accordion will use HDS Card as its background element.     | `boolean` | false         |
 | `closeButton`   | If set to true, a close button is shown at the bottom of an expanded accordion | `boolean` | true          |
 | `initiallyOpen` | If set to true, the accordion will be initially opened.                        | `boolean` | false         |
+
+<NativeElementPropsInfo nodeName="div" />

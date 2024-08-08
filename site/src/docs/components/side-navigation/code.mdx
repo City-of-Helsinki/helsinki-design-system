@@ -6,6 +6,7 @@ title: 'SideNavigation - Code'
 import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
 import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -248,3 +249,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `toggleButtonLabel`     | The label for the mobile menu toggle button                                                                      | `string`   | -             |
 | `ariaLabel`             | The aria-label for helping screen reader users to distinguish navigation row from other navigational components  | `string`   | -             |
 [Table 1:SideNavigation properties]|
+
+<NativeElementPropsInfo
+  nodeName="nav"
+  overlappingProps={['ariaLabel']}
+/>

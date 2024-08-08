@@ -6,6 +6,7 @@ title: 'DateInput - Code'
 import { DateInput } from 'hds-react';
 import { format, addDays, subDays, parse, isWeekend, isValid } from 'date-fns';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -325,3 +326,5 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `relatedClassName`              | Class name for the legend item element so it has the same styles as the related date. | `string`  | -             |
 | `selected`                      | Set to `true` and provide `label` prop to explain selected date's background colour.  | `boolean` | -             |
 | [Table 2:LegendItem properties] |                                                                                       |           |               |
+
+<NativeElementPropsInfo nodeName="input" />

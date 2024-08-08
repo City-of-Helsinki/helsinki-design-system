@@ -6,6 +6,7 @@ import '../../styles/base.module.css';
 import styles from './Notification.module.css';
 import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 export type NotificationSizeInline = 'default' | 'small' | 'large';
@@ -20,73 +21,75 @@ export type NotificationPosition =
   | 'bottom-center'
   | 'bottom-right';
 
-type CommonProps = React.PropsWithChildren<{
-  /**
-   * Whether the notification should be closed automatically after a certain time
-   * @default false
-   */
-  autoClose?: boolean;
-  /**
-   * The duration before the notification is automatically closed. Used together with the `autoClose` prop.
-   * @default 6000
-   */
-  autoCloseDuration?: number;
-  /**
-   * Boolean indication whether notification has box shadow or not.
-   */
-  boxShadow?: boolean;
-  /**
-   * Additional class names to apply to the notification
-   */
-  className?: string;
-  /**
-   * Duration of the close fade-out animation
-   * @default 85
-   */
-  closeAnimationDuration?: number;
-  /**
-   * Value for the data-testid attribute that is applied to the root component.
-   */
-  dataTestId?: string;
-  /**
-   * Displays a progress bar on top of the notification when `true`
-   * @default true
-   */
-  displayAutoCloseProgress?: boolean;
-  /**
-   * Determines whether the notification should be visually hidden. Useful when notification should only be "seen" by screen readers.
-   * @default false
-   */
-  invisible?: boolean;
-  /**
-   * The label of the notification.
-   * Note: Labels are not displayed visually for small notifications, but they are still accessible to assistive technology. This could be used to help screen reader users to better understand the context of the notification.
-   */
-  label?: string | React.ReactNode;
-  /**
-   * The aria-label of the notification region
-   * @default "Notification"
-   */
-  notificationAriaLabel?: string;
-  /**
-   * Callback fired when the notification is closed
-   */
-  onClose?: () => void;
-  /**
-   * Override or extend the styles applied to the component
-   */
-  style?: React.CSSProperties;
-  /**
-   * The type of the notification
-   * @default 'info'
-   */
-  type?: NotificationType;
-  /**
-   * The aria-level of the heading element
-   * @default 2
-   */
-  headingLevel?: number;
-}>;
+type CommonProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'section'> & {
+    /**
+     * Whether the notification should be closed automatically after a certain time
+     * @default false
+     */
+    autoClose?: boolean;
+    /**
+     * The duration before the notification is automatically closed. Used together with the `autoClose` prop.
+     * @default 6000
+     */
+    autoCloseDuration?: number;
+    /**
+     * Boolean indication whether notification has box shadow or not.
+     */
+    boxShadow?: boolean;
+    /**
+     * Additional class names to apply to the notification
+     */
+    className?: string;
+    /**
+     * Duration of the close fade-out animation
+     * @default 85
+     */
+    closeAnimationDuration?: number;
+    /**
+     * Value for the data-testid attribute that is applied to the root component.
+     */
+    dataTestId?: string;
+    /**
+     * Displays a progress bar on top of the notification when `true`
+     * @default true
+     */
+    displayAutoCloseProgress?: boolean;
+    /**
+     * Determines whether the notification should be visually hidden. Useful when notification should only be "seen" by screen readers.
+     * @default false
+     */
+    invisible?: boolean;
+    /**
+     * The label of the notification.
+     * Note: Labels are not displayed visually for small notifications, but they are still accessible to assistive technology. This could be used to help screen reader users to better understand the context of the notification.
+     */
+    label?: string | React.ReactNode;
+    /**
+     * The aria-label of the notification region
+     * @default "Notification"
+     */
+    notificationAriaLabel?: string;
+    /**
+     * Callback fired when the notification is closed
+     */
+    onClose?: () => void;
+    /**
+     * Override or extend the styles applied to the component
+     */
+    style?: React.CSSProperties;
+    /**
+     * The type of the notification
+     * @default 'info'
+     */
+    type?: NotificationType;
+    /**
+     * The aria-level of the heading element
+     * @default 2
+     */
+    headingLevel?: number;
+  }
+>;
 
 type PositionAndSize =
   | { position?: 'inline'; size?: NotificationSizeInline }
@@ -202,6 +205,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       style,
       type = 'info',
       headingLevel = 2,
+      ...rest
     }: NotificationProps,
     ref,
   ) => {
@@ -252,6 +256,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.section
+          {...rest}
           // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
           // eslint-disable-next-line  @typescript-eslint/no-explicit-any
           style={{ ...notificationTransition, ...(style as any) }}

@@ -3,8 +3,9 @@ import React, { cloneElement, forwardRef, ReactNode, RefObject } from 'react';
 import classes from './HeaderActionBarItemButton.module.scss';
 import classNames from '../../../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../../../icons';
+import { AllElementPropsWithRef } from '../../../../utils/elementTypings';
 
-type ButtonAttributes = JSX.IntrinsicElements['button'];
+type ButtonAttributes = AllElementPropsWithRef<'button'>;
 
 /**
  * This component is internal and not exported as Header.xxxx

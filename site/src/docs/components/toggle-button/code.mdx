@@ -5,6 +5,7 @@ title: 'ToggleButton - Code'
 
 import { ToggleButton } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -88,3 +89,5 @@ Also, note that this component is an input. Most features supported by the HDS T
 | `checked` | If set to true, the toggle button state will be "On". | `boolean`              | false         |
 | `variant` | Defines the toggle button variant.                    | `"default"` `"inline"` | `"default"`   |
 [Table 1:ToggleButton properties]|
+
+<NativeElementPropsInfo nodeName="button" />

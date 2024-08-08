@@ -4,12 +4,13 @@ import { uniqueId } from 'lodash';
 import '../../styles/base.module.css';
 import styles from './Koros.module.css';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type KorosType = 'basic' | 'beat' | 'pulse' | 'wave' | 'vibration' | 'calm';
 
 type RotateDegrees = '45deg' | '90deg' | '135deg' | '180deg' | '225deg' | '270deg' | '315deg';
 
-export type KorosProps = {
+export type KorosProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * Whether to use dense variant
    * @default false
@@ -95,6 +96,7 @@ export const Koros = ({
   rotate,
   className = '',
   style,
+  ...rest
 }: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
@@ -103,6 +105,7 @@ export const Koros = ({
   );
   return (
     <div
+      {...rest}
       className={classNames(styles.koros, styles[type], rotate && styles.rotate, className)}
       style={{ ...style, ...(cssTransforms.length > 0 ? { transform: cssTransforms.join(' ') } : {}) }}
     >

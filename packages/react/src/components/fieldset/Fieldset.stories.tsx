@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Fieldset } from './Fieldset';
+import { Fieldset, FieldsetProps } from './Fieldset';
 import { TextInput } from '../textInput/TextInput';
 import { RadioButton } from '../radioButton/RadioButton';
 import { SelectionGroup } from '../selectionGroup/SelectionGroup';
@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const Default = (args) => {
+export const Default = (args: FieldsetProps) => {
   return (
     <Fieldset heading={args.heading} border={args.border}>
       <div
@@ -43,7 +43,7 @@ export const Default = (args) => {
   );
 };
 
-export const WithBorder = (args) => {
+export const WithBorder = (args: FieldsetProps) => {
   return (
     <Fieldset heading={args.heading} border={args.border}>
       <div
@@ -76,7 +76,7 @@ WithBorder.args = {
   border: true,
 };
 
-export const WithSelectionGroup = (args) => {
+export const WithSelectionGroup = (args: FieldsetProps) => {
   const fileFormats = [
     { label: 'Text', value: 'txt' },
     { label: 'CSV', value: 'csv' },
@@ -109,7 +109,7 @@ WithSelectionGroup.args = {
   heading: 'File information',
 };
 
-export const WithTooltip = (args) => {
+export const WithTooltip = (args: FieldsetProps) => {
   return (
     <Fieldset {...args}>
       <div
@@ -144,7 +144,7 @@ WithTooltip.args = {
   tooltipButtonLabel: 'tooltip button aria label',
 };
 
-export const WithHelperText = (args) => {
+export const WithHelperText = (args: FieldsetProps) => {
   return (
     <Fieldset {...args}>
       <div

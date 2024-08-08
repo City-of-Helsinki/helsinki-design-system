@@ -2,9 +2,9 @@ import React from 'react';
 
 import '../../../../styles/base.module.css';
 import styles from './FooterGroupHeading.module.scss';
-import { MergeElementProps } from '../../../../common/types';
 import classNames from '../../../../utils/classNames';
 import { FooterVariant } from '../../Footer.interface';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 
 type ItemProps<T> = React.PropsWithChildren<{
   /**
@@ -30,7 +30,10 @@ type ItemProps<T> = React.PropsWithChildren<{
   variant?: FooterVariant.Navigation | FooterVariant.Utility;
 }>;
 
-export type FooterGroupHeadingProps<T extends React.ElementType = 'a'> = MergeElementProps<T, ItemProps<T>>;
+export type FooterGroupHeadingProps<T extends React.ElementType = 'a'> = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<T>,
+  ItemProps<T>
+>;
 
 export const FooterGroupHeading = <T extends React.ElementType = 'a'>({
   as: LinkComponent,

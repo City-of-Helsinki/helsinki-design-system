@@ -21,7 +21,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Accordion] Component accepts all div element properties
+- [Breadcrumb] Component accepts all nav element properties
+- [Button] Component accepts all button element properties
+- [Card] Component accepts all div element properties
+- [Checkbox] Component accepts all input element properties
+- [Columns] Component accepts all div element properties
+- [DateInput] Component accepts all input element properties
+- [Dialog] Component and its subcomponents accept all native elements properties
+- [FileInput] Component accepts all div element properties
+- [ErrorSummary] Component accepts all div element properties
+- [Fieldset] Component accepts all fieldset element properties
+- [Footer] Component and its subcomponents accept all native elements properties
+- [Header] Component and its subcomponents accept all native elements properties
+- [Hero] Component and its subcomponents accept all native elements properties
+- [Highlight] Component accepts all figure element properties
+- [ImageWithCard] Component accepts all div element properties
+- [Koros] Component accepts all div element properties
+- [Logo] Component accepts all img element properties
+- [Notification] Component accepts all div element properties
+- [SearchInput] Component and its subcomponents accept all native elements properties
+- [Pagination] Component accepts all nav element properties
+- [Section] Component accepts all div element properties
+- [StatusLabel] Component accepts all span element properties
+- [StepByStep] Component accepts all div element properties
+- [Stepper] Component accepts all div element properties
+- [Tabs] Component accepts all div element properties
+- [Tags] Component accepts all div element properties
+- [TextInput] Component accepts all input element properties
+- [ToggleButton] Component accepts all button element properties
+- [ToolTip] Component accepts all div element properties
 
 #### Fixed
 

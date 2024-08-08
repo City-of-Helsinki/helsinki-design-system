@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Pagination } from './Pagination';
+import { Pagination, PaginationProps } from './Pagination';
 
 export default {
   component: Pagination,
@@ -13,7 +13,7 @@ export default {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const Basic = (args) => {
+export const Basic = (args: PaginationProps) => {
   const [pageIndex, setPageIndex] = useState<number>(0);
   return (
     <Pagination
@@ -32,7 +32,7 @@ export const Basic = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const WithTruncation = (args) => {
+export const WithTruncation = (args: PaginationProps) => {
   const [pageIndexPagination1, setPageIndexPagination1] = useState<number>(7);
   const [pageIndexPagination2, setPageIndexPagination2] = useState<number>(7);
   const [pageIndexPagination3, setPageIndexPagination3] = useState<number>(7);
@@ -82,7 +82,7 @@ WithTruncation.storyName = 'With truncation';
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const WithoutPrevAndNextButtons = (args) => {
+export const WithoutPrevAndNextButtons = (args: PaginationProps) => {
   const [pageIndex, setPageIndex] = useState<number>(7);
 
   return (
@@ -106,7 +106,7 @@ WithoutPrevAndNextButtons.storyName = 'Without prev and next buttons';
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomTheme = (args) => {
+export const CustomTheme = (args: PaginationProps) => {
   const theme = {
     '--active-page-background-color': 'var(--color-bus)',
   };
@@ -131,7 +131,7 @@ export const CustomTheme = (args) => {
 
 CustomTheme.storyName = 'Custom theme';
 
-export const Playground = (args) => {
+export const Playground = (args: PaginationProps) => {
   const [pageIndex, setPageIndex] = useState<number>(7);
 
   return (

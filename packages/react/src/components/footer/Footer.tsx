@@ -14,6 +14,7 @@ import { FooterBase } from './components/footerBase/FooterBase';
 import { FooterCustom } from './components/footerCustom/FooterCustom';
 import { FooterTheme } from './Footer.interface';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type FooterProps = React.PropsWithChildren<{
   /**
@@ -27,7 +28,7 @@ export type FooterProps = React.PropsWithChildren<{
   /**
    * Props that will be passed to the native `<footer>` element.
    */
-  footerProps?: React.ComponentPropsWithoutRef<'footer'>;
+  footerProps?: AllElementPropsWithoutRef<'footer'>;
   /**
    * Koros type to use in the footer.
    * @default 'basic'
@@ -64,6 +65,7 @@ export const Footer = ({
         styles.footer,
         typeof theme === 'string' && styles[`theme-${theme}`],
         customThemeClass,
+        footerProps && footerProps.className,
         className,
       )}
       aria-label={ariaLabel}

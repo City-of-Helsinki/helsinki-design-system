@@ -7,6 +7,7 @@ import { HeaderLogoutSubmenuButton, HeaderLogoutSubmenuButtonProps } from './Hea
 import { initTests, jestHelpers } from './test.util';
 import { HeaderActionBarItem } from '../headerActionBarItem';
 import { HeaderUserMenuButton } from './HeaderUserMenuButton';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('HeaderLogoutSubmenuButton', () => {
   const props: HeaderLogoutSubmenuButtonProps = {
@@ -26,8 +27,8 @@ describe('HeaderLogoutSubmenuButton', () => {
       </HeaderUserMenuButton>
     );
   };
-  const initTestsWithComponent = (isUserAuthenticated = true) => {
-    return initTests(props, Component, isUserAuthenticated);
+  const initTestsWithComponent = (isUserAuthenticated = true, extraProps?: Partial<HeaderLogoutSubmenuButtonProps>) => {
+    return initTests({ ...props, ...extraProps }, Component, isUserAuthenticated);
   };
 
   beforeEach(() => {
@@ -40,6 +41,15 @@ describe('HeaderLogoutSubmenuButton', () => {
   it('The button is rendered', async () => {
     const { getButtonElement } = initTestsWithComponent();
     expect(getButtonElement()).toMatchSnapshot();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const buttonProps = getCommonElementTestProps<'button'>('button');
+    // "." is added to aria-label inside the component if missing.
+    buttonProps['aria-label'] = 'Aria-label with comma.';
+    const { getByTestId } = initTestsWithComponent(true, buttonProps);
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Click calls oidcClient.logout(). Loading is indicated', async () => {

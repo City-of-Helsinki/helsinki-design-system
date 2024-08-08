@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
-import { Checkbox } from './Checkbox';
+import { Checkbox, CheckboxProps } from './Checkbox';
 import { Fieldset } from '../fieldset';
 
 export default {
@@ -31,7 +31,7 @@ export const Indeterminate = () => (
 
 export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
 
-export const Invalid = (args) => <Checkbox style={{ width: '300px' }} {...args} />;
+export const Invalid = (args: CheckboxProps) => <Checkbox style={{ width: '300px' }} {...args} />;
 Invalid.args = {
   id: 'Invalid',
   label: 'Label',
@@ -40,7 +40,7 @@ Invalid.args = {
 
 export const WithHelperText = () => <Checkbox id="helper-text" label="Label" helperText="Assistive text" />;
 
-export const WithTooltip = (args) => <Checkbox id="with-tooltip" {...args} />;
+export const WithTooltip = (args: CheckboxProps) => <Checkbox {...args} id="with-tooltip" />;
 WithTooltip.args = {
   label: 'Label',
   tooltipText: 'Tooltip text',
@@ -229,7 +229,7 @@ export const WithExternalLabel = () => {
   );
 };
 
-export const Playground = (args) => {
+export const Playground = (args: Record<string, string>) => {
   const [checkedItems, setCheckedItems] = useState({});
   const options = ['Option 1', 'Option 2', 'Option 3'];
 

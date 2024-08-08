@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StatusLabel } from './StatusLabel';
+import { StatusLabel, StatusLabelProps } from './StatusLabel';
 import { IconCheckCircle, IconInfoCircle, IconAlertCircle, IconError } from '../../icons';
 
 export default {
@@ -47,7 +47,9 @@ export const Icons = () => (
   </>
 );
 
-export const Playground = (args) => <StatusLabel type={args.type}>{args.label}</StatusLabel>;
+export const Playground = (args: StatusLabelProps & { label: string }) => (
+  <StatusLabel type={args.type}>{args.label}</StatusLabel>
+);
 
 Playground.parameters = {
   previewTabs: {

@@ -5,6 +5,7 @@ title: 'Button - Code'
 
 import { Button, IconTrash, IconAngleRight, Notification, IconShare, IconSaveDisketteFill } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -289,3 +290,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `fullWidth`   | If set to true, the button will take full width of its container. | `boolean`                                                          | false         |
 | `isLoading`   | If set to true, a loading spinner is displayed inside the button. | `boolean`                                                          | false         |
 | `loadingText` | Visible loading text to be shown next to the loading spinner.     | `string`                                                           | -             |
+
+<NativeElementPropsInfo nodeName="button" />

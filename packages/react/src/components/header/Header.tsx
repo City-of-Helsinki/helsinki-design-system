@@ -22,10 +22,11 @@ import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { SkipLink } from '../../internal/skipLink';
 import { styleBoundClassNames } from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 
 const classNames = styleBoundClassNames(styles);
 
-type HeaderAttributes = JSX.IntrinsicElements['header'];
+type HeaderAttributes = AllElementPropsWithRef<'header'>;
 
 export interface HeaderNodeProps extends HeaderAttributes {
   /**

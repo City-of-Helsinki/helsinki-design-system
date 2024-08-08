@@ -6,6 +6,7 @@ import { Step, StepState } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 type Language = 'en' | 'fi' | 'sv' | string;
 
@@ -55,7 +56,7 @@ type Steps = {
   label: string;
 }[];
 
-export type StepperProps = {
+export type StepperProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * A custom className passed to stepper
    */
@@ -113,7 +114,6 @@ export type StepperProps = {
    */
   theme?: StepperCustomTheme; // Custom theme styles
 };
-
 const getStepHeading = (language: Language, stepIndex: number, totalNumberOfSteps: number, label: string) => {
   return {
     en: `Step ${stepIndex + 1}/${totalNumberOfSteps}: ${label}`,
@@ -137,6 +137,7 @@ export const Stepper = ({
   renderCustomStepHeading,
   steps,
   theme,
+  ...rest
 }: StepperProps) => {
   const stepsTotal = steps.length;
   const initialRender = useRef(true);
@@ -186,7 +187,12 @@ export const Stepper = ({
   }, [selectedStep]);
 
   return (
-    <div lang={language} className={classNames(styles.stepperContainer, customThemeClass)} data-testid={dataTestId}>
+    <div
+      {...rest}
+      lang={language}
+      className={classNames(styles.stepperContainer, customThemeClass)}
+      data-testid={dataTestId}
+    >
       {showPreviousButton && (
         <div className={classNames(styles.scrollButton, styles.scrollButtonPrevious)} aria-hidden="true">
           {/*  eslint-disable-next-line jsx-a11y/control-has-associated-label */}

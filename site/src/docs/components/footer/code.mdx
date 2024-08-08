@@ -16,6 +16,8 @@ import {
 } from 'hds-react';
 
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
+
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -337,11 +339,21 @@ import { Link } from 'gatsby';
 | `title`                     | Service name.                               | `string`                              | -             |
 | [Table 1:Footer properties] |
 
+<NativeElementPropsInfo
+  nodeName="footer"
+  overlappingProps={['ariaLabel']}
+/>
+
 | Property                               | Description                               | Values   | Default value |
 | -------------------------------------- | ----------------------------------------- | -------- | ------------- |
 | `ariaLabel`                            | Aria-label for describing the navigation. | `string` | -             |
 | `role`                                 | ARIA role to describe the contents.       | `string` | -             |
 | [Table 2:Footer.Navigation properties] |
+
+<NativeElementPropsInfo
+  nodeName="div"
+  overlappingProps={['ariaLabel']}
+/>
 
 | Property                         | Description                                                            | Values      | Default value                                           |
 | -------------------------------- | ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------- |
@@ -356,12 +368,22 @@ import { Link } from 'gatsby';
 | `openInExternalDomainAriaLabel`  | Aria-label for opening link in an external domain.                     | `string`    | -                                                       |
 | [Table 3:Footer.Link properties] |
 
+<NativeElementPropsInfo
+  nodeName="a"
+  overlappingProps={['ariaLabel']}
+/>
+
 | Property                                    | Description                                                                                                       | Values                | Default value |
 | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------- | ------------- |
 | `className`                                 | Additional classNames for the element.                                                                            | `string`              | -             |
 | `id`                                        | ID for the element.                                                                                               | `string`              | -             |
 | `headingLink`                               | Footer.GroupHeading component to display at the top of the group. On smaller screens only this will be displayed. | `Footer.GroupHeading` | -             |
 | [Table 4:Footer.NavigationGroup properties] |
+
+<NativeElementPropsInfo
+  nodeName="div"
+/>
+
 
 | Property                                 | Description                                                                                        | Values    | Default value |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------- | --------- | ------------- |
@@ -371,6 +393,10 @@ import { Link } from 'gatsby';
 | `label`                                  | Label for the heading.                                                                             | `string`  | -             |
 | [Table 5:Footer.GroupHeading properties] |
 
+<NativeElementPropsInfo
+  nodeName="a"
+/>
+
 | Property                              | Description                                                                     | Values                    | Default value |
 | ------------------------------------- | ------------------------------------------------------------------------------- | ------------------------- | ------------- |
 | `ariaLabel`                           | Aria-label for describing the utilities.                                        | `string`                  | -             |
@@ -379,12 +405,21 @@ import { Link } from 'gatsby';
 | `role`                                | ARIA role to describe the contents.                                             | `string`                  | -             |
 | [Table 6:Footer.Utilities properties] |
 
+<NativeElementPropsInfo
+  nodeName="div"
+  overlappingProps={['ariaLabel']}
+/>
+
 | Property                                 | Description                                                       | Values                | Default value |
 | ---------------------------------------- | ----------------------------------------------------------------- | --------------------- | ------------- |
 | `className`                              | Additional classNames for the element.                            | `string`              | -             |
 | `id`                                     | ID for the element.                                               | `string`              | -             |
 | `headingLink`                            | Footer.GroupHeading component to display at the top of the group. | `Footer.GroupHeading` | -             |
 | [Table 7:Footer.UtilityGroup properties] |
+
+<NativeElementPropsInfo
+  nodeName="div"
+/>
 
 | Property                           | Description                                | Values   | Default value |
 | ---------------------------------- | ------------------------------------------ | -------- | ------------- |
@@ -393,6 +428,11 @@ import { Link } from 'gatsby';
 | `id`                               | ID for the element.                        | `string` | -             |
 | `role`                             | ARIA role to describe the contents.        | `string` | -             |
 | [Table 8:Footer.Custom properties] |
+
+<NativeElementPropsInfo
+  nodeName="div"
+  overlappingProps={['ariaLabel']}
+/>
 
 | Property                         | Description                                                         | Values               | Default value |
 | -------------------------------- | ------------------------------------------------------------------- | -------------------- | ------------- |
@@ -408,3 +448,8 @@ import { Link } from 'gatsby';
 | `showBackToTopButton`            | Boolean for whether the "Back to top" button should be shown.       | `boolean`            | -             |
 | `year`                           | The year for copyright text. This can be useful in automated tests. | `string`             | -             |
 | [Table 9:Footer.Base properties] |
+
+<NativeElementPropsInfo
+  nodeName="div"
+  overlappingProps={['ariaLabel']}
+/>

@@ -6,6 +6,7 @@ title: 'Logo - Code'
 import { Link, Logo, logoFi, logoFiDark, logoSv, logoSvDark, logoRu, logoRuDark } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -61,3 +62,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | --------------------- | --------------------------------| ------------------------------------------ | -------------- |
 | `src`                 | Src of the logo. Can be base64-encoded, locally imported image or a URL.      | `string`                     | `-`         |
 | `size`                | Size of the logo.               | `"small"`, `"medium"`, `"large"`, `"full"` | `"full"`       |
+
+<NativeElementPropsInfo
+  nodeName="img"
+  overlappingProps={['dataTestId']}
+/>
