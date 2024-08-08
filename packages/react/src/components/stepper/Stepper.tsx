@@ -134,7 +134,7 @@ export const Stepper = ({
   stepHeading,
   stepHeadingAriaLevel = 2,
   headingClassName,
-  dataTestId = 'hds-stepper',
+  dataTestId,
   renderCustomStepHeading,
   steps,
   theme,
@@ -278,7 +278,7 @@ export const Stepper = ({
               }}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
-              dataTestId={`${dataTestId}-step-${index}`}
+              dataTestId={dataTestId ? `${dataTestId}-step-${index}` : undefined}
             />
           );
         })}

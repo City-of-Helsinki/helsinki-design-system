@@ -39,13 +39,15 @@ describe('<Stepper /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = render(<Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} />);
+    const { asFragment } = render(
+      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} dataTestId="hds-stepper" />,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should be able to select available step', () => {
     const { container, rerender } = render(
-      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} />,
+      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} dataTestId="hds-stepper" />,
     );
     const availableButton = container.querySelector('[data-testid="hds-stepper-step-1"]');
     expect(availableButton).toHaveAttribute('aria-current', 'false');
@@ -76,13 +78,16 @@ describe('<Stepper /> spec', () => {
         ]}
         language="en"
         selectedStep={1}
+        dataTestId="hds-stepper"
       />,
     );
     expect(availableButton).toHaveAttribute('aria-current', 'step');
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<Stepper language="en" steps={state.steps} selectedStep={state.activeStepIndex} />);
+    const { container } = render(
+      <Stepper language="en" steps={state.steps} selectedStep={state.activeStepIndex} dataTestId="hds-stepper" />,
+    );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

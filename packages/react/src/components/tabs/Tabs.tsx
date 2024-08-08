@@ -28,6 +28,7 @@ export interface TabsCustomTheme {
 export type TabsProps = React.PropsWithChildren<{
   /**
    * The initially active tab
+   * @default 0
    */
   initiallyActiveTab?: number;
   /**

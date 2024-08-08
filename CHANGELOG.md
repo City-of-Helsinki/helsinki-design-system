@@ -46,6 +46,9 @@ Changes that are not related to specific components
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
 - [Link] Renamed hds-icon-left class to hds-icon-start
+- [Table] id and headingId props do not have default values anymore. Affects also the id of the CheckBox inside the Table. Also removed default dataTestId
+- [Stepper] Removed default dataTestId.
+- [Pagination] Removed default dataTestId.
 
 #### Added
 
