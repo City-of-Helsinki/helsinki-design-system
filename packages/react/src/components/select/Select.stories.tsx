@@ -201,23 +201,23 @@ export const WithControls = () => {
   };
 
   const toggleDisable = () => {
-    const current = props.disabled;
-    updateProps({ ...props, disabled: !current });
+    const { disabled } = props;
+    updateProps({ ...props, disabled: !disabled });
   };
 
   const toggleMenu = () => {
-    const current = props.open;
-    updateProps({ ...props, open: !current });
+    const { open } = props;
+    updateProps({ ...props, open: !open });
   };
 
   const toggleInvalid = () => {
-    const current = props.invalid;
-    updateProps({ ...props, invalid: !current });
+    const { invalid } = props;
+    updateProps({ ...props, invalid: !invalid });
   };
 
   const toggleRequired = () => {
-    const current = props.required;
-    updateProps({ ...props, required: !current });
+    const { required } = props;
+    updateProps({ ...props, required: !required });
   };
   return (
     <>
