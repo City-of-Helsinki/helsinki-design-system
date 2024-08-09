@@ -21,3 +21,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Provide a screen reader notification (`aria-live` and `aria-atomic`) when a user changes a page. Especially this is
   important when the user changes the page by using the component's previous or next buttons. If you use the HDS React
   component of the pagination, this feature is automatically provided.
+
+### Issues
+
+There is an issue with this component when using Talkback with Firefox. The `aria-live` content is not read aloud when the user changes the selected item. When an `<a>` element is clicked, the focus jumps to the `<body>` element and is then moved to the selected item. Talkback seems to lose track of changes.
