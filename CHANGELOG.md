@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
-- [Component] What are the breaking changes?
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
 - [Link] iconLeft prop is renamed to iconStart, size prop is now enum (LinkSize.Small, .Medium and .Large). Aria-label is now native so ariaLabel prop is now obsolete -> use aria-label.
@@ -21,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Icon] Icon size changed to enum (IconSize.ExtraSmall, IconSize.Small, IconSize.Medium, IconSize.Large and IconSize.ExtraLarge) or without Typescript ("extraSmall", "small", "medium", "large" and "extraLarge").
 - [Hero] The optional arrow icon takes vertical space and may require background color to be set.
 - [SelectionGroup] Updated element spacings
+- Typography changes to heading line-heights and letter-spacings
+- [Hero] heading typography changes
+- [Header] heading typography changes
+- [Dialog] heading typography changes
+- [CookieConsent] heading typography changes
+- [Accordion] heading typography changes
 
 #### Added
 
@@ -51,6 +56,11 @@ Changes that are not related to specific components
 - [Stepper] Removed default dataTestId.
 - [Pagination] Removed default dataTestId.
 - [SelectionGroup] Updated element spacings
+- Typography changes to heading line-heights and letter-spacings
+- [Table] heading typography changes
+- [StepByStep] heading typography changes
+- [Notification] heading typography changes
+- [Highlight] heading typography changes
 
 #### Added
 

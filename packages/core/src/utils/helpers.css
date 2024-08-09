@@ -1,6 +1,6 @@
 .visually-hidden {
   border: 0;
-  clip: "rect(0 0 0 0)";
+  clip: 'rect(0 0 0 0)';
   height: 1px;
   margin: -1px;
   overflow: hidden;
@@ -68,7 +68,7 @@
 .heading-xl {
   font-size: var(--fontsize-heading-xl);
   font-weight: 400;
-  letter-spacing: -1.0px;
+  letter-spacing: -1px;
   line-height: var(--lineheight-s);
 }
 
@@ -83,34 +83,34 @@
   font-size: var(--fontsize-heading-l);
   font-weight: 400;
   letter-spacing: -0.4px;
-  line-height: var(--lineheight-s);
+  line-height: var(--lineheight-m);
 }
 
 .heading-m {
   font-size: var(--fontsize-heading-m);
   font-weight: 500;
   letter-spacing: -0.2px;
-  line-height: 32px;
+  line-height: var(--lineheight-m);
 }
 
 .heading-s {
   font-size: var(--fontsize-heading-s);
   font-weight: 500;
-  letter-spacing: 0.2px;
-  line-height: 1.4;
+  letter-spacing: 0;
+  line-height: var(--lineheight-l);
 }
 
 .heading-xs {
   font-size: var(--fontsize-heading-xs);
   font-weight: 700;
-  letter-spacing: 0.4px;
-  line-height: 1.33;
+  letter-spacing: 0;
+  line-height: var(--lineheight-l);
 }
 
 .heading-xxs {
   font-size: var(--fontsize-heading-xxs);
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.2px;
   line-height: var(--lineheight-l);
 }
 

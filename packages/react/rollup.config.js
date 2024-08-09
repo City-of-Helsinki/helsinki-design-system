@@ -145,7 +145,14 @@ const getConfig = (format, extractCSS) => ({
     postcss({
       extract: extractCSS ? 'index.css' : undefined,
       modules: true,
-      use: ['sass'],
+      use: [
+        [
+          'sass',
+          {
+            includePaths: ['./node_modules', '../../node_modules'],
+          },
+        ],
+      ],
       minimize: {
         preset: [
           'default',
