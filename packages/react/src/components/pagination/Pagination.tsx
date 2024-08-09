@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import '../../styles/base.module.css';
@@ -70,7 +70,7 @@ const mapLangToOpenedPage = (pageNumber: number, language: Language): string => 
   return openedPage[language];
 };
 
-const range = (start, end) => {
+const range = (start: number, end: number): number[] => {
   const length = end - start + 1;
   return Array.from({ length }, (_, i) => start + i);
 };
@@ -114,14 +114,14 @@ const createPaginationItemList = ({
     ...startPages,
     // start ellipsis
     // eslint-disable-next-line no-nested-ternary
-    ...(siblingsStart > 3 ? ['start-ellipsis'] : pageCount - 1 > 2 ? [2] : []),
+    ...(siblingsStart > 3 ? [Ellipsis.start] : pageCount - 1 > 2 ? [2] : []),
 
     // Sibling pages
     ...range(siblingsStart, siblingsEnd),
 
     // End ellipsis
     // eslint-disable-next-line no-nested-ternary
-    ...(siblingsEnd < pageCount - 2 ? ['end-ellipsis'] : pageCount - 1 > 1 ? [pageCount - 1] : []),
+    ...(siblingsEnd < pageCount - 2 ? [Ellipsis.end] : pageCount - 1 > 1 ? [pageCount - 1] : []),
 
     ...endPages,
   ];
@@ -199,7 +199,20 @@ export const Pagination = ({
   theme,
 }: PaginationProps) => {
   const initialPageIndex = useRef(pageIndex);
+  const activeItemRef = useRef<HTMLSpanElement>();
+  const userSelectedIndex = useRef(-1);
   const [hasUserChangedPage, setHasUserChangedPage] = useState<boolean>(false);
+
+  const onChangeWithInternalHandler = useCallback(
+    (event, index, wasButtonClick = false) => {
+      // do not shift focus away from buttons
+      userSelectedIndex.current = wasButtonClick ? -1 : index;
+      if (onChange) {
+        onChange(event, index);
+      }
+    },
+    [onChange],
+  );
 
   useEffect(() => {
     if (hasUserChangedPage === false) {
@@ -208,6 +221,14 @@ export const Pagination = ({
       }
     }
   }, [pageIndex, hasUserChangedPage]);
+
+  useEffect(() => {
+    if (userSelectedIndex.current > -1 && activeItemRef.current) {
+      // Active element changes from <a> to <span>, so focus is lost after re-render.
+      // Move it back manually
+      activeItemRef.current.focus();
+    }
+  }, [userSelectedIndex.current]);
 
   const itemList = useMemo(
     () => createPaginationItemList({ pageCount, pageIndex, siblingCount }),
@@ -240,7 +261,7 @@ export const Pagination = ({
             data-testid={dataTestId ? `${dataTestId}-previous-button` : undefined}
             disabled={pageIndex === 0 || pageCount === 1}
             aria-disabled={pageIndex === 0 || pageCount === 1 || undefined}
-            onClick={(event) => onChange(event, pageIndex - 1)}
+            onClick={(event) => onChangeWithInternalHandler(event, pageIndex - 1, true)}
             variant={ButtonVariant.Supplementary}
             theme={ButtonPresetTheme.Black}
             iconStart={<IconAngleLeft />}
@@ -258,19 +279,33 @@ export const Pagination = ({
               );
             }
 
+            const isCurrent = pageIndex + 1 === pageItem;
+
             return (
               <li key={pageItem}>
-                <a
-                  className={classNames(styles.itemLink, pageIndex + 1 === pageItem ? styles.itemLinkActive : '')}
-                  data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
-                  href={pageHref(pageItem as number)}
-                  onClick={onChange ? (event) => onChange(event, (pageItem as number) - 1) : undefined}
-                  title={mapLangToPageTitle(pageItem as number, language, pageItem === pageIndex + 1)}
-                  aria-label={mapLangToPageAriaLabel(pageItem as number, language)}
-                  aria-current={pageIndex + 1 === pageItem ? 'page' : false}
-                >
-                  {pageItem}
-                </a>
+                {isCurrent ? (
+                  <span
+                    className={classNames(styles.itemLink, styles.itemLinkActive)}
+                    data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
+                    aria-label={`${mapLangToPageAriaLabel(pageItem, language)}. ${mapLangToPageTitle(pageItem, language, true)}.`}
+                    aria-current="page"
+                    tabIndex={-1}
+                    ref={activeItemRef}
+                  >
+                    {pageItem}
+                  </span>
+                ) : (
+                  <a
+                    className={classNames(styles.itemLink)}
+                    data-testid={dataTestId ? `${dataTestId}-page-${pageItem}` : undefined}
+                    href={pageHref(pageItem)}
+                    onClick={(event) => onChangeWithInternalHandler(event, pageItem - 1)}
+                    title={mapLangToPageTitle(pageItem, language, false)}
+                    aria-label={mapLangToPageAriaLabel(pageItem, language)}
+                  >
+                    {pageItem}
+                  </a>
+                )}
               </li>
             );
           })}
@@ -281,7 +316,7 @@ export const Pagination = ({
             data-testid={dataTestId ? `${dataTestId}-next-button` : undefined}
             disabled={pageIndex === pageCount - 1 || pageCount === 1}
             aria-disabled={pageIndex === pageCount - 1 || pageCount === 1 || undefined}
-            onClick={(event) => onChange(event, pageIndex + 1)}
+            onClick={(event) => onChangeWithInternalHandler(event, pageIndex + 1, true)}
             variant={ButtonVariant.Supplementary}
             theme={ButtonPresetTheme.Black}
             iconEnd={<IconAngleRight className={styles.angleRightIcon} />}
