@@ -15,7 +15,9 @@ export type StatusLabelProps = React.PropsWithChildren<
     className?: string;
     /**
      * Adds a data-testid attribute to the root element with the given value
+     * @deprecated Will be replaced in the next major release with "data-testid"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     dataTestId?: string;
     /**
      * The type of the status label

@@ -48,7 +48,9 @@ type CommonProps = React.PropsWithChildren<
     closeAnimationDuration?: number;
     /**
      * Value for the data-testid attribute that is applied to the root component.
+     * @deprecated Will be replaced in the next major release with "data-testid"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     dataTestId?: string;
     /**
      * Displays a progress bar on top of the notification when `true`

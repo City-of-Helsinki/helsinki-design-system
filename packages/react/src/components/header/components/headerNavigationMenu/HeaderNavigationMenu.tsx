@@ -11,7 +11,9 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'nav'> & {
     /**
      * Aria-label for describing universal bar.
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * Children are expected to be HeaderLink components or a container with HeaderLink components inside.

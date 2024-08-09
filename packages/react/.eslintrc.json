@@ -90,7 +90,33 @@
       }
     ],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/forbid-component-props": [
+      "error",
+      {
+        "forbid": [
+          {
+            "propNamePattern": "aria[A-Z][a-z]*",
+            "message": "Use native 'aria-*' props instead of creating new props like ariaLabel'."
+          },
+          {
+            "propNamePattern": "{dataTestId,data-test-id}",
+            "message": "The 'data-testid' is the only acceptable format for test ids. Jest supports only this."
+          }
+        ]
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "typeProperty",
+        "format": null,
+        "custom": {
+          "regex": "(aria[A-Z][a-z]+|dataTestId|data-test-id)",
+          "match": false
+        }
+      }
+    ]
   },
   "settings": {
     "react": {

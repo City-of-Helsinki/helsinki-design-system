@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import React, { useEffect, useState } from 'react';
 import { parse, isBefore, isSameDay } from 'date-fns';
 

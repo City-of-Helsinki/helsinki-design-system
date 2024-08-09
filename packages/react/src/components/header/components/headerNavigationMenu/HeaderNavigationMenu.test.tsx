@@ -21,6 +21,7 @@ describe('<HeaderNavigationMenu /> spec', () => {
     // element has ariaLabel prop which overrides aria-label
     navProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
+      // eslint-disable-next-line react/forbid-component-props
       <HeaderNavigationMenu {...navProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" />,
     );
     const element = getByTestId(navProps['data-testid']);

@@ -12,7 +12,9 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * Aria-label for describing UniversalBar.
+     * @deprecated Will be replaced in the next major release with "aria-label"
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ariaLabel?: string;
     /**
      * Additional class names to apply.
