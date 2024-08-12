@@ -1301,6 +1301,37 @@ describe('cookieConsentCore', () => {
     expect(essentialTimeStamp).toBeLessThan(chatTimeStamp);
   });
 
+  it('should open banner and highlight given categories', async () => {
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    // Approve essentials + test_optional
+    bannerClicks.approveCategory('test_optional');
+
+    // Delete banner
+    document.body.innerHTML = '';
+    const banner = document.querySelector('.hds-cc__target');
+    expect(banner).toBeNull();
+
+    const missingCategories = ['chat', 'statistics'];
+    // Open banner via window scoped method
+    await helpers.openBanner(missingCategories);
+
+    const shadowroot = getShadowRoot();
+    const highlightedCategories = shadowroot?.querySelectorAll(`#hds-cc .hds-cc__group--highlight`);
+
+    const highlightedDOMCategories = [];
+    highlightedCategories?.forEach((category) => {
+      // @ts-ignore
+      highlightedDOMCategories.push(category.dataset.groupId);
+    });
+
+    // Banner should spawn
+    expect(highlightedCategories?.length).toBeGreaterThan(0);
+    expect(highlightedDOMCategories.sort().join('')).toEqual(missingCategories.sort().join(''));
+  });
+
   // -------------------------------------------------------------------------------------------------------------------
   // MARK: State changes
   // - If the settings file has changed, the banner should appear
