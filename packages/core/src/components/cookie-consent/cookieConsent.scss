@@ -9,6 +9,7 @@
 @use 'temp/icon' as icon;
 @use '../../icons/angle-down.css';
 @use '../../icons/check-circle-fill.css';
+@use '../../icons/info-circle-fill.css';
 @use 'temp/notification' as notification;
 @use 'temp/table' as table;
 
@@ -261,6 +262,15 @@ html {
   &:first-of-type {
     border-top: 1px solid var(--color-black-60);
   }
+}
+
+.hds-cc__group .hds-notification {
+  display: none;
+}
+
+.hds-cc__group--highlight .hds-notification {
+  display: block;
+  margin-top: var(--spacing-layout-2-xs);
 }
 
 @include animate.height(

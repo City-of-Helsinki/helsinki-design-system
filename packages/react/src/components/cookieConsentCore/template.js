@@ -11,6 +11,38 @@ export function getAriaLiveHtml(ariaLiveId, ariaLiveClass) {
 }
 
 /**
+ * Generates the HTML for the notification.
+ *
+ * @param {string} message - The message to display in the notification.
+ * @param {string} notificationAriaLabel - The aria-label for the notification.
+ * @param {string} type - The type of the notification. Either 'success' or 'info' are supported.
+ * @return {string} The HTML for the notification.
+ */
+export function getNotificationHtml(message, notificationAriaLabel, type = 'success') {
+  let typeString;
+  let iconHtml;
+  switch (type) {
+    case 'info':
+      typeString = 'hds-notification--info';
+      iconHtml = 'hds-icon--info-circle-fill';
+      break;
+    default:
+      typeString = 'hds-notification--success';
+      iconHtml = 'hds-icon--check-circle-fill';
+      break;
+  }
+  return `
+    <section aria-label="${notificationAriaLabel}" class="hds-notification hds-notification--small ${typeString} enter">
+      <div class="hds-notification__content">
+        <div class="hds-notification__label">
+          <span class="hds-icon ${iconHtml}" aria-hidden="true"></span>
+        </div>
+        <div class="hds-notification__body">${message}</div>
+      </div>
+    </section>`;
+}
+
+/**
  * Generates the HTML for the cookie banner.
  *
  * @param {Object} translations - The translations object containing the text for the banner.
@@ -85,12 +117,7 @@ export function getCookieBannerHtml(
       </div>
     </div>
   </div>
-</div>
-<style>
-  .hds-cc__group--highlight {
-    outline: solid red 2px;
-  }
-</style>`;
+</div>`;
 }
 
 /**
@@ -104,11 +131,8 @@ export function getCookieBannerHtml(
  * @return {string} - The formatted timestamp string.
  */
 export function formatTimestamp(timestamp, groupId, translations, lang, fallbackLang) {
-  const acceptedTranslation = getTranslation(translations, 'accepted', lang, fallbackLang);
-  const timestampTranslation = getTranslation(translations, 'timeAt', lang, fallbackLang, timestamp);
-  return timestamp
-    ? `<p class="timestamp" data-group="${groupId}"><strong>${acceptedTranslation}:</strong> ${timestampTranslation}</p>`
-    : '';
+  const acceptedTranslation = getTranslation(translations, 'acceptedAt', lang, fallbackLang, timestamp);
+  return timestamp ? `<p class="timestamp" data-group="${groupId}">${acceptedTranslation}</p>` : '';
 }
 
 /**
@@ -140,12 +164,16 @@ export function getGroupHtml(
   const accepted = isAccepted ? 'checked' : '';
   const title = getTranslation(groupData, 'title', lang, fallbackLang);
   const description = getTranslation(groupData, 'description', lang, fallbackLang);
+
+  const highlightedGroup = getTranslation(translations, 'highlightedGroup', lang, fallbackLang);
+  const highlightedGroupAria = getTranslation(translations, 'highlightedGroupAria', lang, fallbackLang, { title });
   return `
             <div class="hds-cc__group" data-group-id="${groupId}">
               <div class="hds-checkbox">
                 <input type="checkbox" id="${groupId}-cookies" class="hds-checkbox__input" ${required} ${accepted} data-group="${groupId}" />
                 <label for="${groupId}-cookies" class="hds-checkbox__label">${title}</label>
               </div>
+              ${getNotificationHtml(highlightedGroup, highlightedGroupAria, 'info')}
               <p>${description}</p>
               <div data-timestamp="${groupId}">
                 ${formatTimestamp(timestamp, groupId, translations, lang, fallbackLang)}
@@ -211,23 +239,4 @@ export function getTableRowHtml(rowData, translations, lang, fallbackLang) {
                       <td>${getTranslation(translations, `type_${rowData.type}`, lang, fallbackLang)}</td>
                     </tr>
                     `;
-}
-
-/**
- * Generates the HTML for the notification.
- *
- * @param {string} message - The message to display in the notification.
- * @param {string} notificationAriaLabel - The aria-label for the notification.
- * @return {string} The HTML for the notification.
- */
-export function getNotificationHtml(message, notificationAriaLabel) {
-  return `
-    <section aria-label="${notificationAriaLabel}" class="hds-notification hds-notification--small hds-notification--success enter">
-      <div class="hds-notification__content">
-        <div class="hds-notification__label">
-          <span class="hds-icon hds-icon--check-circle-fill" aria-hidden="true"></span>
-        </div>
-        <div class="hds-notification__body">${message}</div>
-      </div>
-    </section>`;
 }

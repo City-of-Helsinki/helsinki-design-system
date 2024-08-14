@@ -333,7 +333,7 @@ export class CookieConsentCore {
     );
 
     if (this.#settingsPageElement) {
-      const notificationHtml = getNotificationHtml(message, notificationAriaLabel);
+      const notificationHtml = getNotificationHtml(message, notificationAriaLabel, 'success');
       this.#bannerElements.ariaLive.innerHTML = notificationHtml;
     } else {
       this.#bannerElements.ariaLive.textContent = message;

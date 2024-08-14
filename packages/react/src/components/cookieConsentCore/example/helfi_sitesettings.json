@@ -702,6 +702,16 @@
       "sv": "Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.",
       "en": "The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies."
     },
+    "highlightedGroup": {
+      "fi": "Sinun on hyväksyttävä tämä kategoria, jotta voit näyttää valitsemasi sisällön.",
+      "sv": "Du måste acceptera den här kategorin för att visa innehållet du har valt.",
+      "en": "You need to accept this category to display the content you have selected."
+    },
+    "highlightedGroupAria": {
+      "fi": "Hyvä tietää kategorialle: ${title}",
+      "sv": "Bra att veta för kategorin: ${title}",
+      "en": "Good to know for category: ${title}"
+    },
     "showCookieSettings": {
       "fi": "Näytä evästeasetukset",
       "sv": "Visa kakinställningarna",
@@ -712,15 +722,10 @@
       "sv": "Stänga kakinställningarna",
       "en": "Hide cookie settings"
     },
-    "accepted": {
-      "fi": "Hyväksytty",
-      "sv": "Accepterad",
-      "en": "Accepted"
-    },
-    "timeAt": {
-      "fi": "${date} klo ${time}",
-      "sv": "${date} kl. ${time}",
-      "en": "${date} at ${time}"
+    "acceptedAt": {
+      "fi": "Olet hyväksynyt tämän kategorian: ${date} klo ${time}.",
+      "sv": "Du har accepterat denna kategori: ${date} kl. ${time}.",
+      "en": "You have accepted this category: ${date} at ${time}."
     },
     "tableHeadingsName": {
       "fi": "Nimi",
