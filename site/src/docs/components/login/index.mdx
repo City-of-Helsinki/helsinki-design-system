@@ -32,17 +32,17 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
 
 HDS Login components include React context, components and hooks for handling user authorisation, API tokens, session polling and graphQL queries. React is not a requirement, but currently, no plain JavaScript UI components exist.
 
-Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses <ExternalLink href="https://github.com/City-of-Helsinki/tunnistamo">Tunnistamo</ExternalLink>, but HDS login components can be used with any compatible OIDC provider. Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
+Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses Helsinki Profile, but HDS login components can be used with any compatible OIDC provider. Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
 
 In the OIDC login process, the browser window is redirected to the OIDC provider. Authentication is fully handled by the server. That is why HDS does not provide login or registration forms.
 
 When the user has been authenticated, the OIDC server redirects back to the service. HDS provides components to handle the authentication process initiation and responses.
 
-For Login UI components see <InternalLink href="/components/header">**Header.Login**</InternalLink> on Header component page. For more information on how HDS Login and Header.Login components are meant to work together see <InternalLink href="/patterns/login/building-login">Login pattern page.</InternalLink> 
+For Login UI components see <InternalLink href="/components/header">**Header.Login**</InternalLink> on Header component page. For more information on how HDS Login and Header.Login components are meant to work together see <InternalLink href="/patterns/login/building-login">Login pattern page.</InternalLink>
 
 ### Requirements
 
-Your service must be registered with an OIDC provider, like Tunnistamo.
+Your service must be registered with an OIDC provider, like Helsinki Profile.
 
 To use the OIDC provider with login components, you need
 
