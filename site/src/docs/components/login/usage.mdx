@@ -569,7 +569,7 @@ Detailed information about these hooks is listed on the <ApiPageAnchorLink ancho
 
 The `Api tokens client` listens to the <ApiPageAnchorLink anchor="state-change-signals">Oidc client signals</ApiPageAnchorLink> and waits until the user is authenticated and then fetches the API tokens. It retries if fetch fails and terminates when max retries are reached. When the user is expiring and renews, API tokens are also renewed automatically.
 
-**Important!** The Helsinki Tunnistus OIDC provider (Keycloak) uses a different kind of API token requests. This module does not support that, but a new module will be added later.
+**Important!** The Helsinki Profile OIDC provider uses a different kind of API token requests. This module does not support that, but a new module will be added later.
 
 ##### Requirements
 
