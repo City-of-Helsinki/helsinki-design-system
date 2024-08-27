@@ -9,12 +9,13 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn cssToScss",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn cssToScss && yarn copy-scss-files",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.(css|scss)' --base src -d lib --watch",
     "cssToScss": "node scripts/cssToScss.js",
+    "copy-scss-files": "node copyFiles -source 'src/components/**/*.scss' -target 'lib/components' -v",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error",
     "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\""
@@ -36,6 +37,7 @@
     "copyfiles": "2.2.0",
     "css-loader": "5.2.6",
     "cssnano": "4.1.10",
+    "glob": "^10.4.1",
     "hds-design-tokens": "3.10.0",
     "postcss": "8.2.15",
     "postcss-classes-to-mixins": "^3.0.1",
