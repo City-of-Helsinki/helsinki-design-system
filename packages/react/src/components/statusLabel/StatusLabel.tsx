@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
-import styles from './StatusLabel.module.css';
+import styles from './StatusLabel.module.scss';
 import classNames from '../../utils/classNames';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 

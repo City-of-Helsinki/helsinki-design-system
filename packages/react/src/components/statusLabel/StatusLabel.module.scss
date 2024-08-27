@@ -1,0 +1,27 @@
+.statusLabel {
+  composes: hds-status-label from 'hds-core/lib/components/status-label/status-label.scss';
+}
+
+.statusLabelWithIcon {
+  composes: hds-status-label--with-icon from 'hds-core/lib/components/status-label/status-label.scss';
+}
+
+.statusLabelIcon {
+  composes: hds-status-label-icon from 'hds-core/lib/components/status-label/status-label.scss';
+}
+
+.info {
+  composes: hds-status-label--info from 'hds-core/lib/components/status-label/status-label.scss';
+}
+
+.success {
+  composes: hds-status-label--success from 'hds-core/lib/components/status-label/status-label.scss';
+}
+
+.alert {
+  composes: hds-status-label--alert from 'hds-core/lib/components/status-label/status-label.scss';
+}
+
+.error {
+  composes: hds-status-label--error from 'hds-core/lib/components/status-label/status-label.scss';
+}
