@@ -11,6 +11,7 @@ module.exports = {
     '@storybook/addon-storysource',
     '@storybook/addon-measure',
     '@storybook/addon-outline',
+    '@storybook/preset-scss',
   ],
-  staticDirs: ['../src/fonts']
+  staticDirs: ['../src/fonts'],
 };
