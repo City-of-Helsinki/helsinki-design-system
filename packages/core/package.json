@@ -9,13 +9,14 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn cssToScss && yarn copy-scss-files",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn copy-scss-files && yarn copy-scss-utils && yarn cssToScss",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.(css|scss)' --base src -d lib --watch",
     "cssToScss": "node scripts/cssToScss.js",
-    "copy-scss-files": "node copyFiles -source 'src/components/**/*.scss' -target 'lib/components' -v",
+    "copy-scss-files": "node copyFiles -source 'src/components/**/_*.scss' -target 'lib/components' -v",
+    "copy-scss-utils": "node copyFiles -source 'src/utils/**/_*.scss' -target 'lib/utils' -v",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error",
     "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\""
