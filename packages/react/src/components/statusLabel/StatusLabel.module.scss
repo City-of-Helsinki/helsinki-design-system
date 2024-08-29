@@ -1,27 +1,29 @@
+@use 'hds-core/lib/components/status-label/_status-label-mixin' as CoreSass;
+
 .statusLabel {
-  composes: hds-status-label from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.base;
 }
 
 .statusLabelWithIcon {
-  composes: hds-status-label--with-icon from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.withIcon;
 }
 
 .statusLabelIcon {
-  composes: hds-status-label-icon from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.icon;
 }
 
 .info {
-  composes: hds-status-label--info from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.info;
 }
 
 .success {
-  composes: hds-status-label--success from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.success;
 }
 
 .alert {
-  composes: hds-status-label--alert from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.alert;
 }
 
 .error {
-  composes: hds-status-label--error from 'hds-core/lib/components/status-label/status-label.scss';
+  @include CoreSass.error;
 }
