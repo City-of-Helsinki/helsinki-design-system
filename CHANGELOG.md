@@ -120,7 +120,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Grids] Fixed breakpoint-xs margin value from 12px to 16px to match implementation
 
 ### Figma
 
