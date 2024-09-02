@@ -106,7 +106,7 @@ const dataUpdater = (
   return returnValue;
 };
 
-export const changeChandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
+export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, getData, getMetaData } = dataHandlers;
   const { onChange } = getData();
   const { didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
