@@ -1,5 +1,5 @@
 import { getLastMockCallArgs } from '../../utils/testHelpers';
-import { changeChandler } from './dataUpdater';
+import { changeHandler } from './dataUpdater';
 import { eventIds, eventTypes } from './events';
 // eslint-disable-next-line jest/no-mocks-import
 import {
@@ -93,7 +93,7 @@ describe('dataUpdater', () => {
     const targetOption = options[index];
     const updatedOption = { ...targetOption, selected: !targetOption.selected };
     const updatedGroups = updateSelectedOptionInGroups(getCurrentGroupsFromData(), updatedOption);
-    const didUpdate = changeChandler(
+    const didUpdate = changeHandler(
       { id: eventIds.listItem, type: eventTypes.click, payload: { value: targetOption } },
       dataHandlers,
     );
@@ -116,19 +116,19 @@ describe('dataUpdater', () => {
 
   describe('open/close events', () => {
     it('updates the "open" prop in data and the "lastToggleCommand" in metaData.', () => {
-      const didUpdate = changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      const didUpdate = changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdate).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: true });
       expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
     });
     it('concurrent events do not make changes until certain time has passed. This prevents button click and immediate outside click events to cancel each other', () => {
-      changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       const updateTime = getMetaDataOfLastMetaDataUpdate().lastToggleCommand;
-      const didUpdateAgain = changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      const didUpdateAgain = changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdateAgain).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(1);
       mockDateNow(updateTime + 201);
-      const didUpdateNow = changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      const didUpdateNow = changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdateNow).toBeTruthy();
       expect(getDataUpdates()).toHaveLength(2);
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
@@ -160,7 +160,7 @@ describe('dataUpdater', () => {
       });
       const updateCount = getDataUpdates().length;
 
-      const didUpdate = changeChandler({ id: eventIds.listItem, type: eventTypes.click, payload: {} }, dataHandlers);
+      const didUpdate = changeHandler({ id: eventIds.listItem, type: eventTypes.click, payload: {} }, dataHandlers);
       expect(didUpdate).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(updateCount);
     });
@@ -174,7 +174,7 @@ describe('dataUpdater', () => {
       const options = getAllOptionsFromData();
       expect(getSelectedOptions(getCurrentGroupsFromData())).toHaveLength(10);
 
-      const didUpdate = changeChandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
+      const didUpdate = changeHandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
       const updatedOptions = getAllOptionsFromLastUpdate();
       expect(didUpdate).toBeTruthy();
       expect(getSelectedOptions(getCurrentGroupsFromData())).toHaveLength(0);
@@ -187,7 +187,7 @@ describe('dataUpdater', () => {
       updateMockData({
         open: true,
       });
-      const didUpdate = changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      const didUpdate = changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
       expect(didUpdate).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
       expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
@@ -197,17 +197,17 @@ describe('dataUpdater', () => {
       updateMockData({
         open: true,
       });
-      const didUpdateAgain = changeChandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
+      const didUpdateAgain = changeHandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
       expect(didUpdateAgain).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
     });
     it('if "open" is already false, nothing is updated.', () => {
-      const didUpdate = changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      const didUpdate = changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
       expect(didUpdate).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(0);
       expect(getMetaDataUpdates()).toHaveLength(0);
 
-      const didUpdateAgain = changeChandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
+      const didUpdateAgain = changeHandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
       expect(didUpdateAgain).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(0);
       expect(getMetaDataUpdates()).toHaveLength(0);
@@ -261,12 +261,12 @@ describe('dataUpdater', () => {
       updateMockData({
         ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
       });
-      changeChandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
       expect(getCurrentMockData().onChange).toHaveBeenCalledTimes(1);
     });
     it('is not called when selected options does not change.', () => {
-      changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
-      changeChandler({ id: eventIds.arrowButton, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      changeHandler({ id: eventIds.arrowButton, type: eventTypes.click }, dataHandlers);
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
     });
     it('can return a new set of options', () => {
@@ -345,10 +345,10 @@ describe('dataUpdater', () => {
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
       // select option #1
       selectOptionByIndex(1);
-      changeChandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
-      changeChandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
-      changeChandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
-      changeChandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
+      changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
       expect(getCurrentMockData() === dataBeforeChange).toBeTruthy();
       expect(getCurrentMockMetaData() === metadataBeforeChange).toBeTruthy();
     });
