@@ -5,21 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.X.X] - Month, XX, 202X
+## [3.10.0] - Sep, 04, 2024
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
 - [ssr] getCriticalHdsRulesSync, a syncronous version of the getCriticalHdsRules
 
 #### Changed
-
-Changes that are not related to specific components
 
 - [Accordion] Component accepts all div element properties
 - [Breadcrumb] Component accepts all nav element properties
@@ -81,37 +75,7 @@ Changes that are not related to specific components
 - [Header] Fix broken layout in mobile menu animations
 - [Dialog] Fix broken scrolling and zooming in mobile devices
 
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Design tokens
-
-#### Changed
-
-- Changed colour `black-60` from `#666666` to `#595959` due to contrast issues and the accessibility and readability improvement.
-
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -119,94 +83,12 @@ Changes that are not related to specific components
 
 #### Changed
 
-Changes that are not related to specific components
-
 - [ssr] Improved documentation about using HDS styles with Next.js pages router.
 - [Header] Added more detailed documentation.
 
 #### Fixed
 
 - [Grids] Fixed breakpoint-xs margin value from 12px to 16px to match implementation
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Sketch/Abstract
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [3.9.0] - June, 2nd, 2024
 
