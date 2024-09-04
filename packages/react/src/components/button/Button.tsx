@@ -37,10 +37,12 @@ export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   fullWidth?: boolean;
   /**
    * Element placed on the left side of the button label
+   * @deprecated Will be replaced with iconStart in the next major release.
    */
   iconLeft?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
+   * @deprecated Will be replaced with iconEnd in the next major release.
    */
   iconRight?: React.ReactNode;
   /**
@@ -49,10 +51,12 @@ export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   size?: ButtonSize;
   /**
    * If `true` a loading spinner is displayed inside the button along `loadingText`
+   * @deprecated Will be removed in the next major release
    */
   isLoading?: boolean;
   /**
    * Loading text to show alongside loading spinner
+   * @deprecated Will be removed in the next major release
    */
   loadingText?: string;
 };
