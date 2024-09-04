@@ -8,7 +8,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
-import { MDXProvider } from '@mdx-js/react';
+import { MDXProvider, mdx } from '@mdx-js/react';
 import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi } from 'hds-react';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
@@ -18,6 +18,8 @@ import InternalLink from './InternalLink';
 import ExternalLink from './ExternalLink';
 import AnchorLink from './AnchorLink';
 import './layout.scss';
+
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
@@ -67,19 +69,30 @@ const components = {
   ),
 };
 
-const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
-  const rootPath = withPrefix('/');
+const withVersion = (version, link) => {
+//  console.log('withVersion', version, link, (version ? `/${version}` : '') + withPrefix(link));
+  return (version ? `/${version}` : '') + withPrefix(link);
+}
+const withoutVersion = (version, link) => {
+//  console.log('withoutVersion', version, link, link.replace(`/${version}`, ''));
+//  console.log(version);
+  return link.replace(`/${version}`, '');
+}
+
+const resolveCurrentMenuItem = (version, menuItems, slugWithPrefix) => {
+  const rootPath = withVersion(version, '/');
 
   if (slugWithPrefix === rootPath) {
-    return menuItems.find(({ link }) => withPrefix(link) === rootPath);
+    return menuItems.find(({ link }) => withVersion(version, link) === rootPath);
   } else {
     return menuItems
-      .filter(({ link }) => withPrefix(link) !== rootPath)
-      .find((menuItem) => slugWithPrefix.startsWith(withPrefix(menuItem.link)));
+      .filter(({ link }) => withVersion(version, link) !== rootPath)
+      .find((menuItem) => slugWithPrefix.startsWith(withVersion(version, menuItem.link)));
   }
 };
 
 const generateUiIdFromPath = (path, prefix) => {
+  console.log('generateUiIdFromPath', path);
   const pathStr =
     !path && path === '/'
       ? 'home'
@@ -109,9 +122,81 @@ const isMatchingParentLink = (link, slug) => {
   );
 };
 
-const Layout = ({ children, pageContext }) => {
-  const { title: pageTitle, slug: pageSlug, customLayout } = pageContext.frontmatter;
-  const pageSlugWithPrefix = withPrefix(pageSlug);
+
+const VersionedLink = ({ to, version, ...props }) => {
+  const versionedTo = version ? `/${version}${withPrefix(to)}` : withPrefix(to);
+  return <GatsbyLink to={versionedTo} {...props} />;
+};
+
+const TransformLinks = ({ children, version }) => {
+  const transform = (child) => {
+    if (React.isValidElement(child)) {
+        console.log(child.props);
+      if (child.props.href) {
+        return (
+          <VersionedLink to={child.props.href} version={version} {...child.props}>
+            {child.props.children}
+          </VersionedLink>
+        );
+      }
+
+      return React.cloneElement(child, {
+        children: React.Children.map(child.props.children, transform),
+      });
+    }
+    return child;
+  };
+
+  return <>{React.Children.map(children, transform)}</>;
+};
+
+
+const Layout = ({ location, children, pageContext }) => {
+/*
+  const queryData = useStaticQuery(graphql`
+    query SiteDataQuery {
+      site {
+        siteMetadata {
+          title
+          description
+          siteUrl
+          menuLinks {
+            name
+            link
+            subMenuLinks {
+              name
+              link
+              withDivider
+            }
+          }
+          footerTitle
+          footerAriaLabel
+        }
+      }
+      allMdx {
+        edges {
+          node {
+            frontmatter {
+              title
+              slug
+              navTitle
+            }
+            parent {
+              ... on File {
+                gitRemote {
+                  ref
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+*/
+
+  const pathParts = location.pathname.split("/");
+  const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
 
   const queryData = useStaticQuery(graphql`
     query SiteDataQuery {
@@ -147,9 +232,51 @@ const Layout = ({ children, pageContext }) => {
     }
   `);
 
+  // Todo check available versions
+
+  console.log(pageContext.frontmatter);
+  console.log('location', location);
+  console.log('version', version);
+//  console.log('children', children);
+//  console.log('pageContext', pageContext);
+
+  const { title: pageTitle, slug: pageSlug, customLayout } = pageContext?.frontmatter
+    ? pageContext?.frontmatter
+    : {title: "", slug: ""};
+  const pageSlugWithPrefix = withVersion(version, pageSlug);
+
+//  console.log('children', children);
+
+  const childrenMDX = children;
+
+/*
+  const childrenMDX = (
+    <TransformLinks version={version}>
+      {children}
+    </TransformLinks>
+  );
+*/
+
+//  console.log('pageSlug', pageSlug);
+
+
   const siteData = queryData.site.siteMetadata;
   const mdxPageData = queryData.allMdx?.edges || [];
-  const allPages = mdxPageData.map(({ node }) => ({ ...node.frontmatter, ...node.fields }));
+//  const allPages = mdxPageData.map(({ node }) => ({ ...node.frontmatter, ...node.fields }));
+
+/*
+  const allPages = mdxPageData
+    .filter(({ node }) => node?.parent?.gitRemote?.ref === version)
+    .map(({ node }) => ({ ...node.frontmatter, ...node.fields }));
+*/
+
+  const slugPages = Object.fromEntries(mdxPageData
+    .map(({ node }) => ([node.frontmatter.slug, { ...node.frontmatter, ...node.fields }])));
+  const allPages = Object.values(slugPages);
+
+
+//  console.log('allPages', allPages);
+
   const siteTitle = siteData?.title || 'Title';
   const siteUrl = siteData?.siteUrl;
   const description = siteData?.description;
@@ -160,7 +287,8 @@ const Layout = ({ children, pageContext }) => {
     ...menuLink,
     uiId: generateUiIdFromPath(menuLink.link, 'nav'),
   }));
-  const currentMenuItem = resolveCurrentMenuItem(uiMenuLinks, pageSlugWithPrefix);
+  const currentMenuItem = resolveCurrentMenuItem(version, uiMenuLinks, pageSlugWithPrefix);
+  console.log('currentMenuItem', currentMenuItem);
   const subMenuLinks = currentMenuItem?.subMenuLinks || [];
   const subMenuLinksFromPages =
     currentMenuItem && currentMenuItem.link
@@ -173,7 +301,7 @@ const Layout = ({ children, pageContext }) => {
 
   const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
     ...subMenuLink,
-    prefixedLink: withPrefix(subMenuLink.link),
+    prefixedLink: subMenuLink.link,
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
       .filter(isNavPage)
@@ -181,7 +309,7 @@ const Layout = ({ children, pageContext }) => {
       .map((subLevelLink) => ({
         ...subLevelLink,
         uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
-        prefixedLink: withPrefix(subLevelLink.slug),
+        prefixedLink: subLevelLink.slug,
       }))
       .sort(sortByPageTitle),
   }));
@@ -211,14 +339,21 @@ const Layout = ({ children, pageContext }) => {
             logoHref={siteUrl}
             logoAriaLabel="City of Helsinki Logo"
             logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
-          />
+          >
+            <Header.ActionBarItem label={version} fixedRightPosition>
+              <Header.ActionBarSubItem label="latest" href={withoutVersion(version, location.pathname)} />
+              <Header.ActionBarSubItem label="release-3.0.0" href={withVersion('release-3.0.0', withoutVersion(version, location.pathname))} />
+              <Header.ActionBarSubItem label="release-2.17.0" href={withVersion('release-2.17.0', withoutVersion(version, location.pathname))} />
+              <Header.ActionBarSubItem label="release-2.14.0" href={withVersion('release-2.14.0', withoutVersion(version, location.pathname))} />
+            </Header.ActionBarItem>
+          </Header.ActionBar>
           <Header.NavigationMenu>
             {uiMenuLinks.map(({ name, link, uiId }) => (
               <Header.Link
-                active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
+                active={withVersion(version, currentMenuItem?.link || '') === withVersion(version, link)}
                 key={uiId}
                 label={name}
-                to={link}
+                to={withVersion(version, link)}
                 as={GatsbyLink}
               />
             ))}
@@ -248,22 +383,22 @@ const Layout = ({ children, pageContext }) => {
                       {...(hasSubLevels
                         ? {}
                         : {
-                            href: prefixedLink,
+                            href: withVersion(version, prefixedLink),
                             onClick: (e) => {
                               e.preventDefault();
-                              navigate(link);
+                              navigate(withVersion(version, link));
                             },
                           })}
                     >
                       {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
-                          href={prefixedSubLevelLink}
+                          href={withVersion(version, prefixedSubLevelLink)}
                           label={navTitle}
                           active={pageSlugWithPrefix === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
                           onClick={(e) => {
                             e.preventDefault();
-                            navigate(slug);
+                            navigate(withVersion(version, slug));
                           }}
                         />
                       ))}
@@ -274,17 +409,17 @@ const Layout = ({ children, pageContext }) => {
             </aside>
           )}
           {customLayout ? (
-            <MDXProvider components={components}>{children}</MDXProvider>
+            <MDXProvider components={components}>{childrenMDX}</MDXProvider>
           ) : (
             <main id={contentId} className="main-content">
-              <MDXProvider components={components}>{children}</MDXProvider>
+              <MDXProvider components={components}>{childrenMDX}</MDXProvider>
             </main>
           )}
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Navigation>
             {uiMenuLinks.map(({ name, link, uiId }) => (
-              <Footer.Link key={uiId} label={name} to={link} as={GatsbyLink} />
+              <Footer.Link key={uiId} label={name} to={withVersion(version, link)} as={GatsbyLink} />
             ))}
           </Footer.Navigation>
           <Footer.Base
@@ -292,8 +427,8 @@ const Layout = ({ children, pageContext }) => {
             backToTopLabel="Back to top"
             logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
           >
-            <Footer.Link label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
-            <Footer.Link label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+            <Footer.Link label="Contribution" href={withVersion(version, '/getting-started/contributing/how-to-contribute')} />
+            <Footer.Link label="Accessibility" href={withVersion(version, '/about/accessibility/statement')} />
             <Footer.Link label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
@@ -301,6 +436,8 @@ const Layout = ({ children, pageContext }) => {
     </>
   );
 };
+
+
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
