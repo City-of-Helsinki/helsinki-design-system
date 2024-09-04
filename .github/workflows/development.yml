@@ -15,11 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: debug prints 1
-        run: |
-          ls -al packages/react/
-          ls -al packages/react/.loki/reference
-
       - name: Read .nvmrc
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvmrc
@@ -60,11 +55,6 @@ jobs:
         run: yarn build-storybook
         working-directory: ./packages/react
 
-      - name: debug prints 2
-        run: |
-          ls -al packages/react/
-          ls -al packages/react/.loki/reference
-
       - name: Store storybook as artifact
         if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
         uses: actions/upload-artifact@v4
@@ -75,6 +65,7 @@ jobs:
             packages/react/storybook-static
             packages/react/.lokirc.json
           retention-days: 1
+          include-hidden-files: true
 
   visual-tests:
     needs: build-test
