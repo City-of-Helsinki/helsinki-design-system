@@ -6,7 +6,6 @@ on:
     branches:
       - development
       - master
-      - visual_test_failure
 
 jobs:
   build-test:
@@ -103,4 +102,5 @@ jobs:
         with:
           name: loki_images_${{ matrix.loki_configuration }}_${{ steps.sanitize_artifact_name.outputs.value }}
           path: .loki/difference/*.*
+          include-hidden-files: true
         if: failure()
