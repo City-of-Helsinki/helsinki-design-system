@@ -4,12 +4,13 @@ import '../../styles/base.module.css';
 import styles from './Button.module.scss';
 import { LoadingSpinner } from '../loadingSpinner';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type ButtonSize = 'default' | 'small';
 export type ButtonTheme = 'default' | 'coat' | 'black';
 export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
 
-export type CommonButtonProps = {
+export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   /**
    * The content of the button
    */
@@ -36,10 +37,12 @@ export type CommonButtonProps = {
   fullWidth?: boolean;
   /**
    * Element placed on the left side of the button label
+   * @deprecated Will be replaced with iconStart in the next major release.
    */
   iconLeft?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
+   * @deprecated Will be replaced with iconEnd in the next major release.
    */
   iconRight?: React.ReactNode;
   /**
@@ -48,13 +51,15 @@ export type CommonButtonProps = {
   size?: ButtonSize;
   /**
    * If `true` a loading spinner is displayed inside the button along `loadingText`
+   * @deprecated Will be removed in the next major release
    */
   isLoading?: boolean;
   /**
    * Loading text to show alongside loading spinner
+   * @deprecated Will be removed in the next major release
    */
   loadingText?: string;
-} & React.ComponentPropsWithoutRef<'button'>;
+};
 
 // Supplementary variant requires iconLeft or iconRight
 export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {

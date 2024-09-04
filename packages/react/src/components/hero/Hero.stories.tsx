@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Hero, HeroCustomTheme, HeroProps } from './Hero';
@@ -8,6 +9,7 @@ import { Logo, logoFi } from '../logo';
 import { Header } from '../header/Header';
 import { Section } from '../section/Section';
 import { LanguageOption } from '../header/LanguageContext';
+import { KorosType } from '../koros';
 
 export default {
   component: Hero,
@@ -78,8 +80,8 @@ const getDisabledControl = (control: string, notUsed?: boolean) => {
 };
 
 const getDefaultArgs = (variant: HeroProps['variant'], preset?: string): HeroProps => {
-  const defaultValuePicker = (args: Record<string, { defaultValue: unknown }>) => {
-    return Object.entries(args).reduce((currentObject, [prop, value]) => {
+  const defaultValuePicker = (values: Record<string, { defaultValue: unknown }>) => {
+    return Object.entries(values).reduce((currentObject, [prop, value]) => {
       if (value.defaultValue) {
         return {
           ...currentObject,
@@ -232,7 +234,7 @@ const NavigationComponent = () => (
   </Header>
 );
 
-export const ImageLeft = (args) => {
+export const ImageLeft = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent buttonTheme="black" />
@@ -245,7 +247,7 @@ ImageLeft.argTypes = {
   ...createVariantArg('imageLeft'),
 };
 
-export const ImageRight = (args) => {
+export const ImageRight = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent buttonTheme="black" />
@@ -259,7 +261,7 @@ ImageRight.argTypes = {
   ...createVariantArg('imageRight'),
 };
 
-export const WithoutImage = (args) => {
+export const WithoutImage = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent />
@@ -280,7 +282,7 @@ WithoutImage.argTypes = {
   ...createCenteredContentArg(true),
 };
 
-export const WithoutImageKorosOverlay = (args) => {
+export const WithoutImageKorosOverlay = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent buttonTheme="white" />
@@ -301,7 +303,7 @@ WithoutImageKorosOverlay.argTypes = {
   ...createCenteredContentArg(false),
 };
 
-export const WithoutImageAndKoros = (args) => {
+export const WithoutImageAndKoros = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent />
@@ -320,7 +322,7 @@ WithoutImageAndKoros.argTypes = {
   ...createCenteredContentArg(false),
 };
 
-export const BackgroundImage = (args) => {
+export const BackgroundImage = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent buttonTheme="black" />
@@ -336,7 +338,7 @@ BackgroundImage.argTypes = {
   ...createVariantArg('backgroundImage'),
 };
 
-export const DiagonalKoros = (args) => {
+export const DiagonalKoros = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent buttonTheme="black" />
@@ -353,7 +355,7 @@ DiagonalKoros.argTypes = {
   ...createVariantArg('diagonalKoros'),
 };
 
-export const ImageBottom = (args) => {
+export const ImageBottom = (args: HeroProps) => {
   return (
     <Hero {...args}>
       <DefaultContent />
@@ -370,7 +372,7 @@ ImageBottom.argTypes = {
   ...createVariantArg('imageBottom'),
 };
 
-export const PlaygroundForKoros = (args) => {
+export const PlaygroundForKoros = (args: HeroProps & Record<string, string> & { type: KorosType }) => {
   const heroProps: HeroProps = {
     koros: {
       type: args.type,
@@ -451,7 +453,7 @@ PlaygroundForKoros.argTypes = {
   ...createVariantArg('diagonalKoros'),
 };
 
-export const EmbeddedToPage = (args) => {
+export const EmbeddedToPage = (args: HeroProps & { preset: string }) => {
   const { preset, variant } = args;
   const props = getDefaultArgs(variant, preset);
   const NoImage = () => {
@@ -506,7 +508,7 @@ EmbeddedToPage.argTypes = {
 const demoPadding = '55px';
 const demoBgColor = '#f5a3c7';
 
-export const PlaygroundForTheme = (args) => {
+export const PlaygroundForTheme = (args: HeroProps & Record<string, string>) => {
   const argsAsTheme = {
     '--background-color': args.backgroundColor,
     '--color': args.color,

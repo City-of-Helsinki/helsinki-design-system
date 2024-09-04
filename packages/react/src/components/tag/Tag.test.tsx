@@ -2,7 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Tag } from './Tag';
+import { Tag, TagProps } from './Tag';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Tag /> spec', () => {
   it('renders the component', () => {
@@ -30,5 +31,11 @@ describe('<Tag /> spec', () => {
     const { container } = render(<Tag>Foo</Tag>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps<'div', Pick<TagProps, 'onClick' | 'role'>>('div');
+    const { getByTestId } = render(<Tag {...divProps}>Foo</Tag>);
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 });

@@ -6,6 +6,7 @@ title: 'Notification - Code'
 import { Button, Notification } from 'hds-react';
 import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -243,3 +244,9 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `dismissible`              | If set to true, the notification can be closed.                                                                             | `boolean`                                                                                                     | false            |
 | `closeButtonLabelText`     | The aria-label and title for the close button.                                                                              | `string`                                                                                                      | -                |
 [Table 1:Notification properties]|
+
+<NativeElementPropsInfo
+  nodeName="section"
+  notAllowed={['role']}
+  overlappingProps={['dataTestId','notificationAriaLabel/aria-label']}
+/>

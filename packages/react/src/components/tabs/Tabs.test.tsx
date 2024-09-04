@@ -1,12 +1,13 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import React from 'react';
 
-import { Tabs } from './Tabs';
-import { TabList } from './TabList';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 import { Tab } from './Tab';
+import { TabList } from './TabList';
 import { TabPanel } from './TabPanel';
+import { Tabs } from './Tabs';
 
 describe('<Tabs /> spec', () => {
   it('renders the component', () => {
@@ -36,6 +37,17 @@ describe('<Tabs /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(
+      <Tabs {...divProps}>
+        <TabPanel>Buzz</TabPanel>
+      </Tabs>,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 
   it('should call onClick when user clicks tab', () => {

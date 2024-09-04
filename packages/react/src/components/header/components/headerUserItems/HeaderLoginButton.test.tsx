@@ -5,6 +5,7 @@ import { advanceUntilDoesNotThrow, advanceUntilPromiseResolved } from '../../../
 import { getActiveElement } from '../../../cookieConsent/test.util';
 import { HeaderLoginButton, HeaderLoginButtonProps } from './HeaderLoginButton';
 import { initTests, jestHelpers } from './test.util';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('HeaderLoginButton', () => {
   const props: HeaderLoginButtonProps = {
@@ -18,8 +19,8 @@ describe('HeaderLoginButton', () => {
   const Component = (componentProps) => {
     return <HeaderLoginButton {...componentProps} />;
   };
-  const initTestsWithComponent = (isUserAuthenticated = false) => {
-    return initTests(props, Component, isUserAuthenticated);
+  const initTestsWithComponent = (isUserAuthenticated = false, extraProps?: Partial<HeaderLoginButtonProps>) => {
+    return initTests({ ...props, ...extraProps }, Component, isUserAuthenticated);
   };
 
   beforeEach(() => {
@@ -37,6 +38,15 @@ describe('HeaderLoginButton', () => {
   it('The button is not rendered if user is logged in', async () => {
     const { getButtonElement } = initTestsWithComponent(true);
     expect(getButtonElement()).toBeNull();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const buttonProps = getCommonElementTestProps<'button'>('button');
+    // aria-label is constructed inside the component
+    buttonProps['aria-label'] = undefined;
+    const { getByTestId } = initTestsWithComponent(false, buttonProps);
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Click calls oidcClient.login(). Loading is indicated', async () => {

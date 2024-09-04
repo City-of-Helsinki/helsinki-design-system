@@ -6,6 +6,7 @@ import styles from '../../Table.module.scss';
 
 export type TableContainerProps = {
   children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   dataTestId?: string;
   variant?: 'dark' | 'light';
   id: string;

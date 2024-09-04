@@ -2,8 +2,9 @@ import React from 'react';
 
 import styles from './Hero.module.scss';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-export type TitleProps = React.HtmlHTMLAttributes<HTMLHeadingElement> & {
+export type TitleProps = AllElementPropsWithoutRef<'h1'> & {
   /**
    * Heading level
    * @default 1

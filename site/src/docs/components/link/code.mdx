@@ -5,6 +5,7 @@ title: 'Link - Code'
 
 import { IconDocument, IconEnvelope, IconPhone, IconPhoto, Link } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -248,3 +249,9 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                   | `string`            | -             |
 | `size`                          | Controls the size of the link.                                                 | `"S"`, `"M"`, `"L"` | `"S"`         |
 | `useButtonStyles`               | Change the appearance to button.                                               | `boolean`           | false         |
+
+<NativeElementPropsInfo
+  nodeName="a"
+  notAllowed={["target", "onPointerEnterCapture", "onPointerLeaveCapture"]}
+  overlappingProps={['ariaLabel']}
+/>

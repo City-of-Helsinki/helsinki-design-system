@@ -1,9 +1,11 @@
+/* eslint-disable react/forbid-component-props */
 import { screen, render } from '@testing-library/react';
-import React, { useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
-import { Table } from './Table';
+import { Table, TableProps } from './Table';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Table /> spec', () => {
   let cols;
@@ -67,6 +69,22 @@ describe('<Table /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('native html props are passed to the element', async () => {
+    const tableProps = getCommonElementTestProps<'table', Pick<TableProps, 'dataTestId'>>('table');
+    // the component has "dataTestId" prop
+    tableProps.dataTestId = tableProps['data-testid'];
+    const { getByTestId } = render(
+      <Table {...tableProps} caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol />,
+    );
+    const element = getByTestId(tableProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...tableProps,
+        dataTestId: undefined,
+      } as HTMLAttributes<HTMLTableElement>),
+    ).toHaveLength(0);
+  });
+
   it('Should successfully sort the table', () => {
     const colsWithSorting = [
       { key: 'id', headerName: 'Not rendered' },
@@ -97,7 +115,7 @@ describe('<Table /> spec', () => {
     );
     const ageOfFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfFirstRow).toHaveTextContent('39');
-    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLButtonElement);
     const ageOfSortedTableFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
@@ -134,14 +152,14 @@ describe('<Table /> spec', () => {
       />,
     );
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLButtonElement);
 
     expect(mockOnSort).toHaveBeenCalledTimes(1);
   });
 
   it('Should successfully select and deselect a single row', () => {
     const TableWithSelection = () => {
-      const [selectedRows, setSelectedRows] = useState([]);
+      const [selectedRows, setSelectedRows] = useState<Array<string | number>>([]);
       return (
         <Table
           checkboxSelection
@@ -161,16 +179,16 @@ describe('<Table /> spec', () => {
 
     expect(container.querySelector('[id="hds-table-id-checkbox-1000"]')).not.toBeChecked();
 
-    userEvent.click(container.querySelector('[id="hds-table-id-checkbox-1000"]'));
+    userEvent.click(container.querySelector('[id="hds-table-id-checkbox-1000"]') as HTMLButtonElement);
     expect(container.querySelector('[id="hds-table-id-checkbox-1000"]')).toBeChecked();
 
-    userEvent.click(container.querySelector('[id="hds-table-id-checkbox-1000"]'));
+    userEvent.click(container.querySelector('[id="hds-table-id-checkbox-1000"]') as HTMLButtonElement);
     expect(container.querySelector('[id="hds-table-id-checkbox-1000"]')).not.toBeChecked();
   });
 
   it('Should successfully select all and deselect all rows', () => {
     const TableWithSelection = () => {
-      const [selectedRows, setSelectedRows] = useState([]);
+      const [selectedRows, setSelectedRows] = useState<Array<string | number>>([]);
       return (
         <Table
           checkboxSelection
@@ -192,12 +210,18 @@ describe('<Table /> spec', () => {
       expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).not.toBeChecked();
     });
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button-hds-table-data-testid"]'));
+    userEvent.click(
+      container.querySelector('[data-testid="hds-table-select-all-button-hds-table-data-testid"]') as HTMLButtonElement,
+    );
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).toBeChecked();
     });
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button-hds-table-data-testid"]'));
+    userEvent.click(
+      container.querySelector(
+        '[data-testid="hds-table-deselect-all-button-hds-table-data-testid"]',
+      ) as HTMLButtonElement,
+    );
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).not.toBeChecked();
     });

@@ -3,15 +3,17 @@ import React from 'react';
 import '../../../../styles/base.module.css';
 import styles from './FooterLink.module.scss';
 import { Link } from '../../../link';
-import { MergeElementProps } from '../../../../common/types';
 import classNames from '../../../../utils/classNames';
 import { IconAngleRight, IconLinkExternal } from '../../../../icons';
 import { FooterVariant } from '../../Footer.interface';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 
 type ItemProps<Element> = React.PropsWithChildren<{
   /**
    * aria-label for providing detailed information for screen readers about a link.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Element or component to use instead of the default link.
@@ -58,7 +60,10 @@ type ItemProps<Element> = React.PropsWithChildren<{
   variant?: FooterVariant.Navigation | FooterVariant.Utility | FooterVariant.Base;
 }>;
 
-export type FooterLinkProps<Element extends React.ElementType = 'a'> = MergeElementProps<Element, ItemProps<Element>>;
+export type FooterLinkProps<T extends React.ElementType = 'a'> = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<T>,
+  ItemProps<T>
+>;
 
 export const FooterLink = <T extends React.ElementType = 'a'>({
   ariaLabel,
@@ -72,7 +77,6 @@ export const FooterLink = <T extends React.ElementType = 'a'>({
   ...rest
 }: FooterLinkProps<T>) => {
   const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
-
   return (
     <Item
       aria-label={ariaLabel}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 
-import { Section } from './Section';
+import { Section, SectionProps } from './Section';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const placeholderTitle = 'Lorem ipsum';
@@ -102,7 +102,7 @@ export const Multiple = () => (
 );
 Multiple.storyName = 'Multiple sections';
 
-export const Playground = (args) => (
+export const Playground = (args: SectionProps & Record<string, string | null>) => (
   <Section color={args.color} korosType={args.korosType}>
     <h1 className="heading-xl">{args.sectionTitle}</h1>
     {args.sectionText}

@@ -65,13 +65,13 @@ export default {
 const useKeycloakArgs = {
   defaultValue: false,
   control: 'boolean',
-  description: 'Only a storybook option. If true, Keycloak OIDC is used.',
+  description: 'Only a storybook option. If true, Helsinki Profile OIDC is used.',
 };
 
 // To use this in localhost, copy the settings from https://hds.hel.fi/components/login/#common-settings-for-localhost and change
 // with Tunnistamo
 // redirect_uri: `${window.origin}/static-login/callback.html`
-// or with Keycloak:
+// or with Helsinki Profile:
 // redirect_uri: `${window.origin}/static-login/callback_kc.html`
 // with both
 // silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`
@@ -593,7 +593,7 @@ const AuthorizedContent = ({ user }: { user: User }) => {
 
 export const ExampleApplication = (args: StoryArgs) => {
   // The following lines are not needed when only one oidc server is used.
-  // HDS uses both Tunnistamo and Keycloak and uses Storybook args to define which is used.
+  // HDS uses both Tunnistamo and Helsinki Profile (Keycloak) and uses Storybook args to define which is used.
   const isUsingKeycloak = shouldUseKeycloakServer(args);
   const loginProps = isUsingKeycloak ? loginProviderPropsForKeycloak : loginProviderProps;
 
@@ -630,7 +630,7 @@ export const ExampleApplication = (args: StoryArgs) => {
           <h1>Welcome to the login demo application!</h1>
           <p>
             Click button below, or in the navigation, to start the login process with{' '}
-            <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>.
+            <strong>{isUsingKeycloak ? 'Helsinki Profile' : 'Tunnistamo'}</strong>.
           </p>
           <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
             Log in{' '}
@@ -678,8 +678,8 @@ export const Callback = (args: StoryArgs) => {
         <p>Login failed!</p>
         <p>...or perhaps you just landed on this page. This page handles the result of the login process.</p>
         <p>
-          Currently selected OIDC server is <strong>{isUsingKeycloak ? 'Keycloak' : 'Tunnistamo'}</strong>. This can be
-          changed in Addons (press &quot;A&quot;) or by selecting the server below.
+          Currently selected OIDC server is <strong>{isUsingKeycloak ? 'Helsinki Profile' : 'Tunnistamo'}</strong>. This
+          can be changed in Addons (press &quot;A&quot;) or by selecting the server below.
         </p>
         <p>
           <a href={`${getIFramePath()}?path=/story/components-login--example-application&args=useKeycloak:false`}>
@@ -688,7 +688,7 @@ export const Callback = (args: StoryArgs) => {
         </p>
         <p>
           <a href={`${getIFramePath()}?path=/story/components-login--example-application&args=useKeycloak:true`}>
-            Go to the demo application and login with Keycloak
+            Go to the demo application and login with Helsinki Profile
           </a>
         </p>
       </div>

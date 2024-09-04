@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 
 import { TextInput, TextInputProps } from './TextInput';
 import { IconSearch } from '../../icons';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<TextInput /> spec', () => {
   const textInputProps: TextInputProps = {
@@ -22,6 +23,15 @@ describe('<TextInput /> spec', () => {
     const { container } = render(<TextInput {...textInputProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('Native html props are passed to the element', async () => {
+    const inputProps = getCommonElementTestProps<'input', { defaultValue: string; value: string }>('input');
+    const { getByTestId } = render(<TextInput {...textInputProps} {...inputProps} />);
+    const element = getByTestId(inputProps['data-testid']);
+    // id, className and style are set to the wrapper element, others to input
+    expect(
+      getElementAttributesMisMatches(element, { ...inputProps, id: undefined, style: undefined, className: undefined }),
+    ).toHaveLength(0);
   });
   it('renders the component with tooltip', () => {
     const { asFragment } = render(

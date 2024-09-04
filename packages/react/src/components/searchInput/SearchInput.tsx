@@ -11,98 +11,117 @@ import { GetSuggestionsFunction, SUGGESTIONS_DEBOUNCE_VALUE, useSuggestions } fr
 import { DROPDOWN_MENU_ITEM_HEIGHT } from '../dropdown/dropdownUtils';
 import { useShowLoadingSpinner } from '../../hooks/useShowLoadingSpinner';
 import { LoadingSpinner } from '../loadingSpinner';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
-export type SearchInputProps<SuggestionItem> = {
-  /**
-   * Additional class names to add to the component.
-   */
-  className?: string;
-  /**
-   * The aria-label for the clear button.
-   * @default Clear
-   */
-  clearButtonAriaLabel?: string;
-  /**
-   * Callback function fired every time the input content changes. Receives the input value as a parameter. Must return a promise which resolves to an array of SuggestionItems.
-   */
-  getSuggestions?: GetSuggestionsFunction<SuggestionItem>;
-  /**
-   * The helper text content that will be shown below the input.
-   */
-  helperText?: string;
-  /**
-   * Should the matching part of a suggestion be highlighted.
-   * @default true
-   */
-  highlightSuggestions?: boolean;
-  /**
-   * The label for the search field.
-   */
-  label: React.ReactNode;
-  /**
-   * Text to show for screen readers when loading spinner is no longer visible.
-   * @default "Finished loading suggestions"
-   */
-  loadingSpinnerFinishedText?: string;
-  /**
-   * Text to show for screen readers when loading spinner is visible.
-   * @default "Loading suggestions"
-   */
-  loadingSpinnerText?: string;
-  /**
-   * Callback function fired after search is triggered.
-   */
-  onSubmit: (value: string) => void;
-  /**
-   * Callback function fired after input value has changed. Required for a controlled component.
-   */
-  onChange?: (value: string) => void;
-  /**
-   * Placeholder text for the search input.
-   */
-  placeholder?: string;
-  /**
-   * The aria-label for the search button.
-   * @default Search
-   */
-  searchButtonAriaLabel?: string;
-  /**
-   * Hides the search button.
-   * @default false
-   */
-  hideSearchButton?: boolean;
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  style?: React.CSSProperties;
-  /**
-   * Field of the SuggestionItem that represents the item key. Key needs to be unique between item.
-   * E.g. an `suggestionKeyField` value of `'bar'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would use `'value'` as the key in the menu for that specific item.
-   * Uses value of `suggestionLabelField` by default.
-   */
-  suggestionKeyField?: keyof SuggestionItem;
-  /**
-   * Field of the SuggestionItem that represents the item label.
-   * E.g. an `suggestionLabelField` value of `'foo'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would display `'Label'` in the menu for that specific suggestion.
-   */
-  suggestionLabelField?: keyof SuggestionItem;
-  /**
-   * The value of the input element, required for a controlled component. Remember to use onChange prop as well.
-   */
-  value?: string;
-  /**
-   * The number of suggestions that are visible in the menu before it becomes scrollable.
-   * @default 8
-   */
-  visibleSuggestions?: number;
-};
-
+export type SearchInputProps<SuggestionItem> = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<'div'>,
+  {
+    /**
+     * Additional class names to add to the component.
+     */
+    className?: string;
+    /**
+     * The aria-label for the clear button.
+     * @default Clear
+     */
+    clearButtonAriaLabel?: string;
+    /**
+     * Callback function fired every time the input content changes. Receives the input value as a parameter. Must return a promise which resolves to an array of SuggestionItems.
+     */
+    getSuggestions?: GetSuggestionsFunction<SuggestionItem>;
+    /**
+     * The helper text content that will be shown below the input.
+     */
+    helperText?: string;
+    /**
+     * Should the matching part of a suggestion be highlighted.
+     * @default true
+     */
+    highlightSuggestions?: boolean;
+    /**
+     * The label for the search field.
+     */
+    label: React.ReactNode;
+    /**
+     * Text to show for screen readers when loading spinner is no longer visible.
+     * @default "Finished loading suggestions"
+     */
+    loadingSpinnerFinishedText?: string;
+    /**
+     * Text to show for screen readers when loading spinner is visible.
+     * @default "Loading suggestions"
+     */
+    loadingSpinnerText?: string;
+    /**
+     * Callback function fired after search is triggered.
+     */
+    onSubmit: (value: string) => void;
+    /**
+     * Callback function fired after input value has changed. Required for a controlled component.
+     */
+    onChange?: (value: string) => void;
+    /**
+     * Placeholder text for the search input.
+     */
+    placeholder?: string;
+    /**
+     * The aria-label for the search button.
+     * @default Search
+     */
+    searchButtonAriaLabel?: string;
+    /**
+     * Hides the search button.
+     * @default false
+     */
+    hideSearchButton?: boolean;
+    /**
+     * Props that will be passed to the `<input>` element. Some props are omitted, because the component needs to control the input and for accessibility reasons.
+     */
+    inputProps?: Omit<
+      AllElementPropsWithoutRef<'input'>,
+      | 'aria-expanded'
+      | 'aria-haspopup'
+      | 'aria-owns'
+      | 'id'
+      | 'onChange'
+      | 'onKeyDown'
+      | 'onKeyUp'
+      | 'placeholder'
+      | 'role'
+    >;
+    /**
+     * Override or extend the styles applied to the component.
+     */
+    style?: React.CSSProperties;
+    /**
+     * Field of the SuggestionItem that represents the item key. Key needs to be unique between item.
+     * E.g. an `suggestionKeyField` value of `'bar'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would use `'value'` as the key in the menu for that specific item.
+     * Uses value of `suggestionLabelField` by default.
+     */
+    suggestionKeyField?: keyof SuggestionItem;
+    /**
+     * Field of the SuggestionItem that represents the item label.
+     * E.g. an `suggestionLabelField` value of `'foo'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would display `'Label'` in the menu for that specific suggestion.
+     */
+    suggestionLabelField?: keyof SuggestionItem;
+    /**
+     * The value of the input element, required for a controlled component. Remember to use onChange prop as well.
+     */
+    value?: string;
+    /**
+     * The number of suggestions that are visible in the menu before it becomes scrollable.
+     * @default 8
+     */
+    visibleSuggestions?: number;
+  }
+>;
 export const SearchInput = <SuggestionItem,>({
   className,
   clearButtonAriaLabel = 'Clear',
   getSuggestions,
   helperText,
   highlightSuggestions = false,
+  inputProps,
   label,
   loadingSpinnerFinishedText = 'Finished loading suggestions',
   loadingSpinnerText = 'Loading suggestions',
@@ -110,12 +129,12 @@ export const SearchInput = <SuggestionItem,>({
   placeholder,
   searchButtonAriaLabel = 'Search',
   hideSearchButton = false,
-  style,
   suggestionKeyField,
   suggestionLabelField,
   visibleSuggestions = 8,
   onChange,
   value,
+  ...restWrapperProps
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -251,10 +270,12 @@ export const SearchInput = <SuggestionItem,>({
   }, [onChange, inputValue]);
 
   return (
-    <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
+    <div {...restWrapperProps} className={classNames(styles.root, isOpen && styles.open, className)}>
       {label && <FieldLabel label={label} {...getLabelProps()} />}
       <div className={classNames(styles.wrapper)} ref={getComboboxProps().ref}>
         <input
+          enterKeyHint="search"
+          {...inputProps}
           {...getInputProps({
             onKeyUp: onInputKeyUp,
             onKeyDown: onInputKeyDown,
@@ -265,9 +286,8 @@ export const SearchInput = <SuggestionItem,>({
             'aria-haspopup': getComboboxProps()['aria-haspopup'],
             'aria-owns': getComboboxProps()['aria-owns'],
           })}
-          className={classNames(styles.input)}
+          className={classNames(styles.input, inputProps && inputProps.className)}
           placeholder={placeholder}
-          enterKeyHint="search"
         />
         <div className={styles.buttons}>
           {inputValue.length > 0 && (

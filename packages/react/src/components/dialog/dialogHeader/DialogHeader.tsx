@@ -3,8 +3,10 @@ import React, { RefObject, useContext, useEffect } from 'react';
 import styles from './DialogHeader.module.scss';
 import { IconCross } from '../../../icons';
 import { DialogContext } from '../DialogContext';
+import { AllElementPropsWithRef } from '../../../utils/elementTypings';
+import classNames from '../../../utils/classNames';
 
-export type DialogHeaderProps = {
+export type DialogHeaderProps = AllElementPropsWithRef<'h2'> & {
   /**
    * The id of the heading element.
    */
@@ -19,7 +21,7 @@ export type DialogHeaderProps = {
   iconLeft?: React.ReactNode;
 };
 
-export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
+export const DialogHeader = ({ title, iconLeft, className, ...rest }: DialogHeaderProps) => {
   const { close, closeButtonLabelText, isReadyToShowDialog } = useContext(DialogContext);
   const titleRef: RefObject<HTMLHeadingElement> = React.useRef();
 
@@ -42,7 +44,7 @@ export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
             <IconCross aria-hidden="true" />
           </button>
         )}
-        <h2 id={id} tabIndex={-1} className={styles.dialogTitle} ref={titleRef}>
+        <h2 tabIndex={-1} className={classNames(styles.dialogTitle, className)} ref={titleRef} {...rest}>
           {iconLeft && (
             <span className={styles.dialogTitleLeftIcon} aria-hidden="true">
               {iconLeft}

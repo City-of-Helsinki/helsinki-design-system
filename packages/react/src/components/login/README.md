@@ -1,6 +1,6 @@
 # Settings for hds-demo site
 
-Tunnistamo and Keycloak require registered callback urls. For the demo site, it must be
+Tunnistamo and Helsinki Profile require registered callback urls. For the demo site, it must be
 
 https://city-of-helsinki.github.io/hds-demo/login/
 

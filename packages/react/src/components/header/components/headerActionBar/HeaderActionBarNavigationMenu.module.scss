@@ -42,6 +42,9 @@
 }
 
 .headerNavigationMenu {
+  background-color: var(--nav-mobile-menu-bottom-background-color);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   position: absolute;
   transform: translateY(-100%) translateY(1px);
@@ -50,6 +53,7 @@
     var(--animation-duration-dropwdown) min-height
       calc(var(--animation-duration-dropwdown) + var(--animation-close-delay-dropdown));
   width: 100%;
+  z-index: calc(var(--header-z-index) - 1);
 }
 
 .menu {
@@ -185,9 +189,6 @@
 }
 
 .mobileMenuOpen {
-  background-color: var(--nav-mobile-menu-bottom-background-color);
-  display: flex;
-  flex-direction: column;
   min-height: calc(100vh - var(--action-bar-container-height));
   transform: translateY(0%);
   transition:

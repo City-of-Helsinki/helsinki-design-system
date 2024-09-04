@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { HeaderNavigationMenu } from './HeaderNavigationMenu';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('<HeaderNavigationMenu /> spec', () => {
   it('renders the component', () => {
@@ -14,5 +15,16 @@ describe('<HeaderNavigationMenu /> spec', () => {
     const { container } = render(<HeaderNavigationMenu />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('Native html props are passed to the element', async () => {
+    const navProps = getCommonElementTestProps('nav');
+    // element has ariaLabel prop which overrides aria-label
+    navProps['aria-label'] = 'Real ariaLabel';
+    const { getByTestId } = render(
+      // eslint-disable-next-line react/forbid-component-props
+      <HeaderNavigationMenu {...navProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" />,
+    );
+    const element = getByTestId(navProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, navProps)).toHaveLength(0);
   });
 });

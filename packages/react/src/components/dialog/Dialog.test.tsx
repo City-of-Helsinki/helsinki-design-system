@@ -7,6 +7,9 @@ import { axe } from 'jest-axe';
 import { Dialog, DialogProps } from './Dialog';
 import { DialogHeaderProps } from './dialogHeader/DialogHeader';
 import { IconAlertCircle } from '../../icons';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
+import { DialogContentProps } from './dialogContent/DialogContent';
+import { DialogActionButtonProps } from './dialogActionButtons/DialogActionButtons';
 
 const descriptionId = 'test-dialog-description-id';
 const descriptionText = 'This is a test dialog content';
@@ -26,25 +29,54 @@ const dialogProps: DialogProps = {
   'aria-describedby': descriptionId,
 };
 
-const renderOpenDialog = () =>
+const renderProps = {
+  base: getCommonElementTestProps('div', dialogProps),
+  header: {
+    'data-testid': 'dialog-header-test-id',
+    id: 'dialog-header-id',
+    'aria-label': 'dialog-header',
+  },
+  content: {
+    'data-testid': 'dialog-content-test-id',
+    id: 'dialog-content-id',
+    'aria-labelledby': 'content-label',
+  },
+  button: {
+    'data-testid': 'dialog-buttons-test-id',
+    id: 'dialog-buttons-id',
+    'aria-labelledby': 'buttons-label',
+  },
+};
+
+const renderOpenDialog = (
+  extraProps: {
+    base?: Partial<DialogProps>;
+    header?: Partial<DialogHeaderProps>;
+    content?: Partial<DialogContentProps>;
+    button?: Partial<DialogActionButtonProps>;
+  } = {},
+) =>
   render(
     <Dialog
       id={dialogProps.id}
       aria-labelledby={dialogProps['aria-labelledby']}
       aria-describedby={dialogProps['aria-describedby']}
-      isOpen
       close={closeFn}
       closeButtonLabelText={closeButtonLabelText}
+      {...extraProps.base}
+      isOpen
     >
       <Dialog.Header
         id={dialogHeaderProps.id}
         title={dialogHeaderProps.title}
         iconLeft={<IconAlertCircle aria-hidden="true" />}
+        {...extraProps.header}
       />
-      <Dialog.Content>
+
+      <Dialog.Content {...extraProps.content}>
         <p id={dialogProps['aria-describedby']}>{descriptionText}</p>
       </Dialog.Content>
-      <Dialog.ActionButtons>
+      <Dialog.ActionButtons {...extraProps.button}>
         <button type="button">{contentButtonText}</button>
       </Dialog.ActionButtons>
     </Dialog>,
@@ -56,14 +88,29 @@ describe('<Dialog /> spec', () => {
   it('renders the component', () => {
     // Because the dialog is rendered with React's createPortal inside the document.body we need to compare baseElement to snapshot.
     // Besides, it is beneficial to include the document.body into a snapshot since the dialog will toggle its class.
-    const { baseElement } = renderOpenDialog();
+    const { baseElement } = renderOpenDialog(renderProps);
     expect(baseElement).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
     renderOpenDialog();
-    const dialog = await axe(screen.queryByRole('dialog'));
+    const dialog = await axe(screen.queryByRole('dialog') as HTMLElement);
     expect(dialog).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const { getByTestId } = renderOpenDialog(renderProps);
+    const baseElement = getByTestId(renderProps.base['data-testid']);
+    expect(getElementAttributesMisMatches(baseElement, renderProps.base)).toHaveLength(0);
+
+    const headerElement = getByTestId(renderProps.header['data-testid']);
+    expect(getElementAttributesMisMatches(headerElement, renderProps.header)).toHaveLength(0);
+
+    const contentElement = getByTestId(renderProps.content['data-testid']);
+    expect(getElementAttributesMisMatches(contentElement, renderProps.content)).toHaveLength(0);
+
+    const buttonsElement = getByTestId(renderProps.button['data-testid']);
+    expect(getElementAttributesMisMatches(buttonsElement, renderProps.button)).toHaveLength(0);
   });
 
   it('should rotate focus when user navigates with tabs', async () => {
@@ -157,7 +204,7 @@ describe('<Dialog /> spec', () => {
     render(<DialogWithOpenState />);
     expect(screen.queryByRole('dialog')).toBeInTheDocument();
     act(() => {
-      userEvent.type(screen.queryByRole('dialog'), '{esc}');
+      userEvent.type(screen.queryByRole('dialog') as HTMLElement, '{esc}');
     });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });

@@ -5,6 +5,7 @@ title: 'Koros - Code'
 
 import { Koros } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -284,3 +285,6 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `flipVertical`   | If set to true, the koro shape will be flipped vertically.   | `boolean`                                                                        | false         |
 | `rotate`         | Controls the rotation of the koro shape.                     | `"45deg"`, `"90deg"`, `"135deg"`, `"180deg"`, `"225deg"`, `"270deg"`, `"315deg"` | -             |
 | `type`           | Controls the type (shape) of the koro.                       | `"basic"`, `"beat"`, `"pulse"`, `"wave"`, `"vibration"`, `"calm"`                    | `"basic"`     |
+| [Table 1:Koros properties] |
+
+<NativeElementPropsInfo nodeName="div" />

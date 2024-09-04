@@ -7,6 +7,7 @@ import { FooterWrapper } from '../../../../utils/test-utils';
 import { Footer } from '../../Footer';
 import { FooterVariant } from '../../Footer.interface';
 import { Logo } from '../../../logo';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('<Footer.Base /> spec', () => {
   const mockDate = new Date(2020, 1, 1);
@@ -55,6 +56,34 @@ describe('<Footer.Base /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    divProps.role = 'role';
+    // element has "ariaLabel", which should override "aria-label"
+    divProps['aria-label'] = 'Real ariaLabel';
+    const { getByTestId } = render(
+      <FooterBase
+        {...divProps}
+        copyrightHolder="Copyright"
+        copyrightText="All rights reserved"
+        backToTopLabel="Ylös"
+        logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+        aria-label="Is overridden"
+        // eslint-disable-next-line react/forbid-component-props
+        ariaLabel="Real ariaLabel"
+      >
+        <Footer.Link label="Link 1" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 2" variant={FooterVariant.Base} />
+        <Footer.Link label="Link 3" variant={FooterVariant.Base} />
+      </FooterBase>,
+      {
+        wrapper: FooterWrapper,
+      },
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 
   it('should scroll to top', () => {

@@ -11,6 +11,7 @@ import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 type Header = {
   /**
@@ -50,26 +51,30 @@ export interface TableCustomTheme {
 
 type SelectedRow = string | number;
 
-export type TableProps = {
+export type TableProps = AllElementPropsWithoutRef<'table'> & {
   /**
    * Aria-label for checkbox selection.
    * @default 'Rivin valinta'
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabelCheckboxSelection?: string;
   /**
    * Aria-label for sort button in ascending state.
    * @default 'Järjestetty nousevaan järjestykseen'
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabelSortButtonAscending?: string;
   /**
    * Aria-label for sort button in descending state.
    * @default 'Järjestetty laskevaan järjestykseen'
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabelSortButtonDescending?: string;
   /**
    * Aria-label for sort button in the unordered state.
    * @default ''
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabelSortButtonUnset?: string;
   /**
    * Caption of the table.
@@ -96,7 +101,10 @@ export type TableProps = {
   /**
    * Test id attribute that is passed to the html table element.
    * @default 'hds-table-data-testid'
+   * @deprecated Will be replaced in the next major release with "data-testid"
+   *
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   dataTestId?: string;
   /**
    * Boolean indicating whether to use the dense variant of the table.
@@ -194,7 +202,7 @@ export type TableProps = {
    * Boolean indicating whether the table has alternating row colors zebra style.
    */
   zebra?: boolean;
-} & React.ComponentPropsWithoutRef<'table'>;
+};
 
 const processRows = (rows, order, sorting, cols) => {
   const sortingEnabled = cols.some((column) => {
@@ -383,6 +391,7 @@ export const Table = ({
       )}
       <TableContainer
         variant={variant}
+        // eslint-disable-next-line react/forbid-component-props
         dataTestId={dataTestId}
         dense={dense}
         id={id}
@@ -406,8 +415,11 @@ export const Table = ({
                     key={column.key}
                     colKey={column.key}
                     title={column.headerName}
+                    // eslint-disable-next-line react/forbid-component-props
                     ariaLabelSortButtonUnset={ariaLabelSortButtonUnset}
+                    // eslint-disable-next-line react/forbid-component-props
                     ariaLabelSortButtonAscending={ariaLabelSortButtonAscending}
+                    // eslint-disable-next-line react/forbid-component-props
                     ariaLabelSortButtonDescending={ariaLabelSortButtonDescending}
                     setSortingAndOrder={setSortingAndOrder}
                     onSort={onSort}

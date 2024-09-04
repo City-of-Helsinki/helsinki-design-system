@@ -9,35 +9,60 @@ import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
 import useHasMounted from '../../hooks/useHasMounted';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface AccordionCustomTheme {
   '--background-color'?: string;
   '--border-color'?: string;
   '--padding-horizontal'?: string;
   '--padding-vertical'?: string;
+  /**
+   * @deprecated Will be replaced with --header-color in the next major release
+   */
   '--header-font-color'?: string;
   '--header-font-size'?: string;
+  '--header-font-weight'?: string;
+  '--header-letter-spacing'?: string;
   '--header-line-height'?: string;
+  /**
+   * @deprecated Will be replaced with --icon-size in the next major release
+   */
   '--button-size'?: string;
+  /**
+   * @deprecated Will be replaced with --header-outline-color-focus in the next major release
+   */
   '--header-focus-outline-color'?: string;
+  '--content-font-color'?: string;
   '--content-font-size'?: string;
   '--content-line-height'?: string;
   '--close-button-background-color-disabled'?: string;
   '--close-button-background-color-focus'?: string;
+  /**
+   * @deprecated Will be removed in the next major release
+   */
   '--close-button-background-color-hover-focus'?: string;
   '--close-button-background-color-hover'?: string;
   '--close-button-background-color'?: string;
   '--close-button-border-color-active'?: string;
   '--close-button-border-color-disabled'?: string;
   '--close-button-border-color-focus'?: string;
+  /**
+   * @deprecated Will be removed in the next major release
+   */
   '--close-button-border-color-hover-focus'?: string;
   '--close-button-border-color-hover'?: string;
   '--close-button-border-color'?: string;
   '--close-button-color-disabled'?: string;
   '--close-button-color-focus'?: string;
+  /**
+   * @deprecated Will be removed in the next major release
+   */
   '--close-button-color-hover-focus'?: string;
   '--close-button-color-hover'?: string;
   '--close-button-color'?: string;
+  /**
+   * @deprecated Will be replaced with --close-button-outline-color-focus in the next major release
+   */
   '--close-button-focus-outline-color'?: string;
 }
 
@@ -115,7 +140,7 @@ export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> &
   card: true;
 };
 
-export type AccordionProps = CommonAccordionProps | CardAccordionProps;
+export type AccordionProps = AllElementPropsWithoutRef<'div'> & (CommonAccordionProps | CardAccordionProps);
 
 const getCloseMessage = (language: Language): string => {
   return {
@@ -138,14 +163,13 @@ export const Accordion = ({
   initiallyOpen = false,
   language = 'fi',
   size = 'm',
-  style,
   theme,
+  ...rest
 }: AccordionProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [beforeCloseButtonClick, setBeforeCloseButtonClick] = useState(false);
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
-
   // Custom themes
   const sovereignThemeVariables = theme && {
     '--background-color': theme['--background-color'],
@@ -240,6 +264,7 @@ export const Accordion = ({
 
   return (
     <div
+      {...rest}
       className={classNames(
         styles.accordion,
         card && styles.card,
@@ -250,7 +275,6 @@ export const Accordion = ({
         sizeDependentThemeClass,
         className,
       )}
-      style={style}
       id={accordionId}
     >
       <div className={classNames(styles.accordionHeader)}>

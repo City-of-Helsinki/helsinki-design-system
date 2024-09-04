@@ -9,11 +9,12 @@ import { getShapeHeight, Koros, KorosProps } from '../koros';
 import { Text } from './Text';
 import { Title } from './Title';
 import { IconArrowDown } from '../../icons';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-type HTMLElementAttributes = React.HtmlHTMLAttributes<HTMLDivElement>;
-type ImgElementAttributes = React.ImgHTMLAttributes<HTMLImageElement>;
+type DivElementAttributes = AllElementPropsWithoutRef<'div'>;
+type ImgElementAttributes = AllElementPropsWithoutRef<'img'>;
 export type HeroProps = React.PropsWithChildren<
-  HTMLElementAttributes & {
+  DivElementAttributes & {
     /**
      * Show arrow icon
      */
@@ -132,13 +133,13 @@ export const Hero = ({
   const customThemeClass = useTheme<HeroCustomTheme>(styles.hero, editableTheme);
   const korosStyle = { ...koros, style: { fill: 'var(--koros-color)' } };
 
-  const heroElementAttributes: HTMLElementAttributes = {
+  const heroElementAttributes: DivElementAttributes = {
     ...elementAttributes,
     className: classNames(
       styles.hero,
       customThemeClass,
       styles[currentVariant],
-      (elementAttributes as HTMLElementAttributes).className,
+      (elementAttributes as DivElementAttributes).className,
       showArrowIcon && styles.arrowIconSpacingAfter,
     ),
   };
@@ -193,9 +194,10 @@ export const Hero = ({
     const { inward, containerClassName, style, ...korosProps } = props;
     const className =
       containerClassName || (inward !== true ? styles.korosContainer : styles.korosContainerInwardKoros);
+    const mergedKorosProps: KorosProps = { ...korosProps, style };
     return (
       <div className={className}>
-        <Koros {...{ ...korosProps, style, shift: false, compact: false }} />
+        <Koros {...mergedKorosProps} />
       </div>
     );
   };
