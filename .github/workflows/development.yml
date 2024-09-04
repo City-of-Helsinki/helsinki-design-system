@@ -6,6 +6,7 @@ on:
     branches:
       - development
       - master
+      - visual_test_failure
 
 jobs:
   build-test:
@@ -13,6 +14,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: debug prints 1
+        run: |
+          ls -al packages/react/
+          ls -al packages/react/.loki/reference
 
       - name: Read .nvmrc
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
@@ -53,6 +59,11 @@ jobs:
         if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
         run: yarn build-storybook
         working-directory: ./packages/react
+
+      - name: debug prints 2
+        run: |
+          ls -al packages/react/
+          ls -al packages/react/.loki/reference
 
       - name: Store storybook as artifact
         if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
