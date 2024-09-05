@@ -16,7 +16,7 @@ const renderPagination = ({ pageCount, pageIndex, siblingCount }) => {
       pageHref={() => '#'}
       language="en"
       siblingCount={siblingCount}
-      dataTestId="hds-pagination"
+      data-testid="hds-pagination"
     />,
   );
 
@@ -45,11 +45,7 @@ describe('<Pagination /> spec', () => {
   });
 
   it('native html props are passed to the element', async () => {
-    const navProps = getCommonElementTestProps<'nav', Pick<PaginationProps, 'dataTestId' | 'paginationAriaLabel'>>(
-      'nav',
-    );
-    // the component has "dataTestId" prop
-    navProps.dataTestId = navProps['data-testid'];
+    const navProps = getCommonElementTestProps<'nav', Pick<PaginationProps, 'paginationAriaLabel'>>('nav');
     // aria-label is from "paginationAriaLabel" prop
     navProps.paginationAriaLabel = navProps['aria-label'] as string;
     const { getByTestId } = render(
@@ -66,7 +62,6 @@ describe('<Pagination /> spec', () => {
     expect(
       getElementAttributesMisMatches(element, {
         ...navProps,
-        dataTestId: undefined,
         paginationAriaLabel: undefined,
       } as HTMLAttributes<HTMLElement>),
     ).toHaveLength(0);

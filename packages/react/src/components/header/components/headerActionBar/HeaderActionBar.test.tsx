@@ -23,7 +23,7 @@ const getLanguageLabelByValue: StrFn = (val) => languages.find((obj) => obj.valu
 const LogoWithLanguageCheck = () => {
   const lang = useActiveLanguage();
   const src = lang === 'sv' ? logoSv : logoFi;
-  return <Logo src={src} dataTestId="action-bar-logo" alt="Helsingin kaupunki" />;
+  return <Logo src={src} data-testid="action-bar-logo" alt="Helsingin kaupunki" />;
 };
 
 const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
@@ -41,7 +41,7 @@ describe('<HeaderActionBar /> spec', () => {
     const { asFragment } = render(
       <HeaderActionBar
         title="Test"
-        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
       />,
@@ -54,7 +54,7 @@ describe('<HeaderActionBar /> spec', () => {
     const { container } = render(
       <HeaderActionBar
         title="Test"
-        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
       />,
@@ -74,7 +74,7 @@ describe('<HeaderActionBar /> spec', () => {
       <HeaderActionBar
         {...divProps}
         title="Test"
-        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
         aria-label="Is overridden"

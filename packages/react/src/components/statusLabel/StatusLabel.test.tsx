@@ -17,15 +17,12 @@ describe('<StatusLabel /> spec', () => {
   });
 
   it('native html props are passed to the element', async () => {
-    const spanProps = getCommonElementTestProps<'span', Pick<StatusLabelProps, 'dataTestId'>>('span');
-    // Element has prop "dataTestId", but ..rest is applied after it so, data-testid will override it.
-    spanProps.dataTestId = 'This is overridden';
+    const spanProps = getCommonElementTestProps<'span'>('span');
     const { getByTestId } = render(<StatusLabel {...spanProps} />);
     const element = getByTestId(spanProps['data-testid']);
     expect(
       getElementAttributesMisMatches(element, {
         ...spanProps,
-        dataTestId: undefined,
       } as unknown as HTMLAttributes<HTMLSpanElement>),
     ).toHaveLength(0);
   });
