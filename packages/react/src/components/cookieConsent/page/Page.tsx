@@ -29,7 +29,6 @@ export function Page(): React.ReactElement | null {
             size={NotificationSize.Small}
             type="success"
             label="Saved"
-            // eslint-disable-next-line react/forbid-component-props
             data-testid="cookie-consent-save-notification"
             className={styles.saveNotification}
           >

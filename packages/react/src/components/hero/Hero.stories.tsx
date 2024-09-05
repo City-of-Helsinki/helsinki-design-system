@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Hero, HeroCustomTheme, HeroProps } from './Hero';
@@ -212,7 +211,7 @@ const NavigationComponent = () => (
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       frontPageLabel="Etusivu"
     >
-      <Header.LanguageSelector ariaLabel="Kielen valinta" />
+      <Header.LanguageSelector aria-label="Kielen valinta" />
     </Header.ActionBar>
     <Header.NavigationMenu>
       <Header.Link href="#" label="Link" active onClick={(e) => e.preventDefault()} />

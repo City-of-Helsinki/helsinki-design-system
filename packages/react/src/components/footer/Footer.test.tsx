@@ -28,12 +28,7 @@ describe('<Footer /> spec', () => {
 
   it('native html props are passed to the element', async () => {
     const footerProps = getCommonElementTestProps<'footer'>('footer');
-    // footer has "ariaLabel", which should override "aria-label"
-    footerProps['aria-label'] = 'Real ariaLabel';
-    const { getByTestId } = render(
-      // eslint-disable-next-line react/forbid-component-props
-      <Footer footerProps={footerProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" title="Bar" />,
-    );
+    const { getByTestId } = render(<Footer footerProps={footerProps} title="Bar" />);
     const element = getByTestId(footerProps['data-testid']);
     expect(getElementAttributesMisMatches(element, footerProps)).toHaveLength(0);
   });

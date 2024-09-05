@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Logo, LogoProps } from './Logo';
+import { Logo } from './Logo';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Logo /> spec', () => {

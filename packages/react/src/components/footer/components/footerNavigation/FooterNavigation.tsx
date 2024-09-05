@@ -10,21 +10,15 @@ import classNames from '../../../../utils/classNames';
 export type FooterNavigationProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
-     * aria-label for describing Footer.Navigation.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * ARIA role to describe the contents.
      */
     role?: string;
   }
 >;
-export const FooterNavigation = ({ ariaLabel, children, className, ...rest }: FooterNavigationProps) => {
+export const FooterNavigation = ({ children, className, ...rest }: FooterNavigationProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
-    <div {...rest} className={classNames(styles.navigation, className)} aria-label={ariaLabel}>
+    <div {...rest} className={classNames(styles.navigation, className)}>
       {childElements.map((child, childIndex) => {
         return (
           // eslint-disable-next-line react/no-array-index-key

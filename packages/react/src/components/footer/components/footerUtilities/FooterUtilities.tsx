@@ -10,12 +10,6 @@ import { FooterLinkProps } from '../footerLink/FooterLink';
 
 export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
   /**
-   * aria-label for describing Footer.Utilities.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
-  /**
    * Children elements to render.
    */
   children: React.ReactNode;
@@ -35,7 +29,6 @@ export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
 };
 
 export const FooterUtilities = ({
-  ariaLabel,
   children,
   soMeLinks,
   soMeSectionProps,
@@ -44,7 +37,7 @@ export const FooterUtilities = ({
 }: FooterUtilitiesProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
-    <div {...rest} className={classNames(styles.utilities, className)} aria-label={ariaLabel}>
+    <div {...rest} className={classNames(styles.utilities, className)}>
       <hr className={styles.divider} aria-hidden />
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>
         {childElements.map((child, childIndex) => {
