@@ -11,12 +11,6 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 export type HeaderUniversalBarProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
-     * Aria-label for describing UniversalBar.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Additional class names to apply.
      */
     className?: string;
@@ -44,7 +38,6 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<
 >;
 
 export const HeaderUniversalBar = ({
-  ariaLabel,
   className,
   children,
   primaryLinkHref,
@@ -64,7 +57,7 @@ export const HeaderUniversalBar = ({
 
   return (
     <div className={styles.headerUniversalBarContainer}>
-      <div {...rest} aria-label={ariaLabel} className={classNames(styles.headerUniversalBar, className)}>
+      <div {...rest} className={classNames(styles.headerUniversalBar, className)}>
         <ul className={styles.headerUniversalBarList}>
           <li className={styles.universalBarMainLinkContainer}>
             <HeaderLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />

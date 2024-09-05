@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 import { screen, render, fireEvent } from '@testing-library/react';
 import { axe } from 'jest-axe';
@@ -68,8 +67,6 @@ describe('<HeaderActionBar /> spec', () => {
     const divProps = getCommonElementTestProps('div');
     // check that removed specific "role" props is still added in ...rest
     divProps.role = 'role';
-    // header has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
       <HeaderActionBar
         {...divProps}
@@ -77,8 +74,6 @@ describe('<HeaderActionBar /> spec', () => {
         logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
-        aria-label="Is overridden"
-        ariaLabel="Real ariaLabel"
       />,
       { wrapper: HeaderWrapper },
     );

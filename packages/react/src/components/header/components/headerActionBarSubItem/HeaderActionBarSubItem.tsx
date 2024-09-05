@@ -20,10 +20,6 @@ type ElementProps = React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> 
 
 export interface HeaderActionBarSubItemProps extends ElementProps {
   /**
-   * Aria-label attribute for the action bar item.
-   */
-  'aria-label'?: React.ComponentProps<'button'>['aria-label'];
-  /**
    * Icon element (on the start side of the label) for the action bar item.
    */
   iconStart?: ReactNode;

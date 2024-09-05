@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Footer, FooterProps } from './Footer';
@@ -20,7 +19,7 @@ const Utilities = () => {
     return [
       <Footer.Link
         title="Helsingin kaupungin Facebook-tili"
-        ariaLabel="Helsingin kaupungin Facebook-tili"
+        aria-label="Helsingin kaupungin Facebook-tili"
         external
         openInNewTab
         icon={<IconFacebook />}
@@ -28,7 +27,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Twitter-tili"
-        ariaLabel="Helsingin kaupungin Twitter-tili"
+        aria-label="Helsingin kaupungin Twitter-tili"
         external
         openInNewTab
         icon={<IconTwitter />}
@@ -36,7 +35,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Instagram-tili"
-        ariaLabel="Helsingin kaupungin Instagram-tili"
+        aria-label="Helsingin kaupungin Instagram-tili"
         external
         openInNewTab
         icon={<IconInstagram />}
@@ -44,7 +43,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Youtube-tili"
-        ariaLabel="Helsingin kaupungin Youtube-tili"
+        aria-label="Helsingin kaupungin Youtube-tili"
         external
         openInNewTab
         icon={<IconYoutube />}
@@ -52,7 +51,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Tiktok-tili"
-        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        aria-label="Helsingin kaupungin Tiktok-tili"
         external
         openInNewTab
         icon={<IconTiktok />}
@@ -201,7 +200,7 @@ export const Example = (args: FooterProps) => (
       soMeLinks={[
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           external
           openInNewTab
           icon={<IconFacebook />}
@@ -209,7 +208,7 @@ export const Example = (args: FooterProps) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
+          aria-label="Helsingin kaupungin Twitter-tili"
           external
           openInNewTab
           icon={<IconTwitter />}
@@ -217,7 +216,7 @@ export const Example = (args: FooterProps) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
+          aria-label="Helsingin kaupungin Instagram-tili"
           external
           openInNewTab
           icon={<IconInstagram />}
@@ -225,7 +224,7 @@ export const Example = (args: FooterProps) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin LinkedIn-tili"
-          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          aria-label="Helsingin kaupungin LinkedIn-tili"
           external
           openInNewTab
           icon={<IconLinkedin />}
@@ -233,7 +232,7 @@ export const Example = (args: FooterProps) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin Youtube-tili"
-          ariaLabel="Helsingin kaupungin Youtube-tili"
+          aria-label="Helsingin kaupungin Youtube-tili"
           external
           openInNewTab
           icon={<IconYoutube />}
@@ -310,7 +309,7 @@ export const UtilityGroups = (args: FooterProps) => (
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconFacebook />}
@@ -319,7 +318,7 @@ export const UtilityGroups = (args: FooterProps) => (
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconFacebook />}
@@ -328,7 +327,7 @@ export const UtilityGroups = (args: FooterProps) => (
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
           label="Twitter"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
+          aria-label="Helsingin kaupungin Twitter-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconTwitter />}
@@ -337,7 +336,7 @@ export const UtilityGroups = (args: FooterProps) => (
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
           label="Instagram"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
+          aria-label="Helsingin kaupungin Instagram-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconInstagram />}

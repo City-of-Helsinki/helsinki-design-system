@@ -3,7 +3,7 @@ import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Stepper, StepperProps } from './Stepper';
+import { Stepper } from './Stepper';
 import { StepState } from './Step';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 

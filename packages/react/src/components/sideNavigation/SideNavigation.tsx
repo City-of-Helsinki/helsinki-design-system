@@ -47,12 +47,6 @@ export type SideNavigationProps = React.PropsWithChildren<
      */
     id: string;
     /**
-     * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Override or extend the styles applied to the component
      */
     // eslint-disable-next-line react/no-unused-prop-types
@@ -73,7 +67,6 @@ export const SideNavigation = ({
   className,
   defaultOpenMainLevels = [],
   id,
-  ariaLabel,
   theme,
   toggleButtonLabel,
   ...rest
@@ -141,13 +134,7 @@ export const SideNavigation = ({
         setActiveParentLevel,
       }}
     >
-      <nav
-        {...rest}
-        className={classNames(styles.sideNavigation, customThemeClass, className)}
-        id={id}
-        aria-label={ariaLabel}
-        ref={container}
-      >
+      <nav {...rest} className={classNames(styles.sideNavigation, customThemeClass, className)} id={id} ref={container}>
         {skipLink && skipLink}
         {/* Toggle button is visible only on small screen size */}
         <Button
