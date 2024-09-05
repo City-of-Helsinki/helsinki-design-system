@@ -63,12 +63,6 @@ export type StepperProps = AllElementPropsWithoutRef<'div'> & {
    */
   className?: string;
   /**
-   * Data test id of stepper
-   * @deprecated Will be replaced in the next major release with "data-testid"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  dataTestId?: string;
-  /**
    * A custom class name for step heading
    */
   headingClassName?: string;
@@ -136,7 +130,7 @@ export const Stepper = ({
   stepHeading,
   stepHeadingAriaLevel = 2,
   headingClassName,
-  dataTestId,
+  'data-testid': dataTestId,
   renderCustomStepHeading,
   steps,
   theme,
@@ -286,8 +280,7 @@ export const Stepper = ({
               }}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
-              // eslint-disable-next-line react/forbid-component-props
-              dataTestId={dataTestId ? `${dataTestId}-step-${index}` : undefined}
+              data-testid={dataTestId ? `${dataTestId}-step-${index}` : undefined}
             />
           );
         })}

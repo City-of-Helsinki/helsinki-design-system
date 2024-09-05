@@ -100,13 +100,6 @@ export type TableProps = AllElementPropsWithoutRef<'table'> & {
    */
   customActionButtons?: React.ReactNode[];
   /**
-   * Test id attribute that is passed to the html table element.
-   * @deprecated Will be replaced in the next major release with "data-testid"
-   *
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  dataTestId?: string;
-  /**
    * Boolean indicating whether to use the dense variant of the table.
    * @default false
    */
@@ -256,7 +249,7 @@ export const Table = ({
   clearSelectionsText = 'Tyhjennä valinnat',
   cols,
   customActionButtons,
-  dataTestId,
+  'data-testid': dataTestId,
   dense = false,
   heading,
   headingAriaLevel = 2,
@@ -401,7 +394,7 @@ export const Table = ({
       <TableContainer
         variant={variant}
         // eslint-disable-next-line react/forbid-component-props
-        dataTestId={dataTestId}
+        data-testid={dataTestId}
         dense={dense}
         id={id}
         zebra={zebra}

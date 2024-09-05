@@ -60,11 +60,6 @@ export type LogoProps = AllElementPropsWithoutRef<'img'> &
      */
     className?: string;
     /**
-     * Adds a data-testid attribute to the root element with the given value
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    dataTestId?: string;
-    /**
      * The size of the logo
      * @default 'full'
      */
@@ -83,14 +78,13 @@ export type LogoProps = AllElementPropsWithoutRef<'img'> &
     style?: React.CSSProperties;
   };
 
-export const Logo = ({ alt, className, dataTestId, size = LogoSize.Full, style, ...rest }: LogoProps) => {
+export const Logo = ({ alt, className, size = LogoSize.Full, style, ...rest }: LogoProps) => {
   const props = {
     ...rest,
     alt,
     size,
     className: classNames(styles.logo, size !== LogoSize.Full && styles[size], className),
     style,
-    'data-testid': dataTestId,
   };
 
   return <img alt={alt} {...props} />;

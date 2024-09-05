@@ -30,7 +30,7 @@ export function Page(): React.ReactElement | null {
             type="success"
             label="Saved"
             // eslint-disable-next-line react/forbid-component-props
-            dataTestId="cookie-consent-save-notification"
+            data-testid="cookie-consent-save-notification"
             className={styles.saveNotification}
           >
             {settingsSaved}
