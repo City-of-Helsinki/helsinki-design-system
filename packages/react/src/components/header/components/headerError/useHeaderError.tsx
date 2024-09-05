@@ -5,8 +5,8 @@ import { HeaderContextType, useHeaderContext, useSetHeaderContext } from '../../
 
 /**
  * This hook manages data for login/logout errors and the notification for the error.
- * Related components are detected with dataTestId and data-hds-header-error-usage.
- * Latter could not be used with Notification components, so had to use dataTestId.
+ * Related components are detected with data-testid and data-hds-header-error-usage.
+ * Latter could not be used with Notification components, so had to use data-testid.
  * First one could not be used with other elements because user's might need it.
  *
  * For accessibility reasons, the user should be able to move with keyboard
@@ -120,8 +120,7 @@ export const useHeaderError = ({ usage, errorLabel, errorText, errorPosition, er
   };
 
   const getElementProps = (): React.HTMLAttributes<HTMLElement> & {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    dataTestId?: string;
+    [dataTestIdAttributeName]?: string;
     [dataAttributeName]?: string;
     onClose?: () => void;
   } => {
@@ -130,7 +129,7 @@ export const useHeaderError = ({ usage, errorLabel, errorText, errorPosition, er
         return {};
       }
       return {
-        dataTestId: notificationTestIdValue,
+        [dataTestIdAttributeName]: notificationTestIdValue,
         onClose: () => {
           setFocusBackToElement(error);
           setError(undefined);

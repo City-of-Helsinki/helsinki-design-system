@@ -139,12 +139,6 @@ export type PaginationProps = MergeAndOverrideProps<
   AllElementPropsWithoutRef<'nav'>,
   {
     /**
-     * Data test id of pagination
-     * @deprecated Will be replaced in the next major release with "data-testid"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    dataTestId?: string;
-    /**
      * If true, hide the next-page button
      * @default false
      */
@@ -195,7 +189,7 @@ export type PaginationProps = MergeAndOverrideProps<
 >;
 
 export const Pagination = ({
-  dataTestId,
+  'data-testid': dataTestId,
   hideNextButton = false,
   hidePrevButton = false,
   language = 'fi',

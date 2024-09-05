@@ -78,14 +78,13 @@ export type LogoProps = AllElementPropsWithoutRef<'img'> &
     style?: React.CSSProperties;
   };
 
-export const Logo = ({ alt, className, dataTestId, size = LogoSize.Full, style, ...rest }: LogoProps) => {
+export const Logo = ({ alt, className, size = LogoSize.Full, style, ...rest }: LogoProps) => {
   const props = {
     ...rest,
     alt,
     size,
     className: classNames(styles.logo, size !== LogoSize.Full && styles[size], className),
     style,
-    'data-testid': dataTestId,
   };
 
   return <img alt={alt} {...props} />;

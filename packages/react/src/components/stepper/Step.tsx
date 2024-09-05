@@ -16,12 +16,6 @@ export enum StepState {
 
 export type StepProps = {
   /**
-   * Data test id of step
-   * @deprecated Will be replaced in the next major release with "data-testid"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  dataTestId?: string;
-  /**
    * The label of the step
    */
   label: string;
@@ -117,7 +111,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
       stepsTotal,
       renderCustomStateAriaLabel,
       onStepClick,
-      dataTestId,
       ...rest
     }: StepProps,
     ref?: React.RefObject<HTMLButtonElement>,
@@ -158,7 +151,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           aria-current={selected ? 'step' : false}
           aria-label={composeAriaLabel()}
           onClick={(e) => onStepClick && onStepClick(e, index)}
-          data-testid={dataTestId}
           {...rest}
         >
           <div className={styles.circleContainer}>

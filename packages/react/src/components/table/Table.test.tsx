@@ -76,7 +76,7 @@ describe('<Table /> spec', () => {
       rows,
       indexKey,
       renderIndexCol,
-      dataTestId: 'hds-table-data-testid',
+      'data-testid': 'hds-table-data-testid',
     };
   });
 
@@ -231,9 +231,7 @@ describe('<Table /> spec', () => {
   });
 
   it('native html props are passed to the element', async () => {
-    const tableProps = getCommonElementTestProps<'table', Pick<TableProps, 'dataTestId'>>('table');
-    // the component has "dataTestId" prop
-    tableProps.dataTestId = tableProps['data-testid'];
+    const tableProps = getCommonElementTestProps<'table'>('table');
     const { getByTestId } = render(
       <Table {...tableProps} caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol />,
     );
@@ -241,7 +239,6 @@ describe('<Table /> spec', () => {
     expect(
       getElementAttributesMisMatches(element, {
         ...tableProps,
-        dataTestId: undefined,
       } as HTMLAttributes<HTMLTableElement>),
     ).toHaveLength(0);
   });
