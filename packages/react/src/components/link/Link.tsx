@@ -32,7 +32,6 @@ export type LinkProps = {
   href: string;
   /**
    * Element placed on the left side of the link text
-   * @deprecated Will be replaced with iconStart in the next major release.
    */
   iconStart?: React.ReactNode;
   /**
