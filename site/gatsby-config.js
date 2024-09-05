@@ -1,5 +1,3 @@
-const { version } = require("../package.json");
-
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
@@ -152,7 +150,15 @@ module.exports = {
         path: `${__dirname}/src/docs`,
       },
     },
-
+    {
+      resolve: `gatsby-source-git`,
+      options: {
+        name: `docs-release-3.9.0`,
+        remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
+        branch: `release-3.9.0`,
+        patterns: `site/src/docs/**`,
+      },
+    },
     {
       resolve: `gatsby-source-git`,
       options: {
@@ -162,18 +168,6 @@ module.exports = {
         patterns: `site/src/docs/**`,
       },
     },
-/*
-    {
-      resolve: `gatsby-source-git`,
-      options: {
-        name: `docs-release-2.17.0`,
-        remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
-        branch: `release-2.17.0`,
-        patterns: `site/src/docs/**`,
-      },
-    },
-*/
-
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
