@@ -49,6 +49,7 @@ jobs:
         with:
           name: e2e_test_report
           path: e2e/report/**
+          include-hidden-files: true
         # if: failure()
 
       - name: Publish Test Results
