@@ -15,12 +15,6 @@ import classNames from '../../../../utils/classNames';
 export type FooterBaseProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
-     * aria-label for describing Footer.Base.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Label for the "Back to top" button.
      */
     backToTopLabel?: string | React.ReactNode;
@@ -74,7 +68,6 @@ const handleBackToTop = (): void => {
 };
 
 export const FooterBase = ({
-  ariaLabel,
   backToTopLabel,
   children,
   copyrightHolder,
@@ -91,7 +84,7 @@ export const FooterBase = ({
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   return (
-    <div {...rest} className={classNames(styles.base, className)} aria-label={ariaLabel}>
+    <div {...rest} className={classNames(styles.base, className)}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
         <FooterLink tabIndex={0} icon={logo} href={logoHref} onClick={handleLogoClick} />

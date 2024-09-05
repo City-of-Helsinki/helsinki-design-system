@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
@@ -249,7 +248,7 @@ const FullFeaturedActionBar = ({ I18n, lang, theme }) => {
       menuButtonAriaLabel={I18n.ariaMenuButton}
       openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
     >
-      <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
+      <Header.LanguageSelector aria-label={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
         <Header.ActionBarSubItemGroup label={I18n.infoOtherLanguages}>
           <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
           <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="se" />
@@ -569,7 +568,7 @@ export const ManualLanguageSorting = (args: HeaderProps) => {
       >
         <Header.LanguageSelector
           sortLanguageOptions={sortLanguageOptions}
-          ariaLabel={I18n.ariaLanguageSelection}
+          aria-label={I18n.ariaLanguageSelection}
           languageHeading={I18n.otherLanguages}
         />
         <Header.ActionBarButton

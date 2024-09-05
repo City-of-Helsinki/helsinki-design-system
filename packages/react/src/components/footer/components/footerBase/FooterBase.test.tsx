@@ -61,8 +61,6 @@ describe('<Footer.Base /> spec', () => {
   it('native html props are passed to the element', async () => {
     const divProps = getCommonElementTestProps('div');
     divProps.role = 'role';
-    // element has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
       <FooterBase
         {...divProps}
@@ -70,9 +68,6 @@ describe('<Footer.Base /> spec', () => {
         copyrightText="All rights reserved"
         backToTopLabel="Ylös"
         logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
-        aria-label="Is overridden"
-        // eslint-disable-next-line react/forbid-component-props
-        ariaLabel="Real ariaLabel"
       >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />

@@ -23,15 +23,9 @@ describe('<Footer.Custom /> spec', () => {
   });
   it('native html props are passed to the element', async () => {
     const divProps = getCommonElementTestProps('div');
-    // element has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
-    const { getByTestId } = render(
-      // eslint-disable-next-line react/forbid-component-props
-      <FooterCustom {...divProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" />,
-      {
-        wrapper: FooterWrapper,
-      },
-    );
+    const { getByTestId } = render(<FooterCustom {...divProps} />, {
+      wrapper: FooterWrapper,
+    });
     const element = getByTestId(divProps['data-testid']);
     expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });

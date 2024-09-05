@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { StatusLabel, StatusLabelProps, StatusLabelType } from './StatusLabel';
+import { StatusLabel, StatusLabelType } from './StatusLabel';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<StatusLabel /> spec', () => {

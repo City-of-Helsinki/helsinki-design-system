@@ -454,7 +454,7 @@ export const HeaderActionBarNavigationMenu = ({
   const RenderNavigationSection = ({
     links,
     activeLink,
-    ariaHidden,
+    'aria-hidden': ariaHidden,
     previousLink,
     showPreviousLink,
     className,
@@ -463,8 +463,7 @@ export const HeaderActionBarNavigationMenu = ({
     activeLink: React.ReactElement;
     previousLink?: React.ReactElement;
     showPreviousLink?: boolean;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaHidden: boolean;
+    'aria-hidden': boolean;
     className: string;
   }) => {
     return (
@@ -531,8 +530,7 @@ export const HeaderActionBarNavigationMenu = ({
           return (
             <RenderNavigationSection
               activeLink={activeLink}
-              // eslint-disable-next-line react/forbid-component-props
-              ariaHidden={!mobileMenuOpen || !isCurrentMenu}
+              aria-hidden={!mobileMenuOpen || !isCurrentMenu}
               className={isClosingOrOpening || shouldBeVisible ? styles.visible : styles.hidden}
               key={key}
               links={links}

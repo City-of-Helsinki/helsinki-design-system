@@ -8,12 +8,6 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 export type FooterCustomProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
-     * aria-label for describing Footer.Custom.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Additional class names to apply.
      */
     className?: string;
@@ -28,9 +22,9 @@ export type FooterCustomProps = React.PropsWithChildren<
   }
 >;
 
-export const FooterCustom = ({ ariaLabel, children, className, ...rest }: FooterCustomProps) => {
+export const FooterCustom = ({ children, className, ...rest }: FooterCustomProps) => {
   return (
-    <div {...rest} className={classNames(styles.custom, className)} aria-label={ariaLabel}>
+    <div {...rest} className={classNames(styles.custom, className)}>
       <hr className={styles.divider} aria-hidden />
       {children}
     </div>
