@@ -69,7 +69,7 @@ describe('<Footer.Base /> spec', () => {
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Ylös"
-        logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+        logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
         aria-label="Is overridden"
         // eslint-disable-next-line react/forbid-component-props
         ariaLabel="Real ariaLabel"
