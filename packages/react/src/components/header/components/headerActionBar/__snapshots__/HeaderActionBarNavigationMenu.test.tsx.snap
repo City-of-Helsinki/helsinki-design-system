@@ -45,7 +45,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
             class="headerActions"
           >
             <div
-              class="container visible hasContent fullWidth menuItem"
+              class="container visible hasContent menuItem"
               id="Menu"
             >
               <button
