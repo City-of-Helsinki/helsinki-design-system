@@ -5,17 +5,20 @@ import styles from './FooterUtilityGroup.module.scss';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
+import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
+import { FooterLinkProps } from '../footerLink/FooterLink';
 
-type FooterUtilityGroupProps = React.PropsWithChildren<{
-  /**
-   * Additional class names to apply.
-   */
-  className?: string;
-  /**
-   * ID of the group element.
-   */
-  id?: string;
-  /**
+type FooterUtilityGroupProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'div'> & {
+    /**
+     * Additional class names to apply.
+     */
+    className?: string;
+    /**
+     * ID of the group element.
+     */
+    id?: string;
+    /**
    * FooterGroupHeading component to display at the top of the group.
    * @example
    * ```ts
@@ -25,12 +28,18 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
       />}
     ```
    */
-  headingLink?: React.ReactNode;
-}>;
-export const FooterUtilityGroup = ({ className, children, id, headingLink }: FooterUtilityGroupProps) => {
+    headingLink?: React.ReactNode;
+  }
+>;
+export const FooterUtilityGroup = ({ className, children, headingLink, ...rest }: FooterUtilityGroupProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
+  // Footer.Utilities force-feeds "variant" prop to all its children.
+  // It will end up in HTML unless removed.
+  if ((rest as unknown as FooterLinkProps).variant) {
+    Reflect.deleteProperty(rest, 'variant');
+  }
   return (
-    <div id={id} className={classNames(styles.utilityGroup, className)}>
+    <div className={classNames(styles.utilityGroup, className)} {...rest}>
       <div className={styles.utilityGroup}>
         {isValidElement(headingLink)
           ? cloneElement(headingLink as React.ReactElement, {

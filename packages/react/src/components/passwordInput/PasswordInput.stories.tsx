@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { PasswordInput } from './PasswordInput';
+import { PasswordInput, PasswordInputProps } from './PasswordInput';
 import { Button, ButtonVariant } from '../button';
 import { IconEye, IconEyeCrossed } from '../../icons';
 
@@ -14,7 +14,7 @@ export default {
   args: {},
 };
 
-export const Default = (args) => <PasswordInput {...args} />;
+export const Default = (args: PasswordInputProps) => <PasswordInput {...args} />;
 Default.args = {
   id: 'Default',
   helperText: 'Assistive text',
@@ -23,7 +23,7 @@ Default.args = {
   concealPasswordButtonAriaLabel: 'Hide password',
 };
 
-export const Disabled = (args) => <PasswordInput {...args} />;
+export const Disabled = (args: PasswordInputProps) => <PasswordInput {...args} />;
 Disabled.storyName = 'Disabled';
 Disabled.args = {
   id: 'Disabled',
@@ -35,7 +35,7 @@ Disabled.args = {
   concealPasswordButtonAriaLabel: 'Hide password',
 };
 
-export const WithDefaultValue = (args) => <PasswordInput {...args} />;
+export const WithDefaultValue = (args: PasswordInputProps) => <PasswordInput {...args} />;
 WithDefaultValue.storyName = 'WithDefaultValue';
 WithDefaultValue.args = {
   id: 'WithDefaultValue',
@@ -46,7 +46,7 @@ WithDefaultValue.args = {
   concealPasswordButtonAriaLabel: 'Hide password',
 };
 
-export const InitiallyRevealed = (args) => <PasswordInput {...args} />;
+export const InitiallyRevealed = (args: PasswordInputProps) => <PasswordInput {...args} />;
 InitiallyRevealed.storyName = 'InitiallyRevealed';
 InitiallyRevealed.args = {
   id: 'InitiallyRevealed',
@@ -57,7 +57,7 @@ InitiallyRevealed.args = {
   revealPasswordButtonAriaLabel: 'Show password',
   concealPasswordButtonAriaLabel: 'Hide password',
 };
-export const AutoCompleteOn = (args) => <PasswordInput {...args} />;
+export const AutoCompleteOn = (args: PasswordInputProps) => <PasswordInput {...args} />;
 AutoCompleteOn.storyName = 'Autocomplete on';
 AutoCompleteOn.args = {
   id: 'Autocomplete on',
@@ -68,7 +68,7 @@ AutoCompleteOn.args = {
   concealPasswordButtonAriaLabel: 'Hide password',
 };
 
-export const Success = (args) => <PasswordInput {...args} />;
+export const Success = (args: PasswordInputProps) => <PasswordInput {...args} />;
 Success.storyName = 'Success';
 Success.args = {
   id: 'Success',
@@ -79,7 +79,7 @@ Success.args = {
   concealPasswordButtonAriaLabel: 'Hide password',
 };
 
-export const Invalid = (args) => <PasswordInput {...args} />;
+export const Invalid = (args: PasswordInputProps) => <PasswordInput {...args} />;
 Invalid.storyName = 'Invalid';
 Invalid.args = {
   id: 'Error',

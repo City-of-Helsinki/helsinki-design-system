@@ -10,6 +10,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { Button, ButtonTheme, ButtonSize, ButtonVariant } from '../button';
 import useHasMounted from '../../hooks/useHasMounted';
 import { ThemePrefixer } from '../../utils/themePrefixer';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 type CloseButtonTheme = ThemePrefixer<ButtonTheme, '--close-button'>;
 
@@ -109,7 +110,7 @@ export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> &
   card: true;
 };
 
-export type AccordionProps = CommonAccordionProps | CardAccordionProps;
+export type AccordionProps = AllElementPropsWithoutRef<'div'> & (CommonAccordionProps | CardAccordionProps);
 
 const getCloseMessage = (language: Language): string => {
   return {
@@ -132,8 +133,8 @@ export const Accordion = ({
   initiallyOpen = false,
   language = 'fi',
   size = AccordionSize.Medium,
-  style,
   theme,
+  ...rest
 }: AccordionProps) => {
   const headerRef = useRef<HTMLButtonElement>(null);
   const [beforeCloseButtonClick, setBeforeCloseButtonClick] = useState(false);
@@ -183,6 +184,7 @@ export const Accordion = ({
 
   return (
     <div
+      {...rest}
       className={classNames(
         styles.accordion,
         card && styles.card,
@@ -192,7 +194,6 @@ export const Accordion = ({
         customThemeClass,
         className,
       )}
-      style={style}
       id={accordionId}
     >
       <div className={classNames(styles.accordionHeader)}>

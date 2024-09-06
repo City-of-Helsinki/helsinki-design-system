@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { TimeInput, TimeInputProps } from './TimeInput';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<TimeInput /> spec', () => {
   const inputProps: TimeInputProps = {
@@ -30,6 +31,23 @@ describe('<TimeInput /> spec', () => {
     const { container } = render(<TimeInput {...inputProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const additionalInputProps = getCommonElementTestProps<'input', Pick<TimeInputProps, 'value' | 'defaultValue'>>(
+      'input',
+    );
+    const { getByTestId } = render(<TimeInput {...additionalInputProps} {...inputProps} />);
+    const element = getByTestId(additionalInputProps['data-testid']);
+    // id, className and style are set to the wrapper element, others to input
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...additionalInputProps,
+        id: undefined,
+        style: undefined,
+        className: undefined,
+      }),
+    ).toHaveLength(0);
   });
 
   it('should use value property as input value', async () => {

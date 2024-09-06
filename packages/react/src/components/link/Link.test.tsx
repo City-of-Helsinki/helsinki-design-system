@@ -2,7 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Link } from './Link';
+import { Link, LinkProps } from './Link';
+import { getElementAttributesMisMatches, getCommonElementTestProps } from '../../utils/testHelpers';
 
 describe('<Link /> spec', () => {
   it('renders the component', () => {
@@ -27,5 +28,21 @@ describe('<Link /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('Native html props are passed to the element', async () => {
+    const linkProps = getCommonElementTestProps<'a', Pick<LinkProps, 'href'>>('a');
+    linkProps.href = 'https://hds.hel.fi';
+    const { getByTestId } = render(
+      <Link {...linkProps} external openInNewTab>
+        Test link
+      </Link>,
+    );
+    const element = getByTestId(linkProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...linkProps,
+        'aria-label': `${linkProps['aria-label']}. Avautuu uudessa välilehdessä. Siirtyy toiseen sivustoon.`,
+      }),
+    ).toHaveLength(0);
   });
 });

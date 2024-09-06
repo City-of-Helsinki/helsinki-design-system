@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
-import { Button, ButtonTheme, ButtonSize, ButtonPresetTheme, ButtonVariant } from './Button';
+import { Button, ButtonTheme, ButtonSize, ButtonPresetTheme, ButtonVariant, CommonButtonProps } from './Button';
 import { LoadingSpinner } from '../loadingSpinner';
 
 const onClick = action('button-click');
@@ -184,7 +184,7 @@ export const Loading = () => (
   </Button>
 );
 
-export const LoadingOnClick = (args) => {
+export const LoadingOnClick = (args: CommonButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setIsLoading(true);

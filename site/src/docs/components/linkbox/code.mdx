@@ -6,6 +6,7 @@ title: 'Linkbox - Code'
 import { Linkbox, LinkboxSize } from 'hds-react';
 import { withPrefix } from "gatsby"
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -232,3 +233,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `linkAriaLabel`                 | Aria-label for the link (arrow or external icon) that is located at the bottom of the linkbox.                                                                          | `string`                         | -             |
 | `linkboxAriaLabel`              | Aria label for the whole linkbox region. Remember to tell users of assistive technology that they are inside a linkbox. Check storybook examples on how it can be done. | `string`                         | -             |
 | `border`                    | If set to true, a border will be drawn around the card.                                                                                                                 | `boolean`                        | false         |
+
+<NativeElementPropsInfo
+  nodeName="a"
+  notAllowed={["tabIndex"]}
+/> 

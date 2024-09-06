@@ -5,6 +5,7 @@ title: 'Accordion - Code'
 
 import { Accordion, AccordionSize, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -184,3 +185,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `heading`       | Heading of the accordion                                                       | -         | -             |
 | `headingLevel`  | Sets the aria-level of the accordion header.                                   | 1-6       | 2             |
 | `initiallyOpen` | If set to true, the accordion will be initially opened.                        | `boolean` | false         |
+
+<NativeElementPropsInfo nodeName="div" />

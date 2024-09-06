@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 
 import { HeaderLink } from './HeaderLink';
 import { HeaderNavigationMenuWrapper } from '../../../../utils/test-utils';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('<HeaderLink /> spec', () => {
   it('renders the component', () => {
@@ -16,6 +17,15 @@ describe('<HeaderLink /> spec', () => {
     const { container } = render(<HeaderLink href="#" label="Link" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const linkProps = getCommonElementTestProps<'a'>('a');
+    // "." is added to aria-label inside the component if missing.
+    linkProps['aria-label'] = 'Aria-label with comma.';
+    const { getByTestId } = render(<HeaderLink {...linkProps} label="Link" />);
+    const element = getByTestId(linkProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);
   });
 
   it('should not open dropdown when the link is hovered', async () => {

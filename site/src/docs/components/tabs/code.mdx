@@ -5,6 +5,8 @@ title: 'Tabs - Code'
 
 import { Tabs } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
+
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -144,3 +146,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `small`                | If set to true, the small tabs variant is used.            | `boolean`            | false         |
 | `theme`                | Defines the tabs theme.            | `TabsCustomTheme`            | -         |
 [Table 1:Tabs properties]|
+
+<NativeElementPropsInfo nodeName="div" />

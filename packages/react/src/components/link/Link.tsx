@@ -15,10 +15,6 @@ export enum LinkSize {
 
 export type LinkProps = {
   /**
-   * aria-label for providing detailed information for screen readers about a link text.
-   */
-  'aria-label'?: string;
-  /**
    * Link content
    */
   children: React.ReactNode;

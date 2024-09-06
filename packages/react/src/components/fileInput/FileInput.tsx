@@ -7,11 +7,11 @@ import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
 import { Button, ButtonSize, ButtonPresetTheme, ButtonVariant } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
-import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
+import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/InputWrapper';
 
 type Language = 'en' | 'fi' | 'sv';
 
-type FileInputProps = {
+export type FileInputProps = Omit<InputWrapperProps, 'onChange'> & {
   /**
    * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. If the file(s) do not match the acceptance criteria, the component will not add the file(s), and it will show an error message with the file name.
    */
@@ -390,6 +390,7 @@ export const FileInput = ({
   tooltipLabel,
   tooltipButtonLabel,
   tooltipText,
+  ...restWrapperProps
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const didMountRef = useRef<boolean>(false);
@@ -415,7 +416,8 @@ export const FileInput = ({
   const errorTextToUse = errorText || invalidText;
   const infoTextToUse = infoText || inputStateText;
 
-  const wrapperProps = {
+  const wrapperProps: InputWrapperProps = {
+    ...restWrapperProps,
     className,
     helperText: helperTextToUse,
     successText: successTextToUse,

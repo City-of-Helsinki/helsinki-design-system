@@ -14,12 +14,9 @@ import { FooterBase } from './components/footerBase/FooterBase';
 import { FooterCustom } from './components/footerCustom/FooterCustom';
 import { FooterTheme } from './Footer.interface';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type FooterProps = React.PropsWithChildren<{
-  /**
-   * aria-label for describing Footer.
-   */
-  ariaLabel?: string;
   /**
    * Additional class names to apply to the footer.
    */
@@ -27,7 +24,7 @@ export type FooterProps = React.PropsWithChildren<{
   /**
    * Props that will be passed to the native `<footer>` element.
    */
-  footerProps?: React.ComponentPropsWithoutRef<'footer'>;
+  footerProps?: AllElementPropsWithoutRef<'footer'>;
   /**
    * Koros type to use in the footer.
    * @default 'basic'
@@ -45,7 +42,6 @@ export type FooterProps = React.PropsWithChildren<{
 }>;
 
 export const Footer = ({
-  ariaLabel,
   children,
   className,
   footerProps,
@@ -64,9 +60,9 @@ export const Footer = ({
         styles.footer,
         typeof theme === 'string' && styles[`theme-${theme}`],
         customThemeClass,
+        footerProps && footerProps.className,
         className,
       )}
-      aria-label={ariaLabel}
     >
       <Koros className={classNames(styles.koros)} type={korosType} style={{ height: `${korosHeight}px` }} />
       <div className={styles.footerContent}>

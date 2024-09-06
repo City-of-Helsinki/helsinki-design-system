@@ -5,6 +5,7 @@ title: 'PhoneInput - Code'
 
 import { PhoneInput, Combobox } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -105,3 +106,9 @@ Also, note that this component is an input. All features supported by the HDS Te
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- |
 | `label`                          | The label for the input.                                                                                                                                                                       | `string`  | -             |
 [Table 1:PhoneInput properties]|
+
+<NativeElementPropsInfo
+  nodeName="input"
+  splitProps={['id', 'className', 'style']}
+/>
+

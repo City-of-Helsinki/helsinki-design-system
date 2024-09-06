@@ -8,6 +8,7 @@ exports[`<Checkbox /> spec renders the component 1`] = `
     <input
       aria-describedby="test-helper test-error"
       class="input"
+      data-testid="testId"
       id="test"
       type="checkbox"
       value=""

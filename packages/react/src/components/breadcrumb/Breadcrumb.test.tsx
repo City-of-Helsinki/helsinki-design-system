@@ -4,10 +4,11 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Breadcrumb, BreadcrumbProps } from './Breadcrumb';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Breadcrumb /> spec', () => {
   const defaultProps: BreadcrumbProps = {
-    ariaLabel: 'Breadcrumb',
+    'aria-label': 'Breadcrumb',
     list: [
       { title: 'Home', path: '/' },
       { title: 'Level 1', path: '/level1' },
@@ -24,6 +25,17 @@ describe('<Breadcrumb /> spec', () => {
     const { container } = render(<Breadcrumb {...defaultProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const navProps = getCommonElementTestProps<'nav'>('nav');
+    navProps['aria-label'] = defaultProps['aria-label'];
+    const expectedProps = {
+      ...navProps,
+      ...defaultProps,
+    };
+    const { getByTestId } = render(<Breadcrumb {...expectedProps} />);
+    const element = getByTestId(navProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, navProps)).toHaveLength(0);
   });
   it('Mobile view renders the last item with a path. That item is rendered twice: in the desktop and mobile views.', async () => {
     const { getAllByText, getByText, container } = render(<Breadcrumb {...defaultProps} />);
@@ -51,9 +63,9 @@ describe('<Breadcrumb /> spec', () => {
     );
     expect(container.querySelectorAll('nav')).toHaveLength(0);
   });
-  it('ariaLabel is set to the nav element.', async () => {
+  it('aria-label is set to the nav element.', async () => {
     const { container } = render(<Breadcrumb {...defaultProps} />);
     const nav = container.querySelectorAll('nav')[0] as HTMLElement;
-    expect(nav.getAttribute('aria-label')).toBe(defaultProps.ariaLabel);
+    expect(nav.getAttribute('aria-label')).toBe(defaultProps['aria-label']);
   });
 });

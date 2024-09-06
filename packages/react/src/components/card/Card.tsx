@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Card.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface CardCustomTheme {
   '--background-color'?: string;
@@ -14,7 +15,7 @@ export interface CardCustomTheme {
   '--padding-vertical': string;
 }
 
-export type CardProps = {
+export type CardProps = AllElementPropsWithoutRef<'div'> & {
   /**
    * Boolean indicating whether Card will have box shadow or not.
    */
@@ -47,7 +48,7 @@ export type CardProps = {
    * Additional children to render inside the card.
    */
   children?: React.ReactNode;
-} & React.HTMLProps<HTMLDivElement>;
+};
 
 export const Card = ({
   border,

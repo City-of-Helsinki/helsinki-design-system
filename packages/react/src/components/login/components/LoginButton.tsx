@@ -39,9 +39,9 @@ export function LoginButton({
   // for some reason LoadingSpinner theme has no effect
   const iconStart = isActive ? (
     <LoadingSpinner
-      loadingFinishedText=""
-      loadingText={loggingInText}
       small
+      loadingText={loggingInText}
+      loadingFinishedText=""
       style={{ '--spinner-color': spinnerColor } as React.HTMLProps<HTMLDivElement>['style']}
     />
   ) : undefined;

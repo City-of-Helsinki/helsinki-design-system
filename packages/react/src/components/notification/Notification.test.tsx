@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Notification } from './Notification';
+import { Notification, NotificationProps } from './Notification';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 const label = 'This is the label text';
 const body =
@@ -17,6 +18,20 @@ describe('<Notification /> spec', () => {
   it('renders the component without optional label', () => {
     const { asFragment } = render(<Notification>{body}</Notification>);
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const sectionProps: NotificationProps = getCommonElementTestProps('section');
+    // the component has "notificationAriaLabel" prop
+    sectionProps.notificationAriaLabel = sectionProps['aria-label'];
+    const { getByTestId } = render(<Notification {...sectionProps}>{body}</Notification>);
+    const element = getByTestId(sectionProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...sectionProps,
+        notificationAriaLabel: undefined,
+      } as unknown as HTMLAttributes<HTMLElement>),
+    ).toHaveLength(0);
   });
 
   // Replaces aria-atomic with role=alert and removes heading props for a better screen reader support

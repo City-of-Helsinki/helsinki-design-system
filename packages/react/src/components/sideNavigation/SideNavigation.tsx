@@ -13,6 +13,7 @@ import { MainLevel } from './mainLevel/MainLevel';
 import { SubLevel } from './subLevel/SubLevel';
 import { useTheme } from '../../hooks/useTheme';
 import { getChildrenAsArray } from '../../utils/getChildren';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface SideNavigationCustomTheme {
   '--side-navigation-background-color'?: string;
@@ -31,46 +32,44 @@ export interface SideNavigationCustomTheme {
   '--side-navigation-mobile-menu-z-index'?: number;
 }
 
-export type SideNavigationProps = React.PropsWithChildren<{
-  /**
-   * Additional class names to apply to the side navigation
-   */
-  className?: string;
-  /**
-   * Default value for open main levels
-   */
-  defaultOpenMainLevels?: number[];
-  /**
-   * The id of the side navigation.
-   */
-  id: string;
-  /**
-   * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
-   */
-  ariaLabel?: string;
-  /**
-   * Override or extend the styles applied to the component
-   */
-  style?: React.CSSProperties;
-  /**
-   * Custom theme styles
-   */
-  theme?: SideNavigationCustomTheme;
-  /**
-   * label for the mobile menu toggle button
-   */
-  toggleButtonLabel: string;
-}>;
+export type SideNavigationProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'nav'> & {
+    /**
+     * Additional class names to apply to the side navigation
+     */
+    className?: string;
+    /**
+     * Default value for open main levels
+     */
+    defaultOpenMainLevels?: number[];
+    /**
+     * The id of the side navigation.
+     */
+    id: string;
+    /**
+     * Override or extend the styles applied to the component
+     */
+    // eslint-disable-next-line react/no-unused-prop-types
+    style?: React.CSSProperties;
+    /**
+     * Custom theme styles
+     */
+    theme?: SideNavigationCustomTheme;
+    /**
+     * label for the mobile menu toggle button
+     */
+    toggleButtonLabel: string;
+  }
+>;
 
 export const SideNavigation = ({
   children,
   className,
   defaultOpenMainLevels = [],
   id,
-  ariaLabel,
-  style,
   theme,
   toggleButtonLabel,
+  ...rest
 }: SideNavigationProps) => {
   const container = React.useRef<HTMLDivElement>(null);
   const customThemeClass = useTheme<SideNavigationCustomTheme>(styles.sideNavigation, theme);
@@ -136,13 +135,7 @@ export const SideNavigation = ({
         setActiveParentLevel,
       }}
     >
-      <nav
-        className={classNames(styles.sideNavigation, customThemeClass, className)}
-        id={id}
-        aria-label={ariaLabel}
-        ref={container}
-        style={style}
-      >
+      <nav {...rest} className={classNames(styles.sideNavigation, customThemeClass, className)} id={id} ref={container}>
         {skipLink && skipLink}
         {/* Toggle button is visible only on small screen size */}
         <Button

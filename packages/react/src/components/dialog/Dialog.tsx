@@ -9,6 +9,7 @@ import { DialogActionButtons } from './dialogActionButtons/DialogActionButtons';
 import { DialogHeader } from './dialogHeader/DialogHeader';
 import { DialogContent } from './dialogContent/DialogContent';
 import { DialogContext, DialogContextProps } from './DialogContext';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface DialogCustomTheme {
   '--accent-line-color'?: string;
@@ -84,8 +85,8 @@ type DialogCloseProps =
       closeButtonLabelText?: undefined;
     };
 
-export type DialogProps = React.PropsWithChildren<
-  {
+export type DialogProps = AllElementPropsWithoutRef<'div'> &
+  React.PropsWithChildren<{
     /**
      * The id of the dialog element.
      */
@@ -138,12 +139,11 @@ export type DialogProps = React.PropsWithChildren<
      * Target element where dialog is rendered. The dialog is rendered into the document.body by default.
      */
     targetElement?: HTMLElement;
-  } & DialogCloseProps
->;
+  }> &
+  DialogCloseProps;
 
 export const Dialog = ({
   boxShadow = false,
-  id,
   isOpen,
   children,
   close,
@@ -152,11 +152,10 @@ export const Dialog = ({
   focusAfterCloseRef,
   scrollable,
   variant = 'primary',
-  style,
   theme,
   className,
   targetElement,
-  ...props
+  ...rest
 }: DialogProps) => {
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
@@ -180,8 +179,6 @@ export const Dialog = ({
     // Returning null from useEffect is prohibited, but undefined is fine
     return undefined;
   }, [dialogRef, isOpen]);
-
-  const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent): void => {
@@ -231,10 +228,10 @@ export const Dialog = ({
         <ContentTabBarrier onFocus={() => focusToDialogElement(TabBarrierPosition.bottom, dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
+          {...rest}
           ref={dialogRef}
           role="dialog"
           aria-modal="true"
-          id={id}
           className={classNames(
             styles.dialog,
             isReadyToShowDialog && styles.dialogVisible,
@@ -243,9 +240,6 @@ export const Dialog = ({
             boxShadow && styles.boxShadow,
             className,
           )}
-          style={style}
-          aria-labelledby={ariaLabelledby}
-          aria-describedby={ariaDescribedby}
         >
           {children}
         </div>

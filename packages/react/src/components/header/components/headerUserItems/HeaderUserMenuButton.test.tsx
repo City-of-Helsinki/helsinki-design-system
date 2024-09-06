@@ -2,19 +2,26 @@ import { fireEvent, act, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { initTests, jestHelpers } from './test.util';
-import { HeaderActionBarItem } from '../headerActionBarItem';
+import { HeaderActionBarItem, HeaderActionBarItemProps } from '../headerActionBarItem';
 import { HeaderUserMenuButton } from './HeaderUserMenuButton';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('HeaderLogoutSubmenuButton', () => {
   const defaultUserProfile = { given_name: 'ABC', family_name: 'ZYX', email: 'email@domain.com' };
-  const Component = () => {
-    return (
-      <HeaderUserMenuButton id="user-menu">
-        <HeaderActionBarItem id="item" />
-      </HeaderUserMenuButton>
-    );
-  };
-  const initTestsWithComponent = (isUserAuthenticated = true, user = {}) => {
+
+  const initTestsWithComponent = (
+    isUserAuthenticated = true,
+    user = {},
+    extraProps?: Partial<HeaderActionBarItemProps>,
+  ) => {
+    const Component = () => {
+      return (
+        <HeaderUserMenuButton id="user-menu" {...extraProps}>
+          <HeaderActionBarItem id="item" />
+        </HeaderUserMenuButton>
+      );
+    };
+
     return initTests({}, Component, isUserAuthenticated, { ...defaultUserProfile, ...user });
   };
 
@@ -40,6 +47,15 @@ describe('HeaderLogoutSubmenuButton', () => {
   it('The button is not rendered if user is not logged in', async () => {
     const { getUserMenuButton } = initTestsWithComponent(false);
     expect(getUserMenuButton()).toBeNull();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const buttonProps = getCommonElementTestProps('button');
+    // aria-label goes to a descendant in HeaderActionBarItem
+    buttonProps['aria-label'] = undefined;
+    const { getByTestId } = initTestsWithComponent(true, {}, buttonProps);
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Initials are rendered', async () => {

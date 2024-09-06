@@ -22,11 +22,16 @@ exports[`<Dialog /> spec renders the component 1`] = `
     />
     <div
       aria-describedby="test-dialog-description-id"
+      aria-label="aria-label"
       aria-labelledby="test-dialog-title-id"
       aria-modal="true"
-      class="dialog dialogVisible primary"
+      class="dialog dialogVisible primary test-class-name"
+      data-hds-prop="hdsProp"
+      data-testid="testId"
       id="test-dialog-id"
       role="dialog"
+      style="padding: 100px;"
+      tabindex="100"
     >
       <div
         class="dialogHeader"
@@ -56,8 +61,10 @@ exports[`<Dialog /> spec renders the component 1`] = `
             </svg>
           </button>
           <h2
+            aria-label="dialog-header"
             class="dialogTitle"
-            id="test-dialog-title-id"
+            data-testid="dialog-header-test-id"
+            id="dialog-header-id"
             tabindex="-1"
           >
             <span
@@ -85,7 +92,10 @@ exports[`<Dialog /> spec renders the component 1`] = `
         </div>
       </div>
       <div
+        aria-labelledby="content-label"
         class="dialogContent"
+        data-testid="dialog-content-test-id"
+        id="dialog-content-id"
       >
         <p
           id="test-dialog-description-id"
@@ -94,7 +104,10 @@ exports[`<Dialog /> spec renders the component 1`] = `
         </p>
       </div>
       <div
+        aria-labelledby="buttons-label"
         class="dialogActionButtons"
+        data-testid="dialog-buttons-test-id"
+        id="dialog-buttons-id"
       >
         <button
           type="button"

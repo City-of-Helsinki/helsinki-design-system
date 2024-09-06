@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { render, waitFor, screen, RenderResult } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SearchInput, SearchInputProps } from './SearchInput';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 type SuggestionItemType = {
   value: string;
@@ -87,6 +88,32 @@ describe('<SearchInput /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(<SearchInput label="Search" onSubmit={() => null} />);
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const wrapperProps = getCommonElementTestProps<
+      'div',
+      Pick<SearchInputProps<SuggestionItemType>, 'onChange' | 'onSubmit'>
+    >('div');
+    wrapperProps['data-testid'] = 'wrapper-test-id';
+    const inputProps: SearchInputProps<SuggestionItemType>['inputProps'] = getCommonElementTestProps('input');
+    const { getByTestId } = render(
+      <SearchInput
+        {...wrapperProps}
+        label="Search"
+        onSubmit={() => null}
+        onChange={() => null}
+        inputProps={inputProps}
+      />,
+    );
+    const element = getByTestId(wrapperProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, wrapperProps as unknown as HTMLAttributes<HTMLDivElement>),
+    ).toHaveLength(0);
+
+    const inputElement = getByTestId(inputProps ? inputProps['data-testid'] : 'error');
+    // id is set by downshift
+    expect(getElementAttributesMisMatches(inputElement, { ...inputProps, id: undefined })).toHaveLength(0);
   });
 
   it('uncontrolled component calls onChange when input value changes', async () => {

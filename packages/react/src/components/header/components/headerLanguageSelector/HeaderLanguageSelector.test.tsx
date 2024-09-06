@@ -13,10 +13,13 @@ import { Link } from '../../../link/Link';
 import {
   HeaderLanguageSelector,
   HeaderLanguageSelectorConsumer,
+  LanguageButton,
   LanguageSelectorProps,
+  SimpleLanguageOptions,
 } from './HeaderLanguageSelector';
 import { HeaderActionBar } from '../headerActionBar/HeaderActionBar';
 import { Logo } from '../../../logo/Logo';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 type StrFn = (str: string) => string;
 type TestScenarioProps = LanguageProviderProps &
@@ -79,6 +82,7 @@ const RenderTestScenario = ({
   doNotRenderMenuItems = false,
   renderActiveLanguage = false,
   consumerOnly = false,
+  ...rest
 }: TestScenarioProps) => {
   return (
     <LanguageProvider onDidChangeLanguage={onDidChangeLanguage} defaultLanguage={defaultLanguage} languages={languages}>
@@ -89,14 +93,12 @@ const RenderTestScenario = ({
           titleAriaLabel="Otsake"
           frontPageLabel="Etusivu"
           titleHref="https://hel.fi"
-          logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+          logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         >
-          <HeaderLanguageSelector ariaLabel={ariaLabel}>
-            {!doNotRenderMenuItems && <MenuContent />}
-          </HeaderLanguageSelector>
+          <HeaderLanguageSelector {...rest}>{!doNotRenderMenuItems && <MenuContent />}</HeaderLanguageSelector>
         </HeaderActionBar>
       ) : (
-        <HeaderLanguageSelectorConsumer ariaLabel={ariaLabel}>
+        <HeaderLanguageSelectorConsumer aria-label={ariaLabel}>
           {!doNotRenderMenuItems && <MenuContent />}
         </HeaderLanguageSelectorConsumer>
       )}
@@ -123,7 +125,7 @@ describe('<Header.LanguageSelector /> spec', () => {
   });
 
   it('renders the consumer component with props and children passed from the LanguageSelector', () => {
-    const { asFragment } = render(<LanguageSelectorWithActionBar />);
+    const { asFragment } = render(<LanguageSelectorWithActionBar aria-label={ariaLabel} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -133,8 +135,40 @@ describe('<Header.LanguageSelector /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('Native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    // aria-label goes to a descendant in HeaderActionBarItem
+    divProps['aria-label'] = undefined;
+    const { getByTestId } = render(<LanguageSelectorWithActionBar {...divProps} />);
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
+  });
+
+  it('Native html props are passed to the SimpleLanguageOptions element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    // "." is added to aria-label inside the component if missing.
+    divProps['aria-label'] = `${divProps['aria-label']}.`;
+    const { getByTestId } = render(
+      <SimpleLanguageOptions
+        languages={[defaultLanguages[0], defaultLanguages[1], defaultLanguages[2]]}
+        {...divProps}
+      />,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
+  });
+
+  it('native html props are passed to the LanguageButton element', async () => {
+    const buttonProps = getCommonElementTestProps<'button', { value: string }>('button', { 'aria-label': ariaLabel });
+    // aria-label is passed to button
+    buttonProps['aria-label'] = `${buttonProps['aria-label']}.`;
+    const { getByTestId } = render(<LanguageButton {...defaultLanguages[0]} {...buttonProps} />);
+    const element = getByTestId(buttonProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
+  });
+
   it('Language selector props and children are rendered by the consumers', async () => {
-    render(<LanguageSelectorWithActionBar />);
+    render(<LanguageSelectorWithActionBar aria-label={ariaLabel} />);
 
     expect(() => screen.getByLabelText(ariaLabel)).not.toThrow();
     expect(() => screen.getByText(menuH4)).not.toThrow();

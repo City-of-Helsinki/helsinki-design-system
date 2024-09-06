@@ -5,6 +5,7 @@ title: 'Card - Code'
 
 import { Button, Card } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -161,6 +162,12 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property  | Description                                             | Values      | Default value |
 | --------- | ------------------------------------------------------- | ----------- | ------------- |
-| `heading` | Heading of the Card (uses the built-in heading)         | -           | -             |
-| `text`    | Content text of the Card (uses the built-in text)       | -           | -             |
-| `border`  | If set to true, a border will be drawn around the card. | true, false | false         |
+| `border`  | If set to true, a border will be drawn around the card. | boolean | false         |
+| `boxShadow `  | Boolean indicating whether Card will have box shadow or not. | boolean | false         
+| `heading` | Heading of the Card (uses the built-in heading)         | string           | -             |
+| `headingAriaLevel `  | Heading aria-level. | string | -         |
+| `theme `  | Custom theme styles | CardTheme | -     
+| `text`    | Content text of the Card (uses the built-in text)       | string           | -             |
+
+
+<NativeElementPropsInfo nodeName="div" />

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Stepper } from './Stepper';
 import { StepState } from './Step';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Stepper /> spec', () => {
   let state;
@@ -40,14 +41,14 @@ describe('<Stepper /> spec', () => {
 
   it('renders the component', () => {
     const { asFragment } = render(
-      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} dataTestId="hds-stepper" />,
+      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} data-testid="hds-stepper" />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should be able to select available step', () => {
     const { container, rerender } = render(
-      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} dataTestId="hds-stepper" />,
+      <Stepper steps={state.steps} language="en" selectedStep={state.activeStepIndex} data-testid="hds-stepper" />,
     );
     const availableButton = container.querySelector('[data-testid="hds-stepper-step-1"]');
     expect(availableButton).toHaveAttribute('aria-current', 'false');
@@ -78,7 +79,7 @@ describe('<Stepper /> spec', () => {
         ]}
         language="en"
         selectedStep={1}
-        dataTestId="hds-stepper"
+        data-testid="hds-stepper"
       />,
     );
     expect(availableButton).toHaveAttribute('aria-current', 'step');
@@ -86,9 +87,23 @@ describe('<Stepper /> spec', () => {
 
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
-      <Stepper language="en" steps={state.steps} selectedStep={state.activeStepIndex} dataTestId="hds-stepper" />,
+      <Stepper language="en" steps={state.steps} selectedStep={state.activeStepIndex} data-testid="hds-stepper" />,
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps<'div'>('div');
+    const { getByTestId } = render(
+      <Stepper language="en" steps={state.steps} selectedStep={state.activeStepIndex} {...divProps} />,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    // className is applied to another element
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...divProps,
+        className: undefined,
+      } as HTMLAttributes<HTMLDivElement>),
+    ).toHaveLength(0);
   });
 });

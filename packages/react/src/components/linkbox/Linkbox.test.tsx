@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Linkbox } from './Linkbox';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Linkbox /> spec', () => {
   it('renders the component', () => {
@@ -46,5 +47,23 @@ describe('<Linkbox /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const linkProps = getCommonElementTestProps<'a'>('a');
+    // className goes to main element, not to <a> where other props go
+    linkProps.className = undefined;
+    linkProps.href = 'https://hds.hel.fi';
+    const { getByTestId } = render(
+      <Linkbox
+        {...linkProps}
+        linkboxAriaLabel="Linkbox: HDS"
+        linkAriaLabel="HDS"
+        heading="Linkbox title"
+        text="Linkbox text"
+      />,
+    );
+    const element = getByTestId(linkProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);
   });
 });

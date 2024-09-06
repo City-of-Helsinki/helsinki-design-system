@@ -1,11 +1,11 @@
-import React, { forwardRef } from 'react';
+import React, { ElementType, forwardRef } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import { CommonHTMLAttributes } from '../../utils/commonHTMLAttributes';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
 export interface TagTheme {
   '--background-color-hover'?: string;
@@ -26,8 +26,9 @@ export enum TagSize {
   Large = 'large',
 }
 
-export type TagProps<T = HTMLDivElement> = CommonHTMLAttributes &
-  React.HTMLAttributes<T> & {
+export type TagProps<E extends ElementType = 'div'> = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<E>,
+  {
     /**
      * The label for the tag
      */
@@ -78,10 +79,11 @@ export type TagProps<T = HTMLDivElement> = CommonHTMLAttributes &
     /**
      * Ref is set to the main element
      */
-    ref?: React.Ref<T>;
-  };
+    ref?: React.Ref<React.ElementRef<E>>;
+  }
+>;
 
-export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, React.ComponentProps<'div'> & TagProps>(
+export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
   (
     {
       children,

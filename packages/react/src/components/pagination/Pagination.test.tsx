@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { getAllByText, render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Pagination } from './Pagination';
+import { Pagination, PaginationProps } from './Pagination';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 const renderPagination = ({ pageCount, pageIndex, siblingCount }) => {
   const { asFragment } = render(
@@ -14,7 +15,7 @@ const renderPagination = ({ pageCount, pageIndex, siblingCount }) => {
       pageHref={() => '#'}
       language="en"
       siblingCount={siblingCount}
-      dataTestId="hds-pagination"
+      data-testid="hds-pagination"
     />,
   );
 
@@ -40,6 +41,29 @@ describe('<Pagination /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('native html props are passed to the element', async () => {
+    const navProps = getCommonElementTestProps<'nav', Pick<PaginationProps, 'paginationAriaLabel'>>('nav');
+    // aria-label is from "paginationAriaLabel" prop
+    navProps.paginationAriaLabel = navProps['aria-label'] as string;
+    const { getByTestId } = render(
+      <Pagination
+        {...navProps}
+        onChange={() => null}
+        pageCount={68}
+        pageIndex={7}
+        pageHref={() => '#'}
+        language="en"
+      />,
+    );
+    const element = getByTestId(navProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...navProps,
+        paginationAriaLabel: undefined,
+      } as HTMLAttributes<HTMLElement>),
+    ).toHaveLength(0);
   });
 
   it('should render null when pageCount is zero', () => {

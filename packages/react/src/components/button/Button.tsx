@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Button.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export enum ButtonSize {
   Small = 'small',
@@ -44,7 +45,7 @@ export enum ButtonVariant {
   Clear = 'clear',
 }
 
-export type CommonButtonProps = {
+export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   /**
    * The content (label) of the button
    */
@@ -84,7 +85,7 @@ export type CommonButtonProps = {
    * @default ButtonSize.Medium
    */
   size?: ButtonSize;
-} & React.ComponentPropsWithoutRef<'button'>;
+};
 
 // Supplementary variant requires iconStart or iconEnd
 export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {

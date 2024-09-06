@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import { FooterLink } from './FooterLink';
 import { FooterWrapper } from '../../../../utils/test-utils';
 import { FooterVariant } from '../../Footer.interface';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('<Link /> spec', () => {
   it('renders the component', () => {
@@ -29,5 +30,13 @@ describe('<Link /> spec', () => {
   it('renders the base variant', () => {
     const { asFragment } = render(<FooterLink label="Link" variant={FooterVariant.Base} />);
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('native html props are passed to the element', async () => {
+    const linkProps = getCommonElementTestProps<'a'>('a');
+    // "." is added to aria-label inside the component if missing.
+    linkProps['aria-label'] = 'Aria-label with comma.';
+    const { getByTestId } = render(<FooterLink {...linkProps} label="Test" variant={FooterVariant.Base} />);
+    const element = getByTestId(linkProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);
   });
 });

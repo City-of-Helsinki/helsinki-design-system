@@ -5,6 +5,7 @@ title: 'Hero - Code'
 
 import { Button, Hero } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -43,7 +44,7 @@ import { Fieldset, TextInput } from 'hds-react';
       Call to action
     </Button>
   </Hero>
-)
+);
 ```
 
 ```html
@@ -139,7 +140,7 @@ import { Fieldset, TextInput } from 'hds-react';
       Call to action
     </Button>
   </Hero>
-)
+);
 ```
 
 ```html
@@ -240,7 +241,7 @@ import { Fieldset, TextInput } from 'hds-react';
       Call to action
     </Button>
   </Hero>
-)
+);
 ```
 
 ```html
@@ -322,14 +323,29 @@ import { Fieldset, TextInput } from 'hds-react';
 
 ### Properties
 
-Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-hero--diagonal-koros">React Storybook.</Link>
+| Property                  | Description                                                                                                          | Values                                                                       | Default value                                                        |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `theme`                   | Theme prop for customisation of the Hero component.                                                                  | `object`                                                                     | <Link href="/components/hero/customisation">See customisation</Link> |
+| `koros`                   | Koros prop for customisation of the Koros of the Hero component.                                                     | `object`                                                                     | <Link href="/components/koros/customisation">See koros</Link>        |
+| `imageSrc`                | Url of the image                                                                                                     | `string`                                                                     | -                                                                    |
+| `centerContent`           | Should the text be aligned to center                                                                                 | `boolean`                                                                    | false                                                                |
+| `variant`                 | Which variant to render. The default value is `noImage` if `imageSrc` is not set. Otherwise default is `imageLeft`   | `imageLeft, imageRight, backgroundImage, imageBottom,diagonalKoros, noImage` | `noImage` or `imageLeft`                                             |
+| `showArrowIcon`           | Adds the arrow icon in the bottom left corner, slightly overlapping the Hero                                         | `boolean`                                                                    | false                                                                |
+| `information`             | Additional information seen below the hero. Usually photographer credits. The element is hidden from screen readers. | `string`                                                                     | -                                                                    |
+| [Table 1:Hero properties] |
 
-| Property        | Description                                                                                                          | Values                                                                       | Default value                                                        |
-| --------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `theme`         | Theme prop for customisation of the Hero component.                                                                  | `object`                                                                     | <Link href="/components/hero/customisation">See customisation</Link> |
-| `koros`         | Koros prop for customisation of the Koros of the Hero component.                                                     | `object`                                                                     | <Link href="/components/koros/customisation">See koros</Link>        |
-| `imageSrc`      | Url of the image                                                                                                     | `string`                                                                     | -                                                                    |
-| `centerContent` | Should the text be aligned to center                                                                                 | `boolean`                                                                    | false                                                                |
-| `variant`       | Which variant to render. The default value is `noImage` if `imageSrc` is not set. Otherwise default is `imageLeft`   | `imageLeft, imageRight, backgroundImage, imageBottom,diagonalKoros, noImage` | `noImage` or `imageLeft`                                             |
-| `showArrowIcon` | Adds the arrow icon in the bottom left corner, slightly overlapping the Hero                                         | `boolean`                                                                    | false                                                                |
-| `information`   | Additional information seen below the hero. Usually photographer credits. The element is hidden from screen readers. | `string`                                                                     | -                                                                    |
+<NativeElementPropsInfo nodeName="div" />{' '}
+
+| Property                        | Description                 | Values   | Default value |
+| ------------------------------- | --------------------------- | -------- | ------------- |
+| `headingLevel`                  | Heading level of the title. | `number` | 1             |
+| [Table 2:Hero.Title properties] |
+
+<NativeElementPropsInfo nodeName="h1" />{' '}
+
+| Property                       | Description                    | Values | Default value |
+| ------------------------------ | ------------------------------ | ------ | ------------- |
+| -                              | Only native element properties | -      | -             |
+| [Table 3:Hero.Text properties] |
+
+<NativeElementPropsInfo nodeName="p" />{' '}

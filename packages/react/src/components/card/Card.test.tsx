@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Card } from './Card';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Card /> spec', () => {
   it('renders the component', () => {
@@ -21,5 +22,15 @@ describe('<Card /> spec', () => {
       </Card>,
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('Native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(
+      <Card border heading="Foo" text="Bar" {...divProps}>
+        Baz
+      </Card>,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 });

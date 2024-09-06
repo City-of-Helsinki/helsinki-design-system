@@ -6,46 +6,43 @@ import { HeaderLink } from '../headerLink/HeaderLink';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
+import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 
-export type HeaderUniversalBarProps = React.PropsWithChildren<{
-  /**
-   * Aria-label for describing UniversalBar.
-   */
-  ariaLabel?: string;
-  /**
-   * Additional class names to apply.
-   */
-  className?: string;
-  /**
-   * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
-   */
-  children?: React.ReactNode;
-  /**
-   * ID of the header element.
-   */
-  id?: string;
-  /**
-   * Hypertext reference of the primary link.
-   */
-  primaryLinkHref?: string;
-  /**
-   * Link text for the primary link.
-   */
-  primaryLinkText?: string;
-  /**
-   * ARIA role to describe the contents.
-   */
-  role?: string;
-}>;
+export type HeaderUniversalBarProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'div'> & {
+    /**
+     * Additional class names to apply.
+     */
+    className?: string;
+    /**
+     * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
+     */
+    children?: React.ReactNode;
+    /**
+     * ID of the header element.
+     */
+    id?: string;
+    /**
+     * Hypertext reference of the primary link.
+     */
+    primaryLinkHref?: string;
+    /**
+     * Link text for the primary link.
+     */
+    primaryLinkText?: string;
+    /**
+     * ARIA role to describe the contents.
+     */
+    role?: string;
+  }
+>;
 
 export const HeaderUniversalBar = ({
-  ariaLabel,
   className,
   children,
-  id,
   primaryLinkHref,
   primaryLinkText,
-  role,
+  ...rest
 }: HeaderUniversalBarProps) => {
   const { isSmallScreen } = useHeaderContext();
   const childElements = getChildElementsEvenIfContainersInbetween(children);
@@ -60,7 +57,7 @@ export const HeaderUniversalBar = ({
 
   return (
     <div className={styles.headerUniversalBarContainer}>
-      <div role={role} aria-label={ariaLabel} id={id} className={classNames(styles.headerUniversalBar, className)}>
+      <div {...rest} className={classNames(styles.headerUniversalBar, className)}>
         <ul className={styles.headerUniversalBarList}>
           <li className={styles.universalBarMainLinkContainer}>
             <HeaderLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />

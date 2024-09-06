@@ -32,11 +32,11 @@ jobs:
       - name: build design tokens package
         run: yarn build
         working-directory: ./packages/design-tokens
-  
+
       - name: build core package
         run: yarn build
         working-directory: ./packages/core
-  
+
       - name: build react package
         run: yarn build
         working-directory: ./packages/react
@@ -62,12 +62,12 @@ jobs:
         run: |
           yarn inst
         working-directory: ./e2e
-          
+
       - name: run tests
         run: |
           yarn start
         env:
-          E2E_TESTS_ENV_URL: "https://hds.hel.fi"
+          E2E_TESTS_ENV_URL: 'https://hds.hel.fi'
         working-directory: ./e2e
 
       - name: upload test results in case of failure
@@ -75,6 +75,7 @@ jobs:
         with:
           name: e2e_test_report
           path: e2e/report/
+          include-hidden-files: true
         if: failure()
 
       - name: upload screenshot differences in case of failure

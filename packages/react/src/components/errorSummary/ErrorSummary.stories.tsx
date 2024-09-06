@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErrorSummary, ErrorSummarySize } from './ErrorSummary';
+import { ErrorSummary, ErrorSummarySize, ErrorSummaryProps } from './ErrorSummary';
 
 export default {
   component: ErrorSummary,
@@ -21,7 +21,7 @@ export default {
   },
 };
 
-export const Playground = (args) => (
+export const Playground = (args: ErrorSummaryProps) => (
   <ErrorSummary {...args}>
     <ul>
       <li>

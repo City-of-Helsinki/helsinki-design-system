@@ -22,16 +22,13 @@ import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { SkipLink } from '../../internal/skipLink';
 import { styleBoundClassNames } from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 
 const classNames = styleBoundClassNames(styles);
 
-type HeaderAttributes = JSX.IntrinsicElements['header'];
+type HeaderAttributes = AllElementPropsWithRef<'header'>;
 
 export interface HeaderNodeProps extends HeaderAttributes {
-  /**
-   * Aria-label for describing Header.
-   */
-  ariaLabel?: string;
   /**
    * Additional class names to apply to the header.
    */
@@ -48,7 +45,7 @@ export interface HeaderNodeProps extends HeaderAttributes {
 
 export interface HeaderProps extends HeaderNodeProps, LanguageProviderProps {}
 
-const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, className, ...props }) => {
+const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...props }) => {
   const { isSmallScreen } = useHeaderContext();
   const { theme } = props;
 
@@ -64,7 +61,7 @@ const HeaderNode: ComponentType<HeaderNodeProps> = ({ ariaLabel, children, class
     },
   );
   return (
-    <header className={headerClassNames} {...props} aria-label={ariaLabel}>
+    <header className={headerClassNames} {...props}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>
       <HeaderError />
     </header>

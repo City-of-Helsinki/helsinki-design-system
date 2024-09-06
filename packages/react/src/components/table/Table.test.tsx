@@ -1,10 +1,12 @@
+/* eslint-disable react/forbid-component-props */
 import { screen, render, waitFor } from '@testing-library/react';
-import React, { useRef, useState } from 'react';
+import React, { useRef, HTMLAttributes, useState } from 'react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
 import { Table, TableProps } from './Table';
 import useForceRender from '../../hooks/useForceRender';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 const getMockedId = (prefix: string) => {
   return `${prefix}uniqueId`;
@@ -74,7 +76,7 @@ describe('<Table /> spec', () => {
       rows,
       indexKey,
       renderIndexCol,
-      dataTestId: 'hds-table-data-testid',
+      'data-testid': 'hds-table-data-testid',
     };
   });
 
@@ -226,6 +228,19 @@ describe('<Table /> spec', () => {
     headingId = undefined;
     await reRenderAndWaitForUpdate();
     expect(getIds()).toEqual([null, `${defaultCheckboxIdPrefix}1000`, defaultHeadingId]);
+  });
+
+  it('native html props are passed to the element', async () => {
+    const tableProps = getCommonElementTestProps<'table'>('table');
+    const { getByTestId } = render(
+      <Table {...tableProps} caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol />,
+    );
+    const element = getByTestId(tableProps['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...tableProps,
+      } as HTMLAttributes<HTMLTableElement>),
+    ).toHaveLength(0);
   });
 
   it('Should successfully sort the table', () => {

@@ -7,8 +7,8 @@ import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
 import { HeaderLinkDropdown, DropdownMenuPosition } from './headerLinkDropdown';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
-import { MergeElementProps } from '../../../../common/types';
 import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 
 const classNames = styleBoundClassNames(styles);
 
@@ -93,9 +93,9 @@ export type NavigationLinkProps<ReactElement> = {
   wrapperClassName?: string;
 };
 
-export type HeaderNavigationLinkProps<ReactElement extends React.ElementType = 'a'> = MergeElementProps<
-  ReactElement,
-  NavigationLinkProps<ReactElement>
+export type HeaderNavigationLinkProps<T extends React.ElementType = 'a'> = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<T>,
+  NavigationLinkProps<T>
 >;
 
 export const HeaderLink = <T extends React.ElementType = 'a'>({

@@ -3,8 +3,9 @@ import React, { FocusEvent } from 'react';
 import styles from '../../components/textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
 import { FieldLabel } from '../field-label/FieldLabel';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
-type InputWrapperProps = {
+export type InputWrapperProps = AllElementPropsWithoutRef<'div'> & {
   children?: React.ReactNode;
   className?: string;
   errorText?: string;
@@ -24,7 +25,7 @@ type InputWrapperProps = {
   tooltipText?: string;
   tooltipButtonLabel?: string;
   ref?: React.Ref<HTMLDivElement>;
-} & React.ComponentPropsWithoutRef<'div'>;
+};
 
 export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
   (

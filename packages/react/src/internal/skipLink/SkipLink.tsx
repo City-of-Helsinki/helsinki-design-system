@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './SkipLink.module.scss';
 import { useTheme } from '../../hooks/useTheme';
 import classNames from '../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 // custom theme for skip link position
 export interface SkipLinkTheme {
@@ -11,11 +12,7 @@ export interface SkipLinkTheme {
   '--top'?: string;
 }
 
-export type SkipLinkProps = {
-  /**
-   * aria-label for describing SkipLink for screen readers.
-   */
-  ariaLabel?: string;
+export type SkipLinkProps = AllElementPropsWithoutRef<'a'> & {
   /**
    * Label for the SkipLink.
    */
@@ -29,12 +26,12 @@ export type SkipLinkProps = {
    */
   theme?: SkipLinkTheme;
 };
-export const SkipLink = ({ ariaLabel, label, skipTo, theme }: SkipLinkProps) => {
+export const SkipLink = ({ label, skipTo, theme, className, ...rest }: SkipLinkProps) => {
   const href = skipTo.startsWith('#') ? skipTo : `#${skipTo}`;
   const customThemeClass = useTheme<SkipLinkTheme>(styles.skipLink, theme);
 
   return (
-    <a href={href} aria-label={ariaLabel} className={classNames(styles.skipLink, customThemeClass)}>
+    <a {...rest} href={href} className={classNames(styles.skipLink, customThemeClass, className)}>
       <span className={styles.skipLinkLabel}>{label}</span>
     </a>
   );

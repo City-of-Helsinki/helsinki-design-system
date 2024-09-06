@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Footer } from './Footer';
+import { Footer, FooterProps } from './Footer';
 import { IconFacebook, IconInstagram, IconLinkedin, IconTiktok, IconTwitter, IconYoutube } from '../../icons';
 import { FooterGroupHeading } from './components/footerGroupHeading/FooterGroupHeading';
 import { FooterLink } from './components/footerLink/FooterLink';
@@ -19,7 +19,7 @@ const Utilities = () => {
     return [
       <Footer.Link
         title="Helsingin kaupungin Facebook-tili"
-        ariaLabel="Helsingin kaupungin Facebook-tili"
+        aria-label="Helsingin kaupungin Facebook-tili"
         external
         openInNewTab
         icon={<IconFacebook aria-hidden />}
@@ -27,7 +27,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Twitter-tili"
-        ariaLabel="Helsingin kaupungin Twitter-tili"
+        aria-label="Helsingin kaupungin Twitter-tili"
         external
         openInNewTab
         icon={<IconTwitter aria-hidden />}
@@ -35,7 +35,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Instagram-tili"
-        ariaLabel="Helsingin kaupungin Instagram-tili"
+        aria-label="Helsingin kaupungin Instagram-tili"
         external
         openInNewTab
         icon={<IconInstagram aria-hidden />}
@@ -43,7 +43,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Youtube-tili"
-        ariaLabel="Helsingin kaupungin Youtube-tili"
+        aria-label="Helsingin kaupungin Youtube-tili"
         external
         openInNewTab
         icon={<IconYoutube aria-hidden />}
@@ -51,7 +51,7 @@ const Utilities = () => {
       />,
       <Footer.Link
         title="Helsingin kaupungin Tiktok-tili"
-        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        aria-label="Helsingin kaupungin Tiktok-tili"
         external
         openInNewTab
         icon={<IconTiktok aria-hidden />}
@@ -121,7 +121,7 @@ export default {
   },
 };
 
-export const NoNav = (args) => (
+export const NoNav = (args: FooterProps) => (
   <Footer {...args}>
     <Utilities />
     <Base />
@@ -129,7 +129,7 @@ export const NoNav = (args) => (
 );
 NoNav.storyName = 'No navigation';
 
-export const CustomTheme = (args) => (
+export const CustomTheme = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Navigation>
       {createArray(8).map((index) => (
@@ -157,7 +157,7 @@ CustomTheme.argTypes = {
   },
 };
 
-export const Sitemap = (args) => (
+export const Sitemap = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Navigation>
       {createArray(4).map((index) => (
@@ -184,7 +184,7 @@ export const Sitemap = (args) => (
   </Footer>
 );
 
-export const Example = (args) => (
+export const Example = (args: FooterProps) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
     <Footer.Navigation>
       <Footer.Link href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
@@ -200,7 +200,7 @@ export const Example = (args) => (
       soMeLinks={[
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           external
           openInNewTab
           icon={<IconFacebook aria-hidden="true" />}
@@ -208,7 +208,7 @@ export const Example = (args) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
+          aria-label="Helsingin kaupungin Twitter-tili"
           external
           openInNewTab
           icon={<IconTwitter aria-hidden="true" />}
@@ -216,7 +216,7 @@ export const Example = (args) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
+          aria-label="Helsingin kaupungin Instagram-tili"
           external
           openInNewTab
           icon={<IconInstagram aria-hidden="true" />}
@@ -224,7 +224,7 @@ export const Example = (args) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin LinkedIn-tili"
-          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          aria-label="Helsingin kaupungin LinkedIn-tili"
           external
           openInNewTab
           icon={<IconLinkedin aria-hidden="true" />}
@@ -232,7 +232,7 @@ export const Example = (args) => (
         />,
         <Footer.Link
           title="Helsingin kaupungin Youtube-tili"
-          ariaLabel="Helsingin kaupungin Youtube-tili"
+          aria-label="Helsingin kaupungin Youtube-tili"
           external
           openInNewTab
           icon={<IconYoutube aria-hidden="true" />}
@@ -270,7 +270,7 @@ export const Example = (args) => (
   </Footer>
 );
 
-export const UtilityGroups = (args) => (
+export const UtilityGroups = (args: FooterProps) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
     <Footer.Navigation>
       <Footer.Link href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
@@ -309,36 +309,36 @@ export const UtilityGroups = (args) => (
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
-          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          aria-label="Helsingin kaupungin Facebook-tili"
+          openInNewTabaria-label="Avautuu uudessa välilehdessä."
+          openInExternalDomainaria-label="Siirtyy toiseen sivustoon."
           icon={<IconFacebook aria-hidden="true" />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
-          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          aria-label="Helsingin kaupungin Facebook-tili"
+          openInNewTabaria-label="Avautuu uudessa välilehdessä."
+          openInExternalDomainaria-label="Siirtyy toiseen sivustoon."
           icon={<IconFacebook aria-hidden="true" />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
           label="Twitter"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
-          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          aria-label="Helsingin kaupungin Twitter-tili"
+          openInNewTabaria-label="Avautuu uudessa välilehdessä."
+          openInExternalDomainaria-label="Siirtyy toiseen sivustoon."
           icon={<IconTwitter aria-hidden="true" />}
           href="https://twitter.com/helsinki"
         />
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
           label="Instagram"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
-          openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
+          aria-label="Helsingin kaupungin Instagram-tili"
+          openInNewTabaria-label="Avautuu uudessa välilehdessä."
+          openInExternalDomainaria-label="Siirtyy toiseen sivustoon."
           icon={<IconInstagram aria-hidden="true" />}
           href="https://instagram.com/helsinki/"
         />
@@ -362,7 +362,7 @@ export const UtilityGroups = (args) => (
   </Footer>
 );
 
-export const CustomSection = (args) => (
+export const CustomSection = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Navigation>
       {createArray(8).map((index) => (
@@ -385,7 +385,7 @@ export const CustomSection = (args) => (
   </Footer>
 );
 
-export const Minimal = (args) => (
+export const Minimal = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Base
       backToTopLabel="Back to top"

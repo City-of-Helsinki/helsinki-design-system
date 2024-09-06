@@ -29,7 +29,7 @@ export function Page(): React.ReactElement | null {
             size={NotificationSize.Small}
             type="success"
             label="Saved"
-            dataTestId="cookie-consent-save-notification"
+            data-testid="cookie-consent-save-notification"
             className={styles.saveNotification}
           >
             {settingsSaved}

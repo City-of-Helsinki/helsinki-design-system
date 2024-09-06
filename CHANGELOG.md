@@ -190,6 +190,91 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 
+## [3.10.0] - Sep, 04, 2024
+
+### React
+
+#### Added
+
+- [ssr] getCriticalHdsRulesSync, a syncronous version of the getCriticalHdsRules
+
+#### Changed
+
+- [Accordion] Component accepts all div element properties
+- [Breadcrumb] Component accepts all nav element properties
+- [Button] Component accepts all button element properties
+- [Card] Component accepts all div element properties
+- [Checkbox] Component accepts all input element properties
+- [Columns] Component accepts all div element properties
+- [DateInput] Component accepts all input element properties
+- [Dialog] Component and its subcomponents accept all native elements properties
+- [FileInput] Component accepts all div element properties
+- [ErrorSummary] Component accepts all div element properties
+- [Fieldset] Component accepts all fieldset element properties
+- [Footer] Component and its subcomponents accept all native elements properties
+- [Header] Component and its subcomponents accept all native elements properties
+- [Hero] Component and its subcomponents accept all native elements properties
+- [Highlight] Component accepts all figure element properties
+- [ImageWithCard] Component accepts all div element properties
+- [Koros] Component accepts all div element properties
+- [Logo] Component accepts all img element properties
+- [Notification] Component accepts all div element properties
+- [SearchInput] Component and its subcomponents accept all native elements properties
+- [Pagination] Component accepts all nav element properties
+- [Section] Component accepts all div element properties
+- [StatusLabel] Component accepts all span element properties
+- [StepByStep] Component accepts all div element properties
+- [Stepper] Component accepts all div element properties
+- [Tabs] Component accepts all div element properties
+- [Tags] Component accepts all div element properties
+- [TextInput] Component accepts all input element properties
+- [ToggleButton] Component accepts all button element properties
+- [ToolTip] Component accepts all div element properties
+- [BreadCrumb] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Base] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Custom] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Link] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Navigation] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer.Utilities] ariaLabel is marked deprecated and aria-label should be used.
+- [Footer] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.ActionBar] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.ActionBarItem] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.LanguageSelector] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.NavigationMenu] ariaLabel is marked deprecated and aria-label should be used.
+- [Header.HeaderUniversalBar] ariaLabel is marked deprecated and aria-label should be used.
+- [Link] ariaLabel is marked deprecated and aria-label should be used.
+- [Logo] dataTestId is marked deprecated and data-testid should be used.
+- [Notification] dataTestId is marked deprecated and data-testid should be used.
+- [Pagination] dataTestId is marked deprecated and data-testid should be used.
+- [SideNavigation] ariaLabel is marked deprecated and aria-label should be used.
+- [StatusLabel] dataTestId is marked deprecated and data-testid should be used.
+- [Step] dataTestId is marked deprecated and data-testid should be used.
+- [Stepper] dataTestId is marked deprecated and data-testid should be used.
+- [Icon] ariaLabel, ariaLabelledby and ariaHidden are marked deprecated and aria-\* should be used.
+- [Skiplink] ariaLabel is marked deprecated and aria-label should be used.
+- [Table] dataTestId is marked deprecated and data-testid should be used.
+
+#### Fixed
+
+- [Header] Fixed an issue with ActionBarItem dropdowns not inside the menu in mobile
+- [Header] Fix broken layout in mobile menu animations
+- [Dialog] Fix broken scrolling and zooming in mobile devices
+
+### Documentation
+
+#### Added
+
+- [ssr] Solution to use HDS styles with Next.js app router.
+
+#### Changed
+
+- [ssr] Improved documentation about using HDS styles with Next.js pages router.
+- [Header] Added more detailed documentation.
+
+#### Fixed
+
+- [Grids] Fixed breakpoint-xs margin value from 12px to 16px to match implementation
+
 ## [3.9.0] - June, 2nd, 2024
 
 ### React
