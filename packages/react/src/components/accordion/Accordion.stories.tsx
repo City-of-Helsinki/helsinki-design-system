@@ -4,7 +4,7 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import { Button } from '../button';
 import { Card } from '../card';
 import { Select } from '../dropdown/select';
-import { Accordion, AccordionSize } from './Accordion';
+import { Accordion, AccordionSize, AccordionProps } from './Accordion';
 import { useAccordion } from './useAccordion';
 
 export default {
@@ -22,18 +22,18 @@ export default {
   },
 };
 
-export const Default = (args) => <Accordion {...args} />;
+export const Default = (args: AccordionProps) => <Accordion {...args} />;
 
-export const Small = (args) => <Accordion {...args} size={AccordionSize.Small} />;
+export const Small = (args: AccordionProps) => <Accordion {...args} size={AccordionSize.Small} />;
 
-export const Medium = (args) => <Accordion {...args} size={AccordionSize.Medium} />;
+export const Medium = (args: AccordionProps) => <Accordion {...args} size={AccordionSize.Medium} />;
 
-export const Large = (args) => <Accordion {...args} size={AccordionSize.Large} />;
+export const Large = (args: AccordionProps) => <Accordion {...args} size={AccordionSize.Large} />;
 
-export const WithoutCloseButton = (args) => <Accordion {...args} closeButton={false} />;
+export const WithoutCloseButton = (args: AccordionProps) => <Accordion {...args} closeButton={false} />;
 WithoutCloseButton.storyName = 'Without close button';
 
-export const StackedAccordionCards = (args) => (
+export const StackedAccordionCards = (args: AccordionProps) => (
   <>
     <h1>Stacked Accordions in Cards</h1>
     <Accordion {...args} card border style={{ maxWidth: '360px' }} />
@@ -44,10 +44,10 @@ export const StackedAccordionCards = (args) => (
 
 StackedAccordionCards.storyName = 'Stacked cards';
 
-export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
+export const InitiallyOpen = (args: AccordionProps) => <Accordion {...args} initiallyOpen />;
 InitiallyOpen.storyName = 'Initially open';
 
-export const CardAccordion = (args) => (
+export const CardAccordion = (args: AccordionProps) => (
   <>
     <h2>Card</h2>
     <Accordion {...args} card />
@@ -64,7 +64,7 @@ CardAccordion.args = {
   style: { marginBottom: 'var(--spacing-m)', maxWidth: '360px' },
 };
 
-export const CustomTheme = (args) => (
+export const CustomTheme = (args: AccordionProps) => (
   <>
     <Accordion
       {...args}

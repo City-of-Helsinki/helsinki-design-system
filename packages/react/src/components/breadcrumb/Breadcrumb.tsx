@@ -7,6 +7,7 @@ import { IconAngleLeft, IconAngleRight } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
 import { IconSize } from '../../icons/Icon.interface';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface BreadcrumbCustomTheme {
   /**
@@ -33,10 +34,12 @@ export interface BreadcrumbCustomTheme {
 }
 
 export type BreadcrumbListItem = { title: string; path: string | null };
-export type BreadcrumbProps = {
+export type BreadcrumbProps = AllElementPropsWithoutRef<'nav'> & {
   /**
    * Aria-label for the created <nav> element
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel: string;
   /**
    * Array of items that should be shown in the breadcrumb.
@@ -117,7 +120,7 @@ const getLastItemWithPath = (list: BreadcrumbListItem[]): BreadcrumbListItem | u
   }, undefined);
 };
 
-export const Breadcrumb = ({ list, ariaLabel, theme }: BreadcrumbProps) => {
+export const Breadcrumb = ({ list, ariaLabel, theme, className, ...rest }: BreadcrumbProps) => {
   const customThemeClass = useTheme<BreadcrumbCustomTheme>(styles.breadcrumb, theme);
   // The breadcrumb shows a list of links to parent pages and optionally can also show the title of the current page
   // If there are no items with paths, then the breadcrumb would only show the title of the current page
@@ -128,7 +131,7 @@ export const Breadcrumb = ({ list, ariaLabel, theme }: BreadcrumbProps) => {
   }
 
   return (
-    <nav aria-label={ariaLabel} className={classNames(styles.breadcrumb, customThemeClass)}>
+    <nav {...rest} aria-label={ariaLabel} className={classNames(styles.breadcrumb, customThemeClass, className)}>
       <DesktopListView list={list} />
       <MobileView item={lastItemWithPath} />
     </nav>

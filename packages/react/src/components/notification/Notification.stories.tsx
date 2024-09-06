@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Notification, NotificationSize } from './Notification';
+import { Notification, NotificationProps, NotificationSize } from './Notification';
 import { Button } from '../button';
 
 const props = {
@@ -175,7 +175,7 @@ WithCustomHeadingLevel.parameters = {
 
 WithCustomHeadingLevel.storyName = 'With a custom aria-level';
 
-export const Playground = (args) => {
+export const Playground = (args: NotificationProps & Record<string, string>) => {
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
@@ -205,9 +205,9 @@ export const Playground = (args) => {
           type={args.type}
           onClose={() => setOpen(false)}
           position={args.position}
-          size={args.size}
+          size={args.size as NotificationSize.Medium}
           dismissible={args.dismissible}
-          closeButtonLabelText={args.closeButtonLabelText}
+          closeButtonLabelText={args.closeButtonLabelText as string}
           headingLevel={args.headingLevel}
         >
           {args.body}

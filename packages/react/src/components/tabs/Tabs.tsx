@@ -10,6 +10,7 @@ import { TabList } from './TabList';
 import { TabPanel } from './TabPanel';
 import { Tab } from './Tab';
 import { getChildElementsEvenIfContainersInbetween } from '../../utils/getChildren';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export interface TabsCustomTheme {
   '--tablist-border-color'?: string;
@@ -25,24 +26,26 @@ export interface TabsCustomTheme {
   '--tab-focus-outline-color'?: string;
 }
 
-export type TabsProps = React.PropsWithChildren<{
-  /**
-   * The initially active tab
-   * @default 0
-   */
-  initiallyActiveTab?: number;
-  /**
-   * Use the small variant
-   * @default false
-   */
-  small?: boolean;
-  /**
-   * Defines the tabs theme
-   */
-  theme?: TabsCustomTheme;
-}>;
+export type TabsProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'div'> & {
+    /**
+     * The initially active tab
+     * @default 0
+     */
+    initiallyActiveTab?: number;
+    /**
+     * Use the small variant
+     * @default false
+     */
+    small?: boolean;
+    /**
+     * Defines the tabs theme
+     */
+    theme?: TabsCustomTheme;
+  }
+>;
 
-export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme }: TabsProps) => {
+export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme, className, ...rest }: TabsProps) => {
   const [activeTab, setActiveTab] = useState<number>(initiallyActiveTab);
   const [focusedTab, setFocusedTab] = useState<number>(null);
   // custom theme class that is applied to the root element
@@ -75,7 +78,7 @@ export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme }:
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab, focusedTab, setFocusedTab }}>
-      <div className={classNames(styles.tabs, small && styles.small, theme && customThemeClass)}>
+      <div {...rest} className={classNames(styles.tabs, small && styles.small, theme && customThemeClass, className)}>
         {tabList}
         {tabPanels}
       </div>

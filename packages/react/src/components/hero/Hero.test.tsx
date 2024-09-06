@@ -4,6 +4,7 @@ import { axe } from 'jest-axe';
 
 import { Hero, HeroProps } from './Hero';
 import { Button, ButtonVariant } from '../button';
+import { getElementAttributesMisMatches, getCommonElementTestProps } from '../../utils/testHelpers';
 
 describe('<Hero /> spec', () => {
   const imageSrc = 'http://image.com/image.jpg';
@@ -57,5 +58,11 @@ describe('<Hero /> spec', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     }
+  });
+  it('Native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps('div');
+    const { getByTestId } = render(<HeroWithContent variant="backgroundImage" {...divProps} />);
+    const element = getByTestId(divProps['data-testid']);
+    expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
 });

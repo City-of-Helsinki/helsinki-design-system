@@ -7,6 +7,7 @@ import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
 import { Tooltip } from '../tooltip/Tooltip';
 import { useTheme } from '../../hooks/useTheme';
 import { IconSize } from '../../icons/Icon.interface';
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type ToggleButtonVariant = 'default' | 'inline';
 
@@ -15,7 +16,7 @@ export interface ToggleButtonCustomTheme {
   '--toggle-button-hover-color'?: string;
 }
 
-export type ToggleButtonProps = {
+export type ToggleButtonProps = AllElementPropsWithoutRef<'button'> & {
   /**
    * The id of the button element
    */
@@ -71,6 +72,8 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       tooltipText,
       variant = 'default',
       theme,
+      className,
+      ...rest
     }: ToggleButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => {
@@ -100,13 +103,14 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           )}
         </div>
         <button
+          {...rest}
           id={id}
           ref={ref}
           disabled={disabled}
           type="button"
           aria-pressed={checked}
           aria-labelledby={labelId}
-          className={styles.toggleButton}
+          className={classNames(styles.toggleButton, className)}
           onClick={() => {
             onChange(checked);
           }}

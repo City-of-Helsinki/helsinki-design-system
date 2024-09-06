@@ -5,6 +5,7 @@ title: 'Pagination - Code'
 import { Pagination } from 'hds-react';
 import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -242,3 +243,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `paginationAriaLabel` | Aria-label for the pagination nav element.                        | `string`   | -              |
 | `siblingCount`        | Number of always visible pages before and after the current page. | `number`   | 1              |
 | `theme`               | Theme prop for customisation of the Pagination component.         | `object`   | -              |
+
+<NativeElementPropsInfo
+  nodeName="nav"
+  overlappingProps={['dataTestId', 'paginationAriaLabel/aria-label']}
+/>

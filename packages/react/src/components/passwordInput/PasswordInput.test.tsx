@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import { axe } from 'jest-axe';
 
 import { PasswordInput, PasswordInputProps } from './PasswordInput';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<PasswordInput /> spec', () => {
   const defaultInputProps: PasswordInputProps = {
@@ -30,6 +31,16 @@ describe('<PasswordInput /> spec', () => {
     const { container } = render(<PasswordInput {...defaultInputProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('Native html props are passed to the element', async () => {
+    const inputProps = getCommonElementTestProps<'input', Pick<PasswordInputProps, 'value' | 'defaultValue'>>('input');
+    const { getByTestId } = render(<PasswordInput {...inputProps} step={10} {...defaultInputProps} />);
+    const element = getByTestId(inputProps['data-testid']);
+    // id, className and style are set to the wrapper element, others to input
+    expect(
+      getElementAttributesMisMatches(element, { ...inputProps, id: undefined, style: undefined, className: undefined }),
+    ).toHaveLength(0);
   });
 
   it('should change input type when show password button is clicked', async () => {

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Stepper } from './Stepper';
+import { Stepper, StepperProps } from './Stepper';
 import { StepState } from './Step';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Stepper /> spec', () => {
   let state;
@@ -90,5 +91,22 @@ describe('<Stepper /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+  it('native html props are passed to the element', async () => {
+    const divProps = getCommonElementTestProps<'div', Pick<StepperProps, 'dataTestId'>>('div');
+    // the component has "dataTestId" prop
+    divProps.dataTestId = divProps['data-testid'];
+    const { getByTestId } = render(
+      <Stepper language="en" steps={state.steps} selectedStep={state.activeStepIndex} {...divProps} />,
+    );
+    const element = getByTestId(divProps['data-testid']);
+    // className is applied to another element
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...divProps,
+        dataTestId: undefined,
+        className: undefined,
+      } as HTMLAttributes<HTMLDivElement>),
+    ).toHaveLength(0);
   });
 });

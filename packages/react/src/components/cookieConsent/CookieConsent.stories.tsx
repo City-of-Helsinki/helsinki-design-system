@@ -10,6 +10,8 @@ import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
 import { CookieModal } from './cookieModal/CookieModal';
 
+type StoryArgs = Record<string | number | symbol, unknown>;
+
 export default {
   component: CookieModal,
   title: 'Components/CookieConsent',
@@ -31,7 +33,7 @@ const ForcePageScrollBarForModalTesting = () => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const EnglishModalVersion = (args) => {
+export const EnglishModalVersion = (args: StoryArgs) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: CookieContentSource = {
@@ -329,7 +331,7 @@ export const EnglishModalVersion = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const FinnishModalVersion = (args) => {
+export const FinnishModalVersion = (args: StoryArgs) => {
   const [language, setLanguage] = useState<SupportedLanguage>('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: CookieContentSource = {
@@ -630,9 +632,9 @@ export const FinnishModalVersion = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const SimpleModalVersion = (args) => {
+export const SimpleModalVersion = (args: StoryArgs) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
-  const onLanguageChange = (newLang) => setLanguage(newLang);
+  const onLanguageChange = (newLang: string) => setLanguage(newLang as SupportedLanguage);
   const contentSource: CookieContentSource = {
     siteName: `Site title ${language}`,
     currentLanguage: language,
@@ -675,7 +677,7 @@ export const SimpleModalVersion = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const PageVersion = (args) => {
+export const PageVersion = (args: StoryArgs) => {
   const contentSource: CookieContentSource = {
     siteName: 'Test website',
     currentLanguage: 'en',
@@ -779,7 +781,7 @@ export const PageVersion = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomContentVersion = (args) => {
+export const CustomContentVersion = (args: StoryArgs) => {
   const contentSource: CookieContentSource = {
     siteName: 'Not shown if main title is overridden',
     currentLanguage: 'en',
@@ -916,7 +918,7 @@ export const CustomContentVersion = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const DebugVersion = (args) => {
+export const DebugVersion = (args: StoryArgs) => {
   const contentSource: CookieContentSource = {
     siteName: 'Cookie consent debugging',
     currentLanguage: 'fi',
@@ -1041,7 +1043,7 @@ DebugVersion.parameters = {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const TunnistamoLoginCookies = (args) => {
+export const TunnistamoLoginCookies = (args: StoryArgs) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: CookieContentSource = {

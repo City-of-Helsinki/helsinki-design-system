@@ -22,15 +22,18 @@ import { LanguageProvider, LanguageProviderProps } from './LanguageContext';
 import { SkipLink } from '../../internal/skipLink';
 import { styleBoundClassNames } from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 
 const classNames = styleBoundClassNames(styles);
 
-type HeaderAttributes = JSX.IntrinsicElements['header'];
+type HeaderAttributes = AllElementPropsWithRef<'header'>;
 
 export interface HeaderNodeProps extends HeaderAttributes {
   /**
    * Aria-label for describing Header.
+   * @deprecated Will be replaced in the next major release with "aria-label"
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ariaLabel?: string;
   /**
    * Additional class names to apply to the header.

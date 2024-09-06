@@ -1,6 +1,7 @@
+/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
-import { Footer } from './Footer';
+import { Footer, FooterProps } from './Footer';
 import { IconFacebook, IconInstagram, IconLinkedin, IconTiktok, IconTwitter, IconYoutube } from '../../icons';
 import { FooterGroupHeading } from './components/footerGroupHeading/FooterGroupHeading';
 import { FooterLink } from './components/footerLink/FooterLink';
@@ -121,7 +122,7 @@ export default {
   },
 };
 
-export const NoNav = (args) => (
+export const NoNav = (args: FooterProps) => (
   <Footer {...args}>
     <Utilities />
     <Base />
@@ -129,7 +130,7 @@ export const NoNav = (args) => (
 );
 NoNav.storyName = 'No navigation';
 
-export const CustomTheme = (args) => (
+export const CustomTheme = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Navigation>
       {createArray(8).map((index) => (
@@ -157,7 +158,7 @@ CustomTheme.argTypes = {
   },
 };
 
-export const Sitemap = (args) => (
+export const Sitemap = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Navigation>
       {createArray(4).map((index) => (
@@ -184,7 +185,7 @@ export const Sitemap = (args) => (
   </Footer>
 );
 
-export const Example = (args) => (
+export const Example = (args: FooterProps) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
     <Footer.Navigation>
       <Footer.Link href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
@@ -270,7 +271,7 @@ export const Example = (args) => (
   </Footer>
 );
 
-export const UtilityGroups = (args) => (
+export const UtilityGroups = (args: FooterProps) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
     <Footer.Navigation>
       <Footer.Link href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
@@ -362,7 +363,7 @@ export const UtilityGroups = (args) => (
   </Footer>
 );
 
-export const CustomSection = (args) => (
+export const CustomSection = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Navigation>
       {createArray(8).map((index) => (
@@ -385,7 +386,7 @@ export const CustomSection = (args) => (
   </Footer>
 );
 
-export const Minimal = (args) => (
+export const Minimal = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Base
       backToTopLabel="Back to top"

@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Button } from '../button/Button';
 import { TextArea } from '../textarea/TextArea';
 import { TextInput } from '../textInput/TextInput';
-import { Dialog } from './Dialog';
+import { Dialog, DialogProps } from './Dialog';
 import { IconAlertCircle, IconInfoCircle, IconPlusCircle, IconTrash } from '../../icons';
 import { DateInput } from '../dateInput';
 
@@ -33,7 +33,7 @@ export default {
   argTypes,
 };
 
-export const Default = (args) => {
+export const Default = (args: DialogProps) => {
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
@@ -52,7 +52,7 @@ export const Default = (args) => {
         theme={args.theme}
         style={args.style}
         variant={args.variant}
-        closeButtonLabelText={args.closeButtonLabelText}
+        closeButtonLabelText={args.closeButtonLabelText as string}
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
         isOpen={open}
@@ -100,8 +100,8 @@ export const Default = (args) => {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
-export const WithBoxShadow = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+export const WithBoxShadow = (args: DialogProps) => {
+  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -177,8 +177,8 @@ WithBoxShadow.parameters = {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
-export const Confirmation = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+export const Confirmation = (args: DialogProps) => {
+  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -241,8 +241,8 @@ Confirmation.parameters = {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
-export const Danger = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+export const Danger = (args: DialogProps) => {
+  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDangerButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -308,8 +308,8 @@ Danger.parameters = {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
-export const ScrollableConfirmation = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+export const ScrollableConfirmation = (args: DialogProps) => {
+  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openScrollableConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -443,8 +443,8 @@ ScrollableConfirmation.parameters = {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
-export const LongButtonLabels = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+export const LongButtonLabels = (args: DialogProps) => {
+  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDialogButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -503,7 +503,7 @@ LongButtonLabels.parameters = {
 };
 
 // This dialog story is not part of the Storybooks' docs section.
-export const ConfirmationWithTerms = (args) => {
+export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) => {
   const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const [termsOpen, setTermsOpen] = useState<boolean>(false);
@@ -625,7 +625,7 @@ ConfirmationWithTerms.parameters = {
   },
 };
 
-export const WithControlledContent = (args) => {
+export const WithControlledContent = (args: DialogProps) => {
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);

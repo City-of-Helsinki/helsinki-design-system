@@ -3,39 +3,32 @@ import React, { cloneElement, forwardRef, ReactNode, RefObject } from 'react';
 import classes from './HeaderActionBarItemButton.module.scss';
 import classNames from '../../../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../../../icons';
+import { AllElementPropsWithRef } from '../../../../utils/elementTypings';
 
-type ButtonAttributes = JSX.IntrinsicElements['button'];
+type ButtonAttributes = AllElementPropsWithRef<'button'>;
+
+/**
+ * This component is internal and not exported as Header.xxxx
+ * It is exported via HeaderActionBarButton which uses this directly.
+ */
 
 export interface HeaderActionBarItemButtonProps extends ButtonAttributes {
-  /**
-   * Fix the item position to the right side of the action bar.
-   */
-  fixedRightPosition?: boolean;
-  /**
-   * Icon element for the action bar item.
-   */
-  icon?: ReactNode;
-  /**
-   * Label for the action bar item.
-   */
-  label?: string | JSX.Element;
-  /**
-   * Positions the label to the right side of the icon.
-   * @internal
-   */
-  labelOnRight?: boolean;
-  /**
-   * Label shown only visually when button is in active state. Screenreaders see only the "label".
-   */
-  activeStateLabel?: string | JSX.Element;
   /**
    * Icon shown when button is in active state.
    */
   activeStateIcon?: ReactNode;
   /**
-   * Indicates button is in active state
+   * Label shown only visually when button is in active state. Screenreaders see only the "label".
    */
-  isActive?: boolean;
+  activeStateLabel?: string | JSX.Element;
+  /**
+   * An avatar which replaces the icon. Usually user's initials, but can be any Element.
+   */
+  avatar?: string | JSX.Element;
+  /**
+   * Fix the item position to the right side of the action bar.
+   */
+  fixedRightPosition?: boolean;
   /**
    * Possibility to use a full-width version of the dropdown, for example in mobile use.
    */
@@ -45,9 +38,22 @@ export interface HeaderActionBarItemButtonProps extends ButtonAttributes {
    */
   hasSubItems?: boolean;
   /**
-   * Initials for avatar which replace icon.
+   * Icon element for the action bar item.
    */
-  avatar?: string | JSX.Element;
+  icon?: ReactNode;
+  /**
+   * Indicates button is in active state
+   */
+  isActive?: boolean;
+  /**
+   * Label for the action bar item.
+   */
+  label?: string | JSX.Element;
+  /**
+   * Positions the label to the right side of the icon.
+   * @internal
+   */
+  labelOnRight?: boolean;
   ref?: RefObject<HTMLButtonElement>;
   /**
    * Menu button resizing is prevented by rendering button's active state to a separate element.

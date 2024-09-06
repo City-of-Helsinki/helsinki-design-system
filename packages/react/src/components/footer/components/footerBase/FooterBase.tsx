@@ -9,53 +9,59 @@ import { FooterLink } from '../footerLink/FooterLink';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
 import { useCallbackIfDefined } from '../../../../utils/useCallback';
+import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
+import classNames from '../../../../utils/classNames';
 
-export type FooterBaseProps = React.PropsWithChildren<{
-  /**
-   * aria-label for describing Footer.Base.
-   */
-  ariaLabel?: string;
-  /**
-   * Label for the "Back to top" button.
-   */
-  backToTopLabel?: string | React.ReactNode;
-  /**
-   * Text to be displayed next to the copyright symbol.
-   */
-  copyrightHolder?: React.ReactNode;
-  /**
-   * Text to be displayed after the copyright holder text.
-   */
-  copyrightText?: React.ReactNode;
-  /**
-   * Link for the logo. Should direct to the main page.
-   */
-  logoHref?: string;
-  /**
-   * Logo to use
-   */
-  logo: React.ReactElement<typeof Logo>;
-  /**
-   * Callback fired when the "Back to top" button is clicked.
-   */
-  onBackToTopClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  /**
-   * Callback fired when the logo is clicked.
-   */
-  onLogoClick?: MouseEventHandler;
-  /**
-   * ARIA role to describe the contents.
-   */
-  role?: string;
-  /**
-   * Whether the "Back to top" button should be shown.
-   */
-  showBackToTopButton?: boolean;
-  /**
-   * Set the year for copyright text. This can be useful in automated tests when a static year is set so the tests don't fail after a new year.
-   */
-  year?: number;
-}>;
+export type FooterBaseProps = React.PropsWithChildren<
+  AllElementPropsWithoutRef<'div'> & {
+    /**
+     * aria-label for describing Footer.Base.
+     * @deprecated Will be replaced in the next major release with "aria-label"
+     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    ariaLabel?: string;
+    /**
+     * Label for the "Back to top" button.
+     */
+    backToTopLabel?: string | React.ReactNode;
+    /**
+     * Text to be displayed next to the copyright symbol.
+     */
+    copyrightHolder?: React.ReactNode;
+    /**
+     * Text to be displayed after the copyright holder text.
+     */
+    copyrightText?: React.ReactNode;
+    /**
+     * Link for the logo. Should direct to the main page.
+     */
+    logoHref?: string;
+    /**
+     * Logo to use
+     */
+    logo: React.ReactElement<typeof Logo>;
+    /**
+     * Callback fired when the "Back to top" button is clicked.
+     */
+    onBackToTopClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    /**
+     * Callback fired when the logo is clicked.
+     */
+    onLogoClick?: MouseEventHandler;
+    /**
+     * ARIA role to describe the contents.
+     */
+    role?: string;
+    /**
+     * Whether the "Back to top" button should be shown.
+     */
+    showBackToTopButton?: boolean;
+    /**
+     * Set the year for copyright text. This can be useful in automated tests when a static year is set so the tests don't fail after a new year.
+     */
+    year?: number;
+  }
+>;
 
 /**
  * Scrolls to the top of the page and puts the focus on the first focusable element in the DOM
@@ -77,14 +83,15 @@ export const FooterBase = ({
   logoHref,
   onBackToTopClick,
   onLogoClick,
-  role,
   showBackToTopButton = true,
   year = new Date().getFullYear(),
+  className,
+  ...rest
 }: FooterBaseProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
   return (
-    <div className={styles.base} aria-label={ariaLabel} role={role}>
+    <div {...rest} className={classNames(styles.base, className)} aria-label={ariaLabel}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
         <FooterLink tabIndex={0} icon={logo} href={logoHref} onClick={handleLogoClick} />

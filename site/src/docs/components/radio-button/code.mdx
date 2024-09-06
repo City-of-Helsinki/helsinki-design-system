@@ -6,6 +6,7 @@ title: 'RadioButton - Code'
 import { RadioButton, SelectionGroup } from 'hds-react';
 import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -126,3 +127,8 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `label`                          | The label for the input.                                          | `string` | -             |
 | `helperText`                     | The helper text content that will be shown below the radiobutton. | `string` | -             |
 | [Table 1:RadioButton properties] |
+
+<NativeElementPropsInfo
+  nodeName="input"
+  splitProps={['className', 'style']}
+/>

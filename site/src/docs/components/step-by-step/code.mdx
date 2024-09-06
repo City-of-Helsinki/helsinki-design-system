@@ -5,6 +5,7 @@ title: 'StepByStep - Code'
 
 import { StepByStep } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -222,3 +223,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `links`                       | List of HDS link objects for the step.                                        | `Array<LinkProps>`      | -             |
 | `title`                       | Step title.                                                                   | `string`                | -             |
 | [Table 1:StepType properties] |
+
+<NativeElementPropsInfo nodeName="div" />

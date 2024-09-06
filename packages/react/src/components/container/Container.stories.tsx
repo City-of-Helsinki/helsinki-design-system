@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from './Container';
+import { Container, ContainerProps } from './Container';
 import { Header } from '../header';
 import { Logo, logoFi } from '../logo';
 import { IconUser } from '../../icons';
@@ -11,7 +11,7 @@ export default {
   args: {},
 };
 
-export const Example = (args) => (
+export const Example = (args: ContainerProps) => (
   <Container {...args}>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
@@ -22,7 +22,7 @@ export const Example = (args) => (
   </Container>
 );
 
-export const AlignsWithHeader = (args) => {
+export const AlignsWithHeader = (args: ContainerProps) => {
   return (
     <>
       <Header>
@@ -88,7 +88,7 @@ AlignsWithHeader.parameters = {
   layout: 'fullscreen',
 };
 
-export const AlignsWitCustomWidthHeader = (args) => {
+export const AlignsWitCustomWidthHeader = (args: ContainerProps) => {
   return (
     <>
       <style>

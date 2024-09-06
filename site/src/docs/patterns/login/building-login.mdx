@@ -52,21 +52,21 @@ The following steps are required for user authentication:
 
 #### Log in process
 
-Logging in or out of an OIDC server requires browser redirections to the server and back. UI's only show login and logout buttons. No other form elements are needed.
+Logging in or out of an OIDC server requires browser redirections to the server and back. User interfaces only show login and logout buttons. No other form elements are needed.
 
-The `login` call is asyncronous and may fail if the OIDC server is offline or the service URL is not registered. UI's must indicate loading has started, and possible errors must be handled by the UI.
+The `login` call is asyncronous and may fail if the OIDC server is offline or the service URL is not registered. The user interface must indicate loading has started, and possible errors must be handled by the user interface.
 
 The <InternalLink href="/patterns/login/building-login/#header-login-button">HDS Header Login button</InternalLink> handles all of these scenarios.
 
 #### Log out process
 
-Logging out is almost identical to the log-in process. It is also asyncronous and may fail.
+Log out is almost identical to the log in process. It is also asyncronous and may fail.
 
 The <InternalLink href="/patterns/login/building-login/#header-logout-button">HDS Header Logout button</InternalLink> handles all of these scenarios.
 
 #### User data from the OIDC server
 
-User information is stored in tokens which are decrypted by the Login system and an user object is provided to UI's. It holds, for example, user's name and email address.
+User information is stored in tokens which are decrypted by the Login system and an user object is provided to user interfaces. It holds, for example, user's name and email address.
 
 User object can be accessed with the <InternalLink href="/components/login/usage/#useauthenticateduser">useAuthenticatedUser</InternalLink> hook.
 
@@ -75,8 +75,9 @@ The <InternalLink href="/patterns/login/building-login/#header-user-menu">HDS He
 #### User data from the Profile Service
 
 <ExternalLink href="https://profiili.hel.fi">Profile information</ExternalLink> is not used by the HDS. It can be fetched
-with the GraphQL module, but it is not used in HDS components. The user object returned by the OIDC server has a `profile`
-property, but that is just an unfortunate naming convention. It is not the Helsinki Profile.
+with the <InternalLink href="/components/login/usage/#graphql-module">GraphQL module</InternalLink>, but it is not used
+in HDS components. The user object returned by the OIDC server has a `profile` property, but that is just an unfortunate
+naming convention. It is not the Helsinki Profile.
 
 ### Header.Login components
 

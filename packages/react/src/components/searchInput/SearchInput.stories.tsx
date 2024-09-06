@@ -2,8 +2,12 @@
 
 import React, { useRef, useState } from 'react';
 
-import { SearchInput } from './SearchInput';
+import { SearchInput, SearchInputProps } from './SearchInput';
 import { Button } from '../button';
+
+type SuggestionItemType = {
+  value: string;
+};
 
 export default {
   component: SearchInput,
@@ -64,7 +68,7 @@ const asynchronousSearchOperation = (inputValue: string, timeout = 0) => {
 
 const longLastingAsynchronousSearchOperation = (inputValue: string) => asynchronousSearchOperation(inputValue, 5000);
 
-export const Default = (args) => {
+export const Default = (args: SearchInputProps<string>) => {
   const onSubmit = (value: string) => {
     console.log('Search for:', value);
   };
@@ -76,7 +80,7 @@ Default.args = {
   placeholder: 'Placeholder',
 };
 
-export const WithCustomSearchButton = (args) => {
+export const WithCustomSearchButton = (args: SearchInputProps<string>) => {
   const currentValue = useRef<string>('');
 
   const onChange = (value: string) => {
@@ -130,11 +134,7 @@ export const WithCustomSearchButton = (args) => {
   );
 };
 
-export const WithSuggestions = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-
+export const WithSuggestions = (args: SearchInputProps<SuggestionItemType>) => {
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await asynchronousSearchOperation(inputValue);
     return suggestions;
@@ -160,11 +160,7 @@ WithSuggestions.args = {
   placeholder: 'Placeholder',
 };
 
-export const WithSuggestionsAndHighlighting = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-
+export const WithSuggestionsAndHighlighting = (args: SearchInputProps<SuggestionItemType>) => {
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await asynchronousSearchOperation(inputValue);
     return suggestions;
@@ -191,11 +187,7 @@ WithSuggestionsAndHighlighting.args = {
   placeholder: 'Placeholder',
 };
 
-export const WithSuggestionsSpinner = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-
+export const WithSuggestionsSpinner = (args: SearchInputProps<SuggestionItemType>) => {
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await longLastingAsynchronousSearchOperation(inputValue);
     return suggestions;
@@ -226,11 +218,8 @@ WithSuggestionsSpinner.args = {
   placeholder: 'Placeholder',
 };
 
-export const WithDefaultValue = (args) => {
-  type SuggestionItemType = {
-    value: string;
-  };
-  const [searchValue, setSearchValue] = useState<string>(args.value);
+export const WithDefaultValue = (args: SearchInputProps<SuggestionItemType> & Record<string, string>) => {
+  const [searchValue, setSearchValue] = useState<string>(args.value as string);
 
   const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
     const suggestions = await asynchronousSearchOperation(inputValue);

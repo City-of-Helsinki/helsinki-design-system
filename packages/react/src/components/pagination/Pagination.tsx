@@ -7,6 +7,7 @@ import classNames from '../../utils/classNames';
 import { Button, ButtonPresetTheme, ButtonVariant } from '../button';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
 type Language = 'en' | 'fi' | 'sv';
 
@@ -134,56 +135,64 @@ export interface PaginationCustomTheme {
   '--active-page-background-color'?: string;
 }
 
-export type PaginationProps = {
-  /**
-   * Data test id of pagination
-   */
-  dataTestId?: string;
-  /**
-   * If true, hide the next-page button
-   * @default false
-   */
-  hideNextButton?: boolean;
-  /**
-   * If true, hide the previous-page button
-   * @default false
-   */
-  hidePrevButton?: boolean;
-  /**
-   * The language of the pagination component.
-   * @default fi
-   */
-  language?: Language;
-  /**
-   * Callback fired when the page is changed
-   */
-  onChange?: (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>, index: number) => void;
-  /**
-   * The total number of pages
-   */
-  pageCount: number;
-  /**
-   * A function for generating the href of pages
-   */
-  pageHref: (index: number) => string;
-  /**
-   * The active page index
-   */
-  pageIndex: number;
-  /**
-   * Aria-label for the pagination nav element
-   */
-  paginationAriaLabel: string;
-  /**
-   * Number of always visible pages before and after the current page
-   * @default 1
-   */
-  siblingCount?: number;
-  /**
-   * Theme prop for customisation of the Pagination component
-   */
-  theme?: PaginationCustomTheme;
-};
+export type PaginationProps = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<'nav'>,
+  {
+    /**
+     * Data test id of pagination
+     * @deprecated Will be replaced in the next major release with "data-testid"
+     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    dataTestId?: string;
+    /**
+     * If true, hide the next-page button
+     * @default false
+     */
+    hideNextButton?: boolean;
+    /**
+     * If true, hide the previous-page button
+     * @default false
+     */
+    hidePrevButton?: boolean;
+    /**
+     * The language of the pagination component.
+     * @default fi
+     */
+    language?: Language;
+    /**
+     * Callback fired when the page is changed
+     */
+    onChange?: (
+      event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
+      index: number,
+    ) => void;
+    /**
+     * The total number of pages
+     */
+    pageCount: number;
+    /**
+     * A function for generating the href of pages
+     */
+    pageHref: (index: number) => string;
+    /**
+     * The active page index
+     */
+    pageIndex: number;
+    /**
+     * Aria-label for the pagination nav element
+     */
+    paginationAriaLabel: string;
+    /**
+     * Number of always visible pages before and after the current page
+     * @default 1
+     */
+    siblingCount?: number;
+    /**
+     * Theme prop for customisation of the Pagination component
+     */
+    theme?: PaginationCustomTheme;
+  }
+>;
 
 export const Pagination = ({
   dataTestId,
@@ -197,6 +206,8 @@ export const Pagination = ({
   paginationAriaLabel,
   siblingCount = 1,
   theme,
+  className,
+  ...rest
 }: PaginationProps) => {
   const initialPageIndex = useRef(pageIndex);
   const activeItemRef = useRef<HTMLSpanElement>();
@@ -244,7 +255,13 @@ export const Pagination = ({
   return (
     <div className={styles.container}>
       <nav
-        className={classNames(styles.pagination, customThemeClass, hideNextButton ? styles.hideNextButton : '')}
+        {...rest}
+        className={classNames(
+          styles.pagination,
+          customThemeClass,
+          hideNextButton ? styles.hideNextButton : '',
+          className,
+        )}
         role="navigation"
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}
