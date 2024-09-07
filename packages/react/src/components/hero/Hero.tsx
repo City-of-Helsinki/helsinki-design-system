@@ -223,9 +223,10 @@ export const Hero = ({
     const { inward, containerClassName, style, ...korosProps } = props;
     const className =
       containerClassName || (inward !== true ? styles.korosContainer : styles.korosContainerInwardKoros);
+    const mergedKorosProps: KorosProps = { ...korosProps, style };
     return (
       <div className={className}>
-        <Koros {...{ ...korosProps, style }} />
+        <Koros {...mergedKorosProps} />
       </div>
     );
   };
