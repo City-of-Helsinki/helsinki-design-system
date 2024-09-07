@@ -225,7 +225,7 @@ export const Hero = ({
       containerClassName || (inward !== true ? styles.korosContainer : styles.korosContainerInwardKoros);
     return (
       <div className={className}>
-        <Koros {...{ ...korosProps, style, shift: false, compact: false }} />
+        <Koros {...{ ...korosProps, style }} />
       </div>
     );
   };

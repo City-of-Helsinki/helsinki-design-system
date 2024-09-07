@@ -198,6 +198,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       className = '',
       closeAnimationDuration = 85,
       closeButtonLabelText,
+      dataTestId,
       dismissible = false,
       displayAutoCloseProgress = true,
       invisible = false,
@@ -274,6 +275,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             className,
           )}
           aria-label={notificationAriaLabel}
+          data-testid={dataTestId}
           // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
           role={isToast || invisible ? 'alert' : undefined}
         >
