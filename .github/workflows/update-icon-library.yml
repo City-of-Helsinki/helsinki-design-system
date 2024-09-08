@@ -10,9 +10,6 @@ on:
 jobs:
   build-icon-library:
     runs-on: ubuntu-latest
-    env:
-      FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
-      NODE_ID: '172:2478'
 
     steps:
       - name: Checkout repo
@@ -64,11 +61,13 @@ jobs:
             --filter 'Size=S'
         env:
           API_KEY: ${{ secrets.HDS_ICON_KIT }}
+          FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
+          NODE_ID: '172:2478'
 
       - name: Append React interface into index file
         if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
-          echo -e "export { IconProps } from './Icon.interface';\n" | \
+          echo -e "export { IconProps, IconSize } from './Icon.interface';\n" | \
           cat - ./icon-library/react/tsx/index.ts > temp && mv temp ./icon-library/react/tsx/index.ts
 
       - name: Bump version in Changelog
