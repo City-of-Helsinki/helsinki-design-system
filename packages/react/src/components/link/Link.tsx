@@ -15,12 +15,6 @@ export enum LinkSize {
 
 export type LinkProps = {
   /**
-   * aria-label for providing detailed information for screen readers about a link text.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
-  /**
    * Link content
    */
   children: React.ReactNode;
@@ -69,7 +63,9 @@ export type LinkProps = {
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
-      ariaLabel,
+      // aria-label is picked from "...rest", because it is sometimes built from props
+      // and "...rest"  would override the built one.
+      'aria-label': ariaLabel,
       children,
       className,
       disableVisitedStyles = false,
@@ -117,7 +113,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     return (
       <a
-        aria-label={ariaLabel}
         className={classNames(!useButtonStyles ? linkStyles : styles.button, className)}
         href={href}
         style={style}

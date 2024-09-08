@@ -33,15 +33,17 @@ describe('<Link /> spec', () => {
   it('Native html props are passed to the element', async () => {
     const linkProps = getCommonElementTestProps<'a', Pick<LinkProps, 'href'>>('a');
     linkProps.href = 'https://hds.hel.fi';
-    // Note: "...rest" in Link component is appened after other props
-    // so it overrides for example ariaLabel.
-    // Changing this would be a breaking change, so did not change it yet.
     const { getByTestId } = render(
       <Link {...linkProps} external openInNewTab>
         Test link
       </Link>,
     );
     const element = getByTestId(linkProps['data-testid']);
-    expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...linkProps,
+        'aria-label': `${linkProps['aria-label']}. Avautuu uudessa välilehdessä. Siirtyy toiseen sivustoon.`,
+      }),
+    ).toHaveLength(0);
   });
 });
