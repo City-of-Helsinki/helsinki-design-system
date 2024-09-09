@@ -58,6 +58,7 @@
   overflow-wrap: anywhere;
   padding: var(--padding);
   position: relative;
+  text-align: center;
   text-decoration: none;
   text-transform: none;
   vertical-align: top;
