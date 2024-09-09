@@ -60,6 +60,11 @@ export type LogoProps = AllElementPropsWithoutRef<'img'> &
      */
     className?: string;
     /**
+     * Adds a data-testid attribute to the root element with the given value
+     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    dataTestId?: string;
+    /**
      * The size of the logo
      * @default 'full'
      */

@@ -63,6 +63,8 @@ export type LinkProps = {
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
+      // aria-label is picked from "...rest", because it is sometimes built from props
+      // and "...rest"  would override the built one.
       'aria-label': ariaLabel,
       children,
       className,
@@ -111,7 +113,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     return (
       <a
-        aria-label={ariaLabel}
         className={classNames(!useButtonStyles ? linkStyles : styles.button, className)}
         href={href}
         style={style}
