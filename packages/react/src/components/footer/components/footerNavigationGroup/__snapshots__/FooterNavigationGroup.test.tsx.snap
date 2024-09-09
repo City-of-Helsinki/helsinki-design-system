@@ -52,27 +52,87 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
         <div
           class="navigation"
         >
-          <a
-            class="link link-medium item navigation"
+          <div
+            class="navigationGroup"
+            variant="navigation"
           >
-            <span>
-              Link 1
-            </span>
-          </a>
-          <a
-            class="link link-medium item navigation"
-          >
-            <span>
-              Link 2
-            </span>
-          </a>
-          <a
-            class="link link-medium item navigation"
-          >
-            <span>
-              Link 3
-            </span>
-          </a>
+            <div
+              class="navigationGroupList"
+            >
+              <a
+                class="heading navigation"
+                href="https://google.com"
+              >
+                Main Page
+              </a>
+              <a
+                class="link link-medium item subItem navigation"
+              >
+                <svg
+                  aria-hidden="true"
+                  aria-label="angle-right"
+                  class="icon small subItemIcon"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+                <span>
+                  Link 1
+                </span>
+              </a>
+              <a
+                class="link link-medium item subItem navigation"
+              >
+                <svg
+                  aria-hidden="true"
+                  aria-label="angle-right"
+                  class="icon small subItemIcon"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+                <span>
+                  Link 2
+                </span>
+              </a>
+              <a
+                class="link link-medium item subItem navigation"
+              >
+                <svg
+                  aria-hidden="true"
+                  aria-label="angle-right"
+                  class="icon small subItemIcon"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M13.5 12L8.5 7L10 5.5L16.5 12L10 18.5L8.5 17L13.5 12Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+                <span>
+                  Link 3
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
