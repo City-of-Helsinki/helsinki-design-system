@@ -51,6 +51,11 @@ type CommonProps = React.PropsWithChildren<
      */
     closeAnimationDuration?: number;
     /**
+     * Value for the data-testid attribute that is applied to the root component.
+     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    dataTestId?: string;
+    /**
      * Displays a progress bar on top of the notification when `true`
      * @default true
      */
@@ -193,6 +198,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       className = '',
       closeAnimationDuration = 85,
       closeButtonLabelText,
+      dataTestId,
       dismissible = false,
       displayAutoCloseProgress = true,
       invisible = false,
@@ -269,6 +275,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             className,
           )}
           aria-label={notificationAriaLabel}
+          data-testid={dataTestId}
           // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
           role={isToast || invisible ? 'alert' : undefined}
         >
