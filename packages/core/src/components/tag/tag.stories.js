@@ -11,13 +11,13 @@ const tagWrapperStyle = 'display: flex; gap: 12px; flex-wrap: wrap; align-items:
 
 export const ActionTags = () => `
   <div style="${tagWrapperStyle}">
-    <div role="button" tabindex="0" class="hds-tag hds-tag--action" id="action-1" onclick={console.log("action-1");} aria-label="run action 1">
+    <div role="button" tabindex="0" class="hds-tag hds-tag--action" id="action-1" onclick={console.log("action-1");} aria-label="run action 1" data-playwright="true">
       <span>Label</span>
     </div>
     <div role="button" tabindex="0" class="hds-tag hds-tag--action hds-icon--trash hds-icon-start--trash" id="action-2" onclick={console.log("action-2");} aria-label="run action 2">
       <span>Label</span>
     </div>
-    <div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action" id="action-3" onclick={console.log("action-3");} aria-label="run action 3">
+    <div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action" id="action-3" onclick={console.log("action-3");} aria-label="run action 3" data-playwright="true">
       <span class="hds-tag__label">Label</span>
     </div>
     <div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action hds-icon--trash hds-icon-start--trash" id="action-4" onclick={console.log("action-4");} aria-label="run action 4">
@@ -67,10 +67,10 @@ export const CustomThemeTags = () => `
 
 export const DeletableTags = () => `
   <div style="${tagWrapperStyle}">
-    <div role="button" tabindex="0" class="hds-tag hds-tag--action hds-icon--cross hds-icon-end--cross" id="delete-1"  onclick={console.log("delete-1");}>
+    <div role="button" tabindex="0" class="hds-tag hds-tag--action hds-icon--cross hds-icon-end--cross" id="delete-1"  onclick={console.log("delete-1");} data-playwright="true">
       <span>Label</span>
     </div>
-    <div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action hds-icon--cross hds-icon-end--cross" id="delete-2"  onclick={console.log("delete-2");}>
+    <div role="button" tabindex="0" class="hds-tag hds-tag--large hds-tag--action hds-icon--cross hds-icon-end--cross" id="delete-2"  onclick={console.log("delete-2");} data-playwright="true">
       <span>Label</span>
     </div>
   </div>
@@ -112,10 +112,10 @@ export const InformativeTagsSmall = () => `
 
 export const LinkTags = () => `
   <div style="${tagWrapperStyle}">
-    <a href="#" target="_blank" class="hds-tag hds-tag--link hds-icon--share hds-icon-end--share" id="link-1">
+    <a href="#" target="_blank" class="hds-tag hds-tag--link hds-icon--share hds-icon-end--share" id="link-1" data-playwright="true">
       <span>Label</span>
     </a>
-    <a href="#" target="_blank" class="hds-tag hds-tag--link hds-tag--large hds-icon--share hds-icon-end--share" id="link-2">
+    <a href="#" target="_blank" class="hds-tag hds-tag--link hds-tag--large hds-icon--share hds-icon-end--share" id="link-2" data-playwright="true">
       <span>Label</span>
     </a>
   </div>
