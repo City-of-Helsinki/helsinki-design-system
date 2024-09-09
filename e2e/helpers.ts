@@ -1,10 +1,10 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 
-export const getComponentStorybookUrls = async (page: Page, componentName: string) => {
+export const getComponentStorybookUrls = async (page: Page, componentName: string, packageName: string) => {
     let componentUrls: string[] = [];
     const hds_root_dir = __dirname.split('/e2e')[0];
-    const localStorybookPath = `file://${hds_root_dir}/packages/react/storybook-static/index.html?path=/story/`;
+    const localStorybookPath = `file://${hds_root_dir}/packages/${packageName}/storybook-static/index.html?path=/story/`;
 
     await page.goto(`${localStorybookPath}components-${componentName}`);
     await expect(page.locator(`#components-${componentName}`)).toBeVisible();
