@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esimerkki keksibannerista</title>
+    <script>
+      /* Example listener for cookie consent change events */
+      window.addEventListener('cookie-consent-changed', function (event) {
+        console.log('Got cookie-consent-changed event with accepted groups:', event.detail.acceptedGroups);
+      });
+
+      const test = window.addEventListener('hds-cookie-consent-unapproved-cookie-found', function (event) {
+        console.log(
+          'Emulating sending to Sentry: Unapproved cookie: ',
+          event.detail.keys,
+          event.detail.consentedGroups,
+        );
+      });
+
+      window.addEventListener('hds-cookie-consent-unapproved-localStorage-found', function (event) {
+        console.log(
+          'Emulating sending to Sentry: Unapproved localStorage: ',
+          event.detail.keys,
+          event.detail.consentedGroups,
+        );
+      });
+
+      window.addEventListener('hds-cookie-consent-unapproved-sessionStorage-found', function (event) {
+        console.log(
+          'Emulating sending to Sentry: Unapproved sessionStorage: ',
+          event.detail.keys,
+          event.detail.consentedGroups,
+        );
+      });
+    </script>
+    <script>
+      function loaded() {
+        const siteSettingsObj = {
+          siteName: 'Hel.fi',
+          cookieName: 'helfi-cookie-consents',
+          monitorInterval: 500,
+          remove: true,
+          fallbackLanguage: 'fi',
+          requiredGroups: [
+            {
+              groupId: 'essential',
+              title: {
+                fi: 'Välttämättömät toiminnalliset evästeet',
+                sv: 'Nödvändiga funktionella cookies',
+                en: 'Essential cookies',
+              },
+              description: {
+                fi: 'Välttämättömät evästeet auttavat tekemään verkkosivustosta käyttökelpoisen sallimalla perustoimintoja, kuten sivulla siirtymisen ja sivuston suojattujen alueiden käytön. Verkkosivusto ei toimi kunnolla ilman näitä evästeitä eikä niihin tarvita suostumusta.',
+                sv: 'Nödvändiga cookies hjälper till att göra webbplatsen användbar genom att tillåta grundläggande funktioner som att navigera på sidan och använda de skyddade områdena på webbplatsen. Webbplatsen fungerar inte korrekt utan dessa cookies och kräver inte samtycke.',
+                en: 'Essential cookies help to make the website usable by allowing basic functions, navigating the page and using the protected areas of the site. The website will not work properly without these cookies and their consent is not required.',
+              },
+              cookies: [
+                {
+                  name: 'helfi-cookie-consents',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Sivusto käyttää tätä evästettä tietojen tallentamiseen siitä, ovatko kävijät antaneet hyväksyntänsä tai kieltäytyneet evästeiden käytöstä.',
+                    sv: 'Cookie möjliggör hantering av cookies på webbplatsen.',
+                    en: 'Used by hel.fi Drupal to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.',
+                  },
+                  expiration: {
+                    fi: '100 päivää',
+                    sv: '100 dagar',
+                    en: '100 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'helfi-settings',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Sivusto käyttää tätä tietuetta tietojen tallentamiseen siitä, mitä poikkeusilmoituksia on suljettu ja mikä on avattavien sisältöalueiden tila.',
+                    sv: "Används av hel.fi Drupal för att lagra information om stängda meddelanden och accordions' tillstånd.",
+                    en: "Used by hel.fi Drupal to store information about closed announcements and accordions' state.",
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'cookie-agreed-version',
+                  host: 'www.hel.fi',
+                  description: 'Temporary EU Cookie Consent Module cookie',
+                  expiration: '-',
+                  type: 1,
+                },
+                {
+                  name: 'cookie-agreed-categories',
+                  host: 'www.hel.fi',
+                  description: 'Temporary EU Cookie Consent Module cookie',
+                  expiration: '-',
+                  type: 1,
+                },
+                {
+                  name: 'cookie-agreed',
+                  host: 'www.hel.fi',
+                  description: 'Temporary EU Cookie Consent Module cookie',
+                  expiration: '-',
+                  type: 1,
+                },
+                {
+                  name: 'cookiehub',
+                  host: 'Cookiehub',
+                  description: {
+                    fi: 'Mahdollistaa evästehallinnan hel.fi sivuilla.',
+                    sv: 'Cookie möjliggör hantering av cookies på hel.fi webbplatsen.',
+                    en: 'Used by CookieHub to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.',
+                  },
+                  expiration: {
+                    fi: '365 päivää',
+                    sv: '365 dagar',
+                    en: '365 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'SSESS*',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Sisällönhallintajärjestelmän toimintaan liittyvä eväste.',
+                    sv: 'En cookie relaterad till driften av innehållshanteringssystemet.',
+                    en: 'A cookie related to the operation of the content management system.',
+                  },
+                  expiration: {
+                    fi: '23 päivää',
+                    sv: '23 dagar',
+                    en: '23 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'AWSELBCORS',
+                  host: 'siteimproveanalytics.io',
+                  description: {
+                    fi: 'Eväste liittyy palvelinten kuormanjakotoiminnallisuuteen, jolla ohjataan pyynnöt vähimmällä käytöllä olevalle palvelimille.',
+                    sv: 'Cookie är kopplad till funktionen för lastfördelning som styr begäran till en server med mindre belastning.',
+                    en: 'The cookie is related to a load distribution function used to direct requests to servers with the least traffic.',
+                  },
+                  expiration: {
+                    fi: 'Istunto',
+                    sv: 'Session',
+                    en: 'Session',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'mtm_cookie_consent',
+                  host: 'kartta.hel.fi',
+                  description: {
+                    fi: 'Tekninen eväste johon talletetaan tieto valinnastasi evästeiden käytöstä kertovan bannerin kohdalla',
+                    sv: 'A technical cookie that stores information about how you responded to the notice in the cookie banner about the use of cookies.',
+                    en: 'A technical cookie that stores information about how you responded to the notice in the cookie banner about the use of cookies.',
+                  },
+                  expiration: {
+                    fi: '10950 päivää',
+                    sv: '10950 dagar',
+                    en: '10950 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'JSESSIONID',
+                  host: 'helsinkikanava.fi, coh-chat-app-prod.eu-de.mybluemix.net',
+                  description: {
+                    fi: 'Sivuston pakollinen eväste mahdollistaa kävijän vierailun sivustolla.',
+                    sv: 'Kakan är en obligatorisk kaka som gör det möjligt för besökaren att besöka webbplatsen.',
+                    en: 'The cookie is an obligatory cookie that facilitates visiting the website.',
+                  },
+                  expiration: {
+                    fi: 'Istunto',
+                    sv: 'Session',
+                    en: 'Session',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'COOKIE_SUPPORT',
+                  host: 'helsinkikanava.fi',
+                  description: {
+                    fi: 'Mahdollistaa evästeiden hallinnan sivustolla.',
+                    sv: 'Kakan möjliggör hanteringen av kakor på webbplatsen.',
+                    en: 'The cookie facilitates managing cookies on the website.',
+                  },
+                  expiration: {
+                    fi: '365 päivää',
+                    sv: '365 dagar',
+                    en: '365 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'GUEST_LANGUAGE_ID',
+                  host: 'helsinkikanava.fi',
+                  description: {
+                    fi: 'Tämän evästeen on luonut Liferay, se tallentaa kieliasetukset.',
+                    sv: 'Denna cookie genereras av Liferay, dess funktion är att lagra språkinställningarna.',
+                    en: 'This cookie is generated by the Liferay, its function is to store the language preferences.',
+                  },
+                  expiration: {
+                    fi: '365 päivää',
+                    sv: '365 dagar',
+                    en: '365 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'Drupal.gin.darkmode',
+                  host: 'www.hel.fi',
+                  description: 'Drupal settings',
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'Drupal.toolbar.toolbarState',
+                  host: 'www.hel.fi',
+                  description: 'Drupal settings',
+                  expiration: '-',
+                  type: 3,
+                },
+                {
+                  name: 'escapeAdminPath',
+                  host: 'www.hel.fi',
+                  description: 'Drupal settings',
+                  expiration: '-',
+                  type: 3,
+                },
+                {
+                  name: 'editoria11yResultCount',
+                  host: 'www.hel.fi',
+                  description: 'Drupal accessibility extension',
+                  expiration: '-',
+                  type: 2,
+                },
+              ],
+            },
+            {
+              groupId: 'test_essential',
+              title: 'Testing essential cookies',
+              description: 'These cookies should not be deleted',
+              cookies: [
+                {
+                  name: 'cookie_essential',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 1,
+                },
+                {
+                  name: 'localStorage_essential',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'sessionStorage_essential',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 3,
+                },
+                {
+                  name: 'indexedDB_essential',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 4,
+                },
+                {
+                  name: 'cacheStorage_essential',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 5,
+                },
+              ],
+            },
+          ],
+          optionalGroups: [
+            {
+              groupId: 'preferences',
+              title: {
+                fi: 'Personointi',
+                sv: 'Preferens',
+                en: 'Preference',
+              },
+              description: {
+                fi: 'Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän aiemman käytön perusteella.',
+                sv: 'Preferenscookies ändrar webbplatsens utseende och funktioner enligt användarens tidigare användning.',
+                en: "Preference cookies modify the visuals and functions of the website based on the user's previous sessions.",
+              },
+              cookies: [
+                {
+                  name: 'httpskartta.hel.fi.SWCulture',
+                  host: 'kartta.hel.fi',
+                  description: {
+                    fi: 'Kaupungin karttapalvelun evästeeseen tallennetaan kieli, jolla palvelua käytetään.',
+                    sv: 'I kakan på stadens kaktjänst sparas det språk som användaren använder i tjänsten.',
+                    en: "The City's map service cookie saves the language in which the service is used.",
+                  },
+                  expiration: {
+                    fi: '1826 päivää',
+                    sv: '1826 dagar',
+                    en: '1826 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'icareus-device',
+                  host: 'helsinkikanava.fi',
+                  description: {
+                    fi: 'Helsinki-kanavan videopalvelimen eväste.',
+                    sv: 'Helsinki-kanavas kaka gör det möjligt att göra videor till en del av innehållet på webbplatsen.',
+                    en: "The Helsinki Channel video server cookie facilitates including videos as part of the website's content.",
+                  },
+                  expiration: {
+                    fi: '365 päivää',
+                    sv: '365 dagar',
+                    en: '365 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'VISITOR_INFO1_LIVE',
+                  host: 'youtube.com',
+                  description: {
+                    fi: 'YouTuben eväste valitsee yhteyden nopeuden mukaan, joko vanhan tai uuden videosoittimen.',
+                    sv: 'YouTubes kaka väljer antingen den nya eller gamla videospelaren enligt förbindelsens hastighet.',
+                    en: 'The YouTube cookie selects the old or new video player depending on the connection speed.',
+                  },
+                  expiration: {
+                    fi: '180 päivää',
+                    sv: '180 dagar',
+                    en: '180 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'CONSENT',
+                  host: 'youtube.com',
+                  description: {
+                    fi: 'Googlen eväste tallentaa kävijän evästehyväskynnän.',
+                    sv: 'Används av Google för att lagra inställningar för användarens samtycke',
+                    en: 'Used by Google to store user consent preferences',
+                  },
+                  expiration: {
+                    fi: '5947 päivää, 15 tuntia',
+                    sv: '5947 dagar, 15 timmar',
+                    en: '5947 days, 15 hours',
+                  },
+                  type: 1,
+                },
+              ],
+            },
+            {
+              groupId: 'statistics',
+              title: {
+                fi: 'Tilastointi',
+                sv: 'Statistik',
+                en: 'Statistics',
+              },
+              description: {
+                fi: 'Tilastointievästeiden keräämää tietoa käytetään verkkosivuston kehittämiseen.',
+                sv: 'De uppgifter statistikkakorna samlar in används för att utveckla webbplatsen.',
+                en: 'The information collected by statistics cookies is used for developing the website.',
+              },
+              cookies: [
+                {
+                  name: 'nmstat',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Siteimproven tilastointieväste kerää tietoa kävijän sivujen käytöstä.',
+                    sv: 'Siteimproves kaka samlar information om hur webbplatsen används.',
+                    en: 'The Siteimprove statistics cookie collects information about the use of the website.',
+                  },
+                  expiration: {
+                    fi: '1000 päivää',
+                    sv: '1000 dagar',
+                    en: '1000 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: '_pk_id.*',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Matomo-tilastointijärjestelmän eväste.',
+                    sv: 'Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.',
+                    en: 'Matomo Analytics - used to store a few details about the user such as the unique visitor ID',
+                  },
+                  expiration: {
+                    fi: '393 päivää',
+                    sv: '393 dagar',
+                    en: '393 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: '_pk_ses.141.89f6',
+                  host: 'www.hel.fi',
+                  description: '-',
+                  expiration: {
+                    fi: '1 tunti',
+                    sv: '1 timme',
+                    en: '1 hour',
+                  },
+                  type: 1,
+                },
+                {
+                  name: '_pk_id.*',
+                  host: 'kartta.hel.fi',
+                  description: {
+                    fi: 'Matomo-tilastointijärjestelmän eväste.',
+                    sv: 'Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.',
+                    en: 'Matomo Analytics - used to store a few details about the user such as the unique visitor ID',
+                  },
+                  expiration: {
+                    fi: '393 päivää',
+                    sv: '393 dagar',
+                    en: '393 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: '_pk_ses.*',
+                  host: 'kartta.hel.fi',
+                  description: {
+                    fi: 'Matomo-tilastointijärjestelmän eväste.',
+                    sv: 'Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.',
+                    en: 'Matomo Analytics - used to store a few details about the user such as the unique visitor ID',
+                  },
+                  expiration: {
+                    fi: '1 tunti',
+                    sv: '1 timme',
+                    en: '1 hour',
+                  },
+                  type: 1,
+                },
+                {
+                  name: '_pk_id.*',
+                  host: 'palvelukartta.hel.fi',
+                  description: {
+                    fi: 'Matomo-tilastointijärjestelmän eväste.',
+                    sv: 'Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.',
+                    en: 'Matomo Analytics - used to store a few details about the user such as the unique visitor ID',
+                  },
+                  expiration: {
+                    fi: '393 päivää',
+                    sv: '393 dagar',
+                    en: '393 days',
+                  },
+                  type: 1,
+                },
+                {
+                  name: '_pk_ses.*',
+                  host: 'palvelukartta.hel.fi',
+                  description: {
+                    fi: 'Matomo-tilastointijärjestelmän eväste.',
+                    sv: 'Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.',
+                    en: 'Matomo Analytics - used to store a few details about the user such as the unique visitor ID',
+                  },
+                  expiration: {
+                    fi: '1 tunti',
+                    sv: '1 timme',
+                    en: '1 hour',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'rnsbid',
+                  host: 'reactandshare.com',
+                  description: {
+                    fi: 'Askem-reaktionappien toimintaan liittyvä tietue.',
+                    sv: 'En post relaterad till driften av reaktionsknappen Askem',
+                    en: 'A record related to the operation of the Askem react buttons.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'rnsbid_ts',
+                  host: 'reactandshare.com',
+                  description: {
+                    fi: 'Askem-reaktionappien toimintaan liittyvä tietue.',
+                    sv: 'En post relaterad till driften av reaktionsknappen Askem',
+                    en: 'A record related to the operation of the Askem react buttons.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'rns_reaction_*',
+                  host: 'reactandshare.com',
+                  description: {
+                    fi: 'Askem-reaktionappien toimintaan liittyvä tietue.',
+                    sv: 'En post relaterad till driften av reaktionsknappen Askem',
+                    en: 'A record related to the operation of the Askem react buttons.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'YSC',
+                  host: 'youtube.com',
+                  description: {
+                    fi: 'YouTuben eväste mahdollistaa videoiden upottamisen sivustolle.',
+                    sv: 'YouTubes kaka gör det möjligt att göra videor till en del av innehållet på webbplatsen.',
+                    en: "The YouTube cookie facilitates including videos as part of the website's content.",
+                  },
+                  expiration: {
+                    fi: 'Istunto',
+                    sv: 'Session',
+                    en: 'Session',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'null_active_survey',
+                  host: 'Norstat',
+                  description: {
+                    fi: 'Käynnissä olevan kyselyn tunnus',
+                    sv: 'Id för undersökningen som är live.',
+                    en: 'The id of the survey that is live.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'null_page_view_count',
+                  host: 'Norstat',
+                  description: {
+                    fi: 'Kuinka monella Helsingin kaupungin sivulla käyttäjä on vieraillut ennen kyselyn näkymistä.',
+                    sv: 'Hur många Helsingfors stads sidor har du tittat på innan du såg undersökningen.',
+                    en: 'How many City of Helsinki pages have you viewed before seeing the survey',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'null_active_scenario',
+                  host: 'Norstat',
+                  description: {
+                    fi: 'Mikä kyselymoduulin versio on käytössä.',
+                    sv: 'Mikä kyselymoduulin versio on käytössä.',
+                    en: 'What version of the survey module is live.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'wsLanguage_p933511862344',
+                  host: 'Norstat',
+                  description: {
+                    fi: 'Kielitunniste, joka kertoo minkä kielinen kysely käyttäjälle näkyy',
+                    sv: 'Kielitunniste, joka kertoo minkä kielinen kysely käyttäjälle näkyy',
+                    en: 'Language identifier used to select which language of the survey you see.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'p933511862344_status',
+                  host: 'Norstat',
+                  description: {
+                    fi: 'Oletko jo vastannut kyselyyn',
+                    sv: 'Oletko jo vastannut kyselyyn',
+                    en: 'Have you already completed the survey.',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'p933511862344_complete_date',
+                  host: 'Norstat',
+                  description: {
+                    fi: 'Päivämäärä ja aika, jolloin kyselylomake lähetettiin.',
+                    sv: 'Päivämäärä ja aika, jolloin kyselylomake lähetettiin.',
+                    en: 'Date and time when the survey was submitted',
+                  },
+                  expiration: '-',
+                  type: 2,
+                },
+              ],
+            },
+            {
+              groupId: 'chat',
+              title: {
+                fi: 'Toiminnalliset chat-evästeet',
+                sv: 'Funktionella chattkakor',
+                en: 'Functional chat cookies',
+              },
+              description: {
+                fi: 'Toiminnallisten chat-evästeiden avulla mahdollistetaan helfi-sivujen chattien toiminta. Jos aloitat chatin, hyväksyt sen käyttöön liittyvät toiminnalliset evästeet automaattisesti.  Evästeiden hyväksymiseen ei tällöin tarvita erillistä suostumusta. Toiminnallisia chat-evästeitä ladataan laitteellesi vain, jos käynnistät chatin.',
+                sv: 'Chattarna på webbplatsen hel.fi  fungerar med hjälp av funktionella chattkakor. Om du inleder en chatt godkänner du automatiskt de nödvändiga funktionella kakorna.  Då behövs inget separat samtycke till kakor. Funktionella chattkakor laddas endast ner på din enhet om du inleder en chatt.',
+                en: 'The chats on the hel.fi  website require functional chat cookies to function. By using a chat, you automatically accept the functional cookies it requires.  No separate cookie consent is needed. Functional chat cookies are only downloaded to your device if you start a chat.',
+              },
+              cookies: [
+                {
+                  name: '_genesys.widgets.*',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Käytetään chatin tarvitseman datan tallentamiseen.',
+                    sv: 'Käytetään chatin tarvitseman datan tallentamiseen.',
+                    en: 'Used for storing data required by the chat functionality.',
+                  },
+                  expiration: {
+                    fi: 'Istunto',
+                    sv: 'Session',
+                    en: 'Session',
+                  },
+                  type: 1,
+                },
+                {
+                  name: 'leijuke.*',
+                  host: 'www.hel.fi',
+                  description: {
+                    fi: 'Käytetään chatin tarvitseman datan tallentamiseen.',
+                    sv: 'Käytetään chatin tarvitseman datan tallentamiseen.',
+                    en: 'Used for storing data required by the chat functionality.',
+                  },
+                  expiration: {
+                    fi: 'Istunto',
+                    sv: 'Session',
+                    en: 'Session',
+                  },
+                  type: 1,
+                },
+              ],
+            },
+            {
+              groupId: 'test_optional',
+              title: 'Test optional cookies',
+              description: 'These should be reported and maybe deleted if optional cookies are not accepted',
+              cookies: [
+                {
+                  name: 'cookie_optional',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 1,
+                },
+                {
+                  name: 'localStorage_optional',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 2,
+                },
+                {
+                  name: 'sessionStorage_optional',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 3,
+                },
+                {
+                  name: 'indexedDB_optional',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 4,
+                },
+                {
+                  name: 'cacheStorage_optional',
+                  host: '-',
+                  description: '-',
+                  expiration: '-',
+                  type: 5,
+                },
+              ],
+            },
+          ],
+          robotCookies: [
+            {
+              name: 'helfi_accordions_open',
+              type: 1,
+            },
+            {
+              name: 'cookie_robot',
+              type: 1,
+            },
+            {
+              name: 'localStorage_robot',
+              type: 2,
+            },
+            {
+              name: 'sessionStorage_robot',
+              type: 3,
+            },
+            {
+              name: 'indexedDB_robot',
+              type: 4,
+            },
+            {
+              name: 'cacheStorage_robot',
+              type: 5,
+            },
+          ],
+          groupsWhitelistedForApi: ['chat'],
+          translations: {
+            bannerAriaLabel: {
+              fi: 'Evästeasetukset',
+              sv: 'Inställningar för kakor',
+              en: 'Cookie settings',
+            },
+            heading: {
+              fi: '${siteName} käyttää evästeitä',
+              sv: '${siteName} använder kakor',
+              en: '${siteName} uses cookies',
+            },
+            description: {
+              fi: 'Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.',
+              sv: 'Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för bättre användarupplevelse, analytik och individualiserat innehåll.',
+              en: 'This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content.',
+            },
+            showDetails: {
+              fi: 'Näytä yksityiskohdat',
+              sv: 'Visa detaljer',
+              en: 'Show details',
+            },
+            hideDetails: {
+              fi: 'Piilota yksityiskohdat',
+              sv: 'Stänga detaljer',
+              en: 'Hide details',
+            },
+            form_heading: {
+              fi: 'Tietoa sivustolla käytetyistä evästeistä',
+              sv: 'Information om kakor som används på webbplatsen',
+              en: 'About the cookies used on the website',
+            },
+            form_text: {
+              fi: 'Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.',
+              sv: 'Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.',
+              en: 'The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies.',
+            },
+            highlightedGroup: {
+              fi: 'Sinun on hyväksyttävä tämä kategoria, jotta voit näyttää valitsemasi sisällön.',
+              sv: 'Du måste acceptera den här kategorin för att visa innehållet du har valt.',
+              en: 'You need to accept this category to display the content you have selected.',
+            },
+            highlightedGroupAria: {
+              fi: 'Hyvä tietää kategorialle: ${title}',
+              sv: 'Bra att veta för kategorin: ${title}',
+              en: 'Good to know for category: ${title}',
+            },
+            showCookieSettings: {
+              fi: 'Näytä evästeasetukset',
+              sv: 'Visa kakinställningarna',
+              en: 'Show cookie settings',
+            },
+            hideCookieSettings: {
+              fi: 'Piilota evästeasetukset',
+              sv: 'Stänga kakinställningarna',
+              en: 'Hide cookie settings',
+            },
+            acceptedAt: {
+              fi: 'Olet hyväksynyt tämän kategorian: ${date} klo ${time}.',
+              sv: 'Du har accepterat denna kategori: ${date} kl. ${time}.',
+              en: 'You have accepted this category: ${date} at ${time}.',
+            },
+            tableHeadingsName: {
+              fi: 'Nimi',
+              sv: 'Namn',
+              en: 'Name',
+            },
+            tableHeadingsHostName: {
+              fi: 'Evästeen asettaja',
+              sv: 'Den som lagrat kakan',
+              en: 'Cookie set by',
+            },
+            tableHeadingsDescription: {
+              fi: 'Käyttötarkoitus',
+              sv: 'Användning',
+              en: 'Purpose of use',
+            },
+            tableHeadingsExpiration: {
+              fi: 'Voimassaoloaika',
+              sv: 'Giltighetstid',
+              en: 'Period of validity',
+            },
+            tableHeadingsType: {
+              fi: 'Tyyppi',
+              sv: 'Typ',
+              en: 'Type',
+            },
+            approveAllConsents: {
+              fi: 'Hyväksy kaikki evästeet',
+              sv: 'Acceptera alla kakor',
+              en: 'Accept all cookies',
+            },
+            approveRequiredAndSelectedConsents: {
+              fi: 'Hyväksy valitut evästeet',
+              sv: 'Acceptera valda kakor',
+              en: 'Accept selected cookies',
+            },
+            approveOnlyRequiredConsents: {
+              fi: 'Hyväksy vain välttämättömät evästeet',
+              sv: 'Acceptera endast nödvändiga',
+              en: 'Accept required cookies only',
+            },
+            settingsSaved: {
+              fi: 'Asetukset tallennettu!',
+              sv: 'Inställningar sparade!',
+              en: 'Settings saved!',
+            },
+            notificationAriaLabel: {
+              fi: 'Ilmoitus',
+              sv: 'Meddelande',
+              en: 'Annoucement',
+            },
+            type_1: {
+              fi: 'Eväste',
+              sv: 'Kakan',
+              en: 'Cookie',
+            },
+            type_2: 'localStorage',
+            type_3: 'sessionStorage',
+            type_4: 'IndexedDB',
+            type_5: 'Cache Storage',
+          },
+        };
+        const options = {
+          language: 'fi', // Lang code defaults to 'en'
+          // theme: 'black', // Defaults to 'bus'
+          //targetSelector: 'body', // Defaults to 'body'
+          //spacerParentSelector: 'body', // Defaults to 'body'
+          //pageContentSelector: 'body', // Defaults to 'body'
+          //submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
+          settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
+        };
+        hds.CookieConsentCore.create(siteSettingsObj, options);
+      }
+    </script>
+    <script src="./standalone/cookieConsent/index.js" onload="loaded()" />
+    <script>
+      (function () {
+        'use strict';
+      })();
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus numquam, iste aspernatur excepturi quaerat a
+        ab explicabo aliquam totam, fuga reiciendis aliquid id nulla dicta soluta ullam voluptate! Dignissimos
+        reiciendis deserunt voluptatibus cum aliquid magnam? Eum atque ducimus alias molestias, magni aspernatur numquam
+        doloremque quis nihil aperiam ullam asperiores harum saepe similique ipsum earum neque quisquam! Neque
+        doloribus, mollitia, ut at corporis quo iste deleniti molestias quisquam explicabo fuga amet exercitationem
+        nulla. Deleniti est maiores explicabo minus? Odio amet id perferendis nulla alias vitae, voluptate dignissimos
+        deleniti voluptas officia nam facere iste, maiores porro rem dolorem modi molestiae provident illo.
+      </p>
+      <p>
+        Ex consequatur perspiciatis pariatur, suscipit maiores officia vitae assumenda incidunt rem in, distinctio iure
+        eos eius veniam temporibus expedita? Exercitationem qui animi sint adipisci voluptas autem facere similique
+        dolore quisquam dolores blanditiis amet laboriosam incidunt, ducimus alias non. Laudantium blanditiis expedita
+        quia eius autem eos quidem, odit, aliquid pariatur nostrum esse repudiandae dolor officia? Possimus sit odit
+        molestias non sapiente ratione magnam obcaecati! A provident placeat vitae veritatis voluptatum modi suscipit
+        vero at iusto natus ducimus, accusamus amet cum doloribus aperiam ipsum laudantium? Dolore quaerat qui
+        laboriosam aut vitae a quia ratione dolor fuga et sapiente reprehenderit, necessitatibus eum blanditiis!
+      </p>
+      <p>
+        Dicta magni placeat dolorum fugiat illo soluta perferendis voluptates, sed iste. Quos molestias quisquam
+        suscipit a tempora eum non quia numquam reprehenderit consequuntur sequi tenetur rerum impedit, nesciunt cum
+        laborum nostrum earum dolor nam iusto. Nisi, officiis animi. Saepe laborum consequatur possimus, iste quas alias
+        quasi perferendis sunt consectetur nesciunt laudantium facere? Nobis quas incidunt assumenda rerum odio.
+        Facilis, minima. Voluptatem voluptates cum tempore, perferendis quisquam dolor dignissimos totam, itaque
+        repellat iure quidem, vero laborum earum eos? Quas, alias incidunt placeat optio architecto aliquam laboriosam
+        doloremque repellendus molestias obcaecati, earum nulla cum enim odit amet, fugiat et dolorem. Repellendus, id.
+      </p>
+      <p>
+        Laborum animi illo similique veniam nostrum incidunt repudiandae ea eius labore. Cupiditate voluptas facilis,
+        aliquid nulla perspiciatis temporibus accusamus incidunt iusto, a quod sequi mollitia molestias doloribus rem
+        sapiente! Est, eum aliquam facilis quaerat provident laboriosam quasi vitae nam quod culpa optio nisi dolorum
+        velit dolor molestias debitis. Beatae dolorem tempore, harum perspiciatis mollitia culpa sunt modi! Eveniet, id.
+        Libero quia, ab repellendus iste necessitatibus earum corporis tempora accusamus sed id. Laboriosam soluta iure
+        provident tempore minus sit quam assumenda distinctio omnis, fugit ratione quis inventore exercitationem quidem
+        accusantium earum eum deleniti numquam corporis vel veritatis neque. Cupiditate, architecto vero?
+      </p>
+      <p>
+        Dolorum cumque, nisi id eveniet minima suscipit odit libero. Laboriosam animi at est nobis similique sapiente
+        repellat nihil dolore explicabo dolorum, accusamus maxime officia officiis illum quidem quasi facilis fugit. Sit
+        voluptas odit ducimus eligendi aut doloremque deserunt explicabo quisquam facere soluta sequi perspiciatis,
+        cupiditate nemo assumenda ipsam natus culpa esse perferendis consequuntur sint, vitae laboriosam at inventore
+        nobis. Voluptatem autem cum tempore culpa nam temporibus similique doloremque, accusamus enim dolorem magnam
+        error consequatur harum deserunt sapiente voluptas rem et dicta repudiandae nisi odit porro. Consectetur
+        quibusdam error magnam aspernatur quia ducimus? Excepturi tenetur in qui neque similique odit debitis?
+      </p>
+      <p>
+        Enim ab mollitia quo delectus eaque, blanditiis sunt doloribus optio temporibus aut quisquam error debitis qui
+        eius atque corrupti quos nihil omnis dolorum aspernatur expedita ea unde. Laudantium aut, praesentium dolorum
+        similique in aliquam nihil mollitia sed. Veritatis ipsum animi distinctio porro error architecto fugiat odio,
+        unde voluptatibus quam minima quibusdam sequi veniam quo aliquid. Quo molestias porro debitis, facere enim
+        quisquam odit sed et quibusdam, dicta dignissimos! Tenetur illo placeat possimus culpa delectus odit cupiditate
+        porro optio! Omnis repudiandae reprehenderit inventore ullam nesciunt, in quae unde, facilis aperiam ipsa a
+        minima consectetur laborum atque similique accusamus iusto eum repellat.
+      </p>
+      <p>
+        Nostrum corrupti ratione placeat saepe obcaecati minima non quia vel quisquam, eligendi commodi nobis, ullam,
+        omnis neque eaque pariatur quam rerum! Aspernatur laboriosam rem nisi voluptatum? Soluta similique nobis, optio
+        omnis voluptatibus enim autem culpa illum ratione harum corporis dignissimos nulla odio natus iure a laboriosam
+        quam excepturi! Libero pariatur voluptate, voluptates voluptatibus ratione ut minima fugit odio dolorem, soluta
+        neque beatae. Minima nisi sit deleniti deserunt earum harum, distinctio corrupti vero voluptate tempora! Qui in
+        ex ad voluptates, repellendus dignissimos ullam mollitia, quisquam temporibus dolore reiciendis voluptate iusto
+        obcaecati perspiciatis placeat facilis sint perferendis cupiditate quam deserunt accusamus tempora?
+      </p>
+      <p>
+        Minima hic est molestias dignissimos corporis, tenetur esse iste minus dolorum ut totam neque facere quo alias
+        architecto sunt ratione, reprehenderit porro quia deserunt tempore obcaecati accusantium? Nemo debitis hic atque
+        beatae enim reprehenderit, asperiores sapiente ullam harum, ipsum accusamus optio dignissimos unde quam quaerat
+        repellat quisquam nihil corporis voluptatem adipisci? Molestiae, culpa quaerat provident debitis asperiores
+        magni soluta nihil voluptatibus, omnis, dolorum distinctio? Sequi eligendi quia exercitationem rerum omnis nihil
+        pariatur quibusdam distinctio dolorum corrupti quis esse voluptatibus deserunt qui reiciendis, fuga, magni error
+        sed dolor libero eum maiores ipsam! Corrupti ipsum quidem ab. Officia itaque doloribus obcaecati eaque.
+      </p>
+      <p>
+        Corporis corrupti praesentium quia. Atque nostrum itaque tenetur. Molestiae adipisci dolorum dolore sint neque
+        veniam similique eius laborum debitis cupiditate illo atque nihil id dolorem est velit esse deleniti cum, labore
+        repudiandae modi nesciunt temporibus itaque! In voluptates eligendi qui fuga corporis maxime dolore quam alias
+        accusamus laborum odit, quae dicta accusantium adipisci natus molestiae optio. Totam omnis consequuntur, quo
+        expedita at recusandae quas repellendus tempore ipsum ut praesentium ea accusamus. Iste, dignissimos ea dolorem
+        laborum, voluptate beatae quas accusantium perspiciatis est quam obcaecati quia, possimus consequuntur!
+        Distinctio fugiat minus placeat odit, at ex enim? Enim deserunt temporibus consequuntur atque.
+      </p>
+      <p>
+        Fuga consequuntur eligendi perferendis, quaerat modi incidunt natus debitis nulla, voluptatibus obcaecati
+        ratione odio tenetur facere atque voluptate sunt consequatur tempore maiores enim velit sed? Delectus quasi
+        nihil dolorum, tempora tempore a quo beatae itaque voluptatibus nam, soluta magnam natus, veniam praesentium
+        pariatur deserunt consectetur nesciunt voluptates in molestias similique saepe! Alias iste beatae officia error
+        ea minima id ullam reprehenderit, fuga quia, quae numquam vel. Nulla nihil expedita harum earum sint dignissimos
+        rem ipsum soluta libero nobis? Dignissimos, impedit, quis itaque fugit expedita quae, quod repudiandae officiis
+        id aperiam dolorum! Quae pariatur sit velit sint magni ut earum ipsa?
+      </p>
+    </main>
+  </body>
+</html>
