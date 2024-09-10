@@ -9,17 +9,20 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn cssToScss",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn copy-scss-files && yarn copy-scss-utils && yarn cssToScss",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
-    "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
-    "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
+    "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
+    "postcss-watch": "postcss 'src/**/*.(css|scss)' --base src -d lib --watch",
     "cssToScss": "node scripts/cssToScss.js",
+    "copy-scss-files": "node copyFiles -source 'src/components/**/_*.scss' -target 'lib/components' -v",
+    "copy-scss-utils": "node copyFiles -source 'src/utils/**/_*.scss' -target 'lib/utils' -v",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error",
-    "lint:styles": "yarn stylelint \"src/**/*.css\""
+    "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\""
   },
   "devDependencies": {
+    "@csstools/postcss-sass": "^5.1.1",
     "@storybook/addon-a11y": "6.4.18",
     "@storybook/addon-backgrounds": "6.4.18",
     "@storybook/addon-docs": "6.4.18",
@@ -31,8 +34,11 @@
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/html": "6.4.18",
     "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/preset-scss": "^1.0.3",
     "copyfiles": "2.2.0",
+    "css-loader": "5.2.6",
     "cssnano": "4.1.10",
+    "glob": "^10.4.1",
     "hds-design-tokens": "3.10.0",
     "postcss": "8.2.15",
     "postcss-classes-to-mixins": "^3.0.1",
@@ -40,10 +46,15 @@
     "postcss-import": "12.0.1",
     "postcss-inline-svg": "4.1.0",
     "postcss-preset-env": "6.7.0",
+    "postcss-sass": "^0.5.0",
     "rimraf": "3.0.2",
+    "sass": "^1.77.8",
+    "sass-loader": "10.1.1",
+    "style-loader": "2.0.0",
     "stylelint": "^15.1.0",
     "stylelint-config-css-modules": "^4.2.0",
     "stylelint-config-standard": "^30.0.1",
+    "stylelint-config-standard-scss": "^7.0.1",
     "stylelint-order": "^6.0.2"
   }
 }

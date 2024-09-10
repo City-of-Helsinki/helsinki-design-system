@@ -1,0 +1,29 @@
+@use 'hds-core/lib/components/status-label/_status-label-mixin' as CoreSass;
+
+.statusLabel {
+  @include CoreSass.base;
+}
+
+.statusLabelWithIcon {
+  @include CoreSass.withIcon;
+}
+
+.statusLabelIcon {
+  @include CoreSass.icon;
+}
+
+.info {
+  @include CoreSass.info;
+}
+
+.success {
+  @include CoreSass.success;
+}
+
+.alert {
+  @include CoreSass.alert;
+}
+
+.error {
+  @include CoreSass.error;
+}
