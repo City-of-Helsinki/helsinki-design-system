@@ -19,7 +19,6 @@ import {
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
-
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
@@ -31,7 +30,17 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground scope={{ Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, LogoSize, logoFi }}>
 
 ```jsx
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Logo, LogoSize, logoFi } from 'hds-react';
+import {
+  Footer,
+  IconFacebook,
+  IconTwitter,
+  IconInstagram,
+  IconYoutube,
+  IconTiktok,
+  Logo,
+  LogoSize,
+  logoFi,
+} from 'hds-react';
 
 () => (
   <Footer title="Helsinki Design System">
@@ -193,7 +202,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
         soMeLinks={[
           <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
-            ariaLabel="Helsingin kaupungin Facebook-tili"
+            aria-label="Helsingin kaupungin Facebook-tili"
             external
             openInNewTab
             icon={<IconFacebook />}
@@ -201,7 +210,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
           />,
           <Footer.Link
             title="Helsingin kaupungin Twitter-tili"
-            ariaLabel="Helsingin kaupungin Twitter-tili"
+            aria-label="Helsingin kaupungin Twitter-tili"
             external
             openInNewTab
             icon={<IconTwitter />}
@@ -209,7 +218,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
           />,
           <Footer.Link
             title="Helsingin kaupungin Instagram-tili"
-            ariaLabel="Helsingin kaupungin Instagram-tili"
+            aria-label="Helsingin kaupungin Instagram-tili"
             external
             openInNewTab
             icon={<IconInstagram />}
@@ -217,7 +226,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
           />,
           <Link
             title="Helsingin kaupungin Youtube-tili"
-            ariaLabel="Helsingin kaupungin Youtube-tili"
+            aria-label="Helsingin kaupungin Youtube-tili"
             external
             openInNewTab
             icon={<IconYoutube />}
@@ -225,7 +234,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
           />,
           <Footer.Link
             title="Helsingin kaupungin Tiktok-tili"
-            ariaLabel="Helsingin kaupungin Tiktok-tili"
+            aria-label="Helsingin kaupungin Tiktok-tili"
             external
             openInNewTab
             icon={<IconTiktok />}
@@ -332,7 +341,6 @@ import { Link } from 'gatsby';
 
 | Property                    | Description                                 | Values                                | Default value |
 | --------------------------- | ------------------------------------------- | ------------------------------------- | ------------- |
-| `ariaLabel`                 | Aria-label for describing footer.           | `string`                              | -             |
 | `className`                 | Additional class names to apply.            | `string`                              | -             |
 | `footerProps`               | Additional props for the `<footer` element. | `Object`                              | -             |
 | `korosType`                 | Koros type to use in the footer.            | `KorosType`                           | `"basic"`     |
@@ -340,25 +348,17 @@ import { Link } from 'gatsby';
 | `title`                     | Service name.                               | `string`                              | -             |
 | [Table 1:Footer properties] |
 
-<NativeElementPropsInfo
-  nodeName="footer"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="footer" />
 
 | Property                               | Description                               | Values   | Default value |
 | -------------------------------------- | ----------------------------------------- | -------- | ------------- |
-| `ariaLabel`                            | Aria-label for describing the navigation. | `string` | -             |
 | `role`                                 | ARIA role to describe the contents.       | `string` | -             |
 | [Table 2:Footer.Navigation properties] |
 
-<NativeElementPropsInfo
-  nodeName="div"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="div" />
 
 | Property                         | Description                                                            | Values      | Default value                                           |
 | -------------------------------- | ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------- |
-| `ariaLabel`                      | Aria-label for describing the link.                                    | `string`    | -                                                       |
 | `as`                             | Element or component to use instead of the default HDS Link.           | `Element`   | <InternalLink href="/components/">`Link`</InternalLink> |
 | `external`                       | Boolean indicating whether the link will lead user to external domain. | `boolean`   | `false`                                                 |
 | `href`                           | Hypertext Reference of the link.                                       | `string`    | -                                                       |
@@ -369,10 +369,7 @@ import { Link } from 'gatsby';
 | `openInExternalDomainAriaLabel`  | Aria-label for opening link in an external domain.                     | `string`    | -                                                       |
 | [Table 3:Footer.Link properties] |
 
-<NativeElementPropsInfo
-  nodeName="a"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="a" />
 
 | Property                                    | Description                                                                                                       | Values                | Default value |
 | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------- | ------------- |
@@ -381,10 +378,7 @@ import { Link } from 'gatsby';
 | `headingLink`                               | Footer.GroupHeading component to display at the top of the group. On smaller screens only this will be displayed. | `Footer.GroupHeading` | -             |
 | [Table 4:Footer.NavigationGroup properties] |
 
-<NativeElementPropsInfo
-  nodeName="div"
-/>
-
+<NativeElementPropsInfo nodeName="div" />
 
 | Property                                 | Description                                                                                        | Values    | Default value |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------- | --------- | ------------- |
@@ -394,22 +388,16 @@ import { Link } from 'gatsby';
 | `label`                                  | Label for the heading.                                                                             | `string`  | -             |
 | [Table 5:Footer.GroupHeading properties] |
 
-<NativeElementPropsInfo
-  nodeName="a"
-/>
+<NativeElementPropsInfo nodeName="a" />
 
 | Property                              | Description                                                                     | Values                    | Default value |
 | ------------------------------------- | ------------------------------------------------------------------------------- | ------------------------- | ------------- |
-| `ariaLabel`                           | Aria-label for describing the utilities.                                        | `string`                  | -             |
 | `soMeLinks`                           | Array of Footer.NavigationLinks to display in the social media section.         | `[Footer.NavigationLink]` | -             |
 | `soMeSectionProps`                    | Additional props for the native `<section>` element which hold the `soMeLinks`. | `Object`                  | -             |
 | `role`                                | ARIA role to describe the contents.                                             | `string`                  | -             |
 | [Table 6:Footer.Utilities properties] |
 
-<NativeElementPropsInfo
-  nodeName="div"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="div" />
 
 | Property                                 | Description                                                       | Values                | Default value |
 | ---------------------------------------- | ----------------------------------------------------------------- | --------------------- | ------------- |
@@ -418,26 +406,19 @@ import { Link } from 'gatsby';
 | `headingLink`                            | Footer.GroupHeading component to display at the top of the group. | `Footer.GroupHeading` | -             |
 | [Table 7:Footer.UtilityGroup properties] |
 
-<NativeElementPropsInfo
-  nodeName="div"
-/>
+<NativeElementPropsInfo nodeName="div" />
 
 | Property                           | Description                                | Values   | Default value |
 | ---------------------------------- | ------------------------------------------ | -------- | ------------- |
-| `ariaLabel`                        | Aria-label for describing the custom area. | `string` | -             |
 | `className`                        | Additional classNames for the element.     | `string` | -             |
 | `id`                               | ID for the element.                        | `string` | -             |
 | `role`                             | ARIA role to describe the contents.        | `string` | -             |
 | [Table 8:Footer.Custom properties] |
 
-<NativeElementPropsInfo
-  nodeName="div"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="div" />
 
 | Property                         | Description                                                         | Values               | Default value |
 | -------------------------------- | ------------------------------------------------------------------- | -------------------- | ------------- |
-| `ariaLabel`                      | Aria-label for describing the element.                              | `string`             | -             |
 | `backToTopLabel`                 | Label for the "Back to top" button.                                 | `string` `ReactNode` | -             |
 | `copyrightHolder`                | Text to be displayed next to the copyright symbol.                  | `string` `ReactNode` | -             |
 | `copyrightText`                  | Text to be displayed after the copyright holder text.               | `string` `ReactNode` | -             |
@@ -450,7 +431,4 @@ import { Link } from 'gatsby';
 | `year`                           | The year for copyright text. This can be useful in automated tests. | `string`             | -             |
 | [Table 9:Footer.Base properties] |
 
-<NativeElementPropsInfo
-  nodeName="div"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="div" />
