@@ -10,7 +10,7 @@ const StatusLabel = ({ children, ...props }) => {
 
 StatusLabel.propTypes = {
   className: PropTypes.string,
-  dataTestId: PropTypes.string,
+  'data-testid': PropTypes.string,
   type: PropTypes.oneOf(['neutral', 'info', 'success', 'alert', 'error']),
   iconStart: PropTypes.node,
 };
