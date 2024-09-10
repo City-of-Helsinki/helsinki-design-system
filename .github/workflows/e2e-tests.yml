@@ -37,6 +37,10 @@ jobs:
         run: yarn build
         working-directory: ./packages/core
 
+      - name: build core storybook
+        run: yarn build-storybook
+        working-directory: ./packages/core
+  
       - name: build react package
         run: yarn build
         working-directory: ./packages/react
