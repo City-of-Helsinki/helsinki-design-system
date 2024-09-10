@@ -30,8 +30,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Accordion] heading typography changes
 - [Pagination] Active element changed from "a" element to "span" element
 - [Hero] content spacing changes
-- [Icon] ariaLabel, ariaLabelledby and ariaHidden replaced by native aria-* counterparts.
+- [Icon] ariaLabel, ariaLabelledby and ariaHidden replaced by native aria-\* counterparts.
 - [StatusLabel] iconLeft prop renamed to iconStart
+- [Table] dataTestId prop changed to "data-testid"
+- [Notification] dataTestId prop changed to "data-testid"
+- [Logo] dataTestId prop changed to "data-testid"
+- [Pagination] dataTestId prop changed to "data-testid"
+- [StatusLabel] dataTestId prop changed to "data-testid"
+- [Stepper] dataTestId prop changed to "data-testid"
+- [Breadcrumb] ariaLabel prop changed to "aria-label"
+- [Footer] ariaLabel prop changed to "aria-label"
+- [Footer.Base] ariaLabel prop changed to "aria-label"
+- [Footer.Custom] ariaLabel prop changed to "aria-label"
+- [Footer.Utilities] ariaLabel prop changed to "aria-label"
+- [Footer.Navigation] ariaLabel prop changed to "aria-label"
+- [Footer.Link] ariaLabel prop changed to "aria-label"
+- [Header] ariaLabel prop changed to "aria-label"
+- [Header.ActionBar] ariaLabel prop changed to "aria-label"
+- [Header.ActionBarItem] ariaLabel prop changed to "aria-label"
+- [Header.LanguageSelector] ariaLabel prop changed to "aria-label"
+- [Header.NavigationMenu] ariaLabel prop changed to "aria-label"
+- [Header.Universalbar] ariaLabel prop changed to "aria-label"
+- [SideNavigation] ariaLabel prop changed to "aria-label"
+- [SkipLink] ariaLabel prop changed to "aria-label"
 
 #### Added
 
@@ -88,7 +109,7 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- Changed colour `black-60` from `#666666` to `#595959` due to contrast issues and the accessibility and readability improvement. 
+- Changed colour `black-60` from `#666666` to `#595959` due to contrast issues and the accessibility and readability improvement.
 
 ### Documentation
 
