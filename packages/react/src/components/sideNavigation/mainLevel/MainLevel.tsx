@@ -2,7 +2,7 @@ import React, { cloneElement, isValidElement, ReactNode, useContext, useEffect, 
 
 import styles from './MainLevel.module.scss';
 import classNames from '../../../utils/classNames';
-import SideNavigationContext from '../SideNavigationContext';
+import SideNavigationContext, { SideNavigationContextType } from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';
 import { getChildrenAsArray } from '../../../utils/getChildren';
@@ -165,9 +165,8 @@ export const MainLevel = ({
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
       return cloneElement(child, {
         mainLevelIndex: index,
-        // eslint-disable-next-line react/no-array-index-key
         key: childIndex,
-      });
+      } as Partial<SideNavigationContextType>);
     }
     return null;
   });
