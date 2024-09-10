@@ -9,7 +9,7 @@ import { useMobile } from '../../hooks/useMobile';
 import { Button, ButtonVariant } from '../button';
 import { SkipLink } from '../../internal/skipLink';
 import { IconAngleDown, IconAngleUp } from '../../icons';
-import { MainLevel } from './mainLevel/MainLevel';
+import { MainLevel, MainLevelProps } from './mainLevel/MainLevel';
 import { SubLevel } from './subLevel/SubLevel';
 import { useTheme } from '../../hooks/useTheme';
 import { getChildrenAsArray } from '../../utils/getChildren';
@@ -90,8 +90,7 @@ export const SideNavigation = ({
 
   const mainLevels = childElements.map((child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
-      // eslint-disable-next-line react/no-array-index-key
-      return cloneElement(child, { key: index, index });
+      return cloneElement(child, { key: index, index } as Partial<MainLevelProps>);
     }
     return null;
   });
