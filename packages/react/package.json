@@ -22,7 +22,7 @@
     "tsc:es5": "tsc",
     "tsc:es6": "tsc -m es6 --outDir lib-esm --moduleResolution node",
     "tcm": "tcm src",
-    "ts-check": "tcm src internal && tsc --skipLibCheck --noEmit --project tsconfig.json",
+    "ts-check": "tcm src internal && yarn tsc --skipLibCheck --noEmit --project tsconfig.json",
     "lint": "yarn lint:code && yarn lint:styles",
     "lint:code": "yarn ts-check && yarn eslint \"src/**/*.{ts,tsx}\"",
     "lint:styles": "yarn stylelint \"src/**/*.{css,scss}\" --formatter verbose",
