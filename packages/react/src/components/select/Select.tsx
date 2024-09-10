@@ -1,11 +1,11 @@
 import { uniqueId } from 'lodash';
-import React, { ReactElement, useMemo, createRef } from 'react';
+import React, { useMemo, createRef } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
-import { dataUpdater } from './dataUpdater';
-import { propsToGroups, childrenToGroups } from './utils';
+import { changeHandler } from './dataUpdater';
+import { propsToGroups, childrenToGroups, getSelectedOptions, getElementIds } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -14,30 +14,39 @@ import { ListAndInputContainer } from './components/list/ListAndInputContainer';
 import { ArrowButton } from './components/selectedOptions/ArrowButton';
 import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWithSelectedOptions';
 import { ClearButton } from './components/selectedOptions/ClearButton';
+import { ErrorNotification } from './components/Error';
+import { AssistiveText } from './components/AssistiveText';
+import { createTextProvider } from './texts';
 
 export function Select({
   options,
   open,
   groups,
-  placeholder,
   icon,
-  label,
-  id,
+  required,
+  onChange,
   children,
-}: SelectProps<ReactElement<HTMLOptGroupElement | HTMLOptionElement>>) {
+  id,
+  disabled,
+  texts,
+  invalid,
+}: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
-      label,
       open: !!open,
-      placeholder: placeholder || '',
+      required: !!required,
+      invalid: !!invalid,
+      disabled: !!disabled,
+      onChange,
     };
-  }, [options, open, groups]);
+  }, [options, open, groups, onChange, disabled, invalid, required]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
     return {
       lastToggleCommand: 0,
+      lastClickedOption: undefined,
       icon,
       refs: {
         listContainer: createRef<HTMLDivElement>(),
@@ -45,22 +54,14 @@ export function Select({
         selectContainer: createRef<HTMLDivElement>(),
         selectionButton: createRef<HTMLButtonElement>(),
       },
-      elementIds: {
-        container: containerId,
-        button: `${containerId}-main-button`,
-        list: `${containerId}-list`,
-        clearButton: `${containerId}-clear-button`,
-        arrowButton: `${containerId}-arrow-button`,
-        label: `${containerId}-label`,
-        selectionsAndListsContainer: `${containerId}-sl-container`,
-      },
+      selectedOptions: getSelectedOptions(initialData.groups),
+      elementIds: getElementIds(containerId),
+      textProvider: createTextProvider(texts),
     };
-  }, [id]);
-
-  // unmount => cancel asyncs
+  }, [id, initialData.groups]);
 
   return (
-    <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={dataUpdater}>
+    <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
       <Container>
         <Label />
         <SelectionsAndListsContainer>
@@ -73,6 +74,8 @@ export function Select({
             <List />
           </ListAndInputContainer>
         </SelectionsAndListsContainer>
+        <ErrorNotification />
+        <AssistiveText />
       </Container>
     </DataProvider>
   );

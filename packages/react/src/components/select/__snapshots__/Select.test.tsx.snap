@@ -4,27 +4,35 @@ exports[`<Select /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="wrapper root"
-    id="hds-select-1"
+    id="test-select-component"
   >
     <label
       class="label "
-      for="hds-select-1-main-button"
-      id="hds-select-1-label"
+      for="test-select-component-main-button"
+      id="test-select-component-label"
     >
       Label
+      <span
+        class="indicator"
+      >
+        *
+      </span>
     </label>
     <div
-      class="selectAndListContainer"
+      class="selectAndListContainer invalid"
     >
       <div
         class="selectedOptionsContainer"
       >
         <button
-          aria-controls="hds-select-1-sl-container"
+          aria-controls="test-select-component-sl-container"
+          aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="listbox"
-          class="button selectedOptions placeholder spaceForOneDigit"
-          id="hds-select-1-main-button"
+          aria-invalid="true"
+          aria-label="Label. Choose one. 0 selected options. Assistive text Error text"
+          class="dropdownButton selectedOptions placeholder spaceForOneDigit"
+          id="test-select-component-main-button"
           type="button"
         >
           <span>
@@ -45,10 +53,11 @@ exports[`<Select /> spec renders the component 1`] = `
             </svg>
           </span>
           <div
+            aria-hidden="true"
             class="labels"
           >
             <span
-              class="buttonOption"
+              class="dropdownButtonOption"
             >
               Choose one
             </span>
@@ -56,8 +65,9 @@ exports[`<Select /> spec renders the component 1`] = `
         </button>
         <button
           aria-hidden="true"
-          class="button icon"
-          id="hds-select-1-arrow-button"
+          class="dropdownButton icon arrowButton"
+          id="test-select-component-arrow-button"
+          tabindex="-1"
           type="button"
         >
           <svg
@@ -79,8 +89,18 @@ exports[`<Select /> spec renders the component 1`] = `
       </div>
       <div
         class="listAndInputContainer"
-        id="hds-select-1-sl-container"
+        id="test-select-component-sl-container"
       />
+    </div>
+    <div
+      class="errorText"
+    >
+      Error text
+    </div>
+    <div
+      class="assistiveText"
+    >
+      Assistive text
     </div>
   </div>
 </DocumentFragment>

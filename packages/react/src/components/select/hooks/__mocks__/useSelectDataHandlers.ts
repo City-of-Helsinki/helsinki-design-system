@@ -2,7 +2,7 @@ import { getMockCalls } from '../../../../utils/testHelpers';
 import { ChangeEvent } from '../../../dataProvider/DataContext';
 import { EventId, EventType } from '../../events';
 import { Group, OptionInProps, SelectData, SelectMetaData } from '../../types';
-import { propsToGroups } from '../../utils';
+import { getSelectedOptions, propsToGroups } from '../../utils';
 
 export type OptionalSelectData = Partial<SelectData>;
 export type OptionalSelectMetaData = Omit<Partial<SelectMetaData>, 'elementIds' | 'refs'> & {
@@ -13,10 +13,9 @@ export type OptionalSelectMetaData = Omit<Partial<SelectMetaData>, 'elementIds' 
 const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
   current: {},
   default: {
-    label: 'Label',
-    placeholder: 'Placeholder',
     groups: propsToGroups({ options: ['Option 1'] }),
     open: false,
+    onChange: jest.fn(),
   },
 };
 
@@ -27,12 +26,19 @@ export function updateMockData(data: OptionalSelectData) {
     ...mockData.current,
     ...data,
   };
+  // metadata has selectedOptions, which is synced with selections in dataUpdater.
+  const selectedOptions = data && data.groups ? getSelectedOptions(data.groups) : [];
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  updateMockMetaData({ selectedOptions });
 }
 
 export function resetMockData() {
   mockData.current = {
     ...mockData.default,
   };
+  if (mockData.current.onChange) {
+    (mockData.current.onChange as jest.Mock).mockReset();
+  }
   mockDataUpdateTracker.mockReset();
 }
 
@@ -50,13 +56,16 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
       arrowButton: 'arrow-id',
       clearButton: 'clear-id',
     },
+    selectedOptions: [],
     refs: {
       selectionButton: { current: null },
     },
+    textContent: { selectionCount: 0 },
+    textProvider: (key) => key,
   },
 };
 
-export function updateMockMetaData(data: OptionalSelectMetaData) {
+export function updateMockMetaData(data: Partial<OptionalSelectMetaData>) {
   mockMetaData.current = {
     ...mockMetaData.current,
     ...data,

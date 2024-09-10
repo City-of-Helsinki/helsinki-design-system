@@ -4,32 +4,39 @@ import styles from '../../Select.module.scss';
 import { ButtonElementProps, SelectDataHandlers } from '../../types';
 import { IconCrossCircle } from '../../../../icons';
 import classNames from '../../../../utils/classNames';
-import { createOnClickListener, getSelectedOptions } from '../../utils';
+import { createOnClickListener } from '../../utils';
 import { eventTypes, eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
+import { getTextFromMetaData } from '../../texts';
 
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
-  const { elementIds } = getMetaData();
-  const { groups } = getData();
-  const selectedOptions = getSelectedOptions(groups);
+  const metaData = getMetaData();
+  const { elementIds, selectedOptions } = metaData;
+  const { disabled } = getData();
   if (!selectedOptions.length) {
     return null;
   }
   return {
-    className: classNames(styles.button, styles.icon),
+    className: classNames(
+      styles.dropdownButton,
+      styles.withVisibleFocus,
+      styles.icon,
+      disabled && styles.disabledButton,
+    ),
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
     id: elementIds.clearButton,
-    'aria-label': 'Remove all selections',
+    disabled,
+    'aria-label': getTextFromMetaData('clearButtonAriaLabel', metaData),
   };
 };
 
 export function ClearButton() {
-  const props = createClearButtonProps(useSelectDataHandlers());
-  if (!props) {
+  const buttonProps = createClearButtonProps(useSelectDataHandlers());
+  if (!buttonProps) {
     return null;
   }
   return (
-    <button type="button" {...props}>
+    <button type="button" {...buttonProps}>
       <IconCrossCircle className={styles.angleIcon} aria-hidden />
     </button>
   );

@@ -16,8 +16,9 @@ import {
   getTriggeredEvents,
 } from '../../hooks/__mocks__/useSelectDataHandlers';
 import { getSelectedOptions } from '../../utils';
-import { Option } from '../../types';
+import { Option, SelectData, SelectMetaData, TextInterpolationContent } from '../../types';
 import { isClearOptionsClickEvent, isOpenOrCloseEvent } from '../../events';
+import { defaultTexts } from '../../texts';
 
 let mockIndexOfFirstVisibleChild = 1;
 
@@ -59,6 +60,7 @@ describe('<SelectedOptionsContainer />', () => {
     const button = getButton({ getElementById, metaData });
     return button.querySelectorAll('div > *') as unknown as HTMLElement[];
   };
+  const { placeholder } = defaultTexts.en;
   const initTests = (data?: OptionalSelectData, metaData?: OptionalSelectMetaData) => {
     if (data) {
       updateMockData(data);
@@ -77,8 +79,8 @@ describe('<SelectedOptionsContainer />', () => {
       ...result,
       getElementById,
       getElementsBySelector,
-      metaData: getCurrentMockMetaData(),
-      data: getCurrentMockData(),
+      metaData: getCurrentMockMetaData() as SelectMetaData,
+      data: getCurrentMockData() as SelectData,
     };
   };
   describe('Without selected options', () => {
@@ -92,10 +94,11 @@ describe('<SelectedOptionsContainer />', () => {
       expect(getElementById(metaData.elementIds.clearButton)).toBeNull();
     });
     it('Placeholder is rendered', () => {
-      const { getElementById, data, metaData } = initTests();
-      const { placeholder } = data;
+      const { getElementById, metaData } = initTests();
       const button = getButton({ getElementById, metaData });
-      expect(button.innerHTML.includes(String(placeholder))).toBeTruthy();
+      expect(
+        button.innerHTML.includes(String(metaData.textProvider('placeholder', {} as TextInterpolationContent))),
+      ).toBeTruthy();
     });
   });
   describe('With selected options', () => {
@@ -105,8 +108,7 @@ describe('<SelectedOptionsContainer />', () => {
       expect(getElementById(metaData.elementIds.clearButton)).not.toBeNull();
     });
     it('Option label is rendered, not the placeholder', () => {
-      const { getElementById, data, metaData } = initTests(dummyData);
-      const { placeholder } = data;
+      const { getElementById, metaData } = initTests(dummyData);
       const button = getButton({ getElementById, metaData });
       expect(button.innerHTML.includes(String(placeholder))).toBeFalsy();
       const selectedOptions = getSelectedOptions(dummyData.groups);
@@ -177,6 +179,18 @@ describe('<SelectedOptionsContainer />', () => {
       expect(events).toHaveLength(1);
       const triggeredEvent = events[0];
       expect(isClearOptionsClickEvent(triggeredEvent.id, triggeredEvent.type)).toBeTruthy();
+    });
+  });
+  describe('When Select is disabled', () => {
+    it('the buttons are also disabled with attributes', () => {
+      const { getElementById, metaData } = initTests({ ...createDataWithSelectedOptions(), disabled: true });
+      const button = getButton({ getElementById, metaData });
+      const clearButton = getElementById(metaData.elementIds.clearButton) as HTMLButtonElement;
+      const arrowButton = getElementById(metaData.elementIds.arrowButton) as HTMLButtonElement;
+      // the main button does not have "disabled"-attribute or it cannot get focus and is invisible to screen readers
+      expect(button.getAttribute('aria-disabled')).toBe('true');
+      expect(clearButton.getAttribute('disabled')).not.toBeNull();
+      expect(arrowButton.getAttribute('disabled')).not.toBeNull();
     });
   });
 });

@@ -1,6 +1,12 @@
-import { Option, SelectData, SelectMetaData } from './types';
+import { Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
-import { updateSelectedOptionInGroups, clearAllSelectedOptions } from './utils';
+import {
+  updateSelectedOptionInGroups,
+  clearAllSelectedOptions,
+  propsToGroups,
+  getSelectedOptions,
+  createSelectedOptionsList,
+} from './utils';
 import {
   EventId,
   EventType,
@@ -10,18 +16,30 @@ import {
   isOptionClickEvent,
   isOutsideClickEvent,
 } from './events';
+import { appendTexts } from './texts';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
-export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers) => {
+const dataUpdater = (
+  event: ChangeEvent,
+  dataHandlers: SelectDataHandlers,
+): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
+  const returnValue = {
+    didSearchChange: false,
+    didSelectionsChange: false,
+    didDataChange: false,
+  };
+  if (current.disabled) {
+    return returnValue;
+  }
   const openOrClose = (open: boolean) => {
+    if (current.open === open) {
+      return false;
+    }
     const now = Date.now();
-    if (
-      dataHandlers.getMetaData().lastToggleCommand &&
-      now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS
-    ) {
+    if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
       return false;
     }
     dataHandlers.updateData({ open });
@@ -29,39 +47,94 @@ export const dataUpdater: ChangeHandler<SelectData, SelectMetaData> = (event, da
     return true;
   };
 
-  const updateGroups = (groups: SelectData['groups']) => {
+  const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
     dataHandlers.updateData({ groups });
+    dataHandlers.updateMetaData({
+      selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
+      lastClickedOption: clickedOption,
+      // textContent is re-created, when a textProvider is called
+      textContent: undefined,
+    });
   };
 
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
-    return openOrClose(willOpen);
+    const didUpdate = openOrClose(willOpen);
+    return {
+      ...returnValue,
+      didDataChange: didUpdate,
+    };
   }
 
   if (isOptionClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
-      return false;
+      return returnValue;
     }
     const newGroups = updateSelectedOptionInGroups(current.groups, {
       ...clickedOption,
       selected: !clickedOption.selected,
     });
-    updateGroups(newGroups);
+    updateGroups(newGroups, clickedOption);
     openOrClose(false);
-
-    return true;
+    return {
+      ...returnValue,
+      didSelectionsChange: true,
+      didDataChange: true,
+    };
   }
 
   if (isClearOptionsClickEvent(id, type)) {
     const newGroups = clearAllSelectedOptions(current.groups);
     updateGroups(newGroups);
-    return true;
+    return {
+      ...returnValue,
+      didSelectionsChange: true,
+      didDataChange: true,
+    };
   }
 
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
-    return openOrClose(false);
+    if (openOrClose(false)) {
+      return {
+        ...returnValue,
+        didDataChange: true,
+      };
+    }
   }
 
-  return false;
+  return returnValue;
+};
+
+export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
+  const { updateData, getData, getMetaData } = dataHandlers;
+  const { onChange } = getData();
+  const { didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
+  if (didSelectionsChange) {
+    const current = getData();
+    const { lastClickedOption } = getMetaData();
+    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    let newPropsHasChanges = false;
+    if (newProps) {
+      const { groups, options, invalid, texts } = newProps;
+      if (groups || options) {
+        const newGroups = propsToGroups(newProps) || [];
+        updateData({ groups: newGroups });
+        newPropsHasChanges = true;
+      }
+      if (invalid !== undefined && invalid !== current.invalid) {
+        updateData({ invalid });
+        newPropsHasChanges = true;
+      }
+      if (texts) {
+        appendTexts(texts, getMetaData());
+        newPropsHasChanges = true;
+      }
+    }
+    if (newPropsHasChanges) {
+      return true;
+    }
+  }
+
+  return didDataChange;
 };

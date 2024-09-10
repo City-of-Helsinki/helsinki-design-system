@@ -2,14 +2,18 @@ import React from 'react';
 
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
+import { getTextFromDataHandlers } from '../texts';
 import { SelectDataHandlers } from '../types';
 
 type FieldLabelProps = Parameters<typeof FieldLabel>[0];
 
-const createLabelProps = ({ getData, getMetaData }: SelectDataHandlers): FieldLabelProps => {
-  const { label } = getData();
+const createLabelProps = (dataHandlers: SelectDataHandlers): FieldLabelProps => {
+  const { getData, getMetaData } = dataHandlers;
+  const { required } = getData();
   const { elementIds } = getMetaData();
+  const label = getTextFromDataHandlers('label', dataHandlers);
   return {
+    required,
     label,
     inputId: elementIds.button,
     id: elementIds.label,
@@ -17,5 +21,9 @@ const createLabelProps = ({ getData, getMetaData }: SelectDataHandlers): FieldLa
 };
 
 export const Label = () => {
-  return <FieldLabel {...createLabelProps(useSelectDataHandlers())} />;
+  const props = createLabelProps(useSelectDataHandlers());
+  if (!props.label) {
+    return null;
+  }
+  return <FieldLabel {...props} />;
 };

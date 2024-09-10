@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { SelectProps } from './types';
+import { Group, SelectProps, Texts } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
+import { Button } from '../button/Button';
+import { clearAllSelectedOptions, propsToGroups } from './utils';
 
 export default {
   component: Select,
@@ -115,14 +117,22 @@ function generateOptionLabels(count = -1): string[] {
   return Array.from(randomSet);
 }
 
+const dummyOnChange: SelectProps['onChange'] = () => ({});
+const defaultTexts: Partial<Texts> = {
+  label: 'Label',
+  placeholder: 'Choose one',
+  selectedOptionsLabel: 'Selected options',
+  error: 'Wrong choice!',
+};
+
 export const Example = () => {
   const options = generateOptionLabels(20);
-  return <Select options={options} label="Label" placeholder="Choose one" icon={<IconLocation />} />;
+  return <Select options={options} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts} />;
 };
 
 export const OptionsAsHtml = () => {
   return (
-    <Select label="Label" placeholder="Choose one">
+    <Select onChange={dummyOnChange} texts={defaultTexts}>
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -152,10 +162,117 @@ export const WithGroups = () => {
   ];
 
   return (
-    <Select groups={groups} label="Label" placeholder="Choose one" icon={<IconLocation />}>
+    <Select groups={groups} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts}>
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
     </Select>
   );
+};
+
+export const WithControls = () => {
+  const initialGroups = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // not needed
+  }, []);
+
+  const [props, updateProps] = useState<SelectProps>({
+    groups: propsToGroups({ groups: initialGroups }),
+    onChange,
+    required: true,
+    disabled: false,
+    open: false,
+    invalid: false,
+    texts: { ...defaultTexts, label: 'Controlled select' },
+  });
+
+  const resetSelections = () => {
+    updateProps({ ...props, groups: clearAllSelectedOptions(props.groups as Group[]), open: false });
+  };
+
+  const toggleDisable = () => {
+    const { disabled } = props;
+    updateProps({ ...props, disabled: !disabled });
+  };
+
+  const toggleMenu = () => {
+    const { open } = props;
+    updateProps({ ...props, open: !open });
+  };
+
+  const toggleInvalid = () => {
+    const { invalid } = props;
+    updateProps({ ...props, invalid: !invalid });
+  };
+
+  const toggleRequired = () => {
+    const { required } = props;
+    updateProps({ ...props, required: !required });
+  };
+  return (
+    <>
+      <style>
+        {`
+          .buttons{
+            margin-top: 20px;
+          }
+          .buttons > *{
+            margin-right: 10px;
+          }
+      `}
+      </style>
+
+      <div>
+        <Select {...props} />
+        <div className="buttons">
+          <Button onClick={resetSelections}>Reset selections</Button>
+          <Button onClick={toggleDisable}>Disable/enable component</Button>
+          <Button onClick={toggleMenu}>Open/Close list</Button>
+          <Button onClick={toggleInvalid}>Set valid/invalid</Button>
+          <Button onClick={toggleRequired}>Toggle required</Button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const WithValidation = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(3),
+    },
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'invalid1', label: 'Candy cane' },
+        { value: 'invalid2', label: 'Sugar bomb' },
+        { value: 'invalid3', label: 'Dr. Pepper' },
+      ],
+    },
+  ];
+
+  const texts = { ...defaultTexts, label: 'Pick a healty choice' };
+
+  const onChange: SelectProps['onChange'] = (selectedOptions) => {
+    const hasErrorSelection = !!selectedOptions.find((option) => option.value.includes('invalid'));
+    return {
+      invalid: hasErrorSelection,
+      texts: {
+        assistive: hasErrorSelection || !selectedOptions.length ? '' : 'Excellent choice!',
+      },
+    };
+  };
+
+  return <Select groups={groups} onChange={onChange} texts={texts} />;
 };
