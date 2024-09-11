@@ -18,18 +18,17 @@ const privateSymbol = Symbol('private');
 // eslint-disable-next-line import/prefer-default-export
 export class CookieConsentCore {
   // MARK: Private properties
-  #LANGUAGE;
-  #THEME;
-  #TARGET_SELECTOR;
-  #SPACER_PARENT_SELECTOR;
-  #PAGE_CONTENT_SELECTOR;
-  #SUBMIT_EVENT = false;
-  #SETTINGS_PAGE_SELECTOR;
-  #MONITOR;
-  #COOKIE_HANDLER;
-  #SITE_SETTINGS;
-  #ARIA_LIVE_ID = 'hds-cc-aria-live';
-
+  #language;
+  #theme;
+  #targetSelector;
+  #spacerParentSelector;
+  #pageContentSelector;
+  #submitEvent = false;
+  #settingsPageSelector;
+  #monitor;
+  #cookieHandler;
+  #siteSettings;
+  #ariaLiveId = 'hds-cc-aria-live';
   #shadowRootElement = null;
 
   #bannerElements = {
@@ -81,13 +80,13 @@ export class CookieConsentCore {
       );
     }
 
-    this.#LANGUAGE = language;
-    this.#THEME = theme;
-    this.#TARGET_SELECTOR = targetSelector;
-    this.#SPACER_PARENT_SELECTOR = spacerParentSelector;
-    this.#PAGE_CONTENT_SELECTOR = pageContentSelector;
-    this.#SUBMIT_EVENT = submitEvent;
-    this.#SETTINGS_PAGE_SELECTOR = settingsPageSelector;
+    this.#language = language;
+    this.#theme = theme;
+    this.#targetSelector = targetSelector;
+    this.#spacerParentSelector = spacerParentSelector;
+    this.#pageContentSelector = pageContentSelector;
+    this.#submitEvent = submitEvent;
+    this.#settingsPageSelector = settingsPageSelector;
 
     window.hds = window.hds || {};
     window.hds.cookieConsent = this;
@@ -108,8 +107,8 @@ export class CookieConsentCore {
       }
     };
 
-    this.#COOKIE_HANDLER = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj, lang: language });
-    this.#MONITOR = new MonitorAndCleanBrowserStorages();
+    this.#cookieHandler = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj, lang: language });
+    this.#monitor = new MonitorAndCleanBrowserStorages();
   }
 
   /**
@@ -171,7 +170,7 @@ export class CookieConsentCore {
    * @return {Promise<boolean>} A promise that resolves to true if all the groups are accepted, otherwise false.
    */
   getConsentStatus(groupNamesArray) {
-    return this.#COOKIE_HANDLER.getConsentStatus(groupNamesArray);
+    return this.#cookieHandler.getConsentStatus(groupNamesArray);
   }
 
   /**
@@ -181,7 +180,7 @@ export class CookieConsentCore {
    * @return {Promise<boolean>} - A promise that resolves to true if the groups' status is successfully set to accepted, otherwise false.
    */
   async setGroupsStatusToAccepted(acceptedGroupsArray) {
-    return this.#COOKIE_HANDLER.setGroupsStatusToAccepted(acceptedGroupsArray);
+    return this.#cookieHandler.setGroupsStatusToAccepted(acceptedGroupsArray);
   }
 
   /**
@@ -190,8 +189,8 @@ export class CookieConsentCore {
    */
   async getStatus() {
     return {
-      cookie: await this.#COOKIE_HANDLER.getStatus(),
-      monitor: await this.#MONITOR.getStatus(),
+      cookie: await this.#cookieHandler.getStatus(),
+      monitor: await this.#monitor.getStatus(),
     };
   }
 
@@ -199,12 +198,13 @@ export class CookieConsentCore {
    * Opens banner when not on cookie settings page.
    */
   async openBanner(highlightedGroups = []) {
-    if (this.#SETTINGS_PAGE_SELECTOR && document.querySelector(this.#SETTINGS_PAGE_SELECTOR)) {
+    if (this.#settingsPageSelector && document.querySelector(this.#settingsPageSelector)) {
+      // eslint-disable-next-line no-console
       console.error(`Cookie consent: The user is already on settings page`);
       return;
     }
     this.#removeBanner();
-    await this.#render(this.#LANGUAGE, this.#SITE_SETTINGS, true, null, highlightedGroups);
+    await this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
   }
 
   // MARK: Private methods
@@ -267,27 +267,27 @@ export class CookieConsentCore {
     let acceptedGroups = [];
     switch (selection) {
       case 'required':
-        acceptedGroups = this.#COOKIE_HANDLER.getRequiredGroupNames();
-        this.#COOKIE_HANDLER.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#MONITOR);
-        this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
+        acceptedGroups = this.#cookieHandler.getRequiredGroupNames();
+        this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
+        this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       case 'all':
         acceptedGroups = this.#getGroupCheckboxStatus(formReference, true);
-        this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
+        this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       case 'selected':
         acceptedGroups = this.#getGroupCheckboxStatus(formReference);
-        this.#COOKIE_HANDLER.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#MONITOR);
-        this.#COOKIE_HANDLER.saveConsentedGroups(acceptedGroups, false);
+        this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
+        this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       default:
         // We should not be here, better do nothing
         break;
     }
-    if (!this.#SUBMIT_EVENT) {
+    if (!this.#submitEvent) {
       window.location.reload();
     } else {
-      window.dispatchEvent(new CustomEvent(this.#SUBMIT_EVENT, { detail: { acceptedGroups } }));
+      window.dispatchEvent(new CustomEvent(this.#submitEvent, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
         this.#announceSettingsSaved();
         this.#removeBanner();
@@ -302,7 +302,7 @@ export class CookieConsentCore {
    */
   #prepareAnnouncementElement() {
     if (!this.#bannerElements.ariaLive) {
-      const ariaLiveElement = this.#shadowRootElement.querySelector(`#${this.#ARIA_LIVE_ID}`);
+      const ariaLiveElement = this.#shadowRootElement.querySelector(`#${this.#ariaLiveId}`);
 
       // Render aria-live element depending on rendering mode: page or banner.
       this.#bannerElements.ariaLive = ariaLiveElement;
@@ -320,16 +320,16 @@ export class CookieConsentCore {
     }
 
     const message = getTranslation(
-      this.#SITE_SETTINGS.translations,
+      this.#siteSettings.translations,
       'settingsSaved',
-      this.#LANGUAGE,
-      this.#SITE_SETTINGS.fallbackLanguage,
+      this.#language,
+      this.#siteSettings.fallbackLanguage,
     );
     const notificationAriaLabel = getTranslation(
-      this.#SITE_SETTINGS.translations,
+      this.#siteSettings.translations,
       'notificationAriaLabel',
-      this.#LANGUAGE,
-      this.#SITE_SETTINGS.fallbackLanguage,
+      this.#language,
+      this.#siteSettings.fallbackLanguage,
     );
 
     if (this.#settingsPageElement) {
@@ -394,7 +394,7 @@ export class CookieConsentCore {
    * @return {boolean} - Returns true if the banner should be displayed, false otherwise.
    */
   #shouldDisplayBanner() {
-    const browserCookie = this.#COOKIE_HANDLER.getCookie();
+    const browserCookie = this.#cookieHandler.getCookie();
     // If cookie does not exist or showBanner is true, return true
     return !browserCookie || browserCookie.showBanner;
   }
@@ -438,14 +438,14 @@ export class CookieConsentCore {
       // Build table rows
       let tableRowsHtml = '';
       cookieGroup.cookies.forEach((cookie) => {
-        tableRowsHtml += getTableRowHtml(cookie, translations, lang, this.#SITE_SETTINGS.fallbackLanguage);
+        tableRowsHtml += getTableRowHtml(cookie, translations, lang, this.#siteSettings.fallbackLanguage);
       });
 
       groupsHtml += getGroupHtml(
         cookieGroup,
         translations,
         lang,
-        this.#SITE_SETTINGS.fallbackLanguage,
+        this.#siteSettings.fallbackLanguage,
         cookieGroup.groupId,
         tableRowsHtml,
         groupRequired,
@@ -486,20 +486,18 @@ export class CookieConsentCore {
     let spacerParent;
     let renderTargetToPrepend = renderTarget;
     if (isBanner) {
-      const bannerTarget = document.querySelector(this.#TARGET_SELECTOR);
+      const bannerTarget = document.querySelector(this.#targetSelector);
       if (!bannerTarget) {
-        throw new Error(`Cookie consent: The targetSelector element '${this.#TARGET_SELECTOR}' was not found`);
+        throw new Error(`Cookie consent: The targetSelector element '${this.#targetSelector}' was not found`);
       }
-      spacerParent = document.querySelector(this.#SPACER_PARENT_SELECTOR);
+      spacerParent = document.querySelector(this.#spacerParentSelector);
       if (!spacerParent) {
         throw new Error(
-          `Cookie consent: The spacerParentSelector element '${this.#SPACER_PARENT_SELECTOR}' was not found`,
+          `Cookie consent: The spacerParentSelector element '${this.#spacerParentSelector}' was not found`,
         );
       }
-      if (!document.querySelector(this.#PAGE_CONTENT_SELECTOR)) {
-        throw new Error(
-          `Cookie consent: The pageContentSelector element '${this.#PAGE_CONTENT_SELECTOR}' was not found`,
-        );
+      if (!document.querySelector(this.#pageContentSelector)) {
+        throw new Error(`Cookie consent: The pageContentSelector element '${this.#pageContentSelector}' was not found`);
       }
       renderTargetToPrepend = bannerTarget;
     }
@@ -513,9 +511,9 @@ export class CookieConsentCore {
     renderTargetToPrepend.prepend(container);
 
     if (isBanner) {
-      const ariaLiveElement = getAriaLiveHtml(this.#ARIA_LIVE_ID, 'hds-cc__aria-live-container');
+      const ariaLiveElement = getAriaLiveHtml(this.#ariaLiveId, 'hds-cc__aria-live-container');
       container.insertAdjacentHTML('beforebegin', ariaLiveElement);
-      this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${this.#ARIA_LIVE_ID}`);
+      this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${this.#ariaLiveId}`);
     }
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
@@ -523,7 +521,7 @@ export class CookieConsentCore {
     // Inject CSS styles
     await this.#injectCssStyles(shadowRoot);
 
-    const browserCookie = this.#COOKIE_HANDLER.getCookie();
+    const browserCookie = this.#cookieHandler.getCookie();
     const listOfAcceptedGroups = browserCookie ? browserCookie.groups : [];
 
     const groupsHtml = [
@@ -550,13 +548,13 @@ export class CookieConsentCore {
       siteSettings.fallbackLanguage,
       siteSettings,
       groupsHtml,
-      this.#THEME,
-      this.#ARIA_LIVE_ID,
+      this.#theme,
+      this.#ariaLiveId,
       isBanner,
     );
 
     this.#shadowRootElement = shadowRoot;
-    this.#COOKIE_HANDLER.setFormReference(shadowRoot.querySelector('form'));
+    this.#cookieHandler.setFormReference(shadowRoot.querySelector('form'));
 
     // Add button events
     const shadowRootForm = shadowRoot.querySelector('form');
@@ -571,7 +569,7 @@ export class CookieConsentCore {
 
       // Add scroll-margin-bottom to all elements inside the contentSelector
       const style = document.createElement('style');
-      style.innerHTML = `${this.#PAGE_CONTENT_SELECTOR} * {scroll-margin-bottom: calc(var(--hds-cookie-consent-height, -8px) + 8px);}`;
+      style.innerHTML = `${this.#pageContentSelector} * {scroll-margin-bottom: calc(var(--hds-cookie-consent-height, -8px) + 8px);}`;
       document.head.appendChild(style);
 
       // Add spacer inside spacerParent (to the bottom of the page)
@@ -641,28 +639,28 @@ export class CookieConsentCore {
 
     let settingsPageElement = null;
     // If settings page selector is enabled, check if the element exists
-    if (this.#SETTINGS_PAGE_SELECTOR) {
-      settingsPageElement = document.querySelector(this.#SETTINGS_PAGE_SELECTOR);
+    if (this.#settingsPageSelector) {
+      settingsPageElement = document.querySelector(this.#settingsPageSelector);
     }
 
-    const siteSettings = await this.#COOKIE_HANDLER.init();
-    this.#SITE_SETTINGS = siteSettings;
+    const siteSettings = await this.#cookieHandler.init();
+    this.#siteSettings = siteSettings;
 
     if (settingsPageElement) {
       this.#settingsPageElement = settingsPageElement;
       // If settings page element is found, render site settings in page instead of banner
-      await this.#render(this.#LANGUAGE, siteSettings, false, settingsPageElement);
+      await this.#render(this.#language, siteSettings, false, settingsPageElement);
     } else {
       // Check if banner is needed or not
       const shouldDisplayBanner = this.#shouldDisplayBanner();
       if (shouldDisplayBanner) {
-        await this.#render(this.#LANGUAGE, siteSettings, true);
+        await this.#render(this.#language, siteSettings, true);
       }
     }
 
     const monitorInterval = siteSettings.monitorInterval || 500;
     const remove = siteSettings.remove || false;
-    this.#MONITOR.init(this.#COOKIE_HANDLER, monitorInterval, remove);
+    this.#monitor.init(this.#cookieHandler, monitorInterval, remove);
   }
 }
 
