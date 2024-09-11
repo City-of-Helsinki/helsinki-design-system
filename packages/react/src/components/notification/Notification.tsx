@@ -261,7 +261,8 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.section
-          {...rest}
+          // this "as" fixes ts error with wrong types. Seen only when running ts-check-stories.
+          {...(rest as Record<string, unknown>)}
           // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
           // eslint-disable-next-line  @typescript-eslint/no-explicit-any
           style={{ ...notificationTransition, ...(style as any) }}

@@ -25,6 +25,9 @@ type DefaultArgs = Pick<
 > & { multiselect: false; onChange: (option: Option | Option[]) => void };
 
 type StoryArgs = DefaultArgs & Partial<ComboboxProps<Option>>;
+// for some reason ComboboxProps<Option> causes ts errors
+type ComponentProps = ComboboxProps<{ label: string }>;
+type MultiSelectComponentProps = ComponentProps & MultiSelectEssentials;
 
 function getId(): string {
   return uniqueId('hds-combobox-');
@@ -82,16 +85,16 @@ export default {
   } as DefaultArgs,
 };
 
-export const Default = (args: StoryArgs) => <Combobox {...args} />;
+export const Default = (args: StoryArgs) => <Combobox {...(args as ComponentProps)} />;
 
-export const WithClearButton = (args: StoryArgs) => <Combobox {...args} />;
+export const WithClearButton = (args: StoryArgs) => <Combobox {...(args as ComponentProps)} />;
 WithClearButton.storyName = 'With clear button';
 WithClearButton.args = {
   clearable: true,
 };
 WithClearButton.parameters = { loki: { skip: true } };
 
-export const Multiselect = (args: StoryArgs) => <Combobox {...args} />;
+export const Multiselect = (args: StoryArgs) => <Combobox {...(args as ComponentProps)} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
@@ -99,13 +102,13 @@ Multiselect.args = {
   selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 
-export const Invalid = (args: StoryArgs) => <Combobox {...args} />;
+export const Invalid = (args: StoryArgs) => <Combobox {...(args as ComponentProps)} />;
 Invalid.args = {
   invalid: true,
   error: 'Wrong item!',
 };
 
-export const Disabled = (args: StoryArgs) => <Combobox {...args} />;
+export const Disabled = (args: StoryArgs) => <Combobox {...(args as ComponentProps)} />;
 Disabled.args = {
   disabled: true,
 };
@@ -149,8 +152,8 @@ export const Controlled = (args: StoryArgs) => {
       >
         Select all
       </Button>
-      <Combobox
-        {...(args as unknown as MultiSelectArgsWithLabel)}
+      <Combobox<Option>
+        {...(args as unknown as MultiSelectComponentProps & { 'aria-labelledby': undefined })}
         id={getId()}
         label="Multi-select combobox"
         multiselect
@@ -169,7 +172,7 @@ export const DisabledOptions = (args: StoryArgs) => {
   return (
     <>
       <Combobox {...(args as DefaultArgs)} id={getId()} label="Combobox" isOptionDisabled={getIsDisabled} />
-      <Combobox
+      <Combobox<Option>
         {...(args as unknown as MultiSelectArgsWithLabel)}
         id={getId()}
         label="Multi-select combobox"
@@ -183,10 +186,14 @@ export const DisabledOptions = (args: StoryArgs) => {
 };
 DisabledOptions.storyName = 'With disabled options';
 
-export const Icon = (args: ComboboxProps<Option>) => <Combobox {...args} icon={<IconFaceSmile />} />;
+export const Icon = (args: ComboboxProps<Option>) => (
+  <Combobox {...(args as ComponentProps)} icon={<IconFaceSmile />} />
+);
 Icon.storyName = 'With icon';
 
-export const MultiselectWithIcon = (args: ComboboxProps<Option>) => <Combobox {...args} icon={<IconLocation />} />;
+export const MultiselectWithIcon = (args: ComboboxProps<Option>) => (
+  <Combobox {...(args as ComponentProps)} icon={<IconLocation />} />
+);
 MultiselectWithIcon.storyName = 'Multi-select with icon';
 MultiselectWithIcon.args = {
   multiselect: true,
@@ -196,7 +203,7 @@ MultiselectWithIcon.args = {
 
 MultiselectWithIcon.parameters = { loki: { skip: true } };
 
-export const Tooltip = (args: ComboboxProps<Option>) => <Combobox {...args} />;
+export const Tooltip = (args: ComboboxProps<Option>) => <Combobox {...(args as ComponentProps)} />;
 Tooltip.storyName = 'With tooltip';
 Tooltip.args = {
   tooltipLabel: 'Tooltip',
@@ -206,7 +213,7 @@ Tooltip.args = {
 };
 
 export const CustomTheme = (args: StoryArgs) => (
-  <Combobox
+  <Combobox<Option>
     {...(args as unknown as MultiSelectArgsWithLabel)}
     multiselect
     selectedItemRemoveButtonAriaLabel="Remove {value}"
@@ -256,7 +263,7 @@ CustomTheme.args = {
 export const ComboboxExample = (args: ComboboxProps<Option>) => {
   return (
     <Combobox
-      {...args}
+      {...(args as ComponentProps)}
       placeholder="Type to search"
       getA11ySelectionMessage={({ selectedItem }) => {
         return selectedItem ? `${selectedItem.label} selected` : '';
@@ -268,8 +275,8 @@ ComboboxExample.storyName = 'Combobox example';
 
 export const MultiSelectExample = (args: MultiSelectArgsWithLabel) => {
   return (
-    <Combobox
-      {...args}
+    <Combobox<Option>
+      {...(args as unknown as MultiSelectComponentProps & { 'aria-labelledby': undefined })}
       label="Items"
       helper="Choose items"
       placeholder="Type to search"
