@@ -1,29 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { getComponentStorybookUrls, takeScreenshotWithSpacing, takeStateScreenshots } from '../../../helpers';
+import { test } from '@playwright/test';
+import { takeAllStorySnapshots } from '../../../helpers';
 
-test.describe('Tag', () => {
+const componentName = 'tag';
+const storybook = 'core';
+const takeStateSnapshots = true;
 
-  const componentName = 'tag';
-  let componentUrls: string[] = [];
-
-  test('tag getStorybookUrls', async ({ page }) => {
-    componentUrls = await getComponentStorybookUrls(page, componentName, 'core');
-    expect(componentUrls.length).toBeGreaterThan(0);
-  });
-
-  test('tag components', async ({ page, isMobile }) => {
-    for (const componentUrl of componentUrls) {
-      await page.goto(`file://${componentUrl}`);
-      const container = page.locator('body');
-      const screenshotName = `core-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
-      await takeScreenshotWithSpacing(page, container, screenshotName, 0);
-
-      const tags = await container.locator('[data-playwright="true"]').all();
-
-      for (const [index, tag] of tags.entries()) {
-        const screenshotPrefix = `core-${screenshotName}-components-${index}`;
-        await takeStateScreenshots(page, tag, screenshotPrefix);
-      }
-    }
+test.describe(`Testing ${storybook} component "${componentName}"`, () => {
+  test('Take snapshots of all stories', async ({ page, isMobile }) => {
+    await takeAllStorySnapshots({ page, isMobile, takeStateSnapshots, storybook, componentName });
   });
 });
