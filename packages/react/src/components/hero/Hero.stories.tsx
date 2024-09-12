@@ -526,7 +526,7 @@ export const PlaygroundForTheme = (args: HeroProps & Record<string, string>) => 
     '--information-color': args.informationColor,
     ...args.theme,
   };
-
+  // @ts-ignore is for  Object.fromEntries
   const theme = Object.fromEntries(Object.entries(argsAsTheme).filter(([, value]) => !!value));
   const heroProps: HeroProps = {
     koros: args.koros,

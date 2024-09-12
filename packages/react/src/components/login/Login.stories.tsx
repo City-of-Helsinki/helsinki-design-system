@@ -633,7 +633,7 @@ export const ExampleApplication = (args: StoryArgs) => {
             <strong>{isUsingKeycloak ? 'Helsinki Profile' : 'Tunnistamo'}</strong>.
           </p>
           <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
-            Log in{' '}
+            Log in
           </LoginButton>
         </ContentAligner>
       </Wrapper>

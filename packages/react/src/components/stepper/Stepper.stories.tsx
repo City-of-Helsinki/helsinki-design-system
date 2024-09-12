@@ -3,7 +3,7 @@ import React, { useReducer, useRef } from 'react';
 import styles from './Stepper.module.scss';
 import { Stepper, StepperProps } from './Stepper';
 import { Step, StepState } from './Step';
-import { Button, ButtonVariant } from '../button';
+import { Button, ButtonPresetTheme, ButtonVariant } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../../icons';
 import { TextInput } from '../textInput';
 import { NumberInput } from '../numberInput';
@@ -482,7 +482,7 @@ export const WithCustomTheme = (args: StepperProps) => {
         }}
       >
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           disabled={state.activeStepIndex === 0}
           variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
@@ -492,7 +492,7 @@ export const WithCustomTheme = (args: StepperProps) => {
           Previous
         </Button>
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
@@ -1001,7 +1001,7 @@ export const Playground = (args: StepperProps & { activeStepIndex: number } & Re
         }}
       >
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           disabled={state.activeStepIndex === 0}
           variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
@@ -1011,7 +1011,7 @@ export const Playground = (args: StepperProps & { activeStepIndex: number } & Re
           Previous
         </Button>
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
