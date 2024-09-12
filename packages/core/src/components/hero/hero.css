@@ -75,11 +75,16 @@
   font-weight: normal;
   letter-spacing: -1px;
   line-height: var(--lineheight-s);
-  margin-top: 0;
+  margin: 0 0 var(--spacing-s) 0;
 }
 
 .hds-hero__text {
   font-size: var(--fontsize-body-l);
+  margin: 0 0 var(--spacing-s) 0;
+}
+
+.hds-hero__text:last-of-type {
+  margin: 0 0 var(--spacing-l) 0;
 }
 
 .hds-hero__container {
