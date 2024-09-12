@@ -86,8 +86,9 @@ export const takeAllStorySnapshots = async (props: {
   componentName: string;
   storybook: 'core' | 'react';
   takeStateSnapshots: boolean;
+  bodySpacing?: number; // this spacing is used around the whole story's screenshot
 }) => {
-  const { page, componentName, storybook, takeStateSnapshots, isMobile } = props;
+  const { page, componentName, storybook, takeStateSnapshots, isMobile, bodySpacing = 0 } = props;
   const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
   if (componentUrls.length === 0) {
     throw new Error('No componentUrls found for');
@@ -96,7 +97,7 @@ export const takeAllStorySnapshots = async (props: {
     await page.goto(`file://${componentUrl}`);
     const container = page.locator('body');
     const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
-    await takeScreenshotWithSpacing(page, container, screenshotName, 0);
+    await takeScreenshotWithSpacing(page, container, screenshotName, bodySpacing);
 
     if (takeStateSnapshots) {
       const elements = await container.locator('[data-playwright="true"]').all();
