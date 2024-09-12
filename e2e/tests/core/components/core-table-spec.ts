@@ -1,9 +1,9 @@
 import { test } from '@playwright/test';
 import { takeAllStorySnapshots } from '../../../helpers';
 
-const componentName = 'tag';
-const storybook = 'react';
-const takeStateSnapshots = true;
+const componentName = 'table';
+const storybook = 'core';
+const takeStateSnapshots = false;
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   test('Take snapshots of all stories', async ({ page, isMobile }) => {
