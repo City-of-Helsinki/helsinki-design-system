@@ -317,7 +317,7 @@ export default class MonitorAncCleanBrowserStorages {
    * @param {number} [monitorInterval=500] - The interval in milliseconds at which to monitor the stored keys.
    * @param {boolean} [remove=false] - Indicates whether to remove the stored keys or not.
    */
-  init(cookieHandler, monitorInterval = 500, remove = false) {
+  init(cookieHandler, monitorInterval = 0, remove = false) {
     this.#COOKIE_HANDLER = cookieHandler;
     this.#MONITOR_INTERVAL = Math.max(monitorInterval, 50);
     this.#REMOVE = remove;

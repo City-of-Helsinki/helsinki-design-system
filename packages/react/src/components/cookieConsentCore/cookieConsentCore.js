@@ -88,8 +88,7 @@ export class CookieConsentCore {
     this.#submitEvent = submitEvent;
     this.#settingsPageSelector = settingsPageSelector;
 
-    window.hds = window.hds || {};
-    window.hds.cookieConsent = this;
+    this.addToHdsScope('cookieConsent', this);
 
     /**
      * Updates the shadow DOM checkboxes based on the consented group names.
@@ -109,6 +108,19 @@ export class CookieConsentCore {
 
     this.#cookieHandler = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj, lang: language });
     this.#monitor = new MonitorAndCleanBrowserStorages();
+  }
+
+  /**
+   * Creates the window.hds object if it does not exist.
+   * Adds a value to the window.hds scope.
+   * @param {string} name - The name of the value.
+   * @param {any} value - The value to add.
+   */
+  static addToHdsScope(name, value) {
+    if (!window.hds) {
+      window.hds = {};
+    }
+    window.hds[name] = value;
   }
 
   /**
@@ -658,11 +670,10 @@ export class CookieConsentCore {
       }
     }
 
-    const monitorInterval = siteSettings.monitorInterval || 500;
+    const monitorInterval = siteSettings.monitorInterval || 0;
     const remove = siteSettings.remove || false;
     this.#monitor.init(this.#cookieHandler, monitorInterval, remove);
   }
 }
 
-window.hds = window.hds || {};
-window.hds.CookieConsentClass = CookieConsentCore;
+CookieConsentCore.addToHdsScope('CookieConsentClass', CookieConsentCore);
