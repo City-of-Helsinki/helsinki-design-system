@@ -3,7 +3,7 @@
   "cookieName": "helfi-cookie-consents",
   "monitorInterval": 500,
   "remove": true,
-  "fallbackLanguage": "fi",
+  "fallbackLanguage": "en",
   "requiredGroups": [
     {
       "groupId": "essential",

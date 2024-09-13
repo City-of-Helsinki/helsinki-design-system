@@ -1507,7 +1507,7 @@ describe('cookieConsentCore', () => {
     instance = await CookieConsentCore.create(siteSettingsObj, { ...optionsEvent, language: 'ru' });
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    await waitForConsole('error', 'Cookie consent: Missing translation: description:ru, using fallback language: fi');
+    await waitForConsole('error', 'Cookie consent: Missing translation: description:ru, using fallback language: en');
     const showButton = getShowDetailsButtonElement();
     expect(showButton).not.toBeNull();
   });
