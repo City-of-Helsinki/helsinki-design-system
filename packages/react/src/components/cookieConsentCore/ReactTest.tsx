@@ -4,7 +4,12 @@ import { CookieConsentCore } from './cookieConsentCore';
 
 declare global {
   interface Window {
-    hds: undefined;
+    hds: {
+      cookieConsent: {
+        setGroupsStatusToAccepted: (groups: string[]) => Promise<boolean>;
+        openBanner: (highlightedGroups?: string[]) => Promise<void>;
+      };
+    };
   }
 }
 
@@ -48,6 +53,7 @@ export const ReactTest = () => {
     console.log('Cookie removed:', cookieName);
   };
   const openBanner = async () => {
+    // eslint-disable-next-line no-console
     console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat']));
   };
   return (
