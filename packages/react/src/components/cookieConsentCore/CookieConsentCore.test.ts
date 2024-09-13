@@ -33,7 +33,7 @@ describe('cookieConsentCore', () => {
   let instance: CookieConsentClass;
   const rootId = 'hds-cc';
   const formId = 'hds-cc-form';
-  const showDetailsButtonSelector = `#${rootId} .hds-cc__aligner button`;
+  const showDetailsButtonSelector = `.hds-cc__aligner button`;
   const acceptAllButtonSelector = `.hds-cc__buttons button[data-approved="all"]`;
   const acceptRequiredButtonSelector = `.hds-cc__buttons button[data-approved="required"]`;
   const essentialCookiesCheckboxSelector = `#essential-cookies`;
@@ -1319,7 +1319,7 @@ describe('cookieConsentCore', () => {
     await helpers.openBanner(missingCategories);
 
     const shadowroot = getShadowRoot();
-    const highlightedCategories = shadowroot?.querySelectorAll(`#hds-cc .hds-cc__group--highlight`);
+    const highlightedCategories = shadowroot?.querySelectorAll('.hds-cc__group--highlight');
 
     const highlightedDOMCategories = [];
     highlightedCategories?.forEach((category) => {

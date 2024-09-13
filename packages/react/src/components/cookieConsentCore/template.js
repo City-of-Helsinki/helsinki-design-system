@@ -1,14 +1,34 @@
 import { getTranslation } from './translations';
 
 /**
+ * Classes and IDs referred from elsewhere in the code.
+ * @type {Object}
+ * @property {string} cookieConsentClass - The main wrapping class for the cookie consent banner.
+ * @property {string} ariaLiveId - The ID for the aria-live region.
+ * @property {string} targetClass - The class for the target where to render banner element.
+ * @property {string} spacerId - The ID for the spacer element.
+ * @property {string} containerClass - The class for the container element.
+ * @property {string} groupHighlightClass - The class for the highlighted group that gets added dynamicly.
+ * @property {string} accordionButtonDetailsClass - The class for the details accordion button.
+ */
+export const CONSTANTS = {
+  cookieConsentClass: 'hds-cc',
+  ariaLiveId: 'hds-cc-aria-live',
+  targetClass: 'hds-cc__target',
+  spacerId: 'hds-cc__spacer',
+  containerClass: 'hds-cc__container',
+  groupHighlightClass: 'hds-cc__group--highlight',
+  accordionButtonDetailsClass: 'hds-cc__accordion-button--details',
+};
+
+/**
  * Generates the HTML for the aria-live region.
- * @param {string} ariaLiveId - The ID for the aria-live region.
  * @param {boolean} isNotificationContainer - Is the element for notification container or aria-live-container.
  * @return {string} The HTML for the aria-live region.
  */
-export function getAriaLiveHtml(ariaLiveId, isNotificationContainer) {
+export function getAriaLiveHtml(isNotificationContainer) {
   const ariaLiveClass = isNotificationContainer ? 'hds-cc__notification_container' : 'hds-cc__aria-live-container';
-  return `<div id="${ariaLiveId}" class="${ariaLiveClass}" aria-live="polite"></div>`;
+  return `<div id="${CONSTANTS.ariaLiveId}" class="${ariaLiveClass}" aria-live="polite"></div>`;
 }
 
 /**
@@ -52,7 +72,6 @@ export function getNotificationHtml(message, notificationAriaLabel, type = 'succ
  * @param {Object} translationParams - The parameters used to replace placeholders in the translation.
  * @param {string} groupsHtml - The HTML for the consent groups.
  * @param {string} theme - The theme for the banner.
- * @param {string} ariaLiveId - The ID for the aria-live region.
  * @param {boolean} isBanner - Indicates if the code is rendered as banner or part of a page.
  * @return {string} The HTML for the cookie banner.
  */
@@ -63,16 +82,15 @@ export function getCookieBannerHtml(
   translationParams,
   groupsHtml,
   theme,
-  ariaLiveId,
   isBanner = true,
 ) {
   let optionalAriaLiveElement = '';
   if (!isBanner) {
-    optionalAriaLiveElement = getAriaLiveHtml(ariaLiveId, true);
+    optionalAriaLiveElement = getAriaLiveHtml(true);
   }
   return `
-<div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${getTranslation(translations, 'bannerAriaLabel', lang, fallbackLang)}">
-  <div class="hds-cc__container">
+<div id="hds-cc" class="${CONSTANTS.cookieConsentClass} ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${getTranslation(translations, 'bannerAriaLabel', lang, fallbackLang)}">
+  <div class="${CONSTANTS.containerClass}">
     <div class="hds-cc__aligner">
 
       <h2 class="hds-cc__heading">
@@ -84,7 +102,7 @@ export function getCookieBannerHtml(
 
       <button
         type="button"
-        class="hds-cc__accordion-button hds-cc__accordion-button--details hds-button hds-button--small hds-button--supplementary"
+        class="hds-cc__accordion-button ${CONSTANTS.accordionButtonDetailsClass} hds-button hds-button--small hds-button--supplementary"
         onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');"
         aria-controls="hds-cc-form"
         aria-expanded="false"

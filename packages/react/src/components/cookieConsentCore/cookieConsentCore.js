@@ -3,7 +3,14 @@
 
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
-import { getCookieBannerHtml, getGroupHtml, getTableRowHtml, getNotificationHtml, getAriaLiveHtml } from './template';
+import {
+  CONSTANTS as TEMPLATE_CONSTANTS,
+  getCookieBannerHtml,
+  getGroupHtml,
+  getTableRowHtml,
+  getNotificationHtml,
+  getAriaLiveHtml,
+} from './template';
 import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
@@ -28,7 +35,6 @@ export class CookieConsentCore {
   #monitor;
   #cookieHandler;
   #siteSettings;
-  #ariaLiveId = 'hds-cc-aria-live';
   #shadowRootElement = null;
 
   #bannerElements = {
@@ -314,7 +320,7 @@ export class CookieConsentCore {
    */
   #prepareAnnouncementElement() {
     if (!this.#bannerElements.ariaLive) {
-      const ariaLiveElement = this.#shadowRootElement.querySelector(`#${this.#ariaLiveId}`);
+      const ariaLiveElement = this.#shadowRootElement.getElementById(TEMPLATE_CONSTANTS.ariaLiveId);
 
       // Render aria-live element depending on rendering mode: page or banner.
       this.#bannerElements.ariaLive = ariaLiveElement;
@@ -513,7 +519,7 @@ export class CookieConsentCore {
     }
 
     const container = document.createElement('div');
-    container.classList.add('hds-cc__target');
+    container.classList.add(TEMPLATE_CONSTANTS.targetClass);
     container.style.all = 'var(--hds-cc--all-override, initial)!important';
     if (!isBanner) {
       renderTargetToPrepend.innerHTML = '';
@@ -521,9 +527,9 @@ export class CookieConsentCore {
     renderTargetToPrepend.prepend(container);
 
     if (isBanner) {
-      const ariaLiveElement = getAriaLiveHtml(this.#ariaLiveId, false);
+      const ariaLiveElement = getAriaLiveHtml(false);
       container.insertAdjacentHTML('beforebegin', ariaLiveElement);
-      this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${this.#ariaLiveId}`);
+      this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${TEMPLATE_CONSTANTS.ariaLiveId}`);
     }
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
@@ -559,7 +565,6 @@ export class CookieConsentCore {
       siteSettings,
       groupsHtml,
       this.#theme,
-      this.#ariaLiveId,
       isBanner,
     );
 
@@ -584,7 +589,7 @@ export class CookieConsentCore {
 
       // Add spacer inside spacerParent (to the bottom of the page)
       const spacer = document.createElement('div');
-      spacer.id = 'hds-cc__spacer';
+      spacer.id = TEMPLATE_CONSTANTS.spacerId;
       this.#bannerElements.spacer = spacer;
       spacerParent.appendChild(spacer);
       spacer.style.height = 'var(--hds-cookie-consent-height, 0)';
@@ -597,7 +602,7 @@ export class CookieConsentCore {
           document.documentElement.style.setProperty('--hds-cookie-consent-height', `${bannerHeight + borderHeight}px`);
         });
       });
-      const bannerHeightElement = shadowRoot.querySelector('.hds-cc__container');
+      const bannerHeightElement = shadowRoot.querySelector(`.${TEMPLATE_CONSTANTS.containerClass}`);
       resizeObserver.observe(bannerHeightElement);
       this.#resizeReference = { resizeObserver, bannerHeightElement };
 
@@ -611,7 +616,7 @@ export class CookieConsentCore {
       highlightedGroups.forEach((group) => {
         const groupElement = shadowRootForm.querySelector(`div[data-group-id=${group}]`);
         if (groupElement) {
-          groupElement.classList.add('hds-cc__group--highlight');
+          groupElement.classList.add(TEMPLATE_CONSTANTS.groupHighlightClass);
           if (firstElement === null) {
             firstElement = groupElement;
           }
@@ -619,7 +624,7 @@ export class CookieConsentCore {
       });
 
       if (firstElement !== null) {
-        shadowRoot.querySelector('.hds-cc__accordion-button--details').click();
+        shadowRoot.querySelector(`.${TEMPLATE_CONSTANTS.accordionButtonDetailsClass}`).click();
         setTimeout(() => {
           firstElement.scrollIntoView({ behavior: 'auto' });
         }, 500);
