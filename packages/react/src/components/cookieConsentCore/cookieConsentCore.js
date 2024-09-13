@@ -88,7 +88,7 @@ export class CookieConsentCore {
     this.#submitEvent = submitEvent;
     this.#settingsPageSelector = settingsPageSelector;
 
-    this.addToHdsScope('cookieConsent', this);
+    CookieConsentCore.addToHdsScope('cookieConsent', this);
 
     /**
      * Updates the shadow DOM checkboxes based on the consented group names.
@@ -257,7 +257,7 @@ export class CookieConsentCore {
    */
   #getGroupCheckboxStatus(form, all = false) {
     const groupSelections = [];
-    const formCheckboxes = form.querySelectorAll('input');
+    const formCheckboxes = form.querySelectorAll('input[data-group]');
     formCheckboxes.forEach((check) => {
       if (check.checked || all) {
         groupSelections.push(check.dataset.group);
@@ -376,8 +376,6 @@ export class CookieConsentCore {
 
           // Otherwise, clear the content
         } else {
-          // TODO: remove
-          // this.#bannerElements.ariaLive.innerHTML = '';
           const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
           if (notificationElem) {
             notificationElem.classList.remove('enter');
@@ -523,7 +521,7 @@ export class CookieConsentCore {
     renderTargetToPrepend.prepend(container);
 
     if (isBanner) {
-      const ariaLiveElement = getAriaLiveHtml(this.#ariaLiveId, 'hds-cc__aria-live-container');
+      const ariaLiveElement = getAriaLiveHtml(this.#ariaLiveId, false);
       container.insertAdjacentHTML('beforebegin', ariaLiveElement);
       this.#bannerElements.ariaLive = renderTargetToPrepend.querySelector(`#${this.#ariaLiveId}`);
     }

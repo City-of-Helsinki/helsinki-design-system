@@ -3,10 +3,11 @@ import { getTranslation } from './translations';
 /**
  * Generates the HTML for the aria-live region.
  * @param {string} ariaLiveId - The ID for the aria-live region.
- * @param {string} ariaLiveClass - The class for the aria-live region.
+ * @param {boolean} isNotificationContainer - Is the element for notification container or aria-live-container.
  * @return {string} The HTML for the aria-live region.
  */
-export function getAriaLiveHtml(ariaLiveId, ariaLiveClass) {
+export function getAriaLiveHtml(ariaLiveId, isNotificationContainer) {
+  const ariaLiveClass = isNotificationContainer ? 'hds-cc__notification_container' : 'hds-cc__aria-live-container';
   return `<div id="${ariaLiveId}" class="${ariaLiveClass}" aria-live="polite"></div>`;
 }
 
@@ -67,7 +68,7 @@ export function getCookieBannerHtml(
 ) {
   let optionalAriaLiveElement = '';
   if (!isBanner) {
-    optionalAriaLiveElement = getAriaLiveHtml(ariaLiveId, 'hds-cc__notification_container');
+    optionalAriaLiveElement = getAriaLiveHtml(ariaLiveId, true);
   }
   return `
 <div id="hds-cc" class="hds-cc ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${getTranslation(translations, 'bannerAriaLabel', lang, fallbackLang)}">
