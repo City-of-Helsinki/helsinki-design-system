@@ -4,12 +4,16 @@
   "description": "e2e tests using Playwright",
   "version": "3.10.1",
   "scripts": {
+    "ci": "npx playwright test",
     "inst": "yarn playwright install",
     "install-deps": "npx playwright install-deps",
-    "ci": "npx playwright test",
+    "record": "npx playwright codegen https://hds.hel.fi",
+    "start-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT*",
+    "start-package": "npx playwright test tests/$PACKAGE/",
     "start": "npx playwright test",
-    "update-snapshots": "npx playwright test --update-snapshots",
-    "record": "npx playwright codegen https://hds.hel.fi"
+    "update-snapshots-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT* --update-snapshots",
+    "update-snapshots-package": "npx playwright test tests/$PACKAGE/ --update-snapshots",
+    "update-snapshots": "npx playwright test --update-snapshots"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.1"
