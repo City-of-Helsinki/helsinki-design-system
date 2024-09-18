@@ -139,21 +139,6 @@ export default class CookieHandler {
   }
 
   /**
-   * Retrieves the status of the component.
-   * @return {Promise<{ cookie: string, monitor: string }>} The status object containing the cookie and monitor status.
-   */
-  async getStatus() {
-    let cookie = 'unset';
-
-    const browserCookie = await this.getCookie();
-    if (browserCookie) {
-      cookie = browserCookie;
-    }
-
-    return cookie;
-  }
-
-  /**
    * Retrieves and parses the cookie consent cookie.
    * @private
    * @param {string} [cookieName] - The name of the cookie to be parsed.

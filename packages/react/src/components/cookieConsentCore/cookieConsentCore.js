@@ -202,17 +202,6 @@ export class CookieConsentCore {
   }
 
   /**
-   * Retrieves the status of the component.
-   * @return {Promise<{ cookie: string, monitor: string }>} The status object containing the cookie and monitor status.
-   */
-  async getStatus() {
-    return {
-      cookie: await this.#cookieHandler.getStatus(),
-      monitor: await this.#monitor.getStatus(),
-    };
-  }
-
-  /**
    * Opens banner when not on cookie settings page.
    */
   async openBanner(highlightedGroups = []) {

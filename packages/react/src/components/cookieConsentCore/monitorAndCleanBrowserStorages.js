@@ -35,26 +35,6 @@ export default class MonitorAncCleanBrowserStorages {
   };
 
   // MARK: Public methods
-  /**
-   * Retrieves the status of various browser storages.
-   * @return {Promise<Object>} The status object containing information about the current, reported, removalFailed and consented keys.
-   */
-  async getStatus() {
-    const status = {
-      current: {
-        cookie: this.#getCookieNamesArray(),
-        localStorage: Object.keys(localStorage),
-        sessionStorage: Object.keys(sessionStorage),
-        indexedDB: await this.#getIndexedDBNamesArray(),
-        cacheStorage: await this.#getCacheStorageNamesString(),
-      },
-      reported: await this.#reportedKeys,
-      removalFailed: await this.#removalFailedKeys,
-      consentedKeys: this.#COOKIE_HANDLER.getAllKeysInConsentedGroups(),
-    };
-
-    return status;
-  }
 
   /**
    * Deletes the keys that are not consented.
