@@ -72,7 +72,7 @@ export function HeaderLogoutSubmenuButton({
   const wasClicked = useRef(false);
   const isActive = isLoggingOut && wasClicked.current;
   // for some reason LoadingSpinner theme has no effect
-  const iconRight = isActive ? (
+  const iconEnd = isActive ? (
     <HeaderLoadIndicator loadingText={loggingOutText} spinnerColor={spinnerColor} />
   ) : (
     <IconSignout />
@@ -81,7 +81,7 @@ export function HeaderLogoutSubmenuButton({
   const combinedButtonProps: HeaderActionBarSubItemProps = {
     ...(buttonProps as HeaderLogoutSubmenuButtonProps),
     ...elementProps,
-    iconRight,
+    iconEnd,
     bold: true,
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
