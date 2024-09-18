@@ -41,7 +41,7 @@ export const DialogHeader = ({ title, iconLeft, className, ...rest }: DialogHead
             aria-label={closeButtonLabelText || 'Close'}
             onClick={() => close()}
           >
-            <IconCross aria-hidden="true" />
+            <IconCross />
           </button>
         )}
         <h2 tabIndex={-1} className={classNames(styles.dialogTitle, className)} ref={titleRef} {...rest}>

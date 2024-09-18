@@ -105,7 +105,7 @@ export const WithExternalShowPasswordButton = () => {
       <Button
         variant={ButtonVariant.Supplementary}
         onClick={() => setRevealPassword(!revealPassword)}
-        iconStart={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+        iconStart={revealPassword ? <IconEyeCrossed /> : <IconEye />}
       >
         {revealPassword ? 'Hide password' : 'Show password'}
       </Button>

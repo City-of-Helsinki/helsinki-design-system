@@ -186,7 +186,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   }}
                   aria-label={minusStepButtonAriaLabel || 'Decrease by one'}
                 >
-                  <IconMinus aria-hidden="true" />
+                  <IconMinus />
                 </button>
               </div>
               <div className={disabled ? styles.plusButtonWrapperWithoutBorder : styles.plusButtonWrapper}>
@@ -203,7 +203,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   }}
                   aria-label={plusStepButtonAriaLabel || 'Increase by one'}
                 >
-                  <IconPlus aria-hidden="true" />
+                  <IconPlus />
                 </button>
               </div>
               {screenReaderValue !== null && (

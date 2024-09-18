@@ -85,13 +85,12 @@ export const FooterLink = <T extends React.ElementType = 'a'>({
       {...rest}
     >
       {icon}
-      {subItem && <IconAngleRight className={styles.subItemIcon} aria-hidden />}
+      {subItem && <IconAngleRight className={styles.subItemIcon} />}
       {label && <span>{label}</span>}
       {external && label && (
         <IconLinkExternal
           size={variant === FooterVariant.Base ? IconSize.ExtraSmall : IconSize.Small}
           className={styles.icon}
-          aria-hidden
         />
       )}
     </Item>

@@ -14,4 +14,5 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - For icons that do not have a visual text label but are important must be given a text alternative using the WAI-ARIA definition `aria-label` or `aria-labelledby`. See <ExternalLink href="https://www.w3.org/TR/WCAG21/#text-alternatives">WCAG 2.1 Text Alternatives guideline</ExternalLink> for more information.
 - If the icon has a visual text label associated with it, the icon can be hidden from assistive technologies with `aria-hidden="true"`. It prevents screen readers repeating the same information twice (visual text followed by the icon description).
 - If the icon is only decorative, it should always be hidden from assistive technologies with the `aria-hidden="true"` attribute.
+- By default the aria-hidden value is set to `true`
 - The colour contrast between the icon and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum">AA Level contrast ratios</ExternalLink>.

@@ -23,7 +23,7 @@ const Utilities = () => {
         ariaLabel="Helsingin kaupungin Facebook-tili"
         external
         openInNewTab
-        icon={<IconFacebook aria-hidden />}
+        icon={<IconFacebook />}
         href="https://facebook.com"
       />,
       <Footer.Link
@@ -31,7 +31,7 @@ const Utilities = () => {
         ariaLabel="Helsingin kaupungin Twitter-tili"
         external
         openInNewTab
-        icon={<IconTwitter aria-hidden />}
+        icon={<IconTwitter />}
         href="https://twitter.com"
       />,
       <Footer.Link
@@ -39,7 +39,7 @@ const Utilities = () => {
         ariaLabel="Helsingin kaupungin Instagram-tili"
         external
         openInNewTab
-        icon={<IconInstagram aria-hidden />}
+        icon={<IconInstagram />}
         href="https://instagram.com"
       />,
       <Footer.Link
@@ -47,7 +47,7 @@ const Utilities = () => {
         ariaLabel="Helsingin kaupungin Youtube-tili"
         external
         openInNewTab
-        icon={<IconYoutube aria-hidden />}
+        icon={<IconYoutube />}
         href="https://youtube.com"
       />,
       <Footer.Link
@@ -55,7 +55,7 @@ const Utilities = () => {
         ariaLabel="Helsingin kaupungin Tiktok-tili"
         external
         openInNewTab
-        icon={<IconTiktok aria-hidden />}
+        icon={<IconTiktok />}
         href="https://tiktok.com"
       />,
     ];
@@ -204,7 +204,7 @@ export const Example = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Facebook-tili"
           external
           openInNewTab
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />,
         <Footer.Link
@@ -212,7 +212,7 @@ export const Example = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Twitter-tili"
           external
           openInNewTab
-          icon={<IconTwitter aria-hidden="true" />}
+          icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />,
         <Footer.Link
@@ -220,7 +220,7 @@ export const Example = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Instagram-tili"
           external
           openInNewTab
-          icon={<IconInstagram aria-hidden="true" />}
+          icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />,
         <Footer.Link
@@ -228,7 +228,7 @@ export const Example = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin LinkedIn-tili"
           external
           openInNewTab
-          icon={<IconLinkedin aria-hidden="true" />}
+          icon={<IconLinkedin />}
           href="https://linkedin.com/company/city-of-helsinki"
         />,
         <Footer.Link
@@ -236,7 +236,7 @@ export const Example = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Youtube-tili"
           external
           openInNewTab
-          icon={<IconYoutube aria-hidden="true" />}
+          icon={<IconYoutube />}
           href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
         />,
       ]}
@@ -313,7 +313,7 @@ export const UtilityGroups = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
@@ -322,7 +322,7 @@ export const UtilityGroups = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
@@ -331,7 +331,7 @@ export const UtilityGroups = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Twitter-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconTwitter aria-hidden="true" />}
+          icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />
         <Footer.Link
@@ -340,7 +340,7 @@ export const UtilityGroups = (args: FooterProps) => (
           ariaLabel="Helsingin kaupungin Instagram-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconInstagram aria-hidden="true" />}
+          icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />
       </Footer.UtilityGroup>

@@ -131,7 +131,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           <IconLinkExternal
             size={mapLinkSizeToExternalIconSize[size]}
             className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
-            aria-hidden
           />
         )}
       </a>

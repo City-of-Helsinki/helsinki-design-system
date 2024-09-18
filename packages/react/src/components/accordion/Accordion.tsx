@@ -148,9 +148,9 @@ export const Accordion = ({
 
   // Switch icon based on isOpen state
   const icon = isOpen ? (
-    <IconAngleUp aria-hidden style={{ width: '100%', height: '100%' }} />
+    <IconAngleUp style={{ width: '100%', height: '100%' }} />
   ) : (
-    <IconAngleDown aria-hidden style={{ width: '100%', height: '100%' }} />
+    <IconAngleDown style={{ width: '100%', height: '100%' }} />
   );
 
   const hasMounted = useHasMounted();
@@ -237,7 +237,7 @@ export const Accordion = ({
               onCloseButtonActivate();
             }}
             variant={ButtonVariant.Supplementary}
-            iconEnd={<IconAngleUp aria-hidden />}
+            iconEnd={<IconAngleUp />}
           >
             {getCloseMessage(language)}
           </Button>

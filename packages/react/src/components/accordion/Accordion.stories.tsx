@@ -117,7 +117,7 @@ CustomTheme.args = {
 
 export const CustomAccordion = () => {
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen: false });
-  const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+  const icon = isOpen ? <IconAngleUp /> : <IconAngleDown />;
   return (
     <>
       <Button iconStart={icon} {...buttonProps}>
