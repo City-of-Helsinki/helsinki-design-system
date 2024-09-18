@@ -24,13 +24,13 @@ export interface HeaderActionBarSubItemProps extends ElementProps {
    */
   'aria-label'?: React.ComponentProps<'button'>['aria-label'];
   /**
-   * Icon element (on the left side of the label) for the action bar item.
+   * Icon element (on the start side of the label) for the action bar item.
    */
-  iconLeft?: ReactNode;
+  iconStart?: ReactNode;
   /**
-   * Icon element (on the right side of the label) for the action bar item.
+   * Icon element (on the end side of the label) for the action bar item.
    */
-  iconRight?: ReactNode;
+  iconEnd?: ReactNode;
   /**
    * Content for the right aligned red notification bubble
    */
@@ -69,8 +69,8 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
   (
     {
       'aria-label': ariaLabel,
-      iconLeft,
-      iconRight,
+      iconStart,
+      iconEnd,
       notificationBubbleContent,
       notificationBubbleAriaLabel,
       label,
@@ -121,14 +121,14 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
     const Content = () => (
       <>
         <Icon
-          element={iconLeft}
-          elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconLeft)}
+          element={iconStart}
+          elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconStart)}
         />
         <Label text={label} />
         {external ? (
           <IconLinkExternal className={classNames(classes.actionBarSubItemIcon)} />
         ) : (
-          <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
+          <Icon element={iconEnd} elementClassName={classNames(classes.actionBarSubItemIcon)} />
         )}
         {notificationBubbleContent !== undefined && (
           <>

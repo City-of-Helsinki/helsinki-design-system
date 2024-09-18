@@ -77,7 +77,7 @@ exports[`<HeaderActionBarSubItem /> spec renders the component 1`] = `
                       lang="fi"
                     >
                       <span
-                        class="actionBarSubItemIcon actionBarSubItemIconLeft"
+                        class="actionBarSubItemIcon actionBarSubItemIconStart"
                       >
                         <svg
                           aria-hidden="true"

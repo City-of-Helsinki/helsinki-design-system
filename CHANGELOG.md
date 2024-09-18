@@ -23,12 +23,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Typography changes to heading line-heights and letter-spacings
 - [Hero] heading typography changes
 - [Header] heading typography changes
+- [Header.ActionBarSubItem] iconLeft and iconRight props renamed to iconStart and iconEnd
 - [Dialog] heading typography changes
+- [Dialog.Header] iconLeft prop renamed to iconStart
 - [CookieConsent] heading typography changes
 - [Accordion] heading typography changes
 - [Pagination] Active element changed from "a" element to "span" element
 - [Hero] content spacing changes
 - [Icon] ariaLabel, ariaLabelledby and ariaHidden replaced by native aria-* counterparts.
+- [StatusLabel] iconLeft prop renamed to iconStart
 
 #### Added
 

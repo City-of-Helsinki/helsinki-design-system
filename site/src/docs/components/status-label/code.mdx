@@ -61,11 +61,11 @@ import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconErro
 
 () => (
   <div id="labels-with-icon">
-    <StatusLabel iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
-    <StatusLabel type="info" iconLeft={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
-    <StatusLabel type="success" iconLeft={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
-    <StatusLabel type="alert" iconLeft={<IconAlertCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
-    <StatusLabel type="error" iconLeft={<IconError />} style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+    <StatusLabel iconStart={<IconInfoCircle />}>Neutral</StatusLabel>
+    <StatusLabel type="info" iconStart={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+    <StatusLabel type="success" iconStart={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+    <StatusLabel type="alert" iconStart={<IconAlertCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+    <StatusLabel type="error" iconStart={<IconError />} style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
   </div>
 )
 ```
@@ -110,7 +110,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | Property   | Description                                          | Values                                               | Default value |
 | ---------- | ---------------------------------------------------- | ---------------------------------------------------- | ------------- |
 | `type`     | The type of the status label.                        | `"neutral"` `"success"` `"info"` `"alert"` `"error"` | `"neutral"`   |
-| `iconLeft` | Element placed on the left side of the status label. | `ReactNode`                                          | -             |
+| `iconStart` | Element placed on the start side of the status label. | `ReactNode`                                          | -             |
 [Table 1:StatusLabel properties]|
 
 <NativeElementPropsInfo
