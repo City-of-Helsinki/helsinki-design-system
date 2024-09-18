@@ -632,7 +632,7 @@ export const FileInput = ({
                     })}
               >
                 <div className={styles.dragAndDropLabel}>
-                  <IconUpload aria-hidden />
+                  <IconUpload />
                   <span className={styles.dragAndDropLabelText}>
                     {dragAndDropLabel || getDragAndDropLabel(language)}
                   </span>
@@ -648,7 +648,7 @@ export const FileInput = ({
               aria-hidden
               tabIndex={-1}
               variant={ButtonVariant.Secondary}
-              iconStart={<IconPlus aria-hidden />}
+              iconStart={<IconPlus />}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -696,7 +696,7 @@ export const FileInput = ({
               }
             }}
           >
-            {item.file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
+            {item.file.type.startsWith('image') ? <IconPhoto /> : <IconDocument />}
             <div className={styles.fileListItemTitle}>
               <span className={styles.fileListItemName}>{item.file.name}</span>
               <span className={styles.fileListItemSize}>({formatBytes(item.file.size)})</span>

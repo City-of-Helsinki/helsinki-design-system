@@ -4,24 +4,24 @@ import styles from './Icon.module.css';
 import { IconProps, IconSize } from './Icon.interface';
 
 export const IconChildren = ({
-  ariaLabel = 'children',
-  ariaLabelledby,
-  ariaHidden = true,
+  'aria-label': ariaLabel = 'children',
+  'aria-hidden': ariaHidden = true,
   className = '',
   color,
   size = IconSize.Small,
   style = {},
-}: React.SVGProps<SVGSVGElement> & IconProps) => (
+  ...rest
+}: IconProps) => (
   <svg
+    aria-label={ariaLabel}
+    aria-hidden={ariaHidden}
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    aria-label={ariaLabel}
-    aria-labelledby={ariaLabelledby}
-    aria-hidden={ariaHidden}
     color={color}
     style={style}
+    {...rest}
   >
     <path fillRule="evenodd" clipRule="evenodd" d="M5 24V21H7V24H5Z" fill="currentColor" />
     <path fillRule="evenodd" clipRule="evenodd" d="M7 24V21H9V24H7Z" fill="currentColor" />

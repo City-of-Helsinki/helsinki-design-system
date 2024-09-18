@@ -218,7 +218,7 @@ export const MainLevel = ({
           >
             {icon && <LeftIcon icon={icon} />}
             <Label label={label} />
-            {hasSubLevels && <RightIcon icon={isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />} />}
+            {hasSubLevels && <RightIcon icon={isOpen ? <IconAngleUp /> : <IconAngleDown />} />}
           </button>
           <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!isOpen} aria-labelledby={id}>
             {subLevels}
@@ -246,7 +246,7 @@ export const MainLevel = ({
         >
           {icon && <LeftIcon icon={icon} />}
           <Label label={label} />
-          {external && <RightIcon icon={<IconLinkExternal aria-hidden />} />}
+          {external && <RightIcon icon={<IconLinkExternal />} />}
         </a>
       )}
     </li>

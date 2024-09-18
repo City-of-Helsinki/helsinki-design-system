@@ -4,24 +4,24 @@ import styles from './Icon.module.css';
 import { IconProps, IconSize } from './Icon.interface';
 
 export const IconPlaybackRecord = ({
-  ariaLabel = 'playback-record',
-  ariaLabelledby,
-  ariaHidden = true,
+  'aria-label': ariaLabel = 'playback-record',
+  'aria-hidden': ariaHidden = true,
   className = '',
   color,
   size = IconSize.Small,
   style = {},
-}: React.SVGProps<SVGSVGElement> & IconProps) => (
+  ...rest
+}: IconProps) => (
   <svg
+    aria-label={ariaLabel}
+    aria-hidden={ariaHidden}
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    aria-label={ariaLabel}
-    aria-labelledby={ariaLabelledby}
-    aria-hidden={ariaHidden}
     color={color}
     style={style}
+    {...rest}
   >
     <path
       d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"

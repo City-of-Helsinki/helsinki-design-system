@@ -111,7 +111,7 @@ If the basic accordion components do not fit your needs, you can build a custom 
 export const AccordionExample = () => {
   const initiallyOpen = false;
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
-  const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+  const icon = isOpen ? <IconAngleUp /> : <IconAngleDown />;
   return (
     <>
       <Button iconStart={icon} {...buttonProps}>

@@ -8,6 +8,7 @@ import theme from 'prism-react-renderer/themes/github';
 
 import './Playground.scss';
 import LiveErrorCore from './LiveErrorCore';
+import { ButtonSize, ButtonVariant } from '../../../packages/react/src/components/button';
 
 const sanitizeConfig = {
   allowedTags: false,
@@ -110,9 +111,12 @@ const clearSelection = () => {
 const isJsx = (language) => language === 'jsx';
 
 const sanitize = (code) => {
-  const trimmedCode = code.trim();
-  return trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
+  let trimmedCode = code.trim();
+  trimmedCode = trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
     ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
+    : trimmedCode;
+  return trimmedCode.endsWith(';')
+    ? trimmedCode.substr(0, trimmedCode.length - 1).trim()
     : trimmedCode;
 };
 
@@ -223,7 +227,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         </div>
       </div>
       <div className="playground-block-buttons">
-        <Button ref={copyButtonRef} variant="secondary" size="small" onClick={copy}>
+        <Button ref={copyButtonRef} variant={ButtonVariant.Secondary} size={ButtonSize.Small} onClick={copy}>
           Copy code
         </Button>
         {copyState === copySuccessState && (
@@ -257,9 +261,9 @@ const Editor = ({ onChange, initialCode, code, language }) => {
           </Notification>
         )}
         <Button
-          variant="secondary"
-          iconStart={<IconArrowUndo aria-hidden />}
-          size="small"
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowUndo />}
+          size={ButtonSize.Small}
           disabled={initialCode === code}
           onClick={reset}
         >

@@ -138,7 +138,7 @@ export const FooterBase = ({
             onClick={(e) => (typeof onBackToTopClick === 'function' ? onBackToTopClick(e) : handleBackToTop())}
           >
             {backToTopLabel}
-            <IconArrowUp aria-hidden="true" />
+            <IconArrowUp />
           </button>
         )}
       </div>

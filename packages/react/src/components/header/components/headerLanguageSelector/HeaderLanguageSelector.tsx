@@ -139,8 +139,8 @@ export const HeaderLanguageSelectorConsumer = ({
           className={classes.languageSelectorActionBarItem}
           iconClassName={classes.languageSelectorDropdownIcon}
           dropdownClassName={classes.languageSelectorDropdown}
-          icon={<IconGlobe aria-hidden />}
-          closeIcon={<IconGlobe aria-hidden />}
+          icon={<IconGlobe />}
+          closeIcon={<IconGlobe />}
           fullWidth={isSmallScreen}
           labelOnRight
           {...rest}

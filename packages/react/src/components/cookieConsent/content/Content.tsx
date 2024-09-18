@@ -70,7 +70,7 @@ export function Content(): React.ReactElement {
           }}
         >
           <span>{readMore}</span>
-          <IconAngleUp aria-hidden />
+          <IconAngleUp />
         </button>
       </div>
       <button
@@ -79,7 +79,7 @@ export function Content(): React.ReactElement {
         data-testid="cookie-consent-settings-toggler"
         {...buttonProps}
       >
-        <Icon aria-hidden />
+        <Icon />
         <span>{settingsButtonText}</span>
       </button>
       <Card

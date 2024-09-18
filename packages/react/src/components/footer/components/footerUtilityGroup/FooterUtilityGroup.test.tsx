@@ -38,14 +38,14 @@ describe('<Footer.UtilityGroup /> spec', () => {
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
-            icon={<IconFacebook aria-hidden="true" />}
+            icon={<IconFacebook />}
             href="https://facebook.com/helsinginkaupunki/"
           />
           <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
-            icon={<IconFacebook aria-hidden="true" />}
+            icon={<IconFacebook />}
             href="https://facebook.com/helsinginkaupunki/"
           />
         </Footer.UtilityGroup>
@@ -83,14 +83,14 @@ describe('<Footer.UtilityGroup /> spec', () => {
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
-            icon={<IconFacebook aria-hidden="true" />}
+            icon={<IconFacebook />}
             href="https://facebook.com/helsinginkaupunki/"
           />
           <Footer.Link
             title="Helsingin kaupungin Facebook-tili"
             label="Facebook"
             aria-label="Helsingin kaupungin Facebook-tili"
-            icon={<IconFacebook aria-hidden="true" />}
+            icon={<IconFacebook />}
             href="https://facebook.com/helsinginkaupunki/"
           />
         </Footer.UtilityGroup>

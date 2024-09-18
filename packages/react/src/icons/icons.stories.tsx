@@ -39,12 +39,12 @@ req.keys().forEach((fileName, index) => {
   story.add(componentName, () => (
     <>
       <Wrapper>
-        {['xs', 's', 'm', 'l', 'xl'].map((size) => (
+        {['extraSmall', 'small', 'medium', 'large', 'extraLarge'].map((size) => (
           <Component key={`icon-black-${size}`} size={size} />
         ))}
       </Wrapper>
       <Wrapper style={{ background: 'var(--color-black)' }}>
-        {['xs', 's', 'm', 'l', 'xl'].map((size) => (
+        {['extraSmall', 'small', 'medium', 'large', 'extraLarge'].map((size) => (
           <Component key={`icon-white-${size}`} size={size} style={{ color: '#fff' }} />
         ))}
       </Wrapper>

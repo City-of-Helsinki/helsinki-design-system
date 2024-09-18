@@ -222,7 +222,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       <div lang={language} className={styles.wrapper}>
         <TextInput
           {...textInputProps}
-          buttonIcon={disableDatePicker ? undefined : <IconCalendar aria-hidden />}
+          buttonIcon={disableDatePicker ? undefined : <IconCalendar />}
           buttonAriaLabel={disableDatePicker ? undefined : getOpenButtonLabel()}
           onButtonClick={disableDatePicker ? undefined : onOpenButtonClick}
           onChange={(event) => {
