@@ -311,7 +311,7 @@ export default class CookieHandler {
    * @private
    * @param {string} message - The string to be hashed.
    * @param {number} [length=8] - The length of the hash (default is 8).
-   * @return {string} - The hash in base16 from the string.
+   * @return {Promise<string>} - A promise that resolves to the hash in base16 from the string.
    *
    * Reference: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
    */
