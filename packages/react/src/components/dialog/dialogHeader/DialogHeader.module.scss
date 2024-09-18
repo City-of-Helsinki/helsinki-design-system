@@ -54,7 +54,7 @@
     width: calc(100% + calc((var(--outline-width) + var(--outline-x-gutter)) * 2));
   }
 
-  .dialogTitleLeftIcon {
+  .dialogTitleStartIcon {
     display: inline-flex;
     margin-right: var(--spacing-2-xs);
   }

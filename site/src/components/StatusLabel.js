@@ -12,7 +12,7 @@ StatusLabel.propTypes = {
   className: PropTypes.string,
   dataTestId: PropTypes.string,
   type: PropTypes.oneOf(['neutral', 'info', 'success', 'alert', 'error']),
-  iconLeft: PropTypes.node,
+  iconStart: PropTypes.node,
 };
 
 export default StatusLabel;

@@ -26,7 +26,7 @@ export type StatusLabelProps = React.PropsWithChildren<
     /**
      * Element placed on the left side of the status label
      */
-    iconLeft?: React.ReactNode;
+    iconStart?: React.ReactNode;
   }
 >;
 const IconElement = ({ icon }: { icon: React.ReactNode }) => (
@@ -40,15 +40,15 @@ export const StatusLabel = ({
   className,
   dataTestId,
   type = 'neutral',
-  iconLeft,
+  iconStart,
   ...rest
 }: StatusLabelProps) => (
   <span
-    className={classNames(styles.statusLabel, styles[type], iconLeft && styles.statusLabelWithIcon, className)}
+    className={classNames(styles.statusLabel, styles[type], iconStart && styles.statusLabelWithIcon, className)}
     data-testid={dataTestId}
     {...rest}
   >
-    {iconLeft && <IconElement icon={iconLeft} />}
+    {iconStart && <IconElement icon={iconStart} />}
     {children}
   </span>
 );

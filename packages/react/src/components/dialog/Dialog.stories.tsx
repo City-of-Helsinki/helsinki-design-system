@@ -59,7 +59,7 @@ export const Default = (args: DialogProps) => {
         focusAfterCloseRef={openButtonRef}
         close={close}
       >
-        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle />} />
+        <Dialog.Header id={titleId} title="Add new item" iconStart={<IconPlusCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
@@ -124,7 +124,7 @@ export const WithBoxShadow = (args: DialogProps) => {
         closeButtonLabelText="Close"
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle />} />
+        <Dialog.Header id={titleId} title="Add new item" iconStart={<IconPlusCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
@@ -198,7 +198,7 @@ export const Confirmation = (args: DialogProps) => {
         focusAfterCloseRef={openConfirmationButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle />} />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to continue?
@@ -263,7 +263,7 @@ export const Danger = (args: DialogProps) => {
         focusAfterCloseRef={openDangerButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Delete item" iconLeft={<IconAlertCircle />} />
+        <Dialog.Header id={titleId} title="Delete item" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to delete the item?
@@ -331,7 +331,7 @@ export const ScrollableConfirmation = (args: DialogProps) => {
         targetElement={dialogTargetElement}
         scrollable
       >
-        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle />} />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <h3 id={descriptionId}>Are you sure you want to continue?</h3>
           <p className="text-body">
@@ -462,7 +462,7 @@ export const LongButtonLabels = (args: DialogProps) => {
         focusAfterCloseRef={openDialogButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle />} />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <h3 style={{ marginTop: '0' }}>Are you sure you want to continue?</h3>
         </Dialog.Content>
@@ -529,7 +529,7 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
         isOpen={open}
         focusAfterCloseRef={openConfirmationButtonRef}
       >
-        <Dialog.Header id={confirmationTitleId} title="Accept terms dialog" iconLeft={<IconAlertCircle />} />
+        <Dialog.Header id={confirmationTitleId} title="Accept terms dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <p id={confirmationDescriptionId} className="text-body" style={{ marginTop: '0' }}>
             Do you want to accept terms of the service?
@@ -644,7 +644,7 @@ export const WithControlledContent = (args: DialogProps) => {
         close={close}
         closeButtonLabelText="Close"
       >
-        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle />} />
+        <Dialog.Header id={titleId} title="Add new item" iconStart={<IconPlusCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.

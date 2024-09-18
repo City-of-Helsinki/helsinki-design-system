@@ -351,7 +351,7 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
             <Header.ActionBarSubItem
               label="Kirjaudu ulos"
               bold
-              iconRight={<IconSignout />}
+              iconEnd={<IconSignout />}
               onClick={() => console.log('Signout')}
             />
           </Header.ActionBarItem>
@@ -905,8 +905,8 @@ import { Link } from 'gatsby';
 
 | Property                                      | Description                                                            | Values                 | Default value |
 | --------------------------------------------- | ---------------------------------------------------------------------- | ---------------------- | ------------- |
-| `iconLeft`                                    | Icon element (on the left side of the label) for the action bar item.  | `ReactNode`            | -             |
-| `iconRight`                                   | Icon element (on the right side of the label) for the action bar item. | `ReactNode`            | -             |
+| `iconStart`                                   | Icon element (on the start side of the label) for the action bar item. | `ReactNode`            | -             |
+| `iconEnd`                                     | Icon element (on the end side of the label) for the action bar item.   | `ReactNode`            | -             |
 | `notificationBubbleContent`                   | Content for the right aligned red notification bubble.                 | `string`               | -             |
 | `notificationBubbleAriaLabel`                 | Aria label for notification bubble.                                    | `string`               | -             |
 | `label`                                       | Label for the action bar item.                                         | `string` `JSX.Element` | -             |

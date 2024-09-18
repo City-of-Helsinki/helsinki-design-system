@@ -69,7 +69,7 @@ exports[`<Dialog /> spec renders the component 1`] = `
           >
             <span
               aria-hidden="true"
-              class="dialogTitleLeftIcon"
+              class="dialogTitleStartIcon"
             >
               <svg
                 aria-hidden="true"

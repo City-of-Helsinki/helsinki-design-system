@@ -752,7 +752,7 @@ export const WithUserMenu = (args: HeaderProps) => {
             <Header.ActionBarSubItem
               label="Kirjaudu ulos"
               bold
-              iconRight={<IconSignout />}
+              iconEnd={<IconSignout />}
               onClick={() => console.log('Signout')}
             />
           </Header.ActionBarItem>
