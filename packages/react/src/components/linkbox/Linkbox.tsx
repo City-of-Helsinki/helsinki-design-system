@@ -166,7 +166,6 @@ export const Linkbox = ({
                 : size === LinkboxSize.Large && styles.iconPositionForLinkboxLargeVariant,
             )}
             size={IconSize.Large}
-            aria-hidden
           />
         ) : (
           <IconArrowRight
@@ -177,7 +176,6 @@ export const Linkbox = ({
                 : size === LinkboxSize.Large && styles.iconPositionForLinkboxLargeVariant,
             )}
             size={IconSize.Large}
-            aria-hidden
           />
         )}
       </a>

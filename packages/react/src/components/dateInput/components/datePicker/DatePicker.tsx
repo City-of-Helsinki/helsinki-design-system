@@ -389,7 +389,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
                 aria-disabled={!selectedDate}
                 size={ButtonSize.Small}
                 variant={ButtonVariant.Secondary}
-                iconStart={<IconCheck aria-hidden />}
+                iconStart={<IconCheck />}
                 onClick={handleConfirmClick}
                 data-testid="selectButton"
               >
@@ -399,7 +399,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
             <Button
               size={ButtonSize.Small}
               variant={ButtonVariant.Supplementary}
-              iconStart={<IconCross aria-hidden />}
+              iconStart={<IconCross />}
               onClick={() => onCloseButtonClick()}
               data-testid="closeButton"
             >

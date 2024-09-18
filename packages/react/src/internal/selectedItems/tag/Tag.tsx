@@ -126,7 +126,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
             aria-label={deleteButtonAriaLabel}
             onClick={onDelete}
           >
-            <IconCross className={styles.icon} aria-hidden />
+            <IconCross className={styles.icon} />
           </button>
         )}
       </div>

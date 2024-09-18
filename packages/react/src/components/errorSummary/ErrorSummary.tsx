@@ -74,7 +74,7 @@ export const ErrorSummary = React.forwardRef<HTMLDivElement, ErrorSummaryProps>(
             tabIndex={-1}
             ref={labelRef}
           >
-            <IconErrorFill className={notificationStyles.icon} aria-hidden />
+            <IconErrorFill className={notificationStyles.icon} />
             {label}
           </div>
           <div className={(notificationStyles.body, errorSummaryStyles.errorSummaryBody)}>{children}</div>

@@ -156,7 +156,7 @@ export const SideNavigation = ({
           aria-haspopup
           className={styles.toggleButton}
           fullWidth
-          iconEnd={mobileMenuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
+          iconEnd={mobileMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
           onClick={toggleMobileMenu}
           variant={ButtonVariant.Secondary}
           type="button"

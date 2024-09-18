@@ -288,7 +288,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
                 className={styles.label}
                 {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
               >
-                <Icon className={styles.icon} aria-hidden />
+                <Icon className={styles.icon} />
                 <ConditionalVisuallyHidden visuallyHidden={size === NotificationSize.Small}>
                   {label}
                 </ConditionalVisuallyHidden>
@@ -304,7 +304,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               aria-label={closeButtonLabelText}
               onClick={handleClose}
             >
-              <IconCross aria-hidden />
+              <IconCross />
             </button>
           )}
         </animated.section>

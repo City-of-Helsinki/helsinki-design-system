@@ -116,10 +116,10 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           }}
         >
           <div className={classNames(styles.toggleButtonIcon, styles.offIcon)}>
-            <IconCrossCircleFill size={IconSize.Medium} aria-hidden="true" />
+            <IconCrossCircleFill size={IconSize.Medium} />
           </div>
           <div className={classNames(styles.toggleButtonIcon, styles.onIcon)}>
-            <IconCheckCircleFill size={IconSize.Medium} aria-hidden="true" />
+            <IconCheckCircleFill size={IconSize.Medium} />
           </div>
         </button>
       </div>

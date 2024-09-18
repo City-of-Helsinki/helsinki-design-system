@@ -176,7 +176,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
         {iconElementStart}
         <span>{children}</span>
         {iconElementEnd}
-        {deletable && !iconElementEnd ? <IconCross className={styles.icon} aria-hidden /> : null}
+        {deletable && !iconElementEnd ? <IconCross className={styles.icon} /> : null}
       </>
     );
 

@@ -111,11 +111,7 @@ export const WithExternalClearValueButton = (args: DateInputProps) => {
   return (
     <div className="date-input--external-clear-value-button">
       <DateInput {...args} value={value} onChange={setValue} />
-      <Button
-        variant={ButtonVariant.Supplementary}
-        onClick={() => setValue('')}
-        iconStart={<IconCrossCircle aria-hidden />}
-      >
+      <Button variant={ButtonVariant.Supplementary} onClick={() => setValue('')} iconStart={<IconCrossCircle />}>
         Clear value
       </Button>
     </div>

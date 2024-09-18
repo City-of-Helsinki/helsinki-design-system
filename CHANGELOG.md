@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Accordion] heading typography changes
 - [Pagination] Active element changed from "a" element to "span" element
 - [Hero] content spacing changes
+- [Icon] ariaLabel, ariaLabelledby and ariaHidden replaced by native aria-* counterparts.
 
 #### Added
 
