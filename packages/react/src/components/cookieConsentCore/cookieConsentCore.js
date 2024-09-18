@@ -244,13 +244,13 @@ export class CookieConsentCore {
   }
 
   /**
-   * Gets the group checkbox status from form
+   * Gets accepted checkbox groups from form
    * @private
    * @param {HTMLFormElement} form - The form element to read the group selections from.
    * @param {boolean} [all=false] - Optional parameter to include all selections, regardless of their checked state.
    * @return {Array<string>} - An array of selected groups.
    */
-  #getGroupCheckboxStatus(form, all = false) {
+  #getAcceptedGroups(form, all = false) {
     const groupSelections = [];
     const formCheckboxes = form.querySelectorAll('input[data-group]');
     formCheckboxes.forEach((check) => {
@@ -279,11 +279,11 @@ export class CookieConsentCore {
         this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       case 'all':
-        acceptedGroups = this.#getGroupCheckboxStatus(formReference, true);
+        acceptedGroups = this.#getAcceptedGroups(formReference, true);
         this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       case 'selected':
-        acceptedGroups = this.#getGroupCheckboxStatus(formReference);
+        acceptedGroups = this.#getAcceptedGroups(formReference);
         this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
         this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
