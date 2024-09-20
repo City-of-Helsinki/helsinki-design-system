@@ -1,0 +1,92 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use './ruled-bem' as *;
+
+@mixin testSCSS($all: true, $elements: true, $modifiers: true, $extras: true, $testContainer: '.test-output') {
+  $void: args-to-rules(
+    (
+      'block': 'test',
+      'all': $all,
+      'elements': $elements,
+      'modifiers': $modifiers,
+      'extras': $extras,
+      'testContainer': $testContainer,
+    )
+  );
+
+  @include block {
+    @include content('base') {
+      --hds-test: var(--var-base);
+
+      div {
+        --hds-test-div: var(--var-div);
+      }
+    }
+
+    @include modifier('modifier') {
+      --hds-test-modifier: var(--var-modifier);
+
+      span {
+        --hds-test-modifier-span: var(--var-span);
+      }
+    }
+
+    @include element('element') {
+      --hds-test-element: var(--var-element);
+
+      a {
+        --hds-test-element-a: var(--var-a);
+      }
+    }
+  }
+}
+
+@include describe('get-map-key-with-value()') {
+  @include it('returns first truthy value') {
+    $map: (
+      'truthy': true,
+      'falsy': false,
+    );
+
+    @include assert-equal(get-map-key-with-value($map), 'truthy');
+  }
+}
+
+@include describe('testSCSS()') {
+  @include it('all') {
+    @include assert {
+      @include output {
+        @include testSCSS($all: true);
+      }
+
+      @include expect {
+        /// at-root is required :(
+        @at-root {
+          .hds-test {
+            --hds-test: var(--var-base);
+
+            div {
+              --hds-test-div: var(--var-div);
+            }
+          }
+
+          .hds-test--modifier {
+            --hds-test-modifier: var(--var-modifier);
+
+            span {
+              --hds-test-modifier-span: var(--var-span);
+            }
+          }
+
+          .hds-test__element {
+            --hds-test-element: var(--var-element);
+
+            a {
+              --hds-test-element-a: var(--var-a);
+            }
+          }
+        }
+      }
+    }
+  }
+}
