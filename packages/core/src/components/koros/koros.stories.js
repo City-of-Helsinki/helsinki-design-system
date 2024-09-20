@@ -99,11 +99,11 @@ export const Dense = () => `
   <div class="hds-koros">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id="korosPulseDense" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-          <path transform="scale(3)" d="m0 10v75h32v-75c-8 0-8-10-16-10s-8 10-16 10z" />
+        <pattern id="korosPulseDense" x="0" y="0" width="32" height="85" patternUnits="userSpaceOnUse">
+          <path transform="scale(1)" d="m0 10v75h32v-75c-8 0-8-10-16-10s-8 10-16 10z" />
         </pattern>
       </defs>
-      <rect fill="url(#korosPulseDense)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+      <rect fill="url(#korosPulseDense)" width="100%" height="85" style="shape-rendering: crispedges;" />
     </svg>
   </div>
 
@@ -200,80 +200,92 @@ export const Flipped = () => `
 `;
 
 export const RotatedBasic45deg = () => `
-  <div class="hds-koros hds-koros--45deg" style="transform-origin: 43px">
-    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-      <defs>
-        <pattern id="korosBasic45deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-          <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
-        </pattern>
-      </defs>
-      <rect fill="url(#korosBasic45deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
-    </svg>
+  <div style="min-height: 200px;">
+    <div class="hds-koros hds-koros--45deg" style="transform-origin: 43px">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+        <defs>
+          <pattern id="korosBasic45deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
+            <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
+          </pattern>
+        </defs>
+        <rect fill="url(#korosBasic45deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+      </svg>
+    </div>
   </div>
 `;
 
 export const RotatedBasic90deg = () => `
-  <div class="hds-koros hds-koros--90deg" style="transform-origin: 43px">
-    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-      <defs>
-        <pattern id="korosBasic90deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-          <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
-        </pattern>
-      </defs>
-      <rect fill="url(#korosBasic90deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
-    </svg>
+  <div style="min-height: 200px;">
+    <div class="hds-koros hds-koros--90deg" style="transform-origin: 43px">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+        <defs>
+          <pattern id="korosBasic90deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
+            <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
+          </pattern>
+        </defs>
+        <rect fill="url(#korosBasic90deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+      </svg>
+    </div>
   </div>
 `;
 
 export const RotatedBasic135deg = () => `
-  <div class="hds-koros hds-koros--135deg" style="transform-origin: left; position: absolute; left: calc((100% / 1.4) + 43px);">
-    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-      <defs>
-        <pattern id="korosBasic135deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-          <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
-        </pattern>
-      </defs>
-      <rect fill="url(#korosBasic135deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
-    </svg>
+  <div style="min-height: 200px;">
+    <div class="hds-koros hds-koros--135deg" style="transform-origin: left; position: absolute; left: calc((100% / 1.4) + 43px);">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+        <defs>
+          <pattern id="korosBasic135deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
+            <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
+          </pattern>
+        </defs>
+        <rect fill="url(#korosBasic135deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+      </svg>
+    </div>
   </div>
 `;
 
 export const RotatedBasic225deg = () => `
-  <div class="hds-koros hds-koros--225deg" style="transform-origin: left; position: absolute; bottom: 0; left: calc((100% / 1.4) + 43px);">
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-    <defs>
-      <pattern id="korosBasic225deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-        <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
-      </pattern>
-    </defs>
-    <rect fill="url(#korosBasic225deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
-  </svg>
+  <div style="min-height: 200px;">
+    <div class="hds-koros hds-koros--225deg" style="transform-origin: left; position: absolute; bottom: 0; left: calc((100% / 1.4) + 43px);">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosBasic225deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
+          <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosBasic225deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+    </svg>
+    </div>
   </div>
 `;
 
 export const RotatedBasic270deg = () => `
-  <div class="hds-koros hds-koros--270deg" style="transform-origin: calc(100% - 85px) 100%">
-    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-      <defs>
-        <pattern id="korosBasic270deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-          <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
-        </pattern>
-      </defs>
-      <rect fill="url(#korosBasic270deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
-    </svg>
+  <div style="min-height: 200px;">
+    <div class="hds-koros hds-koros--270deg" style="transform-origin: calc(100% - 85px) 100%">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+        <defs>
+          <pattern id="korosBasic270deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
+            <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
+          </pattern>
+        </defs>
+        <rect fill="url(#korosBasic270deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+      </svg>
+    </div>
   </div>
 `;
 
 export const RotatedBasic315deg = () => `
-  <div class="hds-koros hds-koros--315deg" style="transform-origin: bottom right;">
-    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
-      <defs>
-        <pattern id="korosBasic315deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
-          <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
-        </pattern>
-      </defs>
-      <rect fill="url(#korosBasic315deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
-    </svg>
+  <div style="min-height: 200px;">
+    <div class="hds-koros hds-koros--315deg" style="transform-origin: bottom right;">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+        <defs>
+          <pattern id="korosBasic315deg" x="0" y="0" width="96" height="85" patternUnits="userSpaceOnUse">
+            <path transform="scale(3)" d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />
+          </pattern>
+        </defs>
+        <rect fill="url(#korosBasic315deg)" width="100%" height="85" style="shapeRendering:'crispEdges'" />
+      </svg>
+    </div>
   </div>
 `;
 
