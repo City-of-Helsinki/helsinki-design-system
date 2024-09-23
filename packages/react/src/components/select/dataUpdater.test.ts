@@ -14,7 +14,9 @@ import {
 } from './hooks/__mocks__/useSelectDataHandlers';
 import { getTextKey } from './texts';
 import {
+  FilterFunction,
   Group,
+  Option,
   OptionInProps,
   SelectData,
   SelectDataHandlers,
@@ -180,9 +182,10 @@ describe('dataUpdater', () => {
         ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 0, label: 'Group 1' }),
         open: true,
       });
-      // select an group label
+      // select a group label
       const { didUpdate } = selectOptionByIndex(0);
       const updatedOptions = getAllOptionsFromLastUpdate();
+      expect(updatedOptions).toHaveLength(4);
       expect(didUpdate).toBeTruthy();
       expect(updatedOptions.filter((opt) => !opt.selected)).toHaveLength(0);
       expect(getLastOpenUpdateFromEvents()).toBeNull();
@@ -403,6 +406,64 @@ describe('dataUpdater', () => {
       // unselect by clicking the selected item
       selectOptionByIndex(3);
       expect(getSelectedOptionsInMetaData()).toHaveLength(0);
+    });
+  });
+  describe('filter function is called once per each option', () => {
+    let acceptedLabels: string[] = [];
+    const filterFunction: FilterFunction = (option) => {
+      return acceptedLabels.includes(option.label);
+    };
+    const filterTracker = jest.fn();
+
+    const resetFilter = (options: Option[]) => {
+      filterTracker.mockReset();
+      filterTracker.mockImplementation(filterFunction);
+      acceptedLabels = options.map((opt) => opt.label);
+    };
+
+    beforeEach(() => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 10, selectedOptionsCount: 0 }),
+        filterFunction: filterTracker,
+      });
+    });
+    it('the value of "filter" is passed to the filter function with each option', () => {
+      const acceptedOptions = getAllOptionsFromData().filter((opt, index) => index > 7);
+      resetFilter(acceptedOptions);
+      changeHandler({ id: eventIds.filter, type: eventTypes.change, payload: { value: 'filterValue' } }, dataHandlers);
+      const updatedMetaData = getCurrentMockMetaData();
+      expect(updatedMetaData.filter).toBe('filterValue');
+      expect(filterTracker).toHaveBeenCalledTimes(10);
+      expect(getLastMockCallArgs(filterTracker)[1]).toBe('filterValue');
+    });
+    it('Options that do not match filter are hidden, matching options not. Filtering with empty value, resets visibility', () => {
+      const filterer = (index: number) => index === 4 || index === 9;
+      const acceptedOptions = getAllOptionsFromData().filter((opt, index) => filterer(index));
+      resetFilter(acceptedOptions);
+      changeHandler({ id: eventIds.filter, type: eventTypes.change, payload: { value: 'any' } }, dataHandlers);
+      getAllOptionsFromData().forEach((opt) => {
+        // group labels are not filtered
+        if (opt.isGroupLabel) {
+          return;
+        }
+        expect(opt.visible).toBe(filterFunction(opt, ''));
+      });
+      changeHandler({ id: eventIds.filter, type: eventTypes.change, payload: { value: '' } }, dataHandlers);
+
+      getAllOptionsFromData().forEach((opt) => {
+        // group item without label is always hidden
+        if (opt.isGroupLabel) {
+          return;
+        }
+        expect(opt.visible).toBeTruthy();
+      });
+    });
+    it('onChange function is not called', () => {
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+      const filteredOpts = getAllOptionsFromData();
+      resetFilter(filteredOpts);
+      changeHandler({ id: eventIds.filter, type: eventTypes.change, payload: { value: 'filterValue' } }, dataHandlers);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
     });
   });
 });

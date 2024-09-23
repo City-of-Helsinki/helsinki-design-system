@@ -15,7 +15,9 @@ import {
   createGroupLabel,
   createInputOnChangeListener,
   createOnClickListener,
+  filterOptions,
   getAllOptions,
+  getGroupLabelOption,
   getOptionGroupIndex,
   getSelectedOptions,
   getSelectedOptionsPerc,
@@ -27,7 +29,7 @@ import {
   updateOptionInGroup,
   validateOption,
 } from './utils';
-import { Group, Option, SelectDataHandlers } from './types';
+import { FilterFunction, Group, Option, SelectDataHandlers } from './types';
 import { ChangeEvent, ChangeEventPayload } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
 
@@ -619,6 +621,91 @@ describe('utils', () => {
           ],
         },
       ]);
+    });
+  });
+  describe('filterOptions sets option.visible true/false', () => {
+    const optionsInGroup = 20;
+    const groupCount = 3;
+
+    it('if filterStr is not empty, the "visible" prop matches the returned filterFunction value', () => {
+      const { groups } = createMultipleGroups();
+
+      const resultingGroupsWithAllHidden = filterOptions(groups, 'filter', () => false);
+      expect(getAllOptions(resultingGroupsWithAllHidden).filter((opt) => opt.visible === true)).toHaveLength(0);
+
+      const resultingGroupsWithAllVisible = filterOptions(resultingGroupsWithAllHidden, 'filter', () => true);
+      expect(getAllOptions(resultingGroupsWithAllVisible).filter((opt) => opt.visible === false)).toHaveLength(0);
+
+      let count = 0;
+      const resultingGroupsWithHalfVisible = filterOptions(resultingGroupsWithAllHidden, 'filter', () => {
+        count += 1;
+        return count % 2 === 0;
+      });
+      expect(getAllOptions(resultingGroupsWithHalfVisible).filter((opt) => opt.visible === false)).toHaveLength(
+        (groupCount * optionsInGroup) / 2,
+      );
+    });
+    it('if filterStr is empty, the "visible" prop is always true', () => {
+      const { groups } = createMultipleGroups();
+
+      const resultingGroupsWithAllHidden = filterOptions(groups, '', () => false);
+      expect(getAllOptions(resultingGroupsWithAllHidden).filter((opt) => opt.visible === true)).toHaveLength(
+        groupCount * optionsInGroup,
+      );
+    });
+    it('A group label is hidden if all of its options are hidden or visible if one option is visible', () => {
+      const { groups } = createMultipleGroups();
+      const groupFilter: FilterFunction = (option, filter) => {
+        return option.label.includes(filter);
+      };
+      const resultingGroupsWithGroup1Visible = filterOptions(groups, 'group1', groupFilter);
+      expect(getAllOptions(resultingGroupsWithGroup1Visible).filter((opt) => opt.visible === true)).toHaveLength(
+        optionsInGroup,
+      );
+      const groupLabels = resultingGroupsWithGroup1Visible.map((g) => getGroupLabelOption(g)) as Option[];
+      expect(groupLabels[0].visible).toBeTruthy();
+      expect(groupLabels[1].visible).toBeFalsy();
+      expect(groupLabels[2].visible).toBeFalsy();
+
+      const getOneOptionFromOtherGroups = () => {
+        const allOptions = getAllOptions(resultingGroupsWithGroup1Visible);
+        return [allOptions[optionsInGroup * 2 - 1], allOptions[optionsInGroup * 3 - 1]];
+      };
+      const visibleOptionLabels = getOneOptionFromOtherGroups().map((opt) => opt.label);
+      const filterSelected: FilterFunction = (option) => {
+        return visibleOptionLabels.includes(option.label);
+      };
+      const allGroupsVisible = filterOptions(resultingGroupsWithGroup1Visible, 'group1', filterSelected);
+      const groupLabels2 = allGroupsVisible.map((g) => getGroupLabelOption(g)) as Option[];
+      expect(groupLabels2[0].visible).toBeFalsy();
+      expect(groupLabels2[1].visible).toBeTruthy();
+      expect(groupLabels2[2].visible).toBeTruthy();
+    });
+    it('If a group label is not set, it stays hidden', () => {
+      const { groups } = createMultipleGroups();
+      const firstGroupLabel = getGroupLabelOption(groups[0]) as Option;
+      firstGroupLabel.label = '';
+      const allOptionsVisible = filterOptions(groups, 'group1', () => true);
+      const groupLabels2 = allOptionsVisible.map((g) => getGroupLabelOption(g)) as Option[];
+      expect(groupLabels2[0].visible).toBeFalsy();
+      expect(groupLabels2[1].visible).toBeTruthy();
+      expect(groupLabels2[2].visible).toBeTruthy();
+    });
+
+    it('clones the given groups and options and does not mutate', () => {
+      const { groups } = createMultipleGroups();
+      const stringBackup = JSON.stringify(groups);
+      let callCount = 0;
+      const filter = () => {
+        callCount += 1;
+        return callCount === 1;
+      };
+
+      const result = filterOptions(groups, 'group1', filter);
+
+      expect(result === groups).not.toBeTruthy();
+      expect(JSON.stringify(result)).not.toBe(stringBackup);
+      expect(JSON.stringify(groups)).toBe(stringBackup);
     });
   });
 });
