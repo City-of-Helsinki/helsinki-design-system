@@ -5,7 +5,7 @@ exports[`<SingleSelectAndGrouplessList /> Component is rendered 1`] = `
   <ul
     aria-multiselectable="false"
     class="list"
-    id="hds-select-1-list"
+    id="test-select-component-list"
     role="listbox"
     tabindex="-1"
   >
@@ -13,7 +13,7 @@ exports[`<SingleSelectAndGrouplessList /> Component is rendered 1`] = `
       aria-disabled="false"
       aria-selected="false"
       class="listItem selectableListItem singleSelectListItem focusableListItem"
-      id="hds-select-1-option-0"
+      id="test-select-component-option-0"
       role="option"
       tabindex="-1"
     >
@@ -27,7 +27,7 @@ exports[`<SingleSelectAndGrouplessList /> Component is rendered 1`] = `
       aria-disabled="false"
       aria-selected="false"
       class="listItem selectableListItem singleSelectListItem focusableListItem"
-      id="hds-select-1-option-1"
+      id="test-select-component-option-1"
       role="option"
       tabindex="-1"
     >
@@ -41,7 +41,7 @@ exports[`<SingleSelectAndGrouplessList /> Component is rendered 1`] = `
       aria-disabled="false"
       aria-selected="false"
       class="listItem selectableListItem singleSelectListItem focusableListItem"
-      id="hds-select-1-option-2"
+      id="test-select-component-option-2"
       role="option"
       tabindex="-1"
     >
