@@ -1,4 +1,4 @@
-import './button.css';
+import './button.scss';
 import '../../icons/icon.css';
 import '../../icons/share.css';
 import '../../icons/angle-right.css';

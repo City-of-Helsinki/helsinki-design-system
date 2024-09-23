@@ -58,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Hero] New information element below the hero for photographer credits
 - [StatusLabel] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Button] Added SCSS support and scss files are exported too. See documentation about usage.
 
 #### Changed
 
@@ -120,6 +121,7 @@ Changes that are not related to specific components
 #### Added
 
 - [StatusLabel] Documentation about SCSS usage.
+- [Button] Documentation about SCSS usage.
 
 #### Changed
 

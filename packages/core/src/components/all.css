@@ -1,5 +1,5 @@
 @import url('./breadcrumb/breadcrumb.css');
-@import url('./button/button.css');
+@import url('./button/button.scss');
 @import url('./card/card.css');
 @import url('./checkbox/checkbox.css');
 @import url('./container/container.css');
