@@ -4,8 +4,8 @@ exports[`<Label /> is rendered without errors and with "*" when data.required is
 <DocumentFragment>
   <label
     class="label "
-    for="hds-select-1-main-button"
-    id="hds-select-1-label"
+    for="test-select-component-main-button"
+    id="test-select-component-label"
   >
     This is the label
     <span
@@ -21,8 +21,8 @@ exports[`<Label /> is rendered without errors and without "*" when data.required
 <DocumentFragment>
   <label
     class="label "
-    for="hds-select-2-main-button"
-    id="hds-select-2-label"
+    for="test-select-component-main-button"
+    id="test-select-component-label"
   >
     This is the label
   </label>
