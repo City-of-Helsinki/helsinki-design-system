@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListAndInputContainer /> Component is rendered 1`] = `
+<DocumentFragment>
+  <div
+    aria-label=""
+    class="listAndInputContainer listAndInputContainerVisible"
+    id="test-select-component-sl-container"
+    role="dialog"
+  />
+</DocumentFragment>
+`;

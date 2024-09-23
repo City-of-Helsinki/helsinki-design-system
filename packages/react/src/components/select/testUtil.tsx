@@ -1,4 +1,4 @@
-import { waitFor, fireEvent, render } from '@testing-library/react';
+import { waitFor, fireEvent, render, act } from '@testing-library/react';
 import React from 'react';
 import { axe } from 'jest-axe';
 
@@ -9,7 +9,7 @@ import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
 import { SelectProps, SelectMetaData, SelectData, Group, Option } from './types';
-import { getElementIds, propsToGroups } from './utils';
+import { getElementIds, defaultFilter, propsToGroups } from './utils';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -37,6 +37,7 @@ export const skipAxeRulesExpectedToFail: Parameters<typeof axe>[1] = {
     'aria-required-parent': { enabled: false },
     'aria-required-children': { enabled: false },
     'nested-interactive': { enabled: false },
+    'presentation-role-conflict': { enabled: false },
   },
 };
 
@@ -163,10 +164,14 @@ export const getSelectProps = ({
   groups,
   open,
   hasSelections,
+  multiSelect,
+  input,
 }: {
   groups: boolean;
   open?: boolean;
+  multiSelect?: boolean;
   hasSelections?: boolean;
+  input?: SelectMetaData['listInputType'];
 }) => {
   const selectProps: SelectProps = {
     options,
@@ -178,7 +183,12 @@ export const getSelectProps = ({
       placeholder: 'Choose one',
     },
     open,
+    multiSelect,
   };
+
+  if (input === 'filter') {
+    selectProps.filter = defaultFilter;
+  }
 
   if (groups) {
     selectProps.options = undefined;
@@ -206,15 +216,16 @@ export const getSelectProps = ({
 export const initTests = ({
   renderComponentOnly,
   selectProps = {},
-  testProps,
+  testProps = { groups: false },
 }: {
   renderComponentOnly?: boolean;
   selectProps?: Partial<SelectProps>;
   testProps?: Parameters<typeof getSelectProps>[0];
 } = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
-  const props = { ...getSelectProps({ groups: false, ...testProps }), ...selectProps };
-  const result = render(<Select {...props} />);
+  const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  const result = renderWithHelpers({ ...props, groups: testProps.groups });
 
   const getElementById = <T = HTMLElement,>(id: string) => {
     return result.container.querySelector(`#${id}`) as unknown as T;
@@ -323,19 +334,26 @@ export const initTests = ({
   };
 };
 
-export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
+export const renderWithHelpers = (
+  selectProps: Partial<Omit<SelectProps, 'groups'>> & {
+    groups?: boolean;
+    input?: SelectMetaData['listInputType'];
+  } = {},
+) => {
   // eslint-disable-next-line no-param-reassign
   selectProps.id = selectProps.id || defaultId;
   const placeholderText = defaultTexts.en.placeholder;
+  const { groups, input, ...restSelectProps } = selectProps;
   const props: SelectProps = {
-    ...getSelectProps({ groups: false }),
-    ...selectProps,
+    ...getSelectProps({ groups: !!groups, input }),
+    ...restSelectProps,
   };
   const result = render(<Select {...props} />);
 
   const elementIds = getElementIds(selectProps.id);
   const selectors = {
     listAndInputContainer: `#${selectProps.id} > div:nth-child(2) > div:nth-child(2)`,
+    searchAndFilterInfo: `#${selectProps.id} div[data-testid="search-and-filter-info"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
     groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="checkbox"]:first-child`,
     options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
@@ -355,14 +373,24 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
     return 'none';
   };
 
-  const optionCountInGroups = selectProps.groups
-    ? (selectProps.groups as Group[]).reduce((count, group) => {
+  const optionCountInAllGroups = props.groups
+    ? (props.groups as Group[]).reduce((count, group) => {
         return count + group.options.length;
       }, 0)
     : 0;
 
+  const optionCountInGroups = props.groups
+    ? (props.groups as Group[]).map((group) => {
+        return group.options.length;
+      })
+    : [0];
+
   const isElementSelected = (optionElement: HTMLElement) => {
-    return optionElement.getAttribute('aria-selected') === 'true';
+    return (
+      optionElement.getAttribute('aria-selected') === 'true' ||
+      optionElement.getAttribute('aria-checked') === 'true' ||
+      optionElement.getAttribute('aria-checked') === 'mixed'
+    );
   };
 
   const getElementById = (id: string) => {
@@ -375,6 +403,10 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
 
   const getButtonElement = () => {
     return getElementById(elementIds.button) as HTMLButtonElement;
+  };
+
+  const getInputElement = () => {
+    return getElementById(elementIds.searchOrFilterInput) as HTMLInputElement;
   };
 
   const getListElement = () => {
@@ -403,6 +435,10 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
     return result.container.querySelector(selectors.listAndInputContainer) as HTMLDivElement;
   };
 
+  const getSearchAndFilterInfoContainer = () => {
+    return result.container.querySelector(selectors.searchAndFilterInfo) as HTMLDivElement;
+  };
+
   const getSelectionsInButton = () => {
     return Array.from(result.container.querySelectorAll(selectors.selectionsInButton))
       .map((node) => node.innerHTML)
@@ -426,6 +462,13 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
     );
   };
 
+  const getSearchAndFilterInfoTexts = () => {
+    // span filtering removes the spinner
+    return Array.from(getSearchAndFilterInfoContainer().children)
+      .filter((node) => node.nodeName === 'SPAN')
+      .map((node) => node.innerHTML);
+  };
+
   const isListOpen = (): boolean => {
     const toggler = getElementById(elementIds.button) as HTMLElement;
     const list = getElementById(elementIds.list);
@@ -434,7 +477,7 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
 
   const clickOptionAndWaitForRerender = async (index: number) => {
     const option = getOptionElements()[index];
-    const menuWillCloseOnClick = true; // depends on multiselect later
+    const menuWillCloseOnClick = !props.multiSelect;
     const getInitialState = () => {
       if (menuWillCloseOnClick) {
         return isListOpen();
@@ -444,6 +487,23 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
     };
     const currentState = getInitialState();
     fireEvent.click(option);
+    await waitFor(() => {
+      expect(getInitialState() === currentState).toBeFalsy();
+    });
+  };
+
+  const clickGroupAndWaitForRerender = async (index: number) => {
+    const group = getGroupLabelElements()[index];
+    const menuWillCloseOnClick = !props.multiSelect;
+    const getInitialState = () => {
+      if (menuWillCloseOnClick) {
+        return isListOpen();
+      }
+      const targetOption = getGroupLabelElements()[index];
+      return isElementSelected(targetOption);
+    };
+    const currentState = getInitialState();
+    fireEvent.click(group);
     await waitFor(() => {
       expect(getInitialState() === currentState).toBeFalsy();
     });
@@ -468,14 +528,42 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
     await sleepUntilMinInteractionTimePassed();
   };
 
+  const closeList = async () => {
+    if (!isListOpen()) {
+      return;
+    }
+    await sleepUntilMinInteractionTimePassed();
+    clickButton(elementIds.button);
+    await waitFor(() => {
+      expect(isListOpen()).toBeFalsy();
+    });
+    // wait here so menu can be closed right after this
+    await sleepUntilMinInteractionTimePassed();
+  };
+
+  const setInputValue = async (value: string) => {
+    act(() => {
+      fireEvent.change(getInputElement(), { target: { value } });
+    });
+    await waitFor(() => {
+      expect(getInputElement().getAttribute('value')).toBe(value);
+    });
+  };
+
+  const filterSelectedOptions = (optionElements: HTMLElement[]) => {
+    return Array.from(optionElements).filter(isElementSelected);
+  };
+
   return {
     ...result,
     openList,
+    closeList,
     isListOpen,
     getListItemLabels,
     getButtonElement,
     getRootContainer,
     getListAndInputContainer,
+    getInputElement,
     getListElement,
     getClearButton: () => {
       return getElementById(elementIds.clearButton);
@@ -486,17 +574,25 @@ export const renderWithHelpers = (selectProps: Partial<SelectProps> = {}) => {
     getLabel: () => {
       return getElementById(elementIds.label);
     },
+    getSearchOrFilterInputLabel: () => {
+      return getElementById(elementIds.searchOrFilterInputLabel);
+    },
     getGroupLabelElements,
     getGroupElements,
     getOptionElements,
     getAllListElements,
     clickOptionAndWaitForRerender,
+    setInputValue,
+    getSearchAndFilterInfoTexts,
     getOverflowCount,
     getSelectionsInButton,
     optionCountInGroups,
+    optionCountInAllGroups,
     options,
     groupsAndOptions,
     getText,
+    filterSelectedOptions,
     isElementSelected,
+    clickGroupAndWaitForRerender,
   };
 };

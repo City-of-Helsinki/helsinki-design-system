@@ -5,7 +5,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
   <div
     aria-multiselectable="false"
     class="list"
-    id="hds-select-1-list"
+    id="test-select-component-list"
     role="listbox"
     tabindex="-1"
   >
@@ -16,7 +16,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
     >
       <li
         class="listItem groupLabel focusableListItem"
-        id="hds-select-1-option-0"
+        id="test-select-component-option-0"
         role="presentation"
         tabindex="-1"
       >
@@ -26,7 +26,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-1"
+        id="test-select-component-option-1"
         role="option"
         tabindex="-1"
       >
@@ -40,7 +40,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-2"
+        id="test-select-component-option-2"
         role="option"
         tabindex="-1"
       >
@@ -54,7 +54,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-3"
+        id="test-select-component-option-3"
         role="option"
         tabindex="-1"
       >
@@ -72,7 +72,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
     >
       <li
         class="listItem groupLabel focusableListItem"
-        id="hds-select-1-option-4"
+        id="test-select-component-option-4"
         role="presentation"
         tabindex="-1"
       >
@@ -82,7 +82,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-5"
+        id="test-select-component-option-5"
         role="option"
         tabindex="-1"
       >
@@ -96,7 +96,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-6"
+        id="test-select-component-option-6"
         role="option"
         tabindex="-1"
       >
@@ -114,7 +114,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
     >
       <li
         class="listItem groupLabel focusableListItem"
-        id="hds-select-1-option-7"
+        id="test-select-component-option-7"
         role="presentation"
         tabindex="-1"
       >
@@ -124,7 +124,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-8"
+        id="test-select-component-option-8"
         role="option"
         tabindex="-1"
       >
@@ -138,7 +138,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-9"
+        id="test-select-component-option-9"
         role="option"
         tabindex="-1"
       >
@@ -152,7 +152,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-10"
+        id="test-select-component-option-10"
         role="option"
         tabindex="-1"
       >
@@ -166,7 +166,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-11"
+        id="test-select-component-option-11"
         role="option"
         tabindex="-1"
       >
@@ -180,7 +180,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-12"
+        id="test-select-component-option-12"
         role="option"
         tabindex="-1"
       >
@@ -194,7 +194,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-13"
+        id="test-select-component-option-13"
         role="option"
         tabindex="-1"
       >
@@ -208,7 +208,7 @@ exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-selected="false"
         class="listItem selectableListItem singleSelectListItem focusableListItem"
-        id="hds-select-1-option-14"
+        id="test-select-component-option-14"
         role="option"
         tabindex="-1"
       >
