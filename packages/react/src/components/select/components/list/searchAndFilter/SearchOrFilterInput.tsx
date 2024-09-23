@@ -8,21 +8,19 @@ import { createInputOnChangeListener, getVisibleGroupLabels } from '../../../uti
 import { eventIds } from '../../../events';
 import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
 import { getTextKey } from '../../../texts';
-import { getTextKeyWithType, typeIndicator } from './common';
 
 const createFilterInputProps = (
   { getMetaData, trigger, getData }: SelectDataHandlers,
   inputType: Exclude<SelectMetaData['listInputType'], undefined>,
 ): TextInputProps => {
   const metaData = getMetaData();
-  const { filter, elementIds, refs, search } = metaData;
+  const { filter, elementIds, refs } = metaData;
   const { multiSelect, groups } = getData();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
-  const isSearchInput = inputType === 'search';
-  const value = isSearchInput ? search : filter;
-  const label = getTextKey(getTextKeyWithType(`${typeIndicator}ClearButtonAriaLabel`, isSearchInput), metaData);
-  const clearButtonAriaLabel = getTextKey(getTextKeyWithType(`${typeIndicator}Label`, isSearchInput), metaData);
-  const placeholder = getTextKey(getTextKeyWithType(`${typeIndicator}Placeholder`, isSearchInput), metaData);
+  const value = filter;
+  const label = getTextKey('filterClearButtonAriaLabel', metaData);
+  const clearButtonAriaLabel = getTextKey('filterLabel', metaData);
+  const placeholder = getTextKey('filterPlaceholder', metaData);
 
   return {
     className: classNames(styles.searchOrFilterInput),

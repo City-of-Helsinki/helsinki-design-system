@@ -7,21 +7,27 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../../events';
 import { countVisibleOptions, getVisibleGroupLabels } from '../../utils';
-import { getTextFromDataHandlers } from '../../texts';
+import { getTextKey } from '../../texts';
 
 const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups, multiSelect } = getData();
-  const { refs, elementIds, listInputType } = getMetaData();
-  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const metaData = getMetaData();
+  const { refs, elementIds, listInputType } = metaData;
   const hasInput = !!listInputType;
-  const label = getTextFromDataHandlers('label', dataHandlers);
-  const ariaLabel =
-    multiSelect && hasVisibleGroupLabels && !hasInput ? `${label}. ${countVisibleOptions(groups)} choices.` : label;
-  const outsideClickTrigger = useCallback(() => {
-    if (!open) {
-      return;
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const getAriaLabel = () => {
+    const label = getTextKey('label', metaData);
+    if (multiSelect && hasVisibleGroupLabels && !hasInput) {
+      return getTextKey('ariaLabelForListWhenRoleIsDialog', metaData, {
+        numberOfVisibleOptions: countVisibleOptions(groups),
+        label,
+      });
     }
+    return label;
+  };
+  const ariaLabel = getAriaLabel();
+  const outsideClickTrigger = () => {
     trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
   }, [open, trigger]);
   return {
@@ -34,7 +40,6 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
     ref: refs.listContainer,
     outsideClickTrigger,
     id: elementIds.selectionsAndListsContainer,
-    'aria-hidden': !open,
     ...((hasInput || (multiSelect && hasVisibleGroupLabels)) && { role: 'dialog', 'aria-label': ariaLabel }),
   };
 };
