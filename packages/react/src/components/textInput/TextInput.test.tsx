@@ -14,6 +14,7 @@ describe('<TextInput /> spec', () => {
     placeholder: 'A placeholder text',
     helperText: 'Helper text',
     errorText: 'Error text',
+    labelId: 'Label id',
   };
   it('renders the component', () => {
     const { asFragment } = render(<TextInput {...textInputProps} />);
