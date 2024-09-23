@@ -8,10 +8,8 @@ import { eventIds, eventTypes } from './events';
 import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
-import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } from './types';
-import { getElementIds, defaultFilter, propsToGroups, getAllOptions } from './utils';
-import { createTimedPromise } from '../login/testUtils/timerTestUtil';
-import { ChangeEvent } from '../dataProvider/DataContext';
+import { SelectProps, SelectMetaData, SelectData, Group, Option } from './types';
+import { getElementIds, defaultFilter, propsToGroups } from './utils';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -178,14 +176,12 @@ export const getSelectProps = ({
   hasSelections,
   multiSelect,
   input,
-  searchResults,
 }: {
   groups: boolean;
   open?: boolean;
   multiSelect?: boolean;
   hasSelections?: boolean;
   input?: SelectMetaData['listInputType'];
-  searchResults?: SearchResult[];
 }) => {
   const selectProps: SelectProps = {
     options,
@@ -206,6 +202,10 @@ export const getSelectProps = ({
       const results = searchResults && searchResults.length > 0 ? searchResults.shift() : {};
       return createTimedPromise(results, 300) as Promise<SearchResult>;
     };
+  }
+
+  if (input === 'filter') {
+    selectProps.filter = defaultFilter;
   }
 
   if (groups) {
@@ -242,15 +242,6 @@ export const initTests = ({
 } = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
   const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
-  if (selectProps.onChange) {
-    const currentOnChange = props.onChange;
-    const onChangeListener = selectProps.onChange;
-    props.onChange = (...args) => {
-      currentOnChange(...args);
-      return onChangeListener(...args);
-    };
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const result = renderWithHelpers({ ...props, groups: testProps.groups });
 
@@ -397,8 +388,7 @@ export const renderWithHelpers = (
   const elementIds = getElementIds(selectProps.id);
   const selectors = {
     listAndInputContainer: `#${selectProps.id} > div:nth-child(2) > div:nth-child(2)`,
-    screenReaderNotifications: `div[data-testid="screen-reader-notifications"]`,
-    searchAndFilterInfo: `div[data-testid="search-and-filter-info"]`,
+    searchAndFilterInfo: `#${selectProps.id} div[data-testid="search-and-filter-info"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
     groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="checkbox"]:first-child`,
     options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
@@ -478,14 +468,6 @@ export const renderWithHelpers = (
 
   const getListAndInputContainer = () => {
     return result.container.querySelector(selectors.listAndInputContainer) as HTMLDivElement;
-  };
-
-  const getScreenReaderNotificationContainer = () => {
-    return result.container.querySelector(selectors.screenReaderNotifications) as HTMLDivElement;
-  };
-
-  const getScreenReaderNotifications = () => {
-    return Array.from(getScreenReaderNotificationContainer().children).map((node) => node.innerHTML);
   };
 
   const getSearchAndFilterInfoContainer = () => {
@@ -650,7 +632,5 @@ export const renderWithHelpers = (
     filterSelectedOptions,
     isElementSelected,
     clickGroupAndWaitForRerender,
-    getScreenReaderNotifications,
-    selectors,
   };
 };
