@@ -11,7 +11,7 @@ import { getTextFromMetaData } from '../../texts';
 
 const showAllButtonPropSetter = (
   dataHandlers: SelectDataHandlers,
-): ButtonProps & { buttonRef: SelectMetaData['refs']['showAllButton']; isOpen: boolean } => {
+): ButtonProps & { buttonRef: SelectMetaData['refs']['showAllButton'] } => {
   const { getMetaData, getData, trigger } = dataHandlers;
   const { disabled } = getData();
   const metaData = getMetaData();
@@ -28,7 +28,6 @@ const showAllButtonPropSetter = (
     buttonRef: refs.showAllButton,
     disabled,
     id: elementIds.showAllButton,
-    isOpen: showAllTags,
     'aria-label': ariaLabel,
   };
 };
