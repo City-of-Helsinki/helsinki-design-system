@@ -3,7 +3,7 @@
 exports[`<ListAndInputContainer /> Component is rendered 1`] = `
 <DocumentFragment>
   <div
-    aria-label=""
+    aria-label="FI: Select label. 12 choices."
     class="listAndInputContainer listAndInputContainerVisible"
     id="test-select-component-sl-container"
     role="dialog"
