@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SingleSelectListWithGroups /> Component is rendered 1`] = `
+<DocumentFragment>
+  <div
+    aria-multiselectable="false"
+    class="list"
+    id="hds-select-1-list"
+    role="listbox"
+    tabindex="-1"
+  >
+    <ul
+      aria-label="Group0"
+      class="list shiftOptions"
+      role="group"
+    >
+      <li
+        class="listItem groupLabel focusableListItem"
+        id="hds-select-1-option-0"
+        role="presentation"
+        tabindex="-1"
+      >
+        Group0
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-1"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group0_Option0_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-2"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group0_Option1_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-3"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group0_Option2_Label
+        </span>
+      </li>
+    </ul>
+    <ul
+      aria-label="Group1"
+      class="list shiftOptions"
+      role="group"
+    >
+      <li
+        class="listItem groupLabel focusableListItem"
+        id="hds-select-1-option-4"
+        role="presentation"
+        tabindex="-1"
+      >
+        Group1
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-5"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group1_Option0_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-6"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group1_Option1_Label
+        </span>
+      </li>
+    </ul>
+    <ul
+      aria-label="Group2"
+      class="list shiftOptions"
+      role="group"
+    >
+      <li
+        class="listItem groupLabel focusableListItem"
+        id="hds-select-1-option-7"
+        role="presentation"
+        tabindex="-1"
+      >
+        Group2
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-8"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option0_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-9"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option1_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-10"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option2_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-11"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option3_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-12"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option4_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-13"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option5_Label
+        </span>
+      </li>
+      <li
+        aria-disabled="false"
+        aria-selected="false"
+        class="listItem selectableListItem singleSelectListItem focusableListItem"
+        id="hds-select-1-option-14"
+        role="option"
+        tabindex="-1"
+      >
+        <span
+          class="singleSelectListItemLabel"
+        >
+          Group2_Option6_Label
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

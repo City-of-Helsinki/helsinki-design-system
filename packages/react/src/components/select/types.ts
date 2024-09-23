@@ -13,15 +13,15 @@ export type Option = {
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
 
+export type GroupInProps = {
+  label: string;
+  options: (OptionInProps | string)[];
+};
+
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
-  groups?:
-    | Array<{
-        label: string;
-        options: (OptionInProps | string)[];
-      }>
-    | SelectData['groups'];
+  groups?: Array<GroupInProps> | SelectData['groups'];
   onChange: (
     selectedOptions: Option[],
     clickedOption: Option,
@@ -33,10 +33,27 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   id?: string;
   icon?: ReactNode;
   disabled?: boolean;
+  noTags?: boolean;
   texts?: Partial<Texts> | TextProvider;
+  multiSelect?: boolean;
+  visibleOptions?: number;
+  virtualize?: boolean;
 };
 
-export type SelectData = Required<Pick<SelectProps, 'open' | 'required' | 'invalid' | 'onChange' | 'disabled'>> & {
+export type SelectData = Required<
+  Pick<
+    SelectProps,
+    | 'open'
+    | 'required'
+    | 'invalid'
+    | 'onChange'
+    | 'disabled'
+    | 'multiSelect'
+    | 'noTags'
+    | 'visibleOptions'
+    | 'virtualize'
+  >
+> & {
   groups: Array<Group>;
 };
 
@@ -46,6 +63,8 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     list: RefObject<HTMLUListElement>;
     selectContainer: RefObject<HTMLDivElement>;
     selectionButton: RefObject<HTMLButtonElement>;
+    tagList: RefObject<HTMLDivElement>;
+    showAllButton: RefObject<HTMLButtonElement>;
   };
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
@@ -56,11 +75,16 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     label: string;
     list: string;
     container: string;
+    tagList: string;
+    showAllButton: string;
+    clearAllButton: string;
     clearButton: string;
     arrowButton: string;
     selectionsAndListsContainer: string;
   };
   textProvider: TextProvider;
+  getOptionId: (option: Option) => string;
+  showAllTags: boolean;
 };
 
 export type DivElementProps = HTMLAttributes<HTMLDivElement>;
@@ -69,6 +93,8 @@ export type UlElementProps = HTMLAttributes<HTMLUListElement>;
 export type LiElementProps = HTMLAttributes<HTMLLIElement>;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
+export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
+
 export type TextKey =
   | 'label'
   | 'placeholder'
@@ -78,9 +104,17 @@ export type TextKey =
   | 'selectedOptionsLabel'
   | 'noSelectedOptions'
   | 'clearButtonAriaLabel'
-  | 'dropdownButtonAriaLabel';
+  | 'dropdownButtonAriaLabel'
+  | 'multiSelectGroupAriaLabel'
+  | 'tagsClearAllButton'
+  | 'tagsClearAllButtonAriaLabel'
+  | 'tagsShowAllButton'
+  | 'tagsShowLessButton'
+  | 'tagsShowAllButtonAriaLabel'
+  | 'tagsShowLessButtonAriaLabel'
+  | 'tagRemoveSelectionAriaLabel';
 
-export type TextInterpolationKeys = 'selectionCount';
+export type TextInterpolationKeys = 'selectionCount' | 'optionLabel';
 
 export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;

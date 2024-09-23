@@ -1,3 +1,5 @@
+import { uniqueId } from 'lodash';
+
 import { getMockCalls } from '../../../../utils/testHelpers';
 import { ChangeEvent } from '../../../dataProvider/DataContext';
 import { EventId, EventType } from '../../events';
@@ -15,7 +17,9 @@ const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
   default: {
     groups: propsToGroups({ options: ['Option 1'] }),
     open: false,
+    multiSelect: false,
     onChange: jest.fn(),
+    visibleOptions: 5.5,
   },
 };
 
@@ -60,8 +64,9 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     refs: {
       selectionButton: { current: null },
     },
-    textContent: { selectionCount: 0 },
+    textContent: { selectionCount: 0, optionLabel: '' },
     textProvider: (key) => key,
+    getOptionId: () => uniqueId('item'),
   },
 };
 
@@ -121,7 +126,7 @@ export function createDataWithSelectedOptions({
   const options: OptionInProps[] = [];
   let selectCount = selectedOptionsCount;
   for (let y = 0; y < totalOptionsCount; y += 1) {
-    options.push({ label: `Option ${y}`, selected: selectCount > 0 });
+    options.push({ label: `Option ${y}`, selected: selectCount > 0, visible: true });
 
     selectCount -= 1;
   }

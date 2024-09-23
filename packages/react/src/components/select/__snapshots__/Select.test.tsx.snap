@@ -90,7 +90,20 @@ exports[`<Select /> spec renders the component 1`] = `
       <div
         class="listAndInputContainer"
         id="test-select-component-sl-container"
-      />
+      >
+        <div
+          class="listContainer hidden"
+          style="max-height: 286px;"
+        >
+          <ul
+            aria-multiselectable="false"
+            class="list"
+            id="test-select-component-list"
+            role="listbox"
+            tabindex="-1"
+          />
+        </div>
+      </div>
     </div>
     <div
       class="errorText"

@@ -20,6 +20,14 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: '{{selectionCount}} selected options',
     selectedOptionsLabel: 'Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: '{{optionLabel}} (choose all)',
+    tagsClearAllButton: 'Clear all',
+    tagsClearAllButtonAriaLabel: 'Clear all {{selectionCount}} selected options.',
+    tagsShowAllButton: 'Show all ({{selectionCount}})',
+    tagsShowLessButton: 'Show less',
+    tagsShowAllButtonAriaLabel: 'Show all {{selectionCount}} selected options.',
+    tagsShowLessButtonAriaLabel: 'Show less options.',
+    tagRemoveSelectionAriaLabel: 'Remove selection "{{optionLabel}}".',
   },
   fi: {
     assistive: '',
@@ -31,6 +39,14 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: 'FI: {{selectionCount}} selected options',
     selectedOptionsLabel: 'FI: Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: 'FI: {{optionLabel}} (choose all)',
+    tagsClearAllButton: 'FI: Clear all',
+    tagsClearAllButtonAriaLabel: 'FI: Clear all {{selectionCount}} selected options.',
+    tagsShowAllButton: 'FI: Show all ({{selectionCount}})',
+    tagsShowLessButton: 'FI: Show less',
+    tagsShowAllButtonAriaLabel: 'FI: Show all {{selectionCount}} selected options.',
+    tagsShowLessButtonAriaLabel: 'FI: Show less options.',
+    tagRemoveSelectionAriaLabel: 'FI: Remove selection "{{optionLabel}}".',
   },
   sv: {
     assistive: '',
@@ -42,6 +58,14 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: 'SV: {{selectionCount}} selected options',
     selectedOptionsLabel: 'SV: Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: 'SV: {{optionLabel}} (choose all)',
+    tagsClearAllButton: 'SV: Clear all',
+    tagsClearAllButtonAriaLabel: 'SV: Clear all {{selectionCount}} selected options.',
+    tagsShowAllButton: 'SV: Show all ({{selectionCount}})',
+    tagsShowLessButton: 'SV: Show less',
+    tagsShowAllButtonAriaLabel: 'SV: Show all {{selectionCount}} selected options.',
+    tagsShowLessButtonAriaLabel: 'SV: Show less options.',
+    tagRemoveSelectionAriaLabel: 'SV: Remove selection "{{optionLabel}}".',
   },
 };
 
@@ -66,6 +90,7 @@ const createTextInterpolationContent = (metaData: SelectMetaData): TextInterpola
   const count = metaData.selectedOptions.length;
   return {
     selectionCount: count,
+    optionLabel: '',
   };
 };
 
@@ -98,13 +123,17 @@ export const appendTexts = (texts: Partial<SelectProps['texts']>, metaData: Sele
   };
 };
 
-export const getTextKey = (key: TextKey, metaData: SelectMetaData): string | undefined => {
+export const getTextKey = (
+  key: TextKey,
+  metaData: SelectMetaData,
+  customContent?: Partial<TextInterpolationContent>,
+): string | undefined => {
   if (!metaData.textContent) {
     // eslint-disable-next-line no-param-reassign
     metaData.textContent = createTextInterpolationContent(metaData);
   }
   const { textProvider } = metaData;
-  return textProvider(key, metaData.textContent);
+  return textProvider(key, { ...metaData.textContent, ...customContent });
 };
 
 export const getTextFromMetaData = (key: TextKey, metaData: SelectMetaData): string | undefined => {

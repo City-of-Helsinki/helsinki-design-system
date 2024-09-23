@@ -1,14 +1,15 @@
 import { waitFor, fireEvent, render } from '@testing-library/react';
 import React from 'react';
+import { axe } from 'jest-axe';
 
 import { IconLocation } from '../../icons';
-import { getLastMockCallArgs } from '../../utils/testHelpers';
+import { getAllMockCallArgs, getLastMockCallArgs } from '../../utils/testHelpers';
 import { eventIds, eventTypes } from './events';
 import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
 import { SelectProps, SelectMetaData, SelectData, Group, Option } from './types';
-import { getElementIds } from './utils';
+import { getElementIds, propsToGroups } from './utils';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -26,6 +27,17 @@ export const testUtilBeforeAll = (TargetComponent: React.FC) => {
 };
 export const testUtilAfterAll = () => {
   renderMockedComponent.mockClear();
+};
+
+// aria-input-field-name requires a role="listbox" to have a aria-label || aria-labelledby.
+// but this is not a requirement from accessibility audit.
+export const skipAxeRulesExpectedToFail: Parameters<typeof axe>[1] = {
+  rules: {
+    'aria-input-field-name': { enabled: false },
+    'aria-required-parent': { enabled: false },
+    'aria-required-children': { enabled: false },
+    'nested-interactive': { enabled: false },
+  },
 };
 
 const ButtonsForDataUpdates = () => {
@@ -72,7 +84,15 @@ const ExportedData = () => {
 
 const ExportedMetaData = () => {
   const { getMetaData } = useSelectDataHandlers();
-  const jsonData = JSON.stringify(getMetaData());
+  const jsonData = JSON.stringify(getMetaData(), (key, value) => {
+    if (typeof value === 'function') {
+      return undefined;
+    }
+    if (key === 'refs' || key === 'icon') {
+      return undefined;
+    }
+    return value;
+  });
   return <span id="exported-meta-data">{jsonData}</span>;
 };
 
@@ -186,12 +206,18 @@ export const getSelectProps = ({
 export const initTests = ({
   renderComponentOnly,
   selectProps = {},
-}: { renderComponentOnly?: boolean; selectProps?: Partial<SelectProps> } = {}) => {
+  testProps,
+}: {
+  renderComponentOnly?: boolean;
+  selectProps?: Partial<SelectProps>;
+  testProps?: Parameters<typeof getSelectProps>[0];
+} = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
-  const props = render(<Select {...{ ...getSelectProps({ groups: false }), ...selectProps }} />);
+  const props = { ...getSelectProps({ groups: false, ...testProps }), ...selectProps };
+  const result = render(<Select {...props} />);
 
   const getElementById = <T = HTMLElement,>(id: string) => {
-    return props.container.querySelector(`#${id}`) as unknown as T;
+    return result.container.querySelector(`#${id}`) as unknown as T;
   };
 
   const getRenderTime = () => {
@@ -241,12 +267,59 @@ export const initTests = ({
     return Promise.all([promise, promise2]);
   };
 
+  const getOptionElement = (option: Option) => {
+    const labelEl = result.getByText(option.label) as HTMLElement;
+    if (props.multiSelect) {
+      if (option.isGroupLabel) {
+        // return ((labelEl.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement;
+      }
+      // get parent of parent of <label>, which is <div>
+      return (labelEl.parentElement as HTMLElement).parentElement as HTMLElement;
+    }
+    // get parent of <span>, which is <li>
+    return labelEl.parentElement as HTMLElement;
+  };
+
+  const clickOptionElement = (option: Option) => {
+    const el = getOptionElement(option);
+    fireEvent.click(el);
+  };
+
+  const getOnChangeMock = () => {
+    return onChangeTracker;
+  };
+
+  const getOnChangeMockCalls = () => {
+    return getAllMockCallArgs(getOnChangeMock());
+  };
+
+  const getOnChangeCallArgsAsProps = () => {
+    const args = getLastMockCallArgs(getOnChangeMock());
+    return {
+      selectedOptions: args[0],
+      clickedOption: args[1],
+      data: args[2],
+    };
+  };
+
   return {
-    ...props,
+    ...result,
     triggerDataChange,
     triggerMetaDataChange,
     getMetaDataFromElement,
     getDataFromElement,
+    getProps: () => {
+      return props;
+    },
+    getGroups: () => {
+      return propsToGroups(props) as Group[];
+    },
+    getOptionElement,
+    clickOptionElement,
+    getElementById,
+    getOnChangeCallArgsAsProps,
+    getOnChangeMockCalls,
+    createRenderUpdatePromise,
   };
 };
 

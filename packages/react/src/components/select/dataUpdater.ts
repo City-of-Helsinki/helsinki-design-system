@@ -1,20 +1,24 @@
 import { Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
 import {
-  updateSelectedOptionInGroups,
+  updateOptionInGroup,
   clearAllSelectedOptions,
   propsToGroups,
   getSelectedOptions,
   createSelectedOptionsList,
+  updateGroupLabelAndOptions,
 } from './utils';
 import {
   EventId,
+  eventIds,
   EventType,
   isClearOptionsClickEvent,
   isCloseEvent,
+  isGroupClickEvent,
   isOpenOrCloseEvent,
   isOptionClickEvent,
   isOutsideClickEvent,
+  isShowAllClickEvent,
 } from './events';
 import { appendTexts } from './texts';
 
@@ -71,12 +75,35 @@ const dataUpdater = (
     if (!clickedOption) {
       return returnValue;
     }
-    const newGroups = updateSelectedOptionInGroups(current.groups, {
+    const newGroups = updateOptionInGroup(
+      current.groups,
+      {
+        ...clickedOption,
+        selected: !clickedOption.selected,
+      },
+      current.multiSelect,
+    );
+    updateGroups(newGroups, clickedOption);
+    openOrClose(id !== eventIds.tag && current.multiSelect);
+    return {
+      ...returnValue,
+      didSelectionsChange: true,
+      didDataChange: true,
+    };
+  }
+
+  if (isGroupClickEvent(id, type)) {
+    const clickedOption = payload && (payload.value as Option);
+    if (!clickedOption) {
+      return returnValue;
+    }
+    // add to docs that the clicked option is updated before onChange
+    const updatedOption = {
       ...clickedOption,
       selected: !clickedOption.selected,
-    });
+    };
+    const newGroups = updateGroupLabelAndOptions(current.groups, updatedOption);
     updateGroups(newGroups, clickedOption);
-    openOrClose(false);
     return {
       ...returnValue,
       didSelectionsChange: true,
@@ -90,6 +117,15 @@ const dataUpdater = (
     return {
       ...returnValue,
       didSelectionsChange: true,
+      didDataChange: true,
+    };
+  }
+
+  if (isShowAllClickEvent(id, type)) {
+    const { showAllTags } = dataHandlers.getMetaData();
+    dataHandlers.updateMetaData({ showAllTags: !showAllTags });
+    return {
+      ...returnValue,
       didDataChange: true,
     };
   }

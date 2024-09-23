@@ -117,17 +117,86 @@ function generateOptionLabels(count = -1): string[] {
   return Array.from(randomSet);
 }
 
+const createOptionsForVirtualization = (): SelectProps['options'] => {
+  let count = 0;
+  const makeUniqueOption = (value: string) => {
+    const valueWithCount = `${value} ${count}`;
+    count += 1;
+    return {
+      label: value,
+      value: valueWithCount,
+    };
+  };
+  return [
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+    ...generateOptionLabels(500).map(makeUniqueOption),
+  ];
+};
+
+const createGroupsForVirtualization = (): SelectProps['groups'] => {
+  let count = 0;
+  const makeUniqueOption = (value: string) => {
+    const valueWithCount = `${value} ${count}`;
+    count += 1;
+    return {
+      label: value,
+      value: valueWithCount,
+    };
+  };
+  return [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(1000).map(makeUniqueOption),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(1000).map(makeUniqueOption),
+    },
+  ];
+};
 const dummyOnChange: SelectProps['onChange'] = () => ({});
 const defaultTexts: Partial<Texts> = {
   label: 'Label',
   placeholder: 'Choose one',
   selectedOptionsLabel: 'Selected options',
   error: 'Wrong choice!',
+  language: 'en',
+};
+const defaultTextsForMultiSelect: Partial<Texts> = {
+  ...defaultTexts,
+  label: 'Select multiple fruits or vegetables',
+  placeholder: 'Choose many',
 };
 
-export const Example = () => {
+export const Singleselect = () => {
   const options = generateOptionLabels(20);
-  return <Select options={options} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts} />;
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return <Select options={options} onChange={onChange} icon={<IconLocation />} required texts={defaultTexts} />;
+};
+
+export const SingleselectWithGroups = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(40),
+    },
+    {
+      label: 'Bad choices',
+      options: [
+        { value: 'Candy cane', label: 'Candy cane' },
+        { value: 'Sugar bomb', label: 'Sugar bomb' },
+        { value: 'Dr. Pepper', label: 'Dr. Pepper' },
+      ],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changess
+  }, []);
+  return <Select groups={groups} onChange={onChange} icon={<IconLocation />} required texts={defaultTexts} />;
 };
 
 export const OptionsAsHtml = () => {
@@ -275,4 +344,127 @@ export const WithValidation = () => {
   };
 
   return <Select groups={groups} onChange={onChange} texts={texts} />;
+};
+
+export const Multiselect = () => {
+  const options = generateOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      multiSelect
+      texts={defaultTextsForMultiSelect}
+    />
+  );
+};
+
+export const MultiselectWithGroups = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      multiSelect
+      icon={<IconLocation />}
+      texts={defaultTextsForMultiSelect}
+    />
+  );
+};
+
+export const MultiselectWithoutTags = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      multiSelect
+      icon={<IconLocation />}
+      texts={defaultTextsForMultiSelect}
+      noTags
+    />
+  );
+};
+
+export const VirtualizedMultiselectWithGroups = () => {
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={createGroupsForVirtualization()}
+      onChange={onChange}
+      multiSelect
+      virtualize
+      icon={<IconLocation />}
+      texts={defaultTextsForMultiSelect}
+    />
+  );
+};
+export const VirtualizedSingleselectWithGroups = () => {
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={createGroupsForVirtualization()}
+      onChange={onChange}
+      virtualize
+      icon={<IconLocation />}
+      texts={defaultTexts}
+    />
+  );
+};
+
+export const VirtualizationMultiselectWithoutGroups = () => {
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      options={createOptionsForVirtualization()}
+      onChange={onChange}
+      virtualize
+      multiSelect
+      icon={<IconLocation />}
+      texts={defaultTextsForMultiSelect}
+    />
+  );
+};
+
+export const VirtualizedSingleselectWithoutGroups = () => {
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return <Select options={createOptionsForVirtualization()} onChange={onChange} virtualize texts={defaultTexts} />;
 };
