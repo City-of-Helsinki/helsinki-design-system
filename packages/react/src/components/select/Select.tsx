@@ -21,7 +21,6 @@ import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
-import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 
 export function Select({
   options,
@@ -40,7 +39,6 @@ export function Select({
   visibleOptions,
   virtualize,
   filter,
-  onSearch,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -55,7 +53,6 @@ export function Select({
       virtualize: !!virtualize,
       onChange,
       filterFunction: filter,
-      onSearch,
     };
   }, [options, open, groups, onChange, disabled, invalid, required, noTags, virtualize, visibleOptions, onSearch]);
 
@@ -64,10 +61,10 @@ export function Select({
     const optionIds = new Map<string, string>();
     let optionIdCounter = 0;
     const getListInputType = () => {
-      if (!initialData.onSearch && !initialData.filterFunction) {
+      if (!initialData.filterFunction) {
         return undefined;
       }
-      return initialData.onSearch ? eventIds.search : eventIds.filter;
+      return eventIds.filter;
     };
     return {
       lastToggleCommand: 0,
@@ -100,21 +97,8 @@ export function Select({
       listInputType: getListInputType(),
       hasListInput: !!getListInputType(),
       filter: '',
-      search: '',
-      isSearching: false,
-      hasSearchError: false,
-      cancelCurrentSearch: undefined,
-      screenReaderNotifications: [],
     };
-  }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch]);
-
-  useEffect(() => {
-    return () => {
-      if (metaData.cancelCurrentSearch) {
-        metaData.cancelCurrentSearch();
-      }
-    };
-  }, []);
+  }, [id, initialData.groups, initialData.filterFunction]);
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
