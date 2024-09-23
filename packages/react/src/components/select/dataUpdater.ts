@@ -1,15 +1,5 @@
-import { debounce } from 'lodash';
-
-import {
-  FilterFunction,
-  Option,
-  SearchFunction,
-  SearchResult,
-  SelectData,
-  SelectDataHandlers,
-  SelectMetaData,
-} from './types';
-import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
+import { FilterFunction, Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
+import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
 import {
   updateOptionInGroup,
   clearAllSelectedOptions,
@@ -18,9 +8,6 @@ import {
   createSelectedOptionsList,
   updateGroupLabelAndOptions,
   filterOptions,
-  mergeSearchResultsToCurrent,
-  addOrUpdateScreenReaderNotificationByType,
-  createScreenReaderNotification,
 } from './utils';
 import {
   EventId,
@@ -55,6 +42,7 @@ const dataUpdater = (
     didSelectionsChange: false,
     didDataChange: false,
   };
+  // console.log('EV', 'id:', id, 'type', type);
   if (current.disabled) {
     return returnValue;
   }
