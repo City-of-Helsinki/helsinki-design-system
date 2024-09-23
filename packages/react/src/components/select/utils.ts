@@ -1,6 +1,15 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { SelectData, Group, SelectProps, Option, OptionInProps, SelectMetaData, GroupInProps } from './types';
+import {
+  SelectData,
+  Group,
+  SelectProps,
+  Option,
+  OptionInProps,
+  SelectMetaData,
+  GroupInProps,
+  FilterFunction,
+} from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
@@ -221,6 +230,31 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
   ];
 }
 
+export function defaultFilter(option: Option, filterStr: string) {
+  return option.label.toLowerCase().indexOf(filterStr.toLowerCase()) > -1;
+}
+
+export function filterOptions(groups: SelectData['groups'], filterStr: string, filterFunc: FilterFunction) {
+  const newGroupsWithFilteredOptions = iterateAndCopyGroup(groups, (option) => {
+    if (option.isGroupLabel) {
+      return { ...option };
+    }
+    return { ...option, visible: !filterStr || filterFunc(option, filterStr) };
+  });
+
+  // check if group label should be visible....
+  newGroupsWithFilteredOptions.forEach((group) => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    const groupLabel = getGroupLabelOption(group);
+    if (!groupLabel) {
+      return;
+    }
+    groupLabel.visible = !!groupLabel.label && group.options.findIndex((opt) => !opt.isGroupLabel && opt.visible) > -1;
+  });
+
+  return newGroupsWithFilteredOptions;
+}
+
 export function childrenToGroups(children: SelectProps['children']): SelectData['groups'] | undefined {
   if (!children || typeof children !== 'object') {
     return undefined;
@@ -270,6 +304,8 @@ export function getElementIds(containerId: string): SelectMetaData['elementIds']
     label: `${containerId}-label`,
     selectionsAndListsContainer: `${containerId}-sl-container`,
     tagList: `${containerId}-tag-list`,
+    searchOrFilterInput: `${containerId}-input-element`,
+    searchOrFilterInputLabel: `${containerId}-input-element-label`,
     clearAllButton: `${containerId}-clear-all-button`,
     showAllButton: `${containerId}-show-all-button`,
   };

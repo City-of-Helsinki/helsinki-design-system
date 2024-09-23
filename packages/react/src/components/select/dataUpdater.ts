@@ -1,4 +1,4 @@
-import { Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
+import { FilterFunction, Option, SelectData, SelectDataHandlers, SelectMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
 import {
   updateOptionInGroup,
@@ -7,6 +7,7 @@ import {
   getSelectedOptions,
   createSelectedOptionsList,
   updateGroupLabelAndOptions,
+  filterOptions,
 } from './utils';
 import {
   EventId,
@@ -14,6 +15,7 @@ import {
   EventType,
   isClearOptionsClickEvent,
   isCloseEvent,
+  isFilterChangeEvent,
   isGroupClickEvent,
   isOpenOrCloseEvent,
   isOptionClickEvent,
@@ -35,6 +37,7 @@ const dataUpdater = (
     didSelectionsChange: false,
     didDataChange: false,
   };
+  // console.log('EV', 'id:', id, 'type', type);
   if (current.disabled) {
     return returnValue;
   }
@@ -92,6 +95,8 @@ const dataUpdater = (
     };
   }
 
+  // Note: single select group labels do not emit events
+  // so multiSelect is not checked.
   if (isGroupClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
@@ -117,6 +122,18 @@ const dataUpdater = (
     return {
       ...returnValue,
       didSelectionsChange: true,
+      didDataChange: true,
+    };
+  }
+
+  if (isFilterChangeEvent(id, type)) {
+    const filterValue = (payload && (payload.value as string)) || '';
+    dataHandlers.updateMetaData({ filter: filterValue });
+    dataHandlers.updateData({
+      groups: filterOptions(current.groups, filterValue, current.filterFunction as FilterFunction),
+    });
+    return {
+      ...returnValue,
       didDataChange: true,
     };
   }

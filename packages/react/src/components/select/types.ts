@@ -1,6 +1,8 @@
-import { ButtonHTMLAttributes, HTMLAttributes, ReactElement, ReactNode, RefObject } from 'react';
+import { ReactElement, ReactNode, RefObject } from 'react';
 
+import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { DataHandlers } from '../dataProvider/DataContext';
+import { EventId } from './events';
 
 export type Option = {
   value: string;
@@ -13,6 +15,7 @@ export type Option = {
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
 
+export type FilterFunction = (option: Option, filterStr: string) => boolean;
 export type GroupInProps = {
   label: string;
   options: (OptionInProps | string)[];
@@ -27,6 +30,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
     clickedOption: Option,
     data: SelectData,
   ) => Partial<SelectProps> | void | undefined;
+  filter?: FilterFunction;
   children?: P | P[];
   required?: boolean;
   invalid?: boolean;
@@ -55,6 +59,7 @@ export type SelectData = Required<
   >
 > & {
   groups: Array<Group>;
+  filterFunction?: FilterFunction;
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
@@ -65,17 +70,23 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     selectionButton: RefObject<HTMLButtonElement>;
     tagList: RefObject<HTMLDivElement>;
     showAllButton: RefObject<HTMLButtonElement>;
+    searchOrFilterInput: RefObject<HTMLInputElement>;
   };
+  filter: string;
+  hasListInput: boolean;
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   selectedOptions: Option[];
+  listInputType?: Extract<EventId, 'filter' | 'search'>;
   textContent?: TextInterpolationContent;
   elementIds: {
     button: string;
     label: string;
+    searchOrFilterInputLabel: string;
     list: string;
     container: string;
     tagList: string;
+    searchOrFilterInput: string;
     showAllButton: string;
     clearAllButton: string;
     clearButton: string;
@@ -87,10 +98,10 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   showAllTags: boolean;
 };
 
-export type DivElementProps = HTMLAttributes<HTMLDivElement>;
-export type ButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement>;
-export type UlElementProps = HTMLAttributes<HTMLUListElement>;
-export type LiElementProps = HTMLAttributes<HTMLLIElement>;
+export type DivElementProps = AllElementPropsWithoutRef<'div'>;
+export type ButtonElementProps = AllElementPropsWithoutRef<'button'>;
+export type UlElementProps = AllElementPropsWithoutRef<'ul'>;
+export type LiElementProps = AllElementPropsWithoutRef<'li'>;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
 export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
@@ -112,9 +123,15 @@ export type TextKey =
   | 'tagsShowLessButton'
   | 'tagsShowAllButtonAriaLabel'
   | 'tagsShowLessButtonAriaLabel'
-  | 'tagRemoveSelectionAriaLabel';
+  | 'tagRemoveSelectionAriaLabel'
+  | 'filterLabel'
+  | 'filterPlaceholder'
+  | 'filterClearButtonAriaLabel'
+  | 'noFilteredResultsInfo'
+  | 'filterWithAnotherTerm'
+  | 'ariaLabelForListWhenRoleIsDialog';
 
-export type TextInterpolationKeys = 'selectionCount' | 'optionLabel';
+export type TextInterpolationKeys = 'selectionCount' | 'optionLabel' | 'filter' | 'numberOfVisibleOptions' | 'label';
 
 export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;

@@ -556,6 +556,9 @@ export const renderWithHelpers = (
 
   return {
     ...result,
+    getElementIds: () => {
+      return elementIds;
+    },
     openList,
     closeList,
     isListOpen,
