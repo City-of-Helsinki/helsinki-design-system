@@ -28,6 +28,12 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     tagsShowAllButtonAriaLabel: 'Show all {{selectionCount}} selected options.',
     tagsShowLessButtonAriaLabel: 'Show less options.',
     tagRemoveSelectionAriaLabel: 'Remove selection "{{optionLabel}}".',
+    filterLabel: 'Filter',
+    filterPlaceholder: 'Type text to filter results with',
+    filterClearButtonAriaLabel: 'Clear filter',
+    noFilteredResultsInfo: 'No options found for "{{filter}}"',
+    filterWithAnotherTerm: 'Try a different term',
+    ariaLabelForListWhenRoleIsDialog: '{{label}}. {{numberOfVisibleOptions}} choices.',
   },
   fi: {
     assistive: '',
@@ -47,6 +53,12 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     tagsShowAllButtonAriaLabel: 'FI: Show all {{selectionCount}} selected options.',
     tagsShowLessButtonAriaLabel: 'FI: Show less options.',
     tagRemoveSelectionAriaLabel: 'FI: Remove selection "{{optionLabel}}".',
+    filterLabel: 'FI: Filter',
+    filterPlaceholder: 'FI: Type text to filter results with',
+    filterClearButtonAriaLabel: 'FI: Clear filter',
+    noFilteredResultsInfo: 'FI: No options found for "{{filter}}"',
+    filterWithAnotherTerm: 'FI: Try a different term',
+    ariaLabelForListWhenRoleIsDialog: 'FI: {{label}}. {{numberOfVisibleOptions}} choices.',
   },
   sv: {
     assistive: '',
@@ -66,6 +78,12 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     tagsShowAllButtonAriaLabel: 'SV: Show all {{selectionCount}} selected options.',
     tagsShowLessButtonAriaLabel: 'SV: Show less options.',
     tagRemoveSelectionAriaLabel: 'SV: Remove selection "{{optionLabel}}".',
+    filterLabel: 'SV: Filter',
+    filterPlaceholder: 'SV: Type text to filter results with',
+    filterClearButtonAriaLabel: 'SV: Clear filter',
+    noFilteredResultsInfo: 'SV: No options found for "{{filter}}"',
+    filterWithAnotherTerm: 'SV: Try a different term',
+    ariaLabelForListWhenRoleIsDialog: 'SV: {{label}}. {{numberOfVisibleOptions}} choices.',
   },
 };
 
@@ -91,6 +109,9 @@ const createTextInterpolationContent = (metaData: SelectMetaData): TextInterpola
   return {
     selectionCount: count,
     optionLabel: '',
+    numberOfVisibleOptions: '',
+    label: '',
+    filter: '',
   };
 };
 
