@@ -65,12 +65,10 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     refs: {
       selectionButton: { current: null },
     },
-    textContent: { selectionCount: 0, optionLabel: '', label: '', numberIndicator: 0, value: '' },
+    textContent: { selectionCount: 0, optionLabel: '', label: '', numberOfVisibleOptions: 0, filter: '' },
     textProvider: (key) => key,
     getOptionId: () => uniqueId('item'),
     filter: '',
-    screenReaderNotifications: [],
-    search: '',
   },
 };
 

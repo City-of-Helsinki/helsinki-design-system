@@ -12,10 +12,6 @@ export const eventIds = {
   arrowButton: 'arrowButton',
   generic: 'generic',
   filter: 'filter',
-  search: 'search',
-  searchResult: 'searchResult',
-  assistive: 'assistive',
-  error: 'error',
 } as const;
 
 export const eventTypes = {
@@ -35,7 +31,6 @@ export const isRemoveTagEventId = (eventId: EventId) => {
 
 const isClick = (eventType?: EventType) => eventType === eventTypes.click;
 const isChange = (eventType?: EventType) => eventType === eventTypes.change;
-const isError = (eventType?: EventType) => eventType === eventTypes.error;
 const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
 const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isRemoveTagEventId(eventId);
 const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
@@ -64,6 +59,9 @@ export const isOutsideClickEvent = (eventId: EventId, eventType?: EventType) => 
 
 export const isCloseEvent = (eventId: EventId, eventType?: EventType) => {
   return isGenericEvent(eventId) && eventType === eventTypes.close;
+};
+export const isFilterChangeEvent = (eventId: EventId, eventType?: EventType) => {
+  return isChange(eventType) && eventId === eventIds.filter;
 };
 
 export const isFilterChangeEvent = (eventId: EventId, eventType?: EventType) => {
