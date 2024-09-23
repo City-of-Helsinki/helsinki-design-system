@@ -4,7 +4,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
 <DocumentFragment>
   <div
     class="list shiftOptions multiSelectList"
-    id="hds-select-1-list"
+    id="test-select-component-list"
     tabindex="-1"
   >
     <div
@@ -16,7 +16,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="FI: Group0 (choose all)"
         class="listItem groupLabel focusableListItem selectableListItem multiSelectListItem"
-        id="hds-select-1-option-0"
+        id="test-select-component-option-0"
         role="checkbox"
         tabindex="-1"
       >
@@ -29,18 +29,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-0-checkbox"
+              id="test-select-component-option-0-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-0-checkbox"
+              for="test-select-component-option-0-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-0-checkbox"
+            for="test-select-component-option-0-checkbox"
           >
             Group0
           </label>
@@ -51,7 +51,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group0_Option0_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-1"
+        id="test-select-component-option-1"
         role="checkbox"
         tabindex="-1"
       >
@@ -64,18 +64,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-1-checkbox"
+              id="test-select-component-option-1-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-1-checkbox"
+              for="test-select-component-option-1-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-1-checkbox"
+            for="test-select-component-option-1-checkbox"
           >
             Group0_Option0_Label
           </label>
@@ -86,7 +86,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group0_Option1_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-2"
+        id="test-select-component-option-2"
         role="checkbox"
         tabindex="-1"
       >
@@ -99,18 +99,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-2-checkbox"
+              id="test-select-component-option-2-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-2-checkbox"
+              for="test-select-component-option-2-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-2-checkbox"
+            for="test-select-component-option-2-checkbox"
           >
             Group0_Option1_Label
           </label>
@@ -121,7 +121,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group0_Option2_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-3"
+        id="test-select-component-option-3"
         role="checkbox"
         tabindex="-1"
       >
@@ -134,18 +134,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-3-checkbox"
+              id="test-select-component-option-3-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-3-checkbox"
+              for="test-select-component-option-3-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-3-checkbox"
+            for="test-select-component-option-3-checkbox"
           >
             Group0_Option2_Label
           </label>
@@ -161,7 +161,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="FI: Group1 (choose all)"
         class="listItem groupLabel focusableListItem selectableListItem multiSelectListItem"
-        id="hds-select-1-option-4"
+        id="test-select-component-option-4"
         role="checkbox"
         tabindex="-1"
       >
@@ -174,18 +174,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-4-checkbox"
+              id="test-select-component-option-4-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-4-checkbox"
+              for="test-select-component-option-4-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-4-checkbox"
+            for="test-select-component-option-4-checkbox"
           >
             Group1
           </label>
@@ -196,7 +196,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group1_Option0_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-5"
+        id="test-select-component-option-5"
         role="checkbox"
         tabindex="-1"
       >
@@ -209,18 +209,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-5-checkbox"
+              id="test-select-component-option-5-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-5-checkbox"
+              for="test-select-component-option-5-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-5-checkbox"
+            for="test-select-component-option-5-checkbox"
           >
             Group1_Option0_Label
           </label>
@@ -231,7 +231,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group1_Option1_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-6"
+        id="test-select-component-option-6"
         role="checkbox"
         tabindex="-1"
       >
@@ -244,18 +244,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-6-checkbox"
+              id="test-select-component-option-6-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-6-checkbox"
+              for="test-select-component-option-6-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-6-checkbox"
+            for="test-select-component-option-6-checkbox"
           >
             Group1_Option1_Label
           </label>
@@ -271,7 +271,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="FI: Group2 (choose all)"
         class="listItem groupLabel focusableListItem selectableListItem multiSelectListItem"
-        id="hds-select-1-option-7"
+        id="test-select-component-option-7"
         role="checkbox"
         tabindex="-1"
       >
@@ -284,18 +284,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-7-checkbox"
+              id="test-select-component-option-7-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-7-checkbox"
+              for="test-select-component-option-7-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-7-checkbox"
+            for="test-select-component-option-7-checkbox"
           >
             Group2
           </label>
@@ -306,7 +306,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option0_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-8"
+        id="test-select-component-option-8"
         role="checkbox"
         tabindex="-1"
       >
@@ -319,18 +319,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-8-checkbox"
+              id="test-select-component-option-8-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-8-checkbox"
+              for="test-select-component-option-8-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-8-checkbox"
+            for="test-select-component-option-8-checkbox"
           >
             Group2_Option0_Label
           </label>
@@ -341,7 +341,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option1_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-9"
+        id="test-select-component-option-9"
         role="checkbox"
         tabindex="-1"
       >
@@ -354,18 +354,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-9-checkbox"
+              id="test-select-component-option-9-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-9-checkbox"
+              for="test-select-component-option-9-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-9-checkbox"
+            for="test-select-component-option-9-checkbox"
           >
             Group2_Option1_Label
           </label>
@@ -376,7 +376,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option2_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-10"
+        id="test-select-component-option-10"
         role="checkbox"
         tabindex="-1"
       >
@@ -389,18 +389,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-10-checkbox"
+              id="test-select-component-option-10-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-10-checkbox"
+              for="test-select-component-option-10-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-10-checkbox"
+            for="test-select-component-option-10-checkbox"
           >
             Group2_Option2_Label
           </label>
@@ -411,7 +411,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option3_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-11"
+        id="test-select-component-option-11"
         role="checkbox"
         tabindex="-1"
       >
@@ -424,18 +424,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-11-checkbox"
+              id="test-select-component-option-11-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-11-checkbox"
+              for="test-select-component-option-11-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-11-checkbox"
+            for="test-select-component-option-11-checkbox"
           >
             Group2_Option3_Label
           </label>
@@ -446,7 +446,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option4_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-12"
+        id="test-select-component-option-12"
         role="checkbox"
         tabindex="-1"
       >
@@ -459,18 +459,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-12-checkbox"
+              id="test-select-component-option-12-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-12-checkbox"
+              for="test-select-component-option-12-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-12-checkbox"
+            for="test-select-component-option-12-checkbox"
           >
             Group2_Option4_Label
           </label>
@@ -481,7 +481,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option5_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-13"
+        id="test-select-component-option-13"
         role="checkbox"
         tabindex="-1"
       >
@@ -494,18 +494,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-13-checkbox"
+              id="test-select-component-option-13-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-13-checkbox"
+              for="test-select-component-option-13-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-13-checkbox"
+            for="test-select-component-option-13-checkbox"
           >
             Group2_Option5_Label
           </label>
@@ -516,7 +516,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
         aria-disabled="false"
         aria-label="Group2_Option6_Label"
         class="listItem selectableListItem focusableListItem multiSelectListItem"
-        id="hds-select-1-option-14"
+        id="test-select-component-option-14"
         role="checkbox"
         tabindex="-1"
       >
@@ -529,18 +529,18 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           >
             <input
               class="input"
-              id="hds-select-1-option-14-checkbox"
+              id="test-select-component-option-14-checkbox"
               tabindex="-1"
               type="checkbox"
               value=""
             />
             <label
               class="label noLabel"
-              for="hds-select-1-option-14-checkbox"
+              for="test-select-component-option-14-checkbox"
             />
           </div>
           <label
-            for="hds-select-1-option-14-checkbox"
+            for="test-select-component-option-14-checkbox"
           >
             Group2_Option6_Label
           </label>
