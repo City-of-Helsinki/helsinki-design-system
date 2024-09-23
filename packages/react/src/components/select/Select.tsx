@@ -11,6 +11,8 @@ import { SelectedOptionsContainer } from './components/selectedOptions/SelectedO
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
 import { List } from './components/list/List';
 import { ListAndInputContainer } from './components/list/ListAndInputContainer';
+import { SearchOrFilterInput } from './components/list/searchAndFilter/SearchOrFilterInput';
+import { SearchAndFilterInfo } from './components/list/searchAndFilter/SearchAndFilterInfo';
 import { TagList } from './components/tagList/TagList';
 import { ArrowButton } from './components/selectedOptions/ArrowButton';
 import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWithSelectedOptions';
@@ -18,6 +20,7 @@ import { ClearButton } from './components/selectedOptions/ClearButton';
 import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
+import { eventIds } from './events';
 
 export function Select({
   options,
@@ -35,6 +38,7 @@ export function Select({
   noTags,
   visibleOptions,
   virtualize,
+  filter,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -48,6 +52,7 @@ export function Select({
       visibleOptions: visibleOptions || 5.5,
       virtualize: !!virtualize,
       onChange,
+      filterFunction: filter,
     };
   }, [options, open, groups, onChange, disabled, invalid, required, noTags, virtualize, visibleOptions]);
 
@@ -55,6 +60,12 @@ export function Select({
     const containerId = `${id || uniqueId('hds-select-')}`;
     const optionIds = new Map<string, string>();
     let optionIdCounter = 0;
+    const getListInputType = () => {
+      if (!initialData.filterFunction) {
+        return undefined;
+      }
+      return eventIds.filter;
+    };
     return {
       lastToggleCommand: 0,
       lastClickedOption: undefined,
@@ -67,6 +78,7 @@ export function Select({
         selectionButton: createRef<HTMLButtonElement>(),
         tagList: createRef<HTMLDivElement>(),
         showAllButton: createRef<HTMLButtonElement>(),
+        searchOrFilterInput: createRef<HTMLInputElement>(),
       },
       selectedOptions: getSelectedOptions(initialData.groups),
       elementIds: getElementIds(containerId),
@@ -82,8 +94,11 @@ export function Select({
         }
         return current;
       },
+      listInputType: getListInputType(),
+      hasListInput: !!getListInputType(),
+      filter: '',
     };
-  }, [id, initialData.groups]);
+  }, [id, initialData.groups, initialData.filterFunction]);
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
@@ -96,7 +111,9 @@ export function Select({
             <ArrowButton />
           </SelectedOptionsContainer>
           <ListAndInputContainer>
+            <SearchOrFilterInput />
             <List />
+            <SearchAndFilterInfo />
           </ListAndInputContainer>
         </SelectionsAndListsContainer>
         <ErrorNotification />

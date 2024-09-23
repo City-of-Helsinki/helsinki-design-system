@@ -4,7 +4,7 @@ import { Group, SelectProps, Texts } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
-import { clearAllSelectedOptions, propsToGroups } from './utils';
+import { clearAllSelectedOptions, defaultFilter, propsToGroups } from './utils';
 
 export default {
   component: Select,
@@ -346,6 +346,20 @@ export const WithValidation = () => {
   return <Select groups={groups} onChange={onChange} texts={texts} />;
 };
 
+export const WithFilter = () => {
+  const options = generateOptionLabels(20);
+  return (
+    <Select
+      options={options}
+      onChange={dummyOnChange}
+      icon={<IconLocation />}
+      filter={defaultFilter}
+      required
+      texts={defaultTexts}
+    />
+  );
+};
+
 export const Multiselect = () => {
   const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
@@ -383,6 +397,33 @@ export const MultiselectWithGroups = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
+      icon={<IconLocation />}
+      texts={defaultTextsForMultiSelect}
+    />
+  );
+};
+
+export const MultiselectWithGroupsAndFilter = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Healthy choices',
+      options: generateOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: generateOptionLabels(4),
+    },
+  ];
+
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      multiSelect
+      filter={defaultFilter}
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
     />

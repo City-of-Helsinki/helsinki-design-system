@@ -6,22 +6,41 @@ import { DivElementProps, SelectDataHandlers } from '../../types';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../../events';
+import { countVisibleOptions, getVisibleGroupLabels } from '../../utils';
+import { getTextKey } from '../../texts';
 
-const createListAndInputContainerProps = (
-  props: DivElementProps,
-  { getData, getMetaData, trigger }: SelectDataHandlers,
-) => {
-  const { open } = getData();
-  const { refs, elementIds } = getMetaData();
+const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {
+  const { getData, getMetaData, trigger } = dataHandlers;
+  const { open, groups, multiSelect } = getData();
+  const metaData = getMetaData();
+  const { refs, elementIds, listInputType } = metaData;
+  const hasInput = !!listInputType;
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const getAriaLabel = () => {
+    const label = getTextKey('label', metaData);
+    if (multiSelect && hasVisibleGroupLabels && !hasInput) {
+      return getTextKey('ariaLabelForListWhenRoleIsDialog', metaData, {
+        numberOfVisibleOptions: countVisibleOptions(groups),
+        label,
+      });
+    }
+    return label;
+  };
+  const ariaLabel = getAriaLabel();
   const outsideClickTrigger = () => {
     trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
   };
   return {
     ...props,
-    className: classNames(styles.listAndInputContainer, open && styles.listAndInputContainerVisible),
+    className: classNames(
+      styles.listAndInputContainer,
+      open && styles.listAndInputContainerVisible,
+      hasInput && styles.withSearchOrFilter,
+    ),
     ref: refs.listContainer,
     outsideClickTrigger,
     id: elementIds.selectionsAndListsContainer,
+    ...((hasInput || (multiSelect && hasVisibleGroupLabels)) && { role: 'dialog', 'aria-label': ariaLabel }),
   };
 };
 

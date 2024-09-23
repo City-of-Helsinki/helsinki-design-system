@@ -326,6 +326,26 @@
   }
 }
 
+.searchOrFilterInput {
+  padding: var(--spacing-2-xs);
+}
+
+.searchAndFilterInfoContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-layout-s);
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  > span {
+    padding-top: var(--spacing-layout-2-xs);
+  }
+
+  &.screenReaderOnly {
+    @extend %visuallyHidden;
+  }
+}
+
 .tagListContainer {
   display: flex;
   flex-direction: column;
