@@ -14,13 +14,8 @@ export type Option = {
 };
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
-export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
+
 export type FilterFunction = (option: Option, filterStr: string) => boolean;
-export type SearchFunction = (
-  searchValue: string,
-  selectedOptions: Option[],
-  data: SelectData,
-) => Promise<SearchResult>;
 export type GroupInProps = {
   label: string;
   options: (OptionInProps | string)[];
@@ -35,7 +30,6 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
     clickedOption: Option,
     data: SelectData,
   ) => Partial<SelectProps> | void | undefined;
-  onSearch?: SearchFunction;
   filter?: FilterFunction;
   children?: P | P[];
   required?: boolean;
@@ -66,7 +60,6 @@ export type SelectData = Required<
 > & {
   groups: Array<Group>;
   filterFunction?: FilterFunction;
-  onSearch?: SearchFunction;
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
@@ -80,14 +73,10 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     searchOrFilterInput: RefObject<HTMLInputElement>;
   };
   filter: string;
-  search: string;
-  isSearching: boolean;
-  hasSearchError: boolean;
   hasListInput: boolean;
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   selectedOptions: Option[];
-  cancelCurrentSearch: (() => void) | undefined;
   listInputType?: Extract<EventId, 'filter' | 'search'>;
   textContent?: TextInterpolationContent;
   elementIds: {
@@ -136,26 +125,14 @@ export type TextKey =
   | 'tagsShowAllButtonAriaLabel'
   | 'tagsShowLessButtonAriaLabel'
   | 'tagRemoveSelectionAriaLabel'
-  | 'tagRemoved'
   | 'filterLabel'
   | 'filterPlaceholder'
   | 'filterClearButtonAriaLabel'
-  | 'filteredWithoutResultsInfo'
+  | 'noFilteredResultsInfo'
   | 'filterWithAnotherTerm'
-  | 'filterResults'
-  | 'searchLabel'
-  | 'searchPlaceholder'
-  | 'searchClearButtonAriaLabel'
-  | 'searchedWithoutResultsInfo'
-  | 'searchWithAnotherTerm'
-  | 'searchingForOptions'
-  | 'searchErrorTitle'
-  | 'searchErrorText'
-  | 'searching'
-  | 'searchResults'
   | 'ariaLabelForListWhenRoleIsDialog';
 
-export type TextInterpolationKeys = 'selectionCount' | 'optionLabel' | 'value' | 'numberIndicator' | 'label';
+export type TextInterpolationKeys = 'selectionCount' | 'optionLabel' | 'filter' | 'numberOfVisibleOptions' | 'label';
 
 export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;
