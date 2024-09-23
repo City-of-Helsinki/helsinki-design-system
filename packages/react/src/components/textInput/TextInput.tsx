@@ -61,6 +61,10 @@ export type TextInputProps = MergeAndOverrideProps<
      */
     label?: string | React.ReactNode;
     /**
+     * The label for the input
+     */
+    labelId?: string;
+    /**
      * Callback fired when the state is changed
      */
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -145,6 +149,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       infoText,
       invalid,
       label,
+      labelId,
       onButtonClick,
       onChange = () => null,
       required,
@@ -167,6 +172,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       infoText,
       invalid,
       label,
+      labelId,
       required,
       style,
       successText,
