@@ -5,7 +5,8 @@ import { axe } from 'jest-axe';
 
 import { renderWithHelpers, skipAxeRulesExpectedToFail } from './testUtil';
 import { defaultFilter } from './utils';
-import { Texts, Option } from './types';
+import { Texts, Option, SearchResult, SelectProps } from './types';
+import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 
 describe('<Select />', () => {
   const defaultTexts: Partial<Texts> = {
@@ -202,6 +203,72 @@ describe('<Select />', () => {
       await waitFor(() => {
         expect(getSelectionsInButton()).toHaveLength(2);
       });
+    });
+  });
+  describe('Search', () => {
+    it('Search updates all data', async () => {
+      const resultArray = ['Result 1', 'Result 2'];
+      const onSearch: SelectProps['onSearch'] = () => {
+        return createTimedPromise({ options: resultArray }, 300) as Promise<SearchResult>;
+      };
+      const { openList, getOptionElements, setInputValue, getListItemLabels } = renderWithHelpers({
+        texts: defaultTexts,
+        required: true,
+        groups: false,
+        multiSelect: false,
+        input: undefined,
+        onSearch,
+      });
+      await openList();
+      expect(getOptionElements()).toHaveLength(3);
+      await setInputValue('Option 1');
+      await waitFor(() => {
+        expect(getListItemLabels()).toEqual(resultArray);
+      });
+      await setInputValue('');
+      await waitFor(() => {
+        expect(getOptionElements()).toHaveLength(0);
+      });
+    });
+    it('User is notified if there are no results', async () => {
+      const { openList, setInputValue, getSearchAndFilterInfoTexts } = renderWithHelpers({
+        texts: defaultTexts,
+        required: true,
+        groups: false,
+        multiSelect: false,
+        input: undefined,
+        onSearch: () => createTimedPromise({ options: [] }, 500) as Promise<SearchResult>,
+      });
+      await openList();
+      await setInputValue('Option 1');
+      await waitFor(
+        () => {
+          expect(getSearchAndFilterInfoTexts()).toHaveLength(2);
+        },
+        { interval: 500 },
+      );
+      const notification = getSearchAndFilterInfoTexts()[0] as string;
+      expect(notification.includes(`No options found for "Option 1"`)).toBeTruthy();
+    });
+    it('User is notified if search fails', async () => {
+      const { openList, setInputValue, getSearchAndFilterInfoTexts } = renderWithHelpers({
+        texts: defaultTexts,
+        required: true,
+        groups: false,
+        multiSelect: false,
+        input: undefined,
+        onSearch: () => createTimedPromise(new Error('UPS'), 500) as Promise<SearchResult>,
+      });
+      await openList();
+      await setInputValue('Option 1');
+      await waitFor(
+        () => {
+          expect(getSearchAndFilterInfoTexts()).toHaveLength(2);
+        },
+        { interval: 500 },
+      );
+      const notification = getSearchAndFilterInfoTexts()[0] as string;
+      expect(notification.includes("We couldn't load the options")).toBeTruthy();
     });
   });
 });
