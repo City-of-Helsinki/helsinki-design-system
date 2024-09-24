@@ -8,8 +8,9 @@ import { eventIds, eventTypes } from './events';
 import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
-import { SelectProps, SelectMetaData, SelectData, Group, Option } from './types';
+import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } from './types';
 import { getElementIds, defaultFilter, propsToGroups } from './utils';
+import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -166,12 +167,14 @@ export const getSelectProps = ({
   hasSelections,
   multiSelect,
   input,
+  searchResults,
 }: {
   groups: boolean;
   open?: boolean;
   multiSelect?: boolean;
   hasSelections?: boolean;
   input?: SelectMetaData['listInputType'];
+  searchResults?: SearchResult[];
 }) => {
   const selectProps: SelectProps = {
     options,
@@ -188,6 +191,11 @@ export const getSelectProps = ({
 
   if (input === 'filter') {
     selectProps.filter = defaultFilter;
+  } else if (input === 'search' || searchResults) {
+    selectProps.onSearch = () => {
+      const results = searchResults && searchResults.length > 0 ? searchResults.shift() : {};
+      return createTimedPromise(results, 300) as Promise<SearchResult>;
+    };
   }
 
   if (groups) {

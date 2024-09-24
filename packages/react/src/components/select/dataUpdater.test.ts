@@ -1,4 +1,7 @@
+import { waitFor } from '@testing-library/react';
+
 import { getLastMockCallArgs } from '../../utils/testHelpers';
+import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { changeHandler } from './dataUpdater';
 import { eventIds, eventTypes } from './events';
 // eslint-disable-next-line jest/no-mocks-import
@@ -11,6 +14,8 @@ import {
   updateMockData,
   getCurrentMockData,
   getCurrentMockMetaData,
+  createGroup,
+  getTriggeredEvents,
 } from './hooks/__mocks__/useSelectDataHandlers';
 import { getTextKey } from './texts';
 import {
@@ -18,6 +23,8 @@ import {
   Group,
   Option,
   OptionInProps,
+  SearchFunction,
+  SearchResult,
   SelectData,
   SelectDataHandlers,
   SelectMetaData,
@@ -91,7 +98,7 @@ describe('dataUpdater', () => {
 
   const mockDateNow = (time = 0) => {
     dateNowTime = time;
-    jest.spyOn(global.Date, 'now').mockImplementation(() => dateNowTime);
+    dateNowSpy = jest.spyOn(global.Date, 'now').mockImplementation(() => dateNowTime);
   };
 
   let dataHandlers: SelectDataHandlers;
@@ -464,6 +471,85 @@ describe('dataUpdater', () => {
       resetFilter(filteredOpts);
       changeHandler({ id: eventIds.filter, type: eventTypes.change, payload: { value: 'filterValue' } }, dataHandlers);
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+    });
+  });
+  describe('onSearch is called when search changes', () => {
+    let pendingPromise: Promise<SearchResult>;
+    let selectedItems: Option[] = [];
+    const searchTracker = jest.fn();
+    const onSearch: SearchFunction = async (searchValue, selectedOptions) => {
+      searchTracker(searchValue, selectedOptions);
+      return pendingPromise;
+    };
+
+    const resetSearch = (returnValue: SearchResult | Error) => {
+      searchTracker.mockReset();
+      pendingPromise = createTimedPromise(returnValue, 600) as Promise<SearchResult>;
+    };
+
+    beforeEach(() => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 10, selectedOptionsCount: 5 }),
+        onSearch,
+      });
+      // existing items will be hidden when search results are merged.
+      selectedItems = getSelectedOptions(getCurrentMockData().groups as Group[]).map((opt) => {
+        return {
+          ...opt,
+          visible: false,
+        };
+      });
+    });
+    const searchValue = 'searchValue';
+    const triggerSearchAndWaitForResult = async () => {
+      changeHandler({ id: eventIds.search, type: eventTypes.change, payload: { value: searchValue } }, dataHandlers);
+      const updatedMetaData = getCurrentMockMetaData();
+      expect(updatedMetaData.search).toBe(searchValue);
+      expect(updatedMetaData.isSearching).toBeTruthy();
+      // search is debounced so must wait for it...
+      await waitFor(() => {
+        expect(searchTracker).toHaveBeenCalledTimes(1);
+      });
+      await pendingPromise.catch(() => {
+        // have to catch error
+      });
+      await waitFor(() => {
+        expect(getTriggeredEvents()).toHaveLength(1);
+      });
+    };
+
+    it('triggering a search change event will call the onSearch', async () => {
+      const searchResults = [createGroup({ label: 'Search results', totalOptionsCount: 20 })];
+      resetSearch({ groups: searchResults });
+      await triggerSearchAndWaitForResult();
+
+      const events = getTriggeredEvents();
+      const successEvent = events[events.length - 1];
+      expect(successEvent.type).toBe(eventTypes.success);
+      expect(successEvent.id).toBe(eventIds.searchResult);
+
+      expect(getCurrentMockMetaData().isSearching).toBeFalsy();
+      expect(getAllOptionsFromData()).toMatchObject([...selectedItems, ...getAllOptions(searchResults, false)]);
+    });
+    it('failing search is handled. Existing selections are kept.', async () => {
+      resetSearch(new Error('UPS'));
+      await triggerSearchAndWaitForResult();
+      const events = getTriggeredEvents();
+      const errorEvent = events[events.length - 1];
+      expect(errorEvent.type).toBe(eventTypes.error);
+      expect(errorEvent.id).toBe(eventIds.searchResult);
+
+      expect(getCurrentMockMetaData().isSearching).toBeFalsy();
+      expect(getAllOptionsFromData()).toMatchObject(selectedItems);
+    });
+
+    it('onChange function is not called', async () => {
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+      const result = createGroup({ label: 'Search results' });
+      resetSearch({ groups: [result] });
+      await triggerSearchAndWaitForResult();
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
+      expect(getCurrentMockMetaData().isSearching).toBeFalsy();
     });
   });
 });
