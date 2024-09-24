@@ -404,6 +404,24 @@ export const WithFilter = () => {
   );
 };
 
+export const WithSearch = () => {
+  const options = generateOptionLabels(20);
+  return (
+    <>
+      <Select
+        options={options}
+        onChange={dummyOnChange}
+        icon={<IconLocation />}
+        onSearch={onSearch}
+        required
+        texts={defaultTexts}
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+      <p>Search with &quot;error&quot; to simulate an error.</p>
+    </>
+  );
+};
+
 export const Multiselect = () => {
   const options = generateOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
@@ -471,6 +489,25 @@ export const MultiselectWithGroupsAndFilter = () => {
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
     />
+  );
+};
+
+export const MultiselectWithGroupsAndSearch = () => {
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <div>
+      <Select
+        onChange={onChange}
+        multiSelect
+        onSearch={onSearch}
+        icon={<IconLocation />}
+        texts={defaultTextsForMultiSelect}
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+      <p>Search with &quot;error&quot; to simulate an error.</p>
+    </div>
   );
 };
 
