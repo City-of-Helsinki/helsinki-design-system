@@ -334,15 +334,28 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-layout-s);
+  padding: var(--spacing-l);
 
   /* stylelint-disable-next-line no-descending-specificity */
   > span {
-    padding-top: var(--spacing-layout-2-xs);
+    padding-top: var(--spacing-2-xs);
+    text-align: center;
+  }
+
+  > svg {
+    padding: var(--spacing-s) 0 var(--spacing-xs);
   }
 
   &.screenReaderOnly {
     @extend %visuallyHidden;
+  }
+
+  &.withErrorMessage {
+    padding-top: 0;
+    /* stylelint-disable-next-line no-descending-specificity */
+    > span:first-of-type {
+      padding-top: 0;
+    }
   }
 }
 

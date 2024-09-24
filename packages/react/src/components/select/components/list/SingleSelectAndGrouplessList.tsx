@@ -58,9 +58,10 @@ export function createListElementProps<T = HTMLUListElement>({
 export function SingleSelectAndGrouplessList() {
   const { getData, trigger, getMetaData } = useSelectDataHandlers();
   const { open, groups, multiSelect } = getData();
-  const { getOptionId, refs, elementIds } = getMetaData();
+  const { isSearching, getOptionId, refs, elementIds } = getMetaData();
   const attr = createListElementProps({ refs, elementIds, multiSelect });
+  const shouldRenderOptions = open && !isSearching;
 
-  const children = open ? createOptionElements({ groups, trigger, multiSelect, getOptionId }) : null;
+  const children = shouldRenderOptions ? createOptionElements({ groups, trigger, multiSelect, getOptionId }) : null;
   return <ul {...attr}>{children}</ul>;
 }

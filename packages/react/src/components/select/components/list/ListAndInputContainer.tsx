@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -7,29 +7,23 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../../events';
 import { countVisibleOptions, getVisibleGroupLabels } from '../../utils';
-import { getTextKey } from '../../texts';
+import { getTextFromDataHandlers } from '../../texts';
 
 const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups, multiSelect } = getData();
-  const metaData = getMetaData();
-  const { refs, elementIds, listInputType } = metaData;
-  const hasInput = !!listInputType;
+  const { refs, elementIds, listInputType } = getMetaData();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
-  const getAriaLabel = () => {
-    const label = getTextKey('label', metaData);
-    if (multiSelect && hasVisibleGroupLabels && !hasInput) {
-      return getTextKey('ariaLabelForListWhenRoleIsDialog', metaData, {
-        numberOfVisibleOptions: countVisibleOptions(groups),
-        label,
-      });
+  const hasInput = !!listInputType;
+  const label = getTextFromDataHandlers('label', dataHandlers);
+  const ariaLabel =
+    multiSelect && hasVisibleGroupLabels && !hasInput ? `${label}. ${countVisibleOptions(groups)} choices.` : label;
+  const outsideClickTrigger = useCallback(() => {
+    if (!open) {
+      return;
     }
-    return label;
-  };
-  const ariaLabel = getAriaLabel();
-  const outsideClickTrigger = () => {
     trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
-  };
+  }, [open, trigger]);
   return {
     ...props,
     className: classNames(
@@ -40,6 +34,7 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
     ref: refs.listContainer,
     outsideClickTrigger,
     id: elementIds.selectionsAndListsContainer,
+    'aria-hidden': !open,
     ...((hasInput || (multiSelect && hasVisibleGroupLabels)) && { role: 'dialog', 'aria-label': ariaLabel }),
   };
 };

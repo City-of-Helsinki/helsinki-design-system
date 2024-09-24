@@ -156,6 +156,50 @@ const createGroupsForVirtualization = (): SelectProps['groups'] => {
     },
   ];
 };
+
+const createRandomGroupsForSearch = (search: string) => {
+  if (search === 'none') {
+    return { groups: [] };
+  }
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Random items',
+      options: [
+        ...generateOptionLabels().map((value) => {
+          return {
+            value,
+            label: value,
+          };
+        }),
+      ],
+    },
+    {
+      label: 'Common items',
+      options: [
+        {
+          value: `${search}`,
+          label: `Searched for ${search}`,
+        },
+        {
+          value: `match`,
+          label: `Same option everytime`,
+        },
+      ],
+    },
+  ];
+  return { groups };
+};
+
+const onSearch: SelectProps['onSearch'] = async (searchValue) => {
+  await new Promise((res) => {
+    setTimeout(res, 1000);
+  });
+  if (searchValue === 'error') {
+    return Promise.reject(new Error('Simulated error'));
+  }
+  return Promise.resolve(searchValue ? createRandomGroupsForSearch(searchValue) : {});
+};
+
 const dummyOnChange: SelectProps['onChange'] = () => ({});
 const defaultTexts: Partial<Texts> = {
   label: 'Label',
@@ -289,7 +333,7 @@ export const WithControls = () => {
     updateProps({ ...props, required: !required });
   };
   return (
-    <>
+    <div>
       <style>
         {`
           .buttons{
@@ -311,7 +355,7 @@ export const WithControls = () => {
           <Button onClick={toggleRequired}>Toggle required</Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -357,6 +401,24 @@ export const WithFilter = () => {
       required
       texts={defaultTexts}
     />
+  );
+};
+
+export const WithSearch = () => {
+  const options = generateOptionLabels(20);
+  return (
+    <>
+      <Select
+        options={options}
+        onChange={dummyOnChange}
+        icon={<IconLocation />}
+        onSearch={onSearch}
+        required
+        texts={defaultTexts}
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+      <p>Search with &quot;error&quot; to simulate an error.</p>
+    </>
   );
 };
 
@@ -427,6 +489,25 @@ export const MultiselectWithGroupsAndFilter = () => {
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
     />
+  );
+};
+
+export const MultiselectWithGroupsAndSearch = () => {
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+  return (
+    <div>
+      <Select
+        onChange={onChange}
+        multiSelect
+        onSearch={onSearch}
+        icon={<IconLocation />}
+        texts={defaultTextsForMultiSelect}
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+      <p>Search with &quot;error&quot; to simulate an error.</p>
+    </div>
   );
 };
 
