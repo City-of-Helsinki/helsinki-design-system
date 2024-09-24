@@ -31,11 +31,13 @@ const ListComponent = ({
 
 export const List = () => {
   const dataHandlers = useSelectDataHandlers();
-  const { getData } = dataHandlers;
+  const { getData, getMetaData } = dataHandlers;
   const { open, groups, multiSelect, visibleOptions, virtualize } = getData();
-  const isVisible = open;
+  const { isSearching } = getMetaData();
+  const isVisible = open && !isSearching;
   const classes = classNames(styles.listContainer, !isVisible && styles.hidden);
   const styleObj = { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions };
+
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isMultiSelectAndHasGroupLabels = multiSelect && hasVisibleGroupLabels;
 

@@ -88,6 +88,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
         </button>
       </div>
       <div
+        aria-hidden="true"
         class="listAndInputContainer"
         id="test-select-component-sl-container"
       >
@@ -207,6 +208,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
         </button>
       </div>
       <div
+        aria-hidden="true"
         class="listAndInputContainer"
         id="test-select-component-sl-container"
       >
