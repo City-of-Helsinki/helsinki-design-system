@@ -708,4 +708,77 @@ describe('utils', () => {
       expect(JSON.stringify(groups)).toBe(stringBackup);
     });
   });
+  describe('mergeSearchResultsToCurrent merges search results to current groups', () => {
+    it('New groups override old groups, if old one has no selected items', () => {
+      const existingGroups = [createGroup({ label: 'Existing' }), createGroup({ label: 'Existing 2' })];
+      const newGroup = createGroup({ label: 'New' });
+
+      const results = mergeSearchResultsToCurrent(newGroup, existingGroups);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([newGroup]));
+    });
+    it('New group overrides old group, but keeps selected ones and hides them.', () => {
+      const existingGroups = [createGroup({ label: 'Existing 1' }), createGroup({ label: 'Existing 2' })];
+      const selected = [
+        existingGroups[0].options[1],
+        existingGroups[0].options[8],
+        existingGroups[1].options[3],
+        existingGroups[1].options[4],
+      ];
+      selected.forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+
+      const newGroup = createGroup({ label: 'New' });
+
+      const copyOfSelectedWithHiddenOptions = selected.map((opt) => {
+        return { ...opt, visible: false };
+      });
+
+      const results = mergeSearchResultsToCurrent(newGroup, existingGroups);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([{ options: copyOfSelectedWithHiddenOptions }, newGroup]));
+    });
+    it('If new group has options with same value that are selected, new group options will be selected.', () => {
+      const existingGroups = [createGroup({ label: 'Existing 1' }), createGroup({ label: 'Existing 2' })];
+      // select 4 options which values will be found in newGroups
+      // select also 2 options which values will not be found
+      const selectedOptions = [
+        existingGroups[0].options[1],
+        existingGroups[0].options[8],
+        existingGroups[1].options[3],
+        existingGroups[1].options[4],
+        existingGroups[0].options[5],
+        existingGroups[1].options[5],
+      ];
+      const selectedValues = selectedOptions.map((opt) => opt.value);
+      selectedOptions.forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+
+      const newGroup1 = createGroup({ label: 'New' });
+      const newGroup2 = createGroup({ label: 'New 2' });
+      // match 2 values in each group to the selected values
+      newGroup1.options[5].value = selectedOptions[0].value;
+      newGroup1.options[6].value = selectedOptions[1].value;
+      newGroup2.options[2].value = selectedOptions[2].value;
+      newGroup2.options[7].value = selectedOptions[3].value;
+
+      const selectedOptionsThatAreNotInNewGroups = [existingGroups[0].options[5], existingGroups[1].options[5]].map(
+        (opt) => {
+          return { ...opt, visible: false };
+        },
+      );
+
+      const results = mergeSearchResultsToCurrent({ groups: [newGroup1, newGroup2] }, existingGroups);
+      const newGroupsWithSelected = iterateAndCopyGroup([newGroup1, newGroup2], (opt) => {
+        return { ...opt, selected: selectedValues.includes(opt.value) };
+      });
+      expect(JSON.stringify(results)).toBe(
+        JSON.stringify([{ options: selectedOptionsThatAreNotInNewGroups }, ...newGroupsWithSelected]),
+      );
+      expect(getSelectedOptions(results)).toHaveLength(6);
+      expect(getSelectedOptions(existingGroups)).toHaveLength(6);
+    });
+  });
 });
