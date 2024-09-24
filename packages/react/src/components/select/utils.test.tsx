@@ -5,6 +5,7 @@ import { render } from '@testing-library/react';
 // eslint-disable-next-line jest/no-mocks-import
 import {
   createDataWithSelectedOptions,
+  createGroup,
   getTriggeredEvents,
   mockUseSelectDataHandlersContents,
   resetAllMocks,
@@ -23,6 +24,7 @@ import {
   getSelectedOptionsPerc,
   getVisibleGroupLabels,
   iterateAndCopyGroup,
+  mergeSearchResultsToCurrent,
   OptionIterator,
   propsToGroups,
   updateGroupLabelAndOptions,
@@ -35,22 +37,9 @@ import { eventTypes } from './events';
 
 describe('utils', () => {
   const createMultipleGroups = () => {
-    const prefixOptionLabelsAndValues = (prefix: string, options: Option[]) => {
-      return options.map((opt) => {
-        return {
-          ...opt,
-          label: `${prefix} ${opt.label}`,
-          value: `${prefix} ${opt.value}`,
-          visible: true,
-        };
-      });
-    };
-    const group1 = createDataWithSelectedOptions({ selectedOptionsCount: 0 }).groups[0];
-    const group2 = createDataWithSelectedOptions({ selectedOptionsCount: 0 }).groups[0];
-    const group3 = createDataWithSelectedOptions({ selectedOptionsCount: 0 }).groups[0];
-    group1.options = prefixOptionLabelsAndValues('group1', group1.options);
-    group2.options = prefixOptionLabelsAndValues('group2', group2.options);
-    group3.options = prefixOptionLabelsAndValues('group3', group3.options);
+    const group1 = createGroup({ label: 'group1' });
+    const group2 = createGroup({ label: 'group2' });
+    const group3 = createGroup({ label: 'group3' });
     return { groups: [group1, group2, group3] };
   };
   describe('iterateAndCopyGroup', () => {
@@ -521,6 +510,8 @@ describe('utils', () => {
     });
   });
   describe('propsToGroups converts given data in SelectProps format to SelectData', () => {
+    const options1 = ['option 0', 'option 1'];
+    const options2 = ['option 2', 'option 3'];
     it('String options are converted to groups', () => {
       const options = ['option 0', 'option 1'];
       expect(propsToGroups({ options })).toMatchObject([
@@ -530,8 +521,6 @@ describe('utils', () => {
       ]);
     });
     it('Groups with string options are converted to groups with labels', () => {
-      const options1 = ['option 0', 'option 1'];
-      const options2 = ['option 2', 'option 3'];
       expect(
         propsToGroups({
           groups: [
@@ -556,6 +545,17 @@ describe('utils', () => {
         },
       ]);
       expect(propsToGroups({ groups: [] })).toMatchObject([]);
+    });
+    it('If already parsed group is passed, it is returned as it is.', () => {
+      const readyGroups = propsToGroups({
+        groups: [
+          { label: 'Group1', options: options1 },
+          { label: 'Group2', options: options2 },
+        ],
+      }) as Group[];
+      expect((propsToGroups(readyGroups[0]) as Group[])[0]).toMatchObject(readyGroups[0]);
+      expect((propsToGroups(readyGroups[1]) as Group[])[0]).toMatchObject(readyGroups[1]);
+      expect(propsToGroups({ groups: readyGroups }) as Group[]).toMatchObject(readyGroups);
     });
   });
   describe('childrenToGroups converts React children to groups', () => {
@@ -706,6 +706,79 @@ describe('utils', () => {
       expect(result === groups).not.toBeTruthy();
       expect(JSON.stringify(result)).not.toBe(stringBackup);
       expect(JSON.stringify(groups)).toBe(stringBackup);
+    });
+  });
+  describe('mergeSearchResultsToCurrent merges search results to current groups', () => {
+    it('New groups override old groups, if old one has no selected items', () => {
+      const existingGroups = [createGroup({ label: 'Existing' }), createGroup({ label: 'Existing 2' })];
+      const newGroup = createGroup({ label: 'New' });
+
+      const results = mergeSearchResultsToCurrent(newGroup, existingGroups);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([newGroup]));
+    });
+    it('New group overrides old group, but keeps selected ones and hides them.', () => {
+      const existingGroups = [createGroup({ label: 'Existing 1' }), createGroup({ label: 'Existing 2' })];
+      const selected = [
+        existingGroups[0].options[1],
+        existingGroups[0].options[8],
+        existingGroups[1].options[3],
+        existingGroups[1].options[4],
+      ];
+      selected.forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+
+      const newGroup = createGroup({ label: 'New' });
+
+      const copyOfSelectedWithHiddenOptions = selected.map((opt) => {
+        return { ...opt, visible: false };
+      });
+
+      const results = mergeSearchResultsToCurrent(newGroup, existingGroups);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([{ options: copyOfSelectedWithHiddenOptions }, newGroup]));
+    });
+    it('If new group has options with same value that are selected, new group options will be selected.', () => {
+      const existingGroups = [createGroup({ label: 'Existing 1' }), createGroup({ label: 'Existing 2' })];
+      // select 4 options which values will be found in newGroups
+      // select also 2 options which values will not be found
+      const selectedOptions = [
+        existingGroups[0].options[1],
+        existingGroups[0].options[8],
+        existingGroups[1].options[3],
+        existingGroups[1].options[4],
+        existingGroups[0].options[5],
+        existingGroups[1].options[5],
+      ];
+      const selectedValues = selectedOptions.map((opt) => opt.value);
+      selectedOptions.forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+
+      const newGroup1 = createGroup({ label: 'New' });
+      const newGroup2 = createGroup({ label: 'New 2' });
+      // match 2 values in each group to the selected values
+      newGroup1.options[5].value = selectedOptions[0].value;
+      newGroup1.options[6].value = selectedOptions[1].value;
+      newGroup2.options[2].value = selectedOptions[2].value;
+      newGroup2.options[7].value = selectedOptions[3].value;
+
+      const selectedOptionsThatAreNotInNewGroups = [existingGroups[0].options[5], existingGroups[1].options[5]].map(
+        (opt) => {
+          return { ...opt, visible: false };
+        },
+      );
+
+      const results = mergeSearchResultsToCurrent({ groups: [newGroup1, newGroup2] }, existingGroups);
+      const newGroupsWithSelected = iterateAndCopyGroup([newGroup1, newGroup2], (opt) => {
+        return { ...opt, selected: selectedValues.includes(opt.value) };
+      });
+      expect(JSON.stringify(results)).toBe(
+        JSON.stringify([{ options: selectedOptionsThatAreNotInNewGroups }, ...newGroupsWithSelected]),
+      );
+      expect(getSelectedOptions(results)).toHaveLength(6);
+      expect(getSelectedOptions(existingGroups)).toHaveLength(6);
     });
   });
 });
