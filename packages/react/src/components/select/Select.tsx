@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import React, { useMemo, createRef } from 'react';
+import React, { useMemo, createRef, useEffect } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData, Option } from './types';
 import { Container } from './components/Container';
@@ -39,6 +39,7 @@ export function Select({
   visibleOptions,
   virtualize,
   filter,
+  onSearch,
 }: SelectProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
@@ -53,18 +54,19 @@ export function Select({
       virtualize: !!virtualize,
       onChange,
       filterFunction: filter,
+      onSearch,
     };
-  }, [options, open, groups, onChange, disabled, invalid, required, noTags, virtualize, visibleOptions]);
+  }, [options, open, groups, onChange, disabled, invalid, required, noTags, virtualize, visibleOptions, onSearch]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
     const optionIds = new Map<string, string>();
     let optionIdCounter = 0;
     const getListInputType = () => {
-      if (!initialData.filterFunction) {
+      if (!initialData.onSearch && !initialData.filterFunction) {
         return undefined;
       }
-      return eventIds.filter;
+      return initialData.onSearch ? eventIds.search : eventIds.filter;
     };
     return {
       lastToggleCommand: 0,
@@ -97,8 +99,20 @@ export function Select({
       listInputType: getListInputType(),
       hasListInput: !!getListInputType(),
       filter: '',
+      search: '',
+      isSearching: false,
+      hasSearchError: false,
+      cancelCurrentSearch: undefined,
     };
-  }, [id, initialData.groups, initialData.filterFunction]);
+  }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch]);
+
+  useEffect(() => {
+    return () => {
+      if (metaData.cancelCurrentSearch) {
+        metaData.cancelCurrentSearch();
+      }
+    };
+  }, []);
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
