@@ -208,7 +208,8 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
   }
   if (props.groups) {
     return (props.groups as Group[]).map((group: Group) => {
-      const hasLabelOptionAlready = !!group.options[0].isGroupLabel;
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      const hasLabelOptionAlready = !!getGroupLabelOption(group);
       const groupOptions = group.options.map(validateOption) as Option[];
       if (hasLabelOptionAlready) {
         return {
@@ -221,6 +222,13 @@ export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): S
         options: [labelOption, ...groupOptions],
       };
     });
+  }
+
+  if (props.options) {
+    const option = props.options[0];
+    if (option && (option as OptionInProps).isGroupLabel) {
+      return [props] as Group[];
+    }
   }
 
   return [
@@ -284,6 +292,30 @@ export function childrenToGroups(children: SelectProps['children']): SelectData[
     });
   }
   return [{ options: [createGroupLabel(''), ...childArray.map(optionElementToOption)] }];
+}
+
+export function mergeSearchResultsToCurrent(
+  props: Pick<SelectProps, 'groups' | 'options'>,
+  currentGroups: SelectData['groups'],
+): SelectData['groups'] {
+  const newData = propsToGroups(props) || [];
+  const newOptions = getAllOptions(newData);
+  const currentOptionsWithoutMatches = getSelectedOptions(currentGroups).filter((option) => {
+    const sameInNewOptionsIndex = newOptions.findIndex((newOption) => {
+      return newOption.value === option.value;
+    });
+    if (sameInNewOptionsIndex > -1) {
+      newOptions[sameInNewOptionsIndex].selected = true;
+      return false;
+    }
+    return true;
+  });
+
+  const currentHiddenOptionsInAGroup = currentOptionsWithoutMatches.length
+    ? [{ options: currentOptionsWithoutMatches.map((opt) => ({ ...opt, visible: false })) } as Group]
+    : [];
+
+  return [...currentHiddenOptionsInAGroup, ...newData];
 }
 
 export function createSelectedOptionsList(currentSelections: Option[], groups: SelectData['groups']) {
