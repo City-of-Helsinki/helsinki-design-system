@@ -26,8 +26,9 @@ const createGroups = ({
 export function SingleSelectListWithGroups() {
   const { getData, trigger, getMetaData } = useSelectDataHandlers();
   const { open, groups, multiSelect } = getData();
-  const { getOptionId, refs, elementIds } = getMetaData();
+  const { isSearching, getOptionId, refs, elementIds } = getMetaData();
   const attr = createListElementProps<HTMLDivElement>({ refs, elementIds, multiSelect });
-  const children = open ? createGroups({ groups, trigger, getOptionId }) : null;
+  const shouldRenderOptions = open && !isSearching;
+  const children = shouldRenderOptions ? createGroups({ groups, trigger, getOptionId }) : null;
   return <div {...attr}>{children}</div>;
 }

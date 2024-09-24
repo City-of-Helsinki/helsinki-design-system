@@ -90,19 +90,28 @@ export const createContainerProps = (
 ): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
   const { getData, getMetaData } = dataHandlers;
   const { groups } = getData();
-  const { elementIds, refs } = getMetaData();
+  const { elementIds, refs, listInputType } = getMetaData();
+  const hasInput = !!listInputType;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const hasInputAndGroups = hasInput || hasVisibleGroupLabels;
+  const hasOnlyGroups = !hasInput && hasVisibleGroupLabels;
   const choiceCount = countVisibleOptions(groups);
   const label = getTextFromDataHandlers('label', dataHandlers);
   const getRole = (): DivElementProps['role'] => {
-    if (hasVisibleGroupLabels) {
+    if (hasOnlyGroups) {
       return undefined;
+    }
+    if (hasInputAndGroups) {
+      return 'dialog';
     }
     return 'listbox';
   };
   const getAriaLabel = (): DivElementProps['aria-labelledby'] => {
-    if (hasVisibleGroupLabels) {
+    if (hasOnlyGroups) {
       return undefined;
+    }
+    if (hasInputAndGroups) {
+      return `${choiceCount} choices.`;
     }
     return `${label}. ${choiceCount} choices.`;
   };
@@ -120,9 +129,10 @@ export function MultiSelectListWithGroups() {
   const dataHandlers = useSelectDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups } = getData();
-  const { getOptionId } = getMetaData();
+  const { isSearching, getOptionId } = getMetaData();
   const attr = createContainerProps(dataHandlers);
 
-  const children = open ? createGroups({ groups, getOptionId, trigger }) : [];
+  const shouldRenderOptions = open && !isSearching;
+  const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
   return <div {...attr}>{open ? children : null}</div>;
 }
