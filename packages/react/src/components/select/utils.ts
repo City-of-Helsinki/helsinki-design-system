@@ -9,6 +9,8 @@ import {
   SelectMetaData,
   GroupInProps,
   FilterFunction,
+  ScreenReaderNotification,
+  SelectDataHandlers,
 } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';
@@ -358,4 +360,59 @@ export function countVisibleOptions(groups: SelectData['groups']): number {
 export function getGroupLabelOption(group: Group): Option | undefined {
   const firstOption = group.options[0];
   return firstOption && firstOption.isGroupLabel ? firstOption : undefined;
+}
+
+export function createScreenReaderNotification(type: string, content: string, delay = 0): ScreenReaderNotification {
+  return {
+    type,
+    content,
+    delay,
+    showTime: 0,
+    addTime: Date.now(),
+  };
+}
+
+/**
+ *
+ * @param notification
+ * @param dataHandlers
+ * @returns Returns true, if notification was added
+ */
+export function addOrUpdateScreenReaderNotificationByType(
+  notification: ScreenReaderNotification,
+  dataHandlers: SelectDataHandlers,
+) {
+  const { screenReaderNotifications } = dataHandlers.getMetaData();
+  const indexOfSameType = screenReaderNotifications.findIndex((n) => n.type === notification.type);
+  if (indexOfSameType > -1) {
+    const updatedList = [...screenReaderNotifications];
+    const prev = updatedList[indexOfSameType];
+    if (prev.content === notification.content) {
+      return false;
+    }
+    updatedList[indexOfSameType] = notification;
+    dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
+    return false;
+  }
+  const updatedList = [...screenReaderNotifications, notification];
+  dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
+  return true;
+}
+
+export function removeScreenReaderNotification(
+  target: Partial<ScreenReaderNotification>,
+  dataHandlers: SelectDataHandlers,
+) {
+  const { screenReaderNotifications } = dataHandlers.getMetaData();
+  const indexOfMatch = screenReaderNotifications.findIndex((n) => {
+    const hasTypeMatch = !target.type || n.type === target.type;
+    const hasContentMatch = !target.content || n.content === target.content;
+    return hasTypeMatch && hasContentMatch;
+  });
+  if (indexOfMatch > -1) {
+    screenReaderNotifications.splice(indexOfMatch, 1);
+    dataHandlers.updateMetaData({ screenReaderNotifications });
+    return true;
+  }
+  return false;
 }
