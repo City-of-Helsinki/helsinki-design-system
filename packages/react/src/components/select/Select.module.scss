@@ -41,6 +41,10 @@
   margin-bottom: var(--spacing-2-xs);
 }
 
+.visuallyHidden {
+  @extend %visuallyHidden;
+}
+
 .selectedOptionsContainer {
   box-sizing: border-box;
   display: flex;
@@ -425,4 +429,8 @@
 
 .assistiveText {
   margin-bottom: var(--spacing-2-xs);
+}
+
+.screenReaderNotifications {
+  @extend %visuallyHidden;
 }
