@@ -1,4 +1,5 @@
 import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
+import { SelectProps } from '../types';
 import { ErrorNotification } from './Error';
 
 jest.mock('./Container', () => {
@@ -15,21 +16,34 @@ describe('<Error />', () => {
   afterAll(() => {
     testUtilAfterAll();
   });
-  const errorText = 'Error Text';
   it('renders the component', () => {
     const { asFragment } = initTests({
       renderComponentOnly: true,
-      selectProps: { texts: { error: errorText }, invalid: true },
+      selectProps: { texts: { error: 'Error Text' }, invalid: true },
     });
     expect(asFragment()).toMatchSnapshot();
   });
-  it('Component is rendered only when data.invalid and texts.error are set', async () => {
-    const selectProps = { texts: { error: errorText }, invalid: false };
-    const { triggerDataChange, getByText } = initTests({ selectProps });
-    expect(() => getByText(errorText)).toThrow();
-    await triggerDataChange({ invalid: true });
-    expect(() => getByText(errorText)).not.toThrow();
-    await triggerDataChange({ invalid: false });
-    expect(() => getByText(errorText)).toThrow();
+  it('When error contents change, a screen reader notification is rendered', async () => {
+    const error = 'Error Text';
+    const onChange: SelectProps['onChange'] = () => {
+      return {
+        invalid: true,
+        texts: {
+          error,
+        },
+      };
+    };
+    const testProps = {
+      hasSelections: true,
+      groups: true,
+    };
+    const { getMetaDataFromElement, triggerOptionChange } = initTests({
+      selectProps: { onChange },
+      testProps,
+    });
+    await triggerOptionChange();
+    const notifications = getMetaDataFromElement().screenReaderNotifications;
+    expect(notifications).toHaveLength(1);
+    expect(notifications[0].content).toBe(error);
   });
 });

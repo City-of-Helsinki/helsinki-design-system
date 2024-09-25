@@ -51,6 +51,12 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
       if (selectedOptions[0]) {
         labels.push(`"${selectedOptions[0].label}"`);
       }
+      if (selectedOptions[1]) {
+        labels.push(`and "${selectedOptions[1].label}"`);
+      }
+      if (length > 2) {
+        labels.push(`and ${length - 2} other options.`);
+      }
     }
     if (assistiveText) {
       labels.push(assistiveText);
