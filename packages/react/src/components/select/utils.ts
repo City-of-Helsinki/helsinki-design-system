@@ -9,6 +9,8 @@ import {
   SelectMetaData,
   GroupInProps,
   FilterFunction,
+  ScreenReaderNotification,
+  SelectDataHandlers,
 } from './types';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { ChangeEvent } from '../dataProvider/DataContext';

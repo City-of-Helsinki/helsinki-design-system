@@ -14,6 +14,8 @@ export const eventIds = {
   filter: 'filter',
   search: 'search',
   searchResult: 'searchResult',
+  assistive: 'assistive',
+  error: 'error',
 } as const;
 
 export const eventTypes = {

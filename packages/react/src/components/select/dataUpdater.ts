@@ -19,6 +19,8 @@ import {
   updateGroupLabelAndOptions,
   filterOptions,
   mergeSearchResultsToCurrent,
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
 } from './utils';
 import {
   EventId,
