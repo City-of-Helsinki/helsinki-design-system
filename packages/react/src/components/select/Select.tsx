@@ -21,6 +21,7 @@ import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
+import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 
 export function Select({
   options,
@@ -103,6 +104,7 @@ export function Select({
       isSearching: false,
       hasSearchError: false,
       cancelCurrentSearch: undefined,
+      screenReaderNotifications: [],
     };
   }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch]);
 
@@ -133,6 +135,7 @@ export function Select({
         <ErrorNotification />
         <AssistiveText />
         <TagList />
+        <ScreenReaderNotifications />
       </Container>
     </DataProvider>
   );

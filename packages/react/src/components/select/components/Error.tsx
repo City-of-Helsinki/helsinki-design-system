@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import styles from '../Select.module.scss';
 import { DivElementProps, SelectDataHandlers } from '../types';
 import { useTextProvider } from '../hooks/useTextProvider';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
+import { addOrUpdateScreenReaderNotificationByType, createScreenReaderNotification } from '../utils';
+import { eventIds } from '../events';
 
 function createErrorProps({ getData }: SelectDataHandlers): DivElementProps & { children: string | null } {
   const { invalid } = getData();
@@ -15,6 +17,12 @@ function createErrorProps({ getData }: SelectDataHandlers): DivElementProps & { 
 }
 
 export function ErrorNotification() {
-  const { children, ...attr } = createErrorProps(useSelectDataHandlers());
+  const dataHandlers = useSelectDataHandlers();
+  const { children, ...attr } = createErrorProps(dataHandlers);
+  const previousErrorRef = useRef<string | null>(children);
+  if (children && children !== previousErrorRef.current) {
+    addOrUpdateScreenReaderNotificationByType(createScreenReaderNotification(eventIds.error, children), dataHandlers);
+    previousErrorRef.current = children;
+  }
   return children ? <div {...attr}>{children}</div> : null;
 }

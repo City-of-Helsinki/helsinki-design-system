@@ -1,4 +1,5 @@
 import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
+import { SelectProps } from '../types';
 import { AssistiveText } from './AssistiveText';
 
 jest.mock('./Container', () => {
@@ -26,5 +27,27 @@ describe('<AssistiveText />', () => {
     const propsWithoutAssistiveText = { renderComponentOnly: true, texts: { assistive: '' } };
     const { getByText } = initTests({ selectProps: propsWithoutAssistiveText });
     expect(() => getByText(text)).toThrow();
+  });
+  it('When contents change, a screen reader notification is rendered', async () => {
+    const assistive = 'New Text';
+    const onChange: SelectProps['onChange'] = () => {
+      return {
+        texts: {
+          assistive,
+        },
+      };
+    };
+    const testProps = {
+      hasSelections: true,
+      groups: true,
+    };
+    const { getMetaDataFromElement, triggerOptionChange } = initTests({
+      selectProps: { onChange },
+      testProps,
+    });
+    await triggerOptionChange();
+    const notifications = getMetaDataFromElement().screenReaderNotifications;
+    expect(notifications).toHaveLength(1);
+    expect(notifications[0].content).toBe(assistive);
   });
 });

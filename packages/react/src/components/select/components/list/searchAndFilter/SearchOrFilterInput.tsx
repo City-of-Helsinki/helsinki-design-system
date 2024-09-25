@@ -2,19 +2,13 @@ import React from 'react';
 
 import styles from '../../../Select.module.scss';
 import { TextInput, TextInputProps } from '../../../../textInput/TextInput';
-import { SelectDataHandlers, SelectMetaData, TextKey } from '../../../types';
+import { SelectDataHandlers, SelectMetaData } from '../../../types';
 import classNames from '../../../../../utils/classNames';
 import { createInputOnChangeListener, getVisibleGroupLabels } from '../../../utils';
 import { eventIds } from '../../../events';
 import { useSelectDataHandlers } from '../../../hooks/useSelectDataHandlers';
 import { getTextKey } from '../../../texts';
-
-const typeIndicator = '{{type}}';
-
-const getTextKeyWithType = (key: string, isSearchInput): TextKey => {
-  const inputType = isSearchInput ? 'search' : 'filter';
-  return key.replace(typeIndicator, inputType) as TextKey;
-};
+import { getTextKeyWithType, typeIndicator } from './common';
 
 const createFilterInputProps = (
   { getMetaData, trigger, getData }: SelectDataHandlers,
