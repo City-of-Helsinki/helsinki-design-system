@@ -375,7 +375,7 @@ export const WithValidation = () => {
     },
   ];
 
-  const texts = { ...defaultTexts, label: 'Pick a healty choice' };
+  const texts = { ...defaultTexts, label: 'Pick a healthy choice' };
 
   const onChange: SelectProps['onChange'] = (selectedOptions) => {
     const hasErrorSelection = !!selectedOptions.find((option) => option.value.includes('invalid'));
