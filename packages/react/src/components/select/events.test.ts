@@ -9,7 +9,7 @@ import {
   isGroupClickEvent,
   isOutsideClickEvent,
   isCloseEvent,
-  isTagEventId,
+  isRemoveTagEventId,
   isShowAllClickEvent,
 } from './events';
 
@@ -56,7 +56,7 @@ describe('events', () => {
       types: [eventTypes.close],
     },
     {
-      func: isTagEventId,
+      func: isRemoveTagEventId,
       ids: [eventIds.tag],
       types,
     },
