@@ -204,6 +204,24 @@ describe('<Select />', () => {
         expect(getSelectionsInButton()).toHaveLength(2);
       });
     });
+    it('Screen reader notifications are rendered', async () => {
+      const { openList, setInputValue, getScreenReaderNotifications } = renderWithHelpers({
+        groups: false,
+        multiSelect: false,
+        input: 'filter',
+      });
+      await openList();
+      await setInputValue('Option 1');
+      await waitFor(
+        () => {
+          expect(getScreenReaderNotifications()).toHaveLength(1);
+        },
+        { interval: 500 },
+      );
+      const notification = getScreenReaderNotifications()[0] as string;
+      expect(notification.includes('Option 1')).toBeTruthy();
+      expect(notification.includes('Found 1 option')).toBeTruthy();
+    });
   });
   describe('Search', () => {
     it('Search updates all data', async () => {

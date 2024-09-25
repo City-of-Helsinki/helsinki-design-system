@@ -116,6 +116,11 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
     >
       Assistive text
     </div>
+    <div
+      aria-live="polite"
+      class="screenReaderNotifications"
+      data-testid="screen-reader-notifications"
+    />
   </div>
 </DocumentFragment>
 `;
