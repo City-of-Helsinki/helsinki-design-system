@@ -9,8 +9,9 @@ import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
 import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } from './types';
-import { getElementIds, defaultFilter, propsToGroups } from './utils';
+import { getElementIds, defaultFilter, propsToGroups, getAllOptions } from './utils';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
+import { ChangeEvent } from '../dataProvider/DataContext';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -22,6 +23,7 @@ const renderOnlyTheComponent = jest.fn().mockReturnValue(false);
 // These are cleared after each update.
 const tempDataStorage = jest.fn();
 const tempMetaDataStorage = jest.fn();
+const tempEventStorage = jest.fn();
 
 export const testUtilBeforeAll = (TargetComponent: React.FC) => {
   renderMockedComponent.mockImplementation(() => <TargetComponent />);
@@ -60,12 +62,21 @@ const ButtonsForDataUpdates = () => {
     tempMetaDataStorage.mockReset();
   };
 
+  const onEventExecutionClick = () => {
+    const event = getLastMockCallArgs(tempEventStorage)[0] as ChangeEvent;
+    tempEventStorage.mockReset();
+    dataHandlers.trigger(event);
+  };
+
   return (
     <>
       <button type="button" onClick={onDataClick} id="data-updater">
         Update data
       </button>
       <button type="button" onClick={onMetaDataClick} id="meta-data-updater">
+        Update metaData
+      </button>
+      <button type="button" onClick={onEventExecutionClick} id="meta-event-trigger">
         Update metaData
       </button>
     </>
@@ -188,7 +199,6 @@ export const getSelectProps = ({
     open,
     multiSelect,
   };
-
   if (input === 'filter') {
     selectProps.filter = defaultFilter;
   } else if (input === 'search' || searchResults) {
@@ -232,6 +242,15 @@ export const initTests = ({
 } = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
   const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
+  if (selectProps.onChange) {
+    const currentOnChange = props.onChange;
+    const onChangeListener = selectProps.onChange;
+    props.onChange = (...args) => {
+      currentOnChange(...args);
+      return onChangeListener(...args);
+    };
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const result = renderWithHelpers({ ...props, groups: testProps.groups });
 
@@ -253,7 +272,7 @@ export const initTests = ({
     });
   };
 
-  const getDataFromElement = () => {
+  const getDataFromElement = (): SelectData => {
     const el = getElementById('exported-data');
     return JSON.parse(el && el.innerHTML);
   };
@@ -267,7 +286,7 @@ export const initTests = ({
     });
   };
 
-  const getMetaDataFromElement = () => {
+  const getMetaDataFromElement = (): SelectMetaData => {
     const el = getElementById('exported-meta-data');
     return JSON.parse(el && el.innerHTML);
   };
@@ -321,6 +340,21 @@ export const initTests = ({
     };
   };
 
+  const triggerChangeEvent = async (event: ChangeEvent) => {
+    const promise = createRenderUpdatePromise();
+    tempEventStorage(event);
+    fireEvent.click(getElementById('meta-event-trigger'));
+    await promise;
+  };
+
+  const triggerOptionChange = async (index = 0) => {
+    const data = getDataFromElement();
+    const currentOptions = getAllOptions(data.groups);
+    const option = currentOptions[index];
+    const event: ChangeEvent = { id: eventIds.listItem, type: eventTypes.click, payload: { value: option } };
+    return triggerChangeEvent(event);
+  };
+
   return {
     ...result,
     triggerDataChange,
@@ -339,6 +373,8 @@ export const initTests = ({
     getOnChangeCallArgsAsProps,
     getOnChangeMockCalls,
     createRenderUpdatePromise,
+    triggerOptionChange,
+    triggerChangeEvent,
   };
 };
 
@@ -361,7 +397,8 @@ export const renderWithHelpers = (
   const elementIds = getElementIds(selectProps.id);
   const selectors = {
     listAndInputContainer: `#${selectProps.id} > div:nth-child(2) > div:nth-child(2)`,
-    searchAndFilterInfo: `#${selectProps.id} div[data-testid="search-and-filter-info"]`,
+    screenReaderNotifications: `div[data-testid="screen-reader-notifications"]`,
+    searchAndFilterInfo: `div[data-testid="search-and-filter-info"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
     groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="checkbox"]:first-child`,
     options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
@@ -441,6 +478,14 @@ export const renderWithHelpers = (
 
   const getListAndInputContainer = () => {
     return result.container.querySelector(selectors.listAndInputContainer) as HTMLDivElement;
+  };
+
+  const getScreenReaderNotificationContainer = () => {
+    return result.container.querySelector(selectors.screenReaderNotifications) as HTMLDivElement;
+  };
+
+  const getScreenReaderNotifications = () => {
+    return Array.from(getScreenReaderNotificationContainer().children).map((node) => node.innerHTML);
   };
 
   const getSearchAndFilterInfoContainer = () => {
@@ -605,5 +650,7 @@ export const renderWithHelpers = (
     filterSelectedOptions,
     isElementSelected,
     clickGroupAndWaitForRerender,
+    getScreenReaderNotifications,
+    selectors,
   };
 };

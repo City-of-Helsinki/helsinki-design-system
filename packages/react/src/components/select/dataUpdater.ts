@@ -19,6 +19,8 @@ import {
   updateGroupLabelAndOptions,
   filterOptions,
   mergeSearchResultsToCurrent,
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
 } from './utils';
 import {
   EventId,
@@ -36,8 +38,9 @@ import {
   isSearchSuccessEvent,
   isSearchErrorEvent,
   isShowAllClickEvent,
+  isRemoveTagEventId,
 } from './events';
-import { appendTexts } from './texts';
+import { appendTexts, getTextKey } from './texts';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
@@ -102,6 +105,18 @@ const dataUpdater = (
     );
     updateGroups(newGroups, clickedOption);
     openOrClose(id !== eventIds.tag && current.multiSelect);
+    if (isRemoveTagEventId(id)) {
+      const remainingOptions = dataHandlers.getMetaData().selectedOptions.length;
+      const notification = createScreenReaderNotification(
+        eventIds.tag,
+        getTextKey('tagRemoved', dataHandlers.getMetaData(), {
+          value: clickedOption.label,
+          selectionCount: remainingOptions,
+        }) as string,
+      );
+
+      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+    }
     return {
       ...returnValue,
       didSelectionsChange: true,
