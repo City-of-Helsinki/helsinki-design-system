@@ -182,6 +182,19 @@ describe('dataUpdater', () => {
       expect(didUpdate).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(updateCount);
     });
+    it('if a tag is clicked it is removed and a screen reader notification is added', () => {
+      updateMockData({
+        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 3 }),
+        open: true,
+        multiSelect: true,
+      });
+      const options = getAllOptionsFromData();
+
+      expect(getCurrentMockMetaData().screenReaderNotifications).toHaveLength(0);
+      changeHandler({ id: eventIds.tag, type: eventTypes.click, payload: { value: options[1] } }, dataHandlers);
+
+      expect(getMetaDataOfLastMetaDataUpdate().screenReaderNotifications).toHaveLength(1);
+    });
   });
   describe('group label click events', () => {
     it('sets all options selected when not all are selected and does not close the menu', () => {

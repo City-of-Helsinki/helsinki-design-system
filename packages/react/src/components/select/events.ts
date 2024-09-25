@@ -14,6 +14,8 @@ export const eventIds = {
   filter: 'filter',
   search: 'search',
   searchResult: 'searchResult',
+  assistive: 'assistive',
+  error: 'error',
 } as const;
 
 export const eventTypes = {
@@ -26,7 +28,8 @@ export const eventTypes = {
   success: 'success',
 } as const;
 
-export const isTagEventId = (eventId: EventId) => {
+// Note: tag event can only be a removal
+export const isRemoveTagEventId = (eventId: EventId) => {
   return eventId === eventIds.tag;
 };
 
@@ -34,7 +37,7 @@ const isClick = (eventType?: EventType) => eventType === eventTypes.click;
 const isChange = (eventType?: EventType) => eventType === eventTypes.change;
 const isError = (eventType?: EventType) => eventType === eventTypes.error;
 const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
-const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isTagEventId(eventId);
+const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isRemoveTagEventId(eventId);
 const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
 const isEventForListToggle = (eventId: EventId) =>
   eventId === eventIds.selectedOptions || eventId === eventIds.arrowButton;
