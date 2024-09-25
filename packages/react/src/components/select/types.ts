@@ -107,6 +107,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   textProvider: TextProvider;
   getOptionId: (option: Option) => string;
   showAllTags: boolean;
+  screenReaderNotifications: ScreenReaderNotification[];
 };
 
 export type DivElementProps = AllElementPropsWithoutRef<'div'>;
@@ -135,11 +136,13 @@ export type TextKey =
   | 'tagsShowAllButtonAriaLabel'
   | 'tagsShowLessButtonAriaLabel'
   | 'tagRemoveSelectionAriaLabel'
+  | 'tagRemoved'
   | 'filterLabel'
   | 'filterPlaceholder'
   | 'filterClearButtonAriaLabel'
   | 'filteredWithoutResultsInfo'
   | 'filterWithAnotherTerm'
+  | 'filterResults'
   | 'searchLabel'
   | 'searchPlaceholder'
   | 'searchClearButtonAriaLabel'
@@ -148,11 +151,21 @@ export type TextKey =
   | 'searchingForOptions'
   | 'searchErrorTitle'
   | 'searchErrorText'
+  | 'searching'
+  | 'searchResults'
   | 'ariaLabelForListWhenRoleIsDialog';
 
-export type TextInterpolationKeys = 'selectionCount' | 'optionLabel' | 'value' | 'numberOfVisibleOptions' | 'label';
+export type TextInterpolationKeys = 'selectionCount' | 'optionLabel' | 'value' | 'numberIndicator' | 'label';
 
 export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;
 export type SupportedLanguage = 'fi' | 'sv' | 'en';
 export type Texts = Record<TextKey, string> & { language?: SupportedLanguage };
+
+export type ScreenReaderNotification = {
+  type: string;
+  content: string;
+  showTime: number;
+  delay: number;
+  addTime: number;
+};
