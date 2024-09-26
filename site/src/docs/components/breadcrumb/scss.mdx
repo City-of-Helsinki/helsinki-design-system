@@ -1,0 +1,101 @@
+---
+slug: '/components/breadcrumb/scss'
+title: 'Breadcrumb - SCSS'
+---
+
+import { Breadcrumb } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## SCSS
+
+Styles of the `Breadcrumb` are exported as SCSS mixins and are reusable anywhere.
+
+### Mixins
+
+| Mixin         | Description                                           | Arguments                                                                   |
+| ------------- | ----------------------------------------------------- | --------------------------------------------------------------------------- |
+| `breadcrumb`  | The root mixin to output all or only selected styles. | See <AnchorLink anchor="parameters-of-the-root-mixin">Table 2</AnchorLink>. |
+| `base`        | Outputs the base styles.                              | -                                                                           |
+| `active`      | Outputs the styles of the active variation.           | -                                                                           |
+| `mobile`      | Outputs the styles of the mobile variation.           | -                                                                           |
+| `desktop`     | Outputs the styles of the desktop variation.          | -                                                                           |
+| [Table 1:Breadcrumb SCSS mixins] |
+
+### Usage with the root mixin
+
+```scss
+@use 'hds-core/components/breadcrumb/_breadcrumb-mixin' as CoreSass;
+
+@include breadcrumb(
+  $all: true,
+  $base: false,
+  $active: false,
+  $mobile: false,
+  $desktop: false,
+  $override: null,
+  $react: false
+);
+```
+
+### Parameters of the breadcrumb mixin
+
+| Property      | Description                                                    | Values             | Default value |
+| ------------- | -------------------------------------------------------------- | ------------------ | ------------- |
+| `all`         | Should all styles of all variations be outputted.              | `boolean`          | `true`        |
+| `base`        | Should the base styles be outputted.                           | `boolean`          | `false`       |
+| `active`      | Should the styles of the active variation be outputted.        | `boolean`          | `false`       |
+| `mobile`      | Should the styles of the mobile variation be outputted.        | `boolean`          | `false`       |
+| `desktop`     | Should the styles of the desktop variation be outputted.       | `boolean`          | `false`       |
+| `override`    | Override the default className `breadcrumb`.                   | `null` or `string` | `null`        |
+| `react`       | Use this when included in the SCSS class of a React component. | `boolean`          | `false`       |
+| [Table 2: The breadcrumb mixin parameters] |
+
+#### The output of the breadcrumb mixin
+
+Helsinki Design System uses <ExternalLink href="https://getbem.com/">BEM</ExternalLink>, and class names follow its methodology.
+
+Class names are prefixed with `hds-`, followed by the component name (`breadcrumb`) and the proper BEM naming.
+
+Note that variations of the `Breadcrumb` styles are not compound classes of the base class `.hds-breadcrumb`. But the variations only alter the CSS variables, so they are quite useless without the base class.
+
+```scss
+.hds-breadcrumb {
+  //... all base styles
+}
+
+.hds-breadcrumb__list--mobile {
+  //... mobile variation styles
+}
+```
+
+#### Custom output
+
+Changing the boolean parameters affects which styles are outputted, and the `override` parameter will change how classes are named.
+
+```scss
+@include breadcrumb($all: true, $override: 'my-class');
+
+.my-class {
+  //... all base styles
+}
+
+.my-class__list--mobile {
+  //... mobile variation styles
+}
+```
+
+### Usage with custom classes
+
+The base and variation mixins can be included in any class.
+
+```scss
+@use 'hds-core/components/breadcrumb/_breadcrumb-mixin' as CoreSass;
+
+.breadcrumb {
+  @include CoreSass.breadcrumb($all: false, $base: true, $react: true);
+}
+```

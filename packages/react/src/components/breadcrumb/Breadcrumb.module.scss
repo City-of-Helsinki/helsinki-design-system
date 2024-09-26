@@ -1,7 +1,7 @@
-@value medium-up from "../../styles/breakpoints.scss";
+@use 'hds-core/lib/components/breadcrumb/_breadcrumb-mixin' as CoreSass;
 
 .breadcrumb {
-  composes: hds-breadcrumb from 'hds-core/lib/components/breadcrumb/breadcrumb.css';
+  @include CoreSass.breadcrumb($all: false, $base: true, $react: true);
 }
 
 .list {
