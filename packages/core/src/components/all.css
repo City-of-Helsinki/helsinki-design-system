@@ -1,7 +1,7 @@
 @import url('./breadcrumb/breadcrumb.css');
 @import url('./button/button.css');
 @import url('./card/card.css');
-@import url('./checkbox/checkbox.css');
+@import url('./checkbox/checkbox.scss');
 @import url('./container/container.css');
 @import url('./error-summary/error-summary.css');
 @import url('./fieldset/fieldset.css');

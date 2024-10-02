@@ -1,0 +1,332 @@
+@use '../../utils/bem' as BemUtil;
+
+@mixin base {
+  --size: 24px;
+
+  // icon size relative to the checkbox size (--size)
+  --icon-scale: 1;
+  --border-width: 2px;
+  --outline-width: 3px;
+  --label-font-size: var(--fontsize-body-m);
+  --label-padding: var(--spacing-2-xs);
+  --background-unselected: transparent;
+  --background-selected: var(--color-bus);
+  --background-hover: var(--color-bus-dark);
+  --background-disabled: var(--color-black-10);
+  --border-color-selected: var(--color-bus);
+  --border-color-selected-hover: var(--color-bus-dark);
+  --border-color-selected-focus: var(--color-bus);
+  --border-color-unselected: var(--color-black-50);
+  --border-color-unselected-hover: var(--color-black-90);
+  --border-color-unselected-focus: var(--color-black-90);
+  --border-color-disabled: var(--color-black-10);
+  --icon-color-unselected: transparent;
+  --icon-color-selected: var(--color-white);
+  --icon-color-disabled: var(--color-white);
+  --label-color: var(--color-black-90);
+  --label-color-disabled: var(--color-black-40);
+  --icon-size: var(--spacing-m);
+
+  display: flex;
+  flex-wrap: wrap;
+  min-height: var(--size);
+  position: relative;
+
+  &,
+  & *,
+  & *:before,
+  & *:after {
+    box-sizing: border-box;
+  }
+
+  /* stylelint-disable no-descending-specificity */
+  &:not(:first-of-type) {
+    margin-top: var(--spacing-2-xs);
+  }
+}
+
+@mixin input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+
+  // Normalize.css rules
+  // Change the font styles in all browsers.
+  font-family: inherit; // 1
+  font-size: 100%; // 1
+  height: var(--size);
+  left: 0;
+
+  // Normalize.css rules
+  // 1. Change the font styles in all browsers.
+  // 2. Remove the margin in Firefox and Safari.
+  line-height: 1.15; // 1
+  margin: 0; // 2
+  outline: none;
+  position: absolute;
+  top: 0;
+  width: var(--size);
+
+  &:before {
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    // checkbox icon
+    background-color: var(--icon-color-unselected);
+    height: var(--size);
+    mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='24' height='24'/%3E %3Cpolygon fill='currentColor' points='21 7 10 18 4.5 12.5 6 11 10 15 19.5 5.5'/%3E %3C/g%3E %3C/svg%3E");
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: calc(var(--size) * var(--icon-scale));
+    transform: scale(0.6);
+    width: var(--size);
+    z-index: 1;
+  }
+}
+
+@mixin inputCustom {
+  // CUSTOM CHECKBOX
+
+  // checkbox icon - selected
+  &:checked:before {
+    background-color: var(--icon-color-selected);
+    transform: scale(1);
+  }
+
+  // checkbox icon - indeterminated
+  &:not(:checked):indeterminate:before {
+    background-color: var(--icon-color-selected);
+    mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cpath fill='currentColor' d='M6 11h12v2H6z'/%3E%3C/g%3E%3C/svg%3E");
+    transform: scale(1);
+  }
+
+  // background - selected or indeterminated
+  &:checked + label:after,
+  &:indeterminate + label:after {
+    background-color: var(--background-selected);
+    border-color: var(--border-color-selected);
+  }
+
+  // background
+  &:disabled + label:after {
+    background-color: var(--background-disabled);
+    border-color: var(--border-color-disabled);
+  }
+
+  // background - unselected - focus
+  &:not(:disabled):focus + label:after {
+    border-color: var(--border-color-unselected-focus);
+  }
+
+  // background - unselected - hover
+  &:not(:disabled):hover + label:after,
+  &:not(:disabled):hover:focus + label:after {
+    border-color: var(--border-color-unselected-hover);
+  }
+
+  // background - selected - focus
+  &:not(:disabled):checked:focus + label:after,
+  &:not(:disabled):indeterminate:focus + label:after {
+    border-color: var(--border-color-selected-focus);
+  }
+
+  // background - selected - hover
+  &:not(:disabled):checked:hover + label:after,
+  &:not(:disabled):indeterminate:hover + label:after,
+  &:not(:disabled):checked:hover:focus + label:after,
+  &:not(:disabled):indeterminate:hover:focus + label:after {
+    background-color: var(--background-hover);
+    border-color: var(--border-color-selected-hover);
+  }
+}
+
+@mixin inputDisabled {
+  &:disabled + label {
+    color: var(--label-color-disabled);
+  }
+
+  &:checked:disabled:before {
+    background-color: var(--icon-color-disabled);
+  }
+
+  &:disabled,
+  &:disabled + label {
+    cursor: not-allowed;
+  }
+}
+
+@mixin inputTransitions {
+  // checkbox transitions
+  &:hover:before,
+  &:focus:before,
+  &:hover + label:after,
+  &:focus + label:after {
+    transition: 85ms ease-out;
+    transition-property: background-color, border-color, transform;
+  }
+
+  &:focus + label:before {
+    box-shadow: 0 0 0 var(--outline-width) var(--color-focus-outline);
+    transform: translate3d(0, 0, 0);
+    transition: 85ms ease-out;
+    transition-property: box-shadow, transform;
+  }
+}
+
+
+@mixin label {
+  color: var(--label-color);
+  cursor: pointer;
+  font-size: var(--label-font-size);
+  line-height: var(--lineheight-m);
+  padding-left: calc(var(--size) + var(--label-padding));
+  padding-top: calc((var(--size) - (var(--label-font-size) * var(--lineheight-m))) / 2);
+  position: relative;
+
+  &:before,
+  &:after {
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  // focus outline
+  &:before {
+    height: var(--size);
+    width: var(--size);
+  }
+
+  // background
+  &:after {
+    background-color: var(--background-unselected);
+    border: var(--border-width) solid var(--border-color-unselected);
+    height: var(--size);
+    width: var(--size);
+  }
+}
+
+@mixin noLabel {
+  & {
+    padding-left: var(--size);
+  }
+}
+
+@mixin error-text {
+  background-color: var(--color-error-light);
+  border-left: 8px solid var(--color-error);
+  color: var(--color-black);
+  display: flex;
+  flex-basis: 100%;
+  font-size: var(--fontsize-body-m);
+  margin-top: var(--spacing-2-xs);
+  padding: var(--spacing-2-xs);
+  position: relative;
+
+  &:before {
+    background: var(--color-error);
+    content: '';
+    display: inline-block;
+    height: var(--icon-size);
+    margin-right: var(--spacing-2-xs);
+    -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.175 3.45608C11.5239 2.86969 12.3977 2.84875 12.7842 3.39325L12.825 3.45608L21.8771 18.6666C22.2202 19.2432 21.8055 19.951 21.1235 19.9976L21.052 20H2.94799C2.24813 20 1.7987 19.3114 2.09013 18.7267L2.12295 18.6666L11.175 3.45608ZM13 16V18H11V16H13ZM13 8.5V14.5H11V8.5H13Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+    mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.175 3.45608C11.5239 2.86969 12.3977 2.84875 12.7842 3.39325L12.825 3.45608L21.8771 18.6666C22.2202 19.2432 21.8055 19.951 21.1235 19.9976L21.052 20H2.94799C2.24813 20 1.7987 19.3114 2.09013 18.7267L2.12295 18.6666L11.175 3.45608ZM13 16V18H11V16H13ZM13 8.5V14.5H11V8.5H13Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+    pointer-events: none;
+    width: var(--icon-size);
+  }
+}
+
+@mixin checkbox(
+  $all: true,
+  $base: false,
+  $input: false,
+  $label: false,
+  $noLabel: false,
+  $error-text: false,
+  $override: null,
+  $react: false
+) {
+  $className: 'checkbox';
+
+  @if $override {
+    $className: $override;
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include base;
+    }
+  }
+
+  @if $all or $input {
+    @if $react {
+      @include BemUtil.unscopedElement($className, 'input', true) {
+        @include input;
+        @include inputDisabled;
+        @include inputTransitions;
+        @include inputCustom;
+      }
+    } @else {
+      @include BemUtil.block($className, if($override, true, false), false) {
+        & #{&} {
+          @include BemUtil.element('input') {
+            @include input;
+            @include inputDisabled;
+            @include inputTransitions;
+            @include inputCustom;
+          }
+        }
+      }
+    }
+  }
+
+  @if $all or $label {
+    @if $react {
+      @include BemUtil.unscopedElement($className, 'label', true) {
+        @include label;
+      }
+    } @else {
+      @include BemUtil.block($className, if($override, true, false), false) {
+        & #{&} {
+          @include BemUtil.element('label') {
+            @include label;
+          }
+        }
+      }
+    }
+  }
+
+  @if $all or $noLabel {
+    @if $react {
+      @include BemUtil.unscopedElement($className, 'label', true) {
+        @include noLabel;
+      }
+    } @else {
+      @include BemUtil.unscopedElement($className, 'label') {
+        & #{&}--hidden {
+          @include noLabel;
+        }
+      }
+    }
+  }
+
+  @if $all or $error-text {
+    @if $react {
+      @include BemUtil.unscopedElement($className, 'error-text', true) {
+        @include error-text;
+      }
+    } @else {
+      @include BemUtil.block($className, if($override, true, false), false) {
+        & #{&} {
+          @include BemUtil.element('error-text') {
+            @include error-text;
+          }
+        }
+      }
+    }
+  }
+
+}

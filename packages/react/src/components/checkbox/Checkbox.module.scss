@@ -1,0 +1,30 @@
+@use 'hds-core/lib/components/checkbox/_checkbox-mixin' as CoreSass;
+
+.checkbox {
+  @include CoreSass.checkbox($all: false, $base: true, $react: true);
+}
+
+.input {
+  @include CoreSass.checkbox($all: false, $input: true, $react: true);
+}
+
+.label {
+  @include CoreSass.checkbox($all: false, $label: true, $react: true);
+}
+
+.noLabel {
+  @include CoreSass.checkbox($all: false, $noLabel: true, $react: true);
+}
+
+.errorText {
+  @include CoreSass.checkbox($all: false, $error-text: true, $react: true);
+}
+
+.helperText {
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
+}
+
+.tooltipButton {
+  display: inline-block;
+  margin-left: var(--spacing-2-xs);
+}
