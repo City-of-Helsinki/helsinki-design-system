@@ -53,15 +53,15 @@
     --icon-size: var(--spacing-s);
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: var(--breakpoint-m)) {
     --horizontal-margin: var(--horizontal-margin-medium);
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: var(--breakpoint-l)) {
     --horizontal-margin: var(--horizontal-margin-large);
   }
 
-  @media (min-width: 1248px) {
+  @media (min-width: var(--breakpoint-xl)) {
     --horizontal-margin: var(--horizontal-margin-x-large);
   }
 }
@@ -90,7 +90,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (var(--breakpoint-m)) {
     &__list {
       &--mobile {
         display: none;
@@ -106,7 +106,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (var(--breakpoint-m)) {
     &__list {
       &--desktop {
         display: flex;
