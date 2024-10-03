@@ -115,29 +115,9 @@
 }
 
 @mixin icon {
-  & .hds-icon {
-    flex-shrink: 0;
-    height: var(--computed-icon-size);
-    width: var(--computed-icon-size);
-  }
-
-  /* start-side icon */
-  & .hds-icon:first-child:not(:last-child) {
-    margin-left: var(--icon-reposition);
-  }
-
-  /* end-side icon */
-  & .hds-icon:last-child:not(:first-child) {
-    margin-right: var(--icon-reposition);
-  }
-}
-
-@mixin iconReact {
-  & {
-    flex-shrink: 0;
-    height: var(--computed-icon-size);
-    width: var(--computed-icon-size);
-  }
+  flex-shrink: 0;
+  height: var(--computed-icon-size);
+  width: var(--computed-icon-size);
 
   /* start-side icon */
   &:first-child:not(:last-child) {
@@ -274,7 +254,6 @@
   --color: var(--color-coat-of-arms);
 }
 
-
 /* black */
 
 @mixin primaryThemeBlack {
@@ -346,11 +325,23 @@
   }
 
   @if $all or $icon {
-    @include BemUtil.block($className, if($override, true, false), $react) {
-      @if $react {
-        @include iconReact;
-      } @else {
+    @if $react {
+      @include BemUtil.unscopedElement($className, 'icon', true) {
         @include icon;
+      }
+    } @else {
+      $buttonClass: $className;
+      $iconClass: 'icon';
+
+      @if not($override) {
+        $buttonClass: #{'hds-' + $buttonClass};
+        $iconClass: #{'hds-' + $iconClass};
+      }
+
+      @at-root {
+        .#{$buttonClass} .#{$iconClass} {
+          @include icon;
+        }
       }
     }
   }
@@ -439,15 +430,3 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
