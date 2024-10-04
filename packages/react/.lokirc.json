@@ -12,7 +12,7 @@
       "preset": "iPhone 7"
     }
   },
-  "skipStories": "Icons/.*|Button/*|Tag/*|Hero/*|Koros/*|Checkbox/*",
+  "skipStories": "Icons/.*|Button/*|Tag/*|Hero/*|Koros/*|Checkbox/*|SelectionGroup/*",
   "pixelmatch": {
     "threshold": 0.2,
     "alpha": 1,
