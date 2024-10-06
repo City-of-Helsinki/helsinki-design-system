@@ -120,5 +120,11 @@ $GLOBAL_BEM_OBJECT: null;
 }
 
 @function get-alias($config: null) {
-  @return get-config-value('elementDelimeter', $config);
+  @return get-config-value('alias', $config);
+}
+
+@function get-alias-value($entityName, $config: null) {
+  $alias: get-alias($config);
+
+  @return helpers.get-map-value-if-map($alias, $entityName);
 }

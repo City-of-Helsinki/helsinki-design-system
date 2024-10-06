@@ -46,12 +46,12 @@
   @return $selector;
 }
 
-@function create-selector-with-override($initial, $type, $override) {
+@function create-selector-with-alias($initial, $type, $alias) {
   $selector: '';
   $prefix: '';
 
   @if $type == 'custom' {
-    @error "Custom entities cannot have an override";
+    @error "Custom entities cannot have an alias";
     @return $selector;
   }
 
@@ -67,5 +67,5 @@
     $prefix: ' .';
   }
 
-  @return '#{$selector}#{$prefix}#{$override}';
+  @return '#{$selector}#{$prefix}#{$alias}';
 }

@@ -122,7 +122,7 @@ $EMIT_TARGET_ROOT_WITH_NESTED_CHILDREN: 'EMIT_TARGET_ROOT_WITH_NESTED_CHILDREN';
   $alias: get-level-alias($level, $config);
 
   @if $alias {
-    /// return selectors.create-selector-with-override($initial, $type, $override);
+    @return selectors.create-selector-with-alias($initial, $type, $alias);
   }
 
   @return selectors.create-selector($initial, $type, $name, $config);
@@ -259,34 +259,12 @@ $EMIT_TARGET_ROOT_WITH_NESTED_CHILDREN: 'EMIT_TARGET_ROOT_WITH_NESTED_CHILDREN';
   @return map.get($level, 'type');
 }
 
-@function get-level-selector-override($level) {
-  $type: get-level-type($level);
-
-  @if is-modifier-level($level) or is-element-level($level) {
-    $ruleMap: globals.get-global-bem-rules();
-    $type: get-level-type($level);
-    $name: get-level-name($level);
-
-    @return null;
-  }
-
-  @return null;
-}
-
 @function get-level-alias($level, $config: null) {
   $ruleMap: globals.get-global-bem-rules();
   $type: get-level-type($level);
   $name: get-level-name($level);
 
-  @if is-element-level($level) {
-    @return null;
-  } @else if is-modifier-level($level) {
-    @return null;
-  } @else if is-block-level($level) {
-    @return globals.get-block-name($config);
-  }
-
-  @return null;
+  @return globals.get-alias-value($name, $config);
 }
 
 @function get-level-name($level) {

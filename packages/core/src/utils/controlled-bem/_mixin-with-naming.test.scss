@@ -3,12 +3,13 @@
 @use './exports' as *;
 @use './globals' as globals;
 
-@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true, $alias: false) {
   $void: init-controlled-bem(
     $modifiers: $modifiers,
     $elements: $elements,
     $extras: $extras,
     $block: 'myBlock',
+    $alias: $alias,
     $config: (
       'blockPrefix': '',
     ),
@@ -47,19 +48,22 @@
           $modifiers: (
             'dark': (
               'element': true,
-              'alias': 'really-dark',
             ),
             /// renaming makes "ultra-light" only allowed element
             /// 'light': true,
             'light':
               (
                 'element': true,
-                'alias': 'ultra-light',
               ),
           ),
           $elements: (
             'base': true,
+            'element': true,
+          ),
+          $alias: (
+            'dark': 'really-dark',
             'element': 'nice-element',
+            'light': 'ultra-light',
           )
         );
       }

@@ -108,6 +108,7 @@
 
   /* stylelint-disable-next-line scss/at-if-no-null */
   @if $index != null {
+    /* stylelint-disable-next-line scss/operator-no-newline-after */
     @return string.slice($string, 1, $index - 1) + $replace +
       replace-string(string.slice($string, $index + string.length($search)), $search, $replace);
   }
@@ -116,7 +117,7 @@
 }
 
 @function get-map-value-if-map($assumedMap, $name) {
-  @if not is-value-map($assumedMap) {
+  @if not $assumedMap or not is-value-map($assumedMap) {
     @return null;
   }
 
