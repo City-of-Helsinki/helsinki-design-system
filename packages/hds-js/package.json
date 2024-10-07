@@ -14,7 +14,7 @@
     "http-status-typed": "^1.0.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
-    "oidc-client-ts": "^2.2.2"
+    "oidc-client-ts": "^2.4.1"
   },
   "scripts": {
     "prepublishOnly": "cp -r ./lib/. ."
