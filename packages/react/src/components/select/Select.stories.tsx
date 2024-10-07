@@ -5,156 +5,11 @@ import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
 import { clearAllSelectedOptions, defaultFilter, propsToGroups } from './utils';
+import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
 
 export default {
   component: Select,
   title: 'Components/Select',
-};
-
-const capitalise = (str: string) => str[0].toUpperCase() + str.slice(1);
-
-const fruitsAndVegetables = [
-  'apple',
-  'banana',
-  'orange',
-  'grape',
-  'strawberry',
-  'watermelon',
-  'kiwi',
-  'pineapple',
-  'mango',
-  'peach',
-  'carrot',
-  'broccoli',
-  'potato',
-  'tomato',
-  'cucumber',
-  'lettuce',
-  'spinach',
-  'bell pepper',
-  'eggplant',
-  'zucchini',
-  'blueberry',
-  'raspberry',
-  'blackberry',
-  'avocado',
-  'pear',
-  'lemon',
-  'lime',
-  'cherry',
-  'pumpkin',
-  'apricot',
-  'cranberry',
-  'fig',
-  'grapefruit',
-  'guava',
-  'honeydew',
-  'kale',
-  'nectarine',
-  'olive',
-  'papaya',
-  'pea',
-  'plum',
-  'radish',
-  'rutabaga',
-  'tangerine',
-  'turnip',
-  'watercress',
-  'yam',
-  'yucca',
-];
-
-const adjectives = [
-  'sweet',
-  'juicy',
-  'ripe',
-  'fresh',
-  'tasty',
-  'delicious',
-  'crisp',
-  'tangy',
-  'fragrant',
-  'colorful',
-  'nutritious',
-  'succulent',
-  'flavorful',
-  'sour',
-  'satisfying',
-  'exotic',
-  'vibrant',
-  'healthy',
-  'aromatic',
-  'wholesome',
-  'tender',
-  'zesty',
-  'bitter',
-  'spicy',
-  'crunchy',
-  'mellow',
-  'sugary',
-  'scented',
-  'sapid',
-  'mouthwatering',
-];
-
-function generateOptionLabels(count = -1): string[] {
-  // Arrays containing names of fruits and vegetables and adjectives
-
-  const length = count > 0 ? count : Math.floor(Math.random() * 20) + 1;
-
-  // Using set to avoid duplicates
-  const randomSet: Set<string> = new Set();
-  while (randomSet.size < length) {
-    // Randomly select a fruit or vegetable and an adjective
-    const randomFruitIndex = Math.floor(Math.random() * fruitsAndVegetables.length);
-    const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
-    const randomFruit = fruitsAndVegetables[randomFruitIndex];
-    const randomAdjective = adjectives[randomAdjectiveIndex];
-    const description = `${capitalise(randomAdjective)} ${randomFruit}`;
-    randomSet.add(description);
-  }
-
-  return Array.from(randomSet);
-}
-
-const createOptionsForVirtualization = (): SelectProps['options'] => {
-  let count = 0;
-  const makeUniqueOption = (value: string) => {
-    const valueWithCount = `${value} ${count}`;
-    count += 1;
-    return {
-      label: value,
-      value: valueWithCount,
-    };
-  };
-  return [
-    ...generateOptionLabels(500).map(makeUniqueOption),
-    ...generateOptionLabels(500).map(makeUniqueOption),
-    ...generateOptionLabels(500).map(makeUniqueOption),
-    ...generateOptionLabels(500).map(makeUniqueOption),
-  ];
-};
-
-const createGroupsForVirtualization = (): SelectProps['groups'] => {
-  let count = 0;
-  const makeUniqueOption = (value: string) => {
-    const valueWithCount = `${value} ${count}`;
-    count += 1;
-    return {
-      label: value,
-      value: valueWithCount,
-    };
-  };
-  return [
-    {
-      label: 'Healthy choices',
-      options: generateOptionLabels(1000).map(makeUniqueOption),
-    },
-    {
-      label: 'More healthy choices',
-      options: generateOptionLabels(1000).map(makeUniqueOption),
-    },
-  ];
 };
 
 const createRandomGroupsForSearch = (search: string) => {
@@ -164,14 +19,7 @@ const createRandomGroupsForSearch = (search: string) => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Random items',
-      options: [
-        ...generateOptionLabels().map((value) => {
-          return {
-            value,
-            label: value,
-          };
-        }),
-      ],
+      options: getOptions(),
     },
     {
       label: 'Common items',
@@ -215,7 +63,7 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
 };
 
 export const Singleselect = () => {
-  const options = generateOptionLabels(20);
+  const options = getOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
@@ -235,7 +83,7 @@ export const SingleselectWithGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(40),
+      options: getOptionLabels(40),
     },
     {
       label: 'Bad choices',
@@ -254,7 +102,7 @@ export const SingleselectWithGroups = () => {
 
 export const OptionsAsHtml = () => {
   return (
-    <Select onChange={dummyOnChange} texts={defaultTexts}>
+    <Select onChange={dummyOnChange} texts={defaultTexts} id="hds-select-component">
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -271,7 +119,7 @@ export const WithGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(40),
+      options: getOptionLabels(40),
     },
     {
       label: 'Bad choices',
@@ -296,11 +144,11 @@ export const WithControls = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
   ];
 
@@ -372,7 +220,7 @@ export const WithValidation = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(3),
+      options: getOptionLabels(3),
     },
     {
       label: 'Bad choices',
@@ -400,7 +248,7 @@ export const WithValidation = () => {
 };
 
 export const WithFilter = () => {
-  const options = generateOptionLabels(20);
+  const options = getOptionLabels(20);
   return (
     <Select
       options={options}
@@ -414,7 +262,7 @@ export const WithFilter = () => {
 };
 
 export const WithSearch = () => {
-  const options = generateOptionLabels(20);
+  const options = getOptionLabels(20);
   return (
     <>
       <Select
@@ -432,7 +280,7 @@ export const WithSearch = () => {
 };
 
 export const Multiselect = () => {
-  const options = generateOptionLabels(20);
+  const options = getOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
@@ -453,11 +301,11 @@ export const MultiselectWithGroups = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
   ];
 
@@ -480,11 +328,11 @@ export const MultiselectWithGroupsAndFilter = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
   ];
 
@@ -499,6 +347,7 @@ export const MultiselectWithGroupsAndFilter = () => {
       filter={defaultFilter}
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
+      id="hds-select-component"
     />
   );
 };
@@ -515,6 +364,7 @@ export const MultiselectWithGroupsAndSearch = () => {
         onSearch={onSearch}
         icon={<IconLocation />}
         texts={defaultTextsForMultiSelect}
+        id="hds-select-component"
       />
       <p>Search with &quot;none&quot; to return an empty set</p>
       <p>Search with &quot;error&quot; to simulate an error.</p>
@@ -526,11 +376,11 @@ export const MultiselectWithoutTags = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
     {
       label: 'More healthy choices',
-      options: generateOptionLabels(4),
+      options: getOptionLabels(4),
     },
   ];
 
@@ -550,12 +400,22 @@ export const MultiselectWithoutTags = () => {
 };
 
 export const VirtualizedMultiselectWithGroups = () => {
+  const groups = [
+    {
+      label: 'Healthy choices',
+      options: getLargeBatchOfUniqueValues(1000),
+    },
+    {
+      label: 'More healthy choices',
+      options: getLargeBatchOfUniqueValues(1000),
+    },
+  ];
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
   return (
     <Select
-      groups={createGroupsForVirtualization()}
+      groups={groups}
       onChange={onChange}
       multiSelect
       virtualize
@@ -565,18 +425,20 @@ export const VirtualizedMultiselectWithGroups = () => {
   );
 };
 export const VirtualizedSingleselectWithGroups = () => {
+  const groups = [
+    {
+      label: 'Healthy choices',
+      options: getLargeBatchOfUniqueValues(1000),
+    },
+    {
+      label: 'More healthy choices',
+      options: getLargeBatchOfUniqueValues(1000),
+    },
+  ];
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return (
-    <Select
-      groups={createGroupsForVirtualization()}
-      onChange={onChange}
-      virtualize
-      icon={<IconLocation />}
-      texts={defaultTexts}
-    />
-  );
+  return <Select groups={groups} onChange={onChange} virtualize icon={<IconLocation />} texts={defaultTexts} />;
 };
 
 export const VirtualizationMultiselectWithoutGroups = () => {
@@ -585,7 +447,7 @@ export const VirtualizationMultiselectWithoutGroups = () => {
   }, []);
   return (
     <Select
-      options={createOptionsForVirtualization()}
+      options={getLargeBatchOfUniqueValues(2000)}
       onChange={onChange}
       virtualize
       multiSelect
@@ -599,7 +461,7 @@ export const VirtualizedSingleselectWithoutGroups = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return <Select options={createOptionsForVirtualization()} onChange={onChange} virtualize texts={defaultTexts} />;
+  return <Select options={getLargeBatchOfUniqueValues(2000)} onChange={onChange} virtualize texts={defaultTexts} />;
 };
 
 export const FocusListenerExample = () => {
@@ -704,7 +566,7 @@ export const FocusListenerExample = () => {
       </style>
       <div className={isFocused ? 'focused' : 'blurred'}>
         <Select
-          options={createOptionsForVirtualization()}
+          options={getLargeBatchOfUniqueValues(2000)}
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
