@@ -28,6 +28,23 @@ describe('<Logo /> spec', () => {
       getElementAttributesMisMatches(element, {
         ...imgProps,
         dataTestId: undefined,
+        'data-testid': imgProps.dataTestId,
+      } as HTMLAttributes<HTMLImageElement>),
+    ).toHaveLength(0);
+  });
+  it('The data-testid works and overrides dataTestId', async () => {
+    const propsWithDataTestId = {
+      'data-testid': 'data-testid',
+      dataTestId: 'dataTestId',
+    };
+    const { getByTestId } = render(
+      <Logo {...propsWithDataTestId} src="dummyPath" alt="logo" title="Helsingin kaupunki" />,
+    );
+    const element = getByTestId(propsWithDataTestId['data-testid']);
+    expect(
+      getElementAttributesMisMatches(element, {
+        ...propsWithDataTestId,
+        dataTestId: undefined,
       } as HTMLAttributes<HTMLImageElement>),
     ).toHaveLength(0);
   });
