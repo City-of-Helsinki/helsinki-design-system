@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Logo] Fixed data-testid attribute not being set with native props
+- [Login] Fixed GraphQLModule exports
 
 ### Core
 
