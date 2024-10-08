@@ -10,6 +10,7 @@ export default class CookieHandler {
   #shadowDomUpdateCallback;
   #siteSettings;
   #lang;
+  #directions;
   #cookieName = 'city-of-helsinki-cookie-consents'; // Overridable default value
   #formReference;
 
@@ -233,6 +234,7 @@ export default class CookieHandler {
           elementGroup,
           this.#siteSettings.translations,
           this.#lang,
+          this.#directions,
           this.#siteSettings.fallbackLanguage,
         );
       } else {
@@ -487,6 +489,16 @@ export default class CookieHandler {
    */
   async init() {
     await this.#removeInvalidGroupsFromCookie();
-    return this.#siteSettings;
+
+    // Parse directions from site settings to
+    this.#directions = this.#siteSettings.languages.reduce((acc, lang) => {
+      acc[lang.code] = lang.direction;
+      return acc;
+    }, {});
+
+    return {
+      siteSettings: this.#siteSettings,
+      directions: this.#directions,
+    };
   }
 }

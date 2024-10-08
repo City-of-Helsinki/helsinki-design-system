@@ -35,6 +35,7 @@ export class CookieConsentCore {
   #monitor;
   #cookieHandler;
   #siteSettings;
+  #directions;
   #shadowRootElement = null;
 
   #bannerElements = {
@@ -112,7 +113,11 @@ export class CookieConsentCore {
       }
     };
 
-    this.#cookieHandler = new CookieHandler({ shadowDomUpdateCallback, siteSettingsObj, lang: language });
+    this.#cookieHandler = new CookieHandler({
+      siteSettingsObj,
+      lang: language,
+      shadowDomUpdateCallback,
+    });
     this.#monitor = new MonitorAndCleanBrowserStorages();
   }
 
@@ -330,12 +335,14 @@ export class CookieConsentCore {
       this.#siteSettings.translations,
       'settingsSaved',
       this.#language,
+      this.#directions,
       this.#siteSettings.fallbackLanguage,
     );
     const notificationAriaLabel = getTranslation(
       this.#siteSettings.translations,
       'notificationAriaLabel',
       this.#language,
+      this.#directions,
       this.#siteSettings.fallbackLanguage,
     );
 
@@ -343,7 +350,7 @@ export class CookieConsentCore {
       const notificationHtml = getNotificationHtml(message, notificationAriaLabel, 'success');
       this.#bannerElements.ariaLive.innerHTML = notificationHtml;
     } else {
-      this.#bannerElements.ariaLive.textContent = message;
+      this.#bannerElements.ariaLive.textContent = message.value;
     }
 
     // Remove ariaLive after 5 seconds
@@ -443,13 +450,20 @@ export class CookieConsentCore {
       // Build table rows
       let tableRowsHtml = '';
       cookieGroup.cookies.forEach((cookie) => {
-        tableRowsHtml += getTableRowHtml(cookie, translations, lang, this.#siteSettings.fallbackLanguage);
+        tableRowsHtml += getTableRowHtml(
+          cookie,
+          translations,
+          lang,
+          this.#directions,
+          this.#siteSettings.fallbackLanguage,
+        );
       });
 
       groupsHtml += getGroupHtml(
         cookieGroup,
         translations,
         lang,
+        this.#directions,
         this.#siteSettings.fallbackLanguage,
         cookieGroup.groupId,
         tableRowsHtml,
@@ -550,6 +564,7 @@ export class CookieConsentCore {
     shadowRoot.innerHTML += getCookieBannerHtml(
       siteSettings.translations,
       lang,
+      this.#directions,
       siteSettings.fallbackLanguage,
       siteSettings,
       groupsHtml,
@@ -647,8 +662,9 @@ export class CookieConsentCore {
       settingsPageElement = document.querySelector(this.#settingsPageSelector);
     }
 
-    const siteSettings = await this.#cookieHandler.init();
+    const { siteSettings, directions } = await this.#cookieHandler.init();
     this.#siteSettings = siteSettings;
+    this.#directions = directions;
 
     if (settingsPageElement) {
       this.#settingsPageElement = settingsPageElement;

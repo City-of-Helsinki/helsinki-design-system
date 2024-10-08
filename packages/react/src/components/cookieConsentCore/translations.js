@@ -6,16 +6,26 @@
  * @param {object} translations - The translations object.
  * @param {string} key - The translation key.
  * @param {string} lang - The language code.
+ * @param {object} directions - The language directions.
  * @param {string} fallbackLang - The fallback language code in case the translation is missing in the provided language.
  * @param {object} parameters - The parameters used to replace placeholders in the translation.
- * @return {string} - The translated string.
+ * @return {object} - The translated object.
+ * @return {string} [object.value] - The translated value.
+ * @return {boolean} [object.fallback] - Whether the translation is a fallback.
+ * @return {string} [object.lang] - The language code of the translation.
+ * @return {string} [object.dir] - The text direction of the translation.
  * @throws {Error} - If the translation is missing for the provided key and language.
  */
 // eslint-disable-next-line import/prefer-default-export
-export function getTranslation(translations, key, lang, fallbackLang, parameters) {
+export function getTranslation(translations, key, lang, directions, fallbackLang, parameters) {
   // Debug mode, return key instead of translation
   if (lang === 'key') {
-    return key;
+    return {
+      value: key,
+      fallback: true,
+      lang,
+      dir: 'ltr',
+    };
   }
 
   // Fallback language is English by default
@@ -41,10 +51,22 @@ export function getTranslation(translations, key, lang, fallbackLang, parameters
     return index(obj[is[0]], is.slice(1), value);
   }
 
-  // Find translation based on key, fallback if not found
-  let translation = null;
+  /**
+   * Get language direction, fallback to ltr
+   * @param {string} language - language code
+   * @returns {string} - language direction
+   */
+  const getDir = (language) => directions[language] || 'ltr';
 
-  const translationNotFound = !translations[key];
+  // Find translation based on key, fallback if not found
+  let translation = {
+    value: null,
+    fallback: false,
+    lang: 'en',
+    dir: 'ltr',
+  };
+
+  const translationKeyNotFound = !translations[key];
   const translationIsAnArray = Array.isArray(translations[key]);
   const translationIsObjectAndHasNoKeys =
     typeof translations[key] === 'object' && !translationIsAnArray && Object.keys(translations[key]).length === 0;
@@ -55,29 +77,55 @@ export function getTranslation(translations, key, lang, fallbackLang, parameters
   //   first available language,
   // in that order, returns translation key if not found
 
-  if (translationNotFound || translationIsObjectAndHasNoKeys) {
+  if (translationKeyNotFound || translationIsObjectAndHasNoKeys) {
     // If translation is missing, return key
+    translation = {
+      value: key,
+      fallback: true,
+      lang: 'en',
+      dir: 'ltr',
+    };
 
-    translation = key;
     // eslint-disable-next-line no-console
     console.error(`Cookie consent: Missing translation key: ${key}, falling back to key as translation`);
-  } else if (typeof translations[key] === 'string' || typeof translations[key] === 'number') {
+  } else if (typeof translations[key] === 'string') {
     // Same translation for all languages.
-    translation = translations[key];
+    translation = {
+      value: translations[key],
+      fallback: false,
+      lang,
+      dir: getDir(lang),
+    };
   } else if (typeof translations[key] === 'object' && !translationIsAnArray) {
     // Different translations for different languages.
-    if (translations[key][lang]) {
+    if (translations[key][lang] && translations[key][lang] !== '') {
       // Translation was found in given language, use it
-      translation = translations[key][lang];
-    } else if (translations[key][fallbackLang]) {
+      translation = {
+        value: translations[key][lang],
+        fallback: false,
+        lang,
+        dir: getDir(lang),
+      };
+    } else if (translations[key][fallbackLang] && translations[key][fallbackLang] !== '') {
       // Translation was not found in given language, but it was found in fallback language, use it
-      translation = translations[key][fallbackLang];
+      translation = {
+        value: translations[key][fallbackLang],
+        fallback: true,
+        lang: fallbackLang,
+        dir: getDir(fallbackLang),
+      };
       // eslint-disable-next-line no-console
       console.error(`Cookie consent: Missing translation: ${key}:${lang}, using fallback language: ${fallbackLang}`);
     } else {
       // Translation was not found in given language or fallback language, use first available translation
       const firstLang = Object.keys(translations[key])[0];
-      translation = translations[key][firstLang];
+      // translation = translations[key][firstLang];
+      translation = {
+        value: translations[key][firstLang],
+        fallback: true,
+        lang: firstLang,
+        dir: getDir(firstLang),
+      };
       // eslint-disable-next-line no-console
       console.error(
         `Cookie consent: Missing primary and fallback translation: ${key}:${lang}/${fallbackLang}, using first known language: ${firstLang}`,
@@ -88,9 +136,12 @@ export function getTranslation(translations, key, lang, fallbackLang, parameters
     throw new Error(`Cookie consent: Invalid translation: ${key}, should be string, number or object`);
   }
 
-  if (translation) {
+  if (translation && translation.value !== null) {
+    // Convert translation value to string in case someone has used a number instead of a string
+    translation.value = translation.value.toString();
+
     // Replace dollar strings in translation with corresponding data from parameters
-    return translation.replace(/\$\{.+?\}/g, (match) => {
+    translation.value = translation.value.replace(/\$\{.+?\}/g, (match) => {
       const stripDollarAndParenthesis = match.replace(/(^\$\{|\}$)/g, '');
       const parameter = index(parameters, stripDollarAndParenthesis);
 
@@ -113,6 +164,7 @@ export function getTranslation(translations, key, lang, fallbackLang, parameters
       }
       return parameter;
     });
+    return translation;
   }
   throw new Error(`Cookie consent: Missing translation: ${key}:${lang}`);
 }

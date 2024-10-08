@@ -1,4 +1,21 @@
 {
+  "languages": [
+    {
+      "code": "fi",
+      "name": "Finnish",
+      "direction": "ltr"
+    },
+    {
+      "code": "sv",
+      "name": "Swedish",
+      "direction": "ltr"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "direction": "ltr"
+    }
+  ],
   "siteName": "Hel.fi",
   "cookieName": "helfi-cookie-consents",
   "monitorInterval": 500,
