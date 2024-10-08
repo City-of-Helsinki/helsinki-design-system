@@ -51,6 +51,18 @@ describe('cookieConsentCore', () => {
     });
   }
 
+  /**
+   * Wait for console log to NOT be called with a specific message
+   * @param level Console level, e.g. 'log', 'warn', 'error'
+   * @param messageToWait Message to ensure was NOT called
+   */
+  async function waitForConsoleNotCalled(level, messageToWait) {
+    const consoleLogSpy = jest.spyOn(console, level);
+    await waitFor(() => {
+      expect(consoleLogSpy).not.toHaveBeenCalledWith(messageToWait);
+    });
+  }
+
   const urls = {
     siteSettingsJsonUrl: '/helfi_sitesettings.json',
     siteSettings404: '/404.json',
@@ -1503,11 +1515,35 @@ describe('cookieConsentCore', () => {
   });
 
   // - Language tests
-  it('should fall back to fallback language if the wanted language is not found in site settings and complain in console.error', async () => {
+  it('should fall back to fallback language if the wanted language is NOT found in site settings and NOT complain in console.error', async () => {
     instance = await CookieConsentCore.create(siteSettingsObj, { ...optionsEvent, language: 'ru' });
     await waitForRoot();
     addBoundingClientRect(getContainerElement());
-    await waitForConsole('error', 'Cookie consent: Missing translation: description:ru, using fallback language: en');
+    await waitForConsoleNotCalled(
+      'error',
+      'Cookie consent: Missing translation: description:ru, using fallback language: en',
+    );
+    const showButton = getShowDetailsButtonElement();
+    expect(showButton).not.toBeNull();
+  });
+
+  it('should fall back to fallback language if the wanted language is found in site settings and SHOULD complain in console.error', async () => {
+    instance = await CookieConsentCore.create(
+      {
+        ...siteSettingsObj,
+        translations: {
+          ...siteSettingsObj.translations,
+          description: {
+            en: 'fallback',
+            fi: 'fallback',
+          },
+        },
+      },
+      { ...optionsEvent, language: 'sv' },
+    );
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    await waitForConsole('error', 'Cookie consent: Missing translation: description:sv, using fallback language: en');
     const showButton = getShowDetailsButtonElement();
     expect(showButton).not.toBeNull();
   });

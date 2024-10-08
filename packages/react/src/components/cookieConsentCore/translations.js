@@ -114,8 +114,12 @@ export function getTranslation(translations, key, lang, directions, fallbackLang
         lang: fallbackLang,
         dir: getDir(fallbackLang),
       };
-      // eslint-disable-next-line no-console
-      console.error(`Cookie consent: Missing translation: ${key}:${lang}, using fallback language: ${fallbackLang}`);
+
+      // Show error message only if wanted language is defined in directions (originally from siteSettings.languages)
+      if (directions[lang]) {
+        // eslint-disable-next-line no-console
+        console.error(`Cookie consent: Missing translation: ${key}:${lang}, using fallback language: ${fallbackLang}`);
+      }
     } else {
       // Translation was not found in given language or fallback language, use first available translation
       const firstLang = Object.keys(translations[key])[0];
