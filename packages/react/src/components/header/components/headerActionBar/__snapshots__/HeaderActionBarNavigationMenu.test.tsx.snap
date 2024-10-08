@@ -90,7 +90,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
           </div>
         </div>
         <div
-          class="headerNavigationMenu mobileMenuOpen"
+          class="headerNavigationMenu mobileMenuOpen visible"
           id="hds-mobile-menu"
         >
           <div
