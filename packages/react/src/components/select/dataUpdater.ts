@@ -196,20 +196,20 @@ const dataUpdater = (
   }
 
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
-    if (openOrClose(false)) {
+    /* if (openOrClose(false)) {
       setFocusTarget('button');
       return {
         ...returnValue,
         didDataChange: true,
       };
-    }
+    } */
   }
 
   if (isCloseOnFocusMoveEvent(id, type) && current.open) {
-    return {
+    /* return {
       ...returnValue,
       didDataChange: openOrClose(false),
-    };
+    }; */
   }
 
   if (isSearchSuccessEvent(id, type)) {

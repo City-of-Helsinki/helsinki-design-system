@@ -1,7 +1,19 @@
-import { test, expect } from '@playwright/test';
-import { takeAllStorySnapshots, getComponentStorybookUrls, takeScreenshotWithSpacing, waitFor } from '../../../helpers';
+import { test, expect, Page } from '@playwright/test';
+import {
+  takeAllStorySnapshots,
+  getComponentStorybookUrls,
+  takeScreenshotWithSpacing,
+  waitFor,
+  createScreenshotFileName,
+} from '../../../helpers';
 import { createSelectHelpers } from '../../component-helpers';
-import { focusLocator, getFocusedElement, isLocatorFocused } from '../../element-helpers';
+import {
+  focusLocator,
+  getFocusedElement,
+  getScrollTop,
+  isLocatorFocused,
+  waitForStablePosition,
+} from '../../element-helpers';
 import { createKeyboardHelpers } from '../../keyboard-helpers';
 
 const componentName = 'select';
@@ -14,15 +26,17 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   });
 });
 
-test.describe(`Testing ${storybook} component "${componentName}"`, () => {
-  test('Select option and group', async ({ page, isMobile }) => {
+test.describe(`Testing selecting options and groups in Select"`, () => {
+  const gotoStorybookUrlByName = async (page: Page, name: string) => {
+    const filteredUrls = await getComponentStorybookUrls(page, componentName, storybook, [name]);
+    const targetUrl = filteredUrls[0];
+    await page.goto(`file://${targetUrl}`);
+    return targetUrl;
+  };
+
+  test('Select an option and one group', async ({ page, isMobile }, testInfo) => {
     if (!isMobile) {
-      const targetStories = await getComponentStorybookUrls(page, componentName, storybook, [
-        'Multiselect With Groups',
-      ]);
-      //console.log('targetStories', targetStories);
-      const componentUrl = targetStories[0];
-      await page.goto(`file://${componentUrl}`);
+      await gotoStorybookUrlByName(page, 'Multiselect With Groups');
       const selectId = 'hds-select-component';
 
       const selectComponent = createSelectHelpers(page, selectId);
@@ -32,31 +46,20 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       await selectComponent.selectOptionByIndex({ index: 1 });
       await selectComponent.selectGroupByIndex({ index: 1 });
 
-      const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${
-        isMobile ? 'mobile' : 'desktop'
-      }-custom-multi-select`;
-
+      const screenshotName = createScreenshotFileName(testInfo, isMobile);
       const clip = await selectComponent.getBoundingBox();
-      await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
+      await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
     }
   });
-  test('Keyboard navigation', async ({ page, isMobile }) => {
+  test('Keyboard navigation', async ({ page, isMobile }, testInfo) => {
     if (!isMobile) {
-      const targetStories = await getComponentStorybookUrls(page, componentName, storybook, [
-        'Multiselect With Groups',
-      ]);
-      //console.log('targetStories', targetStories);
-      const componentUrl = targetStories[0];
-      await page.goto(`file://${componentUrl}`);
+      await gotoStorybookUrlByName(page, 'Multiselect With Groups');
       const selectId = 'hds-select-component';
       const selectComponent = createSelectHelpers(page, selectId);
       const keyboard = createKeyboardHelpers(page);
       expect(await selectComponent.isOptionListOpen()).toBeFalsy();
 
       await focusLocator(selectComponent.getElementByName('button'));
-
-      const button = selectComponent.getElementByName('button');
-      await button.focus();
 
       await keyboard.space(); // opens menu and moves focus to #0 (label)
       await waitFor(() => {
@@ -67,21 +70,17 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       await keyboard.down(); // moves focus to #2
       await keyboard.down(); // moves focus to #3
 
-      const elHTML = await getFocusedElement(selectComponent.getElementByName('button'), true);
-
       const options = await selectComponent.getOptionElements({ all: true });
-      const isFocused = await isLocatorFocused(options[3]);
-      console.log('---isFocused', isFocused);
       await waitFor(() => {
         return isLocatorFocused(options[3]);
       });
 
-      const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${
-        isMobile ? 'mobile' : 'desktop'
-      }-custom-multi-select-kb`;
+      await waitForStablePosition(options[3]);
+      await selectComponent.scrollGroupInToView({ index: 0 });
+      const screenshotName = createScreenshotFileName(testInfo, isMobile);
 
       const clip = await selectComponent.getBoundingBox();
-      await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
+      await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
     }
   });
 });

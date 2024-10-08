@@ -4,10 +4,13 @@ import { Locator, Page } from '@playwright/test';
 import {
   isElementVisible,
   isLocatorSelectedOrChecked,
-  getScrollAmountToCenterElement,
+  getDiffYBetweenElementCenters,
   waitForElementToBeHidden,
   waitForElementToBeVisible,
-  scrollWithMouse,
+  combineBoundingBoxes,
+  getScrollTop,
+  scrollLocatorTo,
+  waitForStablePosition,
 } from './element-helpers';
 import { waitFor } from '../helpers';
 
@@ -37,6 +40,11 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
       throw new Error(`Unknown select element ${elementName}. Id not found.`);
     }
     return page.locator(`#${id}`) as Locator;
+  };
+
+  const getScrollableListContainer = () => {
+    const parentContainer = getElementByName('selectionsAndListsContainer');
+    return parentContainer.locator('> div').first();
   };
 
   const isOptionListOpen = async (): Promise<boolean> => {
@@ -82,6 +90,13 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     }
     const res = listElement.locator(selectorList.join(','));
     return res.all();
+  };
+
+  // adds given amount to the current scrollTop
+  const scrollList = async (amount: number) => {
+    const scrollableList = getScrollableListContainer();
+    const current = await getScrollTop(scrollableList);
+    return scrollLocatorTo(scrollableList, Math.round(current + amount));
   };
 
   const getGroups = async () => {
@@ -197,8 +212,18 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
 
   const scrollOptionInToView = async (option: Locator) => {
     const listContainer = getElementByName('selectionsAndListsContainer');
-    const scrollTo = await getScrollAmountToCenterElement(option, listContainer);
-    await scrollWithMouse(listContainer, scrollTo);
+    const scrollTo = await getDiffYBetweenElementCenters(option, listContainer);
+    await scrollList(scrollTo);
+  };
+
+  const scrollGroupInToView = async ({ index }: { index: number }) => {
+    const options = await getOptionsInGroup(index);
+    const label = options[0];
+    const lastOption = options[options.length - 1];
+    const box = await combineBoundingBoxes([label, lastOption]);
+    const listContainer = getElementByName('selectionsAndListsContainer');
+    const scrollTo = await getDiffYBetweenElementCenters(box, listContainer);
+    await waitForStablePosition(lastOption);
   };
 
   const selectGroupByIndex = async ({ index }: { index: number }) => {
@@ -211,26 +236,16 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     await groupLabel.click();
     // if single select, the menu is closed, so cannot check the option element itself
     await waitUntilSelectedOptionCountChanges(currentCount);
-
-    const options = await getOptionsInGroup(index);
-    await scrollOptionInToView(options[options.length - 1]);
-    return Promise.resolve(groupLabel);
   };
 
   const getBoundingBox = async (spacing = 10) => {
-    const box = { x: 0, y: 0, height: 0, width: 0 };
     const container = getElementByName('container');
     const selectionsAndListsContainer = getElementByName('selectionsAndListsContainer');
-    const cBox = (await container.boundingBox()) as DOMRect;
-    const sBox = (await selectionsAndListsContainer.boundingBox()) as DOMRect;
-    console.log('cBox', cBox);
-    console.log('sBox', sBox);
-    const maxX = Math.max(cBox.x + cBox.width, sBox.x + sBox.width);
-    const maxY = Math.max(cBox.y + cBox.height, sBox.y + sBox.height);
-    box.x = Math.min(cBox.x, sBox.x) - spacing;
-    box.y = Math.min(cBox.y, sBox.y) - spacing;
-    box.width = Math.min(maxX - box.x) + spacing;
-    box.height = Math.min(maxY - box.y) + spacing;
+    const box = await combineBoundingBoxes([container, selectionsAndListsContainer]);
+    box.x -= spacing;
+    box.y -= spacing;
+    box.height += spacing;
+    box.width += spacing;
     return box;
   };
 
@@ -252,5 +267,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     scrollOptionInToView,
     selectGroupByIndex,
     selectOptionByIndex,
+    scrollGroupInToView,
+    getScrollableListContainer,
   };
 };

@@ -1,5 +1,12 @@
 import { ElementHandle, Locator, Page } from '@playwright/test';
-import { getLocatorOrHandlePage } from '../helpers';
+import { getLocatorOrHandlePage, waitFor, waitForStable } from '../helpers';
+
+type BoundingBox = {
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
 
 export async function isElementVisible(element: ElementHandle | Locator | null) {
   if (!element || !element.isVisible) {
@@ -64,11 +71,10 @@ export async function isLocatorFocused(element: Locator) {
 }
 
 // console.log() do not work inside evaluate, so for debugging an element, its outerHTML is returned.
-export async function getFocusedElement(anyLocator: Locator, debug = false) {
+export async function getFocusedElement(anyLocator: Locator) {
   return anyLocator.evaluate((el, debug) => {
-    const active = document.activeElement;
-    return debug && active ? active.outerHTML : active;
-  }, debug);
+    return document.activeElement;
+  });
 }
 
 export async function focusLocator(element: Locator) {
@@ -76,12 +82,22 @@ export async function focusLocator(element: Locator) {
   return element;
 }
 
-// does not assume element could be higher than container etc.
-// scrolls only vertically
-// scrolls to center
-export async function getScrollAmountToCenterElement(element: Locator, container: Locator) {
-  const containerBox = await container.boundingBox();
-  const elementBox = await element.boundingBox();
+// console.log() do not work inside any evaluate(), so this is for debugging an element
+export async function getLocatorOuterHTML(anyLocator: Locator) {
+  return anyLocator.evaluate((el) => {
+    return el.outerHTML;
+  });
+}
+
+export async function getDiffYBetweenElementCenters(element: Locator | BoundingBox, container: Locator | BoundingBox) {
+  const getBox = async (boxOrLocator: Locator | BoundingBox): Promise<BoundingBox | null> => {
+    if ((boxOrLocator as Locator).boundingBox) {
+      return (boxOrLocator as Locator).boundingBox();
+    }
+    return Promise.resolve(boxOrLocator as BoundingBox);
+  };
+  const containerBox = await getBox(container);
+  const elementBox = await getBox(element);
   if (!containerBox || !elementBox) {
     return 0;
   }
@@ -89,7 +105,7 @@ export async function getScrollAmountToCenterElement(element: Locator, container
   const elementMaxY = elementBox.y + elementBox.height;
   if (elementMaxY < viewportMaxY && elementBox.y > containerBox.y) {
     // already visible
-    return 0;
+    //return 0;
   }
   if (elementBox.y < containerBox.y) {
     return elementBox.y - containerBox.y;
@@ -98,30 +114,156 @@ export async function getScrollAmountToCenterElement(element: Locator, container
   return elementBox.y + elementBox.height / 2 - vpCenter;
 }
 
+// calculate unified bounding Box
+export async function combineBoundingBoxes(elements: Locator[]): Promise<BoundingBox> {
+  const boxes = (
+    await Promise.all(
+      elements.map(async (elem) => {
+        return await elem.boundingBox();
+      }),
+    )
+  ).filter((box) => !!box);
+  const currentBox = boxes.shift() as BoundingBox;
+  boxes.forEach((box) => {
+    if (!box) {
+      return;
+    }
+    currentBox.x = Math.min(currentBox.x, box.x);
+    currentBox.y = Math.min(currentBox.y, box.y);
+    const maxX = Math.max(currentBox.x + currentBox.width, box.x + box.width);
+    const maxY = Math.max(currentBox.y + currentBox.height, box.y + box.height);
+    currentBox.width = maxX - currentBox.x;
+    currentBox.height = maxY - currentBox.y;
+  });
+  return currentBox;
+}
+
 // moves mouse to the middle of the element and uses mouse wheel to scroll.
 // useful when scrolled element is inside an element which is inside a container, like a dropdown list.
-export async function scrollWithMouse(element: Locator, scrollAmount: number) {
+// does not check if scrolling is possible the given amount
+export async function scrollWithMouse(element: Locator, scrollAmount: number, targetToMove: Locator) {
   if (scrollAmount == 0) {
-    return false;
+    return Promise.resolve(false);
   }
   const page = await getLocatorOrHandlePage(element);
   const elementBox = await element.boundingBox();
   if (!elementBox) {
     return Promise.resolve(false);
   }
-  await page.mouse.move(elementBox.x + elementBox.width / 2, elementBox.y + elementBox.height / 2);
+  const getTargetY = async () => {
+    const bb = await targetToMove.boundingBox();
+    return bb ? bb.y : null;
+  };
+  const targetStartY = await getTargetY();
+  if (targetStartY === null) {
+    return Promise.resolve(false);
+  }
+  //await page.mouse.move(elementBox.x + elementBox.width / 2, elementBox.y + elementBox.height / 2);
+  await element.hover();
+  // from docs: this method does not wait for the scrolling to finish before returning.
+  // so must wait for scroll to change and end
   await page.mouse.wheel(0, scrollAmount);
+  const values = [targetStartY];
+  await waitFor(async () => {
+    const currentY = (await getTargetY()) as number;
+    values.push(currentY);
+    // "dirty" comparison. Just check scroll has happend (current !== first) and haven't changed for 2 checks.
+    return Promise.resolve(
+      currentY !== values[0] && currentY === values[values.length - 1] && currentY === values[values.length - 2],
+    );
+  });
 
   return Promise.resolve(true);
 }
 
-// not tested yet:
-export async function scrollTo(element: Locator, scrollAmount: number) {
-  if (scrollAmount == 0) {
-    return false;
+export async function getScrollTop(element: Locator) {
+  return element.evaluate((el) => {
+    return el.scrollTop;
+  });
+}
+
+export async function getMaxScrollTop(element: Locator) {
+  return element.evaluate((el) => {
+    return el.scrollHeight - el.clientHeight;
+  });
+}
+
+export async function scrollTo(element: Locator, scrollTarget: number) {
+  return element.evaluate((el, y) => {
+    el.scrollTo(0, y);
+  }, scrollTarget);
+}
+
+// sets element's scrollTo to given amount.
+// Also checks that the element can actually scroll that far
+export async function scrollLocatorTo(element: Locator, scrollTarget: number) {
+  const maxScrollTop = await getMaxScrollTop(element);
+  const verifiedScrollAmount = Math.min(Math.max(0, scrollTarget), maxScrollTop);
+  let currentValue = await getScrollTop(element);
+  if (currentValue === verifiedScrollAmount) {
+    return Promise.resolve(currentValue);
   }
 
-  return element.evaluate((el, y) => {
-    el.scrollTop = y;
-  }, scrollAmount);
+  await scrollTo(element, verifiedScrollAmount);
+  const fn = async () => {
+    const scrollTop = await getScrollTop(element);
+    return scrollTop === verifiedScrollAmount;
+  };
+
+  await waitForStable(fn);
+
+  return getScrollTop(element);
+}
+
+export async function waitForStablePosition(locator: Locator, requiredCount = 5) {
+  let previousBox: BoundingBox = { x: 0, y: 0, width: -1, height: -1 };
+  const isStable = (box: BoundingBox): boolean => {
+    if (
+      box &&
+      previousBox.x === box.x &&
+      previousBox.y === box.y &&
+      previousBox.width === box.width &&
+      previousBox.height === box.height
+    ) {
+      previousBox = box;
+      return true;
+    }
+    previousBox = box;
+    return false;
+  };
+  const fn = async () => {
+    const box = await locator.boundingBox();
+    if (!box) {
+      return Promise.resolve(false);
+    }
+    return Promise.resolve(isStable(box));
+  };
+
+  return waitForStable(fn);
+}
+export async function waitForStablePositionOLD(locator: Locator, requiredCount = 5) {
+  let previousBox: BoundingBox = { x: 0, y: 0, width: -1, height: -1 };
+  let stableCounter = 0;
+  const getStableCount = (box: BoundingBox | null): number => {
+    if (!box) {
+      return 0;
+    }
+    if (
+      previousBox.x === box.x &&
+      previousBox.y === box.y &&
+      previousBox.width === box.width &&
+      previousBox.height === box.height
+    ) {
+      stableCounter += 1;
+    }
+    previousBox = box;
+    return stableCounter;
+  };
+  const fn = async () => {
+    const box = await locator.boundingBox();
+    const count = getStableCount(box);
+    return Promise.resolve(count >= requiredCount);
+  };
+
+  return waitFor(fn, { intervals: [30, 60, 120, 200, 200, 200, 200, 200, 500, 1000, 1000, 1000, 1000] });
 }

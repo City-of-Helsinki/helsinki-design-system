@@ -1,4 +1,4 @@
-import { Locator, Page, expect, ElementHandle, Expect } from '@playwright/test';
+import { Locator, Page, expect, ElementHandle, Expect, TestInfo } from '@playwright/test';
 
 export const getComponentStorybookUrls = async (
   page: Page,
@@ -135,11 +135,40 @@ export const getLocatorOrHandlePage = async (source: Locator | ElementHandle) =>
   return Promise.reject(new Error('Cannot resolve page from given source in getLocatorOrHandlePage()'));
 };
 
-export const waitFor = async (fn: () => Promise<boolean>, message = 'WaitFor() timed out', timeout = 5000) => {
-  return expect
-    .poll(() => fn(), {
-      message,
-      timeout,
-    })
-    .toBe(true);
+export const waitFor = async (
+  fn: () => Promise<boolean>,
+  settings?: {
+    message?: string;
+    timeout?: number;
+    intervals?: number[];
+  },
+) => {
+  const defaults = {
+    message: 'WaitFor() timed out',
+    timeout: 5000,
+  };
+  return expect.poll(() => fn(), { ...defaults, ...settings }).toBe(true);
+};
+
+export async function waitForStable(tester: () => Promise<boolean>, requiredCount = 5) {
+  let stableCounter = 0;
+  const fn = async () => {
+    const result = await tester();
+    if (result) {
+      stableCounter += 1;
+    } else {
+      stableCounter = 0;
+    }
+    return Promise.resolve(stableCounter >= requiredCount);
+  };
+
+  return waitFor(fn, { intervals: [30, 30, 60, 60, 120, 120, 200, 200, 200, 200, 200, 500, 1000, 1000, 1000, 1000] });
+}
+
+export const createScreenshotFileName = (info: TestInfo, isMobile: boolean, suffix?: string, fileFormat = '.png') => {
+  const testName = [info.title];
+  if (suffix) {
+    testName.push(suffix);
+  }
+  return testName.join(' ').replaceAll(' ', '_').toLowerCase() + (isMobile ? '-mobile' : '-desktop') + fileFormat;
 };
