@@ -1,26 +1,11 @@
 import { test, expect, Page } from '@playwright/test';
-import {
-  takeAllStorySnapshots,
-  getComponentStorybookUrls,
-  takeScreenshotWithSpacing,
-  waitFor,
-  createScreenshotFileName,
-  listenToConsole,
-} from '../../../helpers';
-import { createSelectHelpers } from '../../component-helpers';
-import {
-  focusLocator,
-  getFocusedElement,
-  getLocatorOuterHTML,
-  getScrollTop,
-  isLocatorFocused,
-  waitForStablePosition,
-} from '../../element-helpers';
-import { createKeyboardHelpers } from '../../keyboard-helpers';
+import { getComponentStorybookUrls, waitFor, createScreenshotFileName } from '../../../utils/playwright.util';
+import { createSelectHelpers } from '../../../utils/select.component.util';
+import { focusLocator, isLocatorFocused, waitForStablePosition } from '../../../utils/element.util';
+import { createKeyboardHelpers } from '../../../utils/keyboard.util';
 
 const componentName = 'select';
 const storybook = 'react';
-const takeStateSnapshots = true;
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   test('Take snapshots of all stories', async ({ page, isMobile }) => {
@@ -94,9 +79,9 @@ test.describe(`Testing selecting options and groups in Select"`, () => {
     // #1 (inside group #0) is "Aromatic pineapple"
     // #2 (inside group #0) is "Flavorful lettuce"
     // #4 (label of group #1) is "More healthy choices"
+    // keyCache in select resets in 300ms
     if (!isMobile) {
       await gotoStorybookUrlByName(page, 'Multiselect With Groups');
-      listenToConsole(page);
       const selectId = 'hds-select-component';
       const selectComponent = createSelectHelpers(page, selectId);
       const keyboard = createKeyboardHelpers(page);

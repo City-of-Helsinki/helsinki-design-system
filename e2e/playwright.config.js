@@ -26,8 +26,9 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     // https://playwright.dev/docs/videos
-    contextOptions: { recordVideo: { dir: './report/videos/' } },
+    // contextOptions: { recordVideo: { dir: './report/videos/' } },
     screenshot: 'only-on-failure',
+    video: 'off',
   },
   projects: [
     {

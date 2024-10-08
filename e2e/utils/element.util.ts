@@ -1,5 +1,5 @@
 import { ElementHandle, Locator, Page } from '@playwright/test';
-import { getLocatorOrHandlePage, waitFor, waitForStable } from '../helpers';
+import { getLocatorOrHandlePage, waitFor, waitForStable } from './playwright.util';
 
 type BoundingBox = {
   x: number;

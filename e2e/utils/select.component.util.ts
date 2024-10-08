@@ -11,8 +11,8 @@ import {
   getScrollTop,
   scrollLocatorTo,
   waitForStablePosition,
-} from './element-helpers';
-import { waitFor } from '../helpers';
+} from './element.util';
+import { waitFor } from './playwright.util';
 
 type OptionFiltering = {
   includeOptions?: boolean;

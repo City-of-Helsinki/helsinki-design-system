@@ -48,7 +48,7 @@ const createKeyCache = () => {
   let value: string = '';
   let lastUpdateTime = 0;
   let isPending = false;
-  const expirationTimeInMs = 500;
+  const expirationTimeInMs = 300;
   const getValue = () => {
     isPending = false;
     return value;
@@ -144,10 +144,8 @@ export function useKeyboard() {
       const hits = filterValue
         ? filterSelectableOptions(groups, filterValue, filterFunction || defaultFilter, multiSelect)
         : [];
-      console.log('hits for', filterValue, hits);
       if (hits[0]) {
         const listItem = getOptionListItem(groups, hits[0], multiSelect);
-        console.log('F', listItem);
         if (listItem && listItem.focus) {
           listItem.focus();
           scrollToFocusedElement();
