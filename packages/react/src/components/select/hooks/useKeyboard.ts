@@ -1,4 +1,4 @@
-import { KeyboardEvent, useCallback, useRef } from 'react';
+import { KeyboardEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
 import { KnownElementType } from '../types';
@@ -44,19 +44,118 @@ export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
   return ['Enter', ' '].includes(e.key);
 };
 
+const createKeyCache = () => {
+  let value: string = '';
+  let lastUpdateTime = 0;
+  let isPending = false;
+  const expirationTimeInMs = 500;
+  const getValue = () => {
+    isPending = false;
+    return value;
+  };
+
+  const isExpired = () => {
+    return lastUpdateTime && Date.now() - lastUpdateTime >= expirationTimeInMs;
+  };
+
+  const update = (newValue: string) => {
+    value = newValue;
+    lastUpdateTime = Date.now();
+    isPending = false;
+  };
+
+  const append = (newValue: string) => {
+    update(getValue() + newValue);
+  };
+
+  const clear = () => {
+    value = '';
+    lastUpdateTime = 0;
+    isPending = false;
+  };
+
+  const shouldUseInput = (type: KnownElementType, wasAlphaNumKeyPressed: boolean) => {
+    if (!wasAlphaNumKeyPressed) {
+      return false;
+    }
+    if (!isInSelectedOptionsType(type) && !isListType(type) && !isAnyListChildType(type)) {
+      return false;
+    }
+    return true;
+  };
+
+  const clearIfNeeded = (type: KnownElementType, wasAlphaNumKeyPressed: boolean) => {
+    if (isExpired()) {
+      clear();
+    }
+    if (!shouldUseInput(type, wasAlphaNumKeyPressed)) {
+      clear();
+    }
+  };
+
+  const markPendingInput = () => {
+    isPending = true;
+  };
+
+  const hasPendingInput = () => {
+    if (isPending) {
+      isPending = false;
+      return true;
+    }
+    return false;
+  };
+
+  return {
+    getValue,
+    update,
+    append,
+    clear,
+    clearIfNeeded,
+    isExpired,
+    shouldUseInput,
+    hasPendingInput,
+    markPendingInput,
+  };
+};
+
 export function useKeyboard() {
   const { getEventElementType, getListItemSiblings, getOptionListItem } = useElementDetection();
   const { trigger, getData, getMetaData, updateMetaData } = useSelectDataHandlers();
   // When there is an input and user starts typing and button is focused,
   // the inputted text should be placed to the input after opening the dropdown.
   // this cache stores the input
-  const keyCacheRef = useRef<string | null>(null);
+  const keyCache = useMemo(() => createKeyCache(), []);
   // An enter key keydown triggers a click on a button.
   // That button click opens the dropwdown.
   // The keyup event in the same event sequence triggers a selection because focus was moved.
   // The keydown element type is stored to prevent this.
   // If keydown type is different that keyup, then keydown shifted focus and keyup should be ignored.
   const keyDownElementType = useRef<KnownElementType | null>(null);
+
+  const scrollToFocusedElement = useCallback(() => {
+    if (document.activeElement) {
+      document.activeElement.scrollIntoView({ block: 'center' });
+    }
+  }, []);
+
+  const focusToFirstFilteredOption = useCallback(
+    (filterValue: string) => {
+      const { groups, filterFunction, multiSelect } = getData();
+      const hits = filterValue
+        ? filterSelectableOptions(groups, filterValue, filterFunction || defaultFilter, multiSelect)
+        : [];
+      console.log('hits for', filterValue, hits);
+      if (hits[0]) {
+        const listItem = getOptionListItem(groups, hits[0], multiSelect);
+        console.log('F', listItem);
+        if (listItem && listItem.focus) {
+          listItem.focus();
+          scrollToFocusedElement();
+        }
+      }
+    },
+    [scrollToFocusedElement, getOptionListItem, defaultFilter, getData, filterSelectableOptions],
+  );
 
   const onKeyUp = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
@@ -71,11 +170,7 @@ export function useKeyboard() {
         keyDownElementType.current = null;
         return;
       }
-      const scrollToFocusedElement = () => {
-        if (document.activeElement) {
-          document.activeElement.scrollIntoView({ block: 'center' });
-        }
-      };
+
       const moveFocusToFirstListItem = () => {
         const closestListItems = getListItemSiblings(undefined, false);
         if (closestListItems.next) {
@@ -90,24 +185,11 @@ export function useKeyboard() {
       const wasClickKeyPressed = !wasArrowUpPressed && !wasArrowDownPressed && isClickKey(e);
       const { listInputType, refs } = getMetaData();
       const hasInput = !!listInputType;
+      const isOpen = getData().open;
 
-      const shouldKeepKeyCache = () => {
-        if (!keyCacheRef.current) {
-          return true;
-        }
-        if (!wasAlphaNumKeyPressed) {
-          return false;
-        }
-        if (isInSelectedOptionsType(type) || isListType(type) || isAnyListChildType(type)) {
-          return true;
-        }
-        return false;
-      };
+      keyCache.clearIfNeeded(type, wasAlphaNumKeyPressed);
 
-      if (!shouldKeepKeyCache()) {
-        keyCacheRef.current = null;
-      }
-
+      // prevent default when in button (space/enter click is handled below) or list (prevent scrolling with space)
       const shouldPreventDefault = () => {
         if (!wasArrowDownPressed && !wasArrowUpPressed) {
           return false;
@@ -122,30 +204,21 @@ export function useKeyboard() {
         e.preventDefault();
       }
 
-      if (isEscKey(e) && getData().open) {
-        // esc closes the menu
+      // esc should close the list
+      if (isEscKey(e) && isOpen) {
         trigger({ id: eventIds.generic, type: eventTypes.close });
-      } else if (isInSelectedOptionsType(type)) {
-        // if focus in the button or its siblings...
-        if (wasArrowDownPressed) {
-          // open menu on arrow down press
-          trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
-        } else if (wasAlphaNumKeyPressed) {
-          // open menu on alphanum key press and store the input
-          keyCacheRef.current = (keyCacheRef.current || '') + e.key;
-          trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
-          if (listInputType) {
-            // store cached input value to "filter" | "search" value
-            updateMetaData({ [listInputType]: keyCacheRef.current });
-          } else {
-            // if focus is in list use filter to find element (see below)
-          }
-        }
-      } else if (isSearchOrFilterInputType(type) && wasArrowDownPressed) {
+        return;
+      }
+
+      // move focus from input to first option when wasArrowDownPressed
+      if (isSearchOrFilterInputType(type) && wasArrowDownPressed) {
         // if focus in the input, move focus to first item on arrow down
         moveFocusToFirstListItem();
-      } else if (isAnyListChildType(type) && (wasArrowDownPressed || wasArrowUpPressed)) {
-        // navigate on arrow presses
+        return;
+      }
+
+      // navigate between options. Will loop from first to last and vice versa
+      if (isAnyListChildType(type) && (wasArrowDownPressed || wasArrowUpPressed)) {
         const closestListItems = getListItemSiblings(element as HTMLLIElement);
         if (wasArrowDownPressed && closestListItems.next) {
           closestListItems.next.focus();
@@ -153,36 +226,24 @@ export function useKeyboard() {
           closestListItems.prev.focus();
         }
         scrollToFocusedElement();
-      } else if (isListItemType(type) && wasClickKeyPressed && element) {
-        // select item on space or enter
+        return;
+      }
+
+      // select/unselect on space/enter
+      if (isListItemType(type) && wasClickKeyPressed && element) {
         element.click();
         scrollToFocusedElement();
-      } else if (isAnyListChildType(type) && wasAlphaNumKeyPressed && !hasInput) {
-        // if focus is somewhere in the list and user starts typing but input does not exist,
-        // focus is move to the element that starts with given input
-        keyCacheRef.current = (keyCacheRef.current || '') + e.key;
-        const { groups, filterFunction, multiSelect } = getData();
-        const hits = keyCacheRef.current
-          ? filterSelectableOptions(groups, keyCacheRef.current, filterFunction || defaultFilter, multiSelect).filter(
-              (opt) => opt.label.toLowerCase().indexOf(keyCacheRef.current as string) === 0,
-            )
-          : [];
-        if (hits[0]) {
-          const listItem = getOptionListItem(groups, hits[0], multiSelect);
-          if (listItem && listItem.focus) {
-            listItem.focus();
-            scrollToFocusedElement();
-          }
-        }
-      } else if (isListType(type) && wasArrowDownPressed && hasInput) {
-        // if focus in the list element and not in a list item, move focus to first item.
+        return;
+      }
+
+      // if focus is the list element and not in a list item, move focus to first item.
+      if (isListType(type) && wasArrowDownPressed && hasInput) {
         moveFocusToFirstListItem();
-      } else if (
-        (isListType(type) || isAnyListChildType(type)) &&
-        hasInput &&
-        (wasAlphaNumKeyPressed || isBackspaceKey(e))
-      ) {
-        // if focus is somewhere in the list and user starts typing, focus and given input is moved to the input
+        return;
+      }
+
+      // if focus is somewhere in the list and user starts typing, focus and given input is moved to the input
+      if (hasInput && (isListType(type) || isAnyListChildType(type)) && (wasAlphaNumKeyPressed || isBackspaceKey(e))) {
         const inputRef = refs.searchOrFilterInput;
         if (inputRef && inputRef.current) {
           if (!isBackspaceKey(e)) {
@@ -190,6 +251,42 @@ export function useKeyboard() {
           }
           inputRef.current.focus();
         }
+        return;
+      }
+
+      // if focus is the button or its siblings
+      if (isInSelectedOptionsType(type)) {
+        // open menu on arrow down press
+        if (wasArrowDownPressed && !isOpen) {
+          trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+          return;
+        }
+
+        // open menu on alphanum key press
+        if (wasAlphaNumKeyPressed) {
+          if (!isOpen) {
+            trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+          }
+          if (listInputType) {
+            keyCache.append(e.key);
+            // store cached input value to "filter" | "search" value
+            updateMetaData({ [listInputType]: keyCache.getValue() });
+            // stop processing, because an input is present
+            return;
+          }
+        }
+      }
+
+      // if focus is somewhere in the list and user starts typing but input does not exist,
+      // focus is moved to the element that starts with given input
+      if (keyCache.shouldUseInput(type, wasAlphaNumKeyPressed) && !hasInput) {
+        keyCache.append(e.key);
+        if (!isOpen) {
+          // options should be filtered after list is opened!
+          keyCache.markPendingInput();
+          return;
+        }
+        focusToFirstFilteredOption(keyCache.getValue());
       }
     },
     [trigger, getData, getMetaData, updateMetaData],
@@ -202,6 +299,12 @@ export function useKeyboard() {
       e.preventDefault();
     }
   }, []);
+
+  useEffect(() => {
+    if (getData().open && keyCache.hasPendingInput()) {
+      focusToFirstFilteredOption(keyCache.getValue());
+    }
+  });
 
   return {
     onKeyUp,

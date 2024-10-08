@@ -172,3 +172,7 @@ export const createScreenshotFileName = (info: TestInfo, isMobile: boolean, suff
   }
   return testName.join(' ').replaceAll(' ', '_').toLowerCase() + (isMobile ? '-mobile' : '-desktop') + fileFormat;
 };
+
+export const listenToConsole = (page: Page) => {
+  page.on('console', (msg) => console.log(msg.text()));
+};

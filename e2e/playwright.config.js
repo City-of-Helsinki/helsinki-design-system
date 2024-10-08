@@ -27,6 +27,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     // https://playwright.dev/docs/videos
     contextOptions: { recordVideo: { dir: './report/videos/' } },
+    screenshot: 'only-on-failure',
   },
   projects: [
     {

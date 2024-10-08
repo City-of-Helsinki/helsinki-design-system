@@ -5,11 +5,13 @@ import {
   takeScreenshotWithSpacing,
   waitFor,
   createScreenshotFileName,
+  listenToConsole,
 } from '../../../helpers';
 import { createSelectHelpers } from '../../component-helpers';
 import {
   focusLocator,
   getFocusedElement,
+  getLocatorOuterHTML,
   getScrollTop,
   isLocatorFocused,
   waitForStablePosition,
@@ -76,7 +78,42 @@ test.describe(`Testing selecting options and groups in Select"`, () => {
       });
 
       await waitForStablePosition(options[3]);
+
       await selectComponent.scrollGroupInToView({ index: 0 });
+      const screenshotName = createScreenshotFileName(testInfo, isMobile);
+
+      const clip = await selectComponent.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+    }
+  });
+  test('When focus is in the button, user input focuses element like filtering would.', async ({
+    page,
+    isMobile,
+  }, testInfo) => {
+    // this test assumes that following options are listed
+    // #1 (inside group #0) is "Aromatic pineapple"
+    // #2 (inside group #0) is "Flavorful lettuce"
+    // #4 (label of group #1) is "More healthy choices"
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, 'Multiselect With Groups');
+      listenToConsole(page);
+      const selectId = 'hds-select-component';
+      const selectComponent = createSelectHelpers(page, selectId);
+      const keyboard = createKeyboardHelpers(page);
+      expect(await selectComponent.isOptionListOpen()).toBeFalsy();
+      const button = selectComponent.getElementByName('button');
+      const options = await selectComponent.getOptionElements({ all: true });
+      await focusLocator(button);
+
+      await keyboard.typeOneByOne(button, 'Fla');
+      await waitFor(() => {
+        return selectComponent.isOptionListOpen();
+      });
+
+      await waitFor(async () => {
+        return isLocatorFocused(options[2]);
+      });
+      await waitForStablePosition(options[1]);
       const screenshotName = createScreenshotFileName(testInfo, isMobile);
 
       const clip = await selectComponent.getBoundingBox();

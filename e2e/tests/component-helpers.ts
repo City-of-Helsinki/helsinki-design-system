@@ -223,7 +223,9 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     const box = await combineBoundingBoxes([label, lastOption]);
     const listContainer = getElementByName('selectionsAndListsContainer');
     const scrollTo = await getDiffYBetweenElementCenters(box, listContainer);
+    await scrollList(scrollTo);
     await waitForStablePosition(lastOption);
+    return getScrollTop(listContainer);
   };
 
   const selectGroupByIndex = async ({ index }: { index: number }) => {
