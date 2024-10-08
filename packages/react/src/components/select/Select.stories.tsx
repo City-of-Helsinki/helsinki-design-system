@@ -62,6 +62,12 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
   placeholder: 'Choose many',
 };
 
+/**
+ *
+ * Visual Playwright tests depend on these stories. Changing option labels or other props may brake the tests.
+ *
+ */
+
 export const Singleselect = () => {
   const options = getOptionLabels(20);
   const onChange: SelectProps['onChange'] = useCallback(() => {

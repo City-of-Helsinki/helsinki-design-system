@@ -176,3 +176,12 @@ export const createScreenshotFileName = (info: TestInfo, isMobile: boolean, suff
 export const listenToConsole = (page: Page) => {
   page.on('console', (msg) => console.log(msg.text()));
 };
+
+export const filterLocators = async (list: Locator[], iterator: (loc: Locator) => Promise<boolean>) => {
+  const results = await Promise.all(
+    list.map(async (elem) => {
+      return await iterator(elem);
+    }),
+  );
+  return list.filter((elem, index) => results[index] === true);
+};

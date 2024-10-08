@@ -12,7 +12,7 @@ import {
   scrollLocatorTo,
   waitForStablePosition,
 } from './element.util';
-import { waitFor } from './playwright.util';
+import { filterLocators, waitFor } from './playwright.util';
 
 type OptionFiltering = {
   includeOptions?: boolean;
@@ -22,12 +22,15 @@ type OptionFiltering = {
 };
 
 // sadly selectors defined in the Select's React files are not usable here as React's "styles" objects do not exist.
+// all are not tested
+// do not use ":not" selectors! It will break locators.all() and locators.count()
 const singleSelectOptionSelector = 'li[role="option"][aria-selected]';
 const singleSelectGroupLabelSelector = 'li[role="presentation"]';
 // multiselect is a div if in group.
 // otherwise singleSelect selector matches
+// this probably matches also group labels. try locator.filter
 const multiSelectOptionSelector = `div[role="checkbox"][aria-checked],${singleSelectOptionSelector}`;
-const multiSelectGroupLabelSelector = 'div[role="checkbox"]';
+const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
 
 export const createSelectHelpers = (page: Page, componentId: string) => {
   const getElementId = (componentId: string, elementName: keyof SelectMetaData['elementIds']) => {
@@ -50,6 +53,12 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   const isOptionListOpen = async (): Promise<boolean> => {
     const listElement = getElementByName('list');
     return isElementVisible(listElement);
+  };
+
+  const isOptionListClosed = async (): Promise<boolean> => {
+    const listElement = getElementByName('list');
+    const visibility = await isElementVisible(listElement);
+    return visibility === false;
   };
 
   const openList = async (): Promise<Locator> => {
@@ -152,6 +161,13 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return currentOptions.count();
   };
 
+  const getSelectedGroupLabels = async () => {
+    const groupLabels = await getOptionElements({ includeMultiSelectGroupLabels: true, includeOptions: false });
+    return filterLocators(groupLabels, (elem) => {
+      return isLocatorSelectedOrChecked(elem);
+    });
+  };
+
   const isOptionSelected = async (option: Locator) => {
     const isSelected = await isLocatorSelectedOrChecked(option);
     if (isSelected) {
@@ -197,6 +213,11 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return Promise.resolve(option);
   };
 
+  const getOptionLabel = async (option: Locator) => {
+    // group label has extra helper text in the label so cannot use that
+    return option.textContent() as Promise<string>;
+  };
+
   const selectOptionByIndex = async (props: OptionFiltering & { index: number }) => {
     const currentCount = await getSelectedOptionsCount();
     const option = await getOptionByIndex(props);
@@ -240,6 +261,19 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     await waitUntilSelectedOptionCountChanges(currentCount);
   };
 
+  const getInputText = async () => {
+    const inputElement = getElementByName('searchOrFilterInput');
+    return inputElement.inputValue();
+  };
+
+  const getInput = () => {
+    return getElementByName('searchOrFilterInput');
+  };
+
+  const getSearchAndFilterInfo = () => {
+    return page.getByTestId('search-and-filter-info');
+  };
+
   const getBoundingBox = async (spacing = 10) => {
     const container = getElementByName('container');
     const selectionsAndListsContainer = getElementByName('selectionsAndListsContainer');
@@ -258,18 +292,25 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     getGroupLabel,
     getGroups,
     getElementByName,
+    getInput,
+    getInputText,
     getItemsInGroup,
     getOptionByIndex,
     getOptionElements,
+    getOptionLabel,
     getOptionsInGroup,
+    getScrollableListContainer,
+    getSearchAndFilterInfo,
+    getSelectedGroupLabels,
     getSelectedOptionsInButton,
     getSelectedOptionsInTags,
     isOptionListOpen,
+    isOptionListClosed,
     openList,
     scrollOptionInToView,
     selectGroupByIndex,
     selectOptionByIndex,
     scrollGroupInToView,
-    getScrollableListContainer,
+    waitUntilSelectedOptionCountMatches,
   };
 };

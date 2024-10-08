@@ -6,7 +6,6 @@ import { defaultFilter, filterSelectableOptions } from '../utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,
-  isListItemType,
   isListType,
   isInSelectedOptionsType,
   isAnyListChildType,
@@ -44,6 +43,9 @@ export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
   return ['Enter', ' '].includes(e.key);
 };
 
+// Keycache is for storing user input when list is closed and/or there is no input field
+// Options should anyway be focused according to user input even if there is no filter / search
+// cache resets if user haven't typed anything for expirationTimeInMs
 const createKeyCache = () => {
   let value: string = '';
   let lastUpdateTime = 0;
@@ -228,7 +230,7 @@ export function useKeyboard() {
       }
 
       // select/unselect on space/enter
-      if (isListItemType(type) && wasClickKeyPressed && element) {
+      if (isAnyListChildType(type) && wasClickKeyPressed && element) {
         element.click();
         scrollToFocusedElement();
         return;
