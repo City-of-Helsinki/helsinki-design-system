@@ -59,6 +59,7 @@ export function createSignInResponse({
     session_state: String(`${Math.random()}${Math.random()}`),
     state: '',
     token_type: 'Bearer',
+    url_state: undefined,
     userState: {},
     expires_in,
     isOpenId: true,
