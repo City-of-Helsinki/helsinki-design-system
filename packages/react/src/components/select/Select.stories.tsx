@@ -103,7 +103,16 @@ export const SingleselectWithGroups = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changess
   }, []);
-  return <Select groups={groups} onChange={onChange} icon={<IconLocation />} required texts={defaultTexts} />;
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={defaultTexts}
+      id="hds-select-component"
+    />
+  );
 };
 
 export const OptionsAsHtml = () => {
@@ -138,7 +147,13 @@ export const WithGroups = () => {
   ];
 
   return (
-    <Select groups={groups} icon={<IconLocation />} onChange={dummyOnChange} texts={defaultTexts}>
+    <Select
+      groups={groups}
+      icon={<IconLocation />}
+      onChange={dummyOnChange}
+      texts={defaultTexts}
+      id="hds-select-component"
+    >
       <optgroup label="Group label">
         <option value="label">Text</option>
       </optgroup>
@@ -170,6 +185,7 @@ export const WithControls = () => {
     open: false,
     invalid: false,
     texts: { ...defaultTexts, label: 'Controlled select' },
+    id: 'hds-select-component',
   });
 
   const resetSelections = () => {
@@ -250,7 +266,7 @@ export const WithValidation = () => {
     };
   };
 
-  return <Select groups={groups} onChange={onChange} texts={texts} />;
+  return <Select groups={groups} onChange={onChange} texts={texts} id="hds-select-component" />;
 };
 
 export const WithFilter = () => {
@@ -263,6 +279,7 @@ export const WithFilter = () => {
       filter={defaultFilter}
       required
       texts={defaultTexts}
+      id="hds-select-component"
     />
   );
 };
@@ -278,6 +295,7 @@ export const WithSearch = () => {
         onSearch={onSearch}
         required
         texts={defaultTexts}
+        id="hds-select-component"
       />
       <p>Search with &quot;none&quot; to return an empty set</p>
       <p>Search with &quot;error&quot; to simulate an error.</p>
@@ -401,6 +419,7 @@ export const MultiselectWithoutTags = () => {
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
       noTags
+      id="hds-select-component"
     />
   );
 };
@@ -427,6 +446,7 @@ export const VirtualizedMultiselectWithGroups = () => {
       virtualize
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
+      id="hds-select-component"
     />
   );
 };
@@ -444,7 +464,16 @@ export const VirtualizedSingleselectWithGroups = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return <Select groups={groups} onChange={onChange} virtualize icon={<IconLocation />} texts={defaultTexts} />;
+  return (
+    <Select
+      groups={groups}
+      onChange={onChange}
+      virtualize
+      icon={<IconLocation />}
+      texts={defaultTexts}
+      id="hds-select-component"
+    />
+  );
 };
 
 export const VirtualizationMultiselectWithoutGroups = () => {
@@ -459,6 +488,7 @@ export const VirtualizationMultiselectWithoutGroups = () => {
       multiSelect
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
+      id="hds-select-component"
     />
   );
 };
@@ -467,7 +497,15 @@ export const VirtualizedSingleselectWithoutGroups = () => {
   const onChange: SelectProps['onChange'] = useCallback(() => {
     // track changes
   }, []);
-  return <Select options={getLargeBatchOfUniqueValues(2000)} onChange={onChange} virtualize texts={defaultTexts} />;
+  return (
+    <Select
+      options={getLargeBatchOfUniqueValues(2000)}
+      onChange={onChange}
+      virtualize
+      texts={defaultTexts}
+      id="hds-select-component"
+    />
+  );
 };
 
 export const FocusListenerExample = () => {
@@ -584,6 +622,7 @@ export const FocusListenerExample = () => {
           multiSelect
           icon={<IconLocation />}
           texts={defaultTextsForMultiSelect}
+          id="hds-select-component"
         />
       </div>
       <div className="indicators">

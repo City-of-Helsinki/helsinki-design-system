@@ -30,7 +30,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
 });
 
 test.describe(`Selecting options and groups`, () => {
-  test('Select an option and one group', async ({ page, isMobile }, testInfo) => {
+  test('Multiselect select an option and one group', async ({ page, isMobile }, testInfo) => {
     if (!isMobile) {
       await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput);
 
@@ -38,8 +38,23 @@ test.describe(`Selecting options and groups`, () => {
       const isOpen = await selectUtil.isOptionListOpen();
       expect(isOpen).toBeFalsy();
 
-      await selectUtil.selectOptionByIndex({ index: 1 });
+      await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
       await selectUtil.selectGroupByIndex({ index: 1 });
+
+      const screenshotName = createScreenshotFileName(testInfo, isMobile);
+      const clip = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+    }
+  });
+  test('Singleselect options one by one', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithPlainSingleSelect);
+      const selectUtil = createSelectHelpers(page, selectId);
+
+      await selectUtil.selectOptionByIndex({ index: 0, multiSelect: false });
+      await selectUtil.selectOptionByIndex({ index: 5, multiSelect: false });
+      await selectUtil.selectOptionByIndex({ index: 10, multiSelect: false });
+      await selectUtil.selectOptionByIndex({ index: 19, multiSelect: false });
 
       const screenshotName = createScreenshotFileName(testInfo, isMobile);
       const clip = await selectUtil.getBoundingBox();

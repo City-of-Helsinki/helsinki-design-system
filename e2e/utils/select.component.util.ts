@@ -11,6 +11,7 @@ import {
   getScrollTop,
   scrollLocatorTo,
   waitForStablePosition,
+  getLocatorOuterHTML,
 } from './element.util';
 import { filterLocators, waitFor } from './playwright.util';
 
@@ -35,6 +36,12 @@ const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:
 export const createSelectHelpers = (page: Page, componentId: string) => {
   const getElementId = (componentId: string, elementName: keyof SelectMetaData['elementIds']) => {
     return getElementIds(componentId)[elementName];
+  };
+
+  const waitForMinInterActionTimeToPass = async () => {
+    // if lists are opened/closed too quickly (<MIN_USER_INTERACTION_TIME_IN_MS)
+    // next action will not close it, so lets wait
+    await page.waitForTimeout(300);
   };
 
   const getElementByName = (elementName: keyof SelectMetaData['elementIds']) => {
@@ -68,8 +75,10 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     }
     const button = getElementByName('button');
     await button.click({ timeout: 2000 });
-    await waitForElementToBeVisible(getElementByName('list'));
-    return Promise.resolve(getElementByName('list'));
+    await waitForElementToBeVisible(listElement);
+
+    await waitForMinInterActionTimeToPass();
+    return Promise.resolve(listElement);
   };
 
   const closeList = async (): Promise<Locator> => {
@@ -79,8 +88,11 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     }
     const button = getElementByName('button');
     await button.click({ timeout: 2000 });
-    await waitForElementToBeHidden(getElementByName('list'));
-    return Promise.resolve(getElementByName('list'));
+    await waitForElementToBeHidden(listElement);
+    // if lists are opened/closed too quickly (<MIN_USER_INTERACTION_TIME_IN_MS)
+    // next action will not close it, so lets wait
+    await waitForMinInterActionTimeToPass();
+    return Promise.resolve(listElement);
   };
 
   const getOptionElements = async ({
@@ -171,6 +183,11 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return currentOptions.count();
   };
 
+  const getSelectedOptionsLabels = async () => {
+    const currentOptions = await getSelectedOptionsInButton();
+    return currentOptions.evaluateAll((el) => el.map((e) => e.textContent || ''));
+  };
+
   const getSelectedGroupLabels = async () => {
     const groupLabels = await getOptionElements({ includeMultiSelectGroupLabels: true, includeOptions: false });
     return filterLocators(groupLabels, (elem) => {
@@ -228,16 +245,33 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return option.textContent() as Promise<string>;
   };
 
-  const selectOptionByIndex = async (props: OptionFiltering & { index: number }) => {
-    const currentCount = await getSelectedOptionsCount();
+  const selectOptionByIndex = async (props: OptionFiltering & { index: number; multiSelect: boolean }) => {
     const option = await getOptionByIndex(props);
     const isSelected = await isOptionSelected(option);
     if (isSelected) {
       return Promise.resolve(option);
     }
-    await option.click();
-    // if single select, the menu is closed, so cannot check the option element itself
-    await waitUntilSelectedOptionCountMatches(currentCount + 1);
+    const currentCount = await getSelectedOptionsCount();
+    // option must be scrolled in to view, because hidden element locators timeout in most getter (.textContent(), count())
+    await scrollOptionInToView(option);
+
+    if (props.multiSelect) {
+      await option.click();
+      // if single select, the menu is closed, so cannot check the option element itself
+      await waitUntilSelectedOptionCountMatches(currentCount + 1);
+    } else if (!props.multiSelect) {
+      const label = await getOptionLabel(option);
+      await option.click();
+      await waitFor(async () => {
+        const selectedOptionLabels = await getSelectedOptionsLabels();
+        return selectedOptionLabels.includes(label);
+      });
+    }
+    if (!props.multiSelect) {
+      // waiting for list to close makes tests more stable
+      await waitForElementToBeHidden(getElementByName('list'));
+      await waitForMinInterActionTimeToPass();
+    }
     return Promise.resolve(option);
   };
 

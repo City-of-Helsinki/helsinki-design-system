@@ -504,7 +504,7 @@ const optionLabels = [
 ];
 
 export const getOptionLabels = (count = 20): string[] => {
-  return optionLabels.slice(0, count - 1);
+  return optionLabels.slice(0, count);
 };
 
 export const getOptions = (count = 20): OptionInProps[] => {

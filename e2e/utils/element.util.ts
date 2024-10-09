@@ -241,29 +241,3 @@ export async function waitForStablePosition(locator: Locator, requiredCount = 5)
 
   return waitForStable(fn);
 }
-export async function waitForStablePositionOLD(locator: Locator, requiredCount = 5) {
-  let previousBox: BoundingBox = { x: 0, y: 0, width: -1, height: -1 };
-  let stableCounter = 0;
-  const getStableCount = (box: BoundingBox | null): number => {
-    if (!box) {
-      return 0;
-    }
-    if (
-      previousBox.x === box.x &&
-      previousBox.y === box.y &&
-      previousBox.width === box.width &&
-      previousBox.height === box.height
-    ) {
-      stableCounter += 1;
-    }
-    previousBox = box;
-    return stableCounter;
-  };
-  const fn = async () => {
-    const box = await locator.boundingBox();
-    const count = getStableCount(box);
-    return Promise.resolve(count >= requiredCount);
-  };
-
-  return waitFor(fn, { intervals: [30, 60, 120, 200, 200, 200, 200, 200, 500, 1000, 1000, 1000, 1000] });
-}
