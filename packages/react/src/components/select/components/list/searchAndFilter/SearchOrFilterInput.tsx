@@ -20,8 +20,11 @@ const createFilterInputProps = (
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isSearchInput = inputType === 'search';
   const value = isSearchInput ? search : filter;
-  const label = getTextKey(getTextKeyWithType(`${typeIndicator}ClearButtonAriaLabel`, isSearchInput), metaData);
-  const clearButtonAriaLabel = getTextKey(getTextKeyWithType(`${typeIndicator}Label`, isSearchInput), metaData);
+  const label = getTextKey(getTextKeyWithType(`${typeIndicator}Label`, isSearchInput), metaData);
+  const clearButtonAriaLabel = getTextKey(
+    getTextKeyWithType(`${typeIndicator}ClearButtonAriaLabel`, isSearchInput),
+    metaData,
+  );
   const placeholder = getTextKey(getTextKeyWithType(`${typeIndicator}Placeholder`, isSearchInput), metaData);
 
   return {
