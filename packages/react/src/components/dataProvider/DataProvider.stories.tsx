@@ -71,7 +71,7 @@ export const NumericStepper = () => {
     return <TextInput id={id} onChange={onChange} value={String(value)} />;
   };
 
-  const Action = (buttonProps: PropsWithChildren<{ id: string }>) => {
+  const Action = (buttonProps: PropsWithChildren<{ id: string; children: string }>) => {
     const { id, children } = buttonProps;
     const { trigger } = useContextDataHandlers();
     const onClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -225,7 +225,7 @@ export const Form = () => {
     );
   };
 
-  const Action = (buttonProps: PropsWithChildren<{ id: string }>) => {
+  const Action = (buttonProps: PropsWithChildren<{ id: string; children: string }>) => {
     const { id, children } = buttonProps;
     const { trigger } = useContextDataHandlers();
     const onClick: MouseEventHandler<HTMLButtonElement> = () => {
