@@ -64,6 +64,7 @@ jobs:
             packages/react/storybook-static
             packages/react/.lokirc.json
           retention-days: 1
+          include-hidden-files: true
 
   visual-tests:
     needs: build-test
@@ -101,4 +102,5 @@ jobs:
         with:
           name: loki_images_${{ matrix.loki_configuration }}_${{ steps.sanitize_artifact_name.outputs.value }}
           path: .loki/difference/*.*
+          include-hidden-files: true
         if: failure()

@@ -1,6 +1,6 @@
 {
   "name": "hds-js",
-  "version": "3.10.0",
+  "version": "3.10.1",
   "description": "Vanilla js for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "http-status-typed": "^1.0.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
-    "oidc-client-ts": "^2.2.2"
+    "oidc-client-ts": "^2.4.1"
   },
   "scripts": {
     "prepublishOnly": "cp -r ./lib/. ."

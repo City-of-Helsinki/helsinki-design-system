@@ -507,9 +507,14 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   const { isClosingOrOpening } = getState();
+  const canMenuBeHidden = !mobileMenuOpen && !isClosingOrOpening;
   return (
     <div
-      className={classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.mobileMenuOpen)}
+      className={classNames(
+        styles.headerNavigationMenu,
+        mobileMenuOpen && styles.mobileMenuOpen,
+        canMenuBeHidden ? styles.hidden : styles.visible,
+      )}
       id="hds-mobile-menu"
       onTransitionEnd={animationDone}
     >

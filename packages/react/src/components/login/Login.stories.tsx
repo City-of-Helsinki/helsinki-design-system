@@ -35,15 +35,16 @@ import {
   sessionPollerErrors,
   LoginProvider,
   LoginProviderProps,
+  useGraphQL,
+  useGraphQLModule,
+  createGraphQLModule,
 } from './index';
 import { Button } from '../button/Button';
 import { Header } from '../header/Header';
 import { Notification } from '../notification/Notification';
 import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
-import { createGraphQLModule } from './graphQLModule/graphQLModule';
 import { MyProfileQuery } from './graphQLModule/demoData/MyProfileQuery';
-import { useGraphQL, useGraphQLModule } from './graphQLModule/hooks';
 import { LoadingSpinner } from '../loadingSpinner';
 
 type StoryArgs = {
