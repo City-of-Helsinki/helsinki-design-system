@@ -168,6 +168,8 @@ test.describe(`Typing when focused and there is an input`, () => {
       });
       const options = await selectUtil.getOptionElements({ all: true });
       expect(options).toHaveLength(4);
+      const optionsOnly = await selectUtil.getOptionElements({ all: false, includeMultiSelectGroupLabels: false });
+      expect(optionsOnly).toHaveLength(2);
 
       await keyboard.down(); // moves focus to #0
       await waitFor(async () => {

@@ -23,12 +23,12 @@ type OptionFiltering = {
 
 // sadly selectors defined in the Select's React files are not usable here as React's "styles" objects do not exist.
 // all are not tested
-// do not use ":not" selectors! It will break locators.all() and locators.count()
+// do not use ":not" selectors! It will break locators.all() and locators.count() when selector before ":not" returns nothing.
 const singleSelectOptionSelector = 'li[role="option"][aria-selected]';
 const singleSelectGroupLabelSelector = 'li[role="presentation"]';
 // multiselect is a div if in group.
 // otherwise singleSelect selector matches
-// this probably matches also group labels. try locator.filter
+// multiselect group labels are include in option selector. getOptionElements() filters them out.
 const multiSelectOptionSelector = `div[role="checkbox"][aria-checked],${singleSelectOptionSelector}`;
 const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
 
@@ -98,6 +98,16 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
       selectorList.push(singleSelectGroupLabelSelector);
     }
     const res = listElement.locator(selectorList.join(','));
+    // have to manually remove multiselect group labels from other options, because selectors include other
+    if (!all && includeOptions && !includeMultiSelectGroupLabels) {
+      const groupLabels = listElement.locator(multiSelectGroupLabelSelector);
+      const groupLabelIds = await groupLabels.evaluateAll((el) => el.map((e) => e.getAttribute('id')));
+      const locators = await res.all();
+      return filterLocators(locators, async (e) => {
+        const id = await e.getAttribute('id');
+        return groupLabelIds.includes(id) === false;
+      });
+    }
     return res.all();
   };
 
