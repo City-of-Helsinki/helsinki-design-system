@@ -147,14 +147,25 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `docs`,
-        path: `${__dirname}/src/docs/`,
+        path: `${__dirname}/src/docs`,
       },
     },
-    // This config is needed when pages are somewhere else than in the pages folder.
     {
-      resolve: 'gatsby-plugin-page-creator',
+      resolve: `gatsby-source-git`,
       options: {
-        path: `${__dirname}/src/docs`,
+        name: `docs-release-3.9.0`,
+        remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
+        branch: `release-3.9.0`,
+        patterns: `site/src/docs/**`,
+      },
+    },
+    {
+      resolve: `gatsby-source-git`,
+      options: {
+        name: `docs-release-3.0.0`,
+        remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
+        branch: `release-3.0.0`,
+        patterns: `site/src/docs/**`,
       },
     },
     {
