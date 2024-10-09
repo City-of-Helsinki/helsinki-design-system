@@ -480,7 +480,8 @@ export const FocusListenerExample = () => {
     [setIsFocused],
   );
 
-  const bundledTextAndChanges = useMemo(() => {
+  // need to memoize all or re-rendering would lose selections
+  const memoizedProps = useMemo(() => {
     const texts: Partial<Texts> = {
       label: 'Select multiple fruits or vegetables',
       placeholder: 'Choose three or more',
@@ -503,21 +504,24 @@ export const FocusListenerExample = () => {
       changeTracking.selectedOptions = selectedOptions;
     };
 
+    const options = getLargeBatchOfUniqueValues(2000);
+
     return {
       texts,
       textsAsFunction,
       onChange,
       changeTracking,
+      options,
     };
   }, []);
 
   const onFocus: SelectProps['onFocus'] = useCallback(async () => {
-    bundledTextAndChanges.texts.error = '';
+    memoizedProps.texts.error = '';
     setIsFocusedInHook(true);
   }, []);
   const onBlur: SelectProps['onBlur'] = useCallback(async () => {
-    if (!bundledTextAndChanges.changeTracking.selectedOptions.length) {
-      bundledTextAndChanges.texts.error = 'Select something';
+    if (!memoizedProps.changeTracking.selectedOptions.length) {
+      memoizedProps.texts.error = 'Select something';
     }
     setIsFocusedInHook(false);
   }, []);
@@ -572,7 +576,7 @@ export const FocusListenerExample = () => {
       </style>
       <div className={isFocused ? 'focused' : 'blurred'}>
         <Select
-          options={getLargeBatchOfUniqueValues(2000)}
+          options={memoizedProps.options}
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
