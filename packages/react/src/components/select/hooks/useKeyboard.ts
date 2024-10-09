@@ -24,20 +24,24 @@ export const isAlphaNumKey = (e: KeyboardEvent<HTMLElement>) => {
   return alphanumRegExp.test(e.key);
 };
 
-export const isArrowDownKey = (e: KeyboardEvent<HTMLElement>) => {
+const isArrowDownKey = (e: KeyboardEvent<HTMLElement>) => {
   return e.key === 'ArrowDown';
 };
-export const isArrowUpKey = (e: KeyboardEvent<HTMLElement>) => {
+const isArrowUpKey = (e: KeyboardEvent<HTMLElement>) => {
   return e.key === 'ArrowUp';
 };
-export const isEscKey = (e: KeyboardEvent<HTMLElement>) => {
+const isEscKey = (e: KeyboardEvent<HTMLElement>) => {
   return e.key === 'Escape';
 };
-export const isBackspaceKey = (e: KeyboardEvent<HTMLElement>) => {
+const isBackspaceKey = (e: KeyboardEvent<HTMLElement>) => {
   return e.key === 'Backspace';
 };
-export const isDeleteKey = (e: KeyboardEvent<HTMLElement>) => {
-  return e.key === 'Delete';
+
+const isHomekey = (e: KeyboardEvent<HTMLElement>) => {
+  return e.key === 'Home';
+};
+const isEndKey = (e: KeyboardEvent<HTMLElement>) => {
+  return e.key === 'End';
 };
 export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
   return ['Enter', ' '].includes(e.key);
@@ -121,7 +125,7 @@ const createKeyCache = () => {
 };
 
 export function useKeyboard() {
-  const { getEventElementType, getListItemSiblings, getOptionListItem } = useElementDetection();
+  const { getEventElementType, getListItemSiblings, getOptionListItem, getListItems } = useElementDetection();
   const { trigger, getData, getMetaData, updateMetaData } = useSelectDataHandlers();
   // When there is an input and user starts typing and button is focused,
   // the inputted text should be placed to the input after opening the dropdown.
@@ -172,9 +176,19 @@ export function useKeyboard() {
       }
 
       const moveFocusToFirstListItem = () => {
-        const closestListItems = getListItemSiblings(undefined, false);
-        if (closestListItems.next) {
-          closestListItems.next.focus();
+        const listItems = getListItems();
+        const el = listItems[0];
+        if (el) {
+          el.focus();
+          scrollToFocusedElement();
+        }
+      };
+
+      const moveFocusToLastListItem = () => {
+        const listItems = getListItems();
+        const el = listItems.pop();
+        if (el) {
+          el.focus();
           scrollToFocusedElement();
         }
       };
@@ -207,6 +221,16 @@ export function useKeyboard() {
       // esc should close the list
       if (isEscKey(e) && isOpen) {
         trigger({ id: eventIds.generic, type: eventTypes.close });
+        return;
+      }
+      // home should move to first item
+      if (isHomekey(e) && isOpen) {
+        moveFocusToFirstListItem();
+        return;
+      }
+      // end should move to last item
+      if (isEndKey(e) && isOpen) {
+        moveFocusToLastListItem();
         return;
       }
 

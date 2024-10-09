@@ -133,15 +133,18 @@ export function useElementDetection() {
     return list.querySelectorAll(selector);
   };
 
-  const getListItems = (listElement: HTMLElement) => {
+  const getListElement = () => {
+    return refs.list.current as HTMLElement;
+  };
+
+  const getListItems = () => {
     const selector = `${singleSelectOptionSelector},${multiSelectOptionSelector},${multiSelectGroupLabelSelector}`;
-    return listElement.querySelectorAll(selector);
+    return [...getListElement().querySelectorAll(selector)] as HTMLElement[];
   };
 
   const getListItemSiblings = (listItem?: HTMLLIElement, loop = true) => {
-    const list = refs.list.current as HTMLElement;
-    const listItems = getListItems(list) as unknown as HTMLLIElement[];
-    return getElementSiblings<HTMLLIElement>(list, listItem, loop, false, [...listItems]);
+    const listItems = getListItems();
+    return getElementSiblings<HTMLElement>(getListElement(), listItem, loop, false, listItems);
   };
 
   const isListGroupLabel = (element: HTMLElement) => {
@@ -161,7 +164,7 @@ export function useElementDetection() {
     if (!list) {
       return false;
     }
-    const listItems = Array.from(getListItems(list));
+    const listItems = Array.from(getListItems());
     if (listItems.includes(element)) {
       return true;
     }
@@ -246,7 +249,7 @@ export function useElementDetection() {
     if (index === -1 || !refs.list.current) {
       return null;
     }
-    return (getListItems(refs.list.current)[index] as HTMLElement) || null;
+    return (getListItems()[index] as HTMLElement) || null;
   };
 
   return {
@@ -258,6 +261,7 @@ export function useElementDetection() {
     getElementByKnownType,
     getElementId,
     getOptionListItem,
+    getListItems,
   };
 }
 
