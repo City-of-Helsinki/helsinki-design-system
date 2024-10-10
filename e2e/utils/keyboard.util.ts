@@ -26,6 +26,12 @@ export const createKeyboardHelpers = (page: Page) => {
     esc: () => {
       return page.keyboard.press('Escape');
     },
+    home: () => {
+      return page.keyboard.press('Home');
+    },
+    end: () => {
+      return page.keyboard.press('End');
+    },
     // In most cases, you should use locator.fill() instead.
     // See fillElement() below
     type: (value: string) => {

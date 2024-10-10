@@ -252,8 +252,6 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
       return Promise.resolve(option);
     }
     const currentCount = await getSelectedOptionsCount();
-    // option must be scrolled in to view, because hidden element locators timeout in most getter (.textContent(), count())
-    await scrollOptionInToView(option);
 
     if (props.multiSelect) {
       await option.click();

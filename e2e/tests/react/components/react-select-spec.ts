@@ -9,6 +9,7 @@ const storybook = 'react';
 
 const storyWithPlainSingleSelect = 'Singleselect';
 const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
+const storyWithSingleSelectWithValidation = 'With Validation';
 const storyWithPlainMultiSelect = 'Multiselect';
 const storyWithMultiSelectAndGroupsWithoutInput = 'Multiselect With Groups';
 const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Filter';
@@ -64,7 +65,10 @@ test.describe(`Selecting options and groups`, () => {
 });
 
 test.describe(`Keyboard navigation`, () => {
-  test('Spacebar opens menu, arrow keys move focus, esc closes', async ({ page, isMobile }, testInfo) => {
+  test('Spacebar opens menu, arrow keys move focus, esc closes, home and end move to start and end', async ({
+    page,
+    isMobile,
+  }, testInfo) => {
     if (!isMobile) {
       await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput);
       const selectUtil = createSelectHelpers(page, selectId);
@@ -94,6 +98,16 @@ test.describe(`Keyboard navigation`, () => {
 
       const clip = await selectUtil.getBoundingBox();
       await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+
+      await keyboard.home(); // moves focus to #0
+      await waitFor(() => {
+        return isLocatorFocused(options[0]);
+      });
+
+      await keyboard.end(); // moves focus to the last
+      await waitFor(() => {
+        return isLocatorFocused(options[options.length - 1]);
+      });
 
       await keyboard.esc(); // closes menu
       await waitFor(() => {
