@@ -21,7 +21,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     },
     optimization: {
       splitChunks: {
-        chunks: 'all',
+        chunks: 'initial',
+        minChunks: 2,
         minSize: 10000000,
         maxSize: 0,
         cacheGroups: {
