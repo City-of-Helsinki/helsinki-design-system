@@ -1,4 +1,5 @@
 import { uniqueId } from 'lodash';
+import { createRef } from 'react';
 
 import { getMockCalls } from '../../../../utils/testHelpers';
 import { ChangeEvent } from '../../../dataProvider/DataContext';
@@ -63,7 +64,15 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     },
     selectedOptions: [],
     refs: {
-      selectionButton: { current: null },
+      button: createRef<HTMLButtonElement>(),
+      listContainer: createRef<HTMLDivElement>(),
+      list: createRef<HTMLUListElement>(),
+      selectContainer: createRef<HTMLDivElement>(),
+      selectionsAndListContainer: createRef<HTMLDivElement>(),
+      tagList: createRef<HTMLDivElement>(),
+      showAllButton: createRef<HTMLButtonElement>(),
+      searchOrFilterInput: createRef<HTMLInputElement>(),
+      container: createRef<HTMLDivElement>(),
     },
     textContent: { selectionCount: 0, optionLabel: '', label: '', numberIndicator: 0, value: '' },
     textProvider: (key) => key,
@@ -71,6 +80,7 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     filter: '',
     screenReaderNotifications: [],
     search: '',
+    focusTarget: undefined,
   },
 };
 
@@ -166,6 +176,27 @@ export function createGroup({
   group.options = prefixOptionLabelsAndValues(label, group.options);
   return group;
 }
+
+/*
+Usage as mocked hook
+
+const mockDataReset = jest.fn().mockImplementation(() => {
+  resetMockData();
+  resetMockMetaData();
+});
+
+jest.mock('../useSelectDataHandlers', () => {
+  return {
+    __esModule: true,
+    useSelectDataHandlers: () => {
+      mockDataReset();
+      return {
+        ...mockUseSelectDataHandlersContents,
+      };
+    },
+  };
+});
+*/
 
 // name must start with "mock"
 export const mockUseSelectDataHandlersContents = {
