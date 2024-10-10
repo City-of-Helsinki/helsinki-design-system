@@ -14,7 +14,7 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   placeholder: string;
   icon: SelectMetaData['icon'];
   optionClassName: string;
-  buttonRef: SelectMetaData['refs']['selectionButton'];
+  buttonRef: SelectMetaData['refs']['button'];
 };
 
 const getTexts = (metaData: SelectMetaData) => {
@@ -73,7 +73,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     'aria-haspopup': 'listbox',
     'aria-invalid': invalid,
     'aria-label': getAriaLabel(),
-    buttonRef: refs.selectionButton,
+    buttonRef: refs.button,
     className: classNames(
       styles.dropdownButton,
       styles.selectedOptions,
@@ -99,7 +99,7 @@ The counter is absolutely positionend in its container, so if just number change
 unexpectedly hidden options if new number is wider than the one before hidden items calculations.
 */
 function updateHiddenElementsCount(metaData: SelectMetaData) {
-  const buttonEl = metaData.refs.selectionButton.current;
+  const buttonEl = metaData.refs.button.current;
   const cssClassesForSpaceReservation = [
     styles.spaceForOneDigit,
     styles.spaceForTwoDigits,
