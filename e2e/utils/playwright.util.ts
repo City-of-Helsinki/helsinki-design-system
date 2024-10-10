@@ -1,6 +1,11 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page, expect, ElementHandle, Expect, TestInfo } from '@playwright/test';
 
-export const getComponentStorybookUrls = async (page: Page, componentName: string, packageName: string) => {
+export const getComponentStorybookUrls = async (
+  page: Page,
+  componentName: string,
+  packageName: string,
+  nameFilters?: string[],
+) => {
   let componentUrls: string[] = [];
   const hds_root_dir = __dirname.split('/e2e')[0];
   const localStorybookPath = `file://${hds_root_dir}/packages/${packageName}/storybook-static/index.html?path=/story/`;
@@ -10,11 +15,17 @@ export const getComponentStorybookUrls = async (page: Page, componentName: strin
   const componentLinks = await page.locator(`[data-parent-id="components-${componentName}"]`).all();
 
   for (const component of componentLinks) {
-    await component.getAttribute('href').then((href) => {
+    await component.getAttribute('href').then(async (href) => {
       // don't add anything containing 'playground' to the list
       if (href && !href.includes('playground')) {
         // to use the inner iframe of the story instead
         const url = href.replace('index.html', 'iframe.html');
+        if (nameFilters) {
+          const storyName = await component.textContent();
+          if (!storyName || !nameFilters.includes(storyName)) {
+            return;
+          }
+        }
         componentUrls.push(url);
       }
     });
@@ -108,4 +119,69 @@ export const takeAllStorySnapshots = async (props: {
       }
     }
   }
+};
+
+export const getLocatorOrHandlePage = async (source: Locator | ElementHandle) => {
+  if ((source as Locator).page) {
+    return Promise.resolve((source as Locator).page());
+  }
+  if ((source as ElementHandle).ownerFrame) {
+    const frame = await (source as ElementHandle).ownerFrame();
+    if (!frame) {
+      return Promise.reject(new Error('ElementHandle frame not found in getLocatorOrHandlePage()'));
+    }
+    return Promise.resolve(frame.page());
+  }
+  return Promise.reject(new Error('Cannot resolve page from given source in getLocatorOrHandlePage()'));
+};
+
+export const waitFor = async (
+  fn: () => Promise<boolean>,
+  settings?: {
+    message?: string;
+    timeout?: number;
+    intervals?: number[];
+  },
+) => {
+  const defaults = {
+    message: 'WaitFor() timed out',
+    timeout: 5000,
+  };
+  return expect.poll(() => fn(), { ...defaults, ...settings }).toBe(true);
+};
+
+export async function waitForStable(tester: () => Promise<boolean>, requiredCount = 5) {
+  let stableCounter = 0;
+  const fn = async () => {
+    const result = await tester();
+    if (result) {
+      stableCounter += 1;
+    } else {
+      stableCounter = 0;
+    }
+    return Promise.resolve(stableCounter >= requiredCount);
+  };
+
+  return waitFor(fn, { intervals: [30, 30, 60, 60, 120, 120, 200, 200, 200, 200, 200, 500, 1000, 1000, 1000, 1000] });
+}
+
+export const createScreenshotFileName = (info: TestInfo, isMobile: boolean, suffix?: string, fileFormat = '.png') => {
+  const testName = [info.title];
+  if (suffix) {
+    testName.push(suffix);
+  }
+  return testName.join(' ').replaceAll(' ', '_').toLowerCase() + (isMobile ? '-mobile' : '-desktop') + fileFormat;
+};
+
+export const listenToConsole = (page: Page) => {
+  page.on('console', (msg) => console.log(msg.text()));
+};
+
+export const filterLocators = async (list: Locator[], iterator: (loc: Locator) => Promise<boolean>) => {
+  const results = await Promise.all(
+    list.map(async (elem) => {
+      return await iterator(elem);
+    }),
+  );
+  return list.filter((elem, index) => results[index] === true);
 };
