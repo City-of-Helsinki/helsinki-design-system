@@ -20,6 +20,32 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: '{{selectionCount}} selected options',
     selectedOptionsLabel: 'Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: '{{optionLabel}} (choose all)',
+    tagsClearAllButton: 'Clear all',
+    tagsClearAllButtonAriaLabel: 'Clear all {{selectionCount}} selected options.',
+    tagsShowAllButton: 'Show all ({{selectionCount}})',
+    tagsShowLessButton: 'Show less',
+    tagsShowAllButtonAriaLabel: 'Show all {{selectionCount}} selected options.',
+    tagsShowLessButtonAriaLabel: 'Show less options.',
+    tagRemoveSelectionAriaLabel: 'Remove selection "{{optionLabel}}".',
+    tagRemoved: 'Selected option "{{value}}" removed. There are {{selectionCount}} selections remaining.',
+    filterLabel: 'Filter',
+    filterPlaceholder: 'Type text to filter results with',
+    filterClearButtonAriaLabel: 'Clear filter',
+    filteredWithoutResultsInfo: 'No options found for "{{value}}".',
+    filterWithAnotherTerm: 'Try a different term.',
+    filterResults: 'Filtered results for "{{value}}". Found {{numberIndicator}} options.',
+    ariaLabelForListWhenRoleIsDialog: '{{label}}. {{numberIndicator}} choices.',
+    searchLabel: 'Search',
+    searchPlaceholder: 'Type text to search results with',
+    searchClearButtonAriaLabel: 'Clear search',
+    searchedWithoutResultsInfo: 'No options found for "{{value}}".',
+    searchWithAnotherTerm: 'Try a different term.',
+    searchingForOptions: 'Loading options',
+    searchErrorTitle: "We couldn't load the options.",
+    searchErrorText: 'Try again or if the problem persists contact support.',
+    searching: 'Searching for "{{value}}.',
+    searchResults: 'Found {{numberIndicator}} options for search term "{{value}}".',
   },
   fi: {
     assistive: '',
@@ -31,6 +57,32 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: 'FI: {{selectionCount}} selected options',
     selectedOptionsLabel: 'FI: Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: 'FI: {{optionLabel}} (choose all)',
+    tagsClearAllButton: 'FI: Clear all',
+    tagsClearAllButtonAriaLabel: 'FI: Clear all {{selectionCount}} selected options.',
+    tagsShowAllButton: 'FI: Show all ({{selectionCount}})',
+    tagsShowLessButton: 'FI: Show less',
+    tagsShowAllButtonAriaLabel: 'FI: Show all {{selectionCount}} selected options.',
+    tagsShowLessButtonAriaLabel: 'FI: Show less options.',
+    tagRemoveSelectionAriaLabel: 'FI: Remove selection "{{optionLabel}}".',
+    tagRemoved: 'FI: Selected option "{{value}}" removed. There are {{selectionCount}} selections remaining.',
+    filterLabel: 'FI: Filter',
+    filterPlaceholder: 'FI: Type text to filter results with',
+    filterClearButtonAriaLabel: 'FI: Clear filter',
+    filteredWithoutResultsInfo: 'FI: No options found for "{{value}}".',
+    filterWithAnotherTerm: 'FI: Try a different term.',
+    filterResults: 'FI: Filtered results for "{{value}}". Found {{numberIndicator}} options.',
+    ariaLabelForListWhenRoleIsDialog: 'FI: {{label}}. {{numberIndicator}} choices.',
+    searchLabel: 'FI: Search',
+    searchPlaceholder: 'FI: Type text to search results with',
+    searchClearButtonAriaLabel: 'FI: Clear search',
+    searchedWithoutResultsInfo: 'FI: No options found for "{{value}}".',
+    searchWithAnotherTerm: 'FI: Try a different term.',
+    searchingForOptions: 'FI: Loading options',
+    searchErrorTitle: "We couldn't load the options.",
+    searchErrorText: 'FI: Try again or if the problem persists contact support.',
+    searching: 'FI: Searching for "{{value}}.',
+    searchResults: 'FI: Found {{numberIndicator}} options for search term "{{value}}".',
   },
   sv: {
     assistive: '',
@@ -42,6 +94,32 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     selectedOptionsCount: 'SV: {{selectionCount}} selected options',
     selectedOptionsLabel: 'SV: Selected options',
     dropdownButtonAriaLabel: '',
+    multiSelectGroupAriaLabel: 'SV: {{optionLabel}} (choose all)',
+    tagsClearAllButton: 'SV: Clear all',
+    tagsClearAllButtonAriaLabel: 'SV: Clear all {{selectionCount}} selected options.',
+    tagsShowAllButton: 'SV: Show all ({{selectionCount}})',
+    tagsShowLessButton: 'SV: Show less',
+    tagsShowAllButtonAriaLabel: 'SV: Show all {{selectionCount}} selected options.',
+    tagsShowLessButtonAriaLabel: 'SV: Show less options.',
+    tagRemoveSelectionAriaLabel: 'SV: Remove selection "{{optionLabel}}".',
+    tagRemoved: 'SV: Selected option "{{value}}" removed. There are {{selectionCount}} selections remaining.',
+    filterLabel: 'SV: Filter',
+    filterPlaceholder: 'SV: Type text to filter results with',
+    filterClearButtonAriaLabel: 'SV: Clear filter',
+    filteredWithoutResultsInfo: 'SV: No options found for "{{value}}".',
+    filterWithAnotherTerm: 'SV: Try a different term.',
+    filterResults: 'SV: Filtered results for "{{value}}". Found {{numberIndicator}} options.',
+    ariaLabelForListWhenRoleIsDialog: 'SV: {{label}}. {{numberIndicator}} choices.',
+    searchLabel: 'SV: Search',
+    searchPlaceholder: 'SV: Type text to search results with',
+    searchClearButtonAriaLabel: 'SV: Clear search',
+    searchedWithoutResultsInfo: 'SV: No options found for "{{value}}".',
+    searchWithAnotherTerm: 'SV: Try a different term.',
+    searchingForOptions: 'SV: Loading options',
+    searchErrorTitle: "We couldn't load the options.",
+    searchErrorText: 'SV: Try again or if the problem persists contact support.',
+    searching: 'SV: Searching for "{{value}}.',
+    searchResults: 'SV: Found {{numberIndicator}} options for search term "{{value}}".',
   },
 };
 
@@ -66,6 +144,10 @@ const createTextInterpolationContent = (metaData: SelectMetaData): TextInterpola
   const count = metaData.selectedOptions.length;
   return {
     selectionCount: count,
+    optionLabel: '',
+    numberIndicator: '',
+    label: '',
+    value: '',
   };
 };
 
@@ -98,13 +180,17 @@ export const appendTexts = (texts: Partial<SelectProps['texts']>, metaData: Sele
   };
 };
 
-export const getTextKey = (key: TextKey, metaData: SelectMetaData): string | undefined => {
+export const getTextKey = (
+  key: TextKey,
+  metaData: SelectMetaData,
+  customContent?: Partial<TextInterpolationContent>,
+): string | undefined => {
   if (!metaData.textContent) {
     // eslint-disable-next-line no-param-reassign
     metaData.textContent = createTextInterpolationContent(metaData);
   }
   const { textProvider } = metaData;
-  return textProvider(key, metaData.textContent);
+  return textProvider(key, { ...metaData.textContent, ...customContent });
 };
 
 export const getTextFromMetaData = (key: TextKey, metaData: SelectMetaData): string | undefined => {

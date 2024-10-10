@@ -6,8 +6,16 @@ export const eventIds = {
   listItem: 'listItem',
   listGroup: 'listGroup',
   clearButton: 'clearButton',
+  clearAllButton: 'clearAllButton',
+  showAllButton: 'showAllButton',
+  tag: 'tag',
   arrowButton: 'arrowButton',
   generic: 'generic',
+  filter: 'filter',
+  search: 'search',
+  searchResult: 'searchResult',
+  assistive: 'assistive',
+  error: 'error',
 } as const;
 
 export const eventTypes = {
@@ -15,13 +23,22 @@ export const eventTypes = {
   outSideClick: 'outSideClick',
   change: 'change',
   error: 'error',
+  cancelled: 'cancelled',
   close: 'close',
+  success: 'success',
 } as const;
 
+// Note: tag event can only be a removal
+export const isRemoveTagEventId = (eventId: EventId) => {
+  return eventId === eventIds.tag;
+};
+
 const isClick = (eventType?: EventType) => eventType === eventTypes.click;
+const isChange = (eventType?: EventType) => eventType === eventTypes.change;
+const isError = (eventType?: EventType) => eventType === eventTypes.error;
 const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
-const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem;
-const isIdForClear = (eventId: EventId) => eventId === eventIds.clearButton;
+const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isRemoveTagEventId(eventId);
+const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
 const isEventForListToggle = (eventId: EventId) =>
   eventId === eventIds.selectedOptions || eventId === eventIds.arrowButton;
 
@@ -47,4 +64,24 @@ export const isOutsideClickEvent = (eventId: EventId, eventType?: EventType) => 
 
 export const isCloseEvent = (eventId: EventId, eventType?: EventType) => {
   return isGenericEvent(eventId) && eventType === eventTypes.close;
+};
+
+export const isFilterChangeEvent = (eventId: EventId, eventType?: EventType) => {
+  return isChange(eventType) && eventId === eventIds.filter;
+};
+
+export const isSearchChangeEvent = (eventId: EventId, eventType?: EventType) => {
+  return isChange(eventType) && eventId === eventIds.search;
+};
+
+export const isShowAllClickEvent = (eventId: EventId, eventType?: EventType) => {
+  return isClick(eventType) && eventId === eventIds.showAllButton;
+};
+
+export const isSearchSuccessEvent = (eventId: EventId, eventType?: EventType) => {
+  return eventId === eventIds.searchResult && eventType === eventTypes.success;
+};
+
+export const isSearchErrorEvent = (eventId: EventId, eventType?: EventType) => {
+  return isError(eventType) && eventId === eventIds.searchResult;
 };

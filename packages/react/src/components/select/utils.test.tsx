@@ -1,9 +1,11 @@
+/* eslint-disable camelcase */
 import React, { PropsWithChildren, ReactElement } from 'react';
 import { render } from '@testing-library/react';
 
 // eslint-disable-next-line jest/no-mocks-import
 import {
   createDataWithSelectedOptions,
+  createGroup,
   getTriggeredEvents,
   mockUseSelectDataHandlersContents,
   resetAllMocks,
@@ -14,37 +16,30 @@ import {
   createGroupLabel,
   createInputOnChangeListener,
   createOnClickListener,
+  filterOptions,
   getAllOptions,
+  getGroupLabelOption,
   getOptionGroupIndex,
   getSelectedOptions,
+  getSelectedOptionsPerc,
   getVisibleGroupLabels,
   iterateAndCopyGroup,
+  mergeSearchResultsToCurrent,
   OptionIterator,
   propsToGroups,
-  updateSelectedOptionInGroups,
+  updateGroupLabelAndOptions,
+  updateOptionInGroup,
   validateOption,
 } from './utils';
-import { Group, Option, SelectDataHandlers } from './types';
+import { FilterFunction, Group, Option, SelectDataHandlers } from './types';
 import { ChangeEvent, ChangeEventPayload } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
 
 describe('utils', () => {
   const createMultipleGroups = () => {
-    const prefixOptionLabelsAndValues = (prefix: string, options: Option[]) => {
-      return options.map((opt) => {
-        return {
-          ...opt,
-          label: `${prefix} ${opt.label}`,
-          value: `${prefix} ${opt.value}`,
-        };
-      });
-    };
-    const group1 = createDataWithSelectedOptions({ selectedOptionsCount: 0 }).groups[0];
-    const group2 = createDataWithSelectedOptions({ selectedOptionsCount: 0 }).groups[0];
-    const group3 = createDataWithSelectedOptions({ selectedOptionsCount: 0 }).groups[0];
-    group1.options = prefixOptionLabelsAndValues('group1', group1.options);
-    group2.options = prefixOptionLabelsAndValues('group2', group2.options);
-    group3.options = prefixOptionLabelsAndValues('group3', group3.options);
+    const group1 = createGroup({ label: 'group1' });
+    const group2 = createGroup({ label: 'group2' });
+    const group3 = createGroup({ label: 'group3' });
     return { groups: [group1, group2, group3] };
   };
   describe('iterateAndCopyGroup', () => {
@@ -189,14 +184,14 @@ describe('utils', () => {
       expect((triggeredEvent.payload as ChangeEventPayload).value).toBe(keyboardEvent.currentTarget.value);
     });
   });
-  describe('updateSelectedOptionInGroups', () => {
+  describe('updateOptionInGroup when multiselect === false', () => {
     it('sets given option as selected or unselected', () => {
       const { groups } = createMultipleGroups();
       expect(getSelectedOptions(groups)).toHaveLength(0);
       const selectedOption = groups[1].options[10];
       // select an option
       selectedOption.selected = true;
-      const newGroups = updateSelectedOptionInGroups(groups, selectedOption);
+      const newGroups = updateOptionInGroup(groups, selectedOption, false);
       const selectedOptionInResults = newGroups[1].options[10];
       expect(selectedOptionInResults.selected).toBeTruthy();
       expect(getSelectedOptions(newGroups)).toHaveLength(1);
@@ -206,7 +201,7 @@ describe('utils', () => {
 
       // unselect same option
       selectedOptionInResults.selected = false;
-      const latestGroups = updateSelectedOptionInGroups(newGroups, selectedOptionInResults);
+      const latestGroups = updateOptionInGroup(newGroups, selectedOptionInResults, false);
       const unselectedOptionInResults = latestGroups[1].options[10];
       expect(unselectedOptionInResults.selected).toBeFalsy();
       const assumedLastResult = [...latestGroups];
@@ -219,7 +214,10 @@ describe('utils', () => {
       const stringBackup = JSON.stringify(groups);
       groups.forEach((group) => {
         group.options.forEach((option) => {
-          const updatedGroups = updateSelectedOptionInGroups(groups, option);
+          if (option.isGroupLabel) {
+            return;
+          }
+          const updatedGroups = updateOptionInGroup(groups, option, false);
           updatedGroups.forEach((updatedGroup) => {
             updatedGroup.options.forEach((updatedGroupOption) => {
               Reflect.deleteProperty(updatedGroupOption, 'label');
@@ -230,8 +228,157 @@ describe('utils', () => {
           expect(JSON.stringify(groups)).toBe(stringBackup);
         });
       });
-
-      // clones...
+    });
+  });
+  describe('updateOptionInGroup when multiselect === true', () => {
+    it('sets given option as selected or unselected and does not change current selections', () => {
+      const { groups } = createMultipleGroups();
+      let currentGroups: Group[] = groups;
+      const toggleOption = (groupIndex: number, selectionIndex: number) => {
+        const targetOption = { ...(currentGroups[groupIndex].options[selectionIndex] as Option) };
+        const oldSelectionValue = targetOption.selected;
+        targetOption.selected = !oldSelectionValue;
+        const previousGroups = [...currentGroups];
+        currentGroups = updateOptionInGroup(currentGroups, targetOption, true);
+        const optionInNewGroups = currentGroups[groupIndex].options[selectionIndex] as Option;
+        const optionInOldGroups = previousGroups[groupIndex].options[selectionIndex] as Option;
+        // check that new option has new selected value
+        expect(optionInNewGroups.selected !== oldSelectionValue).toBeTruthy();
+        // check that old option is unchanged
+        expect(optionInOldGroups.selected === oldSelectionValue).toBeTruthy();
+        return optionInNewGroups;
+      };
+      expect(getSelectedOptions(currentGroups)).toHaveLength(0);
+      const changedOption_0_1 = toggleOption(0, 1);
+      const changedOption_1_1 = toggleOption(1, 1);
+      const changedOption_2_2 = toggleOption(2, 2);
+      expect(getSelectedOptions(currentGroups)).toMatchObject([
+        changedOption_0_1,
+        changedOption_1_1,
+        changedOption_2_2,
+      ]);
+      const changedOption_2_3 = toggleOption(2, 3);
+      const changedOption_1_3 = toggleOption(1, 3);
+      const changedOption_0_3 = toggleOption(0, 3);
+      expect(getSelectedOptions(currentGroups)).toMatchObject([
+        changedOption_0_1,
+        changedOption_0_3,
+        changedOption_1_1,
+        changedOption_1_3,
+        changedOption_2_2,
+        changedOption_2_3,
+      ]);
+      // unselect all selected
+      getSelectedOptions(currentGroups).forEach((option) => {
+        currentGroups = updateOptionInGroup(currentGroups, { ...option, selected: false }, true);
+      });
+      expect(getSelectedOptions(currentGroups)).toHaveLength(0);
+    });
+    it('Throws when trying to change a group label', () => {
+      const { groups } = createMultipleGroups();
+      const groupLabel = groups[0].options[0];
+      expect(() => updateOptionInGroup([], groupLabel, true)).toThrow();
+      expect(() => updateOptionInGroup([], groupLabel, false)).toThrow();
+    });
+  });
+  describe('updateGroupLabelAndOptions', () => {
+    const getOptionAtIndex = (group: Group, index: number) => group.options[index] as Option;
+    const getUnselectedOptions = (group: Group) => group.options.filter((opt) => opt.selected === false);
+    const selectNotLabelOptions = (group: Group, indeOfOptionNotToSelect = -1) => {
+      group.options.forEach((opt, index) => {
+        if (index === 0 || index === indeOfOptionNotToSelect) {
+          return;
+        }
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+    };
+    it('selects all group options when none are previously selected and label.selected = true', () => {
+      const { groups } = createMultipleGroups();
+      const groupLabel0 = getOptionAtIndex(groups[0], 0);
+      const groupsWithIndex0Selected = updateGroupLabelAndOptions(groups, { ...groupLabel0, selected: true });
+      // All items in group 0 are selected
+      expect(getUnselectedOptions(groupsWithIndex0Selected[0])).toHaveLength(0);
+      // Initial array is unmutated
+      expect(getUnselectedOptions(groups[0])).toHaveLength(groups[0].options.length);
+      // Zero items in group 1 are selected
+      expect(getUnselectedOptions(groupsWithIndex0Selected[1])).toHaveLength(
+        groupsWithIndex0Selected[1].options.length,
+      );
+      // Zero items in group 2 are selected
+      expect(getUnselectedOptions(groupsWithIndex0Selected[2])).toHaveLength(
+        groupsWithIndex0Selected[2].options.length,
+      );
+      const groupLabel1 = getOptionAtIndex(groups[1], 0);
+      const groupsWithIndex0And1Selected = updateGroupLabelAndOptions(groupsWithIndex0Selected, {
+        ...groupLabel1,
+        selected: true,
+      });
+      expect(getUnselectedOptions(groupsWithIndex0And1Selected[0])).toHaveLength(0);
+      expect(getUnselectedOptions(groupsWithIndex0And1Selected[1])).toHaveLength(0);
+      expect(getUnselectedOptions(groupsWithIndex0And1Selected[2])).toHaveLength(
+        groupsWithIndex0And1Selected[2].options.length,
+      );
+      const groupLabel2 = getOptionAtIndex(groups[2], 0);
+      const groupsWithAllSelected = updateGroupLabelAndOptions(groupsWithIndex0And1Selected, {
+        ...groupLabel2,
+        selected: true,
+      });
+      expect(getUnselectedOptions(groupsWithAllSelected[0])).toHaveLength(0);
+      expect(getUnselectedOptions(groupsWithAllSelected[1])).toHaveLength(0);
+      expect(getUnselectedOptions(groupsWithAllSelected[2])).toHaveLength(0);
+    });
+    it('selects all group options when not all are previously selected and label.selected = true', () => {
+      const { groups } = createMultipleGroups();
+      // set all but label and first option selected
+      selectNotLabelOptions(groups[0], 1);
+      const groupLabel0 = getOptionAtIndex(groups[0], 0);
+      const groupsWithIndex0Selected = updateGroupLabelAndOptions(groups, { ...groupLabel0, selected: true });
+      expect(getUnselectedOptions(groupsWithIndex0Selected[0])).toHaveLength(0);
+    });
+    it('unselects no group options when all are previously selected and label.selected = true', () => {
+      const { groups } = createMultipleGroups();
+      // set all but label selected
+      selectNotLabelOptions(groups[0]);
+      const groupLabel0 = getOptionAtIndex(groups[0], 0);
+      const groupsWithIndex0Selected = updateGroupLabelAndOptions(groups, { ...groupLabel0, selected: true });
+      expect(getUnselectedOptions(groupsWithIndex0Selected[0])).toHaveLength(0);
+    });
+    it('unselects all group options when all are previously selected and label.selected = false', () => {
+      const { groups } = createMultipleGroups();
+      // set all but label selected
+      selectNotLabelOptions(groups[0]);
+      const groupLabel0 = getOptionAtIndex(groups[0], 0);
+      const groupsWithIndex0Selected = updateGroupLabelAndOptions(groups, { ...groupLabel0, selected: false });
+      expect(groupsWithIndex0Selected[0].options.filter((opt) => opt.selected === true)).toHaveLength(0);
+    });
+    it('Not visible or disabled options are not affected', () => {
+      const { groups } = createMultipleGroups();
+      const groupLabel0 = getOptionAtIndex(groups[0], 0);
+      getOptionAtIndex(groups[0], 1).disabled = true;
+      getOptionAtIndex(groups[0], 2).visible = false;
+      const notVisibleAndDisabledOption = getOptionAtIndex(groups[0], 3);
+      notVisibleAndDisabledOption.visible = false;
+      notVisibleAndDisabledOption.disabled = true;
+      const updatedGroups = updateGroupLabelAndOptions(groups, { ...groupLabel0, selected: true });
+      // All items expect #1,2,3 in group 0 are selected
+      expect(getUnselectedOptions(updatedGroups[0])).toHaveLength(3);
+      expect(getOptionAtIndex(updatedGroups[0], 1).selected).toBeFalsy();
+      expect(getOptionAtIndex(updatedGroups[0], 2).selected).toBeFalsy();
+      expect(getOptionAtIndex(updatedGroups[0], 3).selected).toBeFalsy();
+      // make all options selectable
+      getOptionAtIndex(updatedGroups[0], 1).disabled = false;
+      getOptionAtIndex(updatedGroups[0], 2).visible = true;
+      const newNotVisibleAndDisabledOption = getOptionAtIndex(updatedGroups[0], 3);
+      newNotVisibleAndDisabledOption.visible = true;
+      newNotVisibleAndDisabledOption.disabled = false;
+      const latestGroups = updateGroupLabelAndOptions(updatedGroups, { ...groupLabel0, selected: true });
+      expect(getUnselectedOptions(latestGroups[0])).toHaveLength(0);
+    });
+    it('Throws when trying to change a non-group option', () => {
+      const { groups } = createMultipleGroups();
+      const nonGroupLabel = groups[0].options[1];
+      expect(() => updateGroupLabelAndOptions([], nonGroupLabel)).toThrow();
     });
   });
   describe('clearAllSelectedOptions', () => {
@@ -284,6 +431,7 @@ describe('utils', () => {
         getSelectedOptions([groupWith10SelectedOptions, groupWith10SelectedOptions, groupWith10SelectedOptions]),
       ).toHaveLength(30);
     });
+    // .... add test to verify order
   });
   describe('getVisibleGroupLabels', () => {
     it('Returns list of group labels that are visible and label is not empty', () => {
@@ -293,6 +441,15 @@ describe('utils', () => {
       expect(getVisibleGroupLabels([visibleLabel, emptyLabel, hiddenLabel])).toHaveLength(1);
       expect(getVisibleGroupLabels([emptyLabel, hiddenLabel])).toHaveLength(0);
       expect(getVisibleGroupLabels([visibleLabel, visibleLabel, visibleLabel])).toHaveLength(3);
+    });
+  });
+  describe('getSelectedOptionsPerc', () => {
+    it('Counts percentage (0...1) how many non-group label options are selected', () => {
+      const maxOptions = 10;
+      for (let i = 0; i <= maxOptions; i += 1) {
+        const { groups } = createDataWithSelectedOptions({ selectedOptionsCount: i, totalOptionsCount: maxOptions });
+        expect(getSelectedOptionsPerc(groups[0])).toBe(i / maxOptions);
+      }
     });
   });
   describe('validateOption', () => {
@@ -353,6 +510,8 @@ describe('utils', () => {
     });
   });
   describe('propsToGroups converts given data in SelectProps format to SelectData', () => {
+    const options1 = ['option 0', 'option 1'];
+    const options2 = ['option 2', 'option 3'];
     it('String options are converted to groups', () => {
       const options = ['option 0', 'option 1'];
       expect(propsToGroups({ options })).toMatchObject([
@@ -362,8 +521,6 @@ describe('utils', () => {
       ]);
     });
     it('Groups with string options are converted to groups with labels', () => {
-      const options1 = ['option 0', 'option 1'];
-      const options2 = ['option 2', 'option 3'];
       expect(
         propsToGroups({
           groups: [
@@ -388,6 +545,17 @@ describe('utils', () => {
         },
       ]);
       expect(propsToGroups({ groups: [] })).toMatchObject([]);
+    });
+    it('If already parsed group is passed, it is returned as it is.', () => {
+      const readyGroups = propsToGroups({
+        groups: [
+          { label: 'Group1', options: options1 },
+          { label: 'Group2', options: options2 },
+        ],
+      }) as Group[];
+      expect((propsToGroups(readyGroups[0]) as Group[])[0]).toMatchObject(readyGroups[0]);
+      expect((propsToGroups(readyGroups[1]) as Group[])[0]).toMatchObject(readyGroups[1]);
+      expect(propsToGroups({ groups: readyGroups }) as Group[]).toMatchObject(readyGroups);
     });
   });
   describe('childrenToGroups converts React children to groups', () => {
@@ -453,6 +621,164 @@ describe('utils', () => {
           ],
         },
       ]);
+    });
+  });
+  describe('filterOptions sets option.visible true/false', () => {
+    const optionsInGroup = 20;
+    const groupCount = 3;
+
+    it('if filterStr is not empty, the "visible" prop matches the returned filterFunction value', () => {
+      const { groups } = createMultipleGroups();
+
+      const resultingGroupsWithAllHidden = filterOptions(groups, 'filter', () => false);
+      expect(getAllOptions(resultingGroupsWithAllHidden).filter((opt) => opt.visible === true)).toHaveLength(0);
+
+      const resultingGroupsWithAllVisible = filterOptions(resultingGroupsWithAllHidden, 'filter', () => true);
+      expect(getAllOptions(resultingGroupsWithAllVisible).filter((opt) => opt.visible === false)).toHaveLength(0);
+
+      let count = 0;
+      const resultingGroupsWithHalfVisible = filterOptions(resultingGroupsWithAllHidden, 'filter', () => {
+        count += 1;
+        return count % 2 === 0;
+      });
+      expect(getAllOptions(resultingGroupsWithHalfVisible).filter((opt) => opt.visible === false)).toHaveLength(
+        (groupCount * optionsInGroup) / 2,
+      );
+    });
+    it('if filterStr is empty, the "visible" prop is always true', () => {
+      const { groups } = createMultipleGroups();
+
+      const resultingGroupsWithAllHidden = filterOptions(groups, '', () => false);
+      expect(getAllOptions(resultingGroupsWithAllHidden).filter((opt) => opt.visible === true)).toHaveLength(
+        groupCount * optionsInGroup,
+      );
+    });
+    it('A group label is hidden if all of its options are hidden or visible if one option is visible', () => {
+      const { groups } = createMultipleGroups();
+      const groupFilter: FilterFunction = (option, filter) => {
+        return option.label.includes(filter);
+      };
+      const resultingGroupsWithGroup1Visible = filterOptions(groups, 'group1', groupFilter);
+      expect(getAllOptions(resultingGroupsWithGroup1Visible).filter((opt) => opt.visible === true)).toHaveLength(
+        optionsInGroup,
+      );
+      const groupLabels = resultingGroupsWithGroup1Visible.map((g) => getGroupLabelOption(g)) as Option[];
+      expect(groupLabels[0].visible).toBeTruthy();
+      expect(groupLabels[1].visible).toBeFalsy();
+      expect(groupLabels[2].visible).toBeFalsy();
+
+      const getOneOptionFromOtherGroups = () => {
+        const allOptions = getAllOptions(resultingGroupsWithGroup1Visible);
+        return [allOptions[optionsInGroup * 2 - 1], allOptions[optionsInGroup * 3 - 1]];
+      };
+      const visibleOptionLabels = getOneOptionFromOtherGroups().map((opt) => opt.label);
+      const filterSelected: FilterFunction = (option) => {
+        return visibleOptionLabels.includes(option.label);
+      };
+      const allGroupsVisible = filterOptions(resultingGroupsWithGroup1Visible, 'group1', filterSelected);
+      const groupLabels2 = allGroupsVisible.map((g) => getGroupLabelOption(g)) as Option[];
+      expect(groupLabels2[0].visible).toBeFalsy();
+      expect(groupLabels2[1].visible).toBeTruthy();
+      expect(groupLabels2[2].visible).toBeTruthy();
+    });
+    it('If a group label is not set, it stays hidden', () => {
+      const { groups } = createMultipleGroups();
+      const firstGroupLabel = getGroupLabelOption(groups[0]) as Option;
+      firstGroupLabel.label = '';
+      const allOptionsVisible = filterOptions(groups, 'group1', () => true);
+      const groupLabels2 = allOptionsVisible.map((g) => getGroupLabelOption(g)) as Option[];
+      expect(groupLabels2[0].visible).toBeFalsy();
+      expect(groupLabels2[1].visible).toBeTruthy();
+      expect(groupLabels2[2].visible).toBeTruthy();
+    });
+
+    it('clones the given groups and options and does not mutate', () => {
+      const { groups } = createMultipleGroups();
+      const stringBackup = JSON.stringify(groups);
+      let callCount = 0;
+      const filter = () => {
+        callCount += 1;
+        return callCount === 1;
+      };
+
+      const result = filterOptions(groups, 'group1', filter);
+
+      expect(result === groups).not.toBeTruthy();
+      expect(JSON.stringify(result)).not.toBe(stringBackup);
+      expect(JSON.stringify(groups)).toBe(stringBackup);
+    });
+  });
+  describe('mergeSearchResultsToCurrent merges search results to current groups', () => {
+    it('New groups override old groups, if old one has no selected items', () => {
+      const existingGroups = [createGroup({ label: 'Existing' }), createGroup({ label: 'Existing 2' })];
+      const newGroup = createGroup({ label: 'New' });
+
+      const results = mergeSearchResultsToCurrent(newGroup, existingGroups);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([newGroup]));
+    });
+    it('New group overrides old group, but keeps selected ones and hides them.', () => {
+      const existingGroups = [createGroup({ label: 'Existing 1' }), createGroup({ label: 'Existing 2' })];
+      const selected = [
+        existingGroups[0].options[1],
+        existingGroups[0].options[8],
+        existingGroups[1].options[3],
+        existingGroups[1].options[4],
+      ];
+      selected.forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+
+      const newGroup = createGroup({ label: 'New' });
+
+      const copyOfSelectedWithHiddenOptions = selected.map((opt) => {
+        return { ...opt, visible: false };
+      });
+
+      const results = mergeSearchResultsToCurrent(newGroup, existingGroups);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([{ options: copyOfSelectedWithHiddenOptions }, newGroup]));
+    });
+    it('If new group has options with same value that are selected, new group options will be selected.', () => {
+      const existingGroups = [createGroup({ label: 'Existing 1' }), createGroup({ label: 'Existing 2' })];
+      // select 4 options which values will be found in newGroups
+      // select also 2 options which values will not be found
+      const selectedOptions = [
+        existingGroups[0].options[1],
+        existingGroups[0].options[8],
+        existingGroups[1].options[3],
+        existingGroups[1].options[4],
+        existingGroups[0].options[5],
+        existingGroups[1].options[5],
+      ];
+      const selectedValues = selectedOptions.map((opt) => opt.value);
+      selectedOptions.forEach((opt) => {
+        // eslint-disable-next-line no-param-reassign
+        opt.selected = true;
+      });
+
+      const newGroup1 = createGroup({ label: 'New' });
+      const newGroup2 = createGroup({ label: 'New 2' });
+      // match 2 values in each group to the selected values
+      newGroup1.options[5].value = selectedOptions[0].value;
+      newGroup1.options[6].value = selectedOptions[1].value;
+      newGroup2.options[2].value = selectedOptions[2].value;
+      newGroup2.options[7].value = selectedOptions[3].value;
+
+      const selectedOptionsThatAreNotInNewGroups = [existingGroups[0].options[5], existingGroups[1].options[5]].map(
+        (opt) => {
+          return { ...opt, visible: false };
+        },
+      );
+
+      const results = mergeSearchResultsToCurrent({ groups: [newGroup1, newGroup2] }, existingGroups);
+      const newGroupsWithSelected = iterateAndCopyGroup([newGroup1, newGroup2], (opt) => {
+        return { ...opt, selected: selectedValues.includes(opt.value) };
+      });
+      expect(JSON.stringify(results)).toBe(
+        JSON.stringify([{ options: selectedOptionsThatAreNotInNewGroups }, ...newGroupsWithSelected]),
+      );
+      expect(getSelectedOptions(results)).toHaveLength(6);
+      expect(getSelectedOptions(existingGroups)).toHaveLength(6);
     });
   });
 });

@@ -75,17 +75,7 @@ describe('<List />', () => {
       data: getCurrentMockData(),
     };
   };
-  describe('List is not rendered', () => {
-    it('When there are no options', () => {
-      const { getElementById, metaData } = initTests({ groups: [], open: true });
-      expect(getList({ getElementById, metaData })).toBeNull();
-    });
-    it('When data.open is false', () => {
-      const { getElementById, metaData } = initTests({ open: false });
-      expect(getList({ getElementById, metaData })).toBeNull();
-    });
-  });
-  describe('List is rendered', () => {
+  describe('List element is always present in the DOM.', () => {
     it('When data.open is true and options are found', () => {
       const { getElementById, metaData, data } = initTests();
       const optionElements = getOptionElements({ getElementById, metaData });
@@ -96,6 +86,14 @@ describe('<List />', () => {
         const option = options[index] as Option;
         expect(optionEl.innerHTML.includes(option.label)).toBeTruthy();
       });
+    });
+    it('When there are no options', () => {
+      const { getElementById, metaData } = initTests({ groups: [], open: true });
+      expect(getList({ getElementById, metaData })).not.toBeNull();
+    });
+    it('When data.open is false', () => {
+      const { getElementById, metaData } = initTests({ open: false });
+      expect(getList({ getElementById, metaData })).not.toBeNull();
     });
   });
   describe('Element indicates selection', () => {

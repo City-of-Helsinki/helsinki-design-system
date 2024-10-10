@@ -13,9 +13,9 @@ function useOutsideClick(props: { ref: RefObject<HTMLElement>; callback: () => v
     [props.callback, props.ref],
   );
   useEffect(() => {
-    window.addEventListener('click', handleClickOutsideWrapper);
+    window.addEventListener('click', handleClickOutsideWrapper, true);
     return () => {
-      window.removeEventListener('click', handleClickOutsideWrapper);
+      window.removeEventListener('click', handleClickOutsideWrapper, true);
     };
   }, [handleClickOutsideWrapper]);
 }

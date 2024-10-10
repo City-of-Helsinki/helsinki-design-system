@@ -1,7 +1,10 @@
+import { uniqueId } from 'lodash';
+
 import { getMockCalls } from '../../../../utils/testHelpers';
 import { ChangeEvent } from '../../../dataProvider/DataContext';
+import { changeHandler } from '../../dataUpdater';
 import { EventId, EventType } from '../../events';
-import { Group, OptionInProps, SelectData, SelectMetaData } from '../../types';
+import { Group, OptionInProps, SelectData, SelectMetaData, Option, SelectDataHandlers } from '../../types';
 import { getSelectedOptions, propsToGroups } from '../../utils';
 
 export type OptionalSelectData = Partial<SelectData>;
@@ -15,7 +18,9 @@ const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
   default: {
     groups: propsToGroups({ options: ['Option 1'] }),
     open: false,
+    multiSelect: false,
     onChange: jest.fn(),
+    visibleOptions: 5.5,
   },
 };
 
@@ -60,8 +65,12 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
     refs: {
       selectionButton: { current: null },
     },
-    textContent: { selectionCount: 0 },
+    textContent: { selectionCount: 0, optionLabel: '', label: '', numberIndicator: 0, value: '' },
     textProvider: (key) => key,
+    getOptionId: () => uniqueId('item'),
+    filter: '',
+    screenReaderNotifications: [],
+    search: '',
   },
 };
 
@@ -121,7 +130,7 @@ export function createDataWithSelectedOptions({
   const options: OptionInProps[] = [];
   let selectCount = selectedOptionsCount;
   for (let y = 0; y < totalOptionsCount; y += 1) {
-    options.push({ label: `Option ${y}`, selected: selectCount > 0 });
+    options.push({ label: `Option ${y}`, selected: selectCount > 0, visible: true });
 
     selectCount -= 1;
   }
@@ -129,6 +138,33 @@ export function createDataWithSelectedOptions({
     return { groups: propsToGroups({ groups: [{ options, label }] }) as Group[] };
   }
   return { groups: propsToGroups({ options }) as Group[] };
+}
+
+export function createGroup({
+  totalOptionsCount = 20,
+  selectedOptionsCount = 0,
+  label = 'group',
+}: {
+  totalOptionsCount?: number;
+  selectedOptionsCount?: number;
+  label?: string;
+}) {
+  const prefixOptionLabelsAndValues = (prefix: string, options: Option[]) => {
+    return options.map((opt) => {
+      if (opt.isGroupLabel) {
+        return { ...opt, visible: true };
+      }
+      return {
+        ...opt,
+        label: `${prefix} ${opt.label}`,
+        value: `${prefix} ${opt.value}`,
+        visible: true,
+      };
+    });
+  };
+  const group = createDataWithSelectedOptions({ totalOptionsCount, selectedOptionsCount, label }).groups[0];
+  group.options = prefixOptionLabelsAndValues(label, group.options);
+  return group;
 }
 
 // name must start with "mock"
@@ -149,5 +185,11 @@ export const mockUseSelectDataHandlersContents = {
   },
   trigger: (event: ChangeEvent) => {
     triggerTracker(event);
+  },
+  asyncRequestWithTrigger: (promise) => {
+    promise.then((e: ChangeEvent) => {
+      triggerTracker(e);
+      changeHandler(e, mockUseSelectDataHandlersContents as SelectDataHandlers);
+    });
   },
 };
