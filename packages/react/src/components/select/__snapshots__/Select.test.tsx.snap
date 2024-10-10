@@ -60,6 +60,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
           >
             <span
               class="dropdownButtonOption"
+              data-testid="placeholder"
             >
               Choose one
             </span>
@@ -187,6 +188,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
           >
             <span
               class="dropdownButtonOption"
+              data-testid="placeholder"
             >
               Choose one
             </span>
