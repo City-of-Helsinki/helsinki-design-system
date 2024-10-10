@@ -12,6 +12,7 @@ import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } 
 import { getElementIds, defaultFilter, propsToGroups, getAllOptions } from './utils';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { ChangeEvent } from '../dataProvider/DataContext';
+import useForceRender from '../../hooks/useForceRender';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -113,6 +114,7 @@ export const mockedContainer = () => {
   if (renderOnlyTheComponent()) {
     return renderMockedComponent();
   }
+
   return (
     <>
       {renderMockedComponent()}
@@ -235,10 +237,12 @@ export const initTests = ({
   renderComponentOnly,
   selectProps = {},
   testProps = { groups: false },
+  withForceRender,
 }: {
   renderComponentOnly?: boolean;
   selectProps?: Partial<SelectProps>;
   testProps?: Parameters<typeof getSelectProps>[0];
+  withForceRender?: boolean;
 } = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
   const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
@@ -252,7 +256,7 @@ export const initTests = ({
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const result = renderWithHelpers({ ...props, groups: testProps.groups });
+  const result = renderWithHelpers({ ...props, groups: testProps.groups, withForceRender });
 
   const getElementById = <T = HTMLElement,>(id: string) => {
     return result.container.querySelector(`#${id}`) as unknown as T;
@@ -263,10 +267,16 @@ export const initTests = ({
     return parseInt(el.innerHTML, 10);
   };
 
-  const createRenderUpdatePromise = () => {
-    const lastUpdate = getRenderTime();
+  const getForceRenderTime = () => {
+    const el = getElementById('force-render-time');
+    return parseInt(el.innerHTML, 10);
+  };
+
+  const createRenderUpdatePromise = (forcedUpdate = false) => {
+    const fn = () => (forcedUpdate ? getForceRenderTime() : getRenderTime());
+    const lastUpdate = fn();
     return waitFor(() => {
-      if (getRenderTime() <= lastUpdate) {
+      if (fn() <= lastUpdate) {
         throw new Error('Time not updated');
       }
     });
@@ -303,6 +313,12 @@ export const initTests = ({
     tempDataStorage(data);
     fireEvent.click(getElementById('data-updater'));
     return Promise.all([promise, promise2]);
+  };
+
+  const triggerForceRender = async () => {
+    const promise = createRenderUpdatePromise(true);
+    fireEvent.click(getElementById('force-render'));
+    return promise;
   };
 
   const getOptionElement = (option: Option) => {
@@ -375,6 +391,7 @@ export const initTests = ({
     createRenderUpdatePromise,
     triggerOptionChange,
     triggerChangeEvent,
+    triggerForceRender,
   };
 };
 
@@ -382,17 +399,31 @@ export const renderWithHelpers = (
   selectProps: Partial<Omit<SelectProps, 'groups'>> & {
     groups?: boolean;
     input?: SelectMetaData['listInputType'];
+    hasSelections?: boolean;
+    withForceRender?: boolean;
   } = {},
 ) => {
   // eslint-disable-next-line no-param-reassign
   selectProps.id = selectProps.id || defaultId;
   const placeholderText = defaultTexts.en.placeholder;
-  const { groups, input, ...restSelectProps } = selectProps;
+  const { groups, input, hasSelections, withForceRender, ...restSelectProps } = selectProps;
   const props: SelectProps = {
-    ...getSelectProps({ groups: !!groups, input }),
+    ...getSelectProps({ groups: !!groups, input, hasSelections }),
     ...restSelectProps,
   };
-  const result = render(<Select {...props} />);
+  const ComponentWithForceRender = () => {
+    const forceRender = useForceRender();
+    return (
+      <>
+        <Select {...props} />
+        <button type="button" onClick={forceRender} id="force-render">
+          Update data
+        </button>
+        return <span id="force-render-time">{Date.now()}</span>;
+      </>
+    );
+  };
+  const result = render(withForceRender ? <ComponentWithForceRender /> : <Select {...props} />);
 
   const elementIds = getElementIds(selectProps.id);
   const selectors = {
@@ -405,6 +436,7 @@ export const renderWithHelpers = (
     allListItems: `created below`,
     selectionsInButton: `#${elementIds.button} > div > span`,
     overflowCounter: `#${elementIds.button} > span`,
+    tags: `#${elementIds.tagList} > div`,
   };
   selectors.allListItems = `${selectors.groupLabels}, ${selectors.options}`;
 
@@ -522,6 +554,14 @@ export const renderWithHelpers = (
       .map((node) => node.innerHTML);
   };
 
+  const getTagElements = () => {
+    return Array.from(result.container.querySelectorAll(selectors.tags)) as HTMLElement[];
+  };
+
+  const getTags = () => {
+    return getTagElements().map((node) => node.innerHTML);
+  };
+
   const isListOpen = (): boolean => {
     const toggler = getElementById(elementIds.button) as HTMLElement;
     const list = getElementById(elementIds.list);
@@ -621,6 +661,17 @@ export const renderWithHelpers = (
     getListAndInputContainer,
     getInputElement,
     getListElement,
+    getShowAllButton: () => {
+      return getElementById(elementIds.showAllButton);
+    },
+    getClearAllButton: () => {
+      return getElementById(elementIds.clearAllButton);
+    },
+    getTagList: () => {
+      return getElementById(elementIds.tagList);
+    },
+    getTags,
+    getTagElements,
     getClearButton: () => {
       return getElementById(elementIds.clearButton);
     },

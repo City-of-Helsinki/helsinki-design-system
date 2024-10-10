@@ -14,6 +14,12 @@ export type MultiSelectGroupLabelProps = SelectItemProps & {
   isGroupDisabled: boolean;
 };
 
+const multiSelectGroupLabelClassNameSelector = `.${styles.multiSelectListItem}.${styles.groupLabel}`;
+export const multiSelectGroupLabelSelector = `div${multiSelectGroupLabelClassNameSelector},li${multiSelectGroupLabelClassNameSelector}`;
+
+export const isMultiSelectGroupLabel = (element: HTMLElement | null | undefined) => {
+  return element && element.matches(multiSelectGroupLabelSelector);
+};
 const createMultiSelectGroupLabelProps = (
   { option, trigger, getOptionId, isIntermediate, isGroupDisabled }: MultiSelectGroupLabelProps,
   dataHandlers: SelectDataHandlers,

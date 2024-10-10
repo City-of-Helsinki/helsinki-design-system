@@ -5,6 +5,12 @@ import classNames from '../../../../../utils/classNames';
 import { LiElementProps } from '../../../types';
 import { SelectItemProps } from '../common';
 
+export const singleSelectGroupLabelSelector = `li[role="presentation"].${styles.groupLabel}`;
+
+export const isSingleSelectGroupLabel = (element: HTMLElement | null | undefined) => {
+  return element && element.matches(singleSelectGroupLabelSelector);
+};
+
 export const createSingleSelectGroupLabelProps = ({ option, getOptionId }: SelectItemProps): LiElementProps => {
   const { label } = option;
   return {

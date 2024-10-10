@@ -17,6 +17,13 @@ type CommonMultiSelectOptionProps = {
 export type MultiSelectOptionProps = (DivElementProps | LiElementProps) &
   CommonMultiSelectOptionProps & { isInGroup: boolean };
 
+const multiSelectOptionClassNameSelector = `.${styles.multiSelectListItem}:not(.${styles.groupLabel})`;
+export const multiSelectOptionSelector = `div${multiSelectOptionClassNameSelector},li${multiSelectOptionClassNameSelector}`;
+
+export const isMultiSelectOption = (element: HTMLElement | null | undefined) => {
+  return element && element.matches(multiSelectOptionSelector);
+};
+
 const createMultiSelectItemProps = ({
   option,
   trigger,

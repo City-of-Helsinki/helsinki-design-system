@@ -24,6 +24,9 @@ export const eventTypes = {
   change: 'change',
   error: 'error',
   cancelled: 'cancelled',
+  blur: 'blur',
+  focus: 'focus',
+  focusMovedToNonListElement: 'focusMovedToNonListElement',
   close: 'close',
   success: 'success',
 } as const;
@@ -37,6 +40,7 @@ const isClick = (eventType?: EventType) => eventType === eventTypes.click;
 const isChange = (eventType?: EventType) => eventType === eventTypes.change;
 const isError = (eventType?: EventType) => eventType === eventTypes.error;
 const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
+const isBlur = (eventType?: EventType) => eventType === eventTypes.blur;
 const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isRemoveTagEventId(eventId);
 const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
 const isEventForListToggle = (eventId: EventId) =>
@@ -65,6 +69,9 @@ export const isOutsideClickEvent = (eventId: EventId, eventType?: EventType) => 
 export const isCloseEvent = (eventId: EventId, eventType?: EventType) => {
   return isGenericEvent(eventId) && eventType === eventTypes.close;
 };
+export const isCloseOnFocusMoveEvent = (eventId: EventId, eventType?: EventType) => {
+  return isGenericEvent(eventId) && eventType === eventTypes.focusMovedToNonListElement;
+};
 
 export const isFilterChangeEvent = (eventId: EventId, eventType?: EventType) => {
   return isChange(eventType) && eventId === eventIds.filter;
@@ -84,4 +91,8 @@ export const isSearchSuccessEvent = (eventId: EventId, eventType?: EventType) =>
 
 export const isSearchErrorEvent = (eventId: EventId, eventType?: EventType) => {
   return isError(eventType) && eventId === eventIds.searchResult;
+};
+
+export const isGenericBlurEvent = (eventId: EventId, eventType?: EventType) => {
+  return isGenericEvent(eventId) && isBlur(eventType);
 };

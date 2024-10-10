@@ -5,6 +5,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
   <div
     class="wrapper root"
     id="test-select-component"
+    tabindex="-1"
   >
     <label
       class="label "
@@ -25,7 +26,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
         class="selectedOptionsContainer"
       >
         <button
-          aria-controls="test-select-component-sl-container"
+          aria-controls="test-select-component-list"
           aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="listbox"
@@ -33,6 +34,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
           aria-label="Label. Choose one. 0 selected options. Assistive text Error text"
           class="dropdownButton selectedOptions placeholder spaceForOneDigit"
           id="test-select-component-main-button"
+          role="combobox"
           type="button"
         >
           <span>
@@ -58,6 +60,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
           >
             <span
               class="dropdownButtonOption"
+              data-testid="placeholder"
             >
               Choose one
             </span>
@@ -130,6 +133,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
   <div
     class="wrapper root"
     id="test-select-component"
+    tabindex="-1"
   >
     <label
       class="label "
@@ -150,7 +154,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
         class="selectedOptionsContainer"
       >
         <button
-          aria-controls="test-select-component-sl-container"
+          aria-controls="test-select-component-list"
           aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="listbox"
@@ -158,6 +162,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
           aria-label="Label. Choose one. 0 selected options. Assistive text Error text"
           class="dropdownButton selectedOptions placeholder spaceForOneDigit"
           id="test-select-component-main-button"
+          role="combobox"
           type="button"
         >
           <span>
@@ -183,6 +188,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
           >
             <span
               class="dropdownButtonOption"
+              data-testid="placeholder"
             >
               Choose one
             </span>

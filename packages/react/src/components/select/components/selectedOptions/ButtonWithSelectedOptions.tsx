@@ -5,7 +5,7 @@ import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option, TextKey } from '../../types';
-import { createOnClickListener } from '../../utils';
+import { createOnClickListener, getVisibleGroupLabels } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 import { getTextKey } from '../../texts';
 
@@ -14,7 +14,7 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   placeholder: string;
   icon: SelectMetaData['icon'];
   optionClassName: string;
-  buttonRef: SelectMetaData['refs']['selectionButton'];
+  buttonRef: SelectMetaData['refs']['button'];
 };
 
 const getTexts = (metaData: SelectMetaData) => {
@@ -34,12 +34,12 @@ const getTexts = (metaData: SelectMetaData) => {
 
 const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
   const { getData, getMetaData, trigger } = dataHandlers;
-  const { disabled, open, invalid } = getData();
+  const { disabled, open, invalid, multiSelect, groups } = getData();
   const metaData = getMetaData();
-  const { icon, refs, elementIds, selectedOptions } = metaData;
+  const { icon, refs, elementIds, selectedOptions, listInputType, activeDescendant } = metaData;
   const { placeholder, label, ariaLabel, errorText, assistiveText, noSelectedOptions, selectedOptionsLabel } =
     getTexts(metaData);
-
+  const hasInput = !!listInputType;
   const getAriaLabel = () => {
     const descriptiveLabel = label || ariaLabel;
     const labels = descriptiveLabel ? [`${descriptiveLabel}.`] : [];
@@ -67,13 +67,27 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     return labels.join(' ');
   };
 
+  const getInputAndGroupRelatedProps = (): Partial<ButtonElementProps> => {
+    if (hasInput) {
+      return { role: undefined, 'aria-controls': elementIds.searchOrFilterInput, 'aria-haspopup': 'dialog' };
+    }
+    const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+    const isMultiSelectWithGroups = multiSelect && hasVisibleGroupLabels;
+    return {
+      role: 'combobox',
+      'aria-controls': elementIds.list,
+      'aria-haspopup': isMultiSelectWithGroups ? 'dialog' : 'listbox',
+    };
+  };
+
   return {
     'aria-controls': elementIds.selectionsAndListsContainer,
     'aria-expanded': open,
     'aria-haspopup': 'listbox',
     'aria-invalid': invalid,
     'aria-label': getAriaLabel(),
-    buttonRef: refs.selectionButton,
+    'aria-activedescendant': hasInput ? undefined : activeDescendant,
+    buttonRef: refs.button,
     className: classNames(
       styles.dropdownButton,
       styles.selectedOptions,
@@ -87,6 +101,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     optionClassName: styles.dropdownButtonOption,
     placeholder,
     ...createOnClickListener({ id: eventIds.selectedOptions, type: eventTypes.click, trigger }),
+    ...getInputAndGroupRelatedProps(),
   };
 };
 
@@ -99,7 +114,7 @@ The counter is absolutely positionend in its container, so if just number change
 unexpectedly hidden options if new number is wider than the one before hidden items calculations.
 */
 function updateHiddenElementsCount(metaData: SelectMetaData) {
-  const buttonEl = metaData.refs.selectionButton.current;
+  const buttonEl = metaData.refs.button.current;
   const cssClassesForSpaceReservation = [
     styles.spaceForOneDigit,
     styles.spaceForTwoDigits,
@@ -143,7 +158,9 @@ export function ButtonWithSelectedOptions() {
       </span>
     ))
   ) : (
-    <span className={optionClassName}>{placeholder}</span>
+    <span className={optionClassName} data-testid="placeholder">
+      {placeholder}
+    </span>
   );
 
   useLayoutEffect(() => {

@@ -416,3 +416,20 @@ export function removeScreenReaderNotification(
   }
   return false;
 }
+
+export function filterSelectableOptions(
+  groups: SelectData['groups'],
+  filterStr: string,
+  filterFunc: FilterFunction,
+  isMultiSelect: boolean,
+) {
+  return getAllOptions(groups, !isMultiSelect).filter((option) => filterFunc(option, filterStr));
+}
+
+export function findSelectableOptionIndex(
+  groups: SelectData['groups'],
+  iterator: (option: Option) => boolean,
+  isMultiSelect: boolean,
+) {
+  return getAllOptions(groups, !isMultiSelect).findIndex(iterator);
+}

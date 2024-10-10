@@ -29,7 +29,9 @@ import {
   eventTypes,
   isClearOptionsClickEvent,
   isCloseEvent,
+  isCloseOnFocusMoveEvent,
   isFilterChangeEvent,
+  isGenericBlurEvent,
   isGroupClickEvent,
   isOpenOrCloseEvent,
   isOptionClickEvent,
@@ -68,7 +70,16 @@ const dataUpdater = (
     }
     dataHandlers.updateData({ open });
     dataHandlers.updateMetaData({ lastToggleCommand: now });
+    if (!open) {
+      dataHandlers.updateMetaData({ activeDescendant: undefined });
+    }
     return true;
+  };
+
+  const setFocusTarget = (focusTarget: SelectMetaData['focusTarget']) => {
+    dataHandlers.updateMetaData({
+      focusTarget,
+    });
   };
 
   const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
@@ -84,6 +95,9 @@ const dataUpdater = (
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
+    if (didUpdate && willOpen) {
+      setFocusTarget(dataHandlers.getMetaData().listInputType ? 'searchOrFilterInput' : 'list');
+    }
     return {
       ...returnValue,
       didDataChange: didUpdate,
@@ -105,8 +119,12 @@ const dataUpdater = (
     );
     updateGroups(newGroups, clickedOption);
     openOrClose(id !== eventIds.tag && current.multiSelect);
-    if (isRemoveTagEventId(id)) {
+    if (id === eventIds.listItem && !current.multiSelect) {
+      setFocusTarget('button');
+    } else if (isRemoveTagEventId(id)) {
       const remainingOptions = dataHandlers.getMetaData().selectedOptions.length;
+      const hasSelectedItems = !!remainingOptions;
+      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
       const notification = createScreenReaderNotification(
         eventIds.tag,
         getTextKey('tagRemoved', dataHandlers.getMetaData(), {
@@ -148,6 +166,7 @@ const dataUpdater = (
   if (isClearOptionsClickEvent(id, type)) {
     const newGroups = clearAllSelectedOptions(current.groups);
     updateGroups(newGroups);
+    setFocusTarget('button');
     return {
       ...returnValue,
       didSelectionsChange: true,
@@ -178,11 +197,19 @@ const dataUpdater = (
 
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
     if (openOrClose(false)) {
+      setFocusTarget('button');
       return {
         ...returnValue,
         didDataChange: true,
       };
     }
+  }
+
+  if (isCloseOnFocusMoveEvent(id, type) && current.open) {
+    return {
+      ...returnValue,
+      didDataChange: openOrClose(false),
+    };
   }
 
   if (isSearchSuccessEvent(id, type)) {
@@ -216,6 +243,12 @@ const dataUpdater = (
     return {
       ...returnValue,
       didDataChange: true,
+    };
+  }
+  if (isGenericBlurEvent(id, type) && current.open) {
+    return {
+      ...returnValue,
+      didDataChange: openOrClose(false),
     };
   }
   return returnValue;

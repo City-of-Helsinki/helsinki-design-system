@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { takeAllStorySnapshots } from '../../../helpers';
+import { takeAllStorySnapshots } from '../../../utils/playwright.util';
 
 const componentName = 'button';
 const storybook = 'react';
