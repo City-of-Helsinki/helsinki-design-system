@@ -52,10 +52,41 @@ describe('dataUpdater', () => {
   const getDataOfLastDataUpdate = () => {
     return getDataOfDataUpdateByIndex(-1);
   };
-  const getMetaDataOfLastMetaDataUpdate = () => {
+  const getMetaDataOfMetaDataUpdate = (indexShift = -1) => {
     const list = getMetaDataUpdates();
-    return list[list.length - 1][0] as SelectMetaData;
+    return list[list.length + indexShift][0] as SelectMetaData;
   };
+  const getMetaDataOfLastMetaDataUpdate = () => {
+    return getMetaDataOfMetaDataUpdate(-1);
+  };
+
+  // when menu is opened, the metadata is updated twice:
+  // once to update lastToggleCommand
+  // once to update focus target
+  const getLastToggleCommandFromOpenUpdate = () => {
+    return getMetaDataOfMetaDataUpdate(-2).lastToggleCommand;
+  };
+
+  const getFocusTargetFromFromOpenUpdate = () => {
+    return getMetaDataOfMetaDataUpdate(-1).focusTarget;
+  };
+
+  // when single select option is clicked, the metadata is updated three times:
+  // once to update focus target
+  // once to update active descendant
+  // once to update lastToggleCommand
+  const getLastToggleCommandFromOptionClickUpdate = () => {
+    return getMetaDataOfMetaDataUpdate(-3).lastToggleCommand;
+  };
+
+  const getFocusTargetFromFromOptionClickUpdate = () => {
+    return getMetaDataOfMetaDataUpdate(-1).focusTarget;
+  };
+
+  const getActiveDescendantFromFromOptionClickUpdate = () => {
+    return getMetaDataOfMetaDataUpdate(-2).activeDescendant;
+  };
+
   const getCurrentGroupsFromData = () => {
     return getCurrentMockData().groups as Group[];
   };
@@ -137,11 +168,17 @@ describe('dataUpdater', () => {
       const didUpdate = changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdate).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: true });
-      expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
+
+      expect(getLastToggleCommandFromOpenUpdate()).toBeDefined();
+      expect(getMetaDataOfMetaDataUpdate(-1).focusTarget).toBeDefined();
+    });
+    it('Focustarget is set when opened', () => {
+      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      expect(getFocusTargetFromFromOpenUpdate()).toBeDefined();
     });
     it('concurrent events do not make changes until certain time has passed. This prevents button click and immediate outside click events to cancel each other', () => {
       changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
-      const updateTime = getMetaDataOfLastMetaDataUpdate().lastToggleCommand;
+      const updateTime = getLastToggleCommandFromOpenUpdate();
       const didUpdateAgain = changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(didUpdateAgain).toBeFalsy();
       expect(getDataUpdates()).toHaveLength(1);
@@ -150,7 +187,7 @@ describe('dataUpdater', () => {
       expect(didUpdateNow).toBeTruthy();
       expect(getDataUpdates()).toHaveLength(2);
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
-      expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).not.toBe(updateTime);
+      expect(getLastToggleCommandFromOpenUpdate()).not.toBe(updateTime);
     });
   });
   describe('option click events', () => {
@@ -168,8 +205,13 @@ describe('dataUpdater', () => {
       const assumedResult = [...options];
       assumedResult[3].selected = true;
       expect(assumedResult).toMatchObject(updatedOptions);
-      expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
+      expect(getLastToggleCommandFromOptionClickUpdate()).toBeDefined();
       expect(getLastOpenUpdateFromEvents()).toMatchObject({ open: false });
+    });
+    it('Focustarget and active element are set. ActiveElement is undefined.', () => {
+      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      expect(getFocusTargetFromFromOptionClickUpdate()).toBeDefined();
+      expect(getActiveDescendantFromFromOptionClickUpdate()).toBeUndefined();
     });
     it('does nothing if payload does not have an option', () => {
       updateMockData({
@@ -247,9 +289,9 @@ describe('dataUpdater', () => {
       const didUpdate = changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
       expect(didUpdate).toBeTruthy();
       expect(getDataOfLastDataUpdate()).toMatchObject({ open: false });
-      expect(getMetaDataOfLastMetaDataUpdate().lastToggleCommand).toBeDefined();
+      expect(getLastToggleCommandFromOptionClickUpdate()).toBeDefined();
 
-      mockDateNow(getMetaDataOfLastMetaDataUpdate().lastToggleCommand + 201);
+      mockDateNow(getLastToggleCommandFromOptionClickUpdate() + 201);
 
       updateMockData({
         open: true,

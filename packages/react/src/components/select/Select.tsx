@@ -32,6 +32,8 @@ export function Select({
   onChange,
   children,
   id,
+  onFocus,
+  onBlur,
   disabled,
   texts,
   invalid,
@@ -54,10 +56,26 @@ export function Select({
       visibleOptions: visibleOptions || 5.5,
       virtualize: !!virtualize,
       onChange,
+      onFocus,
+      onBlur,
       filterFunction: filter,
       onSearch,
     };
-  }, [options, open, groups, onChange, disabled, invalid, required, noTags, virtualize, visibleOptions, onSearch]);
+  }, [
+    options,
+    open,
+    groups,
+    onChange,
+    disabled,
+    invalid,
+    required,
+    noTags,
+    virtualize,
+    visibleOptions,
+    onSearch,
+    onFocus,
+    onBlur,
+  ]);
 
   const metaData = useMemo((): SelectMetaData => {
     const containerId = `${id || uniqueId('hds-select-')}`;
@@ -74,6 +92,8 @@ export function Select({
       lastClickedOption: undefined,
       showAllTags: false,
       icon,
+      activeDescendant: undefined,
+      focusTarget: undefined,
       refs: {
         button: createRef<HTMLButtonElement>(),
         listContainer: createRef<HTMLDivElement>(),
