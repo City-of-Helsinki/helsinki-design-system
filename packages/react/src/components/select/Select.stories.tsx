@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 
-import { Group, SelectProps, Texts } from './types';
+import { Group, SelectProps, Texts, Option } from './types';
 import { IconLocation } from '../../icons';
 import { Select } from './Select';
 import { Button } from '../button/Button';
@@ -589,4 +589,115 @@ export const VirtualizedSingleselectWithoutGroups = () => {
     // track changes
   }, []);
   return <Select options={createOptionsForVirtualization()} onChange={onChange} virtualize texts={defaultTexts} />;
+};
+
+export const FocusListenerExample = () => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const setIsFocusedInHook = useCallback(
+    (focusValue: boolean) => {
+      setIsFocused(focusValue);
+    },
+    [setIsFocused],
+  );
+
+  // need to memoize all or re-rendering would lose selections
+  const memoizedProps = useMemo(() => {
+    const changeTracking: { selectedOptions: Option[] } = {
+      selectedOptions: [],
+    };
+
+    const onChange: SelectProps['onChange'] = (selectedOptions) => {
+      changeTracking.selectedOptions = selectedOptions;
+    };
+
+    const options = generateOptionLabels(20);
+
+    return {
+      texts: defaultTexts,
+      onChange,
+      changeTracking,
+      options,
+    };
+  }, []);
+
+  const onFocus: SelectProps['onFocus'] = useCallback(async () => {
+    memoizedProps.texts.error = '';
+    setIsFocusedInHook(true);
+  }, []);
+  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
+    if (!memoizedProps.changeTracking.selectedOptions.length) {
+      memoizedProps.texts.error = 'Select something';
+    }
+    setIsFocusedInHook(false);
+  }, []);
+  const onChange: SelectProps['onChange'] = useCallback(() => {
+    // track changes
+  }, []);
+
+  return (
+    <>
+      <style>
+        {`
+          .focused,
+          .blurred {
+            padding: 10px;
+          }
+
+          .focused {
+            background-color: #defcde;
+          }
+
+          .blurred {
+            background-color: #ececec;
+          }
+
+          .indicators {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+
+            .indicator {
+              padding-left: 20px;
+              position: relative;
+            }
+
+            .indicator:before {
+              background: #defcde;
+              content: ' ';
+              display: block;
+              height: 10px;
+              left: 0;
+              position: absolute;
+              top: 5px;
+              width: 10px;
+            }
+
+            .indicator.blurIndicator:before {
+              background: #ececec;
+            }
+          }
+
+        `}
+      </style>
+      <div className={isFocused ? 'focused' : 'blurred'}>
+        <Select
+          options={memoizedProps.options}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          virtualize
+          multiSelect
+          icon={<IconLocation />}
+          texts={defaultTextsForMultiSelect}
+          id="hds-select-component"
+        />
+      </div>
+      <div className="indicators">
+        <div className="indicator">Focused</div>
+        <div className="indicator blurIndicator">Blurred</div>
+      </div>
+      <Button>This is just a focus target</Button>
+    </>
+  );
 };
