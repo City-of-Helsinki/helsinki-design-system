@@ -1,356 +1,92 @@
 @use 'sass:math';
-@use 'temp/button' as Button;
-@use 'temp/checkbox' as Checkbox;
-@use 'temp/icon' as Icon;
-@use 'temp/angle-down';
-@use 'temp/table' as Table;
+@use 'temp/cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
+@use 'temp/mixin-animate' as animate;
+@use 'temp/mixin-helpers' as helpers;
+
+// @use 'temp/font-face' as font-face;
+@use 'temp/button' as button;
+@use 'temp/checkbox' as checkbox;
+@use 'temp/icon' as icon;
+@use '../../icons/angle-down.css';
+@use '../../icons/check-circle-fill.css';
+@use '../../icons/info-circle-fill.css';
+@use 'temp/notification' as notification;
+@use 'temp/table' as table;
+
+
+// // Include only font-face styles used by cookie consent
+// @include font-face.font-face(
+//   $all: false,
+//   $font-style-italic: false, // Italic is not needed by cookie consent
+//   $font-weight-400: true, // Normal or Regular
+//   $font-weight-500: true, // Medium
+//   $font-weight-700: true, // Bold
+//   $font-weight-900: false, // Black is not needed by cookie consent
+// );
 
 // Include only used button styles
-@include Button.hds-button($all: false, $base: true, $secondary: true, $supplementary: true, $small: true, $icon: true);
+@include button.hds-button(
+  $all: false,
+  $base: true,
+  $secondary: true,
+  $supplementary: true,
+  $small: true,
+  $icon: true,
+  $theme-coat: true,
+  $theme-black: true
+);
 
 // Include only used checkbox styles (no indeterminate)
-@include Checkbox.hds-checkbox($all: false, $base: true, $error-text: true, $disabled: true);
+@include checkbox.hds-checkbox(
+  $all: false,
+  $base: true,
+  $error-text: true,
+  $disabled: true,
+  $theme-coat: true,
+  $theme-black: true
+);
+
+:host .hds-cc__form .hds-checkbox {
+  --label-color-disabled: var(--color-black-60); // Make disabled label color a bit darker to pass 4.5 contrast ratio for accessibility
+}
 
 // Include only used icon styles (no sizes needed at the moment)
-@include Icon.hds-icon($all: false, $base: true);
+@include icon.hds-icon(
+  $all: false,
+  $base: true
+);
 
-// Angle down icon is included without mixin
+// Include only used notification styles
+@include notification.hds-notification(
+  $all: false,
+  $base: true,
+  $small: true,
+  $success: true,
+);
 
 // Include only used table styles
-@include Table.hds-table($all: false, $base: true, $dark: true);
+@include table.hds-table(
+  $all: false,
+  $base: true,
+  $light: true
+);
 
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 700;
-$font-weight-black: 800;
-$base-font-size: 16px;
+// // HDBT overrides
+// :host {
+//   --container-width-override: 1312px;
+//   --color-focus-outline: var(--color-black);
+//   --focus-outline-color: var(--color-black);
+//   --focus-outline-offset: 2px;
+// }
 
-/// remify-pixels
-/// Convert px to rem units
-///
-/// @param {Number} value - value in px to be converted to rem units.
-/// @param {Number} base-size - font-size of html element in pixels; defaults to $rem-base-size.
-@function remify-pixels($value, $base-size: $base-font-size) {
-  /* stylelint-disable-next-line length-zero-no-unit */
-  @return math.div($value, $base-size) + 0rem;
-}
-
-@mixin visually-hidden() {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-@mixin animateheight(
-  $open_selector,
-  $closed_selector,
-  $animator_selector,
-  $hide_content_from_screen_readers_on_close: true
-) {
-  #{$open_selector} {
-    --internal-autoheight-open-time: var(--autoheight-open-time, 0.3s);
-
-    display: grid;
-    grid-template-rows: 1fr;
-    transition: grid-template-rows var(--internal-autoheight-open-time) linear;
-
-    @media (prefers-reduced-motion) {
-      --internal-autoheight-open-time: 0s;
-    }
-  }
-
-  #{$animator_selector} {
-    margin-inline: -5px; // Counter the padding below
-    overflow: hidden;
-    padding-inline: 5px; // Allow 3px + 2px focus outline
-    transform: translateY(0); // This trick fixes long accordion reserving space below footer when they're closed.
-  }
-
-  #{$closed_selector} {
-    grid-template-rows: 0fr; /* 5 */
-
-    @if $hide_content_from_screen_readers_on_close {
-      #{$animator_selector} {
-        /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
-        transition: visibility
-          0s
-          linear
-          var(--internal-autoheight-open-time); // Delay visibility hidden right after animation
-
-        visibility: hidden;
-      }
-    }
-  }
-}
-
-/* stylelint-disable scss/double-slash-comment-empty-line-before */
-:root {
-  // --breakpoint-xs: 320px;
-  // --breakpoint-s: 576px;
-  // --breakpoint-m: 768px;
-  // --breakpoint-l: 992px;
-  // --breakpoint-xl: 1248px;
-  // --container-width-xs: 288px;
-  // --container-width-s: 544px;
-  // --container-width-m: 720px;
-  // --container-width-l: 944px;
-  --container-width-xl: 1200px;
-  // --color-brick: #bd2719;
-  // --color-brick-light: #ffeeed;
-  // --color-brick-medium-light: #facbc8;
-  // --color-brick-dark: #800e04;
-  --color-bus: #0000bf;
-  --color-bus-light: #f0f0ff;
-  // --color-bus-medium-light: #ccccff;
-  // --color-bus-dark: #00005e;
-  --color-coat-of-arms: #0072c6;
-  // --color-coat-of-arms-light: #e6f4ff;
-  // --color-coat-of-arms-medium-light: #b5daf7;
-  // --color-coat-of-arms-dark: #005799;
-  // --color-copper: #00d7a7;
-  // --color-copper-light: #cffaf1;
-  // --color-copper-medium-light: #9ef0de;
-  // --color-copper-dark: #00a17d;
-  // --color-engel: #ffe977;
-  // --color-engel-light: #fff9db;
-  // --color-engel-medium-light: #fff3b8;
-  // --color-engel-dark: #dbc030;
-  // --color-fog: #9fc9eb;
-  // --color-fog-light: #e8f3fc;
-  // --color-fog-medium-light: #d0e6f7;
-  // --color-fog-dark: #72a5cf;
-  // --color-gold: #c2a251;
-  // --color-gold-light: #f7f2e4;
-  // --color-gold-medium-light: #e8d7a7;
-  // --color-gold-dark: #9e823c;
-  // --color-metro: #fd4f00;
-  // --color-metro-light: #ffeee6;
-  // --color-metro-medium-light: #ffcab3;
-  // --color-metro-dark: #bd2f00;
-  // --color-silver: #dedfe1;
-  // --color-silver-light: #f7f7f8;
-  // --color-silver-medium-light: #efeff0;
-  // --color-silver-dark: #b0b8bf;
-  // --color-summer: #ffc61e;
-  // --color-summer-light: #fff4d4;
-  // --color-summer-medium-light: #ffe49c;
-  // --color-summer-dark: #cc9200;
-  // --color-suomenlinna: #f5a3c7;
-  // --color-suomenlinna-light: #fff0f7;
-  // --color-suomenlinna-medium-light: #ffdbeb;
-  // --color-suomenlinna-dark: #e673a5;
-  // --color-tram: #008741;
-  // --color-tram-light: #dff7eb;
-  // --color-tram-medium-light: #a3e3c2;
-  // --color-tram-dark: #006631;
-  // --color-focus-outline: #0072c6;
-  // --color-black: #000000;
-  --color-white: #fff;
-  // --color-black-5: #f2f2f2;
-  // --color-black-10: #e6e6e6;
-  // --color-black-20: #cccccc;
-  // --color-black-30: #b3b3b3;
-  // --color-black-40: #999999;
-  // --color-black-50: #808080;
-  --color-black-60: #666;
-  // --color-black-70: #4d4d4d;
-  // --color-black-80: #333333;
-  --color-black-90: #1a1a1a;
-  // --color-error: #b01038;
-  // --color-error-light: #f6e2e6;
-  // --color-error-dark: #8d0d2d;
-  // --color-success: #007a64;
-  // --color-success-light: #e2f5f3;
-  // --color-success-dark: #006250;
-  // --color-alert: #ffda07;
-  // --color-alert-light: #fff4b4;
-  // --color-alert-dark: #d18200;
-  // --color-info: #0062b9;
-  // --color-info-light: #e5eff8;
-  // --color-info-dark: #004f94;
-  // --box-shadow-s: 0px 2px 10px 0px rgba(0, 0, 0, 0.07);
-  // --box-shadow-m: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
-  // --box-shadow-l: 0px 2px 20px 0px rgba(0, 0, 0, 0.2);
-  --spacing-layout-2-xs: 1rem;
-  --spacing-layout-xs: 1.5rem;
-  --spacing-layout-s: 2rem;
-  // --spacing-layout-m: 3rem;
-  // --spacing-layout-l: 4rem;
-  // --spacing-layout-xl: 6rem;
-  // --spacing-layout-2-xl: 8rem;
-  // --spacing-4-xs: 0.125rem;
-  --spacing-3-xs: 0.25rem;
-  --spacing-2-xs: 0.5rem;
-  --spacing-xs: 0.75rem;
-  --spacing-s: 1rem;
-  // --spacing-m: 1.5rem;
-  // --spacing-l: 2rem;
-  // --spacing-xl: 2.5rem;
-  // --spacing-2-xl: 3.0rem;
-  // --spacing-3-xl: 3.5rem;
-  // --spacing-4-xl: 4rem;
-  // --spacing-5-xl: 4.5rem;
-  // --fontsize-heading-xxl: 4rem;
-  // --fontsize-heading-xl: 3rem;
-  // --fontsize-heading-xl-mobile: 2.5rem;
-  // --fontsize-heading-l: 2rem;
-  // --fontsize-heading-m: 1.5rem;
-  // --fontsize-heading-s: 1.25rem;
-  // --fontsize-heading-xs: 1.125rem;
-  // --fontsize-heading-xxs: 1rem;
-  // --fontsize-body-s: 0.875rem;
-  --fontsize-body-m: 1rem;
-  // --fontsize-body-l: 1.125rem;
-  // --fontsize-body-xl: 1.25rem;
-  --font-default: helsinkigrotesk, arial, sans-serif;
-  // --lineheight-s: 1;
-  // --lineheight-m: 1.2;
-  // --lineheight-l: 1.5;
-  // --lineheight-xl: 1.75;
-}
-
-.hds-cc {
-  // HDBT overrides
-  --container-width-xl: 1312px;
-  // --hds-cc-border-color: #000000;
+// Since coat-of-arms theme color is so close to bus color, it's better to change the stripe from bus to coat-of-arms unlike in black theme.
+.hds-theme--coat,
+.hds-theme--coat-of-arms {
+  --hds-cc-border-color: var(--color-coat-of-arms);
 }
 
 .hds-cc--page {
   margin-block: var(--spacing-layout-xs);
-}
-
-$font-path: '../fonts';
-
-/* Webfont: HelsinkiGrotesk-Regular */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-regular;
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.svg#HelsinkiGrotesk-Regular') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-RegularItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-regular;
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.ttf')
-      format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.svg#HelsinkiGrotesk-RegularItalic')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-Medium */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-medium;
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.svg#HelsinkiGrotesk-Medium') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-MediumItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-medium;
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.ttf')
-      format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.svg#HelsinkiGrotesk-MediumItalic')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-Bold */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-bold;
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.ttf') format('truetype'),
-    /* Safari, Android, iOS */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.svg#HelsinkiGrotesk-Bold')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-BoldItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-bold;
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.svg#HelsinkiGrotesk-BoldItalic') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-Black */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: $font-weight-black;
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.svg#HelsinkiGrotesk-Black') format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
-}
-
-/* Webfont: HelsinkiGrotesk-BlackItalic */
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: $font-weight-black;
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.svg#HelsinkiGrotesk-BlackItalic')
-      format('svg'); /* Legacy iOS */
-
-  text-rendering: optimizelegibility;
 }
 
 // Border box is applied to all elements but individual elements can change this setting if required.
@@ -364,15 +100,13 @@ $font-path: '../fonts';
  * Normalize.css rule
  */
 html {
-  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-text-size-adjust: 100%;
 }
 
-/* stylelint-disable-next-line no-duplicate-selectors */
 .hds-cc {
   --autoheight-open-time: 0.15s;
   --common-spacing: var(--spacing-s);
-  --focus-outline-color: var(--color-coat-of-arms);
+  --focus-outline-color: var(--focus-outline-color-override, var(--color-focus-outline, var(--color-coat-of-arms)));
   --outline-width: 3px;
 
   color: var(--color-black-90);
@@ -409,7 +143,7 @@ html {
 
 .hds-cc__aligner {
   margin-inline: auto;
-  max-width: var(--container-width-xl);
+  max-width: var(--container-width-override, var(--container-width-xl));
 
   .hds-cc--banner & {
     padding: var(--spacing-layout-2-xs);
@@ -421,11 +155,11 @@ html {
 }
 
 .visually-hidden {
-  @include visually-hidden;
+  @include helpers.visually-hidden;
 }
 
 .hds-cc__heading {
-  font-size: remify-pixels(32px);
+  font-size: 2rem;
   font-weight: 400;
   line-height: 1; // 32px
   margin: 0;
@@ -447,20 +181,6 @@ html {
   line-height: 1.5; // 24px
   margin-bottom: var(--spacing-layout-2-xs);
 }
-
-// .hds-cc__accordion-button {
-//   background: transparent;
-//   border: 0 none;
-//   color: var(--color-bus);
-//   cursor: pointer;
-//   font-size: 16px;
-//   font-weight: 500;
-//   line-height: 1.5; // 24px
-
-//   &:hover {
-//     background-color: var(--color-bus-light);
-//   }
-// }
 
 .hds-cc__accordion-button {
   .hds-icon {
@@ -490,10 +210,10 @@ html {
 }
 
 // Animate form open / close
-@include animateheight(
+@include animate.height(
   '.hds-cc--banner .hds-cc__form',
   '.hds-cc--banner :not([aria-expanded=' true ']) + .hds-cc__form',
-  '.hds-cc--banner .hds-cc__form__animator'
+  '.hds-cc__form__animator'
 );
 
 .hds-cc--page .hds-cc__accordion-button--details {
@@ -501,7 +221,37 @@ html {
 }
 
 .hds-cc__groups {
-  padding-bottom: var(--spacing-layout-xs);
+  padding-bottom: var(--spacing-layout-s);
+}
+
+.hds-cc__notification_container .hds-notification {
+  margin-bottom: var(--spacing-layout-s);
+}
+
+@keyframes entryAnimation {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes exitAnimation {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
+
+.hds-notification.enter {
+  animation: entryAnimation 0.5s ease-out forwards;
+}
+
+.hds-notification.exit {
+  animation: exitAnimation 0.5s ease-out forwards;
+}
+
+// Check if user prefers reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .hds-notification.enter,
+  .hds-notification.exit {
+    animation-duration: 0s !important;
+  }
 }
 
 .hds-cc__group {
@@ -514,7 +264,16 @@ html {
   }
 }
 
-@include animateheight(
+.hds-cc__group .hds-notification {
+  display: none;
+}
+
+.hds-cc__group--highlight .hds-notification {
+  display: block;
+  margin-top: var(--spacing-layout-2-xs);
+}
+
+@include animate.height(
   '.hds-cc__group-details',
   ':not([aria-expanded=' true ']) + .hds-cc__group-details',
   '.hds-cc__group-details__animator'
@@ -535,8 +294,8 @@ html {
 
 :not([aria-expanded='true']) > .hds-cc__accordion-button-hide,
 [aria-expanded='true'] > .hds-cc__accordion-button-show,
+.hds-cc--page .hds-cc__all-cookies-button,
 [aria-controls='hds-cc-form'][aria-expanded='true'] ~ .hds-cc__buttons .hds-cc__all-cookies-button,
-// .hds-cc--page .hds-cc__all-cookies-button,
 .hds-cc--banner [aria-controls='hds-cc-form']:not([aria-expanded='true']) ~ .hds-cc__buttons .hds-cc__selected-cookies-button {
   display: none;
 }

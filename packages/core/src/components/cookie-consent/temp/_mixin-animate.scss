@@ -1,0 +1,52 @@
+///
+/// @mixin height
+///
+/// This mixin is used to animate the height of elements based on their open and closed states.
+///
+/// @param {string} $open_selector - The selector when the element is open.
+/// @param {string} $closed_selector - The selector when the element is closed.
+/// @param {string} $animator_selector - The selector for the element that is animated
+/// @param {boolean} $hide_content_from_screen_readers_on_close - Whether to hide the content from screen readers when the element is closed. Default is true.
+///
+/// @returns {void}
+///
+@mixin height(
+  $open_selector,
+  $closed_selector,
+  $animator_selector,
+  $hide_content_from_screen_readers_on_close: true
+) {
+  #{$open_selector} {
+    --internal-autoheight-open-time: var(--autoheight-open-time, 0.3s);
+
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows var(--internal-autoheight-open-time) linear;
+
+    @media (prefers-reduced-motion) {
+      --internal-autoheight-open-time: 0s;
+    }
+  }
+
+  #{$animator_selector} {
+    margin-inline: -5px; // Counter the padding below
+    overflow: hidden;
+    padding-inline: 5px; // Allow 3px + 2px focus outline
+    transform: translateY(0); // This trick fixes long accordion reserving space below footer when they're closed.
+  }
+
+  #{$closed_selector} {
+    grid-template-rows: 0fr; /* 5 */
+
+    @if $hide_content_from_screen_readers_on_close {
+      #{$animator_selector} {
+        transition: visibility
+          0s
+          linear
+          var(--internal-autoheight-open-time); // Delay visibility hidden right after animation
+
+        visibility: hidden;
+      }
+    }
+  }
+}
