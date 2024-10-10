@@ -4,7 +4,7 @@ title: 'Link'
 navTitle: 'Link'
 ---
 
-import { IconDocument, IconPhone, IconEnvelope, IconPhoto } from 'hds-react';
+import { IconDocument, IconPhone, IconEnvelope, IconPhoto, IconSize, LinkSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>
     Link to HDS
   </Link>
 </PlaygroundPreview>
@@ -61,7 +61,7 @@ Standalone links are used on their own or directly after the content, and they a
 Standalone links should not be used within sentences or paragraphs.
 
 <PlaygroundPreview>
-  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>Link to HDS</Link>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>Link to HDS</Link>
 </PlaygroundPreview>
 
 #### Internal and external links
@@ -71,13 +71,13 @@ All HDS links can either be internal or external. Internal links point to the cu
 <PlaygroundPreview>
 <Link 
   href="https://hds.hel.fi/" 
-  size="M" 
+  size={LinkSize.Medium} 
   style={{ display: 'block', width: 'fit-content' }}
 >Internal link</Link>
 
 <Link
   href="https://github.com/City-of-Helsinki/helsinki-design-system"
-  size="M"
+  size={LinkSize.Medium}
   external
   openInExternalDomainAriaLabel="Opens a different website."
   style={{ display: 'block', width: 'fit-content' }}
@@ -85,7 +85,7 @@ All HDS links can either be internal or external. Internal links point to the cu
 
 <Link 
   href="https://github.com/City-of-Helsinki/helsinki-design-system" 
-  size="M" 
+  size={LinkSize.Medium}
   external 
   openInNewTab
   openInExternalDomainAriaLabel="Opens a different website."
@@ -97,30 +97,30 @@ All HDS links can either be internal or external. Internal links point to the cu
 
 HDS Links can be paired with an icon. This can be useful if the link has unusual target such as a phone number, an email address (mailto link), a PDF document or a photo.
 
-Note! These icons are meant to describe the link target. If you need a directional icon for the link (e.g. an arrow), you should instead use (<InternalLink href="/components/buttons#supplementary">a supplementary button</InternalLink> with `role="link"`.
+Note! These icons are meant to describe the link target. If you need a directional icon for the link (e.g. an arrow), you should instead use (<InternalLink href="/components/button#supplementary">a supplementary button</InternalLink> with `role="link"`.
 
 <PlaygroundPreview>
   <Link
-    iconLeft={<IconDocument size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
+    iconStart={<IconDocument size={IconSize.Small} />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Document link</Link>
   <Link
-    iconLeft={<IconPhone size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
+    iconStart={<IconPhone size={IconSize.Small} />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Phone link</Link>
   <Link
-    iconLeft={<IconEnvelope size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
+    iconStart={<IconEnvelope size={IconSize.Small} />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Email link</Link>
   <Link
-    iconLeft={<IconPhoto size="s" aria-hidden />}
-    size="M"
+    size={LinkSize.Medium}
+    iconStart={<IconPhoto size={IconSize.Small} />}
     href="/#"
     style={{ display: 'block', width: 'fit-content' }}
   >Photo link</Link>

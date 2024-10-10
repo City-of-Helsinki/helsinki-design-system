@@ -134,7 +134,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-down"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -300,7 +300,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-down"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -485,7 +485,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-down"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -627,7 +627,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-down"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -746,24 +746,20 @@ exports[`<Page /> spec renders the component 1`] = `
         class="buttons"
       >
         <button
-          class="button secondary theme-default size-default"
+          class="button secondary theme-bus size-medium"
           data-testid="cookie-consent-approve-button"
           type="button"
         >
-          <span
-            class="label"
-          >
+          <span>
             Hyväksy valitut evästeet
           </span>
         </button>
         <button
-          class="button secondary theme-default size-default"
+          class="button secondary theme-bus size-medium"
           data-testid="cookie-consent-approve-required-button"
           type="button"
         >
-          <span
-            class="label"
-          >
+          <span>
             Hyväksy vain välttämättömät evästeet
           </span>
         </button>

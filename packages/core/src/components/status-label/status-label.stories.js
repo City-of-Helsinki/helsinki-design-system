@@ -1,4 +1,4 @@
-import './status-label.css';
+import './status-label.scss';
 import './../notification/notification.css';
 
 export default {

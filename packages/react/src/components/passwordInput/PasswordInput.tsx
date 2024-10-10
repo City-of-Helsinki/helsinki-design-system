@@ -152,10 +152,8 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
           <div className={textInputStyles.buttonWrapper}>
             {/* eslint-disable-next-line react/button-has-type */}
             <button className={textInputStyles.button} type="button" disabled={disabled} {...getButtonProps()}>
-              {revealPassword && (
-                <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />
-              )}
-              {!revealPassword && <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />}
+              {revealPassword && <IconEyeCrossed className={disabled ? styles.disabledShowPasswordButton : ''} />}
+              {!revealPassword && <IconEye className={disabled ? styles.disabledShowPasswordButton : ''} />}
             </button>
           </div>
         )}

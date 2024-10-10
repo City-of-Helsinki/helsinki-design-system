@@ -22,8 +22,6 @@ describe('<Notification /> spec', () => {
 
   it('Native html props are passed to the element', async () => {
     const sectionProps: NotificationProps = getCommonElementTestProps('section');
-    // the component has "dataTestId" prop
-    sectionProps.dataTestId = sectionProps['data-testid'];
     // the component has "notificationAriaLabel" prop
     sectionProps.notificationAriaLabel = sectionProps['aria-label'];
     const { getByTestId } = render(<Notification {...sectionProps}>{body}</Notification>);
@@ -31,7 +29,6 @@ describe('<Notification /> spec', () => {
     expect(
       getElementAttributesMisMatches(element, {
         ...sectionProps,
-        dataTestId: undefined,
         notificationAriaLabel: undefined,
       } as unknown as HTMLAttributes<HTMLElement>),
     ).toHaveLength(0);

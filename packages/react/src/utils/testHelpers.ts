@@ -56,12 +56,12 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
       // <input required=""> matches required:true
       const attributeValueAsBoolean = attributeValue === '' || !!attributeValue;
       if (attributeValueAsBoolean !== value) {
-        mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  "${value}".`);
+        mismatches.push(`Attribute "${key}" value '${attributeValue}' mismatches expected value  '${value}'`);
       }
     } else if (key === 'className') {
       if (!String(elem.getAttribute('class')).includes(value)) {
         mismatches.push(
-          `Attribute "class" does not include "${value}". Attribute has value "${elem.getAttribute('class')}".`,
+          `Attribute "class" does not include '${value}'. Attribute has value '${elem.getAttribute('class')}'.`,
         );
       }
     } else {
@@ -71,7 +71,7 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
           : `${JSON.stringify(value).replace(removeNonStyleChars, '').replace(':', ': ')};`;
 
       if (expectedValue !== attributeValue) {
-        mismatches.push(`Attribute "${key}" value "${attributeValue}" mismatches expected value  ${expectedValue}.`);
+        mismatches.push(`Attribute "${key}" value '${attributeValue}' mismatches expected value '${expectedValue}'`);
       }
     }
   });

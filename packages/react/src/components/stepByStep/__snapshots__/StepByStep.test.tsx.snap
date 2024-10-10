@@ -27,20 +27,18 @@ exports[`<StepByStep /> spec renders the component 1`] = `
           </p>
           <p>
             <button
-              class="button primary theme-default size-default"
+              class="button primary theme-bus size-medium"
               href="https://hel.fi"
               type="button"
             >
-              <span
-                class="label"
-              >
+              <span>
                 Esimerkki painikkeesta
               </span>
             </button>
           </p>
           <p>
             <a
-              class="link linkM"
+              class="link link-medium"
               href="https://hel.fi"
             >
               Esimerkki lisätietolinkistä

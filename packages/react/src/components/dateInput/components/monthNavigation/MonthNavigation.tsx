@@ -129,7 +129,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
         <div className={styles['hds-datepicker__navigation__select-label']} aria-hidden>
           {month.getFullYear()}
           <div className={styles['hds-datepicker__navigation__select-icon']}>
-            <IconAngleDown aria-hidden />
+            <IconAngleDown />
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
           onClick={onPrevClick}
           aria-label={getPrevMonthLabel()}
         >
-          <IconAngleLeft aria-hidden />
+          <IconAngleLeft />
         </button>
         <button
           tabIndex={!nextMonth ? -1 : 0}
@@ -150,7 +150,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
           onClick={onNextClick}
           aria-label={getNextMonthLabel()}
         >
-          <IconAngleRight aria-hidden />
+          <IconAngleRight />
         </button>
       </div>
     </div>

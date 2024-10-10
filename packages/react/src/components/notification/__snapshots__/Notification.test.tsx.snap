@@ -4,7 +4,7 @@ exports[`<Notification /> spec renders the component 1`] = `
 <DocumentFragment>
   <section
     aria-label="Notification"
-    class="inline notification default info"
+    class="inline notification medium info"
   >
     <div
       class="content"
@@ -17,7 +17,7 @@ exports[`<Notification /> spec renders the component 1`] = `
         <svg
           aria-hidden="true"
           aria-label="info-circle-fill"
-          class="icon s icon"
+          class="icon small icon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ exports[`<Notification /> spec renders the component without optional label 1`] 
 <DocumentFragment>
   <section
     aria-label="Notification"
-    class="inline notification default info"
+    class="inline notification medium info"
   >
     <div
       class="content"
@@ -64,7 +64,7 @@ exports[`<Notification /> spec uses toast notification props in non-inline notif
 <DocumentFragment>
   <section
     aria-label="Notification"
-    class="bottom-center notification default info"
+    class="bottom-center notification medium info"
     role="alert"
     style="transform: translate3d(-50%, 32px, 0); opacity: 0.66;"
   >
@@ -77,7 +77,7 @@ exports[`<Notification /> spec uses toast notification props in non-inline notif
         <svg
           aria-hidden="true"
           aria-label="info-circle-fill"
-          class="icon s icon"
+          class="icon small icon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

@@ -28,18 +28,9 @@ describe('<HeaderUniversalBar /> spec', () => {
   it('native html props are passed to the element', async () => {
     const divProps = getCommonElementTestProps('div');
     divProps.role = 'role';
-    // header has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
       <Header>
-        <HeaderUniversalBar
-          {...divProps}
-          primaryLinkText="hel.fi"
-          primaryLinkHref="#"
-          aria-label="Is overridden"
-          // eslint-disable-next-line react/forbid-component-props
-          ariaLabel="Real ariaLabel"
-        />
+        <HeaderUniversalBar {...divProps} primaryLinkText="hel.fi" primaryLinkHref="#" />
       </Header>,
     );
     const element = getByTestId(divProps['data-testid']);

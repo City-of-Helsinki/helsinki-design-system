@@ -3,7 +3,7 @@ slug: '/components/logo/customisation'
 title: 'Logo - Customisation'
 ---
 
-import { Logo, logoFi } from 'hds-react';
+import { Logo, LogoSize, logoFi } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import Notification from '../../../components/Notification';
 
@@ -22,16 +22,16 @@ You can either use the `style` or `className` properties to customise the compon
 
 ### Customisation example
 
-<Playground scope={{ Logo, logoFi }}>
+<Playground scope={{ Logo, LogoSize, logoFi }}>
 
 ```jsx
 
-import { Logo, logoFi } from 'hds-react';
+import { Logo, LogoSize, logoFi } from 'hds-react';
 
 <>
-  <Logo src={logoFi} size="small" style={{ color: 'var(--color-bus)', marginRight: 'var(--spacing-xs)' }} alt="Helsingin kaupunki" />
-  <Logo src={logoFi} size="medium" style={{ color: 'var(--color-tram)', marginRight: 'var(--spacing-xs)' }} alt="Helsingin kaupunki" />
-  <Logo src={logoFi} size="large" style={{ color: 'var(--color-metro)' }} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Small} style={{ color: 'var(--color-bus)', marginRight: 'var(--spacing-xs)' }} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Medium} style={{ color: 'var(--color-tram)', marginRight: 'var(--spacing-xs)' }} alt="Helsingin kaupunki" />
+  <Logo src={logoFi} size={LogoSize.Large} style={{ color: 'var(--color-metro)' }} alt="Helsingin kaupunki" />
 </>
 ```
 

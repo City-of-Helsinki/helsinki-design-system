@@ -47,7 +47,7 @@ exports[`<Dialog /> spec renders the component 1`] = `
             <svg
               aria-hidden="true"
               aria-label="cross"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -69,12 +69,12 @@ exports[`<Dialog /> spec renders the component 1`] = `
           >
             <span
               aria-hidden="true"
-              class="dialogTitleLeftIcon"
+              class="dialogTitleStartIcon"
             >
               <svg
                 aria-hidden="true"
                 aria-label="alert-circle"
-                class="icon s"
+                class="icon small"
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"

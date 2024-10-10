@@ -1,3 +1,4 @@
+@use 'hds-core/lib/scss/helpers' as helpers;
 @import '../../../styles/common.scss';
 @import '../dialog.common.scss';
 @value medium-up from "../../../styles/breakpoints.scss";
@@ -22,12 +23,12 @@
   --outline-y-gutter: 2px;
   --outline-width: 3px;
 
+  @include helpers.heading-xs;
+
   align-items: flex-start;
   box-sizing: border-box;
   display: flex;
-  font-size: var(--fontsize-heading-xs);
   font-weight: 700;
-  letter-spacing: 0.4px;
   line-height: 24px;
   margin: 0;
   order: 0;
@@ -43,7 +44,7 @@
     height: 100%;
     left: calc((var(--outline-width) + var(--outline-x-gutter)) * -1);
     position: absolute;
-    top: calc((var(--outline-width) + var(--outline-y-gutter)) * -1);;
+    top: calc((var(--outline-width) + var(--outline-y-gutter)) * -1);
     width: 100%;
   }
 
@@ -53,7 +54,7 @@
     width: calc(100% + calc((var(--outline-width) + var(--outline-x-gutter)) * 2));
   }
 
-  .dialogTitleLeftIcon {
+  .dialogTitleStartIcon {
     display: inline-flex;
     margin-right: var(--spacing-2-xs);
   }

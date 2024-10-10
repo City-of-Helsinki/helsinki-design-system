@@ -1,27 +1,27 @@
 import React from 'react';
 
 import styles from './Icon.module.css';
-import { IconProps } from './Icon.interface';
+import { IconProps, IconSize } from './Icon.interface';
 
 export const IconShield = ({
-  ariaLabel = 'shield',
-  ariaLabelledby,
-  ariaHidden = true,
+  'aria-label': ariaLabel = 'shield',
+  'aria-hidden': ariaHidden = true,
   className = '',
   color,
-  size = 's',
+  size = IconSize.Small,
   style = {},
-}: React.SVGProps<SVGSVGElement> & IconProps) => (
+  ...rest
+}: IconProps) => (
   <svg
+    aria-label={ariaLabel}
+    aria-hidden={ariaHidden}
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    aria-label={ariaLabel}
-    aria-labelledby={ariaLabelledby}
-    aria-hidden={ariaHidden}
     color={color}
     style={style}
+    {...rest}
   >
     <path d="M17 9.25L15.75 8L10.75 13L8.25 10.5L7 11.75L10.75 15.5L17 9.25Z" fill="currentColor" />
     <path

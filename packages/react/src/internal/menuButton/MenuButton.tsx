@@ -111,7 +111,7 @@ export const MenuButton = ({
       >
         {icon}
         {!hoverAndClick && <span className={styles.toggleButtonLabel}>{label}</span>}
-        {menuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
+        {menuOpen ? <IconAngleUp /> : <IconAngleDown />}
       </button>
       <Menu
         id={menuId}

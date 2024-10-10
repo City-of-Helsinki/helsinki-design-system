@@ -2,59 +2,106 @@
 @import url("../../icons/cross.css");
 
 .hds-tag {
-  --tag-background: var(--color-black-10);
-  --tag-color: var(--color-black-90);
-  --tag-font-size-large: var(--fontsize-body-m);
-  --tag-font-size: var(--fontsize-body-s);
-  --tag-height-large: 48px;
-  --tag-height: 32px;
-  --tag-line-height: var(--lineheight-xl);
-  --tag-padding-large: 10px 20px;
-  --tag-padding: 4px 12px;
-  --tag-spacing-large: var(--spacing-s);
-  --tag-spacing: var(--spacing-xs);
+  --background-color-hover: var(--color-black-20);
+  --background-color: var(--color-black-10);
+  --border-color-action: var(--color-black-90);
+  --color: var(--color-black-90);
+  --font-size: var(--fontsize-body-s);
+  --gap: var(--spacing-3-xs);
+  --height: 32px;
+  --icon-reposition: -4px;
+  --icon-size: 24px;
+  --outline-color-focus: var(--color-focus-outline);
+  --outline-width: 2px;
+  --padding-horizontal: 12px;
+  --padding-vertical: 3px;
+
 
   align-items: center;
-  background-color: var(--tag-background);
-  border-radius: calc(var(--tag-height) / 2);
+  background-color: var(--background-color);
+  border-radius: calc(var(--height) / 2);
   box-sizing: border-box;
-  color: var(--tag-color);
+  color: var(--color);
   display: inline-flex;
   flex-direction: row;
-  font-size: var(--tag-font-size);
-  gap: var(--spacing-2-xs);
+  font-size: var(--font-size);
+  font-weight: 500;
+  gap: var(--gap);
   justify-content: center;
-  line-height: var(--tag-line-height);
-  min-height: var(--tag-height);
+  line-height: var(--lineheight-l);
+  max-width: 100%;
+  min-height: var(--height);
   outline: none;
-  padding: var(--tag-padding)
+  overflow: hidden;
+  padding: var(--padding-vertical) var(--padding-horizontal);
+
+  /* repositioning the icons, after & before usage */
+  &:after {
+    flex-shrink: 0;
+    margin-right: var(--icon-reposition);
+  }
+  
+  &:before {
+    flex-shrink: 0;
+    margin-left: var(--icon-reposition);
+  }
+
+  > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .hds-tag--large {
-  --tag-font-size:  var(--tag-font-size-large);
-  --tag-height: var(--tag-height-large);
-  --tag-line-height: var(--lineheight-l);
-  --tag-padding: var(--tag-padding-large);
-  --tag-spacing: var(--tag-spacing-large);
+  --font-size: var(--fontsize-body-m);
+  --gap: var(--spacing-2-xs);
+  --height: 48px;
+  --icon-reposition: -8px;
+  --outline-width: 3px;
+  --padding-horizontal: 20px;
+  --padding-vertical: 10px;
 }
 
-.hds-tag:focus,
-.hds-tag:focus-within {
-  box-shadow: 0 0 0 3px var(--color-focus-outline);
+.hds-tag--action {
+  border: 1px solid var(--border-color-action);
+  padding: calc(var(--padding-vertical) - 1px) calc(var(--padding-horizontal) - 1px);
 }
 
-.hds-tag[tabindex='0'] {
-  cursor: pointer;
+.hds-tag--multiline {
+  > span {
+    hyphens: auto;
+    white-space: initial;
+  }
 }
 
-.hds-tag__delete-button {
-  display: flex;
+.hds-tag--link {
+  text-decoration: underline;
+}
+
+.hds-tag--action, .hds-tag--link {
+  &:hover {
+    background-color: var(--background-color-hover);
+    cursor: pointer;
+  }
+
+  &:focus-visible, &:active:hover {
+    box-shadow: none;
+    outline: var(--outline-width) solid var(--outline-color-focus);
+    outline-offset: 2px;
+  }
+}
+
+.hds-tag__icon, .hds-icon.hds-tag__icon {
   flex-shrink: 0;
-  height: var(--spacing-m);
+  height: var(--icon-size);
+  width: var(--icon-size);
+}
 
-  /* Add negative horizontal margins to counter
-  the gap and the padding on the side */
-  margin: 0 calc(0px - var(--spacing-3-xs));
-  outline: none;
-  width: var(--spacing-m);
+.hds-tag__icon:first-child {
+  margin-left: var(--icon-reposition);
+}
+
+.hds-tag__icon:last-child {
+  margin-right: var(--icon-reposition);
 }

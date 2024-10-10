@@ -1,27 +1,27 @@
 import React from 'react';
 
 import styles from './Icon.module.css';
-import { IconProps } from './Icon.interface';
+import { IconProps, IconSize } from './Icon.interface';
 
 export const IconMoneyBag = ({
-  ariaLabel = 'money-bag',
-  ariaLabelledby,
-  ariaHidden = true,
+  'aria-label': ariaLabel = 'money-bag',
+  'aria-hidden': ariaHidden = true,
   className = '',
   color,
-  size = 's',
+  size = IconSize.Small,
   style = {},
-}: React.SVGProps<SVGSVGElement> & IconProps) => (
+  ...rest
+}: IconProps) => (
   <svg
+    aria-label={ariaLabel}
+    aria-hidden={ariaHidden}
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    aria-label={ariaLabel}
-    aria-labelledby={ariaLabelledby}
-    aria-hidden={ariaHidden}
     color={color}
     style={style}
+    {...rest}
   >
     <path
       d="M12.464 14.716L12.116 15.856H10.712C10.916 16.66 11.336 17.2 12.212 17.2C13.184 17.2 13.52 16.336 13.532 15.352L15.116 16.348C14.744 17.56 13.784 18.592 12.212 18.592C10.64 18.592 9.452 17.68 9.032 15.856H8V14.716H8.888C8.876 14.584 8.876 14.44 8.876 14.284V14.02H8V12.88H9.02C9.44 10.984 10.712 10 12.212 10C13.724 10 14.744 10.96 15.116 12.184L13.532 13.168C13.532 12.184 13.16 11.392 12.212 11.392C11.384 11.392 10.928 12.016 10.712 12.88H12.98L12.644 14.02H10.568V14.716H12.464Z"

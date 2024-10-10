@@ -6,10 +6,10 @@ import SideNavigationContext from './SideNavigationContext';
 import { FCWithName } from '../../common/types';
 import classNames from '../../utils/classNames';
 import { useMobile } from '../../hooks/useMobile';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 import { SkipLink } from '../../internal/skipLink';
 import { IconAngleDown, IconAngleUp } from '../../icons';
-import { MainLevel } from './mainLevel/MainLevel';
+import { MainLevel, MainLevelProps } from './mainLevel/MainLevel';
 import { SubLevel } from './subLevel/SubLevel';
 import { useTheme } from '../../hooks/useTheme';
 import { getChildrenAsArray } from '../../utils/getChildren';
@@ -47,12 +47,6 @@ export type SideNavigationProps = React.PropsWithChildren<
      */
     id: string;
     /**
-     * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Override or extend the styles applied to the component
      */
     // eslint-disable-next-line react/no-unused-prop-types
@@ -73,7 +67,6 @@ export const SideNavigation = ({
   className,
   defaultOpenMainLevels = [],
   id,
-  ariaLabel,
   theme,
   toggleButtonLabel,
   ...rest
@@ -90,8 +83,7 @@ export const SideNavigation = ({
 
   const mainLevels = childElements.map((child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
-      // eslint-disable-next-line react/no-array-index-key
-      return cloneElement(child, { key: index, index });
+      return cloneElement(child, { key: index, index } as Partial<MainLevelProps>);
     }
     return null;
   });
@@ -142,13 +134,7 @@ export const SideNavigation = ({
         setActiveParentLevel,
       }}
     >
-      <nav
-        {...rest}
-        className={classNames(styles.sideNavigation, customThemeClass, className)}
-        id={id}
-        aria-label={ariaLabel}
-        ref={container}
-      >
+      <nav {...rest} className={classNames(styles.sideNavigation, customThemeClass, className)} id={id} ref={container}>
         {skipLink && skipLink}
         {/* Toggle button is visible only on small screen size */}
         <Button
@@ -157,9 +143,9 @@ export const SideNavigation = ({
           aria-haspopup
           className={styles.toggleButton}
           fullWidth
-          iconRight={mobileMenuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
+          iconEnd={mobileMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
           onClick={toggleMobileMenu}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           type="button"
         >
           {toggleButtonLabel}

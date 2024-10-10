@@ -6,15 +6,10 @@ import { Link } from '../../../link';
 import classNames from '../../../../utils/classNames';
 import { IconAngleRight, IconLinkExternal } from '../../../../icons';
 import { FooterVariant } from '../../Footer.interface';
+import { IconSize } from '../../../../icons/Icon.interface';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 
 type ItemProps<Element> = React.PropsWithChildren<{
-  /**
-   * aria-label for providing detailed information for screen readers about a link.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
   /**
    * Element or component to use instead of the default link.
    * @default Link
@@ -66,7 +61,6 @@ export type FooterLinkProps<T extends React.ElementType = 'a'> = MergeAndOverrid
 >;
 
 export const FooterLink = <T extends React.ElementType = 'a'>({
-  ariaLabel,
   as: LinkComponent,
   className,
   icon,
@@ -79,15 +73,17 @@ export const FooterLink = <T extends React.ElementType = 'a'>({
   const Item = React.isValidElement(LinkComponent) ? LinkComponent.type : LinkComponent;
   return (
     <Item
-      aria-label={ariaLabel}
       className={classNames(styles.item, subItem && styles.subItem, variant && styles[variant], className)}
       {...rest}
     >
       {icon}
-      {subItem && <IconAngleRight className={styles.subItemIcon} aria-hidden />}
+      {subItem && <IconAngleRight className={styles.subItemIcon} />}
       {label && <span>{label}</span>}
       {external && label && (
-        <IconLinkExternal size={variant === FooterVariant.Base ? 'xs' : 's'} className={styles.icon} aria-hidden />
+        <IconLinkExternal
+          size={variant === FooterVariant.Base ? IconSize.ExtraSmall : IconSize.Small}
+          className={styles.icon}
+        />
       )}
     </Item>
   );

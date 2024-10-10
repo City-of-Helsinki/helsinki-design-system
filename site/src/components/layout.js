@@ -9,7 +9,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, logoFi } from 'hds-react';
+import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi } from 'hds-react';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -290,7 +290,7 @@ const Layout = ({ children, pageContext }) => {
           <Footer.Base
             copyrightHolder="Copyright"
             backToTopLabel="Back to top"
-            logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
           >
             <Footer.Link label="Contribution" href={withPrefix('/getting-started/contributing/how-to-contribute')} />
             <Footer.Link label="Accessibility" href={withPrefix('/about/accessibility/statement')} />

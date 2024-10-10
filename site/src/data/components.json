@@ -30,7 +30,7 @@
     "text": "Buttons are meant to make actions easily visible and understandable to the user.",
     "linkboxAriaLabel": "Button component",
     "linkAriaLabel": "Go to the Button component page",
-    "href": "/components/buttons",
+    "href": "/components/button",
     "imgProps": {
       "src": "/images/components/overview/button@2x.png",
       "alt": "An illustration of the Button component.",

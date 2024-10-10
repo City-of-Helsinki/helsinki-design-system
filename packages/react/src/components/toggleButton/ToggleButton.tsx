@@ -6,6 +6,7 @@ import classNames from '../../utils/classNames';
 import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
 import { Tooltip } from '../tooltip/Tooltip';
 import { useTheme } from '../../hooks/useTheme';
+import { IconSize } from '../../icons/Icon.interface';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type ToggleButtonVariant = 'default' | 'inline';
@@ -115,10 +116,10 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           }}
         >
           <div className={classNames(styles.toggleButtonIcon, styles.offIcon)}>
-            <IconCrossCircleFill size="m" aria-hidden="true" />
+            <IconCrossCircleFill size={IconSize.Medium} />
           </div>
           <div className={classNames(styles.toggleButtonIcon, styles.onIcon)}>
-            <IconCheckCircleFill size="m" aria-hidden="true" />
+            <IconCheckCircleFill size={IconSize.Medium} />
           </div>
         </button>
       </div>

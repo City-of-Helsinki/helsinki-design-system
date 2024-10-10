@@ -41,7 +41,7 @@ exports[`<Combobox /> renders the component 1`] = `
         <svg
           aria-hidden="true"
           aria-label="angle-down"
-          class="icon s angleIcon"
+          class="icon small angleIcon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +100,7 @@ exports[`<Combobox /> renders the component without label when aria-labelledby i
         <svg
           aria-hidden="true"
           aria-label="angle-down"
-          class="icon s angleIcon"
+          class="icon small angleIcon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

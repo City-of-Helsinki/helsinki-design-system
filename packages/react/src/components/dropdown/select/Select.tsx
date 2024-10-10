@@ -598,7 +598,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             </span>
           )}
           {getButtonLabel()}
-          <IconAngleDown className={styles.angleIcon} aria-hidden />
+          <IconAngleDown className={styles.angleIcon} />
         </button>
         {showClearButtonForSingleSelect && (
           <ClearButton

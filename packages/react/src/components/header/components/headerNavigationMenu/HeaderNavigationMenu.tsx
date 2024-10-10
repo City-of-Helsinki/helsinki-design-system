@@ -10,12 +10,6 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 export type HeaderNavigationMenuProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'nav'> & {
     /**
-     * Aria-label for describing universal bar.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Children are expected to be HeaderLink components or a container with HeaderLink components inside.
      */
     children?: React.ReactNode;
@@ -72,7 +66,7 @@ export const HeaderNavigationMenuContent = () => {
   );
 };
 
-export const HeaderNavigationMenu = ({ ariaLabel, children, className, ...rest }: HeaderNavigationMenuProps) => {
+export const HeaderNavigationMenu = ({ children, className, ...rest }: HeaderNavigationMenuProps) => {
   const { isSmallScreen } = useHeaderContext();
   const { setNavigationContent } = useSetHeaderContext();
 
@@ -85,7 +79,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, className, ...rest }
 
   return (
     <div className={styles.headerNavigationMenuContainer}>
-      <nav {...rest} aria-label={ariaLabel} className={classNames(styles.headerNavigationMenu, className)}>
+      <nav {...rest} className={classNames(styles.headerNavigationMenu, className)}>
         <ul className={styles.headerNavigationMenuList}>
           <HeaderNavigationMenuContent />
         </ul>

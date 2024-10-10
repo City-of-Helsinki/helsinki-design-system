@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Button } from './Button';
+import { Button, ButtonVariant } from './Button';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Button /> spec', () => {
@@ -12,8 +12,8 @@ describe('<Button /> spec', () => {
   });
   it('renders the loading button component', () => {
     const { asFragment } = render(
-      <Button isLoading loadingText="foo">
-        My Button
+      <Button disabled variant={ButtonVariant.Clear}>
+        Loading...
       </Button>,
     );
     expect(asFragment()).toMatchSnapshot();

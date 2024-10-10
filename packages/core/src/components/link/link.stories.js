@@ -91,7 +91,7 @@ export const standaloneLink = () => `
 
 export const withCustomIcon = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--medium" aria-label="Document link. Opens in external domain">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></i></span>Document link
+    <span class="hds-icon-start"><i class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></i></span>Document link
   </a>
 `
 withCustomIcon.storyName = 'With a custom icon';

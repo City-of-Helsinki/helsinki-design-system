@@ -107,7 +107,7 @@ export const StepperExample = () => {
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -115,7 +115,7 @@ export const StepperExample = () => {
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
@@ -251,7 +251,7 @@ export const SmallStepperExample = () => {
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -259,7 +259,7 @@ export const SmallStepperExample = () => {
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
@@ -372,7 +372,7 @@ export const HeadingStepperExample = () => {
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -380,7 +380,7 @@ export const HeadingStepperExample = () => {
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
@@ -495,7 +495,7 @@ export const OverflowStepperExample = () => {
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconLeft={<IconArrowLeft />}
+          iconStart={<IconArrowLeft />}
         >
           Previous
         </Button>
@@ -503,7 +503,7 @@ export const OverflowStepperExample = () => {
           variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={lastStep ? undefined : <IconArrowRight />}
+          iconEnd={lastStep ? undefined : <IconArrowRight />}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>

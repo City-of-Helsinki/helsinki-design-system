@@ -21,6 +21,8 @@ describe('<HeaderLink /> spec', () => {
 
   it('Native html props are passed to the element', async () => {
     const linkProps = getCommonElementTestProps<'a'>('a');
+    // "." is added to aria-label inside the component if missing.
+    linkProps['aria-label'] = 'Aria-label with comma.';
     const { getByTestId } = render(<HeaderLink {...linkProps} label="Link" />);
     const element = getByTestId(linkProps['data-testid']);
     expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);

@@ -6,14 +6,9 @@ import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
 import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
+import { FooterLinkProps } from '../footerLink/FooterLink';
 
 export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
-  /**
-   * aria-label for describing Footer.Utilities.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
   /**
    * Children elements to render.
    */
@@ -34,7 +29,6 @@ export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
 };
 
 export const FooterUtilities = ({
-  ariaLabel,
   children,
   soMeLinks,
   soMeSectionProps,
@@ -43,7 +37,7 @@ export const FooterUtilities = ({
 }: FooterUtilitiesProps) => {
   const childElements = getChildElementsEvenIfContainersInbetween(children);
   return (
-    <div {...rest} className={classNames(styles.utilities, className)} aria-label={ariaLabel}>
+    <div {...rest} className={classNames(styles.utilities, className)}>
       <hr className={styles.divider} aria-hidden />
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>
         {childElements.map((child, childIndex) => {
@@ -64,8 +58,7 @@ export const FooterUtilities = ({
           {soMeLinks.map((link, index) => {
             if (isValidElement(link)) {
               /* Set variant to null just in case user set it. It should be null for SoMelinks so it doesn't mess with the styles. */
-              // eslint-disable-next-line react/no-array-index-key
-              return cloneElement(link, { variant: null, key: index });
+              return cloneElement(link, { variant: null, key: index } as FooterLinkProps);
             }
             return null;
           })}

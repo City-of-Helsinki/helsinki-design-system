@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Linkbox } from './Linkbox';
+import { Linkbox, LinkboxSize } from './Linkbox';
 
 export default {
   component: Linkbox,
@@ -75,7 +75,7 @@ export const SmallSize = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      size="small"
+      size={LinkboxSize.Small}
     />
   </div>
 );
@@ -88,7 +88,7 @@ export const MediumSize = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      size="medium"
+      size={LinkboxSize.Medium}
     />
   </div>
 );
@@ -100,6 +100,6 @@ export const LargeSize = () => (
     href="https://hds.hel.fi"
     heading="Linkbox title"
     text="Linkbox text"
-    size="large"
+    size={LinkboxSize.Large}
   />
 );

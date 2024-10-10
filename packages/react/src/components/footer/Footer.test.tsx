@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Footer } from './Footer';
-import { Logo } from '../logo';
+import { Logo, LogoSize } from '../logo';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Footer /> spec', () => {
@@ -14,7 +14,7 @@ describe('<Footer /> spec', () => {
           copyrightHolder="Copyright"
           copyrightText="All rights reserved"
           backToTopLabel="Ylös"
-          logo={<Logo alt="Helsingin kaupunki" size="medium" title="Helsingin kaupunki" src="dummyPath" />}
+          logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} title="Helsingin kaupunki" src="dummyPath" />}
         />
       </Footer>,
     );
@@ -28,12 +28,7 @@ describe('<Footer /> spec', () => {
 
   it('native html props are passed to the element', async () => {
     const footerProps = getCommonElementTestProps<'footer'>('footer');
-    // footer has "ariaLabel", which should override "aria-label"
-    footerProps['aria-label'] = 'Real ariaLabel';
-    const { getByTestId } = render(
-      // eslint-disable-next-line react/forbid-component-props
-      <Footer footerProps={footerProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" title="Bar" />,
-    );
+    const { getByTestId } = render(<Footer footerProps={footerProps} title="Bar" />);
     const element = getByTestId(footerProps['data-testid']);
     expect(getElementAttributesMisMatches(element, footerProps)).toHaveLength(0);
   });

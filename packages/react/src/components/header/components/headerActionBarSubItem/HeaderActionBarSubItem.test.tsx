@@ -11,8 +11,8 @@ type WrapperProps = PropsWithChildren<Record<string, unknown>>;
 
 describe('<HeaderActionBarSubItem /> spec', () => {
   const basicProps: HeaderActionBarSubItemProps = {
-    iconLeft: <IconAlertCircle />,
-    iconRight: <IconAngleDown />,
+    iconStart: <IconAlertCircle />,
+    iconEnd: <IconAngleDown />,
     label: 'MyHelsinki.fi',
     external: true,
     href: 'www.example.com',

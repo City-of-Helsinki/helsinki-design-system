@@ -37,7 +37,7 @@ export function LoginButton({
   }
   const isActive = isLoggingIn && wasClicked.current;
   // for some reason LoadingSpinner theme has no effect
-  const iconLeft = isActive ? (
+  const iconStart = isActive ? (
     <LoadingSpinner
       small
       loadingText={loggingInText}
@@ -47,7 +47,8 @@ export function LoginButton({
   ) : undefined;
   const combinedButtonProps = {
     ...buttonProps,
-    iconLeft,
+    iconStart,
+    disabled: isActive,
     onClick: () => {
       if (isLoggingIn) {
         return;

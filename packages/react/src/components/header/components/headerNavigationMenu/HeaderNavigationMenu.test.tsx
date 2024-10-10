@@ -18,12 +18,7 @@ describe('<HeaderNavigationMenu /> spec', () => {
   });
   it('Native html props are passed to the element', async () => {
     const navProps = getCommonElementTestProps('nav');
-    // element has ariaLabel prop which overrides aria-label
-    navProps['aria-label'] = 'Real ariaLabel';
-    const { getByTestId } = render(
-      // eslint-disable-next-line react/forbid-component-props
-      <HeaderNavigationMenu {...navProps} aria-label="Is overridden" ariaLabel="Real ariaLabel" />,
-    );
+    const { getByTestId } = render(<HeaderNavigationMenu {...navProps} />);
     const element = getByTestId(navProps['data-testid']);
     expect(getElementAttributesMisMatches(element, navProps)).toHaveLength(0);
   });

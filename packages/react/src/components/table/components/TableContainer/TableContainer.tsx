@@ -6,8 +6,6 @@ import styles from '../../Table.module.scss';
 
 export type TableContainerProps = {
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  dataTestId?: string;
   variant?: 'dark' | 'light';
   id: string;
   dense?: boolean;
@@ -20,7 +18,6 @@ export type TableContainerProps = {
 export const TableContainer = ({
   children,
   className,
-  dataTestId,
   variant = 'dark',
   id,
   dense = false,
@@ -45,7 +42,6 @@ export const TableContainer = ({
           className,
         )}
         aria-labelledby={headingId}
-        data-testid={dataTestId}
         id={id}
       >
         {children}

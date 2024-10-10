@@ -1,8 +1,8 @@
-@import url("../../icons/icon.css");
-@import url("../../icons/alert-circle-fill.css");
-@import url("../../icons/check-circle-fill.css");
-@import url("../../icons/error-fill.css");
-@import url("../../icons/info-circle-fill.css");
+@import url('../../icons/icon.css');
+@import url('../../icons/alert-circle-fill.css');
+@import url('../../icons/check-circle-fill.css');
+@import url('../../icons/error-fill.css');
+@import url('../../icons/info-circle-fill.css');
 
 .hds-notification {
   --notification-background-color: var(--color-info-light);
@@ -39,11 +39,11 @@
 /* LABEL */
 
 .hds-notification__label {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   font-size: var(--fontsize-heading-xs);
   font-weight: bold;
-  letter-spacing: 0.4px;
+  letter-spacing: 0;
   line-height: 24px;
   margin-right: var(--spacing-l);
 }

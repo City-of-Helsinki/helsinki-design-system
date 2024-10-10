@@ -152,7 +152,7 @@ import { SideNavigation } from 'hds-react';
         toggleButtonLabel="Navigate to page"
       >
         <SideNavigation.MainLevel
-          icon={<IconHome aria-hidden />}
+          icon={<IconHome />}
           id="main-level-icons-1"
           label="Events"
         >
@@ -179,7 +179,7 @@ import { SideNavigation } from 'hds-react';
           />
         </SideNavigation.MainLevel>
         <SideNavigation.MainLevel
-          icon={<IconMap aria-hidden />}
+          icon={<IconMap />}
           id="main-level-icons-2"
           label="Events on map"
         >
@@ -207,7 +207,7 @@ import { SideNavigation } from 'hds-react';
         </SideNavigation.MainLevel>
         <SideNavigation.MainLevel
           href="/settings"
-          icon={<IconCogwheel aria-hidden />}
+          icon={<IconCogwheel />}
           id="main-level-icons-3"
           active={active === '/settings'}
           label="Settings"
@@ -247,10 +247,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
 | `defaultOpenMainLevels` | Default value for open main levels.                                                                              | `number[]` | \[]           |
 | `toggleButtonLabel`     | The label for the mobile menu toggle button                                                                      | `string`   | -             |
-| `ariaLabel`             | The aria-label for helping screen reader users to distinguish navigation row from other navigational components  | `string`   | -             |
+| `aria-label`             | The aria-label for helping screen reader users to distinguish navigation row from other navigational components  | `string`   | -             |
 [Table 1:SideNavigation properties]|
 
-<NativeElementPropsInfo
-  nodeName="nav"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="nav" />

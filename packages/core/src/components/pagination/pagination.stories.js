@@ -14,9 +14,9 @@ export const Basic = () => `
     </button>
     <ul class="hds-pagination__pages">
       <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1" aria-current="page">
+        <span class="hds-pagination__item-link hds-pagination__item-link--active" title="Current page" aria-label="Page 1" aria-current="page">
           1
-        </a>
+        </span>
       </li>
       <li>
         <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2">
@@ -96,9 +96,9 @@ export const WithTruncation = () => `
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" aria-label="Page 66" title="Current page" aria-current="page">
+        <span class="hds-pagination__item-link hds-pagination__item-link--active" aria-label="Page 66" title="Current page" aria-current="page">
           66
-        </a>
+        </span>
       </li>
       <li>
         <a class="hds-pagination__item-link" href="#" aria-label="Page 67" title="Go to page 67">
@@ -136,9 +136,9 @@ export const WithTruncation = () => `
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 3" aria-current="page">
+        <span class="hds-pagination__item-link hds-pagination__item-link--active" title="Current page" aria-label="Page 3" aria-current="page">
           3
-        </a>
+        </span>
       </li>
       <li>
         <a class="hds-pagination__item-link" href="#" title="Go to page 4" aria-label="Page 4">
@@ -196,9 +196,9 @@ export const WithTruncation = () => `
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 32" aria-current="page">
+        <span class="hds-pagination__item-link hds-pagination__item-link--active" title="Current page" aria-label="Page 32" aria-current="page">
           32
-        </a>
+        </span>
       </li>
       <li>
         <a class="hds-pagination__item-link" href="#" title="Go to page 33" aria-label="Page 33">
@@ -245,9 +245,9 @@ export const CustomActivePageColor = () => `
       </button>
       <ul class="hds-pagination__pages">
         <li>
-          <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1" aria-current="page">
+          <span class="hds-pagination__item-link hds-pagination__item-link--active" title="Current page" aria-label="Page 1" aria-current="page">
             1
-          </a>
+          </span>
         </li>
         <li>
           <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2">
@@ -302,15 +302,14 @@ export const CustomActivePageColor = () => `
 
 CustomActivePageColor.storyName = 'Custom active page color';
 
-
 export const States = () => `
 <p>Selected</p>
 <nav class="hds-pagination" aria-label="Pagination 1">
   <ul class="hds-pagination__pages">
     <li>
-      <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1">
+      <span class="hds-pagination__item-link hds-pagination__item-link--active" title="Current page" aria-label="Page 1">
         1
-      </a>
+      </span>
     </li>
   </ul>
 </nav>
@@ -324,4 +323,4 @@ export const States = () => `
     </li>
   </ul>
 </nav>
-`
+`;

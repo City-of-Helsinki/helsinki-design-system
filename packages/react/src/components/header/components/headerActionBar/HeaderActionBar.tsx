@@ -108,12 +108,6 @@ export enum TitleStyleType {
 export type HeaderActionBarProps = PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
-     * Aria-label for describing ActionBar.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * Additional class names to apply.
      */
     className?: string;
@@ -195,7 +189,6 @@ export const HeaderActionBar = ({
   onMenuClick,
   children,
   className,
-  ariaLabel,
   frontPageLabel,
   openFrontPageLinksAriaLabel,
   ...rest
@@ -284,7 +277,7 @@ export const HeaderActionBar = ({
         className={classNames(styles.headerActionBarContainer, mobileMenuOpen && styles.mobileMenuContainer)}
         ref={actionBarRef}
       >
-        <div {...rest} className={classNames(styles.headerActionBar, className)} aria-label={ariaLabel}>
+        <div {...rest} className={classNames(styles.headerActionBar, className)}>
           <HeaderActionBarLogo logo={logo} logoProps={logoProps} />
           {title && (
             <LinkItem {...titleProps}>
@@ -300,8 +293,7 @@ export const HeaderActionBar = ({
               <HeaderActionBarItem
                 id="Menu"
                 label={menuButtonLabel}
-                // eslint-disable-next-line react/forbid-component-props
-                ariaLabel={menuButtonAriaLabel}
+                aria-label={menuButtonAriaLabel}
                 onClick={handleMenuClick}
                 onClickCapture={handleMenuClickCapture}
                 icon={mobileMenuOpen ? <IconCross /> : <IconMenuHamburger />}
