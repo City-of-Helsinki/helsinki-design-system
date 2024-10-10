@@ -7,6 +7,12 @@ import { eventIds, eventTypes } from '../../../events';
 import { SelectItemProps } from '../common';
 import { IconCheck } from '../../../../../icons';
 
+export const singleSelectOptionSelector = `li.${styles.singleSelectListItem}`;
+
+export const isSingleSelectOption = (element: HTMLElement | null | undefined) => {
+  return element && element.matches(singleSelectOptionSelector);
+};
+
 const Label = ({ text, selected }: { text: string; selected: boolean }) => {
   return (
     <span className={styles.singleSelectListItemLabel}>
