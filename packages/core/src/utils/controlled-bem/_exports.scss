@@ -52,87 +52,64 @@
 }
 
 @mixin block() {
-  $createdLevel: process.start(
-    $block: '',
-  );
-
-  @include output.emit($createdLevel) {
+  @include start-emit-end($block: '') {
     @content;
   }
-
-  $void: process.end();
 }
 
 @mixin content($element: '') {
-  $createdLevel: process.start(
-    $content: $element,
-  );
-
-  @include output.emit($createdLevel) {
+  @include start-emit-end($content: $element) {
     @content;
   }
-
-  $void: process.end();
 }
 
 @mixin modifier($modifier) {
-  $createdLevel: process.start(
-    $modifier: $modifier,
-  );
-
-  @include output.emit($createdLevel) {
+  @include start-emit-end($modifier: $modifier) {
     @content;
   }
-
-  $void: process.end();
 }
 
 @mixin element($element) {
-  $createdLevel: process.start(
-    $element: $element,
-  );
-
-  @include output.emit($createdLevel) {
+  @include start-emit-end($element: $element) {
     @content;
   }
-
-  $void: process.end();
 }
 
 @mixin extra($extra) {
-  $createdLevel: process.start(
-    $extra: $extra,
-  );
-
-  @include output.emit($createdLevel) {
+  @include start-emit-end($extra: $extra) {
     @content;
   }
-
-  $void: process.end();
 }
 
 @mixin custom($selector) {
-  $createdLevel: process.start(
-    $custom: $selector,
-  );
-
-  @include output.emit($createdLevel) {
+  @include start-emit-end($custom: $selector) {
     @content;
   }
-
-  $void: process.end();
 }
 
 // SPECIAL CASES / HELPERS
 
-@mixin if-block-content-allowed() {
-  $isBaseContentAllowed: rules.is-base-content-allowed(global.get-global-bem-rules());
+@mixin if-content-allowed() {
+  $currentLevel: process.get-current-level();
 
-  @if $isBaseContentAllowed {
+  // create a fake level, so all checks are made like a normal element
+
+  $ARGS_MAP: helpers.create-empty-map();
+  $ARGS_MAP: map.set($ARGS_MAP, 'element', globals.$BASE_CONTENT_NAME);
+  $level: levels.create-level-data($currentLevel, $ARGS_MAP);
+  $ruleMap: globals.get-global-bem-rules();
+  $isAllowed: levels.is-level-allowed-in-rules($ruleMap, $level);
+
+  // clear the fake level
+  $level: ();
+
+  @if $isAllowed {
     @content;
   }
 }
 
+// selector-list((('modifier': 'hello'), ('modifier': 'hello2'), ('element': 'elem'), ('custom': ' div'))) {...}
+// creates .hds-test--hello, .hds-test--hello2, .hds-test__elem, .hds-test div {...}
 @mixin selector-list($list) {
   $selector: '';
   $config: globals.get-global-bem-config();
@@ -167,23 +144,6 @@
 
   // children of this entity should emit nested css
   $newLevel: levels.set-level-emit-target-to-nested($newLevel);
-
-  /// $newLevel: levels.set-level-emit-target-to-parent-selector($newLevel);
-  $void: globals.add-global-bem-level($newLevel);
-
-  @include output.emit($newLevel) {
-    @content;
-  }
-
-  $void: process.end();
-}
-
-/// https://sass-lang.com/documentation/modules/selector/#nest
-@mixin nest() {
-  $newLevel: process.create-process-level(
-    $directive: 'nest',
-  );
-  $newLevel: levels.set-level-emit-target-to-nested($newLevel);
   $void: globals.add-global-bem-level($newLevel);
 
   @include output.emit($newLevel) {
@@ -204,7 +164,6 @@
   $name: map.get($typeAndName, 'name');
 
   @if $closest and $type {
-    ///$closestSelector: levels.get-level-selector($closest);
     $closestSelector: levels.collect-parent-entity-selectors($closest);
     $ARGS_MAP: helpers.create-empty-map();
     $ARGS_MAP: map.set($ARGS_MAP, $type, $name);
@@ -227,12 +186,14 @@
   }
 }
 
+// to create .<selectors>.<selectors>
 @mixin compound-entity($args...) {
   @include linked-entities($separator: '', $args...) {
     @content;
   }
 }
 
+// to create .<selectors> .<selectors>
 @mixin descendant-entity($args...) {
   @include linked-entities($separator: ' ', $args...) {
     @content;
@@ -251,6 +212,10 @@
   }
 }
 
+//  @include modifier('element-sibling-modifier') {
+//    @include descendant-modifier-element('compound-element') {
+//  }
+// .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element
 @mixin descendant-modifier-element($element, $modifier: true) {
   $typeAndName: (
     'type': 'element',
@@ -262,6 +227,9 @@
   }
 }
 
+// @include modifier('modifier') {
+//  @include block-element('block-element') {
+// .hds-test--modifier .hds-test__block-element {
 @mixin block-element($element, $block: true) {
   $typeAndName: (
     'type': 'element',
@@ -288,6 +256,11 @@
   }
 }
 
+// @include descendant('') {
+//    @include repeat($block: true) {
+//      @include descendant('') {
+//       @include repeat($block: true) {
+// .hds-test .hds-test .hds-test {
 // find and repeat closest type:name
 @mixin repeat($args...) {
   $closest: levels.find-closest-in-current($args...);
@@ -307,6 +280,8 @@
   }
 }
 
+/// @include repeat-with-replace($original: '-test', $replacement: '-replacement', $block: true) {
+/// .hds-test.hds-replacement {
 // find closest type:name and repeat with replaced selector
 @mixin repeat-with-replace($original, $replacement, $args...) {
   $closest: levels.find-closest-in-current($args...);
@@ -321,7 +296,7 @@
   }
 }
 
-// returns just a selector
+// calls given func and emits the selector with content
 @mixin create-custom-selector($selectorCreator) {
   $ruleMap: globals.get-global-bem-rules();
   $config: globals.get-global-bem-config();
@@ -335,7 +310,7 @@
   }
 }
 
-// returns a level
+// calls given func and appends the level and emits the content
 @mixin create-custom-level($levelCreator) {
   $ruleMap: globals.get-global-bem-rules();
   $config: globals.get-global-bem-config();
@@ -359,14 +334,6 @@
       @content;
     }
   }
-}
-
-@mixin create-selector($args...) {
-  ////
-}
-
-@mixin create-list-of-selector($args...) {
-  ////
 }
 
 /// https://sass-lang.com/documentation/modules/selector/#extend

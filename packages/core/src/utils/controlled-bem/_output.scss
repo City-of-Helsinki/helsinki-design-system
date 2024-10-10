@@ -4,14 +4,7 @@
   $contentOnly: levels.is-level-content-only($level);
   $isAllowed: levels.is-level-allowed($level);
   $selector: levels.get-level-selector($level);
-  $shouldEmitAtRoot: false; /// levels.should-level-emit-at-root($level);
   $shouldEmitNested: levels.should-level-emit-nested($level);
-
-  /// debug 'emitTarget: #{levels.get-level-emit-target($level)}';
-  /// debug 'selector: #{$selector}';
-  /// debug 'shouldEmitNested: #{$shouldEmitNested}';
-
-  /// debug 'selector #{$selector}';
 
   @if $contentOnly {
     @content;

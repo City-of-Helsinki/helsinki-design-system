@@ -293,7 +293,6 @@
         )
       );
       $modifiers: rules.get-modifiers($onlyDisallowedAsRules);
-      $void: testHelpers.inspect('onlyDisallowedAsRules modifiers', $modifiers);
 
       @include assert-equal(rules.is-entity-allowed-in-category($modifiers, 'falsy'), false);
       @include assert-equal(rules.is-entity-allowed-in-category($modifiers, 'disallowed'), false);

@@ -6,6 +6,7 @@
 
 /// GLOBALS
 
+$GLOBAL_BEM_OBJECT: null;
 $HAS_EXPLICIT_TRUE: 'HAS_EXPLICIT_TRUE';
 $ALL_ALLOWED: 'ALL_ALLOWED';
 $ALL_DISALLOWED: 'ALL_DISALLOWED';
@@ -17,19 +18,10 @@ $ELEMENT-DELIMETER: '__';
 $MODIFIER-DELIMETER: '--';
 $BLOCK-PREFIX: 'hds-';
 
-/*
-$ENTITY_TYPE_BLOCK: 'ENTITY_TYPE_BLOCK';
-$ENTITY_TYPE_ELEMENT: 'ENTITY_TYPE_ELEMENT';
-$ENTITY_TYPE_MODIFIER: 'ENTITY_TYPE_MODIFIER';
-$ENTITY_TYPE_RULE: 'ENTITY_TYPE_RULE';
-$ENTITY_TYPE_SELECTOR: 'ENTITY_TYPE_SELECTOR';
-*/
-$GLOBAL_BEM_OBJECT: null;
-
 @function init-global-bem($ruleMap, $levels, $config) {
   $GLOBAL_BEM_OBJECT: (
     'rules': $ruleMap,
-    'level': $levels,
+    'levels': $levels,
     'config': $config,
   ) !global;
 

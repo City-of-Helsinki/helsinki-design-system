@@ -26,18 +26,6 @@
     $prefix: '#{$elementDelimeter}';
   }
 
-  @if $type == 'class' {
-    $prefix: '.';
-  }
-
-  @if $type == 'id' {
-    $prefix: '#';
-  }
-
-  @if $type == 'dashed' {
-    $prefix: '-';
-  }
-
   /* stylelint-disable-next-line scss/at-if-no-null */
   @if $prefix != null {
     $selector: '#{$prefix}#{$name}';

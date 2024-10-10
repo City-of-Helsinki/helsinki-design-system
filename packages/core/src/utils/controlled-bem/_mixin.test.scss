@@ -22,12 +22,12 @@
   @include block {
     --hds-test: var(--var-base);
 
-    div {
-      --hds-test-div: var(--var-div);
-    }
-
     @include content {
       --hds-test-content: var(--var-content);
+    }
+
+    div {
+      --hds-test-div: var(--var-div);
     }
 
     @include element('another-element') {

@@ -1,0 +1,102 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use './exports' as *;
+@use './rules' as rules;
+@use "sass:meta";
+@use "sass:map";
+
+@include describe('Init-bem') {
+  @include it('Creates....') {
+    $result: init-controlled-bem(
+      $modifiers: true,
+      $elements: true,
+      $extras: true,
+      $block: 'test',
+    );
+    $ruleMap: map.get($result, 'rules');
+    $modifiers: rules.get-modifiers($ruleMap);
+
+    @include assert-equal(
+      $modifiers,
+      (
+        'ALL_ALLOWED': true,
+        'ALL_DISALLOWED': false,
+        'HAS_EXPLICIT_TRUE': false,
+      )
+    );
+  }
+}
+
+@mixin tester($elements: true, $modifiers: true, $extras: true) {
+  $void: init-controlled-bem(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  @include block {
+    --always-emitted-block-content: var(--var-always-emitted-block-content);
+
+    @include if-content-allowed {
+      --block-content: var(--var-block-content-allowed);
+    }
+
+    @include element('elem1') {
+      --elem1-content: var(--var-elem1-content);
+    }
+
+    @include modifier('abc') {
+      --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+
+      @include if-content-allowed {
+        --modifier-abc-content: var(--var-modifier-abc-content-allowed);
+      }
+
+      @include element('elem1') {
+        --abc-elem1-content: var(--var-abc-elem1-content);
+      }
+    }
+  }
+}
+
+@include describe('Init-bem') {
+  @include it('Creates....') {
+    @include assert {
+      @include output {
+        @include tester(
+          $elements: (
+            'base': true,
+            'elem1': true,
+          ),
+          $modifiers: (
+            'abc': (
+              'base': true,
+              'elem1': true,
+            ),
+          )
+        );
+      }
+
+      @include expect {
+        .hds-test {
+          --always-emitted-block-content: var(--var-always-emitted-block-content);
+          --block-content: var(--var-block-content-allowed);
+        }
+
+        .hds-test__elem1 {
+          --elem1-content: var(--var-elem1-content);
+        }
+
+        .hds-test--abc {
+          --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+          --modifier-abc-content: var(--var-modifier-abc-content-allowed);
+        }
+
+        .hds-test--abc__elem1 {
+          --abc-elem1-content: var(--var-abc-elem1-content);
+        }
+      }
+    }
+  }
+}

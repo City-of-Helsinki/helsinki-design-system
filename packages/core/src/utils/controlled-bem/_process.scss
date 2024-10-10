@@ -12,7 +12,10 @@
   @return $newLevel;
 }
 
-/// use get-current-state?
+@function end() {
+  @return globals.remove-current-global-bem-level();
+}
+
 @function create-process-level($args...) {
   $rules: globals.get-global-bem-rules();
   $levels: globals.get-global-bem-levels();
@@ -21,10 +24,6 @@
   $newLevel: levels.create-level($rules, $config, $parent, $args...);
 
   @return $newLevel;
-}
-
-@function end() {
-  @return globals.remove-current-global-bem-level();
 }
 
 @function get-current-state() {
@@ -40,14 +39,4 @@
   $levels: globals.get-global-bem-levels();
 
   @return levels.get-current-level($levels);
-}
-
-@function get-current-selector() {
-  $currentLevel: get-current-level();
-
-  @if $currentLevel {
-    @return levels.get-level-selector($currentLevel);
-  }
-
-  @return globals.get-root-selector();
 }
