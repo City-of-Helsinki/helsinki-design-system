@@ -1,10 +1,19 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 
-import { Group, SelectProps, Texts, Option } from './types';
+import {
+  Group,
+  SelectProps,
+  Texts,
+  Option,
+  TextProvider,
+  Select,
+  useSelectStorage,
+  SupportedLanguage,
+  defaultTexts as defaultUITexts,
+} from './index';
 import { IconLocation } from '../../icons';
-import { Select } from './Select';
 import { Button } from '../button/Button';
-import { clearAllSelectedOptions, defaultFilter, propsToGroups } from './utils';
+import { clearAllSelectedOptions, defaultFilter, getNewSelections, iterateAndCopyGroup, propsToGroups } from './utils';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
 
 export default {
@@ -36,6 +45,24 @@ const createRandomGroupsForSearch = (search: string) => {
     },
   ];
   return { groups };
+};
+
+const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
+  return (
+    <div>
+      <style>
+        {`
+      .buttons{
+        margin-top: 20px;
+      }
+      .buttons > *{
+        margin-right: 10px;
+      }
+  `}
+      </style>
+      {props.children}
+    </div>
+  );
 };
 
 const onSearch: SelectProps['onSearch'] = async (searchValue) => {
@@ -161,6 +188,7 @@ export const WithGroups = () => {
   );
 };
 
+// change to with "propControls" and pass always new props from parent?
 export const WithControls = () => {
   const initialGroups = [
     {
@@ -169,17 +197,13 @@ export const WithControls = () => {
     },
     {
       label: 'More healthy choices',
-      options: getOptionLabels(4),
+      options: getOptionLabels(4, 5),
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // not needed
-  }, []);
-
   const [props, updateProps] = useState<SelectProps>({
     groups: propsToGroups({ groups: initialGroups }),
-    onChange,
+    onChange: dummyOnChange,
     required: true,
     disabled: false,
     open: false,
@@ -212,33 +236,21 @@ export const WithControls = () => {
     updateProps({ ...props, required: !required });
   };
   return (
-    <div>
-      <style>
-        {`
-          .buttons{
-            margin-top: 20px;
-          }
-          .buttons > *{
-            margin-right: 10px;
-          }
-      `}
-      </style>
-
-      <div>
-        <Select {...props} />
-        <div className="buttons">
-          <Button onClick={resetSelections}>Reset selections</Button>
-          <Button onClick={toggleDisable}>Disable/enable component</Button>
-          <Button onClick={toggleMenu}>Open/Close list</Button>
-          <Button onClick={toggleInvalid}>Set valid/invalid</Button>
-          <Button onClick={toggleRequired}>Toggle required</Button>
-        </div>
+    <WrapperWithButtonStyles>
+      <Select {...props} />
+      <div className="buttons">
+        <Button onClick={resetSelections}>Reset selections</Button>
+        <Button onClick={toggleDisable}>Disable/enable component</Button>
+        <Button onClick={toggleMenu}>Open/Close list</Button>
+        <Button onClick={toggleInvalid}>Set valid/invalid</Button>
+        <Button onClick={toggleRequired}>Toggle required</Button>
       </div>
-    </div>
+    </WrapperWithButtonStyles>
   );
 };
 
-export const WithValidation = () => {
+// add forcing!
+export const WithValidationAndForcedSelection = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
@@ -329,7 +341,7 @@ export const MultiselectWithGroups = () => {
     },
     {
       label: 'More healthy choices',
-      options: getOptionLabels(4),
+      options: getOptionLabels(4, 5),
     },
   ];
 
@@ -352,11 +364,11 @@ export const MultiselectWithGroupsAndFilter = () => {
   const groups: SelectProps['groups'] = [
     {
       label: 'Healthy choices',
-      options: getOptionLabels(4),
+      options: getOptionLabels(10),
     },
     {
       label: 'More healthy choices',
-      options: getOptionLabels(4),
+      options: getOptionLabels(10, 10),
     },
   ];
 
@@ -404,7 +416,7 @@ export const MultiselectWithoutTags = () => {
     },
     {
       label: 'More healthy choices',
-      options: getOptionLabels(4),
+      options: getOptionLabels(4, 5),
     },
   ];
 
@@ -617,4 +629,307 @@ export const FocusListenerExample = () => {
       <Button>This is just a focus target</Button>
     </>
   );
+};
+
+export const MultiselectWithControls = () => {
+  const initialGroups = [
+    {
+      label: 'Healthy choices',
+      options: getOptionLabels(4),
+    },
+    {
+      label: 'More healthy choices',
+      options: getOptionLabels(4, 10),
+    },
+  ];
+
+  const storage = useSelectStorage({
+    groups: initialGroups,
+    onChange: dummyOnChange,
+    multiSelect: true,
+    filter: defaultFilter,
+    disabled: false,
+    open: false,
+    invalid: false,
+    texts: { ...defaultTexts, placeholder: 'Choose', label: 'Controlled select' },
+  });
+
+  const resetSelections = () => {
+    storage.updateAllOptions((option) => {
+      return {
+        ...option,
+        selected: false,
+        disabled: false,
+      };
+    });
+    storage.setOpen(false);
+    storage.render();
+  };
+  const invertSelections = () => {
+    storage.updateAllOptions((option) => {
+      return {
+        ...option,
+        selected: !option.selected,
+        disabled: false,
+      };
+    });
+    storage.setOpen(false);
+    storage.render();
+  };
+  const selectAll = () => {
+    storage.updateAllOptions((option) => {
+      return {
+        ...option,
+        selected: true,
+        disabled: false,
+      };
+    });
+    storage.setOpen(false);
+    storage.render();
+  };
+
+  const toggleGroupDisable = () => {
+    storage.updateAllOptions((option) => {
+      return {
+        ...option,
+        disabled: !option.disabled,
+      };
+    });
+    storage.setOpen(false);
+    storage.render();
+  };
+  const toggleDisable = () => {
+    const current = storage.getProps().disabled;
+    storage.setDisabled(!current);
+    storage.render();
+  };
+  const toggleMenu = () => {
+    const current = storage.getProps().open;
+    storage.setOpen(!current);
+    storage.render();
+  };
+
+  const toggleInvalid = () => {
+    const current = storage.getProps().invalid;
+    storage.setInvalid(!current);
+    storage.render();
+  };
+
+  const showError = () => {
+    storage.setError(`An error is shown! ${Date.now()}`);
+    storage.render();
+  };
+  const clearError = () => {
+    storage.setError(false);
+    storage.render();
+  };
+
+  return (
+    <WrapperWithButtonStyles>
+      <Select {...storage.getProps()} />
+      <div className="buttons">
+        <Button onClick={resetSelections}>Reset selections</Button>
+        <Button onClick={invertSelections}>Invert selections</Button>
+        <Button onClick={selectAll}>Select all</Button>
+        <Button onClick={toggleDisable}>Disable/enable component</Button>
+        <Button onClick={toggleGroupDisable}>Disable/enable options</Button>
+        <Button onClick={toggleMenu}>Open/Close list</Button>
+        <Button onClick={toggleInvalid}>Set valid/invalid</Button>
+        <Button onClick={showError}>Set error</Button>
+        <Button onClick={clearError}>Clear error</Button>
+      </div>
+    </WrapperWithButtonStyles>
+  );
+};
+
+export const ChangeLanguageSimple = () => {
+  const [lang, setLang] = useState<SupportedLanguage>('fi');
+  const addLang = (value: string, language?: string) => {
+    return `${value} (${language || lang})`;
+  };
+  const createOptionWithLanguage = (value: string) => {
+    const labelAndValue = addLang(value);
+    return { label: labelAndValue, value };
+  };
+  const options = getOptionLabels(10).map(createOptionWithLanguage);
+
+  const changeLang = (newLang: SupportedLanguage) => {
+    setLang(newLang);
+  };
+  const setFinnish = () => {
+    changeLang('fi');
+  };
+  const setEnglish = () => {
+    changeLang('en');
+  };
+
+  const texts: Partial<Texts> = {
+    language: lang,
+    label: `Label (${lang})`,
+    placeholder: `Placeholder (${lang})`,
+  };
+
+  return (
+    <WrapperWithButtonStyles>
+      <Select options={options} texts={texts} onChange={dummyOnChange} multiSelect filter={defaultFilter} />
+      <div className="buttons">
+        <Button onClick={setFinnish} disabled={lang === 'fi'}>
+          Finnish
+        </Button>
+        <Button onClick={setEnglish} disabled={lang === 'en'}>
+          English
+        </Button>
+      </div>
+    </WrapperWithButtonStyles>
+  );
+};
+
+export const ChangeLanguage = () => {
+  const [lang, setLang] = useState<SupportedLanguage>('fi');
+  const addLang = (value: string, language?: string) => {
+    const withoutLang = value.split('(')[0];
+    return `${withoutLang} (${language || lang})`;
+  };
+  const createOptionWithLanguage = (value: string) => {
+    const labelAndValue = addLang(value);
+    return { label: labelAndValue, value };
+  };
+  const getTexts = (language: SupportedLanguage): Partial<Texts> => {
+    return {
+      language,
+      label: `Label (${language})`,
+      placeholder: `Placeholder (${language})`,
+    };
+  };
+  const options = getOptionLabels(10).map(createOptionWithLanguage);
+
+  const storage = useSelectStorage({ options, onChange: dummyOnChange, texts: getTexts(lang) });
+
+  const changeLang = (newLang: SupportedLanguage) => {
+    setLang(newLang);
+    storage.updateAllOptions((option) => {
+      return {
+        ...option,
+        label: addLang(option.label, newLang),
+        selected: option.selected,
+      };
+    });
+    storage.updateTexts(getTexts(newLang));
+
+    /// render is not needed here because of state change
+    storage.render();
+  };
+  const setFinnish = () => {
+    changeLang('fi');
+  };
+  const setEnglish = () => {
+    changeLang('en');
+  };
+
+  return (
+    <WrapperWithButtonStyles>
+      <Select {...storage.getProps()} multiSelect filter={defaultFilter} />
+      <div className="buttons">
+        <Button onClick={setFinnish} disabled={lang === 'fi'}>
+          Finnish
+        </Button>
+        <Button onClick={setEnglish} disabled={lang === 'en'}>
+          English
+        </Button>
+      </div>
+    </WrapperWithButtonStyles>
+  );
+};
+
+export const MultiselectWithMinMax = () => {
+  const initialGroups = [
+    {
+      label: 'Healthy choices',
+      options: getOptionLabels(6).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
+    },
+    {
+      label: 'More healthy choices',
+      options: getOptionLabels(6, 10).map((option) => {
+        return { label: option, value: option, disabled: false };
+      }),
+    },
+  ];
+
+  const bundledTextAndChanges = useMemo<Pick<SelectProps, 'texts' | 'onChange'>>(() => {
+    const requiredCount = 1;
+    const maxCount = 3;
+
+    const texts: Partial<Texts> = {
+      label: 'Select 1-3 fruits or vegetables',
+      placeholder: 'Choose 1-3 options',
+    };
+
+    const changeTracking: { hasSelectedSomething: boolean; previousSelections: Option[] } = {
+      hasSelectedSomething: false,
+      previousSelections: [],
+    };
+
+    const textsAsFunction: TextProvider = (key, { selectionCount }) => {
+      const textFromObj = texts[key];
+      if (textFromObj) {
+        return textFromObj;
+      }
+      if (key === 'assistive') {
+        const selectedCount = selectionCount as number;
+        return selectedCount >= requiredCount
+          ? `Required number of selections done!`
+          : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
+      }
+
+      return defaultUITexts.en[key];
+    };
+    const onChange: SelectProps['onChange'] = (selectedValues, lastClickedOption, data) => {
+      if (!changeTracking.hasSelectedSomething && selectedValues.length > 0) {
+        changeTracking.hasSelectedSomething = true;
+      }
+      const getAllowedSelections = (allSelections: Option[]) => {
+        const overflow = allSelections.length - maxCount;
+
+        if (overflow > 0) {
+          const selections = [
+            ...changeTracking.previousSelections,
+            ...getNewSelections(changeTracking.previousSelections, allSelections),
+          ];
+          const allowed = selections.slice(0, maxCount);
+          return allowed;
+        }
+        return allSelections;
+      };
+      const filteredSelections = getAllowedSelections(selectedValues).map((option) => option.value);
+      const maxReached = filteredSelections.length >= maxCount;
+
+      const newGroups = iterateAndCopyGroup(data.groups, (option) => {
+        const isSelected = option.isGroupLabel ? option.selected : filteredSelections.includes(option.value);
+        return {
+          ...option,
+          selected: isSelected,
+          disabled: maxReached ? !isSelected : false,
+        };
+      });
+      changeTracking.previousSelections = selectedValues;
+
+      return {
+        groups: newGroups,
+      };
+    };
+    return {
+      texts: textsAsFunction,
+      onChange,
+    };
+  }, []);
+
+  const storage = useSelectStorage({
+    groups: initialGroups,
+    multiSelect: true,
+    ...bundledTextAndChanges,
+  });
+
+  return <Select {...storage.getProps()} />;
 };
