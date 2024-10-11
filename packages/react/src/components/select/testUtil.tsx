@@ -1,4 +1,4 @@
-import { waitFor, fireEvent, render, act } from '@testing-library/react';
+import { waitFor, fireEvent, render, act, RenderResult } from '@testing-library/react';
 import React from 'react';
 import { axe } from 'jest-axe';
 
@@ -233,31 +233,7 @@ export const getSelectProps = ({
   return selectProps;
 };
 
-export const initTests = ({
-  renderComponentOnly,
-  selectProps = {},
-  testProps = { groups: false },
-  withForceRender,
-}: {
-  renderComponentOnly?: boolean;
-  selectProps?: Partial<SelectProps>;
-  testProps?: Parameters<typeof getSelectProps>[0];
-  withForceRender?: boolean;
-} = {}) => {
-  renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
-  const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
-  if (selectProps.onChange) {
-    const currentOnChange = props.onChange;
-    const onChangeListener = selectProps.onChange;
-    props.onChange = (...args) => {
-      currentOnChange(...args);
-      return onChangeListener(...args);
-    };
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const result = renderWithHelpers({ ...props, groups: testProps.groups, withForceRender });
-
+export const renderResultToHelpers = (result: RenderResult) => {
   const getElementById = <T = HTMLElement,>(id: string) => {
     return result.container.querySelector(`#${id}`) as unknown as T;
   };
@@ -321,24 +297,6 @@ export const initTests = ({
     return promise;
   };
 
-  const getOptionElement = (option: Option) => {
-    const labelEl = result.getByText(option.label) as HTMLElement;
-    if (props.multiSelect) {
-      if (option.isGroupLabel) {
-        // return ((labelEl.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement;
-      }
-      // get parent of parent of <label>, which is <div>
-      return (labelEl.parentElement as HTMLElement).parentElement as HTMLElement;
-    }
-    // get parent of <span>, which is <li>
-    return labelEl.parentElement as HTMLElement;
-  };
-
-  const clickOptionElement = (option: Option) => {
-    const el = getOptionElement(option);
-    fireEvent.click(el);
-  };
-
   const getOnChangeMock = () => {
     return onChangeTracker;
   };
@@ -372,11 +330,66 @@ export const initTests = ({
   };
 
   return {
-    ...result,
     triggerDataChange,
     triggerMetaDataChange,
     getMetaDataFromElement,
     getDataFromElement,
+    getElementById,
+    getOnChangeCallArgsAsProps,
+    getOnChangeMockCalls,
+    createRenderUpdatePromise,
+    triggerOptionChange,
+    triggerChangeEvent,
+    triggerForceRender,
+  };
+};
+
+export const initTests = ({
+  renderComponentOnly,
+  selectProps = {},
+  testProps = { groups: false },
+  withForceRender,
+}: {
+  renderComponentOnly?: boolean;
+  selectProps?: Partial<SelectProps>;
+  testProps?: Parameters<typeof getSelectProps>[0];
+  withForceRender?: boolean;
+} = {}) => {
+  renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
+  const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
+  if (selectProps.onChange) {
+    const currentOnChange = props.onChange;
+    const onChangeListener = selectProps.onChange;
+    props.onChange = (...args) => {
+      currentOnChange(...args);
+      return onChangeListener(...args);
+    };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  const result = renderWithHelpers({ ...props, groups: testProps.groups, withForceRender });
+  const helpers = renderResultToHelpers(result);
+  const getOptionElement = (option: Option) => {
+    const labelEl = result.getByText(option.label) as HTMLElement;
+    if (props.multiSelect) {
+      if (option.isGroupLabel) {
+        // return ((labelEl.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement;
+      }
+      // get parent of parent of <label>, which is <div>
+      return (labelEl.parentElement as HTMLElement).parentElement as HTMLElement;
+    }
+    // get parent of <span>, which is <li>
+    return labelEl.parentElement as HTMLElement;
+  };
+
+  const clickOptionElement = (option: Option) => {
+    const el = getOptionElement(option);
+    fireEvent.click(el);
+  };
+
+  return {
+    ...result,
+    ...helpers,
     getProps: () => {
       return props;
     },
@@ -385,13 +398,6 @@ export const initTests = ({
     },
     getOptionElement,
     clickOptionElement,
-    getElementById,
-    getOnChangeCallArgsAsProps,
-    getOnChangeMockCalls,
-    createRenderUpdatePromise,
-    triggerOptionChange,
-    triggerChangeEvent,
-    triggerForceRender,
   };
 };
 
@@ -419,7 +425,7 @@ export const renderWithHelpers = (
         <button type="button" onClick={forceRender} id="force-render">
           Update data
         </button>
-        return <span id="force-render-time">{Date.now()}</span>;
+        <span id="force-render-time">{Date.now()}</span>;
       </>
     );
   };
