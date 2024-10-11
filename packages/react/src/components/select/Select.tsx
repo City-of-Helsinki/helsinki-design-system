@@ -128,7 +128,7 @@ export function Select({
       cancelCurrentSearch: undefined,
       screenReaderNotifications: [],
     };
-  }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch]);
+  }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts]);
 
   useEffect(() => {
     return () => {
