@@ -433,3 +433,18 @@ export function findSelectableOptionIndex(
 ) {
   return getAllOptions(groups, !isMultiSelect).findIndex(iterator);
 }
+
+export function pickSelectedValues(selectedOptions?: Option[]): string[] {
+  if (!selectedOptions || !selectedOptions.length) {
+    return [];
+  }
+  return selectedOptions.map((opt) => opt.value);
+}
+
+export function getNewSelections(prev: Option[], current: Option[]): Option[] {
+  if (!prev.length) {
+    return current;
+  }
+  const prevValues = pickSelectedValues(prev);
+  return current.filter((opt) => !prevValues.includes(opt.value));
+}
