@@ -503,8 +503,8 @@ const optionLabels = [
   'Juicy watercress',
 ];
 
-export const getOptionLabels = (count = 20): string[] => {
-  return optionLabels.slice(0, count);
+export const getOptionLabels = (count = 20, startIndex = 0): string[] => {
+  return optionLabels.slice(startIndex, startIndex + count);
 };
 
 export const getOptions = (count = 20): OptionInProps[] => {
