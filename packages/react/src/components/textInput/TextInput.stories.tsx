@@ -3,7 +3,7 @@ import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 
 import { TextInput, TextInputProps } from './TextInput';
-import { Button } from '../button';
+import { Button, ButtonPresetTheme, ButtonSize } from '../button';
 import { IconSearch } from '../../icons';
 
 const textInputProps = {
@@ -64,7 +64,12 @@ export const UsingRef = () => {
 
   return (
     <>
-      <Button onClick={() => ref?.current?.focus()} style={{ marginBottom: '1rem' }} theme="black" size="small">
+      <Button
+        onClick={() => ref?.current?.focus()}
+        style={{ marginBottom: '1rem' }}
+        theme={ButtonPresetTheme.Black}
+        size={ButtonSize.Small}
+      >
         Focus input
       </Button>
       <TextInput {...textInputProps} ref={ref} />

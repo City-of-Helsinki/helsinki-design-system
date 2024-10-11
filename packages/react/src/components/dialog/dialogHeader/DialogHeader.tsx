@@ -16,12 +16,12 @@ export type DialogHeaderProps = AllElementPropsWithRef<'h2'> & {
    */
   title: string;
   /**
-   * Element placed on the left side of the heading element.
+   * Element placed on the start side of the heading element.
    */
-  iconLeft?: React.ReactNode;
+  iconStart?: React.ReactNode;
 };
 
-export const DialogHeader = ({ title, iconLeft, className, ...rest }: DialogHeaderProps) => {
+export const DialogHeader = ({ title, iconStart, className, ...rest }: DialogHeaderProps) => {
   const { close, closeButtonLabelText, isReadyToShowDialog } = useContext(DialogContext);
   const titleRef: RefObject<HTMLHeadingElement> = React.useRef();
 
@@ -41,13 +41,13 @@ export const DialogHeader = ({ title, iconLeft, className, ...rest }: DialogHead
             aria-label={closeButtonLabelText || 'Close'}
             onClick={() => close()}
           >
-            <IconCross aria-hidden="true" />
+            <IconCross />
           </button>
         )}
         <h2 tabIndex={-1} className={classNames(styles.dialogTitle, className)} ref={titleRef} {...rest}>
-          {iconLeft && (
-            <span className={styles.dialogTitleLeftIcon} aria-hidden="true">
-              {iconLeft}
+          {iconStart && (
+            <span className={styles.dialogTitleStartIcon} aria-hidden="true">
+              {iconStart}
             </span>
           )}
           {title}

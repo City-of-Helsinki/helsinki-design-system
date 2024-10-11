@@ -9,17 +9,9 @@ export type RadioButtonProps = MergeAndOverrideProps<
   AllElementPropsWithoutRef<'input'>,
   {
     /**
-     * If `true`, the component is checked
-     */
-    checked?: boolean;
-    /**
      * Additional class names to apply to the radio button
      */
     className?: string;
-    /**
-     * If `true`, the radio button will be disabled
-     */
-    disabled?: boolean;
     /**
      * The helper text content that will be shown below the input
      */
@@ -33,36 +25,14 @@ export type RadioButtonProps = MergeAndOverrideProps<
      */
     label?: string | React.ReactNode;
     /**
-     * Callback fired when the state is changed
-     */
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
-    /**
      * Override or extend the styles applied to the component
      */
     style?: React.CSSProperties;
-    /**
-     * The value of the component
-     */
-    value?: string;
   }
 >;
 
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
-  (
-    {
-      checked = false,
-      className = '',
-      disabled = false,
-      helperText,
-      id,
-      label,
-      onChange = () => null,
-      style,
-      value,
-      ...rest
-    }: RadioButtonProps,
-    ref: React.Ref<HTMLInputElement>,
-  ) => {
+  ({ className = '', helperText, id, label, style, ...rest }: RadioButtonProps, ref: React.Ref<HTMLInputElement>) => {
     if (label && typeof label !== 'string' && typeof label !== 'number') {
       // eslint-disable-next-line no-console
       console.warn(
@@ -76,11 +46,7 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
           ref={ref}
           id={id}
           className={classNames(styles.input)}
-          onChange={onChange}
-          value={value}
           type="radio"
-          disabled={disabled}
-          checked={checked}
           aria-describedby={helperText ? `${id}-helper` : null}
           {...rest}
         />

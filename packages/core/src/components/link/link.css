@@ -73,17 +73,17 @@
   margin-left: var(--spacing-s);
 }
 
-.hds-link--small .hds-icon-left {
+.hds-link--small .hds-icon-start {
   margin-right: 4px;
   vertical-align: text-top;
 }
 
-.hds-link--medium .hds-icon-left {
+.hds-link--medium .hds-icon-start {
   margin-right: 8px;
   vertical-align: sub;
 }
 
-.hds-link--large .hds-icon-left {
+.hds-link--large .hds-icon-start {
   margin-right: 16px;
   vertical-align: middle;
 }

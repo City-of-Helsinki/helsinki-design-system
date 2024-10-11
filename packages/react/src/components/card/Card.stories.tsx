@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Card, CardProps } from './Card';
-import { Button } from '../button';
+import { Button, ButtonPresetTheme, ButtonVariant } from '../button';
 
 export default {
   component: Card,
@@ -34,7 +34,7 @@ TextHeading.args = {
 
 export const WithOtherComponents = (args: CardProps) => (
   <Card {...args}>
-    <Button variant="secondary" theme="black" role="link">
+    <Button variant={ButtonVariant.Secondary} theme={ButtonPresetTheme.Black} role="link">
       Button
     </Button>
   </Card>

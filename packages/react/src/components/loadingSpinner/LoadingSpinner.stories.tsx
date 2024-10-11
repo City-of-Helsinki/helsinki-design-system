@@ -41,17 +41,17 @@ export const MultipleSpinners = (args: LoadingSpinnerProps) => {
     <>
       <div style={{ marginBottom: 'var(--spacing-s)' }}>
         <Button onClick={() => setShowSpinner1(!showSpinner1)}>
-          {showSpinner1 ? 'Remove' : 'Add'} loading spinner #1
+          {`${showSpinner1 ? 'Remove' : 'Add'} loading spinner #1`}
         </Button>
       </div>
       <div style={{ marginBottom: 'var(--spacing-s)' }}>
         <Button onClick={() => setShowSpinner2(!showSpinner2)}>
-          {showSpinner2 ? 'Remove' : 'Add'} loading spinner #2
+          {`${showSpinner2 ? 'Remove' : 'Add'} loading spinner #2`}
         </Button>
       </div>
       <div style={{ marginBottom: 'var(--spacing-s)' }}>
         <Button onClick={() => setShowSpinner3(!showSpinner3)}>
-          {showSpinner3 ? 'Remove' : 'Add'} loading spinner #3
+          {`${showSpinner3 ? 'Remove' : 'Add'} loading spinner #3`}
         </Button>
       </div>
       {showSpinner1 && <LoadingSpinner {...args} />}

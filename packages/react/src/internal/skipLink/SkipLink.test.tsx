@@ -20,18 +20,7 @@ describe('<SkipToContentLink /> spec', () => {
 
   it('native html props are passed to the element', async () => {
     const linkProps = getCommonElementTestProps<'a'>('a');
-    // SkipLink has "ariaLabel", which should override "aria-label"
-    linkProps['aria-label'] = 'Real ariaLabel';
-    const { getByTestId } = render(
-      <SkipLink
-        skipTo="content"
-        label="skip to content"
-        aria-label="Is overridden"
-        // eslint-disable-next-line react/forbid-component-props
-        ariaLabel="Real ariaLabel"
-        {...linkProps}
-      />,
-    );
+    const { getByTestId } = render(<SkipLink skipTo="content" label="skip to content" {...linkProps} />);
     const element = getByTestId(linkProps['data-testid']);
     expect(
       getElementAttributesMisMatches(element, {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Linkbox } from './Linkbox';
+import { Linkbox, LinkboxSize } from './Linkbox';
 
 export default {
   component: Linkbox,
@@ -49,7 +49,7 @@ export const External = () => (
 
 export const SmallSize = () => (
   <div style={{ width: '288px' }}>
-    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="small">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size={LinkboxSize.Small}>
       <div style={{ height: '192px' }} />
     </Linkbox>
   </div>
@@ -57,7 +57,7 @@ export const SmallSize = () => (
 
 export const MediumSize = () => (
   <div style={{ width: '320px' }}>
-    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="medium">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size={LinkboxSize.Medium}>
       <div style={{ height: '224px' }} />
     </Linkbox>
   </div>
@@ -65,7 +65,7 @@ export const MediumSize = () => (
 
 export const LargeSize = () => (
   <div style={{ width: '400px' }}>
-    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="large">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size={LinkboxSize.Large}>
       <div style={{ height: '296px' }} />
     </Linkbox>
   </div>

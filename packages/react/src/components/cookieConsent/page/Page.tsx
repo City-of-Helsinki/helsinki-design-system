@@ -4,7 +4,7 @@ import { useCookieContentContext } from '../contexts/ContentContext';
 import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { MemoizedButtons } from '../buttons/Buttons';
-import { Notification } from '../../notification/index';
+import { Notification, NotificationSize } from '../../notification/index';
 import { useConsentActions } from '../contexts/ConsentContext';
 
 export function Page(): React.ReactElement | null {
@@ -26,11 +26,10 @@ export function Page(): React.ReactElement | null {
         <Details />
         {showSaveNotification && (
           <Notification
-            size="small"
+            size={NotificationSize.Small}
             type="success"
             label="Saved"
-            // eslint-disable-next-line react/forbid-component-props
-            dataTestId="cookie-consent-save-notification"
+            data-testid="cookie-consent-save-notification"
             className={styles.saveNotification}
           >
             {settingsSaved}

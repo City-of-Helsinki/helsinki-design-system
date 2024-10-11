@@ -14,12 +14,6 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 /* eslint-disable react/no-unused-prop-types */
 type LanguageSelectorComponentProps = {
   /**
-   * Aria-label attribute for the dropdown button.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
-  /**
    * Heading for the list of languages inside the dropdown
    */
   languageHeading?: string;
@@ -139,8 +133,8 @@ export const HeaderLanguageSelectorConsumer = ({
           className={classes.languageSelectorActionBarItem}
           iconClassName={classes.languageSelectorDropdownIcon}
           dropdownClassName={classes.languageSelectorDropdown}
-          icon={<IconGlobe aria-hidden />}
-          closeIcon={<IconGlobe aria-hidden />}
+          icon={<IconGlobe />}
+          closeIcon={<IconGlobe />}
           fullWidth={isSmallScreen}
           labelOnRight
           {...rest}

@@ -66,12 +66,12 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
                 Main Page
               </a>
               <a
-                class="link linkM item subItem navigation"
+                class="link link-medium item subItem navigation"
               >
                 <svg
                   aria-hidden="true"
                   aria-label="angle-right"
-                  class="icon s subItemIcon"
+                  class="icon small subItemIcon"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
@@ -88,12 +88,12 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
                 </span>
               </a>
               <a
-                class="link linkM item subItem navigation"
+                class="link link-medium item subItem navigation"
               >
                 <svg
                   aria-hidden="true"
                   aria-label="angle-right"
-                  class="icon s subItemIcon"
+                  class="icon small subItemIcon"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
@@ -110,12 +110,12 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
                 </span>
               </a>
               <a
-                class="link linkM item subItem navigation"
+                class="link link-medium item subItem navigation"
               >
                 <svg
                   aria-hidden="true"
                   aria-label="angle-right"
-                  class="icon s subItemIcon"
+                  class="icon small subItemIcon"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"

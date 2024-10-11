@@ -4,7 +4,7 @@ title: 'Icon'
 navTitle: 'Icon'
 ---
 
-import { IconFaceSmile, IconPlusCircle } from 'hds-react';
+import { IconFaceSmile, IconPlusCircle, IconSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -30,22 +30,22 @@ See the <InternalLink href="/foundation/visual-assets/icons">the icon library</I
 #### Default
 
 <PlaygroundPreview>
-  <IconFaceSmile aria-hidden="true" />
+  <IconFaceSmile />
 </PlaygroundPreview>
 
 #### Icon sizes
 
 <PlaygroundPreview>
-  <IconFaceSmile size="xs" aria-hidden="true" />
-  <IconFaceSmile size="s" aria-hidden="true" />
-  <IconFaceSmile size="m" aria-hidden="true" />
-  <IconFaceSmile size="l" aria-hidden="true" />
-  <IconFaceSmile size="xl" aria-hidden="true" />
+  <IconFaceSmile size={IconSize.ExtraSmall} />
+  <IconFaceSmile size={IconSize.Small} />
+  <IconFaceSmile size={IconSize.Medium} />
+  <IconFaceSmile size={IconSize.Large} />
+  <IconFaceSmile size={IconSize.ExtraLarge} />
 </PlaygroundPreview>
 
 ### Icon visible for assistive technologies
-If the icon has a meaning or is used as an interactive element, it should not be hidden from assistive technologies. This is important if, for example, you are using icons as buttons.
+If the icon has a meaning or is used as an interactive element, it should not be hidden from assistive technologies. This is important if, for example, you are using icons as buttons, although we encourage to use a proper Button component in such case.
 
 <PlaygroundPreview>
-  <IconPlusCircle aria-label="Add an item" />
+  <IconPlusCircle aria-label="Add an item" aria-hidden="false" />
 </PlaygroundPreview>

@@ -144,6 +144,7 @@
 
   .hds-table__caption {
     font-size: var(--fontsize-heading-xxs);
+    letter-spacing: 0.2px;
     line-height: var(--lineheight-l);
     margin-bottom: var(--spacing-xs);
   }

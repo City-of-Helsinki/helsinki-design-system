@@ -29,7 +29,7 @@ exports[`<ToggleButton /> spec renders the component 1`] = `
         <svg
           aria-hidden="true"
           aria-label="cross-circle-fill"
-          class="icon m"
+          class="icon medium"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ exports[`<ToggleButton /> spec renders the component 1`] = `
         <svg
           aria-hidden="true"
           aria-label="check-circle-fill"
-          class="icon m"
+          class="icon medium"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

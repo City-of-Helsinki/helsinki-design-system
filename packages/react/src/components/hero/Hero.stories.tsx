@@ -1,8 +1,7 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Hero, HeroCustomTheme, HeroProps } from './Hero';
-import { Button } from '../button/Button';
+import { Button, ButtonVariant } from '../button/Button';
 // @ts-ignore
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 import { Logo, logoFi } from '../logo';
@@ -182,7 +181,7 @@ const DefaultContent = (props: DefaultContentProps) => {
       <Hero.Title>{h1Text}</Hero.Title>
       <Hero.Text>{paragraphText}</Hero.Text>
       <Button
-        variant="secondary"
+        variant={ButtonVariant.Secondary}
         role="link"
         // @ts-ignore
         style={buttonTheme ? buttonStyle : {}}
@@ -212,7 +211,7 @@ const NavigationComponent = () => (
       logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
       frontPageLabel="Etusivu"
     >
-      <Header.LanguageSelector ariaLabel="Kielen valinta" />
+      <Header.LanguageSelector aria-label="Kielen valinta" />
     </Header.ActionBar>
     <Header.NavigationMenu>
       <Header.Link href="#" label="Link" active onClick={(e) => e.preventDefault()} />
@@ -378,6 +377,7 @@ export const PlaygroundForKoros = (args: HeroProps & Record<string, string> & { 
       type: args.type,
       dense: !!args.dense,
       hide: !!args.hide,
+      flipVertical: !!args.flipVertical,
       ...args.koros,
     },
     theme: {
@@ -388,6 +388,8 @@ export const PlaygroundForKoros = (args: HeroProps & Record<string, string> & { 
     },
     imageSrc: imageFile,
     variant: args.variant,
+    information: args.information,
+    showArrowIcon: !!args.showArrowIcon,
   };
   return (
     <div>
@@ -454,8 +456,8 @@ PlaygroundForKoros.argTypes = {
 };
 
 export const EmbeddedToPage = (args: HeroProps & { preset: string }) => {
-  const { preset, variant } = args;
-  const props = getDefaultArgs(variant, preset);
+  const { preset, variant, information } = args;
+  const props = { ...getDefaultArgs(variant, preset), information };
   const NoImage = () => {
     if (preset === noImageOptions[1]) {
       return <WithoutImage {...props} />;
@@ -519,15 +521,19 @@ export const PlaygroundForTheme = (args: HeroProps & Record<string, string>) => 
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
     '--horizontal-padding-large': args.horizontalPaddingLarge,
     '--horizontal-padding-x-large': args.horizontalPaddingXLarge,
+    '--bottom-background-color': args.informationBackgroundColor,
+    '--information-color': args.informationColor,
     ...args.theme,
   };
-
+  // @ts-ignore is for  Object.fromEntries
   const theme = Object.fromEntries(Object.entries(argsAsTheme).filter(([, value]) => !!value));
   const heroProps: HeroProps = {
     koros: args.koros,
     theme,
     imageSrc: imageFile,
     variant: args.variant,
+    information: args.information,
+    showArrowIcon: args.showArrowIcon,
   };
   return (
     <div>
@@ -581,6 +587,18 @@ PlaygroundForTheme.argTypes = {
     control: 'color',
     description: 'Optional koros color. Default is "--background-color"',
     ...getThemePropertyDescriptionAsSummary('--koros-color'),
+  },
+  informationBackgroundColor: {
+    defaultValue: '',
+    control: 'color',
+    description: 'Optional background color for the information text. Default is "--color-white"',
+    ...getThemePropertyDescriptionAsSummary('--bottom-background-color'),
+  },
+  informationColor: {
+    defaultValue: '',
+    control: 'color',
+    description: 'Optional text color for the information text. Default is "inherit"',
+    ...getThemePropertyDescriptionAsSummary('--information-color'),
   },
   imagePosition: {
     defaultValue: '',
@@ -670,10 +688,10 @@ AllHeroes.argTypes = {
   ...getDisabledControl('variant'),
 };
 
-export const AllHeroesWithArrowIcon = () => {
+export const AllHeroesWithArrowIconAndInformation = () => {
   const DummyContent = () => {
     return (
-      <div style={{ minHeight: '200px', padding: '20px' }}>
+      <div style={{ minHeight: '200px', padding: '20px', marginTop: '-32px' }}>
         <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, quam sed aliquet faucibus, nisl risus
@@ -685,30 +703,85 @@ export const AllHeroesWithArrowIcon = () => {
     );
   };
 
+  const information = 'Photo: Firstname Middlename Long-Lastname';
+
+  const mergeThemes = (props: HeroProps, additionalTheme: HeroProps['theme']): Pick<HeroProps, 'theme'> => {
+    const { theme } = props;
+    return {
+      theme: { ...theme, ...additionalTheme },
+    };
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'beige' }}>
-      <ImageLeft {...{ ...getDefaultArgs('imageLeft'), showArrowIcon: true }} />
-      <DummyContent />
-      <BackgroundImage
-        {...{ ...getDefaultArgs('backgroundImage'), theme: { '--koros-color': 'beige' }, showArrowIcon: true }}
+      <ImageLeft
+        {...{
+          ...getDefaultArgs('imageLeft'),
+          showArrowIcon: true,
+          information,
+          ...mergeThemes(getDefaultArgs('imageLeft'), { '--bottom-background-color': 'beige' }),
+        }}
       />
       <DummyContent />
-      <ImageRight {...{ ...getDefaultArgs('imageRight'), showArrowIcon: true }} />
+      <BackgroundImage
+        {...{
+          ...getDefaultArgs('backgroundImage'),
+          theme: { '--koros-color': 'beige', '--bottom-background-color': 'var(--koros-color)' },
+          showArrowIcon: true,
+          information,
+        }}
+      />
       <DummyContent />
-      <WithoutImage {...{ ...getDefaultArgs('noImage', noImageOptions[1]), showArrowIcon: true }} />
+      <ImageRight
+        {...{
+          ...getDefaultArgs('imageRight'),
+          showArrowIcon: true,
+          information,
+          ...mergeThemes(getDefaultArgs('imageRight'), { '--bottom-background-color': 'beige' }),
+        }}
+      />
       <DummyContent />
-      <DiagonalKoros {...{ ...getDefaultArgs('diagonalKoros'), showArrowIcon: true }} />
+      <WithoutImage
+        {...{
+          ...getDefaultArgs('noImage', noImageOptions[1]),
+          showArrowIcon: true,
+          ...mergeThemes(getDefaultArgs('noImage', noImageOptions[1]), { '--bottom-background-color': 'beige' }),
+        }}
+      />
+      <DummyContent />
+      <DiagonalKoros
+        {...{
+          ...getDefaultArgs('diagonalKoros'),
+          showArrowIcon: true,
+          information,
+          ...mergeThemes(getDefaultArgs('diagonalKoros'), { '--bottom-background-color': 'beige' }),
+        }}
+      />
       <DummyContent />
       <WithoutImageKorosOverlay
         {...{
           ...getDefaultArgs('noImage', noImageOptions[2]),
           showArrowIcon: true,
+          ...mergeThemes(getDefaultArgs('noImage', noImageOptions[2]), { '--bottom-background-color': 'beige' }),
         }}
       />
       <DummyContent />
-      <ImageBottom {...{ ...getDefaultArgs('imageBottom'), showArrowIcon: true }} />
+      <ImageBottom
+        {...{
+          ...getDefaultArgs('imageBottom'),
+          showArrowIcon: true,
+          information,
+          ...mergeThemes(getDefaultArgs('imageBottom'), { '--bottom-background-color': 'beige' }),
+        }}
+      />
       <DummyContent />
-      <WithoutImageAndKoros {...{ ...getDefaultArgs('noImage', noImageOptions[3]), showArrowIcon: true }} />
+      <WithoutImageAndKoros
+        {...{
+          ...getDefaultArgs('noImage', noImageOptions[3]),
+          showArrowIcon: true,
+          ...mergeThemes(getDefaultArgs('noImage'), { '--bottom-background-color': 'beige' }),
+        }}
+      />
       <DummyContent />
     </div>
   );

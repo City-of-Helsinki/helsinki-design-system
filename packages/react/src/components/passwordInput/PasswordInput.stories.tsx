@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { PasswordInput, PasswordInputProps } from './PasswordInput';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 import { IconEye, IconEyeCrossed } from '../../icons';
 
 export default {
@@ -103,9 +103,9 @@ export const WithExternalShowPasswordButton = () => {
         type={revealPassword ? 'text' : 'password'}
       />
       <Button
-        variant="supplementary"
+        variant={ButtonVariant.Supplementary}
         onClick={() => setRevealPassword(!revealPassword)}
-        iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+        iconStart={revealPassword ? <IconEyeCrossed /> : <IconEye />}
       >
         {revealPassword ? 'Hide password' : 'Show password'}
       </Button>

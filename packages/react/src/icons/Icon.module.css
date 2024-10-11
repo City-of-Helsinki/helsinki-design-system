@@ -3,22 +3,22 @@
   composes: hds-icon from 'hds-core/lib/icons/icon.css';
 }
 
-.xs {
+.extraSmall {
   composes: hds-icon--size-xs from 'hds-core/lib/icons/icon.css';
 }
 
-.s {
+.small {
   composes: hds-icon--size-s from 'hds-core/lib/icons/icon.css';
 }
 
-.m {
+.medium {
   composes: hds-icon--size-m from 'hds-core/lib/icons/icon.css';
 }
 
-.l {
+.large {
   composes: hds-icon--size-l from 'hds-core/lib/icons/icon.css';
 }
 
-.xl {
+.extraLarge {
   composes: hds-icon--size-xl from 'hds-core/lib/icons/icon.css';
 }

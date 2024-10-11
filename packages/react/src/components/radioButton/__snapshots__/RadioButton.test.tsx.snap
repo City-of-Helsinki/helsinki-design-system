@@ -9,7 +9,6 @@ exports[`<RadioButton /> spec renders the component 1`] = `
       class="input"
       id="test"
       type="radio"
-      value=""
     />
     <label
       class="label"

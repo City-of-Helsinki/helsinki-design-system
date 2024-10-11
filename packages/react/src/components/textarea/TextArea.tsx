@@ -14,14 +14,6 @@ export type TextAreaProps = MergeAndOverrideProps<
      */
     className?: string;
     /**
-     * The default textarea element value. Use when the component is not controlled
-     */
-    defaultValue?: string;
-    /**
-     * If `true`, the textarea will be disabled
-     */
-    disabled?: boolean;
-    /**
      * The error text content that will be shown below the textarea
      */
     errorText?: string;
@@ -45,10 +37,6 @@ export type TextAreaProps = MergeAndOverrideProps<
      * The label for the textarea
      */
     label?: string | React.ReactNode;
-    /**
-     * Callback fired when the state is changed
-     */
-    onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
     /**
      * Short hint displayed in the textarea before the user enters a value
      */
@@ -82,10 +70,6 @@ export type TextAreaProps = MergeAndOverrideProps<
      */
     tooltipText?: string;
     /**
-     * The value of the textarea element, required for a controlled component
-     */
-    value?: string;
-    /**
      * The `ref` is forwarded to the native textarea element.
      */
     ref?: React.Ref<HTMLTextAreaElement>;
@@ -96,15 +80,12 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
     {
       className = '',
-      disabled = false,
-      defaultValue,
       errorText,
       helperText,
       hideLabel,
       invalid,
       id,
       label,
-      onChange = () => null,
       required,
       style,
       successText,
@@ -140,10 +121,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       <InputWrapper {...wrapperProps}>
         <textarea
           className={styles.input}
-          defaultValue={defaultValue}
-          disabled={disabled}
           id={id}
-          onChange={onChange}
           ref={ref}
           required={required}
           aria-describedby={ariaDescribedBy}

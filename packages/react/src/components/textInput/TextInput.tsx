@@ -33,10 +33,6 @@ export type TextInputProps = MergeAndOverrideProps<
      */
     defaultValue?: string;
     /**
-     * If `true`, the input will be disabled
-     */
-    disabled?: boolean;
-    /**
      * The error text content that will be shown below the input
      */
     errorText?: string;
@@ -68,10 +64,6 @@ export type TextInputProps = MergeAndOverrideProps<
      * Button click callback
      */
     onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
-    /**
-     * Short hint displayed in the input before the user enters a value
-     */
-    placeholder?: string;
     /**
      * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
      */
@@ -137,7 +129,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       clearButtonAriaLabel = 'Clear',
       clearButton = false,
       defaultValue,
-      disabled = false,
       errorText,
       helperText,
       hideLabel,
@@ -181,6 +172,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
     const hasButton = Boolean(buttonIcon && onButtonClick);
     const hasClearButton = Boolean(clearButton || type === 'search');
+    const disabled = rest.disabled || false;
 
     const innerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e);

@@ -14,11 +14,11 @@ import ExternalLink from './ExternalLink';
  *
  */
 
-const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAllowed }) => {
+const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAllowed, nodeType = 'HTML' }) => {
   const ElementInfo = () => (
     <p>
       This component also accepts all native
-      <ExternalLink href={`https://developer.mozilla.org/en-US/docs/Web/HTML/Element/${nodeName}#attributes`}>
+      <ExternalLink href={`https://developer.mozilla.org/en-US/docs/Web/${nodeType}/Element/${nodeName}#attributes`}>
         <code>{nodeName}</code> element props
       </ExternalLink>
       {notAllowed && notAllowed.length ? (
@@ -93,7 +93,7 @@ const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAll
             return null;
           }
           return (
-            <li>
+            <li key={prop}>
               <code>{used}</code> overrides the <code>{overwritten}</code>
             </li>
           );
@@ -127,6 +127,7 @@ NativeElementPropsInfo.propTypes = {
   notAllowed: PropTypes.arrayOf(PropTypes.string),
   splitProps: PropTypes.arrayOf(PropTypes.string),
   overlappingProps: PropTypes.oneOf('ariaLabel', 'dataTestId', PropTypes.string),
+  nodeType: PropTypes.string,
 };
 
 export default NativeElementPropsInfo;

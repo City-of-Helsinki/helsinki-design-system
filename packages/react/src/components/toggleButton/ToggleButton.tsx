@@ -6,6 +6,7 @@ import classNames from '../../utils/classNames';
 import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
 import { Tooltip } from '../tooltip/Tooltip';
 import { useTheme } from '../../hooks/useTheme';
+import { IconSize } from '../../icons/Icon.interface';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type ToggleButtonVariant = 'default' | 'inline';
@@ -28,10 +29,6 @@ export type ToggleButtonProps = AllElementPropsWithoutRef<'button'> & {
    * The state of the toggle button
    */
   checked: boolean;
-  /**
-   * If `true`, the button will be disabled
-   */
-  disabled?: boolean;
   /**
    * Callback fired when the toggle button is clicked. Should switch the value.
    */
@@ -64,7 +61,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       id,
       label,
       checked,
-      disabled,
       onChange,
       tooltipLabel,
       tooltipButtonLabel,
@@ -105,7 +101,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           {...rest}
           id={id}
           ref={ref}
-          disabled={disabled}
           type="button"
           aria-pressed={checked}
           aria-labelledby={labelId}
@@ -115,10 +110,10 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           }}
         >
           <div className={classNames(styles.toggleButtonIcon, styles.offIcon)}>
-            <IconCrossCircleFill size="m" aria-hidden="true" />
+            <IconCrossCircleFill size={IconSize.Medium} />
           </div>
           <div className={classNames(styles.toggleButtonIcon, styles.onIcon)}>
-            <IconCheckCircleFill size="m" aria-hidden="true" />
+            <IconCheckCircleFill size={IconSize.Medium} />
           </div>
         </button>
       </div>

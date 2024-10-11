@@ -47,11 +47,8 @@ describe('<Footer.Utilities /> spec', () => {
   it('native html props are passed to the element', async () => {
     const divProps = getCommonElementTestProps('div');
     divProps.role = 'role';
-    // element has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
-      // eslint-disable-next-line react/forbid-component-props
-      <FooterUtilities {...divProps} aria-label="Is overridden" ariaLabel="Real ariaLabel">
+      <FooterUtilities {...divProps}>
         <FooterLink
           href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
           label="Yhteystiedot"

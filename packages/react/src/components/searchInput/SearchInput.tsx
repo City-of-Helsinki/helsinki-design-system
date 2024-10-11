@@ -297,7 +297,7 @@ export const SearchInput = <SuggestionItem,>({
               className={classNames(styles.button)}
               onClick={clear}
             >
-              <IconCrossCircle className={styles.searchIcon} aria-hidden />
+              <IconCrossCircle className={styles.searchIcon} />
             </button>
           )}
           {!hideSearchButton && (
@@ -307,7 +307,7 @@ export const SearchInput = <SuggestionItem,>({
               className={classNames(styles.button)}
               onClick={() => submitValue()}
             >
-              <IconSearch className={styles.searchIcon} aria-hidden />
+              <IconSearch className={styles.searchIcon} />
             </button>
           )}
         </div>

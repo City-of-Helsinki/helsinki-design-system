@@ -2,7 +2,7 @@ import React, { cloneElement, isValidElement, ReactNode, useContext, useEffect, 
 
 import styles from './MainLevel.module.scss';
 import classNames from '../../../utils/classNames';
-import SideNavigationContext from '../SideNavigationContext';
+import SideNavigationContext, { SideNavigationContextType } from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';
 import { getChildrenAsArray } from '../../../utils/getChildren';
@@ -165,9 +165,8 @@ export const MainLevel = ({
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
       return cloneElement(child, {
         mainLevelIndex: index,
-        // eslint-disable-next-line react/no-array-index-key
         key: childIndex,
-      });
+      } as Partial<SideNavigationContextType>);
     }
     return null;
   });
@@ -219,7 +218,7 @@ export const MainLevel = ({
           >
             {icon && <LeftIcon icon={icon} />}
             <Label label={label} />
-            {hasSubLevels && <RightIcon icon={isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />} />}
+            {hasSubLevels && <RightIcon icon={isOpen ? <IconAngleUp /> : <IconAngleDown />} />}
           </button>
           <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!isOpen} aria-labelledby={id}>
             {subLevels}
@@ -247,7 +246,7 @@ export const MainLevel = ({
         >
           {icon && <LeftIcon icon={icon} />}
           <Label label={label} />
-          {external && <RightIcon icon={<IconLinkExternal aria-hidden />} />}
+          {external && <RightIcon icon={<IconLinkExternal />} />}
         </a>
       )}
     </li>

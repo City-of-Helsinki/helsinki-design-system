@@ -118,6 +118,16 @@
   composes: hds-hero--diagonal-koros__koros-aligner from 'hds-core/lib/components/hero/hero.css';
 }
 
+/* bottom area specific styles */
+
+.bottomContainer {
+  composes: hds-hero__bottom-container from 'hds-core/lib/components/hero/hero.css';
+}
+
+.bottomContentAligner {
+  composes: hds-hero__bottom-content-aligner from 'hds-core/lib/components/hero/hero.css';
+}
+
 /* arrow icon specific styles */
 
 .arrowIconContainer {
@@ -128,6 +138,8 @@
   composes: hds-hero--arrow-icon from 'hds-core/lib/components/hero/hero.css';
 }
 
-.arrowIconSpacingAfter {
-  composes: hds-hero__arrow-icon-spacing-after from 'hds-core/lib/components/hero/hero.css';
+/* information container specific styles */
+
+.informationContainer {
+  composes: hds-hero__information-container from 'hds-core/lib/components/hero/hero.css';
 }

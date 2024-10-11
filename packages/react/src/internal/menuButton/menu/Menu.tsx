@@ -3,6 +3,7 @@ import { RectReadOnly } from 'react-use-measure';
 
 import styles from './Menu.module.scss';
 import classNames from '../../../utils/classNames';
+import { AllElementPropsWithoutRef } from '../../../utils/elementTypings';
 
 type MenuStyles = {
   top?: number;
@@ -54,7 +55,7 @@ export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, on
                   onItemClick(event);
                 }
               },
-            })
+            } as Pick<AllElementPropsWithoutRef<'div'>, 'className' | 'onClick'>)
           : child;
       })}
     </div>

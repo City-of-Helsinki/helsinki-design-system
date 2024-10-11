@@ -54,7 +54,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="angle-down"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
               <svg
                 aria-hidden="true"
                 aria-label="angle-up"
-                class="icon s"
+                class="icon small"
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
             <svg
               aria-hidden="true"
               aria-label="angle-down"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +206,6 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                       id="required-consents-checkbox"
                       name="required-consents-checkbox"
                       type="checkbox"
-                      value=""
                     />
                     <label
                       class="label"
@@ -250,7 +249,6 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                             id="required-consents-group-0-checkbox"
                             name="required-consents-group-0-checkbox"
                             type="checkbox"
-                            value=""
                           />
                           <label
                             class="label"
@@ -284,7 +282,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -416,7 +414,6 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                             id="required-consents-group-1-checkbox"
                             name="required-consents-group-1-checkbox"
                             type="checkbox"
-                            value=""
                           />
                           <label
                             class="label"
@@ -450,7 +447,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -559,7 +556,6 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                       id="optional-consents-checkbox"
                       name="optional-consents-checkbox"
                       type="checkbox"
-                      value=""
                     />
                     <label
                       class="label"
@@ -601,7 +597,6 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                             id="optional-consents-group-0-checkbox"
                             name="optional-consents-group-0-checkbox"
                             type="checkbox"
-                            value=""
                           />
                           <label
                             class="label"
@@ -635,7 +630,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -743,7 +738,6 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                             id="optional-consents-group-1-checkbox"
                             name="optional-consents-group-1-checkbox"
                             type="checkbox"
-                            value=""
                           />
                           <label
                             class="label"
@@ -777,7 +771,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s"
+                            class="icon small"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -897,24 +891,20 @@ exports[`<CookieModal /> spec renders the component 1`] = `
             class="buttons visuallyHiddenWithoutFocus"
           >
             <button
-              class="button secondary theme-default size-default"
+              class="button secondary theme-bus size-medium"
               data-testid="cookie-consent-approve-button"
               type="button"
             >
-              <span
-                class="label"
-              >
+              <span>
                 Hyväksy kaikki evästeet
               </span>
             </button>
             <button
-              class="button secondary theme-default size-default"
+              class="button secondary theme-bus size-medium"
               data-testid="cookie-consent-approve-required-button"
               type="button"
             >
-              <span
-                class="label"
-              >
+              <span>
                 Hyväksy vain välttämättömät evästeet
               </span>
             </button>

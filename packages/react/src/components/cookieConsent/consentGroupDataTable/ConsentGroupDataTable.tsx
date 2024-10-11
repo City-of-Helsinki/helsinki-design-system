@@ -30,8 +30,16 @@ export function ConsentGroupDataTable(props: { consents: CookieGroup['cookies'];
 
   return (
     <div className={classNames(styles.dataTableContainer)}>
-      {/*  eslint-disable-next-line react/forbid-component-props */}
-      <Table id={id} dataTestId={id} cols={cols} rows={rows} indexKey="id" renderIndexCol={false} theme={theme} dense />
+      <Table
+        id={id}
+        data-testid={id}
+        cols={cols}
+        rows={rows}
+        indexKey="id"
+        renderIndexCol={false}
+        theme={theme}
+        dense
+      />
     </div>
   );
 }

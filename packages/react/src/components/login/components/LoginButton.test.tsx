@@ -8,6 +8,7 @@ import { LoginButton, LoginButtonProps } from './LoginButton';
 import { Beacon, ConnectedModule } from '../beacon/beacon';
 import { OidcClient, oidcClientNamespace } from '../client';
 import { advanceUntilDoesNotThrow, createTimedPromise } from '../testUtils/timerTestUtil';
+import { ButtonVariant } from '../../button/Button';
 
 const loginProps = getDefaultOidcClientTestProps();
 loginProps.userManagerSettings.automaticSilentRenew = false;
@@ -15,7 +16,7 @@ loginProps.userManagerSettings.automaticSilentRenew = false;
 const buttonText = 'Log in';
 const props: Omit<LoginButtonProps, 'children'> = {
   errorText: 'Cannot login',
-  variant: 'danger',
+  variant: ButtonVariant.Danger,
   loggingInText: 'Logging in',
 };
 

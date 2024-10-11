@@ -1,4 +1,12 @@
 .hds-icon--minus {
-  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 11H18V13H6V11Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
-  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 11H18V13H6V11Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image-minus: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 11H18V13H6V11Z' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image: var(--mask-image-minus);
+}
+
+.hds-icon-start--minus {
+  --mask-image-before: var(--mask-image-minus);
+}
+
+.hds-icon-end--minus {
+  --mask-image-after: var(--mask-image-minus);
 }

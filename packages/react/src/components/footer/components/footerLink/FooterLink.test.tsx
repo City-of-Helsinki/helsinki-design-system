@@ -33,6 +33,8 @@ describe('<Link /> spec', () => {
   });
   it('native html props are passed to the element', async () => {
     const linkProps = getCommonElementTestProps<'a'>('a');
+    // "." is added to aria-label inside the component if missing.
+    linkProps['aria-label'] = 'Aria-label with comma.';
     const { getByTestId } = render(<FooterLink {...linkProps} label="Test" variant={FooterVariant.Base} />);
     const element = getByTestId(linkProps['data-testid']);
     expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);

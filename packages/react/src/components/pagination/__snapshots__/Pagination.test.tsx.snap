@@ -21,7 +21,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -32,7 +32,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -45,9 +45,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -56,7 +54,6 @@ exports[`<Pagination /> spec renders the component 1`] = `
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -75,7 +72,6 @@ exports[`<Pagination /> spec renders the component 1`] = `
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 7"
             class="itemLink"
             data-testid="hds-pagination-page-7"
@@ -86,20 +82,18 @@ exports[`<Pagination /> spec renders the component 1`] = `
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 8"
+            aria-label="Page 8. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-8"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             8
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 9"
             class="itemLink"
             data-testid="hds-pagination-page-9"
@@ -118,7 +112,6 @@ exports[`<Pagination /> spec renders the component 1`] = `
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 68"
             class="itemLink"
             data-testid="hds-pagination-page-68"
@@ -130,13 +123,11 @@ exports[`<Pagination /> spec renders the component 1`] = `
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -146,7 +137,7 @@ exports[`<Pagination /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +179,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -199,7 +190,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -212,9 +203,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -223,7 +212,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -242,7 +230,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 28"
             class="itemLink"
             data-testid="hds-pagination-page-28"
@@ -254,7 +241,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 29"
             class="itemLink"
             data-testid="hds-pagination-page-29"
@@ -266,7 +252,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -278,13 +263,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -294,7 +277,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -334,7 +317,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -345,7 +328,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -358,9 +341,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -369,7 +350,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -388,7 +368,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 26"
             class="itemLink"
             data-testid="hds-pagination-page-26"
@@ -400,7 +379,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 27"
             class="itemLink"
             data-testid="hds-pagination-page-27"
@@ -412,7 +390,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 28"
             class="itemLink"
             data-testid="hds-pagination-page-28"
@@ -424,7 +401,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 29"
             class="itemLink"
             data-testid="hds-pagination-page-29"
@@ -435,28 +411,25 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 30"
+            aria-label="Page 30. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-30"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             30
-          </a>
+          </span>
         </li>
       </ul>
       <button
         aria-disabled="true"
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         disabled=""
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -466,7 +439,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -506,7 +479,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -517,7 +490,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -530,9 +503,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -541,7 +512,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -560,7 +530,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 24"
             class="itemLink"
             data-testid="hds-pagination-page-24"
@@ -572,7 +541,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 25"
             class="itemLink"
             data-testid="hds-pagination-page-25"
@@ -584,7 +552,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 26"
             class="itemLink"
             data-testid="hds-pagination-page-26"
@@ -596,7 +563,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 27"
             class="itemLink"
             data-testid="hds-pagination-page-27"
@@ -608,7 +574,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 28"
             class="itemLink"
             data-testid="hds-pagination-page-28"
@@ -619,20 +584,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 29"
+            aria-label="Page 29. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-29"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             29
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -644,13 +607,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -660,7 +621,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -700,7 +661,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -711,7 +672,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -724,9 +685,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -735,7 +694,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -754,7 +712,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 22"
             class="itemLink"
             data-testid="hds-pagination-page-22"
@@ -766,7 +723,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 23"
             class="itemLink"
             data-testid="hds-pagination-page-23"
@@ -778,7 +734,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 24"
             class="itemLink"
             data-testid="hds-pagination-page-24"
@@ -790,7 +745,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 25"
             class="itemLink"
             data-testid="hds-pagination-page-25"
@@ -802,7 +756,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 26"
             class="itemLink"
             data-testid="hds-pagination-page-26"
@@ -814,7 +767,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 27"
             class="itemLink"
             data-testid="hds-pagination-page-27"
@@ -825,20 +777,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 28"
+            aria-label="Page 28. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-28"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             28
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 29"
             class="itemLink"
             data-testid="hds-pagination-page-29"
@@ -850,7 +800,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -862,13 +811,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -878,7 +825,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -918,7 +865,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -929,7 +876,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -942,9 +889,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -953,7 +898,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -972,7 +916,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 20"
             class="itemLink"
             data-testid="hds-pagination-page-20"
@@ -984,7 +927,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 21"
             class="itemLink"
             data-testid="hds-pagination-page-21"
@@ -996,7 +938,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 22"
             class="itemLink"
             data-testid="hds-pagination-page-22"
@@ -1008,7 +949,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 23"
             class="itemLink"
             data-testid="hds-pagination-page-23"
@@ -1020,7 +960,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 24"
             class="itemLink"
             data-testid="hds-pagination-page-24"
@@ -1032,7 +971,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 25"
             class="itemLink"
             data-testid="hds-pagination-page-25"
@@ -1044,7 +982,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 26"
             class="itemLink"
             data-testid="hds-pagination-page-26"
@@ -1055,20 +992,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 27"
+            aria-label="Page 27. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-27"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             27
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 28"
             class="itemLink"
             data-testid="hds-pagination-page-28"
@@ -1080,7 +1015,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 29"
             class="itemLink"
             data-testid="hds-pagination-page-29"
@@ -1092,7 +1026,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -1104,13 +1037,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1120,7 +1051,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1160,7 +1091,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1171,7 +1102,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1184,9 +1115,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1195,7 +1124,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -1214,7 +1142,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 18"
             class="itemLink"
             data-testid="hds-pagination-page-18"
@@ -1226,7 +1153,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 19"
             class="itemLink"
             data-testid="hds-pagination-page-19"
@@ -1238,7 +1164,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 20"
             class="itemLink"
             data-testid="hds-pagination-page-20"
@@ -1250,7 +1175,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 21"
             class="itemLink"
             data-testid="hds-pagination-page-21"
@@ -1262,7 +1186,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 22"
             class="itemLink"
             data-testid="hds-pagination-page-22"
@@ -1274,7 +1197,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 23"
             class="itemLink"
             data-testid="hds-pagination-page-23"
@@ -1286,7 +1208,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 24"
             class="itemLink"
             data-testid="hds-pagination-page-24"
@@ -1298,7 +1219,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 25"
             class="itemLink"
             data-testid="hds-pagination-page-25"
@@ -1309,20 +1229,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 26"
+            aria-label="Page 26. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-26"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             26
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 27"
             class="itemLink"
             data-testid="hds-pagination-page-27"
@@ -1334,7 +1252,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 28"
             class="itemLink"
             data-testid="hds-pagination-page-28"
@@ -1346,7 +1263,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 29"
             class="itemLink"
             data-testid="hds-pagination-page-29"
@@ -1358,7 +1274,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -1370,13 +1285,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1386,7 +1299,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1426,7 +1339,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1437,7 +1350,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1450,9 +1363,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1461,7 +1372,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -1479,16 +1389,15 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </span>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 16"
+            aria-label="Page 16. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-16"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             16
-          </a>
+          </span>
         </li>
         <li>
           <span
@@ -1499,7 +1408,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -1511,13 +1419,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1527,7 +1433,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1567,7 +1473,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1578,7 +1484,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1591,9 +1497,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1602,7 +1506,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -1621,7 +1524,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 15"
             class="itemLink"
             data-testid="hds-pagination-page-15"
@@ -1632,20 +1534,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 16"
+            aria-label="Page 16. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-16"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             16
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 17"
             class="itemLink"
             data-testid="hds-pagination-page-17"
@@ -1664,7 +1564,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -1676,13 +1575,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1692,7 +1589,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1732,7 +1629,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1743,7 +1640,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1756,9 +1653,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1767,7 +1662,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -1786,7 +1680,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 14"
             class="itemLink"
             data-testid="hds-pagination-page-14"
@@ -1798,7 +1691,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 15"
             class="itemLink"
             data-testid="hds-pagination-page-15"
@@ -1809,20 +1701,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 16"
+            aria-label="Page 16. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-16"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             16
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 17"
             class="itemLink"
             data-testid="hds-pagination-page-17"
@@ -1834,7 +1724,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 18"
             class="itemLink"
             data-testid="hds-pagination-page-18"
@@ -1853,7 +1742,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -1865,13 +1753,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -1881,7 +1767,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1921,7 +1807,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -1932,7 +1818,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -1945,9 +1831,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -1956,7 +1840,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -1975,7 +1858,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 13"
             class="itemLink"
             data-testid="hds-pagination-page-13"
@@ -1987,7 +1869,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 14"
             class="itemLink"
             data-testid="hds-pagination-page-14"
@@ -1999,7 +1880,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 15"
             class="itemLink"
             data-testid="hds-pagination-page-15"
@@ -2010,20 +1890,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 16"
+            aria-label="Page 16. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-16"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             16
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 17"
             class="itemLink"
             data-testid="hds-pagination-page-17"
@@ -2035,7 +1913,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 18"
             class="itemLink"
             data-testid="hds-pagination-page-18"
@@ -2047,7 +1924,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 19"
             class="itemLink"
             data-testid="hds-pagination-page-19"
@@ -2066,7 +1942,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -2078,13 +1953,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2094,7 +1967,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2134,7 +2007,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2145,7 +2018,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2158,9 +2031,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2169,7 +2040,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -2188,7 +2058,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 12"
             class="itemLink"
             data-testid="hds-pagination-page-12"
@@ -2200,7 +2069,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 13"
             class="itemLink"
             data-testid="hds-pagination-page-13"
@@ -2212,7 +2080,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 14"
             class="itemLink"
             data-testid="hds-pagination-page-14"
@@ -2224,7 +2091,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 15"
             class="itemLink"
             data-testid="hds-pagination-page-15"
@@ -2235,20 +2101,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 16"
+            aria-label="Page 16. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-16"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             16
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 17"
             class="itemLink"
             data-testid="hds-pagination-page-17"
@@ -2260,7 +2124,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 18"
             class="itemLink"
             data-testid="hds-pagination-page-18"
@@ -2272,7 +2135,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 19"
             class="itemLink"
             data-testid="hds-pagination-page-19"
@@ -2284,7 +2146,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 20"
             class="itemLink"
             data-testid="hds-pagination-page-20"
@@ -2303,7 +2164,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -2315,13 +2175,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2331,7 +2189,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2371,7 +2229,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2382,7 +2240,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2395,9 +2253,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2406,7 +2262,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -2425,7 +2280,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 11"
             class="itemLink"
             data-testid="hds-pagination-page-11"
@@ -2437,7 +2291,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 12"
             class="itemLink"
             data-testid="hds-pagination-page-12"
@@ -2449,7 +2302,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 13"
             class="itemLink"
             data-testid="hds-pagination-page-13"
@@ -2461,7 +2313,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 14"
             class="itemLink"
             data-testid="hds-pagination-page-14"
@@ -2473,7 +2324,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 15"
             class="itemLink"
             data-testid="hds-pagination-page-15"
@@ -2484,20 +2334,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 16"
+            aria-label="Page 16. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-16"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             16
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 17"
             class="itemLink"
             data-testid="hds-pagination-page-17"
@@ -2509,7 +2357,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 18"
             class="itemLink"
             data-testid="hds-pagination-page-18"
@@ -2521,7 +2368,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 19"
             class="itemLink"
             data-testid="hds-pagination-page-19"
@@ -2533,7 +2379,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 20"
             class="itemLink"
             data-testid="hds-pagination-page-20"
@@ -2545,7 +2390,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 21"
             class="itemLink"
             data-testid="hds-pagination-page-21"
@@ -2564,7 +2408,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -2576,13 +2419,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2592,7 +2433,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2632,7 +2473,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2643,7 +2484,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2656,9 +2497,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2667,7 +2506,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -2678,20 +2516,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 2"
+            aria-label="Page 2. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-2"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             2
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 3"
             class="itemLink"
             data-testid="hds-pagination-page-3"
@@ -2710,7 +2546,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -2722,13 +2557,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2738,7 +2571,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2778,7 +2611,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2789,7 +2622,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2802,9 +2635,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2813,7 +2644,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -2825,7 +2655,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 2"
             class="itemLink"
             data-testid="hds-pagination-page-2"
@@ -2836,20 +2665,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 3"
+            aria-label="Page 3. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-3"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             3
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 4"
             class="itemLink"
             data-testid="hds-pagination-page-4"
@@ -2861,7 +2688,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 5"
             class="itemLink"
             data-testid="hds-pagination-page-5"
@@ -2880,7 +2706,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -2892,13 +2717,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -2908,7 +2731,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2948,7 +2771,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -2959,7 +2782,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -2972,9 +2795,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -2983,7 +2804,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -2995,7 +2815,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 2"
             class="itemLink"
             data-testid="hds-pagination-page-2"
@@ -3007,7 +2826,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 3"
             class="itemLink"
             data-testid="hds-pagination-page-3"
@@ -3018,20 +2836,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 4"
+            aria-label="Page 4. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-4"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             4
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 5"
             class="itemLink"
             data-testid="hds-pagination-page-5"
@@ -3043,7 +2859,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 6"
             class="itemLink"
             data-testid="hds-pagination-page-6"
@@ -3055,7 +2870,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 7"
             class="itemLink"
             data-testid="hds-pagination-page-7"
@@ -3074,7 +2888,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -3086,13 +2899,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3102,7 +2913,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3142,7 +2953,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -3153,7 +2964,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3166,9 +2977,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3177,7 +2986,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -3189,7 +2997,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 2"
             class="itemLink"
             data-testid="hds-pagination-page-2"
@@ -3201,7 +3008,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 3"
             class="itemLink"
             data-testid="hds-pagination-page-3"
@@ -3213,7 +3019,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 4"
             class="itemLink"
             data-testid="hds-pagination-page-4"
@@ -3224,20 +3029,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 5"
+            aria-label="Page 5. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-5"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             5
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 6"
             class="itemLink"
             data-testid="hds-pagination-page-6"
@@ -3249,7 +3052,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 7"
             class="itemLink"
             data-testid="hds-pagination-page-7"
@@ -3261,7 +3063,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 8"
             class="itemLink"
             data-testid="hds-pagination-page-8"
@@ -3273,7 +3074,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 9"
             class="itemLink"
             data-testid="hds-pagination-page-9"
@@ -3292,7 +3092,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -3304,13 +3103,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3320,7 +3117,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3360,7 +3157,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -3371,7 +3168,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3384,9 +3181,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3395,7 +3190,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -3407,7 +3201,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 2"
             class="itemLink"
             data-testid="hds-pagination-page-2"
@@ -3419,7 +3212,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 3"
             class="itemLink"
             data-testid="hds-pagination-page-3"
@@ -3431,7 +3223,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 4"
             class="itemLink"
             data-testid="hds-pagination-page-4"
@@ -3443,7 +3234,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 5"
             class="itemLink"
             data-testid="hds-pagination-page-5"
@@ -3454,20 +3244,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 6"
+            aria-label="Page 6. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-6"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             6
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 7"
             class="itemLink"
             data-testid="hds-pagination-page-7"
@@ -3479,7 +3267,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 8"
             class="itemLink"
             data-testid="hds-pagination-page-8"
@@ -3491,7 +3278,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 9"
             class="itemLink"
             data-testid="hds-pagination-page-9"
@@ -3503,7 +3289,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 10"
             class="itemLink"
             data-testid="hds-pagination-page-10"
@@ -3515,7 +3300,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 11"
             class="itemLink"
             data-testid="hds-pagination-page-11"
@@ -3534,7 +3318,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -3546,13 +3329,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3562,7 +3343,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3602,7 +3383,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         />
       </div>
       <button
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         type="button"
       >
@@ -3613,7 +3394,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3626,9 +3407,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3637,7 +3416,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -3649,7 +3427,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 2"
             class="itemLink"
             data-testid="hds-pagination-page-2"
@@ -3661,7 +3438,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 3"
             class="itemLink"
             data-testid="hds-pagination-page-3"
@@ -3673,7 +3449,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 4"
             class="itemLink"
             data-testid="hds-pagination-page-4"
@@ -3685,7 +3460,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 5"
             class="itemLink"
             data-testid="hds-pagination-page-5"
@@ -3697,7 +3471,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 6"
             class="itemLink"
             data-testid="hds-pagination-page-6"
@@ -3708,20 +3481,18 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           </a>
         </li>
         <li>
-          <a
+          <span
             aria-current="page"
-            aria-label="Page 7"
+            aria-label="Page 7. Current page."
             class="itemLink itemLinkActive"
             data-testid="hds-pagination-page-7"
-            href="#"
-            title="Current page"
+            tabindex="-1"
           >
             7
-          </a>
+          </span>
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 8"
             class="itemLink"
             data-testid="hds-pagination-page-8"
@@ -3733,7 +3504,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 9"
             class="itemLink"
             data-testid="hds-pagination-page-9"
@@ -3745,7 +3515,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 10"
             class="itemLink"
             data-testid="hds-pagination-page-10"
@@ -3757,7 +3526,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 11"
             class="itemLink"
             data-testid="hds-pagination-page-11"
@@ -3769,7 +3537,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 12"
             class="itemLink"
             data-testid="hds-pagination-page-12"
@@ -3781,7 +3548,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 13"
             class="itemLink"
             data-testid="hds-pagination-page-13"
@@ -3800,7 +3566,6 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
         <li>
           <a
-            aria-current="false"
             aria-label="Page 30"
             class="itemLink"
             data-testid="hds-pagination-page-30"
@@ -3812,13 +3577,11 @@ exports[`<Pagination /> spec should render pagination correctly with different s
         </li>
       </ul>
       <button
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3828,7 +3591,7 @@ exports[`<Pagination /> spec should render pagination correctly with different s
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3869,7 +3632,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       </div>
       <button
         aria-disabled="true"
-        class="button supplementary theme-black size-default buttonPrevious"
+        class="button supplementary theme-black size-medium buttonPrevious"
         data-testid="hds-pagination-previous-button"
         disabled=""
         type="button"
@@ -3881,7 +3644,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
           <svg
             aria-hidden="true"
             aria-label="angle-left"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -3894,9 +3657,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
             />
           </svg>
         </div>
-        <span
-          class="label"
-        >
+        <span>
           Previous
         </span>
       </button>
@@ -3905,7 +3666,6 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       >
         <li>
           <a
-            aria-current="false"
             aria-label="Page 1"
             class="itemLink"
             data-testid="hds-pagination-page-1"
@@ -3918,14 +3678,12 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       </ul>
       <button
         aria-disabled="true"
-        class="button supplementary theme-black size-default buttonNext"
+        class="button supplementary theme-black size-medium buttonNext"
         data-testid="hds-pagination-next-button"
         disabled=""
         type="button"
       >
-        <span
-          class="label"
-        >
+        <span>
           Next
         </span>
         <div
@@ -3935,7 +3693,7 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
           <svg
             aria-hidden="true"
             aria-label="angle-right"
-            class="icon s angleRightIcon"
+            class="icon small angleRightIcon"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"

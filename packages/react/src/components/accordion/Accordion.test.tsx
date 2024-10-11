@@ -39,7 +39,7 @@ describe('<Accordion /> spec', () => {
         Bar
       </Accordion>,
     );
-    userEvent.click(container.querySelector('[id="accordion-heading"] .label') as Element);
+    userEvent.click(container.querySelector('[id="accordion-heading"] button') as Element);
     expect(container.querySelector('[id="accordion-content"]')).toBeVisible();
   });
 

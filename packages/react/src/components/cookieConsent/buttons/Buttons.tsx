@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classNames from '../../../utils/classNames';
-import { Button } from '../../button/Button';
+import { Button, ButtonVariant } from '../../button/Button';
 import styles from '../CookieConsent.module.scss';
 import { ConsentContextType } from '../contexts/ConsentContext';
 import { useUiTexts } from '../contexts/ContentContext';
@@ -19,7 +19,7 @@ function Buttons({ detailsAreShown, onClick = () => undefined, triggerAction }: 
   return (
     <div className={classNames(styles.buttons, detailsAreShown ? '' : styles.visuallyHiddenWithoutFocus)}>
       <Button
-        variant="secondary"
+        variant={ButtonVariant.Secondary}
         onClick={() => {
           triggerAction(primaryButtonAction);
           onClick();
@@ -29,7 +29,7 @@ function Buttons({ detailsAreShown, onClick = () => undefined, triggerAction }: 
         {primaryButtonText}
       </Button>
       <Button
-        variant="secondary"
+        variant={ButtonVariant.Secondary}
         onClick={() => {
           triggerAction('approveRequired');
           onClick();

@@ -10,12 +10,6 @@ import { AllElementPropsWithRef } from '../../../../utils/elementTypings';
 export type HeaderActionBarItemProps = React.PropsWithChildren<
   AllElementPropsWithRef<'div'> & {
     /**
-     * Aria-label attribute for the dropdown button.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
-    /**
      * An avatar which replaces the icon. Usually user's initials, but can be any Element.
      */
     avatar?: string | JSX.Element;
@@ -78,7 +72,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     closeLabel,
     icon,
     closeIcon,
-    ariaLabel,
+    'aria-label': ariaLabel,
     labelOnRight,
     fixedRightPosition,
     preventButtonResize,

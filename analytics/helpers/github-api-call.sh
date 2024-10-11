@@ -1,2 +1,0 @@
-# Call to Github API to find all occurrences of "hds-react" under City-of-Helsinki org.
-curl -H  --retry 5 --retry-connrefused --retry-max-time 60 -H "Accept: application/vnd.github+json"  -H "Authorization: token $TOKEN" "https://api.github.com/search/code?q=hds-react+in:file+filename:package.json+org:City-of-Helsinki&per_page=100&page=$PAGE"

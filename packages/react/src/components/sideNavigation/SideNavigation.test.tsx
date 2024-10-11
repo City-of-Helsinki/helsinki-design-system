@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React, { HTMLAttributes } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -20,7 +19,7 @@ const url = '#';
 
 const renderSideNavigation = () =>
   render(
-    <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton} ariaLabel="Side navigation">
+    <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton} aria-label="Side navigation">
       <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
         <SideNavigation.SubLevel id="subLevel1" active href={url} label={labels.subLevel1} />
       </SideNavigation.MainLevel>
@@ -53,11 +52,11 @@ describe('<SideNavigation /> spec', () => {
   });
 
   it('native html props are passed to the element', async () => {
-    const divProps = getCommonElementTestProps<'nav', Pick<SideNavigationProps, 'ariaLabel' | 'id'>>('nav');
-    // Element has prop "ariaLabel". It will override "aria-label".
-    divProps.ariaLabel = 'Real aria-label';
+    const divProps = getCommonElementTestProps<'nav', Pick<SideNavigationProps, 'id'>>('nav');
+    // "." is added to aria-label inside the component if missing.
+    divProps['aria-label'] = `${divProps['aria-label']}.`;
     const { getByTestId } = render(
-      <SideNavigation {...divProps} toggleButtonLabel={labels.toggleButton} aria-label="This will be overridden">
+      <SideNavigation {...divProps} toggleButtonLabel={labels.toggleButton}>
         <p>Hello</p>
       </SideNavigation>,
     );
@@ -65,8 +64,6 @@ describe('<SideNavigation /> spec', () => {
     expect(
       getElementAttributesMisMatches(element, {
         ...divProps,
-        ariaLabel: undefined,
-        'aria-label': divProps.ariaLabel,
       } as HTMLAttributes<HTMLElement>),
     ).toHaveLength(0);
   });

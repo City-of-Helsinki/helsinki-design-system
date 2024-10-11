@@ -3,12 +3,10 @@
 exports[`<Button /> spec renders the component 1`] = `
 <DocumentFragment>
   <button
-    class="button primary theme-default size-default"
+    class="button primary theme-bus size-medium"
     type="button"
   >
-    <span
-      class="label"
-    >
+    <span>
       My Button
     </span>
   </button>
@@ -18,22 +16,12 @@ exports[`<Button /> spec renders the component 1`] = `
 exports[`<Button /> spec renders the loading button component 1`] = `
 <DocumentFragment>
   <button
-    aria-disabled="true"
-    aria-label="foo"
-    class="button primary theme-default size-default isLoading"
+    class="button clear theme-bus size-medium"
+    disabled=""
     type="button"
   >
-    <div
-      class="loadingSpinner small"
-    >
-      <div />
-      <div />
-      <div />
-    </div>
-    <span
-      class="label"
-    >
-      foo
+    <span>
+      Loading...
     </span>
   </button>
 </DocumentFragment>

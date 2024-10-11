@@ -61,7 +61,7 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
           aria-label={expandAriaLabel}
           {...buttonProps}
         >
-          <Icon aria-hidden />
+          <Icon />
         </button>
         <Card
           {...contentProps}

@@ -79,6 +79,7 @@
 
   & > h3 {
     box-sizing: border-box;
+    color: #f00;
     font-size: var(--fontsize-heading-xs);
     font-weight: bold;
     line-height: 28px;
@@ -113,7 +114,7 @@
 
   // This is a hack currently for old type of usage of the HeaderActionBar children (without HeaderActionBarSubItems)
   // TODO: remove in version 4
-  ul > *:not([class*="HeaderActionBar"]) {
+  ul > *:not([class*='HeaderActionBar']) {
     padding: var(--spacing-xs) var(--spacing-s);
 
     &:focus-within {
@@ -122,7 +123,9 @@
       outline-offset: calc(-1 * var(--header-focus-outline-width));
     }
 
-    > *:focus-within, :focus-visible, :focus {
+    > *:focus-within,
+    :focus-visible,
+    :focus {
       border: none;
       outline: none;
       outline-offset: none;

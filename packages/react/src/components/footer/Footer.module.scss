@@ -1,3 +1,4 @@
+@use 'hds-core/lib/scss/helpers' as helpers;
 @value small-down, x-small-down, x-large-up from "../../styles/breakpoints.scss";
 
 .footer {
@@ -35,10 +36,9 @@
 }
 
 .title {
-  font-size: var(--fontsize-heading-m);
+  @include helpers.heading-m;
+
   font-weight: bold;
-  letter-spacing: 0.4px;
-  line-height: var(--lineheight-l);
 }
 
 @media x-small-down {
@@ -57,7 +57,9 @@
   }
 
   .title {
-    font-size: var(--fontsize-heading-s);
+    @include helpers.heading-s;
+
+    font-weight: bold;
   }
 }
 

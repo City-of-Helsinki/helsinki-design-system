@@ -2,12 +2,10 @@
 
 exports[`LoginButton the button text is rendered 1`] = `
 <button
-  class="button danger theme-default size-default"
+  class="button danger theme-bus size-medium"
   type="button"
 >
-  <span
-    class="label"
-  >
+  <span>
     Log in
   </span>
 </button>

@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Logo, LogoProps } from './Logo';
+import { Logo } from './Logo';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Logo /> spec', () => {
@@ -17,17 +17,12 @@ describe('<Logo /> spec', () => {
   });
   it('Native html props are passed to the element', async () => {
     // "aria-hidden" and "alt" are linked in LogoProps. If alt is set, aria-hidden must be false/undefined
-    const imgProps = getCommonElementTestProps<'img', Pick<LogoProps, 'dataTestId'> & { 'aria-hidden': undefined }>(
-      'img',
-    );
-    // the component has "dataTestId" prop
-    imgProps.dataTestId = imgProps['data-testid'];
+    const imgProps = getCommonElementTestProps<'img' & { 'aria-hidden': undefined }>('img');
     const { getByTestId } = render(<Logo {...imgProps} src="dummyPath" alt="logo" title="Helsingin kaupunki" />);
     const element = getByTestId(imgProps['data-testid']);
     expect(
       getElementAttributesMisMatches(element, {
         ...imgProps,
-        dataTestId: undefined,
       } as HTMLAttributes<HTMLImageElement>),
     ).toHaveLength(0);
   });

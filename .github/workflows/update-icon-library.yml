@@ -68,7 +68,7 @@ jobs:
       - name: Append React interface into index file
         if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
         run: |
-          echo -e "export { IconProps } from './Icon.interface';\n" | \
+          echo -e "export { IconProps, IconSize } from './Icon.interface';\n" | \
           cat - ./icon-library/react/tsx/index.ts > temp && mv temp ./icon-library/react/tsx/index.ts
 
       - name: Bump version in Changelog

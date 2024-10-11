@@ -5,7 +5,7 @@ import '../../styles/base.module.css';
 import styles from './FileInput.module.scss';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
-import { Button } from '../button';
+import { Button, ButtonSize, ButtonPresetTheme, ButtonVariant } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/InputWrapper';
 
@@ -632,7 +632,7 @@ export const FileInput = ({
                     })}
               >
                 <div className={styles.dragAndDropLabel}>
-                  <IconUpload aria-hidden />
+                  <IconUpload />
                   <span className={styles.dragAndDropLabelText}>
                     {dragAndDropLabel || getDragAndDropLabel(language)}
                   </span>
@@ -647,8 +647,8 @@ export const FileInput = ({
             <Button
               aria-hidden
               tabIndex={-1}
-              variant="secondary"
-              iconLeft={<IconPlus aria-hidden />}
+              variant={ButtonVariant.Secondary}
+              iconStart={<IconPlus />}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -696,7 +696,7 @@ export const FileInput = ({
               }
             }}
           >
-            {item.file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
+            {item.file.type.startsWith('image') ? <IconPhoto /> : <IconDocument />}
             <div className={styles.fileListItemTitle}>
               <span className={styles.fileListItemName}>{item.file.name}</span>
               <span className={styles.fileListItemSize}>({formatBytes(item.file.size)})</span>
@@ -707,10 +707,10 @@ export const FileInput = ({
                 event.stopPropagation();
                 onRemoveFileFromList(item, index);
               }}
-              variant="supplementary"
-              size="small"
-              theme="black"
-              iconLeft={<IconCross />}
+              variant={ButtonVariant.Supplementary}
+              size={ButtonSize.Small}
+              theme={ButtonPresetTheme.Black}
+              iconStart={<IconCross />}
               aria-label={getRemoveButtonAriaLabel(language, item.file.name)}
               className={styles.fileListItemButton}
               disabled={disabled}
