@@ -14,7 +14,6 @@
 @function init-controlled-bem($args...) {
   $argMap: helpers.arg-list-to-map($args...);
   $rootSelector: null;
-  $parent: &;
   $rules: rules.rules-to-map($argMap);
   $levels: [];
   $blockName: map.get($argMap, 'block');
@@ -24,7 +23,6 @@
     (
       'blockName': $blockName,
       'rootSelector': $rootSelector,
-      'parent': $parent,
       'blockPrefix': globals.$BLOCK-PREFIX,
       'modifierDelimeter': globals.$MODIFIER-DELIMETER,
       'elementDelimeter': globals.$ELEMENT-DELIMETER,

@@ -1,10 +1,227 @@
 # How css is created
 
+## Blocks
+
+```css
+// scss
+@include block {
+  /// contents
+}
+
+/// results in (default, the "blockName" is set in config)
+.hds-blockName {
+  /// contents
+}
+```
+
+## Modifiers
+
+```css
+// scss
+@include block {
+  @include modifier('modifierName') {
+    /// contents
+  }
+}
+
+/// results in
+.hds-blockName__modifierName {
+  /// contents
+}
+```
+
+## Elements
+
+```css
+// scss
+@include block {
+  @include modifier('modifierName') {
+    @include element('elementName') {
+      /// contents A
+    }
+  }
+  @include element('elementName') {
+    /// contents B
+  }
+}
+
+/// results in
+.hds-blockName__modifierName--elementName {
+  /// contents A
+}
+.hds-blockName--elementName {
+  /// contents B
+}
+```
+
+There are also other @includes
+
+- content
+- extra
+- custom
+- if-content-allowed
+- selector-list
+- compound-entity?
+- descendant-entity?
+- compound-block-modifier
+- descendant-modifier-element
+- block-element
+- descendant
+- class
+- repeat
+- repeat-with-replace
+- create-custom-selector
+- create-custom-level
+
+Explanations below.
+
 ## Parameters
 
-### "elements"
+Emitted output is controlled with parameters.
 
-Elements define what rules for elements should be outputted.
+### Entities explained
+
+There are three entities in BEM: block, modifier and element. Read more in...
+
+### Rules explained
+
+Emitted entities are controlled by rules. "block" is simple, it is just name used in the css class of a block. Blocks are not named in the scss, because there should be only one block in each scss.
+
+In some cases you only want parts of the css, not everything. The "modifiers" and "elements" are used for controlling the emitted output. Each modifier and element has a name
+
+```css
+@include modifier('modifierName') {
+    @include element('elementName') {
+```
+
+Those names are also used in the rules.
+
+```css
+$modifiers: (
+  'modifierA': false,
+  'modifierB': (
+    'elementName': false
+  )
+);
+
+$elements: 'elementName';
+```
+
+If a value is a boolean, "true" allows everything and "false" disallows.
+
+If a value is a string, it names the modifier/element to allow. All other ones are disallowed and not emitted.
+
+If a value is a map, it has name/rule pairs that names explicitly what modifiers/elements are emitted.
+
+"elements" is a name/boolean map.
+
+```css
+$elements: (
+  'elementA': true,
+  'elementB': true
+);
+```
+
+"modifiers" is a name/boolean or a name:(elementName/boolean) map.
+
+```css
+$modifiers: (
+  'modifierA': true,
+  'modifierB': (
+    'elementA': true,
+    'elementB': true
+  )
+  ;
+);
+```
+
+**Very important rule to remember: if one named entity is allowed, all other ones are disallowed!**
+
+### The "block" rule
+
+Not really a rule. Just the name of the block to output. The css class includes also prefix "hds-". This can be overridden with "config".
+
+The output of a block's css can be controlled with "custom" and "extras" and most simply, with "if-content-allowed".
+
+### The "modifiers" rule
+
+Modifers to emit. By default all modifiers are emitted.
+
+The value can be a boolean, string or map.
+
+Boolean true/false allows/disallows all modifiers. Default is
+
+```css
+$modifiers: true;
+```
+
+If value is a string, only that modifier is emitted.
+
+```css
+$modifiers: 'name of the modifier';
+```
+
+If value is a map, modifiers are emitted according to the values.
+
+```css
+$modifiers: (
+  'modifierA': false,
+  'modifierB': false
+);
+```
+
+All modifiers except "modifierA" and "modifierB" are emitted.
+
+Note that the following settings are identical
+
+```css
+$modifiers: (
+  'modifierA': true
+);
+$modifiers: 'modifierA';
+```
+
+If an modifier is explicity allowed, all other modifiers are disallowed. Unless also allowed explicitly.
+
+Disallowing 'modifierB' is not necessary here:
+
+```css
+$modifiers: (
+  'modifierA': true,
+  'modifierB': false
+);
+```
+
+```css
+$modifiers: (
+  'modifierA': true,
+  'modifierB': true
+);
+```
+
+Only modifiers "modifierA" and "modifierB" are emitted.
+
+#### "modifiers" elements
+
+Single element in a modifier can be allowed or disallowed
+
+```css
+$modifiers: (
+  'modifierA': (
+    'element': true
+  ),
+  'modifierB': 'element'
+);
+```
+
+The 'element' and only that element is emitted in the modifiers.
+
+If value is a string, only that element is emitted.
+If value is a map, the emitted elements are picked like modifiers would be.
+
+### The "elements" rule
+
+The "elements" define what css for elements should be outputted.
 
 #### The "base" element
 
@@ -29,6 +246,8 @@ There is a special element named "base" which is for the base rules for block, m
 To control the output of base rules, `@content("base")` should be used. There is no automatic way to pick base rules, so the css must be wrapped.
 
 Usually base is only used in the block level, because other entities are controlled with "elements" and "modifiers".
+
+### The "extras" rule
 
 #### Other elements
 
