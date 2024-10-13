@@ -6,7 +6,6 @@
 @use './levels.scss' as levels;
 @use './rules.scss' as rules;
 @use './helpers.scss' as helpers;
-@use './test-helpers.scss' as testHelpers;
 @use './process.scss' as process;
 @use './output.scss' as output;
 @use './selectors.scss' as selectors;
@@ -18,7 +17,7 @@
   $levels: [];
   $blockName: map.get($argMap, 'block');
   $configInArgs: map.get($argMap, 'config') or helpers.create-empty-map();
-  $aliasInArgs: map.get($argMap, 'alias') or false;
+  $aliasInArgs: map.get($argMap, 'alias') or null;
   $config: map.merge(
     (
       'blockName': $blockName,
@@ -79,9 +78,27 @@
   }
 }
 
+/// Leave undocumented
+/// @internal
 @mixin custom($selector) {
   @include start-emit-end($custom: $selector) {
     @content;
+  }
+}
+
+@mixin extra-selector($name, $selector) {
+  @include extra($name) {
+    @include custom($selector) {
+      @content;
+    }
+  }
+}
+
+@mixin extra-descendant($name, $selector) {
+  @include extra($name) {
+    @include custom(' #{$selector}') {
+      @content;
+    }
   }
 }
 
@@ -154,9 +171,11 @@
 // gets nearest entity by type and name (if given) and appends to its selector with given separator
 // the level to append is given as $typeAndName ($type:'modifier', name:null/true/string)
 // the entity is given as $block, $modifier, etc.
+// leave undocumented
+// @internal
 @mixin linked-entities($typeAndName, $separator, $args...) {
   $currentLevel: process.get-current-level();
-  $currentLevelSelector: levels.get-level-selector($currentLevel);
+  $currentLevelSelector: if($currentLevel, levels.get-level-selector($currentLevel), '&');
   $closest: levels.find-closest-in-current($args...);
   $type: map.get($typeAndName, 'type');
   $name: map.get($typeAndName, 'name');
@@ -198,7 +217,7 @@
   }
 }
 
-// to create .hds-myBlock--previousModifier.hds-myBlock--compoundBlock
+// to create .hds-myBlock--previousModifier.hds-myBlock--compoundModifier
 @mixin compound-block-modifier($modifier, $block: true) {
   $typeAndName: (
     'type': 'modifier',
@@ -317,7 +336,7 @@
   $selector: levels.get-level-selector($newLevel);
 
   @if $newLevel and $selector {
-    $parentDepth: levels.get-level-depth($currentLevel);
+    $parentDepth: if($currentLevel, levels.get-level-depth($currentLevel), 0);
     $newLevel: levels.set-level-parent($newLevel, $currentLevel);
     $newLevel: levels.set-level-depth($newLevel, $parentDepth + 1);
     $void: globals.add-global-bem-level($newLevel);
@@ -333,6 +352,3 @@
     }
   }
 }
-
-/// https://sass-lang.com/documentation/modules/selector/#extend
-/// https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors/Selectors_and_combinators#combinators

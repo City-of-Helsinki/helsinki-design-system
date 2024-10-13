@@ -1,6 +1,6 @@
 /* stylelint-disable scss/function-no-unknown */
 @use 'sass-true' as *;
-@use './log' as logger;
+@use '../log' as logger;
 
 @include describe('log') {
   @include it('remove this') {

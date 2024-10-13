@@ -3,7 +3,6 @@
 @use "sass:map";
 @use "sass:meta";
 @use './globals.scss' as globals;
-@use './test-helpers.scss' as testHelpers;
 @use './helpers.scss' as helpers;
 @use './rules.scss' as rules;
 @use './selectors.scss' as selectors;
@@ -41,7 +40,9 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
   $selector: null;
   $isRoot: is-root-level($level);
 
-  @if $isRoot {
+  // only block and custom should nest their selectors in root.
+  // or is block levels needed here
+  @if $isRoot and (is-block-level($level) or is-custom-level($level)) {
     $level: set-level-emit-target-to-nested($level);
   } @else {
     // atm this can be removed:
@@ -176,16 +177,23 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
       @if not $name or globals.is-base-name($name) {
         @return rules.is-base-content-allowed($ruleMap);
       }
+
+      @return rules.is-element-allowed($ruleMap, $name);
     } @else if not $name {
       @return true;
     } @else if is-modifier-type($closestType) {
       @return rules.is-element-allowed-in-modifier($ruleMap, get-level-name($closestEntity), $name);
     } @else if is-element-type($closestType) {
-      @return rules.is-element-allowed($ruleMap, get-level-name($closestEntity));
+      @return rules.is-element-allowed($ruleMap, get-level-name($closestEntity)) and
+        rules.is-element-allowed($ruleMap, $name);
     }
   } @else if is-extra-type($type) {
     @return rules.is-extra-allowed($ruleMap, $name);
   } @else if is-custom-type($type) {
+    @if $name {
+      @return rules.is-extra-allowed($ruleMap, $name);
+    }
+
     @return true;
   }
 
@@ -194,6 +202,8 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 
 @function find-closest-in-current($args...) {
   $entityProps: helpers.get-map-data-with-value(helpers.get-arg-map-or-arg-list-as-map($args...));
+
+  @debug '$entityProps: #{meta.inspect($entityProps)}';
 
   @if not $entityProps {
     @return null;

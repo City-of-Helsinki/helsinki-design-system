@@ -1,7 +1,7 @@
 /* stylelint-disable scss/function-no-unknown */
 @use 'sass-true' as *;
-@use './exports' as *;
-@use './globals' as globals;
+@use '../exports' as *;
+@use '../globals' as globals;
 
 @mixin testSCSS($elements: true, $modifiers: true, $extras: true, $alias: false) {
   $void: init-controlled-bem(
@@ -40,8 +40,8 @@
   }
 }
 
-@include describe('Test different parameters') {
-  @include it('With a defined elements, only rules in it are outputted.') {
+@include describe('Alias') {
+  @include it('Entities are renamed') {
     @include assert {
       @include output {
         @include testSCSS(

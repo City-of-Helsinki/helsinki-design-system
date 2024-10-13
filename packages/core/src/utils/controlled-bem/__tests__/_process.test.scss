@@ -1,8 +1,8 @@
 /* stylelint-disable scss/function-no-unknown */
 @use 'sass-true' as *;
 @use './test-helpers' as testHelpers;
-@use './exports' as exports;
-@use './process' as process;
+@use '../exports' as exports;
+@use '../process' as process;
 
 @include describe('_process.scss') {
   @include it('create-process-level') {

@@ -6,7 +6,7 @@
   $selector: levels.get-level-selector($level);
   $shouldEmitNested: levels.should-level-emit-nested($level);
 
-  @if $contentOnly {
+  @if $contentOnly and $isAllowed {
     @content;
   } @else if $isAllowed {
     @if $shouldEmitNested {

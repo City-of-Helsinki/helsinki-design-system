@@ -3,67 +3,29 @@
 @use "sass:map";
 @use './globals' as *;
 @use './helpers' as helpers;
-@use './test-helpers' as testHelpers;
 
-/// Rules for the emitted css are defined in three groups:
-/// - "modifiers" define which modifiers are emitted. Also includes elements's css nested in the modifier.
-/// - "elements" define which elements are emitted outside of modifiers.
-/// - "extras" define extra conditional boolean settings for special cases like media queries
-/// Their values can be
-/// - "true" = everything is allowed to emit
-/// - "false" = nothing is allowed to emit
-/// - "string" = name of the "modifier"/"element"/"extra" that is allowed to emit
-///
-/// "Modifiers" and "elements" can also have a value map
-/// - ("name": true/false) = named element/modifier is allowed/disallowed
-///
-/// "Modifiers" can also have.
-/// - ("modifierName": ("elementName":true/false)) = named nested element in modifier is allowed/disallowed. "Element" group should not have map values.
-///
-/// The "extras" should only be "name:true/false" values.
-///
-/// By default everything is allowed.
-///
-/// If one "modifier" / "element" / "extra" is explicitly allowed, all other are disallowed unless also explicitly allowed.
-/// If one "modifier" / "element" / "extra" is explicitly disallowed, all other are still allowed.
-///
-/// "modifiers":("modifierName":("elementName":true));
-/// Only the element "elementName" of the "modifierName" is emitted. The base css of the "modifierName" is not emitted.
-
-/// "modifiers":("modifierName":("elementName":true, "base":true, "elementName2":false));
-/// Only "elementName" and "base" are emitted. It is unnecessary to explicitly disallow "elementName2" here.
-
-/// "modifiers":("modifierName":("elementName":false));
-/// All css except the element "elementName" is emitted. The base css of the "modifierName" is also emitted.
-
-/// "modifiers":"dark" equals "modifiers":("dark": true)
-/// Only modifier named "dark" and all its elements are emitted. The base css of the "modifierName" is not emitted.
-
-/// "base" is reserved element name to target rules for the base css of an entity
-/// CSS:
-///   .block--modifier-dark {
-///     padding:0;
-///     margin: 0;
-///     &__element-button {
-///     }
-/// }
-///
-/// The "padding" and "margin" are base css. In order to prevent them to be emitted, the should be marked as "base". See @exported.scss
-///
-/// Elements can be allowed/disallowed in "modifiers", and the rules set in "modifiers" override "elements".
-///
-/// ("elements":"buttons","modifiers":"dark")
-/// Only the element "buttons" in the modifier named "dark" is emitted. The base css of the "modifierName" is not emitted.
-
-/// "elements":("buttons":true,"select":false) ,
-/// "modifiers":("dark":("buttons":false,"select":true),"light":("select":true))
-/// Emits only "select" element in "dark" and "light" modifiers.
-
-/// value-to-map converts booleans, strings and maps to a map
+/// value-to-map converts booleans, strings and maps to a rule map.
 /// with extra helper variables to help with checking what is allowed/disallowed.
 /// "ALL_ALLOWED" means nothing is explicitly allowed, so all named entities are allowed (unless explicitly disallowed)
 /// "ALL_DISALLOWED" the value was "false", so nothing is allowed
 /// "HAS_EXPLICIT_TRUE" means an entity/entities is/are explicitly allowed, so all not explicitly allowed are disallowed.
+
+/// name: "true" converts to
+/// ( $ALL_ALLOWED: true, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: false):
+///
+/// name: "false" converts to
+/// ( $ALL_ALLOWED: false, $ALL_DISALLOWED: true, $HAS_EXPLICIT_TRUE: false):
+///
+/// name: "string" converts to
+/// ( string: true, $ALL_ALLOWED: false, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: true):
+///
+/// ("name": true, another:false) converts to
+/// ( name: true, another: false, $ALL_ALLOWED: false, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: true):
+///
+/// Nested maps are kept as they are
+/// ("name": ("sub":true)) converts to
+/// ( name: (sub:true),, another: false, $ALL_ALLOWED: false, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: true):
+///
 @function value-to-map($value) {
   $returnValue: ();
   $valueType: meta.type-of($value);
@@ -96,12 +58,12 @@
   $returnValue: map.set($returnValue, $ALL_DISALLOWED, $allDisallowed);
   $returnValue: map.set($returnValue, $HAS_EXPLICIT_TRUE, $explicitlySetTrue);
 
-  /// debug 'rv #{$allAccepted}';
   @return $returnValue;
 }
 
 /// Converts given rule set's categories (modifiers, elements, extras) to mapped values with "value-to-map()"
-/// Adds also with additional helpers:
+/// If modifiers has nested maps, those are converted too with "value-to-map()"
+/// Adds also an additional helper:
 /// ALLOW_BASE_CONTENT = if an element is explicitly allowed, base content is not allowed (unless "base" is true)
 @function rules-to-map($args) {
   $target: helpers.create-empty-map();
@@ -116,7 +78,7 @@
       // If null would be handled in the value-to-map() it should behave like "false",
       // but then all "nullish" values would be false, and "defaults to true" would not work anymore.
       // nullish values are handled by the value-to-map() when a category is not set.
-      @if $modifierValue != null {
+      @if not helpers.is-value-null($modifierValue) {
         $modifiers: map.set($modifiers, $modifierName, value-to-map($modifierValue));
       }
     }
@@ -168,6 +130,7 @@
   @return helpers.can-value-be-truthy($value);
 }
 
+/// checks if given element is allowed within given modifier
 @function is-element-allowed-in-modifier($rules, $modifier, $element) {
   $modifiers: get-modifiers($rules);
 
@@ -184,28 +147,30 @@
   @return is-entity-allowed-in-category($modifierMap, $element);
 }
 
-/// is given modifier allowed with in modifiers
+/// checks is given modifier allowed within modifiers
 @function is-modifier-allowed($ruleMap, $modifier) {
   @return is-entity-allowed-in-category(get-modifiers($ruleMap), $modifier);
 }
 
-/// is given element allowed with in element
+/// is given element allowed within elements
 /// not used for checking if a element is allowed in modifier
 @function is-element-allowed($ruleMap, $element) {
   @return is-entity-allowed-in-category(get-elements($ruleMap), $element);
 }
 
+/// is a rule allowed
 @function is-extra-allowed($ruleMap, $extra) {
   @return is-entity-allowed-in-category(get-extras($ruleMap), $extra);
 }
 
+/// is base element allowed
 @function is-base-content-allowed($ruleMap) {
   $elements: get-elements($ruleMap);
 
   @return helpers.can-value-be-truthy(map.get($elements, $ALLOW_BASE_CONTENT));
 }
 
-// Generic category / entity getters
+/// Generic category / entity getters
 @function get-category($ruleMap, $category) {
   @return map.get($ruleMap, $category);
 }
@@ -216,7 +181,7 @@
   @return map.get($childMap, $entityName);
 }
 
-// Modifier getters
+/// Modifier getters
 @function get-modifiers($ruleMap) {
   @return get-category($ruleMap, 'modifiers');
 }
@@ -225,7 +190,7 @@
   @return get-category-entity($ruleMap, 'modifiers', $modifier);
 }
 
-// Element getters
+/// Element getters
 @function get-elements($ruleMap) {
   @return get-category($ruleMap, 'elements');
 }
@@ -234,7 +199,7 @@
   @return get-category-entity($ruleMap, 'elements', $element);
 }
 
-// Extras getters
+/// Extras getters
 @function get-extras($ruleMap) {
   @return get-category($ruleMap, 'extras');
 }

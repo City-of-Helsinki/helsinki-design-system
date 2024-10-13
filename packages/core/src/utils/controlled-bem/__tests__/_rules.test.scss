@@ -2,9 +2,9 @@
 @use 'sass-true' as *;
 @use "sass:map";
 @use "sass:meta";
-@use './globals' as *;
-@use './rules' as rules;
-@use './helpers' as helpers;
+@use '../globals' as *;
+@use '../rules' as rules;
+@use '../helpers' as helpers;
 @use './test-helpers' as testHelpers;
 
 @include describe('_rules.scss') {

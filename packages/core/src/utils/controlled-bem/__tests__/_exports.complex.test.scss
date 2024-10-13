@@ -1,15 +1,7 @@
 /* stylelint-disable scss/function-no-unknown */
 @use 'sass-true' as *;
-@use './exports' as *;
+@use '../exports' as *;
 @use "sass:meta";
-
-@function custom-selector($ruleMap, $config, $currentLevel) {
-  @return '.my-custom-selector';
-}
-
-@function custom-level($ruleMap, $config, $currentLevel) {
-  @return ('type': 'element', 'name': 'custom-level', 'selector': '.my-custom-level-selector');
-}
 
 @mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
   $void: init-controlled-bem(
@@ -39,7 +31,7 @@
 
       header {
         nav {
-          @include custom('.nav') {
+          @include extra-selector('header-nav', '.nav') {
             --hds-test-header-nav-custom: var(--var-header-nav-custom);
           }
         }
@@ -48,7 +40,7 @@
       @include modifier('dark') {
         --hds-test-another-element-dark: var(--var-another-element-dark);
 
-        @include custom(':focus') {
+        @include extra-selector('dark-focus', ':focus') {
           --hds-test-another-element-dark: var(--var-another-element-dark);
         }
 
@@ -92,7 +84,7 @@
       @include modifier('modifier2') {
         --hds-test-modifier: var(--var-modifier);
 
-        @include custom(' div.za span') {
+        @include extra-descendant('za', 'div.za span') {
           --hds-test-modifier-element: var(--var-modifier-element);
         }
       }
@@ -105,7 +97,7 @@
         --hds-selector-list-span: var(--var-selector-list-span);
       }
 
-      @include custom(' p.extra') {
+      @include extra-descendant('extra-p', 'p.extra') {
         --hds-selector-list-p: var(--var-selector-list-p);
 
         @include element('awesome') {
@@ -120,7 +112,7 @@
           --hds-nested-div-block-awesome: var(--var-nested-div-block-awesome);
         }
 
-        @include custom(' p') {
+        @include extra-descendant('nested-div-p', 'p') {
           --hds-nested-div-block-p: var(--var-nested-div-block-p);
         }
       }
@@ -184,14 +176,6 @@
 
     @include repeat-with-replace($original: '-test', $replacement: '-replacement', $block: true) {
       --hds-replacement: var(--var-replacement);
-    }
-
-    @include create-custom-selector(meta.get-function('custom-selector')) {
-      --hds-custom-selector: var(--var-custom-selector);
-    }
-
-    @include create-custom-level(meta.get-function('custom-level')) {
-      --hds-custom-level: var(--var-custom-level);
     }
   }
 }
@@ -360,14 +344,6 @@
 
         .hds-test.hds-replacement {
           --hds-replacement: var(--var-replacement);
-        }
-
-        .hds-test.my-custom-selector {
-          --hds-custom-selector: var(--var-custom-selector);
-        }
-
-        .hds-test.my-custom-level-selector {
-          --hds-custom-level: var(--var-custom-level);
         }
       }
     }

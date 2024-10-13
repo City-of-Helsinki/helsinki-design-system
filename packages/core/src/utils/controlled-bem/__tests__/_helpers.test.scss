@@ -1,6 +1,6 @@
 /* stylelint-disable scss/function-no-unknown */
 @use 'sass-true' as *;
-@use './helpers' as helpers;
+@use '../helpers' as helpers;
 
 @include describe('_helpers.scss') {
   @include it('can-value-be-falsy') {

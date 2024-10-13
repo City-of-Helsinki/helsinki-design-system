@@ -1,3 +1,13 @@
+# Why
+
+# About BEM
+
+BEM methology has three entities: "block", "modifier" and "element".
+
+# Added controls
+
+"Extras" adds conditional output that can be used to allow/disallow groups of entities or media queries.
+
 # How css is created
 
 ## Blocks
@@ -5,12 +15,11 @@
 ```css
 // scss
 @include block {
-  /// contents
+  // contents
 }
 
-/// results in (default, the "blockName" is set in config)
-.hds-blockName {
-  /// contents
+results in (default, the 'blockName' is set in config) .hds-blockName {
+  // contents
 }
 ```
 
@@ -20,13 +29,13 @@
 // scss
 @include block {
   @include modifier('modifierName') {
-    /// contents
+    // contents
   }
 }
 
-/// results in
+// results in
 .hds-blockName__modifierName {
-  /// contents
+  // contents
 }
 ```
 
@@ -37,20 +46,20 @@
 @include block {
   @include modifier('modifierName') {
     @include element('elementName') {
-      /// contents A
+      // contents A
     }
   }
   @include element('elementName') {
-    /// contents B
+    // contents B
   }
 }
 
-/// results in
+// results in
 .hds-blockName__modifierName--elementName {
-  /// contents A
+  // contents A
 }
 .hds-blockName--elementName {
-  /// contents B
+  // contents B
 }
 ```
 
@@ -85,7 +94,17 @@ There are three entities in BEM: block, modifier and element. Read more in...
 
 ### Rules explained
 
+---
+
+- "modifiers" define which modifiers are emitted. Also includes elements's css nested in the modifier.
+- "elements" define which elements are emitted outside of modifiers.
+- "extras" define extra conditional boolean settings for special cases like media queries
+
+---
+
 Emitted entities are controlled by rules. "block" is simple, it is just name used in the css class of a block. Blocks are not named in the scss, because there should be only one block in each scss.
+
+By default everything is allowed.
 
 In some cases you only want parts of the css, not everything. The "modifiers" and "elements" are used for controlling the emitted output. Each modifier and element has a name
 
@@ -201,6 +220,8 @@ $modifiers: (
 
 Only modifiers "modifierA" and "modifierB" are emitted.
 
+**If a modifier is set, base elements are not allowed!**
+
 #### "modifiers" elements
 
 Single element in a modifier can be allowed or disallowed
@@ -229,14 +250,14 @@ There is a special element named "base" which is for the base rules for block, m
 
 ```css
 .block {
-  /// block base rules
+  block base rules
   color: #f00;
 
   .block--modifier {
-    /// modifier base rules
+    modifier base rules
     background-color: #f00;
     .block__element {
-      /// element base rules
+      element base rules
       padding: 0;
     }
   }
@@ -247,7 +268,36 @@ To control the output of base rules, `@content("base")` should be used. There is
 
 Usually base is only used in the block level, because other entities are controlled with "elements" and "modifiers".
 
+--
+"base" is reserved element name to target rules for the base css of an entity
+CSS:
+.block--modifier-dark {
+padding:0;
+margin: 0;
+&\_\_element-button {
+}
+}
+
+The "padding" and "margin" are base css. In order to prevent them to be emitted, the should be marked as "base". See @exported.scss
+
+Elements can be allowed/disallowed in "modifiers", and the rules set in "modifiers" override "elements".
+
+("elements":"buttons","modifiers":"dark")
+Only the element "buttons" in the modifier named "dark" is emitted. The base css of the "modifierName" is not emitted.
+
+"elements":("buttons":true,"select":false) ,
+"modifiers":("dark":("buttons":false,"select":true),"light":("select":true))
+Emits only "select" element in "dark" and "light" modifiers.
+--
+
+**If a modifier is set, base elements are not allowed!**
+
+!! content() is ruled with elements
+!! extra, extra-selector is ruled with extras
+
 ### The "extras" rule
+
+The "extras" should only be "name:true/false" values.
 
 #### Other elements
 

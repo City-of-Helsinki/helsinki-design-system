@@ -1,33 +1,12 @@
 /* stylelint-disable scss/function-no-unknown */
 @use 'sass-true' as *;
-@use './exports' as *;
-@use './rules' as rules;
+@use '../exports' as *;
+@use '../rules' as rules;
+@use "sass:list";
 @use "sass:meta";
 @use "sass:map";
 
-@include describe('Init-bem') {
-  @include it('Creates....') {
-    $result: init-controlled-bem(
-      $modifiers: true,
-      $elements: true,
-      $extras: true,
-      $block: 'test',
-    );
-    $ruleMap: map.get($result, 'rules');
-    $modifiers: rules.get-modifiers($ruleMap);
-
-    @include assert-equal(
-      $modifiers,
-      (
-        'ALL_ALLOWED': true,
-        'ALL_DISALLOWED': false,
-        'HAS_EXPLICIT_TRUE': false,
-      )
-    );
-  }
-}
-
-@mixin tester($elements: true, $modifiers: true, $extras: true) {
+@mixin testMixin($elements: true, $modifiers: true, $extras: true) {
   $void: init-controlled-bem(
     $modifiers: $modifiers,
     $elements: $elements,
@@ -42,8 +21,16 @@
       --block-content: var(--var-block-content-allowed);
     }
 
+    @include content('content2') {
+      --block-content2: var(--var-block-content2-allowed);
+    }
+
     @include element('elem1') {
       --elem1-content: var(--var-elem1-content);
+
+      @include content('content2') {
+        --elem1-content2: var(--var-elem1-content2);
+      }
     }
 
     @include modifier('abc') {
@@ -55,24 +42,28 @@
 
       @include element('elem1') {
         --abc-elem1-content: var(--var-abc-elem1-content);
+
+        @include content('content2') {
+          --abc-elem1-content2: var(--var-abc-elem1-content2);
+        }
       }
     }
   }
 }
 
-@include describe('Init-bem') {
-  @include it('Creates....') {
+@include describe('Content') {
+  @include it('Output is controlled with elements') {
     @include assert {
       @include output {
-        @include tester(
+        @include testMixin(
           $elements: (
-            'base': true,
-            'elem1': true,
+            'base': false,
+            'content2': false,
           ),
           $modifiers: (
             'abc': (
-              'base': true,
-              'elem1': true,
+              'base': false,
+              'content2': false,
             ),
           )
         );
@@ -81,7 +72,6 @@
       @include expect {
         .hds-test {
           --always-emitted-block-content: var(--var-always-emitted-block-content);
-          --block-content: var(--var-block-content-allowed);
         }
 
         .hds-test__elem1 {
@@ -90,7 +80,6 @@
 
         .hds-test--abc {
           --always-emitted-abc-content: var(--var-always-emitted-abc-content);
-          --modifier-abc-content: var(--var-modifier-abc-content-allowed);
         }
 
         .hds-test--abc__elem1 {
