@@ -203,8 +203,6 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 @function find-closest-in-current($args...) {
   $entityProps: helpers.get-map-data-with-value(helpers.get-arg-map-or-arg-list-as-map($args...));
 
-  @debug '$entityProps: #{meta.inspect($entityProps)}';
-
   @if not $entityProps {
     @return null;
   }

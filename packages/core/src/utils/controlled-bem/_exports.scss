@@ -188,9 +188,12 @@
       $ARGS_MAP: $ARGS_MAP,
     );
     $selector: selectors.create-selector($closestSelector, $type, $name, globals.get-global-bem-config());
-    $prefix: if($separator == '', '&', '');
-    $newLevel: levels.set-level-selector($newLevel, '#{$prefix}#{$closestSelector}#{$selector}');
-    $newLevel: levels.set-level-emit-target-to-nested($newLevel);
+    $newLevel: levels.set-level-selector($newLevel, '#{$closestSelector}#{$selector}');
+
+    @if $separator == ' ' {
+      $newLevel: levels.set-level-emit-target-to-nested($newLevel);
+    }
+
     $void: globals.add-global-bem-level($newLevel);
 
     /// depth is wrong. (depends on separator)
@@ -204,6 +207,7 @@
 }
 
 // to create .<selectors>.<selectors>
+// should not be nested with another using linked-entities (?)
 @mixin compound-entity($args...) {
   @include linked-entities($separator: '', $args...) {
     @content;
@@ -211,6 +215,7 @@
 }
 
 // to create .<selectors> .<selectors>
+// should not be nested with another using linked-entities (?)
 @mixin descendant-entity($args...) {
   @include linked-entities($separator: ' ', $args...) {
     @content;
@@ -218,6 +223,7 @@
 }
 
 // to create .hds-myBlock--previousModifier.hds-myBlock--compoundModifier
+// should not be nested with another using linked-entities (?)
 @mixin compound-block-modifier($modifier, $block: true) {
   $typeAndName: (
     'type': 'modifier',
@@ -233,6 +239,7 @@
 //    @include descendant-modifier-element('compound-element') {
 //  }
 // .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element
+// should not be nested with another using linked-entities (?)
 @mixin descendant-modifier-element($element, $modifier: true) {
   $typeAndName: (
     'type': 'element',
