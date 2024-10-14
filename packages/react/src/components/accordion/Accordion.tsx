@@ -70,10 +70,6 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   headingLevel?: number;
   /**
-   * The id for the accordion element
-   */
-  id?: string;
-  /**
    * Boolean indicating whether the accordion is initially opened.
    * @default false
    */
