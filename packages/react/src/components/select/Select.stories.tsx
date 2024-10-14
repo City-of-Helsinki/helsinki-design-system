@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { action } from '@storybook/addon-actions';
 
 import {
   Group,
@@ -53,10 +54,10 @@ const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
       <style>
         {`
       .buttons{
-        margin-top: 20px;
+        margin-top: var(--spacing-s);
       }
       .buttons > *{
-        margin-right: 10px;
+        margin: 0 var(--spacing-s) var(--spacing-s) 0;
       }
   `}
       </style>
@@ -75,7 +76,21 @@ const onSearch: SelectProps['onSearch'] = async (searchValue) => {
   return Promise.resolve(searchValue ? createRandomGroupsForSearch(searchValue) : {});
 };
 
-const dummyOnChange: SelectProps['onChange'] = () => ({});
+const genericOnChangeCallback: SelectProps['onChange'] = () => {
+  action('onChange');
+};
+
+const requireOneSelection: SelectProps['onChange'] = (selectedOptions) => {
+  const hasSelections = selectedOptions.length > 0;
+
+  return {
+    invalid: !hasSelections,
+    texts: {
+      error: hasSelections ? '' : 'A selection is required',
+    },
+  };
+};
+
 const defaultTexts: Partial<Texts> = {
   label: 'Label',
   placeholder: 'Choose one',
@@ -83,6 +98,7 @@ const defaultTexts: Partial<Texts> = {
   error: 'Wrong choice!',
   language: 'en',
 };
+
 const defaultTextsForMultiSelect: Partial<Texts> = {
   ...defaultTexts,
   label: 'Select multiple fruits or vegetables',
@@ -97,8 +113,8 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
 
 export const Singleselect = () => {
   const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    return requireOneSelection(...args);
   }, []);
   return (
     <Select
@@ -127,15 +143,15 @@ export const SingleselectWithGroups = () => {
       ],
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changess
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
       groups={groups}
       onChange={onChange}
       icon={<IconLocation />}
-      required
       texts={defaultTexts}
       id="hds-select-component"
     />
@@ -144,7 +160,7 @@ export const SingleselectWithGroups = () => {
 
 export const OptionsAsHtml = () => {
   return (
-    <Select onChange={dummyOnChange} texts={defaultTexts} id="hds-select-component">
+    <Select onChange={genericOnChangeCallback} texts={defaultTexts} id="hds-select-component">
       <optgroup label="Group 1">
         <option value="opt1">Option 1</option>
         <option value="opt2">Option 2</option>
@@ -157,38 +173,6 @@ export const OptionsAsHtml = () => {
   );
 };
 
-export const WithGroups = () => {
-  const groups: SelectProps['groups'] = [
-    {
-      label: 'Healthy choices',
-      options: getOptionLabels(40),
-    },
-    {
-      label: 'Bad choices',
-      options: [
-        { value: 'Candy cane', label: 'Candy cane' },
-        { value: 'Sugar bomb', label: 'Sugar bomb' },
-        { value: 'Dr. Pepper', label: 'Dr. Pepper' },
-      ],
-    },
-  ];
-
-  return (
-    <Select
-      groups={groups}
-      icon={<IconLocation />}
-      onChange={dummyOnChange}
-      texts={defaultTexts}
-      id="hds-select-component"
-    >
-      <optgroup label="Group label">
-        <option value="label">Text</option>
-      </optgroup>
-    </Select>
-  );
-};
-
-// change to with "propControls" and pass always new props from parent?
 export const WithControls = () => {
   const initialGroups = [
     {
@@ -203,9 +187,9 @@ export const WithControls = () => {
 
   const [props, updateProps] = useState<SelectProps>({
     groups: propsToGroups({ groups: initialGroups }),
-    onChange: dummyOnChange,
-    required: true,
+    onChange: genericOnChangeCallback,
     disabled: false,
+    multiSelect: true,
     open: false,
     invalid: false,
     texts: { ...defaultTexts, label: 'Controlled select' },
@@ -235,6 +219,7 @@ export const WithControls = () => {
     const { required } = props;
     updateProps({ ...props, required: !required });
   };
+
   return (
     <WrapperWithButtonStyles>
       <Select {...props} />
@@ -249,7 +234,6 @@ export const WithControls = () => {
   );
 };
 
-// add forcing!
 export const WithValidationAndForcedSelection = () => {
   const groups: SelectProps['groups'] = [
     {
@@ -266,19 +250,31 @@ export const WithValidationAndForcedSelection = () => {
     },
   ];
 
-  const texts = { ...defaultTexts, label: 'Pick a healthy choice' };
+  const texts = { ...defaultTexts, label: 'Pick a healthy choice', error: '' };
 
   const onChange: SelectProps['onChange'] = (selectedOptions) => {
+    const hasSelections = selectedOptions.length > 0;
     const hasErrorSelection = !!selectedOptions.find((option) => option.value.includes('invalid'));
+    const getErrorText = () => {
+      if (hasErrorSelection) {
+        return 'Please make a good choice';
+      }
+      if (!hasSelections) {
+        return 'A selection is required!';
+      }
+      return '';
+    };
+    const error = getErrorText();
     return {
-      invalid: hasErrorSelection,
+      invalid: !!error,
       texts: {
-        assistive: hasErrorSelection || !selectedOptions.length ? '' : 'Excellent choice!',
+        assistive: error ? '' : 'Excellent choice!',
+        error,
       },
     };
   };
 
-  return <Select groups={groups} onChange={onChange} texts={texts} id="hds-select-component" />;
+  return <Select groups={groups} onChange={onChange} texts={texts} required id="hds-select-component" />;
 };
 
 export const WithFilter = () => {
@@ -286,10 +282,9 @@ export const WithFilter = () => {
   return (
     <Select
       options={options}
-      onChange={dummyOnChange}
+      onChange={genericOnChangeCallback}
       icon={<IconLocation />}
       filter={defaultFilter}
-      required
       texts={defaultTexts}
       id="hds-select-component"
     />
@@ -302,10 +297,9 @@ export const WithSearch = () => {
     <>
       <Select
         options={options}
-        onChange={dummyOnChange}
+        onChange={genericOnChangeCallback}
         icon={<IconLocation />}
         onSearch={onSearch}
-        required
         texts={defaultTexts}
         id="hds-select-component"
       />
@@ -317,8 +311,9 @@ export const WithSearch = () => {
 
 export const Multiselect = () => {
   const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    return requireOneSelection(...args);
   }, []);
   return (
     <Select
@@ -345,8 +340,9 @@ export const MultiselectWithGroups = () => {
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -372,8 +368,9 @@ export const MultiselectWithGroupsAndFilter = () => {
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -389,8 +386,9 @@ export const MultiselectWithGroupsAndFilter = () => {
 };
 
 export const MultiselectWithGroupsAndSearch = () => {
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <div>
@@ -420,8 +418,9 @@ export const MultiselectWithoutTags = () => {
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -447,8 +446,9 @@ export const VirtualizedMultiselectWithGroups = () => {
       options: getLargeBatchOfUniqueValues(1000),
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -473,8 +473,9 @@ export const VirtualizedSingleselectWithGroups = () => {
       options: getLargeBatchOfUniqueValues(1000),
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -489,8 +490,9 @@ export const VirtualizedSingleselectWithGroups = () => {
 };
 
 export const VirtualizationMultiselectWithoutGroups = () => {
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -506,8 +508,9 @@ export const VirtualizationMultiselectWithoutGroups = () => {
 };
 
 export const VirtualizedSingleselectWithoutGroups = () => {
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
   return (
     <Select
@@ -530,7 +533,7 @@ export const FocusListenerExample = () => {
     [setIsFocused],
   );
 
-  // need to memoize all or re-rendering would lose selections
+  // need to memoize all or re-rendering will lose selections
   const memoizedProps = useMemo(() => {
     const changeTracking: { selectedOptions: Option[] } = {
       selectedOptions: [],
@@ -554,14 +557,17 @@ export const FocusListenerExample = () => {
     memoizedProps.texts.error = '';
     setIsFocusedInHook(true);
   }, []);
+
   const onBlur: SelectProps['onBlur'] = useCallback(async () => {
     if (!memoizedProps.changeTracking.selectedOptions.length) {
       memoizedProps.texts.error = 'Select something';
     }
     setIsFocusedInHook(false);
   }, []);
-  const onChange: SelectProps['onChange'] = useCallback(() => {
-    // track changes
+
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    genericOnChangeCallback(...args);
   }, []);
 
   return (
@@ -570,7 +576,7 @@ export const FocusListenerExample = () => {
         {`
           .focused,
           .blurred {
-            padding: 10px;
+            padding: var(--spacing-s);
           }
 
           .focused {
@@ -584,10 +590,10 @@ export const FocusListenerExample = () => {
           .indicators {
             display: flex;
             flex-direction: column;
-            margin: 20px 0;
+            margin:  var(--spacing-s); 0;
 
             .indicator {
-              padding-left: 20px;
+              padding-left:  var(--spacing-s);
               position: relative;
             }
 
@@ -631,7 +637,7 @@ export const FocusListenerExample = () => {
   );
 };
 
-export const MultiselectWithControls = () => {
+export const WithStorageControls = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -639,13 +645,13 @@ export const MultiselectWithControls = () => {
     },
     {
       label: 'More healthy choices',
-      options: getOptionLabels(4, 10),
+      options: getOptionLabels(4, 5),
     },
   ];
 
   const storage = useSelectStorage({
     groups: initialGroups,
-    onChange: dummyOnChange,
+    onChange: genericOnChangeCallback,
     multiSelect: true,
     filter: defaultFilter,
     disabled: false,
@@ -665,6 +671,7 @@ export const MultiselectWithControls = () => {
     storage.setOpen(false);
     storage.render();
   };
+
   const invertSelections = () => {
     storage.updateAllOptions((option) => {
       return {
@@ -676,6 +683,7 @@ export const MultiselectWithControls = () => {
     storage.setOpen(false);
     storage.render();
   };
+
   const selectAll = () => {
     storage.updateAllOptions((option) => {
       return {
@@ -698,14 +706,10 @@ export const MultiselectWithControls = () => {
     storage.setOpen(false);
     storage.render();
   };
+
   const toggleDisable = () => {
     const current = storage.getProps().disabled;
     storage.setDisabled(!current);
-    storage.render();
-  };
-  const toggleMenu = () => {
-    const current = storage.getProps().open;
-    storage.setOpen(!current);
     storage.render();
   };
 
@@ -716,9 +720,10 @@ export const MultiselectWithControls = () => {
   };
 
   const showError = () => {
-    storage.setError(`An error is shown! ${Date.now()}`);
+    storage.setError(`There is an error!`);
     storage.render();
   };
+
   const clearError = () => {
     storage.setError(false);
     storage.render();
@@ -731,9 +736,12 @@ export const MultiselectWithControls = () => {
         <Button onClick={resetSelections}>Reset selections</Button>
         <Button onClick={invertSelections}>Invert selections</Button>
         <Button onClick={selectAll}>Select all</Button>
+      </div>
+      <div className="buttons">
         <Button onClick={toggleDisable}>Disable/enable component</Button>
         <Button onClick={toggleGroupDisable}>Disable/enable options</Button>
-        <Button onClick={toggleMenu}>Open/Close list</Button>
+      </div>
+      <div className="buttons">
         <Button onClick={toggleInvalid}>Set valid/invalid</Button>
         <Button onClick={showError}>Set error</Button>
         <Button onClick={clearError}>Clear error</Button>
@@ -771,7 +779,7 @@ export const ChangeLanguageSimple = () => {
 
   return (
     <WrapperWithButtonStyles>
-      <Select options={options} texts={texts} onChange={dummyOnChange} multiSelect filter={defaultFilter} />
+      <Select options={options} texts={texts} onChange={genericOnChangeCallback} multiSelect filter={defaultFilter} />
       <div className="buttons">
         <Button onClick={setFinnish} disabled={lang === 'fi'}>
           Finnish
@@ -780,11 +788,15 @@ export const ChangeLanguageSimple = () => {
           English
         </Button>
       </div>
+      <p>
+        When selections are not stored to parent component&apos;s state, resetting options will reset also selections
+        the user have made.
+      </p>
     </WrapperWithButtonStyles>
   );
 };
 
-export const ChangeLanguage = () => {
+export const ChangeLanguageWithStorage = () => {
   const [lang, setLang] = useState<SupportedLanguage>('fi');
   const addLang = (value: string, language?: string) => {
     const withoutLang = value.split('(')[0];
@@ -803,7 +815,7 @@ export const ChangeLanguage = () => {
   };
   const options = getOptionLabels(10).map(createOptionWithLanguage);
 
-  const storage = useSelectStorage({ options, onChange: dummyOnChange, texts: getTexts(lang) });
+  const storage = useSelectStorage({ options, onChange: genericOnChangeCallback, texts: getTexts(lang) });
 
   const changeLang = (newLang: SupportedLanguage) => {
     setLang(newLang);
@@ -816,7 +828,7 @@ export const ChangeLanguage = () => {
     });
     storage.updateTexts(getTexts(newLang));
 
-    /// render is not needed here because of state change
+    /// render is not really needed here because setLang() will re-render anyway.
     storage.render();
   };
   const setFinnish = () => {
@@ -841,7 +853,7 @@ export const ChangeLanguage = () => {
   );
 };
 
-export const MultiselectWithMinMax = () => {
+export const WithMinMax = () => {
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -885,6 +897,7 @@ export const MultiselectWithMinMax = () => {
 
       return defaultUITexts.en[key];
     };
+
     const onChange: SelectProps['onChange'] = (selectedValues, lastClickedOption, data) => {
       if (!changeTracking.hasSelectedSomething && selectedValues.length > 0) {
         changeTracking.hasSelectedSomething = true;
