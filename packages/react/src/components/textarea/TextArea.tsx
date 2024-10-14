@@ -18,10 +18,6 @@ export type TextAreaProps = MergeAndOverrideProps<
      */
     defaultValue?: string;
     /**
-     * If `true`, the textarea will be disabled
-     */
-    disabled?: boolean;
-    /**
      * The error text content that will be shown below the textarea
      */
     errorText?: string;
@@ -46,17 +42,9 @@ export type TextAreaProps = MergeAndOverrideProps<
      */
     label?: string | React.ReactNode;
     /**
-     * Callback fired when the state is changed
-     */
-    onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
-    /**
      * Short hint displayed in the textarea before the user enters a value
      */
     placeholder?: string;
-    /**
-     * If `true`, the label is displayed as required and the `textarea` element will be required
-     */
-    required?: boolean;
     /**
      * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
      */

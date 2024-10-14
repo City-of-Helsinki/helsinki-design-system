@@ -65,10 +65,6 @@ export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
    */
   theme?: ButtonPresetTheme | ButtonTheme;
   /**
-   * If `true`, the button will be disabled
-   */
-  disabled?: boolean;
-  /**
    * If `true`, the button will take up the full width of its container
    */
   fullWidth?: boolean;
