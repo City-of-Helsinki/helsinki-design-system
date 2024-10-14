@@ -8,9 +8,21 @@ import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import InternalLink from '../../../components/InternalLink';
 
+import Notification from '../../../components/Notification';
+
 # Migrate to version 4.0.0
 
 This guide helps you to start using HDS version 4.0.0.
+
+<Notification label=";tldr; Check at least these" className="siteNotification">
+  When updating to HDS 4.0.0 check and test at least these:
+  - dropdown(Combobox and select) is replaced with whole new select
+  - cookieConsent is replaced with new CookieConsent and now also available in core and standalone js
+  - separate ariaLabel is replaced with native aria-label
+  - iconLeft is now iconStart and iconRight is now iconEnd
+  - size variants in components are changed to enums
+  - Use of Sketch ends, check Figma files instead
+</Notification>
 
 ## Breaking changes
 
@@ -248,8 +260,6 @@ image-20240826-111932.png
  Change variable mode.
 
 Hover over a variable collection [HDS] Deprecated and choose a mode On. 
-
- 
 
 This is just the beginning of our journey to variables in the Helsinki Design System. We are eager to start implementing spacing, colour, and typography tokens. We welcome your feedback!
 
