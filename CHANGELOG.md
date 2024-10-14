@@ -125,6 +125,9 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
+- [Breadcrumbs] Changed Breadcrumbs status to stable
+- [Dropdown] Changed Dropdown status to deprecated
+- [Header] Changed Header status to beta
 - [Hero] Added documentation and examples for new information element
 - [Tag] Document the new Tag component and it's uses
 - [Button] Renewed Button component with theming support
