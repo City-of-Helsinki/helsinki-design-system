@@ -32,6 +32,7 @@ const singleSelectGroupLabelSelector = 'li[role="presentation"]';
 // multiselect group labels are include in option selector. getOptionElements() filters them out.
 const multiSelectOptionSelector = `div[role="checkbox"][aria-checked],${singleSelectOptionSelector}`;
 const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
+const tagSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
 
 export const createSelectHelpers = (page: Page, componentId: string) => {
   const getElementId = (componentId: string, elementName: keyof SelectMetaData['elementIds']) => {
@@ -173,14 +174,24 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return buttonElement.locator('> div span').filter({ hasNotText: text });
   };
 
-  const getSelectedOptionsInTags = async () => {
+  const getTags = (): Locator => {
     const tagList = getElementByName('tagList');
     return tagList.locator('> *');
+  };
+
+  const getTag = async (index: number) => {
+    const tags = await getTags().all();
+    return tags[index];
   };
 
   const getSelectedOptionsCount = async () => {
     const currentOptions = await getSelectedOptionsInButton();
     return currentOptions.count();
+  };
+
+  const getTagsCount = async () => {
+    const tags = getTags();
+    return tags.count();
   };
 
   const getSelectedOptionsLabels = async () => {
@@ -327,7 +338,47 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return box;
   };
 
+  const checkAllTagsAreShown = async () => {
+    const tagListContainer = getElementByName('tagList');
+    const lastTag = getTags().last();
+    const containerBox = await tagListContainer.boundingBox();
+    const lastTagBox = await lastTag.boundingBox();
+    if (!lastTagBox || !lastTagBox.height) {
+      return true;
+    }
+    if (!containerBox) {
+      return false;
+    }
+    return containerBox.y + containerBox.height >= lastTagBox.y + lastTagBox.height;
+  };
+
+  const showAllTags = async () => {
+    const allTagsShown = await checkAllTagsAreShown();
+    if (allTagsShown) {
+      return Promise.resolve(true);
+    }
+    const button = getElementByName('showAllButton');
+    await button.click();
+    await waitFor(async () => {
+      return checkAllTagsAreShown();
+    });
+  };
+
+  const hideAllTags = async () => {
+    const allTagsShown = await checkAllTagsAreShown();
+    if (!allTagsShown) {
+      return Promise.resolve(true);
+    }
+    const button = getElementByName('showAllButton');
+    await button.click();
+    await waitFor(async () => {
+      const isShown = await checkAllTagsAreShown();
+      return isShown === false;
+    });
+  };
+
   return {
+    checkAllTagsAreShown,
     closeList,
     countOptionsInGroup,
     getBoundingBox,
@@ -345,14 +396,18 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     getSearchAndFilterInfo,
     getSelectedGroupLabels,
     getSelectedOptionsInButton,
-    getSelectedOptionsInTags,
+    getTag,
+    getTags,
+    getTagsCount,
+    hideAllTags,
     isOptionListOpen,
     isOptionListClosed,
     openList,
+    scrollGroupInToView,
     scrollOptionInToView,
     selectGroupByIndex,
     selectOptionByIndex,
-    scrollGroupInToView,
+    showAllTags,
     waitUntilSelectedOptionCountMatches,
   };
 };
