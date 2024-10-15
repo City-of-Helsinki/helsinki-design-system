@@ -1,12 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
-import { fireEvent, waitFor } from '@testing-library/react';
+import React, { HTMLAttributes } from 'react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { renderWithHelpers, skipAxeRulesExpectedToFail } from './testUtil';
 import { defaultFilter } from './utils';
-import { Texts, Option, SearchResult, SelectProps } from './types';
+import { Texts, Option, SearchResult, SelectProps, AcceptedNativeDivProps } from './types';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
+import { Select } from './Select';
 
 describe('<Select />', () => {
   const defaultTexts: Partial<Texts> = {
@@ -58,6 +60,20 @@ describe('<Select />', () => {
       });
       const results = await axe(container, skipAxeRulesExpectedToFail);
       expect(results).toHaveNoViolations();
+    });
+    it('native html props are passed to the element', async () => {
+      const divProps = getCommonElementTestProps<'div'>('div') as AcceptedNativeDivProps;
+      const { getByTestId } = render(
+        <Select {...divProps} onChange={jest.fn()} onFocus={jest.fn()} onBlur={jest.fn()} />,
+      );
+      const element = getByTestId(divProps['data-testid']);
+      expect(
+        getElementAttributesMisMatches(element, {
+          ...divProps,
+          // tabIndex is set in the component
+          tabIndex: -1,
+        } as unknown as HTMLAttributes<HTMLSpanElement>),
+      ).toHaveLength(0);
     });
   });
   describe('List is opened and closed', () => {
