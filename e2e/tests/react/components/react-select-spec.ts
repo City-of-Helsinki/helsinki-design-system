@@ -1,16 +1,26 @@
 import { test, expect, Page } from '@playwright/test';
-import { getComponentStorybookUrls, waitFor, createScreenshotFileName } from '../../../utils/playwright.util';
+import {
+  getComponentStorybookUrls,
+  waitFor,
+  createScreenshotFileName,
+  listenToConsole,
+} from '../../../utils/playwright.util';
 import { createSelectHelpers } from '../../../utils/select.component.util';
-import { focusLocator, isLocatorFocused, waitForStablePosition } from '../../../utils/element.util';
+import {
+  focusLocator,
+  isLocatorFocused,
+  isLocatorSelectedOrChecked,
+  waitForStablePosition,
+} from '../../../utils/element.util';
 import { createKeyboardHelpers } from '../../../utils/keyboard.util';
 
 const componentName = 'select';
 const storybook = 'react';
 
 const storyWithPlainSingleSelect = 'Singleselect';
-const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
-const storyWithSingleSelectWithValidation = 'With Validation';
-const storyWithPlainMultiSelect = 'Multiselect';
+// const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
+// const storyWithSingleSelectWithValidation = 'With Validation';
+// const storyWithPlainMultiSelect = 'Multiselect';
 const storyWithMultiSelectAndGroupsWithoutInput = 'Multiselect With Groups';
 const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Filter';
 const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Search';
@@ -308,6 +318,119 @@ test.describe(`Tags`, () => {
       const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'Focus is in the button');
       const clip2 = await selectUtil.getBoundingBox();
       await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
+    }
+  });
+});
+test.describe(`Search`, () => {
+  test('Is also triggerable via button and shows loading info and results', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+      const selectUtil = createSelectHelpers(page, selectId);
+      const keyboard = createKeyboardHelpers(page);
+      await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'Test search');
+      listenToConsole(page);
+      const input = selectUtil.getInput();
+      await waitFor(async () => {
+        return isLocatorFocused(input);
+      });
+
+      const inputText = await selectUtil.getInputText();
+      expect(inputText).toBe('Test search');
+
+      await waitFor(async () => {
+        return selectUtil.isSearchingSpinnerVisible();
+      });
+
+      const spinnerScreenShotName = createScreenshotFileName(testInfo, isMobile, 'search spinner visible');
+      const clip2 = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(spinnerScreenShotName, { clip: clip2, fullPage: true });
+
+      await waitFor(async () => {
+        return selectUtil.hasSearchResults();
+      });
+
+      const options = await selectUtil.getOptionElements();
+      // the final count is 20 random options + 2 group labels + 2 common results.
+      expect(options).toHaveLength(24);
+    }
+  });
+  test('No results info is shown', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+      const selectUtil = createSelectHelpers(page, selectId);
+      const keyboard = createKeyboardHelpers(page);
+      await selectUtil.getElementByName('button').click();
+      await selectUtil.getInput().isVisible();
+      await keyboard.setInputValue(selectUtil.getElementByName('searchOrFilterInput'), 'none');
+      await waitFor(async () => {
+        return selectUtil.isSearchingSpinnerVisible();
+      });
+      await waitFor(async () => {
+        return selectUtil.isNoSearchResultsVisible();
+      });
+
+      const noResultsScreenShotName = createScreenshotFileName(testInfo, isMobile, 'no results');
+      const clip3 = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
+    }
+  });
+  test('Error is shown', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+      const selectUtil = createSelectHelpers(page, selectId);
+      const keyboard = createKeyboardHelpers(page);
+      await selectUtil.getElementByName('button').click();
+      await selectUtil.getInput().isVisible();
+      await keyboard.setInputValue(selectUtil.getElementByName('searchOrFilterInput'), 'error');
+      await waitFor(async () => {
+        return selectUtil.isSearchingSpinnerVisible();
+      });
+      await waitFor(async () => {
+        return selectUtil.isSearchingErrorVisible();
+      });
+
+      const noResultsScreenShotName = createScreenshotFileName(testInfo, isMobile, 'error');
+      const clip3 = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
+    }
+  });
+  test('Search results are selectable', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+      const selectUtil = createSelectHelpers(page, selectId);
+      const keyboard = createKeyboardHelpers(page);
+      // typing when button is focused, copies user input to the input
+      await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'Test search');
+      const inputText = await selectUtil.getInputText();
+      expect(inputText).toBe('Test search');
+
+      await waitFor(async () => {
+        return selectUtil.isSearchingSpinnerVisible();
+      });
+
+      await waitFor(async () => {
+        return selectUtil.hasSearchResults();
+      });
+
+      const options = await selectUtil.getOptionElements();
+      // the final count is 20 random options + 2 group labels + 2 common results.
+      expect(options).toHaveLength(24);
+
+      // select last option, which is always the same
+      await selectUtil.selectOptionByIndex({ index: 23, multiSelect: true });
+
+      await keyboard.type('another test');
+      // for some reason this middle check is needed of PW clicks outside input and list is closed
+
+      await waitFor(async () => {
+        return selectUtil.hasSearchResults();
+      });
+
+      const optionsNow = await selectUtil.getOptionElements();
+      expect(optionsNow).toHaveLength(24);
+
+      // last option in search results is always same and should still be selected
+      expect(isLocatorSelectedOrChecked(optionsNow[23])).toBeTruthy();
     }
   });
 });
