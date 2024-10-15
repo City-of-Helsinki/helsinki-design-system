@@ -329,14 +329,14 @@ describe('useElementDetection', () => {
     });
   });
   describe('getElementUsingActiveDescendant()', () => {
-    it('Returns the input element if it should exist. Returns null if menu is closed', async () => {
+    it('Returns the input element if it should exist.', async () => {
       const { getInputElement, getHook, openList } = initHookTest({ ...defaultProps, open: false });
-      expect(getHook().getElementUsingActiveDescendant()).toBeNull();
+      expect(getHook().getElementUsingActiveDescendant() === getInputElement()).toBeTruthy();
       expect(getInputElement()).not.toBeNull();
       await openList();
       expect(getHook().getElementUsingActiveDescendant() === getInputElement()).toBeTruthy();
     });
-    it('Returns the button element if input does not exist. Menu state does not matter', async () => {
+    it('Returns the button element if input does not exist', async () => {
       const { getButtonElement, getHook, openList } = initHookTest({ ...defaultProps, open: false, input: undefined });
       expect(getHook().getElementUsingActiveDescendant() === getButtonElement()).toBeTruthy();
       await openList();

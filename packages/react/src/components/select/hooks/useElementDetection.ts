@@ -77,9 +77,8 @@ const pickElement = (elementOrEvent: HTMLElementSource) => {
 };
 
 export function useElementDetection() {
-  const { getMetaData, getData } = useSelectDataHandlers();
+  const { getMetaData } = useSelectDataHandlers();
   const { refs, elementIds, listInputType } = getMetaData();
-  const { open } = getData();
   const hasInput = !!listInputType;
 
   const elementIdEntries = Object.entries(elementIds) as [KnownElementType, string][];
@@ -138,7 +137,7 @@ export function useElementDetection() {
   };
 
   const getListItems = () => {
-    const selector = `${singleSelectOptionSelector},${multiSelectOptionSelector},${multiSelectGroupLabelSelector}`;
+    const selector = `${singleSelectGroupLabelSelector},${singleSelectOptionSelector},${multiSelectOptionSelector},${multiSelectGroupLabelSelector}`;
     return [...getListElement().querySelectorAll(selector)] as HTMLElement[];
   };
 
@@ -239,7 +238,7 @@ export function useElementDetection() {
 
   const getElementUsingActiveDescendant = () => {
     if (hasInput) {
-      return open ? getElementByKnownType('searchOrFilterInput') : null;
+      return getElementByKnownType('searchOrFilterInput');
     }
     return getElementByKnownType('button');
   };
