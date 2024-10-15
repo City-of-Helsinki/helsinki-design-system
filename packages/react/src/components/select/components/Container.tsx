@@ -12,7 +12,7 @@ function createContainerProps(props: DivElementProps, { getMetaData }: SelectDat
   return {
     ...props,
     id: elementIds.container,
-    className: classNames(styles.wrapper, styles.root),
+    className: classNames(props.className, styles.wrapper, styles.root),
   };
 }
 
