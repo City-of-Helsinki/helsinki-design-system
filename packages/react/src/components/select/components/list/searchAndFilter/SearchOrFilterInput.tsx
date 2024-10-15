@@ -15,7 +15,7 @@ const createFilterInputProps = (
   inputType: Exclude<SelectMetaData['listInputType'], undefined>,
 ): TextInputProps => {
   const metaData = getMetaData();
-  const { filter, elementIds, refs, search } = metaData;
+  const { filter, elementIds, refs, search, activeDescendant } = metaData;
   const { multiSelect, groups } = getData();
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isSearchInput = inputType === 'search';
@@ -41,6 +41,7 @@ const createFilterInputProps = (
     value,
     placeholder,
     ref: refs.searchOrFilterInput,
+    'aria-activedescendant': activeDescendant || '',
     'aria-controls': elementIds.list,
     'aria-expanded': true,
     'aria-labelledby': `${elementIds.searchOrFilterInputLabel} ${elementIds.label}`,
