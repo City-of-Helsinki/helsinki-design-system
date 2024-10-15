@@ -166,10 +166,10 @@ test.describe(`Typing when focused and there is no input`, () => {
   });
 });
 test.describe(`Typing when focused and there is an input`, () => {
-  test('input is copied to the input. Even if focus is in options.', async ({ page, isMobile }, testInfo) => {
+  test('user input is copied to the input. Even if focus is in options.', async ({ page, isMobile }, testInfo) => {
     if (!isMobile) {
       await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
-      const filterText = 'lettuce';
+      const filterText = 'satisfying';
       const filterTextWithoutResults = 'none';
       const selectUtil = createSelectHelpers(page, selectId);
       const keyboard = createKeyboardHelpers(page);
