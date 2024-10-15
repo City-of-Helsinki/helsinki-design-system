@@ -26,6 +26,11 @@ export type GroupInProps = {
   options: (OptionInProps | string)[];
 };
 
+export type AcceptedNativeDivProps = Omit<
+  AllElementPropsWithoutRef<'div'>,
+  'onChange' | 'onFocus' | 'onBlur' | 'id' | 'tabIndex' | 'children'
+>;
+
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;

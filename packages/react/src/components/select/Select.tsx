@@ -1,7 +1,7 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData, Option } from './types';
+import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
@@ -43,7 +43,8 @@ export function Select({
   virtualize,
   filter,
   onSearch,
-}: SelectProps) {
+  ...divElementProps
+}: SelectProps & AcceptedNativeDivProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
       groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
@@ -140,7 +141,7 @@ export function Select({
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
-      <Container>
+      <Container {...divElementProps}>
         <Label />
         <SelectionsAndListsContainer>
           <SelectedOptionsContainer>
