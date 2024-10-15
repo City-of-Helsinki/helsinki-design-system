@@ -229,3 +229,85 @@ test.describe(`Typing when focused and there is an input`, () => {
     }
   });
 });
+test.describe(`Tags`, () => {
+  test('Are rendered with multiselect. Only two rows are shown.', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+      const selectUtil = createSelectHelpers(page, selectId);
+      expect(await selectUtil.getTagsCount()).toBe(0);
+      await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
+      expect(await selectUtil.getTagsCount()).toBe(1);
+      await selectUtil.selectGroupByIndex({ index: 1 });
+      await selectUtil.closeList();
+      expect(await selectUtil.getTagsCount()).toBe(11);
+      // getting with label, because getByText check value-prop with buttons.
+      expect(page.getByLabel('Show all 11 options.').isVisible()).toBeTruthy();
+
+      const screenshotName = createScreenshotFileName(testInfo, isMobile, 'tags rendered');
+      const clip = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+
+      // click show all and take screenshot.
+      await selectUtil.showAllTags();
+      expect(page.getByLabel('Show less options.').isVisible()).toBeTruthy();
+      const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'all tags shown');
+      const clip2 = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
+    }
+  });
+  test('Selection can be deleted from tags. Focus is moved when tag is removed.', async ({
+    page,
+    isMobile,
+  }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+      const selectUtil = createSelectHelpers(page, selectId);
+      await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
+      await selectUtil.selectOptionByIndex({ index: 2, multiSelect: true });
+      await selectUtil.selectOptionByIndex({ index: 3, multiSelect: true });
+      await selectUtil.selectOptionByIndex({ index: 4, multiSelect: true });
+      await selectUtil.closeList();
+      expect(await selectUtil.getTagsCount()).toBe(4);
+      // getting with label, because getByText check value-prop with buttons.
+      expect(page.getByLabel('Show all 11 options.').isVisible()).toBeTruthy();
+
+      // focus is moved to tag#0 when a tag is clicked
+      const tag0 = await selectUtil.getTag(0);
+      const tag1 = await selectUtil.getTag(1);
+      await tag1.click();
+      await selectUtil.waitUntilSelectedOptionCountMatches(3);
+      expect(await selectUtil.getTagsCount()).toBe(3);
+      await waitFor(() => {
+        return isLocatorFocused(tag0);
+      });
+
+      const screenshotName = createScreenshotFileName(testInfo, isMobile);
+      const clip = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+
+      const newTag1 = await selectUtil.getTag(1);
+      await newTag1.click();
+      await selectUtil.waitUntilSelectedOptionCountMatches(2);
+      await waitFor(() => {
+        return isLocatorFocused(tag0);
+      });
+
+      const anotherTag1 = await selectUtil.getTag(1);
+      await anotherTag1.click();
+      await selectUtil.waitUntilSelectedOptionCountMatches(1);
+      await waitFor(() => {
+        return isLocatorFocused(tag0);
+      });
+
+      await tag0.click();
+      await selectUtil.waitUntilSelectedOptionCountMatches(0);
+      await waitFor(() => {
+        return isLocatorFocused(selectUtil.getElementByName('button'));
+      });
+
+      const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'Focus is in the button');
+      const clip2 = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
+    }
+  });
+});
