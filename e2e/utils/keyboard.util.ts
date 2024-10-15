@@ -44,6 +44,11 @@ export const createKeyboardHelpers = (page: Page) => {
     fillElement: async (element: Locator, value: string) => {
       return element.fill(value);
     },
+    // clears the input first
+    setInputValue: async (element: Locator, value: string) => {
+      await element.fill('');
+      return element.fill(value);
+    },
     typeOneByOne: async (element: Locator, value: string, delay?: number) => {
       return element.pressSequentially(value, { delay });
     },

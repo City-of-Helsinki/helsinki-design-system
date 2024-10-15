@@ -20,6 +20,7 @@ type OptionFiltering = {
   includeSingleSelectGroupLabels?: boolean;
   includeMultiSelectGroupLabels?: boolean;
   all?: boolean;
+  skipOpenCheck?: boolean;
 };
 
 // sadly selectors defined in the Select's React files are not usable here as React's "styles" objects do not exist.
@@ -32,7 +33,14 @@ const singleSelectGroupLabelSelector = 'li[role="presentation"]';
 // multiselect group labels are include in option selector. getOptionElements() filters them out.
 const multiSelectOptionSelector = `div[role="checkbox"][aria-checked],${singleSelectOptionSelector}`;
 const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
-const tagSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
+
+const dataTestIds = {
+  placeholder: 'placeholder',
+  searchingText: 'hds-select-searching-text',
+  searchAndFilterInfo: 'search-and-filter-info',
+  searchNoResults: 'hds-select-no-results',
+  searchError: 'hds-select-searching-error',
+};
 
 export const createSelectHelpers = (page: Page, componentId: string) => {
   const getElementId = (componentId: string, elementName: keyof SelectMetaData['elementIds']) => {
@@ -101,8 +109,10 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     includeSingleSelectGroupLabels = false,
     includeMultiSelectGroupLabels = true,
     all = false,
+    skipOpenCheck = false,
   }: OptionFiltering = {}) => {
-    const listElement = await openList();
+    const listElement = skipOpenCheck ? getElementByName('list') : await openList();
+
     const selectorList = includeOptions || all ? [singleSelectOptionSelector, multiSelectOptionSelector] : [];
     if (includeMultiSelectGroupLabels || all) {
       selectorList.push(multiSelectGroupLabelSelector);
@@ -168,7 +178,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   // 3.locator().filter() never worked with any combinations
   const getSelectedOptionsInButton = async () => {
     const buttonElement = getElementByName('button');
-    const placeHolder = buttonElement.locator('> div span[data-testid="placeholder"]');
+    const placeHolder = buttonElement.locator(`> div span[data-testid="${dataTestIds.placeholder}"]`);
     const hasPlaceholder = await placeHolder.count();
     const text = hasPlaceholder ? (await placeHolder.textContent()) || '' : '';
     return buttonElement.locator('> div span').filter({ hasNotText: text });
@@ -324,7 +334,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   };
 
   const getSearchAndFilterInfo = () => {
-    return page.getByTestId('search-and-filter-info');
+    return page.getByTestId(dataTestIds.searchAndFilterInfo);
   };
 
   const getBoundingBox = async (spacing = 10) => {
@@ -377,6 +387,27 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     });
   };
 
+  const isSearchingSpinnerVisible = () => {
+    return page.getByTestId(dataTestIds.searchingText).isVisible();
+  };
+
+  const isSearchingErrorVisible = () => {
+    return page.getByTestId(dataTestIds.searchError).isVisible();
+  };
+
+  const isSearchAndFilterInfoVisible = () => {
+    return page.getByTestId(dataTestIds.searchAndFilterInfo).isVisible();
+  };
+
+  const isNoSearchResultsVisible = () => {
+    return page.getByTestId(dataTestIds.searchNoResults).isVisible();
+  };
+
+  const hasSearchResults = async (): Promise<boolean> => {
+    const elements = await getOptionElements({ all: true, skipOpenCheck: true });
+    return elements.length > 0;
+  };
+
   return {
     checkAllTagsAreShown,
     closeList,
@@ -399,9 +430,14 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     getTag,
     getTags,
     getTagsCount,
+    hasSearchResults,
     hideAllTags,
     isOptionListOpen,
     isOptionListClosed,
+    isNoSearchResultsVisible,
+    isSearchAndFilterInfoVisible,
+    isSearchingErrorVisible,
+    isSearchingSpinnerVisible,
     openList,
     scrollGroupInToView,
     scrollOptionInToView,

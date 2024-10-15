@@ -66,12 +66,14 @@ export function SearchAndFilterInfo() {
       {loadingText && (
         <>
           <LoadingSpinner small loadingText="" loadingFinishedText="" />
-          <span aria-hidden>{loadingText}</span>
+          <span aria-hidden data-testid="hds-select-searching-text">
+            {loadingText}
+          </span>
         </>
       )}
       {showNoResultsTexts && !hasSearchError && (
         <>
-          <span aria-hidden>
+          <span aria-hidden data-testid="hds-select-no-results">
             {getTextKey(getTextKeyWithType(`${typeIndicator}edWithoutResultsInfo`, isSearchInput), metaData, {
               value: filter || search,
             })}
@@ -84,7 +86,9 @@ export function SearchAndFilterInfo() {
       {hasSearchError && (
         <>
           <IconError color="var(--color-error)" />
-          <span aria-hidden>{getTextKey('searchErrorTitle', metaData)}</span>
+          <span aria-hidden data-testid="hds-select-searching-error">
+            {getTextKey('searchErrorTitle', metaData)}
+          </span>
           <span aria-hidden>{getTextKey('searchErrorText', metaData)}</span>
         </>
       )}
