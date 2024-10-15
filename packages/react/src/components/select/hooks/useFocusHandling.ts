@@ -39,9 +39,8 @@ export function useFocusHandling(): ReturnObject {
         const id = (element && getElementId(element)) || '';
         updateMetaData({ activeDescendant: id });
         const elementWithActiveDescendant = getElementUsingActiveDescendant();
-
         // do not set the attribute value unless the element has the attribute
-        // it does not exists unless input exists
+        // it does not need to be set in all scenarios (single/multiselect + input/no input)
         if (
           !elementWithActiveDescendant ||
           elementWithActiveDescendant.getAttribute('aria-activedescendant') === undefined
