@@ -376,9 +376,10 @@
   .tagList {
     display: flex;
     flex-flow: row wrap;
-    max-height: 78px;
+    margin: 0 -4px;
+    max-height: 80px;
     overflow: hidden;
-    padding: var(--spacing-3-xs) 0;
+    padding: var(--spacing-3-xs) 4px 0;
 
     .tag {
       margin-bottom: var(--spacing-xs);
