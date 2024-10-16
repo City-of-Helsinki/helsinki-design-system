@@ -14,6 +14,7 @@ import {
   getLocatorOuterHTML,
 } from './element.util';
 import { filterLocators, waitFor } from './playwright.util';
+import { tagSelectorForTagList } from '../../packages/react/src/components/select/components/tagList/TagListItem';
 
 type OptionFiltering = {
   includeOptions?: boolean;
@@ -186,7 +187,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
 
   const getTags = (): Locator => {
     const tagList = getElementByName('tagList');
-    return tagList.locator('> *');
+    return tagList.locator(tagSelectorForTagList);
   };
 
   const getTag = async (index: number) => {
