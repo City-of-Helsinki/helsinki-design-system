@@ -13,6 +13,11 @@ import { getElementIds, defaultFilter, propsToGroups, getAllOptions } from './ut
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import useForceRender from '../../hooks/useForceRender';
+import { multiSelectGroupLabelSelector } from './components/list/listItems/MultiSelectGroupLabel';
+import { singleSelectGroupLabelSelector } from './components/list/listItems/SingleSelectGroupLabel';
+import { singleSelectOptionSelector } from './components/list/listItems/SingleSelectOption';
+import { multiSelectOptionSelector } from './components/list/listItems/MultiSelectOption';
+import { tagSelectorForTagList } from './components/tagList/TagListItem';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -433,16 +438,16 @@ export const renderWithHelpers = (
 
   const elementIds = getElementIds(selectProps.id);
   const selectors = {
-    listAndInputContainer: `#${selectProps.id} > div:nth-child(2) > div:nth-child(2)`,
+    listAndInputContainer: `#${elementIds.selectionsAndListsContainer}`,
     screenReaderNotifications: `div[data-testid="screen-reader-notifications"]`,
     searchAndFilterInfo: `div[data-testid="search-and-filter-info"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
-    groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="checkbox"]:first-child`,
-    options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
+    groupLabels: `${singleSelectGroupLabelSelector}, ${multiSelectGroupLabelSelector}`,
+    options: `${singleSelectOptionSelector}, ${multiSelectOptionSelector}`,
     allListItems: `created below`,
     selectionsInButton: `#${elementIds.button} > div > span`,
     overflowCounter: `#${elementIds.button} > span`,
-    tags: `#${elementIds.tagList} > div`,
+    tags: `#${elementIds.tagList} ${tagSelectorForTagList}`,
   };
   selectors.allListItems = `${selectors.groupLabels}, ${selectors.options}`;
 

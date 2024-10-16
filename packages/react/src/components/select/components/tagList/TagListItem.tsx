@@ -11,6 +11,10 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 type SelectedTagProps = { option: Option; trigger: ChangeTrigger; disabled: boolean };
 
+// use with id `#${elementIds.tagList} ${tagSelector}`
+// or <tagListElement>.querySelectorAll(`* ${tagSelector}`)
+export const tagSelectorForTagList = '> div';
+
 const createSelectedTagProps = (
   { option, trigger, disabled }: SelectedTagProps,
   { getMetaData }: SelectDataHandlers,
