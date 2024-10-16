@@ -58,7 +58,7 @@
     display: flex;
     font-size: var(--fontsize-body-l);
     outline: none;
-    padding: var(--spacing-s);
+    padding: var(--spacing-xs);
     padding-right: var(--spacing-2-xs);
 
     &.withVisibleFocus {
@@ -71,7 +71,11 @@
     }
 
     &.arrowButton {
-      padding-right: var(--spacing-s);
+      padding-right: var(--spacing-xs);
+    }
+
+    .buttonIcon {
+      color: var(--dropdown-color-default);
     }
 
     .labels {
@@ -83,6 +87,7 @@
       /* this value must be higher than height of a selected item (.dropdownButtonOption) or none are considered visible in getIndexOfFirstVisibleChild() */
       height: calc(var(--fontsize-body-l) * var(--lineheight-l) + 1px);
       overflow: hidden;
+      padding-left: var(--spacing-3-xs);
     }
 
     .count.count {
@@ -113,13 +118,14 @@
       // button icon
       > span:first-child {
         display: flex;
-        padding-right: var(--spacing-2-xs);
+        padding-right: var(--spacing-3-xs);
       }
     }
 
     &.icon {
       flex-shrink: 1;
-      padding-left: var(--spacing-2-xs);
+      padding-left: var(--spacing-xs);
+      padding-right: var(--spacing-xs);
     }
 
     &.placeholder {
