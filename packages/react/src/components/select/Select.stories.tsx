@@ -946,3 +946,23 @@ export const WithMinMax = () => {
 
   return <Select {...storage.getProps()} />;
 };
+
+export const VeryLongLabels = () => {
+  const options = getOptionLabels(10).map((label, index) => {
+    return label + ` ${label.toLowerCase()} `.repeat(10).substring(0, 30 + index * 5);
+  });
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    return genericOnChangeCallback(...args);
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      multiSelect
+      texts={defaultTextsForMultiSelect}
+      id="hds-select-component"
+    />
+  );
+};
