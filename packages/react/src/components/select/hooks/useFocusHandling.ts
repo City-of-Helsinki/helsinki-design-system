@@ -16,6 +16,7 @@ import { useSelectDataHandlers } from './useSelectDataHandlers';
 import { useElementDetection } from './useElementDetection';
 import { KnownElementType } from '../types';
 import getFocusedElementFromBlurEvent from '../../../utils/getFocusedElementFromBlurEvent';
+import { tagSelectorForTagList } from '../components/tagList/TagListItem';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
@@ -119,7 +120,9 @@ export function useFocusHandling(): ReturnObject {
     };
     if (focusTarget) {
       if (focusTarget === 'tag') {
-        const current = refs.tagList.current && (refs.tagList.current.querySelectorAll('* > div')[0] as HTMLElement);
+        const current =
+          refs.tagList.current &&
+          (refs.tagList.current.querySelectorAll(`* ${tagSelectorForTagList}`)[0] as HTMLElement);
         setFocus({ current });
       } else {
         setFocus(refs[focusTarget]);

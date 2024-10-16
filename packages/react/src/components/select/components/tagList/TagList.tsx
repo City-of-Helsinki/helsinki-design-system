@@ -8,6 +8,7 @@ import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 import { TagListButtons } from './TagListButtons';
+import { tagSelectorForTagList } from './TagListItem';
 
 function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
   const tagListEl = metaData.refs.tagList.current;
@@ -29,7 +30,7 @@ function checkIfShowAllButtonIsNeeded(metaData: SelectMetaData) {
 function makeHiddenElementsUnfocusable(metaData: SelectMetaData) {
   const tagListEl = metaData.refs.tagList.current;
 
-  const tags = tagListEl && tagListEl.querySelectorAll('* > div');
+  const tags = tagListEl && tagListEl.querySelectorAll(`* ${tagSelectorForTagList}`);
   if (tags) {
     const firstVisible = getIndexOfFirstVisibleChild(tagListEl, 'vertical');
     const firstHidden = firstVisible > -1 ? firstVisible + 1 : -1;
