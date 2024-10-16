@@ -1,5 +1,5 @@
 @import '../../styles/common.scss';
-@import '../dropdown/dropdown.common.scss';
+@import './dropdown.helpers';
 
 .root {
   @extend %dropdownRoot;
@@ -11,14 +11,6 @@
   &.invalid {
     border-color: var(--color-error);
   }
-
-  --menu-item-background-default: var(--color-white);
-  --menu-item-background-hover: var(--color-bus-light);
-  --menu-item-background-selected: var(--color-bus-light);
-  --menu-item-background-selected-hover: var(--color-bus-light);
-  --menu-item-background-disabled: var(--color-white);
-  --dropdown-border-color-hover-invalid: var(--color-error);
-  --dropdown-border-color-invalid: var(--color-error);
 }
 
 .selectAndListContainer {
