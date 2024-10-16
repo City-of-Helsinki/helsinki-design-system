@@ -39,6 +39,11 @@ describe("getChildElementsPerRow returns array of container's child elements per
       const childlessContainer = createFakeElement({});
       expect(getChildElementsPerRow(childlessContainer)).toMatchObject([]);
     });
+    it('If children are equal sized and full width, the rows are counted correctly', () => {
+      const gridOfOneChildInFiveRows = assignSiblingRefs(createElementGrid(5, 1));
+      const childContainer = createFakeElement({}, flatten(gridOfOneChildInFiveRows));
+      expect(getChildElementsPerRow(childContainer)).toMatchObject(gridOfOneChildInFiveRows);
+    });
   });
   describe('Second argument (maxRows) can be used for skipping unnecessary checks', () => {
     it('The process stops when given number of rows are found', () => {
