@@ -1,0 +1,182 @@
+// focus outline
+%dropdownFocusOutline {
+  box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+}
+
+/**
+ * ROOT
+ */
+%dropdownRoot {
+  --border-width: 2px;
+  --divider-width: 1px;
+  --focus-outline-width: 3px;
+  --dropdown-height: var(--spacing-3-xl);
+  --menu-item-height: calc(var(--dropdown-height) - var(--border-width) * 2);
+  --icon-size: var(--spacing-m);
+  --menu-z-index: 10;
+  --dropdown-background-default: var(--color-white);
+  --dropdown-background-disabled: var(--color-black-10);
+  --dropdown-border-color-default: var(--color-black-50);
+  --dropdown-border-color-hover: var(--color-black-90);
+  --dropdown-border-color-hover-invalid: var(--color-error-dark);
+  --dropdown-border-color-focus: var(--color-black-90);
+  --dropdown-border-color-invalid: var(--color-error);
+  --dropdown-border-color-disabled: var(--color-black-10);
+  --dropdown-color-default: var(--color-black-90);
+  --dropdown-color-disabled: var(--color-black-40);
+  --focus-outline-color: var(--color-focus-outline);
+  --helper-color-default: var(--color-black-60);
+  --helper-color-invalid: var(--color-black);
+  --helper-icon-color-invalid: var(--color-error);
+  --menu-divider-color: var(--color-black-20);
+  --menu-item-background-default: var(--color-white);
+  --menu-item-background-hover: var(--color-bus);
+  --menu-item-background-selected: var(--color-white);
+  --menu-item-background-selected-hover: var(--color-bus);
+  --menu-item-background-disabled: var(--color-white);
+  --menu-item-color-default: var(--color-black-90);
+  --menu-item-color-hover: var(--color-white);
+  --menu-item-color-selected: var(--color-black-90);
+  --menu-item-color-selected-hover: var(--color-white);
+  --menu-item-color-disabled: var(--color-black-40);
+  --menu-item-icon-color-selected: var(--color-white);
+  --menu-item-icon-color-disabled: var(--color-black-40);
+  --multiselect-checkbox-background-selected: var(--color-bus);
+  --multiselect-checkbox-background-disabled: var(--color-black-10);
+  --multiselect-checkbox-border-default: var(--color-black-50);
+  --multiselect-checkbox-border-hover: var(--color-black-90);
+  --multiselect-checkbox-border-disabled: var(--color-black-10);
+  --multiselect-checkbox-color-default: transparent;
+  --multiselect-checkbox-color-selected: var(--color-white);
+  --multiselect-checkbox-color-selected-disabled: var(--color-white);
+  --placeholder-color: var(--color-black-60);
+
+  position: relative;
+
+  &.open {
+    .angleIcon {
+      transform: rotateX(180deg);
+    }
+
+    .menu {
+      display: block;
+    }
+  }
+
+  input {
+    /*
+    * Normalize.css rule
+    * 1. Change the font styles in all browsers.
+    * 2. Remove the margin in Firefox and Safari.
+    */
+    font-family: inherit; /* 1 */
+    margin: 0; /* 2 */
+
+    /*
+    * Normalize.css rule
+    * Remove the default vertical scrollbar in IE 10+.
+    */
+    overflow: auto;
+  }
+}
+
+/**
+ * WRAPPER
+ */
+
+%dropdownWrapper {
+  background-color: var(--dropdown-background-default);
+  border: var(--border-width) solid var(--dropdown-border-color-default);
+  box-sizing: border-box;
+  min-height: var(--dropdown-height);
+  position: relative;
+  width: 100%;
+
+  &:focus-within {
+    @extend %dropdownFocusOutline;
+
+    border-color: var(--dropdown-border-color-focus);
+  }
+
+  &:hover {
+    border-color: var(--dropdown-border-color-hover);
+  }
+
+  &:hover,
+  &:focus-within {
+    transition: border-color 85ms ease-out;
+  }
+}
+
+/**
+ * ICON
+ */
+
+%dropdownIcon {
+  color: var(--dropdown-color-default);
+  display: flex;
+  margin-right: var(--spacing-2-xs);
+}
+
+/**
+ * ANGLE ICON
+ */
+
+%dropdownAngleIcon {
+  color: var(--dropdown-color-default);
+  position: absolute;
+  right: var(--spacing-s);
+  top: var(--spacing-xs);
+  transform: translateY(2px);
+}
+
+/**
+ * MENU
+ */
+
+%dropdownMenu {
+  border: solid var(--dropdown-border-color-focus);
+  border-top-color: var(--menu-divider-color);
+  border-width: var(--divider-width) var(--border-width) var(--border-width);
+  bottom: 0;
+  display: none;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  transform: translate(calc(var(--border-width) * -1), 100%);
+  width: 100%;
+  z-index: var(--menu-z-index);
+}
+
+/**
+ * MENU ITEM
+ */
+
+%dropdownMenuItem {
+  align-items: center;
+  background-color: var(--menu-item-background-default);
+  box-sizing: border-box;
+  color: var(--menu-item-color-default);
+  cursor: pointer;
+  display: flex;
+  font-size: var(--fontsize-body-l);
+  justify-content: space-between;
+  line-height: var(--lineheight-m);
+  min-height: var(--menu-item-height);
+  padding: var(--spacing-xs) var(--spacing-s);
+
+  &.selected {
+    background-color: var(--menu-item-background-selected);
+    color: var(--menu-item-color-selected);
+  }
+
+  &.disabled {
+    background-color: var(--menu-item-background-disabled);
+    color: var(--menu-item-color-disabled);
+    cursor: not-allowed;
+  }
+}
