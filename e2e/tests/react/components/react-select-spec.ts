@@ -4,6 +4,7 @@ import {
   waitFor,
   createScreenshotFileName,
   listenToConsole,
+  takeStateScreenshots,
 } from '../../../utils/playwright.util';
 import { createSelectHelpers } from '../../../utils/select.component.util';
 import {
@@ -18,7 +19,7 @@ const componentName = 'select';
 const storybook = 'react';
 
 const storyWithPlainSingleSelect = 'Singleselect';
-// const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
+const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
 // const storyWithSingleSelectWithValidation = 'With Validation';
 // const storyWithPlainMultiSelect = 'Multiselect';
 const storyWithMultiSelectAndGroupsWithoutInput = 'Multiselect With Groups';
@@ -431,6 +432,77 @@ test.describe(`Search`, () => {
 
       // last option in search results is always same and should still be selected
       expect(isLocatorSelectedOrChecked(optionsNow[23])).toBeTruthy();
+    }
+  });
+});
+test.describe(`Element state snapshots`, () => {
+  test('Dropdown button and its children', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+      const selectUtil = createSelectHelpers(page, selectId);
+      const button = selectUtil.getElementByName('button');
+      await takeStateScreenshots(page, button, 'dropdownbutton');
+    }
+  });
+  test('Multiselect items', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+      const selectUtil = createSelectHelpers(page, selectId);
+      await selectUtil.openList();
+      // takeStateScreenshots has noOutsideClicks=true,
+      // so must manually move focus outside
+      const input = selectUtil.getElementByName('searchOrFilterInput');
+      await input.focus();
+
+      const groupLabel = await selectUtil.getGroupLabel(0);
+      await takeStateScreenshots(page, groupLabel, 'multiselect-unselected-groupLabel', true);
+
+      await selectUtil.selectGroupByIndex({ index: 0 });
+      await input.focus();
+      await takeStateScreenshots(page, groupLabel, 'multiselect-selected-groupLabel', true);
+
+      const option = await selectUtil.getOptionByIndex({ index: 3 });
+      await input.focus();
+      await takeStateScreenshots(page, option, 'multiselect-unselected-option', true);
+      await selectUtil.selectOptionByIndex({ index: 3, multiSelect: true });
+      await input.focus();
+      await takeStateScreenshots(page, option, 'multiselect-selected-option', true);
+    }
+  });
+  test('Singleselect items', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups);
+      const selectUtil = createSelectHelpers(page, selectId);
+      await selectUtil.openList();
+      // takeStateScreenshots has noOutsideClicks=true,
+      // so must manually move focus outside
+      const button = selectUtil.getElementByName('button');
+      await button.focus();
+
+      const groupLabel = await selectUtil.getGroupLabel(0);
+      await takeStateScreenshots(page, groupLabel, 'singleselect-unselected-groupLabel', true);
+
+      const option = await selectUtil.getOptionByIndex({ index: 3 });
+      await takeStateScreenshots(page, option, 'singleselect-unselected-option', true);
+
+      await selectUtil.selectOptionByIndex({ index: 3, multiSelect: false });
+      // selecting with single select closes the list
+      await selectUtil.openList();
+      await button.focus();
+      await takeStateScreenshots(page, option, 'singleselect-selected-option', true);
+    }
+  });
+  test('Tag buttons', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+      const selectUtil = createSelectHelpers(page, selectId);
+      await selectUtil.openList();
+      await selectUtil.selectGroupByIndex({ index: 0 });
+      await selectUtil.closeList();
+      const showAllButton = selectUtil.getElementByName('showAllButton');
+      await takeStateScreenshots(page, showAllButton, 'taglist-showAllButton', true);
+      const clearAllButton = selectUtil.getElementByName('clearAllButton');
+      await takeStateScreenshots(page, clearAllButton, 'taglist-clearAllButton', true);
     }
   });
 });

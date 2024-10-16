@@ -86,7 +86,6 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     const button = getElementByName('button');
     await button.click({ timeout: 2000 });
     await waitForElementToBeVisible(listElement);
-
     await waitForMinInterActionTimeToPass();
     return Promise.resolve(listElement);
   };
@@ -99,8 +98,6 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     const button = getElementByName('button');
     await button.click({ timeout: 2000 });
     await waitForElementToBeHidden(listElement);
-    // if lists are opened/closed too quickly (<MIN_USER_INTERACTION_TIME_IN_MS)
-    // next action will not close it, so lets wait
     await waitForMinInterActionTimeToPass();
     return Promise.resolve(listElement);
   };
@@ -147,6 +144,16 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return listElement.locator('div[role="group"]').all();
   };
 
+  const getGroupLabels = async () => {
+    return getOptionElements({
+      includeOptions: false,
+      includeSingleSelectGroupLabels: true,
+      includeMultiSelectGroupLabels: true,
+      all: false,
+    });
+  };
+
+  // this only works with multiselect where options are inside a [role="group"]
   const getItemsInGroup = async (index: number) => {
     const groups = await getGroups();
     const group = groups[index];
@@ -162,8 +169,8 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   };
 
   const getGroupLabel = async (index: number) => {
-    const items = await getItemsInGroup(index);
-    return items.shift() as Locator;
+    const items = await getGroupLabels();
+    return items[index] as Locator;
   };
 
   const countOptionsInGroup = async (index: number) => {
@@ -415,6 +422,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     countOptionsInGroup,
     getBoundingBox,
     getGroupLabel,
+    getGroupLabels,
     getGroups,
     getElementByName,
     getInput,
