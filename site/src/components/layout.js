@@ -22,7 +22,12 @@ import './layout.scss';
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
 const hrefWithVersion = (href, version) => {
-  return withPrefix(`${version ? `/${version}` : ''}${href}`);
+  return version
+    && !href.startsWith(`/${version}`)
+    && !href.startsWith('mailto:')
+    && !href.startsWith('http')
+    ? withPrefix(`/${version}${href}`)
+    : withPrefix(`${href}`);
 };
 const hrefWithoutVersion = (href, version) => {
   return href.replace(`/${version}`, '');
@@ -31,10 +36,10 @@ const hrefWithoutVersion = (href, version) => {
 const components = (version) => ({
   IconCheckCircleFill,
   IconCrossCircle,
-  InternalLink: (props) => <InternalLink {...props} href={hrefWithVersion(props.href, version)} />,
-  ExternalLink,
-  AnchorLink,
   Link: (props) => <Link {...props} href={hrefWithVersion(props.href, version)} />,
+  InternalLink: (props) => <InternalLink {...props} href={hrefWithVersion(props.href, version)} />,
+  AnchorLink: (props) => <AnchorLink {...props} href={hrefWithVersion(props.href, version)} />,
+  ExternalLink,
   Playground: PlaygroundBlock,
   PlaygroundPreview,
   pre: SyntaxHighlighter,
@@ -119,6 +124,24 @@ const isMatchingParentLink = (link, slug) => {
 const Layout = ({ location, children, pageContext }) => {
   const pathParts = location.pathname.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
+
+  // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
+  // this code will take care of those
+  React.useEffect(() => {
+    if (version) {
+      const links = document.querySelectorAll('#content a[href]');
+      for (const link of links) {
+        const href = link.getAttribute('href');
+        const hrefNew = hrefWithVersion(href, version);
+        if (href !== hrefNew) {
+          link.setAttribute('href', hrefNew);
+          /* eslint-disable-next-line no-self-assign */
+          link.outerHTML = link.outerHTML; // this removes the click handler
+        }
+      }
+    }
+  }, [version]);
+
 
   const queryData = useStaticQuery(graphql`
     query SiteDataQuery {
