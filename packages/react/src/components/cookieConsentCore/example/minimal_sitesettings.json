@@ -1,0 +1,85 @@
+{
+  "siteName": "Minimal siteSettings",
+  "requiredGroups": [
+    {
+      "groupId": "essential",
+      "title": "Essential cookies",
+      "description": "Essential cookies help to make the website usable by allowing basic functions, navigating the page and using the protected areas of the site. The website will not work properly without these cookies and their consent is not required.",
+      "cookies": [
+        {
+          "name": "helfi-cookie-consents",
+          "host": "www.hel.fi",
+          "description": "Used by hel.fi Drupal to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.",
+          "expiration": "100 days",
+          "type": 1
+        }
+      ]
+    }
+  ],
+  "optionalGroups": [],
+  "robotCookies": [],
+  "groupsWhitelistedForApi": [],
+  "translations": {
+    "bannerAriaLabel": {
+      "en": "Cookie settings"
+    },
+    "heading": {
+      "en": "${siteName} uses cookies"
+    },
+    "description": {
+      "en": "This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content."
+    },
+    "showDetails": {
+      "en": "Show details"
+    },
+    "hideDetails": {
+      "en": "Hide details"
+    },
+    "form_heading": {
+      "en": "About the cookies used on the website"
+    },
+    "form_text": {
+      "en": "The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies."
+    },
+    "showCookieSettings": {
+      "en": "Show cookie settings"
+    },
+    "hideCookieSettings": {
+      "en": "Hide cookie settings"
+    },
+    "tableHeadingsName": {
+      "en": "Name"
+    },
+    "tableHeadingsHostName": {
+      "en": "Cookie set by"
+    },
+    "tableHeadingsDescription": {
+      "en": "Purpose of use"
+    },
+    "tableHeadingsExpiration": {
+      "en": "Period of validity"
+    },
+    "tableHeadingsType": {
+      "en": "Type"
+    },
+    "approveAllConsents": {
+      "en": "Accept all cookies"
+    },
+    "approveRequiredAndSelectedConsents": {
+      "en": "Accept selected cookies"
+    },
+    "approveOnlyRequiredConsents": {
+      "en": "Accept required cookies only"
+    },
+    "settingsSaved": {
+      "en": "Settings saved!"
+    },
+    "type_1": {
+      "en": "Cookie"
+    },
+    "type_2": "localStorage",
+    "type_3": "sessionStorage",
+    "type_4": "IndexedDB",
+    "type_5": "Cache Storage"
+  }
+}

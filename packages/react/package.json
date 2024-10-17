@@ -14,6 +14,7 @@
   "scripts": {
     "build": "rimraf lib/ && yarn run lint && yarn run tcm  && rollup -c",
     "build:hds-js": "rimraf ../hds-js/lib/ && yarn lint:code && yarn run tcm && rollup -c --environment hdsJS",
+    "build:hds-js-standalone": "rimraf ../hds-js/lib/standalone && rollup -c --environment standalone",
     "update:hds-js": "rollup -c --environment hdsJSUpdate",
     "clean": "rimraf node_modules lib storybook-static ../hds-js/lib/",
     "start": "tcm src internal --watch & yarn storybook",
@@ -89,6 +90,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "fake-indexeddb": "^6.0.0",
     "identity-obj-proxy": "3.0.0",
     "inquirer": "7.1.0",
     "jest": "^26.0.1",

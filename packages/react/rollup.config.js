@@ -16,18 +16,20 @@ import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires , import/order
 const packageJSON = require('./package.json');
 
 const buildForHdsJs = !!process.env.hdsJS;
 const updateHdsJs = !!process.env.hdsJSUpdate;
+const buildStandAloneBundles = !!process.env.standalone;
 const reactEsmOutputFormat = 'react-esm';
 const reactCommonJsOutputFormat = 'react-cjs';
 const hdsJsEsmOutput = 'hds-js-esm';
 const hdsJsCommonJsOutput = 'hds-js-cjs';
+const hdsStandAloneOutput = 'hds-js-standalone';
 
 const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
-const isHdsJsOutputFormat = (format) => format === hdsJsEsmOutput || format === hdsJsCommonJsOutput;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const hdsJsPackageJSON = require('../hds-js/package.json');
 
 const insertCssEsm = () => {
@@ -177,13 +179,13 @@ const getConfig = (format, extractCSS) => ({
         outputFolder: '../hds-js/',
         baseContents: hdsJsPackageJSON,
       }),
-    checkModule(buildForHdsJs || updateHdsJs),
+    !buildStandAloneBundles && checkModule(buildForHdsJs || updateHdsJs),
   ],
-  external: getExternal(format),
+  external: !buildStandAloneBundles ? getExternal(format) : false,
 });
 
 const outputQueue = [];
-if (!buildForHdsJs && !updateHdsJs) {
+if (!buildForHdsJs && !updateHdsJs && !buildStandAloneBundles) {
   outputQueue.push({
     input: esmInput,
     output: [
@@ -214,6 +216,18 @@ if (!buildForHdsJs && !updateHdsJs) {
       },
     ],
     ...getConfig(reactCommonJsOutputFormat, false),
+  });
+} else if (buildStandAloneBundles) {
+  outputQueue.push({
+    input: { index: '../hds-js/standalone/cookieConsent.ts' },
+    output: [
+      {
+        dir: '../hds-js/lib/standalone/cookieConsent',
+        name: 'hds',
+        format: 'iife',
+      },
+    ],
+    ...getConfig(hdsStandAloneOutput, false),
   });
 } else {
   outputQueue.push({

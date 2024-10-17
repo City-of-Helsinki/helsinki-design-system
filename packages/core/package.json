@@ -9,9 +9,10 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn css-to-ts",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
+    "css-to-ts": "node cssToImportableString -directory 'lib/components/**/*.min.css' -targetFiles 'cookieConsent.min.css'",
     "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
     "storybook": "start-storybook -p 6007 --quiet",
@@ -33,6 +34,7 @@
     "@storybook/manager-webpack5": "^6.5.16",
     "copyfiles": "2.2.0",
     "cssnano": "4.1.10",
+    "glob": "^10.4.1",
     "hds-design-tokens": "3.9.0",
     "postcss": "8.2.15",
     "postcss-cli": "8.3.1",

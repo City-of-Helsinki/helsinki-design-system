@@ -1,0 +1,124 @@
+///
+/// Generates `@font-face` rules for different font weights and styles.
+///
+/// @param {boolean} $all - Whether to generate `@font-face` rules for all font weights and styles.
+/// @param {boolean} $font-style-italic - Whether to generate `@font-face` rules for italic font style.
+/// @param {boolean} $font-weight-400 - Whether to generate `@font-face` rules for font weight 400 (Normal or Regular).
+/// @param {boolean} $font-weight-500 - Whether to generate `@font-face` rules for font weight 500 (Medium).
+/// @param {boolean} $font-weight-700 - Whether to generate `@font-face` rules for font weight 700 (Bold).
+/// @param {boolean} $font-weight-900 - Whether to generate `@font-face` rules for font weight 900 (Black).
+///
+/// @example
+/// @use 'temp/font-face' as FontFace;
+///
+/// // Generate `@font-face` rules for all font weights and styles
+/// @include FontFace.font-face($all: true);
+///
+/// // Include only non-italic font-face styles with weights 400, 500 and 700
+/// @include FontFace.font-face(
+///   $all: false,
+///   $font-weight-400: true, // Normal or Regular
+///   $font-weight-500: true, // Medium
+///   $font-weight-700: true, // Bold
+/// );
+///
+@mixin font-face(
+    $all:true,
+
+    $font-style-italic: false, // Italic
+
+    $font-weight-400: false, // Normal or Regular
+    $font-weight-500: false, // Medium
+    $font-weight-700: false, // Bold
+    $font-weight-900: false, // Black
+  ){
+    $font-path: '../../../src/fonts/';
+
+    @if $all or ($font-weight-400) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: normal;
+        font-weight: 400;
+        src: url('#{$font-path}565d73a693abe0776c801607ac28f0bf.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-400 and $font-style-italic) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: italic;
+        font-weight: 400;
+        src: url('#{$font-path}5bb29e3b7b1d3ef30121229bbe67c3e1.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-500) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: normal;
+        font-weight: 500;
+        src: url('#{$font-path}7c46f288e8133b87e6b12b45dac71865.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-500 and $font-style-italic) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: italic;
+        font-weight: 500;
+        src: url('#{$font-path}e62dc97e83a385e4d8cdc939cf1e4213.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-700) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: normal;
+        font-weight: 700;
+        src: url('#{$font-path}533af26cf28d7660f24c2884d3c27eac.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-700 and $font-style-italic) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: italic;
+        font-weight: 700;
+        src: url('#{$font-path}20d494430c87e15e194932b729d48270.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-900) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: normal;
+        font-weight: 900;
+        src: url('#{$font-path}a50a1bd245ce63abcc0d1da80ff790d2.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+
+    @if $all or ($font-weight-900 and $font-style-italic) {
+      @font-face {
+        font-display: swap;
+        font-family: HelsinkiGrotesk;
+        font-style: italic;
+        font-weight: 900;
+        src: url('#{$font-path}62a1781d8b396fbb025b0552cf6304d2.woff') format('woff');
+        text-rendering: optimizelegibility;
+      }
+    }
+  }
