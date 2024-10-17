@@ -86,13 +86,13 @@ export function useFocusHandling(): ReturnObject {
         }
       } else if (type === eventTypes.blur) {
         if (open) {
-          const { selectionsAndListContainer } = refs;
+          const { selectionsAndListsContainer } = refs;
           const lastFocusedElement = getFocusedElementFromBlurEvent(e as FocusEvent<HTMLDivElement>);
-          const focusWasInSelectionsAndListContainer =
+          const focusWasInselectionsAndListsContainer =
             lastFocusedElement &&
-            !!selectionsAndListContainer.current &&
-            selectionsAndListContainer.current.contains(lastFocusedElement);
-          if (!lastFocusedElement || !focusWasInSelectionsAndListContainer) {
+            !!selectionsAndListsContainer.current &&
+            selectionsAndListsContainer.current.contains(lastFocusedElement);
+          if (!lastFocusedElement || !focusWasInselectionsAndListsContainer) {
             if (lastFocusedElement) {
               const focusedElementType = getElementType(lastFocusedElement);
               // when the list was open and a tag was focused and close event re-renders the component, the focus is lost from the tag.
