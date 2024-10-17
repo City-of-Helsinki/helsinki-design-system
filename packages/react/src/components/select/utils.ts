@@ -53,6 +53,12 @@ export function createInputOnChangeListener(props: DomHandlerProps) {
   };
 }
 
+export function getOptionIndex(options: OptionInProps[], option: OptionInProps): number {
+  return options.findIndex(
+    ({ value, isGroupLabel }) => value === option.value && !!isGroupLabel === !!option.isGroupLabel,
+  );
+}
+
 export function getOptionGroupIndex(groups: SelectData['groups'], option: OptionInProps): number {
   if (groups.length === 0) {
     return -1;
@@ -61,10 +67,7 @@ export function getOptionGroupIndex(groups: SelectData['groups'], option: Option
     return 0;
   }
   return groups.findIndex(({ options }) => {
-    return (
-      options.findIndex(({ value, isGroupLabel }) => value === option.value && isGroupLabel === option.isGroupLabel) >
-      -1
-    );
+    return getOptionIndex(options, option) > -1;
   });
 }
 
@@ -89,6 +92,47 @@ export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0):
   );
 }
 
+function mutateGroupLabelSelections(groups: SelectData['groups']) {
+  groups.forEach((group) => {
+    // eslint-disable-next-line no-param-reassign
+    group.options[0].selected = getSelectedOptionsPerc(group) === 1;
+  });
+
+  return groups;
+}
+
+// this function mutates given data so pass a copy of groups and their options array.
+// options are not mutated.
+function mutateGroupsWithOptions(
+  groups: SelectData['groups'],
+  partialOptionsToUpdate: Partial<Option>[],
+  isMultiSelect: boolean,
+) {
+  partialOptionsToUpdate.forEach((partial) => {
+    if (!partial.value) {
+      return;
+    }
+    const groupIndex = getOptionGroupIndex(groups, { ...partial, isGroupLabel: !!partial.isGroupLabel });
+    if (groupIndex < 0) {
+      return;
+    }
+    const group = groups[groupIndex];
+    const optionIndex = getOptionIndex(group.options, partial);
+    const option = optionIndex > -1 ? group.options[optionIndex] : undefined;
+    if (option) {
+      group.options[optionIndex] = {
+        ...option,
+        ...partial,
+      };
+    }
+  });
+
+  if (isMultiSelect) {
+    mutateGroupLabelSelections(groups);
+  }
+  return groups;
+}
+
 export function updateOptionInGroup(
   groups: SelectData['groups'],
   updatedOption: Option,
@@ -97,34 +141,19 @@ export function updateOptionInGroup(
   if (updatedOption.isGroupLabel) {
     throw new Error('Use updateGroupLabelAndOptions to update groupLabel and its related options');
   }
-  const groupIndex = getOptionGroupIndex(groups, updatedOption);
-  return groups.map((group, index) => {
-    const selectedOptionPerc =
-      index === groupIndex && isMultiSelect ? getSelectedOptionsPerc(group, updatedOption.selected ? 1 : -1) : 0;
-    return {
-      options: group.options.map((option) => {
-        if (option.isGroupLabel) {
-          if (index === groupIndex && isMultiSelect) {
-            return {
-              ...option,
-              selected: selectedOptionPerc === 1,
-            };
-          }
-          return { ...option };
-        }
-        if (index === groupIndex && option.value === updatedOption.value) {
-          return {
-            ...updatedOption,
-            selected: !!updatedOption.selected,
-          };
-        }
-        return {
-          ...option,
-          selected: !isMultiSelect ? false : option.selected,
-        };
-      }),
-    };
+
+  const copy = iterateAndCopyGroup(groups, (opt) => {
+    // unselect others if single select and option is selected
+    if (!isMultiSelect && !opt.isGroupLabel && updatedOption.selected) {
+      return {
+        ...opt,
+        selected: false,
+      };
+    }
+    return { ...opt };
   });
+
+  return mutateGroupsWithOptions(copy, [{ ...updatedOption, selected: !!updatedOption.selected }], isMultiSelect);
 }
 
 export function updateGroupLabelAndOptions(groups: SelectData['groups'], updatedOption: Option): SelectData['groups'] {
@@ -201,7 +230,7 @@ export function validateOption(option: OptionInProps | string): Option {
 }
 
 export function createGroupLabel(label: string) {
-  return { ...validateOption(label), isGroupLabel: true, visible: !!label, disabled: false };
+  return { ...validateOption(String(label)), isGroupLabel: true, visible: !!label, disabled: false };
 }
 
 export function propsToGroups(props: Pick<SelectProps, 'groups' | 'options'>): SelectData['groups'] | undefined {
@@ -447,4 +476,39 @@ export function getNewSelections(prev: Option[], current: Option[]): Option[] {
   }
   const prevValues = pickSelectedValues(prev);
   return current.filter((opt) => !prevValues.includes(opt.value));
+}
+
+// this function does not update groupLabel's selected with multiselect,
+// because isMultiSelect does not exist where this is used.
+// use mutateGroupLabelSelections to update group label selections too.
+export function updateSelectedOptionsInGroups(
+  groups: SelectProps['groups'],
+  selectedOptions?: Array<Option | OptionInProps | string> | string,
+) {
+  if (selectedOptions === undefined) {
+    return groups;
+  }
+  const selectedOptionsAsOptions = (typeof selectedOptions === 'string' ? [selectedOptions] : selectedOptions).map(
+    (opt) => {
+      const { value } = validateOption(opt);
+      return { value, selected: true };
+    },
+  );
+  // passing groups as groups does not matter
+  const copy = iterateAndCopyGroup(groups as Group[], (opt) => {
+    // unselect others if single select and option is selected
+    const validOption = typeof opt === 'string' ? validateOption(opt) : opt;
+
+    return {
+      ...validOption,
+      selected: false,
+    };
+  });
+  // keep labels if groups were GroupInProps
+  (groups as GroupInProps[]).forEach((group, index) => {
+    if (group.label) {
+      (copy[index] as GroupInProps).label = group.label;
+    }
+  });
+  return mutateGroupsWithOptions(copy, selectedOptionsAsOptions, false);
 }
