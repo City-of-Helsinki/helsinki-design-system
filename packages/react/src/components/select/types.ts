@@ -53,6 +53,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   noTags?: boolean;
   texts?: Partial<Texts> | TextProvider;
   multiSelect?: boolean;
+  value?: string | string[] | Option[] | OptionInProps[];
   visibleOptions?: number;
   virtualize?: boolean;
 };

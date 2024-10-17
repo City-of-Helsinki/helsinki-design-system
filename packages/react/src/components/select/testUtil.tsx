@@ -146,7 +146,7 @@ const options: Partial<Option>[] = [
     label: 'Option 3',
   },
 ];
-const groupsAndOptions: SelectProps['groups'] = [
+export const groupsAndOptions: SelectProps['groups'] = [
   {
     label: 'Group0',
     options: [
