@@ -1,0 +1,57 @@
+@mixin hds-icon(
+  $all: true,
+  $base: false,
+  // Sizes
+  $size-xs: false,
+  $size-s: false,
+  $size-m: false,
+  $size-l: false,
+  $size-xl: false
+) {
+  @if $all or $base {
+    .hds-icon {
+      --icon-size: 100%;
+
+      background-color: currentcolor;
+      display: inline-block;
+      height: var(--icon-size);
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: auto;
+      mask-size: auto;
+      width: var(--icon-size);
+    }
+  }
+
+  @if $all or $size-xs {
+    .hds-icon.hds-icon--size-xs {
+      --icon-size: var(--spacing-layout-2-xs);
+    }
+  }
+
+  @if $all or $size-s {
+    .hds-icon.hds-icon--size-s {
+      --icon-size: var(--spacing-layout-xs);
+    }
+  }
+
+  @if $all or $size-m {
+    .hds-icon.hds-icon--size-m {
+      --icon-size: var(--spacing-layout-s);
+    }
+  }
+
+  @if $all or $size-l {
+    .hds-icon.hds-icon--size-l {
+      --icon-size: var(--spacing-layout-m);
+    }
+  }
+
+  @if $all or $size-xl {
+    .hds-icon.hds-icon--size-xl {
+      --icon-size: var(--spacing-layout-l);
+    }
+  }
+}

@@ -1,0 +1,26 @@
+///
+/// @mixin visually-hidden
+///
+/// Mixin for visually hiding an element.
+///
+/// This mixin applies styles to visually hide an element while still allowing it to be accessible to screen readers.
+///
+/// Usage:
+/// ```
+/// @use 'temp/mixin-helpers' as helpers;
+/// .my-element {
+///   @include helpers.visually-hidden();
+/// }
+/// ```
+@mixin visually-hidden() {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
