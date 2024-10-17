@@ -743,6 +743,7 @@ export const WithStorageControls = () => {
     open: false,
     invalid: false,
     texts: getTexts(lang),
+    id: 'hds-select-component',
   });
 
   const changeLang = (newLang: SupportedLanguage) => {
@@ -958,6 +959,7 @@ export const WithMinMax = () => {
   const storage = useSelectStorage({
     groups: initialGroups,
     multiSelect: true,
+    id: 'hds-select-component',
     ...bundledTextAndChanges,
   });
 
