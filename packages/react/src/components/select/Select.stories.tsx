@@ -2,7 +2,6 @@ import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react'
 import { action } from '@storybook/addon-actions';
 
 import {
-  Group,
   SelectProps,
   Texts,
   Option,
@@ -12,10 +11,11 @@ import {
   SupportedLanguage,
   defaultTexts as defaultUITexts,
 } from './index';
-import { IconLocation } from '../../icons';
+import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
-import { clearAllSelectedOptions, defaultFilter, getNewSelections, iterateAndCopyGroup, propsToGroups } from './utils';
+import { defaultFilter, getNewSelections, iterateAndCopyGroup, updateSelectedOptionsInGroups } from './utils';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
+import { OptionInProps } from './types';
 
 export default {
   component: Select,
@@ -174,30 +174,90 @@ export const OptionsAsHtml = () => {
 };
 
 export const WithControls = () => {
-  const initialGroups = [
+  const [lang, setLang] = useState<SupportedLanguage>('fi');
+  const addLang = (value: string, language?: string) => {
+    const withoutLang = value.split('(')[0];
+    return `${withoutLang} (${language || lang})`;
+  };
+  const createOptionWithLanguage = (value: string) => {
+    const labelAndValue = addLang(value);
+    return { label: labelAndValue, value };
+  };
+
+  const [optionGroups, updateOptionGroups] = useState<SelectProps['groups']>([
     {
-      label: 'Healthy choices',
-      options: getOptionLabels(4),
+      label: addLang('Healthy choices'),
+      options: getOptionLabels(4).map(createOptionWithLanguage),
     },
     {
-      label: 'More healthy choices',
-      options: getOptionLabels(4, 5),
+      label: addLang('More healthy choices'),
+      options: getOptionLabels(4, 5).map(createOptionWithLanguage),
     },
-  ];
+  ]);
+
+  const onChange: SelectProps['onChange'] = (selectedOptions) => {
+    updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, selectedOptions));
+  };
 
   const [props, updateProps] = useState<SelectProps>({
-    groups: propsToGroups({ groups: initialGroups }),
-    onChange: genericOnChangeCallback,
+    onChange,
     disabled: false,
     multiSelect: true,
     open: false,
     invalid: false,
-    texts: { ...defaultTexts, label: 'Controlled select' },
     id: 'hds-select-component',
   });
 
+  const texts: Partial<Texts> = {
+    language: lang,
+    label: `Label (${lang})`,
+    placeholder: `Placeholder (${lang})`,
+    error: `Invalid selections! (${lang})`,
+  };
+
+  const icons: Record<SupportedLanguage, React.ReactNode> = {
+    en: <IconBell />,
+    fi: <IconCogwheels />,
+    sv: <IconMoneyBag />,
+  };
+
+  const changeLang = (newLang: SupportedLanguage) => {
+    setLang(newLang);
+    if (!optionGroups) {
+      return;
+    }
+    updateOptionGroups(
+      optionGroups.map((group) => {
+        return {
+          label: addLang(group.label, newLang),
+          options: group.options.map((opt: OptionInProps | string) => {
+            if (!opt) {
+              return '';
+            }
+            if (typeof opt === 'string') {
+              return addLang(opt, newLang);
+            }
+            return {
+              ...opt,
+              label: addLang(opt.label || '', newLang),
+            };
+          }),
+        };
+      }),
+    );
+  };
+  const setFinnish = () => {
+    changeLang('fi');
+  };
+  const setEnglish = () => {
+    changeLang('en');
+  };
+  const setSwedish = () => {
+    changeLang('sv');
+  };
+
   const resetSelections = () => {
-    updateProps({ ...props, groups: clearAllSelectedOptions(props.groups as Group[]), open: false });
+    updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, []));
   };
 
   const toggleDisable = () => {
@@ -222,13 +282,24 @@ export const WithControls = () => {
 
   return (
     <WrapperWithButtonStyles>
-      <Select {...props} />
+      <Select {...props} groups={optionGroups} texts={texts} icon={icons[lang]} />
       <div className="buttons">
         <Button onClick={resetSelections}>Reset selections</Button>
         <Button onClick={toggleDisable}>Disable/enable component</Button>
         <Button onClick={toggleMenu}>Open/Close list</Button>
         <Button onClick={toggleInvalid}>Set valid/invalid</Button>
         <Button onClick={toggleRequired}>Toggle required</Button>
+      </div>
+      <div className="buttons">
+        <Button onClick={setFinnish} disabled={lang === 'fi'}>
+          Finnish
+        </Button>
+        <Button onClick={setEnglish} disabled={lang === 'en'}>
+          English
+        </Button>
+        <Button onClick={setSwedish} disabled={lang === 'sv'}>
+          Swedish
+        </Button>
       </div>
     </WrapperWithButtonStyles>
   );
@@ -638,6 +709,12 @@ export const FocusListenerExample = () => {
 };
 
 export const WithStorageControls = () => {
+  const [lang, setLang] = useState<SupportedLanguage>('fi');
+  const addLang = (value: string, language?: string) => {
+    const withoutLang = value.split('(')[0];
+    return `${withoutLang} (${language || lang})`;
+  };
+
   const initialGroups = [
     {
       label: 'Healthy choices',
@@ -649,6 +726,14 @@ export const WithStorageControls = () => {
     },
   ];
 
+  const getTexts = (language: SupportedLanguage): Partial<Texts> => {
+    return {
+      language,
+      label: `Controlled select (${language})`,
+      placeholder: `Placeholder (${language})`,
+    };
+  };
+
   const storage = useSelectStorage({
     groups: initialGroups,
     onChange: genericOnChangeCallback,
@@ -657,8 +742,32 @@ export const WithStorageControls = () => {
     disabled: false,
     open: false,
     invalid: false,
-    texts: { ...defaultTexts, placeholder: 'Choose', label: 'Controlled select' },
+    texts: getTexts(lang),
   });
+
+  const changeLang = (newLang: SupportedLanguage) => {
+    setLang(newLang);
+    storage.updateAllOptions((option) => {
+      return {
+        ...option,
+        label: addLang(option.label, newLang),
+        selected: option.selected,
+      };
+    });
+    storage.updateTexts(getTexts(newLang));
+    /// render is not really needed here because setLang() will re-render anyway.
+    storage.render();
+  };
+
+  const setFinnish = () => {
+    changeLang('fi');
+  };
+  const setEnglish = () => {
+    changeLang('en');
+  };
+  const setSwedish = () => {
+    changeLang('sv');
+  };
 
   const resetSelections = () => {
     storage.updateAllOptions((option) => {
@@ -731,7 +840,7 @@ export const WithStorageControls = () => {
 
   return (
     <WrapperWithButtonStyles>
-      <Select {...storage.getProps()} />
+      <Select {...storage.getProps()} multiSelect filter={defaultFilter} />
       <div className="buttons">
         <Button onClick={resetSelections}>Reset selections</Button>
         <Button onClick={invertSelections}>Invert selections</Button>
@@ -746,40 +855,6 @@ export const WithStorageControls = () => {
         <Button onClick={showError}>Set error</Button>
         <Button onClick={clearError}>Clear error</Button>
       </div>
-    </WrapperWithButtonStyles>
-  );
-};
-
-export const ChangeLanguageSimple = () => {
-  const [lang, setLang] = useState<SupportedLanguage>('fi');
-  const addLang = (value: string, language?: string) => {
-    return `${value} (${language || lang})`;
-  };
-  const createOptionWithLanguage = (value: string) => {
-    const labelAndValue = addLang(value);
-    return { label: labelAndValue, value };
-  };
-  const options = getOptionLabels(10).map(createOptionWithLanguage);
-
-  const changeLang = (newLang: SupportedLanguage) => {
-    setLang(newLang);
-  };
-  const setFinnish = () => {
-    changeLang('fi');
-  };
-  const setEnglish = () => {
-    changeLang('en');
-  };
-
-  const texts: Partial<Texts> = {
-    language: lang,
-    label: `Label (${lang})`,
-    placeholder: `Placeholder (${lang})`,
-  };
-
-  return (
-    <WrapperWithButtonStyles>
-      <Select options={options} texts={texts} onChange={genericOnChangeCallback} multiSelect filter={defaultFilter} />
       <div className="buttons">
         <Button onClick={setFinnish} disabled={lang === 'fi'}>
           Finnish
@@ -787,66 +862,8 @@ export const ChangeLanguageSimple = () => {
         <Button onClick={setEnglish} disabled={lang === 'en'}>
           English
         </Button>
-      </div>
-      <p>
-        When selections are not stored to parent component&apos;s state, resetting options will reset also selections
-        the user have made.
-      </p>
-    </WrapperWithButtonStyles>
-  );
-};
-
-export const ChangeLanguageWithStorage = () => {
-  const [lang, setLang] = useState<SupportedLanguage>('fi');
-  const addLang = (value: string, language?: string) => {
-    const withoutLang = value.split('(')[0];
-    return `${withoutLang} (${language || lang})`;
-  };
-  const createOptionWithLanguage = (value: string) => {
-    const labelAndValue = addLang(value);
-    return { label: labelAndValue, value };
-  };
-  const getTexts = (language: SupportedLanguage): Partial<Texts> => {
-    return {
-      language,
-      label: `Label (${language})`,
-      placeholder: `Placeholder (${language})`,
-    };
-  };
-  const options = getOptionLabels(10).map(createOptionWithLanguage);
-
-  const storage = useSelectStorage({ options, onChange: genericOnChangeCallback, texts: getTexts(lang) });
-
-  const changeLang = (newLang: SupportedLanguage) => {
-    setLang(newLang);
-    storage.updateAllOptions((option) => {
-      return {
-        ...option,
-        label: addLang(option.label, newLang),
-        selected: option.selected,
-      };
-    });
-    storage.updateTexts(getTexts(newLang));
-
-    /// render is not really needed here because setLang() will re-render anyway.
-    storage.render();
-  };
-  const setFinnish = () => {
-    changeLang('fi');
-  };
-  const setEnglish = () => {
-    changeLang('en');
-  };
-
-  return (
-    <WrapperWithButtonStyles>
-      <Select {...storage.getProps()} multiSelect filter={defaultFilter} />
-      <div className="buttons">
-        <Button onClick={setFinnish} disabled={lang === 'fi'}>
-          Finnish
-        </Button>
-        <Button onClick={setEnglish} disabled={lang === 'en'}>
-          English
+        <Button onClick={setSwedish} disabled={lang === 'sv'}>
+          Swedish
         </Button>
       </div>
     </WrapperWithButtonStyles>
