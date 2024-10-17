@@ -512,3 +512,25 @@ export function updateSelectedOptionsInGroups(
   });
   return mutateGroupsWithOptions(copy, selectedOptionsAsOptions, false);
 }
+
+export function convertPropsToGroups({
+  groups,
+  options,
+  value,
+  children,
+}: Pick<SelectProps, 'groups' | 'options' | 'value' | 'children'>): Group[] {
+  const fromGroupsAndOptions = propsToGroups({ options, groups });
+  if (fromGroupsAndOptions) {
+    if (value) {
+      const selectedOptions = getSelectedOptions(fromGroupsAndOptions);
+      if (selectedOptions.length > 0) {
+        // eslint-disable-next-line no-console
+        console.warn('HDS Select component has both selected options and value set. Value is discarded');
+        return fromGroupsAndOptions;
+      }
+      return updateSelectedOptionsInGroups(fromGroupsAndOptions, value) as Group[];
+    }
+    return fromGroupsAndOptions;
+  }
+  return childrenToGroups(children) || [];
+}

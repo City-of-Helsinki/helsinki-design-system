@@ -985,3 +985,21 @@ export const VeryLongLabels = () => {
     />
   );
 };
+
+export const PreselectedValue = () => {
+  const options = getOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    return requireOneSelection(...args);
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={defaultTexts}
+      id="hds-select-component"
+      value={options[0]}
+    />
+  );
+};

@@ -5,7 +5,7 @@ import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
-import { propsToGroups, childrenToGroups, getSelectedOptions, getElementIds } from './utils';
+import { getSelectedOptions, getElementIds, convertPropsToGroups } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -43,11 +43,12 @@ export function Select({
   virtualize,
   filter,
   onSearch,
+  value,
   ...divElementProps
 }: SelectProps & AcceptedNativeDivProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
-      groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
+      groups: convertPropsToGroups({ options, groups, value, children }),
       open: !!open,
       required: !!required,
       invalid: !!invalid,
@@ -76,6 +77,7 @@ export function Select({
     onSearch,
     onFocus,
     onBlur,
+    value,
   ]);
 
   const metaData = useMemo((): SelectMetaData => {

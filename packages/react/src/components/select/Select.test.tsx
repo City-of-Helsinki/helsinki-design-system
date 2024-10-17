@@ -3,9 +3,16 @@ import React, { HTMLAttributes } from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { defaultId, defaultLabel, getSelectProps, renderWithHelpers, skipAxeRulesExpectedToFail } from './testUtil';
+import {
+  defaultId,
+  defaultLabel,
+  getSelectProps,
+  renderWithHelpers,
+  skipAxeRulesExpectedToFail,
+  groupsAndOptions as presetGroups,
+} from './testUtil';
 import { defaultFilter, getElementIds } from './utils';
-import { Texts, Option, SearchResult, SelectProps, AcceptedNativeDivProps } from './types';
+import { Texts, Option, SearchResult, SelectProps, AcceptedNativeDivProps, GroupInProps, OptionInProps } from './types';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 import { Select } from './Select';
@@ -795,6 +802,38 @@ describe('<Select />', () => {
           });
         });
       });
+    });
+  });
+  describe('Preset values are selected', () => {
+    const getPresetOption = (groupIndex: number, optionIndex: number) => {
+      return (presetGroups as GroupInProps[])[groupIndex].options[optionIndex] as OptionInProps;
+    };
+    it('value can be a string', async () => {
+      const { openList, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: false,
+        groups: true,
+        value: getPresetOption(0, 2).value,
+      });
+      await openList();
+      expect(getSelectionsInButton()).toEqual([getPresetOption(0, 2).label]);
+    });
+    it('value array of strings', async () => {
+      const { openList, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: true,
+        groups: true,
+        value: [getPresetOption(0, 1).value as string, getPresetOption(1, 1).value as string],
+      });
+      await openList();
+      expect(getSelectionsInButton()).toEqual([getPresetOption(0, 1).label, getPresetOption(1, 1).label]);
+    });
+    it('option objects', async () => {
+      const { openList, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: true,
+        groups: true,
+        value: [getPresetOption(1, 1), getPresetOption(2, 2)],
+      });
+      await openList();
+      expect(getSelectionsInButton()).toEqual([getPresetOption(1, 1).label, getPresetOption(2, 2).label]);
     });
   });
 });
