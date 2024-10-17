@@ -25,6 +25,7 @@ const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
 const storyWithMultiSelectAndGroupsWithoutInput = 'Multiselect With Groups';
 const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Filter';
 const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Search';
+const storyWithValidation = 'With Validation And Forced Selection';
 
 const selectId = 'hds-select-component';
 
@@ -503,6 +504,28 @@ test.describe(`Element state snapshots`, () => {
       await takeStateScreenshots(page, showAllButton, 'taglist-showAllButton', true);
       const clearAllButton = selectUtil.getElementByName('clearAllButton');
       await takeStateScreenshots(page, clearAllButton, 'taglist-clearAllButton', true);
+    }
+  });
+});
+test.describe(`Error and assistive text snapshots`, () => {
+  test('Assistive text is rendered', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithValidation);
+      const selectUtil = createSelectHelpers(page, selectId);
+      await selectUtil.selectOptionByIndex({ index: 2, multiSelect: false });
+      const screenShotName = createScreenshotFileName(testInfo, isMobile);
+      const clip = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
+    }
+  });
+  test('Error text is rendered', async ({ page, isMobile }, testInfo) => {
+    if (!isMobile) {
+      await gotoStorybookUrlByName(page, storyWithValidation);
+      const selectUtil = createSelectHelpers(page, selectId);
+      await selectUtil.selectOptionByIndex({ index: 5, multiSelect: false });
+      const screenShotName = createScreenshotFileName(testInfo, isMobile);
+      const clip = await selectUtil.getBoundingBox();
+      await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
     }
   });
 });
