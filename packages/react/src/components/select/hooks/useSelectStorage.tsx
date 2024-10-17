@@ -4,7 +4,7 @@ import useForceRender from '../../../hooks/useForceRender';
 import { Group, SelectProps, Texts, SupportedLanguage } from '../types';
 import { iterateAndCopyGroup, OptionIterator, propsToGroups } from '../utils';
 
-export type SelectStorageProps = SelectProps & {
+export type SelectStorageProps = Omit<SelectProps, 'value'> & {
   updateKey?: string;
   translations?: Record<SupportedLanguage, Texts>;
   language?: SupportedLanguage;
