@@ -20,8 +20,7 @@ const storybook = 'react';
 
 const storyWithPlainSingleSelect = 'Singleselect';
 const storyWithSingleSelectAndGroups = 'Singleselect With Groups';
-// const storyWithSingleSelectWithValidation = 'With Validation';
-// const storyWithPlainMultiSelect = 'Multiselect';
+const storyWithControls = 'With Controls';
 const storyWithMultiSelectAndGroupsWithoutInput = 'Multiselect With Groups';
 const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Filter';
 const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Search';
@@ -549,5 +548,37 @@ test.describe(`Error and assistive text snapshots`, () => {
     const screenShotName = createScreenshotFileName(testInfo, isMobile);
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
+  });
+});
+
+test.describe(`Changing language changes all related props`, () => {
+  test('Texts change also in selections', async ({ page, isMobile }, testInfo) => {
+    const buttonTexts = ['Finnish', 'English', 'Swedish'];
+    await gotoStorybookUrlByName(page, storyWithControls);
+    const selectUtil = createSelectHelpers(page, selectId);
+    await selectUtil.selectGroupByIndex({ index: 0 });
+    await selectUtil.closeList();
+
+    const screenShotName = createScreenshotFileName(testInfo, isMobile, 'Finnish texts');
+    const clip = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
+
+    const changeToEnglishButton = page.getByText('English');
+    await changeToEnglishButton.click();
+    expect(page.getByText('Label (en)')).toBeVisible();
+    await selectUtil.getElementByName('button').scrollIntoViewIfNeeded();
+
+    const screenShotNameEn = createScreenshotFileName(testInfo, isMobile, 'English texts');
+    const clipEn = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenShotNameEn, { clip: clipEn, fullPage: true });
+
+    const changeToSwedishhButton = page.getByText('Swedish');
+    await changeToSwedishhButton.click();
+    expect(page.getByText('Label (sv)')).toBeVisible();
+    await selectUtil.getElementByName('button').scrollIntoViewIfNeeded();
+
+    const screenShotNameSv = createScreenshotFileName(testInfo, isMobile, 'Swedish texts');
+    const clipSv = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenShotNameSv, { clip: clipSv, fullPage: true });
   });
 });
