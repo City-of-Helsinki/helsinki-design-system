@@ -562,11 +562,11 @@ export const FocusListenerExample = () => {
           }
 
           .focused {
-            background-color: #defcde;
+            background-color: var(--color-tram-medium-light);
           }
 
           .blurred {
-            background-color: #ececec;
+            background-color: var(--color-black-10);
           }
 
           .indicators {
