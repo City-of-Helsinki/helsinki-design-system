@@ -140,7 +140,7 @@ const Layout = ({ location, children, pageContext }) => {
         }
       }
     }
-  }, [version]);
+  }, [version, location]);
 
 
   const queryData = useStaticQuery(graphql`
