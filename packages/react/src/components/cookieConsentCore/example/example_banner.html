@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esimerkki keksibannerista</title>
+  <script>
+    /* Example listener for cookie consent change events */
+    window.addEventListener('cookie-consent-changed', function(event) {
+      console.log('Got cookie-consent-changed event with accepted groups:',event.detail.acceptedGroups);
+    });
+
+    const test = window.addEventListener('hds-cookie-consent-unapproved-cookie-found', function(event) {
+      console.log('Emulating sending to Sentry: Unapproved cookie: ',event.detail.keys, event.detail.consentedGroups);
+    });
+
+    window.addEventListener('hds-cookie-consent-unapproved-localStorage-found', function(event) {
+      console.log('Emulating sending to Sentry: Unapproved localStorage: ',event.detail.keys, event.detail.consentedGroups);
+    });
+
+    window.addEventListener('hds-cookie-consent-unapproved-sessionStorage-found', function(event) {
+      console.log('Emulating sending to Sentry: Unapproved sessionStorage: ',event.detail.keys, event.detail.consentedGroups);
+    });
+    </script>
+
+    <script>
+      (function() {
+        const conf = {
+          src: '../cookieConsentCore.min.js',
+          options: {
+            siteSettingsJsonUrl: '../example/helfi_sitesettings.json',
+            // siteSettingsObj,
+            language: 'fi', // Lang code defaults to 'en'
+            // theme: 'black', // Defaults to 'bus'
+            //targetSelector: 'body', // Defaults to 'body'
+            //spacerParentSelector: 'body', // Defaults to 'body'
+            //pageContentSelector: 'body', // Defaults to 'body'
+            //submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
+            settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
+          }
+        };
+        const script = document.createElement('script');
+        script.src = conf.src;
+        script.onerror = console.error;
+        script.onload = () => new window.hds.CookieConsentClass(conf.options);
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+  <main>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus numquam, iste aspernatur excepturi quaerat a ab explicabo aliquam totam, fuga reiciendis aliquid id nulla dicta soluta ullam voluptate! Dignissimos reiciendis deserunt voluptatibus cum aliquid magnam? Eum atque ducimus alias molestias, magni aspernatur numquam doloremque quis nihil aperiam ullam asperiores harum saepe similique ipsum earum neque quisquam! Neque doloribus, mollitia, ut at corporis quo iste deleniti molestias quisquam explicabo fuga amet exercitationem nulla. Deleniti est maiores explicabo minus? Odio amet id perferendis nulla alias vitae, voluptate dignissimos deleniti voluptas officia nam facere iste, maiores porro rem dolorem modi molestiae provident illo.</p>
+    <p>Ex consequatur perspiciatis pariatur, suscipit maiores officia vitae assumenda incidunt rem in, distinctio iure eos eius veniam temporibus expedita? Exercitationem qui animi sint adipisci voluptas autem facere similique dolore quisquam dolores blanditiis amet laboriosam incidunt, ducimus alias non. Laudantium blanditiis expedita quia eius autem eos quidem, odit, aliquid pariatur nostrum esse repudiandae dolor officia? Possimus sit odit molestias non sapiente ratione magnam obcaecati! A provident placeat vitae veritatis voluptatum modi suscipit vero at iusto natus ducimus, accusamus amet cum doloribus aperiam ipsum laudantium? Dolore quaerat qui laboriosam aut vitae a quia ratione dolor fuga et sapiente reprehenderit, necessitatibus eum blanditiis!</p>
+    <p>Dicta magni placeat dolorum fugiat illo soluta perferendis voluptates, sed iste. Quos molestias quisquam suscipit a tempora eum non quia numquam reprehenderit consequuntur sequi tenetur rerum impedit, nesciunt cum laborum nostrum earum dolor nam iusto. Nisi, officiis animi. Saepe laborum consequatur possimus, iste quas alias quasi perferendis sunt consectetur nesciunt laudantium facere? Nobis quas incidunt assumenda rerum odio. Facilis, minima. Voluptatem voluptates cum tempore, perferendis quisquam dolor dignissimos totam, itaque repellat iure quidem, vero laborum earum eos? Quas, alias incidunt placeat optio architecto aliquam laboriosam doloremque repellendus molestias obcaecati, earum nulla cum enim odit amet, fugiat et dolorem. Repellendus, id.</p>
+    <p>Laborum animi illo similique veniam nostrum incidunt repudiandae ea eius labore. Cupiditate voluptas facilis, aliquid nulla perspiciatis temporibus accusamus incidunt iusto, a quod sequi mollitia molestias doloribus rem sapiente! Est, eum aliquam facilis quaerat provident laboriosam quasi vitae nam quod culpa optio nisi dolorum velit dolor molestias debitis. Beatae dolorem tempore, harum perspiciatis mollitia culpa sunt modi! Eveniet, id. Libero quia, ab repellendus iste necessitatibus earum corporis tempora accusamus sed id. Laboriosam soluta iure provident tempore minus sit quam assumenda distinctio omnis, fugit ratione quis inventore exercitationem quidem accusantium earum eum deleniti numquam corporis vel veritatis neque. Cupiditate, architecto vero?</p>
+    <p>Dolorum cumque, nisi id eveniet minima suscipit odit libero. Laboriosam animi at est nobis similique sapiente repellat nihil dolore explicabo dolorum, accusamus maxime officia officiis illum quidem quasi facilis fugit. Sit voluptas odit ducimus eligendi aut doloremque deserunt explicabo quisquam facere soluta sequi perspiciatis, cupiditate nemo assumenda ipsam natus culpa esse perferendis consequuntur sint, vitae laboriosam at inventore nobis. Voluptatem autem cum tempore culpa nam temporibus similique doloremque, accusamus enim dolorem magnam error consequatur harum deserunt sapiente voluptas rem et dicta repudiandae nisi odit porro. Consectetur quibusdam error magnam aspernatur quia ducimus? Excepturi tenetur in qui neque similique odit debitis?</p>
+    <p>Enim ab mollitia quo delectus eaque, blanditiis sunt doloribus optio temporibus aut quisquam error debitis qui eius atque corrupti quos nihil omnis dolorum aspernatur expedita ea unde. Laudantium aut, praesentium dolorum similique in aliquam nihil mollitia sed. Veritatis ipsum animi distinctio porro error architecto fugiat odio, unde voluptatibus quam minima quibusdam sequi veniam quo aliquid. Quo molestias porro debitis, facere enim quisquam odit sed et quibusdam, dicta dignissimos! Tenetur illo placeat possimus culpa delectus odit cupiditate porro optio! Omnis repudiandae reprehenderit inventore ullam nesciunt, in quae unde, facilis aperiam ipsa a minima consectetur laborum atque similique accusamus iusto eum repellat.</p>
+    <p>Nostrum corrupti ratione placeat saepe obcaecati minima non quia vel quisquam, eligendi commodi nobis, ullam, omnis neque eaque pariatur quam rerum! Aspernatur laboriosam rem nisi voluptatum? Soluta similique nobis, optio omnis voluptatibus enim autem culpa illum ratione harum corporis dignissimos nulla odio natus iure a laboriosam quam excepturi! Libero pariatur voluptate, voluptates voluptatibus ratione ut minima fugit odio dolorem, soluta neque beatae. Minima nisi sit deleniti deserunt earum harum, distinctio corrupti vero voluptate tempora! Qui in ex ad voluptates, repellendus dignissimos ullam mollitia, quisquam temporibus dolore reiciendis voluptate iusto obcaecati perspiciatis placeat facilis sint perferendis cupiditate quam deserunt accusamus tempora?</p>
+    <p>Minima hic est molestias dignissimos corporis, tenetur esse iste minus dolorum ut totam neque facere quo alias architecto sunt ratione, reprehenderit porro quia deserunt tempore obcaecati accusantium? Nemo debitis hic atque beatae enim reprehenderit, asperiores sapiente ullam harum, ipsum accusamus optio dignissimos unde quam quaerat repellat quisquam nihil corporis voluptatem adipisci? Molestiae, culpa quaerat provident debitis asperiores magni soluta nihil voluptatibus, omnis, dolorum distinctio? Sequi eligendi quia exercitationem rerum omnis nihil pariatur quibusdam distinctio dolorum corrupti quis esse voluptatibus deserunt qui reiciendis, fuga, magni error sed dolor libero eum maiores ipsam! Corrupti ipsum quidem ab. Officia itaque doloribus obcaecati eaque.</p>
+    <p>Corporis corrupti praesentium quia. Atque nostrum itaque tenetur. Molestiae adipisci dolorum dolore sint neque veniam similique eius laborum debitis cupiditate illo atque nihil id dolorem est velit esse deleniti cum, labore repudiandae modi nesciunt temporibus itaque! In voluptates eligendi qui fuga corporis maxime dolore quam alias accusamus laborum odit, quae dicta accusantium adipisci natus molestiae optio. Totam omnis consequuntur, quo expedita at recusandae quas repellendus tempore ipsum ut praesentium ea accusamus. Iste, dignissimos ea dolorem laborum, voluptate beatae quas accusantium perspiciatis est quam obcaecati quia, possimus consequuntur! Distinctio fugiat minus placeat odit, at ex enim? Enim deserunt temporibus consequuntur atque.</p>
+    <p>Fuga consequuntur eligendi perferendis, quaerat modi incidunt natus debitis nulla, voluptatibus obcaecati ratione odio tenetur facere atque voluptate sunt consequatur tempore maiores enim velit sed? Delectus quasi nihil dolorum, tempora tempore a quo beatae itaque voluptatibus nam, soluta magnam natus, veniam praesentium pariatur deserunt consectetur nesciunt voluptates in molestias similique saepe! Alias iste beatae officia error ea minima id ullam reprehenderit, fuga quia, quae numquam vel. Nulla nihil expedita harum earum sint dignissimos rem ipsum soluta libero nobis? Dignissimos, impedit, quis itaque fugit expedita quae, quod repudiandae officiis id aperiam dolorum! Quae pariatur sit velit sint magni ut earum ipsa?</p>
+  </main>
+</body>
+</html>

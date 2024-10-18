@@ -131,7 +131,12 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['<rootDir>/.jest/register-context.js', '<rootDir>/.jest/resize-observer-mock.js'],
+  setupFiles: [
+    '<rootDir>/.jest/register-context.js',
+    '<rootDir>/.jest/resize-observer-mock.js',
+    'fake-indexeddb/auto',
+    '<rootDir>/.jest/caches-mock.js',
+  ],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.js'],
