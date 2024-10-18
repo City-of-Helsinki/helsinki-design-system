@@ -20,7 +20,7 @@ const createSelectedTagProps = (
   { getMetaData }: SelectDataHandlers,
 ): TagProps & Pick<DivElementProps, 'aria-label'> => {
   const componentOrOptionDisabled = disabled || option.disabled;
-  const ariaLabel = getTextKey('tagRemoveSelectionAriaLabel', getMetaData(), { optionLabel: option.label }) as string;
+  const ariaLabel = getTextKey('tagRemoveSelectionAriaLabel', getMetaData(), { label: option.label }) as string;
   return {
     'aria-label': ariaLabel,
     className: classNames(styles.tag, componentOrOptionDisabled && styles.disabledTag),
