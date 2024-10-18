@@ -18,6 +18,7 @@ import InternalLink from './InternalLink';
 import ExternalLink from './ExternalLink';
 import AnchorLink from './AnchorLink';
 import './layout.scss';
+import versions from '../data/versions.json';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
@@ -124,6 +125,8 @@ const isMatchingParentLink = (link, slug) => {
 const Layout = ({ location, children, pageContext }) => {
   const pathParts = location.pathname.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
+  const locationWithoutVersion = hrefWithoutVersion(location.pathname, version);
+  const versionLabel = version ? `Version ${version.replace('release-', '')}` : `Version ${versions[0]}`;
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
@@ -248,16 +251,15 @@ const Layout = ({ location, children, pageContext }) => {
             logoAriaLabel="City of Helsinki Logo"
             logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
           >
-            <Header.ActionBarItem label={version} fixedRightPosition>
-              <Header.ActionBarSubItem label="latest" href={hrefWithoutVersion(location.pathname, version)} />
-              <Header.ActionBarSubItem
-                label="release-3.9.0"
-                href={hrefWithVersion(hrefWithoutVersion(location.pathname, version), 'release-3.9.0')}
-              />
-              <Header.ActionBarSubItem
-                label="release-3.0.0"
-                href={hrefWithVersion(hrefWithoutVersion(location.pathname, version), 'release-3.0.0')}
-              />
+            <Header.ActionBarItem label={versionLabel} fixedRightPosition>
+              {versions.map((versionNumber, index) => (
+                <Header.ActionBarSubItem
+                  label={`Version ${versionNumber}`}
+                  href={index > 0
+                    ? hrefWithVersion(locationWithoutVersion, `release-${versionNumber}`)
+                    : locationWithoutVersion}
+                />
+              ))}
             </Header.ActionBarItem>
           </Header.ActionBar>
           <Header.NavigationMenu>
