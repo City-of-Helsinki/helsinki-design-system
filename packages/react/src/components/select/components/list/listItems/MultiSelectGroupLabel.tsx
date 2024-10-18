@@ -26,7 +26,7 @@ const createMultiSelectGroupLabelProps = (
 ): MultiSelectOptionProps => {
   const { label, disabled } = option;
   const ariaLabel = getTextKey('multiSelectGroupAriaLabel', dataHandlers.getMetaData(), {
-    optionLabel: label,
+    label,
   }) as string;
   return {
     className: classNames(

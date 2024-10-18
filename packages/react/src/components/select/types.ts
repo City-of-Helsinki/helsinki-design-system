@@ -32,30 +32,26 @@ export type AcceptedNativeDivProps = Omit<
 >;
 
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
-  options?: (OptionInProps | string)[];
-  open?: boolean;
-  groups?: Array<GroupInProps> | SelectData['groups'];
-  onChange: (
-    selectedOptions: Option[],
-    clickedOption: Option,
-    data: SelectData,
-  ) => Partial<SelectProps> | void | undefined;
-  onSearch?: SearchFunction;
-  filter?: FilterFunction;
-  onFocus?: () => void;
-  onBlur?: () => void;
   children?: P | P[];
-  required?: boolean;
-  invalid?: boolean;
-  id?: string;
-  icon?: ReactNode;
   disabled?: boolean;
-  noTags?: boolean;
-  texts?: Partial<Texts> | TextProvider;
+  filter?: FilterFunction;
+  groups?: Array<GroupInProps> | SelectData['groups'];
+  icon?: ReactNode;
+  id?: string;
+  invalid?: boolean;
   multiSelect?: boolean;
+  noTags?: boolean;
+  onBlur?: () => void;
+  onChange: (selectedOptions: Option[], clickedOption: Option, data: SelectData) => Partial<SelectProps> | void;
+  onFocus?: () => void;
+  onSearch?: SearchFunction;
+  open?: boolean;
+  options?: (OptionInProps | string)[];
+  required?: boolean;
+  texts?: Partial<Texts> | TextProvider;
   value?: string | string[] | Option[] | OptionInProps[];
-  visibleOptions?: number;
   virtualize?: boolean;
+  visibleOptions?: number;
 };
 
 export type SelectData = Required<
@@ -168,7 +164,7 @@ export type TextKey =
   | 'searchResults'
   | 'ariaLabelForListWhenRoleIsDialog';
 
-export type TextInterpolationKeys = 'selectionCount' | 'optionLabel' | 'value' | 'numberIndicator' | 'label';
+export type TextInterpolationKeys = 'selectionCount' | 'value' | 'numberIndicator' | 'label';
 
 export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;
