@@ -55,11 +55,7 @@ export function SearchAndFilterInfo() {
 
   const loadingText = isSearching ? getTextKey('searchingForOptions', metaData) : '';
 
-  if (
-    !open ||
-    !listInputType ||
-    (!showNoResultsTexts && !loadingText && !shouldRenderScreenReaderNotificationsRef.current)
-  ) {
+  if (!open || !listInputType || (!showNoResultsTexts && !loadingText)) {
     return null;
   }
 

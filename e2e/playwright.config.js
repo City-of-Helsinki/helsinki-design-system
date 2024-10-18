@@ -15,20 +15,21 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['junit', { outputFile: 'report/e2e-junit-results.xml' }],
-    ['html', { open: 'never', outputFolder: 'report/html' }]
+    ['html', { open: 'never', outputFolder: 'report/html' }],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     actionTimeout: 30 * 1000,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.E2E_TESTS_ENV_URL ?? "https://hds.hel.fi",
+    baseURL: process.env.E2E_TESTS_ENV_URL ?? 'https://hds.hel.fi',
     ignoreHTTPSErrors: true,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     // https://playwright.dev/docs/videos
-    contextOptions: {recordVideo: { dir: "./report/videos/"}}
+    // contextOptions: { recordVideo: { dir: './report/videos/' } },
+    screenshot: 'only-on-failure',
+    video: 'off',
   },
-
   projects: [
     {
       name: 'Desktop',

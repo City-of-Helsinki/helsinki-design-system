@@ -37,6 +37,8 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   ) => Partial<SelectProps> | void | undefined;
   onSearch?: SearchFunction;
   filter?: FilterFunction;
+  onFocus?: () => void;
+  onBlur?: () => void;
   children?: P | P[];
   required?: boolean;
   invalid?: boolean;
@@ -67,17 +69,21 @@ export type SelectData = Required<
   groups: Array<Group>;
   filterFunction?: FilterFunction;
   onSearch?: SearchFunction;
+  onFocus?: SelectProps['onFocus'];
+  onBlur?: SelectProps['onBlur'];
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   refs: {
+    button: RefObject<HTMLButtonElement>;
     listContainer: RefObject<HTMLDivElement>;
     list: RefObject<HTMLUListElement>;
     selectContainer: RefObject<HTMLDivElement>;
-    selectionButton: RefObject<HTMLButtonElement>;
     tagList: RefObject<HTMLDivElement>;
     showAllButton: RefObject<HTMLButtonElement>;
     searchOrFilterInput: RefObject<HTMLInputElement>;
+    selectionsAndListContainer: RefObject<HTMLDivElement>;
+    container: RefObject<HTMLDivElement>;
   };
   filter: string;
   search: string;
@@ -88,6 +94,8 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   lastToggleCommand: number;
   selectedOptions: Option[];
   cancelCurrentSearch: (() => void) | undefined;
+  focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
+  activeDescendant: string | undefined;
   listInputType?: Extract<EventId, 'filter' | 'search'>;
   textContent?: TextInterpolationContent;
   elementIds: {
