@@ -1,6 +1,17 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
+const latestVersion = process.env.npm_package_version;
+const versionsFromGit = require('./src/data/versions.json').filter(v => v !== latestVersion);
+const gitSources = versionsFromGit.map(version => ({
+  resolve: 'gatsby-source-git',
+  options: {
+    name: `docs-release-${version}`,
+    remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
+    branch: `release-${version}`,
+    patterns: 'site/src/docs/**',
+  },
+}));
 
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
@@ -147,16 +158,10 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `docs`,
-        path: `${__dirname}/src/docs/`,
-      },
-    },
-    // This config is needed when pages are somewhere else than in the pages folder.
-    {
-      resolve: 'gatsby-plugin-page-creator',
-      options: {
         path: `${__dirname}/src/docs`,
       },
     },
+    ...gitSources,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
