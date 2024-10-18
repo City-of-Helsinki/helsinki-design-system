@@ -53,11 +53,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Header.Universalbar] ariaLabel prop changed to "aria-label"
 - [SideNavigation] ariaLabel prop changed to "aria-label"
 - [SkipLink] ariaLabel prop changed to "aria-label"
+- [Dropdown/Combobox] replaced with Select
+- [Dropdown/Select] replaced with Select
 
 #### Added
 
 - [Hero] New information element below the hero for photographer credits
 - [StatusLabel] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Select] New Select component replaces the old one
 
 #### Changed
 
@@ -216,6 +219,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
 ## [3.10.1] - Oct, 09, 2024
 
 ### React
