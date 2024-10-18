@@ -1,6 +1,6 @@
 import to from 'await-to-js';
-import HttpStatusCode from 'http-status-typed';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import retryPollingUntilSuccessful, { RetryingPollerProps } from './httpPollerWithPromises';
 import { HttpPollerProps } from './httpPoller';
 import { getMockCalls } from '../../../utils/testHelpers';

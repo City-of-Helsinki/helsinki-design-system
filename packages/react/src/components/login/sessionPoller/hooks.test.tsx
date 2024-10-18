@@ -1,7 +1,7 @@
-import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import React, { useRef } from 'react';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import { UserCreationProps } from '../testUtils/userTestUtil';
 import { ConnectedModule } from '../beacon/beacon';
 import { EventPayload, isErrorSignal } from '../beacon/signals';
