@@ -3,6 +3,7 @@ slug: '/components/select/customisation'
 title: 'Select - Customisation'
 ---
 
+import { Select } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -11,4 +12,118 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Customisation properties
 
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                                      | Description                                                               |
+| --------------------------------------------------- | ------------------------------------------------------------------------- |
+| `--assistive-color`                                 | Text color of the assistive text.                                         |
+| `--checkbox-background-default`                     | Background color of a checkbox in default, unselected state.              |
+| `--checkbox-background-selected`                    | Background color of a checkbox in selected state.                         |
+| `--checkbox-background-hover`                       | Background color of a checkbox when hovered.                              |
+| `--checkbox-background-disabled`                    | Background color of a checkbox when disabled.                             |
+| `--checkbox-border-color-selected`                  | Border color of a checkbox in selected state.                             |
+| `--checkbox-border-color-selected-hover`            | Border color of a checkbox in selected state when hovered.                |
+| `--checkbox-border-color-selected-focus`            | Border color of a checkbox in selected state when focused.                |
+| `--checkbox-border-color-unselected`                | Border color of a checkbox in default, unselected state.                  |
+| `--checkbox-border-color-unselected-hover`          | Border color of a checkbox in unselected state when hovered.              |
+| `--checkbox-border-color-unselected-focus`          | Border color of a checkbox in unselected state when focused.              |
+| `--checkbox-border-color-disabled`                  | Border color of a checkbox when disabled.                                 |
+| `--checkbox-icon-color-unselected`                  | Icon color of a checkbox in unselected state.                             |
+| `--checkbox-icon-color-selected`                    | Icon color of a checkbox in selected state.                               |
+| `--checkbox-icon-color-disabled`                    | Icon color of a checkbox when disabled.                                   |
+| `--clear-all-background-color`                      | Background color of the clear all button.                                 |
+| `--clear-all-background-color-focus`                | Background color of the clear all button when focused.                    |
+| `--clear-all-background-color-hover`                | Background color of the clear all button when hovered.                    |
+| `--clear-all-background-color-active`               | Background color of the clear all button when active.                     |
+| `--clear-all-background-color-disabled`             | Background color of the clear all button when disabled.                   |
+| `--clear-all-border-color`                          | Border color of the clear all button.                                     |
+| `--clear-all-border-color-focus`                    | Border color of the clear all button when focused.                        |
+| `--clear-all-border-color-hover`                    | Border color of the clear all button when hovered.                        |
+| `--clear-all-border-color-active`                   | Border color of the clear all button when active.                         |
+| `--clear-all-border-color-disabled`                 | Border color of the clear all button when disabled.                       |
+| `--clear-all-color`                                 | Text color of the clear all button.                                       |
+| `--clear-all-color-hover`                           | Text color of the clear all button when hovered.                          |
+| `--clear-all-color-focus`                           | Text color of the clear all button when focused.                          |
+| `--clear-all-color-active`                          | Text color of the clear all button.                                       |
+| `--clear-all-color-disabled`                        | Text color of the clear all button when disabled.                         |
+| `--clear-all-outline-color-focus`                   | Outline color of the clear all button when focused.                       |
+| `--error-text-color`                                | Text color of the error text.                                             |
+| `--error-icon-color`                                | Icon color of the error text.                                             |
+| `--error-background-color`                          | Background color of error text.                                           |
+| `--error-border-color`                              | Border color of error text on the left side.                              |
+| `--focus-outline-color`                             | Outline color of the component when focused.                              |
+| `--icon-color`                                      | Icon color of the optional icon in the dropdown.                          |
+| `--dropdown-background-default`                     | Background color of the dropdown.                                         |
+| `--dropdown-background-disabled`                    | Background color of the dropdown when disabled.                           |
+| `--dropdown-border-color-default`                   | Border color of the dropdown.                                             |
+| `--dropdown-border-color-hover`                     | Border color of the dropdown when hovered.                                |
+| `--dropdown-border-color-hover-invalid`             | Border color of the dropdown in invalid state when hovered.               |
+| `--dropdown-border-color-focus`                     | Border color of the dropdown when focused.                                |
+| `--dropdown-border-color-invalid`                   | Border color of the dropdown in invalid state.                            |
+| `--dropdown-color-default`                          | Text color of the dropdown.                                               |
+| `--dropdown-color-disabled`                         | Text color of the dropdown when disabled.                                 |
+| `--dropdown-icon-color`                             | Icon color of the dropdown clear button and arrow.                        |
+| `--menu-divider-color`                              | Line color of the divider.                                                |
+| `--menu-item-background-color-default`              | Background color of a menu item.                                          |
+| `--menu-item-background-color-hover`                | Background color of a menu item when hovered.                             |
+| `--menu-item-background-color-selected`             | Background color of a menu item in selected state.                        |
+| `--menu-item-background-color-selected-hover`       | Background color of a menu item when hovered.                             |
+| `--menu-item-background-color-disabled`             | Background color of a menu item when disabled                             |
+| `--menu-item-background-color-disabled-hover`       | Background color of a menu item when disabled and hovered.                |
+| `--menu-item-color-default`                         | Text color of a menu item.                                                |
+| `--menu-item-color-hover`                           | Text color of a menu item when hovered.                                   |
+| `--menu-item-color-selected`                        | Text color of a menu item in selected state.                              |
+| `--menu-item-color-selected-hover`                  | Text color of a menu item when hovered.                                   |
+| `--menu-item-color-disabled`                        | Text color of a menu item when disabled.                                  |
+| `--menu-item-icon-color-selected`                   | Icon color of a menu item of a selected single select item.               |
+| `--menu-item-icon-color-disabled`                   | Icon color of a menu item of a selected single select item when disabled. |
+| `--menu-item-border-color-focus`                    | Border color of a menu item when focused.                                 |
+| `--menu-item-group-label-background-default`        | Background color of a group label menu item.                              |
+| `--menu-item-group-label-background-disabled`       | Background color of a group label menu item when disabled.                |
+| `--menu-item-group-label-background-disabled-hover` | Background color of a group label menu item when disabled and hovered.    |
+| `--menu-item-group-label-color-disabled`            | Text color of a group label menu item when disabled.                      |
+| `--placeholder-color`                               | Text color of the placeholder text in the dropdown.                       |
+| `--show-all-background-color`                       | Background color of the show all button.                                  |
+| `--show-all-background-color-focus`                 | Background color of the show all button when focused.                     |
+| `--show-all-background-color-hover`                 | Background color of the show all button when hovered.                     |
+| `--show-all-background-color-active`                | Background color of the show all button when active.                      |
+| `--show-all-background-color-disabled`              | Background color of the show all button when disabled                     |
+| `--show-all-border-color`                           | Border color of the show all button.                                      |
+| `--show-all-border-color-focus`                     | Border color of the show all button when focused.                         |
+| `--show-all-border-color-hover`                     | Border color of the show all button when hovered.                         |
+| `--show-all-border-color-active`                    | Border color of the show all button when active.                          |
+| `--show-all-border-color-disabled`                  | Border color of the show all button when disabled                         |
+| `--show-all-color`                                  | Text color of the show all button.                                        |
+| `--show-all-color-hover`                            | Text color of the show all button when hovered.                           |
+| `--show-all-color-focus`                            | Text color of the show all button when focused.                           |
+| `--show-all-color-active`                           | Text color of the show all button when active.                            |
+| `--show-all-color-disabled`                         | Text color of the show all button when disabled.                          |
+| `--show-all-outline-color-focus`                    | Outline color of the show all button when focused.                        |
+| `--tag-background-color`                            | Background color of a tag.                                                |
+| `--tag-background-color-focus`                      | Background color of a tag when focused.                                   |
+| `--tag-background-color-hover`                      | Background color of a tag when hovered.                                   |
+| `--tag-background-color-active`                     | Background color of a tag when active.                                    |
+| `--tag-border-color`                                | Border color of a tag.                                                    |
+| `--tag-border-color-focus`                          | Border color of a tag when focused.                                       |
+| `--tag-border-color-hover`                          | Border color of a tag when hovered.                                       |
+| `--tag-border-color-active`                         | Border color of a tag when active.                                        |
+| `--tag-color`                                       | Text color of the a tag.                                                  |
+| `--tag-color-focus`                                 | Text color of the a tag when focused.                                     |
+| `--tag-color-hover`                                 | Text color of the when hovered.                                           |
+| `--tag-color-active`                                | Text color of the a tag when active.                                      |
+| `--tag-outline-color`                               | Outline color of the a tag when focused.                                  |
+| `--text-icon-color`                                 | Icon color of the filter or search input.                                 |
+| `--text-input-background-default`                   | Background color of the filter or search input.                           |
+| `--text-input-border-color-default`                 | Border color of the filter or search input.                               |
+| `--text-input-border-color-hover`                   | Border color of the filter or search input hovered.                       |
+| `--text-input-border-color-focus`                   | Border color of the filter or search input focused.                       |
+| `--text-input-color-default`                        | Text color of the filter or search input.                                 |
+| `--text-color-focus-outline`                        | Outline color of the filter or search input when focused.                 |
+| `--text-input-placeholder-color`                    | Text color of the filter or search input placeholder.                     |
+| `--text-label-color-default`                        | Text color of the filter or search input label.                           |
+
 ### Customisation example
+
+<ExternalLink href="/storybook/react/?path=/story/components-select--with-custom-theme">
+  View customisation example in Storybook
+</ExternalLink>

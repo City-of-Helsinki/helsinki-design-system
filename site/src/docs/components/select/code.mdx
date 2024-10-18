@@ -5,27 +5,527 @@ title: 'Select - Code'
 
 import { Select } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+import ExternalLink from '../../../components/ExternalLink';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
-### Code examples
-
 <Playground scope={{ Select }}>
 
 ```jsx
-  import { Select } from 'hds-react';
+import { Select } from 'hds-react';
 
-  () => <Select></Select>
-```
-
-```html
-  <div></div>
+() => {
+  return (
+    <>
+      <Select
+        required
+        multiSelect
+        texts={{
+          label: 'Select something',
+          placeholder: 'Placeholder',
+          assistive: 'Assistive text',
+          language: 'en',
+        }}
+        groups={[
+          {
+            label: 'Americium',
+            value: 'Americium',
+            options: [
+              { label: 'Americium', value: 'americium' },
+              { label: 'Berkelium', selected: true },
+              { label: 'Californium', disabled: true },
+              { label: 'Copernicium', visible: false },
+              { label: 'Do not select this', value: 'error' },
+            ],
+          },
+        ]}
+        onChange={(selectedOptions) => {
+          console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+          if (selectedOptions.map((option) => option.value).includes('error')) {
+            return {
+              invalid: true,
+              texts: {
+                error: 'Unselect the forbidden one',
+              },
+            };
+          }
+          return {
+            invalid: false,
+          };
+        }}
+      />
+    </>
+  );
+};
 ```
 
 </Playground>
 
+### Passing options
+
+Select accepts options as strings, objects, or HTML. The simplest format is an array of strings:
+
+```jsx
+<Select options={['Option 1', 'Option 2']} />
+```
+
+Sometimes the value shown to the user should be different than the stored value. Then the options should be objects:
+
+```jsx
+<Select options={[{ label: 'The label is shown to the user', value: 'The actual value' }]} />
+```
+
+Initially selected options can be set with the `value` property of the Select component or by setting the "selected" property of an option to `true`.
+
+```jsx
+// these props result in the same output
+<Select options={["Option 1", "Option 2" ]} value="Option 2"/>
+// as these props
+<Select options={[{ label: "Option 1", selected:false }, { label: "Option 2", selected:true } ]} />
+```
+
+Options can also be individually hidden with the `visible` property or made unselectable with the `disabled` property.
+
+#### Properties of the option object
+
+| Property                     | Description                                                                | Values    | Default value |
+| ---------------------------- | -------------------------------------------------------------------------- | --------- | ------------- |
+| `disabled`                   | Can the option be selected or unselected.                                  | `boolean` | false         |
+| `isGropLabel`                | Internal. Indicates is a group label option. Should not be edited.         | `boolean` | false         |
+| `label`                      | Label, visible to the user.                                                | `string`  | -             |
+| `selected`                   | Is the option selected.                                                    | `boolean` | false         |
+| `value`                      | Value, not visible to the user.                                            | `string`  | false         |
+| `visible`                    | Is the option visible. Options are hidden, for example, when filtered out. | `boolean` | false         |
+| [Table 1: Option properties] |
+
+Internally, all options are always converted to objects. Whenever options are passed to callbacks like `onChange` or `onSearch`, the options are in object format.
+
+### Options as groups
+
+Options can be grouped by providing a `groups` property. Groups have only `label` and `options` properties.
+
+```jsx
+<Select
+  groups={[
+    {
+      label: 'Group 1 label',
+      options: [{ label: 'Option 1' }, { label: 'Option 2' }],
+    },
+    {
+      label: 'Group 2 label',
+      options: [{ label: 'Option 1' }, { label: 'Option 2' }],
+    },
+  ]}
+/>
+```
+
+If there is only one group and the label is empty, the label is not shown. Multiple groups should all have labels. If the Select has `multiSelect` set to `true`, the group label can also be selected. Selecting it selects all options in that group. Selecting all options individually also selects the group's label.
+
+Internally, all options are set into a group even if the `groups` property is not passed in props. The first option of all groups is always an option with `option.isGroupLabel` set to `true`. Even if the label was not given.
+
+This ensures the data is always in the same format internally and in all callbacks, despite what format options were passed to the component.
+
+The data and selected options are easily handled with <InternalLink href="#utility-functions">utility functions</InternalLink>.
+
+### Options as HTML
+
+Options can also be defined the same way the native `<select>` element accepts them.
+
+```jsx
+// some properties are omitted to make the example clearer
+<Select>
+  <optgroup label="Group 1">
+    <option value="opt1">Option 1</option>
+    <option value="opt2">Option 2</option>
+  </optgroup>
+  <optgroup label="Group 2">
+    <option value="opt3">Option 3</option>
+    <option value="opt4">Option 4</option>
+  </optgroup>
+</Select>
+```
+
+### Changing options at runtime
+
+Options can be changed by passing a new set of `groups` or `options` as props to the component. This will naturally create a new instance of the component and clear the component's internal state.
+
+The `onChange` callback can also return a new set of options. This is the easiest way to manipulate existing options. It can be used when there should be a <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-min-max">minimum or maximum number of options</ExternalLink> or if at least one option must be selected:
+
+```jsx
+import { Select, iterateAndCopyGroup } from 'hds-react';
+
+// some properties are omitted to make the example clearer
+<Select
+  invalid
+  onChange={(selectedOptions, clickedOption, data) => {
+    // undo invalid state after a selection has been made
+    if (selectedOptions.length > 0) {
+      return {
+        invalid: false,
+      };
+    }
+    // return a new set of options where the unselected is still selected
+    return {
+      groups: iterateAndCopyGroup(data.groups, (option) => {
+        if (option.value === clickedOption.value) {
+          return { ...option, selected: true };
+        }
+        return option;
+      }),
+    };
+  }}
+/>;
+```
+
+<ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--keep-one-selection">
+  See the code in action in Storybook.
+</ExternalLink>
+
+<InternalLink href="#handling-changes">The documentation</InternalLink> of the `onChange` describes all properties that can
+be updated within the callback.
+
+### Handling changes
+
+When the user changes the selected options, the `onChange` is called. Other user actions do not trigger the callback. Not even searching or filtering.
+
+The callback has the following signature:
+
+```jsx
+// some properties are omitted to make the example clearer
+<Select onChange={(selectedOptions, clickedOption, data) => {...} />;
+```
+
+| Argument                                       | Description                                                                                                                                  | Values                                                                             | Default value |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------- |
+| `selectedOptions`                              | An array of selected options in object format.                                                                                               | `Option[]`                                                                         | []            |
+| `clickedOption`                                | The option that was clicked. Can be a group label too. The option data is prior to the selection, so its `selected` property is not updated. | `Option`                                                                           | -             |
+| `data`                                         | All data of the Select component.                                                                                                            | <InternalLink href="#the-data-property-in-the-callbacks">SelectData</InternalLink> | -             |
+| [Table 2: Arguments of the onChange callback ] |
+
+The `onChange` can return data that is stored immediately to the Select component. Returning any data is optional.
+
+| Property                                                            | Description                                                                                                                | Values     | Default value |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
+| `groups`                                                            | Array of `groups` in the same format as passed to the Select component. Cannot be used with `options`.                     | `Option[]` | -             |
+| `invalid`                                                           | The `invalid` property.                                                                                                    | `boolean`  | -             |
+| `options`                                                           | Array of `options` in the same format as passed to the Select component. Cannot be used with `groups`.                     | `Option[]` | -             |
+| `texts`                                                             | Updated texts in the same format as passed to the Select component. Does not need to include all texts. Only updated ones. | `Texts`    | -             |
+| [Table 3: Properties of the return object of the onChange callback] |
+
+### Texts
+
+The component has default texts in Finnish, English, and Swedish. The used language is passed in `texts.language`. The value can be `fi`, `en` or `sv`. Default is `fi`.
+
+If additional texts are passed, those values are checked first and any missing texts are picked from the default texts with the given language.
+
+Usually `label` and `placeholder` are given to instruct the user what to do.
+
+```jsx
+// some properties are omitted to make the example clearer
+<Select
+  texts={{
+    language: 'en',
+    label: 'Select something',
+    placeholder: 'Choose one',
+    language: 'en',
+  }}
+/>
+```
+
+Note that passed texts do not have language versions. If language changes, pass new texts and updated `language` property.
+
+<ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-controls">
+  See a demo about changing the language.
+</ExternalLink>
+
+#### Texts as a function
+
+You can also pass a function that is called when a text is needed.
+
+The function signature is:
+
+```jsx
+// some properties are omitted to make the example clearer
+<Select texts={(key, contents) => {return key} />;
+```
+
+Possible values for the `key` are listed below. The `contents` is an object used for <InternalLink href="helsinki-design-system/packages/react/src
+/components/
+">text interpolation</InternalLink>, and it contains information about the current state of the component.
+
+| Key                                    | Purpose                                                                                        |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `assistive`                            | Assistive text shown below the button and tags.                                                |
+| `choiceCount_multiple`                 | Tells the user how many choices are available. Plural.                                         |
+| `choiceCount_one`                      | Tells the user there is only one choice available.                                             |
+| `clearButtonAriaLabel_multiple`        | The `aria-label` for the clear button when there are multiple choices to clear.                |
+| `clearButtonAriaLabel_one`             | The `aria-label` for the clear button when there is only one choice to clear.                  |
+| `dropdownButtonAriaLabel`              | The `aria-label` for the main button.                                                          |
+| `error`                                | Error text. Shown only if `invalid` is `true`.                                                 |
+| `filterClearButtonAriaLabel`           | The `aria-label` for the clear button of the filter input field .                              |
+| `filteredWithoutResultsInfo`           | Text shown when there are no options with the given filter.                                    |
+| `filterLabel`                          | Label of the filter input field.                                                               |
+| `filterPlaceholder`                    | Placeholder of the filter input field.                                                         |
+| `filterResults`                        | Screenreader information shown when options have been filtered.                                |
+| `filterResultsCount_multiple`          | Shown with the `filterResults` text informing there are multiple options.                      |
+| `filterResultsCount_one`               | Shown with the `filterResults` text informing there is only one option.                        |
+| `filterWithAnotherTerm`                | Suggestion shown when there are no options with the given filter.                              |
+| `label`                                | Label of the component.                                                                        |
+| `multiSelectGroupAriaLabel`            | The `aria-label` for each group in a multiselect.                                              |
+| `noSelectedOptions`                    | Part of the main button `aria-label` when there are no options selected.                       |
+| `placeholder`                          | Placeholder of the component.                                                                  |
+| `required`                             | Part of the main button `aria-label` informing a selection is required.                        |
+| `searchClearButtonAriaLabel`           | The `aria-label` for the clear button of the filter input field.                               |
+| `searchedWithoutResultsInfo`           | Text shown when there are results with the given search.                                       |
+| `searchErrorText`                      | Text shown when the search resulted in an error.                                               |
+| `searchErrorTitle`                     | Title shown when the search resulted in an error.                                              |
+| `searching`                            | Screenreader information shown when search started.                                            |
+| `searchLabel`                          | Label of the search input field.                                                               |
+| `searchPlaceholder`                    | Placeholder of the search input field.                                                         |
+| `searchResults_multiple`               | Screenreader information shown when search resulted in multiple options.                       |
+| `searchResults_one`                    | Screenreader information shown when search resulted in one option.                             |
+| `searchWithAnotherTerm`                | Suggestion shown when there are no options with the given filter.                              |
+| `selectedOptionsCount_multiple`        | Part of the main button `aria-label` when there are multiple options selected.                 |
+| `selectedOptionsCount_one`             | Part of the main button `aria-label` when there is one option selected.                        |
+| `selectedOptionsCount_zero`            | Part of the main button `aria-label` when there are no options selected.                       |
+| `tagRemoveSelectionAriaLabel`          | The `aria-label` for delete button in a tag.                                                   |
+| `tagsClearAllButton`                   | Clear all button text below tags.                                                              |
+| `tagsClearAllButtonAriaLabel_multiple` | The `aria-label` for the clear all button below tags when there are multiple choices to clear. |
+| `tagsClearAllButtonAriaLabel_one`      | The `aria-label` for the clear all button below tags when there is only one choice to clear.   |
+| `tagsPartiallyHidden`                  | Screenreader information telling some tags were hidden after pressing the "Show less" button   |
+| `tagsRemaining_multiple`               | Screenreader information telling there are multiple choices left after a tag was removed.      |
+| `tagsRemaining_one`                    | Screenreader information telling there is only one choice left after a tag was removed.        |
+| `tagsShowAllButton`                    | Show all button text below tags.                                                               |
+| `tagsShowAllButtonAriaLabel`           | The `aria-label` for the show all button below tags.                                           |
+| `tagsShowLessButton`                   | Show all button text below tags.                                                               |
+| `tagsShowLessButtonAriaLabel`          | The `aria-label` for the show all button below tags.                                           |
+| [Table 4: Text keys]                   |                                                                                                |
+
+Note that several texts are also used in `aria-labels`. For example, `label` and `placeholder` are included in the `aria-label` when needed. Some other texts are also not shown in the user interface and are only to notify screen readers.
+
+Current texts can be seen in the <ExternalLink href="helsinki-design-system/packages/react/src
+/components/select/texts.ts
+">source code</ExternalLink>.
+
+#### Text templates and interpolation
+
+In some cases, the outputted text depends on the option that was selected or the number of selections. For example, when a search is finished, a notification is rendered for the screen reader: "Found 5 options for search term 'Banana'."
+
+The key of the text template is `searchResults` and its contents are `Found {{numberIndicator}} options for search term "{{value}}"`.
+
+The Select component creates the content for the interpolation when a text is needed and interpolates the template with the content.
+
+| Property                                     | Description                                                                                                            | Values   | Default value |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| `label`                                      | Label or any related string needed for the outputted text. For example, `option.label` if an option is related.        | `string` | -             |
+| `numberIndicator`                            | Related number needed for the outputted text. Like number of search results, filtered options, etc.                    | `number` | -             |
+| `selectionCount`                             | Number of selected options.                                                                                            | `number` | -             |
+| `value`                                      | Label or any related string needed for the outputted text. For example, filtered or searched string or `option.value`. | `string` | -             |
+| [Table 5: Content of the text interpolation] |
+
+#### Updating texts
+
+Texts can be changed with props, using the text function, and also at runtime when the `onChange` is called. If the `onChange` returns a `texts` property, the texts will be appended to the current texts.
+
+This is a convenient way to show error or assistive texts after the user makes changes.
+
+### Filtering
+
+Options can be filtered with a function. If the `filter` property is set, the component will show an input field where the user can write text to filter options with.
+
+HDS provides a `defaultFilter` that checks if the label of an option starts with given text. The filter function should return `true` or `false`. The returned value is set to the option's `visible` property, and options are then hidden. Group labels are not filtered. They are visible if any of their options are visible.
+
+The `filter` function has the following signature:
+
+```jsx
+// some properties are omitted to make the example clearer
+<Select filter={(option, filterValue) => {return true} />;
+```
+
+It is called with the following arguments:
+
+| Argument                                     | Description                 | Values   |
+| -------------------------------------------- | --------------------------- | -------- |
+| `filterValue`                                | The text user has inputted. | `string` |
+| `option`                                     | Current option to filter.   | `Option` |
+| [Table 6: Arguments of the filter function ] |
+
+### Searching
+
+The user may also search for options. Select with a search should not have initial options before the user has searched for something. Unless the options are already selected. Selected options are always preserved, even if a new search result does not include them.
+The `search` function is asynchronous and should return `groups`, `options` or an error.
+
+The `search` function has the following signature:
+
+```jsx
+// some properties are omitted to make the example clearer
+<Select search={(searchValue, selectedOptions, data)=>{...}} />;
+```
+
+It is called with the following arguments:
+
+| Argument                                     | Description                       | Values                                                                             |
+| -------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------- |
+| `searchValue`                                | The text user has inputted.       | `string`                                                                           |
+| `selectedOptions`                            | Currently selected options.       | `Option[]`                                                                         |
+| `data`                                       | All data of the Select component. | <InternalLink href="#the-data-property-in-the-callbacks">SelectData</InternalLink> |
+| [Table 7: Arguments of the filter function ] |
+
+The function should return either `groups` or `options`.
+
+| Property                                        | Description                                                              | Values     | Default value |
+| ----------------------------------------------- | ------------------------------------------------------------------------ | ---------- | ------------- |
+| `groups`                                        | Array of `groups` in the same format as passed to the Select component.  | `Option[]` | -             |
+| `options`                                       | Array of `options` in the same format as passed to the Select component. | `Option[]` | -             |
+| [Table 8: Return values of the search function] |
+
+If the search results in an error, an error message is shown to the user.
+
+### useSelectStorage hook
+
+The properties passed to the Select component must be memoized or React will render a new instance of the component when props change. This means user's selections could be lost when the component re-renders.
+
+Properties and selected options may be stored to the parent component's state, and the user's changes have to be syncronized manually when the `onChange` is called.
+
+The `useSelectStorage` is an utility hook that manages the memoisation and data updates automatically. It accepts the same properties as the Select function, except the "value" property. The selected values should not be reset again manually after initialisation.
+
+```jsx
+const storage = useSelectStorage({
+  groups: [
+    {
+      label: 'Group 1',
+      options: [...],
+    },
+    {
+      label: 'Group 2',
+      options: [...],
+    },
+  ],
+  onChange: (selectedOptions) => {
+    // handle changes
+  },
+  multiSelect: true,
+  filter: defaultFilter,
+  disabled: false,
+  open: false,
+  invalid: false,
+  id: 'hds-select-component',
+});
+<Select {...storage.getProps()} />;
+```
+
+A working examples are in the Storybook:
+
+- <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-storage-controls">
+    How to manage language changes.
+  </ExternalLink>
+- <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-min-max">
+    Handling min and max number of selections.
+  </ExternalLink>
+- <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--multiselect-with-custom-tags">
+    Showing selections with custom tags.
+  </ExternalLink>
+
+In addition to the properties of the Select component, excluding the `value`, the `useSelectStorage` accepts the following properties.
+
+| Property                                     | Description                                                                                            | Values   | Default value |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------ | -------- | ------------- |
+| `updateKey`                                  | All data in the storage is memoized with this key. Changing it will reset all data to the given props. | `string` | -             |
+| [Table 9:Properties of the useSelectStorage] |
+
+The hook returns functions to modify current state of the Select component.
+
+| Function                                          | Description                                                                                                                                                                          | Arguments                                            | Return value  |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------- | ------------- |
+| `getProps`                                        | Returns all current props                                                                                                                                                            | -                                                    | `SelectProps` |
+| `updateAllOptions`                                | Updates all options with an iteration function                                                                                                                                       | `(option, group, optionIndex, groupIndex) => Option` | -             |
+| `setError`                                        | Updates the `invalid` and `texts.error` properties. If new error text is given, `invalid` is set to `true`.                                                                          | `string`                                             | -             |
+| `setOpen`                                         | Opens and closes the list. Note that this cannot be synced with the internal state of the component. If the user has manually opened the list, using this function may not close it. | `boolean`                                            | -             |
+| `setDisabled`                                     | Updates the `disabled` property.                                                                                                                                                     | `boolean`                                            | -             |
+| `setInvalid`                                      | Updates the `invalid` property.                                                                                                                                                      | `boolean`                                            | -             |
+| `updateTexts`                                     | Updates new texts.                                                                                                                                                                   | `Partial<Texts>`                                     | -             |
+| `render`                                          | Re-renders the component with the hook. Should be called after any updates.                                                                                                          | -                                                    | -             |
+| [Table 10:Functions of the useSelectStorage hook] |
+
+The functions are usually called inside the onChange function. <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-storage-controls">See them in action</ExternalLink>.
+
+### Component Properties
+
+| Property                     | Description                                                                                                                                     | Values                                                          | Default value |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ------------- |
+| `children`                   | Options as HTML elements. Can be `<option>` and `<optgroup>` elements.                                                                          | `ReactElement<HTMLOptGroupElement or HTMLOptionElement>`        | -             |
+| `clearable`                  | If set to true, clear selections button is displayed                                                                                            | `boolean`                                                       | false         |
+| `children`                   | Options as HTML elements. Can be `<option>` and `<optgroup>` elements.                                                                          | `ReactElement<HTMLOptGroupElement or HTMLOptionElement>`        | -             |
+| `disabled`                   | If set to true, the component is disabled.                                                                                                      | `boolean`                                                       | false         |
+| `filter`                     | Function used for filtering options. If set, an input field is shown above the option list.                                                     | `(option, filter)=>boolean`                                     | -             |
+| `groups`                     | If options need to be grouped, options should be passed as groups. Cannot be used with `options`.                                               | `[{label:'Group label', options:[<option objects>]}]`           | -             |
+| `icon`                       | Icon shown before in the button.                                                                                                                | `React.ReactNode`                                               | -             |
+| `id`                         | The id of the element. Given id is used as a prefix for child elements. See getIds().                                                           | `string`                                                        | -             |
+| `invalid`                    | If set to true, the component shows an error.                                                                                                   | `boolean`                                                       | false         |
+| `multiSelect`                | If set to true, the user can select multiple options.                                                                                           | `boolean`                                                       | false         |
+| `noTags`                     | If set to true and multiselect is also true, the list of selected options is not shown as tags.                                                 | `boolean`                                                       | false         |
+| `onBlur`                     | Called when the component loses focus.                                                                                                          | `()=>void`                                                      | -             |
+| `onChange`                   | Required. Called each time the user clicks an option.                                                                                           | `(selectedOptions, option, data)=>Partial<SelectProps> or void` | -             |
+| `onFocus`                    | Called when the component gets focus.                                                                                                           | `()=>void`                                                      | -             |
+| `onSearch`                   | Search function. If set, an input field is shown above the option list.                                                                         | `(searchValue, selectedOptions, data) => Promise<SearchResult>` | -             |
+| `open`                       | If set to true, the list is open.                                                                                                               | `boolean`                                                       | false         |
+| `options`                    | List of options to select. Cannot be used with `groups`.                                                                                        | `string[]` or `Partial<Option[]>`                               | -             |
+| `required`                   | If set to true, `*` is shown with the label. Does not check is an option selected.                                                              | `boolean`                                                       | false         |
+| `texts`                      | Overrides for default texts or a function that returns a text for given key. Texts.language defines the current language.                       | `{[key]:string}` or `(key,contents)=>string`                    | -             |
+| `theme`                      | Custom theme styles.                                                                                                                            | `SelectCustomTheme`                                             | -             |
+| `value`                      | Selected value(s). If `options` or `groups` have selected options, this is discarded.                                                           | `string[]` or `Partial<Option[]>`                               | -             |
+| `virtualize`                 | Use with very long lists of options. Changes how options are rendered.                                                                          | `boolean`                                                       | false         |
+| `visibleOptions`             | Number of visible options in the list before scrolling. It affects the height of the list. Use decimals, so a part of the next option is shown. | `number`                                                        | 5.5           |
+| [Table 11:Select properties] |
+
+<NativeElementPropsInfo nodeName="div" notAllowed={['tabIndex']} />{' '}
+
+### The data property in the callbacks
+
+Callbacks receive all current data of the Select component. This includes the following properties of the component:
+
+- `disabled`
+- `filterFunction`
+- `groups` (is an array of `{ options: Option[] }`)
+- `invalid`
+- `onBlur`
+- `onChange`
+- `onFocus`
+- `onSearch`
+- `open`
+- `multiSelect`
+- `noTags`
+- `required`
+- `visibleOptions`
+- `virtualize`
+
+### Utility functions
+
+The following functions are exported to make data handling and option mutation easier.
+
+| Property                        | Description                                                                                                                                                                                                                                              | Arguments                                                     | Return value            |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------------------- |
+| `clearAllSelectedOptions`       | Returns a copy of the groups with all options unselected. Disabled options are not unselected by default. Set the second argument to `false` to unselect disabled options too.                                                                           | `(groups:Group[],keepDisabledUnselected=true)`                | `Group[]`               |
+| `defaultFilter`                 | Filters options by checking if the `option.label` starts with the given `filterValue`.                                                                                                                                                                   | `(option:Option,filterValue:string)`                          | `boolean`               |
+| `getAllOptions`                 | Returns an array of all options in all groups. If the argument `filterOutGroupLabels` is `true` (default), group label options are filtered out.                                                                                                         | `(groups:Group[],filterOutGroupLabels?:boolean)`              | `Option[]`              |
+| `getElementIds`                 | Returns ids of all elements within the Select component. The id given to the Select component must be provided.                                                                                                                                          | `(id:string`                                                  | `Record<string,string>` |
+| `getNewSelections`              | Compares two lists of options and returns "new" ones from the second list that are not in the first list. Only `option.value` is used in comparison.                                                                                                     | `(optionListA:Option[],optionListB:Option[])`                 | `Option[]`              |
+| `getOptionGroupIndex`           | Returns the index of the group where the option is stored. Only `option.value` is used in comparison.                                                                                                                                                    | `(groups:Group[], option:Optio)`                              | `number`                |
+| `getOptionIndex`                | Returns the index of an option in an array of options. Only `option.value` is used in comparison.                                                                                                                                                        | `(options, option:Option)`                                    | `number`                |
+| `getSelectedOptions`            | Returns an array of all selected options in all groups without group labels.                                                                                                                                                                             | `(groups:Group[])`                                            | `Option[]`              |
+| `iterateAndCopyGroup`           | Creates a copy of the given groups. Iterates all options with the given `iterator` function and returns them as new options. The iterator function is called with `(currentOption,currentGroup,optionIndex, groupIndex)` and it should return an option. | `(groups:Group[], iterator)`                                  | `Group[]`               |
+| `pickSelectedValues`            | Returns the values of the all given options. Use with `getSelectedOptions` to get all selected values.                                                                                                                                                   | `(options:Option[])`                                          | `string[]`              |
+| `propsToGroups`                 | Converts `options` or `groups` in any format to an array of group objects with an array of options also as objects.                                                                                                                                      | `({groups?:Group[],options?:Option[]})`                       | `Groups[]`              |
+| `updateOptionInGroup`           | Returns a copy of the groups with the given option replaced with the given updated version of it. Only `option.value` is used in comparison. If `isMultiSelect` is `false` and the given option is selected, all other options are unselected.           | `(groups:Group[],updatedOption:Option,isMultiSelect:boolean)` | `Group[]`               |
+| `updateSelectedOptionsInGroups` | Copies given groups and updates options in given array of selected options. Does not update group labels if all options of a group are selected or unselected.                                                                                           | `(groups:Group[],selectedOptions:Option[])`                   | `Groups[]`              |
+| [Table 12:Utility functions]    |
+
 ### Packages
 
-### Properties
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                   | Source link                                                                                                                                                                                                                    |
+| ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=?path=/story/components-select--multiselect">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/select/Select.tsx">View source</ExternalLink> |
