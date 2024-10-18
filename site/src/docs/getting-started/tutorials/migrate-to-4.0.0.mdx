@@ -175,3 +175,80 @@ The `iconLeft` prop has been renamed to `iconStart`
 - <InternalLink size="M" href="/storybook/react/?path=/story/components-statuslabel">
     React storybook examples
   </InternalLink>
+
+### Select component rewritten
+
+The Select component has been rewritten, and most props have changed. There is now one `Select` component instead of `Select` and `Combobox`.
+
+Select with a `filter` function is the same as Combobox.
+
+### Passing options and option groups
+
+Supported formats for the options are now:
+
+- array of strings `["Option1"]`
+- array of option objects `[{label:"Option 1", value:"Option 1 value"}]`
+- native html with `<optgroup>` and `<option>`.
+
+#### Removed components from Select
+
+- Combobox
+
+#### Removed props
+
+- `optionLabelField` (the label is always "label").
+- `optionKeyField` (use "option.value").
+- `isOptionDisabled` (option.disabled can be set).
+- `circularNavigation` (always circular).
+- `clearable` (always clearable). Can be prevented with the onChange callback.
+- `theme` (only one theme, className can be used for overriding css vars).
+
+All texts are passed as an object or returned from a function.
+Removed props include:
+
+- `getA11ySelectionMessage`
+- `getA11yStatusMessage`
+- `getA11yRemovalMessage`
+- `helper` (use `texts.assistive`)
+- `error` (use `texts.error`)
+- `tooltipLabel`
+- `tooltipButtonLabel`
+- `tooltipText`
+- `clearButtonAriaLabel` (default text is provided, can be set with `texts`)
+- `selectedItemRemoveButtonAriaLabel` (default text is provided, can be set with `texts`)
+- `selectedItemSrLabel` (default text is provided, can be set with `texts`)
+
+Instead of
+
+```jsx
+<Select label="Label" placeholder="Placeholder" />
+```
+
+provide texts as an object
+
+```jsx
+<Select texts={{ label: 'Label', placeholder: 'Placeholder' }} />
+```
+
+or return them from a function
+
+```jsx
+<Select
+  texts={(key) => {
+    if (key === 'label') {
+      return 'Label';
+    }
+    if (key === 'placeholder') {
+      return 'Placeholder';
+    }
+  }}
+/>
+```
+
+#### Changes to the onChange callback
+
+The `onChange`receives now 3 arguments:
+
+- The first one is an array of selected options as objects. The array is empty if no selections have been made.
+- The second one is the clicked option.
+- The third one is all the data of the Select component.
