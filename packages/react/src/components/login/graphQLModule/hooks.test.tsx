@@ -1,10 +1,10 @@
 /* eslint-disable jest/no-mocks-import */
-import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import React, { useRef } from 'react';
 import { isObject } from 'lodash';
 import { act, waitFor } from '@testing-library/react';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import { ConnectedModule } from '../beacon/beacon';
 import { EventPayload, eventSignalType, isErrorSignal } from '../beacon/signals';
 import {

@@ -1,6 +1,6 @@
 import { UserManager } from 'oidc-client-ts';
-import HttpStatusCode from 'http-status-typed';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import createHttpPoller from '../utils/httpPoller';
 import { createFetchAborter } from '../utils/abortFetch';
 import { Signal, ConnectedModule } from '../beacon/beacon';
