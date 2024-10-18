@@ -1,6 +1,17 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
+const latestVersion = process.env.npm_package_version;
+const versionsFromGit = require('./src/data/versions.json').filter(v => v !== latestVersion);
+const gitSources = versionsFromGit.map(version => ({
+  resolve: 'gatsby-source-git',
+  options: {
+    name: `docs-release-${version}`,
+    remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
+    branch: `release-${version}`,
+    patterns: 'site/src/docs/**',
+  },
+}));
 
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
@@ -150,24 +161,7 @@ module.exports = {
         path: `${__dirname}/src/docs`,
       },
     },
-    {
-      resolve: `gatsby-source-git`,
-      options: {
-        name: `docs-release-3.9.0`,
-        remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
-        branch: `release-3.9.0`,
-        patterns: `site/src/docs/**`,
-      },
-    },
-    {
-      resolve: `gatsby-source-git`,
-      options: {
-        name: `docs-release-3.0.0`,
-        remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
-        branch: `release-3.0.0`,
-        patterns: `site/src/docs/**`,
-      },
-    },
+    ...gitSources,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
