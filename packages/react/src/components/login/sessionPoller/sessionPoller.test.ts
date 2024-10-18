@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
-import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { User } from 'oidc-client-ts';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import { Beacon, createBeacon } from '../beacon/beacon';
 import {
   emitInitializationSignals,
