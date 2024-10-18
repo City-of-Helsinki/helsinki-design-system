@@ -1,4 +1,4 @@
-import { waitFor, fireEvent, render, act } from '@testing-library/react';
+import { waitFor, fireEvent, render, act, RenderResult } from '@testing-library/react';
 import React from 'react';
 import { axe } from 'jest-axe';
 
@@ -13,6 +13,11 @@ import { getElementIds, defaultFilter, propsToGroups, getAllOptions } from './ut
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import useForceRender from '../../hooks/useForceRender';
+import { multiSelectGroupLabelSelector } from './components/list/listItems/MultiSelectGroupLabel';
+import { singleSelectGroupLabelSelector } from './components/list/listItems/SingleSelectGroupLabel';
+import { singleSelectOptionSelector } from './components/list/listItems/SingleSelectOption';
+import { multiSelectOptionSelector } from './components/list/listItems/MultiSelectOption';
+import { tagSelectorForTagList } from './components/tagList/TagListItem';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -141,7 +146,7 @@ const options: Partial<Option>[] = [
     label: 'Option 3',
   },
 ];
-const groupsAndOptions: SelectProps['groups'] = [
+export const groupsAndOptions: SelectProps['groups'] = [
   {
     label: 'Group0',
     options: [
@@ -233,31 +238,7 @@ export const getSelectProps = ({
   return selectProps;
 };
 
-export const initTests = ({
-  renderComponentOnly,
-  selectProps = {},
-  testProps = { groups: false },
-  withForceRender,
-}: {
-  renderComponentOnly?: boolean;
-  selectProps?: Partial<SelectProps>;
-  testProps?: Parameters<typeof getSelectProps>[0];
-  withForceRender?: boolean;
-} = {}) => {
-  renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
-  const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
-  if (selectProps.onChange) {
-    const currentOnChange = props.onChange;
-    const onChangeListener = selectProps.onChange;
-    props.onChange = (...args) => {
-      currentOnChange(...args);
-      return onChangeListener(...args);
-    };
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const result = renderWithHelpers({ ...props, groups: testProps.groups, withForceRender });
-
+export const renderResultToHelpers = (result: RenderResult) => {
   const getElementById = <T = HTMLElement,>(id: string) => {
     return result.container.querySelector(`#${id}`) as unknown as T;
   };
@@ -321,24 +302,6 @@ export const initTests = ({
     return promise;
   };
 
-  const getOptionElement = (option: Option) => {
-    const labelEl = result.getByText(option.label) as HTMLElement;
-    if (props.multiSelect) {
-      if (option.isGroupLabel) {
-        // return ((labelEl.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement;
-      }
-      // get parent of parent of <label>, which is <div>
-      return (labelEl.parentElement as HTMLElement).parentElement as HTMLElement;
-    }
-    // get parent of <span>, which is <li>
-    return labelEl.parentElement as HTMLElement;
-  };
-
-  const clickOptionElement = (option: Option) => {
-    const el = getOptionElement(option);
-    fireEvent.click(el);
-  };
-
   const getOnChangeMock = () => {
     return onChangeTracker;
   };
@@ -372,11 +335,66 @@ export const initTests = ({
   };
 
   return {
-    ...result,
     triggerDataChange,
     triggerMetaDataChange,
     getMetaDataFromElement,
     getDataFromElement,
+    getElementById,
+    getOnChangeCallArgsAsProps,
+    getOnChangeMockCalls,
+    createRenderUpdatePromise,
+    triggerOptionChange,
+    triggerChangeEvent,
+    triggerForceRender,
+  };
+};
+
+export const initTests = ({
+  renderComponentOnly,
+  selectProps = {},
+  testProps = { groups: false },
+  withForceRender,
+}: {
+  renderComponentOnly?: boolean;
+  selectProps?: Partial<SelectProps>;
+  testProps?: Parameters<typeof getSelectProps>[0];
+  withForceRender?: boolean;
+} = {}) => {
+  renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
+  const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
+  if (selectProps.onChange) {
+    const currentOnChange = props.onChange;
+    const onChangeListener = selectProps.onChange;
+    props.onChange = (...args) => {
+      currentOnChange(...args);
+      return onChangeListener(...args);
+    };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  const result = renderWithHelpers({ ...props, groups: testProps.groups, withForceRender });
+  const helpers = renderResultToHelpers(result);
+  const getOptionElement = (option: Option) => {
+    const labelEl = result.getByText(option.label) as HTMLElement;
+    if (props.multiSelect) {
+      if (option.isGroupLabel) {
+        // return ((labelEl.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement;
+      }
+      // get parent of parent of <label>, which is <div>
+      return (labelEl.parentElement as HTMLElement).parentElement as HTMLElement;
+    }
+    // get parent of <span>, which is <li>
+    return labelEl.parentElement as HTMLElement;
+  };
+
+  const clickOptionElement = (option: Option) => {
+    const el = getOptionElement(option);
+    fireEvent.click(el);
+  };
+
+  return {
+    ...result,
+    ...helpers,
     getProps: () => {
       return props;
     },
@@ -385,13 +403,6 @@ export const initTests = ({
     },
     getOptionElement,
     clickOptionElement,
-    getElementById,
-    getOnChangeCallArgsAsProps,
-    getOnChangeMockCalls,
-    createRenderUpdatePromise,
-    triggerOptionChange,
-    triggerChangeEvent,
-    triggerForceRender,
   };
 };
 
@@ -419,7 +430,7 @@ export const renderWithHelpers = (
         <button type="button" onClick={forceRender} id="force-render">
           Update data
         </button>
-        return <span id="force-render-time">{Date.now()}</span>;
+        <span id="force-render-time">{Date.now()}</span>;
       </>
     );
   };
@@ -427,16 +438,16 @@ export const renderWithHelpers = (
 
   const elementIds = getElementIds(selectProps.id);
   const selectors = {
-    listAndInputContainer: `#${selectProps.id} > div:nth-child(2) > div:nth-child(2)`,
+    listAndInputContainer: `#${elementIds.selectionsAndListsContainer}`,
     screenReaderNotifications: `div[data-testid="screen-reader-notifications"]`,
     searchAndFilterInfo: `div[data-testid="search-and-filter-info"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
-    groupLabels: `#${elementIds.list} > ul > li[role="presentation"], #${elementIds.list} > div[role="group"] > div[role="checkbox"]:first-child`,
-    options: `#${elementIds.list} > li[role="option"], #${elementIds.list} > ul > li[role="option"], #${elementIds.list} div[role="checkbox"]`,
+    groupLabels: `${singleSelectGroupLabelSelector}, ${multiSelectGroupLabelSelector}`,
+    options: `${singleSelectOptionSelector}, ${multiSelectOptionSelector}`,
     allListItems: `created below`,
     selectionsInButton: `#${elementIds.button} > div > span`,
     overflowCounter: `#${elementIds.button} > span`,
-    tags: `#${elementIds.tagList} > div`,
+    tags: `#${elementIds.tagList} ${tagSelectorForTagList}`,
   };
   selectors.allListItems = `${selectors.groupLabels}, ${selectors.options}`;
 

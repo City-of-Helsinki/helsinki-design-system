@@ -1,11 +1,11 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData, Option } from './types';
+import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
-import { propsToGroups, childrenToGroups, getSelectedOptions, getElementIds } from './utils';
+import { getSelectedOptions, getElementIds, convertPropsToGroups } from './utils';
 import { DataProvider } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -43,10 +43,12 @@ export function Select({
   virtualize,
   filter,
   onSearch,
-}: SelectProps) {
+  value,
+  ...divElementProps
+}: SelectProps & AcceptedNativeDivProps) {
   const initialData = useMemo<SelectData>(() => {
     return {
-      groups: propsToGroups({ options, groups }) || childrenToGroups(children) || [],
+      groups: convertPropsToGroups({ options, groups, value, children }),
       open: !!open,
       required: !!required,
       invalid: !!invalid,
@@ -75,6 +77,7 @@ export function Select({
     onSearch,
     onFocus,
     onBlur,
+    value,
   ]);
 
   const metaData = useMemo((): SelectMetaData => {
@@ -98,8 +101,7 @@ export function Select({
         button: createRef<HTMLButtonElement>(),
         listContainer: createRef<HTMLDivElement>(),
         list: createRef<HTMLUListElement>(),
-        selectContainer: createRef<HTMLDivElement>(),
-        selectionsAndListContainer: createRef<HTMLDivElement>(),
+        selectionsAndListsContainer: createRef<HTMLDivElement>(),
         tagList: createRef<HTMLDivElement>(),
         showAllButton: createRef<HTMLButtonElement>(),
         searchOrFilterInput: createRef<HTMLInputElement>(),
@@ -128,7 +130,7 @@ export function Select({
       cancelCurrentSearch: undefined,
       screenReaderNotifications: [],
     };
-  }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch]);
+  }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts]);
 
   useEffect(() => {
     return () => {
@@ -140,7 +142,7 @@ export function Select({
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
-      <Container>
+      <Container {...divElementProps}>
         <Label />
         <SelectionsAndListsContainer>
           <SelectedOptionsContainer>

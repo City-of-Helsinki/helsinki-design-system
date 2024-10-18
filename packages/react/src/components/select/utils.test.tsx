@@ -29,6 +29,7 @@ import {
   propsToGroups,
   updateGroupLabelAndOptions,
   updateOptionInGroup,
+  updateSelectedOptionsInGroups,
   validateOption,
 } from './utils';
 import { FilterFunction, Group, Option, SelectDataHandlers } from './types';
@@ -779,6 +780,95 @@ describe('utils', () => {
       );
       expect(getSelectedOptions(results)).toHaveLength(6);
       expect(getSelectedOptions(existingGroups)).toHaveLength(6);
+    });
+  });
+  describe('updateSelectedOptionsInGroups sets given options selected and others unselected', () => {
+    const data = [
+      { label: 'Group 0', options: ['group 0 option 0', 'group 0 option 1'] },
+      { label: 'Group 1', options: ['group 1 option 0', 'group 1 option 1'] },
+    ];
+    const options = ['option 0', 'option 1'];
+    const optionObjects = [validateOption('option object 0'), validateOption('option object 1')];
+    it('Data can be SelectProps["groups"] with string options', () => {
+      expect(updateSelectedOptionsInGroups([{ options, label: 'Group label' }], [options[0]])).toMatchObject([
+        {
+          label: 'Group label',
+          options: [{ ...validateOption(options[0]), selected: true }, validateOption(options[1])],
+        },
+      ]);
+      expect(updateSelectedOptionsInGroups([{ options, label: 'Group label' }], [{ value: options[1] }])).toMatchObject(
+        [
+          {
+            label: 'Group label',
+            options: [validateOption(options[0]), { ...validateOption(options[1]), selected: true }],
+          },
+        ],
+      );
+    });
+    it('Data can be SelectProps["groups"] with option objects and selectedOption can be a string value or an object', () => {
+      expect(
+        updateSelectedOptionsInGroups([{ options: optionObjects, label: '' }], [optionObjects[0].value]),
+      ).toMatchObject([
+        {
+          options: [{ ...optionObjects[0], selected: true }, optionObjects[1]],
+        },
+      ]);
+      expect(updateSelectedOptionsInGroups([{ options: optionObjects, label: '' }], [optionObjects[1]])).toMatchObject([
+        {
+          options: [optionObjects[0], { ...optionObjects[1], selected: true }],
+        },
+      ]);
+    });
+    it('Data can be SelectProps["groups"] with a string value', () => {
+      expect(updateSelectedOptionsInGroups([{ options, label: 'Group label' }], options[0])).toMatchObject([
+        {
+          options: [{ ...validateOption(options[0]), selected: true }, validateOption(options[1])],
+        },
+      ]);
+    });
+    it('If selectedOptions is undefined, the given groups are returned', () => {
+      const groups = [{ options, label: 'Group label' }];
+      expect(updateSelectedOptionsInGroups(groups) === groups).toBeTruthy();
+    });
+    it('Data can be SelectData["groups"] option objects', () => {
+      const readyGroups = updateSelectedOptionsInGroups(propsToGroups({ groups: data }), [
+        data[1].options[1],
+        data[0].options[0],
+      ]);
+      const expectedGroup0Label = { ...validateOption(data[0].label), isGroupLabel: true };
+      const createdGroup0Option0 = validateOption(data[0].options[0]);
+      const createdGroup0Option1 = validateOption(data[0].options[1]);
+      const expectedGroup1Label = { ...validateOption(data[1].label), isGroupLabel: true };
+      const createdGroup1Option0 = validateOption(data[1].options[0]);
+      const createdGroup1Option1 = validateOption(data[1].options[1]);
+      expect(readyGroups).toMatchObject([
+        {
+          options: [expectedGroup0Label, { ...createdGroup0Option0, selected: true }, createdGroup0Option1],
+        },
+        {
+          options: [expectedGroup1Label, createdGroup1Option0, { ...createdGroup1Option1, selected: true }],
+        },
+      ]);
+
+      const revertedSelections = updateSelectedOptionsInGroups(readyGroups, [data[0].options[1], data[1].options[0]]);
+      expect(revertedSelections).toMatchObject([
+        {
+          options: [expectedGroup0Label, createdGroup0Option0, { ...createdGroup0Option1, selected: true }],
+        },
+        {
+          options: [expectedGroup1Label, { ...createdGroup1Option0, selected: true }, createdGroup1Option1],
+        },
+      ]);
+
+      const noSelections = updateSelectedOptionsInGroups(revertedSelections, []);
+      expect(noSelections).toMatchObject([
+        {
+          options: [expectedGroup0Label, createdGroup0Option0, createdGroup0Option1],
+        },
+        {
+          options: [expectedGroup1Label, createdGroup1Option0, createdGroup1Option1],
+        },
+      ]);
     });
   });
 });

@@ -42,15 +42,22 @@ export const unfocusElement = async (page: Page, element: Locator) => {
   await page.mouse.up();
 };
 
-export const takeStateScreenshots = async (page: Page, element: Locator, screenshotPrefix: string) => {
+export const takeStateScreenshots = async (
+  page: Page,
+  element: Locator,
+  screenshotPrefix: string,
+  noOutsideClicks = false,
+) => {
   await element.scrollIntoViewIfNeeded();
   const elementBoundingBox = (await element.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
   const outside = { x: elementBoundingBox.x - 1, y: elementBoundingBox.y - 1 };
 
-  // to make sure nothing is focused
-  await page.mouse.move(outside.x, outside.y);
-  await page.mouse.down();
-  await page.mouse.up();
+  if (!noOutsideClicks) {
+    // to make sure nothing is focused
+    await page.mouse.move(outside.x, outside.y);
+    await page.mouse.down();
+    await page.mouse.up();
+  }
 
   await element.hover();
   await takeScreenshotWithSpacing(page, element, `${screenshotPrefix}-hover`);

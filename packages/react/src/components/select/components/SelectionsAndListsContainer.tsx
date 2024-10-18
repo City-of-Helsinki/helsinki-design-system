@@ -13,7 +13,7 @@ function createComponentProps(
   const { refs } = getMetaData();
   return {
     ...props,
-    ref: refs.selectionsAndListContainer,
+    ref: refs.selectionsAndListsContainer,
     className: classNames(styles.selectAndListContainer, invalid && styles.invalid, open && styles.open),
   };
 }

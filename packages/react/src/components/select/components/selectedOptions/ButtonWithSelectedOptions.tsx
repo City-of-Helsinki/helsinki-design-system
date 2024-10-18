@@ -169,7 +169,11 @@ export function ButtonWithSelectedOptions() {
 
   return (
     <button type="button" {...attr} ref={buttonRef}>
-      {icon && <span key="icon">{icon}</span>}
+      {icon && (
+        <span key="icon" className={styles.buttonIcon}>
+          {icon}
+        </span>
+      )}
       <div className={styles.labels} key="labels" aria-hidden>
         {labels}
       </div>

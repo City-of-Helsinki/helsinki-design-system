@@ -37,7 +37,9 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
           role="combobox"
           type="button"
         >
-          <span>
+          <span
+            class="buttonIcon"
+          >
             <svg
               aria-hidden="true"
               aria-label="location"
@@ -165,7 +167,9 @@ exports[`<Select /> spec renders single select component with groups and filter 
           role="combobox"
           type="button"
         >
-          <span>
+          <span
+            class="buttonIcon"
+          >
             <svg
               aria-hidden="true"
               aria-label="location"

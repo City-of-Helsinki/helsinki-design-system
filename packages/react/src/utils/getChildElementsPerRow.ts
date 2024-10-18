@@ -34,7 +34,10 @@ export const getChildElementsPerRow = (container: HTMLElement | Element, maxRows
     if (!rowBounds) {
       return true;
     }
-    if (childRect.right < rowBounds.right && childRect.top >= rowBounds.bottom) {
+    // A new row exists if
+    // child.x is the same as current rect.x  or right side is below current rect.right (meaning the rect did not grow)
+    // AND child.top coord is over the current rect bottom
+    if ((childRect.left === rowBounds.left || childRect.right < rowBounds.right) && childRect.top >= rowBounds.bottom) {
       return true;
     }
     return false;

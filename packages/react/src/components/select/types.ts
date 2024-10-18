@@ -26,6 +26,11 @@ export type GroupInProps = {
   options: (OptionInProps | string)[];
 };
 
+export type AcceptedNativeDivProps = Omit<
+  AllElementPropsWithoutRef<'div'>,
+  'onChange' | 'onFocus' | 'onBlur' | 'id' | 'tabIndex' | 'children'
+>;
+
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   options?: (OptionInProps | string)[];
   open?: boolean;
@@ -48,6 +53,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   noTags?: boolean;
   texts?: Partial<Texts> | TextProvider;
   multiSelect?: boolean;
+  value?: string | string[] | Option[] | OptionInProps[];
   visibleOptions?: number;
   virtualize?: boolean;
 };
@@ -78,11 +84,10 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     button: RefObject<HTMLButtonElement>;
     listContainer: RefObject<HTMLDivElement>;
     list: RefObject<HTMLUListElement>;
-    selectContainer: RefObject<HTMLDivElement>;
     tagList: RefObject<HTMLDivElement>;
     showAllButton: RefObject<HTMLButtonElement>;
     searchOrFilterInput: RefObject<HTMLInputElement>;
-    selectionsAndListContainer: RefObject<HTMLDivElement>;
+    selectionsAndListsContainer: RefObject<HTMLDivElement>;
     container: RefObject<HTMLDivElement>;
   };
   filter: string;

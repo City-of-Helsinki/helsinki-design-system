@@ -14,12 +14,14 @@ import {
   getLocatorOuterHTML,
 } from './element.util';
 import { filterLocators, waitFor } from './playwright.util';
+import { tagSelectorForTagList } from '../../packages/react/src/components/select/components/tagList/TagListItem';
 
 type OptionFiltering = {
   includeOptions?: boolean;
   includeSingleSelectGroupLabels?: boolean;
   includeMultiSelectGroupLabels?: boolean;
   all?: boolean;
+  skipOpenCheck?: boolean;
 };
 
 // sadly selectors defined in the Select's React files are not usable here as React's "styles" objects do not exist.
@@ -32,6 +34,14 @@ const singleSelectGroupLabelSelector = 'li[role="presentation"]';
 // multiselect group labels are include in option selector. getOptionElements() filters them out.
 const multiSelectOptionSelector = `div[role="checkbox"][aria-checked],${singleSelectOptionSelector}`;
 const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:first-child';
+
+const dataTestIds = {
+  placeholder: 'placeholder',
+  searchingText: 'hds-select-searching-text',
+  searchAndFilterInfo: 'search-and-filter-info',
+  searchNoResults: 'hds-select-no-results',
+  searchError: 'hds-select-searching-error',
+};
 
 export const createSelectHelpers = (page: Page, componentId: string) => {
   const getElementId = (componentId: string, elementName: keyof SelectMetaData['elementIds']) => {
@@ -76,7 +86,6 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     const button = getElementByName('button');
     await button.click({ timeout: 2000 });
     await waitForElementToBeVisible(listElement);
-
     await waitForMinInterActionTimeToPass();
     return Promise.resolve(listElement);
   };
@@ -89,8 +98,6 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     const button = getElementByName('button');
     await button.click({ timeout: 2000 });
     await waitForElementToBeHidden(listElement);
-    // if lists are opened/closed too quickly (<MIN_USER_INTERACTION_TIME_IN_MS)
-    // next action will not close it, so lets wait
     await waitForMinInterActionTimeToPass();
     return Promise.resolve(listElement);
   };
@@ -100,8 +107,10 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     includeSingleSelectGroupLabels = false,
     includeMultiSelectGroupLabels = true,
     all = false,
+    skipOpenCheck = false,
   }: OptionFiltering = {}) => {
-    const listElement = await openList();
+    const listElement = skipOpenCheck ? getElementByName('list') : await openList();
+
     const selectorList = includeOptions || all ? [singleSelectOptionSelector, multiSelectOptionSelector] : [];
     if (includeMultiSelectGroupLabels || all) {
       selectorList.push(multiSelectGroupLabelSelector);
@@ -135,6 +144,16 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return listElement.locator('div[role="group"]').all();
   };
 
+  const getGroupLabels = async () => {
+    return getOptionElements({
+      includeOptions: false,
+      includeSingleSelectGroupLabels: true,
+      includeMultiSelectGroupLabels: true,
+      all: false,
+    });
+  };
+
+  // this only works with multiselect where options are inside a [role="group"]
   const getItemsInGroup = async (index: number) => {
     const groups = await getGroups();
     const group = groups[index];
@@ -150,8 +169,8 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   };
 
   const getGroupLabel = async (index: number) => {
-    const items = await getItemsInGroup(index);
-    return items.shift() as Locator;
+    const items = await getGroupLabels();
+    return items[index] as Locator;
   };
 
   const countOptionsInGroup = async (index: number) => {
@@ -167,20 +186,30 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   // 3.locator().filter() never worked with any combinations
   const getSelectedOptionsInButton = async () => {
     const buttonElement = getElementByName('button');
-    const placeHolder = buttonElement.locator('> div span[data-testid="placeholder"]');
+    const placeHolder = buttonElement.locator(`> div span[data-testid="${dataTestIds.placeholder}"]`);
     const hasPlaceholder = await placeHolder.count();
     const text = hasPlaceholder ? (await placeHolder.textContent()) || '' : '';
     return buttonElement.locator('> div span').filter({ hasNotText: text });
   };
 
-  const getSelectedOptionsInTags = async () => {
+  const getTags = (): Locator => {
     const tagList = getElementByName('tagList');
-    return tagList.locator('> *');
+    return tagList.locator(tagSelectorForTagList);
+  };
+
+  const getTag = async (index: number) => {
+    const tags = await getTags().all();
+    return tags[index];
   };
 
   const getSelectedOptionsCount = async () => {
     const currentOptions = await getSelectedOptionsInButton();
     return currentOptions.count();
+  };
+
+  const getTagsCount = async () => {
+    const tags = getTags();
+    return tags.count();
   };
 
   const getSelectedOptionsLabels = async () => {
@@ -313,7 +342,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   };
 
   const getSearchAndFilterInfo = () => {
-    return page.getByTestId('search-and-filter-info');
+    return page.getByTestId(dataTestIds.searchAndFilterInfo);
   };
 
   const getBoundingBox = async (spacing = 10) => {
@@ -327,11 +356,73 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return box;
   };
 
+  const checkAllTagsAreShown = async () => {
+    const tagListContainer = getElementByName('tagList');
+    const lastTag = getTags().last();
+    const containerBox = await tagListContainer.boundingBox();
+    const lastTagBox = await lastTag.boundingBox();
+    if (!lastTagBox || !lastTagBox.height) {
+      return true;
+    }
+    if (!containerBox) {
+      return false;
+    }
+    return containerBox.y + containerBox.height >= lastTagBox.y + lastTagBox.height;
+  };
+
+  const showAllTags = async () => {
+    const allTagsShown = await checkAllTagsAreShown();
+    if (allTagsShown) {
+      return Promise.resolve(true);
+    }
+    const button = getElementByName('showAllButton');
+    await button.click();
+    await waitFor(async () => {
+      return checkAllTagsAreShown();
+    });
+  };
+
+  const hideAllTags = async () => {
+    const allTagsShown = await checkAllTagsAreShown();
+    if (!allTagsShown) {
+      return Promise.resolve(true);
+    }
+    const button = getElementByName('showAllButton');
+    await button.click();
+    await waitFor(async () => {
+      const isShown = await checkAllTagsAreShown();
+      return isShown === false;
+    });
+  };
+
+  const isSearchingSpinnerVisible = () => {
+    return page.getByTestId(dataTestIds.searchingText).isVisible();
+  };
+
+  const isSearchingErrorVisible = () => {
+    return page.getByTestId(dataTestIds.searchError).isVisible();
+  };
+
+  const isSearchAndFilterInfoVisible = () => {
+    return page.getByTestId(dataTestIds.searchAndFilterInfo).isVisible();
+  };
+
+  const isNoSearchResultsVisible = () => {
+    return page.getByTestId(dataTestIds.searchNoResults).isVisible();
+  };
+
+  const hasSearchResults = async (): Promise<boolean> => {
+    const elements = await getOptionElements({ all: true, skipOpenCheck: true });
+    return elements.length > 0;
+  };
+
   return {
+    checkAllTagsAreShown,
     closeList,
     countOptionsInGroup,
     getBoundingBox,
     getGroupLabel,
+    getGroupLabels,
     getGroups,
     getElementByName,
     getInput,
@@ -345,14 +436,23 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     getSearchAndFilterInfo,
     getSelectedGroupLabels,
     getSelectedOptionsInButton,
-    getSelectedOptionsInTags,
+    getTag,
+    getTags,
+    getTagsCount,
+    hasSearchResults,
+    hideAllTags,
     isOptionListOpen,
     isOptionListClosed,
+    isNoSearchResultsVisible,
+    isSearchAndFilterInfoVisible,
+    isSearchingErrorVisible,
+    isSearchingSpinnerVisible,
     openList,
+    scrollGroupInToView,
     scrollOptionInToView,
     selectGroupByIndex,
     selectOptionByIndex,
-    scrollGroupInToView,
+    showAllTags,
     waitUntilSelectedOptionCountMatches,
   };
 };

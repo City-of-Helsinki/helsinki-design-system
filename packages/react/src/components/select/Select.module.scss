@@ -1,5 +1,5 @@
 @import '../../styles/common.scss';
-@import '../dropdown/dropdown.common.scss';
+@import './dropdown.helpers';
 
 .root {
   @extend %dropdownRoot;
@@ -11,14 +11,6 @@
   &.invalid {
     border-color: var(--color-error);
   }
-
-  --menu-item-background-default: var(--color-white);
-  --menu-item-background-hover: var(--color-bus-light);
-  --menu-item-background-selected: var(--color-bus-light);
-  --menu-item-background-selected-hover: var(--color-bus-light);
-  --menu-item-background-disabled: var(--color-white);
-  --dropdown-border-color-hover-invalid: var(--color-error);
-  --dropdown-border-color-invalid: var(--color-error);
 }
 
 .selectAndListContainer {
@@ -58,7 +50,7 @@
     display: flex;
     font-size: var(--fontsize-body-l);
     outline: none;
-    padding: var(--spacing-s);
+    padding: var(--spacing-xs);
     padding-right: var(--spacing-2-xs);
 
     &.withVisibleFocus {
@@ -71,7 +63,11 @@
     }
 
     &.arrowButton {
-      padding-right: var(--spacing-s);
+      padding-right: var(--spacing-xs);
+    }
+
+    .buttonIcon {
+      color: var(--dropdown-color-default);
     }
 
     .labels {
@@ -83,6 +79,7 @@
       /* this value must be higher than height of a selected item (.dropdownButtonOption) or none are considered visible in getIndexOfFirstVisibleChild() */
       height: calc(var(--fontsize-body-l) * var(--lineheight-l) + 1px);
       overflow: hidden;
+      padding-left: var(--spacing-3-xs);
     }
 
     .count.count {
@@ -113,13 +110,14 @@
       // button icon
       > span:first-child {
         display: flex;
-        padding-right: var(--spacing-2-xs);
+        padding-right: var(--spacing-3-xs);
       }
     }
 
     &.icon {
       flex-shrink: 1;
-      padding-left: var(--spacing-2-xs);
+      padding-left: var(--spacing-xs);
+      padding-right: var(--spacing-xs);
     }
 
     &.placeholder {
@@ -370,9 +368,10 @@
   .tagList {
     display: flex;
     flex-flow: row wrap;
-    max-height: 78px;
+    margin: 0 -4px;
+    max-height: 80px;
     overflow: hidden;
-    padding: var(--spacing-3-xs) 0;
+    padding: var(--spacing-3-xs) 4px 0;
 
     .tag {
       margin-bottom: var(--spacing-xs);

@@ -16,6 +16,7 @@ import { useSelectDataHandlers } from './useSelectDataHandlers';
 import { useElementDetection } from './useElementDetection';
 import { KnownElementType } from '../types';
 import getFocusedElementFromBlurEvent from '../../../utils/getFocusedElementFromBlurEvent';
+import { tagSelectorForTagList } from '../components/tagList/TagListItem';
 
 type ReturnObject = Pick<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, never>,
@@ -39,9 +40,8 @@ export function useFocusHandling(): ReturnObject {
         const id = (element && getElementId(element)) || '';
         updateMetaData({ activeDescendant: id });
         const elementWithActiveDescendant = getElementUsingActiveDescendant();
-
         // do not set the attribute value unless the element has the attribute
-        // it does not exists unless input exists
+        // it does not need to be set in all scenarios (single/multiselect + input/no input)
         if (
           !elementWithActiveDescendant ||
           elementWithActiveDescendant.getAttribute('aria-activedescendant') === undefined
@@ -86,13 +86,13 @@ export function useFocusHandling(): ReturnObject {
         }
       } else if (type === eventTypes.blur) {
         if (open) {
-          const { selectionsAndListContainer } = refs;
+          const { selectionsAndListsContainer } = refs;
           const lastFocusedElement = getFocusedElementFromBlurEvent(e as FocusEvent<HTMLDivElement>);
-          const focusWasInSelectionsAndListContainer =
+          const focusWasInselectionsAndListsContainer =
             lastFocusedElement &&
-            !!selectionsAndListContainer.current &&
-            selectionsAndListContainer.current.contains(lastFocusedElement);
-          if (!lastFocusedElement || !focusWasInSelectionsAndListContainer) {
+            !!selectionsAndListsContainer.current &&
+            selectionsAndListsContainer.current.contains(lastFocusedElement);
+          if (!lastFocusedElement || !focusWasInselectionsAndListsContainer) {
             if (lastFocusedElement) {
               const focusedElementType = getElementType(lastFocusedElement);
               // when the list was open and a tag was focused and close event re-renders the component, the focus is lost from the tag.
@@ -120,7 +120,9 @@ export function useFocusHandling(): ReturnObject {
     };
     if (focusTarget) {
       if (focusTarget === 'tag') {
-        const current = refs.tagList.current && (refs.tagList.current.querySelectorAll('* > div')[0] as HTMLElement);
+        const current =
+          refs.tagList.current &&
+          (refs.tagList.current.querySelectorAll(`* ${tagSelectorForTagList}`)[0] as HTMLElement);
         setFocus({ current });
       } else {
         setFocus(refs[focusTarget]);
