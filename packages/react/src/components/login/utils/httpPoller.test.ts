@@ -1,7 +1,7 @@
-import HttpStatusCode from 'http-status-typed';
 import fetchMock, { enableFetchMocks, disableFetchMocks } from 'jest-fetch-mock';
 import { waitFor } from '@testing-library/react';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import createHttpPoller, { HttpPoller, HttpPollerProps } from './httpPoller';
 import { createFetchAborter } from './abortFetch';
 import { advanceUntilListenerCalled } from '../testUtils/timerTestUtil';

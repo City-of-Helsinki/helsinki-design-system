@@ -1,8 +1,8 @@
-import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { User } from 'oidc-client-ts';
 import { waitFor } from '@testing-library/react';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import {
   API_TOKEN_SESSION_STORAGE_KEY,
   API_TOKEN_SESSION_USER_REFERENCE_KEY,
