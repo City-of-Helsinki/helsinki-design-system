@@ -73,7 +73,7 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
       searchOrFilterInput: createRef<HTMLInputElement>(),
       container: createRef<HTMLDivElement>(),
     },
-    textContent: { selectionCount: 0, optionLabel: '', label: '', numberIndicator: 0, value: '' },
+    textContent: { selectionCount: 0, label: '', numberIndicator: 0, value: '' },
     textProvider: (key) => key,
     getOptionId: () => uniqueId('item'),
     filter: '',
