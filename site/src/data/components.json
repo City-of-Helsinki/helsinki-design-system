@@ -206,7 +206,7 @@
       "height": 180,
       "width": 280
     }
-  },  
+  },
   {
     "name": "Icon",
     "text": "Icons are used for providing visual cues and highlighting actions.",
@@ -385,6 +385,19 @@
     "imgProps": {
       "src": "/images/components/overview/searchinput@2x.png",
       "alt": "An illustration of the SearchInput component.",
+      "height": 180,
+      "width": 280
+    }
+  },
+  {
+    "name": "Select",
+    "text": "Select offers a user a list of options, of which one or multiple can be selected.",
+    "linkboxAriaLabel": "Select component",
+    "linkAriaLabel": "Go to the Select component page",
+    "href": "/components/select",
+    "imgProps": {
+      "src": "/images/components/overview/select@2x.png",
+      "alt": "An illustration of the Select component.",
       "height": 180,
       "width": 280
     }
