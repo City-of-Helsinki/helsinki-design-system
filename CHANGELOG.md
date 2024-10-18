@@ -54,6 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [SideNavigation] ariaLabel prop changed to "aria-label"
 - [SkipLink] ariaLabel prop changed to "aria-label"
 - [CookieConsent] Rewritten CookieConsent component
+- [Dropdown/Combobox] replaced with Select
+- [Dropdown/Select] replaced with Select
 
 #### Added
 
@@ -64,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Button] Added SCSS support and scss files are exported too. See documentation about usage.
 - [Table] Added SCSS support and scss files are exported too. See documentation about usage.
 - [Notification] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Select] New Select component replaces the old one
 
 #### Changed
 
