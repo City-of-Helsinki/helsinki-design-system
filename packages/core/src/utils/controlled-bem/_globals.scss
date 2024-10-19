@@ -120,3 +120,15 @@ $BLOCK-PREFIX: 'hds-';
 
   @return helpers.get-map-value-if-map($alias, $entityName);
 }
+
+@function get-block-selector-creator($config: null) {
+  @return get-config-value('createBlockSelector', $config);
+}
+
+@function get-modifier-selector-creator($config: null) {
+  @return get-config-value('createModifierSelector', $config);
+}
+
+@function get-element-selector-creator($config: null) {
+  @return get-config-value('createElementSelector', $config);
+}

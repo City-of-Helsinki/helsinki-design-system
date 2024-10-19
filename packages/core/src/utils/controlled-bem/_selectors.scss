@@ -1,7 +1,26 @@
 /* stylelint-disable scss/function-no-unknown */
 @use "sass:map";
+@use "sass:meta";
 @use "sass:selector";
 @use './globals.scss' as globals;
+
+@function create-block-selector($type, $name, $config) {
+  $blockPrefix: globals.get-block-prefix($config);
+
+  @return '.#{$blockPrefix}#{$name}';
+}
+
+@function create-modifier-selector($type, $name, $config) {
+  $modifierDelimeter: globals.get-modifier-delimeter($config);
+
+  @return '#{$modifierDelimeter}#{$name}';
+}
+
+@function create-element-selector($type, $name, $config) {
+  $elementDelimeter: globals.get-element-delimeter($config);
+
+  @return '#{$elementDelimeter}#{$name}';
+}
 
 @function create-selector($initial, $type, $name, $config) {
   $selector: '';
@@ -12,18 +31,33 @@
   }
 
   @if $type == 'block' {
-    $blockPrefix: globals.get-block-prefix($config);
-    $prefix: '.#{$blockPrefix}';
+    $creatorFn: globals.get-block-selector-creator($config);
+
+    @if $creatorFn {
+      @return meta.call($creatorFn, $type, $name, $config);
+    }
+
+    @return create-block-selector($type, $name, $config);
   }
 
   @if $type == 'modifier' {
-    $modifierDelimeter: globals.get-modifier-delimeter($config);
-    $prefix: '#{$modifierDelimeter}';
+    $creatorFn: globals.get-modifier-selector-creator($config);
+
+    @if $creatorFn {
+      @return meta.call($creatorFn, $type, $name, $config);
+    }
+
+    @return create-modifier-selector($type, $name, $config);
   }
 
   @if $type == 'element' {
-    $elementDelimeter: globals.get-element-delimeter($config);
-    $prefix: '#{$elementDelimeter}';
+    $creatorFn: globals.get-element-selector-creator($config);
+
+    @if $creatorFn {
+      @return meta.call($creatorFn, $type, $name, $config);
+    }
+
+    @return create-element-selector($type, $name, $config);
   }
 
   /* stylelint-disable-next-line scss/at-if-no-null */
