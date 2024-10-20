@@ -44,7 +44,7 @@
 
 /// for future use with nested init-multi-sass() calls
 @function end-multi-sass() {
-  @return null;
+  @return globals.remove-current-controller();
 }
 
 @mixin start-emit-end($args...) {
