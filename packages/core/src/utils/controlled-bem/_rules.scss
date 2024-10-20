@@ -144,6 +144,10 @@
     @return true;
   }
 
+  @if helpers.is-value-true($modifierMap) {
+    @return true;
+  }
+
   @return is-entity-allowed-in-category($modifierMap, $element);
 }
 

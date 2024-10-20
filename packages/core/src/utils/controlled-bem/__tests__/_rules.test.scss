@@ -161,7 +161,6 @@
     }
   }
 
-  // rules-to-map($args)
   @include describe('rules-to-map') {
     @include it('with empty map, all rules are allowed') {
       $map: helpers.create-empty-map();
@@ -303,11 +302,19 @@
 
   @include describe('is-element-allowed-in-modifier') {
     @include it('true modifier values accept all elements') {
-      $modifiers: rules.get-modifiers($defaultMapAsRules);
-
       @include assert-equal(rules.is-element-allowed-in-modifier($defaultMapAsRules, 'truthy', 'any'), true);
       @include assert-equal(rules.is-element-allowed-in-modifier($defaultMapAsRules, 'stringy', 'any'), false);
       @include assert-equal(rules.is-element-allowed-in-modifier($defaultMapAsRules, 'stringy', 'stringValue'), true);
+    }
+
+    @include it('string modifier values accept all elements') {
+      $modifiers: rules.get-modifiers($defaultMapAsRules);
+      $value: 'stringy';
+      $modifiers: (
+        'modifiers': rules.value-to-map($value),
+      );
+
+      @include assert-equal(rules.is-element-allowed-in-modifier($modifiers, 'stringy', 'any'), true);
     }
 
     @include it('explicitly allowed elements are  allowed') {
