@@ -20,7 +20,7 @@
 }
 
 @include describe('_selectors.scss') {
-  $result: init-controlled-bem(
+  $result: init-multi-sass(
     $modifiers: true,
     $elements: true,
     $extras: true,

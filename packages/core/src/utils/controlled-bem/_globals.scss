@@ -6,7 +6,7 @@
 
 /// GLOBALS
 
-$GLOBAL_BEM_OBJECT: null;
+$MULTI_SASS_CONTROLLER: null;
 $HAS_EXPLICIT_TRUE: 'HAS_EXPLICIT_TRUE';
 $ALL_ALLOWED: 'ALL_ALLOWED';
 $ALL_DISALLOWED: 'ALL_DISALLOWED';
@@ -18,67 +18,67 @@ $ELEMENT-DELIMETER: '__';
 $MODIFIER-DELIMETER: '--';
 $BLOCK-PREFIX: 'hds-';
 
-@function init-global-bem($ruleMap, $levels, $config) {
-  $GLOBAL_BEM_OBJECT: (
+@function store-multi-sass-controller($ruleMap, $levels, $config) {
+  $MULTI_SASS_CONTROLLER: (
     'rules': $ruleMap,
     'levels': $levels,
     'config': $config,
   ) !global;
 
-  @return $GLOBAL_BEM_OBJECT;
+  @return $MULTI_SASS_CONTROLLER;
 }
 
-@function update-global-bem-rules($ruleMap) {
-  $GLOBAL_BEM_OBJECT: map.set($GLOBAL_BEM_OBJECT, 'rules', $ruleMap) !global;
+@function update-multi-sass-rules($ruleMap) {
+  $MULTI_SASS_CONTROLLER: map.set($MULTI_SASS_CONTROLLER, 'rules', $ruleMap) !global;
 
-  @return $GLOBAL_BEM_OBJECT;
+  @return $MULTI_SASS_CONTROLLER;
 }
 
-@function add-global-bem-level($level) {
-  $current: get-global-bem-levels();
+@function add-multi-sass-level($level) {
+  $current: get-multi-sass-levels();
   $updated: list.append($current, $level);
-  $void: update-global-bem-levels($updated);
+  $void: update-multi-sass-levels($updated);
 
   @return $updated;
 }
 
-@function update-global-bem-levels($levels) {
-  $GLOBAL_BEM_OBJECT: map.set($GLOBAL_BEM_OBJECT, 'levels', $levels) !global;
+@function update-multi-sass-levels($levels) {
+  $MULTI_SASS_CONTROLLER: map.set($MULTI_SASS_CONTROLLER, 'levels', $levels) !global;
 
-  @return $GLOBAL_BEM_OBJECT;
+  @return $MULTI_SASS_CONTROLLER;
 }
 
-@function remove-current-global-bem-level() {
-  $levels: get-global-bem-levels();
+@function remove-current-multi-sass-level() {
+  $levels: get-multi-sass-levels();
   $newList: helpers.pop-list($levels);
 
-  @return update-global-bem-levels($newList);
+  @return update-multi-sass-levels($newList);
 }
 
-@function get-global-bem($levels) {
-  @return $GLOBAL_BEM_OBJECT;
+@function get-multi-sass-controller() {
+  @return $MULTI_SASS_CONTROLLER;
 }
 
-@function get-global-bem-levels() {
-  @return map.get($GLOBAL_BEM_OBJECT, 'levels');
+@function get-multi-sass-levels() {
+  @return map.get($MULTI_SASS_CONTROLLER, 'levels');
 }
 
-@function set-global-bem-levels($levels) {
-  @return map.set($GLOBAL_BEM_OBJECT, 'levels', $levels);
+@function set-multi-sass-levels($levels) {
+  @return map.set($MULTI_SASS_CONTROLLER, 'levels', $levels);
 }
 
-@function replace-global-bem-level($replacee, $index) {
-  $newLevels: helpers.replace-list-item(get-global-bem-levels(), $replacee, $index);
+@function replace-multi-sass-level($replacee, $index) {
+  $newLevels: helpers.replace-list-item(get-multi-sass-levels(), $replacee, $index);
 
   @return $newLevels;
 }
 
-@function get-global-bem-rules() {
-  @return map.get($GLOBAL_BEM_OBJECT, 'rules');
+@function get-multi-sass-rules() {
+  @return map.get($MULTI_SASS_CONTROLLER, 'rules');
 }
 
-@function get-global-bem-config() {
-  @return map.get($GLOBAL_BEM_OBJECT, 'config');
+@function get-multi-sass-config() {
+  @return map.get($MULTI_SASS_CONTROLLER, 'config');
 }
 
 @function is-base-name($name) {
@@ -86,7 +86,7 @@ $BLOCK-PREFIX: 'hds-';
 }
 
 @function get-config-value($value, $config: null) {
-  $config: $config or get-global-bem-config();
+  $config: $config or get-multi-sass-config();
 
   @return map.get($config, $value);
 }

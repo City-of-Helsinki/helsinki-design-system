@@ -10,7 +10,16 @@
 @use './output.scss' as output;
 @use './selectors.scss' as selectors;
 
-@function init-controlled-bem($args...) {
+/// Initializes the system
+/// Parses args and creates
+/// - rules
+/// - levels (always empty at this point
+/// - config
+///
+/// @params ""
+/// @returns a map with "rules", "levels", "config"
+
+@function init-multi-sass($args...) {
   $argMap: helpers.arg-list-to-map($args...);
   $rootSelector: null;
   $rules: rules.rules-to-map($argMap);
@@ -30,11 +39,11 @@
     $configInArgs
   );
 
-  @return globals.init-global-bem($rules, $levels, $config);
+  @return globals.store-multi-sass-controller($rules, $levels, $config);
 }
 
-/// for future use with nested init-controlled-bem() calls
-@function end-controlled-bem() {
+/// for future use with nested init-multi-sass() calls
+@function end-multi-sass() {
   @return null;
 }
 
@@ -78,7 +87,7 @@
   }
 }
 
-/// Leave undocumented
+/// Leave undocumented. Or document that usable when a level should be created and level findable
 /// @internal
 @mixin custom($selector) {
   @include start-emit-end($custom: $selector) {
@@ -107,12 +116,12 @@
 @mixin if-content-allowed() {
   $currentLevel: process.get-current-level();
 
-  // create a fake level, so all checks are made like a normal element
+  // create a fake level, so all checks are made like a normal entity
 
   $ARGS_MAP: helpers.create-empty-map();
   $ARGS_MAP: map.set($ARGS_MAP, 'element', globals.$BASE_CONTENT_NAME);
   $level: levels.create-level-data($currentLevel, $ARGS_MAP);
-  $ruleMap: globals.get-global-bem-rules();
+  $ruleMap: globals.get-multi-sass-rules();
   $isAllowed: levels.is-level-allowed-in-rules($ruleMap, $level);
 
   // clear the fake level
@@ -127,7 +136,7 @@
 // creates .hds-test--hello, .hds-test--hello2, .hds-test__elem, .hds-test div {...}
 @mixin selector-list($list) {
   $selector: '';
-  $config: globals.get-global-bem-config();
+  $config: globals.get-multi-sass-config();
 
   @each $item in $list {
     $tempLevel: process.create-process-level(
@@ -159,7 +168,7 @@
 
   // children of this entity should emit nested css
   $newLevel: levels.set-level-emit-target-to-nested($newLevel);
-  $void: globals.add-global-bem-level($newLevel);
+  $void: globals.add-multi-sass-level($newLevel);
 
   @include output.emit($newLevel) {
     @content;
@@ -187,14 +196,14 @@
     $newLevel: process.create-process-level(
       $ARGS_MAP: $ARGS_MAP,
     );
-    $selector: selectors.create-selector($closestSelector, $type, $name, globals.get-global-bem-config());
+    $selector: selectors.create-selector($closestSelector, $type, $name, globals.get-multi-sass-config());
     $newLevel: levels.set-level-selector($newLevel, '#{$closestSelector}#{$selector}');
 
     @if $separator == ' ' {
       $newLevel: levels.set-level-emit-target-to-nested($newLevel);
     }
 
-    $void: globals.add-global-bem-level($newLevel);
+    $void: globals.add-multi-sass-level($newLevel);
 
     /// depth is wrong. (depends on separator)
     /// parent is kind of wrong (depends on separator)
@@ -322,8 +331,8 @@
 
 // calls given func and emits the selector with content
 @mixin create-custom-selector($selectorCreator) {
-  $ruleMap: globals.get-global-bem-rules();
-  $config: globals.get-global-bem-config();
+  $ruleMap: globals.get-multi-sass-rules();
+  $config: globals.get-multi-sass-config();
   $currentLevel: process.get-current-level();
   $selector: meta.call($selectorCreator, $ruleMap, $config, $currentLevel);
 
@@ -336,8 +345,8 @@
 
 // calls given func and appends the level and emits the content
 @mixin create-custom-level($levelCreator) {
-  $ruleMap: globals.get-global-bem-rules();
-  $config: globals.get-global-bem-config();
+  $ruleMap: globals.get-multi-sass-rules();
+  $config: globals.get-multi-sass-config();
   $currentLevel: process.get-current-level();
   $newLevel: meta.call($levelCreator, $ruleMap, $config, $currentLevel);
   $selector: levels.get-level-selector($newLevel);
@@ -346,7 +355,7 @@
     $parentDepth: if($currentLevel, levels.get-level-depth($currentLevel), 0);
     $newLevel: levels.set-level-parent($newLevel, $currentLevel);
     $newLevel: levels.set-level-depth($newLevel, $parentDepth + 1);
-    $void: globals.add-global-bem-level($newLevel);
+    $void: globals.add-multi-sass-level($newLevel);
 
     @include output.emit($newLevel) {
       @content;
@@ -358,4 +367,11 @@
       @content;
     }
   }
+}
+
+@mixin multi-sass($args...) {
+  $void: init-multi-sass($args...);
+  @content;
+
+  $void: end-multi-sass();
 }

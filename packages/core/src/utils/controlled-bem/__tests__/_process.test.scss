@@ -6,7 +6,7 @@
 
 @include describe('_process.scss') {
   @include it('create-process-level') {
-    $global: exports.init-controlled-bem(
+    $global: exports.init-multi-sass(
       $block: 'myBlock',
     );
     $newBlock: process.start(

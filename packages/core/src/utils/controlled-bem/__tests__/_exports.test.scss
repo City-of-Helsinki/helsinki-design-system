@@ -6,8 +6,8 @@
 @use "sass:meta";
 @use "sass:map";
 
-@include describe('Init-bem creates rulemap, config and empty levels') {
-  $result: init-controlled-bem(
+@include describe('init-multi-sass creates rulemap, config and empty levels') {
+  $result: init-multi-sass(
     $modifiers: true,
     $elements: true,
     $extras: true,
@@ -68,7 +68,7 @@
       'elementDelimeter': 'elementDelimeter',
       'alias': 'should-not-be-set',
     );
-    $withCustomConfig: init-controlled-bem(
+    $withCustomConfig: init-multi-sass(
       $modifiers: true,
       $elements: true,
       $extras: true,
@@ -88,7 +88,7 @@
       'a': 'a',
       'b': 'b',
     );
-    $withAlias: init-controlled-bem(
+    $withAlias: init-multi-sass(
       $modifiers: true,
       $elements: true,
       $extras: true,
@@ -104,7 +104,7 @@
 }
 
 @mixin testMixin($elements: true, $modifiers: true, $extras: true) {
-  $void: init-controlled-bem(
+  $void: init-multi-sass(
     $modifiers: $modifiers,
     $elements: $elements,
     $extras: $extras,

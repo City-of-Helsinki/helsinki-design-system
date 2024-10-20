@@ -3,46 +3,42 @@
 @use '../exports' as *;
 @use "sass:meta";
 
-@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
-  $void: init-multi-sass(
-    $modifiers: $modifiers,
-    $elements: $elements,
-    $extras: $extras,
-    $block: 'block-name',
-  );
-
-  @include block {
-    --block: var(--var-block);
-
-    div {
-      --block-div: var(--var-block-div);
-    }
-  }
-
-  @include block {
-    --block2: var(--var-block2);
-
+@mixin MySass($elements: true, $modifiers: true, $extras: true) {
+  @include multi-sass($modifiers: $modifiers, $elements: $elements, $extras: $extras, $block: 'block-name') {
+    ///
     @include block {
-      --block2-inner-block: var(--var-block2-inner-block);
+      --block: var(--var-block);
 
       div {
-        --block2-div: var(--var-block2-div);
+        --block-div: var(--var-block-div);
       }
     }
 
-    ul {
-      li {
-        @include block {
-          --ul-li-block3: var(--var-ul-li-block3);
+    @include block {
+      --block2: var(--var-block2);
 
-          a {
-            --ul-li-block3-a: var(--var-ul-li-block3-a);
+      @include block {
+        --block2-inner-block: var(--var-block2-inner-block);
 
-            @include block {
-              --ul-li-block3-a-block4: var(--ul-li-block3-a-block4);
+        div {
+          --block2-div: var(--var-block2-div);
+        }
+      }
 
-              span {
-                --ul-li-block3-a-block4-span: var(--ul-li-block3-a-block4-span);
+      ul {
+        li {
+          @include block {
+            --ul-li-block3: var(--var-ul-li-block3);
+
+            a {
+              --ul-li-block3-a: var(--var-ul-li-block3-a);
+
+              @include block {
+                --ul-li-block3-a-block4: var(--ul-li-block3-a-block4);
+
+                span {
+                  --ul-li-block3-a-block4-span: var(--ul-li-block3-a-block4-span);
+                }
               }
             }
           }
@@ -56,7 +52,7 @@
   @include it('are outputted.') {
     @include assert {
       @include output {
-        @include testSCSS;
+        @include MySass;
       }
 
       @include expect {

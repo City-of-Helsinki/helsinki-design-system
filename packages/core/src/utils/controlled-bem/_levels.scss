@@ -211,7 +211,7 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
   $name: map.get($entityProps, 'value');
 
   @if $type {
-    $levels: globals.get-global-bem-levels();
+    $levels: globals.get-multi-sass-levels();
     $currentLevel: get-current-level($levels);
     $targetLevel: get-closest-with-name-or-type($currentLevel, $type, $name, $startFromLevel: true);
 
@@ -230,7 +230,7 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 }
 
 @function get-level-alias($level, $config: null) {
-  $ruleMap: globals.get-global-bem-rules();
+  $ruleMap: globals.get-multi-sass-rules();
   $type: get-level-type($level);
   $name: get-level-name($level);
 

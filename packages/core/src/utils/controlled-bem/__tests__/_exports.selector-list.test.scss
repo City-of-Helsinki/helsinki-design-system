@@ -7,7 +7,7 @@
 @use "sass:map";
 
 @mixin testMixin($elements: true, $modifiers: true, $extras: true) {
-  $void: init-controlled-bem(
+  $void: init-multi-sass(
     $modifiers: $modifiers,
     $elements: $elements,
     $extras: $extras,

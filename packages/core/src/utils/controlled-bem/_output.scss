@@ -6,16 +6,18 @@
   $selector: levels.get-level-selector($level);
   $shouldEmitNested: levels.should-level-emit-nested($level);
 
-  @if $contentOnly and $isAllowed {
-    @content;
-  } @else if $isAllowed {
-    @if $shouldEmitNested {
-      #{$selector} {
-        @content;
-      }
+  @if $isAllowed {
+    @if $contentOnly {
+      @content;
     } @else {
-      &#{$selector} {
-        @content;
+      @if $shouldEmitNested {
+        #{$selector} {
+          @content;
+        }
+      } @else {
+        &#{$selector} {
+          @content;
+        }
       }
     }
   }
