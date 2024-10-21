@@ -1003,3 +1003,32 @@ export const PreselectedValue = () => {
     />
   );
 };
+export const KeepOneSelection = () => {
+  const options = getOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, clickedOption, data) => {
+    if (selectedOptions.length > 0) {
+      return {
+        invalid: false,
+      };
+    }
+    return {
+      groups: iterateAndCopyGroup(data.groups, (option) => {
+        if (option.value === clickedOption.value) {
+          return { ...option, selected: true };
+        }
+        return option;
+      }),
+    };
+  }, []);
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      invalid
+      texts={{ ...defaultTexts, error: 'Select one option' }}
+      id="hds-select-component"
+    />
+  );
+};
