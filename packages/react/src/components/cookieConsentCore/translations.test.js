@@ -10,8 +10,8 @@ describe('getTranslation', () => {
     },
     farewell: 'Goodbye',
     template: {
-      en: 'Template to fill in ${value} <-',
-      fi: 'Templaatti johon täytetään ${value} <-',
+      en: 'Template to fill in {{value}} <-',
+      fi: 'Templaatti johon täytetään {{value}} <-',
     },
   };
 

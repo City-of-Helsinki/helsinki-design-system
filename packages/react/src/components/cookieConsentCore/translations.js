@@ -144,10 +144,10 @@ export function getTranslation(translations, key, lang, directions, fallbackLang
     // Convert translation value to string in case someone has used a number instead of a string
     translation.value = translation.value.toString();
 
-    // Replace dollar strings in translation with corresponding data from parameters
-    translation.value = translation.value.replace(/\$\{.+?\}/g, (match) => {
-      const stripDollarAndParenthesis = match.replace(/(^\$\{|\}$)/g, '');
-      const parameter = index(parameters, stripDollarAndParenthesis);
+    // Replace double curly braces in translation with corresponding data from parameters
+    translation.value = translation.value.replace(/\{\{.+?\}\}/g, (match) => {
+      const stripCurlyBraces = match.replace(/(^\{\{|\}\}$)/g, '');
+      const parameter = index(parameters, stripCurlyBraces);
 
       // Parameters may be either string or an language object
       if (typeof parameter === 'object') {

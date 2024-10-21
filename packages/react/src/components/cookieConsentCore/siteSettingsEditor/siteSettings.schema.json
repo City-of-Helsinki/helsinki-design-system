@@ -423,7 +423,7 @@
         },
         "heading": {
           "title": "Banner heading",
-          "description": "Banner heading supports ${siteName} token, it's replaced with the value from siteName setting",
+          "description": "Banner heading supports {{siteName}} token, it's replaced with the value from siteName setting",
           "options": {
             "disable_collapse": true
           },
@@ -431,9 +431,9 @@
             { "$ref": "#/$defs/LocalisedUniversalText" },
             {
               "default": {
-                "fi": "${siteName} käyttää evästeitä",
-                "sv": "${siteName} använder kakor",
-                "en": "${siteName} uses cookies"
+                "fi": "{{siteName}} käyttää evästeitä",
+                "sv": "{{siteName}} använder kakor",
+                "en": "{{siteName}} uses cookies"
               }
             }
           ]
@@ -547,9 +547,9 @@
             { "$ref": "#/$defs/LocalisedUniversalText" },
             {
               "default": {
-                "fi": "Hyvä tietää kategorialle: ${title}",
-                "sv": "Bra att veta för kategorin: ${title}",
-                "en": "Good to know for category: ${title}"
+                "fi": "Hyvä tietää kategorialle: {{title}}",
+                "sv": "Bra att veta för kategorin: {{title}}",
+                "en": "Good to know for category: {{title}}"
               }
             }
           ]
@@ -588,7 +588,7 @@
         },
         "acceptedAt": {
           "title": "Accepted at",
-          "description": "Formats the ${date} and ${time} (in Finnish datetime format) to tell the user when this group of cookies has been accepted.",
+          "description": "Formats the {{date}} and {{time}} (in Finnish datetime format) to tell the user when this group of cookies has been accepted.",
           "options": {
             "disable_collapse": true
           },
@@ -596,9 +596,9 @@
             { "$ref": "#/$defs/LocalisedUniversalText" },
             {
               "default": {
-                "fi": "Olet hyväksynyt tämän kategorian: ${date} klo ${time}.",
-                "sv": "Du har accepterat denna kategori: ${date} kl. ${time}.",
-                "en": "You have accepted this category: ${date} at ${time}."
+                "fi": "Olet hyväksynyt tämän kategorian: {{date}} klo {{time}}.",
+                "sv": "Du har accepterat denna kategori: {{date}} kl. {{time}}.",
+                "en": "You have accepted this category: {{date}} at {{time}}."
               }
             }
           ]

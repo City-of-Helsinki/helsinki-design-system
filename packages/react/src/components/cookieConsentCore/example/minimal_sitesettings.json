@@ -24,7 +24,7 @@
       "en": "Cookie settings"
     },
     "heading": {
-      "en": "${siteName} uses cookies"
+      "en": "{{siteName}} uses cookies"
     },
     "description": {
       "en": "This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content."
