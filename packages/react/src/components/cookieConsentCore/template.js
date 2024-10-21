@@ -213,8 +213,11 @@ export function formatTimestamp(timestamp, groupId, translations, lang, directio
     lang,
     directions,
     fallbackLang,
-  )[0];
-  return timestamp ? `<p class="timestamp" data-group="${groupId}">${acceptedTranslation}</p>` : '';
+  );
+
+  return timestamp
+    ? `<p class-"timestamp" data-group="${groupId}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${acceptedTranslation.acceptedAt.value}</p>`
+    : '';
 }
 
 /**
