@@ -370,10 +370,11 @@ describe('dataUpdater', () => {
     });
     it('can return a new set of options', () => {
       updateMockData({
-        ...createDataWithSelectedOptions({ totalOptionsCount: 3, selectedOptionsCount: 1 }),
+        ...createDataWithSelectedOptions({ totalOptionsCount: 10, selectedOptionsCount: 4 }),
       });
       const options: OptionInProps[] = [{ label: 'OptionX' }, { label: 'OptionZ', selected: true }];
 
+      expect(getCurrentMockMetaData().selectedOptions).toHaveLength(4);
       const groupsBefore = getCurrentGroupsFromData();
       const groupLabel = groupsBefore[0].options[0];
       const expectedResult = [groupLabel, ...options];
@@ -381,6 +382,7 @@ describe('dataUpdater', () => {
       selectOptionByIndex(1);
       const optionsInData = getAllOptions(getCurrentGroupsFromData(), false);
       expect(optionsInData).toMatchObject(expectedResult);
+      expect(getCurrentMockMetaData().selectedOptions).toMatchObject([{ label: 'OptionZ', selected: true }]);
     });
     it('can return the invalid prop and store it', () => {
       updateMockData({
