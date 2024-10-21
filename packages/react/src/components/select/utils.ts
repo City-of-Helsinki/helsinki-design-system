@@ -534,3 +534,18 @@ export function convertPropsToGroups({
   }
   return childrenToGroups(children) || [];
 }
+
+export function createMetaDataAfterSelectionChange(
+  groups: SelectData['groups'],
+  selectedOptions: SelectMetaData['selectedOptions'],
+  lastClickedOption?: Option,
+): Partial<Pick<SelectMetaData, 'selectedOptions' | 'textContent' | 'lastClickedOption'>> {
+  const data: Partial<SelectMetaData> = {
+    selectedOptions: createSelectedOptionsList(selectedOptions, groups),
+    lastClickedOption,
+    // textContent is re-created, when a textProvider is called
+    textContent: undefined,
+  };
+
+  return data;
+}

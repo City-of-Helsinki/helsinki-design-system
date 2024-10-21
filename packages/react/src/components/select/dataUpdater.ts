@@ -15,12 +15,12 @@ import {
   clearAllSelectedOptions,
   propsToGroups,
   getSelectedOptions,
-  createSelectedOptionsList,
   updateGroupLabelAndOptions,
   filterOptions,
   mergeSearchResultsToCurrent,
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
+  createMetaDataAfterSelectionChange,
 } from './utils';
 import {
   EventId,
@@ -84,12 +84,9 @@ const dataUpdater = (
 
   const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
     dataHandlers.updateData({ groups });
-    dataHandlers.updateMetaData({
-      selectedOptions: createSelectedOptionsList(dataHandlers.getMetaData().selectedOptions, groups),
-      lastClickedOption: clickedOption,
-      // textContent is re-created, when a textProvider is called
-      textContent: undefined,
-    });
+    dataHandlers.updateMetaData(
+      createMetaDataAfterSelectionChange(groups, dataHandlers.getMetaData().selectedOptions, clickedOption),
+    );
   };
 
   if (isOpenOrCloseEvent(id, type)) {
@@ -303,7 +300,7 @@ const debouncedSearch = debounce(
 );
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
-  const { updateData, getData, getMetaData } = dataHandlers;
+  const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
   const { onSearch, onChange } = getData();
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
 
@@ -321,6 +318,9 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
       if (groups || options) {
         const newGroups = propsToGroups(newProps) || [];
         updateData({ groups: newGroups });
+        updateMetaData(
+          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, lastClickedOption),
+        );
         newPropsHasChanges = true;
       }
       if (invalid !== undefined && invalid !== current.invalid) {
