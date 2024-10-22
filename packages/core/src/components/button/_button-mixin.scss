@@ -1,0 +1,432 @@
+@use '../../utils/bem' as BemUtil;
+
+@mixin base {
+  --border-width: 2px;
+  --outline-width-focus: 3px;
+  --padding-horizontal: var(--spacing-l);
+  --min-size: 56px;
+  --padding-vertical: var(--spacing-s);
+  --padding: calc(var(--padding-vertical) - var(--border-width)) calc(var(--padding-horizontal) - var(--border-width));
+  --icon-reposition: calc(-1 * var(--spacing-2-xs));
+
+
+  /* logics, always falls back to previous (upper) if not given ->
+  (no) active color -> (no) hover color -> (no) focus color -> default color
+  */
+  --computed-background-color: var(--background-color, transparent);
+  --computed-background-color-focus: var(--background-color-focus, var(--computed-background-color, transparent));
+  --computed-background-color-hover: var(--background-color-hover, var(--computed-background-color-focus, transparent));
+  --computed-background-color-active: var(--background-color-active, var(--computed-background-color-hover, transparent));
+  --computed-background-color-disabled: var(--background-color-disabled, var(--color-black-20, transparent));
+  --computed-color: var(--color, inherit);
+  --computed-color-focus: var(--color-focus, var(--computed-color, inherit));
+  --computed-color-hover: var(--color-hover, var(--computed-color-focus, inherit));
+  --computed-color-active: var(--color-active, var(--computed-color-hover, inherit));
+  --computed-color-disabled: var(--color-disabled, var(--color-white, inherit));
+  --computed-border-color: var(--border-color, var(--computed-background-color));
+  --computed-border-color-focus: var(--border-color-focus, var(--computed-border-color, transparent));
+  --computed-border-color-hover: var(--border-color-hover, var(--computed-border-color-focus, transparent));
+  --computed-border-color-active: var(--border-color-active, var(--computed-border-color-hover, transparent));
+  --computed-border-color-disabled: var(--border-color-disabled, var(--computed-background-color-disabled, transparent));
+  --computed-outline-color-focus: var(--outline-color-focus, transparent);
+  --computed-icon-size: var(--icon-size, var(--spacing-m));
+
+  align-content: flex-start;
+  align-items: center;
+  background-color: var(--computed-background-color);
+  border: var(--border-width) solid var(--computed-border-color);
+  border-radius: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: var(--computed-color, inherit);
+  column-gap: var(--spacing-2-xs);
+  cursor: var(--cursor, pointer);
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: 500;
+  hyphens: auto;
+  justify-content: center;
+  line-height: var(--lineheight-l);
+  margin: 0;
+  min-height: var(--min-size);
+  min-width: var(--min-size);
+  outline: none;
+  outline-offset: 2px;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  padding: var(--padding);
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  vertical-align: top;
+
+  /* repositioning the icons, after & before usage */
+  &:after {
+    margin-right: var(--icon-reposition);
+  }
+
+  &:before {
+    margin-left: var(--icon-reposition);
+  }
+
+  &,
+  &[type="button"],
+  &[type="reset"],
+  &[type="submit"]
+  {
+    -webkit-appearance: button;
+  }
+
+  /* focus */
+  &:focus-visible {
+    background-color: var(--computed-background-color-focus);
+    border-color: var(--computed-border-color-focus);
+    color: var(--computed-color-focus);
+    outline: var(--outline-width-focus) solid var(--computed-outline-color-focus);
+  }
+
+  /* hover */
+  &:hover {
+    background-color: var(--computed-background-color-hover);
+    border-color: var(--computed-border-color-hover);
+    color: var(--computed-color-hover);
+  }
+
+  /* active */
+  &:active {
+    background-color: var(--computed-background-color-active);
+    border-color: var(--computed-border-color-active);
+    color: var(--computed-color-active);
+    outline: var(--outline-width-focus) solid var(--computed-outline-color-focus);
+  }
+
+  /* disabled */
+  &:disabled {
+    --cursor: not-allowed;
+
+    background-color: var(--computed-background-color-disabled);
+    border-color: var(--computed-border-color-disabled);
+    color: var(--computed-color-disabled);
+    outline: none;
+  }
+}
+
+@mixin icon {
+  flex-shrink: 0;
+  height: var(--computed-icon-size);
+  width: var(--computed-icon-size);
+
+  /* start-side icon */
+  &:first-child:not(:last-child) {
+    margin-left: var(--icon-reposition);
+  }
+
+  /* end-side icon */
+  &:last-child:not(:first-child) {
+    margin-right: var(--icon-reposition);
+  }
+}
+
+@mixin small {
+  --min-size: 44px;
+  --padding-horizontal: var(--spacing-m);
+  --padding-vertical: var(--spacing-2-xs);
+}
+
+@mixin fullwidth {
+  width: 100%;
+}
+
+/* PRIMARY */
+
+/* default (bus) */
+
+@mixin primary {
+  --background-color: var(--color-bus);
+  --background-color-hover: var(--color-bus-dark);
+  --background-color-focus: var(--color-bus);
+  --background-color-disabled: var(--color-black-20);
+  --border-color: transparent;
+  --color: var(--color-white);
+  --color-disabled: var(--color-white);
+  --outline-color-focus: var(--color-coat-of-arms);
+}
+
+/* SECONDARY */
+
+/* default (bus) */
+
+@mixin secondary {
+  --background-color: transparent;
+  --background-color-hover: var(--color-bus-light);
+  --background-color-focus: transparent;
+  --background-color-disabled: transparent;
+  --border-color: var(--color-bus);
+  --border-color-disabled: var(--color-disabled);
+  --color: var(--color-bus);
+  --color-disabled: var(--color-black-40);
+  --outline-color-focus: var(--color-coat-of-arms);
+}
+
+/* SUPPLEMENTARY */
+
+@mixin supplementary {
+  --background-color: transparent;
+  --background-color-hover: var(--color-bus-light);
+  --background-color-focus: transparent;
+  --background-color-disabled: transparent;
+  --border-color: transparent;
+  --border-color-disabled: transparent;
+  --color: var(--color-bus);
+  --color-disabled: var(--color-black-40);
+  --outline-color-focus: var(--color-coat-of-arms);
+}
+
+/* CLEAR */
+
+@mixin clear {
+  --background-color: transparent;
+  --background-color-disabled: transparent;
+  --border-color: transparent;
+  --border-color-disabled: transparent;
+  --color: var(--color-black-90);
+  --color-disabled: var(--color-black-90);
+}
+
+/* UTILITY */
+
+/* success */
+
+@mixin success {
+  --background-color: var(--color-success);
+  --background-color-hover: var(--color-success-dark);
+  --background-color-focus: var(--color-success);
+  --border-color: var(--color-success);
+  --border-color-hover: var(--color-success-dark);
+  --border-color-focus: var(--color-success);
+  --color: var(--color-white);
+  --outline-color-focus: var(--color-coat-of-arms);
+}
+
+/* danger */
+
+@mixin danger {
+  --background-color: var(--color-error);
+  --background-color-hover: var(--color-error-dark);
+  --background-color-focus: var(--color-error);
+  --border-color: var(--color-error);
+  --border-color-hover: var(--color-error-dark);
+  --border-color-focus: var(--color-error);
+  --color: var(--color-white);
+  --outline-color-focus: var(--color-coat-of-arms);
+}
+
+/* THEMES */
+
+/* coat */
+
+@mixin primaryThemeCoat {
+  --background-color: var(--color-coat-of-arms);
+  --background-color-hover: var(--color-coat-of-arms-dark);
+  --background-color-focus: var(--color-coat-of-arms);
+  --border-color: var(--color-coat-of-arms);
+  --border-color-hover: var(--color-coat-of-arms-dark);
+  --border-color-focus: var(--color-coat-of-arms);
+  --color: var(--color-white);
+}
+
+@mixin secondaryThemeCoat {
+  --background-color: transparent;
+  --background-color-hover: var(--color-coat-of-arms-light);
+  --background-color-focus: transparent;
+  --border-color: var(--color-coat-of-arms);
+  --color: var(--color-coat-of-arms);
+}
+
+@mixin supplementaryThemeCoat {
+  --background-color: transparent;
+  --background-color-hover: var(--color-coat-of-arms-light);
+  --background-color-focus: transparent;
+  --border-color: transparent;
+  --color: var(--color-coat-of-arms);
+}
+
+/* black */
+
+@mixin primaryThemeBlack {
+  --background-color: var(--color-black);
+  --background-color-hover: var(--color-black);
+  --background-color-focus: var(--color-black);
+  --border-color: var(--color-black);
+  --border-color-hover: var(--color-black);
+  --border-color-focus: var(--color-black);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+}
+
+@mixin secondaryThemeBlack {
+  --background-color: transparent;
+  --background-color-hover: var(--color-black-5);
+  --background-color-focus: transparent;
+  --border-color: var(--color-black);
+  --border-color-hover: var(--color-black);
+  --border-color-focus: var(--color-black);
+  --color: var(--color-black);
+  --color-hover: var(--color-black);
+  --color-focus: var(--color-black);
+}
+
+@mixin supplementaryThemeBlack {
+  --background-color: transparent;
+  --background-color-hover: var(--color-black-5);
+  --background-color-focus: transparent;
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --color: var(--color-black);
+  --color-hover: var(--color-black);
+  --color-focus: var(--color-black);
+}
+
+@mixin button(
+  $all: true,
+  $base: false,
+  $icon: false,
+  $small: false,
+  $fullwidth: false,
+  $primary: false,
+  $secondary: false,
+  $supplementary: false,
+  $clear: false,
+  $success: false,
+  $danger: false,
+  $themeCoat: false,
+  $themeBlack: false,
+  $override: null,
+  $react: false
+) {
+  $className: 'button';
+
+  @if $override {
+    $className: $override;
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include base;
+    }
+
+    button.#{$className} {
+      -webkit-appearance: button;
+    }
+  }
+
+  @if $all or $icon {
+    @if $react {
+      @include BemUtil.unscopedElement($className, 'icon', true) {
+        @include icon;
+      }
+    } @else {
+      $buttonClass: $className;
+      $iconClass: 'icon';
+
+      @if not($override) {
+        $buttonClass: #{'hds-' + $buttonClass};
+        $iconClass: #{'hds-' + $iconClass};
+      }
+
+      @at-root {
+        .#{$buttonClass} .#{$iconClass} {
+          @include icon;
+        }
+      }
+    }
+  }
+
+  @if $all or $small {
+    @include BemUtil.unscopedModifier($className, 'small', $react) {
+      @include small;
+    }
+  }
+
+  @if $all or $fullwidth {
+    @include BemUtil.unscopedModifier($className, 'fullwidth', $react) {
+      @include fullwidth;
+    }
+  }
+
+  @if $all or $primary {
+    @include BemUtil.unscopedModifier($className, 'primary', $react) {
+      @include primary;
+    }
+  }
+
+  @if $all or $secondary {
+    @include BemUtil.unscopedModifier($className, 'secondary', $react) {
+      @include secondary;
+    }
+  }
+
+  @if $all or $supplementary {
+    @include BemUtil.unscopedModifier($className, 'supplementary', $react) {
+      @include supplementary;
+    }
+  }
+
+  @if $all or $clear {
+    @include BemUtil.unscopedModifier($className, 'clear', $react) {
+      @include clear;
+    }
+  }
+
+  @if $all or $success {
+    @include BemUtil.unscopedModifier($className, 'success', $react) {
+      @include success;
+    }
+  }
+
+  @if $all or $danger {
+    @include BemUtil.unscopedModifier($className, 'danger', $react) {
+      @include danger;
+    }
+  }
+
+  @if $all or ($themeCoat and $primary) {
+    @include BemUtil.unscopedModifierWithTheme($className, 'primary', 'theme-coat', $react) {
+      @include primaryThemeCoat;
+    }
+  }
+
+  @if $all or ($themeCoat and $secondary) {
+    @include BemUtil.unscopedModifierWithTheme($className, 'secondary', 'theme-coat', $react) {
+      @include secondaryThemeCoat;
+    }
+  }
+
+  @if $all or ($themeCoat and $supplementary) {
+    @include BemUtil.unscopedModifierWithTheme($className, 'supplementary', 'theme-coat', $react) {
+      @include supplementaryThemeCoat;
+    }
+  }
+
+  @if $all or ($themeBlack and $primary) {
+    @include BemUtil.unscopedModifierWithTheme($className, 'primary', 'theme-black', $react) {
+      @include primaryThemeBlack;
+    }
+  }
+
+  @if $all or ($themeBlack and $secondary) {
+    @include BemUtil.unscopedModifierWithTheme($className, 'secondary', 'theme-black', $react) {
+      @include secondaryThemeBlack;
+    }
+  }
+
+  @if $all or ($themeBlack and $supplementary) {
+    @include BemUtil.unscopedModifierWithTheme($className, 'supplementary', 'theme-black', $react) {
+      @include supplementaryThemeBlack;
+    }
+  }
+}

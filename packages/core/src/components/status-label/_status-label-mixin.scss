@@ -56,7 +56,8 @@
   $error: false,
   $alert: false,
   $success: false,
-  $override: null
+  $override: null,
+  $react: false
 ) {
   $className: 'status-label';
 
@@ -65,13 +66,13 @@
   }
 
   @if $all or $base {
-    @include BemUtil.block($className, if($override, true, false)) {
+    @include BemUtil.block($className, if($override, true, false), $react) {
       @include base;
     }
   }
 
   @if $all or $withIcon {
-    @include BemUtil.unscopedModifier($className, 'with-icon') {
+    @include BemUtil.unscopedModifier($className, 'with-icon', $react) {
       @include withIcon;
     }
   }
@@ -83,32 +84,36 @@
       $iconClassName: $override;
     }
 
-    // the original, pre-sass css had "-icon" which is not bem compliant, so manually created same
-    .#{$iconClassName} {
+    @if $react {
       @include icon;
+    } @else {
+      // the original, pre-sass css had "-icon" which is not bem compliant, so manually created same
+      .#{$iconClassName} {
+        @include icon;
+      }
     }
   }
 
   @if $all or $info {
-    @include BemUtil.unscopedModifier($className, 'info') {
+    @include BemUtil.unscopedModifier($className, 'info', $react) {
       @include info;
     }
   }
 
   @if $all or $success {
-    @include BemUtil.unscopedModifier($className, 'success') {
+    @include BemUtil.unscopedModifier($className, 'success', $react) {
       @include success;
     }
   }
 
   @if $all or $alert {
-    @include BemUtil.unscopedModifier($className, 'alert') {
+    @include BemUtil.unscopedModifier($className, 'alert', $react) {
       @include alert;
     }
   }
 
   @if $all or $error {
-    @include BemUtil.unscopedModifier($className, 'error') {
+    @include BemUtil.unscopedModifier($className, 'error', $react) {
       @include error;
     }
   }
