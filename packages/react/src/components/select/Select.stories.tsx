@@ -10,10 +10,13 @@ import {
   useSelectStorage,
   SupportedLanguage,
   defaultTexts as defaultUITexts,
+  defaultFilter,
+  getNewSelections,
+  iterateAndCopyGroup,
+  updateSelectedOptionsInGroups,
 } from './index';
 import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
-import { defaultFilter, getNewSelections, iterateAndCopyGroup, updateSelectedOptionsInGroups } from './utils';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
 import { OptionInProps } from './types';
 
