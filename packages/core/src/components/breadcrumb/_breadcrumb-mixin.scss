@@ -1,0 +1,160 @@
+@use '../../utils/bem' as BemUtil;
+
+@mixin base {
+  --horizontal-margin-small: var(--spacing-layout-2-xs);
+  --horizontal-margin-medium: var(--spacing-layout-xs);
+  --horizontal-margin-large: var(--spacing-layout-xs);
+  --horizontal-margin-x-large: var(--spacing-layout-s);
+  --horizontal-margin: var(--horizontal-margin-small);
+
+  display: flex;
+  margin: 0 var(--horizontal-margin);
+  padding: var(--spacing-s) 0;
+
+  &__list {
+    align-items: center;
+    flex-direction: row;
+    word-wrap: break-word;
+
+    &-item {
+      align-items: center;
+      display: flex;
+      line-height: var(--lineheight-l);
+    }
+  }
+
+  &__link#{&}__link {
+    --link-visited-color: none;
+    --link-color: var(--color-black-90);
+  }
+
+  &__link {
+    &:hover,
+    &:focus {
+      -webkit-text-decoration-color: var(--color-black-90);
+      text-decoration-color: var(--color-black-90);
+    }
+  }
+
+  &__back-arrow#{&}__back-arrow {
+    display: inline-flex;
+
+    /* compensate the white space in the icon */
+    margin-left: -5px;
+    margin-right: -3px;
+
+    --icon-size: var(--spacing-m);
+  }
+
+  &__separator#{&}__separator {
+    display: inline-flex;
+    padding-left: var(--spacing-3-xs);
+
+    --icon-size: var(--spacing-s);
+  }
+
+  @media (min-width: 768px) {
+    --horizontal-margin: var(--horizontal-margin-medium);
+  }
+
+  @media (min-width: 992px) {
+    --horizontal-margin: var(--horizontal-margin-large);
+  }
+
+  @media (min-width: 1248px) {
+    --horizontal-margin: var(--horizontal-margin-x-large);
+  }
+}
+
+@mixin active {
+  &__list {
+    &-item {
+      &--active {
+        font-weight: 700;
+
+        /* to match 3px border around links */
+        padding: 3px;
+      }
+    }
+  }
+}
+
+@mixin mobile {
+  &__list {
+    &--mobile {
+      display: flex;
+
+      #{BemUtil.get-block(&)}__link {
+        font-size: var(--fontsize-body-l);
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__list {
+      &--mobile {
+        display: none;
+      }
+    }
+  }
+}
+
+@mixin desktop {
+  &__list {
+    &--desktop {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__list {
+      &--desktop {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@mixin breadcrumb(
+  $all: true,
+  $base: false,
+  $active: false,
+  $mobile: false,
+  $desktop: false,
+  $override: null,
+  $react: false
+) {
+  $className: 'breadcrumb';
+
+  @if $override {
+    $className: $override;
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include base;
+    }
+  }
+
+  @if $all or $active {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include active;
+    }
+  }
+
+  @if $all or $mobile {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include mobile;
+    }
+  }
+
+  @if $all or $desktop {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include desktop;
+    }
+  }
+}
