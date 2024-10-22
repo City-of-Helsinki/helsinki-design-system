@@ -19,6 +19,7 @@ import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons
 import { Button } from '../button/Button';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
 import { OptionInProps } from './types';
+import { Tag, TagSize } from '../tag/Tag';
 
 export default {
   component: Select,
@@ -480,32 +481,57 @@ export const MultiselectWithGroupsAndSearch = () => {
   );
 };
 
-export const MultiselectWithoutTags = () => {
-  const groups: SelectProps['groups'] = [
-    {
-      label: 'Healthy choices',
-      options: getOptionLabels(4),
-    },
-    {
-      label: 'More healthy choices',
-      options: getOptionLabels(4, 5),
-    },
-  ];
+export const MultiselectWithCustomTags = () => {
+  const [selections, updateSelections] = useState<Option[]>([]);
+  const CustomOptionList = ({ options }: { options: Option[] }) => {
+    if (!options.length) {
+      return <p>No options selected</p>;
+    }
+    return (
+      <>
+        <h3>Selected options:</h3>
+        {options.map((option) => {
+          return (
+            <Tag key={option.value} size={TagSize.Large}>
+              {option.label}
+            </Tag>
+          );
+        })}
+      </>
+    );
+  };
 
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
-    // track changes here
-    genericOnChangeCallback(...args);
-  }, []);
+  const storage = useSelectStorage({
+    groups: [
+      {
+        label: 'Healthy choices',
+        options: getOptionLabels(4),
+      },
+      {
+        label: 'More healthy choices',
+        options: getOptionLabels(4, 5),
+      },
+    ],
+    onChange: (selectedOptions) => {
+      updateSelections(selectedOptions);
+    },
+    multiSelect: true,
+    filter: defaultFilter,
+    disabled: false,
+    open: false,
+    invalid: false,
+    texts: defaultTextsForMultiSelect,
+    id: 'hds-select-component',
+    noTags: true,
+  });
+
   return (
-    <Select
-      groups={groups}
-      onChange={onChange}
-      multiSelect
-      icon={<IconLocation />}
-      texts={defaultTextsForMultiSelect}
-      noTags
-      id="hds-select-component"
-    />
+    <WrapperWithButtonStyles>
+      <Select {...storage.getProps()} />
+      <div className="buttons">
+        <CustomOptionList options={selections} />
+      </div>
+    </WrapperWithButtonStyles>
   );
 };
 
