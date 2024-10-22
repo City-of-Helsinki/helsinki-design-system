@@ -1060,3 +1060,101 @@ export const KeepOneSelection = () => {
     />
   );
 };
+
+export const WithCustomTheme = (args: SelectProps) => {
+  const options = getOptionLabels(20);
+  return (
+    <Select
+      {...args}
+      multiSelect
+      options={options}
+      filter={defaultFilter}
+      onChange={genericOnChangeCallback}
+      texts={{ ...defaultTexts, assistive: 'Change component parameters in Story!' }}
+      id="hds-select-component"
+      value={options.slice(3, 10)}
+      icon={<IconLocation />}
+    />
+  );
+};
+WithCustomTheme.args = {
+  theme: {
+    '--icon-color': 'var(--color-white)',
+    '--assistive-color': 'var(--color-bus)',
+    '--placeholder-color': 'var(--color-black-30)',
+    '--dropdown-background-default': 'var(--color-black)',
+    '--dropdown-background-disabled': 'var(--color-black-20)',
+    '--dropdown-border-color-default': 'var(--color-bus-dark)',
+    '--dropdown-border-color-hover': 'var(--color-error)',
+    '--dropdown-border-color-hover-invalid': 'var(--color-error)',
+    '--dropdown-border-color-focus': 'var(--color-bus)',
+    '--dropdown-border-color-invalid': 'var(--color-error)',
+    '--dropdown-color-default': 'var(--color-white)',
+    '--dropdown-color-disabled': 'var(--color-black-20)',
+    '--dropdown-icon-color': 'var(--color-white)',
+    '--focus-outline-color': 'var(--color-black)',
+    '--helper-color-default': 'var(--color-black-10)',
+    '--helper-color-invalid': 'var(--color-black)',
+    '--menu-divider-color': 'var(--color-white)',
+    '--menu-item-background-default': 'var(--color-black)',
+    '--menu-item-background-hover': 'var(--color-white)',
+    '--menu-item-background-selected': 'var(--color-white)',
+    '--menu-item-background-selected-hover': 'var(--color-bus-light)',
+    '--menu-item-background-disabled': 'var(--color-black-20)',
+    '--menu-item-color-default': 'var(--color-black-10)',
+    '--menu-item-color-hover': 'var(--color-black)',
+    '--menu-item-color-selected': 'var(--color-black-90)',
+    '--menu-item-color-selected-hover': 'var(--color-white)',
+    '--menu-item-color-disabled': 'var(--color-black-60)',
+    '--menu-item-icon-color-selected': 'var(--color-white)',
+    '--menu-item-icon-color-disabled': 'var(--color-black-60)',
+    '--checkbox-background-unselected-override': 'var(--color-tram-light)',
+    '--checkbox-background-selected': 'var(--color-tram)',
+    '--checkbox-background-hover': 'var(--color-tram-dark)',
+    '--checkbox-background-disabled': 'var(--color-black-20)',
+    '--checkbox-border-color-selected': 'var(--color-bus)',
+    '--checkbox-border-color-selected-hover': 'var(--color-bus-dark)',
+    '--checkbox-border-color-selected-focus': 'var(--color-black)',
+    '--checkbox-border-color-unselected': 'var(--color-black-20)',
+    '--checkbox-border-color-unselected-hover': 'var(--color-black-50)',
+    '--checkbox-border-color-unselected-focus': 'var(--color-black-90)',
+    '--checkbox-border-color-disabled': 'var(--color-black-20)',
+    '--checkbox-icon-color-unselected': 'transparent',
+    '--checkbox-icon-color-selected': 'var(--color-black)',
+    '--checkbox-icon-color-disabled': 'var(--color-white)',
+    '--text-icon-color': 'var(--color-white)',
+    '--text-input-background-default': 'var(--color-black)',
+    '--text-input-border-color-default': 'var(--color-error)',
+    '--text-input-border-color-hover': 'var(--color-error-light)',
+    '--text-input-border-color-focus': 'var(--color-error)',
+    '--text-input-color-default': 'var(--color-white)',
+    '--text-color-focus-outline': 'var(--color-error)',
+    '--text-input-placeholder-color': 'var(--color-black-30)',
+    '--text-label-color-default': 'var(--color-white)',
+    '--tag-background-color-hover': 'var(--color-bus-light)',
+    '--tag-background-color': 'var(--color-bus-dark)',
+    '--tag-border-color-action': 'var(--color-white)',
+    '--tag-color': 'var(--color-black-10)',
+    '--tag-outline-color-focus': 'var(--color-focus-outline)',
+    '--show-all-background-color-hover': 'var(--color-tram)',
+    '--show-all-background-color': 'var(--color-bus-light)',
+    '--show-all-border-color': 'var(--color-error)',
+    '--show-all-border-color-hover': 'var(--color-error)',
+    '--show-all-border-color-focus': 'var(--color-error)',
+    '--show-all-border-color-hover-focus': 'var(--color-error)',
+    '--show-all-color': 'var(--color-error)',
+    '--show-all-color-hover': 'var(--color-error)',
+    '--show-all-color-focus': 'var(--color-error)',
+    '--show-all-color-hover-focus': 'var(--color-error)',
+    '--clear-all-background-color-hover': 'var(--color-bus)',
+    '--clear-all-background-color': 'var(--color-white)',
+    '--clear-all-border-color': 'var(--color-error)',
+    '--clear-all-border-color-hover': 'var(--color-error)',
+    '--clear-all-border-color-focus': 'var(--color-error)',
+    '--clear-all-border-color-hover-focus': 'var(--color-error)',
+    '--clear-all-color': 'var(--color-error)',
+    '--clear-all-color-hover': 'var(--color-error)',
+    '--clear-all-color-focus': 'var(--color-error)',
+    '--clear-all-color-hover-focus': 'var(--color-error)',
+  },
+};

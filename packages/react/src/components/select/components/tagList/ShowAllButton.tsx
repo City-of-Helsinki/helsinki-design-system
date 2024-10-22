@@ -29,6 +29,7 @@ const showAllButtonPropSetter = (
     disabled,
     id: elementIds.showAllButton,
     'aria-label': ariaLabel,
+    className: styles.showAllButton,
   };
 };
 

@@ -25,7 +25,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -60,7 +60,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -95,7 +95,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -130,7 +130,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -170,7 +170,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -205,7 +205,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -240,7 +240,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -280,7 +280,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -315,7 +315,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -350,7 +350,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -385,7 +385,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -420,7 +420,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -455,7 +455,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -490,7 +490,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
@@ -525,7 +525,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
           class="checkboxContainer"
         >
           <div
-            class="checkbox"
+            class="checkbox checkbox"
           >
             <input
               class="input"
