@@ -48,17 +48,18 @@ Styles of the `StatusLabel` are exported as SCSS mixins and are reusable anywher
 
 ### Parameters of the status-label mixin
 
-| Property                                     | Description                                               | Values             | Default value |
-| -------------------------------------------- | --------------------------------------------------------- | ------------------ | ------------- |
-| `all`                                        | Should all styles of all variations be outputted.         | `boolean`          | `true`        |
-| `base`                                       | Should the base styles be outputted.                      | `boolean`          | `false`       |
-| `icon`                                       | Should the styles of the icon element be outputted.       | `boolean`          | `false`       |
-| `withIcon`                                   | Should the styles of the label with an icon be outputted. | `boolean`          | `false`       |
-| `info`                                       | Should the styles of the info variation be outputted.     | `boolean`          | `false`       |
-| `error`                                      | Should the styles of the error variation be outputted.    | `boolean`          | `false`       |
-| `alert`                                      | Should the styles of the alert variation be outputted.    | `boolean`          | `false`       |
-| `success`                                    | Should the styles of the success variation be outputted.  | `boolean`          | `false`       |
-| `override`                                   | Override the default className `status-label`.            | `null` or `string` | `null`        |
+| Property                                     | Description                                                    | Values             | Default value |
+| -------------------------------------------- | -------------------------------------------------------------- | ------------------ | ------------- |
+| `all`                                        | Should all styles of all variations be outputted.              | `boolean`          | `true`        |
+| `base`                                       | Should the base styles be outputted.                           | `boolean`          | `false`       |
+| `icon`                                       | Should the styles of the icon element be outputted.            | `boolean`          | `false`       |
+| `withIcon`                                   | Should the styles of the label with an icon be outputted.      | `boolean`          | `false`       |
+| `info`                                       | Should the styles of the info variation be outputted.          | `boolean`          | `false`       |
+| `error`                                      | Should the styles of the error variation be outputted.         | `boolean`          | `false`       |
+| `alert`                                      | Should the styles of the alert variation be outputted.         | `boolean`          | `false`       |
+| `success`                                    | Should the styles of the success variation be outputted.       | `boolean`          | `false`       |
+| `override`                                   | Override the default className `status-label`.                 | `null` or `string` | `null`        |
+| `react`                                      | Use this when included in the SCSS class of a React component. | `boolean`          | `false`       |
 | [Table 2: The status-label mixin parameters] |
 
 #### The output of the status-label mixin
@@ -108,30 +109,30 @@ The base and variation mixins can be included in any class.
 @use 'hds-core/components/status-label/_status-label-mixin' as CoreSass;
 
 .statusLabel {
-  @include CoreSass.base;
+  @include CoreSass.status-label($all: false, $base: true, $react: true);
 }
 
 .statusLabelWithIcon {
-  @include CoreSass.withIcon;
+  @include CoreSass.status-label($all: false, $withIcon: true, $react: true);
 }
 
 .statusLabelIcon {
-  @include CoreSass.icon;
+  @include CoreSass.status-label($all: false, $icon: true, $react: true);
 }
 
 .info {
-  @include CoreSass.info;
+  @include CoreSass.status-label($all: false, $info: true, $react: true);
 }
 
 .success {
-  @include CoreSass.success;
+  @include CoreSass.status-label($all: false, $success: true, $react: true);
 }
 
 .alert {
-  @include CoreSass.alert;
+  @include CoreSass.status-label($all: false, $alert: true, $react: true);
 }
 
 .error {
-  @include CoreSass.error;
+  @include CoreSass.status-label($all: false, $error: true, $react: true);
 }
 ```

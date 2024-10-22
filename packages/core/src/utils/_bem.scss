@@ -71,16 +71,20 @@ $elementDelimeter: '__';
 // prefix added by HDS
 // use for creating classes like .hds-<$block>
 // set $noPrefix to false to create classes like .-<$block>
-@mixin block($block, $noPrefix: false) {
+@mixin block($block, $noPrefix: false, $react: false) {
   $className: $block;
 
   @if not($noPrefix) {
     $className: #{$blockPrefix + $block};
   }
 
-  @at-root {
-    .#{$className} {
-      @content;
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$className} {
+        @content;
+      }
     }
   }
 }
@@ -148,19 +152,40 @@ $elementDelimeter: '__';
 // end of sass-easy-bem
 
 // HDS add-on to create .hds-<block>--modifier instead of .hds-<block>.hds-<block>--modifier
-@mixin unscopedModifier($block, $modifier) {
-  @at-root {
-    .#{$blockPrefix + $block}#{$modifierDelimeter}#{$modifier} {
-      @content;
+@mixin unscopedModifier($block, $modifier, $react) {
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$blockPrefix + $block}#{$modifierDelimeter}#{$modifier} {
+        @content;
+      }
     }
   }
 }
 
 // HDS add-on to create .hds-<block>__element instead of .hds-<block>.hds-<block>__element
-@mixin unscopedElement($block, $element) {
-  @at-root {
-    .#{$blockPrefix + $block}#{$elementDelimeter}#{$element} {
-      @content;
+@mixin unscopedElement($block, $element, $react) {
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$blockPrefix + $block}#{$elementDelimeter}#{$element} {
+        @content;
+      }
+    }
+  }
+}
+
+// HDS add-on to create .hds-<block>--modifier.hds-<block>--theme {
+@mixin unscopedModifierWithTheme($block, $modifier, $theme, $react) {
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$blockPrefix + $block}#{$modifierDelimeter}#{$modifier}.#{$blockPrefix + $block}#{$modifierDelimeter}#{$theme} {
+        @content;
+      }
     }
   }
 }

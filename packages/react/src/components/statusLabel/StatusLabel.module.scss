@@ -1,29 +1,29 @@
 @use 'hds-core/lib/components/status-label/_status-label-mixin' as CoreSass;
 
 .statusLabel {
-  @include CoreSass.base;
+  @include CoreSass.status-label($all: false, $base: true, $react: true);
 }
 
 .statusLabelWithIcon {
-  @include CoreSass.withIcon;
+  @include CoreSass.status-label($all: false, $withIcon: true, $react: true);
 }
 
 .statusLabelIcon {
-  @include CoreSass.icon;
+  @include CoreSass.status-label($all: false, $icon: true, $react: true);
 }
 
 .info {
-  @include CoreSass.info;
+  @include CoreSass.status-label($all: false, $info: true, $react: true);
 }
 
 .success {
-  @include CoreSass.success;
+  @include CoreSass.status-label($all: false, $success: true, $react: true);
 }
 
 .alert {
-  @include CoreSass.alert;
+  @include CoreSass.status-label($all: false, $alert: true, $react: true);
 }
 
 .error {
-  @include CoreSass.error;
+  @include CoreSass.status-label($all: false, $error: true, $react: true);
 }

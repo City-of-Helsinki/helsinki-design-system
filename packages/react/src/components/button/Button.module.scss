@@ -1,47 +1,69 @@
+@use 'hds-core/lib/components/button/_button-mixin' as CoreSass;
+
 .button {
-  composes: hds-button from 'hds-core/lib/components/button/button.css';
-}
-
-.fullWidth {
-  composes: hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
-}
-
-.size-small {
-  composes: hds-button--small from 'hds-core/lib/components/button/button.css';
-}
-
-.icon {
-  composes: hds-icon from 'hds-core/lib/components/button/button.css';
-}
-
-.clear {
-  composes: hds-button--clear from 'hds-core/lib/components/button/button.css';
+  @include CoreSass.button($all: false, $base: true, $react: true);
 }
 
 .primary {
-  composes: hds-button--primary from 'hds-core/lib/components/button/button.css';
+  @include CoreSass.button($all: false, $primary: true, $react: true);
 }
 
 .secondary {
-  composes: hds-button--secondary from 'hds-core/lib/components/button/button.css';
+  @include CoreSass.button($all: false, $secondary: true, $react: true);
 }
 
 .supplementary {
-  composes: hds-button--supplementary from 'hds-core/lib/components/button/button.css';
-}
-
-.success {
-  composes: hds-button--success from 'hds-core/lib/components/button/button.css';
-}
-
-.danger {
-  composes: hds-button--danger from 'hds-core/lib/components/button/button.css';
+  @include CoreSass.button($all: false, $supplementary: true, $react: true);
 }
 
 .theme-coat {
-  composes: hds-button--theme-coat from 'hds-core/lib/components/button/button.css';
+  &.primary {
+    @include CoreSass.button($all: false, $themeCoat: true, $primary: true, $react: true);
+  }
+
+  &.secondary {
+    @include CoreSass.button($all: false, $themeCoat: true, $secondary: true, $react: true);
+  }
+
+  &.supplementary {
+    @include CoreSass.button($all: false, $themeCoat: true, $supplementary: true, $react: true);
+  }
 }
 
 .theme-black {
-  composes: hds-button--theme-black from 'hds-core/lib/components/button/button.css';
+  &.primary {
+    @include CoreSass.button($all: false, $themeBlack: true, $primary: true, $react: true);
+  }
+
+  &.secondary {
+    @include CoreSass.button($all: false, $themeBlack: true, $secondary: true, $react: true);
+  }
+
+  &.supplementary {
+    @include CoreSass.button($all: false, $themeBlack: true, $supplementary: true, $react: true);
+  }
+}
+
+.clear {
+  @include CoreSass.button($all: false, $clear: true, $react: true);
+}
+
+.success {
+  @include CoreSass.button($all: false, $success: true, $react: true);
+}
+
+.danger {
+  @include CoreSass.button($all: false, $danger: true, $react: true);
+}
+
+.size-small {
+  @include CoreSass.button($all: false, $small: true, $react: true);
+}
+
+.fullWidth {
+  @include CoreSass.button($all: false, $fullwidth: true, $react: true);
+}
+
+.icon {
+  @include CoreSass.button($all: false, $icon: true, $react: true);
 }
