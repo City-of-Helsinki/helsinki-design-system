@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import '../../styles/base.module.css';
-import styles from './Checkbox.module.css';
+import styles from './Checkbox.module.scss';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { Tooltip } from '../tooltip';

@@ -1,5 +1,5 @@
 import { useEffect } from "@storybook/client-api";
-import './checkbox.css';
+import './checkbox.scss';
 import '../selection-group/selection-group.css';
 
 const errorTextId = 'checkbox-error-text';

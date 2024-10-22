@@ -1,0 +1,144 @@
+---
+slug: '/components/button/scss'
+title: 'Button - SCSS'
+---
+
+import { Button } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## SCSS
+
+Styles of the `Button` are exported as SCSS mixins and are reusable anywhere.
+
+### Mixins
+
+| Mixin                             | Description                                           | Arguments                                                                   |
+| --------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------- |
+| `button`                          | The root mixin to output all or only selected styles. | See <AnchorLink anchor="parameters-of-the-root-mixin">Table 2</AnchorLink>. |
+| `base`                            | Outputs the base styles.                              | -                                                                           |
+| `icon`                            | Outputs the styles of the icon element.               | -                                                                           |
+| `small`                           | Outputs the styles of the small variation.            | -                                                                           |
+| `fullwidth`                       | Outputs the styles of the fullwidth variation.        | -                                                                           |
+| `primary`                         | Outputs the styles of the primary variation.          | -                                                                           |
+| `secondary`                       | Outputs the styles of the secondary variation.        | -                                                                           |
+| `supplementary`                   | Outputs the styles of the supplementary variation.    | -                                                                           |
+| `clear`                           | Outputs the styles of the clear variation.            | -                                                                           |
+| `success`                         | Outputs the styles of the success variation.          | -                                                                           |
+| `danger`                          | Outputs the styles of the danger variation.           | -                                                                           |
+| `themeCoat`                       | Outputs the styles of the themeCoat variation.        | -                                                                           |
+| `themeBlack`                      | Outputs the styles of the themeBlack variation.       | -                                                                           |
+| [Table 1:Button SCSS mixins] |
+
+### Usage with the root mixin
+
+```scss
+@use 'hds-core/components/button/_button-mixin' as CoreSass;
+
+@include button(
+  $all: true,
+  $base: false,
+  $icon: false,
+  $small: false,
+  $fullwidth: false,
+  $primary: false,
+  $secondary: false,
+  $supplementary: false,
+  $clear: false,
+  $success: false,
+  $danger: false,
+  $themeCoat: false,
+  $themeBlack: false,
+  $override: null,
+  $react: false
+);
+```
+
+### Parameters of the button mixin
+
+| Property                                     | Description                                                    | Values             | Default value |
+| -------------------------------------------- | -------------------------------------------------------------- | ------------------ | ------------- |
+| `all`                                        | Should all styles of all variations be outputted.              | `boolean`          | `true`        |
+| `base`                                       | Should the base styles be outputted.                           | `boolean`          | `false`       |
+| `icon`                                       | Should the styles of the icon element be outputted.            | `boolean`          | `false`       |
+| `small`                                      | Should the styles of the small variation be outputted.         | `boolean`          | `false`       |
+| `fullwidth`                                  | Should the styles of the fullwidth variation be outputted.     | `boolean`          | `false`       |
+| `primary`                                    | Should the styles of the primary variation be outputted.       | `boolean`          | `false`       |
+| `secondary`                                  | Should the styles of the secondary variation be outputted.     | `boolean`          | `false`       |
+| `supplementary`                              | Should the styles of the supplementary variation be outputted. | `boolean`          | `false`       |
+| `clear`                                      | Should the styles of the clear variation be outputted.         | `boolean`          | `false`       |
+| `success`                                    | Should the styles of the success variation be outputted.       | `boolean`          | `false`       |
+| `danger`                                     | Should the styles of the danger variation be outputted.        | `boolean`          | `false`       |
+| `themeCoat`                                  | Should the styles of the themeCoat variation be outputted.     | `boolean`          | `false`       |
+| `themeBlack`                                 | Should the styles of the themeBlack variation be outputted.    | `boolean`          | `false`       |
+| `override`                                   | Override the default className `button`.                       | `null` or `string` | `null`        |
+| `react`                                      | Use this when included in the SCSS class of a React component. | `boolean`          | `false`       |
+| [Table 2: The button mixin parameters] |
+
+#### The output of the button mixin
+
+Helsinki Design System uses <ExternalLink href="https://getbem.com/">BEM</ExternalLink>, and class names follow its methodology.
+
+Class names are prefixed with `hds-`, followed by the component name (`button`) and the proper BEM naming.
+
+Note that variations of the `Button` styles are not compound classes of the base class `.hds-button`. But the variations only alter the CSS variables, so they are quite useless without the base class.
+
+```scss
+.hds-button {
+  //... all base styles
+}
+
+.hds-button--small {
+  //... small variation styles
+}
+
+.hds-button-icon {
+  //... icon variation styles
+}
+```
+
+#### Custom output
+
+Changing the boolean parameters affects which styles are outputted, and the `override` parameter will change how classes are named.
+
+```scss
+@include button($all: true, $override: 'my-class');
+
+.my-class {
+  //... all base styles
+}
+
+.my-class--small {
+  //... small variation styles
+}
+```
+
+### Usage with custom classes
+
+The base and variation mixins can be included in any class.
+
+```scss
+@use 'hds-core/components/button/_button-mixin' as CoreSass;
+
+.button {
+  @include CoreSass.button($all: false, $base: true, $react: true);
+}
+
+.buttonIcon {
+  @include CoreSass.button($all: false, $icon: true, $react: true);
+}
+
+.primary {
+  @include CoreSass.button($all: false, $primary: true, $react: true);
+}
+
+.theme-black {
+  &.primary {
+    @include CoreSass.button($all: false, $themeBlack: true, $primary: true, $react: true);
+  }
+}
+
+```
