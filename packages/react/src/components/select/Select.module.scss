@@ -67,7 +67,7 @@
     }
 
     .buttonIcon {
-      color: var(--dropdown-color-default);
+      color: var(--icon-color);
     }
 
     .labels {
@@ -96,7 +96,8 @@
       }
 
       span {
-        background-color: #fff;
+        background-color: var(--dropdown-background-default);
+        color: var(--dropdown-color-default);
         position: absolute;
         right: 2px;
         top: 0;
@@ -115,6 +116,7 @@
     }
 
     &.icon {
+      color: var(--dropdown-icon-color);
       flex-shrink: 1;
       padding-left: var(--spacing-xs);
       padding-right: var(--spacing-xs);
@@ -144,6 +146,7 @@
 
     &.disabledButton {
       background-color: var(--dropdown-background-disabled);
+      border-color: var(--dropdown-border-color-disabled);
       color: var(--dropdown-color-disabled);
 
       &.icon {
@@ -152,6 +155,7 @@
 
       .count.count span {
         background-color: var(--dropdown-background-disabled);
+        color: var(--dropdown-color-disabled);
       }
 
       &.placeholder {
@@ -198,7 +202,7 @@
 .listAndInputContainer {
   @extend %dropdownMenu;
 
-  background-color: #fff;
+  background-color: var(--dropdown-background-default);
 
   .listContainer {
     display: flex;
@@ -261,13 +265,17 @@
             pointer-events: none;
             width: 24px;
 
-            --background-unselected: var(--color-white);
+            --background-unselected: var(--checkbox-background-unselected, var(--color-white));
           }
 
           label {
             cursor: pointer;
             flex-grow: 1;
             padding-left: var(--spacing-xs);
+          }
+
+          .checkbox {
+            /* class to target checkbox theme */
           }
         }
 
@@ -406,6 +414,10 @@
       display: none;
     }
 
+    .showAllButton {
+      /* class to target checkbox theme */
+    }
+
     .clearAllButton {
       --background-color-hover: var(--color-error-light);
       --background-color: var(--color-white);
@@ -427,6 +439,7 @@
 }
 
 .assistiveText {
+  color: var(--assistive-color);
   margin-bottom: var(--spacing-2-xs);
 }
 

@@ -1060,3 +1060,102 @@ export const KeepOneSelection = () => {
     />
   );
 };
+
+export const WithCustomTheme = (args: SelectProps) => {
+  const options = getOptionLabels(20);
+  return (
+    <Select
+      {...args}
+      multiSelect
+      options={options}
+      filter={defaultFilter}
+      onChange={genericOnChangeCallback}
+      texts={{ ...defaultTexts, assistive: 'Change component parameters in Story!' }}
+      id="hds-select-component"
+      value={options.slice(3, 10)}
+      icon={<IconLocation />}
+    />
+  );
+};
+WithCustomTheme.args = {
+  theme: {
+    '--dropdown-background-default': 'var(--color-black)',
+    '--dropdown-background-disabled': 'var(--color-black-20)',
+    '--dropdown-border-color-default': 'var(--color-bus-dark)',
+    '--dropdown-border-color-hover': 'var(--color-error)',
+    '--dropdown-border-color-hover-invalid': 'var(--color-error)',
+    '--dropdown-border-color-focus': 'var(--color-bus)',
+    '--dropdown-border-color-invalid': 'var(--color-error)',
+    '--dropdown-color-default': 'var(--color-white)',
+    '--dropdown-color-disabled': 'var(--color-black-20)',
+    '--dropdown-icon-color': 'var(--color-white)',
+    '--icon-color': 'var(--color-white)',
+    '--assistive-color': 'var(--color-bus)',
+    '--focus-outline-color': 'var(--color-black)',
+    '--helper-color-default': 'var(--color-black-10)',
+    '--helper-color-invalid': 'var(--color-black)',
+    '--menu-divider-color': 'var(--color-black-20)',
+    '--menu-item-background-default': 'var(--color-white)',
+    '--menu-item-background-hover': 'var(--color-bus-light)',
+    '--menu-item-background-selected': 'var(--color-bus-light)',
+    '--menu-item-background-selected-hover': 'var(--color-bus-light)',
+    '--menu-item-background-disabled': 'var(--color-black-20)',
+    '--menu-item-color-default': 'var(--color-black-90)',
+    '--menu-item-color-hover': 'var(--color-white)',
+    '--menu-item-color-selected': 'var(--color-black-90)',
+    '--menu-item-color-selected-hover': 'var(--color-white)',
+    '--menu-item-color-disabled': 'var(--color-black-60)',
+    '--menu-item-icon-color-selected': 'var(--color-white)',
+    '--menu-item-icon-color-disabled': 'var(--color-black-60)',
+    '--placeholder-color': 'var(--color-black-30)',
+    '--checkbox-background-unselected': '#f00',
+    '--checkbox-background-selected': 'var(--color-tram)',
+    '--checkbox-background-hover': 'var(--color-tram-dark)',
+    '--checkbox-background-disabled': 'var(--color-black-20)',
+    '--checkbox-border-color-selected': 'var(--color-bus)',
+    '--checkbox-border-color-selected-hover': 'var(--color-bus-dark)',
+    '--checkbox-border-color-selected-focus': 'var(--color-bus)',
+    '--checkbox-border-color-unselected': 'var(--color-black-50)',
+    '--checkbox-border-color-unselected-hover': 'var(--color-black-90)',
+    '--checkbox-border-color-unselected-focus': 'var(--color-black-90)',
+    '--checkbox-border-color-disabled': 'var(--color-black-20)',
+    '--checkbox-icon-color-unselected': 'transparent',
+    '--checkbox-icon-color-selected': 'var(--color-white)',
+    '--checkbox-icon-color-disabled': 'var(--color-white)',
+    '--checkbox-label-color': 'var(--color-black-90)',
+    '--checkbox-label-color-disabled': 'var(--color-black-60)',
+    '--text-input-icon-color': 'var(--color-white)',
+    '--text-input-background': 'var(--color-bus)',
+    '--text-input-border-color': 'var(--color-error)',
+    '--text-input-border-color-hover': 'var(--color-black-90)',
+    '--text-input-border-color-focus': 'var(--color-black-90)',
+    '--text-input-color': 'var(--color-white)',
+    '--text-input-placeholder-color': 'var(--color-black-60)',
+    '--text-input-label-color': 'var(--color-white)',
+    '--tag-background-color-hover': 'var(--color-black-20)',
+    '--tag-background-color': 'var(--color-bus-dark',
+    '--tag-border-color-action': 'var(--color-black-90)',
+    '--tag-color': 'var(--color-black-10)',
+    '--tag-outline-color-focus': 'var(--color-focus-outline)',
+    '--show-all-background-color-hover': 'var(--color-tram)',
+    '--show-all-background-color': 'var(--color-bus-light)',
+    '--show-all-border-color': 'var(--color-error)',
+    '--show-all-border-color-hover': 'var(--color-error)',
+    '--show-all-border-color-focus': 'var(--color-error)',
+    '--show-all-border-color-hover-focus': 'var(--color-error)',
+    '--show-all-color': 'var(--color-error)',
+    '--show-all-color-hover': 'var(--color-error)',
+    '--show-all-color-focus': 'var(--color-error)',
+    '--show-all-color-hover-focus': 'var(--color-error)',
+    '--clear-all-background-color-hover': 'var(--color-bus)',
+    '--clear-all-background-color': 'var(--color-white)',
+    '--clear-all-border-color': 'var(--color-error)',
+    '--clear-all-border-color-hover': 'var(--color-error)',
+    '--clear-all-border-color-focus': 'var(--color-error)',
+    '--clear-all-border-color-hover-focus': 'var(--color-error)',
+    '--clear-all-color': 'var(--color-error)',
+    '--clear-all-color-hover': 'var(--color-error)',
+    '--clear-all-color-focus': 'var(--color-error)',
+    '--clear-all-color-hover-focus': 'var(--color-error)',
+  },
+};

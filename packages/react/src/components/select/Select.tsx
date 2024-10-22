@@ -44,6 +44,7 @@ export function Select({
   filter,
   onSearch,
   value,
+  theme,
   ...divElementProps
 }: SelectProps & AcceptedNativeDivProps) {
   const initialData = useMemo<SelectData>(() => {
@@ -142,7 +143,7 @@ export function Select({
 
   return (
     <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
-      <Container {...divElementProps}>
+      <Container {...divElementProps} theme={theme}>
         <Label />
         <SelectionsAndListsContainer>
           <SelectedOptionsContainer>
