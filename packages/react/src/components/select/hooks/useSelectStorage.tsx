@@ -6,8 +6,6 @@ import { iterateAndCopyGroup, OptionIterator, propsToGroups } from '../utils';
 
 export type SelectStorageProps = Omit<SelectProps, 'value'> & {
   updateKey?: string;
-  translations?: Record<SupportedLanguage, Texts>;
-  language?: SupportedLanguage;
 };
 
 /**
