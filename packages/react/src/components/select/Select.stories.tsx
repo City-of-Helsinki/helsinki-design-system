@@ -901,48 +901,13 @@ export const WithStorageControls = () => {
 };
 
 export const WithMinMax = () => {
-  const initialGroups = [
-    {
-      label: 'Healthy choices',
-      options: getOptionLabels(6).map((option) => {
-        return { label: option, value: option, disabled: false };
-      }),
-    },
-    {
-      label: 'More healthy choices',
-      options: getOptionLabels(6, 10).map((option) => {
-        return { label: option, value: option, disabled: false };
-      }),
-    },
-  ];
+  const requiredCount = 1;
+  const maxCount = 3;
 
-  const bundledTextAndChanges = useMemo<Pick<SelectProps, 'texts' | 'onChange'>>(() => {
-    const requiredCount = 1;
-    const maxCount = 3;
-
-    const texts: Partial<Texts> = {
-      label: 'Select 1-3 fruits or vegetables',
-      placeholder: 'Choose 1-3 options',
-    };
-
+  const memoizedOnChange = useMemo(() => {
     const changeTracking: { hasSelectedSomething: boolean; previousSelections: Option[] } = {
       hasSelectedSomething: false,
       previousSelections: [],
-    };
-
-    const textsAsFunction: TextProvider = (key, { selectionCount }) => {
-      const textFromObj = texts[key];
-      if (textFromObj) {
-        return textFromObj;
-      }
-      if (key === 'assistive') {
-        const selectedCount = selectionCount as number;
-        return selectedCount >= requiredCount
-          ? `Required number of selections done!`
-          : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
-      }
-
-      return defaultUITexts.en[key];
     };
 
     const onChange: SelectProps['onChange'] = (selectedValues, lastClickedOption, data) => {
@@ -979,17 +944,51 @@ export const WithMinMax = () => {
         groups: newGroups,
       };
     };
+
     return {
-      texts: textsAsFunction,
       onChange,
     };
   }, []);
 
+  const textsAsFunction: TextProvider = (key, { selectionCount }) => {
+    const texts: Partial<Texts> = {
+      label: 'Select 1-3 fruits or vegetables',
+      placeholder: 'Choose 1-3 options',
+    };
+
+    const textFromObj = texts[key];
+    if (textFromObj) {
+      return textFromObj;
+    }
+    if (key === 'assistive') {
+      const selectedCount = selectionCount as number;
+      return selectedCount >= requiredCount
+        ? `Required number of selections done!`
+        : `Please select ${requiredCount - selectedCount} more items. Up to ${maxCount} items.`;
+    }
+
+    return defaultUITexts.en[key];
+  };
+
   const storage = useSelectStorage({
-    groups: initialGroups,
+    groups: [
+      {
+        label: 'Healthy choices',
+        options: getOptionLabels(6).map((option) => {
+          return { label: option, value: option, disabled: false };
+        }),
+      },
+      {
+        label: 'More healthy choices',
+        options: getOptionLabels(6, 10).map((option) => {
+          return { label: option, value: option, disabled: false };
+        }),
+      },
+    ],
     multiSelect: true,
     id: 'hds-select-component',
-    ...bundledTextAndChanges,
+    texts: textsAsFunction,
+    ...memoizedOnChange,
   });
 
   return <Select {...storage.getProps()} />;
