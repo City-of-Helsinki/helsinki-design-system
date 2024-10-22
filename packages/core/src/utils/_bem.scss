@@ -152,7 +152,7 @@ $elementDelimeter: '__';
 // end of sass-easy-bem
 
 // HDS add-on to create .hds-<block>--modifier instead of .hds-<block>.hds-<block>--modifier
-@mixin unscopedModifier($block, $modifier, $react) {
+@mixin unscopedModifier($block, $modifier, $react: false) {
   @if $react {
     @content;
   } @else {
@@ -165,7 +165,7 @@ $elementDelimeter: '__';
 }
 
 // HDS add-on to create .hds-<block>__element instead of .hds-<block>.hds-<block>__element
-@mixin unscopedElement($block, $element, $react) {
+@mixin unscopedElement($block, $element, $react: false) {
   @if $react {
     @content;
   } @else {
@@ -178,7 +178,7 @@ $elementDelimeter: '__';
 }
 
 // HDS add-on to create .hds-<block>--modifier.hds-<block>--theme {
-@mixin unscopedModifierWithTheme($block, $modifier, $theme, $react) {
+@mixin unscopedModifierWithTheme($block, $modifier, $theme, $react: false) {
   @if $react {
     @content;
   } @else {
