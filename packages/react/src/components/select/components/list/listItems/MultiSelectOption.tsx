@@ -95,6 +95,7 @@ export function MultiSelectOptionElement(props: MultiSelectOptionProps) {
     },
     checked,
     tabIndex: -1,
+    className: styles.checkbox,
   };
 
   if (isInGroup) {
