@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn copy-scss-files && yarn copy-scss-utils && yarn cssToScss",
+    "build": "rimraf lib/ && yarn run lint:styles && yarn postcss-build && yarn css-to-ts && yarn copy-scss-files && yarn copy-scss-utils && yarn cssToScss",
     "clean": "rimraf node_modules lib storybook-static",
     "start": "yarn storybook",
     "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
@@ -17,6 +17,7 @@
     "cssToScss": "node scripts/cssToScss.js",
     "copy-scss-files": "node copyFiles -source 'src/components/**/_*.scss' -target 'lib/components' -v",
     "copy-scss-utils": "node copyFiles -source 'src/utils/**/_*.scss' -target 'lib/utils' -v",
+    "css-to-ts": "node cssToImportableString -directory 'lib/components/**/*.min.css' -targetFiles 'cookieConsent.min.css'",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error",
     "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\""
