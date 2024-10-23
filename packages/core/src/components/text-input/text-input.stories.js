@@ -24,6 +24,7 @@ export const Default = () => `
           class="hds-text-input__input"
           type="text"
           placeholder="Placeholder"
+          data-playwright="true"
         />
       </div>
       ${getHelperText()}
@@ -40,6 +41,7 @@ export const ReadOnly = () => `
           type="text"
           value="Text input value"
           readonly
+          data-playwright="true"
         />
       </div>
       ${getHelperText()}
@@ -57,6 +59,7 @@ export const Disabled = () => `
           type="text"
           value="Text input value"
           disabled
+          data-playwright="true"
         />
       </div>
       ${getHelperText()}
