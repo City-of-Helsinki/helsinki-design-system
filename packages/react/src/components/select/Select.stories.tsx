@@ -643,7 +643,7 @@ export const FocusListenerExample = () => {
       changeTracking.selectedOptions = selectedOptions;
     };
 
-    const options = getLargeBatchOfUniqueValues(2000);
+    const options = getLargeBatchOfUniqueValues(100);
 
     return {
       texts: defaultTexts,
@@ -721,7 +721,6 @@ export const FocusListenerExample = () => {
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          virtualize
           multiSelect
           icon={<IconLocation />}
           texts={defaultTextsForMultiSelect}
