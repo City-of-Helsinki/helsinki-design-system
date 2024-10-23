@@ -31,12 +31,16 @@ export default {
   },
 };
 
-export const Default = () => <TextInput {...textInputProps} />;
+export const Default = () => <TextInput {...textInputProps} data-playwright />;
 
-export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="Text input value" />;
+export const ReadOnly = () => (
+  <TextInput {...textInputProps} readOnly defaultValue="Text input value" data-playwright />
+);
 ReadOnly.storyName = 'Read-only';
 
-export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
+export const Disabled = () => (
+  <TextInput {...textInputProps} disabled defaultValue="Text input value" data-playwright />
+);
 
 export const Invalid = () => <TextInput {...textInputProps} invalid errorText="Error text" />;
 
@@ -157,6 +161,7 @@ export const SimpleSearchInput = (args: TextInputProps) => {
       onKeyUp={onKeyUpHandler}
       ref={ref}
       type="search"
+      data-playwright
     />
   );
 };
