@@ -73,7 +73,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [TextInput] Fixed issues with custom colors not applied to all elements.
 
 ### Core
 
@@ -106,7 +106,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [TextInput] Fixed issues with custom colors not applied to all elements.
 
 ### Design tokens
 
@@ -223,6 +223,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
 ## [3.10.1] - Oct, 09, 2024
 
 ### React
