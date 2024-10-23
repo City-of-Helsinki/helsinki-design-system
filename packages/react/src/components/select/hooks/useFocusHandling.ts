@@ -34,7 +34,6 @@ export function useFocusHandling(): ReturnObject {
       type: keyof typeof eventTypes,
       e: FocusEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
     ) => {
-      const { refs } = getMetaData();
       const { onFocus, onBlur, open } = getData();
       const markActiveDescendant = (element: HTMLElement | null) => {
         const id = (element && getElementId(element)) || '';
@@ -81,30 +80,20 @@ export function useFocusHandling(): ReturnObject {
           markActiveDescendant(null);
         }
         if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType)) {
-          updateMetaData({ focusTarget: 'tag' });
+          if (eventElementType === 'tag' || eventElementType === 'tagList') {
+            // when the list was open and a tag was focused and close event re-renders the component, the focus is lost from the tag.
+            // this is caused by the tag element losing its element refs.
+            // the focus will be set to the first tag which was the only possible focused element,
+            // because menu was open and focus must have been moved with keyboard (they are under the list)
+            updateMetaData({ focusTarget: 'tag' });
+          }
           trigger({ id: eventIds.generic, type: eventTypes.blur });
         }
-      } else if (type === eventTypes.blur) {
-        if (open) {
-          const { selectionsAndListsContainer } = refs;
-          const lastFocusedElement = getFocusedElementFromBlurEvent(e as FocusEvent<HTMLDivElement>);
-          const focusWasInselectionsAndListsContainer =
-            lastFocusedElement &&
-            !!selectionsAndListsContainer.current &&
-            selectionsAndListsContainer.current.contains(lastFocusedElement);
-          if (!lastFocusedElement || !focusWasInselectionsAndListsContainer) {
-            if (lastFocusedElement) {
-              const focusedElementType = getElementType(lastFocusedElement);
-              // when the list was open and a tag was focused and close event re-renders the component, the focus is lost from the tag.
-              // this is caused by the tag element losing its element refs.
-              // the focus to reset to the first tag which was the only possible focused element,
-              // because menu was open and focus must have been moved with keyboard (they are under the list)
-              if (focusedElementType === 'tag') {
-                updateMetaData({ focusTarget: focusedElementType });
-              }
-            }
-            trigger({ id: eventIds.generic, type: eventTypes.focusMovedToNonListElement });
-          }
+      } else if (type === eventTypes.blur && open) {
+        const focusedElement = getFocusedElementFromBlurEvent(e as FocusEvent<HTMLDivElement>);
+        const focusedElementType = focusedElement ? getElementType(focusedElement) : null;
+        if (!focusedElementType) {
+          trigger({ id: eventIds.generic, type: eventTypes.focusMovedToNonListElement });
         }
       }
     },

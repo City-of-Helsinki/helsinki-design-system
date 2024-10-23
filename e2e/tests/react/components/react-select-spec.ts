@@ -478,10 +478,6 @@ test.describe(`Element state snapshots`, () => {
     await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
-    // takeStateScreenshots has noOutsideClicks=true,
-    // so must manually move focus outside
-    const button = selectUtil.getElementByName('button');
-    await button.focus();
 
     const groupLabel = await selectUtil.getGroupLabel(0);
     await takeStateScreenshots(
@@ -502,7 +498,6 @@ test.describe(`Element state snapshots`, () => {
     await selectUtil.selectOptionByIndex({ index: 3, multiSelect: false });
     // selecting with single select closes the list
     await selectUtil.openList();
-    await button.focus();
     await takeStateScreenshots(
       page,
       option,
