@@ -2,7 +2,6 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 
 import {
-  isArrowButtonType,
   isClearAllButtonType,
   isClearButtonType,
   isContainerType,
@@ -68,7 +67,6 @@ describe('useElementDetection', () => {
       { type: 'showAllButton', getElement: helpers.getShowAllButton, isChecker: isShowAllButtonType },
       { type: 'clearAllButton', getElement: helpers.getClearAllButton, isChecker: isClearAllButtonType },
       { type: 'clearButton', getElement: helpers.getClearButton, isChecker: isClearButtonType },
-      { type: 'arrowButton', getElement: helpers.getArrowButton, isChecker: isArrowButtonType },
       { type: 'tagList', getElement: helpers.getTagList, isChecker: isTagListType },
       { type: 'tag', getElement: () => helpers.getTagElements()[0], isChecker: isTagType },
       { type: 'listGroupLabel', getElement: () => helpers.getGroupLabelElements()[0], isChecker: isListGroupLabelType },

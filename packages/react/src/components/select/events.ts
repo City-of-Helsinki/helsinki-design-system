@@ -9,7 +9,6 @@ export const eventIds = {
   clearAllButton: 'clearAllButton',
   showAllButton: 'showAllButton',
   tag: 'tag',
-  arrowButton: 'arrowButton',
   generic: 'generic',
   filter: 'filter',
   search: 'search',
@@ -43,8 +42,7 @@ const isGenericEvent = (eventId?: EventId) => eventId === eventIds.generic;
 const isBlur = (eventType?: EventType) => eventType === eventTypes.blur;
 const isIdForOption = (eventId: EventId) => eventId === eventIds.listItem || isRemoveTagEventId(eventId);
 const isIdForClear = (eventId: EventId) => eventId === eventIds.clearAllButton || eventId === eventIds.clearButton;
-const isEventForListToggle = (eventId: EventId) =>
-  eventId === eventIds.selectedOptions || eventId === eventIds.arrowButton;
+const isEventForListToggle = (eventId: EventId) => eventId === eventIds.selectedOptions;
 
 export const isOpenOrCloseEvent = (eventId: EventId, eventType?: EventType) => {
   return isClick(eventType) && isEventForListToggle(eventId);

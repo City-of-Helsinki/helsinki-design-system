@@ -58,7 +58,7 @@ describe('<SelectedOptionsContainer />', () => {
   };
   const getSelectedOptionsElements = ({ getElementById, metaData }: Partial<ReturnType<typeof initTests>>) => {
     const button = getButton({ getElementById, metaData });
-    return button.querySelectorAll('div > *') as unknown as HTMLElement[];
+    return button.querySelectorAll('div > span') as unknown as HTMLElement[];
   };
   const { placeholder } = defaultTexts.en;
   const initTests = (data?: OptionalSelectData, metaData?: OptionalSelectMetaData) => {
@@ -84,10 +84,9 @@ describe('<SelectedOptionsContainer />', () => {
     };
   };
   describe('Without selected options', () => {
-    it('Main button and arrow button are always rendered', () => {
+    it('Main button is always rendered', () => {
       const { getElementById, metaData } = initTests();
       expect(getButton({ getElementById, metaData })).not.toBeNull();
-      expect(getElementById(metaData.elementIds.arrowButton)).not.toBeNull();
     });
     it('Clear button is not found', () => {
       const { getElementById, metaData } = initTests();
@@ -119,7 +118,7 @@ describe('<SelectedOptionsContainer />', () => {
     });
   });
   describe('With hidden selected options', () => {
-    const dummyData = createDataWithSelectedOptions({ selectedOptionsCount: 5 });
+    const dummyData = { ...createDataWithSelectedOptions({ selectedOptionsCount: 5 }), multiSelect: true };
     const getCountSelector = 'span.count';
     const getHiddenCount = (numberOfSelections: number, indexOfFirstVisibleChild: number) => {
       return numberOfSelections - (indexOfFirstVisibleChild + 1);
@@ -155,7 +154,7 @@ describe('<SelectedOptionsContainer />', () => {
   });
 
   describe('Click events', () => {
-    it('The main and arrow buttons click triggers an event that matches isOpenOrCloseEvent()', () => {
+    it('The main button click triggers an event that matches isOpenOrCloseEvent()', () => {
       const { getElementById, metaData } = initTests();
       const button = getButton({ getElementById, metaData });
       fireEvent.click(button);
@@ -163,13 +162,6 @@ describe('<SelectedOptionsContainer />', () => {
       expect(events).toHaveLength(1);
       const triggeredEvent = events[0];
       expect(isOpenOrCloseEvent(triggeredEvent.id, triggeredEvent.type)).toBeTruthy();
-
-      const arrowButton = getElementById(metaData.elementIds.arrowButton) as HTMLButtonElement;
-      fireEvent.click(arrowButton);
-      const eventsAfterArrowBUtton = getTriggeredEvents();
-      expect(eventsAfterArrowBUtton).toHaveLength(2);
-      const triggeredArrowButtonEvent = eventsAfterArrowBUtton[1];
-      expect(isOpenOrCloseEvent(triggeredArrowButtonEvent.id, triggeredArrowButtonEvent.type)).toBeTruthy();
     });
     it('The clear button click triggers an event that matches isClearOptionsClickEvent()', () => {
       const { getElementById, metaData } = initTests(createDataWithSelectedOptions());
@@ -186,11 +178,9 @@ describe('<SelectedOptionsContainer />', () => {
       const { getElementById, metaData } = initTests({ ...createDataWithSelectedOptions(), disabled: true });
       const button = getButton({ getElementById, metaData });
       const clearButton = getElementById(metaData.elementIds.clearButton) as HTMLButtonElement;
-      const arrowButton = getElementById(metaData.elementIds.arrowButton) as HTMLButtonElement;
       // the main button does not have "disabled"-attribute or it cannot get focus and is invisible to screen readers
       expect(button.getAttribute('aria-disabled')).toBe('true');
       expect(clearButton.getAttribute('disabled')).not.toBeNull();
-      expect(arrowButton.getAttribute('disabled')).not.toBeNull();
     });
   });
 });

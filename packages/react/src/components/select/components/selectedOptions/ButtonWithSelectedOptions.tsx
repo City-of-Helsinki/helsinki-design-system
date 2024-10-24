@@ -8,6 +8,7 @@ import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option, TextKey
 import { createOnClickListener, getVisibleGroupLabels } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 import { getTextKey } from '../../texts';
+import { IconAngleDown } from '../../../../icons';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
   options: Option[];
@@ -187,6 +188,9 @@ export function ButtonWithSelectedOptions() {
           </span>
         </span>
       )}
+      <div className={classNames(styles.arrowAndSpaceForClearButton, styles.icon)}>
+        <IconAngleDown className={styles.angleIcon} aria-hidden />
+      </div>
     </button>
   );
 }
