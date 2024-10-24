@@ -1,6 +1,12 @@
 .root {
   composes: hds-text-input from 'hds-core/lib/components/text-input/text-input.css';
   position: relative;
+
+  &.invalid {
+    label {
+      color: var(--label-color-invalid);
+    }
+  }
 }
 
 .inputWrapper {
@@ -64,11 +70,11 @@
 }
 
 .buttonWrapper {
-  composes: hds-text-input__buttons from 'hds-core/lib/components/text-input/text-input.css'
+  composes: hds-text-input__buttons from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .button {
-  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css'
+  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .button:disabled {
