@@ -67,29 +67,25 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
               Choose one
             </span>
           </div>
-        </button>
-        <button
-          aria-hidden="true"
-          class="dropdownButton icon arrowButton"
-          id="test-select-component-arrow-button"
-          tabindex="-1"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            aria-label="angle-down"
-            class="icon small angleIcon"
-            role="img"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="arrowAndSpaceForClearButton icon"
           >
-            <path
-              clip-rule="evenodd"
-              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
+            <svg
+              aria-hidden="true"
+              aria-label="angle-down"
+              class="icon small angleIcon"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
         </button>
       </div>
       <div
@@ -162,7 +158,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
           aria-haspopup="listbox"
           aria-invalid="true"
           aria-label="Label. Choose one. 0 selected options. Assistive text Error text"
-          class="dropdownButton selectedOptions placeholder spaceForOneDigit"
+          class="dropdownButton selectedOptions placeholder singleSelect"
           id="test-select-component-main-button"
           role="combobox"
           type="button"
@@ -197,29 +193,25 @@ exports[`<Select /> spec renders single select component with groups and filter 
               Choose one
             </span>
           </div>
-        </button>
-        <button
-          aria-hidden="true"
-          class="dropdownButton icon arrowButton"
-          id="test-select-component-arrow-button"
-          tabindex="-1"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            aria-label="angle-down"
-            class="icon small angleIcon"
-            role="img"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="arrowAndSpaceForClearButton icon"
           >
-            <path
-              clip-rule="evenodd"
-              d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
+            <svg
+              aria-hidden="true"
+              aria-label="angle-down"
+              class="icon small angleIcon"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
         </button>
       </div>
       <div

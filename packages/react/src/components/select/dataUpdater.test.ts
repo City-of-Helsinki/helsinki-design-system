@@ -365,7 +365,7 @@ describe('dataUpdater', () => {
     });
     it('is not called when selected options does not change.', () => {
       changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
-      changeHandler({ id: eventIds.arrowButton, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
     });
     it('can return a new set of options', () => {

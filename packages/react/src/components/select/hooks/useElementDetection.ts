@@ -276,12 +276,8 @@ export const isClearButtonType = (id: KnownElementType) => {
   return id === 'clearButton';
 };
 
-export const isArrowButtonType = (id: KnownElementType) => {
-  return id === 'arrowButton';
-};
-
 export const isInSelectedOptionsType = (id: KnownElementType) => {
-  return isSelectedOptionsButtonType(id) || isClearButtonType(id) || isArrowButtonType(id);
+  return isSelectedOptionsButtonType(id) || isClearButtonType(id);
 };
 
 export const isSearchOrFilterInputType = (id: KnownElementType) => {
