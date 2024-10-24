@@ -11,7 +11,7 @@ import {
   skipAxeRulesExpectedToFail,
   groupsAndOptions as presetGroups,
 } from './testUtil';
-import { defaultFilter, getElementIds } from './utils';
+import { defaultFilter, getElementIds, OptionIterator } from './utils';
 import { Texts, Option, SearchResult, SelectProps, AcceptedNativeDivProps, GroupInProps, OptionInProps } from './types';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
@@ -150,6 +150,32 @@ describe('<Select />', () => {
       fireEvent.click(getClearButton());
       await waitFor(() => {
         expect(getSelectionsInButton()).toHaveLength(0);
+      });
+    });
+    it('Clicking the clear button removes all selections expect disabled', async () => {
+      let disabledItemsCount = 0;
+      let selectedItemsCount = 0;
+      const optionIterator: OptionIterator = (option, group, optionIndex) => {
+        const newVersion = {
+          ...option,
+          selected: true,
+        };
+        selectedItemsCount += 1;
+        if (optionIndex < 2) {
+          disabledItemsCount += 1;
+          return {
+            ...newVersion,
+            disabled: true,
+          };
+        }
+        return newVersion;
+      };
+      const { openList, getClearButton, getSelectionsInButton } = renderWithHelpers({ optionIterator });
+      await openList();
+      expect(getSelectionsInButton()).toHaveLength(selectedItemsCount);
+      fireEvent.click(getClearButton());
+      await waitFor(() => {
+        expect(getSelectionsInButton()).toHaveLength(disabledItemsCount);
       });
     });
   });
