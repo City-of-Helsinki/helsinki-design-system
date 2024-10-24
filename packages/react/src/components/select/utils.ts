@@ -181,11 +181,11 @@ export function updateGroupLabelAndOptions(groups: SelectData['groups'], updated
   });
 }
 
-export function clearAllSelectedOptions(groups: SelectData['groups']): SelectData['groups'] {
+export function clearAllSelectedOptions(groups: SelectData['groups'], keepDisabled = true): SelectData['groups'] {
   return iterateAndCopyGroup(groups, (option) => {
     return {
       ...option,
-      selected: false,
+      selected: option.disabled && keepDisabled ? option.selected : false,
     };
   });
 }
