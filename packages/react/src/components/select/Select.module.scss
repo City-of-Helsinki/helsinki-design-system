@@ -51,7 +51,7 @@
     font-size: var(--fontsize-body-l);
     outline: none;
     padding: var(--spacing-xs);
-    padding-right: var(--spacing-2-xs);
+    padding-right: var(--spacing-xs);
 
     &.withVisibleFocus {
       align-self: center;
@@ -60,10 +60,6 @@
       &:focus-visible {
         @extend %dropdownFocusOutline;
       }
-    }
-
-    &.arrowButton {
-      padding-right: var(--spacing-xs);
     }
 
     .buttonIcon {
@@ -104,6 +100,26 @@
       }
     }
 
+    .arrowAndSpaceForClearButton {
+      align-items: center;
+      color: var(--dropdown-icon-color);
+      display: flex;
+      flex-shrink: 1;
+
+      /* space reserved for the clear button: 
+      * icon size + its paddings(x2) + left padding from "+3" and right padding to the arrow icon 
+      */
+      padding-left: calc(var(--clear-button-size) + var(--spacing-2-xs) + var(--spacing-xs));
+
+      --clear-button-size: calc(var(--icon-size) + var(--spacing-xs) + var(--spacing-xs));
+    }
+
+    &.singleSelect {
+      .arrowAndSpaceForClearButton {
+        padding-left: calc(var(--clear-button-size) + var(--spacing-3-xs) + var(--spacing-xs));
+      }
+    }
+
     &.selectedOptions {
       flex-grow: 1;
       overflow: hidden;
@@ -125,10 +141,10 @@
     &.placeholder {
       background-color: inherit;
       color: var(--placeholder-color);
-    }
 
-    &.singleSelect {
-      padding-right: var(--spacing-3-xs);
+      .arrowAndSpaceForClearButton {
+        padding-left: 0;
+      }
     }
 
     &.spaceForOneDigit .labels {
@@ -165,6 +181,11 @@
       &.placeholder {
         color: var(--dropdown-color-disabled);
       }
+
+      .arrowAndSpaceForClearButton,
+      .buttonIcon {
+        color: var(--dropdown-color-disabled);
+      }
     }
 
     &.hasHiddenItems {
@@ -172,6 +193,11 @@
         display: block;
       }
     }
+  }
+
+  .clearButton {
+    position: absolute;
+    right: calc(var(--icon-size) + var(--spacing-xs) + var(--spacing-xs));
   }
 
   .dropdownButtonOption {
