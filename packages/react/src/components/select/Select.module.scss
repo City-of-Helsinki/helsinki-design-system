@@ -276,6 +276,12 @@
             cursor: pointer;
             flex-grow: 1;
             padding-left: var(--spacing-xs);
+
+            &:after {
+              content: '';
+              inset: 0;
+              position: absolute;
+            }
           }
 
           .checkbox {
