@@ -14,9 +14,6 @@ import { ListAndInputContainer } from './components/list/ListAndInputContainer';
 import { SearchOrFilterInput } from './components/list/searchAndFilter/SearchOrFilterInput';
 import { SearchAndFilterInfo } from './components/list/searchAndFilter/SearchAndFilterInfo';
 import { TagList } from './components/tagList/TagList';
-import { ArrowButton } from './components/selectedOptions/ArrowButton';
-import { ButtonWithSelectedOptions } from './components/selectedOptions/ButtonWithSelectedOptions';
-import { ClearButton } from './components/selectedOptions/ClearButton';
 import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
@@ -146,11 +143,7 @@ export function Select({
       <Container {...divElementProps} theme={theme}>
         <Label />
         <SelectionsAndListsContainer>
-          <SelectedOptionsContainer>
-            <ButtonWithSelectedOptions />
-            <ClearButton />
-            <ArrowButton />
-          </SelectedOptionsContainer>
+          <SelectedOptionsContainer />
           <ListAndInputContainer>
             <SearchOrFilterInput />
             <List />

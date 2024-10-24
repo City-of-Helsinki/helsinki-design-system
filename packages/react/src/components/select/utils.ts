@@ -363,7 +363,6 @@ export function getElementIds(containerId: string): SelectMetaData['elementIds']
     button: `${containerId}-main-button`,
     list: `${containerId}-list`,
     clearButton: `${containerId}-clear-button`,
-    arrowButton: `${containerId}-arrow-button`,
     label: `${containerId}-label`,
     selectionsAndListsContainer: `${containerId}-sl-container`,
     tagList: `${containerId}-tag-list`,

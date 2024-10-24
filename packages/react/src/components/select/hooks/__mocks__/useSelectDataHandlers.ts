@@ -59,7 +59,6 @@ const mockMetaData: { current: OptionalSelectMetaData; default: OptionalSelectMe
       label: 'label-id',
       list: 'list-id',
       button: 'button-id',
-      arrowButton: 'arrow-id',
       clearButton: 'clear-id',
     },
     selectedOptions: [],
