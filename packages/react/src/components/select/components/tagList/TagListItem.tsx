@@ -27,6 +27,7 @@ const createSelectedTagProps = (
     onClick: (e) => {
       e.stopPropagation();
     },
+    multiline: true,
     onDelete: componentOrOptionDisabled
       ? undefined
       : (e) => {
