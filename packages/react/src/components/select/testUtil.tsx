@@ -9,7 +9,15 @@ import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
 import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } from './types';
-import { getElementIds, defaultFilter, propsToGroups, getAllOptions } from './utils';
+import {
+  getElementIds,
+  defaultFilter,
+  propsToGroups,
+  getAllOptions,
+  iterateAndCopyGroup,
+  OptionIterator,
+  validateOption,
+} from './utils';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import useForceRender from '../../hooks/useForceRender';
@@ -412,16 +420,27 @@ export const renderWithHelpers = (
     input?: SelectMetaData['listInputType'];
     hasSelections?: boolean;
     withForceRender?: boolean;
+    optionIterator?: OptionIterator;
   } = {},
 ) => {
   // eslint-disable-next-line no-param-reassign
   selectProps.id = selectProps.id || defaultId;
   const placeholderText = defaultTexts.en.placeholder;
-  const { groups, input, hasSelections, withForceRender, ...restSelectProps } = selectProps;
+  const { groups, input, hasSelections, withForceRender, optionIterator, ...restSelectProps } = selectProps;
   const props: SelectProps = {
     ...getSelectProps({ groups: !!groups, input, hasSelections }),
     ...restSelectProps,
   };
+  if (optionIterator) {
+    if (props.groups) {
+      props.groups = iterateAndCopyGroup(props.groups as Group[], optionIterator);
+    }
+    if (props.options) {
+      props.options = props.options.map(
+        (opt, index) => optionIterator(validateOption(opt), {} as Group, index, 0) as Option,
+      );
+    }
+  }
   const ComponentWithForceRender = () => {
     const forceRender = useForceRender();
     return (

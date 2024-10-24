@@ -396,6 +396,17 @@ describe('utils', () => {
       expect(getSelectedOptions(groups)).toHaveLength(60);
       expect(JSON.stringify(groups)).toBe(stringBackup);
     });
+    it('Disabled options are kept selected unless second argument is false', () => {
+      const { groups } = createMultipleGroups();
+      getAllOptions(groups).forEach((opt, index) => {
+        // eslint-disable-next-line  no-param-reassign
+        opt.selected = true;
+        // eslint-disable-next-line  no-param-reassign
+        opt.disabled = index < 10;
+      });
+      expect(getSelectedOptions(clearAllSelectedOptions(groups))).toHaveLength(10);
+      expect(getSelectedOptions(clearAllSelectedOptions(groups, false))).toHaveLength(0);
+    });
   });
   describe('getAllOptions', () => {
     const iterateAllOptions = (filterOutGroupLabels = true) => {
