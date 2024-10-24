@@ -93,6 +93,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
       styles.selectedOptions,
       !selectedOptions.length && styles.placeholder,
       disabled && styles.disabledButton,
+      !multiSelect && styles.singleSelect,
     ),
     'aria-disabled': disabled,
     icon,
@@ -164,7 +165,9 @@ export function ButtonWithSelectedOptions() {
   );
 
   useLayoutEffect(() => {
-    updateHiddenElementsCount(dataHandlers.getMetaData());
+    if (dataHandlers.getData().multiSelect) {
+      updateHiddenElementsCount(dataHandlers.getMetaData());
+    }
   });
 
   return (

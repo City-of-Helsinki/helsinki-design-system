@@ -127,6 +127,10 @@
       color: var(--placeholder-color);
     }
 
+    &.singleSelect {
+      padding-right: var(--spacing-3-xs);
+    }
+
     &.spaceForOneDigit .labels {
       /* minus is option padding right, minus smth */
       padding-right: calc(24px - var(--spacing-2-xs));
@@ -179,7 +183,6 @@
     white-space: nowrap;
 
     &:not(:last-child):after {
-      bottom: 0;
       content: ',';
       display: inline-block;
 
@@ -187,6 +190,7 @@
       and should not cause reflow of elements */
       position: absolute;
       right: var(--spacing-3-xs);
+      top: 0;
     }
 
     &:last-child {
