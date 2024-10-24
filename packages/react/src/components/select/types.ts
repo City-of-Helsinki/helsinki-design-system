@@ -115,7 +115,6 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
     showAllButton: string;
     clearAllButton: string;
     clearButton: string;
-    arrowButton: string;
     selectionsAndListsContainer: string;
   };
   textProvider: TextProvider;

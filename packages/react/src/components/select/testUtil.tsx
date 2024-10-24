@@ -58,9 +58,9 @@ const ButtonsForDataUpdates = () => {
     dataHandlers.updateMetaData({ lastToggleCommand: -1 });
     tempDataStorage.mockReset();
     // trigger an event that re-renders
-    dataHandlers.trigger({ id: eventIds.arrowButton, type: eventTypes.click });
+    dataHandlers.trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
     dataHandlers.updateMetaData({ lastToggleCommand: -1 });
-    dataHandlers.trigger({ id: eventIds.arrowButton, type: eventTypes.click });
+    dataHandlers.trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
   };
 
   const onMetaDataClick = () => {
@@ -685,9 +685,6 @@ export const renderWithHelpers = (
     getTagElements,
     getClearButton: () => {
       return getElementById(elementIds.clearButton);
-    },
-    getArrowButton: () => {
-      return getElementById(elementIds.arrowButton);
     },
     getLabel: () => {
       return getElementById(elementIds.label);

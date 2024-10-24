@@ -37,7 +37,7 @@ describe('events', () => {
     },
     {
       func: isOpenOrCloseEvent,
-      ids: [eventIds.selectedOptions, eventIds.arrowButton],
+      ids: [eventIds.selectedOptions],
       types: [eventTypes.click],
     },
     {
