@@ -109,7 +109,7 @@ export function initTests(
     const promise = createTimedPromise(reject ? new Error('Login failed') : null);
     const mock = jest.fn().mockReturnValue(promise);
     userManager.signoutRedirect = mock;
-    metadataService.getEndSessionEndpoint = mock;
+    metadataService.getEndSessionEndpoint = () => Promise.resolve('http://localhost');
     return { mock, promise };
   };
 
@@ -122,8 +122,9 @@ export function initTests(
     act(() => {
       fireEvent.click(getButtonElement());
     });
-    expect(mock).toHaveBeenCalledTimes(1);
-
+    await advanceUntilDoesNotThrow(() => {
+      expect(mock).toHaveBeenCalledTimes(1);
+    });
     await advanceUntilDoesNotThrow(() => {
       expect(getLoadIndicator).toThrow();
       expect(getErrorElement()).not.toBeNull();

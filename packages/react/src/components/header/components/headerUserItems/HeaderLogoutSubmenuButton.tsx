@@ -10,6 +10,7 @@ import { HeaderActionBarSubItem, HeaderActionBarSubItemProps } from '../headerAc
 import { HeaderErrorFocusShifter } from '../headerError/HeaderErrorFocusShifter';
 import { HeaderErrorUsageType, useHeaderError } from '../headerError/useHeaderError';
 import { HeaderLoadIndicator } from '../headerLoadIndicator/HeaderLoadIndicator';
+import { LogoutProps } from '../../../login';
 
 export type HeaderLogoutSubmenuButtonProps = {
   /**
@@ -42,6 +43,10 @@ export type HeaderLogoutSubmenuButtonProps = {
    * The id attribute of the element.
    */
   id: string;
+  /**
+   * Properties appended to the url when redirecting.
+   */
+  redirectionProps?: LogoutProps;
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -56,6 +61,7 @@ export function HeaderLogoutSubmenuButton({
   errorCloseAriaLabel,
   errorPosition,
   loggingOutText,
+  redirectionProps,
   ...buttonProps
 }: HeaderLogoutSubmenuButtonProps): React.ReactElement | null {
   const { triggerError, elementProps } = useHeaderError({
@@ -89,7 +95,7 @@ export function HeaderLogoutSubmenuButton({
         return;
       }
       wasClicked.current = true;
-      logout().catch(() => {
+      logout(redirectionProps).catch(() => {
         wasClicked.current = false;
         triggerError();
       });

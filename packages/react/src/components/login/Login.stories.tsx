@@ -46,6 +46,7 @@ import { Tabs } from '../tabs/Tabs';
 import { Logo, logoFi } from '../logo';
 import { MyProfileQuery } from './graphQLModule/demoData/MyProfileQuery';
 import { LoadingSpinner } from '../loadingSpinner';
+import { LanguageOption } from '../header';
 
 type StoryArgs = {
   useKeycloak?: boolean;
@@ -68,6 +69,12 @@ const useKeycloakArgs = {
   control: 'boolean',
   description: 'Only a storybook option. If true, Helsinki Profile OIDC is used.',
 };
+
+const languages: LanguageOption[] = [
+  { label: 'Suomi\u002a', value: 'fi', isPrimary: true },
+  { label: 'Svenska\u002a', value: 'sv', isPrimary: true },
+  { label: 'English\u002a', value: 'en', isPrimary: true },
+];
 
 // To use this in localhost, copy the settings from https://hds.hel.fi/components/login/#common-settings-for-localhost and change
 // with Tunnistamo
@@ -182,6 +189,9 @@ const Wrapper = (props: React.PropsWithChildren<unknown>) => {
             margin-top: 40px;
             margin-right: 20px;
           }
+          .note{
+            font-size:var(--fontsize-body-s);
+          }
         `}
       </style>
       <div className="wrapper">{props.children}</div>
@@ -244,8 +254,12 @@ const ListContainer = (props: React.PropsWithChildren<unknown>) => {
 };
 
 const Nav = () => {
+  const [selectedLang, updateSelectedLang] = useState(languages[2].value);
+  const onDidChangeLanguage = useCallback((language) => {
+    updateSelectedLang(language);
+  }, []);
   return (
-    <Header>
+    <Header languages={languages} defaultLanguage={selectedLang} onDidChangeLanguage={onDidChangeLanguage}>
       <Header.ActionBar
         frontPageLabel="Frontpage"
         title="City of Helsinki"
@@ -254,6 +268,8 @@ const Nav = () => {
         logo={<Logo src={logoFi} alt="City of Helsinki" />}
         logoAriaLabel="Service logo"
       >
+        {/* eslint-disable-next-line react/forbid-component-props */}
+        <Header.LanguageSelector ariaLabel="arai" languageHeading="other" />
         <Header.LoginButton
           label="Log in"
           id="action-bar-login-action"
@@ -262,6 +278,7 @@ const Nav = () => {
           errorCloseAriaLabel="Close this error notification"
           loggingInText="Logging in"
           fixedRightPosition
+          redirectionProps={{ language: selectedLang }}
         />
         <Header.UserMenuButton id="user-menu" fixedRightPosition>
           <Header.LogoutSubmenuButton
@@ -271,6 +288,7 @@ const Nav = () => {
             errorCloseAriaLabel="Close this error notification"
             id="logout-button"
             loggingOutText="Logging out"
+            redirectionProps={{ language: selectedLang }}
           />
         </Header.UserMenuButton>
       </Header.ActionBar>
@@ -562,6 +580,12 @@ const DynamicUserData = () => {
   );
 };
 
+const LanguageNote = () => {
+  return (
+    <p className="note">{'\u002a the language setting only affects the language parameters sent in login/logout.'}</p>
+  );
+};
+
 const AuthorizedContent = ({ user }: { user: User }) => {
   return (
     <Tabs>
@@ -619,6 +643,7 @@ export const ExampleApplication = (args: StoryArgs) => {
             <StartSessionPollingButton />
             <SimulateSessionEndButton />
           </div>
+          <LanguageNote />
         </ContentAligner>
       </Wrapper>
     );
@@ -636,6 +661,7 @@ export const ExampleApplication = (args: StoryArgs) => {
           <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
             Log in{' '}
           </LoginButton>
+          <LanguageNote />
         </ContentAligner>
       </Wrapper>
     );
