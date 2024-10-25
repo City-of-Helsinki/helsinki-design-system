@@ -474,7 +474,7 @@ The array returned by the <AnchorLink>useSignalListener</AnchorLink> and the <An
 ```jsx
 import {
   useSignalListener,
-  useSignalListenerWithReturnValue,
+  useSignalTrackingWithReturnValue,
   triggerForAllSessionPollerErrors,
   isSessionEndedSignal,
 } from 'hds-react';
@@ -727,14 +727,14 @@ Sometimes the most significant part of a signal is the payload. There are predef
 
 ```jsx
 import {
-  useSignalListenerWithReturnValue,
+  useSignalTrackingWithReturnValue,
   triggerForAllOidcClientSignals,
   getOidcClientStateChangePayload,
   oidcClientStates,
 } from 'hds-react';
 
 const StateChangeIndicator = () => {
-  const [lastSignal, reset] = useSignalListenerWithReturnValue(triggerForAllOidcClientSignals);
+  const [lastSignal, reset] = useSignalTrackingWithReturnValue(triggerForAllOidcClientSignals);
   const payload = lastSignal ? getOidcClientStateChangePayload(lastSignal) : null;
   if (payload && payload.state === oidcClientStates.LOGGING_OUT) {
     return <p>Logging out....</p>;
