@@ -1,9 +1,9 @@
 import { User, SigninResponse, UserManager } from 'oidc-client-ts';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import to from 'await-to-js';
-import HttpStatusCode from 'http-status-typed';
 import { waitFor } from '@testing-library/react';
 
+import HttpStatusCode from '../../utils/httpStatusCode';
 import mockWindowLocation from '../../utils/mockWindowLocation';
 // eslint-disable-next-line jest/no-mocks-import
 import apiTokens from './__mocks__/apiTokens.json';
