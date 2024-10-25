@@ -11,6 +11,7 @@ import { HeaderErrorFocusShifter } from '../headerError/HeaderErrorFocusShifter'
 import { HeaderErrorUsageType, useHeaderError } from '../headerError/useHeaderError';
 import { HeaderLoadIndicator } from '../headerLoadIndicator/HeaderLoadIndicator';
 import { LogoutProps } from '../../../login';
+import { useActiveLanguage } from '../../LanguageContext';
 
 export type HeaderLogoutSubmenuButtonProps = {
   /**
@@ -47,6 +48,10 @@ export type HeaderLogoutSubmenuButtonProps = {
    * Properties appended to the url when redirecting.
    */
   redirectionProps?: LogoutProps;
+  /**
+   * Should current Header language be appended to logout parameters
+   */
+  redirectWithLanguage?: boolean;
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -62,6 +67,7 @@ export function HeaderLogoutSubmenuButton({
   errorPosition,
   loggingOutText,
   redirectionProps,
+  redirectWithLanguage,
   ...buttonProps
 }: HeaderLogoutSubmenuButtonProps): React.ReactElement | null {
   const { triggerError, elementProps } = useHeaderError({
@@ -77,6 +83,7 @@ export function HeaderLogoutSubmenuButton({
   const isLoggingOut = getState() === 'LOGGING_OUT';
   const wasClicked = useRef(false);
   const isActive = isLoggingOut && wasClicked.current;
+  const language = useActiveLanguage();
   // for some reason LoadingSpinner theme has no effect
   const iconRight = isActive ? (
     <HeaderLoadIndicator loadingText={loggingOutText} spinnerColor={spinnerColor} />
@@ -95,7 +102,11 @@ export function HeaderLogoutSubmenuButton({
         return;
       }
       wasClicked.current = true;
-      logout(redirectionProps).catch(() => {
+      const logoutProps: LogoutProps = { ...redirectionProps };
+      if (redirectWithLanguage && language) {
+        logoutProps.language = language;
+      }
+      logout(logoutProps).catch(() => {
         wasClicked.current = false;
         triggerError();
       });
