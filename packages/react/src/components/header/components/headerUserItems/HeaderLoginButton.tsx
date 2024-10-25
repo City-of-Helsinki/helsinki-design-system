@@ -12,6 +12,7 @@ import { NotificationProps } from '../../../notification';
 import { HeaderErrorFocusShifter } from '../headerError/HeaderErrorFocusShifter';
 import { HeaderErrorUsageType, useHeaderError } from '../headerError/useHeaderError';
 import { HeaderLoadIndicator } from '../headerLoadIndicator/HeaderLoadIndicator';
+import { LoginProps } from '../../../login';
 
 export type HeaderLoginButtonProps = {
   /**
@@ -44,6 +45,10 @@ export type HeaderLoginButtonProps = {
    * The id attribute of the element.
    */
   id: string;
+  /**
+   * Properties appended to the url when redirecting.
+   */
+  redirectionProps?: LoginProps;
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -58,6 +63,7 @@ export function HeaderLoginButton({
   errorCloseAriaLabel,
   errorPosition,
   loggingInText,
+  redirectionProps,
   ...buttonProps
 }: HeaderLoginButtonProps): React.ReactElement | null {
   const { login, getState } = useOidcClient();
@@ -98,7 +104,7 @@ export function HeaderLoginButton({
     onClick: () => {
       if (!isLoggingIn) {
         wasClicked.current = true;
-        login().then(() => {
+        login(redirectionProps).then(() => {
           wasClicked.current = false;
         });
       }

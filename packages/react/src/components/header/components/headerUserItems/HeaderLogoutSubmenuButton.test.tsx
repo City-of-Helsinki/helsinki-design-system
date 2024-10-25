@@ -17,6 +17,7 @@ describe('HeaderLogoutSubmenuButton', () => {
     errorText: 'errorText',
     errorCloseAriaLabel: 'errorCloseAriaLabel',
     loggingOutText: 'loggingOutText',
+    redirectionProps: { language: 'de', extraQueryParams: { extra: 'extra' } },
   };
   const Component = (componentProps) => {
     return (
@@ -61,6 +62,27 @@ describe('HeaderLogoutSubmenuButton', () => {
     });
     await waitFor(() => {
       expect(mock).toHaveBeenCalledTimes(1);
+    });
+    await advanceUntilDoesNotThrow(() => {
+      getLoadIndicator();
+    });
+    await advanceUntilPromiseResolved(promise);
+  });
+
+  it('Given redirectionParams are appended. "language" is converted in oidcClient to "ui_locales"', async () => {
+    const { getButtonElement, getLoadIndicator, spyOnOidcClientLogout } = initTestsWithComponent();
+    expect(getLoadIndicator).toThrow();
+    const { mock, promise } = spyOnOidcClientLogout(false);
+    act(() => {
+      fireEvent.click(getButtonElement());
+    });
+    await waitFor(() => {
+      expect(mock).toHaveBeenCalledWith({
+        extraQueryParams: {
+          extra: 'extra',
+          ui_locales: 'de',
+        },
+      });
     });
     await advanceUntilDoesNotThrow(() => {
       getLoadIndicator();

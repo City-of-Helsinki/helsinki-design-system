@@ -12,8 +12,27 @@ import { Button, ButtonProps } from '../../button/Button';
 import { LoadingSpinner } from '../../loadingSpinner';
 import { IconAlertCircleFill } from '../../../icons';
 import { Notification } from '../../notification';
+import { LoginProps } from '../client';
 
-export type LoginButtonProps = { spinnerColor?: string; errorText: string; loggingInText: string } & ButtonProps;
+export type LoginButtonProps = {
+  /**
+   * Color of the loading spinner.
+   * @default --header-spinner-color or --color-black-60
+   */
+  spinnerColor?: string;
+  /**
+   * Text shown when login redirection fails
+   */
+  errorText: string;
+  /**
+   * Screen reader text for the load indicator.
+   */
+  loggingInText: string;
+  /**
+   * Properties appended to the url when redirecting.
+   */
+  redirectionProps?: LoginProps;
+} & ButtonProps;
 /**
  * LoginButton handles the redirection to the OIDC server and also errors if the server rejects the request for OpenID configuration.
  * @param props LoginButtonProps
@@ -23,6 +42,7 @@ export function LoginButton({
   children,
   errorText,
   loggingInText,
+  redirectionProps,
   ...buttonProps
 }: LoginButtonProps): React.ReactElement | null {
   const { login } = useOidcClient();
@@ -54,7 +74,7 @@ export function LoginButton({
       }
       wasClicked.current = true;
       resetLoginError();
-      login().then(() => {
+      login(redirectionProps).then(() => {
         wasClicked.current = false;
       });
     },

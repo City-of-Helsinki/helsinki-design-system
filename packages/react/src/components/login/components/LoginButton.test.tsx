@@ -17,6 +17,7 @@ const props: Omit<LoginButtonProps, 'children'> = {
   errorText: 'Cannot login',
   variant: 'danger',
   loggingInText: 'Logging in',
+  redirectionProps: { language: 'de', extraQueryParams: { extra: 'extra' } },
 };
 
 beforeEach(() => {
@@ -73,6 +74,18 @@ describe('LoginButton', () => {
     const spy = spyOnOidcClientLogin(false);
     fireEvent.click(getButtonElement());
     expect(spy).toHaveBeenCalledTimes(1);
+    expect(getErrorElement).toThrow();
+  });
+  it('Given redirectionParams are appended. "language" is converted in oidcClient to "ui_locales"', async () => {
+    renderComponent();
+    const spy = spyOnOidcClientLogin(false);
+    fireEvent.click(getButtonElement());
+    expect(spy).toHaveBeenCalledWith({
+      extraQueryParams: {
+        extra: 'extra',
+        ui_locales: 'de',
+      },
+    });
     expect(getErrorElement).toThrow();
   });
   it('when error occurs the error text is shown', async () => {
