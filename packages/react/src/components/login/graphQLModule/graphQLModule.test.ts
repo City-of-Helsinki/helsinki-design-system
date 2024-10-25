@@ -1,11 +1,11 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-mocks-import */
-import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { to } from 'await-to-js';
 import { ApolloQueryResult, QueryResult, TypedDocumentNode, QueryOptions } from '@apollo/client';
 import { waitFor } from '@testing-library/react';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
 import { emitInitializationSignals, EventPayload, eventSignalType } from '../beacon/signals';
 import {

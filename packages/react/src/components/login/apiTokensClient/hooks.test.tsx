@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import HttpStatusCode from 'http-status-typed';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { act } from '@testing-library/react';
 
+import HttpStatusCode from '../../../utils/httpStatusCode';
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
 import { useApiTokens, useApiTokensClient, useApiTokensClientTracking } from './hooks';
 import { createUser, createUserAndPlaceUserToStorage, UserCreationProps } from '../testUtils/userTestUtil';
