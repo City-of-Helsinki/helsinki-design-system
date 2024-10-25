@@ -254,12 +254,8 @@ const ListContainer = (props: React.PropsWithChildren<unknown>) => {
 };
 
 const Nav = () => {
-  const [selectedLang, updateSelectedLang] = useState(languages[2].value);
-  const onDidChangeLanguage = useCallback((language) => {
-    updateSelectedLang(language);
-  }, []);
   return (
-    <Header languages={languages} defaultLanguage={selectedLang} onDidChangeLanguage={onDidChangeLanguage}>
+    <Header languages={languages}>
       <Header.ActionBar
         frontPageLabel="Frontpage"
         title="City of Helsinki"
@@ -278,7 +274,7 @@ const Nav = () => {
           errorCloseAriaLabel="Close this error notification"
           loggingInText="Logging in"
           fixedRightPosition
-          redirectionProps={{ language: selectedLang }}
+          redirectWithLanguage
         />
         <Header.UserMenuButton id="user-menu" fixedRightPosition>
           <Header.LogoutSubmenuButton
@@ -288,7 +284,7 @@ const Nav = () => {
             errorCloseAriaLabel="Close this error notification"
             id="logout-button"
             loggingOutText="Logging out"
-            redirectionProps={{ language: selectedLang }}
+            redirectWithLanguage
           />
         </Header.UserMenuButton>
       </Header.ActionBar>

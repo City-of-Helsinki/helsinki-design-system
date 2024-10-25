@@ -9,6 +9,11 @@ import { HeaderActionBarItem } from '../headerActionBarItem';
 import { HeaderUserMenuButton } from './HeaderUserMenuButton';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
+jest.mock('../../LanguageContext', () => ({
+  ...(jest.requireActual('../../LanguageContext') as Record<string, unknown>),
+  useActiveLanguage: () => 'za',
+}));
+
 describe('HeaderLogoutSubmenuButton', () => {
   const props: HeaderLogoutSubmenuButtonProps = {
     id: 'logout-button',
@@ -70,8 +75,7 @@ describe('HeaderLogoutSubmenuButton', () => {
   });
 
   it('Given redirectionParams are appended. "language" is converted in oidcClient to "ui_locales"', async () => {
-    const { getButtonElement, getLoadIndicator, spyOnOidcClientLogout } = initTestsWithComponent();
-    expect(getLoadIndicator).toThrow();
+    const { getButtonElement, spyOnOidcClientLogout } = initTestsWithComponent();
     const { mock, promise } = spyOnOidcClientLogout(false);
     act(() => {
       fireEvent.click(getButtonElement());
@@ -84,8 +88,24 @@ describe('HeaderLogoutSubmenuButton', () => {
         },
       });
     });
-    await advanceUntilDoesNotThrow(() => {
-      getLoadIndicator();
+    await advanceUntilPromiseResolved(promise);
+  });
+
+  it('When redirectWithLanguage is true, active language is appended to logout props', async () => {
+    const { getButtonElement, spyOnOidcClientLogout } = initTestsWithComponent(true, {
+      redirectWithLanguage: true,
+    });
+    const { mock, promise } = spyOnOidcClientLogout(false);
+    act(() => {
+      fireEvent.click(getButtonElement());
+    });
+    await waitFor(() => {
+      expect(mock).toHaveBeenCalledWith({
+        extraQueryParams: {
+          extra: 'extra',
+          ui_locales: 'za',
+        },
+      });
     });
     await advanceUntilPromiseResolved(promise);
   });

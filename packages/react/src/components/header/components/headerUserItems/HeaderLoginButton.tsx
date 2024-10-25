@@ -13,6 +13,7 @@ import { HeaderErrorFocusShifter } from '../headerError/HeaderErrorFocusShifter'
 import { HeaderErrorUsageType, useHeaderError } from '../headerError/useHeaderError';
 import { HeaderLoadIndicator } from '../headerLoadIndicator/HeaderLoadIndicator';
 import { LoginProps } from '../../../login';
+import { useActiveLanguage } from '../../LanguageContext';
 
 export type HeaderLoginButtonProps = {
   /**
@@ -49,6 +50,10 @@ export type HeaderLoginButtonProps = {
    * Properties appended to the url when redirecting.
    */
   redirectionProps?: LoginProps;
+  /**
+   * Should current Header language be appended to login parameters
+   */
+  redirectWithLanguage?: boolean;
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -64,6 +69,7 @@ export function HeaderLoginButton({
   errorPosition,
   loggingInText,
   redirectionProps,
+  redirectWithLanguage,
   ...buttonProps
 }: HeaderLoginButtonProps): React.ReactElement | null {
   const { login, getState } = useOidcClient();
@@ -78,6 +84,7 @@ export function HeaderLoginButton({
     errorPosition,
     usage: HeaderErrorUsageType.Login,
   });
+  const language = useActiveLanguage();
   // login can be started from elsewhere too. Ignore those
   const wasClicked = useRef(false);
   const isActive = isLoggingIn && wasClicked.current;
@@ -104,7 +111,12 @@ export function HeaderLoginButton({
     onClick: () => {
       if (!isLoggingIn) {
         wasClicked.current = true;
-        login(redirectionProps).then(() => {
+        const loginProps: LoginProps = { ...redirectionProps };
+        if (redirectWithLanguage && language) {
+          loginProps.language = language;
+        }
+
+        login(loginProps).then(() => {
           wasClicked.current = false;
         });
       }
