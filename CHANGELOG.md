@@ -21,7 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Header.LoginButton] Added props to append parameters to the login redirection url
+- [Header.LogoutSubmenuButton] Added props to append parameters to the logout redirection url
+- [LoginButton] Added props to append parameters to the login redirection url
 
 #### Fixed
 
@@ -146,6 +148,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
 ## [3.10.1] - Oct, 09, 2024
 
 ### React
