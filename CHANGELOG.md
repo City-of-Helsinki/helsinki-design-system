@@ -21,9 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Header.LoginButton] Added props to append parameters to the login redirection url
-- [Header.LogoutSubmenuButton] Added props to append parameters to the logout redirection url
-- [LoginButton] Added props to append parameters to the login redirection url
+- [Header.LoginButton] Added onClick callback and props to append parameters to the login redirection url
+- [Header.LogoutSubmenuButton] Added onClick callback and props to append parameters to the logout redirection url
+- [LoginButton] Added onClick callback and props to append parameters to the login redirection url
 
 #### Fixed
 

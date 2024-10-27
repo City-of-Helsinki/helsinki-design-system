@@ -54,6 +54,10 @@ export type HeaderLoginButtonProps = {
    * Should current Header language be appended to login parameters
    */
   redirectWithLanguage?: boolean;
+  /**
+   * Called when the component is clicked and before the oidcClient.login() is called.
+   */
+  onClick?: HeaderActionBarItemButtonProps['onClick'];
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -70,6 +74,7 @@ export function HeaderLoginButton({
   loggingInText,
   redirectionProps,
   redirectWithLanguage,
+  onClick,
   ...buttonProps
 }: HeaderLoginButtonProps): React.ReactElement | null {
   const { login, getState } = useOidcClient();
@@ -108,8 +113,11 @@ export function HeaderLoginButton({
     ...elementProps,
     icon: isActive ? <ActiveStateIcon /> : <IconSignin />,
     'aria-label': isActive ? loggingInText : String(buttonProps.label),
-    onClick: () => {
+    onClick: (e) => {
       if (!isLoggingIn) {
+        if (onClick) {
+          onClick(e);
+        }
         wasClicked.current = true;
         const loginProps: LoginProps = { ...redirectionProps };
         if (redirectWithLanguage && language) {
