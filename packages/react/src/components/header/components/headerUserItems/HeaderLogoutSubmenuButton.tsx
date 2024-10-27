@@ -52,6 +52,10 @@ export type HeaderLogoutSubmenuButtonProps = {
    * Should current Header language be appended to logout parameters
    */
   redirectWithLanguage?: boolean;
+  /**
+   * Called when the component is clicked and before the oidcClient.logout() is called.
+   */
+  onClick?: HeaderActionBarItemButtonProps['onClick'];
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -68,6 +72,7 @@ export function HeaderLogoutSubmenuButton({
   loggingOutText,
   redirectionProps,
   redirectWithLanguage,
+  onClick,
   ...buttonProps
 }: HeaderLogoutSubmenuButtonProps): React.ReactElement | null {
   const { triggerError, elementProps } = useHeaderError({
@@ -100,6 +105,9 @@ export function HeaderLogoutSubmenuButton({
       e.preventDefault();
       if (isLoggingOut) {
         return;
+      }
+      if (onClick) {
+        onClick(e);
       }
       wasClicked.current = true;
       const logoutProps: LogoutProps = { ...redirectionProps };

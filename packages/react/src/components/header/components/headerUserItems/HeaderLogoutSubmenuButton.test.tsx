@@ -110,6 +110,21 @@ describe('HeaderLogoutSubmenuButton', () => {
     await advanceUntilPromiseResolved(promise);
   });
 
+  it('If onClick is set, it is called with the event when button is clicked', async () => {
+    const onClick = jest.fn();
+    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent(true, {
+      onClick,
+    });
+    const { promise } = spyOnOidcClientLogin(false);
+    act(() => {
+      fireEvent.click(getButtonElement());
+    });
+    await waitFor(() => {
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+    await advanceUntilPromiseResolved(promise);
+  });
+
   describe('When error occurs', () => {
     it('error text is shown and focus stays in the button', async () => {
       const result = initTestsWithComponent();
