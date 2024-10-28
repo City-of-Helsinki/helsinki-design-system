@@ -7,17 +7,22 @@ import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../../events';
 import { countVisibleOptions, getVisibleGroupLabels } from '../../utils';
-import { getTextFromDataHandlers } from '../../texts';
+import { getNumberedVariationsTextKey, getTextFromDataHandlers } from '../../texts';
 
 const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups, multiSelect } = getData();
-  const { refs, elementIds, listInputType } = getMetaData();
+  const metaData = getMetaData();
+  const { refs, elementIds, listInputType } = metaData;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const hasInput = !!listInputType;
   const label = getTextFromDataHandlers('label', dataHandlers);
   const ariaLabel =
-    multiSelect && hasVisibleGroupLabels && !hasInput ? `${label}. ${countVisibleOptions(groups)} choices.` : label;
+    multiSelect && hasVisibleGroupLabels && !hasInput
+      ? `${label}. ${getNumberedVariationsTextKey('choiceCount', metaData, 'numberIndicator', {
+          numberIndicator: countVisibleOptions(groups),
+        })}`
+      : label;
   const outsideClickTrigger = useCallback(() => {
     if (!open) {
       return;

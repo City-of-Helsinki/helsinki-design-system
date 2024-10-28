@@ -98,7 +98,8 @@ const requireOneSelection: SelectProps['onChange'] = (selectedOptions) => {
 const defaultTexts: Partial<Texts> = {
   label: 'Label',
   placeholder: 'Choose one',
-  selectedOptionsLabel: 'Selected options',
+  selectedOptionsCount_one: 'One selected option.',
+  selectedOptionsCount_multiple: '{{selectionCount}} selected options.',
   error: 'Wrong choice!',
   language: 'en',
 };

@@ -7,7 +7,7 @@ import classNames from '../../../../utils/classNames';
 import { createOnClickListener } from '../../utils';
 import { eventTypes, eventIds } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
-import { getTextFromMetaData } from '../../texts';
+import { getNumberedVariationsTextKey } from '../../texts';
 
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
   const metaData = getMetaData();
@@ -27,7 +27,9 @@ const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHan
     ...createOnClickListener({ id: eventIds.clearButton, type: eventTypes.click, trigger }),
     id: elementIds.clearButton,
     disabled,
-    'aria-label': getTextFromMetaData('clearButtonAriaLabel', metaData),
+    'aria-label': getNumberedVariationsTextKey('clearButtonAriaLabel', metaData, 'selectionCount', {
+      label: selectedOptions[0].label,
+    }),
   };
 };
 

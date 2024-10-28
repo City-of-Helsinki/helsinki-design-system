@@ -7,7 +7,7 @@ import { getSelectedOptionsPerc, getGroupLabelOption, getVisibleGroupLabels, cou
 import { MemoizedMultiSelectOption } from './listItems/MultiSelectOption';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { MultiSelectGroupLabel } from './listItems/MultiSelectGroupLabel';
-import { getTextFromDataHandlers } from '../../texts';
+import { getNumberedVariationsTextKey, getTextFromDataHandlers } from '../../texts';
 
 const getGroupLabelIntermediateState = (target: Group): boolean => {
   const perc = getSelectedOptionsPerc(target);
@@ -90,7 +90,8 @@ export const createContainerProps = (
 ): DivElementProps & { ref: RefObject<HTMLDivElement> } => {
   const { getData, getMetaData } = dataHandlers;
   const { groups } = getData();
-  const { elementIds, refs, listInputType } = getMetaData();
+  const metaData = getMetaData();
+  const { elementIds, refs, listInputType } = metaData;
   const hasInput = !!listInputType;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const hasInputAndGroups = hasInput || hasVisibleGroupLabels;
@@ -110,10 +111,13 @@ export const createContainerProps = (
     if (hasOnlyGroups) {
       return undefined;
     }
+    const text = getNumberedVariationsTextKey('choiceCount', metaData, 'numberIndicator', {
+      numberIndicator: choiceCount,
+    });
     if (hasInputAndGroups) {
-      return `${choiceCount} choices.`;
+      return text;
     }
-    return `${label}. ${choiceCount} choices.`;
+    return `${label}. ${text}`;
   };
   return {
     'aria-label': getAriaLabel(),

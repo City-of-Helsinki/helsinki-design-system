@@ -1,4 +1,4 @@
-import { getTextKey } from '../../../texts';
+import { getNumberedVariationsTextKey, getTextKey } from '../../../texts';
 import { ScreenReaderNotification, SelectData, SelectMetaData, TextInterpolationContent } from '../../../types';
 import { countVisibleOptions, createScreenReaderNotification } from '../../../utils';
 import { getTextKeyWithType, typeIndicator } from './common';
@@ -29,8 +29,22 @@ export function getScreenReaderNotification(data: SelectData, metaData: SelectMe
         const tryAnotherKey = getTextKeyWithType(`${typeIndicator}WithAnotherTerm`, isSearch);
         return `${getTextKey(noResultsKey, metaData, interpolationContent)} ${getTextKey(tryAnotherKey, metaData, interpolationContent)}`;
       }
-      const resultsKey = getTextKeyWithType(`${typeIndicator}Results`, isSearch);
-      return getTextKey(resultsKey, metaData, interpolationContent) as string;
+      if (isSearch) {
+        return getNumberedVariationsTextKey(
+          'searchResults',
+          metaData,
+          'numberIndicator',
+          interpolationContent,
+        ) as string;
+      }
+      const resultsText = getTextKey('filterResults', metaData, interpolationContent) as string;
+      const countText = getNumberedVariationsTextKey(
+        'filterResultsCount',
+        metaData,
+        'numberIndicator',
+        interpolationContent,
+      ) as string;
+      return `${resultsText} ${countText}`;
     }
 
     return '';

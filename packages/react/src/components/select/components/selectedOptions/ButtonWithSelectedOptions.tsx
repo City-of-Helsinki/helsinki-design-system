@@ -4,10 +4,17 @@ import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
-import { ButtonElementProps, SelectDataHandlers, SelectMetaData, Option, TextKey } from '../../types';
+import {
+  ButtonElementProps,
+  SelectDataHandlers,
+  SelectMetaData,
+  Option,
+  TextKey,
+  TextsWithNumberedVariations,
+} from '../../types';
 import { createOnClickListener, getVisibleGroupLabels } from '../../utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
-import { getTextKey } from '../../texts';
+import { getNumberedVariationsTextKey, getTextKey } from '../../texts';
 import { IconAngleDown } from '../../../../icons';
 
 type ButtonWithSelectedOptionsProps = ButtonElementProps & {
@@ -19,7 +26,12 @@ type ButtonWithSelectedOptionsProps = ButtonElementProps & {
 };
 
 const getTexts = (metaData: SelectMetaData) => {
-  const getter = (key: TextKey) => getTextKey(key, metaData) as string;
+  const getter = (key: TextKey | TextsWithNumberedVariations) => {
+    if (key === 'selectedOptionsCount') {
+      return getNumberedVariationsTextKey(key, metaData, 'selectionCount') as string;
+    }
+    return getTextKey(key as TextKey, metaData) as string;
+  };
   return {
     placeholder: getter('placeholder') || '',
     label: getter('label'),
@@ -29,7 +41,6 @@ const getTexts = (metaData: SelectMetaData) => {
     noSelectedOptionsText: getter('noSelectedOptions'),
     selectedOptionsCount: getter('selectedOptionsCount'),
     noSelectedOptions: getter('noSelectedOptions'),
-    selectedOptionsLabel: getter('selectedOptionsLabel'),
   };
 };
 
@@ -38,7 +49,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
   const { disabled, open, invalid, multiSelect, groups } = getData();
   const metaData = getMetaData();
   const { icon, refs, elementIds, selectedOptions, listInputType, activeDescendant } = metaData;
-  const { placeholder, label, ariaLabel, errorText, assistiveText, noSelectedOptions, selectedOptionsLabel } =
+  const { placeholder, label, ariaLabel, errorText, assistiveText, noSelectedOptions, selectedOptionsCount } =
     getTexts(metaData);
   const hasInput = !!listInputType;
   const getAriaLabel = () => {
@@ -48,7 +59,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     if (!length) {
       labels.push(`${placeholder}. ${noSelectedOptions}.`);
     } else {
-      labels.push(selectedOptionsLabel);
+      labels.push(selectedOptionsCount);
       if (selectedOptions[0]) {
         labels.push(`"${selectedOptions[0].label}"`);
       }

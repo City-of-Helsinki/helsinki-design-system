@@ -1,6 +1,6 @@
 import { eventIds, eventTypes } from '../../../events';
-import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../../../testUtil';
-import { SelectMetaData } from '../../../types';
+import { groupsAndOptions, initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../../../testUtil';
+import { Group, SelectMetaData } from '../../../types';
 import { SearchAndFilterInfo } from './SearchAndFilterInfo';
 
 jest.mock('../../Container', () => {
@@ -26,7 +26,10 @@ describe('<SearchAndFilterInfo />', () => {
       renderComponentOnly: false,
       selectProps: {
         open: true,
-        onSearch: inputType === 'search' ? () => Promise.resolve({ options: [] }) : undefined,
+        onSearch:
+          inputType === 'search'
+            ? () => Promise.resolve({ options: returnResults ? (groupsAndOptions as Group[])[0].options : [] })
+            : undefined,
         texts: (key) => key,
         filter: inputType === 'filter' ? () => returnResults : undefined,
       },
@@ -50,7 +53,7 @@ describe('<SearchAndFilterInfo />', () => {
     expect(() => getByTestId(dataTestIds.searchAndFilterInfo)).toThrow();
     const notifications = getMetaDataFromElement().screenReaderNotifications;
     expect(notifications).toHaveLength(1);
-    expect(notifications[0].content).toBe('filterResults');
+    expect(notifications[0].content).toBe(`filterResults filterResultsCount_multiple`);
   });
   it('Failed filtering is shown.', async () => {
     const { triggerChangeEvent, getByTestId, getSearchAndFilterInfoTexts, dataTestIds } = initTests(
@@ -74,6 +77,19 @@ describe('<SearchAndFilterInfo />', () => {
 
     await triggerChangeEvent({ id: eventIds.search, type: eventTypes.change, payload: { value: '' } });
     expect(getMetaDataFromElement().screenReaderNotifications).toHaveLength(0);
+  });
+  it('Screen reader notification indicates number of results', async () => {
+    const { triggerChangeEvent, getMetaDataFromElement } = initTests(getTestProps('search', true));
+    await triggerChangeEvent({ id: eventIds.search, type: eventTypes.change, payload: { value: 'search' } });
+    const notifications = getMetaDataFromElement().screenReaderNotifications;
+    expect(notifications).toHaveLength(1);
+    expect(notifications[0].content).toBe('searching');
+
+    await triggerChangeEvent({ id: eventIds.search, type: eventTypes.success });
+    const successNotifications = getMetaDataFromElement().screenReaderNotifications;
+    // length is still 1 because only one notification per notificationType is allowed in queue
+    expect(successNotifications).toHaveLength(1);
+    expect(successNotifications[0].content).toBe('searchResults_multiple');
   });
   it('Info and screen reader notification is added after a search error.', async () => {
     const { triggerChangeEvent, getSearchAndFilterInfoTexts, getMetaDataFromElement } = initTests(
