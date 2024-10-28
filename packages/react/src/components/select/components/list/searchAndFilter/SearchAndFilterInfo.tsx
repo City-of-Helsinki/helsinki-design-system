@@ -18,7 +18,7 @@ import { getTextKeyWithType, typeIndicator } from './common';
 const createSearchAndFilterInfoProps = (hasError: boolean): DivElementProps => {
   return {
     className: classNames(styles.searchAndFilterInfoContainer, hasError && styles.withErrorMessage),
-    'data-testid': 'search-and-filter-info',
+    'data-testid': 'hds-select-search-and-filter-info',
   };
 };
 

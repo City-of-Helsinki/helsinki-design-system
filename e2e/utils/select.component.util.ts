@@ -1,5 +1,6 @@
 import { getElementIds } from '../../packages/react/src/components/select/utils';
-import { SelectMetaData } from '../../packages/react/src/components/select/types';
+import { SelectMetaData, TextKey } from '../../packages/react/src/components/select/types';
+import { defaultTexts } from '../../packages/react/src/components/select/texts';
 import { Locator, Page } from '@playwright/test';
 import {
   isElementVisible,
@@ -11,7 +12,6 @@ import {
   getScrollTop,
   scrollLocatorTo,
   waitForStablePosition,
-  getLocatorOuterHTML,
 } from './element.util';
 import { filterLocators, waitFor } from './playwright.util';
 import { tagSelectorForTagList } from '../../packages/react/src/components/select/components/tagList/TagListItem';
@@ -38,9 +38,10 @@ const multiSelectGroupLabelSelector = 'div[role="group"] > div[role="checkbox"]:
 const dataTestIds = {
   placeholder: 'placeholder',
   searchingText: 'hds-select-searching-text',
-  searchAndFilterInfo: 'search-and-filter-info',
+  searchAndFilterInfo: 'hds-select-search-and-filter-info',
   searchNoResults: 'hds-select-no-results',
   searchError: 'hds-select-searching-error',
+  screenReaderNotifications: 'hds-select-screen-reader-notifications',
 };
 
 export const createSelectHelpers = (page: Page, componentId: string) => {
@@ -344,6 +345,9 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
   const getSearchAndFilterInfo = () => {
     return page.getByTestId(dataTestIds.searchAndFilterInfo);
   };
+  const getScreenReaderNotifications = () => {
+    return page.getByTestId(dataTestIds.screenReaderNotifications);
+  };
 
   const getBoundingBox = async (spacing = 10) => {
     const container = getElementByName('container');
@@ -416,6 +420,10 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return elements.length > 0;
   };
 
+  const getDefaultText = (key: TextKey): string | undefined => {
+    return defaultTexts['en'][key];
+  };
+
   return {
     checkAllTagsAreShown,
     closeList,
@@ -454,5 +462,7 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     selectOptionByIndex,
     showAllTags,
     waitUntilSelectedOptionCountMatches,
+    getScreenReaderNotifications,
+    getDefaultText,
   };
 };
