@@ -79,7 +79,7 @@ export function useFocusHandling(): ReturnObject {
         } else {
           markActiveDescendant(null);
         }
-        if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType)) {
+        if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType) && open) {
           if (eventElementType === 'tag' || eventElementType === 'tagList') {
             // when the list was open and a tag was focused and close event re-renders the component, the focus is lost from the tag.
             // this is caused by the tag element losing its element refs.

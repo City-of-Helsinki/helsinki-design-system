@@ -43,17 +43,21 @@ describe('<SearchAndFilterInfo />', () => {
     expect(() => getSearchAndFilterInfoTexts()).not.toThrow();
   });
   it('Successful filtering is shown only to screen reader.', async () => {
-    const { triggerChangeEvent, getByTestId, getMetaDataFromElement } = initTests(getTestProps('filter', true));
+    const { triggerChangeEvent, getByTestId, getMetaDataFromElement, dataTestIds } = initTests(
+      getTestProps('filter', true),
+    );
     await triggerChangeEvent({ id: eventIds.filter, type: eventTypes.change, payload: { value: 'filter' } });
-    expect(() => getByTestId('search-and-filter-info')).toThrow();
+    expect(() => getByTestId(dataTestIds.searchAndFilterInfo)).toThrow();
     const notifications = getMetaDataFromElement().screenReaderNotifications;
     expect(notifications).toHaveLength(1);
     expect(notifications[0].content).toBe('filterResults');
   });
   it('Failed filtering is shown.', async () => {
-    const { triggerChangeEvent, getByTestId, getSearchAndFilterInfoTexts } = initTests(getTestProps('filter'));
+    const { triggerChangeEvent, getByTestId, getSearchAndFilterInfoTexts, dataTestIds } = initTests(
+      getTestProps('filter'),
+    );
     await triggerChangeEvent({ id: eventIds.filter, type: eventTypes.change, payload: { value: 'filter' } });
-    expect(() => getByTestId('search-and-filter-info')).not.toThrow();
+    expect(() => getByTestId(dataTestIds.searchAndFilterInfo)).not.toThrow();
     expect(getSearchAndFilterInfoTexts()).toEqual(['filteredWithoutResultsInfo', 'filterWithAnotherTerm']);
   });
   it('Screen reader notification is added and removed after clearing the search', async () => {

@@ -265,6 +265,25 @@ test.describe(`Tags`, () => {
     const clip2 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
   });
+  test('When "show All" is clicked, focus is set to the first tag. When "show less" is clicked, focus stays and screen reader is notified.', async ({
+    page,
+  }) => {
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    const selectUtil = createSelectHelpers(page, selectId);
+    expect(await selectUtil.getTagsCount()).toBe(0);
+    await selectUtil.selectGroupByIndex({ index: 0 });
+    await selectUtil.selectGroupByIndex({ index: 1 });
+    await selectUtil.closeList();
+
+    await selectUtil.showAllTags();
+    const tag0 = selectUtil.getTags().first();
+    await expect(tag0).toBeFocused();
+    await selectUtil.hideAllTags();
+    await expect(selectUtil.getElementByName('showAllButton')).toBeFocused();
+
+    const lastNotification = selectUtil.getScreenReaderNotifications().last();
+    expect(lastNotification).toHaveText(selectUtil.getDefaultText('tagsPartiallyHidden') as string);
+  });
   test('Selection can be deleted from tags. Focus is moved when tag is removed.', async ({
     page,
     isMobile,

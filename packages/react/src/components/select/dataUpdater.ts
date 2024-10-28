@@ -186,6 +186,18 @@ const dataUpdater = (
   if (isShowAllClickEvent(id, type)) {
     const { showAllTags } = dataHandlers.getMetaData();
     dataHandlers.updateMetaData({ showAllTags: !showAllTags });
+    if (!showAllTags) {
+      // when "Show all" was clicked, move focus to #1 tag
+      setFocusTarget('tag');
+    } else {
+      // when "Show less" was clicked, tell screen reader some tag are hidden
+      const notification = createScreenReaderNotification(
+        eventIds.tag,
+        getTextKey('tagsPartiallyHidden', dataHandlers.getMetaData()) as string,
+      );
+
+      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+    }
     return {
       ...returnValue,
       didDataChange: true,

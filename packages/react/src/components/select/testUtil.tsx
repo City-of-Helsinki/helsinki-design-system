@@ -456,10 +456,14 @@ export const renderWithHelpers = (
   const result = render(withForceRender ? <ComponentWithForceRender /> : <Select {...props} />);
 
   const elementIds = getElementIds(selectProps.id);
+  const dataTestIds = {
+    searchAndFilterInfo: 'hds-select-search-and-filter-info',
+    screenReaderNotifications: 'hds-select-screen-reader-notifications',
+  };
   const selectors = {
     listAndInputContainer: `#${elementIds.selectionsAndListsContainer}`,
-    screenReaderNotifications: `div[data-testid="screen-reader-notifications"]`,
-    searchAndFilterInfo: `div[data-testid="search-and-filter-info"]`,
+    screenReaderNotifications: `div[data-testid="${dataTestIds.screenReaderNotifications}"]`,
+    searchAndFilterInfo: `div[data-testid="${dataTestIds.searchAndFilterInfo}"]`,
     groups: `#${elementIds.list} > ul, #${elementIds.list} > div[role="group"]`,
     groupLabels: `${singleSelectGroupLabelSelector}, ${multiSelectGroupLabelSelector}`,
     options: `${singleSelectOptionSelector}, ${multiSelectOptionSelector}`,
@@ -730,5 +734,6 @@ export const renderWithHelpers = (
     clickGroupAndWaitForRerender,
     getScreenReaderNotifications,
     selectors,
+    dataTestIds,
   };
 };
