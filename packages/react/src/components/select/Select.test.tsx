@@ -525,7 +525,7 @@ describe('<Select />', () => {
         listAndInputContainer: {
           'aria-hidden': true,
           role: 'dialog',
-          'aria-label': `${defaultLabel}. 12 choices.`,
+          'aria-label': `${defaultLabel}. FI: 12 choices.`,
         },
         list: {
           // these undefined values indicate that the element should not have special attributes
@@ -615,7 +615,7 @@ describe('<Select />', () => {
         },
         list: {
           'aria-multiselectable': undefined,
-          'aria-label': `12 choices.`,
+          'aria-label': `FI: 12 choices.`,
           role: 'dialog',
         },
         options: {
