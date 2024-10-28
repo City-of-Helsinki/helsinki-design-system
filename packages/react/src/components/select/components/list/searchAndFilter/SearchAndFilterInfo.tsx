@@ -32,7 +32,7 @@ export function SearchAndFilterInfo() {
   const { isSearching, hasSearchError, search, filter, listInputType } = metaData;
   const count = countVisibleOptions(groups);
   const createCurrentState = () => {
-    return `${search} ${filter} ${count}`;
+    return `${search} ${filter} ${count} ${hasSearchError ? 'error' : ''} ${isSearching ? 'searching' : ''}`;
   };
   const previousValueRef = useRef(createCurrentState());
   const currentState = createCurrentState();

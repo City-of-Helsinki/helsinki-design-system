@@ -5,7 +5,7 @@ import { getTextKeyWithType, typeIndicator } from './common';
 
 export function getScreenReaderNotification(data: SelectData, metaData: SelectMetaData): ScreenReaderNotification {
   const { groups, open } = data;
-  const { isSearching, search, filter } = metaData;
+  const { isSearching, search, filter, hasSearchError } = metaData;
   const resultCount = countVisibleOptions(groups);
   const value = search || filter;
   const notificationType = 'searchAndFilter';
@@ -21,6 +21,9 @@ export function getScreenReaderNotification(data: SelectData, metaData: SelectMe
     }
     if (value) {
       const isSearch = !!search;
+      if (hasSearchError) {
+        return `${getTextKey('searchErrorTitle', metaData)} ${getTextKey('searchErrorText', metaData)}`;
+      }
       if (resultCount === 0) {
         const noResultsKey = getTextKeyWithType(`${typeIndicator}edWithoutResultsInfo`, isSearch);
         const tryAnotherKey = getTextKeyWithType(`${typeIndicator}WithAnotherTerm`, isSearch);
