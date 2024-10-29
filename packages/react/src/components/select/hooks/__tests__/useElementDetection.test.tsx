@@ -19,6 +19,7 @@ import {
 import { GetSelectProps, renderWithHelpers } from '../../testUtil';
 import { Group, KnownElementType } from '../../types';
 import { getAllOptions, propsToGroups } from '../../utils';
+import { elementIsSelectable } from '../../../../utils/elementIsSelectable';
 
 const mockHookData = jest.fn();
 
@@ -245,15 +246,15 @@ describe('useElementDetection', () => {
       });
     });
   });
-  describe('getListItemSiblings() returns next and previous list items', () => {
+  describe('getSelectableListItemSiblings() returns next and previous list items', () => {
     const initializeAndReturnElements = () => {
       const { getAllListElements, getHook } = initHookTest(defaultProps);
-      const { getListItemSiblings } = getHook();
-      const allListElements = getAllListElements();
-      return { allListElements, getListItemSiblings, count: allListElements.length };
+      const { getSelectableListItemSiblings } = getHook();
+      const allListElements = getAllListElements().filter(elementIsSelectable);
+      return { allListElements, getSelectableListItemSiblings, count: allListElements.length };
     };
     it('if looping is allowed, element picking loops the child list.', async () => {
-      const { allListElements, getListItemSiblings, count } = initializeAndReturnElements();
+      const { allListElements, getSelectableListItemSiblings, count } = initializeAndReturnElements();
       const getPrevAndNextWhenLooping = (index: number) => {
         const expectedPrev = index === 0 ? allListElements[count - 1] : allListElements[index - 1];
         const expectedNext = index === count - 1 ? allListElements[0] : allListElements[index + 1];
@@ -264,13 +265,13 @@ describe('useElementDetection', () => {
       };
       allListElements.forEach((element, index) => {
         const { expectedPrev, expectedNext } = getPrevAndNextWhenLooping(index);
-        const { prev, next } = getListItemSiblings(element as HTMLLIElement, true);
+        const { prev, next } = getSelectableListItemSiblings(element as HTMLLIElement, true);
         expect(prev === expectedPrev).toBeTruthy();
         expect(next === expectedNext).toBeTruthy();
       });
     });
     it('if looping is not allowed, overflow returns null', async () => {
-      const { allListElements, getListItemSiblings, count } = initializeAndReturnElements();
+      const { allListElements, getSelectableListItemSiblings, count } = initializeAndReturnElements();
       const getPrevAndNextWhenNotLooping = (index: number) => {
         const expectedPrev = index === 0 ? null : allListElements[index - 1];
         const expectedNext = index === count - 1 ? null : allListElements[index + 1];
@@ -281,7 +282,7 @@ describe('useElementDetection', () => {
       };
       allListElements.forEach((element, index) => {
         const { expectedPrev, expectedNext } = getPrevAndNextWhenNotLooping(index);
-        const { prev, next } = getListItemSiblings(element as HTMLLIElement, false);
+        const { prev, next } = getSelectableListItemSiblings(element as HTMLLIElement, false);
         expect(prev === expectedPrev).toBeTruthy();
         expect(next === expectedNext).toBeTruthy();
       });
@@ -342,7 +343,3 @@ describe('useElementDetection', () => {
     });
   });
 });
-/**
- * isInSelectedOptionsType +++
-
- */

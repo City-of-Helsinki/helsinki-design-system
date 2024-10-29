@@ -26,6 +26,7 @@ import { singleSelectGroupLabelSelector } from './components/list/listItems/Sing
 import { singleSelectOptionSelector } from './components/list/listItems/SingleSelectOption';
 import { multiSelectOptionSelector } from './components/list/listItems/MultiSelectOption';
 import { tagSelectorForTagList } from './components/tagList/TagListItem';
+import { elementIsSelectable } from '../../utils/elementIsSelectable';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -542,6 +543,10 @@ export const renderWithHelpers = (
     return Array.from(result.container.querySelectorAll(selectors.allListItems)) as HTMLElement[];
   };
 
+  const getAllSelectableListElements = () => {
+    return getAllListElements().filter(elementIsSelectable);
+  };
+
   const getListAndInputContainer = () => {
     return result.container.querySelector(selectors.listAndInputContainer) as HTMLDivElement;
   };
@@ -719,6 +724,7 @@ export const renderWithHelpers = (
     getGroupElements,
     getOptionElements,
     getAllListElements,
+    getAllSelectableListElements,
     clickOptionAndWaitForRerender,
     setInputValue,
     getSearchAndFilterInfoTexts,

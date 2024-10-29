@@ -25,8 +25,13 @@ type ReturnObject = Pick<
 
 export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData, trigger } = useSelectDataHandlers();
-  const { getEventElementType, getListItemSiblings, getElementUsingActiveDescendant, getElementId, getElementType } =
-    useElementDetection();
+  const {
+    getEventElementType,
+    getSelectableListItemSiblings,
+    getElementUsingActiveDescendant,
+    getElementId,
+    getElementType,
+  } = useElementDetection();
 
   const elementsThatCloseMenuOnFocus: KnownElementType[] = ['tag', 'tagList', 'clearAllButton', 'showAllButton'];
   const eventTracker = useCallback(
@@ -51,7 +56,7 @@ export function useFocusHandling(): ReturnObject {
       };
 
       const moveFocusToFirstListItem = () => {
-        const closestListItems = getListItemSiblings(undefined, false);
+        const closestListItems = getSelectableListItemSiblings(undefined, false);
         if (closestListItems.next) {
           markActiveDescendant(closestListItems.next);
           closestListItems.next.focus();
