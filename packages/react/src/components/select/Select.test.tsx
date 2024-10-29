@@ -142,6 +142,21 @@ describe('<Select />', () => {
       expect(getSelectionsInButton()).toHaveLength(1);
       expect(getSelectionsInButton()[0]).toBe(options[selectionIndex].label);
     });
+    it('Clicking a selected option again does nothing when multiSelect is false', async () => {
+      const { openList, isListOpen, clickOptionAndWaitForRerender, getSelectionsInButton, getOptionElements } =
+        renderWithHelpers();
+      const selectionIndex = 2;
+      await openList();
+      await clickOptionAndWaitForRerender(selectionIndex);
+      await openList();
+      // cannot use clickOptionAndWaitForRerender, because it wont re-render
+      fireEvent.click(getOptionElements()[selectionIndex]);
+      await createTimedPromise(undefined);
+      expect(isListOpen()).toBeTruthy();
+      expect(getSelectionsInButton()).toHaveLength(1);
+      await clickOptionAndWaitForRerender(selectionIndex - 1);
+      expect(isListOpen()).toBeFalsy();
+    });
     it('Clicking the clear button removes all selections', async () => {
       const { openList, getClearButton, clickOptionAndWaitForRerender, getSelectionsInButton } = renderWithHelpers();
       await openList();

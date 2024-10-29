@@ -53,7 +53,7 @@
   --menu-item-color-default: var(--color-black-90);
   --menu-item-color-hover: var(--color-black-90);
   --menu-item-color-selected: var(--color-black-90);
-  --menu-item-color-selected-hover: var(--color-white);
+  --menu-item-color-selected-hover: var(--color-black-90);
   --menu-item-color-disabled: var(--color-black-40);
   --menu-item-icon-color-selected: var(--color-white);
   --menu-item-icon-color-disabled: var(--color-black-40);
@@ -168,7 +168,7 @@
     color: var(--menu-item-color-hover);
 
     &.selected {
-      color: var(--menu-item-color-hover-selected);
+      color: var(--menu-item-color-selected-hover);
     }
   }
 }
