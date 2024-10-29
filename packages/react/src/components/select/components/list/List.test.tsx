@@ -124,7 +124,7 @@ describe('<List />', () => {
 
   describe('Click events', () => {
     it('Clicking an list item triggers an event that matches isOptionClickEvent() and payload includes the option', () => {
-      const { getElementById, metaData, data } = initTests();
+      const { getElementById, metaData, data } = initTests({ multiSelect: true });
       const optionElements = getOptionElements({ getElementById, metaData });
       const options = getOptionsFromData({ data });
       optionElements.forEach((optionEl, index) => {
@@ -143,6 +143,19 @@ describe('<List />', () => {
       expect(isOptionElement(groupLabelEl)).toBe(false);
       fireEvent.click(groupLabelEl);
       expect(getTriggeredEvents()).toHaveLength(0);
+    });
+    it('Clicking a selected single select option does not trigger anything.', () => {
+      const initData = createDataWithSelectedOptions({
+        label: 'Group label',
+        totalOptionsCount: 10,
+        selectedOptionsCount: 10,
+      });
+      const { getElementById, metaData } = initTests(initData);
+      const optionElements = getOptionElements({ getElementById, metaData });
+      optionElements.forEach((optionEl) => {
+        fireEvent.click(optionEl);
+        expect(getTriggeredEvents()).toHaveLength(0);
+      });
     });
   });
 });

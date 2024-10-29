@@ -41,6 +41,9 @@ const createSingleSelectItemProps = ({ option, trigger, getOptionId }: SelectIte
     ),
     children: <Label text={label} selected={selected} />,
     onClick: (originalEvent: React.MouseEvent) => {
+      if (option.selected) {
+        return;
+      }
       trigger({
         id: eventIds.listItem,
         type: eventTypes.click,
