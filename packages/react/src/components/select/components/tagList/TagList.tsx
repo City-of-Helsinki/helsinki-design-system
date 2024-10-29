@@ -1,7 +1,8 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
+import { useResizeObserver } from '../../../../hooks/useResizeObserver';
 import { Tags } from './Tags';
 import { DivElementProps, SelectMetaData } from '../../types';
 import { getChildElementsPerRow } from '../../../../utils/getChildElementsPerRow';
@@ -10,8 +11,8 @@ import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVi
 import { TagListButtons } from './TagListButtons';
 import { tagSelectorForTagList } from './TagListItem';
 
-function makeTwoOrAllRowsVisible(refs: SelectMetaData['refs'], showAll: boolean) {
-  const tagListEl = refs.tagList.current;
+function makeTwoOrAllRowsVisible(tagListRef: SelectMetaData['refs']['tagList'], showAll: boolean) {
+  const tagListEl = tagListRef.current;
   if (tagListEl) {
     const elementsPerRow = getChildElementsPerRow(tagListEl);
     const targetRow = showAll ? elementsPerRow[elementsPerRow.length - 1] : elementsPerRow[1];
@@ -27,8 +28,11 @@ function makeTwoOrAllRowsVisible(refs: SelectMetaData['refs'], showAll: boolean)
   return [];
 }
 
-function checkIfShowAllButtonIsNeeded(refs: SelectMetaData['refs'], numberOfTagRows: number) {
-  const buttonEl = refs.showAllButton.current;
+function checkIfShowAllButtonIsNeeded(
+  showAllButtonRef: SelectMetaData['refs']['showAllButton'],
+  numberOfTagRows: number,
+) {
+  const buttonEl = showAllButtonRef.current;
   const visibleRowsBeforeShowAll = 2;
   if (buttonEl) {
     // Because tags can be removed at any time, checking just number
@@ -43,8 +47,8 @@ function checkIfShowAllButtonIsNeeded(refs: SelectMetaData['refs'], numberOfTagR
   }
 }
 
-function makeHiddenElementsUnfocusable(refs: SelectMetaData['refs']) {
-  const tagListEl = refs.tagList.current;
+function makeHiddenElementsUnfocusable(tagListRef: SelectMetaData['refs']['tagList']) {
+  const tagListEl = tagListRef.current;
 
   const tags = tagListEl && tagListEl.querySelectorAll(`* ${tagSelectorForTagList}`);
   if (tags) {
@@ -70,16 +74,21 @@ function createContainerProps(showAllTags: boolean): DivElementProps {
 export function TagList() {
   const { getData, getMetaData } = useSelectDataHandlers();
   const { multiSelect, noTags } = getData();
-  const { showAllTags, selectedOptions } = getMetaData();
+  const { showAllTags, selectedOptions, refs } = getMetaData();
+  const tagListRef = refs.tagList;
+  const showAllButtonRef = refs.showAllButton;
 
   const selectedOptioList = multiSelect ? selectedOptions : [];
+  const calculateElements = useCallback(() => {
+    const rows = makeTwoOrAllRowsVisible(tagListRef, showAllTags);
+    checkIfShowAllButtonIsNeeded(showAllButtonRef, rows.length);
+    makeHiddenElementsUnfocusable(tagListRef);
+  }, [tagListRef, showAllButtonRef, showAllTags]);
+
+  const [ref] = useResizeObserver(calculateElements);
 
   useLayoutEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    const { refs, showAllTags } = getMetaData();
-    const rows = makeTwoOrAllRowsVisible(refs, showAllTags);
-    checkIfShowAllButtonIsNeeded(refs, rows.length);
-    makeHiddenElementsUnfocusable(refs);
+    calculateElements();
   });
 
   if (!selectedOptioList.length || noTags) {
@@ -87,7 +96,7 @@ export function TagList() {
   }
 
   return (
-    <div {...createContainerProps(showAllTags)}>
+    <div {...createContainerProps(showAllTags)} ref={ref}>
       <Tags />
       <TagListButtons />
     </div>

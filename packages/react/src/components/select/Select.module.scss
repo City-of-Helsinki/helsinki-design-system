@@ -155,19 +155,19 @@
 
     &.spaceForOneDigit .labels {
       /* minus is option padding right, minus smth */
-      padding-right: calc(24px + var(--spacing-2-xs));
+      padding-right: calc(24px);
     }
 
     &.spaceForTwoDigits .labels {
-      padding-right: calc(34px + var(--spacing-2-xs));
+      padding-right: calc(34px);
     }
 
     &.spaceForThreeDigits .labels {
-      padding-right: calc(44px + var(--spacing-2-xs));
+      padding-right: calc(44px);
     }
 
     &.spaceForFourDigits .labels {
-      padding-right: calc(54px + var(--spacing-2-xs));
+      padding-right: calc(54px);
     }
 
     &.disabledButton {
@@ -230,8 +230,6 @@
     }
 
     &.lastVisible {
-      padding-right: 0;
-
       &:after {
         content: '';
       }
