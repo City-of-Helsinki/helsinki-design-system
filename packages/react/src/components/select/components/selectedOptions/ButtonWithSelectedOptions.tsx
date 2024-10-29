@@ -1,7 +1,8 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
+import { useResizeObserver } from '../../../../hooks/useResizeObserver';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import {
@@ -144,8 +145,8 @@ That is why the preseved space needs to be for current count +1 digits.
 The counter is absolutely positionend in its container, so if just number changes it won't affect element flow and result into 
 unexpectedly hidden options if new number is wider than the one before hidden items calculations.
 */
-function updateHiddenElementsCount(metaData: SelectMetaData) {
-  const buttonEl = metaData.refs.button.current;
+function updateHiddenElementsCount(buttoRef: SelectMetaData['refs']['button']) {
+  const buttonEl = buttoRef.current;
   const cssClassesForSpaceReservation = [
     styles.spaceForOneDigit,
     styles.spaceForTwoDigits,
@@ -181,8 +182,21 @@ function updateHiddenElementsCount(metaData: SelectMetaData) {
 
 export function ButtonWithSelectedOptions() {
   const dataHandlers = useSelectDataHandlers();
+  const { multiSelect } = dataHandlers.getData();
   const { options, placeholder, buttonRef, optionClassName, icon, ...attr } =
     createButtonWithSelectedOptionsProps(dataHandlers);
+
+  const calculateElements = useCallback(() => {
+    if (multiSelect) {
+      updateHiddenElementsCount(buttonRef);
+    }
+  }, [buttonRef, multiSelect]);
+
+  const [resizeRef] = useResizeObserver(calculateElements);
+
+  useLayoutEffect(() => {
+    calculateElements();
+  });
 
   const labels = options.length ? (
     options.map((opt) => (
@@ -196,12 +210,6 @@ export function ButtonWithSelectedOptions() {
     </span>
   );
 
-  useLayoutEffect(() => {
-    if (dataHandlers.getData().multiSelect) {
-      updateHiddenElementsCount(dataHandlers.getMetaData());
-    }
-  });
-
   return (
     <button type="button" {...attr} ref={buttonRef}>
       {icon && (
@@ -209,7 +217,7 @@ export function ButtonWithSelectedOptions() {
           {icon}
         </span>
       )}
-      <div className={styles.labels} key="labels" aria-hidden>
+      <div className={styles.labels} key="labels" aria-hidden ref={resizeRef}>
         {labels}
       </div>
       {options.length > 1 && (
