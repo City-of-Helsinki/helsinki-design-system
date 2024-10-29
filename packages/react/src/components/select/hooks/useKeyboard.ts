@@ -125,7 +125,8 @@ const createKeyCache = () => {
 };
 
 export function useKeyboard() {
-  const { getEventElementType, getListItemSiblings, getOptionListItem, getListItems } = useElementDetection();
+  const { getEventElementType, getSelectableListItemSiblings, getOptionListItem, getSelectableListItems } =
+    useElementDetection();
   const { trigger, getData, getMetaData, updateMetaData } = useSelectDataHandlers();
   // When there is an input and user starts typing and button is focused,
   // the inputted text should be placed to the input after opening the dropdown.
@@ -176,7 +177,7 @@ export function useKeyboard() {
       }
 
       const moveFocusToFirstListItem = () => {
-        const listItems = getListItems();
+        const listItems = getSelectableListItems();
         const el = listItems[0];
         if (el) {
           el.focus();
@@ -185,7 +186,7 @@ export function useKeyboard() {
       };
 
       const moveFocusToLastListItem = () => {
-        const listItems = getListItems();
+        const listItems = getSelectableListItems();
         const el = listItems.pop();
         if (el) {
           el.focus();
@@ -243,7 +244,7 @@ export function useKeyboard() {
 
       // navigate between options. Will loop from first to last and vice versa
       if (isAnyListChildType(type) && (wasArrowDownPressed || wasArrowUpPressed)) {
-        const closestListItems = getListItemSiblings(element as HTMLLIElement);
+        const closestListItems = getSelectableListItemSiblings(element as HTMLLIElement);
         if (wasArrowDownPressed && closestListItems.next) {
           closestListItems.next.focus();
         } else if (wasArrowUpPressed && closestListItems.prev) {

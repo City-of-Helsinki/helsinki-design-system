@@ -690,14 +690,16 @@ describe('<Select />', () => {
     ].forEach(({ selectOptions, description, expectedAttributes, groupCount, hasInput }) => {
       describe(`${description}`, () => {
         it('Button has correct attributes before and after opened', async () => {
-          const { openList, getButtonElement, getAllListElements } = renderWithHelpers(selectOptions);
+          const { openList, getButtonElement, getAllSelectableListElements } = renderWithHelpers(selectOptions);
           expect(getElementAttributesMisMatches(getButtonElement(), expectedAttributes.button)).toHaveLength(0);
           await openList();
           expect(
             getElementAttributesMisMatches(getButtonElement(), {
               ...expectedAttributes.button,
               'aria-expanded': true,
-              'aria-activedescendant': hasInput ? undefined : String(getAllListElements()[0].getAttribute('id')),
+              'aria-activedescendant': hasInput
+                ? undefined
+                : String(getAllSelectableListElements()[0].getAttribute('id')),
             }),
           ).toHaveLength(0);
         });
@@ -761,6 +763,7 @@ describe('<Select />', () => {
           if (!hasInput) {
             return;
           }
+          const firstSelectableIndex = selectOptions.multiSelect || !selectOptions.groups ? 0 : 1;
           await openList();
           expect(
             getElementAttributesMisMatches<HTMLInputElement>(
@@ -775,13 +778,13 @@ describe('<Select />', () => {
 
           fireEvent.keyUp(getInputElement(), { key: 'ArrowDown', code: 'ArrowDown' });
           await waitFor(() => {
-            expect(getActiveElement(getInputElement()) === getAllListElements()[0]).toBeTruthy();
+            expect(getActiveElement(getInputElement()) === getAllListElements()[firstSelectableIndex]).toBeTruthy();
           });
           expect(
             getElementAttributesMisMatches<HTMLInputElement>(getInputElement(), {
               ...(expectedAttributes.input as InputAttributes),
               'aria-expanded': true,
-              'aria-activedescendant': getAllListElements()[0].getAttribute('id') as string,
+              'aria-activedescendant': getAllListElements()[firstSelectableIndex].getAttribute('id') as string,
             }),
           ).toHaveLength(0);
         });

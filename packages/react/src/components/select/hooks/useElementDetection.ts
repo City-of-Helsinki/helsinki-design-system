@@ -8,6 +8,7 @@ import { singleSelectGroupLabelSelector } from '../components/list/listItems/Sin
 import { multiSelectGroupLabelSelector } from '../components/list/listItems/MultiSelectGroupLabel';
 import { multiSelectOptionSelector } from '../components/list/listItems/MultiSelectOption';
 import { singleSelectOptionSelector } from '../components/list/listItems/SingleSelectOption';
+import { elementIsSelectable } from '../../../utils/elementIsSelectable';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
@@ -141,9 +142,13 @@ export function useElementDetection() {
     return [...getListElement().querySelectorAll(selector)] as HTMLElement[];
   };
 
-  const getListItemSiblings = (listItem?: HTMLLIElement, loop = true) => {
-    const listItems = getListItems();
-    return getElementSiblings<HTMLElement>(getListElement(), listItem, loop, false, listItems);
+  const getSelectableListItems = () => {
+    return getListItems().filter(elementIsSelectable);
+  };
+
+  const getSelectableListItemSiblings = (listItem?: HTMLLIElement, loop = true) => {
+    const selectableListItems = getSelectableListItems();
+    return getElementSiblings<HTMLElement>(getListElement(), listItem, loop, false, selectableListItems);
   };
 
   const isListGroupLabel = (element: HTMLElement) => {
@@ -254,13 +259,14 @@ export function useElementDetection() {
   return {
     getEventElementType,
     getElementType,
-    getListItemSiblings,
+    getSelectableListItemSiblings,
     getTagSiblings,
     getElementUsingActiveDescendant,
     getElementByKnownType,
     getElementId,
     getOptionListItem,
     getListItems,
+    getSelectableListItems,
   };
 }
 
