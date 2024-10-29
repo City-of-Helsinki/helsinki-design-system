@@ -1031,22 +1031,16 @@ export const PreselectedValue = () => {
     />
   );
 };
+
 export const KeepOneSelection = () => {
   const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, clickedOption, data) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions) => {
     if (selectedOptions.length > 0) {
       return {
         invalid: false,
       };
     }
-    return {
-      groups: iterateAndCopyGroup(data.groups, (option) => {
-        if (option.value === clickedOption.value) {
-          return { ...option, selected: true };
-        }
-        return option;
-      }),
-    };
+    return {};
   }, []);
   return (
     <Select
@@ -1055,6 +1049,7 @@ export const KeepOneSelection = () => {
       icon={<IconLocation />}
       required
       invalid
+      clearable={false}
       texts={{ ...defaultTexts, error: 'Select one option' }}
       id="hds-select-component"
     />

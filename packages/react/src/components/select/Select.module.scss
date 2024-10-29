@@ -120,6 +120,12 @@
       }
     }
 
+    &.notClearable {
+      .arrowAndSpaceForClearButton {
+        padding-left: var(--spacing-xs);
+      }
+    }
+
     &.selectedOptions {
       flex-grow: 1;
       overflow: hidden;
@@ -143,25 +149,25 @@
       color: var(--placeholder-color);
 
       .arrowAndSpaceForClearButton {
-        padding-left: 0;
+        padding-left: var(--spacing-xs);
       }
     }
 
     &.spaceForOneDigit .labels {
       /* minus is option padding right, minus smth */
-      padding-right: calc(24px - var(--spacing-2-xs));
+      padding-right: calc(24px + var(--spacing-2-xs));
     }
 
     &.spaceForTwoDigits .labels {
-      padding-right: calc(34px - var(--spacing-2-xs));
+      padding-right: calc(34px + var(--spacing-2-xs));
     }
 
     &.spaceForThreeDigits .labels {
-      padding-right: calc(44px - var(--spacing-2-xs));
+      padding-right: calc(44px + var(--spacing-2-xs));
     }
 
     &.spaceForFourDigits .labels {
-      padding-right: calc(54px - var(--spacing-2-xs));
+      padding-right: calc(54px + var(--spacing-2-xs));
     }
 
     &.disabledButton {
@@ -223,8 +229,12 @@
       margin-right: 0;
     }
 
-    &.lastVisible:after {
-      content: '';
+    &.lastVisible {
+      padding-right: 0;
+
+      &:after {
+        content: '';
+      }
     }
   }
 }

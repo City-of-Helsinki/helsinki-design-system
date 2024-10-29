@@ -46,7 +46,7 @@ const getTexts = (metaData: SelectMetaData) => {
 
 const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
   const { getData, getMetaData, trigger } = dataHandlers;
-  const { disabled, open, invalid, multiSelect, groups } = getData();
+  const { disabled, open, invalid, multiSelect, groups, clearable } = getData();
   const metaData = getMetaData();
   const { icon, refs, elementIds, selectedOptions, listInputType, activeDescendant } = metaData;
   const { placeholder, label, ariaLabel, errorText, assistiveText, noSelectedOptions, selectedOptionsCount } =
@@ -106,6 +106,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
       !selectedOptions.length && styles.placeholder,
       disabled && styles.disabledButton,
       !multiSelect && styles.singleSelect,
+      !clearable && styles.notClearable,
     ),
     'aria-disabled': disabled,
     icon,
@@ -142,7 +143,9 @@ function updateHiddenElementsCount(metaData: SelectMetaData) {
     const selectedItemsCount = labels.childNodes.length;
     const maxCountDigits = String(selectedItemsCount - 1).length; // -1 because one is always visible
     buttonEl.classList.remove(...cssClassesForSpaceReservation);
-    buttonEl.classList.add(cssClassesForSpaceReservation[maxCountDigits - 1]);
+    if (selectedItemsCount > 1) {
+      buttonEl.classList.add(cssClassesForSpaceReservation[maxCountDigits - 1]);
+    }
     const firstVisible = getIndexOfFirstVisibleChild(labels, 'vertical');
     const childCount = labels.children.length - 1;
     const hiddenItems = childCount - firstVisible;
