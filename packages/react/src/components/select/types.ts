@@ -154,6 +154,7 @@ export type TextKey =
   | 'multiSelectGroupAriaLabel'
   | 'noSelectedOptions'
   | 'placeholder'
+  | 'required'
   | 'searchLabel'
   | 'searchPlaceholder'
   | 'searchClearButtonAriaLabel'
