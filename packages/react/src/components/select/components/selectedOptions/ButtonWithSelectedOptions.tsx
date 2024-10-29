@@ -41,16 +41,25 @@ const getTexts = (metaData: SelectMetaData) => {
     noSelectedOptionsText: getter('noSelectedOptions'),
     selectedOptionsCount: getter('selectedOptionsCount'),
     noSelectedOptions: getter('noSelectedOptions'),
+    requiredText: getter('required'),
   };
 };
 
 const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers): ButtonWithSelectedOptionsProps => {
   const { getData, getMetaData, trigger } = dataHandlers;
-  const { disabled, open, invalid, multiSelect, groups, clearable } = getData();
+  const { disabled, open, invalid, multiSelect, groups, clearable, required } = getData();
   const metaData = getMetaData();
   const { icon, refs, elementIds, selectedOptions, listInputType, activeDescendant } = metaData;
-  const { placeholder, label, ariaLabel, errorText, assistiveText, noSelectedOptions, selectedOptionsCount } =
-    getTexts(metaData);
+  const {
+    placeholder,
+    label,
+    ariaLabel,
+    errorText,
+    assistiveText,
+    noSelectedOptions,
+    selectedOptionsCount,
+    requiredText,
+  } = getTexts(metaData);
   const hasInput = !!listInputType;
   const getAriaLabel = () => {
     const descriptiveLabel = label || ariaLabel;
@@ -70,13 +79,21 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
         labels.push(`and ${length - 2} other options.`);
       }
     }
+    if (required) {
+      labels.push(requiredText);
+    }
     if (assistiveText) {
       labels.push(assistiveText);
     }
     if (invalid && errorText) {
       labels.push(errorText);
     }
-    return labels.join(' ');
+    return labels
+      .map((text) => {
+        const hasDot = text.charAt(text.length - 1) === '.';
+        return hasDot ? text : `${text}.`;
+      })
+      .join(' ');
   };
 
   const getInputAndGroupRelatedProps = (): Partial<ButtonElementProps> => {
