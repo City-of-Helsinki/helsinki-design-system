@@ -33,7 +33,7 @@ describe('<Tag /> spec', () => {
     expect(results).toHaveNoViolations();
   });
   it('native html props are passed to the element', async () => {
-    const divProps = getCommonElementTestProps<'div', Pick<TagProps, 'onClick' | 'role'>>('div');
+    const divProps = getCommonElementTestProps<'div', Pick<TagProps, 'role'>>('div');
     const { getByTestId } = render(<Tag {...divProps}>Foo</Tag>);
     const element = getByTestId(divProps['data-testid']);
     expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
