@@ -33,6 +33,7 @@ export type AcceptedNativeDivProps = Omit<
 
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   children?: P | P[];
+  clearable?: boolean;
   disabled?: boolean;
   filter?: FilterFunction;
   groups?: Array<GroupInProps> | SelectData['groups'];
@@ -71,6 +72,7 @@ export type SelectData = Required<
     | 'noTags'
     | 'visibleOptions'
     | 'virtualize'
+    | 'clearable'
   >
 > & {
   groups: Array<Group>;

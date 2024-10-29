@@ -12,8 +12,8 @@ import { getNumberedVariationsTextKey } from '../../texts';
 const createClearButtonProps = ({ getData, getMetaData, trigger }: SelectDataHandlers): ButtonElementProps | null => {
   const metaData = getMetaData();
   const { elementIds, selectedOptions } = metaData;
-  const { disabled } = getData();
-  if (!selectedOptions.length) {
+  const { disabled, clearable } = getData();
+  if (!selectedOptions.length || !clearable) {
     return null;
   }
   return {

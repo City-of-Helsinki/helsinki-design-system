@@ -42,6 +42,7 @@ export function Select({
   onSearch,
   value,
   theme,
+  clearable,
   ...divElementProps
 }: SelectProps & AcceptedNativeDivProps) {
   const initialData = useMemo<SelectData>(() => {
@@ -60,6 +61,7 @@ export function Select({
       onBlur,
       filterFunction: filter,
       onSearch,
+      clearable: clearable !== false,
     };
   }, [
     options,

@@ -1,22 +1,17 @@
 import React from 'react';
 
 import styles from '../../Select.module.scss';
-import classNames from '../../../../utils/classNames';
-import { DivElementProps } from '../../types';
 import { ClearAllButton } from './ClearAllButton';
 import { ShowAllButton } from './ShowAllButton';
-
-function createButtonContainerProps(): DivElementProps {
-  return {
-    className: classNames(styles.tagListButtons),
-  };
-}
+import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 
 export function TagListButtons() {
+  const { getData } = useSelectDataHandlers();
+  const { clearable } = getData();
   return (
-    <div {...createButtonContainerProps()}>
+    <div className={styles.tagListButtons}>
       <ShowAllButton />
-      <ClearAllButton />
+      {clearable && <ClearAllButton />}
     </div>
   );
 }

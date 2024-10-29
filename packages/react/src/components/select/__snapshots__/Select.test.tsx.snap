@@ -32,7 +32,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
           aria-haspopup="listbox"
           aria-invalid="true"
           aria-label="Label. Choose one. 0 selected options. Assistive text Error text"
-          class="dropdownButton selectedOptions placeholder spaceForOneDigit"
+          class="dropdownButton selectedOptions placeholder"
           id="test-select-component-main-button"
           role="combobox"
           type="button"

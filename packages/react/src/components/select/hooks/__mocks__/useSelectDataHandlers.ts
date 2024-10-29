@@ -22,6 +22,7 @@ const mockData: { current: OptionalSelectData; default: OptionalSelectData } = {
     multiSelect: false,
     onChange: jest.fn(),
     visibleOptions: 5.5,
+    clearable: true,
   },
 };
 
