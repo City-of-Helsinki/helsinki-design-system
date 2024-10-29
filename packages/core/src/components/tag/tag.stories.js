@@ -29,23 +29,23 @@ export const ActionTags = () => `
 const customA = `
     --background-color: var(--color-brick);
     --color: var(--color-white);
-    --outline-color-focus: var(--color-black-90);`;
+    --outline-color: var(--color-black-90);`;
 
 const customB = `
     --background-color: var(--color-engel);
     --color: var(--color-black-90);
-    --outline-color-focus: var(--color-black-90);`;
+    --outline-color: var(--color-black-90);`;
 
 const customC = `
     --background-color: var(--color-copper-dark);
     --background-color-hover: var(--color-tram-dark);
     --color: var(--color-white);
-    --outline-color-focus: var(--color-metro);`;
+    --outline-color: var(--color-metro);`;
 
 const customD = `
     --background-color: var(--color-fog);
     --color: var(--color-black-90);
-    --outline-color-focus: var(--color-black-90);
+    --outline-color: var(--color-black-90);
     --background-color-hover: orange;`;
 
 export const CustomThemeTags = () => `
