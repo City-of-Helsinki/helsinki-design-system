@@ -131,6 +131,51 @@ test.describe(`Keyboard navigation`, () => {
       return selectUtil.isOptionListClosed();
     });
   });
+  test('Group labels are ignored with single select', async ({ page, isMobile }, testInfo) => {
+    await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups);
+    const selectUtil = createSelectHelpers(page, selectId);
+    const keyboard = createKeyboardHelpers(page);
+
+    await focusLocator(selectUtil.getElementByName('button'));
+
+    await keyboard.space(); // opens menu and moves focus to #1 (label is ignored)
+    await waitFor(() => {
+      return selectUtil.isOptionListOpen();
+    });
+    const options = await selectUtil.getOptionElements({ all: true });
+    const lastOption = options[options.length - 1];
+    await waitFor(() => {
+      return isLocatorFocused(options[1]);
+    });
+
+    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'first non-label is focused');
+    const clip = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+
+    await keyboard.up(); // moves focus to the last
+
+    await waitFor(() => {
+      return isLocatorFocused(lastOption);
+    });
+
+    await selectUtil.scrollOptionInToView(lastOption);
+    await waitForStablePosition(lastOption);
+
+    const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'last non-label is focused');
+    const clip2 = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
+
+    await keyboard.home(); // moves focus to #1 (label is ignored)
+    await selectUtil.scrollOptionInToView(options[1]);
+    await waitFor(() => {
+      return isLocatorFocused(options[1]);
+    });
+    await keyboard.down(); // moves focus to #2
+    await selectUtil.scrollOptionInToView(options[2]);
+    await waitFor(() => {
+      return isLocatorFocused(options[2]);
+    });
+  });
 });
 test.describe(`Typing when focused and there is no input`, () => {
   test('user input focuses options with filtering.', async ({ page, isMobile }, testInfo) => {
