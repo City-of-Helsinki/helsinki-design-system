@@ -66,30 +66,24 @@ export function SearchAndFilterInfo() {
       {loadingText && (
         <>
           <LoadingSpinner small loadingText="" loadingFinishedText="" />
-          <span aria-hidden data-testid="hds-select-searching-text">
-            {loadingText}
-          </span>
+          <span data-testid="hds-select-searching-text">{loadingText}</span>
         </>
       )}
       {showNoResultsTexts && !hasSearchError && (
         <>
-          <span aria-hidden data-testid="hds-select-no-results">
+          <span data-testid="hds-select-no-results">
             {getTextKey(getTextKeyWithType(`${typeIndicator}edWithoutResultsInfo`, isSearchInput), metaData, {
               value: filter || search,
             })}
           </span>
-          <span aria-hidden>
-            {getTextKey(getTextKeyWithType(`${typeIndicator}WithAnotherTerm`, isSearchInput), metaData)}
-          </span>
+          <span>{getTextKey(getTextKeyWithType(`${typeIndicator}WithAnotherTerm`, isSearchInput), metaData)}</span>
         </>
       )}
       {hasSearchError && (
         <>
           <IconError color="var(--color-error)" />
-          <span aria-hidden data-testid="hds-select-searching-error">
-            {getTextKey('searchErrorTitle', metaData)}
-          </span>
-          <span aria-hidden>{getTextKey('searchErrorText', metaData)}</span>
+          <span data-testid="hds-select-searching-error">{getTextKey('searchErrorTitle', metaData)}</span>
+          <span>{getTextKey('searchErrorText', metaData)}</span>
         </>
       )}
     </div>
