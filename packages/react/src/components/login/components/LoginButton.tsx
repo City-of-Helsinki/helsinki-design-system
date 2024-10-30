@@ -32,6 +32,10 @@ export type LoginButtonProps = {
    * Properties appended to the url when redirecting.
    */
   redirectionProps?: LoginProps;
+  /**
+   * Called when the component is clicked and before the oidcClient.login() is called.
+   */
+  onClick?: ButtonProps['onClick'];
 } & ButtonProps;
 /**
  * LoginButton handles the redirection to the OIDC server and also errors if the server rejects the request for OpenID configuration.
@@ -43,6 +47,7 @@ export function LoginButton({
   errorText,
   loggingInText,
   redirectionProps,
+  onClick,
   ...buttonProps
 }: LoginButtonProps): React.ReactElement | null {
   const { login } = useOidcClient();
@@ -68,9 +73,12 @@ export function LoginButton({
   const combinedButtonProps = {
     ...buttonProps,
     iconLeft,
-    onClick: () => {
+    onClick: (e) => {
       if (isLoggingIn) {
         return;
+      }
+      if (onClick) {
+        onClick(e);
       }
       wasClicked.current = true;
       resetLoginError();

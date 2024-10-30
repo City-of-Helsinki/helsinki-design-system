@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { ApolloClient, InMemoryCache } from '@apollo/client/core';
+import { action } from '@storybook/addon-actions';
 
 import {
   User,
@@ -52,6 +53,10 @@ type StoryArgs = {
   useKeycloak?: boolean;
 };
 
+const onLoginClick = action('header-login-click');
+const onLogoutClick = action('header-logout-click');
+const onLoginButtonClick = action('login-button-click');
+
 export default {
   component: LoginProvider,
   title: 'Components/Login',
@@ -93,13 +98,14 @@ const languages: LanguageOption[] = [
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
-    authority: 'https://tunnistamo.test.hel.ninja/',
-    client_id: 'exampleapp-ui-test',
-    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofile https://api.hel.fi/auth/exampleapptest',
-    redirect_uri: `${window.origin}/storybook/react/static-login/callback.html`,
-    silent_redirect_uri: `${window.origin}/storybook/react/static-login/silent_renew.html`,
+    authority: 'https://tunnistamo.dev.hel.ninja/',
+    client_id: 'exampleapp-ui-dev',
+    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
+    redirect_uri: `${window.origin}/static-login/callback.html`,
+    silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
+    post_logout_redirect_uri: `${window.origin}/static-login/logout.html`,
   },
-  apiTokensClientSettings: { url: 'https://tunnistamo.test.hel.ninja/api-tokens/' },
+  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
@@ -275,6 +281,7 @@ const Nav = () => {
           loggingInText="Logging in"
           fixedRightPosition
           redirectWithLanguage
+          onClick={onLoginClick}
         />
         <Header.UserMenuButton id="user-menu" fixedRightPosition>
           <Header.LogoutSubmenuButton
@@ -285,6 +292,7 @@ const Nav = () => {
             id="logout-button"
             loggingOutText="Logging out"
             redirectWithLanguage
+            onClick={onLogoutClick}
           />
         </Header.UserMenuButton>
       </Header.ActionBar>
@@ -654,8 +662,8 @@ export const ExampleApplication = (args: StoryArgs) => {
             Click button below, or in the navigation, to start the login process with{' '}
             <strong>{isUsingKeycloak ? 'Helsinki Profile' : 'Tunnistamo'}</strong>.
           </p>
-          <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in">
-            Log in{' '}
+          <LoginButton errorText="Login failed. Try again!" loggingInText="Logging in" onClick={onLoginButtonClick}>
+            Log in
           </LoginButton>
           <LanguageNote />
         </ContentAligner>

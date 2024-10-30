@@ -40,7 +40,7 @@ afterAll(() => {
 
 describe('LoginButton', () => {
   let beacon: Beacon;
-  const renderComponent = () => {
+  const renderComponent = (extraProps?: Partial<LoginButtonProps>) => {
     const helperModule: ConnectedModule = {
       namespace: 'helper',
       connect: (targetBeacon) => {
@@ -51,7 +51,7 @@ describe('LoginButton', () => {
       <LoginContextProvider loginProps={loginProps} modules={[helperModule]}>
         <div id="root">
           <p>Some content</p>
-          <LoginButton {...(props as LoginButtonProps)}>{buttonText}</LoginButton>
+          <LoginButton {...({ ...props, ...extraProps } as LoginButtonProps)}>{buttonText}</LoginButton>
         </div>
       </LoginContextProvider>,
     );
@@ -86,6 +86,15 @@ describe('LoginButton', () => {
         ui_locales: 'de',
       },
     });
+    expect(getErrorElement).toThrow();
+  });
+  it('If onClick is set, it is called with the event when button is clicked', async () => {
+    const onClick = jest.fn();
+    renderComponent({ onClick });
+    const spy = spyOnOidcClientLogin(false);
+    fireEvent.click(getButtonElement());
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
     expect(getErrorElement).toThrow();
   });
   it('when error occurs the error text is shown', async () => {
