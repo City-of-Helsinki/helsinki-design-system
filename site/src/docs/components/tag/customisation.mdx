@@ -15,15 +15,24 @@ In Core version, you can either use the `style` or `class` attributes in the HT
 
 In React version, you can use the `theme` (type of `TagTheme` in Typescript) property to customise the component. 
 
-See all available theme variables in the table below.
+See all available theme variables in the table below. All colours of interactive (Tags with click or link) don't have to be given,
+they will fallback to previous colour which exists (active -> hover -> focus -> default).
 
-| Theme variable                        | Description                                 |
-| ------------------------------------- | ------------------------------------------- |
-| '--background-color-hover'            | Colour of the tag background when hovered upon. |
-| '--background-color'                  | Colour of the tag background.               |
-| '--border-color-action'               | Colour of the border of Tags with onClick or onDelete actions |
-| '--color'                             | Colour of elements inside the tag.          |
-| '--outline-color-focus'               | Colour of the tag focus border.             |
+| Theme variable                         | Description                                 |
+| -------------------------------------- | ------------------------------------------- |
+| <code>--background-color</code>        | Colour of the tag background.               |
+| <code>--background-color-focus</code>  | Colour of background of Tags with onClick or onDelete actions when focused. |
+| <code>--background-color-hover</code>  | Colour of background of Tags with onClick or onDelete actions when hovered upon. |
+| <code>--background-color-active</code> | Colour of background of Tags with onClick or onDelete actions when active.  |
+| <code>--border-color</code>            | Colour of the border of Tags with onClick or onDelete actions |
+| <code>--border-color-focus</code>      | Colour of the border of Tags with onClick or onDelete actions when focused |
+| <code>--border-color-hover</code>      | Colour of the border of Tags with onClick or onDelete actions when hovered upon |
+| <code>--border-color-active</code>     | Colour of the border of Tags with onClick or onDelete actions when active |
+| <code>--color</code>                   | Colour of elements inside the tag.          |
+| <code>--color-focus</code>             | Colour of elements inside of Tags with onClick or onDelete actions when focused.      |
+| <code>--color-hover</code>             | Colour of elements inside of Tags with onClick or onDelete actions when hovered upon. |
+| <code>--color-active</code>            | Colour of elements inside of Tags with onClick or onDelete actions when active.       |
+| <code>--outline-color</code>           | Colour of the tag focus border of Tags with onClick or onDelete actions.              |
 
 ### Customisation example
 <Playground scope={{ Tag }}>
@@ -40,7 +49,7 @@ import { Tag } from 'hds-react';
       '--background-color-hover': 'var(--color-tram-dark)',
       '--background-color': 'var(--color-copper-dark)',
       '--color': 'var(--color-white)',
-      '--outline-color-focus': 'var(--color-metro)',
+      '--outline-color': 'var(--color-metro)',
     }}
   >
     Action
@@ -56,7 +65,7 @@ import { Tag } from 'hds-react';
     --background-color-hover: var(--color-tram-dark);
     --background-color: var(--color-copper-dark);
     --color: var(--color-white);
-    --outline-color-focus: var(--color-metro);
+    --outline-color: var(--color-metro);
   "
   tabindex="0"
   onclick={}

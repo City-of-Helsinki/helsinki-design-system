@@ -2,26 +2,36 @@
 @import url("../../icons/cross.css");
 
 .hds-tag {
-  --background-color-hover: var(--color-black-20);
-  --background-color: var(--color-black-10);
-  --border-color-action: var(--color-black-90);
-  --color: var(--color-black-90);
+  /* logics, always falls back to previous (upper) if not given ->
+  (no) active color -> (no) hover color -> (no) focus color -> default color
+  */
+  --computed-background-color: var(--background-color, var(--color-black-10));
+  --computed-background-color-focus: var(--background-color-focus, var(--computed-background-color, transparent));
+  --computed-background-color-hover: var(--background-color-hover, var(--computed-background-color-focus, transparent));
+  --computed-background-color-active: var(--background-color-active, var(--computed-background-color-hover, transparent));
+  --computed-border-color: var(--border-color, var(--computed-background-color));
+  --computed-border-color-focus: var(--border-color-focus, var(--computed-border-color, transparent));
+  --computed-border-color-hover: var(--border-color-hover, var(--computed-border-color-focus, transparent));
+  --computed-border-color-active: var(--border-color-active, var(--computed-border-color-hover, transparent));
+  --computed-color: var(--color, --color-black-90);
+  --computed-color-focus: var(--color-focus, var(--computed-color, inherit));
+  --computed-color-hover: var(--color-hover, var(--computed-color-focus, inherit));
+  --computed-color-active: var(--color-active, var(--computed-color-hover, inherit));
+  --computed-outline-color: var(--outline-color, transparent);
   --font-size: var(--fontsize-body-s);
   --gap: var(--spacing-3-xs);
   --height: 32px;
   --icon-reposition: -4px;
   --icon-size: 24px;
-  --outline-color-focus: var(--color-focus-outline);
   --outline-width: 2px;
   --padding-horizontal: 12px;
   --padding-vertical: 3px;
 
-
   align-items: center;
-  background-color: var(--background-color);
+  background-color: var(--computed-background-color);
   border-radius: calc(var(--height) / 2);
   box-sizing: border-box;
-  color: var(--color);
+  color: var(--computed-color, inherit);
   display: inline-flex;
   flex-direction: row;
   font-size: var(--font-size);
@@ -32,6 +42,7 @@
   max-width: 100%;
   min-height: var(--height);
   outline: none;
+  outline-offset: 2px;
   overflow: hidden;
   padding: var(--padding-vertical) var(--padding-horizontal);
 
@@ -64,7 +75,9 @@
 }
 
 .hds-tag--action {
-  border: 1px solid var(--border-color-action);
+  --border-color: var(--color-black-90);
+
+  border: 1px solid var(--computed-border-color);
   padding: calc(var(--padding-vertical) - 1px) calc(var(--padding-horizontal) - 1px);
 }
 
@@ -80,15 +93,35 @@
 }
 
 .hds-tag--action, .hds-tag--link {
+  --background-color-hover: var(--color-black-20);
+  --outline-color: var(--color-focus-outline);
+
+  cursor: pointer;
+
+  /* focus */
+  &:focus-visible {
+    background-color: var(--computed-background-color-focus);
+    border-color: var(--computed-border-color-focus);
+    color: var(--computed-color-focus);
+  }
+
+  /* hover */
   &:hover {
-    background-color: var(--background-color-hover);
-    cursor: pointer;
+    background-color: var(--computed-background-color-hover);
+    border-color: var(--computed-border-color-hover);
+    color: var(--computed-color-hover);
+  }
+
+  /* active */
+  &:active {
+    background-color: var(--computed-background-color-active);
+    border-color: var(--computed-border-color-active);
+    color: var(--computed-color-active);
   }
 
   &:focus-visible, &:active:hover {
     box-shadow: none;
-    outline: var(--outline-width) solid var(--outline-color-focus);
-    outline-offset: 2px;
+    outline: var(--outline-width) solid var(--computed-outline-color);
   }
 }
 

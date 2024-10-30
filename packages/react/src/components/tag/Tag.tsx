@@ -12,7 +12,7 @@ export interface TagTheme {
   '--background-color'?: string;
   '--border-color-action'?: string;
   '--color'?: string;
-  '--outline-color-focus'?: string;
+  '--outline-color'?: string;
 }
 
 export enum TagVariant {
