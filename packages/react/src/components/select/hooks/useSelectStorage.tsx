@@ -18,20 +18,21 @@ export type SelectStorageProps = Omit<SelectProps, 'value'> & {
  */
 
 export function useSelectStorage(props: SelectStorageProps) {
+  const { updateKey, ...restProps } = props;
   const reRender = useForceRender();
   const propsStorage = useRef<SelectStorageProps>({ onChange: () => ({}) });
   const groupsStorage = useRef<Group[]>([]);
   const onChangeInProps = useRef<SelectStorageProps['onChange']>();
-  onChangeInProps.current = props.onChange;
+  onChangeInProps.current = restProps.onChange;
 
   useMemo(() => {
     propsStorage.current = {
       ...propsStorage.current,
-      ...props,
+      ...restProps,
     };
-    groupsStorage.current = propsToGroups({ options: props.options, groups: props.groups }) || [];
+    groupsStorage.current = propsToGroups({ options: restProps.options, groups: restProps.groups }) || [];
     return propsStorage;
-  }, [props.updateKey]);
+  }, [updateKey]);
 
   // The memoization in the Select will lose object ref and recreate all memoized props if groupsStorage.current changes
   // This will for example close menu when selecting multiselect items and parent component is re-rendered.
