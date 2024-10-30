@@ -37,7 +37,6 @@ const gotoStorybookUrlByName = async (page: Page, name: string) => {
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   test('Take snapshots of all Selects stories', async ({ page, isMobile }) => {
-    // many select stories have extra buttons etc. so skipping them with clip
     const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
     if (componentUrls.length === 0) {
       throw new Error('No componentUrls found for');
@@ -45,7 +44,15 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     for (const componentUrl of componentUrls) {
       await page.goto(`file://${componentUrl}`);
       const selectUtil = createSelectHelpers(page, selectId);
+      const containerCount = await selectUtil.getElementByName('container').count();
+      if (containerCount < 1) {
+        // container is not found if the story has custom id for the Select.
+        // for example the "With External Label"
+        return;
+      }
+      // many select stories have extra buttons etc. so skipping them with clip
       const clip = await selectUtil.getBoundingBox();
+
       const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
       await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
     }
