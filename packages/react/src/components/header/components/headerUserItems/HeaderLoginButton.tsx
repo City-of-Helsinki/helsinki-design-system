@@ -12,6 +12,8 @@ import { NotificationProps } from '../../../notification';
 import { HeaderErrorFocusShifter } from '../headerError/HeaderErrorFocusShifter';
 import { HeaderErrorUsageType, useHeaderError } from '../headerError/useHeaderError';
 import { HeaderLoadIndicator } from '../headerLoadIndicator/HeaderLoadIndicator';
+import { LoginProps } from '../../../login';
+import { useActiveLanguage } from '../../LanguageContext';
 
 export type HeaderLoginButtonProps = {
   /**
@@ -44,6 +46,18 @@ export type HeaderLoginButtonProps = {
    * The id attribute of the element.
    */
   id: string;
+  /**
+   * Properties appended to the url when redirecting.
+   */
+  redirectionProps?: LoginProps;
+  /**
+   * Should current Header language be appended to login parameters
+   */
+  redirectWithLanguage?: boolean;
+  /**
+   * Called when the component is clicked and before the oidcClient.login() is called.
+   */
+  onClick?: HeaderActionBarItemButtonProps['onClick'];
 } & HeaderActionBarItemButtonProps;
 
 /**
@@ -58,6 +72,9 @@ export function HeaderLoginButton({
   errorCloseAriaLabel,
   errorPosition,
   loggingInText,
+  redirectionProps,
+  redirectWithLanguage,
+  onClick,
   ...buttonProps
 }: HeaderLoginButtonProps): React.ReactElement | null {
   const { login, getState } = useOidcClient();
@@ -72,6 +89,7 @@ export function HeaderLoginButton({
     errorPosition,
     usage: HeaderErrorUsageType.Login,
   });
+  const language = useActiveLanguage();
   // login can be started from elsewhere too. Ignore those
   const wasClicked = useRef(false);
   const isActive = isLoggingIn && wasClicked.current;
@@ -95,10 +113,18 @@ export function HeaderLoginButton({
     ...elementProps,
     icon: isActive ? <ActiveStateIcon /> : <IconSignin />,
     'aria-label': isActive ? loggingInText : String(buttonProps.label),
-    onClick: () => {
+    onClick: (e) => {
       if (!isLoggingIn) {
+        if (onClick) {
+          onClick(e);
+        }
         wasClicked.current = true;
-        login().then(() => {
+        const loginProps: LoginProps = { ...redirectionProps };
+        if (redirectWithLanguage && language) {
+          loginProps.language = language;
+        }
+
+        login(loginProps).then(() => {
           wasClicked.current = false;
         });
       }

@@ -7,6 +7,11 @@ import { HeaderLoginButton, HeaderLoginButtonProps } from './HeaderLoginButton';
 import { initTests, jestHelpers } from './test.util';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
+jest.mock('../../LanguageContext', () => ({
+  ...(jest.requireActual('../../LanguageContext') as Record<string, unknown>),
+  useActiveLanguage: () => 'za',
+}));
+
 describe('HeaderLoginButton', () => {
   const props: HeaderLoginButtonProps = {
     label: 'Button label',
@@ -15,6 +20,7 @@ describe('HeaderLoginButton', () => {
     errorText: 'errorText',
     errorCloseAriaLabel: 'errorCloseAriaLabel',
     loggingInText: 'loggingInText',
+    redirectionProps: { language: 'de', extraQueryParams: { extra: 'extra' } },
   };
   const Component = (componentProps) => {
     return <HeaderLoginButton {...componentProps} />;
@@ -59,6 +65,53 @@ describe('HeaderLoginButton', () => {
     expect(mock).toHaveBeenCalledTimes(1);
     await advanceUntilDoesNotThrow(() => {
       getLoadIndicator();
+    });
+    await advanceUntilPromiseResolved(promise);
+  });
+  it('Given redirectionParams are appended. "language" is converted in oidcClient to "ui_locales"', async () => {
+    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent();
+    const { mock, promise } = spyOnOidcClientLogin(false);
+    act(() => {
+      fireEvent.click(getButtonElement());
+    });
+    expect(mock).toHaveBeenCalledWith({
+      extraQueryParams: {
+        extra: 'extra',
+        ui_locales: 'de',
+      },
+    });
+    await advanceUntilPromiseResolved(promise);
+  });
+
+  it('When redirectWithLanguage is true, active language is appended to login props', async () => {
+    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent(false, {
+      redirectWithLanguage: true,
+    });
+    const { mock, promise } = spyOnOidcClientLogin(false);
+    act(() => {
+      fireEvent.click(getButtonElement());
+    });
+    await waitFor(() => {
+      expect(mock).toHaveBeenCalledWith({
+        extraQueryParams: {
+          extra: 'extra',
+          ui_locales: 'za',
+        },
+      });
+    });
+    await advanceUntilPromiseResolved(promise);
+  });
+  it('If onClick is set, it is called with the event when button is clicked', async () => {
+    const onClick = jest.fn();
+    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent(false, {
+      onClick,
+    });
+    const { promise } = spyOnOidcClientLogin(false);
+    act(() => {
+      fireEvent.click(getButtonElement());
+    });
+    await waitFor(() => {
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
     await advanceUntilPromiseResolved(promise);
   });
