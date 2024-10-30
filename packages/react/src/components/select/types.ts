@@ -269,11 +269,19 @@ export type SelectCustomTheme = {
   '--text-input-placeholder-color'?: string;
 
   // for tags
-  '--tag-background-color-hover'?: string;
   '--tag-background-color'?: string;
-  '--tag-border-color-action'?: string;
+  '--tag-background-color-focus	'?: string;
+  '--tag-background-color-hover'?: string;
+  '--tag-background-color-active'?: string;
+  '--tag-border-color'?: string;
+  '--tag-border-color-focus'?: string;
+  '--tag-border-color-hover'?: string;
+  '--tag-border-color-active'?: string;
   '--tag-color'?: string;
-  '--tag-outline-color-focus'?: string;
+  '--tag-color-focus'?: string;
+  '--tag-color-hover'?: string;
+  '--tag-color-active'?: string;
+  '--tag-outline-color'?: string;
 
   // show all / show less button
   '--show-button-background-color-hover'?: string;
