@@ -34,11 +34,12 @@ function createContainerProps(props: DivElementProps, { getMetaData }: SelectDat
 }
 
 export const Container = (props: Partial<DivElementProps> & { theme: SelectCustomTheme }) => {
-  useCustomThemes(props.theme);
+  const { theme, ...restProps } = props;
+  useCustomThemes(theme);
   const dataHandlers = useSelectDataHandlers();
   const trackingProps = useFocusHandling();
   const keyTrackingProps = useKeyboard();
-  const { children, ...rest } = createContainerProps(props, dataHandlers);
+  const { children, ...rest } = createContainerProps(restProps, dataHandlers);
   return (
     <div {...rest} {...trackingProps} {...keyTrackingProps}>
       {children}

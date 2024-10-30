@@ -7,10 +7,6 @@
   display: flex;
   flex-direction: column;
   max-width: 420px;
-
-  &.invalid {
-    border-color: var(--color-error);
-  }
 }
 
 .selectAndListContainer {
@@ -23,10 +19,10 @@
   }
 
   &.invalid {
-    border-color: var(--dropdown-border-color-invalid);
+    border-color: var(--computed-dropdown-border-color-invalid);
 
     &:hover {
-      border-color: var(--dropdown-border-color-hover-invalid);
+      border-color: var(--computed-dropdown-border-color-hover-invalid);
     }
   }
 
@@ -40,13 +36,13 @@
 .selectedOptionsContainer {
   box-sizing: border-box;
   display: flex;
-  min-height: var(--menu-item-height);
+  min-height: var(--computed-menu-item-height);
 
   .dropdownButton {
     @extend %buttonReset;
 
     align-items: center;
-    color: var(--dropdown-color-default);
+    color: var(--computed-dropdown-color-default);
     display: flex;
     font-size: var(--fontsize-body-l);
     outline: none;
@@ -55,7 +51,7 @@
 
     &.withVisibleFocus {
       align-self: center;
-      height: calc(calc(var(--dropdown-height)) - 6px);
+      height: calc(calc(var(--computed-dropdown-height)) - 6px);
 
       &:focus-visible {
         @extend %dropdownFocusOutline;
@@ -63,7 +59,7 @@
     }
 
     .buttonIcon {
-      color: var(--icon-color);
+      color: var(--computed-icon-color);
     }
 
     .labels {
@@ -92,8 +88,8 @@
       }
 
       span {
-        background-color: var(--dropdown-background-default);
-        color: var(--dropdown-color-default);
+        background-color: var(--computed-dropdown-background-default);
+        color: var(--computed-dropdown-color-default);
         position: absolute;
         right: 2px;
         top: 0;
@@ -102,7 +98,7 @@
 
     .arrowAndSpaceForClearButton {
       align-items: center;
-      color: var(--dropdown-icon-color);
+      color: var(--computed-dropdown-icon-color);
       display: flex;
       flex-shrink: 1;
 
@@ -111,7 +107,7 @@
       */
       padding-left: calc(var(--clear-button-size) + var(--spacing-2-xs) + var(--spacing-xs));
 
-      --clear-button-size: calc(var(--icon-size) + var(--spacing-xs) + var(--spacing-xs));
+      --clear-button-size: calc(var(--computed-icon-size) + var(--spacing-xs) + var(--spacing-xs));
     }
 
     &.singleSelect {
@@ -138,7 +134,7 @@
     }
 
     &.icon {
-      color: var(--dropdown-icon-color);
+      color: var(--computed-dropdown-icon-color);
       flex-shrink: 1;
       padding-left: var(--spacing-xs);
       padding-right: var(--spacing-xs);
@@ -146,7 +142,7 @@
 
     &.placeholder {
       background-color: inherit;
-      color: var(--placeholder-color);
+      color: var(--computed-placeholder-color);
 
       .arrowAndSpaceForClearButton {
         padding-left: var(--spacing-xs);
@@ -154,7 +150,6 @@
     }
 
     &.spaceForOneDigit .labels {
-      /* minus is option padding right, minus smth */
       padding-right: calc(24px);
     }
 
@@ -171,26 +166,26 @@
     }
 
     &.disabledButton {
-      background-color: var(--dropdown-background-disabled);
-      border-color: var(--dropdown-border-color-disabled);
-      color: var(--dropdown-color-disabled);
+      background-color: var(--computed-dropdown-background-disabled);
+      border-color: var(--computed-dropdown-border-color-disabled);
+      color: var(--computed-dropdown-color-disabled);
 
       &.icon {
-        color: var(--menu-item-icon-color-disabled);
+        color: var(--computed-menu-item-icon-color-disabled);
       }
 
       .count.count span {
-        background-color: var(--dropdown-background-disabled);
-        color: var(--dropdown-color-disabled);
+        background-color: var(--computed-dropdown-background-disabled);
+        color: var(--computed-dropdown-color-disabled);
       }
 
       &.placeholder {
-        color: var(--dropdown-color-disabled);
+        color: var(--computed-dropdown-color-disabled);
       }
 
       .arrowAndSpaceForClearButton,
       .buttonIcon {
-        color: var(--dropdown-color-disabled);
+        color: var(--computed-dropdown-color-disabled);
       }
     }
 
@@ -203,7 +198,7 @@
 
   .clearButton {
     position: absolute;
-    right: calc(var(--icon-size) + var(--spacing-xs) + var(--spacing-xs));
+    right: calc(var(--computed-icon-size) + var(--spacing-xs) + var(--spacing-xs));
   }
 
   .dropdownButtonOption {
@@ -240,7 +235,7 @@
 .listAndInputContainer {
   @extend %dropdownMenu;
 
-  background-color: var(--dropdown-background-default);
+  background-color: var(--computed-dropdown-background-default);
 
   .listContainer {
     display: flex;
@@ -260,23 +255,15 @@
 
         &.disabledOption.disabledOption {
           cursor: not-allowed;
-
-          &:hover {
-            background-color: transparent;
-          }
         }
       }
 
       .singleSelectListItem {
-        --menu-item-background-hover: var(--color-bus-light);
-        --menu-item-background-selected: var(--color-bus);
-        --menu-item-background-selected-hover: var(--color-bus);
-        --menu-item-color-selected: var(--color-white);
-        --menu-item-color-selected-hover: var(--color-white);
-
-        &.disabledOption.disabledOption {
-          color: var(--color-black-40);
-        }
+        --computed-menu-item-background-hover: var(--menu-item-background-hover, var(--color-bus-light));
+        --computed-menu-item-background-selected: var(--menu-item-background-selected, var(--color-bus));
+        --computed-menu-item-background-selected-hover: var(--menu-item-background-selected-hover, var(--color-bus));
+        --computed-menu-item-color-selected: var(--menu-item-color-selected, var(--color-white));
+        --computed-menu-item-color-selected-hover: var(--menu-item-color-selected-hover, var(--color-white));
 
         .singleSelectListItemLabel {
           align-items: center;
@@ -303,7 +290,7 @@
             pointer-events: none;
             width: 24px;
 
-            --background-unselected: var(--background-unselected-override, var(--color-white));
+            --background-unselected: var(--background-default, var(--color-white));
           }
 
           label {
@@ -331,17 +318,22 @@
       .groupLabel {
         @extend %dropdownMenuItem;
 
-        background-color: var(--color-black-5);
+        background-color: var(--computed-menu-item-group-label-background-default);
         font-weight: bold;
 
-        &.disabledOption.disabledOption:hover {
-          background-color: var(--color-black-5);
+        &.disabledOption.disabledOption {
+          background-color: var(--computed-menu-item-group-label-background-disabled);
+          color: var(--computed-menu-item-group-label-color-disabled);
+
+          &:hover {
+            background-color: var(--computed-menu-item-group-label-background-disabled-hover);
+          }
         }
       }
 
       .selectableListItem:not(.selected) {
         &:hover {
-          background-color: var(--menu-item-background-hover);
+          background-color: var(--computed-menu-item-background-hover);
         }
       }
 
@@ -350,20 +342,14 @@
 
         &:focus,
         &:focus-within {
-          box-shadow: 0 0 0 2px var(--color-coat-of-arms) inset;
+          box-shadow: 0 0 0 2px var(--computed-menu-item-border-color-focus) inset;
           outline: none;
         }
       }
 
       &.shiftOptions {
-        .selectableListItem:not(.groupLabel) {
+        .listItem:not(.groupLabel) {
           padding-left: var(--spacing-layout-s);
-        }
-      }
-
-      &.multiSelectList {
-        .listItem.selected:not(:hover) {
-          background-color: transparent;
         }
       }
     }
@@ -375,7 +361,7 @@
 
   &.withSearchOrFilter {
     .listContainer {
-      border-top: 1px solid var(--color-black-20);
+      border-top: 1px solid var(--computed-menu-divider-color);
     }
   }
 }
@@ -386,7 +372,7 @@
 
 .searchAndFilterInfoContainer {
   align-items: center;
-  color: var(--dropdown-color-default);
+  color: var(--computed-dropdown-color-default);
   display: flex;
   flex-direction: column;
   padding: var(--spacing-l);
@@ -464,6 +450,7 @@
     }
 
     .clearAllButton {
+      /* theme will override these with css. Not "--computed" for that reason. */
       --background-color-hover: var(--color-error-light);
       --background-color: var(--color-white);
       --border-color: var(--color-error);
@@ -481,10 +468,16 @@
 .errorText {
   composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
   margin-bottom: var(--spacing-2-xs);
+
+  --icon-size: var(--computed-icon-size);
+  --helper-color-invalid: var(--computed-error-text-color);
+  --helper-icon-color-invalid: var(--computed-error-icon-color);
+  --helper-background-color-invalid: var(--computed-error-background-color);
+  --color-error: var(--computed-error-border-color);
 }
 
 .assistiveText {
-  color: var(--assistive-color);
+  color: var(--computed-assistive-color);
   margin-bottom: var(--spacing-2-xs);
 }
 

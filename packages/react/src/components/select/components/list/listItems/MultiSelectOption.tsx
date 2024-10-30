@@ -34,7 +34,7 @@ const createMultiSelectItemProps = ({
   return {
     className: classNames(
       styles.listItem,
-      styles.selectableListItem,
+      !disabled && styles.selectableListItem,
       styles.focusableListItem,
       styles.multiSelectListItem,
       selected && styles.selected,
