@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { action } from '@storybook/addon-actions';
+import { capitalize } from 'lodash';
 
 import {
   SelectProps,
@@ -14,12 +15,16 @@ import {
   getNewSelections,
   iterateAndCopyGroup,
   updateSelectedOptionsInGroups,
+  getSelectedOptions,
+  OptionInProps,
+  Group,
+  getElementIds,
 } from './index';
 import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
-import { OptionInProps } from './types';
 import { Tag, TagSize } from '../tag/Tag';
+import useForceRender from '../../hooks/useForceRender';
 
 export default {
   component: Select,
@@ -1053,6 +1058,179 @@ export const KeepOneSelection = () => {
       texts={{ ...defaultTexts, error: 'Select one option' }}
       id="hds-select-component"
     />
+  );
+};
+
+export const WithCollaboration = () => {
+  const forceRender = useForceRender();
+  const [selectedItems, updateSelectedItems] = useState<Record<string, Option[]>>({});
+
+  const removeDuplicatesAndSort = (arr: string[]) => {
+    const unique = Array.from(new Set(arr));
+    return unique.sort();
+  };
+
+  const optionList = getOptionLabels(20).map((item) => item.split(' '));
+  const adjectives = removeDuplicatesAndSort(optionList.map(([adj]) => adj));
+  const fruits = removeDuplicatesAndSort(optionList.map(([, item]) => item));
+
+  const onTopCategoryChange: SelectProps['onChange'] = () => {
+    forceRender();
+  };
+
+  const topCategoryStorage = useSelectStorage({
+    options: fruits.map((option) => {
+      return {
+        label: capitalize(option),
+        value: option,
+        selected: false,
+      };
+    }),
+    onChange: onTopCategoryChange,
+    texts: { label: 'Select a category', placeholder: 'Choose one' },
+    clearable: false,
+  });
+
+  const getSelectedTopCategoryValue = () => {
+    return (getSelectedOptions(topCategoryStorage.getProps().groups as Group[])[0] || ({} as Option)).value || '';
+  };
+
+  const createSubCategoryOptions = () => {
+    const currentTopCategory = getSelectedTopCategoryValue();
+    if (!currentTopCategory) {
+      return [];
+    }
+    const selected = selectedItems[currentTopCategory] || [];
+    return adjectives.map((value) => {
+      const lcValue = value.toLowerCase();
+      const label = capitalize(`${value} ${currentTopCategory}`);
+      return { label, value: lcValue, selected: !!selected.find((opt) => opt.value === lcValue) };
+    });
+  };
+
+  const addToSelectedItems = (topCat: string, selections: Option[]) => {
+    if (topCat) {
+      const copy = { ...selectedItems };
+      copy[topCat] = selections.map((s) => ({ ...s }));
+      updateSelectedItems(copy);
+    }
+  };
+
+  const onSubCategoryChange: SelectProps['onChange'] = (selectedValues) => {
+    addToSelectedItems(getSelectedTopCategoryValue(), selectedValues);
+  };
+
+  const hasSelectedTopCategory = !!getSelectedTopCategoryValue();
+
+  const subCategoryStorage = useSelectStorage({
+    options: createSubCategoryOptions(),
+    onChange: onSubCategoryChange,
+    multiSelect: true,
+    noTags: true,
+    texts: { label: 'Select favourite types', placeholder: 'Choose multiple', assistive: 'Select category first' },
+    updateKey: getSelectedTopCategoryValue(),
+    open: false,
+    disabled: true,
+  });
+
+  if (subCategoryStorage.getProps().disabled && hasSelectedTopCategory) {
+    subCategoryStorage.setDisabled(false);
+    subCategoryStorage.updateTexts({ assistive: '' });
+  }
+
+  const removeFromSelectedItems = (option: Option) => {
+    const [topCat, subCat] = String(option.label).split(': ');
+    const topCatLowerCase = topCat.toLowerCase();
+    const items = selectedItems[topCatLowerCase] || [];
+    const newItems = items.filter((e) => e.value !== subCat);
+    addToSelectedItems(topCatLowerCase, newItems);
+
+    if (getSelectedTopCategoryValue().toLowerCase() === topCatLowerCase) {
+      subCategoryStorage.updateAllOptions((opt) => {
+        return {
+          ...opt,
+          selected: !!newItems.find((o) => o.value === opt.value),
+        };
+      });
+    }
+  };
+
+  const SelectedValues = () => {
+    const selectedTopCategories = Object.keys(selectedItems);
+    if (!selectedTopCategories.length) {
+      return null;
+    }
+    const values: OptionInProps[] = [];
+    selectedTopCategories.forEach((key) => {
+      const options = selectedItems[key];
+      options.forEach((option) => {
+        const value = `${key}: ${option.value}`;
+        values.push({ label: capitalize(value), value });
+      });
+    });
+    if (!values.length) {
+      return null;
+    }
+    return (
+      <>
+        <style>
+          {`
+          .tags{
+            margin-top: 20px;
+          }
+          .tags > *{
+            margin-right: 10px;
+          }
+      `}
+        </style>
+
+        <div>
+          <h3>Selected</h3>
+          <div className="tags">
+            {values.map((opt) => {
+              const onDelete = () => {
+                removeFromSelectedItems(opt as Option);
+              };
+              return (
+                <Tag onDelete={onDelete} key={opt.value}>
+                  {opt.label as string}
+                </Tag>
+              );
+            })}
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <div>
+      <Select {...topCategoryStorage.getProps()} />
+      <Select {...subCategoryStorage.getProps()} />
+      <SelectedValues />
+    </div>
+  );
+};
+
+export const WithExternalLabel = () => {
+  const options = getOptionLabels(4).map((option, i) => {
+    return { label: option, value: option, disabled: i === 3 };
+  });
+
+  const selectId = 'labelless-select';
+  const { button: buttonId, label: labelId } = getElementIds(selectId);
+  return (
+    <div>
+      <label htmlFor={buttonId} id={labelId}>
+        External label
+      </label>
+      <Select
+        id={selectId}
+        options={options}
+        onChange={genericOnChangeCallback}
+        texts={{ placeholder: 'Choose three or more', dropdownButtonAriaLabel: 'External label. Choose anything.' }}
+      />
+    </div>
   );
 };
 
