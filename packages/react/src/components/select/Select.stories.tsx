@@ -1062,6 +1062,7 @@ export const WithCustomTheme = (args: SelectProps) => {
     <Select
       {...args}
       multiSelect
+      invalid
       options={options}
       filter={defaultFilter}
       onChange={genericOnChangeCallback}
@@ -1103,7 +1104,7 @@ WithCustomTheme.args = {
     '--menu-item-color-disabled': 'var(--color-black-60)',
     '--menu-item-icon-color-selected': 'var(--color-white)',
     '--menu-item-icon-color-disabled': 'var(--color-black-60)',
-    '--checkbox-background-unselected-override': 'var(--color-copper-light)',
+    '--checkbox-background-unselected': 'var(--color-copper-light)',
     '--checkbox-background-selected': 'var(--color-copper-dark)',
     '--checkbox-background-hover': 'var(--color-copper-dark)',
     '--checkbox-background-disabled': 'var(--color-black-20)',
