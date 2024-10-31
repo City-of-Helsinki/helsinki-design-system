@@ -5,6 +5,7 @@ import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 import { IconSize } from '../../icons/Icon.interface';
 
 export enum LinkSize {
@@ -13,52 +14,55 @@ export enum LinkSize {
   Large = 'large',
 }
 
-export type LinkProps = {
-  /**
-   * Link content
-   */
-  children: React.ReactNode;
-  /**
-   * Boolean indicating whether visited styles of the link are applied
-   */
-  disableVisitedStyles?: boolean;
-  /**
-   * Boolean indicating whether the link will lead user to external domain.
-   */
-  external?: boolean;
-  /**
-   * Hypertext Reference of the link.
-   */
-  href: string;
-  /**
-   * Element placed on the left side of the link text
-   */
-  iconStart?: React.ReactNode;
-  /**
-   * Boolean indicating whether the link will open in new tab or not.
-   */
-  openInNewTab?: boolean;
-  /**
-   * The aria-label for opening link in a new tab
-   */
-  openInNewTabAriaLabel?: string;
-  /**
-   * The aria-label for opening link in an external domain
-   */
-  openInExternalDomainAriaLabel?: string;
-  /**
-   * Size of the link
-   */
-  size?: LinkSize;
-  /**
-   * Additional styles
-   */
-  style?: React.CSSProperties;
-  /**
-   * Style the link as a button
-   */
-  useButtonStyles?: boolean;
-} & Omit<React.ComponentPropsWithoutRef<'a'>, 'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'>;
+export type LinkProps = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<'a'>,
+  {
+    /**
+     * Link content
+     */
+    children: React.ReactNode;
+    /**
+     * Boolean indicating whether visited styles of the link are applied
+     */
+    disableVisitedStyles?: boolean;
+    /**
+     * Boolean indicating whether the link will lead user to external domain.
+     */
+    external?: boolean;
+    /**
+     * Hypertext Reference of the link.
+     */
+    href: string;
+    /**
+     * Element placed on the left side of the link text
+     */
+    iconStart?: React.ReactNode;
+    /**
+     * Boolean indicating whether the link will open in new tab or not.
+     */
+    openInNewTab?: boolean;
+    /**
+     * The aria-label for opening link in a new tab
+     */
+    openInNewTabAriaLabel?: string;
+    /**
+     * The aria-label for opening link in an external domain
+     */
+    openInExternalDomainAriaLabel?: string;
+    /**
+     * Size of the link
+     */
+    size?: LinkSize;
+    /**
+     * Additional styles
+     */
+    style?: React.CSSProperties;
+    /**
+     * Style the link as a button
+     */
+    useButtonStyles?: boolean;
+  }
+>;
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (

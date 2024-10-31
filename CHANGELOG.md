@@ -224,6 +224,16 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 
+## [3.11.0] - Oct, 31, 2024
+
+### React
+
+#### Changed
+
+- [Header.LoginButton] Added onClick callback and props to append parameters to the login redirection url
+- [Header.LogoutSubmenuButton] Added onClick callback and props to append parameters to the logout redirection url
+- [LoginButton] Added onClick callback and props to append parameters to the login redirection url
+
 ## [3.10.1] - Oct, 09, 2024
 
 ### React
