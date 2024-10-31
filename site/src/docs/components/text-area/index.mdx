@@ -33,6 +33,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - If possible, do input validation in client-side real-time and provide the user with immediate feedback. See <InternalLink href="/patterns/forms/form-validation">HDS Form validation pattern page</InternalLink> for more information.
 - If possible, be forgiving of different input formats and small mistakes. It can greatly increase user experience of your product if you can fix common mistakes for the user.
 - To decrease a cognitive load of the user, it is recommended to mark all required fields. Remember to provide explanation of the required field indicator at the top of your form.
+- When given the `required` prop, there will be an asterisk (`*`) added after the label to emphasise its required status.
 - While not required, you can show the current and the expected amount of characters below the text area in the assistive text.
 
 ### Variations
