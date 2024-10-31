@@ -365,15 +365,15 @@ export default class CookieHandler {
    * Retrieves the keys in consented groups based on the provided parameters.
    * @private
    * @param {Array} consentedGroupNames - An array of consented group names.
-   * @param {string} type - The type of cookies to filter.
+   * @param {string} storageType - The storage type of cookies to filter.
    * @return {Array} - An array of consented cookie keys.
    */
-  #getKeysInConsentedGroups(consentedGroupNames, type) {
+  #getKeysInConsentedGroups(consentedGroupNames, storageType) {
     const consentedKeys = new Set();
 
     // Add relevant robotCookies to accepted cookies
     this.#siteSettings.robotCookies?.forEach((cookie) => {
-      if (cookie.type === type) {
+      if (cookie.storageType === storageType) {
         consentedKeys.add(cookie.name);
       }
     });
@@ -382,7 +382,7 @@ export default class CookieHandler {
     allGroups.forEach((group) => {
       if (consentedGroupNames.includes(group.groupId)) {
         group.cookies.forEach((cookie) => {
-          if (cookie.type === type) {
+          if (cookie.storageType === storageType) {
             consentedKeys.add(cookie.name);
           }
         });
@@ -457,7 +457,7 @@ export default class CookieHandler {
 
     // Check that there is at least one required group that contains the cookie and its type is cookie
     const requiredGroupWithCookie = this.#siteSettings.requiredGroups.find((group) =>
-      group.cookies.some((cookie) => cookie.name === this.#cookieName && cookie.type === 1),
+      group.cookies.some((cookie) => cookie.name === this.#cookieName && cookie.storageType === 1),
     );
 
     // If no required group contains the cookie, throw an error

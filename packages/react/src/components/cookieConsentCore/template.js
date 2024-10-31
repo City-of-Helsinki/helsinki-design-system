@@ -124,8 +124,8 @@ export function getCookieBannerHtml(
       { translations, key: 'description', parameters: translationParams },
       { translations, key: 'showDetails', parameters: translationParams },
       { translations, key: 'hideDetails', parameters: translationParams },
-      { translations, key: 'form_heading', parameters: translationParams },
-      { translations, key: 'form_text', parameters: translationParams },
+      { translations, key: 'formHeading', parameters: translationParams },
+      { translations, key: 'formText', parameters: translationParams },
       { translations, key: 'approveRequiredAndSelectedConsents', parameters: translationParams },
       { translations, key: 'approveAllConsents', parameters: translationParams },
       { translations, key: 'approveOnlyRequiredConsents', parameters: translationParams },
@@ -165,8 +165,8 @@ export function getCookieBannerHtml(
 
       <form action="" class="hds-cc__form" id="hds-cc-form">
         <div class="hds-cc__form__animator">
-          <h3 ${getLangAttributes(translated.form_heading)}>${translated.form_heading.value}</h3>
-          <p ${getLangAttributes(translated.form_text)}>${translated.form_text.value}</p>
+          <h3 ${getLangAttributes(translated.formHeading)}>${translated.formHeading.value}</h3>
+          <p ${getLangAttributes(translated.formText)}>${translated.formText.value}</p>
 
           <div class="hds-cc__groups">
             ${groupsHtml}
@@ -342,7 +342,7 @@ export function getGroupHtml(
  * @param {string} rowData.host - The host of the cookie.
  * @param {string} rowData.description - The description of the cookie.
  * @param {string} rowData.expiration - The expiration of the cookie.
- * @param {string} rowData.type - The type of the cookie/storage item.
+ * @param {string} rowData.storageType - The storageType of the cookie/storage item.
  * @param {Object} translations - The translations object containing the text for the table.
  * @param {string} lang - The language code.
  * @param {Object} directions - The language directions.
@@ -350,14 +350,14 @@ export function getGroupHtml(
  * @return {string} The HTML for the table row.
  */
 export function getTableRowHtml(rowData, translations, lang, directions, fallbackLang) {
-  const type = `type_${rowData.type}`;
+  const storageType = `storageType${rowData.storageType}`;
   const translated = getTranslationObjects(
     [
       { translations: rowData, key: 'name' },
       { translations: rowData, key: 'host' },
       { translations: rowData, key: 'description' },
       { translations: rowData, key: 'expiration' },
-      { translations, key: type },
+      { translations, key: storageType },
     ],
     lang,
     directions,
@@ -370,7 +370,7 @@ export function getTableRowHtml(rowData, translations, lang, directions, fallbac
                       <td ${getLangAttributes(translated.host)}>${translated.host.value}</td>
                       <td ${getLangAttributes(translated.description)}>${translated.description.value}</td>
                       <td ${getLangAttributes(translated.expiration)}>${translated.expiration.value}</td>
-                      <td ${getLangAttributes(translated[type])}>${translated[type].value}</td>
+                      <td ${getLangAttributes(translated[storageType])}>${translated[storageType].value}</td>
                     </tr>
                     `;
 }

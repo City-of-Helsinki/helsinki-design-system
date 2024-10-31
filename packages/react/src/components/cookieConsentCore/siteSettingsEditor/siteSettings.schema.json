@@ -486,7 +486,7 @@
             }
           ]
         },
-        "form_heading": {
+        "formHeading": {
           "title": "Form heading",
           "description": "Visible when details are opened",
           "options": {
@@ -503,7 +503,7 @@
             }
           ]
         },
-        "form_text": {
+        "formText": {
           "title": "Form text",
           "description": "Visible when details are opened",
           "options": {
@@ -765,7 +765,7 @@
             }
           ]
         },
-        "type_1": {
+        "storageType1": {
           "title": "Type 1 - Cookie",
           "description": "Text for type column to show to users with cookies",
           "options": {
@@ -782,7 +782,7 @@
             }
           ]
         },
-        "type_2": {
+        "storageType2": {
           "title": "Type 2 - localStorage",
           "description": "Text for type column to show to users with localStorage items",
           "options": {
@@ -795,7 +795,7 @@
             }
           ]
         },
-        "type_3": {
+        "storageType3": {
           "title": "Type 3 - sessionStorage",
           "description": "Text for type column to show to users with sessionStorage items",
           "options": {
@@ -808,7 +808,7 @@
             }
           ]
         },
-        "type_4": {
+        "storageType4": {
           "title": "Type 4 - IndexedDB",
           "description": "Text for type column to show to users with indexedDB tables",
           "options": {
@@ -821,7 +821,7 @@
             }
           ]
         },
-        "type_5": {
+        "storageType5": {
           "title": "Type 5 - Cache Storage",
           "description": "Text for type column to show to users with Cache Storage items",
           "options": {
@@ -841,8 +841,8 @@
         "description",
         "showDetails",
         "hideDetails",
-        "form_heading",
-        "form_text",
+        "formHeading",
+        "formText",
         "highlightedGroup",
         "highlightedGroupAria",
         "showCookieSettings",
@@ -858,11 +858,11 @@
         "approveOnlyRequiredConsents",
         "settingsSaved",
         "notificationAriaLabel",
-        "type_1",
-        "type_2",
-        "type_3",
-        "type_4",
-        "type_5"
+        "storageType1",
+        "storageType2",
+        "storageType3",
+        "storageType4",
+        "storageType5"
       ]
     }
   },
