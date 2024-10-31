@@ -48,7 +48,7 @@
             "sv": "100 dagar",
             "en": "100 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "helfi-settings",
@@ -59,28 +59,28 @@
             "en": "Used by hel.fi Drupal to store information about closed announcements and accordions' state."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "cookie-agreed-version",
           "host": "www.hel.fi",
           "description": "Temporary EU Cookie Consent Module cookie",
           "expiration": "-",
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "cookie-agreed-categories",
           "host": "www.hel.fi",
           "description": "Temporary EU Cookie Consent Module cookie",
           "expiration": "-",
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "cookie-agreed",
           "host": "www.hel.fi",
           "description": "Temporary EU Cookie Consent Module cookie",
           "expiration": "-",
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "cookiehub",
@@ -95,7 +95,7 @@
             "sv": "365 dagar",
             "en": "365 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "SSESS*",
@@ -110,7 +110,7 @@
             "sv": "23 dagar",
             "en": "23 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "AWSELBCORS",
@@ -125,7 +125,7 @@
             "sv": "Session",
             "en": "Session"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "mtm_cookie_consent",
@@ -140,7 +140,7 @@
             "sv": "10950 dagar",
             "en": "10950 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "JSESSIONID",
@@ -155,7 +155,7 @@
             "sv": "Session",
             "en": "Session"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "COOKIE_SUPPORT",
@@ -170,7 +170,7 @@
             "sv": "365 dagar",
             "en": "365 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "GUEST_LANGUAGE_ID",
@@ -185,35 +185,35 @@
             "sv": "365 dagar",
             "en": "365 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "Drupal.gin.darkmode",
           "host": "www.hel.fi",
           "description": "Drupal settings",
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "Drupal.toolbar.toolbarState",
           "host": "www.hel.fi",
           "description": "Drupal settings",
           "expiration": "-",
-          "type": 3
+          "storageType": 3
         },
         {
           "name": "escapeAdminPath",
           "host": "www.hel.fi",
           "description": "Drupal settings",
           "expiration": "-",
-          "type": 3
+          "storageType": 3
         },
         {
           "name": "editoria11yResultCount",
           "host": "www.hel.fi",
           "description": "Drupal accessibility extension",
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         }
       ]
     },
@@ -227,35 +227,35 @@
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "localStorage_essential",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "sessionStorage_essential",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 3
+          "storageType": 3
         },
         {
           "name": "indexedDB_essential",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 4
+          "storageType": 4
         },
         {
           "name": "cacheStorage_essential",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 5
+          "storageType": 5
         }
       ]
     }
@@ -287,7 +287,7 @@
             "sv": "1826 dagar",
             "en": "1826 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "icareus-device",
@@ -302,7 +302,7 @@
             "sv": "365 dagar",
             "en": "365 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "VISITOR_INFO1_LIVE",
@@ -317,7 +317,7 @@
             "sv": "180 dagar",
             "en": "180 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "CONSENT",
@@ -332,7 +332,7 @@
             "sv": "5947 dagar, 15 timmar",
             "en": "5947 days, 15 hours"
           },
-          "type": 1
+          "storageType": 1
         }
       ]
     },
@@ -362,7 +362,7 @@
             "sv": "1000 dagar",
             "en": "1000 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "_pk_id.*",
@@ -377,7 +377,7 @@
             "sv": "393 dagar",
             "en": "393 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "_pk_ses.141.89f6",
@@ -388,7 +388,7 @@
             "sv": "1 timme",
             "en": "1 hour"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "_pk_id.*",
@@ -403,7 +403,7 @@
             "sv": "393 dagar",
             "en": "393 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "_pk_ses.*",
@@ -418,7 +418,7 @@
             "sv": "1 timme",
             "en": "1 hour"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "_pk_id.*",
@@ -433,7 +433,7 @@
             "sv": "393 dagar",
             "en": "393 days"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "_pk_ses.*",
@@ -448,7 +448,7 @@
             "sv": "1 timme",
             "en": "1 hour"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "rnsbid",
@@ -459,7 +459,7 @@
             "en": "A record related to the operation of the Askem react buttons."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "rnsbid_ts",
@@ -470,7 +470,7 @@
             "en": "A record related to the operation of the Askem react buttons."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "rns_reaction_*",
@@ -481,7 +481,7 @@
             "en": "A record related to the operation of the Askem react buttons."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "YSC",
@@ -496,7 +496,7 @@
             "sv": "Session",
             "en": "Session"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "null_active_survey",
@@ -507,7 +507,7 @@
             "en": "The id of the survey that is live."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "null_page_view_count",
@@ -518,7 +518,7 @@
             "en": "How many City of Helsinki pages have you viewed before seeing the survey"
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "null_active_scenario",
@@ -529,7 +529,7 @@
             "en": "What version of the survey module is live."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "wsLanguage_p933511862344",
@@ -540,7 +540,7 @@
             "en": "Language identifier used to select which language of the survey you see."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "p933511862344_status",
@@ -551,7 +551,7 @@
             "en": "Have you already completed the survey."
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "p933511862344_complete_date",
@@ -562,7 +562,7 @@
             "en": "Date and time when the survey was submitted"
           },
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         }
       ]
     },
@@ -592,7 +592,7 @@
             "sv": "Session",
             "en": "Session"
           },
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "leijuke.*",
@@ -607,7 +607,7 @@
             "sv": "Session",
             "en": "Session"
           },
-          "type": 1
+          "storageType": 1
         }
       ]
     },
@@ -621,35 +621,35 @@
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 1
+          "storageType": 1
         },
         {
           "name": "localStorage_optional",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 2
+          "storageType": 2
         },
         {
           "name": "sessionStorage_optional",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 3
+          "storageType": 3
         },
         {
           "name": "indexedDB_optional",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 4
+          "storageType": 4
         },
         {
           "name": "cacheStorage_optional",
           "host": "-",
           "description": "-",
           "expiration": "-",
-          "type": 5
+          "storageType": 5
         }
       ]
     }
@@ -657,27 +657,27 @@
   "robotCookies": [
     {
       "name": "helfi_accordions_open",
-      "type": 1
+      "storageType": 1
     },
     {
       "name": "cookie_robot",
-      "type": 1
+      "storageType": 1
     },
     {
       "name": "localStorage_robot",
-      "type": 2
+      "storageType": 2
     },
     {
       "name": "sessionStorage_robot",
-      "type": 3
+      "storageType": 3
     },
     {
       "name": "indexedDB_robot",
-      "type": 4
+      "storageType": 4
     },
     {
       "name": "cacheStorage_robot",
-      "type": 5
+      "storageType": 5
     }
   ],
   "groupsWhitelistedForApi": [
@@ -709,12 +709,12 @@
       "sv": "Stänga detaljer",
       "en": "Hide details"
     },
-    "form_heading": {
+    "formHeading": {
       "fi": "Tietoa sivustolla käytetyistä evästeistä",
       "sv": "Information om kakor som används på webbplatsen",
       "en": "About the cookies used on the website"
     },
-    "form_text": {
+    "formText": {
       "fi": "Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.",
       "sv": "Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.",
       "en": "The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies."
@@ -794,14 +794,14 @@
       "sv": "Meddelande",
       "en": "Annoucement"
     },
-    "type_1": {
+    "storageType1": {
       "fi": "Eväste",
       "sv": "Kakan",
       "en": "Cookie"
     },
-    "type_2": "localStorage",
-    "type_3": "sessionStorage",
-    "type_4": "IndexedDB",
-    "type_5": "Cache Storage"
+    "storageType2": "localStorage",
+    "storageType3": "sessionStorage",
+    "storageType4": "IndexedDB",
+    "storageType5": "Cache Storage"
   }
 }

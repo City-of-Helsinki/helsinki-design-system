@@ -11,7 +11,7 @@
           "host": "www.hel.fi",
           "description": "Used by hel.fi Drupal to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.",
           "expiration": "100 days",
-          "type": 1
+          "storageType": 1
         }
       ]
     }
@@ -35,10 +35,10 @@
     "hideDetails": {
       "en": "Hide details"
     },
-    "form_heading": {
+    "formHeading": {
       "en": "About the cookies used on the website"
     },
-    "form_text": {
+    "formText": {
       "en": "The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies."
     },
     "showCookieSettings": {
@@ -74,12 +74,12 @@
     "settingsSaved": {
       "en": "Settings saved!"
     },
-    "type_1": {
+    "storageType1": {
       "en": "Cookie"
     },
-    "type_2": "localStorage",
-    "type_3": "sessionStorage",
-    "type_4": "IndexedDB",
-    "type_5": "Cache Storage"
+    "storageType2": "localStorage",
+    "storageType3": "sessionStorage",
+    "storageType4": "IndexedDB",
+    "storageType5": "Cache Storage"
   }
 }

@@ -17,7 +17,8 @@
  * @throws {Error} - If the translation is missing for the provided key and language.
  */
 // eslint-disable-next-line import/prefer-default-export
-export function getTranslation(translations, key, lang, directions, fallbackLang, parameters) {
+
+export function getTranslation(translations, key, lang, directions, fallbackLang = 'en', parameters) {
   // Debug mode, return key instead of translation
   if (lang === 'key') {
     return {
@@ -26,11 +27,6 @@ export function getTranslation(translations, key, lang, directions, fallbackLang
       lang,
       dir: 'ltr',
     };
-  }
-
-  // Fallback language is English by default
-  if (!fallbackLang) {
-    fallbackLang = 'en';
   }
 
   // Normal strings as template strings, use like:

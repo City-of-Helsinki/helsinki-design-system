@@ -443,7 +443,7 @@ describe('cookieConsentCore', () => {
                 host: '-',
                 description: '-',
                 expiration: '-',
-                type: 1,
+                storageType: 1,
               },
             ],
           },
@@ -459,7 +459,7 @@ describe('cookieConsentCore', () => {
                 host: '-',
                 description: '-',
                 expiration: '-',
-                type: 1,
+                storageType: 1,
               },
             ],
           },
@@ -497,7 +497,7 @@ describe('cookieConsentCore', () => {
                 host: '-',
                 description: '-',
                 expiration: '-',
-                type: 1,
+                storageType: 1,
               },
             ],
           },
@@ -513,7 +513,7 @@ describe('cookieConsentCore', () => {
                 host: '-',
                 description: '-',
                 expiration: '-',
-                type: 1,
+                storageType: 1,
               },
             ],
           },
@@ -568,7 +568,7 @@ describe('cookieConsentCore', () => {
                 host: '-',
                 description: '-',
                 expiration: '-',
-                type: 1,
+                storageType: 1,
               },
             ],
           },
@@ -628,7 +628,7 @@ describe('cookieConsentCore', () => {
                   host: '-',
                   description: '-',
                   expiration: '-',
-                  type: 1,
+                  storageType: 1,
                 },
               ],
             },
@@ -656,7 +656,7 @@ describe('cookieConsentCore', () => {
                   host: '-',
                   description: '-',
                   expiration: '-',
-                  type: 1,
+                  storageType: 1,
                 },
               ],
             },
@@ -672,7 +672,7 @@ describe('cookieConsentCore', () => {
                   host: '-',
                   description: '-',
                   expiration: '-',
-                  type: 1,
+                  storageType: 1,
                 },
               ],
             },
@@ -882,7 +882,7 @@ describe('cookieConsentCore', () => {
     const localStorageItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === 'test_optional')
       // @ts-ignore
-      ?.cookies.find((e) => e.type === STORAGE_TYPE.localStorage);
+      ?.cookies.find((e) => e.storageType === STORAGE_TYPE.localStorage);
     const itemName = localStorageItem?.name || 'no name';
     // Write to localStorage
     // @ts-ignore
@@ -924,7 +924,7 @@ describe('cookieConsentCore', () => {
     const sessionStorageItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === selectedCategory)
       // @ts-ignore
-      ?.cookies.find((e) => e.type === STORAGE_TYPE.sessionStorage);
+      ?.cookies.find((e) => e.storageType === STORAGE_TYPE.sessionStorage);
     const itemName = sessionStorageItem?.name || 'no name';
     // Write to sessionStorage
     // @ts-ignore
@@ -966,7 +966,7 @@ describe('cookieConsentCore', () => {
     const indexedDBItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === selectedCategory)
       // @ts-ignore
-      ?.cookies.find((e) => e.type === STORAGE_TYPE.indexedDB);
+      ?.cookies.find((e) => e.storageType === STORAGE_TYPE.indexedDB);
     const itemName = indexedDBItem?.name || 'no name';
     async function createIndexedDb(key: string) {
       // Open (or create) the database
@@ -1036,7 +1036,7 @@ describe('cookieConsentCore', () => {
     const cacheStorageItem = siteSettingsObj?.optionalGroups
       .find((e) => e.groupId === selectedCategory)
       // @ts-ignore
-      ?.cookies.find((e) => e.type === STORAGE_TYPE.cacheStorage);
+      ?.cookies.find((e) => e.storageType === STORAGE_TYPE.cacheStorage);
     const itemName = cacheStorageItem?.name || 'no name';
 
     // Write to cacheStorage
