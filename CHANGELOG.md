@@ -21,9 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Header.LoginButton] Added onClick callback and props to append parameters to the login redirection url
-- [Header.LogoutSubmenuButton] Added onClick callback and props to append parameters to the logout redirection url
-- [LoginButton] Added onClick callback and props to append parameters to the login redirection url
+- [Component] What has been changed
 
 #### Fixed
 
@@ -148,6 +146,16 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+## [3.11.0] - Oct, 31, 2024
+
+### React
+
+#### Changed
+
+- [Header.LoginButton] Added onClick callback and props to append parameters to the login redirection url
+- [Header.LogoutSubmenuButton] Added onClick callback and props to append parameters to the logout redirection url
+- [LoginButton] Added onClick callback and props to append parameters to the login redirection url
 
 ## [3.10.1] - Oct, 09, 2024
 

@@ -5,62 +5,63 @@ import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
+import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
-export type LinkProps = {
-  /**
-   * aria-label for providing detailed information for screen readers about a link text.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
-  /**
-   * Link content
-   */
-  children: React.ReactNode;
-  /**
-   * Boolean indicating whether visited styles of the link are applied
-   */
-  disableVisitedStyles?: boolean;
-  /**
-   * Boolean indicating whether the link will lead user to external domain.
-   */
-  external?: boolean;
-  /**
-   * Hypertext Reference of the link.
-   */
-  href: string;
-  /**
-   * Element placed on the left side of the link text
-   * @deprecated Will be replaced with iconStart in the next major release.
-   */
-  iconLeft?: React.ReactNode;
-  /**
-   * Boolean indicating whether the link will open in new tab or not.
-   */
-  openInNewTab?: boolean;
-  /**
-   * The aria-label for opening link in a new tab
-   */
-  openInNewTabAriaLabel?: string;
-  /**
-   * The aria-label for opening link in an external domain
-   */
-  openInExternalDomainAriaLabel?: string;
-  /**
-   * Size of the link
-   */
-  size?: 'S' | 'M' | 'L';
-  /**
-   * Additional styles
-   */
-  style?: React.CSSProperties;
-  /**
-   * Style the link as a button
-   */
-  useButtonStyles?: boolean;
-} & Omit<
-  React.ComponentPropsWithoutRef<'a'>,
-  'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
+export type LinkProps = MergeAndOverrideProps<
+  AllElementPropsWithoutRef<'a'>,
+  {
+    /**
+     * aria-label for providing detailed information for screen readers about a link text.
+     * @deprecated Will be replaced in the next major release with "aria-label"
+     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    ariaLabel?: string;
+    /**
+     * Link content
+     */
+    children: React.ReactNode;
+    /**
+     * Boolean indicating whether visited styles of the link are applied
+     */
+    disableVisitedStyles?: boolean;
+    /**
+     * Boolean indicating whether the link will lead user to external domain.
+     */
+    external?: boolean;
+    /**
+     * Hypertext Reference of the link.
+     */
+    href: string;
+    /**
+     * Element placed on the left side of the link text
+     * @deprecated Will be replaced with iconStart in the next major release.
+     */
+    iconLeft?: React.ReactNode;
+    /**
+     * Boolean indicating whether the link will open in new tab or not.
+     */
+    openInNewTab?: boolean;
+    /**
+     * The aria-label for opening link in a new tab
+     */
+    openInNewTabAriaLabel?: string;
+    /**
+     * The aria-label for opening link in an external domain
+     */
+    openInExternalDomainAriaLabel?: string;
+    /**
+     * Size of the link
+     */
+    size?: 'S' | 'M' | 'L';
+    /**
+     * Additional styles
+     */
+    style?: React.CSSProperties;
+    /**
+     * Style the link as a button
+     */
+    useButtonStyles?: boolean;
+  }
 >;
 
 type LinkToIconSizeMappingType = {
