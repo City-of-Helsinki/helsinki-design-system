@@ -53,7 +53,7 @@ export function SearchAndFilterInfo() {
 
   const showNoResultsTexts = !isSearching && !count && (search || filter);
 
-  const loadingText = isSearching ? getTextKey('searchingForOptions', metaData) : '';
+  const loadingText = isSearching ? getTextKey('searching', metaData, { value: search }) : '';
 
   if (!open || !listInputType || (!showNoResultsTexts && !loadingText)) {
     return null;
