@@ -272,9 +272,14 @@
           justify-content: space-between;
 
           > span {
+            color: var(--computed-menu-item-icon-color-selected);
             height: 24px;
             width: 24px;
           }
+        }
+
+        &.disabledOption .singleSelectListItemLabel > span {
+          color: var(--computed-menu-item-icon-color-disabled);
         }
       }
 

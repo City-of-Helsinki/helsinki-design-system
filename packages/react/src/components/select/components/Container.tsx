@@ -33,7 +33,7 @@ function createContainerProps(props: DivElementProps, { getMetaData }: SelectDat
   };
 }
 
-export const Container = (props: Partial<DivElementProps> & { theme: SelectCustomTheme }) => {
+export const Container = (props: Partial<DivElementProps> & { theme?: SelectCustomTheme }) => {
   const { theme, ...restProps } = props;
   useCustomThemes(theme);
   const dataHandlers = useSelectDataHandlers();
