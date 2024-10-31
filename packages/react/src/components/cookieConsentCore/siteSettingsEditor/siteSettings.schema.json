@@ -77,9 +77,9 @@
             }
           ]
         },
-        "type": {
+        "storageType": {
           "type": "integer",
-          "title": "Type",
+          "title": "Storage type",
           "description": "Type of the stored item, shown to the user and used in code.",
           "default": 1,
           "enum": [
@@ -121,7 +121,7 @@
         "host",
         "description",
         "expiration",
-        "type"
+        "storageType"
       ]
     },
     "Group": {
@@ -340,9 +340,9 @@
             "description": "Machine name for the cookie, used only in code",
             "minLength": 1
           },
-          "type": {
+          "storageType": {
             "type": "integer",
-            "title": "Type",
+            "title": "Storage type",
             "description": "Type of the stored item",
             "enum": [
               1,
@@ -365,14 +365,14 @@
         "title": "Robot cookie or item",
         "required": [
           "name",
-          "type"
+          "storageType"
         ],
         "description": "(Not visible to end user)"
       },
       "default": [
         {
           "name": "exampleCookieName",
-          "type": 1
+          "storageType": 1
         }
       ]
     },
