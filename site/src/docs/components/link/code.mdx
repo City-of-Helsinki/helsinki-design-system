@@ -243,11 +243,11 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | ------------------------------- | ------------------------------------------------------------------------------ | ------------------- | ------------- |
 | `external`                      | If set to true, the link is marked as external (points outside of the domain). | `boolean`           | false         |
 | `href`                          | Hypertext reference of the link.                                               | `string`            | -             |
-| `iconStart`                      | An icon placed on the start side of the link.                                   | `ReactNode`         | -             |
+| `iconStart`                     | An icon placed on the start side of the link.                                  | `ReactNode`         | -             |
 | `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                              | `string`            | -             |
 | `openInNewTab`                  | If set to true, the link opens in a new tab.                                   | `boolean`           | false         |
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                   | `string`            | -             |
-| `size`                          | Controls the size of the link.                                                 | `LinkSize.Small`, `LinkSize.Medium`, `LinkSize.Large` | `LinkSize.Medium`         |
+| `size`                          | Controls the size of the link.                                                 | `LinkSize` or (`"small"`, `"medium"`, `"large"`) | `"large"` |
 | `useButtonStyles`               | Change the appearance to button.                                               | `boolean`           | false         |
 
 <NativeElementPropsInfo nodeName="a" notAllowed={['target', 'onPointerEnterCapture', 'onPointerLeaveCapture']} />
