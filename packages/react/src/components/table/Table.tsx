@@ -393,7 +393,6 @@ export const Table = ({
       )}
       <TableContainer
         variant={variant}
-        // eslint-disable-next-line react/forbid-component-props
         data-testid={dataTestId}
         dense={dense}
         id={id}

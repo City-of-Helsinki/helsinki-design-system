@@ -270,8 +270,7 @@ const Nav = () => {
         logo={<Logo src={logoFi} alt="City of Helsinki" />}
         logoAriaLabel="Service logo"
       >
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Header.LanguageSelector ariaLabel="arai" languageHeading="other" />
+        <Header.LanguageSelector aria-label="aria" languageHeading="other" />
         <Header.LoginButton
           label="Log in"
           id="action-bar-login-action"
