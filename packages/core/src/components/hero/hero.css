@@ -71,7 +71,7 @@
 }
 
 .hds-hero__title {
-  font-size: var(--fontsize-heading-xl);
+  font-size: var(--fontsize-heading-xl-mobile);
   font-weight: normal;
   letter-spacing: -1px;
   line-height: var(--lineheight-s);
@@ -404,6 +404,10 @@
 
   .hds-hero--background-image__koros {
     --koros-color: var(--bottom-koros-color);
+  }
+
+  .hds-hero__title {
+    font-size: var(--fontsize-heading-xl);
   }
 }
 

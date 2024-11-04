@@ -79,7 +79,7 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set. Typography changes.
 - [Tag] Rewritten Tag component
 - [Button] Renewed Button component with theming support
 - [Link] Renamed hds-icon-left class to hds-icon-start
