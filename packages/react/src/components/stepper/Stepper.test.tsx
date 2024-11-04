@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
