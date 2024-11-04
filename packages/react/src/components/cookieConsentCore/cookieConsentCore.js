@@ -185,7 +185,7 @@ export class CookieConsentCore {
 
     // Dispatch event when the cookie consent is ready to be used by other scripts
     const event = new Event('hds_cookieConsent_ready');
-    document.dispatchEvent(event);
+    window.dispatchEvent(event);
 
     // Return reference to the class instance
     return instance;
