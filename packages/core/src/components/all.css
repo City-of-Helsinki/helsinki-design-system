@@ -1,7 +1,8 @@
-@import url('./breadcrumb/breadcrumb.scss');
-@import url('./button/button.scss');
+@use './breadcrumb/breadcrumb.scss';
+@use './button/button.scss';
+@use './checkbox/checkbox.scss';
+@use './status-label/status-label.scss';
 @import url('./card/card.css');
-@import url('./checkbox/checkbox.scss');
 @import url('./container/container.css');
 @import url('./error-summary/error-summary.css');
 @import url('./fieldset/fieldset.css');
@@ -15,7 +16,6 @@
 @import url('./radio-button/radio-button.css');
 @import url('./search-input/search-input.css');
 @import url('./selection-group/selection-group.css');
-@import url('./status-label/status-label.scss');
 @import url('./step-by-step/step-by-step.css');
 @import url('./table/table.css');
 @import url('./tag/tag.css');
