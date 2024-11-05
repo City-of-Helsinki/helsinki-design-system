@@ -123,12 +123,13 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ location, children, pageContext }) => {
-  const pathParts = location.pathname.split('/');
+  const pathName = pageContext.frontmatter.slug;
+  const pathParts = pathName.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
-  const locationWithoutVersion = hrefWithoutVersion(location.pathname, version);
+  const locationWithoutVersion = hrefWithoutVersion(pathName, version);
   const versionLabel = version ? `Version ${version.replace('release-', '')}` : `Version ${versions[0]}`;
 
-  console.log(location, pageContext, pathParts, version);
+  console.log(location, pathName, pageContext, pathParts, version, locationWithoutVersion);
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
@@ -145,7 +146,7 @@ const Layout = ({ location, children, pageContext }) => {
         }
       }
     }
-  }, [version, location]);
+  }, [version, pathName]);
 
 
   const queryData = useStaticQuery(graphql`
