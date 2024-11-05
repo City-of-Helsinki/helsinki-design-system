@@ -48,7 +48,7 @@ export default class CookieHandler {
   /**
    * Get the consent status for the specified cookie group names.
    * @param {string[]} groupNamesArray - An array of group names.
-   * @return {Promise<boolean>} A promise that resolves to true if all the groups are accepted, otherwise false.
+   * @return {boolean} true if all the groups are accepted, otherwise false.
    */
   getConsentStatus(groupNamesArray) {
     // Check if group names are provided as an array and not empty
@@ -306,6 +306,15 @@ export default class CookieHandler {
    */
   getRequiredGroupNames() {
     return this.#siteSettings.requiredGroups.map((group) => group.groupId);
+  }
+
+  /**
+   * Returns an array of all required and optional cookie group names.
+   *
+   * @return {string[]} An array of cookie group names.
+   */
+  getAllGroupNames() {
+    return [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups].map((group) => group.groupId);
   }
 
   /**

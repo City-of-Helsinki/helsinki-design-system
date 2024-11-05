@@ -201,6 +201,21 @@ export class CookieConsentCore {
   }
 
   /**
+   * ...
+   * @return Array<{group:string, consented:boolean}>
+   */
+  getAllConsentStatuses() {
+    const browserCookie = this.#cookieHandler.getCookie();
+    const consentGroups = (browserCookie && browserCookie.groups) || [];
+    return this.#cookieHandler.getAllGroupNames().map((group) => {
+      return {
+        group,
+        consented: !!consentGroups[group],
+      };
+    });
+  }
+
+  /**
    * Sets the status of given cookie groups to accepted.
    *
    * @param {Array} acceptedGroupsArray - An array of cookie group names to be set as accepted.
