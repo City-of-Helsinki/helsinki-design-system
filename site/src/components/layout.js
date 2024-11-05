@@ -128,6 +128,8 @@ const Layout = ({ location, children, pageContext }) => {
   const locationWithoutVersion = hrefWithoutVersion(location.pathname, version);
   const versionLabel = version ? `Version ${version.replace('release-', '')}` : `Version ${versions[0]}`;
 
+  console.log(location, pageContext, pathParts, version);
+
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
   React.useEffect(() => {
