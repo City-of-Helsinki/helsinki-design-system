@@ -25,6 +25,7 @@ const storyWithMultiSelectAndGroupsWithoutInput = 'Multiselect With Groups';
 const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Filter';
 const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Search';
 const storyWithValidation = 'With Validation And Forced Selection';
+const storyWithCustomTheme = 'With Custom Theme';
 
 const selectId = 'hds-select-component';
 
@@ -594,6 +595,74 @@ test.describe(`Element state snapshots`, () => {
       page,
       clearAllButton,
       createScreenshotFileName(testInfo, isMobile, 'taglist-clearAllButton'),
+      true,
+    );
+  });
+  test('Custom dropdown items', async ({ page, isMobile }, testInfo) => {
+    await gotoStorybookUrlByName(page, storyWithCustomTheme);
+    const selectUtil = createSelectHelpers(page, selectId);
+    await selectUtil.openList();
+    const menuOpenFilename = createScreenshotFileName(testInfo, isMobile, 'menu open');
+    const clip = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(menuOpenFilename, { clip, fullPage: true });
+    // takeStateScreenshots has noOutsideClicks=true,
+    // so must manually move focus outside
+    const input = selectUtil.getElementByName('searchOrFilterInput');
+    await input.focus();
+    const groupLabel = await selectUtil.getGroupLabel(0);
+
+    await takeStateScreenshots(
+      page,
+      groupLabel,
+      createScreenshotFileName(testInfo, isMobile, 'multiselect-selected-groupLabel'),
+      true,
+    );
+
+    // the group label is initially in "mixed" state. Double click to unselect.
+    await selectUtil.selectGroupByIndex({ index: 0, ignoreIfSelected: true });
+    await selectUtil.selectGroupByIndex({ index: 0, ignoreIfSelected: true });
+    await input.focus();
+    await takeStateScreenshots(
+      page,
+      groupLabel,
+      createScreenshotFileName(testInfo, isMobile, 'multiselect-unselected-groupLabel'),
+      true,
+    );
+
+    const option = await selectUtil.getOptionByIndex({ index: 1 });
+    await input.focus();
+    await takeStateScreenshots(
+      page,
+      option,
+      createScreenshotFileName(testInfo, isMobile, 'multiselect-unselected-option'),
+      true,
+    );
+
+    await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
+    await input.focus();
+    await takeStateScreenshots(
+      page,
+      option,
+      createScreenshotFileName(testInfo, isMobile, 'multiselect-selected-option'),
+      true,
+    );
+
+    const disabledoption = await selectUtil.getOptionByIndex({ index: 2 });
+    await input.focus();
+    await takeStateScreenshots(
+      page,
+      disabledoption,
+      createScreenshotFileName(testInfo, isMobile, 'multiselect-disabled-option'),
+      true,
+    );
+
+    const disabledGroupLabel = await selectUtil.getGroupLabel(2);
+    await selectUtil.scrollOptionInToView(disabledGroupLabel);
+    await waitForStablePosition(disabledGroupLabel);
+    await takeStateScreenshots(
+      page,
+      disabledGroupLabel,
+      createScreenshotFileName(testInfo, isMobile, 'multiselect-disabled-group-label'),
       true,
     );
   });
