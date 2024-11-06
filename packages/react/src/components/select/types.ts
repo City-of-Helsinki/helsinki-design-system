@@ -256,12 +256,12 @@ export type SelectCustomTheme = {
   '--dropdown-color-disabled'?: string;
   '--dropdown-icon-color'?: string;
   '--menu-divider-color'?: string;
-  '--menu-item-background-default'?: string;
-  '--menu-item-background-hover'?: string;
-  '--menu-item-background-selected'?: string;
-  '--menu-item-background-selected-hover'?: string;
-  '--menu-item-background-disabled'?: string;
-  '--menu-item-background-disabled-hover'?: string;
+  '--menu-item-background-color-default'?: string;
+  '--menu-item-background-color-hover'?: string;
+  '--menu-item-background-color-selected'?: string;
+  '--menu-item-background-color-selected-hover'?: string;
+  '--menu-item-background-color-disabled'?: string;
+  '--menu-item-background-color-disabled-hover'?: string;
   '--menu-item-color-default'?: string;
   '--menu-item-color-hover'?: string;
   '--menu-item-color-selected'?: string;
