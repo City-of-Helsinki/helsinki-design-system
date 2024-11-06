@@ -45,12 +45,15 @@
   --computed-dropdown-color-default: var(--dropdown-color-default, var(--color-black-90));
   --computed-dropdown-color-disabled: var(--dropdown-color-disabled, var(--color-black-40));
   --computed-menu-divider-color: var(--menu-divider-color, var(--color-black-20));
-  --computed-menu-item-background-default: var(--menu-item-background-default, var(--color-white));
-  --computed-menu-item-background-hover: var(--menu-item-background-hover, var(--color-bus-light));
-  --computed-menu-item-background-selected: var(--menu-item-background-selected, transparent);
-  --computed-menu-item-background-selected-hover: var(--menu-item-background-selected-hover, var(--color-bus-light));
-  --computed-menu-item-background-disabled: var(--menu-item-background-disabled, var(--color-white));
-  --computed-menu-item-background-disabled-hover: var(--menu-item-background-disabled-hover, transparent);
+  --computed-menu-item-background-color-default: var(--menu-item-background-color-default, var(--color-white));
+  --computed-menu-item-background-color-hover: var(--menu-item-background-color-hover, var(--color-bus-light));
+  --computed-menu-item-background-color-selected: var(--menu-item-background-color-selected, transparent);
+  --computed-menu-item-background-color-selected-hover: var(
+    --menu-item-background-color-selected-hover,
+    var(--color-bus-light)
+  );
+  --computed-menu-item-background-color-disabled: var(--menu-item-background-color-disabled, var(--color-white));
+  --computed-menu-item-background-color-disabled-hover: var(--menu-item-background-color-disabled-hover, transparent);
   --computed-menu-item-color-default: var(--menu-item-color-default, var(--color-black-90));
   --computed-menu-item-color-hover: var(--menu-item-color-hover, var(--color-black-90));
   --computed-menu-item-color-selected: var(--menu-item-color-selected, var(--color-black-90));
@@ -159,7 +162,7 @@
 
 %dropdownMenuItem {
   align-items: center;
-  background-color: var(--computed-menu-item-background-default);
+  background-color: var(--computed-menu-item-background-color-default);
   box-sizing: border-box;
   color: var(--computed-menu-item-color-default);
   cursor: pointer;
@@ -171,12 +174,12 @@
   padding: var(--spacing-xs) var(--spacing-s);
 
   &.selected {
-    background-color: var(--computed-menu-item-background-selected);
+    background-color: var(--computed-menu-item-background-color-selected);
     color: var(--computed-menu-item-color-selected);
   }
 
   &.disabledOption {
-    background-color: var(--computed-menu-item-background-disabled);
+    background-color: var(--computed-menu-item-background-color-disabled);
     color: var(--computed-menu-item-color-disabled);
     cursor: not-allowed;
   }
@@ -185,12 +188,12 @@
     color: var(--computed-menu-item-color-hover);
 
     &.selected {
-      background-color: var(--computed-menu-item-background-selected-hover);
+      background-color: var(--computed-menu-item-background-color-selected-hover);
       color: var(--computed-menu-item-color-selected-hover);
     }
 
     &.disabledOption {
-      background-color: var(--computed-menu-item-background-disabled-hover);
+      background-color: var(--computed-menu-item-background-color-disabled-hover);
       color: var(--computed-menu-item-color-disabled);
     }
   }

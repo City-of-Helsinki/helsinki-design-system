@@ -259,9 +259,12 @@
       }
 
       .singleSelectListItem {
-        --computed-menu-item-background-hover: var(--menu-item-background-hover, var(--color-bus-light));
-        --computed-menu-item-background-selected: var(--menu-item-background-selected, var(--color-bus));
-        --computed-menu-item-background-selected-hover: var(--menu-item-background-selected-hover, var(--color-bus));
+        --computed-menu-item-background-color-hover: var(--menu-item-background-color-hover, var(--color-bus-light));
+        --computed-menu-item-background-color-selected: var(--menu-item-background-color-selected, var(--color-bus));
+        --computed-menu-item-background-color-selected-hover: var(
+          --menu-item-background-color-selected-hover,
+          var(--color-bus-dark)
+        );
         --computed-menu-item-color-selected: var(--menu-item-color-selected, var(--color-white));
         --computed-menu-item-color-selected-hover: var(--menu-item-color-selected-hover, var(--color-white));
 
@@ -338,7 +341,7 @@
 
       .selectableListItem:not(.selected) {
         &:hover {
-          background-color: var(--computed-menu-item-background-hover);
+          background-color: var(--computed-menu-item-background-color-hover);
         }
       }
 
