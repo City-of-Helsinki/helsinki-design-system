@@ -1,3 +1,5 @@
+@use 'hds-core/lib/components/notification/_notification-mixin' as CoreSass;
+
 .notification {
   composes: hds-notification from 'hds-core/lib/components/notification/notification.css';
   overflow: hidden;
