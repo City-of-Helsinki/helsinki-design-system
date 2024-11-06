@@ -47,9 +47,7 @@ export default class MonitorAndCleanBrowserStorages {
     const deleteKeys = currentStoredKeysArray.filter((key) => {
       return !(key === '' || this.#isKeyConsented(key, consentedKeysArray));
     });
-    // console.log('deleteKeys', deleteKeys, deleteKeys.length);
     deleteKeys.forEach((key) => {
-      // console.log('typeString', typeString, this.#removalFailedKeys, this.#removalFailedKeys[typeString]);
       if (!this.#removalFailedKeys[typeString].includes(key)) {
         console.log(`Cookie consent: will delete ${reason} ${typeString}(s): '${deleteKeys.join("', '")}'`);
 
@@ -249,7 +247,6 @@ export default class MonitorAndCleanBrowserStorages {
    * @private
    */
   async #monitorLoop() {
-    // console.log('monitoring', JSON.stringify(this.#reportedKeys));
     // MARK: Public properties
     this.BROWSER_STORAGES.forEach(async (storageType) => {
       const consentedGroups = this.#COOKIE_HANDLER.getConsentedGroupNames();
