@@ -321,12 +321,14 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return getScrollTop(listContainer);
   };
 
-  const selectGroupByIndex = async ({ index }: { index: number }) => {
+  const selectGroupByIndex = async ({ index, ignoreIfSelected }: { index: number; ignoreIfSelected?: boolean }) => {
     const currentCount = await getSelectedOptionsCount();
     const groupLabel = await getGroupLabel(index);
-    const isSelected = await isOptionSelected(groupLabel);
-    if (isSelected) {
-      return Promise.resolve(groupLabel);
+    if (!ignoreIfSelected) {
+      const isSelected = await isOptionSelected(groupLabel);
+      if (isSelected) {
+        return Promise.resolve(groupLabel);
+      }
     }
     await groupLabel.click();
     // if single select, the menu is closed, so cannot check the option element itself
