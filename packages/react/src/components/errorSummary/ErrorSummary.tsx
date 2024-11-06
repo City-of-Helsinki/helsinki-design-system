@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 import '../../styles/base.module.css';
 import errorSummaryStyles from './ErrorSummary.module.scss';
-import notificationStyles from '../notification/Notification.module.css';
+import notificationStyles from '../notification/Notification.module.scss';
 import { IconErrorFill } from '../../icons';
 import classNames from '../../utils/classNames';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
