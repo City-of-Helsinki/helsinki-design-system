@@ -3,7 +3,7 @@ import React from 'react';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { Button } from '../button';
 import { Card } from '../card';
-import { Select } from '../dropdown/select';
+import { Select } from '../../index';
 import { Accordion, AccordionSize, AccordionProps } from './Accordion';
 import { useAccordion } from './useAccordion';
 
@@ -125,17 +125,25 @@ export const CustomAccordion = () => {
       </Button>
       <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
         <Select
-          multiselect
-          label="Filter by event category"
-          placeholder="No selected categories"
+          multiSelect
+          noTags
+          texts={{
+            language: 'en',
+            label: 'Filter by event category',
+            placeholder: 'No selected categories',
+          }}
+          onChange={() => undefined}
           options={[{ label: 'Culture & arts' }, { label: 'Sports' }, { label: 'Museums' }, { label: 'Music' }]}
-          clearButtonAriaLabel="Clear all selections"
-          selectedItemRemoveButtonAriaLabel="Remove"
+          clearable={false}
         />
         <Select
-          multiselect
-          label="Filter by event location"
-          placeholder="No selected locations"
+          multiSelect
+          noTags
+          texts={{
+            language: 'en',
+            label: 'Filter by event location',
+            placeholder: 'No selected locations',
+          }}
           options={[
             { label: 'Haaga' },
             { label: 'Herttoniemi' },
@@ -146,9 +154,9 @@ export const CustomAccordion = () => {
             { label: 'Mellunkylä' },
             { label: 'Pasila' },
           ]}
-          clearButtonAriaLabel="Clear all selections"
-          selectedItemRemoveButtonAriaLabel="Remove"
+          onChange={() => undefined}
           style={{ marginTop: 'var(--spacing-s)' }}
+          clearable={false}
         />
       </Card>
     </>
