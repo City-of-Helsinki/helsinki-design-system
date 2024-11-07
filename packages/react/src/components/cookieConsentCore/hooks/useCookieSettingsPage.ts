@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useCookieContentContext } from '../contexts/ConsentContext';
+import { useCookieContentContext } from '../contexts/CookieConsentContext';
 import { CookieConsentReactType } from './useCookieConsent';
 
 export type CookieSettingsPageProps = { settingsPageSelector?: string };
