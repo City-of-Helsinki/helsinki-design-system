@@ -188,6 +188,14 @@ export default class CookieHandler {
   }
 
   /**
+   * Changes current language
+   * @param {string} language
+   */
+  setLanguage(language = undefined) {
+    this.#lang = language;
+  }
+
+  /**
    * Retrieves the HTML representation of cookie groups.
    * @private
    * @param {string} timestamp - UNIX timestamp.
