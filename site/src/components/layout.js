@@ -23,7 +23,8 @@ import versions from '../data/versions.json';
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
 const hrefWithVersion = (href, version) => {
-  if (!version || version === '' || href.startsWith('mailto:') || href.startsWith('#') || href.startsWith('http'))
+  if (!version || version === '' || href === ''
+    || href.startsWith('mailto:') || href.startsWith('#') || href.startsWith('http'))
     return href;
 
   let withVersion = '';
@@ -42,13 +43,15 @@ const hrefWithVersion = (href, version) => {
     }
   });
 
+  const ret = withVersion.startsWith(withPrefix('')) ? withVersion : withPrefix(`${withVersion}`);
   console.log('hrefWithVersion() href:', href,
     'version:', version,
     'parts:', pathParts,
-    'return:', withPrefix(`${withVersion}`)
+    'withVersion', withVersion,
+    'return:', ret,
   );
 
-  return withPrefix(`${withVersion}`);
+  return ret;
 };
 const hrefWithoutVersion = (href, version) => {
   return href.replace(`/${version}`, '');
