@@ -1,0 +1,128 @@
+---
+slug: '/components/table/scss'
+title: 'Table - SCSS'
+---
+
+import { Table } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## SCSS
+
+Styles of the `Table` are exported as SCSS mixins and are reusable anywhere.
+
+### Mixins
+
+| Mixin                | Description                                              | Arguments                                                                   |
+| ---------------------| -------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `table`              | The root mixin to output all or only selected styles.    | See <AnchorLink anchor="parameters-of-the-root-mixin">Table 2</AnchorLink>. |
+| `base`               | Outputs the base styles.                                 | -                                                                           |
+| `textAlignTdRight`   | Outputs the styles of the textAlignTdRight variation.    | -                                                                           |
+| `caption`            | Outputs the styles of the caption variation.             | -                                                                           |
+| `dark`               | Outputs the styles of the dark variation.                | -                                                                           |
+| `light`              | Outputs the styles of the light variation.               | -                                                                           |
+| `withVerticalLines`  | Outputs the styles of the withVerticalLines variation.   | -                                                                           |
+| `dense`              | Outputs the styles of the dense variation.               | -                                                                           |
+| `zebra`              | Outputs the styles of the zebra variation.               | -                                                                           |
+| `withVerticalHeader` | Outputs the styles of the withVerticalHeader variation.  | -                                                                           |
+| `textAlignRight`     | Outputs the styles of the textAlignRight variation.      | -                                                                           |
+| [Table 1:Table SCSS mixins] |
+
+### Usage with the root mixin
+
+```scss
+@use 'hds-core/components/table/_table-mixin' as CoreSass;
+
+@include table(
+  $all: true,
+  $base: false,
+  $textAlignTdRight: false,
+  $caption: false,
+  $dark: false,
+  $light: false,
+  $withVerticalLines: false,
+  $dense: false,
+  $zebra: false,
+  $withVerticalHeader: false,
+  $textAlignRight: false,
+  $override: null,
+  $react: false
+);
+```
+
+### Parameters of the table mixin
+
+| Property               | Description                                                          | Values             | Default value |
+| ---------------------- | -------------------------------------------------------------------- | ------------------ | ------------- |
+| `all`                  | Should all styles of all variations be outputted.                    | `boolean`          | `true`        |
+| `base`                 | Should the base styles be outputted.                                 | `boolean`          | `false`       |
+| `textAlignTdRight`     | Should the styles of the textAlignTdRight variation be outputted.    | `boolean`          | `false`       |
+| `caption`              | Should the styles of the caption variation be outputted.             | `boolean`          | `false`       |
+| `dark`                 | Should the styles of the dark variation be outputted.                | `boolean`          | `false`       |
+| `light`                | Should the styles of the light variation be outputted.               | `boolean`          | `false`       |
+| `withVerticalLines`    | Should the styles of the withVerticalLines variation be outputted.   | `boolean`          | `false`       |
+| `dense`                | Should the styles of the dense variation be outputted.               | `boolean`          | `false`       |
+| `zebra`                | Should the styles of the zebra variation be outputted.               | `boolean`          | `false`       |
+| `withVerticalHeader`   | Should the styles of the withVerticalHeader variation be outputted.  | `boolean`          | `false`       |
+| `textAlignRight`       | Should the styles of the textAlignRight variation be outputted.      | `boolean`          | `false`       |
+| `override`             | Override the default className `table`.                              | `null` or `string` | `null`        |
+| `react`                | Use this when included in the SCSS class of a React component.       | `boolean`          | `false`       |
+| [Table 2: The table mixin parameters] |
+
+#### The output of the table mixin
+
+Helsinki Design System uses <ExternalLink href="https://getbem.com/">BEM</ExternalLink>, and class names follow its methodology.
+
+Class names are prefixed with `hds-`, followed by the component name (`table`) and the proper BEM naming.
+
+Note that variations of the `Table` styles are not compound classes of the base class `.hds-table`. But the variations only alter the CSS variables, so they are quite useless without the base class.
+
+```scss
+.hds-table {
+  //... all base styles
+}
+
+.hds-table--dark {
+  //... dark variation styles
+}
+
+.hds-table--zebra {
+  //... zebra variation styles
+}
+```
+
+#### Custom output
+
+Changing the boolean parameters affects which styles are outputted, and the `override` parameter will change how classes are named.
+
+```scss
+@include table($all: true, $override: 'my-class');
+
+.my-class {
+  //... all base styles
+}
+
+.my-class--dark {
+  //... dark variation styles
+}
+```
+
+### Usage with custom classes
+
+The base and variation mixins can be included in any class.
+
+```scss
+@use 'hds-core/components/table/_table-mixin' as CoreSass;
+
+.table {
+  @include CoreSass.table($all: false, $base: true, $react: true);
+}
+
+.tableDark {
+  @include CoreSass.table($all: false, $dark: true, $react: true);
+}
+
+```

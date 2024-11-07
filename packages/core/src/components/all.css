@@ -2,6 +2,7 @@
 @use './button/button.scss';
 @use './checkbox/checkbox.scss';
 @use './status-label/status-label.scss';
+@use './table/table.scss';
 @import url('./card/card.css');
 @import url('./container/container.css');
 @import url('./error-summary/error-summary.css');
@@ -17,6 +18,5 @@
 @import url('./search-input/search-input.css');
 @import url('./selection-group/selection-group.css');
 @import url('./step-by-step/step-by-step.css');
-@import url('./table/table.css');
 @import url('./tag/tag.css');
 @import url('./text-input/text-input.css');

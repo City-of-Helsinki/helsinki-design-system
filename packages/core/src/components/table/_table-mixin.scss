@@ -1,0 +1,250 @@
+@use '../../utils/bem' as BemUtil;
+
+@mixin base {
+  --content-background-color: var(--color-white);
+
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+
+  &-container {
+    overflow-x: auto;
+  }
+
+  &-container:focus {
+    outline: var(--color-focus-outline) 3px solid;
+  }
+
+  & th {
+    border-bottom: 1px solid var(--color-black-20);
+    font-size: var(--fontsize-body-m);
+    font-weight: 500;
+    line-height: var(--lineheight-l);
+    padding: var(--spacing-xs) var(--spacing-m);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  &__content tr td {
+    background-color: var(--content-background-color);
+    border-bottom: 1px solid var(--color-black-50);
+    color: var(--color-black-90);
+    font-size: var(--fontsize-body-m);
+    font-weight: 400;
+    line-height: 24px;
+    padding: var(--spacing-xs) var(--spacing-m);
+  }
+
+  &__header-row {
+    background-color: var(--header-background-color);
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 767px) {
+    & th {
+      font-size: var(--fontsize-body-s);
+      font-weight: bold;
+      padding: 9px var(--spacing-s);
+    }
+
+    &__content tr td {
+      font-size: var(--fontsize-body-s);
+      padding: 9px var(--spacing-s);
+    }
+
+    &__caption {
+      font-size: var(--fontsize-heading-xxs);
+      letter-spacing: 0.2px;
+      line-height: var(--lineheight-l);
+      margin-bottom: var(--spacing-xs);
+    }
+  }
+}
+
+@mixin textAlignTdRight {
+  &--text-align-td-right td {
+    text-align: right;
+  }
+}
+
+@mixin caption {
+  font-size: var(--fontsize-body-l);
+  font-weight: normal;
+  line-height: var(--lineheight-l);
+  margin-bottom: var(--spacing-s);
+  text-align: left;
+}
+
+
+@mixin dark {
+  &--dark {
+    --header-background-color: var(--color-bus);
+  }
+
+  &#{&}--dark th {
+    color: var(--color-white);
+  }
+}
+
+@mixin light {
+  &--light {
+    --header-background-color: var(--color-silver);
+  }
+
+  &#{&}--light th {
+    color: var(--color-black-90);
+  }
+}
+
+@mixin dense {
+  &--dense#{&} th {
+    font-size: var(--fontsize-body-s);
+    font-weight: bold;
+    padding: 9px var(--spacing-s);
+  }
+  &--dense #{&}__content tr td {
+    font-size: var(--fontsize-body-s);
+    padding: 9px var(--spacing-s);
+  }
+  &--dense #{&}__caption {
+    font-size: var(--fontsize-body-m);
+    line-height: var(--lineheight-l);
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+@mixin zebra {
+  &--zebra #{&}__content {
+    & tr td {
+      border-bottom: none;
+    }
+
+    & tr:nth-child(even) td {
+      background-color: var(--color-black-10);
+    }
+  }
+}
+
+@mixin withVerticalLines {
+  &--with-vertical-lines #{&}__content {
+    border-left: 1px solid var(--color-black-50);
+
+    & td {
+      border-right: 1px solid var(--color-black-50);
+    }
+  }
+
+  &--with-vertical-lines #{&}__header-row {
+    border-left: 1px solid var(--header-background-color);
+    border-right: 1px solid var(--header-background-color);
+  }
+}
+
+@mixin withVerticalHeader {
+  &__vertical-header-column {
+    background-color: var(--header-background-color);
+  }
+
+  &--with-vertical-header#{&}--with-vertical-lines #{&}__content {
+    border-left: none;
+  }
+
+  &--with-vertical-lines#{&}--with-vertical-header #{&}__header-row {
+    border-left: none;
+  }
+}
+
+@mixin textAlignRight {
+  text-align: right;
+}
+
+@mixin table(
+  $all: true,
+  $base: false,
+  $textAlignTdRight: false,
+  $caption: false,
+  $dark: false,
+  $light: false,
+  $withVerticalLines: false,
+  $dense: false,
+  $zebra: false,
+  $withVerticalHeader: false,
+  $textAlignRight: false,
+  $override: null,
+  $react: false
+) {
+  $className: 'table';
+
+  @if $override {
+    $className: $override;
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include base;
+    }
+  }
+
+  @if $all or $textAlignTdRight {
+    @include BemUtil.unscopedElement($className, 'content', $react) {
+      @include textAlignTdRight;
+    }
+  }
+
+  @if $all or $caption {
+    @include BemUtil.unscopedElement($className, 'caption', $react) {
+      @include caption;
+    }
+  }
+
+
+  @if $all or $dark {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include dark;
+    }
+  }
+
+  @if $all or $light {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include light;
+    }
+  }
+
+  @if $all or $withVerticalLines {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include withVerticalLines;
+    }
+  }
+
+  @if $all or $dense {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include dense;
+    }
+  }
+
+  @if $all or $zebra {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include zebra;
+    }
+  }
+
+  @if $all or $withVerticalHeader {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include withVerticalHeader;
+    }
+  }
+
+  @if $all or $textAlignRight {
+    @include BemUtil.unscopedModifier($className, 'text-align-right', $react) {
+      @include textAlignRight;
+    }
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include mobile;
+    }
+  }
+
+}

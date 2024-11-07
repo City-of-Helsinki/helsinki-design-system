@@ -1,4 +1,4 @@
-import './table.css';
+import './table.scss';
 import * as workTrial from './story-example-work-trial.json';
 
 export default {
