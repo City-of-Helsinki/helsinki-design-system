@@ -466,16 +466,10 @@ export default class CookieHandler {
     }
 
     const siteSettingsGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
+    const groupIds = siteSettingsGroups.map((group) => group.groupId);
+    const duplicateGroupNames = groupIds.filter((groupId, index) => groupIds.indexOf(groupId) !== index);
 
-    const cookieNames = new Set();
-    const duplicateGroupNames = new Set();
-    siteSettingsGroups.forEach((group) => {
-      if (cookieNames.has(group.groupId)) {
-        duplicateGroupNames.add(group.groupId);
-      }
-      cookieNames.add(group.groupId);
-    });
-    if (duplicateGroupNames.size > 0) {
+    if (duplicateGroupNames.length > 0) {
       throw new Error(
         `Cookie consent: Groups '${Array.from(duplicateGroupNames).join(', ')}' found multiple times in settings.`,
       );
