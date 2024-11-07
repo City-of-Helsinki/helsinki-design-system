@@ -8,6 +8,7 @@ import { CookieBanner } from './components/CookieBanner';
 import { CookieSettingsPage } from './components/CookieSettingsPage';
 import { CookieConsentReactProps } from './hooks/useCookieConsent';
 import { StoryComponent } from './components/StoryComponent';
+import { Button } from '../button';
 
 export default {
   component: StoryComponent,
@@ -61,18 +62,12 @@ const Actions = () => {
   };
   return (
     <p>
-      <button type="button" onClick={addChatCookie}>
-        Add chat group
-      </button>
-      <button type="button" onClick={addUnallowedCookie}>
-        Add unallowed group
-      </button>
-      <button type="button" onClick={removeConsentCookie}>
-        Remove consent cookie
-      </button>
-      <button type="button" onClick={openBanner}>
-        Open banner
-      </button>
+      <div style={{ display: 'flex', gap: 'var(--spacing-s)' }}>
+        <Button onClick={addChatCookie}>Add chat group</Button>
+        <Button onClick={addUnallowedCookie}>Add unallowed group</Button>
+        <Button onClick={removeConsentCookie}>Remove consent cookie</Button>
+        <Button onClick={openBanner}>Open banner</Button>
+      </div>
     </p>
   );
 };
