@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Header.Universalbar] ariaLabel prop changed to "aria-label"
 - [SideNavigation] ariaLabel prop changed to "aria-label"
 - [SkipLink] ariaLabel prop changed to "aria-label"
+- [CookieConsent] Rewritten CookieConsent component
 
 #### Added
 

@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable lines-between-class-members */
 
+/* eslint-disable-next-line import/no-unresolved */
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
 import {
@@ -30,8 +31,9 @@ export class CookieConsentCore {
   #targetSelector;
   #spacerParentSelector;
   #pageContentSelector;
-  #submitEvent = false;
+  #submitEvent = '';
   #settingsPageSelector;
+  #disableAutoRender;
   #monitor;
   #cookieHandler;
   #siteSettings;
@@ -62,8 +64,9 @@ export class CookieConsentCore {
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.submitEvent=''] - If set, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @param {boolean} [options.disableAutoRender=false] - If true, neither banner or page are rendered automatically
    * @param {boolean} [calledFromCreate=false] - Indicates if the constructor was called from the create method.
    * @throws {Error} Throws an error if called from outside the create method.
    * @throws {Error} Throws an error if siteSettingsObj is not provided.
@@ -76,8 +79,9 @@ export class CookieConsentCore {
       targetSelector = 'body', // Where to inject the banner
       spacerParentSelector = 'body', // Where to inject the spacer
       pageContentSelector = 'body', // Where to add scroll-margin-bottom
-      submitEvent = false, // if string, do not reload page, but submit the string as event after consent
+      submitEvent = '', // if set, do not reload page, but submit the string as event after consent
       settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+      disableAutoRender = false,
     },
     calledFromCreate = false,
   ) {
@@ -94,6 +98,7 @@ export class CookieConsentCore {
     this.#pageContentSelector = pageContentSelector;
     this.#submitEvent = submitEvent;
     this.#settingsPageSelector = settingsPageSelector;
+    this.#disableAutoRender = disableAutoRender;
 
     CookieConsentCore.addToHdsScope('cookieConsent', this);
 
@@ -143,8 +148,9 @@ export class CookieConsentCore {
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.submitEvent=''] - If set, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @param {boolean} [options.disableAutoRender=false] - If...
    * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
    * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the fetch fails.
@@ -185,7 +191,7 @@ export class CookieConsentCore {
 
     // Dispatch event when the cookie consent is ready to be used by other scripts
     const event = new Event('hds_cookieConsent_ready');
-    document.dispatchEvent(event);
+    window.dispatchEvent(event);
 
     // Return reference to the class instance
     return instance;
@@ -198,6 +204,21 @@ export class CookieConsentCore {
    */
   getConsentStatus(groupNamesArray) {
     return this.#cookieHandler.getConsentStatus(groupNamesArray);
+  }
+
+  /**
+   * ...
+   * @return Array<{group:string, consented:boolean}>
+   */
+  getAllConsentStatuses() {
+    const browserCookie = this.#cookieHandler.getCookie();
+    const consentGroups = (browserCookie && browserCookie.groups) || [];
+    return this.#cookieHandler.getAllGroupNames().map((group) => {
+      return {
+        group,
+        consented: !!consentGroups[group],
+      };
+    });
   }
 
   /**
@@ -221,6 +242,63 @@ export class CookieConsentCore {
     }
     this.#removeBanner();
     await this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
+  }
+  /**
+   * Opens banner only if necessary
+   */
+  async openBannerIfNeeded(highlightedGroups = []) {
+    if (this.#shouldDisplayBanner()) {
+      await this.openBanner(highlightedGroups);
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(false);
+  }
+
+  /**
+   * Renders cookie settings page.
+   * @param {string|undefined} settingsPageSelector - target element selector. If not set options.settingsPageSelector is used.
+   */
+  async renderPage(settingsPageSelector = undefined) {
+    const selector = settingsPageSelector || this.#settingsPageSelector;
+    // If settings page selector is enabled, check if the element exists
+    const settingsPageElement = selector ? document.querySelector(selector) : null;
+
+    this.#settingsPageElement = settingsPageElement;
+    if (settingsPageElement) {
+      // If settings page element is found, render site settings in page instead of banner
+      await this.#render(this.#language, this.#siteSettings, false, settingsPageElement);
+    }
+  }
+  /**
+   * Removes contents of the page element
+   * @returns {boolean} -True if something was removed.
+   */
+  removePage() {
+    if (!this.#settingsPageElement) {
+      return false;
+    }
+    // React might have removed the element itself..
+    try {
+      this.#settingsPageElement.innerHTML = '';
+      this.#settingsPageElement = null;
+    } catch (e) {
+      this.#settingsPageElement = null;
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Changes current language
+   * @param {string} language
+   */
+  setLanguage(language) {
+    if (!language || this.#language === language) {
+      return;
+    }
+    this.#language = language;
+    this.#cookieHandler.setLanguage(language);
   }
 
   // MARK: Private methods
@@ -670,21 +748,24 @@ export class CookieConsentCore {
     this.#siteSettings = siteSettings;
     this.#directions = directions;
 
-    if (settingsPageElement) {
-      this.#settingsPageElement = settingsPageElement;
-      // If settings page element is found, render site settings in page instead of banner
-      await this.#render(this.#language, siteSettings, false, settingsPageElement);
-    } else {
-      // Check if banner is needed or not
-      const shouldDisplayBanner = this.#shouldDisplayBanner();
-      if (shouldDisplayBanner) {
-        await this.#render(this.#language, siteSettings, true);
+    if (!this.#disableAutoRender) {
+      if (settingsPageElement) {
+        this.#settingsPageElement = settingsPageElement;
+        // If settings page element is found, render site settings in page instead of banner
+        await this.#render(this.#language, siteSettings, false, settingsPageElement);
+      } else {
+        // Check if banner is needed or not
+        const shouldDisplayBanner = this.#shouldDisplayBanner();
+        if (shouldDisplayBanner) {
+          await this.#render(this.#language, siteSettings, true);
+        }
       }
     }
 
     const monitorInterval = siteSettings.monitorInterval || 0;
     const remove = siteSettings.remove || false;
     this.#monitor.init(this.#cookieHandler, monitorInterval, remove);
+    return Promise.resolve();
   }
 }
 
