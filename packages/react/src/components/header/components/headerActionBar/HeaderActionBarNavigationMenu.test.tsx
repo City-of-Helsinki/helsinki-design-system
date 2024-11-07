@@ -2,7 +2,7 @@ import { RenderResult, fireEvent, render, waitFor } from '@testing-library/react
 import { axe } from 'jest-axe';
 import React from 'react';
 
-import { getActiveElement } from '../../../cookieConsent/test.util';
+import { getActiveElement } from '../../../../utils/test-utils';
 import { Header } from '../../Header';
 // eslint-disable-next-line jest/no-mocks-import
 import mockWindowLocation from '../../../../utils/mockWindowLocation';

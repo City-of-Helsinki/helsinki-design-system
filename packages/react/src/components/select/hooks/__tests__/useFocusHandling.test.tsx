@@ -3,7 +3,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 
 import { useFocusHandling } from '../useFocusHandling';
 import { GetSelectProps, initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
-import { waitForElementFocus, getActiveElement } from '../../../cookieConsent/test.util';
+import { waitForElementFocus, getActiveElement } from '../../../../utils/test-utils';
 
 jest.mock('../../components/Label', () => {
   return {
