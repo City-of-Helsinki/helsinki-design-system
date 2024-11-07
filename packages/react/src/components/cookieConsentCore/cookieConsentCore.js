@@ -269,6 +269,25 @@ export class CookieConsentCore {
       await this.#render(this.#language, this.#siteSettings, false, settingsPageElement);
     }
   }
+  /**
+   * Removes contents of the page element
+   * @returns {boolean} -True if something was removed.
+   */
+  removePage() {
+    if (!this.#settingsPageElement) {
+      return false;
+    }
+    // React might have removed the element itself..
+    try {
+      this.#settingsPageElement.innerHTML = '';
+      this.#settingsPageElement = null;
+    } catch (e) {
+      this.#settingsPageElement = null;
+      return false;
+    }
+
+    return true;
+  }
 
   /**
    * Changes current language
