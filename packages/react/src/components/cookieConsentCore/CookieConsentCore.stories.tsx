@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Banner as ReactBanner } from './Banner';
-import { Notification } from '../notification/Notification';
-import { Button } from '../button/Button';
-import { SettingsPage as ReactSettingsPage } from './SettingsPage';
 import { Options } from './types';
 import { Link } from '../link';
+import { Notification } from '../notification/Notification';
+import { Button } from '../button/Button';
+import { Banner as ReactBanner } from './storyComponents/Banner';
+import { SettingsPage as ReactSettingsPage } from './storyComponents/SettingsPage';
 
 export default {
   component: ReactSettingsPage,

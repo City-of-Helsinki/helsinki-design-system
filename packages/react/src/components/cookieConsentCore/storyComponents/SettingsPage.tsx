@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { CookieConsentCore } from './cookieConsentCore';
-import { CreateProps } from './types';
+import { CookieConsentCore } from '../cookieConsentCore';
+import { CreateProps } from '../types';
 
 export const SettingsPage = (props: CreateProps) => {
   const elementId = 'hds-cookie-consent-full-page';
