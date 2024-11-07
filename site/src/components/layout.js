@@ -106,9 +106,11 @@ const resolveCurrentMenuItem = (version, menuItems, slugWithPrefix) => {
   if (slugWithPrefix === rootPath) {
     return menuItems.find(({ link }) => hrefWithVersion(link, version) === rootPath);
   } else {
-    return menuItems
+    const ret = menuItems
       .filter(({ link }) => hrefWithVersion(link, version) !== rootPath)
       .find((menuItem) => slugWithPrefix.startsWith(hrefWithVersion(menuItem.link, version)));
+    console.log('resolveCurrentMenuItem()', version, menuItems, slugWithPrefix, ret);
+    return ret;
   }
 };
 
@@ -127,7 +129,9 @@ const isNavPage = (page) => page.slug && page.navTitle;
 const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
 const isLinkParentForPage = (parentPath, level) => (page) => {
   const pathParts = splitPathIntoParts(page.slug);
-  return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
+  const ret = pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
+  if (ret) console.log('isLinkParentForPage()', parentPath, pathParts);
+  return ret;
 };
 const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
 const isMatchingParentLink = (link, slug) => {
