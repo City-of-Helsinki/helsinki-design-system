@@ -3,12 +3,13 @@ import { useCallback, useEffect, useRef } from 'react';
 import { CookieConsentCore } from '../cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
 import { ChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
+import { Options } from '../types';
 
 type CookieCore = CookieConsentCore;
 type CreateParams = Parameters<typeof CookieConsentCore.create>;
 type CreateProps = {
   siteSettings?: CreateParams[0];
-  options?: CreateParams[1];
+  options?: Options;
 };
 
 declare global {

@@ -34,8 +34,6 @@ describe('useCookieConsent', () => {
   const HookComponent = (props: Partial<CookieConsentReactProps> & { renderPageContainer?: boolean } = {}) => {
     const { options = {}, siteSettings = {}, settingsPageId, renderPageContainer } = props;
     if (language) {
-      // jest does not understand CookieConsentReactProps for some reason
-      // @ts-ignore
       options.language = language;
     }
     const {
