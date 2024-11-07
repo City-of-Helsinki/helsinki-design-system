@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable lines-between-class-members */
 
+/* eslint-disable-next-line import/no-unresolved */
 import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
 import {
@@ -30,7 +31,7 @@ export class CookieConsentCore {
   #targetSelector;
   #spacerParentSelector;
   #pageContentSelector;
-  #submitEvent = false;
+  #submitEvent = '';
   #settingsPageSelector;
   #monitor;
   #cookieHandler;
@@ -62,7 +63,7 @@ export class CookieConsentCore {
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.submitEvent=''] - If set, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
    * @param {boolean} [calledFromCreate=false] - Indicates if the constructor was called from the create method.
    * @throws {Error} Throws an error if called from outside the create method.
@@ -76,7 +77,7 @@ export class CookieConsentCore {
       targetSelector = 'body', // Where to inject the banner
       spacerParentSelector = 'body', // Where to inject the spacer
       pageContentSelector = 'body', // Where to add scroll-margin-bottom
-      submitEvent = false, // if string, do not reload page, but submit the string as event after consent
+      submitEvent = '', // if set, do not reload page, but submit the string as event after consent
       settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
     },
     calledFromCreate = false,
@@ -143,7 +144,7 @@ export class CookieConsentCore {
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {boolean|string} [options.submitEvent=false] - If a string, do not reload the page, but submit the string as an event after consent.
+   * @param {string} [options.submitEvent=''] - If set, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
    * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
    * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
