@@ -4,14 +4,14 @@
 @use 'mixin-helpers' as helpers;
 
 // @use 'font-face' as font-face;
-@use 'button' as button;
-@use 'checkbox' as checkbox;
+@use '../button/button-mixin' as button;
+@use '../checkbox/checkbox-mixin' as checkbox;
 @use 'icon' as icon;
 @use '../../icons/angle-down.css';
 @use '../../icons/check-circle-fill.css';
 @use '../../icons/info-circle-fill.css';
-@use 'notification' as notification;
-@use 'table' as table;
+@use '../notification/notification-mixin' as notification;
+@use '../table/table-mixin' as table;
 
 
 // // Include only font-face styles used by cookie consent
@@ -25,26 +25,37 @@
 // );
 
 // Include only used button styles
-@include button.hds-button(
+@include button.button(
   $all: false,
   $base: true,
   $secondary: true,
   $supplementary: true,
   $small: true,
   $icon: true,
-  $theme-coat: true,
-  $theme-black: true
+  $themeCoat: true,
+  $themeBlack: true
 );
 
-// Include only used checkbox styles (no indeterminate)
-@include checkbox.hds-checkbox(
-  $all: false,
-  $base: true,
-  $error-text: true,
-  $disabled: true,
-  $theme-coat: true,
-  $theme-black: true
+// Include all checkbox styles
+@include checkbox.checkbox(
+  $all: true,
 );
+
+.hds-theme--coat .hds-checkbox {
+  --background-selected: var(--color-coat-of-arms);
+  --background-hover: var(--color-coat-of-arms-dark);
+  --border-color-selected: var(--color-coat-of-arms);
+  --border-color-selected-hover: var(--color-coat-of-arms-dark);
+  --border-color-selected-focus: var(--color-coat-of-arms);
+}
+
+.hds-theme--black .hds-checkbox {
+  --background-selected: var(--color-black);
+  --background-hover: var(--color-black-80);
+  --border-color-selected: var(--color-black);
+  --border-color-selected-hover: var(--color-black-80);
+  --border-color-selected-focus: var(--color-black);
+}
 
 :host .hds-cc__form .hds-checkbox {
   --label-color-disabled: var(--color-black-60); // Make disabled label color a bit darker to pass 4.5 contrast ratio for accessibility
@@ -57,7 +68,7 @@
 );
 
 // Include only used notification styles
-@include notification.hds-notification(
+@include notification.notification(
   $all: false,
   $base: true,
   $small: true,
@@ -65,7 +76,7 @@
 );
 
 // Include only used table styles
-@include table.hds-table(
+@include table.table(
   $all: false,
   $base: true,
   $light: true
