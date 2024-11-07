@@ -243,6 +243,32 @@ export class CookieConsentCore {
     this.#removeBanner();
     await this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
   }
+  /**
+   * Opens banner only if necessary
+   */
+  async openBannerIfNeeded(highlightedGroups = []) {
+    if (this.#shouldDisplayBanner()) {
+      await this.openBanner(highlightedGroups);
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(false);
+  }
+
+  /**
+   * Renders cookie settings page.
+   * @param {string|undefined} settingsPageSelector - target element selector. If not set options.settingsPageSelector is used.
+   */
+  async renderPage(settingsPageSelector = undefined) {
+    const selector = settingsPageSelector || this.#settingsPageSelector;
+    // If settings page selector is enabled, check if the element exists
+    const settingsPageElement = selector ? document.querySelector(selector) : null;
+
+    this.#settingsPageElement = settingsPageElement;
+    if (settingsPageElement) {
+      // If settings page element is found, render site settings in page instead of banner
+      await this.#render(this.#language, this.#siteSettings, false, settingsPageElement);
+    }
+  }
 
   /**
    * Changes current language
