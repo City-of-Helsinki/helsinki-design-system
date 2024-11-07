@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { Header, LanguageOption } from '../header';
 import { Logo, logoFi } from '../logo';
 import { Tabs } from '../tabs/Tabs';
+import { Button } from '../button';
 import { Provider, useCookieConsents } from './contexts/CookieConsentContext';
-import { CookieBanner } from './components/CookieBanner';
-import { CookieSettingsPage } from './components/CookieSettingsPage';
 import { CookieConsentReactProps } from './hooks/useCookieConsent';
 import { StoryComponent } from './components/StoryComponent';
-import { Button } from '../button';
+import { CookieBanner } from './components/CookieBanner';
+import { CookieSettingsPage } from './components/CookieSettingsPage';
+// importing the json because load won't work in e2e
+import siteSettings from '../cookieConsentCore/example/helfi_sitesettings.json';
 
 export default {
   component: StoryComponent,
@@ -28,10 +30,10 @@ const ConsentOutput = () => {
   return (
     <p>
       Current consents:{' '}
-      <ul>
+      <ul data-testid="consents-list">
         {consents.map((obj) => {
           return (
-            <li>
+            <li data-consent-group={obj.group} data-consent-group-value={obj.consented}>
               {obj.group}:{String(obj.consented)}
             </li>
           );
@@ -63,10 +65,18 @@ const Actions = () => {
   return (
     <p>
       <div style={{ display: 'flex', gap: 'var(--spacing-s)' }}>
-        <Button onClick={addChatCookie}>Add chat group</Button>
-        <Button onClick={addUnallowedCookie}>Add unallowed group</Button>
-        <Button onClick={removeConsentCookie}>Remove consent cookie</Button>
-        <Button onClick={openBanner}>Open banner</Button>
+        <Button data-testid="add-chat-group-button" onClick={addChatCookie}>
+          Add chat group
+        </Button>
+        <Button data-testid="add-unallowed-group-button" onClick={addUnallowedCookie}>
+          Add unallowed group
+        </Button>
+        <Button data-testid="remove-cookie-button" onClick={removeConsentCookie}>
+          Remove consent cookie
+        </Button>
+        <Button data-testid="open-banner-button" onClick={openBanner}>
+          Open banner
+        </Button>
       </div>
     </p>
   );
@@ -83,12 +93,16 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
     updateLang(newLanguage);
   };
   const onChange: CookieConsentReactProps['onChange'] = (event) => {
+    // eslint-disable-next-line no-console
     console.log('consent event', event);
   };
-  const siteSettingsJsonUrl = '../static-cookie-consent/helfi_sitesettings.json';
 
   return (
-    <Provider onChange={onChange} options={{ language }} siteSettings={siteSettingsJsonUrl}>
+    <Provider
+      onChange={onChange}
+      options={{ language }}
+      siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
+    >
       <Header languages={languages} onDidChangeLanguage={onLangChange} defaultLanguage={language}>
         <Header.ActionBar
           frontPageLabel="Frontpage"
@@ -104,33 +118,46 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
 
       <Tabs initiallyActiveTab={currentTabIndex || 0}>
         <Tabs.TabList className="example-tablist">
-          <Tabs.Tab>Page</Tabs.Tab>
-          <Tabs.Tab>Modal</Tabs.Tab>
-          <Tabs.Tab>Consent list</Tabs.Tab>
-          <Tabs.Tab>Actions</Tabs.Tab>
+          <Tabs.Tab>
+            <div data-testid="page-tab-button">Page</div>
+          </Tabs.Tab>
+          <Tabs.Tab>
+            <div data-testid="banner-tab-button">Banner</div>
+          </Tabs.Tab>
+          <Tabs.Tab>
+            <div data-testid="consents-tab-button">Consent list</div>
+          </Tabs.Tab>
+          <Tabs.Tab>
+            <div data-testid="actions-tab-button">Actions</div>
+          </Tabs.Tab>
         </Tabs.TabList>
         <Tabs.TabPanel>
           <h1>Page ( {language} )</h1>
-          <p>Only the settings are shown below on this tab. Modal is kept open if shown previously.</p>
+          <p>Only the settings are shown below on this tab. Banner is kept open if shown previously.</p>
           <CookieSettingsPage />
+          <span data-testid="page-tab" />
         </Tabs.TabPanel>
         <Tabs.TabPanel>
-          <h1>Modal ( {language} )</h1>
-          <p>Modal is shown if required consents are not consented.</p>
+          <h1>Banner ( {language} )</h1>
+          <p>Banner is shown if required consents are not consented.</p>
           <CookieBanner />
+          <span data-testid="banner-tab" />
         </Tabs.TabPanel>
         <Tabs.TabPanel>
           <h1>Consents ( {language} )</h1>
-          <p>Modal is also shown here when needed.</p>
+          <p>Banner is also shown here when needed.</p>
           <ConsentOutput />
           <CookieBanner />
+          <span data-testid="consents-tab" />
         </Tabs.TabPanel>
         <Tabs.TabPanel>
           <h1>Actions ( {language} )</h1>
-          <p>Modal is not shown here</p>
+          <p>Banner is not shown here</p>
           <Actions />
+          <span data-testid="actions-tab" />
         </Tabs.TabPanel>
       </Tabs>
+      <span data-testid="current-language" lang={language} />
     </Provider>
   );
 };
