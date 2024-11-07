@@ -8,12 +8,15 @@ export type CookieSettingsPageReturnType = Pick<CookieConsentReactType, 'isReady
 export function useCookieSettingsPage({
   settingsPageSelector,
 }: CookieSettingsPageProps = {}): CookieSettingsPageReturnType {
-  const { isReady, renderPage, consents, settingsPageId, language } = useCookieContentContext();
+  const { isReady, renderPage, consents, settingsPageId, language, removePage } = useCookieContentContext();
 
   useEffect(() => {
     if (isReady) {
       renderPage(settingsPageSelector);
     }
+    return () => {
+      removePage();
+    };
   }, [isReady, renderPage, settingsPageSelector, language]);
 
   return {

@@ -15,6 +15,7 @@ export const ContentContext = createContext<ContentContextType>({
   openBanner: () => Promise.reject(new Error("'openBanner' not initialized")),
   openBannerIfNeeded: () => Promise.reject(new Error("'openBannerIfNeeded' not initialized")),
   renderPage: () => Promise.reject(new Error("'renderPage' not initialized")),
+  removePage: () => false,
   settingsPageId: '',
   language: '',
 });
