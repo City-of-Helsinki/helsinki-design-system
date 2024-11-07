@@ -8,6 +8,7 @@ exports[`<TextInput /> spec renders the component 1`] = `
     <label
       class="label "
       for="hdsInput"
+      id="Label id"
     >
       HDS input field
     </label>
@@ -48,6 +49,7 @@ exports[`<TextInput /> spec renders the component with search clear button 1`] =
     <label
       class="label "
       for="hdsInput"
+      id="Label id"
     >
       HDS input field
     </label>
@@ -112,6 +114,7 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
     <label
       class="label "
       for="hdsInput"
+      id="Label id"
     >
       HDS input field
     </label>

@@ -60,14 +60,15 @@ const setComponentTheme = <T,>(selector: string, theme: T, customClass: string):
  * @param `theme`     The custom theme overrides.
  * @return {string}   The custom class name that should be applied to the component.
  */
-export const useTheme = <T,>(selector: string, theme: T): string => {
+export const useTheme = <T,>(selector: string, theme: T, extraSelector?: string): string => {
   const useCustomTheme = theme && typeof theme !== 'string';
   // create a unique selector for the custom theme
   const customClass = useRef<string>(useCustomTheme ? uniqueId('custom-theme-') : '').current;
 
   useIsomorphicLayoutEffect(() => {
-    if (useCustomTheme) setComponentTheme<T>(selector && selector.split(' ')[0], theme, customClass);
-  }, [selector, theme, customClass, useCustomTheme]);
+    if (useCustomTheme)
+      setComponentTheme<T>(selector && selector.split(' ')[0], theme, `${customClass}${extraSelector || ''}`);
+  }, [selector, theme, customClass, useCustomTheme, extraSelector]);
 
   return customClass;
 };
