@@ -8,7 +8,8 @@ import { CookieConsentCore } from './cookieConsentCore';
 import * as siteSettingsObjRaw from './example/helfi_sitesettings.json';
 import helpers from './helpers/cookieConsentTestHelpers';
 
-const siteSettingsObj = { ...siteSettingsObjRaw, monitorInterval: 50 };
+const testTimeout = 500; // TODO: this should be removed and the tests should be refactored to work
+const siteSettingsObj = { ...siteSettingsObjRaw, monitorInterval: testTimeout };
 
 type Options = {
   language?: string;
@@ -47,6 +48,7 @@ describe('cookieConsentCore', () => {
   async function waitForConsole(level, messageToWait) {
     const consoleLogSpy = jest.spyOn(console, level);
     await waitFor(() => {
+      jest.advanceTimersByTime(testTimeout);
       expect(consoleLogSpy).toHaveBeenCalledWith(messageToWait);
     });
   }

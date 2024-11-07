@@ -1,0 +1,122 @@
+---
+slug: '/components/notification/scss'
+title: 'Notification - SCSS'
+---
+
+import { Notification } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## SCSS
+
+Styles of the `Notification` are exported as SCSS mixins and are reusable anywhere.
+
+### Mixins
+
+| Mixin                             | Description                                           | Arguments                                                                   |
+| ----------------- | ----------------------------------------------------- | --------------------------------------------------------------------------- |
+| `notification`    | The root mixin to output all or only selected styles. | See <AnchorLink anchor="parameters-of-the-root-mixin">Table 2</AnchorLink>. |
+| `base`            | Outputs the base styles.                              | -                                                                           |
+| `small`           | Outputs the styles of the small variation.            | -                                                                           |
+| `large`           | Outputs the styles of the large variation.            | -                                                                           |
+| `toast`           | Outputs the styles of the toast variation.            | -                                                                           |
+| `success`         | Outputs the styles of the alert variation.            | -                                                                           |
+| `alert`           | Outputs the styles of the alert variation.            | -                                                                           |
+| `error`           | Outputs the styles of the error variation.            | -                                                                           |
+| `box-shadow`      | Outputs the styles of the box-shadow variation.       | -                                                                           |
+| [Table 1:Notification SCSS mixins] |
+
+### Usage with the root mixin
+
+```scss
+@use 'hds-core/components/notification/_notification-mixin' as CoreSass;
+
+@include notification(
+  $all: true,
+  $base: false,
+  $small: false,
+  $large: false,
+  $toast: false,
+  $success: false,
+  $alert: false,
+  $error: false,
+  $box-shadow: false,
+  $override: null,
+  $react: false
+);
+```
+
+### Parameters of the notification mixin
+
+| Property       | Description                                                    | Values             | Default value |
+| -------------- | -------------------------------------------------------------- | ------------------ | ------------- |
+| `all`          | Should all styles of all variations be outputted.              | `boolean`          | `true`        |
+| `base`         | Should the base styles be outputted.                           | `boolean`          | `false`       |
+| `small`        | Should the styles of the small variation be outputted.         | `boolean`          | `false`       |
+| `large`        | Should the styles of the large variation be outputted.         | `boolean`          | `false`       |
+| `toast`        | Should the styles of the toast variation be outputted.         | `boolean`          | `false`       |
+| `success`      | Should the styles of the success variation be outputted.       | `boolean`          | `false`       |
+| `alert`        | Should the styles of the alert variation be outputted.         | `boolean`          | `false`       |
+| `error`        | Should the styles of the error variation be outputted.         | `boolean`          | `false`       |
+| `box-shadow`   | Should the styles of the box-shadow variation be outputted.    | `boolean`          | `false`       |
+| `override`     | Override the default className `notification`.                 | `null` or `string` | `null`        |
+| `react`        | Use this when included in the SCSS class of a React component. | `boolean`          | `false`       |
+| [Table 2: The notification mixin parameters] |
+
+#### The output of the notification mixin
+
+Helsinki Design System uses <ExternalLink href="https://getbem.com/">BEM</ExternalLink>, and class names follow its methodology.
+
+Class names are prefixed with `hds-`, followed by the component name (`notification`) and the proper BEM naming.
+
+Note that variations of the `Notification` styles are not compound classes of the base class `.hds-notification`. But the variations only alter the CSS variables, so they are quite useless without the base class.
+
+```scss
+.hds-notification {
+  //... all base styles
+}
+
+.hds-notification--small {
+  //... small variation styles
+}
+
+.hds-notification-success {
+  //... success variation styles
+}
+```
+
+#### Custom output
+
+Changing the boolean parameters affects which styles are outputted, and the `override` parameter will change how classes are named.
+
+```scss
+@include notification($all: true, $override: 'my-class');
+
+.my-class {
+  //... all base styles
+}
+
+.my-class--small {
+  //... small variation styles
+}
+```
+
+### Usage with custom classes
+
+The base and variation mixins can be included in any class.
+
+```scss
+@use 'hds-core/components/notification/_notification-mixin' as CoreSass;
+
+.notification {
+  @include CoreSass.notification($all: false, $base: true, $react: true);
+}
+
+.notificationSuccess {
+  @include CoreSass.notification($all: false, $success: true, $react: true);
+}
+
+```

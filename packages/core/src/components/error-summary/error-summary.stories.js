@@ -1,4 +1,4 @@
-import '../notification/notification.css';
+import '../notification/notification.scss';
 import './error-summary.css';
 import '../../icons/icon.css';
 import '../../icons/error-fill.css';

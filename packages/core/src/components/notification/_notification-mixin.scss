@@ -1,0 +1,270 @@
+@use '../../utils/bem' as BemUtil;
+@use '../../icons/icon';
+@use '../../icons/alert-circle-fill';
+@use '../../icons/check-circle-fill';
+@use '../../icons/error-fill';
+@use '../../icons/info-circle-fill';
+
+@mixin base {
+  --notification-background-color: var(--color-info-light);
+  --notification-border-color: var(--color-info);
+  --notification-border-width: var(--spacing-2-xs);
+  --notification-icon-color: var(--color-info);
+  --notification-color: var(--color-black-90);
+  --notification-max-width-inline: none;
+  --notification-max-width-toast: 21rem;
+  --notification-z-index-inline: auto;
+  --notification-z-index-toast: 99;
+  --notification-offset: var(--spacing-layout-s);
+  --notification-padding: var(--spacing-s);
+
+  background-color: var(--notification-background-color);
+  border: solid var(--notification-border-color);
+  border-width: 0 0 0 var(--notification-border-width);
+  box-sizing: border-box;
+  color: var(--notification-color);
+  max-width: var(--notification-max-width-inline);
+  padding: var(--notification-padding);
+  position: relative;
+  width: 100%;
+  z-index: var(--notification-z-index-inline);
+
+  &__content {
+    display: grid;
+    gap: var(--spacing-s);
+  }
+
+  &__label {
+    align-items: center;
+    display: flex;
+    font-size: var(--fontsize-heading-xs);
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 24px;
+    margin-right: var(--spacing-l);
+  }
+
+  & .hds-icon {
+    --icon-size: var(--spacing-layout-xs);
+  }
+
+  &__label > .hds-icon {
+    color: var(--notification-icon-color);
+    flex: none;
+    margin-right: var(--spacing-2-xs);
+  }
+
+  &__body {
+    font-size: var(--fontsize-body-s);
+    line-height: 24px;
+  }
+
+
+  &__close-button {
+    --notification-close-button-offset: var(--spacing-s);
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    right: var(--notification-close-button-offset);
+    top: var(--notification-close-button-offset);
+  }
+
+  &__close-button:focus {
+    box-shadow: 0 0 0 3px var(--color-focus-outline);
+  }
+}
+
+
+@mixin small {
+  &--small {
+    --notification-padding: var(--spacing-2-xs);
+  }
+
+  &--small &__content {
+    display: flex;
+    gap: 0;
+  }
+
+  &--small &__label {
+    margin-right: 0;
+  }
+
+  &--small &__body {
+    margin-right: var(--spacing-l);
+  }
+
+  &--small &__close-button {
+    --notification-close-button-offset: var(--spacing-2-xs);
+  }
+}
+
+@mixin large {
+  &--large {
+    --notification-padding: var(--spacing-l);
+  }
+
+  &--large &__label {
+    margin-right: 0;
+  }
+
+  &--large &__close-button {
+    --notification-close-button-offset: var(--spacing-2-xs);
+  }
+}
+
+@mixin toast {
+  &--top-left,
+  &--top-center,
+  &--top-right,
+  &--bottom-left,
+  &--bottom-center,
+  &--bottom-right {
+    border-width: var(--notification-border-width) 0 0;
+    max-width: var(--notification-max-width-toast);
+    position: fixed;
+    width: calc(100% - var(--spacing-l));
+    z-index: var(--notification-z-index-toast);
+  }
+
+  &--top-left {
+    left: var(--notification-offset);
+    top: var(--notification-offset);
+  }
+
+  &--top-center {
+    left: 50%;
+    top: var(--notification-offset);
+    transform: translateX(-50%);
+  }
+
+  &--top-right {
+    right: var(--notification-offset);
+    top: var(--notification-offset);
+  }
+
+  &--bottom-left {
+    bottom: var(--notification-offset);
+    left: var(--notification-offset);
+  }
+
+  &--bottom-center {
+    bottom: var(--notification-offset);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--bottom-right {
+    bottom: var(--notification-offset);
+    right: var(--notification-offset);
+  }
+
+  @media only screen and (max-width: 765.98px) {
+    & {
+      --notification-offset: var(--spacing-s);
+    }
+  }
+}
+
+@mixin success {
+  &--success {
+    --notification-background-color: var(--color-success-light);
+    --notification-border-color: var(--color-success);
+    --notification-icon-color: var(--color-success);
+  }
+}
+
+@mixin alert {
+  &--alert {
+    --notification-background-color: var(--color-alert-light);
+    --notification-border-color: var(--color-alert-dark);
+    --notification-icon-color: var(--color-alert-dark);
+  }
+}
+
+@mixin error {
+  &--error {
+    --notification-background-color: var(--color-error-light);
+    --notification-border-color: var(--color-error);
+    --notification-icon-color: var(--color-error);
+  }
+}
+
+@mixin box-shadow {
+  &--box-shadow {
+    box-shadow: var(--box-shadow-l);
+  }
+}
+
+@mixin notification(
+  $all: true,
+  $base: false,
+  $small: false,
+  $large: false,
+  $toast: false,
+  $success: false,
+  $alert: false,
+  $error: false,
+  $box-shadow: false,
+  $override: null,
+  $react: false
+) {
+  $className: 'notification';
+
+  @if $override {
+    $className: $override;
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include base;
+    }
+  }
+
+  @if $all or $small {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include small;
+    }
+  }
+
+  @if $all or $large {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include large;
+    }
+  }
+
+  @if $all or $toast {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include toast;
+    }
+  }
+
+  @if $all or $success {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include success;
+    }
+  }
+
+  @if $all or $alert {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include alert;
+    }
+  }
+
+  @if $all or $error {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include error;
+    }
+  }
+
+  @if $all or $box-shadow {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include box-shadow;
+    }
+  }
+
+}
