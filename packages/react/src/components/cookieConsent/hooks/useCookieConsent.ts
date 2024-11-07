@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { CookieConsentCore } from '../cookieConsentCore';
+import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
 import { ChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
-import { Options } from '../types';
+import { Options } from '../../cookieConsentCore/types';
 
 type CookieCore = CookieConsentCore;
 type CreateParams = Parameters<typeof CookieConsentCore.create>;

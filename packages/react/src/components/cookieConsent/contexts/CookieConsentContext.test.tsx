@@ -1,16 +1,16 @@
 import React from 'react';
 import { act, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
 
-import { Provider, useCookieContentContext, useCookieConsentsInstance } from './CookieConsentContext';
+import { Provider, useCookieConsentContext, useCookieConsentsInstance } from './CookieConsentContext';
 // eslint-disable-next-line jest/no-mocks-import
-import { mockCookieConsentCore } from '../__mocks__/mockCookieConsentCore';
-import { CookieConsentCore } from '../cookieConsentCore';
+import { mockCookieConsentCore } from '../../cookieConsentCore/__mocks__/mockCookieConsentCore';
+import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
-import siteSettings from '../example/minimal_sitesettings.json';
+import siteSettings from '../../cookieConsentCore/example/minimal_sitesettings.json';
 
 const mockCore = mockCookieConsentCore();
 
-jest.mock('../cookieConsentCore', () => ({
+jest.mock('../../cookieConsentCore/cookieConsentCore', () => ({
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },
@@ -44,7 +44,7 @@ describe('ConsentContext', () => {
     );
   };
   const ContextHookComponent = () => {
-    const { settingsPageId, consents } = useCookieContentContext();
+    const { settingsPageId, consents } = useCookieConsentContext();
     return (
       <div>
         <p data-testid={testIds.settingsPageId}>{settingsPageId}</p>);

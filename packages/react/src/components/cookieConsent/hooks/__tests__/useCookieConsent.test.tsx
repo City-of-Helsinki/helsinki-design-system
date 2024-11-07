@@ -3,13 +3,13 @@ import { act, fireEvent, render, RenderResult, waitFor } from '@testing-library/
 
 import { CookieConsentReactProps, defaultSettingsPageId, useCookieConsent } from '../useCookieConsent';
 // eslint-disable-next-line jest/no-mocks-import
-import { mockCookieConsentCore } from '../../__mocks__/mockCookieConsentCore';
-import { CookieConsentCore } from '../../cookieConsentCore';
+import { mockCookieConsentCore } from '../../../cookieConsentCore/__mocks__/mockCookieConsentCore';
+import { CookieConsentCore } from '../../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../../hooks/useForceRender';
 
 const mockCore = mockCookieConsentCore();
 
-jest.mock('../../cookieConsentCore', () => ({
+jest.mock('../../../cookieConsentCore/cookieConsentCore', () => ({
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },

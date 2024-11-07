@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useCookieContentContext } from '../contexts/CookieConsentContext';
+import { useCookieConsentContext } from '../contexts/CookieConsentContext';
 import { CookieConsentReactType } from './useCookieConsent';
 
 export type CookieSettingsPageProps = { settingsPageSelector?: string };
@@ -8,7 +8,7 @@ export type CookieSettingsPageReturnType = Pick<CookieConsentReactType, 'isReady
 export function useCookieSettingsPage({
   settingsPageSelector,
 }: CookieSettingsPageProps = {}): CookieSettingsPageReturnType {
-  const { isReady, renderPage, consents, settingsPageId, language, removePage } = useCookieContentContext();
+  const { isReady, renderPage, consents, settingsPageId, language, removePage } = useCookieConsentContext();
 
   useEffect(() => {
     if (isReady) {

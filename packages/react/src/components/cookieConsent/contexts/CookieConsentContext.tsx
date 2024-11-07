@@ -2,13 +2,13 @@ import React, { createContext, useContext } from 'react';
 
 import { useCookieConsent, CookieConsentReactProps, CookieConsentReactType } from '../hooks/useCookieConsent';
 
-export type ContentContextType = CookieConsentReactType;
+export type ConsentContextType = CookieConsentReactType;
 
 export type CookieConsentContextProps = CookieConsentReactProps & {
   children: React.ReactNode | React.ReactNode[] | null;
 };
 
-export const ContentContext = createContext<ContentContextType>({
+export const ConsentContext = createContext<ConsentContextType>({
   isReady: false,
   instance: null,
   consents: [],
@@ -23,20 +23,20 @@ export const ContentContext = createContext<ContentContextType>({
 export const Provider = ({ children, ...rest }: CookieConsentContextProps): React.ReactElement => {
   const contextData = useCookieConsent({ ...rest });
 
-  return <ContentContext.Provider value={contextData}>{contextData.isReady ? children : null}</ContentContext.Provider>;
+  return <ConsentContext.Provider value={contextData}>{contextData.isReady ? children : null}</ConsentContext.Provider>;
 };
 
-export const useCookieContentContext = (): ContentContextType => {
-  return useContext(ContentContext);
+export const useCookieConsentContext = (): ConsentContextType => {
+  return useContext(ConsentContext);
 };
 
 export const useCookieConsentsInstance = (): unknown => {
-  const context = useCookieContentContext();
+  const context = useCookieConsentContext();
   return context.instance;
 };
 
 export const useCookieConsents = (): Array<{ group: string; consented: boolean }> => {
-  const context = useCookieContentContext();
+  const context = useCookieConsentContext();
   return context.consents;
 };
 

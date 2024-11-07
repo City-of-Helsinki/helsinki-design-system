@@ -1,4 +1,4 @@
-import { useCookieBanner } from './hooks/useCookieBanner';
+import { useCookieBanner } from '../hooks/useCookieBanner';
 
 export const CookieBanner = () => {
   useCookieBanner();

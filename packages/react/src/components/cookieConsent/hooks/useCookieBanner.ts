@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-import { useCookieContentContext } from '../contexts/CookieConsentContext';
+import { useCookieConsentContext } from '../contexts/CookieConsentContext';
 import { CookieConsentReactType } from './useCookieConsent';
 
 export type CookieModalReturnType = Pick<CookieConsentReactType, 'isReady' | 'consents'>;
 
 export function useCookieBanner(): CookieModalReturnType {
-  const { isReady, openBannerIfNeeded, consents, language } = useCookieContentContext();
+  const { isReady, openBannerIfNeeded, consents, language } = useCookieConsentContext();
   useEffect(() => {
     if (isReady) {
       openBannerIfNeeded();
