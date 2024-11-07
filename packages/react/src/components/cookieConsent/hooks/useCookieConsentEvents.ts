@@ -1,5 +1,7 @@
 import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 
+import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
+
 export type ChangeEvent = { type: string; acceptedGroups: string[]; storageType?: string; storageKeys?: string[] };
 export type CookieConsentEventsProps = {
   onChange: (changeProps: ChangeEvent) => void;
@@ -25,6 +27,10 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
     }
 
     if (!onChange) {
+      return () => undefined;
+    }
+
+    if (isSsrEnvironment()) {
       return () => undefined;
     }
 

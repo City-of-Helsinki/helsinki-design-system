@@ -4,6 +4,7 @@ import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
 import { ChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
 import { Options } from '../../cookieConsentCore/types';
+import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 
 type CookieCore = CookieConsentCore;
 type CreateParams = Parameters<typeof CookieConsentCore.create>;
@@ -49,6 +50,9 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   // settingsPageSelector must be picked out or banner is never shown
   passedOptions.settingsPageSelector = undefined;
   const windowObjectGetter = () => {
+    if (isSsrEnvironment()) {
+      return undefined;
+    }
     return window && window.hds && window.hds.cookieConsent;
   };
   const submitEventName = passedOptions.submitEvent || defaultSubmitEvent;
