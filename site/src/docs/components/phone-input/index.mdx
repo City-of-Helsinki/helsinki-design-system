@@ -4,7 +4,7 @@ title: 'PhoneInput'
 navTitle: 'PhoneInput'
 ---
 
-import { PhoneInput, Combobox } from 'hds-react';
+import { PhoneInput, Select } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -12,6 +12,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Usage
 
 ### Example
+
 <PlaygroundPreview>
   <PhoneInput
     defaultValue="0451234567"
@@ -22,17 +23,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </PlaygroundPreview>
 
 ### Principles
+
 - **A label should always be provided with a phone number input.**
-    - Make sure that the label is clear and concise. The user should immediately understand what phone number they are supposed to input.
-- If a specific phone number format is required, describe the format in the assistive text. 
-    - Generally it is recommended to allow all common formats and fix the format automatically for the user if needed.
+  - Make sure that the label is clear and concise. The user should immediately understand what phone number they are supposed to input.
+- If a specific phone number format is required, describe the format in the assistive text.
+  - Generally it is recommended to allow all common formats and fix the format automatically for the user if needed.
 - Unless you can fill the input for the user automatically, a default value should not be set.
-    - A placeholder text is often not used either. If a placeholder is used, it is a good practice to make them easily distinguishable from the actual input. A recommended way to do this is to format the placeholder text like this: "_E.g. 0401234567_".
-- If a country code must be inputted, a separate <InternalLink href="/components/dropdown#combobox-single-selection">HDS Combobox input</InternalLink> should be used alongside the phone number input.
+  - A placeholder text is often not used either. If a placeholder is used, it is a good practice to make them easily distinguishable from the actual input. A recommended way to do this is to format the placeholder text like this: "_E.g. 0401234567_".
+- If a country code must be inputted, a separate <InternalLink href="/components/select#select-single-selection">HDS Select input</InternalLink> should be used alongside the phone number input.
 
 ### Variations
 
 #### Default
+
 A default variant of the phone number input.
 
 Note! A default value is used here for demonstration purposes. It should not be used unless the input can be automatically filled for the user.
@@ -47,7 +50,8 @@ Note! A default value is used here for demonstration purposes. It should not be 
 </PlaygroundPreview>
 
 #### With a country code selection
-If a country code is a required input (or otherwise critical), it should be asked in a separate input using <InternalLink href="/components/dropdown#combobox-single-selection">HDS Combobox.</InternalLink>
+
+If a country code is a required input (or otherwise critical), it should be asked in a separate input using <InternalLink href="/components/select#select-single-selection">HDS Select.</InternalLink>
 
 These two input are linked together using a fieldset title and `aria-desribedby` attribute. This way is is clear for screen readers which phone number these two inputs relate to.
 
@@ -59,15 +63,20 @@ export const CountryCodeExample = () => {
         Work phone
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
-        <Combobox
-          id="combobox1"
-          label="Country code"
-          helper="Assistive text"
+        <Select
+          id="hds-select-1"
+          texts={{
+            language: 'en',
+            label: 'Country code',
+            assistive: 'Assistive text',
+            placeholder: 'Choose country code',
+          }}
           aria-describedby="work-phone"
           options={options}
-          defaultValue={{ label: 'Finland (+358)' }}
+          value={[options[0]]}
+          onChange={() => {}}
           required
-          toggleButtonAriaLabel="Choose country code"
+          clearable={false}
         />
         <PhoneInput
           id="input2"

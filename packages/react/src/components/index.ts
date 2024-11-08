@@ -12,7 +12,6 @@ export * from './fieldset';
 export * from './fileInput';
 export * from './footer';
 export * from './header';
-export { Combobox, ComboboxProps } from './dropdown/combobox';
 export * from './imageWithCard';
 export * from './koros';
 export * from './link';

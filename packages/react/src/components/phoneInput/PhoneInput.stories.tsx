@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { PhoneInput, PhoneInputProps } from './PhoneInput';
-import { Combobox } from '../dropdown/combobox';
+import { Select } from '../../index';
 
 export default {
   component: PhoneInput,
@@ -47,19 +47,23 @@ export const WithCountryCode = (args: PhoneInputProps) => {
       <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
         Work phone
       </p>
-      <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
-        <Combobox
+      <div style={{ display: 'grid', gridTemplateColumns: '250px 250px', columnGap: '16px' }}>
+        <Select
           id="hds-select-1"
-          label="Country code"
-          helper="Assistive text"
+          texts={{
+            language: 'en',
+            label: 'Country code',
+            assistive: 'Assistive text',
+            placeholder: 'Choose country code',
+          }}
           aria-describedby="work-phone"
           options={options}
-          defaultValue={{ label: 'Finland (+358)' }}
+          value={[options[0]]}
           onBlur={() => action('onBlur')}
           onChange={(change) => action('onChange')(change)}
           onFocus={() => action('onFocus')}
           required
-          toggleButtonAriaLabel="Choose country code"
+          clearable={false}
         />
         <PhoneInput {...args} />
       </div>
