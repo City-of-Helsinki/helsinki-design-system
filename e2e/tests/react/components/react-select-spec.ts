@@ -5,6 +5,7 @@ import {
   createScreenshotFileName,
   listenToConsole,
   takeStateScreenshots,
+  gotoStorybookUrlByName,
 } from '../../../utils/playwright.util';
 import { createSelectHelpers } from '../../../utils/select.component.util';
 import {
@@ -28,13 +29,6 @@ const storyWithValidation = 'With Validation And Forced Selection';
 const storyWithCustomTheme = 'With Custom Theme';
 
 const selectId = 'hds-select-component';
-
-const gotoStorybookUrlByName = async (page: Page, name: string) => {
-  const filteredUrls = await getComponentStorybookUrls(page, componentName, storybook, [name]);
-  const targetUrl = filteredUrls[0];
-  await page.goto(`file://${targetUrl}`);
-  return targetUrl;
-};
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   test('Take snapshots of all Selects stories', async ({ page, isMobile }) => {
@@ -62,7 +56,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
 
 test.describe(`Selecting options and groups`, () => {
   test('Multiselect select an option and one group', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput, componentName, storybook);
 
     const selectUtil = createSelectHelpers(page, selectId);
     const isOpen = await selectUtil.isOptionListOpen();
@@ -76,7 +70,7 @@ test.describe(`Selecting options and groups`, () => {
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
   });
   test('Singleselect options one by one', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithPlainSingleSelect);
+    await gotoStorybookUrlByName(page, storyWithPlainSingleSelect, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
 
     await selectUtil.selectOptionByIndex({ index: 0, multiSelect: false });
@@ -95,7 +89,7 @@ test.describe(`Keyboard navigation`, () => {
     page,
     isMobile,
   }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     expect(await selectUtil.isOptionListOpen()).toBeFalsy();
@@ -140,7 +134,7 @@ test.describe(`Keyboard navigation`, () => {
     });
   });
   test('Group labels are ignored with single select', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups);
+    await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
 
@@ -190,7 +184,7 @@ test.describe(`Typing when focused and there is no input`, () => {
     // this test assumes that top three options do NOT start with same 3 letters
     // keyCache in the components resets in 300ms
     const assumedCacheResetInMs = 300;
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     expect(await selectUtil.isOptionListOpen()).toBeFalsy();
@@ -234,7 +228,7 @@ test.describe(`Typing when focused and there is no input`, () => {
 });
 test.describe(`Typing when focused and there is an input`, () => {
   test('user input is copied to the input. Even if focus is in options.', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const filterText = 'satisfying';
     const filterTextWithoutResults = 'none';
     const selectUtil = createSelectHelpers(page, selectId);
@@ -296,7 +290,7 @@ test.describe(`Typing when focused and there is an input`, () => {
 });
 test.describe(`Tags`, () => {
   test('Are rendered with multiselect. Only two rows are shown.', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     expect(await selectUtil.getTagsCount()).toBe(0);
     await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
@@ -321,7 +315,7 @@ test.describe(`Tags`, () => {
   test('When "show All" is clicked, focus is set to the first tag. When "show less" is clicked, focus stays and screen reader is notified.', async ({
     page,
   }) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     expect(await selectUtil.getTagsCount()).toBe(0);
     await selectUtil.selectGroupByIndex({ index: 0 });
@@ -341,7 +335,7 @@ test.describe(`Tags`, () => {
     page,
     isMobile,
   }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
     await selectUtil.selectOptionByIndex({ index: 2, multiSelect: true });
@@ -393,7 +387,7 @@ test.describe(`Tags`, () => {
 });
 test.describe(`Search`, () => {
   test('Is also triggerable via button and shows loading info and results', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'Test search');
@@ -423,7 +417,7 @@ test.describe(`Search`, () => {
     expect(options).toHaveLength(24);
   });
   test('No results info is shown', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     await selectUtil.getElementByName('button').click();
@@ -441,7 +435,7 @@ test.describe(`Search`, () => {
     await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
   });
   test('Error is shown', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     await selectUtil.getElementByName('button').click();
@@ -459,7 +453,7 @@ test.describe(`Search`, () => {
     await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
   });
   test('Search results are selectable', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     // typing when button is focused, copies user input to the input
@@ -498,14 +492,14 @@ test.describe(`Search`, () => {
 });
 test.describe(`Element state snapshots`, () => {
   test('Dropdown button and its children', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const button = selectUtil.getElementByName('button');
 
     await takeStateScreenshots(page, button, createScreenshotFileName(testInfo, isMobile, 'dropdownbutton'));
   });
   test('Multiselect items', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
     // takeStateScreenshots has noOutsideClicks=true,
@@ -547,7 +541,7 @@ test.describe(`Element state snapshots`, () => {
     );
   });
   test('Singleselect items', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups);
+    await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
 
@@ -578,7 +572,7 @@ test.describe(`Element state snapshots`, () => {
     );
   });
   test('Tag buttons', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter);
+    await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
     await selectUtil.selectGroupByIndex({ index: 0 });
@@ -599,7 +593,7 @@ test.describe(`Element state snapshots`, () => {
     );
   });
   test('Custom dropdown items', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithCustomTheme);
+    await gotoStorybookUrlByName(page, storyWithCustomTheme, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
     const menuOpenFilename = createScreenshotFileName(testInfo, isMobile, 'menu open');
@@ -669,7 +663,7 @@ test.describe(`Element state snapshots`, () => {
 });
 test.describe(`Error and assistive text snapshots`, () => {
   test('Assistive text is rendered', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithValidation);
+    await gotoStorybookUrlByName(page, storyWithValidation, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectOptionByIndex({ index: 2, multiSelect: false });
     const screenShotName = createScreenshotFileName(testInfo, isMobile);
@@ -677,7 +671,7 @@ test.describe(`Error and assistive text snapshots`, () => {
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
   test('Error text is rendered', async ({ page, isMobile }, testInfo) => {
-    await gotoStorybookUrlByName(page, storyWithValidation);
+    await gotoStorybookUrlByName(page, storyWithValidation, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectOptionByIndex({ index: 5, multiSelect: false });
     const screenShotName = createScreenshotFileName(testInfo, isMobile);
@@ -689,7 +683,7 @@ test.describe(`Error and assistive text snapshots`, () => {
 test.describe(`Changing language changes all related props`, () => {
   test('Texts change also in selections', async ({ page, isMobile }, testInfo) => {
     const buttonTexts = ['Finnish', 'English', 'Swedish'];
-    await gotoStorybookUrlByName(page, storyWithControls);
+    await gotoStorybookUrlByName(page, storyWithControls, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectGroupByIndex({ index: 0 });
     await selectUtil.closeList();

@@ -192,3 +192,10 @@ export const filterLocators = async (list: Locator[], iterator: (loc: Locator) =
   );
   return list.filter((elem, index) => results[index] === true);
 };
+
+export const gotoStorybookUrlByName = async (page: Page, name: string, componentName: string, packageName: string) => {
+  const filteredUrls = await getComponentStorybookUrls(page, componentName, packageName, [name]);
+  const targetUrl = filteredUrls[0];
+  await page.goto(`file://${targetUrl}`);
+  return targetUrl;
+};

@@ -2,9 +2,9 @@
 import { RenderResult } from '@testing-library/react';
 
 import { CookieConsentCore } from '../cookieConsentCore';
-import { readyEvent, defaultSubmitEvent, monitorEvent } from '../hooks/useCookieConsentEvents';
+import { readyEvent, defaultSubmitEvent, monitorEvent } from '../../cookieConsent/hooks/useCookieConsentEvents';
 import { getLastMockCallArgs, getMockCalls } from '../../../utils/testHelpers';
-import { defaultSettingsPageId } from '../hooks/useCookieConsent';
+import { defaultSettingsPageId } from '../../cookieConsent/hooks/useCookieConsent';
 
 export function mockCookieConsentCore() {
   const innerState: {

@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import React, { PropsWithChildren } from 'react';
 import type { Writable } from 'type-fest';
 
@@ -5,6 +6,7 @@ import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 
 type WrapperProps = PropsWithChildren<Record<string, unknown>>;
+type ElementGetterResult = HTMLElement | Element | null;
 
 export const FooterWrapper = ({ children }: WrapperProps) => <Footer title="Bar">{children}</Footer>;
 
@@ -179,3 +181,14 @@ export const assignNewFakeElementChildren = (parent: HTMLElement, children: (HTM
     return childOrRect as HTMLElement;
   });
 };
+
+export const getActiveElement = (anyElement?: ElementGetterResult): Element | null =>
+  anyElement ? anyElement.ownerDocument.activeElement : null;
+
+export const waitForElementFocus = async (elementGetter: () => ElementGetterResult): Promise<void> =>
+  waitFor(() => {
+    const target = elementGetter();
+    if (target) {
+      expect(getActiveElement(target)).toEqual(target);
+    }
+  });
