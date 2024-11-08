@@ -197,41 +197,62 @@ Design token black-60 is changed from #666666 to #595959 to improve contrast wit
 
 ---
 
-## Design kit
+## Figma design kit
 
 This guide will help you understand how to transition an existing project from using an older version of HDS Figma Design Kit to using the latest 4.0.0 version.
 
 ### What’s changing?
 
-This HDS Design Kit update follows the changes deployed in the code for the 4.0.0 release of HDS. The major differences include significant changes to the **CookieConsent**, **Dropdown** and **Tag** components. The new **Select** and **Multiselect** components replace the old Dropdown.
+This HDS Design Kit update follows the changes deployed in the code for the 4.0.0 release of HDS. The major differences include significant changes to the `CookieConsent`, `Dropdown` and `Tag` components. The new `Select` and `Multiselect` components replace the old Dropdown.
 
-The line heights of **headings** have been updated in the HDS Design Kit to improve readability, especially with larger titles. We have improved color **black-60** for better contrast by changing it from #666666 to #595959.
+The line heights of `headings` have been updated in the HDS Design Kit to improve readability, especially with larger titles. We have improved color `black-60` for better contrast by changing it from #666666 to #595959.
 
 The HDS Design Kit in Figma has undergone **a major restructuring**: now, each component is placed on its own page. This new organisation makes it much easier to find components without having to guess which group they belong to. Each component will also have better documentation, which may include main component, subcomponents, specifications, variant examples, and usage & prototype examples, depending on the need and documentation status. We hope these changes will better explain the features of each component and how they can be used.
 
 #### Components that need replacing
 
-- **[Dropdown]** The Dropdown component is now deprecated and will be removed in future versions. Replace it with Select or Multiselect.
+- The Dropdown component is now deprecated and will be removed in future versions. Replace it with Select or Multiselect.
     
-- **[Cookie consent]** The CookieConsent component has been replaced with a new version, and it needs to be manually updated.
-    
+- The CookieConsent component has been replaced with a new version, and it needs to be manually updated.
 
-Deprecated components needs replacing, follow [Figma guide](https://help.figma.com/hc/en-us/articles/360039150413-Swap-components-and-instances) about swapping components.
+Deprecated components needs replacing, follow <ExternalLink href="https://help.figma.com/hc/en-us/articles/360039150413-Swap-components-and-instances">Figma guide about swapping components</ExternalLink>.
 
 #### Components that need manual checking
 
-- **[Headings]** Line heights have been updated to improve readability. Please check that the layout does not break.
+- Line heights in headings have been updated to improve readability. Please check that the layout does not break.
     
-- **[Form components]** The asterisk indicating required fields in form components like TextInput has been renewed and is now its own property. You’ll need to manually change the required indicators in layouts.
+- The asterisk indicating required fields in form components like TextInput has been renewed and is now its own property. You’ll need to manually change the required indicators in layouts.
     
-- **[Tag]** Accessibility has been improved, and a new Link variant has been introduced. These changes do not break the old components, but it’s still better to check the updated components.
-    
+- The Tag components accessibility has been improved, and a new Link variant has been introduced. These changes do not break the old components, but it’s still better to check the updated components.
+
+### Introduction of Figma Variables in HDS
+
+We are excited to announce the introduction of variables in HDS. We will be implementing variables step by step, starting with a feature for all HDS designers!
+
+#### The first one
+
+The first variable in use is called “Deprecated”, and it’s part of the [HDS] Deprecated variable collection. This variable is used in a single component named .❌_DeprecatedIndicator, which is used to highlight deprecated components.
+
+#### What’s great about this?
+
+This feature allows designers to easily and quickly identify and highlight where deprecated HDS components are used on a page.
+
+#### How to use it
+
+1. Click an empty spot on the canvas or press Esc to deselect all layers.
+2. From the **Page** section of the right sidebar, click variable icon to **Apply variable mode**.
+3. Hover over a variable collection [HDS] Deprecated and choose a mode On.
+
+This is just the beginning of our journey to variables in the Helsinki Design System. We are eager to start implementing spacing, colour, and typography tokens. We welcome your feedback!
+
+Read more about variables in <ExternalLink href="https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables">Figma Learn</ExternalLink>.
+
 
 ### What should I do?
 
 #### 1. Duplicate your current design file
 
-In order to avoid disruptions to your workflow, it is recommended that you [duplicate](https://help.figma.com/hc/en-us/articles/360038511533-Duplicate-or-copy-files) your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file.
+In order to avoid disruptions to your workflow, it is recommended that you duplicate your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file. A guide for duplicating files can be found in <ExternalLink href="https://help.figma.com/hc/en-us/articles/360038511533-Duplicate-or-copy-files">Figma Learn</ExternalLink>.
 
 #### 2. Review and accept updates
 
@@ -249,40 +270,12 @@ This update includes breaking changes to components and may require that you upd
 
 The v3 Figma library has been copied as a new file and will no longer receive updates. However, you can continue to use it by swapping to the v3 library.
 
-Swapping libraries allows you to quickly update instances in a file to use components from another library. Follow the Figma guide to swap to the v3 library if you wish to use the previous HDS version.
-
-- [Swap style and component libraries – Figma Learn - Help Center](https://help.figma.com/hc/en-us/articles/4404856784663-Swap-style-and-component-libraries#swap)
+Swapping libraries allows you to quickly update instances in a file to use components from another library. Follow the Figma guide to swap to the v3 library if you wish to use the previous HDS version. The guide for swapping components can be found in <ExternalLink href="https://help.figma.com/hc/en-us/articles/4404856784663-Swap-style-and-component-libraries#swap">Figma Learn</ExternalLink>.
     
-### What about the Sketch library?
+#### What about the Sketch library?
 
 The Sketch library will no longer be updated and will be removed after the 4.0.0 release.
 
----
-
-### Introduction of Figma Variables in HDS
-
-We are excited to announce the introduction of variables in HDS. We will be implementing variables step by step, starting with a feature for all HDS designers!
-
-#### The first one
-
-The first variable in use is called “Deprecated”, and it’s part of the [HDS] Deprecated variable collection. This variable is used in a single component named .❌_DeprecatedIndicator, which is used to highlight deprecated components.
-
-#### What’s great about this?
-
-This feature allows designers to easily and quickly identify and highlight where deprecated HDS components are used on a page.
-
-#### How to use it
-
-1. Click an empty spot on the canvas or press Esc to deselect all layers.
-    
-2. From the **Page** section of the right sidebar, click variable icon to **Apply variable mode**.
-    
-3. Hover over a variable collection [HDS] Deprecated and choose a mode On.
-    
-
-This is just the beginning of our journey to variables in the Helsinki Design System. We are eager to start implementing spacing, colour, and typography tokens. We welcome your feedback!
-
-Read more about variables in [Figma Learn](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables).
 
 ### Getting support
 
