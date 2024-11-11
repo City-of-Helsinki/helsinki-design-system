@@ -104,14 +104,14 @@ const components = (version) => ({
 });
 
 const resolveCurrentMenuItem = (version, menuItems, slugWithPrefix) => {
-  const rootPath = hrefWithVersion('/', version);
+  const rootPath = '/';
 
   if (slugWithPrefix === rootPath) {
-    return menuItems.find(({ link }) => hrefWithVersion(link, version) === rootPath);
+    return menuItems.find(({ link }) => link === rootPath);
   } else {
     const ret = menuItems
-      .filter(({ link }) => hrefWithVersion(link, version) !== rootPath)
-      .find((menuItem) => slugWithPrefix.startsWith(hrefWithVersion(menuItem.link, version)));
+      .filter(({ link }) => link !== rootPath)
+      .find((menuItem) => slugWithPrefix.startsWith(menuItem.link));
     console.log('resolveCurrentMenuItem()', version, menuItems, slugWithPrefix, ret);
     return ret;
   }
@@ -229,7 +229,7 @@ const Layout = ({ location, children, pageContext }) => {
     ...menuLink,
     uiId: generateUiIdFromPath(menuLink.link, 'nav'),
   }));
-  const currentMenuItem = resolveCurrentMenuItem(version, uiMenuLinks, pageSlug);
+  const currentMenuItem = resolveCurrentMenuItem(version, uiMenuLinks, locationWithoutVersion);
   const subMenuLinks = currentMenuItem?.subMenuLinks || [];
   const subMenuLinksFromPages =
     currentMenuItem && currentMenuItem.link
@@ -287,7 +287,7 @@ const Layout = ({ location, children, pageContext }) => {
                   label={`Version ${versionNumber}`}
                   href={index > 0
                     ? hrefWithVersion(locationWithoutVersion, `release-${versionNumber}`)
-                    : locationWithoutVersion}
+                    : withPrefix(locationWithoutVersion)}
                 />
               ))}
             </Header.ActionBarItem>
@@ -321,7 +321,7 @@ const Layout = ({ location, children, pageContext }) => {
                       key={uiId}
                       id={uiId}
                       label={name}
-                      active={pageSlug === prefixedLink || (!hasSubLevels && isMatchingParentLink(link, pageSlug))}
+                      active={locationWithoutVersion === prefixedLink || (!hasSubLevels && isMatchingParentLink(link, locationWithoutVersion))}
                       withDivider={withDivider}
                       {...(hasSubLevels
                         ? {}
@@ -338,7 +338,7 @@ const Layout = ({ location, children, pageContext }) => {
                           key={uiId}
                           href={hrefWithVersion(prefixedSubLevelLink, version)}
                           label={navTitle}
-                          active={pageSlug === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
+                          active={locationWithoutVersion === prefixedSubLevelLink || isMatchingParentLink(slug, locationWithoutVersion)}
                           onClick={(e) => {
                             e.preventDefault();
                             navigate(hrefWithVersion(slug, version));
