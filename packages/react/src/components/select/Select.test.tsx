@@ -16,7 +16,7 @@ import { Texts, Option, SearchResult, SelectProps, AcceptedNativeDivProps, Group
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 import { Select } from './Select';
-import { getActiveElement } from '../cookieConsent/test.util';
+import { getActiveElement } from '../../utils/test-utils';
 
 type ButtonAttributes = HTMLAttributes<HTMLButtonElement>;
 type DivAttributes = HTMLAttributes<HTMLDivElement>;

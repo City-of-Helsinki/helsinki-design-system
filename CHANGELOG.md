@@ -215,11 +215,14 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [cookieConsentController] Removed
+- [cookieController] Removed
+- [getContent] Removed
 
 #### Added
 
-- [Component] What is added?
+- [cookieConsentCore] New component for cookie consent handling
+- [standalone/cookieConsentCore] Standalone version of the cookie consent component
 
 #### Changed
 

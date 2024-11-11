@@ -25,6 +25,7 @@ yarn start:react
 | yarn                         | Install dependencies and link local packages.             |
 | yarn build                   | Builds the React package.                                 |
 | yarn build:hds-js            | Builds the hds-js package.                                |
+| yarn build:hds-js-standalone | Builds standalone files for hds-js package.               |
 | yarn start                   | Starts the development environment.                       |
 | yarn test                    | Runs the tests.                                           |
 | yarn lint                    | Runs the linting.                                         |

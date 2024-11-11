@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Header, LanguageOption } from '../header';
-import { Logo, logoFi } from '../logo';
-import { Tabs } from '../tabs/Tabs';
-import { Provider, useCookieConsents } from './contexts/CookieConsentContext';
-import { CookieBanner } from './CookieBanner';
-import { CookieSettingsPage } from './CookieSettingsPage';
-import { CookieConsentReactProps } from './hooks/useCookieConsent';
+import { Options } from './types';
+import { Link } from '../link';
+import { Notification } from '../notification/Notification';
+import { Button } from '../button/Button';
+import { Banner as ReactBanner } from './storyComponents/Banner';
+import { SettingsPage as ReactSettingsPage } from './storyComponents/SettingsPage';
 
 export default {
-  component: CookieSettingsPage,
+  component: ReactSettingsPage,
   title: 'Components/CookieConsentCore',
   parameters: {
     controls: { expanded: true },
@@ -18,30 +17,11 @@ export default {
   args: {},
 };
 
-const ConsentOutput = () => {
-  const consents = useCookieConsents();
-  if (!consents.length) {
-    return <p>No consents</p>;
-  }
-  return (
-    <p>
-      Current consents:{' '}
-      <ul>
-        {consents.map((obj) => {
-          return (
-            <li>
-              {obj.group}:{String(obj.consented)}
-            </li>
-          );
-        })}
-      </ul>
-    </p>
-  );
-};
+const siteSettingsJsonUrl = './static-cookie-consent/helfi_sitesettings.json';
 
 const Actions = () => {
   const addChatCookie = async () => {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console,
     console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']));
   };
   const addUnallowedCookie = async () => {
@@ -59,82 +39,59 @@ const Actions = () => {
     console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat']));
   };
   return (
-    <p>
-      <button type="button" onClick={addChatCookie}>
-        Add chat group
-      </button>
-      <button type="button" onClick={addUnallowedCookie}>
-        Add unallowed group
-      </button>
-      <button type="button" onClick={removeConsentCookie}>
-        Remove consent cookie
-      </button>
-      <button type="button" onClick={openBanner}>
-        Open banner
-      </button>
-    </p>
+    <>
+      <h2>Controls</h2>
+      <div style={{ display: 'flex', gap: 'var(--spacing-s)' }}>
+        <Button onClick={addChatCookie}>Add chat group</Button>
+        <Button onClick={addUnallowedCookie}>Add unallowed group</Button>
+        <Button onClick={removeConsentCookie}>Remove consent cookie</Button>
+        <Button onClick={openBanner}>Open banner</Button>
+      </div>
+    </>
   );
 };
 
-export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) => {
-  const languages: LanguageOption[] = [
-    { label: 'Suomi', value: 'fi', isPrimary: true },
-    { label: 'Svenska', value: 'sv', isPrimary: true },
-    { label: 'English', value: 'en', isPrimary: true },
-  ];
-  const [language, updateLang] = useState<string>(languages[0].value);
-  const onLangChange = (newLanguage: string) => {
-    updateLang(newLanguage);
-  };
-  const onChange: CookieConsentReactProps['onChange'] = (event) => {
-    console.log('consent event', event);
-  };
-  const siteSettingsJsonUrl = '../static-cookie-consent/helfi_sitesettings.json';
+const Info = () => (
+  <Notification type="info">
+    <p>These examples are for testing hds-js version of the cookie consents.</p>
+    <Link href="/?path=/story/components-cookieconsent--example">See React examples</Link>
+  </Notification>
+);
 
+const DummyContent = () => (
+  <p>
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus numquam, iste aspernatur excepturi quaerat a a
+    ab explicabo aliquam totam, fuga reiciendis aliquid id nulla dicta soluta ullam voluptate! Dignissimos reiciendis
+    deserunt voluptatibus cum aliquid magnam? Eum atque ducimus alias molestias, magni aspernatur numquam doloremque
+    quis nihil aperiam ullam asperiores harum saepe similique ipsum earum neque quisquam! Neque doloribus, mollitia, ut
+    at corporis quo iste deleniti molestias quisquam explicabo fuga amet exercitationem nulla. Deleniti est maiores
+    explicabo minus? Odio amet id perferendis nulla alias vitae, voluptate dignissimos deleniti voluptas officia nam
+    facere iste, maiores porro rem dolorem modi molestiae provident illo.
+  </p>
+);
+
+export const Banner = (options: Options = {}) => {
   return (
-    <Provider onChange={onChange} options={{ language }} siteSettings={siteSettingsJsonUrl}>
-      <Header languages={languages} onDidChangeLanguage={onLangChange} defaultLanguage={language}>
-        <Header.ActionBar
-          frontPageLabel="Frontpage"
-          title="City of Helsinki"
-          titleAriaLabel="City of Helsinki"
-          titleHref="https://hel.fi"
-          logo={<Logo src={logoFi} alt="City of Helsinki" />}
-          logoAriaLabel="Service logo"
-        >
-          <Header.LanguageSelector aria-label="aria" languageHeading="other" />
-        </Header.ActionBar>
-      </Header>
+    <main>
+      <Info />
+      <h1>Cookie consent banner</h1>
+      <p>The banner is shown only if necessary.</p>
+      <Actions />
+      <DummyContent />
+      <ReactBanner siteSettings={siteSettingsJsonUrl} options={options} />
+    </main>
+  );
+};
 
-      <Tabs initiallyActiveTab={currentTabIndex || 0}>
-        <Tabs.TabList className="example-tablist">
-          <Tabs.Tab>Page</Tabs.Tab>
-          <Tabs.Tab>Modal</Tabs.Tab>
-          <Tabs.Tab>Consent list</Tabs.Tab>
-          <Tabs.Tab>Actions</Tabs.Tab>
-        </Tabs.TabList>
-        <Tabs.TabPanel>
-          <h1>Page ( {language} )</h1>
-          <p>Only the settings are shown below on this tab. Modal is kept open if shown previously.</p>
-          <CookieSettingsPage />
-        </Tabs.TabPanel>
-        <Tabs.TabPanel>
-          <h1>Modal ( {language} )</h1>
-          <p>Modal is shown if required consents are not consented.</p>
-          <CookieBanner />
-        </Tabs.TabPanel>
-        <Tabs.TabPanel>
-          <h1>Consents ( {language} )</h1>
-          <p>Modal is also shown here when needed.</p>
-          <ConsentOutput />
-          <CookieBanner />
-        </Tabs.TabPanel>
-        <Tabs.TabPanel>
-          <h1>Actions ( {language} )</h1>
-          <p>Modal is not shown here</p>
-          <Actions />
-        </Tabs.TabPanel>
-      </Tabs>
-    </Provider>
+export const SettingsPage = (options: Options = {}) => {
+  return (
+    <main>
+      <Info />
+      <h1>Cookie consent page</h1>
+      <Actions />
+      <DummyContent />
+      <ReactSettingsPage siteSettings={siteSettingsJsonUrl} options={options} />
+      <DummyContent />
+    </main>
   );
 };

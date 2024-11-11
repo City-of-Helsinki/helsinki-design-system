@@ -4,6 +4,20 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  webServer: [
+    {
+      command: 'yarn serve-core',
+      url: 'http://localhost:6006',
+      stdout: 'ignore',
+      stderr: 'pipe',
+    },
+    {
+      command: 'yarn serve-react',
+      url: 'http://localhost:6007',
+      stdout: 'ignore',
+      stderr: 'pipe',
+    }
+  ],
   snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
   testDir: './tests/',
   timeout: 60 * 1000,

@@ -15,6 +15,7 @@ import {
 import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
+import { isSsrEnvironment } from '../../utils/isSsrEnvironment';
 
 // This private symbol is being used as a way to ensure that the constructor is not called without the create method.
 const privateSymbol = Symbol('private');
@@ -133,6 +134,9 @@ export class CookieConsentCore {
    * @param {any} value - The value to add.
    */
   static addToHdsScope(name, value) {
+    if (isSsrEnvironment()) {
+      return;
+    }
     if (!window.hds) {
       window.hds = {};
     }
@@ -191,7 +195,9 @@ export class CookieConsentCore {
 
     // Dispatch event when the cookie consent is ready to be used by other scripts
     const event = new Event('hds_cookieConsent_ready');
-    window.dispatchEvent(event);
+    if (!isSsrEnvironment()) {
+      window.dispatchEvent(event);
+    }
 
     // Return reference to the class instance
     return instance;

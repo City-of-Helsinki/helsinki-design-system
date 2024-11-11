@@ -8,6 +8,8 @@
     "inst": "yarn playwright install",
     "install-deps": "npx playwright install-deps",
     "record": "npx playwright codegen https://hds.hel.fi",
+    "serve-core": "http-server ../packages/core/storybook-static -d -p 6006",
+    "serve-react": "http-server ../packages/react/storybook-static -d -p 6007",
     "start-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT*",
     "start-package": "npx playwright test tests/$PACKAGE/",
     "start": "npx playwright test",
@@ -16,6 +18,7 @@
     "update-snapshots": "npx playwright test --update-snapshots"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.1"
+    "@playwright/test": "^1.45.1",
+    "http-server": "^14.1.1"
   }
 }

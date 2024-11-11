@@ -2,7 +2,7 @@ import { fireEvent, act, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { advanceUntilDoesNotThrow, advanceUntilPromiseResolved } from '../../../login/testUtils/timerTestUtil';
-import { getActiveElement } from '../../../cookieConsent/test.util';
+import { getActiveElement } from '../../../../utils/test-utils';
 import { HeaderLogoutSubmenuButton, HeaderLogoutSubmenuButtonProps } from './HeaderLogoutSubmenuButton';
 import { initTests, jestHelpers } from './test.util';
 import { HeaderActionBarItem } from '../headerActionBarItem';
