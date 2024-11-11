@@ -44,12 +44,6 @@ const hrefWithVersion = (href, version) => {
   });
 
   const ret = withVersion.startsWith(withPrefix('')) ? withVersion : withPrefix(`${withVersion}`);
-  console.log('hrefWithVersion() href:', href,
-    'version:', version,
-    'parts:', pathParts,
-    'withVersion', withVersion,
-    'return:', ret,
-  );
 
   return ret;
 };
@@ -112,7 +106,6 @@ const resolveCurrentMenuItem = (version, menuItems, slugWithPrefix) => {
     const ret = menuItems
       .filter(({ link }) => link !== rootPath)
       .find((menuItem) => slugWithPrefix.startsWith(menuItem.link));
-    console.log('resolveCurrentMenuItem()', version, menuItems, slugWithPrefix, ret);
     return ret;
   }
 };
@@ -133,7 +126,6 @@ const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
 const isLinkParentForPage = (parentPath, level) => (page) => {
   const pathParts = splitPathIntoParts(page.slug);
   const ret = pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
-  if (ret) console.log('isLinkParentForPage()', parentPath, pathParts);
   return ret;
 };
 const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
@@ -150,13 +142,11 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ location, children, pageContext }) => {
-  const pathName = pageContext.frontmatter.slug;
+  const { title: pageTitle, slug: pathName, customLayout } = pageContext.frontmatter;
   const pathParts = pathName.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
   const locationWithoutVersion = hrefWithoutVersion(pathName, version);
   const versionLabel = version ? `Version ${version.replace('release-', '')}` : `Version ${versions[0]}`;
-
-  console.log(location, pathName, pageContext, pathParts, version, locationWithoutVersion);
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
@@ -210,7 +200,6 @@ const Layout = ({ location, children, pageContext }) => {
     }
   `);
 
-  const { title: pageTitle, slug: pageSlug, customLayout } = pageContext.frontmatter;
   const siteData = queryData.site.siteMetadata;
   const mdxPageData = queryData.allMdx?.edges || [];
 
