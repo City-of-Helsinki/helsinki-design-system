@@ -4,7 +4,7 @@ import { Header, LanguageOption } from '../header';
 import { Logo, logoFi } from '../logo';
 import { Tabs } from '../tabs/Tabs';
 import { Button } from '../button';
-import { Provider, useCookieConsents } from './contexts/CookieConsentContext';
+import { CookieConsentContextProvider, useCookieConsents } from './contexts/CookieConsentContext';
 import { CookieConsentReactProps } from './hooks/useCookieConsent';
 import { StoryComponent } from './components/StoryComponent';
 import { CookieBanner } from './components/CookieBanner';
@@ -98,7 +98,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
   };
 
   return (
-    <Provider
+    <CookieConsentContextProvider
       onChange={onChange}
       options={{ language }}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
@@ -158,6 +158,6 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
         </Tabs.TabPanel>
       </Tabs>
       <span data-testid="current-language" lang={language} />
-    </Provider>
+    </CookieConsentContextProvider>
   );
 };

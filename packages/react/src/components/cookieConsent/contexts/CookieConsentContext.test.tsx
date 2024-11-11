@@ -1,7 +1,11 @@
 import React from 'react';
 import { act, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
 
-import { Provider, useCookieConsentContext, useCookieConsentsInstance } from './CookieConsentContext';
+import {
+  CookieConsentContextProvider,
+  useCookieConsentContext,
+  useCookieConsentsInstance,
+} from './CookieConsentContext';
 // eslint-disable-next-line jest/no-mocks-import
 import { mockCookieConsentCore } from '../../cookieConsentCore/__mocks__/mockCookieConsentCore';
 import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
@@ -58,11 +62,11 @@ describe('ConsentContext', () => {
     const forceRender = useForceRender();
     return (
       <div>
-        <Provider onChange={onChange} siteSettings={siteSettings} options={{ language }}>
+        <CookieConsentContextProvider onChange={onChange} siteSettings={siteSettings} options={{ language }}>
           <p data-testid={testIds.ready}>Context is ready</p>
           <ContextHookComponent />
           <InstanceHookComponent />
-        </Provider>
+        </CookieConsentContextProvider>
         <button
           type="button"
           data-testid={testIds.renderAgain}

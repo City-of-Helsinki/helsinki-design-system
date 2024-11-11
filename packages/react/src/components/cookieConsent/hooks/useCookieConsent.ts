@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
-import { ChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
+import { CookieConsentChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
 import { Options } from '../../cookieConsentCore/types';
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 
@@ -21,9 +21,8 @@ declare global {
   }
 }
 
-export type ChangeProps = { type: string; acceptedGroups: string[]; storageType?: string; storageKeys?: string[] };
 export type CookieConsentReactProps = Omit<CreateProps, 'settingsPageSelector'> & {
-  onChange: (changeProps: ChangeProps) => void;
+  onChange: (changeProps: CookieConsentChangeEvent) => void;
   settingsPageId?: string;
 };
 type GroupConsentData = { group: string; consented: boolean };
@@ -69,7 +68,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   };
 
   const onChangeListener = useCallback(
-    (e: ChangeEvent) => {
+    (e: CookieConsentChangeEvent) => {
       onChange(e);
       forceRender();
     },
@@ -77,7 +76,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   );
 
   const onMonitorEvent = useCallback(
-    (e: ChangeEvent) => {
+    (e: CookieConsentChangeEvent) => {
       onChange(e);
     },
     [useCallback],

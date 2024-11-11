@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Provider } from '../contexts/CookieConsentContext';
+import { CookieConsentContextProvider } from '../contexts/CookieConsentContext';
 import { CookieConsentReactProps } from '../hooks/useCookieConsent';
 import { CookieBanner } from './CookieBanner';
 import { CookieSettingsPage } from './CookieSettingsPage';
@@ -13,9 +13,9 @@ import { CookieSettingsPage } from './CookieSettingsPage';
 
 export const StoryComponent = (props: CookieConsentReactProps) => {
   return (
-    <Provider {...props}>
+    <CookieConsentContextProvider {...props}>
       <CookieSettingsPage />
       <CookieBanner />
-    </Provider>
+    </CookieConsentContextProvider>
   );
 };

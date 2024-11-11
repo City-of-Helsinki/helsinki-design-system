@@ -6,7 +6,7 @@ import { useCookieSettingsPage } from '../useCookieSettingsPage';
 import { mockCookieConsentCore } from '../../../cookieConsentCore/__mocks__/mockCookieConsentCore';
 import { CookieConsentCore } from '../../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../../hooks/useForceRender';
-import { Provider } from '../../contexts/CookieConsentContext';
+import { CookieConsentContextProvider } from '../../contexts/CookieConsentContext';
 import { defaultSettingsPageId } from '../useCookieConsent';
 
 const mockCore = mockCookieConsentCore();
@@ -47,7 +47,7 @@ describe('useCookieSettingsPage', () => {
     renderCount += 1;
     const forceRender = useForceRender();
     return (
-      <Provider onChange={jest.fn()} settingsPageId={settingsPageId}>
+      <CookieConsentContextProvider onChange={jest.fn()} settingsPageId={settingsPageId}>
         <div>
           {isMounted && <ModalComponent />}
           <div data-testid={testIds.isMounted}>{isMounted ? 1 : 0}</div>
@@ -71,7 +71,7 @@ describe('useCookieSettingsPage', () => {
           </button>
           );
         </div>
-      </Provider>
+      </CookieConsentContextProvider>
     );
   };
   afterEach(() => {
