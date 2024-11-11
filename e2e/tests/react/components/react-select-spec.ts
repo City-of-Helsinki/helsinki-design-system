@@ -37,7 +37,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       throw new Error('No componentUrls found for');
     }
     for (const componentUrl of componentUrls) {
-      await page.goto(`file://${componentUrl}`);
+      await page.goto(componentUrl);
       const selectUtil = createSelectHelpers(page, selectId);
       const containerCount = await selectUtil.getElementByName('container').count();
       if (containerCount < 1) {

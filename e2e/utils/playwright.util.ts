@@ -1,4 +1,9 @@
-import { Locator, Page, expect, ElementHandle, Expect, TestInfo } from '@playwright/test';
+import { Locator, Page, expect, ElementHandle, TestInfo } from '@playwright/test';
+
+enum PackageServerPort {
+  Core = 6006,
+  React = 6007,
+}
 
 export const getComponentStorybookUrls = async (
   page: Page,
@@ -7,8 +12,9 @@ export const getComponentStorybookUrls = async (
   nameFilters?: string[],
 ) => {
   let componentUrls: string[] = [];
-  const hds_root_dir = __dirname.split('/e2e')[0];
-  const localStorybookPath = `file://${hds_root_dir}/packages/${packageName}/storybook-static/index.html?path=/story/`;
+  const localServerPort = packageName === 'core' ? PackageServerPort.Core : PackageServerPort.React;
+  const basePath = `http://localhost:${localServerPort}`
+  const localStorybookPath = `${basePath}/index.html?path=/story/`;
 
   await page.goto(`${localStorybookPath}components-${componentName}`);
   await expect(page.locator(`#components-${componentName}`)).toBeVisible();
@@ -26,7 +32,7 @@ export const getComponentStorybookUrls = async (
             return;
           }
         }
-        componentUrls.push(url);
+        componentUrls.push(`${basePath}${url}`);
       }
     });
   }
@@ -112,7 +118,7 @@ export const takeAllStorySnapshots = async (props: {
     throw new Error('No componentUrls found for');
   }
   for (const componentUrl of componentUrls) {
-    await page.goto(`file://${componentUrl}`);
+    await page.goto(componentUrl);
     const container = page.locator('body');
     const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
     await takeScreenshotWithSpacing(page, container, screenshotName, bodySpacing);
@@ -196,6 +202,6 @@ export const filterLocators = async (list: Locator[], iterator: (loc: Locator) =
 export const gotoStorybookUrlByName = async (page: Page, name: string, componentName: string, packageName: string) => {
   const filteredUrls = await getComponentStorybookUrls(page, componentName, packageName, [name]);
   const targetUrl = filteredUrls[0];
-  await page.goto(`file://${targetUrl}`);
+  await page.goto(targetUrl);
   return targetUrl;
 };
