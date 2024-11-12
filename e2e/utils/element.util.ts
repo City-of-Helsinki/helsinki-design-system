@@ -36,6 +36,8 @@ export function isHTMLElementSelectedOrChecked(element: HTMLElement | SVGElement
   };
 
   return (
+    isValueTruthy((element as any).checked) ||
+    isValueTruthy((element as any).selected) ||
     isValueTruthy(element.getAttribute('checked')) ||
     isValueTruthy(element.getAttribute('selected')) ||
     isValueTruthy(element.getAttribute('aria-checked')) ||
