@@ -1,8 +1,8 @@
 import { Locator, Page, expect, ElementHandle, TestInfo } from '@playwright/test';
 
 enum PackageServerPort {
-  Core = 6006,
-  React = 6007,
+  Core = 6007,
+  React = 6006,
 }
 
 export const getComponentStorybookUrls = async (
@@ -13,7 +13,7 @@ export const getComponentStorybookUrls = async (
 ) => {
   let componentUrls: string[] = [];
   const localServerPort = packageName === 'core' ? PackageServerPort.Core : PackageServerPort.React;
-  const basePath = `http://localhost:${localServerPort}`
+  const basePath = `http://localhost:${localServerPort}`;
   const localStorybookPath = `${basePath}/index.html?path=/story/`;
 
   await page.goto(`${localStorybookPath}components-${componentName}`);
