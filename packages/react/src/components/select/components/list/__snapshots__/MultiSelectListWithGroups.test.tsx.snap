@@ -14,7 +14,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
       <div
         aria-checked="false"
         aria-disabled="false"
-        aria-label="FI: Group0 (choose all)"
+        aria-label="Group0 (valitse kaikki)"
         class="listItem groupLabel focusableListItem selectableListItem multiSelectListItem"
         id="test-select-component-option-0"
         role="checkbox"
@@ -159,7 +159,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
       <div
         aria-checked="false"
         aria-disabled="false"
-        aria-label="FI: Group1 (choose all)"
+        aria-label="Group1 (valitse kaikki)"
         class="listItem groupLabel focusableListItem selectableListItem multiSelectListItem"
         id="test-select-component-option-4"
         role="checkbox"
@@ -269,7 +269,7 @@ exports[`<MultiSelectListWithGroups /> Component is rendered 1`] = `
       <div
         aria-checked="false"
         aria-disabled="false"
-        aria-label="FI: Group2 (choose all)"
+        aria-label="Group2 (valitse kaikki)"
         class="listItem groupLabel focusableListItem selectableListItem multiSelectListItem"
         id="test-select-component-option-7"
         role="checkbox"

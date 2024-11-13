@@ -312,7 +312,7 @@ describe('<Select />', () => {
       );
       const notification = getScreenReaderNotifications()[0] as string;
       expect(notification.includes('Option 1')).toBeTruthy();
-      expect(notification.includes('Found 1 option')).toBeTruthy();
+      expect(notification.includes('Löytyi 1 vaihtoehto.')).toBeTruthy();
     });
   });
   describe('Search', () => {
@@ -540,7 +540,7 @@ describe('<Select />', () => {
         listAndInputContainer: {
           'aria-hidden': true,
           role: 'dialog',
-          'aria-label': `${defaultLabel}. FI: 12 choices.`,
+          'aria-label': `${defaultLabel}. 12 vaihtoehtoa.`,
         },
         list: {
           // these undefined values indicate that the element should not have special attributes
@@ -630,7 +630,7 @@ describe('<Select />', () => {
         },
         list: {
           'aria-multiselectable': undefined,
-          'aria-label': `FI: 12 choices.`,
+          'aria-label': `12 vaihtoehtoa.`,
           role: 'dialog',
         },
         options: {
