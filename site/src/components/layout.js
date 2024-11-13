@@ -22,7 +22,7 @@ import versions from '../data/versions.json';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
-const hrefWithVersion = (href, version) => {
+const hrefWithVersion = (href, version, withoutPrefix = false) => {
   if (!version || version === '' || href === ''
     || href.startsWith('mailto:') || href.startsWith('#') || href.startsWith('http'))
     return href;
@@ -43,7 +43,8 @@ const hrefWithVersion = (href, version) => {
     }
   });
 
-  const ret = withVersion.startsWith(withPrefix('')) ? withVersion : withPrefix(`${withVersion}`);
+  const ret = withVersion.startsWith(withPrefix('')) || withoutPrefix
+    ? withVersion : withPrefix(`${withVersion}`);
 
   return ret;
 };
@@ -287,7 +288,7 @@ const Layout = ({ location, children, pageContext }) => {
                 active={hrefWithVersion(currentMenuItem?.link || '', version) === hrefWithVersion(link, version)}
                 key={uiId}
                 label={name}
-                to={hrefWithVersion(link, version)}
+                to={hrefWithVersion(link, version, true)}
                 as={GatsbyLink}
               />
             ))}
@@ -318,7 +319,7 @@ const Layout = ({ location, children, pageContext }) => {
                             href: hrefWithVersion(prefixedLink, version),
                             onClick: (e) => {
                               e.preventDefault();
-                              navigate(hrefWithVersion(link, version));
+                              navigate(hrefWithVersion(link, version, true));
                             },
                           })}
                     >
@@ -330,7 +331,7 @@ const Layout = ({ location, children, pageContext }) => {
                           active={locationWithoutVersion === prefixedSubLevelLink || isMatchingParentLink(slug, locationWithoutVersion)}
                           onClick={(e) => {
                             e.preventDefault();
-                            navigate(hrefWithVersion(slug, version));
+                            navigate(hrefWithVersion(slug, version, true));
                           }}
                         />
                       ))}
@@ -351,7 +352,7 @@ const Layout = ({ location, children, pageContext }) => {
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Navigation>
             {uiMenuLinks.map(({ name, link, uiId }) => (
-              <Footer.Link key={uiId} label={name} to={hrefWithVersion(link, version)} as={GatsbyLink} />
+              <Footer.Link key={uiId} label={name} to={hrefWithVersion(link, version, true)} as={GatsbyLink} />
             ))}
           </Footer.Navigation>
           <Footer.Base
