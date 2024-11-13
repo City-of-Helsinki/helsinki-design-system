@@ -667,7 +667,7 @@ export class CookieConsentCore {
     const shadowRootForm = shadowRoot.querySelector('form');
     shadowRoot.querySelectorAll('button[type=submit]').forEach((button) => {
       button.addEventListener('click', (e) => {
-        this.#handleButtonEvents(e.target.dataset.approved, shadowRootForm);
+        this.#handleButtonEvents(e.currentTarget.dataset.approved, shadowRootForm);
       });
     });
 
