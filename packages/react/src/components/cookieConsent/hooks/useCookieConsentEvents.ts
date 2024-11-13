@@ -2,11 +2,16 @@ import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 
-export type ChangeEvent = { type: string; acceptedGroups: string[]; storageType?: string; storageKeys?: string[] };
+export type CookieConsentChangeEvent = {
+  type: string;
+  acceptedGroups: string[];
+  storageType?: string;
+  storageKeys?: string[];
+};
 export type CookieConsentEventsProps = {
-  onChange: (changeProps: ChangeEvent) => void;
+  onChange: (changeProps: CookieConsentChangeEvent) => void;
   onReady: () => void;
-  onMonitorEvent: (changeProps: ChangeEvent) => void;
+  onMonitorEvent: (changeProps: CookieConsentChangeEvent) => void;
   submitEvent?: string;
 };
 export type CookieConsentEventsReturnType = () => void;
@@ -34,9 +39,9 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
       return () => undefined;
     }
 
-    const getChangeProps = (e: Event): ChangeEvent => {
+    const getChangeProps = (e: Event): CookieConsentChangeEvent => {
       const { detail, type } = e as CustomEvent;
-      const changeProps: ChangeEvent = {
+      const changeProps: CookieConsentChangeEvent = {
         type,
         acceptedGroups: detail.consentedGroups || detail.acceptedGroups || [],
       };
