@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
-import { ChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
+import { CookieConsentChangeEvent, useCookieConsentEvents } from './useCookieConsentEvents';
 import { Options } from '../../cookieConsentCore/types';
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 
@@ -21,9 +21,8 @@ declare global {
   }
 }
 
-export type ChangeProps = { type: string; acceptedGroups: string[]; storageType?: string; storageKeys?: string[] };
 export type CookieConsentReactProps = Omit<CreateProps, 'settingsPageSelector'> & {
-  onChange: (changeProps: ChangeProps) => void;
+  onChange: (changeProps: CookieConsentChangeEvent) => void;
   settingsPageId?: string;
 };
 type GroupConsentData = { group: string; consented: boolean };
@@ -55,21 +54,20 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     }
     return window && window.hds && window.hds.cookieConsent;
   };
-  const submitEventName = passedOptions.submitEvent || defaultSubmitEvent;
   const instanceRef = useRef<CookieCore | null>(null);
   const readyRef = useRef<boolean>(false);
   const forceRender = useForceRender();
   //
   const mergedOptions: CreateProps['options'] = {
     language,
-    submitEvent: submitEventName,
     ...passedOptions,
-    // this must always be true
+    // these must always be true
     disableAutoRender: true,
+    submitEvent: true,
   };
 
   const onChangeListener = useCallback(
-    (e: ChangeEvent) => {
+    (e: CookieConsentChangeEvent) => {
       onChange(e);
       forceRender();
     },
@@ -77,7 +75,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   );
 
   const onMonitorEvent = useCallback(
-    (e: ChangeEvent) => {
+    (e: CookieConsentChangeEvent) => {
       onChange(e);
     },
     [useCallback],
@@ -92,7 +90,6 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     onChange: onChangeListener,
     onMonitorEvent,
     onReady,
-    submitEvent: mergedOptions.submitEvent,
   });
 
   const getAllConsentStatuses = () => {

@@ -20,6 +20,12 @@ import { isSsrEnvironment } from '../../utils/isSsrEnvironment';
 // This private symbol is being used as a way to ensure that the constructor is not called without the create method.
 const privateSymbol = Symbol('private');
 
+export const cookieEventType = {
+  MONITOR: 'hds-cookie-consent-unapproved-item-found',
+  READY: 'hds-cookie-consent-ready',
+  CHANGE: 'hds-cookie-consent-changed',
+};
+
 /**
  * Represents a class for managing cookie consent.
  * @class
@@ -32,7 +38,7 @@ export class CookieConsentCore {
   #targetSelector;
   #spacerParentSelector;
   #pageContentSelector;
-  #submitEvent = '';
+  #submitEvent = false;
   #settingsPageSelector;
   #disableAutoRender;
   #monitor;
@@ -65,7 +71,7 @@ export class CookieConsentCore {
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {string} [options.submitEvent=''] - If set, do not reload the page, but submit the string as an event after consent.
+   * @param {boolean} [options.submitEvent=false] - If set to true, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
    * @param {boolean} [options.disableAutoRender=false] - If true, neither banner or page are rendered automatically
    * @param {boolean} [calledFromCreate=false] - Indicates if the constructor was called from the create method.
@@ -80,7 +86,7 @@ export class CookieConsentCore {
       targetSelector = 'body', // Where to inject the banner
       spacerParentSelector = 'body', // Where to inject the spacer
       pageContentSelector = 'body', // Where to add scroll-margin-bottom
-      submitEvent = '', // if set, do not reload page, but submit the string as event after consent
+      submitEvent = false, // if set, do not reload page, but submit 'hds-cookie-consent-changed' as event after consent
       settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
       disableAutoRender = false,
     },
@@ -152,7 +158,7 @@ export class CookieConsentCore {
    * @param {string} [options.targetSelector='body'] - The selector for where to inject the banner.
    * @param {string} [options.spacerParentSelector='body'] - The selector for where to inject the spacer.
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
-   * @param {string} [options.submitEvent=''] - If set, do not reload the page, but submit the string as an event after consent.
+   * @param {boolean} [options.submitEvent=false] - If set, do not reload the page, but submit 'hds-cookie-consent-changed' event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
    * @param {boolean} [options.disableAutoRender=false] - If...
    * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
@@ -194,7 +200,7 @@ export class CookieConsentCore {
     await instance.#init();
 
     // Dispatch event when the cookie consent is ready to be used by other scripts
-    const event = new Event('hds_cookieConsent_ready');
+    const event = new Event(cookieEventType.READY);
     if (!isSsrEnvironment()) {
       window.dispatchEvent(event);
     }
@@ -387,7 +393,7 @@ export class CookieConsentCore {
     if (!this.#submitEvent) {
       window.location.reload();
     } else {
-      window.dispatchEvent(new CustomEvent(this.#submitEvent, { detail: { acceptedGroups } }));
+      window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
         this.#announceSettingsSaved();
         this.#removeBanner();
@@ -667,7 +673,7 @@ export class CookieConsentCore {
     const shadowRootForm = shadowRoot.querySelector('form');
     shadowRoot.querySelectorAll('button[type=submit]').forEach((button) => {
       button.addEventListener('click', (e) => {
-        this.#handleButtonEvents(e.target.dataset.approved, shadowRootForm);
+        this.#handleButtonEvents(e.currentTarget.dataset.approved, shadowRootForm);
       });
     });
 

@@ -4,11 +4,11 @@ import { Options } from './types';
 import { Link } from '../link';
 import { Notification } from '../notification/Notification';
 import { Button } from '../button/Button';
-import { Banner as ReactBanner } from './storyComponents/Banner';
-import { SettingsPage as ReactSettingsPage } from './storyComponents/SettingsPage';
+import { Banner as BannerComponent } from './storyComponents/Banner';
+import { SettingsPage as SettingsPageComponent } from './storyComponents/SettingsPage';
 
 export default {
-  component: ReactSettingsPage,
+  component: SettingsPageComponent,
   title: 'Components/CookieConsentCore',
   parameters: {
     controls: { expanded: true },
@@ -78,7 +78,7 @@ export const Banner = (options: Options = {}) => {
       <p>The banner is shown only if necessary.</p>
       <Actions />
       <DummyContent />
-      <ReactBanner siteSettings={siteSettingsJsonUrl} options={options} />
+      <BannerComponent siteSettings={siteSettingsJsonUrl} options={options} />
     </main>
   );
 };
@@ -90,7 +90,7 @@ export const SettingsPage = (options: Options = {}) => {
       <h1>Cookie consent page</h1>
       <Actions />
       <DummyContent />
-      <ReactSettingsPage siteSettings={siteSettingsJsonUrl} options={options} />
+      <SettingsPageComponent siteSettings={siteSettingsJsonUrl} options={options} />
       <DummyContent />
     </main>
   );

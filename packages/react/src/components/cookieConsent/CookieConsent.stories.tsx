@@ -4,11 +4,14 @@ import { Header, LanguageOption } from '../header';
 import { Logo, logoFi } from '../logo';
 import { Tabs } from '../tabs/Tabs';
 import { Button } from '../button';
-import { Provider, useCookieConsents } from './contexts/CookieConsentContext';
-import { CookieConsentReactProps } from './hooks/useCookieConsent';
+import {
+  CookieConsentContextProvider,
+  useCookieConsents,
+  CookieConsentReactProps,
+  CookieBanner,
+  CookieSettingsPage,
+} from './index';
 import { StoryComponent } from './components/StoryComponent';
-import { CookieBanner } from './components/CookieBanner';
-import { CookieSettingsPage } from './components/CookieSettingsPage';
 // importing the json because load won't work in e2e
 import siteSettings from '../cookieConsentCore/example/helfi_sitesettings.json';
 
@@ -98,7 +101,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
   };
 
   return (
-    <Provider
+    <CookieConsentContextProvider
       onChange={onChange}
       options={{ language }}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
@@ -158,6 +161,60 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
         </Tabs.TabPanel>
       </Tabs>
       <span data-testid="current-language" lang={language} />
-    </Provider>
+    </CookieConsentContextProvider>
+  );
+};
+
+const DummyContent = () => (
+  <p>
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus numquam, iste aspernatur excepturi quaerat a a
+    ab explicabo aliquam totam, fuga reiciendis aliquid id nulla dicta soluta ullam voluptate! Dignissimos reiciendis
+    deserunt voluptatibus cum aliquid magnam? Eum atque ducimus alias molestias, magni aspernatur numquam doloremque
+    quis nihil aperiam ullam asperiores harum saepe similique ipsum earum neque quisquam! Neque doloribus, mollitia, ut
+    at corporis quo iste deleniti molestias quisquam explicabo fuga amet exercitationem nulla. Deleniti est maiores
+    explicabo minus? Odio amet id perferendis nulla alias vitae, voluptate dignissimos deleniti voluptas officia nam
+    facere iste, maiores porro rem dolorem modi molestiae provident illo.
+  </p>
+);
+
+export const Banner = () => {
+  const onChange: CookieConsentReactProps['onChange'] = (event) => {
+    // eslint-disable-next-line no-console
+    console.log('consent event', event);
+  };
+  return (
+    <CookieConsentContextProvider
+      onChange={onChange}
+      siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
+    >
+      <main>
+        <h1>Cookie consent banner</h1>
+        <p>The banner is shown only if necessary.</p>
+        <CookieBanner />
+      </main>
+    </CookieConsentContextProvider>
+  );
+};
+
+export const SettingsPage = () => {
+  const onChange: CookieConsentReactProps['onChange'] = (event) => {
+    // eslint-disable-next-line no-console
+    console.log('consent event', event);
+  };
+  const siteSettingsPageId = 'custom-id';
+  return (
+    <CookieConsentContextProvider
+      onChange={onChange}
+      siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
+      settingsPageId={siteSettingsPageId}
+    >
+      <main>
+        <h1>Cookie consent page</h1>
+        <p>The banner is not shown here.</p>
+        <p>The settings content is rendered to an element with given id.</p>
+        <CookieSettingsPage />
+        <DummyContent />
+      </main>
+    </CookieConsentContextProvider>
   );
 };

@@ -17,8 +17,8 @@ type Options = {
   targetSelector?: string;
   spacerParentSelector?: string;
   pageContentSelector?: string;
-  submitEvent?: boolean | string;
   settingsPageSelector?: string;
+  submitEvent?: boolean;
 };
 
 jest.mock('hds-core/lib/components/cookie-consent/cookieConsent', () => ({
@@ -71,18 +71,12 @@ describe('cookieConsentCore', () => {
     siteSettingsNotJSON: '/malformed.json',
   };
 
-  // -------------------------------------------------------------------------------------------------------------------
-  // MARK: Default options
   const options: Options = {
-    language: 'fi', // Lang code defaults to 'en'
-    // theme: 'black', // Defaults to 'bus'
-    // targetSelector: 'body', // Defaults to 'body'
-    // spacerParentSelector: 'body', // Defaults to 'body'
-    // pageContentSelector: 'body', // Defaults to 'body'
-    // submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
-    settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
+    language: 'fi',
+    submitEvent: true,
+    settingsPageSelector: '#hds-cookie-consent-full-page',
   };
-  const optionsEvent = { ...options, submitEvent: 'cookie-consent-changed' };
+  const optionsEvent = { ...options };
 
   const STORAGE_TYPE = {
     cookie: 1,

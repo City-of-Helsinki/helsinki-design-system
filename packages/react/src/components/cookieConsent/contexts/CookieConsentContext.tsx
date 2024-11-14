@@ -20,7 +20,7 @@ export const ConsentContext = createContext<ConsentContextType>({
   language: '',
 });
 
-export const Provider = ({ children, ...rest }: CookieConsentContextProps): React.ReactElement => {
+export const CookieConsentContextProvider = ({ children, ...rest }: CookieConsentContextProps): React.ReactElement => {
   const contextData = useCookieConsent({ ...rest });
 
   return <ConsentContext.Provider value={contextData}>{contextData.isReady ? children : null}</ConsentContext.Provider>;

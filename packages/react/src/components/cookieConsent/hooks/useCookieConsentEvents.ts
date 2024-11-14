@@ -1,23 +1,23 @@
 import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
+import { cookieEventType } from '../../cookieConsentCore/cookieConsentCore';
 
-export type ChangeEvent = { type: string; acceptedGroups: string[]; storageType?: string; storageKeys?: string[] };
+export type CookieConsentChangeEvent = {
+  type: string;
+  acceptedGroups: string[];
+  storageType?: string;
+  storageKeys?: string[];
+};
 export type CookieConsentEventsProps = {
-  onChange: (changeProps: ChangeEvent) => void;
+  onChange: (changeProps: CookieConsentChangeEvent) => void;
   onReady: () => void;
-  onMonitorEvent: (changeProps: ChangeEvent) => void;
-  submitEvent?: string;
+  onMonitorEvent: (changeProps: CookieConsentChangeEvent) => void;
 };
 export type CookieConsentEventsReturnType = () => void;
 
-export const defaultSubmitEvent = 'cookie-consent-changed';
-export const monitorEvent = 'hds-cookie-consent-unapproved-item-found';
-export const readyEvent = 'hds_cookieConsent_ready';
-
 export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieConsentEventsReturnType {
   const { onChange, onReady, onMonitorEvent } = props;
-  const submitEvent = props.submitEvent || defaultSubmitEvent;
   const listenerDisposer: MutableRefObject<(() => void) | null> = useRef(null);
 
   useMemo(() => {
@@ -34,13 +34,13 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
       return () => undefined;
     }
 
-    const getChangeProps = (e: Event): ChangeEvent => {
+    const getChangeProps = (e: Event): CookieConsentChangeEvent => {
       const { detail, type } = e as CustomEvent;
-      const changeProps: ChangeEvent = {
+      const changeProps: CookieConsentChangeEvent = {
         type,
         acceptedGroups: detail.consentedGroups || detail.acceptedGroups || [],
       };
-      if (type === monitorEvent && detail.type && detail.keys) {
+      if (type === cookieEventType.MONITOR && detail.type && detail.keys) {
         changeProps.storageType = detail.type;
         changeProps.storageKeys = detail.keys;
       }
@@ -59,21 +59,21 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
       onReady();
     };
 
-    window.addEventListener(submitEvent, cookieListener);
-    window.addEventListener(monitorEvent, monitorListener);
-    window.addEventListener(readyEvent, readyListener);
+    window.addEventListener(cookieEventType.CHANGE, cookieListener);
+    window.addEventListener(cookieEventType.MONITOR, monitorListener);
+    window.addEventListener(cookieEventType.READY, readyListener);
 
     const disposer = () => {
-      window.removeEventListener(submitEvent, cookieListener);
-      window.removeEventListener(monitorEvent, monitorListener);
-      window.removeEventListener(readyEvent, readyListener);
+      window.removeEventListener(cookieEventType.CHANGE, cookieListener);
+      window.removeEventListener(cookieEventType.MONITOR, monitorListener);
+      window.removeEventListener(cookieEventType.READY, readyListener);
       listenerDisposer.current = null;
     };
 
     listenerDisposer.current = disposer;
 
     return disposer;
-  }, [submitEvent, onChange, onMonitorEvent, onReady]);
+  }, [onChange, onMonitorEvent, onReady]);
 
   useEffect(() => {
     return () => {
