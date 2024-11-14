@@ -14,6 +14,7 @@ import {
 import { StoryComponent } from './components/StoryComponent';
 // importing the json because load won't work in e2e
 import siteSettings from '../cookieConsentCore/example/helfi_sitesettings.json';
+import { ToggleButton } from '../toggleButton/ToggleButton';
 
 export default {
   component: StoryComponent,
@@ -51,10 +52,6 @@ const Actions = () => {
     // eslint-disable-next-line no-console
     console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['chat']));
   };
-  const addUnallowedCookie = async () => {
-    // eslint-disable-next-line no-console
-    console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['unallowed']));
-  };
   const removeConsentCookie = async () => {
     const cookieName = `helfi-cookie-consents`;
     document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
@@ -67,21 +64,40 @@ const Actions = () => {
   };
   return (
     <p>
-      <div style={{ display: 'flex', gap: 'var(--spacing-s)' }}>
+      <div style={{ display: 'flex', gap: 'var(--spacing-xs)' }}>
         <Button data-testid="add-chat-group-button" onClick={addChatCookie}>
-          Add chat group
-        </Button>
-        <Button data-testid="add-unallowed-group-button" onClick={addUnallowedCookie}>
-          Add unallowed group
+          Set &quot;chat&quot; consent group as accepted
         </Button>
         <Button data-testid="remove-cookie-button" onClick={removeConsentCookie}>
-          Remove consent cookie
+          Remove all consents
         </Button>
         <Button data-testid="open-banner-button" onClick={openBanner}>
-          Open banner
+          Open banner with highlighted groups &quot;chat&quot; and &quot;statistics&quot;
         </Button>
       </div>
     </p>
+  );
+};
+
+const ThemeButton = (props: { current: 'bus' | 'black'; onChange: (selected: 'bus' | 'black') => void }) => {
+  const { current, onChange } = props;
+  const changedTheme = current === 'bus' ? 'black' : 'bus';
+  return (
+    <div>
+      <div>Current theme</div>
+      <div style={{ display: 'flex', gap: 'var(--spacing-s)', alignItems: 'center' }}>
+        <span>Black</span>
+        <ToggleButton
+          id="bus-theme"
+          aria-label={`change cookie consent label to ${changedTheme}`}
+          label=""
+          checked={current === 'bus'}
+          onChange={() => onChange(changedTheme)}
+        />
+        <span>Bus</span>
+      </div>
+      <div>Theme is only applied to the cookie consent banner and page</div>
+    </div>
   );
 };
 
@@ -92,6 +108,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
     { label: 'English', value: 'en', isPrimary: true },
   ];
   const [language, updateLang] = useState<string>(languages[0].value);
+  const [theme, updateTheme] = useState<'bus' | 'black'>('bus');
   const onLangChange = (newLanguage: string) => {
     updateLang(newLanguage);
   };
@@ -103,7 +120,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
   return (
     <CookieConsentContextProvider
       onChange={onChange}
-      options={{ language }}
+      options={{ language, theme }}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
     >
       <Header languages={languages} onDidChangeLanguage={onLangChange} defaultLanguage={language}>
@@ -118,7 +135,6 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
           <Header.LanguageSelector aria-label="aria" languageHeading="other" />
         </Header.ActionBar>
       </Header>
-
       <Tabs initiallyActiveTab={currentTabIndex || 0}>
         <Tabs.TabList className="example-tablist">
           <Tabs.Tab>
@@ -155,8 +171,11 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
         </Tabs.TabPanel>
         <Tabs.TabPanel>
           <h1>Actions ( {language} )</h1>
-          <p>Banner is not shown here</p>
+          <p>Banner is never shown on this page unless shown previously.</p>
+          <p>Current consents can also be changed my calling the window.hds.cookieConsent instance.</p>
           <Actions />
+          <p>Theme can also be changed like language.</p>
+          <ThemeButton current={theme} onChange={updateTheme} />
           <span data-testid="actions-tab" />
         </Tabs.TabPanel>
       </Tabs>

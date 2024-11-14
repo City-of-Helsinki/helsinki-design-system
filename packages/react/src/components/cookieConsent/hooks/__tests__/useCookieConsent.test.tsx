@@ -31,11 +31,15 @@ describe('useCookieConsent', () => {
 
   const onChange = jest.fn();
   let language: string | undefined;
+  let theme: string | undefined;
   let renderCount = 1;
   const HookComponent = (props: Partial<CookieConsentReactProps> & { renderPageContainer?: boolean } = {}) => {
     const { options = {}, siteSettings = {}, settingsPageId, renderPageContainer } = props;
     if (language) {
       options.language = language;
+    }
+    if (theme) {
+      options.theme = theme;
     }
     const {
       isReady,
@@ -102,6 +106,7 @@ describe('useCookieConsent', () => {
     mockCore.reset();
     onChange.mockReset();
     language = undefined;
+    theme = undefined;
     renderCount = 0;
   });
   const renderTests = (
@@ -145,8 +150,13 @@ describe('useCookieConsent', () => {
       });
     };
 
-    const renderAgain = async (newLanguage?: string) => {
-      language = newLanguage;
+    const renderAgain = async (newLanguage?: string, newTheme?: string) => {
+      if (newLanguage) {
+        language = newLanguage;
+      }
+      if (newTheme) {
+        theme = newTheme;
+      }
       const lastRender = getRenderCount();
       fireEvent.click(result.getByTestId(testIds.renderAgain));
       await waitFor(() => {
@@ -255,5 +265,13 @@ describe('useCookieConsent', () => {
     await renderAgain('za');
     await renderAgain('be');
     expect(mockCore.getTrackerCallCounts('setLanguage')).toBe(2);
+  });
+  it('If theme changes, setTheme is called.', async () => {
+    const result = renderTests();
+    const { waitForReady, renderAgain } = result;
+    await waitForReady();
+    await renderAgain('', 'black');
+    await renderAgain('', 'bus');
+    expect(mockCore.getTrackerCallCounts('setTheme')).toBe(2);
   });
 });
