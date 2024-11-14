@@ -121,7 +121,7 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [CookieConsent] Updated cookie documentation to match new component
 
 #### Added
 
