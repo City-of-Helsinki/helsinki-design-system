@@ -10,6 +10,7 @@ import useForceRender from '../../../../hooks/useForceRender';
 const mockCore = mockCookieConsentCore();
 
 jest.mock('../../../cookieConsentCore/cookieConsentCore', () => ({
+  ...(jest.requireActual('../../../cookieConsentCore/cookieConsentCore') as Record<string, unknown>),
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },
@@ -222,7 +223,7 @@ describe('useCookieConsent', () => {
     expect(result.getAllByTestId(mockCore.getBannerTestId())).toHaveLength(1);
   });
   it('"onChange" is triggered when an event is dispatched', async () => {
-    const result = renderTests({ options: { submitEvent: 'my-event' } });
+    const result = renderTests({ options: { submitEvent: true } });
     const { getConsents, waitForReady, createPromiseForOnChangeUpdate } = result;
     await waitForReady();
     const updatedConsentData = ['group3', 'group4'];

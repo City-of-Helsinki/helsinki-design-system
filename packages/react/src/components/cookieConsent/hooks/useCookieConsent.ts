@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { CookieConsentCore } from '../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../hooks/useForceRender';
-import { CookieConsentChangeEvent, defaultSubmitEvent, useCookieConsentEvents } from './useCookieConsentEvents';
+import { CookieConsentChangeEvent, useCookieConsentEvents } from './useCookieConsentEvents';
 import { Options } from '../../cookieConsentCore/types';
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 
@@ -54,17 +54,16 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     }
     return window && window.hds && window.hds.cookieConsent;
   };
-  const submitEventName = passedOptions.submitEvent || defaultSubmitEvent;
   const instanceRef = useRef<CookieCore | null>(null);
   const readyRef = useRef<boolean>(false);
   const forceRender = useForceRender();
   //
   const mergedOptions: CreateProps['options'] = {
     language,
-    submitEvent: submitEventName,
     ...passedOptions,
-    // this must always be true
+    // these must always be true
     disableAutoRender: true,
+    submitEvent: true,
   };
 
   const onChangeListener = useCallback(
@@ -91,7 +90,6 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     onChange: onChangeListener,
     onMonitorEvent,
     onReady,
-    submitEvent: mergedOptions.submitEvent,
   });
 
   const getAllConsentStatuses = () => {

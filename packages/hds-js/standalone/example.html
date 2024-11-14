@@ -6,8 +6,8 @@
     <title>Esimerkki keksibannerista</title>
     <script>
       /* Example listener for cookie consent change events */
-      window.addEventListener('cookie-consent-changed', function (event) {
-        console.log('Got cookie-consent-changed event with accepted groups:', event.detail.acceptedGroups);
+      window.addEventListener('hds-cookie-consent-changed', function (event) {
+        console.log('Got hds-cookie-consent-changed event with accepted groups:', event.detail.acceptedGroups);
       });
 
       const test = window.addEventListener('hds-cookie-consent-unapproved-cookie-found', function (event) {
@@ -830,7 +830,7 @@
           //targetSelector: 'body', // Defaults to 'body'
           //spacerParentSelector: 'body', // Defaults to 'body'
           //pageContentSelector: 'body', // Defaults to 'body'
-          //submitEvent: 'cookie-consent-changed', // If this string is set, triggers a window level event with that string and detail.acceptedGroups before closing banner. If not set, reloads page instead
+          //submitEvent: true, // If this is set to true, triggers a window level event 'hds-cookie-consent-changed' and detail.acceptedGroups before closing banner. If not set, reloads page instead
           settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
         };
         hds.CookieConsentCore.create(siteSettingsObj, options);

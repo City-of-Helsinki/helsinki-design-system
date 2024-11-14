@@ -12,6 +12,7 @@ import { defaultSettingsPageId } from '../useCookieConsent';
 const mockCore = mockCookieConsentCore();
 
 jest.mock('../../../cookieConsentCore/cookieConsentCore', () => ({
+  ...(jest.requireActual('../../../cookieConsentCore/cookieConsentCore') as Record<string, unknown>),
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },
@@ -178,6 +179,7 @@ describe('useCookieSettingsPage', () => {
     act(() => {
       mockCore.triggerChangeEvent(updatedConsentData);
     });
+
     await waitFor(() => {
       expect(getConsents()).toEqual(updatedConsentData.map((group) => ({ group, consented: true })));
     });

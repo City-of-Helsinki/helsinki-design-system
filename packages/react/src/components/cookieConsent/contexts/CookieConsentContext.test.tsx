@@ -15,6 +15,7 @@ import siteSettings from '../../cookieConsentCore/example/minimal_sitesettings.j
 const mockCore = mockCookieConsentCore();
 
 jest.mock('../../cookieConsentCore/cookieConsentCore', () => ({
+  ...(jest.requireActual('../../cookieConsentCore/cookieConsentCore') as Record<string, unknown>),
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },

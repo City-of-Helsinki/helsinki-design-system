@@ -964,7 +964,7 @@
       targetSelector: 'TARGET_SELECTOR',
       spacerParentSelector: 'SPACER_PARENT_SELECTOR',
       pageContentSelector: 'PAGE_CONTENT_SELECTOR',
-      submitEvent: 'SUBMIT_EVENT_NAME',
+      submitEvent: 'SUBMIT_EVENT',
       settingsPageSelector: 'SETTINGS_PAGE_SELECTOR'
     }
   )"
@@ -1005,8 +1005,8 @@
             <td>Optional selector for parent element that wraps banner and banner spacer, dynamic css variable with banner height is written into inline style of this element. Defaults to 'body'</td>
           </tr>
           <tr></tr>
-            <td><em>SUBMIT_EVENT_NAME</em></td>
-            <td>Optional string, if set, triggers a window level event using given string as the name of the event before closing banner. If not set, reloads page instead</td>
+            <td><em>SUBMIT_EVENT</em></td>
+            <td>Optional boolean, if set to true, triggers a window level event using given string as the name of the event before closing banner. If not set, reloads page instead</td>
           </tr>
           <tr></tr>
             <td><em>SETTINGS_PAGE_SELECTOR</em></td>
