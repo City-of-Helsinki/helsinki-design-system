@@ -35,7 +35,7 @@ const TableBasicInfo = () => {
     {
       id: 'link',
       about: (
-        <Link href="https://hds.hel.fi/" size="s">
+        <Link href="https://hds.hel.fi/" size="small">
           Link to Helsinki Design System (HDS)
         </Link>
       ),
@@ -104,7 +104,6 @@ const DemoPage = () => {
           Visit hds.hel.fi
         </Button>
       </Hero>
-     
       <Container className="info-page-content text-body">
         <div className="info-page-image-card-container">
           <ImageWithCard
@@ -366,7 +365,7 @@ const DemoPage = () => {
           <p>
             HDS is developed as an open-source project so that anyone can benefit from it. The source code is available
             on
-            <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="m">
+            <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="medium">
               GitHub
             </Link>
             free of charge, and even the designs are shared for those interested. Building an open-source design system

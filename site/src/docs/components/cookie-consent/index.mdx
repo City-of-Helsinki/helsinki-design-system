@@ -11,39 +11,76 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Usage
 
-This documentation page is about HDS CookieCompliance component. If you are looking for documentation about cookies in general, please refer to the <InternalLink href="/patterns/cookies/basics">HDS cookie pattern documentation page</InternalLink>.
+This documentation page is about HDS CookieConsent component. If you are looking for documentation about cookies in general, please refer to the <InternalLink href="/patterns/cookies/basics">HDS cookie pattern documentation page</InternalLink>.
 
 ### Example
 
-<ExternalLink href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">
-  View modal example in Storybook
+<ExternalLink
+  href="/storybook/react/?path=/story/components-cookieconsent--example"
+  openInExternalDomainAriaLabel="Opens in a new domain"
+  openInNewTab
+  openInNewTabAriaLabel="Opens in a new tab"
+>
+  View example in Storybook
 </ExternalLink>
 
 ### Principles
 
 - Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search engine). The component checks, if it should be rendered or not.
-- The cookie consent can be rendered either as a modal or as a page. This allows using the same cookie data for both presentation variations.
-  - Use the modal variant as a banner when the user enters the site.
+- The cookie consent can be rendered either as a banner or as a page. This allows using the same cookie data for both presentation variations.
+  - Use the banner variant when the user enters the site.
   - Use the page variant as a full page that the user can access from the page <InternalLink href="/components/footer">Footer</InternalLink> element.
-- You must offer the cookie consent modal and page in all languages that your service supports.
+- You must offer the cookie consent banner and page in all languages that your service supports.
   - By default, the cookie consent banner should use the same language as the service is using.
-  - The component has its language switcher so the user can easily switch the language of the dialog even if they opened the service with a language they do not understand.
   - The component supports Finnish, Swedish and English.
 
 ### Variations
 
-### Modal
+### Banner
 
 The default banner variant opens at the bottom of the viewport. It is opened if the consent for cookies has not been given or if the cookies have changed. The banner can be expanded to view and change cookie settings.
 
-<ExternalLink href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">
-  View modal example in Storybook
+<ExternalLink
+  href="/storybook/react/?path=/story/components-cookieconsent--banner"
+  openInExternalDomainAriaLabel="Opens in a new domain"
+  openInNewTab
+  openInNewTabAriaLabel="Opens in a new tab"
+>
+  View banner example in Storybook
 </ExternalLink>
 
 ### Rendered on a page
 
 The cookie consent expanded settings page can be rendered as a separate page. This is used to create a cookie page that the user can access via a link in the <InternalLink href="/components/footer">Footer</InternalLink> element. This allows the user to view or edit cookie settings after the initial consent has been given.
 
-<ExternalLink href="/storybook/react/?path=/story/components-cookieconsent--page-version">
+<ExternalLink
+  href="/storybook/react/?path=/story/components-cookieconsent--settings-page"
+  openInExternalDomainAriaLabel="Opens in a new domain"
+  openInNewTab
+  openInNewTabAriaLabel="Opens in a new tab"
+>
   View page example in Storybook
+</ExternalLink>
+
+### Standalone version
+
+The cookie consent can be used as a stand-alone version. It has all the styles and functionality in a minified file. This is especially useful for the site that do not have React or HDS in use.
+
+<p>
+  <ExternalLink
+    href="/storybook/react/static-cookie-consent/standaloneBanner.html"
+    openInExternalDomainAriaLabel="Opens in a new domain"
+    openInNewTab
+    openInNewTabAriaLabel="Opens in a new tab"
+  >
+    View stand-alone banner example in Storybook
+  </ExternalLink>
+</p>
+<ExternalLink
+  href="/storybook/react/static-cookie-consent/standalonePage.html"
+  openInExternalDomainAriaLabel="Opens in a new domain"
+  openInNewTab
+  openInNewTabAriaLabel="Opens in a new tab"
+>
+  View stand-alone page example in Storybook
 </ExternalLink>
