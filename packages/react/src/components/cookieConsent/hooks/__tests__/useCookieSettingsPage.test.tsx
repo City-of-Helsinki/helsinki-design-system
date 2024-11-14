@@ -28,6 +28,10 @@ describe('useCookieSettingsPage', () => {
     consents: 'consents',
     isMounted: 'is-mounted',
     settingsPageId: 'settings-page-id',
+    setLanguageTo_sv: 'set-sv-lang',
+    setLanguageTo_fi: 'set-fi-lang',
+    setThemeTo_black: 'set-black-theme',
+    setThemeTo_bus: 'set-bus-theme',
   };
 
   let renderCount: number = 0;
@@ -45,10 +49,12 @@ describe('useCookieSettingsPage', () => {
   let settingsPageId: string | undefined;
   const HookComponent = () => {
     const [isMounted, setIsMounted] = useState(true);
+    const [language, setLanguage] = useState('fi');
+    const [theme, setTheme] = useState('bus');
     renderCount += 1;
     const forceRender = useForceRender();
     return (
-      <CookieConsentContextProvider onChange={jest.fn()} settingsPageId={settingsPageId}>
+      <CookieConsentContextProvider onChange={jest.fn()} settingsPageId={settingsPageId} options={{ language, theme }}>
         <div>
           {isMounted && <ModalComponent />}
           <div data-testid={testIds.isMounted}>{isMounted ? 1 : 0}</div>
@@ -70,7 +76,42 @@ describe('useCookieSettingsPage', () => {
           >
             {isMounted}
           </button>
-          );
+          <button
+            type="button"
+            data-testid={testIds.setLanguageTo_sv}
+            onClick={() => {
+              setLanguage('sv');
+            }}
+          >
+            Set language sv
+          </button>
+          <button
+            type="button"
+            data-testid={testIds.setLanguageTo_fi}
+            onClick={() => {
+              setLanguage('fi');
+            }}
+          >
+            Set language fi
+          </button>
+          <button
+            type="button"
+            data-testid={testIds.setThemeTo_black}
+            onClick={() => {
+              setTheme('black');
+            }}
+          >
+            Set theme black
+          </button>
+          <button
+            type="button"
+            data-testid={testIds.setThemeTo_bus}
+            onClick={() => {
+              setTheme('bus');
+            }}
+          >
+            Set theme bus
+          </button>
         </div>
       </CookieConsentContextProvider>
     );
@@ -125,6 +166,19 @@ describe('useCookieSettingsPage', () => {
       });
     };
 
+    const setLanguage = async (newLang: 'sv' | 'fi') => {
+      fireEvent.click(result.getByTestId(testIds[`setLanguageTo_${newLang}`]));
+      await waitFor(() => {
+        expect(mockCore.getRenderedLanguage()).toBe(newLang);
+      });
+    };
+    const setTheme = async (newTheme: 'bus' | 'black') => {
+      fireEvent.click(result.getByTestId(testIds[`setThemeTo_${newTheme}`]));
+      await waitFor(() => {
+        expect(mockCore.getRenderedTheme()).toBe(newTheme);
+      });
+    };
+
     // @ts-ignore
     mockCore.setRenderResult(result);
 
@@ -140,6 +194,18 @@ describe('useCookieSettingsPage', () => {
         await waitForTestId(testIds.ready);
       },
       getSettingsPageId,
+      setLanguageSv: async () => {
+        return setLanguage('sv');
+      },
+      setLanguageFi: async () => {
+        return setLanguage('fi');
+      },
+      setThemeBus: async () => {
+        return setTheme('bus');
+      },
+      setThemeBlack: async () => {
+        return setTheme('black');
+      },
     };
   };
 
@@ -183,5 +249,21 @@ describe('useCookieSettingsPage', () => {
     await waitFor(() => {
       expect(getConsents()).toEqual(updatedConsentData.map((group) => ({ group, consented: true })));
     });
+  });
+  it('changing language re-renders the page', async () => {
+    const result = renderTests();
+    await result.waitForReady();
+    await result.setLanguageSv();
+    expect(mockCore.getRenderedLanguage()).toBe('sv');
+    await result.setLanguageFi();
+    expect(mockCore.getRenderedLanguage()).toBe('fi');
+  });
+  it('changing theme re-renders the page', async () => {
+    const result = renderTests();
+    await result.waitForReady();
+    await result.setThemeBlack();
+    expect(mockCore.getRenderedTheme()).toBe('black');
+    await result.setThemeBus();
+    expect(mockCore.getRenderedTheme()).toBe('bus');
   });
 });

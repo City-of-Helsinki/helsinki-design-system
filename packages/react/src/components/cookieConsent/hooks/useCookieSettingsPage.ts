@@ -8,7 +8,7 @@ export type CookieSettingsPageReturnType = Pick<CookieConsentReactType, 'isReady
 export function useCookieSettingsPage({
   settingsPageSelector,
 }: CookieSettingsPageProps = {}): CookieSettingsPageReturnType {
-  const { isReady, renderPage, consents, settingsPageId, language, removePage } = useCookieConsentContext();
+  const { isReady, renderPage, consents, settingsPageId, language, removePage, theme } = useCookieConsentContext();
 
   useEffect(() => {
     if (isReady) {
@@ -17,7 +17,7 @@ export function useCookieSettingsPage({
     return () => {
       removePage();
     };
-  }, [isReady, renderPage, settingsPageSelector, language]);
+  }, [isReady, renderPage, settingsPageSelector, language, theme]);
 
   return {
     isReady,
