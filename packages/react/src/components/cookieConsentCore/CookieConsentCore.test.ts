@@ -71,17 +71,10 @@ describe('cookieConsentCore', () => {
     siteSettingsNotJSON: '/malformed.json',
   };
 
-  // -------------------------------------------------------------------------------------------------------------------
-  // MARK: Default options
   const options: Options = {
-    language: 'fi', // Lang code defaults to 'en'
-    // theme: 'black', // Defaults to 'bus'
-    // targetSelector: 'body', // Defaults to 'body'
-    // spacerParentSelector: 'body', // Defaults to 'body'
-    // pageContentSelector: 'body', // Defaults to 'body'
-    // submitEvent: false, // If this is set to true, triggers a window level event 'hds-cookie-consent-changed' containing detail.acceptedGroups before closing banner. If not set, reloads page instead
+    language: 'fi',
     submitEvent: true,
-    settingsPageSelector: '#hds-cookie-consent-full-page', // If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element.
+    settingsPageSelector: '#hds-cookie-consent-full-page',
   };
   const optionsEvent = { ...options };
 
