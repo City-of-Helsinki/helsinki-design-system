@@ -5,9 +5,7 @@
   "version": "3.11.0",
   "scripts": {
     "ci": "npx playwright test",
-    "inst": "yarn playwright install",
-    "install-deps": "npx playwright install-deps",
-    "record": "npx playwright codegen https://hds.hel.fi",
+    "playwright-install": "yarn playwright install --with-deps chromium",
     "serve-core": "http-server ../packages/core/storybook-static -d -p 6007",
     "serve-react": "http-server ../packages/react/storybook-static -d -p 6006",
     "start-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT*",
@@ -18,7 +16,7 @@
     "update-snapshots": "npx playwright test --update-snapshots"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.1",
+    "@playwright/test": "^1.48.2",
     "http-server": "^14.1.1"
   }
 }

@@ -23,6 +23,6 @@ if [ -n "$PACKAGE" ] && [ -n "$COMPONENT" ]; then
     COMMAND="PACKAGE=${PACKAGE} COMPONENT=${COMPONENT} yarn start-component"
 fi
 
-docker run -v ${HDS_ROOT_DIR}:/helsinki-design-system -it --rm --ipc=host mcr.microsoft.com/playwright:v1.45.1-jammy /bin/bash -c "cd /helsinki-design-system/e2e && ${COMMAND}"
+docker run -v ${HDS_ROOT_DIR}:/helsinki-design-system -it --rm --ipc=host mcr.microsoft.com/playwright:v1.48.2-jammy /bin/bash -c "cd /helsinki-design-system/e2e && ${COMMAND}"
 
 # --update-snapshots
