@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { RenderResult } from '@testing-library/react';
 
-import { CookieConsentCore } from '../cookieConsentCore';
-import { readyEvent, defaultSubmitEvent, monitorEvent } from '../../cookieConsent/hooks/useCookieConsentEvents';
+import { CookieConsentCore, cookieEventType } from '../cookieConsentCore';
 import { getLastMockCallArgs, getMockCalls } from '../../../utils/testHelpers';
 import { defaultSettingsPageId } from '../../cookieConsent/hooks/useCookieConsent';
 
@@ -33,28 +32,20 @@ export function mockCookieConsentCore() {
   const getRenderPageArgs = () => {
     return getLastMockCallArgs(trackers.renderPage);
   };
-  const getCreateArgsOptions = () => {
-    const lastCall = getLastMockCallArgs(trackers.create);
-    if (!lastCall || !lastCall[0]) {
-      return null;
-    }
-    return getLastMockCallArgs(trackers.create)[0][1];
-  };
 
   const triggerReadyEvent = () => {
-    window.dispatchEvent(new Event(readyEvent));
+    window.dispatchEvent(new Event(cookieEventType.READY));
   };
 
-  const triggerChangeEvent = (acceptedGroups: string[], submitEvent?: string) => {
-    const args = getCreateArgsOptions() || {};
+  const triggerChangeEvent = (acceptedGroups: string[]) => {
     innerState.consents = acceptedGroups.map((group) => {
       return { group, consented: true };
     });
-    const eventType = args.submitEvent || submitEvent || defaultSubmitEvent;
-    window.dispatchEvent(new CustomEvent(eventType, { detail: { acceptedGroups } }));
+    window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
   };
+
   const triggerMonitorEvent = (type: string, keys: string, consentedGroups: string[]) => {
-    window.dispatchEvent(new CustomEvent(monitorEvent, { detail: { type, keys, consentedGroups } }));
+    window.dispatchEvent(new CustomEvent(cookieEventType.MONITOR, { detail: { type, keys, consentedGroups } }));
   };
 
   const openBanner = async (...args: Parameters<CookieConsentCore['openBanner']>) => {
@@ -94,6 +85,9 @@ export function mockCookieConsentCore() {
         const target = innerState.renderResult.container.querySelector(targetId) as HTMLElement;
         target.appendChild(page);
         return Promise.resolve();
+      },
+      removePage: () => {
+        return false;
       },
       openBanner,
     };

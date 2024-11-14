@@ -11,6 +11,7 @@ import { CookieConsentContextProvider } from '../../contexts/CookieConsentContex
 const mockCore = mockCookieConsentCore();
 
 jest.mock('../../../cookieConsentCore/cookieConsentCore', () => ({
+  ...(jest.requireActual('../../../cookieConsentCore/cookieConsentCore') as Record<string, unknown>),
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },

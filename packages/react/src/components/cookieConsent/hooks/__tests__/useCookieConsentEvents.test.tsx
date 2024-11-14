@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { act, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
 
-import { monitorEvent, useCookieConsentEvents } from '../useCookieConsentEvents';
+import { CookieConsentCore, cookieEventType } from '../../../cookieConsentCore/cookieConsentCore';
+import { useCookieConsentEvents } from '../useCookieConsentEvents';
 // eslint-disable-next-line jest/no-mocks-import
 import { mockCookieConsentCore } from '../../../cookieConsentCore/__mocks__/mockCookieConsentCore';
-import { CookieConsentCore } from '../../../cookieConsentCore/cookieConsentCore';
 import useForceRender from '../../../../hooks/useForceRender';
 import { getLastMockCallArgs } from '../../../../utils/testHelpers';
 
 const mockCore = mockCookieConsentCore();
-
 jest.mock('../../../cookieConsentCore/cookieConsentCore', () => ({
+  ...(jest.requireActual('../../../cookieConsentCore/cookieConsentCore') as Record<string, unknown>),
   CookieConsentCore: {
     create: (...args: Parameters<typeof CookieConsentCore.create>) => mockCore.create(...args),
   },
 }));
-
 describe('useCookieConsentEventsEvents', () => {
   const testIds = {
     disposeButton: 'dispose',
@@ -24,22 +23,18 @@ describe('useCookieConsentEventsEvents', () => {
     listener: 'listener',
     isMounted: 'is-mounted',
   };
-
   const getCallCount = (tracker: jest.Mock) => {
     return tracker.mock.calls.length;
   };
-
   const onChange = jest.fn();
   const onMonitorEvent = jest.fn();
   const onReady = jest.fn();
   let renderCount: number = 0;
-  let submitEvent: string | undefined;
   const ListenerComponent = () => {
     const disposer = useCookieConsentEvents({
       onChange,
       onMonitorEvent,
       onReady,
-      submitEvent,
     });
     return (
       <div data-testid={testIds.listener}>
@@ -92,35 +87,25 @@ describe('useCookieConsentEventsEvents', () => {
     onMonitorEvent.mockReset();
     onReady.mockReset();
     renderCount = 0;
-    submitEvent = undefined;
   });
   const triggerAllEvents = () => {
     mockCore.triggerReadyEvent();
     mockCore.triggerChangeEvent([]);
     mockCore.triggerMonitorEvent('', '', []);
   };
-
-  const renderTests = (newSubmitEvent?: string) => {
-    if (newSubmitEvent) {
-      submitEvent = newSubmitEvent;
-    }
+  const renderTests = () => {
     let result: RenderResult;
     act(() => {
       result = render(<HookComponent />);
     });
-
     const getRenderCount = () => {
       return parseInt(result.getByTestId(testIds.renderAgainButton).innerHTML, 10);
     };
     const getIsMounted = () => {
       return parseInt(result.getByTestId(testIds.isMounted).innerHTML, 10) === 1;
     };
-
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    const renderAgain = async (newSubmitEvent?: string) => {
-      if (newSubmitEvent) {
-        submitEvent = newSubmitEvent;
-      }
+    const renderAgain = async () => {
       const lastRender = getRenderCount();
       fireEvent.click(result.getByTestId(testIds.renderAgainButton));
       await waitFor(() => {
@@ -138,7 +123,6 @@ describe('useCookieConsentEventsEvents', () => {
       fireEvent.click(result.getByTestId(testIds.disposeButton));
       // await renderAgain();
     };
-
     return {
       // @ts-ignore
       ...result,
@@ -148,7 +132,6 @@ describe('useCookieConsentEventsEvents', () => {
       dispose,
     };
   };
-
   it('listeners are not called on init', async () => {
     renderTests();
     expect(getCallCount(onChange)).toBe(0);
@@ -161,21 +144,17 @@ describe('useCookieConsentEventsEvents', () => {
     expect(getCallCount(onChange)).toBe(0);
     expect(getCallCount(onMonitorEvent)).toBe(0);
     expect(getCallCount(onReady)).toBe(1);
-
     const consentData = ['group3', 'group4'];
-
     mockCore.triggerChangeEvent(consentData);
     expect(getCallCount(onChange)).toBe(1);
     expect(getLastMockCallArgs(onChange)[0].acceptedGroups).toEqual(consentData);
     expect(getCallCount(onMonitorEvent)).toBe(0);
     expect(getCallCount(onReady)).toBe(1);
-
     mockCore.triggerChangeEvent([]);
     expect(getCallCount(onChange)).toBe(2);
     expect(getLastMockCallArgs(onChange)[0].acceptedGroups).toEqual([]);
     expect(getCallCount(onMonitorEvent)).toBe(0);
     expect(getCallCount(onReady)).toBe(1);
-
     const storageKeys = 'storageKeys';
     const storageType = 'storageType';
     const acceptedGroups = ['acceptedGroups'];
@@ -186,13 +165,12 @@ describe('useCookieConsentEventsEvents', () => {
       storageKeys,
       storageType,
       acceptedGroups,
-      type: monitorEvent,
+      type: cookieEventType.MONITOR,
     });
     expect(getCallCount(onReady)).toBe(1);
   });
   it('listeners are not called after unmount', async () => {
     const { toggleMount, renderAgain } = renderTests();
-
     triggerAllEvents();
     triggerAllEvents();
     expect(getCallCount(onChange)).toBe(2);
@@ -212,7 +190,6 @@ describe('useCookieConsentEventsEvents', () => {
   });
   it('listeners are not called after disposer is called. Remounting sets listeners back', async () => {
     const { dispose, toggleMount, renderAgain } = renderTests();
-
     dispose();
     triggerAllEvents();
     expect(getCallCount(onChange)).toBe(0);
@@ -233,25 +210,5 @@ describe('useCookieConsentEventsEvents', () => {
     expect(getCallCount(onChange)).toBe(1);
     expect(getCallCount(onMonitorEvent)).toBe(1);
     expect(getCallCount(onReady)).toBe(1);
-  });
-  it('changing the submit event changes event listeners', async () => {
-    const { renderAgain } = renderTests();
-    const newSubmitEvent = 'new-event-type';
-    triggerAllEvents();
-    expect(getCallCount(onChange)).toBe(1);
-    expect(getCallCount(onMonitorEvent)).toBe(1);
-    expect(getCallCount(onReady)).toBe(1);
-    await renderAgain(newSubmitEvent);
-    triggerAllEvents();
-    expect(getCallCount(onChange)).toBe(1);
-    expect(getCallCount(onMonitorEvent)).toBe(2);
-    expect(getCallCount(onReady)).toBe(2);
-
-    mockCore.triggerChangeEvent([], newSubmitEvent);
-    expect(getCallCount(onChange)).toBe(2);
-
-    await renderAgain();
-    mockCore.triggerChangeEvent([], newSubmitEvent);
-    expect(getCallCount(onChange)).toBe(3);
   });
 });

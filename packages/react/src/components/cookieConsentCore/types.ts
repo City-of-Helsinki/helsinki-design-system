@@ -13,7 +13,7 @@ export type Options = {
   targetSelector?: string | undefined;
   spacerParentSelector?: string | undefined;
   pageContentSelector?: string | undefined;
-  submitEvent?: string | undefined;
+  submitEvent?: boolean | undefined;
   settingsPageSelector?: string | undefined;
   disableAutoRender?: boolean | undefined;
 };
