@@ -57,14 +57,9 @@ jobs:
           yarn
         working-directory: ./e2e
 
-      - name: install playwright dependencies
+      - name: install playwright browser and OS dependencies
         run: |
-          yarn install-deps
-        working-directory: ./e2e
-
-      - name: install test tools
-        run: |
-          yarn inst
+          yarn playwright-install
         working-directory: ./e2e
 
       - name: run tests
