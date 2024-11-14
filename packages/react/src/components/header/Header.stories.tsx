@@ -761,3 +761,38 @@ export const WithUserMenu = (args: HeaderProps) => {
     </>
   );
 };
+
+export const WithCustomMenu = (args: HeaderProps) => {
+  const lang = 'fi';
+  const I18n = translations[lang];
+  const versions = ['Version 4.0.0', 'Version 3.11.0', 'Version 2.17.1'];
+  const selectedVersion = 'Version 3.11.0';
+
+  return (
+    <>
+      <Header {...args}>
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
+        <Header.ActionBar
+          frontPageLabel={I18n.frontPage}
+          title={translations[lang].headerTitle}
+          titleAriaLabel={translations[lang].headerAriaLabel}
+          titleHref="https://hel.fi"
+          logo={
+            <Logo
+              src={logoSrcFromLanguageAndTheme(lang, args.theme as HeaderTheme)}
+              alt={translations[lang].headerTitle}
+            />
+          }
+          logoAriaLabel={I18n.ariaLogo}
+        >
+          <Header.ActionBarItem id="VersionMenu" label={selectedVersion} fixedRightPosition>
+            {versions.map((version) => (
+              <Header.ActionBarSubItem label={version} selected={version === selectedVersion} href="/" />
+            ))}
+          </Header.ActionBarItem>
+        </Header.ActionBar>
+      </Header>
+      <div id="content" />
+    </>
+  );
+};

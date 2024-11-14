@@ -147,7 +147,8 @@ const Layout = ({ location, children, pageContext }) => {
   const pathParts = pathName.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
   const locationWithoutVersion = hrefWithoutVersion(pathName, version);
-  const versionLabel = version ? `Version ${version.replace('release-', '')}` : `Version ${versions[0]}`;
+  const versionNumber = version ? version.replace('release-', '') : versions[0];
+  const versionLabel = `Version ${versionNumber}`;
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
@@ -272,11 +273,12 @@ const Layout = ({ location, children, pageContext }) => {
             logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
           >
             <Header.ActionBarItem label={versionLabel} fixedRightPosition>
-              {versions.map((versionNumber, index) => (
+              {versions.map((itemVersion, index) => (
                 <Header.ActionBarSubItem
-                  label={`Version ${versionNumber}`}
+                  label={`Version ${itemVersion}`}
+                  selected={itemVersion === versionNumber}
                   href={index > 0
-                    ? hrefWithVersion(locationWithoutVersion, `release-${versionNumber}`)
+                    ? hrefWithVersion(locationWithoutVersion, `release-${itemVersion}`)
                     : withPrefix(locationWithoutVersion)}
                 />
               ))}

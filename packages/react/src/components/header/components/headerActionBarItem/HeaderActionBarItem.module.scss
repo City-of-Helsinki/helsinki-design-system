@@ -151,6 +151,10 @@
     & > h4 {
       padding: 0 !important;
     }
+
+    &.selected {
+      border-left: 4px solid var(--color-black);
+    }
   }
 
   & .dropdownItem button {
