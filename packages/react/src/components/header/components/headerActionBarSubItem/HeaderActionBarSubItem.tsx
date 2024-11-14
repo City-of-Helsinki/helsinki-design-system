@@ -48,6 +48,10 @@ export interface HeaderActionBarSubItemProps extends ElementProps {
    */
   bold?: boolean;
   /**
+   * If selected
+   */
+  selected?: boolean;
+  /**
    * Hypertext Reference of the link.
    */
   href?: string;
@@ -75,6 +79,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
       onClick,
       className,
       bold,
+      selected,
       external,
       openInExternalDomainAriaLabel,
       ...rest
@@ -85,6 +90,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
       [classes.actionBarSubItem]: true,
       ...(className && { [className]: true }),
       [classes.bold]: bold,
+      [classes.selected]: selected,
     });
 
     const composeAriaLabel = () => {
@@ -151,7 +157,14 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
         return isHeading ? (
           <h4 className={itemClassName}>{children}</h4>
         ) : (
-          <li className={actionBarItemClasses.dropdownItem}>{children}</li>
+          <li
+            className={classNames({
+              [actionBarItemClasses.dropdownItem]: true,
+              [actionBarItemClasses.selected]: selected,
+            })}
+          >
+            {children}
+          </li>
         );
       },
       [isHeading, itemClassName],

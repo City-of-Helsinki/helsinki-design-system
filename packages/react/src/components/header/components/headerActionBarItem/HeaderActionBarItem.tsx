@@ -141,6 +141,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
           activeStateLabel: closeLabel,
         }
       : {};
+  const heading = visible && !fullWidth && label && avatar;
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
@@ -165,7 +166,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       {hasSubItems && (
         <div className={classes.dropdownWrapper}>
           <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
-            {visible && !fullWidth && label && <h3>{label}</h3>}
+            {heading && <h3>{label}</h3>}
             <ul>{children}</ul>
           </div>
         </div>
