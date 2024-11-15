@@ -48,6 +48,7 @@ exports.createPages = async ({ actions, graphql }) => {
               title
               slug
               navTitle
+              customLayout
             }
             parent {
               ... on File {
