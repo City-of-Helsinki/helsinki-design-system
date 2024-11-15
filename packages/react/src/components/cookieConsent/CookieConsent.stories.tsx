@@ -32,18 +32,18 @@ const ConsentOutput = () => {
     return <p>No consents</p>;
   }
   return (
-    <p>
+    <div>
       Current consents:{' '}
       <ul data-testid="consents-list">
         {consents.map((obj) => {
           return (
-            <li data-consent-group={obj.group} data-consent-group-value={obj.consented}>
+            <li data-consent-group={obj.group} data-consent-group-value={obj.consented} key={obj.group}>
               {obj.group}:{String(obj.consented)}
             </li>
           );
         })}
       </ul>
-    </p>
+    </div>
   );
 };
 
@@ -63,7 +63,7 @@ const Actions = () => {
     console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat']));
   };
   return (
-    <p>
+    <div>
       <div style={{ display: 'flex', gap: 'var(--spacing-xs)' }}>
         <Button data-testid="add-chat-group-button" onClick={addChatCookie}>
           Set &quot;chat&quot; consent group as accepted
@@ -75,7 +75,7 @@ const Actions = () => {
           Open banner with highlighted groups &quot;chat&quot; and &quot;statistics&quot;
         </Button>
       </div>
-    </p>
+    </div>
   );
 };
 
