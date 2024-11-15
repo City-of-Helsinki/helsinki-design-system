@@ -31,8 +31,8 @@ const hrefWithVersion = (href, version, withoutPrefix = false) => {
   let versionAdded = false;
   const pathParts = href.split('/');
 
-  pathParts.forEach(part => {
-    if (part !== '') {
+  pathParts.forEach((part, index) => {
+    if (index > 0) {
       if (part === 'hds-demo' || part.startsWith('preview_') || versionAdded) {
         withVersion += '/' + part;
       }
@@ -196,6 +196,13 @@ const Layout = ({ location, children, pageContext }) => {
               slug
               navTitle
             }
+            parent {
+              ... on File {
+                gitRemote {
+                  ref
+                }
+              }
+            }
           }
         }
       }
@@ -207,7 +214,11 @@ const Layout = ({ location, children, pageContext }) => {
 
   // filter out duplicate slug entries. It would be better to do this in graphql query
   const allPages = Object.values(
-    Object.fromEntries(mdxPageData.map(({ node }) => [node.frontmatter.slug, { ...node.frontmatter, ...node.fields }])),
+    Object.fromEntries(
+      mdxPageData
+        .filter(({ node }) => node?.parent?.gitRemote?.ref === version)
+        .map(({ node }) => [node.frontmatter.slug, { ...node.frontmatter, ...node.fields }])
+    ),
   );
 
   const siteTitle = siteData?.title || 'Title';
