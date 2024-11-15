@@ -1,17 +1,37 @@
 const webpack = require('webpack');
 const path = require('path');
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
+  const config = getConfig();
+
+  config.plugins.push(
+    new webpack.NormalModuleReplacementPlugin(
+      /hds-core|hds-react/,
+      resource => {
+        if (resource.context.includes('.cache/gatsby-source-git/docs-release-2.17.1/site')) {
+          resource.request = resource.request.replace('hds-core', 'hds-2-core');
+          resource.request = resource.request.replace('hds-react', 'hds-2-react');
+        }
+        if (resource.context.includes('.cache/gatsby-source-git/docs-release-3.11.0/site')) {
+          resource.request = resource.request.replace('hds-core', 'hds-3-core');
+          resource.request = resource.request.replace('hds-react', 'hds-3-react');
+        }
+      }
+    )
+  );
+
   actions.setWebpackConfig({
     plugins: [
       // We need to provide a polyfill for react-live library to make it work with the latest Gatsby: https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-nodejs-polyfills-removed
       new webpack.ProvidePlugin({
         process: 'process/browser',
       }),
+      ...config.plugins,
     ],
     resolve: {
       alias: {
         fs$: path.resolve(__dirname, 'src/fs.js'),
+        '~hds-core': 'hds-2-core',
         'hds-react': 'hds-react/lib',
         stream: false,
       },
@@ -19,6 +39,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         crypto: require.resolve('crypto-browserify'),
       },
     },
+    /*
     optimization: {
       splitChunks: {
         chunks: 'initial',
@@ -31,6 +52,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         },
       },
     },
+    */
   });
 };
 
@@ -70,8 +92,10 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   const brokenPages = [
+/*
     '/release-3.11.0/components/phone-input',
     '/release-3.11.0/components/dropdown',
+*/
   ];
 
   // Create pages dynamically
