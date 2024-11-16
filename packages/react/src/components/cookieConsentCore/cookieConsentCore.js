@@ -199,9 +199,9 @@ export class CookieConsentCore {
     // Initialise the class instance
     await instance.#init();
 
-    // Dispatch event when the cookie consent is ready to be used by other scripts
-    const event = new Event(cookieEventType.READY);
     if (!isSsrEnvironment()) {
+      // Dispatch event when the cookie consent is ready to be used by other scripts
+      const event = new Event(cookieEventType.READY);
       window.dispatchEvent(event);
     }
 
@@ -252,7 +252,7 @@ export class CookieConsentCore {
       console.error(`Cookie consent: The user is already on settings page`);
       return;
     }
-    this.#removeBanner();
+    this.removeBanner();
     await this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
   }
   /**
@@ -313,14 +313,11 @@ export class CookieConsentCore {
     this.#cookieHandler.setLanguage(language);
   }
 
-  // MARK: Private methods
-
   /**
    * Removes the banner and related elements.
-   * @private
-   * @function #removeBanner
+   * @returns {void}
    */
-  #removeBanner() {
+  removeBanner() {
     // Remove banner size observer
     if (this.#resizeReference.resizeObserver && this.#resizeReference.bannerHeightElement) {
       this.#resizeReference.resizeObserver.unobserve(this.#resizeReference.bannerHeightElement);
@@ -341,6 +338,8 @@ export class CookieConsentCore {
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
   }
+
+  // MARK: Private methods
 
   /**
    * Gets accepted checkbox groups from form
@@ -396,7 +395,7 @@ export class CookieConsentCore {
       window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
         this.#announceSettingsSaved();
-        this.#removeBanner();
+        this.removeBanner();
         return;
       }
       this.#announceSettingsSaved();
@@ -748,7 +747,7 @@ export class CookieConsentCore {
       }
     });
 
-    this.#removeBanner();
+    this.removeBanner();
 
     let settingsPageElement = null;
     // If settings page selector is enabled, check if the element exists

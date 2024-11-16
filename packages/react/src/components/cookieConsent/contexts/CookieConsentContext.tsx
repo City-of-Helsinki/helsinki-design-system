@@ -13,6 +13,7 @@ export const ConsentContext = createContext<ConsentContextType>({
   instance: null,
   consents: [],
   openBanner: () => Promise.reject(new Error("'openBanner' not initialized")),
+  removeBanner: () => false,
   openBannerIfNeeded: () => Promise.reject(new Error("'openBannerIfNeeded' not initialized")),
   renderPage: () => Promise.reject(new Error("'renderPage' not initialized")),
   removePage: () => false,

@@ -32,6 +32,7 @@ export type CookieConsentReactType = {
   consents: Array<GroupConsentData>;
   instance: CookieConsentCore | null;
   openBanner: () => Promise<boolean>;
+  removeBanner: () => void;
   openBannerIfNeeded: () => Promise<boolean>;
   renderPage: (selector?: string) => Promise<boolean>;
   removePage: () => void;
@@ -155,11 +156,19 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     instanceRef.current.removePage();
   };
 
+  const removeBanner = () => {
+    if (!instanceRef.current) {
+      return;
+    }
+    instanceRef.current.removeBanner();
+  };
+
   return {
     isReady: readyRef.current && !!instanceRef.current,
     instance: instanceRef.current,
     consents: getAllConsentStatuses(),
     openBanner,
+    removeBanner,
     openBannerIfNeeded,
     renderPage,
     removePage,
