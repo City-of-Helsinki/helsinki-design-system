@@ -246,21 +246,21 @@ export class CookieConsentCore {
   /**
    * Opens banner when not on cookie settings page.
    */
-  async openBanner(highlightedGroups = []) {
+  openBanner(highlightedGroups = []) {
     if (this.#settingsPageSelector && document.querySelector(this.#settingsPageSelector)) {
       // eslint-disable-next-line no-console
       console.error(`Cookie consent: The user is already on settings page`);
       return;
     }
     this.removeBanner();
-    await this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
+    this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
   }
   /**
    * Opens banner only if necessary
    */
-  async openBannerIfNeeded(highlightedGroups = []) {
+  openBannerIfNeeded(highlightedGroups = []) {
     if (this.#shouldDisplayBanner()) {
-      await this.openBanner(highlightedGroups);
+      this.openBanner(highlightedGroups);
       return Promise.resolve(true);
     }
     return Promise.resolve(false);
@@ -270,7 +270,7 @@ export class CookieConsentCore {
    * Renders cookie settings page.
    * @param {string|undefined} settingsPageSelector - target element selector. If not set options.settingsPageSelector is used.
    */
-  async renderPage(settingsPageSelector = undefined) {
+  renderPage(settingsPageSelector = undefined) {
     const selector = settingsPageSelector || this.#settingsPageSelector;
     // If settings page selector is enabled, check if the element exists
     const settingsPageElement = selector ? document.querySelector(selector) : null;
@@ -278,7 +278,7 @@ export class CookieConsentCore {
     this.#settingsPageElement = settingsPageElement;
     if (settingsPageElement) {
       // If settings page element is found, render site settings in page instead of banner
-      await this.#render(this.#language, this.#siteSettings, false, settingsPageElement);
+      this.#render(this.#language, this.#siteSettings, false, settingsPageElement);
     }
   }
   /**
@@ -572,10 +572,10 @@ export class CookieConsentCore {
    * Inject CSS styles into the shadow root.
    * @private
    * @param {ShadowRoot} shadowRoot - The shadow root element to inject the styles into.
-   * @return {Promise<void>} - A promise that resolves when the styles are injected successfully.
+   * @return {void}
    * @throws {Error} - If there is an error fetching or injecting the styles.
    */
-  async #injectCssStyles(shadowRoot) {
+  #injectCssStyles(shadowRoot) {
     // Create and inject the style
     const style = document.createElement('style');
     style.textContent = styles;
@@ -594,7 +594,7 @@ export class CookieConsentCore {
    * @throws {Error} If the spacerParentSelector element is not found.
    * @throws {Error} If the contentSelector element is not found.
    */
-  async #render(lang, siteSettings, isBanner, renderTarget = null, highlightedGroups = []) {
+  #render(lang, siteSettings, isBanner, renderTarget = null, highlightedGroups = []) {
     let spacerParent;
     let renderTargetToPrepend = renderTarget;
     if (isBanner) {
@@ -630,8 +630,7 @@ export class CookieConsentCore {
 
     const shadowRoot = container.attachShadow({ mode: 'open' });
 
-    // Inject CSS styles
-    await this.#injectCssStyles(shadowRoot);
+    this.#injectCssStyles(shadowRoot);
 
     const browserCookie = this.#cookieHandler.getCookie();
     const listOfAcceptedGroups = browserCookie ? browserCookie.groups : [];
@@ -763,12 +762,12 @@ export class CookieConsentCore {
       if (settingsPageElement) {
         this.#settingsPageElement = settingsPageElement;
         // If settings page element is found, render site settings in page instead of banner
-        await this.#render(this.#language, siteSettings, false, settingsPageElement);
+        this.#render(this.#language, siteSettings, false, settingsPageElement);
       } else {
         // Check if banner is needed or not
         const shouldDisplayBanner = this.#shouldDisplayBanner();
         if (shouldDisplayBanner) {
-          await this.#render(this.#language, siteSettings, true);
+          this.#render(this.#language, siteSettings, true);
         }
       }
     }
