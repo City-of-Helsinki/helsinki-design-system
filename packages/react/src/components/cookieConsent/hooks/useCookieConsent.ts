@@ -51,12 +51,15 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   passedOptions.settingsPageSelector = undefined;
   const windowObjectGetter = () => {
     if (isSsrEnvironment()) {
-      return undefined;
+      return null;
     }
     return window && window.hds && window.hds.cookieConsent;
   };
-  const instanceRef = useRef<CookieCore | null>(null);
+  const instanceRef = useRef<CookieCore | null>(windowObjectGetter());
   const readyRef = useRef<boolean>(false);
+  // in dev mode, React CRA renders all components twice. This will result calling core.create() twice,
+  // because first instance is not ready before second render.
+  const createHasBeenCalled = useRef<boolean>(!!instanceRef.current);
   const forceRender = useForceRender();
   //
   const mergedOptions: CreateProps['options'] = {
@@ -84,6 +87,9 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
 
   const onReady = useCallback(() => {
     readyRef.current = true;
+    if (!instanceRef.current) {
+      instanceRef.current = windowObjectGetter();
+    }
     forceRender();
   }, [forceRender]);
 
@@ -112,8 +118,13 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   useEffect(() => {
     if (!instanceRef.current) {
       const asyncCreation = async () => {
+        if (createHasBeenCalled.current) {
+          return Promise.resolve(false);
+        }
+        createHasBeenCalled.current = true;
         instanceRef.current = await CookieConsentCore.create(siteSettings, mergedOptions);
         forceRender();
+        return Promise.resolve(true);
       };
       // useEffect cannot be async, so have to use this work-around
       asyncCreation();
