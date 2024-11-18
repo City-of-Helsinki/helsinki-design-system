@@ -161,7 +161,7 @@ Note: the React context, hooks, and components always set `submitEvent` to `true
 | Property                                      | Description                                         | Type                                                                      | Default                                    |
 | --------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------ |
 | `type`                                        | The event type.                                     | `string`                                                                  | `hds-cookie-consent-unapproved-item-found` |
-| `detail.type`                                 | Storage type where the unapproved items were found. | `cookie`, `localStorage`, `sessionStorage`, `indexedDB` or `cacheStorage` | -                                          |
+| `detail.storageType`                          | Storage type where the unapproved items were found. | `cookie`, `localStorage`, `sessionStorage`, `indexedDB` or `cacheStorage` | -                                          |
 | `detail.keys`                                 | Keys of the unapproved items                        | `string`                                                                  | -                                          |
 | `detail.consentedGroups`                      | Accepted consent groups.                            | `string[]`                                                                | `[]`                                       |
 | [Table 1: Properties of the monitoring event] |

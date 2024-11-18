@@ -40,8 +40,8 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
         type,
         acceptedGroups: detail.consentedGroups || detail.acceptedGroups || [],
       };
-      if (type === cookieEventType.MONITOR && detail.type && detail.keys) {
-        changeProps.storageType = detail.type;
+      if (type === cookieEventType.MONITOR && detail.storageType && detail.keys) {
+        changeProps.storageType = detail.storageType;
         changeProps.storageKeys = detail.keys;
       }
       return changeProps;
