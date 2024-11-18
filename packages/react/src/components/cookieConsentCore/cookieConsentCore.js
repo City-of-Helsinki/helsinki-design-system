@@ -416,6 +416,26 @@ export class CookieConsentCore {
   }
 
   /**
+   * animates notification in and out
+   * @return {boolean} - Returns true notification exists and it controlled by via animationend
+   */
+  #animateNotificationIfFound() {
+    if (!this.#bannerElements.ariaLive) {
+      return false;
+    }
+    const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
+    if (notificationElem) {
+      notificationElem.classList.remove('enter');
+      notificationElem.classList.add('exit');
+      notificationElem.addEventListener('animationend', (e) => {
+        e.currentTarget.remove();
+      });
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * clears the aria-live element
    */
   #clearAnnouncementElement(keepElement) {
@@ -428,6 +448,17 @@ export class CookieConsentCore {
       this.#bannerElements.ariaLive.remove();
     }
     this.#bannerElements.ariaLive = null;
+  }
+
+  #removeAnnouncementOrNotification() {
+    // fail-safe scenario where neither banner nor page exists anymore
+    if (!this.#bannerElements.bannerContainer && !this.#settingsPageElement) {
+      this.#clearAnnouncementElement(false);
+    }
+    const controlRemovalWithAnimation = this.#animateNotificationIfFound();
+    if (!controlRemovalWithAnimation) {
+      this.#clearAnnouncementElement(true);
+    }
   }
 
   /**
@@ -475,40 +506,7 @@ export class CookieConsentCore {
 
     // Remove ariaLive after 5 seconds
     this.#timeoutReference = setTimeout(() => {
-      if (this.#bannerElements.ariaLive) {
-        // If banner has been removed, remove ariaLive element too
-        if (!this.#bannerElements.bannerContainer) {
-          if (this.#settingsPageElement) {
-            const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
-            if (notificationElem) {
-              notificationElem.classList.remove('enter');
-              notificationElem.classList.add('exit');
-              notificationElem.addEventListener('animationend', () => {
-                notificationElem.remove();
-                this.#bannerElements.ariaLive = null;
-              });
-            } else {
-              this.#clearAnnouncementElement(true);
-            }
-          } else {
-            this.#clearAnnouncementElement(false);
-          }
-
-          // Otherwise, clear the content
-        } else {
-          const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
-          if (notificationElem) {
-            notificationElem.classList.remove('enter');
-            notificationElem.classList.add('exit');
-            notificationElem.addEventListener('animationend', () => {
-              notificationElem.remove();
-              this.#bannerElements.ariaLive = null;
-            });
-          } else {
-            this.#clearAnnouncementElement(true);
-          }
-        }
-      }
+      this.#removeAnnouncementOrNotification();
     }, SHOW_ARIA_LIVE_FOR_MS);
   }
 
