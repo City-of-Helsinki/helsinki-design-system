@@ -91,43 +91,31 @@ exports.createPages = async ({ actions, graphql }) => {
     throw new Error('Failed to fetch MDX data');
   }
 
-  const brokenPages = [
-/*
-    '/release-3.11.0/components/phone-input',
-    '/release-3.11.0/components/dropdown',
-*/
-  ];
-
   // Create pages dynamically
   result.data.allMdx.edges.forEach(({ node }) => {
     const gitRemote = node.parent?.gitRemote?.ref;
     const pathWithVersion = path.join('/', gitRemote || '', node.frontmatter.slug);
 
-    if (!brokenPages.includes(pathWithVersion)) {
-      try {
-        const pageTemplate = require.resolve('./src/components/ContentLayoutWrapper.js');
-        const contentPath = './src/docs/' + node.parent.relativePath.replace('site/src/docs/', '');
+    try {
+      const pageTemplate = require.resolve('./src/components/ContentLayoutWrapper.js');
+      const contentPath = './src/docs/' + node.parent.relativePath.replace('site/src/docs/', '');
 
-        console.log('createPage() ' + gitRemote + ' ' + contentPath);
+      console.log('createPage() ' + gitRemote + ' ' + contentPath);
 
-        const pageContent = gitRemote
-          ? require.resolve(`./.cache/gatsby-source-git/docs-${gitRemote}/${node.parent.relativePath}`)
-          : require.resolve(contentPath);
+      const pageContent = gitRemote
+        ? require.resolve(`./.cache/gatsby-source-git/docs-${gitRemote}/${node.parent.relativePath}`)
+        : require.resolve(contentPath);
 
-        createPage({
-          component: `${pageTemplate}?__contentFilePath=${pageContent}`,
-          path: pathWithVersion,
-          context: {
-            id: node.id,
-            frontmatter: { ...node.frontmatter, slug: pathWithVersion },
-          },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    else {
-      console.log('Skip', pathWithVersion);
+      createPage({
+        component: `${pageTemplate}?__contentFilePath=${pageContent}`,
+        path: pathWithVersion,
+        context: {
+          id: node.id,
+          frontmatter: { ...node.frontmatter, slug: pathWithVersion },
+        },
+      });
+    } catch (e) {
+      console.error(e);
     }
   });
 };
