@@ -135,14 +135,14 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     if (!instanceRef.current) {
       return Promise.resolve(false);
     }
-    return instanceRef.current.openBanner(highlightedGroups).then(() => true);
+    return instanceRef.current.openBanner(highlightedGroups);
   }, []);
 
   const openBannerIfNeeded = useCallback(async () => {
     if (!instanceRef.current) {
       return Promise.resolve(false);
     }
-    return instanceRef.current.openBannerIfNeeded().then(() => true);
+    return instanceRef.current.openBannerIfNeeded();
   }, []);
 
   const renderPage = useCallback(
@@ -155,7 +155,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
       if (currentElement && currentElement.childElementCount > 0) {
         currentElement.innerHTML = '';
       }
-      return instanceRef.current.renderPage(selector).then(() => true);
+      return instanceRef.current.renderPage(selector);
     },
     [elementId],
   );
