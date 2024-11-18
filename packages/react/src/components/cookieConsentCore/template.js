@@ -229,7 +229,7 @@ export function formatTimestamp(timestamp, groupId, translations, lang, directio
   );
 
   return timestamp
-    ? `<p class-"timestamp" data-group="${groupId}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${acceptedTranslation.acceptedAt.value}</p>`
+    ? `<p class="timestamp" data-group="${groupId}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${acceptedTranslation.acceptedAt.value}</p>`
     : '';
 }
 
