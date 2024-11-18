@@ -125,6 +125,7 @@ Changes that are not related to specific components
 
 #### Added
 
+- Documentation of older versions (3.11 & 2.17) of HDS is also available on the documentation site.
 - [StatusLabel] Documentation about SCSS usage.
 - [Breadcrumbs] Documentation about SCSS usage.
 - [Checkbox] Documentation about SCSS usage.
