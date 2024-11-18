@@ -347,7 +347,6 @@ export class CookieConsentCore {
       this.#bannerElements.spacer = null;
     }
 
-    this.#clearAnnouncementElement(false);
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
   }
@@ -407,8 +406,10 @@ export class CookieConsentCore {
     } else {
       window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
-        this.#announceSettingsSaved();
         this.removeBanner();
+        // removeBanner() removes the setTimeout that shows notification
+        // announceSettingsSaved() must be called after the removeBanner()
+        this.#announceSettingsSaved();
         return;
       }
       this.#announceSettingsSaved();
@@ -467,8 +468,6 @@ export class CookieConsentCore {
   #prepareAnnouncementElement() {
     if (!this.#bannerElements.ariaLive) {
       const ariaLiveElement = this.#shadowRootElement.getElementById(TEMPLATE_CONSTANTS.ariaLiveId);
-
-      // Render aria-live element depending on rendering mode: page or banner.
       this.#bannerElements.ariaLive = ariaLiveElement;
     }
   }
