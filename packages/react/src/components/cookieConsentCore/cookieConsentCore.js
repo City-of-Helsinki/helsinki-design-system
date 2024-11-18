@@ -46,6 +46,7 @@ export class CookieConsentCore {
   #siteSettings;
   #directions;
   #shadowRootElement = null;
+  #timeoutReference = null;
 
   #bannerElements = {
     bannerContainer: null,
@@ -286,6 +287,7 @@ export class CookieConsentCore {
    * @returns {boolean} -True if something was removed.
    */
   removePage() {
+    this.killTimeout();
     if (!this.#settingsPageElement) {
       return false;
     }
@@ -314,10 +316,22 @@ export class CookieConsentCore {
   }
 
   /**
+   * Kills the timeout reference.
+   * @function #killTimeout
+   */
+  killTimeout() {
+    if (this.#timeoutReference) {
+      window.clearTimeout(this.#timeoutReference);
+      this.#timeoutReference = null;
+    }
+  }
+
+  /**
    * Removes the banner and related elements.
    * @returns {void}
    */
   removeBanner() {
+    this.killTimeout();
     // Remove banner size observer
     if (this.#resizeReference.resizeObserver && this.#resizeReference.bannerHeightElement) {
       this.#resizeReference.resizeObserver.unobserve(this.#resizeReference.bannerHeightElement);
@@ -418,6 +432,7 @@ export class CookieConsentCore {
    * Announces that the settings have been saved and removes the message after a set time.
    */
   #announceSettingsSaved() {
+    this.killTimeout();
     const SHOW_ARIA_LIVE_FOR_MS = 5000;
 
     if (!this.#bannerElements.ariaLive) {
@@ -447,7 +462,7 @@ export class CookieConsentCore {
     }
 
     // Remove ariaLive after 5 seconds
-    setTimeout(() => {
+    this.#timeoutReference = setTimeout(() => {
       if (this.#bannerElements.ariaLive) {
         // If banner has been removed, remove ariaLive element too
         if (!this.#bannerElements.bannerContainer) {
