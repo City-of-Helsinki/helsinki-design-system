@@ -84,13 +84,14 @@ export const Banner = (options: Options = {}) => {
 };
 
 export const SettingsPage = (options: Options = {}) => {
+  const combinedOptions = { ...options, submitEvent: true };
   return (
     <main>
       <Info />
       <h1>Cookie consent page</h1>
       <Actions />
       <DummyContent />
-      <SettingsPageComponent siteSettings={siteSettingsJsonUrl} options={options} />
+      <SettingsPageComponent siteSettings={siteSettingsJsonUrl} options={combinedOptions} />
       <DummyContent />
     </main>
   );
