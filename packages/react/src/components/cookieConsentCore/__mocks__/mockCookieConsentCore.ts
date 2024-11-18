@@ -89,6 +89,9 @@ export function mockCookieConsentCore() {
       removePage: () => {
         return false;
       },
+      removeBanner: () => {
+        return undefined;
+      },
       openBanner,
     };
   };

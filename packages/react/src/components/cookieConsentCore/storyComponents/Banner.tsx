@@ -5,8 +5,7 @@ import { CreateProps } from '../types';
 
 export const Banner = (props: CreateProps) => {
   useEffect(() => {
-    // @ts-ignore
-    CookieConsentCore.create(props.siteSettings, props.options);
+    CookieConsentCore.create(props.siteSettings, props.options || {});
   }, []);
 
   return null;

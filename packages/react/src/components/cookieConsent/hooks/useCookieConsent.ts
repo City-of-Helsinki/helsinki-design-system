@@ -32,6 +32,7 @@ export type CookieConsentReactType = {
   consents: Array<GroupConsentData>;
   instance: CookieConsentCore | null;
   openBanner: () => Promise<boolean>;
+  removeBanner: () => void;
   openBannerIfNeeded: () => Promise<boolean>;
   renderPage: (selector?: string) => Promise<boolean>;
   removePage: () => void;
@@ -50,12 +51,15 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   passedOptions.settingsPageSelector = undefined;
   const windowObjectGetter = () => {
     if (isSsrEnvironment()) {
-      return undefined;
+      return null;
     }
     return window && window.hds && window.hds.cookieConsent;
   };
-  const instanceRef = useRef<CookieCore | null>(null);
+  const instanceRef = useRef<CookieCore | null>(windowObjectGetter());
   const readyRef = useRef<boolean>(false);
+  // in dev mode, React CRA renders all components twice. This will result calling core.create() twice,
+  // because first instance is not ready before second render.
+  const createHasBeenCalled = useRef<boolean>(!!instanceRef.current);
   const forceRender = useForceRender();
   //
   const mergedOptions: CreateProps['options'] = {
@@ -83,6 +87,9 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
 
   const onReady = useCallback(() => {
     readyRef.current = true;
+    if (!instanceRef.current) {
+      instanceRef.current = windowObjectGetter();
+    }
     forceRender();
   }, [forceRender]);
 
@@ -111,8 +118,13 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
   useEffect(() => {
     if (!instanceRef.current) {
       const asyncCreation = async () => {
+        if (createHasBeenCalled.current) {
+          return Promise.resolve(false);
+        }
+        createHasBeenCalled.current = true;
         instanceRef.current = await CookieConsentCore.create(siteSettings, mergedOptions);
         forceRender();
+        return Promise.resolve(true);
       };
       // useEffect cannot be async, so have to use this work-around
       asyncCreation();
@@ -123,14 +135,14 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     if (!instanceRef.current) {
       return Promise.resolve(false);
     }
-    return instanceRef.current.openBanner(highlightedGroups).then(() => true);
+    return instanceRef.current.openBanner(highlightedGroups);
   }, []);
 
   const openBannerIfNeeded = useCallback(async () => {
     if (!instanceRef.current) {
       return Promise.resolve(false);
     }
-    return instanceRef.current.openBannerIfNeeded().then(() => true);
+    return instanceRef.current.openBannerIfNeeded();
   }, []);
 
   const renderPage = useCallback(
@@ -143,7 +155,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
       if (currentElement && currentElement.childElementCount > 0) {
         currentElement.innerHTML = '';
       }
-      return instanceRef.current.renderPage(selector).then(() => true);
+      return instanceRef.current.renderPage(selector);
     },
     [elementId],
   );
@@ -155,11 +167,19 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     instanceRef.current.removePage();
   };
 
+  const removeBanner = () => {
+    if (!instanceRef.current) {
+      return;
+    }
+    instanceRef.current.removeBanner();
+  };
+
   return {
     isReady: readyRef.current && !!instanceRef.current,
     instance: instanceRef.current,
     consents: getAllConsentStatuses(),
     openBanner,
+    removeBanner,
     openBannerIfNeeded,
     renderPage,
     removePage,
