@@ -288,6 +288,7 @@ export class CookieConsentCore {
    */
   removePage() {
     this.killTimeout();
+    this.#clearAnnouncementElement();
     if (!this.#settingsPageElement) {
       return false;
     }
@@ -345,10 +346,8 @@ export class CookieConsentCore {
       this.#bannerElements.spacer.remove();
       this.#bannerElements.spacer = null;
     }
-    if (this.#bannerElements.ariaLive) {
-      this.#bannerElements.ariaLive.remove();
-      this.#bannerElements.ariaLive = null;
-    }
+
+    this.#clearAnnouncementElement(false);
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
   }
@@ -417,6 +416,21 @@ export class CookieConsentCore {
   }
 
   /**
+   * clears the aria-live element
+   */
+  #clearAnnouncementElement(keepElement) {
+    if (!this.#bannerElements.ariaLive) {
+      return;
+    }
+    if (keepElement) {
+      this.#bannerElements.ariaLive.innerHTML = '';
+    } else {
+      this.#bannerElements.ariaLive.remove();
+    }
+    this.#bannerElements.ariaLive = null;
+  }
+
+  /**
    * Prepares the aria-live element for announcements.
    */
   #prepareAnnouncementElement() {
@@ -435,9 +449,7 @@ export class CookieConsentCore {
     this.killTimeout();
     const SHOW_ARIA_LIVE_FOR_MS = 5000;
 
-    if (!this.#bannerElements.ariaLive) {
-      this.#prepareAnnouncementElement();
-    }
+    this.#prepareAnnouncementElement();
 
     const message = getTranslation(
       this.#siteSettings.translations,
@@ -446,15 +458,15 @@ export class CookieConsentCore {
       this.#directions,
       this.#siteSettings.fallbackLanguage,
     );
-    const notificationAriaLabel = getTranslation(
-      this.#siteSettings.translations,
-      'notificationAriaLabel',
-      this.#language,
-      this.#directions,
-      this.#siteSettings.fallbackLanguage,
-    );
 
     if (this.#settingsPageElement) {
+      const notificationAriaLabel = getTranslation(
+        this.#siteSettings.translations,
+        'notificationAriaLabel',
+        this.#language,
+        this.#directions,
+        this.#siteSettings.fallbackLanguage,
+      );
       const notificationHtml = getNotificationHtml(message, notificationAriaLabel, 'success');
       this.#bannerElements.ariaLive.innerHTML = notificationHtml;
     } else {
@@ -476,12 +488,10 @@ export class CookieConsentCore {
                 this.#bannerElements.ariaLive = null;
               });
             } else {
-              this.#bannerElements.ariaLive.innerHTML = '';
-              this.#bannerElements.ariaLive = null;
+              this.#clearAnnouncementElement(true);
             }
           } else {
-            this.#bannerElements.ariaLive.remove();
-            this.#bannerElements.ariaLive = null;
+            this.#clearAnnouncementElement(false);
           }
 
           // Otherwise, clear the content
@@ -495,8 +505,7 @@ export class CookieConsentCore {
               this.#bannerElements.ariaLive = null;
             });
           } else {
-            this.#bannerElements.ariaLive.innerHTML = '';
-            this.#bannerElements.ariaLive = null;
+            this.#clearAnnouncementElement(true);
           }
         }
       }
