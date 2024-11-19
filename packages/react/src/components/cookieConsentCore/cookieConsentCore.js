@@ -316,6 +316,17 @@ export class CookieConsentCore {
   }
 
   /**
+   * Changes current theme
+   * @param {'bus' | 'black'} New theme
+   */
+  setTheme(theme) {
+    if (!theme || this.#theme === theme) {
+      return;
+    }
+    this.#theme = theme;
+  }
+
+  /**
    * Kills the timeout reference.
    * @function #killTimeout
    */

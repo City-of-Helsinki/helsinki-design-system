@@ -19,6 +19,7 @@ export const ConsentContext = createContext<ConsentContextType>({
   removePage: () => false,
   settingsPageId: '',
   language: '',
+  theme: '',
 });
 
 export const CookieConsentContextProvider = ({ children, ...rest }: CookieConsentContextProps): React.ReactElement => {

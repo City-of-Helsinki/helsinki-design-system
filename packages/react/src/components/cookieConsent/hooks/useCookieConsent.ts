@@ -38,6 +38,7 @@ export type CookieConsentReactType = {
   removePage: () => void;
   settingsPageId: string;
   language: string;
+  theme: string;
 };
 
 export const defaultSettingsPageId = 'hds-cookie-consent-full-page';
@@ -45,6 +46,7 @@ export const defaultSettingsPageId = 'hds-cookie-consent-full-page';
 export function useCookieConsent(props: CookieConsentReactProps): CookieConsentReactType {
   const { onChange, options, siteSettings, settingsPageId } = props;
   const language = (options && options.language) || 'en';
+  const theme = (options && options.theme) || 'bus';
   const elementId = settingsPageId || defaultSettingsPageId;
   const passedOptions: Partial<CreateProps['options']> = options || {};
   // settingsPageSelector must be picked out or banner is never shown
@@ -112,6 +114,9 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     readyRef.current = true;
     if (options && options.language) {
       instanceRef.current.setLanguage(options.language);
+    }
+    if (options && options.theme) {
+      instanceRef.current.setTheme(options.theme);
     }
   }
 
@@ -185,5 +190,6 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     removePage,
     settingsPageId: elementId,
     language,
+    theme,
   };
 }
