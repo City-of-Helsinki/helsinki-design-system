@@ -150,6 +150,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- Links to old brand guide have been corrected with the new ones
 
 ### Figma
 
