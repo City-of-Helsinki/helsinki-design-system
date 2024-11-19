@@ -187,9 +187,9 @@ export default class MonitorAndCleanBrowserStorages {
    * @param {string[]} consentedKeysArray - An array of consented keys.
    * @param {string[]} reportedKeysArray - An array of reported keys.
    * @param {string[]} currentStoredKeysArray - An array of current stored keys.
-   * @param {string} consentedGroups - The consented groups.
+   * @param {string} acceptedGroups - The accepted groups.
    */
-  #monitor(storageTypeString, consentedKeysArray, reportedKeysArray, currentStoredKeysArray, consentedGroups) {
+  #monitor(storageTypeString, consentedKeysArray, reportedKeysArray, currentStoredKeysArray, acceptedGroups) {
     // Find items that appear only in currentStoredKeysArray and filter out the ones that are already in consentedKeysArray
     const unapprovedKeys = currentStoredKeysArray.filter((key) => {
       return !(
@@ -206,7 +206,7 @@ export default class MonitorAndCleanBrowserStorages {
         detail: {
           storageType: storageTypeString,
           keys: unapprovedKeys,
-          consentedGroups,
+          acceptedGroups,
         },
       });
       window.dispatchEvent(event);
@@ -249,7 +249,7 @@ export default class MonitorAndCleanBrowserStorages {
   async #monitorLoop() {
     // MARK: Public properties
     this.BROWSER_STORAGES.forEach(async (storageType) => {
-      const consentedGroups = this.#COOKIE_HANDLER.getConsentedGroupNames();
+      const acceptedGroups = this.#COOKIE_HANDLER.getConsentedGroupNames();
       const consentedKeys = this.#COOKIE_HANDLER.getAllKeysInConsentedGroups();
 
       // Loop through all browser storage types and monitor them
@@ -258,7 +258,7 @@ export default class MonitorAndCleanBrowserStorages {
         consentedKeys[storageType],
         this.#reportedKeys[storageType],
         await this.getCurrentKeys(storageType),
-        consentedGroups,
+        acceptedGroups,
       );
     });
   }
