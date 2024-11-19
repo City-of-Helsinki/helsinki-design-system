@@ -41,7 +41,7 @@ describe('<ListAndInputContainer />', () => {
     const listElement = getElementById(getElementIds().selectionsAndListsContainer);
     expect(listElement.getAttribute('role')).toBe('dialog');
     const ariaLabel = listElement.getAttribute('aria-label');
-    expect(ariaLabel?.includes(`${optionCountInAllGroups} choices`)).toBeTruthy();
+    expect(ariaLabel?.includes(`${optionCountInAllGroups} vaihtoehtoa`)).toBeTruthy();
     expect(ariaLabel?.includes(getText(getProps(), 'label'))).toBeTruthy();
   });
   it('Without input, multiSelect and group labels, role and aria-label are not set', async () => {
