@@ -1,10 +1,11 @@
 import { test, expect, Page, Locator } from '@playwright/test';
-import { isLocatorSelectedOrChecked } from '../../../utils/element.util';
+import { getFocusedElement, isLocatorSelectedOrChecked } from '../../../utils/element.util';
 import {
   gotoStorybookUrlByName,
   createScreenshotFileName,
   takeScreenshotWithSpacing,
   waitFor,
+  getLocatorElement,
 } from '../../../utils/playwright.util';
 const componentName = 'cookieconsent';
 const storybook = 'react';
@@ -80,7 +81,7 @@ test.describe(`Banner`, () => {
 
   const storeConsentsAndWaitForBannerClose = async (
     page: Page,
-    approveType: 'all' | 'required',
+    approveType: 'all' | 'required' | 'selected',
     bannerLocator: Locator,
   ) => {
     const banner = bannerLocator || getBannerOrPageLocator(page);
@@ -179,7 +180,7 @@ test.describe(`Banner`, () => {
     const screenshotNameSV = createScreenshotFileName(testInfo, isMobile, 'sv language');
     await takeScreenshotWithSpacing(page, banner, screenshotNameSV);
   });
-  test('Banner is closed after approval and not shown again.', async ({ page, isMobile }, testInfo) => {
+  test('Banner is closed after approval and not shown again. Focus is moved.', async ({ page, isMobile }, testInfo) => {
     if (isMobile) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
@@ -188,6 +189,9 @@ test.describe(`Banner`, () => {
     await changeTab(page, 'banner');
     const banner = getBannerOrPageLocator(page);
     await storeConsentsAndWaitForBannerClose(page, 'all', banner);
+    const focusTarget = await getLocatorElement(page.locator('#actionbar > a'));
+    const focusedElement = await getFocusedElement(page.locator('body'));
+    expect(focusTarget === focusedElement).toBeTruthy();
     const screenshotName = createScreenshotFileName(testInfo, isMobile);
     await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName);
 
@@ -206,6 +210,22 @@ test.describe(`Banner`, () => {
     await changeTab(page, 'banner');
     const consents = await approveRequiredAndCheckStoredConsents(page);
     expect(consents).toEqual(['essential', 'test_essential']);
+  });
+  test('Element given in openBanner is focused on banner close', async ({ page, isMobile }, testInfo) => {
+    if (isMobile) {
+      // viewport is too small to test with mobile view. Banner blocks the ui.
+      return;
+    }
+    const openerSelector = '#banner-opener';
+    await gotoStorybookUrlByName(page, 'Example', componentName, storybook);
+    await changeTab(page, 'actions');
+    const bannerOpener = page.locator(openerSelector);
+    const banner = getBannerOrPageLocator(page);
+    await bannerOpener.click();
+    await storeConsentsAndWaitForBannerClose(page, 'selected', banner);
+    const focusTarget = await getLocatorElement(page.locator(openerSelector));
+    const focusedElement = await getFocusedElement(page.locator('body'));
+    expect(focusTarget === focusedElement).toBeTruthy();
   });
   test('Stored consents are changed via settings page', async ({ page, isMobile }, testInfo) => {
     if (isMobile) {
