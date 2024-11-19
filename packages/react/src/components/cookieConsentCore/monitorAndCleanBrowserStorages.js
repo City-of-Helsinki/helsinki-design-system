@@ -38,30 +38,30 @@ export default class MonitorAndCleanBrowserStorages {
 
   /**
    * Deletes the keys that are not consented.
-   * @param {string} typeString - The type of keys to be deleted.
+   * @param {string} storageTypeString - The storagetype of keys to be deleted.
    * @param {string[]} consentedKeysArray - An array of consented keys.
    * @param {string[]} currentStoredKeysArray - An array of current stored keys.
    * @param {string} reason - The reason for deleting the keys.
    */
-  deleteKeys(typeString, consentedKeysArray, currentStoredKeysArray, reason) {
+  deleteKeys(storageTypeString, consentedKeysArray, currentStoredKeysArray, reason) {
     const deleteKeys = currentStoredKeysArray.filter((key) => {
       return !(key === '' || this.#isKeyConsented(key, consentedKeysArray));
     });
     deleteKeys.forEach((key) => {
-      if (!this.#removalFailedKeys[typeString].includes(key)) {
-        console.log(`Cookie consent: will delete ${reason} ${typeString}(s): '${deleteKeys.join("', '")}'`);
+      if (!this.#removalFailedKeys[storageTypeString].includes(key)) {
+        console.log(`Cookie consent: will delete ${reason} ${storageTypeString}(s): '${deleteKeys.join("', '")}'`);
 
-        if (typeString === 'cookie') {
+        if (storageTypeString === 'cookie') {
           deleteCookie(key);
           if (this.#getCookie(key)) {
             console.error(`Error deleting cookie '${key}' will ignore it for now`);
             this.#removalFailedKeys.cookie.push(key);
           }
-        } else if (typeString === 'localStorage') {
+        } else if (storageTypeString === 'localStorage') {
           localStorage.removeItem(key);
-        } else if (typeString === 'sessionStorage') {
+        } else if (storageTypeString === 'sessionStorage') {
           sessionStorage.removeItem(key);
-        } else if (typeString === 'indexedDB') {
+        } else if (storageTypeString === 'indexedDB') {
           const request = indexedDB.deleteDatabase(key);
           request.onsuccess = () => {
             console.log(`Cookie consent: IndexedDB database '${key}' deleted successfully.`);
@@ -76,7 +76,7 @@ export default class MonitorAndCleanBrowserStorages {
             console.error(`Cookie consent: IndexedDB database '${key}' deletion blocked.`);
             this.#removalFailedKeys.indexedDB.push(key);
           };
-        } else if (typeString === 'cacheStorage') {
+        } else if (storageTypeString === 'cacheStorage') {
           caches.delete(key).then((response) => {
             if (response) {
               console.log(`Cookie consent: Cache '${key}' has been deleted`);
@@ -183,13 +183,13 @@ export default class MonitorAndCleanBrowserStorages {
    * Monitors the consented keys and reports any unapproved keys. (cookies or localStorage or sessionStorage)
    * Reports found unapproved keys to console and dispatches an event based on type.
    * @private
-   * @param {string} typeString - The type of keys being monitored.
+   * @param {string} storageTypeString - The type of keys being monitored.
    * @param {string[]} consentedKeysArray - An array of consented keys.
    * @param {string[]} reportedKeysArray - An array of reported keys.
    * @param {string[]} currentStoredKeysArray - An array of current stored keys.
    * @param {string} consentedGroups - The consented groups.
    */
-  #monitor(typeString, consentedKeysArray, reportedKeysArray, currentStoredKeysArray, consentedGroups) {
+  #monitor(storageTypeString, consentedKeysArray, reportedKeysArray, currentStoredKeysArray, consentedGroups) {
     // Find items that appear only in currentStoredKeysArray and filter out the ones that are already in consentedKeysArray
     const unapprovedKeys = currentStoredKeysArray.filter((key) => {
       return !(
@@ -200,11 +200,11 @@ export default class MonitorAndCleanBrowserStorages {
     });
 
     if (unapprovedKeys.length > 0) {
-      console.log(`Cookie consent: found unapproved ${typeString}(s): '${unapprovedKeys.join("', '")}'`);
+      console.log(`Cookie consent: found unapproved ${storageTypeString}(s): '${unapprovedKeys.join("', '")}'`);
 
       const event = new CustomEvent('hds-cookie-consent-unapproved-item-found', {
         detail: {
-          type: typeString,
+          storageType: storageTypeString,
           keys: unapprovedKeys,
           consentedGroups,
         },
@@ -215,7 +215,7 @@ export default class MonitorAndCleanBrowserStorages {
     }
 
     if (this.#REMOVE) {
-      this.deleteKeys(typeString, consentedKeysArray, currentStoredKeysArray, 'unapproved');
+      this.deleteKeys(storageTypeString, consentedKeysArray, currentStoredKeysArray, 'unapproved');
     }
   }
 

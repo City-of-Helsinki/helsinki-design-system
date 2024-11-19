@@ -44,8 +44,8 @@ export function mockCookieConsentCore() {
     window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
   };
 
-  const triggerMonitorEvent = (type: string, keys: string, consentedGroups: string[]) => {
-    window.dispatchEvent(new CustomEvent(cookieEventType.MONITOR, { detail: { type, keys, consentedGroups } }));
+  const triggerMonitorEvent = (storageType: string, keys: string, consentedGroups: string[]) => {
+    window.dispatchEvent(new CustomEvent(cookieEventType.MONITOR, { detail: { storageType, keys, consentedGroups } }));
   };
 
   const openBanner = async (...args: Parameters<CookieConsentCore['openBanner']>) => {
