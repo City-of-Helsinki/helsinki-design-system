@@ -38,7 +38,7 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
       const { detail, type } = e as CustomEvent;
       const changeProps: CookieConsentChangeEvent = {
         type,
-        acceptedGroups: detail.consentedGroups || detail.acceptedGroups || [],
+        acceptedGroups: detail.acceptedGroups || [],
       };
       if (type === cookieEventType.MONITOR && detail.storageType && detail.keys) {
         changeProps.storageType = detail.storageType;

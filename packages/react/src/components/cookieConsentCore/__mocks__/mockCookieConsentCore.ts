@@ -55,8 +55,8 @@ export function mockCookieConsentCore() {
     window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
   };
 
-  const triggerMonitorEvent = (storageType: string, keys: string, consentedGroups: string[]) => {
-    window.dispatchEvent(new CustomEvent(cookieEventType.MONITOR, { detail: { storageType, keys, consentedGroups } }));
+  const triggerMonitorEvent = (storageType: string, keys: string, acceptedGroups: string[]) => {
+    window.dispatchEvent(new CustomEvent(cookieEventType.MONITOR, { detail: { storageType, keys, acceptedGroups } }));
   };
 
   const getRenderedElement = (renderResult?: RenderResult) => {
