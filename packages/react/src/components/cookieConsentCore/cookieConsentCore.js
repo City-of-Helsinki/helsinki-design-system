@@ -288,6 +288,7 @@ export class CookieConsentCore {
    */
   removePage() {
     this.killTimeout();
+    this.#clearAnnouncementElement();
     if (!this.#settingsPageElement) {
       return false;
     }
@@ -356,10 +357,7 @@ export class CookieConsentCore {
       this.#bannerElements.spacer.remove();
       this.#bannerElements.spacer = null;
     }
-    if (this.#bannerElements.ariaLive) {
-      this.#bannerElements.ariaLive.remove();
-      this.#bannerElements.ariaLive = null;
-    }
+
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
   }
@@ -419,11 +417,59 @@ export class CookieConsentCore {
     } else {
       window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
-        this.#announceSettingsSaved();
         this.removeBanner();
+        // removeBanner() removes the setTimeout that shows notification
+        // announceSettingsSaved() must be called after the removeBanner()
+        this.#announceSettingsSaved();
         return;
       }
       this.#announceSettingsSaved();
+    }
+  }
+
+  /**
+   * animates notification in and out
+   * @return {boolean} - Returns true notification exists and it controlled by via animationend
+   */
+  #animateNotificationIfFound() {
+    if (!this.#bannerElements.ariaLive) {
+      return false;
+    }
+    const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
+    if (notificationElem) {
+      notificationElem.classList.remove('enter');
+      notificationElem.classList.add('exit');
+      notificationElem.addEventListener('animationend', (e) => {
+        e.currentTarget.remove();
+      });
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * clears the aria-live element
+   */
+  #clearAnnouncementElement(keepElement) {
+    if (!this.#bannerElements.ariaLive) {
+      return;
+    }
+    if (keepElement) {
+      this.#bannerElements.ariaLive.innerHTML = '';
+    } else {
+      this.#bannerElements.ariaLive.remove();
+    }
+    this.#bannerElements.ariaLive = null;
+  }
+
+  #removeAnnouncementOrNotification() {
+    // fail-safe scenario where neither banner nor page exists anymore
+    if (!this.#bannerElements.bannerContainer && !this.#settingsPageElement) {
+      this.#clearAnnouncementElement(false);
+    }
+    const controlRemovalWithAnimation = this.#animateNotificationIfFound();
+    if (!controlRemovalWithAnimation) {
+      this.#clearAnnouncementElement(true);
     }
   }
 
@@ -433,8 +479,6 @@ export class CookieConsentCore {
   #prepareAnnouncementElement() {
     if (!this.#bannerElements.ariaLive) {
       const ariaLiveElement = this.#shadowRootElement.getElementById(TEMPLATE_CONSTANTS.ariaLiveId);
-
-      // Render aria-live element depending on rendering mode: page or banner.
       this.#bannerElements.ariaLive = ariaLiveElement;
     }
   }
@@ -446,9 +490,7 @@ export class CookieConsentCore {
     this.killTimeout();
     const SHOW_ARIA_LIVE_FOR_MS = 5000;
 
-    if (!this.#bannerElements.ariaLive) {
-      this.#prepareAnnouncementElement();
-    }
+    this.#prepareAnnouncementElement();
 
     const message = getTranslation(
       this.#siteSettings.translations,
@@ -457,15 +499,15 @@ export class CookieConsentCore {
       this.#directions,
       this.#siteSettings.fallbackLanguage,
     );
-    const notificationAriaLabel = getTranslation(
-      this.#siteSettings.translations,
-      'notificationAriaLabel',
-      this.#language,
-      this.#directions,
-      this.#siteSettings.fallbackLanguage,
-    );
 
     if (this.#settingsPageElement) {
+      const notificationAriaLabel = getTranslation(
+        this.#siteSettings.translations,
+        'notificationAriaLabel',
+        this.#language,
+        this.#directions,
+        this.#siteSettings.fallbackLanguage,
+      );
       const notificationHtml = getNotificationHtml(message, notificationAriaLabel, 'success');
       this.#bannerElements.ariaLive.innerHTML = notificationHtml;
     } else {
@@ -474,43 +516,7 @@ export class CookieConsentCore {
 
     // Remove ariaLive after 5 seconds
     this.#timeoutReference = setTimeout(() => {
-      if (this.#bannerElements.ariaLive) {
-        // If banner has been removed, remove ariaLive element too
-        if (!this.#bannerElements.bannerContainer) {
-          if (this.#settingsPageElement) {
-            const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
-            if (notificationElem) {
-              notificationElem.classList.remove('enter');
-              notificationElem.classList.add('exit');
-              notificationElem.addEventListener('animationend', () => {
-                notificationElem.remove();
-                this.#bannerElements.ariaLive = null;
-              });
-            } else {
-              this.#bannerElements.ariaLive.innerHTML = '';
-              this.#bannerElements.ariaLive = null;
-            }
-          } else {
-            this.#bannerElements.ariaLive.remove();
-            this.#bannerElements.ariaLive = null;
-          }
-
-          // Otherwise, clear the content
-        } else {
-          const notificationElem = this.#bannerElements.ariaLive.querySelector('.hds-notification');
-          if (notificationElem) {
-            notificationElem.classList.remove('enter');
-            notificationElem.classList.add('exit');
-            notificationElem.addEventListener('animationend', () => {
-              notificationElem.remove();
-              this.#bannerElements.ariaLive = null;
-            });
-          } else {
-            this.#bannerElements.ariaLive.innerHTML = '';
-            this.#bannerElements.ariaLive = null;
-          }
-        }
-      }
+      this.#removeAnnouncementOrNotification();
     }, SHOW_ARIA_LIVE_FOR_MS);
   }
 

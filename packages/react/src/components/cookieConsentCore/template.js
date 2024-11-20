@@ -21,6 +21,18 @@ export const CONSTANTS = {
   accordionButtonDetailsClass: 'hds-cc__accordion-button--details',
 };
 
+const visuallyHiddenStyleInJS = `
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;`;
+
 /**
  *
  * @param {object} objects That contain translations, key and optional parameters
@@ -52,8 +64,9 @@ function getLangAttributes(translated) {
  * @return {string} The HTML for the aria-live region.
  */
 export function getAriaLiveHtml(isNotificationContainer) {
-  const ariaLiveClass = isNotificationContainer ? 'hds-cc__notification_container' : 'hds-cc__aria-live-container';
-  return `<div id="${CONSTANTS.ariaLiveId}" class="${ariaLiveClass}" aria-live="polite"></div>`;
+  const className = isNotificationContainer ? 'hds-cc__notification_container' : '';
+  const style = isNotificationContainer ? '' : visuallyHiddenStyleInJS;
+  return `<div id="${CONSTANTS.ariaLiveId}" class="${className}" style="${style}" aria-live="polite"></div>`;
 }
 
 /**
@@ -216,7 +229,7 @@ export function formatTimestamp(timestamp, groupId, translations, lang, directio
   );
 
   return timestamp
-    ? `<p class-"timestamp" data-group="${groupId}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${acceptedTranslation.acceptedAt.value}</p>`
+    ? `<p class="timestamp" data-group="${groupId}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${acceptedTranslation.acceptedAt.value}</p>`
     : '';
 }
 

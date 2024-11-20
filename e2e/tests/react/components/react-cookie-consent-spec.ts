@@ -52,6 +52,24 @@ test.describe(`Banner`, () => {
     return page.locator(`button[data-approved="${buttonType}"]`);
   };
 
+  const getAriaLiveLocator = (page: Page) => {
+    return page.locator('#hds-cc-aria-live');
+  };
+
+  const getAriaLiveLocatorWhenRendered = async (page: Page) => {
+    const locator = getAriaLiveLocator(page);
+    await waitFor(async () => {
+      const count = await locator.count();
+      return count === 1;
+    });
+    await locator.scrollIntoViewIfNeeded();
+    await waitFor(async () => {
+      const bb = await locator.boundingBox();
+      return !!bb && bb.height > 0;
+    });
+    return locator;
+  };
+
   const waitForBannerToChange = async (banner: Locator, finalState: 'show' | 'hide') => {
     const expectedCount = finalState === 'show' ? 1 : 0;
     await waitFor(async () => {
@@ -72,18 +90,11 @@ test.describe(`Banner`, () => {
     await waitForBannerToChange(banner, 'hide');
   };
 
-  const storeConsentsAndWaitForNotification = async (
-    page: Page,
-    approveType: 'all' | 'selected',
-    bannerLocator: Locator,
-  ) => {
-    const notificationElement = page.locator('#hds-cc-aria-live');
+  const storeConsentsAndWaitForNotification = async (page: Page, approveType: 'selected' | 'required') => {
     const button = getSaveButton(page, approveType);
+    await button.scrollIntoViewIfNeeded();
     await button.click();
-    await waitFor(async () => {
-      const count = await notificationElement.count();
-      return count === 1;
-    });
+    return getAriaLiveLocatorWhenRendered(page);
   };
 
   const getApprovedConsents = async (page: Page): Promise<string[]> => {
@@ -136,6 +147,20 @@ test.describe(`Banner`, () => {
     const banner = getBannerOrPageLocator(page);
     await storeConsentsAndWaitForBannerClose(page, 'required', banner);
     return await gotoConsentsAndReturnCurrent(page);
+  };
+
+  const hideAllTimestampsFromScreenshots = async (page: Page) => {
+    const locator = page.locator(`div[data-timestamp] p.timestamp`);
+    const count = await locator.count();
+    expect(count > 0).toBeTruthy();
+    await locator.evaluateAll((list) => {
+      list.forEach((el) => {
+        if (el && el.style) {
+          el.style.setProperty('opacity', '0');
+        }
+      });
+      return Promise.resolve();
+    });
   };
 
   test('Banner is shown. Changing language changes the contents', async ({ page, isMobile }, testInfo) => {
@@ -210,5 +235,48 @@ test.describe(`Banner`, () => {
     await changeLanguage(page, 'sv');
     const screenshotNameSV = createScreenshotFileName(testInfo, isMobile, 'sv language');
     await takeScreenshotWithSpacing(page, banner, screenshotNameSV);
+  });
+  test('Aria live is visually shown when page is saved.', async ({ page, isMobile }, testInfo) => {
+    if (isMobile) {
+      // viewport is too small to test with mobile view. Banner blocks the ui.
+      return;
+    }
+    await gotoStorybookUrlByName(page, 'Example', componentName, storybook);
+    await storeConsentsAndWaitForNotification(page, 'selected');
+    const notificationElementLocator = await getAriaLiveLocatorWhenRendered(page);
+    await notificationElementLocator.isVisible();
+    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'first save');
+    await hideAllTimestampsFromScreenshots(page);
+    await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName);
+    // it takes 5000ms for the element to hide, so not waiting for it.
+    await changeTab(page, 'consents');
+    await changeTab(page, 'page');
+    await expect(notificationElementLocator).not.toBeVisible();
+
+    const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'no visible aria-live');
+    await hideAllTimestampsFromScreenshots(page);
+    await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName2);
+
+    await storeConsentsAndWaitForNotification(page, 'required');
+    const newNotificationElementLocator = await getAriaLiveLocatorWhenRendered(page);
+    await newNotificationElementLocator.isVisible();
+    const screenshotName3 = createScreenshotFileName(testInfo, isMobile, 'second save');
+    await hideAllTimestampsFromScreenshots(page);
+    await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName3);
+  });
+  test('Aria live is shown to the screenreader when banner is closed.', async ({ page, isMobile }, testInfo) => {
+    if (isMobile) {
+      // viewport is too small to test with mobile view. Banner blocks the ui.
+      return;
+    }
+    await gotoStorybookUrlByName(page, 'Banner', componentName, storybook);
+    const banner = getBannerOrPageLocator(page);
+    await storeConsentsAndWaitForBannerClose(page, 'all', banner);
+    const newNotificationElementLocator = await getAriaLiveLocatorWhenRendered(page);
+    const content = await newNotificationElementLocator.textContent();
+    expect(content && content.length > 1).toBeTruthy();
+    const bb = await newNotificationElementLocator.boundingBox();
+    // width and height are 1, but margin is -1, so result is 0
+    expect(bb && bb.width === 1 && bb.height === 1).toBeTruthy();
   });
 });
