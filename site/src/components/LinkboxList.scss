@@ -4,7 +4,7 @@
   column-gap: var(--spacing-layout-xs);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
-  margin-top: var(--spacing-layout-m);
+  margin-top: var(--spacing-layout-m) !important;
   row-gap: var(--spacing-layout-xs);
   width: 100%;
 }

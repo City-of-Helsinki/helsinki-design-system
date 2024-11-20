@@ -287,6 +287,7 @@ const Layout = ({ location, children, pageContext }) => {
               {versions.map((itemVersion, index) => (
                 <Header.ActionBarSubItem
                   label={`Version ${itemVersion}`}
+                  key={`Version ${itemVersion}`}
                   selected={itemVersion === versionNumber}
                   href={index > 0
                     ? hrefWithVersion(locationWithoutVersion, `release-${itemVersion}`)
