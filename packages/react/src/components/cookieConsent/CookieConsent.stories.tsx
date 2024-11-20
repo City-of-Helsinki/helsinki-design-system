@@ -15,6 +15,7 @@ import { StoryComponent } from './components/StoryComponent';
 // importing the json because load won't work in e2e
 import siteSettings from '../cookieConsentCore/example/helfi_sitesettings.json';
 import { ToggleButton } from '../toggleButton/ToggleButton';
+import { cookieEventType } from '../cookieConsentCore/cookieConsentCore';
 
 export default {
   component: StoryComponent,
@@ -57,6 +58,7 @@ const Actions = () => {
     document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     // eslint-disable-next-line no-console
     console.log('Cookie removed:', cookieName);
+    window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups: [] } }));
   };
   const openBanner = async () => {
     // eslint-disable-next-line no-console

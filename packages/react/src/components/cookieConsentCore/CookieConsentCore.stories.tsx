@@ -26,7 +26,10 @@ const Actions = () => {
   };
   const addUnallowedCookie = async () => {
     // eslint-disable-next-line no-console
-    console.log('Adding chat cookie:', await window.hds.cookieConsent.setGroupsStatusToAccepted(['unallowed']));
+    console.log(
+      'Trying to add an unallowed cookie:',
+      await window.hds.cookieConsent.setGroupsStatusToAccepted(['unallowed']),
+    );
   };
   const removeConsentCookie = async () => {
     const cookieName = `helfi-cookie-consents`;
