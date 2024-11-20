@@ -205,3 +205,8 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
   await page.goto(targetUrl);
   return targetUrl;
 };
+
+export const getLocatorElement = async (locator: Locator): Promise<HTMLElement | SVGElement | null> => {
+  const first = locator.first();
+  return first.evaluate((el) => el);
+};

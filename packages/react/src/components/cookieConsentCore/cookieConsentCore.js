@@ -40,6 +40,7 @@ export class CookieConsentCore {
   #pageContentSelector;
   #submitEvent = false;
   #settingsPageSelector;
+  #focusTargetSelector;
   #disableAutoRender;
   #monitor;
   #cookieHandler;
@@ -74,6 +75,7 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean} [options.submitEvent=false] - If set to true, do not reload the page, but submit the string as an event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @param {string} [options.focusTargetSelector=null] - Selector for the element that will receive focus once the banner is closed.
    * @param {boolean} [options.disableAutoRender=false] - If true, neither banner or page are rendered automatically
    * @param {boolean} [calledFromCreate=false] - Indicates if the constructor was called from the create method.
    * @throws {Error} Throws an error if called from outside the create method.
@@ -89,6 +91,7 @@ export class CookieConsentCore {
       pageContentSelector = 'body', // Where to add scroll-margin-bottom
       submitEvent = false, // if set, do not reload page, but submit 'hds-cookie-consent-changed' as event after consent
       settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+      focusTargetSelector = null,
       disableAutoRender = false,
     },
     calledFromCreate = false,
@@ -106,6 +109,7 @@ export class CookieConsentCore {
     this.#pageContentSelector = pageContentSelector;
     this.#submitEvent = submitEvent;
     this.#settingsPageSelector = settingsPageSelector;
+    this.#focusTargetSelector = focusTargetSelector;
     this.#disableAutoRender = disableAutoRender;
 
     CookieConsentCore.addToHdsScope('cookieConsent', this);
@@ -161,6 +165,7 @@ export class CookieConsentCore {
    * @param {string} [options.pageContentSelector='body'] - The selector for where to add scroll-margin-bottom.
    * @param {boolean} [options.submitEvent=false] - If set, do not reload the page, but submit 'hds-cookie-consent-changed' event after consent.
    * @param {string} [options.settingsPageSelector=null] - If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
+   * @param {string} [options.focusTargetSelector=null] - Selector for the element that will receive focus once the banner is closed.
    * @param {boolean} [options.disableAutoRender=false] - If...
    * @return {Promise<CookieConsentCore>} A promise that resolves to a new instance of the CookieConsent class.
    * @throws {Error} Throws an error if the siteSettingsParam is not a string or an object.
@@ -246,12 +251,18 @@ export class CookieConsentCore {
 
   /**
    * Opens banner when not on cookie settings page.
+   * * @param {Array} highlightedGroups - Groups to highlight when opened
+   * * @param {string} focusTargetSelector - Selector for the element that will receive focus once the banner is closed. Overrides the options.focusTargetSelector
    */
-  openBanner(highlightedGroups = []) {
+  openBanner(highlightedGroups = [], focusTargetSelector = '') {
     if (this.#settingsPageSelector && document.querySelector(this.#settingsPageSelector)) {
       // eslint-disable-next-line no-console
       console.error(`Cookie consent: The user is already on settings page`);
       return;
+    }
+
+    if (focusTargetSelector) {
+      this.#focusTargetSelector = focusTargetSelector;
     }
     this.removeBanner();
     this.#render(this.#language, this.#siteSettings, true, null, highlightedGroups);
@@ -342,7 +353,7 @@ export class CookieConsentCore {
    * Removes the banner and related elements.
    * @returns {void}
    */
-  removeBanner() {
+  removeBanner(setFocus = false) {
     this.killTimeout();
     // Remove banner size observer
     if (this.#resizeReference.resizeObserver && this.#resizeReference.bannerHeightElement) {
@@ -360,6 +371,13 @@ export class CookieConsentCore {
 
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
+
+    if (setFocus && this.#focusTargetSelector) {
+      const element = document.querySelector(this.#focusTargetSelector);
+      if (element) {
+        element.focus();
+      }
+    }
   }
 
   // MARK: Private methods
@@ -417,7 +435,7 @@ export class CookieConsentCore {
     } else {
       window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
-        this.removeBanner();
+        this.removeBanner(true);
         // removeBanner() removes the setTimeout that shows notification
         // announceSettingsSaved() must be called after the removeBanner()
         this.#announceSettingsSaved();

@@ -36,7 +36,7 @@ const Actions = () => {
   };
   const openBanner = async () => {
     // eslint-disable-next-line no-console
-    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat']));
+    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat'], '#banner-opener'));
   };
   return (
     <>
@@ -45,7 +45,9 @@ const Actions = () => {
         <Button onClick={addChatCookie}>Add chat group</Button>
         <Button onClick={addUnallowedCookie}>Add unallowed group</Button>
         <Button onClick={removeConsentCookie}>Remove consent cookie</Button>
-        <Button onClick={openBanner}>Open banner</Button>
+        <Button id="banner-opener" onClick={openBanner}>
+          Open banner
+        </Button>
       </div>
     </>
   );
@@ -71,20 +73,22 @@ const DummyContent = () => (
 );
 
 export const Banner = (options: Options = {}) => {
+  const focusTargetSelector = 'main h1';
+  const combinedOptions: Options = { ...options, focusTargetSelector, submitEvent: true };
   return (
     <main>
       <Info />
-      <h1>Cookie consent banner</h1>
+      <h1 tabIndex={-1}>Cookie consent banner</h1>
       <p>The banner is shown only if necessary.</p>
       <Actions />
       <DummyContent />
-      <BannerComponent siteSettings={siteSettingsJsonUrl} options={options} />
+      <BannerComponent siteSettings={siteSettingsJsonUrl} options={combinedOptions} />
     </main>
   );
 };
 
 export const SettingsPage = (options: Options = {}) => {
-  const combinedOptions = { ...options, submitEvent: true };
+  const combinedOptions: Options = { ...options, submitEvent: true };
   return (
     <main>
       <Info />

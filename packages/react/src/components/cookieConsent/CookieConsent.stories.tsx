@@ -60,7 +60,7 @@ const Actions = () => {
   };
   const openBanner = async () => {
     // eslint-disable-next-line no-console
-    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat']));
+    console.log('Spawning banner', await window.hds.cookieConsent.openBanner(['statistics', 'chat'], '#banner-opener'));
   };
   return (
     <div>
@@ -71,7 +71,7 @@ const Actions = () => {
         <Button data-testid="remove-cookie-button" onClick={removeConsentCookie}>
           Remove all consents
         </Button>
-        <Button data-testid="open-banner-button" onClick={openBanner}>
+        <Button id="banner-opener" data-testid="open-banner-button" onClick={openBanner}>
           Open banner with highlighted groups &quot;chat&quot; and &quot;statistics&quot;
         </Button>
       </div>
@@ -120,7 +120,8 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
   return (
     <CookieConsentContextProvider
       onChange={onChange}
-      options={{ language, theme }}
+      // focusing the logo link, because the tab component loses focus on re-render.
+      options={{ language, focusTargetSelector: '#actionbar > a', theme }}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
     >
       <Header languages={languages} onDidChangeLanguage={onLangChange} defaultLanguage={language}>
@@ -131,6 +132,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
           titleHref="https://hel.fi"
           logo={<Logo src={logoFi} alt="City of Helsinki" />}
           logoAriaLabel="Service logo"
+          id="actionbar"
         >
           <Header.LanguageSelector aria-label="aria" languageHeading="other" />
         </Header.ActionBar>
@@ -157,13 +159,13 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
           <span data-testid="page-tab" />
         </Tabs.TabPanel>
         <Tabs.TabPanel>
-          <h1>Banner ( {language} )</h1>
+          <h1 tabIndex={-1}>Banner ( {language} )</h1>
           <p>Banner is shown if required consents are not consented.</p>
           <CookieBanner />
           <span data-testid="banner-tab" />
         </Tabs.TabPanel>
         <Tabs.TabPanel>
-          <h1>Consents ( {language} )</h1>
+          <h1 tabIndex={-1}>Consents ( {language} )</h1>
           <p>Banner is also shown here when needed.</p>
           <ConsentOutput />
           <CookieBanner />
@@ -205,9 +207,10 @@ export const Banner = () => {
     <CookieConsentContextProvider
       onChange={onChange}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
+      options={{ focusTargetSelector: 'main h1' }}
     >
       <main>
-        <h1>Cookie consent banner</h1>
+        <h1 tabIndex={-1}>Cookie consent banner</h1>
         <p>The banner is shown only if necessary.</p>
         <CookieBanner />
       </main>

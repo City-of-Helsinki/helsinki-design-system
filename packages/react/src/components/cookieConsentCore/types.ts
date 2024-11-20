@@ -15,6 +15,7 @@ export type Options = {
   pageContentSelector?: string | undefined;
   submitEvent?: boolean | undefined;
   settingsPageSelector?: string | undefined;
+  focusTargetSelector?: string | undefined;
   disableAutoRender?: boolean | undefined;
 };
 
