@@ -246,7 +246,14 @@ export class CookieConsentCore {
    * @return {Promise<boolean>} - A promise that resolves to true if the groups' status is successfully set to accepted, otherwise false.
    */
   async setGroupsStatusToAccepted(acceptedGroupsArray) {
-    return this.#cookieHandler.setGroupsStatusToAccepted(acceptedGroupsArray);
+    const success = await this.#cookieHandler.setGroupsStatusToAccepted(acceptedGroupsArray);
+    if (success) {
+      const acceptedGroups = this.getAllConsentStatuses()
+        .filter((item) => item.consented)
+        .map((item) => item.group);
+      window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
+    }
+    return Promise.resolve(success);
   }
 
   /**
