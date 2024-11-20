@@ -1,0 +1,26 @@
+---
+slug: '/foundation/design-tokens/tabs'
+title: 'Shadow'
+---
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Layout from '../../../../components/layout';
+import PageTabs from '../../../../components/PageTabs';
+import StatusLabel from '../../../../components/StatusLabel';
+
+# Shadow
+
+<StatusLabel type="info">Stable</StatusLabel>
+
+<LeadParagraph>
+  Shadows can be used under certain elements to create visual distinction for content that otherwise would be hard to
+  distinguish for the visually impaired or remain unnoticed.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/tokens">Tokens</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>

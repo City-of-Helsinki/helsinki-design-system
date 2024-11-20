@@ -131,6 +131,7 @@ Changes that are not related to specific components
 - [Button] Documentation about SCSS usage.
 - [Table] Documentation about SCSS usage.
 - [Notification] Documentation about SCSS usage.
+- [Shadow] Documentation about box-shadow usage.
 
 #### Changed
 

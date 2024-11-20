@@ -1,0 +1,28 @@
+---
+slug: '/foundation/design-tokens/shadow'
+title: 'Shadow - Usage'
+navTitle: 'Shadow'
+---
+
+import ExternalLink from '../../../../components/ExternalLink';
+import Notification from '../../../../components/Notification';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+<Notification
+  type="alert"
+  label="Shadows are not officially part of City of Helsinki brand"
+  className="siteNotification"
+>
+  Shadows should be used very sparingly if at all and always only to allow greater visual contrast between elements.
+</Notification>
+
+### Principles
+
+- **Shadows are not used to signify elevation of inline elements in HDS.** Elements that require distinction, can however have shadows applied.
+- **Do not use shadows to highlight elements.** Elements with shadow around them should only have it for visual clarity.
+- **Never use shadows on typography (heading nor body).** Primary typographic contrast should always rely on colour contrast.
+- **Never use shadows for effect.** For the City of Helsinki brand to remain intact, do not rely on style based effects of any kind.
+
+HDS offers examples of shadows used in carefully selected components that float on top of other content, such as <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-notification--with-box-shadow">Notification toast variant</ExternalLink> and <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-dialog--with-box-shadow">Dialog.</ExternalLink>
