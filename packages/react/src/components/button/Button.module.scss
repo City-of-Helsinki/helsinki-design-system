@@ -1,58 +1,69 @@
-@import "button.common";
+@use 'hds-core/lib/components/button/_button-mixin' as CoreSass;
 
 .button {
-  @extend %button;
-}
-
-.label {
-  @extend %label;
-}
-
-.fullWidth {
-  @extend %fullWidth;
-}
-
-.size-small {
-  @extend %size-small;
-}
-
-.icon {
-  @extend %icon;
-
-  svg {
-    max-height: 100%;
-    max-width: 100%;
-  }
+  @include CoreSass.button($all: false, $base: true, $react: true);
 }
 
 .primary {
-  @extend %primary;
+  @include CoreSass.button($all: false, $primary: true, $react: true);
 }
 
 .secondary {
-  @extend %secondary;
+  @include CoreSass.button($all: false, $secondary: true, $react: true);
 }
 
 .supplementary {
-  @extend %supplementary;
-}
-
-.isLoading {
-  @extend %loading;
-}
-
-.success {
-  @extend %success;
-}
-
-.danger {
-  @extend %danger;
+  @include CoreSass.button($all: false, $supplementary: true, $react: true);
 }
 
 .theme-coat {
-  @extend %theme-coat;
+  &.primary {
+    @include CoreSass.button($all: false, $themeCoat: true, $primary: true, $react: true);
+  }
+
+  &.secondary {
+    @include CoreSass.button($all: false, $themeCoat: true, $secondary: true, $react: true);
+  }
+
+  &.supplementary {
+    @include CoreSass.button($all: false, $themeCoat: true, $supplementary: true, $react: true);
+  }
 }
 
 .theme-black {
-  @extend %theme-black;
+  &.primary {
+    @include CoreSass.button($all: false, $themeBlack: true, $primary: true, $react: true);
+  }
+
+  &.secondary {
+    @include CoreSass.button($all: false, $themeBlack: true, $secondary: true, $react: true);
+  }
+
+  &.supplementary {
+    @include CoreSass.button($all: false, $themeBlack: true, $supplementary: true, $react: true);
+  }
+}
+
+.clear {
+  @include CoreSass.button($all: false, $clear: true, $react: true);
+}
+
+.success {
+  @include CoreSass.button($all: false, $success: true, $react: true);
+}
+
+.danger {
+  @include CoreSass.button($all: false, $danger: true, $react: true);
+}
+
+.size-small {
+  @include CoreSass.button($all: false, $small: true, $react: true);
+}
+
+.fullWidth {
+  @include CoreSass.button($all: false, $fullwidth: true, $react: true);
+}
+
+.icon {
+  @include CoreSass.button($all: false, $icon: true, $react: true);
 }

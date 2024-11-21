@@ -1,5 +1,5 @@
-import './status-label.css';
-import './../notification/notification.css';
+import './status-label.scss';
+import './../notification/notification.scss';
 
 export default {
   title: 'Components/StatusLabel',

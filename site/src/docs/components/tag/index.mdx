@@ -4,7 +4,7 @@ title: 'Tag'
 navTitle: 'Tag'
 ---
 
-import { Tag } from 'hds-react';
+import { Tag, TagSize, IconCheck, IconStar, IconLinkExternal, IconCross, IconPhoto} from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -13,50 +13,92 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Example
 <PlaygroundPreview>
-  <Tag>News</Tag>
-  <Tag style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag>News</Tag>
+    <Tag>Announcements</Tag>
+  </div>
 </PlaygroundPreview>
 
 ### Principles
 - **Tags are meant for presenting object attributes and filters.** If you are presenting status information, use <InternalLink href="/components/status-label">Status label component</InternalLink> instead.
-- Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
-- Do not use icons inside Tag labels.
-- Tags are often related to some other element on the page (e.g. table row or search field as filters). Aim to keep tags and their related elements close to each other so the user can easily interpret the relation.
-- Unlike status labels, **tags can be configured to be clickable and deletable**. You can use this feature to create removable filters/selections or links to category filtered pages.
+- Keep labels short and concise. Use 1-2 words at maximum and avoid labels expanding to two rows. If the Tag is too long, not fitting the avaialble space, it automatically truncates the label.
+  - If for some reason, a long label is needed, `multiline` prop can be used to allow spanning onto multiple lines.
+- Keep an 8px minimum space between tags.
+- Tags almost always appear in a group and are often related to some other element on the page (e.g. card or search page as filters). Aim to keep tags and their related elements close to each other so the user can easily interpret the relation.
+- When displaying multiple tags together, place them inline as a row of options, not listed vertically. Overflowing tags should break to the next line.
+- Unlike status labels, **tags can be configured to be clickable and deletable or also to function as a link**. You can use this feature to create removable filters/selections or links to category filtered pages.
 
 ### Variations
 #### Default
 By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
 
 <PlaygroundPreview>
-<Tag>News</Tag>
-<Tag style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag>News</Tag>
+    <Tag>Announcements</Tag>
+  </div>
 </PlaygroundPreview>
 
 #### Clickable
-Tags can be configured to be interactable by giving them an `onClick` function prop. This way Tags can act as links or actions. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
+Tags can be configured to be interactable by giving them an `onClick` function prop. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
 
-Remember to add a descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
+Clickable tags and buttons are similar; they both provide visual cues to encourage users to take actions and make selections. Tags are used dynamically based on the situation to enhance the user’s current journey, while buttons are designed to facilitate important actions and advance through the product.
+
+Although tags may have the same interactivity as a button or a link, a tag should not be used as a replacement for a button.
+
+Remember to add a descriptive `aria-label` to clearly indicate the action to assistive technologies.
 
 <PlaygroundPreview>
-<Tag role="link" onClick={() => {}} aria-label="Move to category: News">News</Tag>
-<Tag role="link" onClick={() => {}} aria-label="Move to category: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag onClick={() => {}} aria-label="Move to category: News">News</Tag>
+    <Tag onClick={() => {}} aria-label="Move to category: Announcements">Announcements</Tag>
+</div>
 </PlaygroundPreview>
 
 #### Deletable
-Tags can be configured to be deletable by giving them an `onDelete` function prop. This enables a delete icon inside the Tag. Deleting can be useful in situations where Tags are used as filters (e.g. for search).
+Tags can be configured to be deletable by giving them an `onDelete` function prop. This adds a cross icon inside the tag to indicate deletable function. Deletable tags represent removable pieces of information entered by a user and are useful in situations where tags are used as filters (e.g. for search).
 
-Remember to add a descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
+Remember to add a descriptive `aria-label` to clearly indicate what the user is deleting when triggering the action.
 
 <PlaygroundPreview>
-<Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</Tag>
-<Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag onDelete={() => {}} aria-label="Delete filter: News">News</Tag>
+    <Tag onDelete={() => {}} aria-label="Delete filter: Announcements">Announcements</Tag>
+</div>
 </PlaygroundPreview>
 
-#### Large deletable
-The large Tag variant is suited for search and filter usage. Larger area and text are more accessible, especially on mobile devices.
+#### With icons
+All Tag variants can contain icons by adding `iconStart` or `iconEnd` props. Remember an icon should always serve a distinct, easily understandable purpose.
 
 <PlaygroundPreview>
-<Tag size="l" onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</Tag>
-<Tag size="l" onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag iconStart={<IconCheck />}>Start icon</Tag>
+    <Tag href="https://www.hel.fi" target="_blank" iconEnd={<IconLinkExternal />} aria-label="Link to Helsinki website">End icon</Tag>
+    <Tag onClick={() => {}} iconStart={<IconPhoto />} iconEnd={<IconCross />} aria-label="Tag with both icons and onClick handler">Both icons</Tag>
+  </div>
+</PlaygroundPreview>
+
+#### Link
+Tags can be configured to be a link by giving them a `href` prop. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
+
+We strongly recommend that tag is always an internal link as it is usually based on service taxonomy
+if there is a need to link to external site, remember to add external link icon and inform also screen readers
+
+Remember to add a descriptive `aria-label` to clearly indicate the link target to assistive technologies.
+
+<PlaygroundPreview>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag href="#example" aria-label="Move to section: Example">Example</Tag>
+    <Tag href="https://www.hel.fi" target="_blank" iconEnd={<IconLinkExternal />} aria-label="Link to Helsinki website">Helsinki website</Tag>
+  </div>
+</PlaygroundPreview>
+
+#### Large variant
+The large tag variant is particularly well-suited for search and filter usage on smaller screens. The increased touch area in clickable, deletable, and link tags enhances accessibility and meets WCAG AAA-level in the target size requirements.
+
+<PlaygroundPreview>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)'}}>
+    <Tag size={TagSize.Large} iconStart={<IconStar />}onClick={() => {}} aria-label="Give rating to location">Rate location</Tag>
+    <Tag size={TagSize.Large} onDelete={() => {}} aria-label="Delete filter">Delete</Tag>
+  </div>
 </PlaygroundPreview>

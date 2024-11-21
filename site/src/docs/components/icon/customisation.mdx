@@ -3,7 +3,7 @@ slug: '/components/icon/customisation'
 title: 'Icon - Customisation'
 ---
 
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -14,19 +14,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 Customising icons is rather simple. Use the `size` property to control size and the `color` property to control colour.
 
 ### Customisation example
-<Playground scope={{ IconFaceSmile }}>
+<Playground scope={{ IconFaceSmile, IconSize }}>
 
 
 ```jsx
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconSize } from 'hds-react';
 
 () => (
 <>
-<IconFaceSmile size="xs" color="var(--color-bus)" aria-hidden="true" />
-<IconFaceSmile size="s" color="var(--color-brick)" aria-hidden="true" />
-<IconFaceSmile size="m" color="var(--color-coat-of-arms)" aria-hidden="true" />
-<IconFaceSmile size="l" color="var(--color-tram)" aria-hidden="true" />
-<IconFaceSmile size="xl" color="var(--color-metro)" aria-hidden="true" />
+<IconFaceSmile size={IconSize.ExtraSmall} color="var(--color-bus)" />
+<IconFaceSmile size={IconSize.Small} color="var(--color-brick)" />
+<IconFaceSmile size={IconSize.Medium} color="var(--color-coat-of-arms)" />
+<IconFaceSmile size={IconSize.Large} color="var(--color-tram)" />
+<IconFaceSmile size={IconSize.ExtraLarge} color="var(--color-metro)" />
 </>)
 ```
 

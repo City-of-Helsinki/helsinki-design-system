@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../../styles/base.module.css';
-import styles from './StatusLabel.module.css';
+import styles from './StatusLabel.module.scss';
 import classNames from '../../utils/classNames';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
@@ -14,19 +14,13 @@ export type StatusLabelProps = React.PropsWithChildren<
      */
     className?: string;
     /**
-     * Adds a data-testid attribute to the root element with the given value
-     * @deprecated Will be replaced in the next major release with "data-testid"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    dataTestId?: string;
-    /**
      * The type of the status label
      */
     type?: StatusLabelType;
     /**
      * Element placed on the left side of the status label
      */
-    iconLeft?: React.ReactNode;
+    iconStart?: React.ReactNode;
   }
 >;
 const IconElement = ({ icon }: { icon: React.ReactNode }) => (
@@ -35,20 +29,12 @@ const IconElement = ({ icon }: { icon: React.ReactNode }) => (
   </span>
 );
 
-export const StatusLabel = ({
-  children,
-  className,
-  dataTestId,
-  type = 'neutral',
-  iconLeft,
-  ...rest
-}: StatusLabelProps) => (
+export const StatusLabel = ({ children, className, type = 'neutral', iconStart, ...rest }: StatusLabelProps) => (
   <span
-    className={classNames(styles.statusLabel, styles[type], iconLeft && styles.statusLabelWithIcon, className)}
-    data-testid={dataTestId}
+    className={classNames(styles.statusLabel, styles[type], iconStart && styles.statusLabelWithIcon, className)}
     {...rest}
   >
-    {iconLeft && <IconElement icon={iconLeft} />}
+    {iconStart && <IconElement icon={iconStart} />}
     {children}
   </span>
 );

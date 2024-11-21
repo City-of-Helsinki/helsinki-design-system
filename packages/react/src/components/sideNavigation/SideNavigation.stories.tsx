@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { SideNavigation, SideNavigationProps } from './SideNavigation';
@@ -49,7 +48,7 @@ export const Default = (args: SideNavigationProps) => {
       </style>
       <div className="example-page">
         <div className="example-page-side-navigation">
-          <SideNavigation ariaLabel="Getting started" {...args}>
+          <SideNavigation aria-label="Getting started" {...args}>
             <SideNavigation.MainLevel id="main-level-link-1" label="Main level accordion">
               <SideNavigation.SubLevel
                 active={active === '/sub-level-1'}
@@ -133,11 +132,7 @@ export const WithIcons = (args: SideNavigationProps) => {
       <div className="example-page">
         <div className="example-page-side-navigation">
           <SideNavigation {...args}>
-            <SideNavigation.MainLevel
-              id="main-level-link-1"
-              label="Main level accordion"
-              icon={<IconHome aria-hidden />}
-            >
+            <SideNavigation.MainLevel id="main-level-link-1" label="Main level accordion" icon={<IconHome />}>
               <SideNavigation.SubLevel
                 active={active === '/sub-level-1'}
                 id="sub-level-link-1"
@@ -153,11 +148,7 @@ export const WithIcons = (args: SideNavigationProps) => {
                 onClick={handleClick(setActive)}
               />
             </SideNavigation.MainLevel>
-            <SideNavigation.MainLevel
-              id="main-level-link-2"
-              label="Main level accordion"
-              icon={<IconHome aria-hidden />}
-            >
+            <SideNavigation.MainLevel id="main-level-link-2" label="Main level accordion" icon={<IconHome />}>
               <SideNavigation.SubLevel
                 active={active === '/sub-level-3'}
                 id="sub-level-link-3"
@@ -179,7 +170,7 @@ export const WithIcons = (args: SideNavigationProps) => {
               href="/main-level-3"
               label="Main level link"
               onClick={handleClick(setActive)}
-              icon={<IconHome aria-hidden />}
+              icon={<IconHome />}
             />
             <SideNavigation.MainLevel
               id="main-level-link-4"
@@ -230,7 +221,7 @@ export const WithSkipLink = (args: SideNavigationProps) => {
 
       <div className="example-page">
         <div className="example-page-side-navigation">
-          <SideNavigation ariaLabel="Getting started" {...args}>
+          <SideNavigation aria-label="Getting started" {...args}>
             <SideNavigation.SkipLink skipTo="#content" label="Skip Navigation" theme={skipLinkTheme} />
             <SideNavigation.MainLevel id="main-level-link-1" label="Main level accordion">
               <SideNavigation.SubLevel

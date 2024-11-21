@@ -7,7 +7,6 @@ import { Breadcrumb, IconDocument, IconEnvelope, IconPhone, IconPhoto } from 'hd
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
-
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
@@ -21,7 +20,7 @@ import { Breadcrumb } from 'hds-react';
 
 () => (
   <Breadcrumb
-    ariaLabel="Breadcrumb"
+    aria-label="Breadcrumb"
     list={[
       { title: 'Front page', path: '/' },
       { title: 'Health and social services', path: '/path' },
@@ -78,10 +77,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property    | Description                                                               | Values                 | Default value |
 | ----------- | ------------------------------------------------------------------------- | ---------------------- | ------------- |
-| `ariaLabel` | `aria-label` of the `<nav>` element created by the component              | `string`               | -             |
+| `aria-label` | `aria-label` must be provided for the created `<nav>` element             | `string`               | -             |
 | `list`      | Array of breadcrumb items. Each item is an object with `title` and `path` | `BreadcrumbListItem[]` | -             |
 
-<NativeElementPropsInfo
-  nodeName="nav"
-  overlappingProps={['ariaLabel']}
-/>
+<NativeElementPropsInfo nodeName="nav" />

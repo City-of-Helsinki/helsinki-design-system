@@ -4,6 +4,13 @@ import '../../styles/base.module.css';
 import styles from './Linkbox.module.scss';
 import { IconArrowRight, IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
+import { IconSize } from '../../icons/Icon.interface';
+
+export enum LinkboxSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
 
 export type LinkboxProps = {
   /**
@@ -58,7 +65,7 @@ export type LinkboxProps = {
   /**
    * Size variant for the linkbox. Affects texts and paddings.
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: LinkboxSize;
 } & Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>;
 
 export const Linkbox = ({
@@ -77,7 +84,7 @@ export const Linkbox = ({
   openInNewTabAriaLabel,
   text,
   border = false,
-  size = 'medium',
+  size = LinkboxSize.Medium,
   ...rest
 }: LinkboxProps) => {
   const linkRef = useRef(null);
@@ -117,12 +124,12 @@ export const Linkbox = ({
           !noBackground && styles.withBackground,
           noBackground && !imgProps && styles.paddingWithoutImageAndWithoutBackground,
           !noBackground && !imgProps && styles.paddingWithoutImageAndWithBackground,
-          imgProps && size === 'small' && styles.withSmallImage,
-          imgProps && size === 'medium' && styles.withMediumImage,
-          imgProps && size === 'large' && styles.withLargeImage,
-          size === 'small' && styles.contentSmall,
-          size === 'medium' && styles.contentMedium,
-          size === 'large' && styles.contentLarge,
+          imgProps && size === LinkboxSize.Small && styles.withSmallImage,
+          imgProps && size === LinkboxSize.Medium && styles.withMediumImage,
+          imgProps && size === LinkboxSize.Large && styles.withLargeImage,
+          size === LinkboxSize.Small && styles.contentSmall,
+          size === LinkboxSize.Medium && styles.contentMedium,
+          size === LinkboxSize.Large && styles.contentLarge,
         )}
       >
         {heading && (
@@ -130,9 +137,9 @@ export const Linkbox = ({
             role="heading"
             aria-level={headingAriaLevel}
             className={classNames(
-              size === 'small' && styles.headingSmall,
-              size === 'medium' && styles.headingMedium,
-              size === 'large' && styles.headingLarge,
+              size === LinkboxSize.Small && styles.headingSmall,
+              size === LinkboxSize.Medium && styles.headingMedium,
+              size === LinkboxSize.Large && styles.headingLarge,
             )}
           >
             {heading}
@@ -156,10 +163,9 @@ export const Linkbox = ({
               styles.icon,
               noBackground
                 ? styles.iconWhenNoBackground
-                : size === 'large' && styles.iconPositionForLinkboxLargeVariant,
+                : size === LinkboxSize.Large && styles.iconPositionForLinkboxLargeVariant,
             )}
-            size="l"
-            aria-hidden
+            size={IconSize.Large}
           />
         ) : (
           <IconArrowRight
@@ -167,10 +173,9 @@ export const Linkbox = ({
               styles.icon,
               noBackground
                 ? styles.iconWhenNoBackground
-                : size === 'large' && styles.iconPositionForLinkboxLargeVariant,
+                : size === LinkboxSize.Large && styles.iconPositionForLinkboxLargeVariant,
             )}
-            size="l"
-            aria-hidden
+            size={IconSize.Large}
           />
         )}
       </a>

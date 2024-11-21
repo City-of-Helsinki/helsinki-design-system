@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 import { screen, render, fireEvent } from '@testing-library/react';
 import { axe } from 'jest-axe';
@@ -23,7 +22,7 @@ const getLanguageLabelByValue: StrFn = (val) => languages.find((obj) => obj.valu
 const LogoWithLanguageCheck = () => {
   const lang = useActiveLanguage();
   const src = lang === 'sv' ? logoSv : logoFi;
-  return <Logo src={src} dataTestId="action-bar-logo" alt="Helsingin kaupunki" />;
+  return <Logo src={src} data-testid="action-bar-logo" alt="Helsingin kaupunki" />;
 };
 
 const HeaderWithActionBar = ({ onDidChangeLanguage }) => {
@@ -41,7 +40,7 @@ describe('<HeaderActionBar /> spec', () => {
     const { asFragment } = render(
       <HeaderActionBar
         title="Test"
-        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
       />,
@@ -54,7 +53,7 @@ describe('<HeaderActionBar /> spec', () => {
     const { container } = render(
       <HeaderActionBar
         title="Test"
-        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
       />,
@@ -68,17 +67,13 @@ describe('<HeaderActionBar /> spec', () => {
     const divProps = getCommonElementTestProps('div');
     // check that removed specific "role" props is still added in ...rest
     divProps.role = 'role';
-    // header has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
       <HeaderActionBar
         {...divProps}
         title="Test"
-        logo={<Logo src="dummySrc" dataTestId="action-bar-logo" alt="Helsingin kaupunki" />}
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
         frontPageLabel="Etusivu"
         titleHref="#"
-        aria-label="Is overridden"
-        ariaLabel="Real ariaLabel"
       />,
       { wrapper: HeaderWrapper },
     );

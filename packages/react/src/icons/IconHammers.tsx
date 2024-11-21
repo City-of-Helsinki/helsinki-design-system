@@ -1,27 +1,27 @@
 import React from 'react';
 
 import styles from './Icon.module.css';
-import { IconProps } from './Icon.interface';
+import { IconProps, IconSize } from './Icon.interface';
 
 export const IconHammers = ({
-  ariaLabel = 'hammers',
-  ariaLabelledby,
-  ariaHidden = true,
+  'aria-label': ariaLabel = 'hammers',
+  'aria-hidden': ariaHidden = true,
   className = '',
   color,
-  size = 's',
+  size = IconSize.Small,
   style = {},
-}: React.SVGProps<SVGSVGElement> & IconProps) => (
+  ...rest
+}: IconProps) => (
   <svg
+    aria-label={ariaLabel}
+    aria-hidden={ariaHidden}
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    aria-label={ariaLabel}
-    aria-labelledby={ariaLabelledby}
-    aria-hidden={ariaHidden}
     color={color}
     style={style}
+    {...rest}
   >
     <path
       d="M7.70276 2L2.71284 6.98991L2 10.5541L3.42569 11.9798L6.13993 9.26559L17.4589 20.5846L19.5975 18.4461L8.27846 7.12705L10.5541 4.85138L7.70276 2Z"

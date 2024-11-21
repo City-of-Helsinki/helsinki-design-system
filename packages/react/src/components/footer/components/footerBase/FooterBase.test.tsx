@@ -6,7 +6,7 @@ import { FooterBase } from './FooterBase';
 import { FooterWrapper } from '../../../../utils/test-utils';
 import { Footer } from '../../Footer';
 import { FooterVariant } from '../../Footer.interface';
-import { Logo } from '../../../logo';
+import { Logo, LogoSize } from '../../../logo';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
 describe('<Footer.Base /> spec', () => {
@@ -26,7 +26,7 @@ describe('<Footer.Base /> spec', () => {
 
   it('renders the component', () => {
     const { asFragment } = render(
-      <FooterBase logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}>
+      <FooterBase logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}>
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
         <Footer.Link label="Link 3" variant={FooterVariant.Base} />
@@ -44,7 +44,7 @@ describe('<Footer.Base /> spec', () => {
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Ylös"
-        logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+        logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
       >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
@@ -61,18 +61,13 @@ describe('<Footer.Base /> spec', () => {
   it('native html props are passed to the element', async () => {
     const divProps = getCommonElementTestProps('div');
     divProps.role = 'role';
-    // element has "ariaLabel", which should override "aria-label"
-    divProps['aria-label'] = 'Real ariaLabel';
     const { getByTestId } = render(
       <FooterBase
         {...divProps}
         copyrightHolder="Copyright"
         copyrightText="All rights reserved"
         backToTopLabel="Ylös"
-        logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
-        aria-label="Is overridden"
-        // eslint-disable-next-line react/forbid-component-props
-        ariaLabel="Real ariaLabel"
+        logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
       >
         <Footer.Link label="Link 1" variant={FooterVariant.Base} />
         <Footer.Link label="Link 2" variant={FooterVariant.Base} />
@@ -108,7 +103,7 @@ describe('<Footer.Base /> spec', () => {
         <FooterWrapper>
           <FooterBase
             backToTopLabel="Test label"
-            logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+            logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
           />
         </FooterWrapper>
       </>,
@@ -130,7 +125,7 @@ describe('<Footer.Base /> spec', () => {
     const { container } = render(
       <FooterWrapper>
         <FooterBase
-          logo={<Logo alt="Helsingin kaupunki" size="medium" src="dummyPath" />}
+          logo={<Logo alt="Helsingin kaupunki" size={LogoSize.Medium} src="dummyPath" />}
           logoHref={href}
           onLogoClick={onClick}
         >

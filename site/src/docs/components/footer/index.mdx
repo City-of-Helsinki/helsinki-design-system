@@ -4,7 +4,7 @@ title: 'Footer'
 navTitle: 'Footer'
 ---
 
-import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant, Logo, logoFi, logoFiDark } from 'hds-react';
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, FooterVariant, Logo, LogoSize, logoFi, logoFiDark } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -41,7 +41,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -106,7 +106,7 @@ The default footer uses the black text colour variant and includes three section
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -133,7 +133,7 @@ The Footer component supports light and dark themes.
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -154,7 +154,7 @@ The Footer component supports light and dark themes.
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFiDark} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFiDark} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />
@@ -216,42 +216,42 @@ Utility section has two different layout options:
     <Footer.Utilities soMeLinks={[
       <Footer.Link
         title="Helsingin kaupungin Facebook-tili"
-        ariaLabel="Helsingin kaupungin Facebook-tili"
+        aria-label="Helsingin kaupungin Facebook-tili"
         external
         openInNewTab
-        icon={<IconFacebook aria-hidden />}
+        icon={<IconFacebook />}
         href="https://facebook.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Twitter-tili"
-        ariaLabel="Helsingin kaupungin Twitter-tili"
+        aria-label="Helsingin kaupungin Twitter-tili"
         external
         openInNewTab
-        icon={<IconTwitter aria-hidden />}
+        icon={<IconTwitter />}
         href="https://twitter.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Instagram-tili"
-        ariaLabel="Helsingin kaupungin Instagram-tili"
+        aria-label="Helsingin kaupungin Instagram-tili"
         external
         openInNewTab
-        icon={<IconInstagram aria-hidden />}
+        icon={<IconInstagram />}
         href="https://instagram.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Youtube-tili"
-        ariaLabel="Helsingin kaupungin Youtube-tili"
+        aria-label="Helsingin kaupungin Youtube-tili"
         external
         openInNewTab
-        icon={<IconYoutube aria-hidden />}
+        icon={<IconYoutube />}
         href="https://youtube.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Tiktok-tili"
-        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        aria-label="Helsingin kaupungin Tiktok-tili"
         external
         openInNewTab
-        icon={<IconTiktok aria-hidden />}
+        icon={<IconTiktok />}
         href="https://tiktok.com"
       />,
     ]}>
@@ -292,37 +292,37 @@ Utility section has two different layout options:
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
           label="Twitter"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
+          aria-label="Helsingin kaupungin Twitter-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconTwitter aria-hidden="true" />}
+          icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
           label="Instagram"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
+          aria-label="Helsingin kaupungin Instagram-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconInstagram aria-hidden="true" />}
+          icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />
       </Footer.UtilityGroup>

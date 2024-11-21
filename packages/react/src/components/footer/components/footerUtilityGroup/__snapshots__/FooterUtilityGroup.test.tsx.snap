@@ -72,7 +72,7 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                   Main Page
                 </a>
                 <a
-                  class="link linkM item utility"
+                  class="link link-medium item utility"
                   href="https://google.com"
                 >
                   <span>
@@ -80,7 +80,7 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                   </span>
                 </a>
                 <a
-                  class="link linkM item utility"
+                  class="link link-medium item utility"
                   href="https://google.com"
                 >
                   <span>
@@ -101,15 +101,15 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                   Social media
                 </span>
                 <a
-                  aria-label="Helsingin kaupungin Facebook-tili"
-                  class="link linkM item utility"
+                  aria-label="Helsingin kaupungin Facebook-tili."
+                  class="link link-medium item utility"
                   href="https://facebook.com/helsinginkaupunki/"
                   title="Helsingin kaupungin Facebook-tili"
                 >
                   <svg
                     aria-hidden="true"
                     aria-label="facebook"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -126,15 +126,15 @@ exports[`<Footer.UtilityGroup /> spec renders the utility groups 1`] = `
                   </span>
                 </a>
                 <a
-                  aria-label="Helsingin kaupungin Facebook-tili"
-                  class="link linkM item utility"
+                  aria-label="Helsingin kaupungin Facebook-tili."
+                  class="link link-medium item utility"
                   href="https://facebook.com/helsinginkaupunki/"
                   title="Helsingin kaupungin Facebook-tili"
                 >
                   <svg
                     aria-hidden="true"
                     aria-label="facebook"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"

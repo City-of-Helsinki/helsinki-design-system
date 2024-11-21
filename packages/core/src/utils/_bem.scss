@@ -1,0 +1,191 @@
+@use "sass:string";
+
+$blockPrefix: 'hds-';
+$modifierDelimeter: '--';
+$elementDelimeter: '__';
+
+// Copied from https://github.com/Shudrum/sass-easy-bem
+// The module was added to root/node_modules, so SASS cannot find it from core.
+
+// Copyright (c) 2018-2019 Julien Martin.
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+
+// Utility functions
+
+@function get-parent-selector($selector) {
+  $parent: null;
+
+  @while string.index('#{$selector}', ' ') {
+    $first-element: string.slice('#{$selector}', 0, string.index('#{$selector}', ' ') - 1);
+
+    @if $parent {
+      $parent: '#{$parent} #{$first-element}';
+    } @else {
+      $parent: $first-element;
+    }
+
+    $selector: string.slice('#{$selector}', string.index('#{$selector}', ' ') + 1);
+  }
+
+  @return $parent;
+}
+
+@function get-last-selector($selector) {
+  @while string.index('#{$selector}', ' ') {
+    $selector: string.slice('#{$selector}', string.index('#{$selector}', ' ') + 1);
+  }
+
+  @return $selector;
+}
+
+@function get-block($selector) {
+  $have-element: string.index('#{&}', $elementDelimeter);
+  $have-modifier: string.index('#{&}', $modifierDelimeter);
+
+  @if $have-element {
+    @return string.slice('#{$selector}', 0, string.index('#{&}', $elementDelimeter) - 1);
+  }
+
+  @if $have-modifier {
+    @return string.slice('#{$selector}', 0, string.index('#{&}', $modifierDelimeter) - 1);
+  }
+
+  @return $selector;
+}
+
+@function get-element($selector) {
+  $have-modifier: string.index('#{$selector}', $modifierDelimeter);
+
+  @if $have-modifier {
+    $selector: string.slice('#{$selector}', 0, string.index('#{$selector}', $modifierDelimeter) - 1);
+
+    @while string.index(string.slice('#{$selector}', 2), '.') {
+      $selector: string.slice('#{$selector}', string.index(string.slice('#{$selector}', 2), '.') + 1);
+    }
+  }
+
+  @return $selector;
+}
+
+// prefix added by HDS
+// use for creating classes like .hds-<$block>
+// set $noPrefix to false to create classes like .-<$block>
+@mixin block($block, $noPrefix: false, $react: false) {
+  $className: $block;
+
+  @if not($noPrefix) {
+    $className: #{$blockPrefix + $block};
+  }
+
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$className} {
+        @content;
+      }
+    }
+  }
+}
+
+// use inside block() or another element() to create scoped classes like .hds-<block>.hds-<block>__<$element>
+@mixin element($element) {
+  $is-modifier: string.index('#{&}', $modifierDelimeter);
+  // stylelint-disable-next-line scss/function-no-unknown
+  $block: get-block(&);
+
+  @if not $is-modifier {
+    @at-root {
+      #{$block}__#{$element} {
+        @content;
+      }
+    }
+  }
+
+  @if $is-modifier {
+    $is-element: string.index('#{&}', $elementDelimeter);
+
+    @if $is-element {
+      $block: string.slice('#{&}', 0, string.index('#{&}', $elementDelimeter) - 1);
+
+      @at-root {
+        & #{$block}__#{$element} {
+          @content;
+        }
+      }
+    }
+
+    @if not $is-element {
+      $block: string.slice('#{&}', 0, string.index('#{&}', $modifierDelimeter) - 1);
+      $block: string.slice($block, 1, string.index(string.slice($block, 2, -1), '.'));
+
+      @at-root {
+        & #{$block}__#{$element} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+// use inside block() or element() to create scoped classes like .hds-<block>.hds-<block>--<$modifier>
+@mixin modifier($modifier) {
+  $parent-selector: get-parent-selector('#{&}');
+  $last-selector: get-last-selector('#{&}');
+  // stylelint-disable-next-line scss/function-no-unknown
+  $element: get-element($last-selector);
+
+  @at-root {
+    @if $parent-selector {
+      #{$parent-selector} #{$last-selector}#{$element}#{$modifierDelimeter}#{$modifier} {
+        @content;
+      }
+    } @else {
+      #{$last-selector}#{$element}#{$modifierDelimeter}#{$modifier} {
+        @content;
+      }
+    }
+  }
+}
+
+// end of sass-easy-bem
+
+// HDS add-on to create .hds-<block>--modifier instead of .hds-<block>.hds-<block>--modifier
+@mixin unscopedModifier($block, $modifier, $react: false) {
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$blockPrefix + $block}#{$modifierDelimeter}#{$modifier} {
+        @content;
+      }
+    }
+  }
+}
+
+// HDS add-on to create .hds-<block>__element instead of .hds-<block>.hds-<block>__element
+@mixin unscopedElement($block, $element, $react: false) {
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$blockPrefix + $block}#{$elementDelimeter}#{$element} {
+        @content;
+      }
+    }
+  }
+}
+
+// HDS add-on to create .hds-<block>--modifier.hds-<block>--theme {
+@mixin unscopedModifierWithTheme($block, $modifier, $theme, $react: false) {
+  @if $react {
+    @content;
+  } @else {
+    @at-root {
+      .#{$blockPrefix + $block}#{$modifierDelimeter}#{$modifier}.#{$blockPrefix + $block}#{$modifierDelimeter}#{$theme} {
+        @content;
+      }
+    }
+  }
+}

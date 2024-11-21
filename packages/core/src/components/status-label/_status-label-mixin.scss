@@ -1,0 +1,120 @@
+@use '../../utils/bem' as BemUtil;
+
+@mixin base {
+  --status-label-background: var(--color-black-10);
+  --status-label-color: var(--color-black-90);
+  --status-label-height: 32px;
+
+  background-color: var(--status-label-background);
+  border-radius: 20px;
+  color: var(--status-label-color);
+  display: inline-block;
+  font-size: var(--fontsize-body-s);
+  line-height: var(--status-label-height);
+  min-height: var(--status-label-height);
+  padding: 0 var(--spacing-2-xs);
+  vertical-align: middle;
+}
+
+@mixin error {
+  --status-label-background: var(--color-error);
+  --status-label-color: var(--color-white);
+}
+
+@mixin withIcon {
+  align-items: center;
+  display: inline-flex;
+  padding-left: var(--spacing-3-xs);
+}
+
+@mixin icon {
+  height: var(--spacing-m);
+  margin-right: var(--spacing-3-xs);
+  width: var(--spacing-m);
+}
+
+@mixin info {
+  --status-label-background: var(--color-info);
+  --status-label-color: var(--color-white);
+}
+
+@mixin success {
+  --status-label-background: var(--color-success);
+  --status-label-color: var(--color-white);
+}
+
+@mixin alert {
+  --status-label-background: var(--color-alert);
+}
+
+@mixin status-label(
+  $all: true,
+  $base: false,
+  $icon: false,
+  $withIcon: false,
+  $info: false,
+  $error: false,
+  $alert: false,
+  $success: false,
+  $override: null,
+  $react: false
+) {
+  $className: 'status-label';
+
+  @if $override {
+    $className: $override;
+  }
+
+  @if $all or $base {
+    @include BemUtil.block($className, if($override, true, false), $react) {
+      @include base;
+    }
+  }
+
+  @if $all or $withIcon {
+    @include BemUtil.unscopedModifier($className, 'with-icon', $react) {
+      @include withIcon;
+    }
+  }
+
+  @if $all or $icon {
+    $iconClassName: 'hds-status-label-icon';
+
+    @if $override {
+      $iconClassName: $override;
+    }
+
+    @if $react {
+      @include icon;
+    } @else {
+      // the original, pre-sass css had "-icon" which is not bem compliant, so manually created same
+      .#{$iconClassName} {
+        @include icon;
+      }
+    }
+  }
+
+  @if $all or $info {
+    @include BemUtil.unscopedModifier($className, 'info', $react) {
+      @include info;
+    }
+  }
+
+  @if $all or $success {
+    @include BemUtil.unscopedModifier($className, 'success', $react) {
+      @include success;
+    }
+  }
+
+  @if $all or $alert {
+    @include BemUtil.unscopedModifier($className, 'alert', $react) {
+      @include alert;
+    }
+  }
+
+  @if $all or $error {
+    @include BemUtil.unscopedModifier($className, 'error', $react) {
+      @include error;
+    }
+  }
+}

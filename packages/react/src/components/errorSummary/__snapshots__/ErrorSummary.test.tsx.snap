@@ -5,7 +5,7 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
   <div
     aria-atomic="true"
     aria-label="Error summary"
-    class="notification default error customClass"
+    class="notification medium error customClass"
   >
     <div
       class="content"
@@ -19,7 +19,7 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
         <svg
           aria-hidden="true"
           aria-label="error-fill"
-          class="icon s icon"
+          class="icon small icon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

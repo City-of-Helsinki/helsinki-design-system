@@ -33,10 +33,6 @@ export type TextInputProps = MergeAndOverrideProps<
      */
     defaultValue?: string;
     /**
-     * If `true`, the input will be disabled
-     */
-    disabled?: boolean;
-    /**
      * The error text content that will be shown below the input
      */
     errorText?: string;
@@ -61,6 +57,10 @@ export type TextInputProps = MergeAndOverrideProps<
      */
     label?: string | React.ReactNode;
     /**
+     * The label for the input
+     */
+    labelId?: string;
+    /**
      * Callback fired when the state is changed
      */
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -72,14 +72,6 @@ export type TextInputProps = MergeAndOverrideProps<
      * Short hint displayed in the input before the user enters a value
      */
     placeholder?: string;
-    /**
-     * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
-     */
-    readOnly?: boolean;
-    /**
-     * If `true`, the label is displayed as required and the `input` element will be required
-     */
-    required?: boolean;
     /**
      * Override or extend the styles applied to the component
      */
@@ -145,6 +137,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       infoText,
       invalid,
       label,
+      labelId,
       onButtonClick,
       onChange = () => null,
       required,
@@ -167,6 +160,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       infoText,
       invalid,
       label,
+      labelId,
       required,
       style,
       successText,

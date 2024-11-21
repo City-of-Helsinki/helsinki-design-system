@@ -11,120 +11,86 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Code examples
 
-### Modal
+### Banner
 
 ```jsx
-import { CookieModal } from 'hds-react';
+import { CookieConsentContextProvider, CookieBanner } from 'hds-react';
 
-export const SimpleModalVersion = () => {
-  const [language, setLanguage] = React.useState('en');
-  const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource = {
-    siteName: 'Test site',
-    currentLanguage: language,
-    optionalCookies: {
-      cookies: [
-        {
-          commonGroup: 'statistics',
-          commonCookie: 'matomo',
-        },
-      ],
-    },
-    language: {
-      onLanguageChange,
-    },
-    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
-    onAllConsentsGiven: (consents) => {
-      // called when consents are saved
-      // handle changes like:
-      if (!consents.matomo) {
-        // stop matomo tracking
-      }
-    },
-  };
-
-  const Application = () => {
-    return (
-      <div>
-        <h1 id="focused-element-after-cookie-consent-closed" tabIndex={0}>
-          Simple cookie consent example
-        </h1>
-      </div>
-    );
-  };
-
-  return (
-    <>
-      <CookieModal contentSource={contentSource} />
-      <Application />
-    </>
-  );
-};
+// properties of the context are omitted to simplify the example
+<CookieConsentContextProvider {...properties}>
+  <CookieBanner />
+</CookieConsentContextProvider>;
 ```
-
-<Link
-  openInNewTab
-  openInNewTabAriaLabel="Opens in a new tab"
-  href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version"
->
-  View working modal demo in Storybook
-</Link>
 
 ### Rendered on a page
 
 ```jsx
-import { CookiePage } from 'hds-react';
+import { CookieConsentContextProvider, CookieSettingsPage } from 'hds-react';
 
-export const PageVersion = () => {
-  const contentSource = {
-    siteName: 'Test site',
-    currentLanguage: 'en',
-    optionalCookies: {
-      cookies: [
-        {
-          commonGroup: 'statistics',
-          commonCookie: 'matomo',
-        },
-      ],
-    },
-    onAllConsentsGiven: (consents) => {
-      // called when consents are saved
-      // handle changes like:
-      if (!consents.matomo) {
-        // stop matomo tracking
-      }
-    },
-  };
-
-  return (
-    <main>
-      <CookiePage contentSource={contentSource} />
-    </main>
-  );
-};
+// properties of the context are omitted to simplify the example
+<CookieConsentContextProvider {...properties}>
+  <CookieSettingsPage />
+</CookieConsentContextProvider>;
 ```
 
-<Link
+### Standalone version
+
+The standalone version does not require other HDS components to be installed. The javascript can be included on the page and it has all needed styles and elements included.
+
+```jsx
+// add these scripts to the <head> tag
+<script>
+  function checkCookieConsents() {
+    const siteSettings = 'url to the settings json or settings as an object';
+    const options = {
+      // options
+    };
+    hds.CookieConsentCore.create(siteSettings, options);
+  }
+</script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/hds-js@latest/standalone/cookieConsent/index.js"
+  onload="checkCookieConsents()"
+></script>
+```
+
+<p>
+  <ExternalLink
+    href="/storybook/react/static-cookie-consent/standaloneBanner.html"
+    openInExternalDomainAriaLabel="Opens in a new domain"
+    openInNewTab
+    openInNewTabAriaLabel="Opens in a new tab"
+  >
+    View stand-alone banner example in Storybook
+  </ExternalLink>
+</p>
+<ExternalLink
+  href="/storybook/react/static-cookie-consent/standalonePage.html"
+  openInExternalDomainAriaLabel="Opens in a new domain"
   openInNewTab
   openInNewTabAriaLabel="Opens in a new tab"
-  href="/storybook/react/?path=/story/components-cookieconsent--page-version"
 >
-  View working page example in Storybook
-</Link>
+  View stand-alone page example in Storybook
+</ExternalLink>
+
+The required javascript file can also be downloaded and placed to your server. The file is in <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://www.npmjs.com/package/hds-js/v/latest?activeTab=code">NPM</ExternalLink>. The path to the file is `standalone/cookieConsent/index.js` (<a href="https://cdn.jsdelivr.net/npm/hds-js@latest/standalone/cookieConsent/index.js" aria-label="Download the standalone javascript file automatically" download>download</a>).
 
 ### Packages
 
-| Package       | Included                                                                                        | Storybook link                                                                                                                                                                       | Source link                                                                                                                                                                                                                                                                               |
-| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">View in Storybook</Link> | <ExternalLink size="M" openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsent">View source</ExternalLink> |
-| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                                    | -                                                                                                                                                                                                                                                                                         |
+| Package          | Included                                                                                        | Storybook link                                                                                                                                                                       | Source link                                                                                                                                                                                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React**    | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">View in Storybook</Link> | <ExternalLink size="M" openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsent">View source</ExternalLink>     |
+| **HDS JS\***     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | -                                                                                                                                                                                    | <ExternalLink size="M" openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsentCore">View source</ExternalLink> |
+| **HDS Core\*\*** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | -                                                                                                                                                                                    | <ExternalLink size="M" openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/core/src/components/cookie-consent">View source</ExternalLink>     |
+
+**\*** HDS JS includes standalone version of the cookie consent.
+
+**\*\*** HDS Core includes styles for the cookie consent. For the actual functionality React or Javascript version is needed.
 
 ### Properties
 
-Note! You can find the full list of properties in the <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">React Storybook.</Link>
-Also, you can find a detailed description of the `contentSource` property in the <InternalLink href="/components/cookie-consent/api">API tab</InternalLink>.
-
-| Property        | Description                                     | Values   | Default value               |
-| --------------- | ----------------------------------------------- | -------- | --------------------------- |
-| `contentSource` | Main configurations of the Cookie Consent.      | `object` | -                           |
-| `cookieDomain`  | A string representing the domain of the cookie. | `string` | `window.location.hostname.` |
+| Property          | Description                                                                                                                                               | Type     |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `siteSettingsObj` | Main configurations of the Cookie Consent. <InternalLink href="/components/cookie-consent/api#site-settings">See the detailed description.</InternalLink> | `object` |
+| `options`         | An object representing the instance settings.<InternalLink href="/components/cookie-consent/api#options">See the detailed description.</InternalLink>     | `object` |

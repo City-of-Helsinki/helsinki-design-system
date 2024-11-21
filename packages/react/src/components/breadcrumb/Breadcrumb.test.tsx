@@ -8,7 +8,7 @@ import { getCommonElementTestProps, getElementAttributesMisMatches } from '../..
 
 describe('<Breadcrumb /> spec', () => {
   const defaultProps: BreadcrumbProps = {
-    ariaLabel: 'Breadcrumb',
+    'aria-label': 'Breadcrumb',
     list: [
       { title: 'Home', path: '/' },
       { title: 'Level 1', path: '/level1' },
@@ -28,8 +28,7 @@ describe('<Breadcrumb /> spec', () => {
   });
   it('native html props are passed to the element', async () => {
     const navProps = getCommonElementTestProps<'nav'>('nav');
-    // BreadCrumb has prop "ariaLabel". It will override "aria-label".
-    navProps['aria-label'] = defaultProps.ariaLabel;
+    navProps['aria-label'] = defaultProps['aria-label'];
     const expectedProps = {
       ...navProps,
       ...defaultProps,
@@ -64,9 +63,9 @@ describe('<Breadcrumb /> spec', () => {
     );
     expect(container.querySelectorAll('nav')).toHaveLength(0);
   });
-  it('ariaLabel is set to the nav element.', async () => {
+  it('aria-label is set to the nav element.', async () => {
     const { container } = render(<Breadcrumb {...defaultProps} />);
     const nav = container.querySelectorAll('nav')[0] as HTMLElement;
-    expect(nav.getAttribute('aria-label')).toBe(defaultProps.ariaLabel);
+    expect(nav.getAttribute('aria-label')).toBe(defaultProps['aria-label']);
   });
 });

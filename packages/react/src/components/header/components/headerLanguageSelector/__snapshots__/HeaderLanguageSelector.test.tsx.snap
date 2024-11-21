@@ -60,7 +60,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
               <svg
                 aria-hidden="true"
                 aria-label="globe"
-                class="icon s"
+                class="icon small"
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
           <svg
             aria-hidden="true"
             aria-label="angle-down"
-            class="icon s"
+            class="icon small"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -111,14 +111,14 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
                 </h4>
                 <a
                   aria-label="Selkosuomi. Siirtyy toiseen sivustoon."
-                  class="link linkM"
+                  class="link link-medium"
                   href="www.example.com"
                 >
                   Selkosuomi
                   <svg
                     aria-hidden="true"
                     aria-label="link-external"
-                    class="icon s icon verticalAlignMediumIcon"
+                    class="icon small icon verticalAlignMediumIcon"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +236,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                     <svg
                       aria-hidden="true"
                       aria-label="globe"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -256,7 +256,7 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                 <svg
                   aria-hidden="true"
                   aria-label="angle-down"
-                  class="icon s"
+                  class="icon small"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
@@ -287,14 +287,14 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                       </h4>
                       <a
                         aria-label="Selkosuomi. Siirtyy toiseen sivustoon."
-                        class="link linkM"
+                        class="link link-medium"
                         href="www.example.com"
                       >
                         Selkosuomi
                         <svg
                           aria-hidden="true"
                           aria-label="link-external"
-                          class="icon s icon verticalAlignMediumIcon"
+                          class="icon small icon verticalAlignMediumIcon"
                           role="img"
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"

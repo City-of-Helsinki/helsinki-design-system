@@ -1,30 +1,33 @@
 .accordion {
   --background-color: var(--color-white);
   --border-color: var(--color-black-60);
-  --header-font-color: var(--color-black-90);
-  --header-focus-outline-color: var(--color-coat-of-arms);
-  --content-font-color: var(--color-black-90);
+  --header-color: var(--color-black-90);
+  --header-outline-color-focus: var(--color-coat-of-arms);
+  --content-color: var(--color-black-90);
   --content-font-size: var(--fontsize-body-m);
   --content-line-height: var(--lineheight-l);
 
-  /* Close button */
+  /* Close button styles are Button styles prefixed with --close-button */
+  --close-button-background-color-active: var(--close-button-background-color-hover);
   --close-button-background-color-disabled: inherit;
   --close-button-background-color-focus: transparent;
-  --close-button-background-color-hover-focus: var(--color-black-5);
   --close-button-background-color-hover: var(--color-black-5);
   --close-button-background-color: inherit;
-  --close-button-border-color-active: var(--header-focus-outline-color);
+  --close-button-border-color-active: var(--header-outline-color-focus);
   --close-button-border-color-disabled: inherit;
-  --close-button-border-color-focus: var(--header-focus-outline-color);
-  --close-button-border-color-hover-focus: var(--header-focus-outline-color);
-  --close-button-border-color-hover: inherit;
+  --close-button-border-color-focus: var(--header-outline-color-focus);
+  --close-button-border-color-hover: transparent;
   --close-button-border-color: inherit;
+  --close-button-color-active: var(--close-button-color-hover);
   --close-button-color-disabled: inherit;
-  --close-button-color-focus: var(--color-black);
-  --close-button-color-hover-focus: var(--color-black);
-  --close-button-color-hover: var(--color-black);
+  --close-button-color-focus: var(--close-button-color-hover);
+  --close-button-color-hover: var(--close-button-color);
   --close-button-color: var(--content-font-color);
-  --close-button-focus-outline-color: transparent;
+  --close-button-outline-color-focus: var(--header-outline-color-focus);
+
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
 
   &:not(.card) {
     border-bottom: 1px solid var(--border-color);
@@ -43,7 +46,7 @@
 
 .accordionHeader {
   align-items: center;
-  color: var(--header-font-color);
+  color: var(--header-color);
   display: flex;
   font-size: var(--header-font-size);
   font-weight: var(--header-font-weight);
@@ -52,112 +55,114 @@
   line-height: var(--header-line-height);
   padding-bottom: var(--padding-vertical);
   padding-top: var(--padding-vertical);
-  position: relative;
+  width: 100%;
 
-  & > div {
+  > div {
     flex: 1 1 auto;
+  }
+
+  button {
+    --background-color-hover: transparent;
+    --background-color: transparent;
+    --border-color: transparent;
+    --color: inherit;
+    --icon-reposition: unset;
+    --min-size: initial; // reset min-size to allow button to shrink to content size
+
+    border: none;
+    font-weight: inherit;
+    justify-content: space-between;
+    line-height: var(--header-line-height);
+    outline-offset: 0;
+    padding: 0;
+    text-align: start;
+
+    &:focus {
+      outline: 2px solid var(--header-outline-color-focus);
+    }
   }
 }
 
-.s {
+.small {
   --header-font-size: var(--fontsize-heading-s);
   --padding-vertical: var(--spacing-s);
   --header-font-weight: 700;
-  --header-letter-spacing: 0.2px;
-  --header-line-height: 1.4;
-  --button-size: 28px;
+  --header-letter-spacing: 0;
+  --header-line-height: var(--lineheight-l);
   --padding-horizontal: var(--spacing-2-xs);
+  --icon-size: 28px;
 
-  & .closeButton div {
-    margin-right: var(--spacing-4-xs);
+  .closeButton {
+    margin-right: -4px;
   }
 }
 
-.m {
+.medium {
   --header-font-size: var(--fontsize-heading-m);
   --padding-vertical: var(--spacing-m);
   --header-font-weight: 500;
   --header-letter-spacing: -0.2px;
-  --header-line-height: 32px;
-  --button-size: 36px;
+  --header-line-height: var(--lineheight-m);
   --padding-horizontal: var(--spacing-m);
-
-  & .closeButton div {
-    margin-right: 6px;
-  }
+  --icon-size: 36px;
 }
 
-.l {
+.large {
   --header-font-size: var(--fontsize-heading-l);
   --padding-vertical: var(--spacing-l);
   --header-font-weight: 400;
   --header-letter-spacing: -0.4px;
-  --header-line-height: var(--lineheight-s);
-  --button-size: 52px;
+  --header-line-height: var(--lineheight-m);
   --padding-horizontal: var(--spacing-l);
+  --icon-size: 52px;
 
-  & .closeButton div {
-    margin-right: var(--spacing-xs);
+  .closeButton {
+    margin-right: 8px;
   }
 }
 
 .accordionContent {
-  color: var(--content-font-color);
+  align-items: flex-start;
+  color: var(--content-color);
+  display: flex;
+  flex-direction: column;
   font-size: var(--content-font-size);
   line-height: var(--content-line-height);
   padding-bottom: var(--spacing-m);
-  position: relative;
+  width: 100%;
 
   .closeButton {
-    bottom: 0;
-    position: absolute;
-    right: 0;
-
-    &:not(:disabled):active {
-      border-color: var(--close-button-border-color-active);
-    }
-
+    --background-color-active: var(--close-button-background-color-active);
     --background-color-disabled: var(--close-button-background-color-disabled);
     --background-color-focus: var(--close-button-background-color-focus);
-    --background-color-hover-focus: var(--close-button-background-color-hover-focus);
     --background-color-hover: var(--close-button-background-color-hover);
     --background-color: var(--close-button-background-color);
     --border-color-active: var(--close-button-border-color-active);
     --border-color-disabled: var(--close-button-border-color-disabled);
     --border-color-focus: var(--close-button-border-color-focus);
-    --border-color-hover-focus: var(--close-button-border-color-hover-focus);
     --border-color-hover: var(--close-button-border-color-hover);
     --border-color: var(--close-button-border-color);
+    --color-active: var(--close-button-color-active);
     --color-disabled: var(--close-button-color-disabled);
     --color-focus: var(--close-button-color-focus);
-    --color-hover-focus: var(--close-button-color-hover-focus);
     --color-hover: var(--close-button-color-hover);
     --color: var(--close-button-color);
-    --focus-outline-color: var(--close-button-focus-outline-color);
+    --icon-reposition: unset;
+    --icon-size: 24px;
+    --outline-color-focus: var(--close-button-outline-color-focus);
+    --padding-horizontal: 8px;
+
+    align-self: flex-end;
+    border: none;
+    outline-offset: 0;
+
+    &:focus {
+      // normally not needed in <Button />, but added here so focus stays visible after click
+      outline: 2px solid var(--header-outline-color-focus);
+    }
   }
 }
 
 .contentWithCloseButton {
-  padding-bottom: 44px;
-}
-
-.headingContainer {
-  align-items: center;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: auto calc(var(--button-size));
-  width: 100%;
-
-  &:focus {
-    outline: 2px solid var(--header-focus-outline-color, transparent);
-  }
-}
-
-.accordionButtonIcon {
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  height: var(--button-size) !important;
-  margin: auto;
-  width: var(--button-size) !important;
+  padding-bottom: 0;
 }

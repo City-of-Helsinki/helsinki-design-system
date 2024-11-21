@@ -69,7 +69,7 @@ const renderOpenDialog = (
       <Dialog.Header
         id={dialogHeaderProps.id}
         title={dialogHeaderProps.title}
-        iconLeft={<IconAlertCircle aria-hidden="true" />}
+        iconStart={<IconAlertCircle />}
         {...extraProps.header}
       />
 

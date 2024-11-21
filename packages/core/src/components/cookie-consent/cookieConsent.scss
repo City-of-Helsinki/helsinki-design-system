@@ -1,0 +1,327 @@
+@use 'sass:math';
+@use 'cookie-consent-tokens'; // Include cookie consent specific tokens (custom properties)
+@use 'mixin-animate' as animate;
+@use 'mixin-helpers' as helpers;
+
+// @use 'font-face' as font-face;
+@use '../button/button-mixin' as button;
+@use '../checkbox/checkbox-mixin' as checkbox;
+@use 'icon' as icon;
+@use '../../icons/angle-down.css';
+@use '../../icons/check-circle-fill.css';
+@use '../../icons/info-circle-fill.css';
+@use '../notification/notification-mixin' as notification;
+@use '../table/table-mixin' as table;
+
+
+// // Include only font-face styles used by cookie consent
+// @include font-face.font-face(
+//   $all: false,
+//   $font-style-italic: false, // Italic is not needed by cookie consent
+//   $font-weight-400: true, // Normal or Regular
+//   $font-weight-500: true, // Medium
+//   $font-weight-700: true, // Bold
+//   $font-weight-900: false, // Black is not needed by cookie consent
+// );
+
+// Include only used button styles
+@include button.button(
+  $all: false,
+  $base: true,
+  $secondary: true,
+  $supplementary: true,
+  $small: true,
+  $icon: true,
+  $themeCoat: true,
+  $themeBlack: true
+);
+
+// Include all checkbox styles
+@include checkbox.checkbox(
+  $all: true,
+);
+
+.hds-theme--coat .hds-checkbox {
+  --background-selected: var(--color-coat-of-arms);
+  --background-hover: var(--color-coat-of-arms-dark);
+  --border-color-selected: var(--color-coat-of-arms);
+  --border-color-selected-hover: var(--color-coat-of-arms-dark);
+  --border-color-selected-focus: var(--color-coat-of-arms);
+}
+
+.hds-theme--black .hds-checkbox {
+  --background-selected: var(--color-black);
+  --background-hover: var(--color-black-80);
+  --border-color-selected: var(--color-black);
+  --border-color-selected-hover: var(--color-black-80);
+  --border-color-selected-focus: var(--color-black);
+}
+
+:host .hds-cc__form .hds-checkbox {
+  --label-color-disabled: var(--color-black-60); // Make disabled label color a bit darker to pass 4.5 contrast ratio for accessibility
+}
+
+// Include only used icon styles (no sizes needed at the moment)
+@include icon.hds-icon(
+  $all: false,
+  $base: true
+);
+
+// Include only used notification styles
+@include notification.notification(
+  $all: false,
+  $base: true,
+  $small: true,
+  $success: true,
+);
+
+// Include only used table styles
+@include table.table(
+  $all: false,
+  $base: true,
+  $light: true
+);
+
+// // HDBT overrides
+// :host {
+//   --container-width-override: 1312px;
+//   --color-focus-outline: var(--color-black);
+//   --focus-outline-color: var(--color-black);
+//   --focus-outline-offset: 2px;
+// }
+
+// Since coat-of-arms theme color is so close to bus color, it's better to change the stripe from bus to coat-of-arms unlike in black theme.
+.hds-theme--coat,
+.hds-theme--coat-of-arms {
+  --hds-cc-border-color: var(--color-coat-of-arms);
+}
+
+.hds-cc--page {
+  margin-block: var(--spacing-layout-xs);
+}
+
+// Border box is applied to all elements but individual elements can change this setting if required.
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/*
+ * Normalize.css rule
+ */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+.hds-cc {
+  --autoheight-open-time: 0.15s;
+  --common-spacing: var(--spacing-s);
+  --focus-outline-color: var(--focus-outline-color-override, var(--color-focus-outline, var(--color-coat-of-arms)));
+  --outline-width: 3px;
+
+  color: var(--color-black-90);
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+
+  &.hds-cc--banner {
+    bottom: 0;
+    left: 0;
+    overscroll-behavior: contain;
+    position: fixed;
+    width: 100vw;
+    z-index: 999;
+  }
+
+  &.hds-cc--page {
+    padding-top: var(--spacing-layout-xs);
+  }
+}
+
+.hds-cc__container {
+  background: var(--color-white);
+
+  .hds-cc--banner & {
+    border-top: 8px solid var(--hds-cc-border-color, var(--color-bus));
+    bottom: 0;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+}
+
+.hds-cc__aligner {
+  margin-inline: auto;
+  max-width: var(--container-width-override, var(--container-width-xl));
+
+  .hds-cc--banner & {
+    padding: var(--spacing-layout-2-xs);
+
+    @media (min-width: 768px) {
+      padding: var(--spacing-layout-s) var(--spacing-layout-xs);
+    }
+  }
+}
+
+.visually-hidden {
+  @include helpers.visually-hidden;
+}
+
+.hds-cc__heading {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1; // 32px
+  margin: 0;
+
+  &:focus {
+    outline: var(--outline-width, 3px) solid var(--focus-outline-color, #000);
+    outline-offset: var(--outline-gutter, 2px);
+  }
+}
+
+.hds-cc__description,
+.hds-cc__form p {
+  max-width: 860px;
+}
+
+.hds-cc__description {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5; // 24px
+  margin-bottom: var(--spacing-layout-2-xs);
+}
+
+.hds-cc__accordion-button {
+  .hds-icon {
+    transition: transform linear 0.15s;
+  }
+
+  &[aria-expanded='true'] .hds-icon {
+    transform: rotate(180deg);
+  }
+
+  & .hds-button__label {
+    padding-left: var(--spacing-2-xs);
+    padding-right: var(--spacing-2-xs);
+  }
+}
+
+.hds-cc__accordion-button:not(.hds-cc__accordion-button--read-more) {
+  margin-bottom: 16px;
+  padding-right: 6px;
+}
+
+.hds-cc__accordion-button--read-more {
+  display: none;
+  font-size: 1rem;
+  grid-area: readmore;
+  line-height: 2; // 32px
+}
+
+// Animate form open / close
+@include animate.height(
+  '.hds-cc--banner .hds-cc__form',
+  '.hds-cc--banner :not([aria-expanded=' true ']) + .hds-cc__form',
+  '.hds-cc__form__animator'
+);
+
+.hds-cc--page .hds-cc__accordion-button--details {
+  display: none;
+}
+
+.hds-cc__groups {
+  padding-bottom: var(--spacing-layout-s);
+}
+
+.hds-cc__notification_container .hds-notification {
+  margin-bottom: var(--spacing-layout-s);
+}
+
+@keyframes entryAnimation {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes exitAnimation {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
+
+.hds-notification.enter {
+  animation: entryAnimation 0.5s ease-out forwards;
+}
+
+.hds-notification.exit {
+  animation: exitAnimation 0.5s ease-out forwards;
+}
+
+// Check if user prefers reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .hds-notification.enter,
+  .hds-notification.exit {
+    animation-duration: 0s !important;
+  }
+}
+
+.hds-cc__group {
+  border-bottom: 1px solid var(--color-black-60);
+  padding-bottom: var(--spacing-layout-2-xs);
+  padding-top: var(--spacing-layout-s);
+
+  &:first-of-type {
+    border-top: 1px solid var(--color-black-60);
+  }
+}
+
+.hds-cc__group .hds-notification {
+  display: none;
+}
+
+.hds-cc__group--highlight .hds-notification {
+  display: block;
+  margin-top: var(--spacing-layout-2-xs);
+}
+
+@include animate.height(
+  '.hds-cc__group-details',
+  ':not([aria-expanded=' true ']) + .hds-cc__group-details',
+  '.hds-cc__group-details__animator'
+);
+
+.hds-cc__group-details__animator .hds-table-container {
+  margin-block: 5px;
+}
+
+.hds-cc__all-cookies-button,
+.hds-cc__selected-cookies-button {
+  // margin-top: var(--spacing-layout-xs);
+
+  @media (min-width: 768px) {
+    // margin-top: var(--spacing-layout-s);
+  }
+}
+
+:not([aria-expanded='true']) > .hds-cc__accordion-button-hide,
+[aria-expanded='true'] > .hds-cc__accordion-button-show,
+.hds-cc--page .hds-cc__all-cookies-button,
+[aria-controls='hds-cc-form'][aria-expanded='true'] ~ .hds-cc__buttons .hds-cc__all-cookies-button,
+.hds-cc--banner [aria-controls='hds-cc-form']:not([aria-expanded='true']) ~ .hds-cc__buttons .hds-cc__selected-cookies-button {
+  display: none;
+}
+
+.hds-cc__form {
+  --autoheight-open-time: 0.2s;
+}
+
+.hds-cc__buttons {
+  column-gap: 32px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}

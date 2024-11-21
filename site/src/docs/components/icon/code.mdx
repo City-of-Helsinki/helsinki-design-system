@@ -3,8 +3,9 @@ slug: '/components/icon/code'
 title: 'Icon - Code'
 ---
 
-import { IconFaceSmile, IconPlusCircle } from 'hds-react';
+import { IconFaceSmile, IconPlusCircle, IconSize } from 'hds-react';
 import TabsLayout from './tabs.mdx';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -20,7 +21,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```jsx
 import { IconFaceSmile } from 'hds-react';
 
-() => <IconFaceSmile aria-hidden="true" />
+() => <IconFaceSmile />
 ```
 
 ```html
@@ -32,18 +33,18 @@ import { IconFaceSmile } from 'hds-react';
 
 ### Icon sizes
 
-<Playground scope={{ IconFaceSmile }}>
+<Playground scope={{ IconFaceSmile, IconSize }}>
 
 
 ```jsx
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconSize } from 'hds-react';
 
 () => (<>
-  <IconFaceSmile size="xs" aria-hidden="true" />
-  <IconFaceSmile size="s" aria-hidden="true" />
-  <IconFaceSmile size="m" aria-hidden="true" />
-  <IconFaceSmile size="l" aria-hidden="true" />
-  <IconFaceSmile size="xl" aria-hidden="true" />
+  <IconFaceSmile size={IconSize.ExtraSmall} />
+  <IconFaceSmile size={IconSize.Small} />
+  <IconFaceSmile size={IconSize.Medium} />
+  <IconFaceSmile size={IconSize.Large} />
+  <IconFaceSmile size={IconSize.ExtraLarge} />
 </>)
 ```
 
@@ -67,7 +68,7 @@ import { IconFaceSmile } from 'hds-react';
 ```jsx
 import { IconPlusCircle } from 'hds-react';
 
-() => <IconPlusCircle aria-label="Add an item" />
+() => <IconPlusCircle aria-label="Add an item" aria-hidden={false} />
 ```
 
 ```html
@@ -83,3 +84,13 @@ import { IconPlusCircle } from 'hds-react';
 | ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/icons">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/icons">View source</ExternalLink> |
 | **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/icons">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/icons">View source</ExternalLink>  |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/icons">React Storybook.</Link>
+
+| Property    | Description                                                       | Values                                                                       | Default value |
+| ----------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------- |
+| `size`      | Size of the icon.                                                 | `IconSize` or (`"extraSmall"`, `"small"`, `"medium"`, `"large"`, `"extraLarge"`) | `"small"` |
+
+<NativeElementPropsInfo nodeName="svg" nodeType="SVG" />

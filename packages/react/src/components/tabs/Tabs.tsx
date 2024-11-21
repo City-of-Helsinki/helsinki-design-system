@@ -7,7 +7,7 @@ import { TabsContext } from './TabsContext';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
 import { TabList } from './TabList';
-import { TabPanel } from './TabPanel';
+import { TabPanel, TabPanelProps } from './TabPanel';
 import { Tab } from './Tab';
 import { getChildElementsEvenIfContainersInbetween } from '../../utils/getChildren';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
@@ -30,6 +30,7 @@ export type TabsProps = React.PropsWithChildren<
   AllElementPropsWithoutRef<'div'> & {
     /**
      * The initially active tab
+     * @default 0
      */
     initiallyActiveTab?: number;
     /**
@@ -69,8 +70,7 @@ export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme, c
     .map((child, index) => {
       if (React.isValidElement(child)) {
         // Pass index prop to the TabPanel
-        // eslint-disable-next-line react/no-array-index-key
-        return React.cloneElement(child, { index, key: index });
+        return React.cloneElement(child, { index, key: index } as TabPanelProps);
       }
       return child;
     });

@@ -1,0 +1,356 @@
+---
+slug: '/getting-started/tutorials/migrate-to-4.0.0'
+title: 'Migrate to 4.0.0'
+navTitle: 'Migrate to 4.0.0'
+---
+
+import ExternalLink from '../../../components/ExternalLink';
+import LeadParagraph from '../../../components/LeadParagraph';
+import InternalLink from '../../../components/InternalLink';
+
+import Notification from '../../../components/Notification';
+
+# Migrate to version 4.0.0
+
+This guide helps you to start using HDS version 4.0.0.
+
+<Notification label=";tldr; Check at least these" className="siteNotification">
+  When updating to HDS 4.0.0 check and test at least these: - dropdown(Combobox and select) is replaced with whole new
+  select - cookieConsent is replaced with new CookieConsent and now also available in core and standalone js - separate
+  ariaLabel is replaced with native aria-label - iconLeft is now iconStart and iconRight is now iconEnd - size variants
+  in components are changed to enums - Use of Sketch ends, check Figma files instead
+</Notification>
+
+## Breaking changes
+
+This major release contains some breaking changes. Pay attention to these when you update your project to use the new version.
+
+### Tag component rewritten
+
+#### React
+
+The Tag component has been rewritten and `iconStart` and `iconEnd` -properties have now been added.
+Prop `size` is now a Typescript enum with proper values (`TagSize.Small` and `TagSize.Large`).
+Prop `role`has been removed and the component itself handles it role.
+`deleteButtonAriaLabel`, `deleteButtonProps`, `labelProps` and `srOnlyLabel` have also been removed.
+There's also no separate delete-button inside the Tag in the Deletable variant.
+
+#### Core
+
+In Core-side also using hds-icons is now possible with classes without additional `<span>`'s.
+
+#### Both
+
+Theming has also been modified a bit with changed css-variable names. New design also makes slight changes to the stylings.
+
+- <InternalLink size="M" href="/components/tag">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-tag">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-tag">
+    Core storybook examples
+  </InternalLink>
+
+### Button component rewritten
+
+#### React
+
+The Button component has been rewritten and `iconLeft` and `iconRight` -properties have now been renamed as `iconStart` and `iconEnd` to support future implementation of RTL (right-to-left) languages.
+`Size`, `theme` and `variant` are all now Typescript enums with proper values (used to be Types and included "default" as value).
+Properties `isLoading` and `loadingText` have been removed and implementing a loading button is done by setting the Button's variant as `clear` (`ButtonVariant.Clear`), giving the Button a `<LoadingSpinner small />` as it's `iconStart` and changing the label to something that informs the user about the loading status. Also to consider is whether to add `disabled` prop or not.
+
+#### Core
+
+In Core-side also using hds-icons is now possible with classes without additional `<span>`'s.
+
+#### Both
+
+Theming has also been added through css-variables. New design also makes slight changes to the stylings.
+
+- <InternalLink size="M" href="/components/button">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-button--primary">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-button--primary">
+    Core storybook examples
+  </InternalLink>
+
+### Link component changes
+
+#### React
+
+Link has changed props, `iconLeft` has been renamed to `iconStart`.
+Separate `ariaLabel` has been removed, replaced by using native `aria-label` -property.
+Size prop is now a Typescript-enum with values `LinkSize.Small`, `LinkSize.Medium` and `LinkSize.Large`, which correspond to string values `small`, `medium` and `large`.
+
+#### Core
+
+`hds-icon-left` class has been renamed to `hds-icon-start`
+
+- <InternalLink size="M" href="/components/link">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-link">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-link">
+    Core storybook examples
+  </InternalLink>
+
+### Notification and ErrorSummary
+
+#### React
+
+Both Notification and ErrorSummary have their `size` prop changed to enum.
+Notification size is now `NotificationSize.Small`, `NotificationSize.Medium` or `NotificationSize.Large`
+while ErrorSummary has `ErrorSummarySize.Medium` and `ErrorSummarySize.Large` values. In both the medium value is the default.
+
+- <InternalLink size="M" href="/components/notification">
+    Notification documentation
+  </InternalLink>
+- <InternalLink size="M" href="/components/error-summary">
+    ErrorSummary documentation
+  </InternalLink>
+
+### Icon size
+
+#### React
+
+The Icon size prop has been changed to enum (`IconSize.ExtraSmall`, `IconSize.Small`, `IconSize.Medium`, `IconSize.Large`, `IconSize.ExtraLarge`)
+
+- <InternalLink size="M" href="/components/icon">
+    Documentation
+  </InternalLink>
+
+### Hero component arrow icon takes space and may require a background color to be set
+
+#### React and core
+
+The arrow icon's container had `height:0`, but now it takes space and therefore a background color may be needed. By default the Hero's own `--background-color` is shown but it can be overridden with `--bottom-background-color`. In some cases `--bottom-background-color: var(--bottom-koros-color)` is sufficient.
+
+In HDS 3.x.x the arrow also overlapped with the element below. That is not the case any more and has to be achived now by adding negative `margin-top` to the element below.
+
+Documentation and examples
+
+- <InternalLink size="M" href="/components/hero">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-hero--image-bottom">
+    Core examples in Storybook
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-hero--image-bottom">
+    React examples in Storybook
+  </InternalLink>
+
+### Dialog
+
+#### React
+
+`Dialog.Header`'s `ìconLeft` prop has been renamed to `iconStart`
+
+- <InternalLink size="M" href="/components/dialog">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-dialog">
+    React storybook examples
+  </InternalLink>
+
+### Header
+
+#### React
+
+`Header.ActionBarSubItem`'s `iconLeft` and `iconRight` props have been renamed to `iconStart` and `iconEnd`
+
+- <InternalLink size="M" href="/components/header/code/#headeractionbarsubitem">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-header">
+    React storybook examples
+  </InternalLink>
+
+### StatusLabel
+
+#### React
+
+The `iconLeft` prop has been renamed to `iconStart`
+
+- <InternalLink size="M" href="/components/statuslabel">
+    Documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-statuslabel">
+    React storybook examples
+  </InternalLink>
+
+### Select component rewritten
+
+The Select component has been rewritten, and most props have changed. There is now one `Select` component instead of `Select` and `Combobox`.
+
+Select with a `filter` function is the same as Combobox.
+
+### Passing options and option groups
+
+Supported formats for the options are now:
+
+- array of strings `["Option1"]`
+- array of option objects `[{label:"Option 1", value:"Option 1 value"}]`
+- native html with `<optgroup>` and `<option>`.
+
+#### Removed components from Select
+
+- Combobox
+
+#### Removed props
+
+- `optionLabelField` (the label is always "label").
+- `optionKeyField` (use "option.value").
+- `isOptionDisabled` (option.disabled can be set).
+- `circularNavigation` (always circular).
+
+All texts are passed as an object or returned from a function.
+Removed props include:
+
+- `getA11ySelectionMessage`
+- `getA11yStatusMessage`
+- `getA11yRemovalMessage`
+- `helper` (use `texts.assistive`)
+- `error` (use `texts.error`)
+- `tooltipLabel`
+- `tooltipButtonLabel`
+- `tooltipText`
+- `clearButtonAriaLabel` (default text is provided, can be set with `texts`)
+- `selectedItemRemoveButtonAriaLabel` (default text is provided, can be set with `texts`)
+- `selectedItemSrLabel` (default text is provided, can be set with `texts`)
+
+Instead of
+
+```jsx
+<Select label="Label" placeholder="Placeholder" />
+```
+
+provide texts as an object
+
+```jsx
+<Select texts={{ label: 'Label', placeholder: 'Placeholder', language: 'en' }} />
+```
+
+or return them from a function
+
+```jsx
+<Select
+  texts={(key) => {
+    if (key === 'label') {
+      return 'Label';
+    }
+    if (key === 'placeholder') {
+      return 'Placeholder';
+    }
+  }}
+/>
+```
+
+#### Changes to the onChange callback
+
+The `onChange`receives now 3 arguments:
+
+- The first one is an array of selected options as objects. The array is empty if no selections have been made.
+- The second one is the clicked option.
+- The third one is all the data of the Select component.
+
+#### Changes to theme
+
+The `theme` prop has all new variable names and only a few of the previous theme variables are still usable.
+
+### Visual changes
+
+#### Headings
+
+There are updates to lineheights to improve readability especially on Headings. Please check that the layout does not break.
+
+#### Black-60 changed to more accesible shade
+
+Design token black-60 is changed from #666666 to #595959 to improve contrast with other colours. With only bus-dark and black-90 the contrast gets worse, all other colours the contrast improves. If needed, verify the used colours.
+
+---
+
+## Figma design kit
+
+This guide will help you understand how to transition an existing project from using an older version of HDS Figma Design Kit to using the latest 4.0.0 version.
+
+### What’s changing?
+
+This HDS Design Kit update follows the changes deployed in the code for the 4.0.0 release of HDS. The major differences include significant changes to the `CookieConsent`, `Dropdown` and `Tag` components. The new `Select` and `Multiselect` components replace the old Dropdown.
+
+The line heights of `headings` have been updated in the HDS Design Kit to improve readability, especially with larger titles. We have improved color `black-60` for better contrast by changing it from #666666 to #595959.
+
+The HDS Design Kit in Figma has undergone **a major restructuring**: now, each component is placed on its own page. This new organisation makes it much easier to find components without having to guess which group they belong to. Each component will also have better documentation, which may include main component, subcomponents, specifications, variant examples, and usage & prototype examples, depending on the need and documentation status. We hope these changes will better explain the features of each component and how they can be used.
+
+#### Components that need replacing
+
+- The Dropdown component is now deprecated and will be removed in future versions. Replace it with Select or Multiselect.
+- The CookieConsent component has been replaced with a new version, and it needs to be manually updated.
+
+Deprecated components needs replacing, follow <ExternalLink href="https://help.figma.com/hc/en-us/articles/360039150413-Swap-components-and-instances">Figma guide about swapping components</ExternalLink>.
+
+#### Components that need manual checking
+
+- Line heights in headings have been updated to improve readability. Please check that the layout does not break.
+- The asterisk indicating required fields in form components like TextInput has been renewed and is now its own property. You’ll need to manually change the required indicators in layouts.
+- The Tag components accessibility has been improved, and a new Link variant has been introduced. These changes do not break the old components, but it’s still better to check the updated components.
+
+### Introduction of Figma Variables in HDS
+
+We are excited to announce the introduction of variables in HDS. We will be implementing variables step by step, starting with a feature for all HDS designers!
+
+#### The first one
+
+The first variable in use is called “Deprecated”, and it’s part of the [HDS] Deprecated variable collection. This variable is used in a single component named .❌_DeprecatedIndicator, which is used to highlight deprecated components.
+
+#### What’s great about this?
+
+This feature allows designers to easily and quickly identify and highlight where deprecated HDS components are used on a page.
+
+#### How to use it
+
+1. Click an empty spot on the canvas or press Esc to deselect all layers.
+2. From the **Page** section of the right sidebar, click variable icon to **Apply variable mode**.
+3. Hover over a variable collection [HDS] Deprecated and choose a mode On.
+
+This is just the beginning of our journey to variables in the Helsinki Design System. We are eager to start implementing spacing, colour, and typography tokens. We welcome your feedback!
+
+Read more about variables in <ExternalLink href="https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables">Figma Learn</ExternalLink>.
+
+### What should I do?
+
+#### 1. Duplicate your current design file
+
+In order to avoid disruptions to your workflow, it is recommended that you duplicate your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file. A guide for duplicating files can be found in <ExternalLink href="https://help.figma.com/hc/en-us/articles/360038511533-Duplicate-or-copy-files">Figma Learn</ExternalLink>.
+
+#### 2. Review and accept updates
+
+In your duplicate file, review and accept the HDS Design Kit library updates. You will see updates to three libraries which include the
+
+#### 3. Find deprecated dropdown components
+
+- You can now easily highlight deprecated components. Read more in section [Introduction of Figma Variables in HDS](#introduction-of-figma-variables-in-hds).
+
+#### 4. Update components & content
+
+This update includes breaking changes to components and may require that you update content in components with breaking changes.
+
+### How can I continue using HDS v3?
+
+The v3 Figma library has been copied as a new file and will no longer receive updates. However, you can continue to use it by swapping to the v3 library.
+
+Swapping libraries allows you to quickly update instances in a file to use components from another library. Follow the Figma guide to swap to the v3 library if you wish to use the previous HDS version. The guide for swapping components can be found in <ExternalLink href="https://help.figma.com/hc/en-us/articles/4404856784663-Swap-style-and-component-libraries#swap">Figma Learn</ExternalLink>.
+
+#### What about the Sketch library?
+
+The Sketch library will no longer be updated and will be removed after the 4.0.0 release.
+
+### Getting support
+
+Have a question about migration to `4.0.0`? Please head over to the [Support page](https://hds.hel.fi/about/#support 'https://hds.hel.fi/about/#support') for more guidelines and ways to contact us.

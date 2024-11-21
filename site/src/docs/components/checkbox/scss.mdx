@@ -1,0 +1,107 @@
+---
+slug: '/components/checkbox/scss'
+title: 'Checkbox - SCSS'
+---
+
+import { Checkbox } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import AnchorLink from '../../../components/AnchorLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## SCSS
+
+Styles of the `Checkbox` are exported as SCSS mixins and are reusable anywhere.
+
+### Mixins
+
+| Mixin               | Description                                                 | Arguments                                                                   |
+| ------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `checkbox`          | The root mixin to output all or only selected styles.       | See <AnchorLink anchor="parameters-of-the-root-mixin">Table 2</AnchorLink>. |
+| `base`              | Outputs the base styles.                                    | -                                                                           |
+| `input`             | Outputs the styles of the input element.                    | -                                                                           |
+| `inputCustom`       | Outputs the styles the custom input element.                | -                                                                           |
+| `inputDisabled`     | Outputs the styles disabled variation of the input element. | -                                                                           |
+| `inputTransitions`  | Outputs the styles of the input element transitions.        | -                                                                           |
+| `label`             | Outputs the styles of the label element.                    | -                                                                           |
+| `noLabel`           | Outputs the styles of the no label variation.               | -                                                                           |
+| `error-text`        | Outputs the styles of the error-text element.               | -                                                                           |
+| [Table 1:Checkbox SCSS mixins] |
+
+### Usage with the root mixin
+
+```scss
+@use 'hds-core/components/checkbox/_checkbox-mixin' as CoreSass;
+
+@include checkbox(
+  $all: true,
+  $base: false,
+  $input: false,
+  $label: false,
+  $noLabel: false,
+  $error-text: false,
+  $override: null,
+  $react: false
+);
+```
+
+### Parameters of the checkbox mixin
+
+| Property      | Description                                                    | Values             | Default value |
+| ------------- | -------------------------------------------------------------- | ------------------ | ------------- |
+| `all`         | Should all styles of all variations be outputted.              | `boolean`          | `true`        |
+| `base`        | Should the base styles be outputted.                           | `boolean`          | `false`       |
+| `input`       | Should the styles of the input element be outputted.           | `boolean`          | `false`       |
+| `label`       | Should the styles of the label element be outputted.           | `boolean`          | `false`       |
+| `noLabel`     | Should the styles of the no label variation be outputted.      | `boolean`          | `false`       |
+| `error-text`  | Should the styles of the error-text element be outputted.      | `boolean`          | `false`       |
+| `override`    | Override the default className `checkbox`.                     | `null` or `string` | `null`        |
+| `react`       | Use this when included in the SCSS class of a React component. | `boolean`          | `false`       |
+| [Table 2: The checkbox mixin parameters] |
+
+#### The output of the checkbox mixin
+
+Helsinki Design System uses <ExternalLink href="https://getbem.com/">BEM</ExternalLink>, and class names follow its methodology.
+
+Class names are prefixed with `hds-`, followed by the component name (`checkbox`) and the proper BEM naming.
+
+Note that variations of the `Checkbox` styles are not compound classes of the base class `.hds-checkbox`. But the variations only alter the CSS variables, so they are quite useless without the base class.
+
+```scss
+.hds-checkbox {
+  //... all base styles
+}
+
+.hds-checkbox__input {
+  //... styles of the input element
+}
+```
+
+#### Custom output
+
+Changing the boolean parameters affects which styles are outputted, and the `override` parameter will change how classes are named.
+
+```scss
+@include checkbox($all: true, $override: 'my-class');
+
+.my-class {
+  //... all base styles
+}
+
+.my-class__input {
+  //... styles of the input element
+}
+```
+
+### Usage with custom classes
+
+The base and variation mixins can be included in any class.
+
+```scss
+@use 'hds-core/components/checkbox/_checkbox-mixin' as CoreSass;
+
+.checkbox {
+  @include CoreSass.checkbox($all: false, $base: true, $react: true);
+}
+```

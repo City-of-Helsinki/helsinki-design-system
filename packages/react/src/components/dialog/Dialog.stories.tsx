@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { Button } from '../button/Button';
+import { Button, ButtonPresetTheme, ButtonVariant } from '../button/Button';
 import { TextArea } from '../textarea/TextArea';
 import { TextInput } from '../textInput/TextInput';
 import { Dialog, DialogProps } from './Dialog';
@@ -59,7 +59,7 @@ export const Default = (args: DialogProps) => {
         focusAfterCloseRef={openButtonRef}
         close={close}
       >
-        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Add new item" iconStart={<IconPlusCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
@@ -90,7 +90,7 @@ export const Default = (args: DialogProps) => {
           >
             Add item
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel
           </Button>
         </Dialog.ActionButtons>
@@ -124,7 +124,7 @@ export const WithBoxShadow = (args: DialogProps) => {
         closeButtonLabelText="Close"
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Add new item" iconStart={<IconPlusCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
@@ -153,7 +153,7 @@ export const WithBoxShadow = (args: DialogProps) => {
           >
             Add item
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel
           </Button>
         </Dialog.ActionButtons>
@@ -198,7 +198,7 @@ export const Confirmation = (args: DialogProps) => {
         focusAfterCloseRef={openConfirmationButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to continue?
@@ -213,7 +213,7 @@ export const Confirmation = (args: DialogProps) => {
           >
             Confirm
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel
           </Button>
         </Dialog.ActionButtons>
@@ -251,11 +251,11 @@ export const Danger = (args: DialogProps) => {
 
   return (
     <>
-      <Button variant="danger" ref={openDangerButtonRef} onClick={() => setOpen(true)}>
+      <Button variant={ButtonVariant.Danger} ref={openDangerButtonRef} onClick={() => setOpen(true)}>
         Open Danger Dialog
       </Button>
       <Dialog
-        variant="danger"
+        variant={ButtonVariant.Danger}
         id={args.id}
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
@@ -263,19 +263,19 @@ export const Danger = (args: DialogProps) => {
         focusAfterCloseRef={openDangerButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Delete item" iconLeft={<IconAlertCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Delete item" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to delete the item?
           </p>
         </Dialog.Content>
         <Dialog.ActionButtons>
-          <Button theme="black" variant="secondary" onClick={close}>
+          <Button theme={ButtonPresetTheme.Black} variant={ButtonVariant.Secondary} onClick={close}>
             Cancel
           </Button>
           <Button
-            variant="danger"
-            iconLeft={<IconTrash aria-hidden="true" />}
+            variant={ButtonVariant.Danger}
+            iconStart={<IconTrash />}
             onClick={() => {
               // Add confirm operations here
               close();
@@ -331,7 +331,7 @@ export const ScrollableConfirmation = (args: DialogProps) => {
         targetElement={dialogTargetElement}
         scrollable
       >
-        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <h3 id={descriptionId}>Are you sure you want to continue?</h3>
           <p className="text-body">
@@ -415,7 +415,7 @@ export const ScrollableConfirmation = (args: DialogProps) => {
           >
             Confirm
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel
           </Button>
         </Dialog.ActionButtons>
@@ -462,7 +462,7 @@ export const LongButtonLabels = (args: DialogProps) => {
         focusAfterCloseRef={openDialogButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <h3 style={{ marginTop: '0' }}>Are you sure you want to continue?</h3>
         </Dialog.Content>
@@ -475,7 +475,7 @@ export const LongButtonLabels = (args: DialogProps) => {
           >
             Confirm this thing now with a long label
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel and go back to the beginning
           </Button>
         </Dialog.ActionButtons>
@@ -529,19 +529,15 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
         isOpen={open}
         focusAfterCloseRef={openConfirmationButtonRef}
       >
-        <Dialog.Header
-          id={confirmationTitleId}
-          title="Accept terms dialog"
-          iconLeft={<IconAlertCircle aria-hidden="true" />}
-        />
+        <Dialog.Header id={confirmationTitleId} title="Accept terms dialog" iconStart={<IconAlertCircle />} />
         <Dialog.Content>
           <p id={confirmationDescriptionId} className="text-body" style={{ marginTop: '0' }}>
             Do you want to accept terms of the service?
             <br />
             <br />
             <Button
-              variant="secondary"
-              iconLeft={<IconInfoCircle aria-hidden="true" />}
+              variant={ButtonVariant.Secondary}
+              iconStart={<IconInfoCircle />}
               ref={openTermsButtonRef}
               onClick={() => openTermsDialog()}
             >
@@ -558,7 +554,7 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
           >
             Accept terms
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel
           </Button>
         </Dialog.ActionButtons>
@@ -648,7 +644,7 @@ export const WithControlledContent = (args: DialogProps) => {
         close={close}
         closeButtonLabelText="Close"
       >
-        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
+        <Dialog.Header id={titleId} title="Add new item" iconStart={<IconPlusCircle />} />
         <Dialog.Content>
           <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
@@ -681,7 +677,7 @@ export const WithControlledContent = (args: DialogProps) => {
           >
             Add item
           </Button>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={close} variant={ButtonVariant.Secondary}>
             Cancel
           </Button>
         </Dialog.ActionButtons>

@@ -14,12 +14,6 @@ export interface SkipLinkTheme {
 
 export type SkipLinkProps = AllElementPropsWithoutRef<'a'> & {
   /**
-   * aria-label for describing SkipLink for screen readers.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
-  /**
    * Label for the SkipLink.
    */
   label: string;
@@ -32,17 +26,12 @@ export type SkipLinkProps = AllElementPropsWithoutRef<'a'> & {
    */
   theme?: SkipLinkTheme;
 };
-export const SkipLink = ({ ariaLabel, label, skipTo, theme, className, ...rest }: SkipLinkProps) => {
+export const SkipLink = ({ label, skipTo, theme, className, ...rest }: SkipLinkProps) => {
   const href = skipTo.startsWith('#') ? skipTo : `#${skipTo}`;
   const customThemeClass = useTheme<SkipLinkTheme>(styles.skipLink, theme);
 
   return (
-    <a
-      {...rest}
-      href={href}
-      aria-label={ariaLabel}
-      className={classNames(styles.skipLink, customThemeClass, className)}
-    >
+    <a {...rest} href={href} className={classNames(styles.skipLink, customThemeClass, className)}>
       <span className={styles.skipLinkLabel}>{label}</span>
     </a>
   );

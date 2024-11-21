@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Link, LinkProps } from './Link';
+import { Link, LinkSize, LinkProps } from './Link';
 import { IconDocument, IconEnvelope, IconPhone, IconPhoto } from '../../icons';
+import { IconSize } from '../../icons/Icon.interface';
 
 export default {
   component: Link,
@@ -20,18 +21,18 @@ export const Default = (args: LinkProps) => <Link {...args}>Default link</Link>;
 export const InternalLinks = (args: LinkProps) => {
   return (
     <>
-      <Link {...args} href={args.href} size="S">
-        Internal link size S
+      <Link {...args} href={args.href} size={LinkSize.Small}>
+        Internal link size small
       </Link>
       <br />
       <br />
-      <Link {...args} href={args.href} size="M">
-        Internal link size M
+      <Link {...args} href={args.href} size={LinkSize.Medium}>
+        Internal link size medium
       </Link>
       <br />
       <br />
-      <Link {...args} href={args.href} size="L">
-        Internal link size L
+      <Link {...args} href={args.href} size={LinkSize.Large}>
+        Internal link size large
       </Link>
     </>
   );
@@ -53,10 +54,10 @@ export const ExternalLinks = (args: LinkProps) => {
         {...args}
         external
         openInExternalDomainAriaLabel="Opens a different website"
-        size="S"
+        size={LinkSize.Small}
         href="https://hds.hel.fi"
       >
-        External link size S
+        External link size small
       </Link>
       <br />
       <br />
@@ -64,10 +65,10 @@ export const ExternalLinks = (args: LinkProps) => {
         {...args}
         external
         openInExternalDomainAriaLabel="Opens a different website"
-        size="M"
+        size={LinkSize.Medium}
         href="https://hds.hel.fi"
       >
-        External link size M
+        External link size medium
       </Link>
       <br />
       <br />
@@ -75,10 +76,10 @@ export const ExternalLinks = (args: LinkProps) => {
         {...args}
         external
         openInExternalDomainAriaLabel="Opens a different website"
-        size="L"
+        size={LinkSize.Large}
         href="https://hds.hel.fi"
       >
-        External link size L
+        External link size large
       </Link>
     </>
   );
@@ -130,7 +131,7 @@ export const inlineLinks = (args: LinkProps) => {
       <p style={{ fontSize: '14px' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        <Link size="S" {...args} external openInExternalDomainAriaLabel="Opens a different website">
+        <Link size={LinkSize.Small} {...args} external openInExternalDomainAriaLabel="Opens a different website">
           Inline link
         </Link>
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -160,7 +161,7 @@ inlineLinks.argTypes = {
 
 export const standaloneLink = (args: LinkProps) => {
   return (
-    <Link {...args} size="L" style={{ display: 'block', marginBottom: '20px', width: 'fit-content' }}>
+    <Link {...args} size={LinkSize.Large} style={{ display: 'block', marginBottom: '20px', width: 'fit-content' }}>
       Standalone link
     </Link>
   );
@@ -173,64 +174,64 @@ export const withCustomIcon = (args: LinkProps) => {
     <div style={{ display: 'grid', columnGap: '10px', gridTemplateColumns: '1fr 1fr 1fr' }}>
       <div>
         <p>Small</p>
-        <Link {...args} iconLeft={<IconDocument size="xs" aria-hidden />} size="S" href="/#">
+        <Link {...args} iconStart={<IconDocument size={IconSize.ExtraSmall} />} size={LinkSize.Small} href="/#">
           Document link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconPhone size="xs" aria-hidden />} size="S" href="/#">
+        <Link {...args} iconStart={<IconPhone size={IconSize.ExtraSmall} />} size={LinkSize.Small} href="/#">
           Phone link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconEnvelope size="xs" aria-hidden />} size="S" href="/#">
+        <Link {...args} iconStart={<IconEnvelope size={IconSize.ExtraSmall} />} size={LinkSize.Small} href="/#">
           Envelope link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconPhoto size="xs" aria-hidden />} size="S" href="/#">
+        <Link {...args} iconStart={<IconPhoto size={IconSize.ExtraSmall} />} size={LinkSize.Small} href="/#">
           Photo link
         </Link>
       </div>
       <div>
         <p>Medium</p>
-        <Link {...args} iconLeft={<IconDocument size="s" aria-hidden />} size="M" href="/#">
+        <Link {...args} iconStart={<IconDocument size={IconSize.Small} />} size={LinkSize.Medium} href="/#">
           Document link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconPhone size="s" aria-hidden />} size="M" href="/#">
+        <Link {...args} iconStart={<IconPhone size={IconSize.Small} />} size={LinkSize.Medium} href="/#">
           Phone link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconEnvelope size="s" aria-hidden />} size="M" href="/#">
+        <Link {...args} iconStart={<IconEnvelope size={IconSize.Small} />} size={LinkSize.Medium} href="/#">
           Envelope link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconPhoto size="s" aria-hidden />} size="M" href="/#">
+        <Link {...args} iconStart={<IconPhoto size={IconSize.Small} />} size={LinkSize.Medium} href="/#">
           Photo link
         </Link>
       </div>
       <div>
         <p>Large</p>
-        <Link {...args} iconLeft={<IconDocument size="l" aria-hidden />} size="L" href="/#">
+        <Link {...args} iconStart={<IconDocument size={IconSize.Large} />} size={LinkSize.Large} href="/#">
           Document link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconPhone size="l" aria-hidden />} size="L" href="/#">
+        <Link {...args} iconStart={<IconPhone size={IconSize.Large} />} size={LinkSize.Large} href="/#">
           Phone Link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconEnvelope size="l" aria-hidden />} size="L" href="/#">
+        <Link {...args} iconStart={<IconEnvelope size={IconSize.Large} />} size={LinkSize.Large} href="/#">
           Envelope Link
         </Link>
         <br />
         <br />
-        <Link {...args} iconLeft={<IconPhoto size="l" aria-hidden />} size="L" href="/#">
+        <Link {...args} iconStart={<IconPhoto size={IconSize.Large} />} size={LinkSize.Large} href="/#">
           Photo Link
         </Link>
       </div>

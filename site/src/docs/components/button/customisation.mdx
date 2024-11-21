@@ -1,0 +1,102 @@
+---
+slug: '/components/button/customisation'
+title: 'Button - Customisation'
+---
+
+import { Button, ButtonTheme, ButtonPresetTheme, IconArrowRight } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+In Core version, you can use button theme classes `hds-button--theme-black` and `hds-button--theme-coat` for different colour schemes or by applying a class with corresponding css-variables as in React version.
+
+In React version, you can use the `theme` property to customise the component by giving it a `ButtonPresetTheme` string or a `ButtonTheme` object.
+
+See all available theme variables in the tables below. All colours don't have to be given,
+they will fallback to previous colour which exists (active -> hover -> focus -> default).
+
+
+| Preset Theme       | Description                              |
+| ------------------ | ---------------------------------------- |
+| <code>"coat"</code>  | Preset theme where the background color of the button is coat.  |
+| <code>"black"</code> | Preset theme where the background color of the button is black. |
+
+| Theme object properties     | Description                     |
+| ------------------ | ---------------------------------------- |
+| <code>--background-color</code> | Background color | 
+| <code>--background-color-focus</code> | Background color in focus state |
+| <code>--background-color-hover</code> | Background color in hover state |
+| <code>--background-color-active</code> | Background color in active state |
+| <code>--background-color-disabled</code> | Background color in disabled state |
+| <code>--border-color</code> | Border color |
+| <code>--border-color-focus</code> | Border color in focus state |
+| <code>--border-color-hover</code> | Border color in hover state |
+| <code>--border-color-active</code> | Border color in active state |
+| <code>--border-color-disabled</code> | Border color in disabled state |
+| <code>--color</code> | Text and possible icon color |
+| <code>--color-focus</code> | Text and possible color in focus state |
+| <code>--color-hover</code> | Text and possible color in hover state |
+| <code>--color-active</code> | Text and possible color in active state |
+| <code>--color-disabled</code> | Text and possible color in disabled state |
+| <code>--outline-color-focus</code> | Colour of the outline border when the button has focus or clicked with mouse.   |
+
+
+### Customisation with preset theme
+
+<Playground scope={{ Button, ButtonPresetTheme, IconArrowRight }}>
+
+
+  ```jsx
+import { Button, ButtonPresetTheme, IconArrowRight } from 'hds-react';
+
+() => (<Button theme={ButtonPresetTheme.Coat} iconEnd={<IconArrowRight />}>Customised button</Button>)
+```
+
+```html
+<button type="button" class="hds-button hds-button--primary hds-button--theme-coat hds-icon--arrow-right hds-icon-end--arrow-right">
+  Customised button
+</button>
+```
+
+</Playground>
+
+### Customisation with custom theme
+
+<Playground scope={{ Button, IconArrowRight }}>
+
+
+  ```jsx
+import { Button, IconArrowRight } from 'hds-react';
+
+() => { 
+    const customTheme = {
+      '--color': 'white',
+      '--outline-color-focus': 'darkorange',
+      '--border-color': 'darkgreen',
+      '--background-color': 'green',
+      '--background-color-hover': 'darkgreen',
+    };
+    return <Button theme={customTheme} iconEnd={<IconArrowRight />}>Customised button</Button>;
+}
+```
+
+```html
+<button
+  type="button"
+  class="hds-button hds-button--primary hds-button--theme-coat hds-icon--arrow-right hds-icon-end--arrow-right"
+  style="
+    --color: white;
+    --outline-color-focus: darkorange;
+    --border-color: darkgreen;
+    --background-color: green;
+    --background-color-hover: darkgreen;
+  "
+>
+  Customised button
+</button>
+```
+
+</Playground>

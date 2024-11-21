@@ -29,7 +29,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
             <svg
               aria-hidden="true"
               aria-label="calendar"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +275,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -302,7 +302,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-left"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +324,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-right"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -1419,7 +1419,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="button secondary theme-default size-small"
+                class="button secondary theme-bus size-small"
                 data-testid="selectButton"
                 disabled=""
                 type="button"
@@ -1431,7 +1431,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="check"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1444,14 +1444,12 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Valitse
                 </span>
               </button>
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -1462,7 +1460,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="cross"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1475,9 +1473,7 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Sulje
                 </span>
               </button>
@@ -1519,7 +1515,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
             <svg
               aria-hidden="true"
               aria-label="calendar"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -1627,7 +1623,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -1765,7 +1761,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -1792,7 +1788,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-left"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -1814,7 +1810,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-right"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -2909,7 +2905,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="button secondary theme-default size-small"
+                class="button secondary theme-bus size-small"
                 data-testid="selectButton"
                 disabled=""
                 type="button"
@@ -2921,7 +2917,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="check"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -2934,14 +2930,12 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Välj
                 </span>
               </button>
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -2952,7 +2946,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="cross"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -2965,9 +2959,7 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Stäng
                 </span>
               </button>
@@ -3015,7 +3007,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
             <svg
               aria-hidden="true"
               aria-label="calendar"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -3123,7 +3115,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -3261,7 +3253,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -3288,7 +3280,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-left"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -3310,7 +3302,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-right"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -4404,7 +4396,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
               class="hds-datepicker__bottom-buttons"
             >
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -4415,7 +4407,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="cross"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -4428,9 +4420,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Close
                 </span>
               </button>
@@ -4472,7 +4462,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
             <svg
               aria-hidden="true"
               aria-label="calendar"
-              class="icon s"
+              class="icon small"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
@@ -4580,7 +4570,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -4718,7 +4708,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                       <svg
                         aria-hidden="true"
                         aria-label="angle-down"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -4745,7 +4735,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-left"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -4767,7 +4757,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                     <svg
                       aria-hidden="true"
                       aria-label="angle-right"
-                      class="icon s"
+                      class="icon small"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
@@ -5862,7 +5852,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="button secondary theme-default size-small"
+                class="button secondary theme-bus size-small"
                 data-testid="selectButton"
                 disabled=""
                 type="button"
@@ -5874,7 +5864,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="check"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -5887,14 +5877,12 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Select
                 </span>
               </button>
               <button
-                class="button supplementary theme-default size-small"
+                class="button supplementary theme-bus size-small"
                 data-testid="closeButton"
                 type="button"
               >
@@ -5905,7 +5893,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                   <svg
                     aria-hidden="true"
                     aria-label="cross"
-                    class="icon s"
+                    class="icon small"
                     role="img"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -5918,9 +5906,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                     />
                   </svg>
                 </div>
-                <span
-                  class="label"
-                >
+                <span>
                   Close
                 </span>
               </button>

@@ -39,7 +39,7 @@ export const DialogExample = () => {
         <Dialog.Header
           id={titleId}
           title="Terms of service have changed"
-          iconLeft={<IconInfoCircle aria-hidden="true" />}
+          iconStart={<IconInfoCircle />}
         />
         <Dialog.Content>
           <p id={descriptionId} className="text-body">
@@ -66,7 +66,7 @@ export const DialogExample = () => {
 - Be careful when including a separate close ("x") icon in the dialog. If there are more than one action available in the dialog, it can be ambiguous for the user which action is triggered when the close icon is pressed.
   - Generally, it is a good practise to omit the close icon if the dialog has more than one action available.
 - If your dialog contains form elements, follow <InternalLink href="/patterns/forms/form-building">HDS form</InternalLink> and <InternalLink href="/patterns/forms/form-validation">form validation patterns</InternalLink> similarly as you would in a regular forms.
-- As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the <InternalLink href="/components/buttons">HDS Button documentation page.</InternalLink>
+- As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the <InternalLink href="/components/button">HDS Button documentation page.</InternalLink>
   - Following the same guidelines as the HDS Form pattern, dialog action buttons are placed at the left side of the dialog and the primary action will be the first one from the left.
   - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialog) for more information.
 - Opening a dialog should be always triggered by the user. Do not open dialogs without user action.
@@ -110,7 +110,7 @@ export const InfoDialogExample = () => {
         <Dialog.Header
           id={titleId}
           title="Terms of service have changed"
-          iconLeft={<IconInfoCircle aria-hidden="true" />}
+          iconStart={<IconInfoCircle />}
         />
         <Dialog.Content>
           <p id={descriptionId} className="text-body">
@@ -154,7 +154,7 @@ export const ConfirmDialogExample = () => {
         <Dialog.Header
           id={titleId}
           title="Are you sure you want to continue?"
-          iconLeft={<IconQuestionCircle aria-hidden="true" />}
+          iconStart={<IconQuestionCircle />}
         />
         <Dialog.Content>
           <p id={descriptionId} className="text-body">
@@ -203,7 +203,7 @@ export const DangerDialogExample = () => {
         <Dialog.Header
           id={titleId}
           title="Are you sure you want to delete this blog post?"
-          iconLeft={<IconAlertCircle aria-hidden="true" />}
+          iconStart={<IconAlertCircle />}
         />
         <Dialog.Content>
           <p id={descriptionId} className="text-body">
@@ -216,7 +216,7 @@ export const DangerDialogExample = () => {
           </Button>
           <Button
             variant="danger"
-            iconLeft={<IconTrash aria-hidden="true" />}
+            iconStart={<IconTrash />}
             onClick={() => {
               // Add confirm operations here
               close();
@@ -263,7 +263,7 @@ export const ScrollableDialogExample = () => {
         <Dialog.Header
           id={titleId}
           title="Do you accept the terms of service?"
-          iconLeft={<IconAlertCircle aria-hidden="true" />}
+          iconStart={<IconAlertCircle />}
         />
         <Dialog.Content>
           <h3 id={descriptionId}>Terms of service</h3>

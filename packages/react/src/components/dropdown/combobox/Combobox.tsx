@@ -558,7 +558,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             ref: toggleButtonRef,
           })}
         >
-          <IconAngleDown className={styles.angleIcon} aria-hidden />
+          <IconAngleDown className={styles.angleIcon} />
         </button>
         {showClearButtonForSingleSelect && (
           <ClearButton

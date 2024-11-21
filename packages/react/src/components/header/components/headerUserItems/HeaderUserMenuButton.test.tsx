@@ -51,6 +51,8 @@ describe('HeaderLogoutSubmenuButton', () => {
 
   it('Native html props are passed to the element', async () => {
     const buttonProps = getCommonElementTestProps('button');
+    // aria-label goes to a descendant in HeaderActionBarItem
+    buttonProps['aria-label'] = undefined;
     const { getByTestId } = initTestsWithComponent(true, {}, buttonProps);
     const element = getByTestId(buttonProps['data-testid']);
     expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);

@@ -77,7 +77,7 @@ id="side-nav-components" href="/components"><span class="MainLevel-module_label_
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Accordion"
 id="side-nav-components-accordion" href="/components/accordion"><span class="MainLevel-module_label__uWKJ7">Accordion</span></a></li><li
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Button"
-id="side-nav-components-buttons" href="/components/buttons"><span class="MainLevel-module_label__uWKJ7">Button</span></a></li><li
+id="side-nav-components-buttons" href="/components/button"><span class="MainLevel-module_label__uWKJ7">Button</span></a></li><li
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Card"
 id="side-nav-components-card" href="/components/card"><span class="MainLevel-module_label__uWKJ7">Card</span></a></li><li
 class="MainLevel-module_mainLevel__2QZi_ MainLevel-module_open__2yWFj"><a aria-current="false" aria-label="Checkbox"
@@ -359,14 +359,14 @@ class="playground-block-editor-viewport" tabindex="0"><div class="playground-blo
 class="playground-block-editor-texts"><label class="playground-block-editor-label" for="code-block-textarea-jsx-0">Editable code
 example</label><span class="playground-block-editor-helper" id="code-block-helper-jsx-0">Press Enter to start editing. Press Esc to stop
 editing.</span></div><div class="playground-block-editor-scrollbox" tabindex="-1"><div code="&lt;div id=&quot;labels-with-icon&quot;&gt;
-  &lt;StatusLabel iconLeft={&lt;IconInfoCircle /&gt;}&gt;Neutral&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;info&quot; iconLeft={&lt;IconInfoCircle /&gt;} style={{marginLeft:
+  &lt;StatusLabel iconStart={&lt;IconInfoCircle /&gt;}&gt;Neutral&lt;/StatusLabel&gt;
+  &lt;StatusLabel type=&quot;info&quot; iconStart={&lt;IconInfoCircle /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Info&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;success&quot; iconLeft={&lt;IconCheckCircle /&gt;} style={{marginLeft:
+  &lt;StatusLabel type=&quot;success&quot; iconStart={&lt;IconCheckCircle /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Success&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;alert&quot; iconLeft={&lt;IconAlertCircle /&gt;} style={{marginLeft:
+  &lt;StatusLabel type=&quot;alert&quot; iconStart={&lt;IconAlertCircle /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Alert&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;error&quot; iconLeft={&lt;IconError /&gt;} style={{marginLeft:
+  &lt;StatusLabel type=&quot;error&quot; iconStart={&lt;IconError /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Error&lt;/StatusLabel&gt;
 &lt;/div&gt;" language="jsx" class="playground-block-editor-code-input" style="position:relative;text-align:left;box-sizing:border-box;padd
 ing:0;overflow:hidden;white-space:pre;font-family:monospace;color:#393A34;background-color:#f6f8fa"><textarea
@@ -377,14 +377,14 @@ ariant-ligatures:inherit;font-weight:inherit;letter-spacing:inherit;line-height:
 ll-color:transparent;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px"
 class="npm__react-simple-code-editor__textarea" id="code-block-textarea-jsx-0" autoCapitalize="off" autoComplete="off" autoCorrect="off"
 spellcheck="false" data-gramm="false">&lt;div id=&quot;labels-with-icon&quot;&gt;
-  &lt;StatusLabel iconLeft={&lt;IconInfoCircle /&gt;}&gt;Neutral&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;info&quot; iconLeft={&lt;IconInfoCircle /&gt;} style={{marginLeft:
+  &lt;StatusLabel iconStart={&lt;IconInfoCircle /&gt;}&gt;Neutral&lt;/StatusLabel&gt;
+  &lt;StatusLabel type=&quot;info&quot; iconStart={&lt;IconInfoCircle /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Info&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;success&quot; iconLeft={&lt;IconCheckCircle /&gt;} style={{marginLeft:
+  &lt;StatusLabel type=&quot;success&quot; iconStart={&lt;IconCheckCircle /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Success&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;alert&quot; iconLeft={&lt;IconAlertCircle /&gt;} style={{marginLeft:
+  &lt;StatusLabel type=&quot;alert&quot; iconStart={&lt;IconAlertCircle /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Alert&lt;/StatusLabel&gt;
-  &lt;StatusLabel type=&quot;error&quot; iconLeft={&lt;IconError /&gt;} style={{marginLeft:
+  &lt;StatusLabel type=&quot;error&quot; iconStart={&lt;IconError /&gt;} style={{marginLeft:
 &#x27;var(--spacing-s)&#x27;}}&gt;Error&lt;/StatusLabel&gt;
 &lt;/div&gt;</textarea><pre aria-hidden="true" style="margin:0;border:0;background:none;box-sizing:inherit;display:inherit;font-family:inhe
 rit;font-size:inherit;font-style:inherit;font-variant-ligatures:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;tab-
@@ -398,7 +398,7 @@ style="color:#e3116c">labels-with-icon</span><span class="token tag attr-value p
 class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span></div><div class="token-line"
 style="color:#393A34"><span class="token plain-text">  </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span
 class="token tag class-name" style="color:#00009f">StatusLabel</span><span class="token tag" style="color:#00009f"> </span><span
-class="token tag attr-name" style="color:#00a4db">iconLeft</span><span class="token tag script language-javascript script-punctuation
+class="token tag attr-name" style="color:#00a4db">iconStart</span><span class="token tag script language-javascript script-punctuation
 punctuation" style="color:#393A34">=</span><span class="token tag script language-javascript punctuation"
 style="color:#393A34">{</span><span class="token tag script language-javascript tag punctuation" style="color:#393A34">&lt;</span><span
 class="token tag script language-javascript tag class-name" style="color:#00009f">IconInfoCircle</span><span class="token tag script
@@ -412,7 +412,7 @@ class="token tag class-name" style="color:#00009f">StatusLabel</span><span class
 class="token tag attr-name" style="color:#00a4db">type</span><span class="token tag attr-value punctuation attr-equals"
 style="color:#393A34">=</span><span class="token tag attr-value punctuation" style="color:#393A34">&quot;</span><span class="token tag
 attr-value" style="color:#e3116c">info</span><span class="token tag attr-value punctuation" style="color:#393A34">&quot;</span><span
-class="token tag" style="color:#00009f"> </span><span class="token tag attr-name" style="color:#00a4db">iconLeft</span><span class="token
+class="token tag" style="color:#00009f"> </span><span class="token tag attr-name" style="color:#00a4db">iconStart</span><span class="token
 tag script language-javascript script-punctuation punctuation" style="color:#393A34">=</span><span class="token tag script
 language-javascript punctuation" style="color:#393A34">{</span><span class="token tag script language-javascript tag punctuation"
 style="color:#393A34">&lt;</span><span class="token tag script language-javascript tag class-name"
@@ -435,7 +435,7 @@ punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name"
 punctuation attr-equals" style="color:#393A34">=</span><span class="token tag attr-value punctuation"
 style="color:#393A34">&quot;</span><span class="token tag attr-value" style="color:#e3116c">success</span><span class="token tag attr-value
  punctuation" style="color:#393A34">&quot;</span><span class="token tag" style="color:#00009f"> </span><span class="token tag attr-name"
-style="color:#00a4db">iconLeft</span><span class="token tag script language-javascript script-punctuation punctuation"
+style="color:#00a4db">iconStart</span><span class="token tag script language-javascript script-punctuation punctuation"
 style="color:#393A34">=</span><span class="token tag script language-javascript punctuation" style="color:#393A34">{</span><span
 class="token tag script language-javascript tag punctuation" style="color:#393A34">&lt;</span><span class="token tag script
 language-javascript tag class-name" style="color:#00009f">IconCheckCircle</span><span class="token tag script language-javascript tag"
@@ -457,7 +457,7 @@ punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name"
 punctuation attr-equals" style="color:#393A34">=</span><span class="token tag attr-value punctuation"
 style="color:#393A34">&quot;</span><span class="token tag attr-value" style="color:#e3116c">alert</span><span class="token tag attr-value
 punctuation" style="color:#393A34">&quot;</span><span class="token tag" style="color:#00009f"> </span><span class="token tag attr-name"
-style="color:#00a4db">iconLeft</span><span class="token tag script language-javascript script-punctuation punctuation"
+style="color:#00a4db">iconStart</span><span class="token tag script language-javascript script-punctuation punctuation"
 style="color:#393A34">=</span><span class="token tag script language-javascript punctuation" style="color:#393A34">{</span><span
 class="token tag script language-javascript tag punctuation" style="color:#393A34">&lt;</span><span class="token tag script
 language-javascript tag class-name" style="color:#00009f">IconAlertCircle</span><span class="token tag script language-javascript tag"
@@ -479,7 +479,7 @@ punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name"
 punctuation attr-equals" style="color:#393A34">=</span><span class="token tag attr-value punctuation"
 style="color:#393A34">&quot;</span><span class="token tag attr-value" style="color:#e3116c">error</span><span class="token tag attr-value
 punctuation" style="color:#393A34">&quot;</span><span class="token tag" style="color:#00009f"> </span><span class="token tag attr-name"
-style="color:#00a4db">iconLeft</span><span class="token tag script language-javascript script-punctuation punctuation"
+style="color:#00a4db">iconStart</span><span class="token tag script language-javascript script-punctuation punctuation"
 style="color:#393A34">=</span><span class="token tag script language-javascript punctuation" style="color:#393A34">{</span><span
 class="token tag script language-javascript tag punctuation" style="color:#393A34">&lt;</span><span class="token tag script
 language-javascript tag class-name" style="color:#00009f">IconError</span><span class="token tag script language-javascript tag"
@@ -589,7 +589,7 @@ properties</caption><thead><tr class="hds-table__header-row"><th scope="col">Pro
 scope="col">Values</th><th scope="col">Default value</th></tr></thead><tbody
 class="hds-table__content"><tr><td><code>type</code></td><td>The type of the status label.</td><td><code>&quot;neutral&quot;</code>
 <code>&quot;success&quot;</code> <code>&quot;info&quot;</code> <code>&quot;alert&quot;</code>
-<code>&quot;error&quot;</code></td><td><code>&quot;neutral&quot;</code></td></tr><tr><td><code>iconLeft</code></td><td>Element placed on
+<code>&quot;error&quot;</code></td><td><code>&quot;neutral&quot;</code></td></tr><tr><td><code>iconStart</code></td><td>Element placed on
 the left side of the status label.</td><td><code>ReactNode</code></td><td>-</td></tr></tbody></table></div></div></div></main></div><footer
  class="Footer-module_footer__1aD3T page-footer"><div class="Koros-module_koros__1r3rg Footer-module_koros__Orx_W
 Footer-module_basic__2VejY"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85"><defs><pattern

@@ -18,12 +18,6 @@ import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type FooterProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing Footer.
-   * @deprecated Will be replaced in the next major release with "aria-label"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ariaLabel?: string;
-  /**
    * Additional class names to apply to the footer.
    */
   className?: string;
@@ -48,7 +42,6 @@ export type FooterProps = React.PropsWithChildren<{
 }>;
 
 export const Footer = ({
-  ariaLabel,
   children,
   className,
   footerProps,
@@ -70,7 +63,6 @@ export const Footer = ({
         footerProps && footerProps.className,
         className,
       )}
-      aria-label={ariaLabel}
     >
       <Koros className={classNames(styles.koros)} type={korosType} style={{ height: `${korosHeight}px` }} />
       <div className={styles.footerContent}>

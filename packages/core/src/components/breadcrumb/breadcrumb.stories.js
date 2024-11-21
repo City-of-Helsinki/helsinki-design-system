@@ -1,4 +1,4 @@
-import './breadcrumb.css';
+import './breadcrumb.scss';
 import '../link/link.css';
 import '../../icons/angle-right.css';
 import '../../icons/angle-left.css';

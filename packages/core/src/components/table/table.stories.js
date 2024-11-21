@@ -1,4 +1,4 @@
-import './table.css';
+import './table.scss';
 import * as workTrial from './story-example-work-trial.json';
 
 export default {
@@ -16,7 +16,7 @@ const tableRow = (firstName, surname, age, profession) =>
 
 export const Dark = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
-    <table class="hds-table hds-table--dark" aria-label="People">
+    <table class="hds-table hds-table--dark" aria-label="People" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -38,7 +38,7 @@ export const Dark = () => `
 
 export const Light = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
-    <table class="hds-table hds-table--light" aria-label="People">
+    <table class="hds-table hds-table--light" aria-label="People" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -60,7 +60,7 @@ export const Light = () => `
 
 export const Dense = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
+    <table class="hds-table hds-table--dark hds-table--dense" aria-label="People" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -92,7 +92,7 @@ const extendedTableRow = (firstName, surname, age, city, profession, exp) =>
 
 export const Zebra = () => `
   <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--zebra" aria-label="People">
+    <table class="hds-table hds-table--dark hds-table--zebra" aria-label="People" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -116,7 +116,7 @@ export const Zebra = () => `
 
 export const VerticalLines = () => `
   <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
+    <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -164,7 +164,7 @@ export const VerticalLines = () => `
 
 export const VerticalLinesLight = () => `
   <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
-    <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="Units sold by weekday">
+    <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="Units sold by weekday" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -252,6 +252,7 @@ export const VerticalHeader = () => `
     <table
       class="hds-table hds-table--dark hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
+      data-playwright="true"
     >
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
@@ -278,6 +279,7 @@ export const VerticalHeaderLight = () => `
     <table
       class="hds-table hds-table--light hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
+      data-playwright="true"
     >
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
@@ -304,6 +306,7 @@ export const VerticalHeaderZebra = () => `
     <table
       class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
+      data-playwright="true"
     >
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
@@ -330,6 +333,7 @@ export const VerticalHeaderAndLines = () => `
     <table
       class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
       aria-label="Units sold by weekday"
+      data-playwright="true"
     >
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
@@ -359,7 +363,7 @@ export const CustomBackgroundColorsForDarkVariant = () => `
     }
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
-    <table class="hds-table hds-table--dark custom-background-color-1" aria-label="People">
+    <table class="hds-table hds-table--dark custom-background-color-1" aria-label="People" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -387,7 +391,7 @@ export const CustomBackgroundColorsForLightVariant = () => `
     }
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
-    <table class="hds-table hds-table--light custom-background-color-2" aria-label="People">
+    <table class="hds-table hds-table--light custom-background-color-2" aria-label="People" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -431,7 +435,7 @@ const wideTableContent = () => {
 
 export const WideAndLong = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials">
+    <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -455,7 +459,7 @@ export const WideAndLong = () => `
 
 export const WideAndLongDense = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
-    <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials">
+    <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials" data-playwright="true">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">

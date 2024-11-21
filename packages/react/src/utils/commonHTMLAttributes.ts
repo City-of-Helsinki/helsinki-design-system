@@ -7,7 +7,7 @@ type TypesReactFixes = {
    * It should be removed once the issue is fixed.
    * https://github.com/creativetimofficial/material-tailwind/issues/427
    */
-  crossOrigin?: string;
+  crossOrigin?: '' | 'anonymous' | 'use-credentials';
   onPointerEnterCapture?: PointerEventHandler<HTMLElement>;
   onPointerLeaveCapture?: PointerEventHandler<HTMLElement>;
 };

@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { uniqueId } from 'lodash';
 
 import { Button } from '../../button';
-import { MultiSelectProps, Select } from './Select';
+import { MultiSelectProps, Select, SelectProps } from './Select';
 import { IconFaceSmile, IconLocation } from '../../../icons';
 import { ComboboxProps } from '../combobox/Combobox';
 
@@ -25,6 +25,10 @@ type DefaultArgs = Pick<
 > & { multiselect: false; onChange: (option: Option | Option[]) => void };
 
 type StoryArgs = DefaultArgs & Partial<ComboboxProps<Option>>;
+// for some reason SelectProps<Option> causes ts errors
+type ComponentProps = SelectProps<{ label: string }>;
+type SelectComponentProps = ComponentProps;
+type MultiSelectComponentProps = ComponentProps & MultiSelectEssentials;
 
 function getId(): string {
   return uniqueId('hds-select-');
@@ -70,29 +74,29 @@ export default {
   },
 };
 
-export const Default = (args: StoryArgs) => <Select {...args} />;
+export const Default = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} />;
 
-export const WithClearButton = (args: StoryArgs) => <Select {...args} />;
+export const WithClearButton = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} />;
 WithClearButton.storyName = 'With clear button';
 WithClearButton.args = {
   clearable: true,
 };
 WithClearButton.parameters = { loki: { skip: true } };
 
-export const Multiselect = (args: StoryArgs) => <Select {...args} />;
+export const Multiselect = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
   selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 
-export const Invalid = (args: StoryArgs) => <Select {...args} />;
+export const Invalid = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} />;
 Invalid.args = {
   invalid: true,
   error: 'Wrong item!',
 };
 
-export const Disabled = (args: StoryArgs) => <Select {...args} />;
+export const Disabled = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} />;
 Disabled.args = {
   disabled: true,
 };
@@ -135,7 +139,7 @@ export const Controlled = (args: StoryArgs) => {
       >
         Select all
       </Button>
-      <Select
+      <Select<Option>
         {...(args as unknown as MultiSelectArgsWithLabel)}
         id={getId()}
         label="Multi-select"
@@ -169,10 +173,12 @@ export const DisabledOptions = (args: StoryArgs) => {
 };
 DisabledOptions.storyName = 'With disabled options';
 
-export const Icon = (args: StoryArgs) => <Select {...args} icon={<IconFaceSmile />} />;
+export const Icon = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
-export const MultiselectWithIcon = (args: StoryArgs) => <Select {...args} icon={<IconLocation />} />;
+export const MultiselectWithIcon = (args: StoryArgs) => (
+  <Select {...(args as SelectComponentProps)} icon={<IconLocation />} />
+);
 MultiselectWithIcon.storyName = 'Multi-select with icon';
 MultiselectWithIcon.args = {
   multiselect: true,
@@ -180,7 +186,7 @@ MultiselectWithIcon.args = {
 };
 MultiselectWithIcon.parameters = { loki: { skip: true } };
 
-export const Tooltip = (args: StoryArgs) => <Select {...args} />;
+export const Tooltip = (args: StoryArgs) => <Select {...(args as SelectComponentProps)} />;
 Tooltip.storyName = 'With tooltip';
 Tooltip.args = {
   tooltipLabel: 'Tooltip',
@@ -190,7 +196,7 @@ Tooltip.args = {
 };
 
 export const CustomTheme = (args: StoryArgs) => (
-  <Select {...(args as unknown as MultiSelectArgsWithLabel)} multiselect />
+  <Select<Option> {...(args as unknown as MultiSelectArgsWithLabel)} multiselect />
 );
 CustomTheme.storyName = 'With custom theme';
 CustomTheme.args = {
@@ -236,7 +242,7 @@ CustomTheme.args = {
 export const SelectExample = (args: StoryArgs) => {
   return (
     <Select<Option>
-      {...args}
+      {...(args as SelectComponentProps)}
       getA11ySelectionMessage={({ selectedItem }) => {
         return selectedItem ? `${selectedItem.label} selected` : '';
       }}
@@ -255,7 +261,7 @@ export const MultiSelectExample = ({ options: itemOptions, ...args }) => {
 
   return (
     <Select<Option>
-      {...args}
+      {...(args as unknown as MultiSelectComponentProps & { 'aria-labelledby': undefined })}
       label="Items"
       helper="Choose items"
       multiselect

@@ -4,7 +4,7 @@ title: 'Home page'
 customLayout: true
 ---
 
-import { Button, Container, Hero } from 'hds-react';
+import { Button, ButtonVariant, Container, Hero } from 'hds-react';
 import { navigate } from 'gatsby';
 import Image from '../components/Image';
 import FrontPageLinksList from '../components/FrontPageLinkList';
@@ -23,18 +23,24 @@ import FrontPageLinksList from '../components/FrontPageLinkList';
   <Hero.Text>The central digital experience resource of Helsinki Design Language. Guidelines, design assets and component
     libraries for building a consistent and accessible digital brand across the city.</Hero.Text>
   <Button
-    variant="primary"
+    variant={ButtonVariant.Primary}
     role="link"
+    theme={{
+      '--background-color': 'var(--color-white)',
+      '--background-color-hover': 'var(--color-black-10)',
+      '--background-color-focus': 'var(--color-black-10)',
+      '--border-color': 'transparent',
+      '--color-focus': 'var(--colors)',
+      '--color': 'var(--color-black-90)',
+      '--outline-color-focus': 'var(--color-white)',
+    }}
     onClick={() => {
       navigate('/getting-started');
     }}
-    style={{ '--background-color': '#fff', '--color': '#000', '--border-color': '#fff' }}
-  >
-    Getting started
-  </Button>
+  >Getting started</Button>
 </Hero>
 
-<Container style={{ margin: '0 auto var(--spacing-layout-l)' }}>
+<Container style={{ margin: 'var(--spacing-layout-m) auto var(--spacing-layout-l) auto' }}>
   <FrontPageLinksList />
   <Image
     size="M"

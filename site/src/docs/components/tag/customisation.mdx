@@ -3,7 +3,7 @@ slug: '/components/tag/customisation'
 title: 'Tag - Customisation'
 ---
 
-import { Tag } from 'hds-react';
+import { Tag, TagTheme } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -13,15 +13,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Customisation properties
 In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
 
-In React version, you can use the `theme` property to customise the component.
+In React version, you can use the `theme` (type of `TagTheme` in Typescript) property to customise the component. 
 
-See all available theme variables in the table below.
+See all available theme variables in the table below. All colours of interactive (Tags with click or link) don't have to be given,
+they will fallback to previous colour which exists (active -> hover -> focus -> default).
 
-| Theme variable                        | Description                                 |
-| ------------------------------------- | ------------------------------------------- |
-| `--tag-background`                    | Colour of the tag background.               |
-| `--tag-color`                         | Colour of elements inside the tag.          |
-| `--tag-focus-outline-color`           | Colour of the tag focus border.             |
+| Theme variable                         | Description                                 |
+| -------------------------------------- | ------------------------------------------- |
+| <code>--background-color</code>        | Colour of the tag background.               |
+| <code>--background-color-focus</code>  | Colour of background of Tags with onClick or onDelete actions when focused. |
+| <code>--background-color-hover</code>  | Colour of background of Tags with onClick or onDelete actions when hovered upon. |
+| <code>--background-color-active</code> | Colour of background of Tags with onClick or onDelete actions when active.  |
+| <code>--border-color</code>            | Colour of the border of Tags with onClick or onDelete actions |
+| <code>--border-color-focus</code>      | Colour of the border of Tags with onClick or onDelete actions when focused |
+| <code>--border-color-hover</code>      | Colour of the border of Tags with onClick or onDelete actions when hovered upon |
+| <code>--border-color-active</code>     | Colour of the border of Tags with onClick or onDelete actions when active |
+| <code>--color</code>                   | Colour of elements inside the tag.          |
+| <code>--color-focus</code>             | Colour of elements inside of Tags with onClick or onDelete actions when focused.      |
+| <code>--color-hover</code>             | Colour of elements inside of Tags with onClick or onDelete actions when hovered upon. |
+| <code>--color-active</code>            | Colour of elements inside of Tags with onClick or onDelete actions when active.       |
+| <code>--outline-color</code>           | Colour of the tag focus border of Tags with onClick or onDelete actions.              |
 
 ### Customisation example
 <Playground scope={{ Tag }}>
@@ -31,16 +42,37 @@ See all available theme variables in the table below.
 import { Tag } from 'hds-react';
 
 () => (
-<Tag
-  onClick={function noRefCheck(){}}
-  theme={{
-    '--tag-background': 'var(--color-engel)',
-    '--tag-color': 'var(--color-black-90)',
-    '--tag-focus-outline-color': 'var(--color-black-90)'
-  }}
+  <Tag
+    aria-label="run custom action"
+    onClick={function noRefCheck(){}}
+    theme={{
+      '--background-color-hover': 'var(--color-tram-dark)',
+      '--background-color': 'var(--color-copper-dark)',
+      '--color': 'var(--color-white)',
+      '--outline-color': 'var(--color-metro)',
+    }}
+  >
+    Action
+  </Tag>
+)
+```
+
+```html
+<div
+  role="button"
+  class="hds-tag hds-tag--action"
+  style="
+    --background-color-hover: var(--color-tram-dark);
+    --background-color: var(--color-copper-dark);
+    --color: var(--color-white);
+    --outline-color: var(--color-metro);
+  "
+  tabindex="0"
+  onclick={}
+  aria-label="run custom action"
 >
-  Americum
-</Tag>)
+  <span class="hds-tag__label">Action</span>
+</div>
 ```
 
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Header } from '../header/Header';
@@ -16,7 +15,7 @@ export default {
     layout: 'fullscreen',
   },
   args: {
-    ariaLabel: 'Breadcrumb',
+    'aria-label': 'Breadcrumb',
     list: [
       { title: 'Front page', path: '/' },
       { title: 'Health and social services', path: '/path' },
@@ -49,7 +48,7 @@ export const ExampleInHeader = (args: BreadcrumbProps) => {
           menuButtonAriaLabel="Menu"
           frontPageLabel="Etusivu"
         >
-          <Header.LanguageSelector ariaLabel="Kielen valinta">
+          <Header.LanguageSelector aria-label="Kielen valinta">
             <h3>Tietoa muilla kielillä</h3>
             <Link external href="www.example.com">
               Selkosuomi

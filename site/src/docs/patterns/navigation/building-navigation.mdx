@@ -25,6 +25,7 @@ import {
   IconTiktok,
   IconLinkedin,
   Logo,
+  LogoSize,
   logoFi
 } from 'hds-react';
 
@@ -45,7 +46,7 @@ Adhering to these principles can create an effective and user-friendly navigatio
   style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
 >
   <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
     <strong>Do</strong>
   </div>
   <ul style={{ marginBottom: 0 }}>
@@ -77,7 +78,7 @@ Adhering to these principles can create an effective and user-friendly navigatio
   style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
 >
   <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
     <strong>Don't</strong>
   </div>
   <ul style={{ marginBottom: 0 }}>
@@ -443,7 +444,7 @@ The footer is placed at the bottom of the site and includes supplementary inform
           ariaLabel="Helsingin kaupungin Facebook-tili"
           external
           openInNewTab
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />,
         <Footer.Link
@@ -451,7 +452,7 @@ The footer is placed at the bottom of the site and includes supplementary inform
           ariaLabel="Helsingin kaupungin Twitter-tili"
           external
           openInNewTab
-          icon={<IconTwitter aria-hidden="true" />}
+          icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />,
         <Footer.Link
@@ -459,7 +460,7 @@ The footer is placed at the bottom of the site and includes supplementary inform
           ariaLabel="Helsingin kaupungin Instagram-tili"
           external
           openInNewTab
-          icon={<IconInstagram aria-hidden="true" />}
+          icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />,
         <Footer.Link
@@ -467,7 +468,7 @@ The footer is placed at the bottom of the site and includes supplementary inform
           ariaLabel="Helsingin kaupungin LinkedIn-tili"
           external
           openInNewTab
-          icon={<IconLinkedin aria-hidden="true" />}
+          icon={<IconLinkedin />}
           href="https://linkedin.com/company/city-of-helsinki"
         />,
         <Footer.Link
@@ -475,7 +476,7 @@ The footer is placed at the bottom of the site and includes supplementary inform
           ariaLabel="Helsingin kaupungin Youtube-tili"
           external
           openInNewTab
-          icon={<IconYoutube aria-hidden="true" />}
+          icon={<IconYoutube />}
           href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
         />,
       ]}
@@ -487,7 +488,7 @@ The footer is placed at the bottom of the site and includes supplementary inform
       backToTopLabel="Back to top"
       copyrightHolder="Copyright"
       copyrightText="All rights reserved"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link label="Link" />
       <Footer.Link label="Link" />

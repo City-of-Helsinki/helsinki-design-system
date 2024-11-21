@@ -3,14 +3,18 @@ import { animated, useSpring } from '@react-spring/web';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import '../../styles/base.module.css';
-import styles from './Notification.module.css';
+import styles from './Notification.module.scss';
 import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
-export type NotificationSizeInline = 'default' | 'small' | 'large';
-export type NotificationSizeToast = Exclude<NotificationSizeInline, 'large'>;
+
+export enum NotificationSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
 
 export type NotificationPosition =
   | 'inline'
@@ -46,12 +50,6 @@ type CommonProps = React.PropsWithChildren<
      * @default 85
      */
     closeAnimationDuration?: number;
-    /**
-     * Value for the data-testid attribute that is applied to the root component.
-     * @deprecated Will be replaced in the next major release with "data-testid"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    dataTestId?: string;
     /**
      * Displays a progress bar on top of the notification when `true`
      * @default true
@@ -94,7 +92,7 @@ type CommonProps = React.PropsWithChildren<
 >;
 
 type PositionAndSize =
-  | { position?: 'inline'; size?: NotificationSizeInline }
+  | { position?: 'inline'; size?: NotificationSize }
   | {
       /**
        * The position of the notification
@@ -103,7 +101,7 @@ type PositionAndSize =
       /**
        * The size of the notification
        */
-      size?: NotificationSizeToast;
+      size?: Exclude<NotificationSize, NotificationSize.Large>;
     };
 
 type Dismissible =
@@ -195,7 +193,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       className = '',
       closeAnimationDuration = 85,
       closeButtonLabelText,
-      dataTestId,
       dismissible = false,
       displayAutoCloseProgress = true,
       invisible = false,
@@ -203,7 +200,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       notificationAriaLabel = 'Notification',
       position = 'inline',
       onClose = () => null,
-      size = 'default',
+      size = NotificationSize.Medium,
       style,
       type = 'info',
       headingLevel = 2,
@@ -213,11 +210,11 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
   ) => {
     const isToast: boolean = position !== 'inline';
     // only allow size 'large' for inline notifications
-    if (isToast && size === 'large') {
+    if (isToast && size === NotificationSize.Large) {
       // eslint-disable-next-line no-console
       console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
       // eslint-disable-next-line no-param-reassign
-      size = 'default';
+      size = NotificationSize.Medium;
     }
     // don't allow autoClose for inline notifications
     if (!isToast && autoClose) {
@@ -258,7 +255,8 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.section
-          {...rest}
+          // this "as" fixes ts error with wrong types. Seen only when running ts-check-stories.
+          {...(rest as Record<string, unknown>)}
           // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
           // eslint-disable-next-line  @typescript-eslint/no-explicit-any
           style={{ ...notificationTransition, ...(style as any) }}
@@ -272,7 +270,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             className,
           )}
           aria-label={notificationAriaLabel}
-          data-testid={dataTestId}
           // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
           role={isToast || invisible ? 'alert' : undefined}
         >
@@ -284,8 +281,10 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
                 className={styles.label}
                 {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
               >
-                <Icon className={styles.icon} aria-hidden />
-                <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+                <Icon className={styles.icon} />
+                <ConditionalVisuallyHidden visuallyHidden={size === NotificationSize.Small}>
+                  {label}
+                </ConditionalVisuallyHidden>
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}
@@ -298,7 +297,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               aria-label={closeButtonLabelText}
               onClick={handleClose}
             >
-              <IconCross aria-hidden />
+              <IconCross />
             </button>
           )}
         </animated.section>

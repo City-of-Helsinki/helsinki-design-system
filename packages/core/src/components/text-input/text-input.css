@@ -7,17 +7,17 @@
   --input-height: 56px;
   --textarea-height: 149px;
   --icon-size: var(--spacing-m);
-  --helper-background-color-invalid: var(--color-error-light);
-  --helper-background-color-success: var(--color-success-light);
-  --helper-background-color-info: var(--color-info-light);
+  --icon-color: var(--color-black);
   --helper-color-default: var(--color-black-60);
   --helper-color-invalid: var(--color-black);
+  --helper-background-color-invalid: var(--color-error-light);
+  --helper-icon-color-invalid: var(--color-error);
   --helper-color-success: var(--color-black);
+  --helper-background-color-success: var(--color-success-light);
+  --helper-icon-color-success: var(--color-success);
   --helper-color-info: var(--color-black);
-  --helper-color-info-icon: var(--color-coat-of-arms);
-  --icon-color-invalid: var(--color-error);
-  --icon-color-info: var(--color-info);
-  --icon-color-success: var(--color-success);
+  --helper-background-color-info: var(--color-info-light);
+  --helper-icon-color-info: var(--color-info);
   --input-background-default: var(--color-white);
   --input-background-disabled: var(--color-black-10);
   --input-border-color-default: var(--color-black-50);
@@ -114,7 +114,6 @@
 /* REQUIRED */
 
 .hds-text-input__required {
-  color: var(--color-black-90);
   display: inline-block;
   font-size: var(--fontsize-body-xl);
   line-height: 1;
@@ -192,7 +191,7 @@
 
 .hds-text-input__error-text:before {
   animation: fadeIn 85ms ease-out;
-  background: var(--color-error);
+  background: var(--helper-icon-color-invalid);
   content: '';
   display: inline-block;
   flex-shrink: 0;
@@ -223,7 +222,7 @@
 
 .hds-text-input__success-text:before {
   animation: fadeIn 85ms ease-out;
-  background: var(--color-success);
+  background: var(--helper-icon-color-success);
   content: '';
   display: inline-block;
   flex-shrink: 0;
@@ -254,7 +253,7 @@
 
 .hds-text-input__info-text:before {
   animation: fadeIn 85ms ease-out;
-  background: var(--color-info);
+  background: var(--helper-icon-color-info);
   content: '';
   display: inline-block;
   flex-shrink: 0;
@@ -283,7 +282,7 @@
   color: var(--input-color-default);
   outline-offset: var(--outline-offset-readonly);
   padding: 0;
-  
+
   /* fixes faded text color on Safari */
   -webkit-text-fill-color: var(--input-color-default);
   transform: translate3d(0, 0, 0);
@@ -321,6 +320,7 @@
   appearance: none;
   background: none;
   border: none;
+  color: var(--icon-color);
   cursor: pointer;
   display: flex;
   font: inherit;

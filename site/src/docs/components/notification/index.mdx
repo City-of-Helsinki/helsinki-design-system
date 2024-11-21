@@ -4,7 +4,7 @@ title: 'Notification'
 navTitle: 'Notification'
 ---
 
-import { Notification, Button } from 'hds-react';
+import { Notification, NotificationSize, Button } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -113,16 +113,16 @@ export const ToastExample = () => {
 
 #### Notification sizes
 
-Notifications have three different sizes ranging from `small` to `large`, `default` being in the middle. The small sized doesn't display the `label`, although the screen-readers are able to read it.
+Notifications have three different sizes ranging from `small` to `large`, `medium` being in the middle (in Typescript the values are `NotificationSize.Small`, `NotificationSize.Medium` and `NotificationSize.Large`). The small sized doesn't display the `label`, although the screen-readers are able to read it.
 
 <PlaygroundPreview>
-  <Notification size="large" label="New messages">
+  <Notification size={NotificationSize.Large} label="New messages">
     You have received new messages.
   </Notification>
-  <Notification size="default" label="New messages" style={{ marginTop: 'var(--spacing-s)' }}>
+  <Notification size={NotificationSize.Medium} label="New messages" style={{ marginTop: 'var(--spacing-s)' }}>
     You have received new messages.
   </Notification>
-  <Notification size="small" label="New messages" style={{ marginTop: 'var(--spacing-s)' }}>
+  <Notification size={NotificationSize.Small} label="New messages" style={{ marginTop: 'var(--spacing-s)' }}>
     You have received new messages.
   </Notification>
 </PlaygroundPreview>

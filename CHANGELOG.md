@@ -5,6 +5,197 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - November, 21, 2024
+
+### React
+
+#### Breaking
+
+- [Tag] Rewritten Tag component
+- [Button] Renewed Button component with theming support
+- [Link] iconLeft prop is renamed to iconStart, size prop is now enum (LinkSize.Small, .Medium and .Large). Aria-label is now native so ariaLabel prop is now obsolete -> use aria-label.
+- [Accordion] Changed size prop to use AccordionSize enum (AccordionSize.Small, AccordionSize.Medium and AccordionSize.Large) or without usin Typescript ("small", "medium" and "large"). Also theming has changed variables.
+- [Notification] Changed size prop to enum (NotificationSize.Small, NotificationSize.Medium and NotificationSize.Large) or without using Typescript ("small", "medium" and "large"). The "default" size was removed and replaced with "medium".
+- [ErrorSummary] Changed size prop to enum (ErrorSummarySize.Medium and ErrorSummarySize.Large) or without using Typescript ("medium" and "large"). The "default" size was removed and replaced with "medium".
+- [Icon] Icon size changed to enum (IconSize.ExtraSmall, IconSize.Small, IconSize.Medium, IconSize.Large and IconSize.ExtraLarge) or without Typescript ("extraSmall", "small", "medium", "large" and "extraLarge").
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set.
+- [SelectionGroup] Updated element spacings
+- Typography changes to heading line-heights and letter-spacings
+- [Hero] heading typography changes
+- [Header] heading typography changes
+- [Header.ActionBarSubItem] iconLeft and iconRight props renamed to iconStart and iconEnd
+- [Dialog] heading typography changes
+- [Dialog.Header] iconLeft prop renamed to iconStart
+- [CookieConsent] heading typography changes
+- [Accordion] heading typography changes
+- [Pagination] Active element changed from "a" element to "span" element
+- [Hero] content spacing changes
+- [Icon] ariaLabel, ariaLabelledby and ariaHidden replaced by native aria-\* counterparts.
+- [StatusLabel] iconLeft prop renamed to iconStart
+- [Table] dataTestId prop changed to "data-testid"
+- [Notification] dataTestId prop changed to "data-testid"
+- [Logo] dataTestId prop changed to "data-testid"
+- [Pagination] dataTestId prop changed to "data-testid"
+- [StatusLabel] dataTestId prop changed to "data-testid"
+- [Stepper] dataTestId prop changed to "data-testid"
+- [Breadcrumb] ariaLabel prop changed to "aria-label"
+- [Footer] ariaLabel prop changed to "aria-label"
+- [Footer.Base] ariaLabel prop changed to "aria-label"
+- [Footer.Custom] ariaLabel prop changed to "aria-label"
+- [Footer.Utilities] ariaLabel prop changed to "aria-label"
+- [Footer.Navigation] ariaLabel prop changed to "aria-label"
+- [Footer.Link] ariaLabel prop changed to "aria-label"
+- [Header] ariaLabel prop changed to "aria-label"
+- [Header.ActionBar] ariaLabel prop changed to "aria-label"
+- [Header.ActionBarItem] ariaLabel prop changed to "aria-label"
+- [Header.LanguageSelector] ariaLabel prop changed to "aria-label"
+- [Header.NavigationMenu] ariaLabel prop changed to "aria-label"
+- [Header.Universalbar] ariaLabel prop changed to "aria-label"
+- [SideNavigation] ariaLabel prop changed to "aria-label"
+- [SkipLink] ariaLabel prop changed to "aria-label"
+- [CookieConsent] Rewritten CookieConsent component
+- [Dropdown/Combobox] replaced with Select
+- [Dropdown/Select] replaced with Select
+
+#### Added
+
+- [Hero] New information element below the hero for photographer credits
+- [StatusLabel] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Breadcrumbs] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Checkbox] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Button] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Table] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Notification] Added SCSS support and scss files are exported too. See documentation about usage.
+- [Select] New Select component replaces the old one
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Hero] The optional arrow element does not overlap with the element below
+- [Notification] Change auto closing notification progressbar to decrease instead of increase.
+- [LinkBox] Change size prop to an enum (LinkboxSize.Small, LinkboxSize.Medium, LinkboxSize.Large), not a breaking change though since the enum values are identical to the old ones.
+- [Logo] Changed size prop to enum (LogoSize.Small, LogoSize.Medium, LogoSize.Large and LogoSize.Full) which correspond to previous values "small", "medium", "large" and "full".
+
+#### Fixed
+
+- [TextInput] Fixed issues with custom colors not applied to all elements.
+
+### Core
+
+#### Breaking
+
+- [Hero] The optional arrow icon takes vertical space and may require background color to be set. Typography changes.
+- [Tag] Rewritten Tag component
+- [Button] Renewed Button component with theming support
+- [Link] Renamed hds-icon-left class to hds-icon-start
+- [Table] id and headingId props do not have default values anymore. Affects also the id of the CheckBox inside the Table. Also removed default dataTestId
+- [Stepper] Removed default dataTestId.
+- [Pagination] Removed default dataTestId.
+- [SelectionGroup] Updated element spacings
+- Typography changes to heading line-heights and letter-spacings
+- [Table] heading typography changes
+- [StepByStep] heading typography changes
+- [Notification] heading typography changes
+- [Highlight] heading typography changes
+- [Pagination] Active element changed from "a" element to "span" element
+
+#### Added
+
+- [Hero] New information element below the hero for photographer credits
+
+#### Fixed
+
+- [TextInput] Fixed issues with custom colors not applied to all elements.
+
+### Design tokens
+
+#### Breaking
+
+- Changed colour `black-60` from `#666666` to `#595959` due to contrast issues and the accessibility and readability improvement.
+
+### Documentation
+
+#### Breaking
+
+- [CookieConsent] Updated cookie documentation to match new component
+
+#### Added
+
+- Documentation of older versions (3.11 & 2.17) of HDS is also available on the documentation site.
+- [StatusLabel] Documentation about SCSS usage.
+- [Breadcrumbs] Documentation about SCSS usage.
+- [Checkbox] Documentation about SCSS usage.
+- [Button] Documentation about SCSS usage.
+- [Table] Documentation about SCSS usage.
+- [Notification] Documentation about SCSS usage.
+- [Shadow] Documentation about box-shadow usage.
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Breadcrumbs] Changed Breadcrumbs status to stable
+- [Dropdown] Changed Dropdown status to deprecated
+- [Header] Changed Header status to beta
+- [Hero] Added documentation and examples for new information element
+- [Tag] Document the new Tag component and it's uses
+- [Button] Renewed Button component with theming support
+- [Notification] Changed according to new size enum.
+- [ErrorSummary] Changed according to new size enum.
+- [Icon] Document the size prop as enum usage.
+- Changes to the line-heights in foundation/typography.
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+- Links to old brand guide have been corrected with the new ones
+
+### Figma
+
+#### Added
+
+- [Select, Multiselect] New components to replace Dropdown.
+- [CookieConsent] New component replacing previous CookieConsent 
+- [Variables] The first variable named Deprecated is introduced.
+- [Design kit] New page and documentation for Shadow styles. Shadow in the Overview. New Getting started-section.
+
+#### Fixed
+
+- [Checkbox, DateInput, FileInput, NumberInput, PasswordInput, PhoneInput, SelectionGroup, TextArea, TextInput, TimeInput] Refactored required indicator asterisk.
+- [RadioButton, SearchInput, ToggleButton] Required indicator removed as unnecessary.
+- [Dialog] Confirm variant has the correct question-mark icon now.
+
+#### Changed
+
+- [Checkbox] Removed paddings around checkbox and above label. Checkbox height changed from 28px to 24px.
+- [Design kit] Components have a new configuration: Each component has its own page now. Moved documentation components to new page etc. Updated Colours-documentation page.
+- [Local styles] Headings have new line-heights (check .txt. for details)
+- [Local styles] Drop shadow-style removed, replaced by Shadow styles S-M matching HDS Shadow tokens
+- [Dialog, Notification]  Switched shadow effect to use Shadow L to match implementation
+- [SelectionGroup] Removed 2px left and right padding and adjusted inner gaps.
+- [Tag] Updated paddings for visually better icon alignments.
+- [Tag] Changed icon property names to iconStart and iconEnd.
+- [SearchInput] Replaced deprecated Dropdown.Option with new SearchInput.Option subcomponent.
+- [PhoneInput] Replaced deprecated Dropdown component with Select in CountryCode variant
+
+#### Deprecated
+
+- [Dropdown] Component is now deprecated and will be removed in the future major version.
+
+### Hds-js
+
+#### Breaking
+
+- [cookieConsentController] Removed
+- [cookieController] Removed
+- [getContent] Removed
+
+#### Added
+
+- [cookieConsentCore] New component for cookie consent handling
+- [standalone/cookieConsentCore] Standalone version of the cookie consent component
+
 ## [3.11.0] - Oct, 31, 2024
 
 ### React

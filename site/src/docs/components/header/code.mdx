@@ -255,6 +255,13 @@ export const IndexLink = ({ anchor, children }) => {
 
 ### <a id="sub-header">Header</a>
 
+<Notification label="Note about Header login components">
+  The Header.LoginButton, Header.LogoutSubmenuButton and Header.UserMenuButton require a working{' '}
+  <InternalLink href="/components/login/">Login Provider</InternalLink> that cannot not be configured here. Working
+  examples can be seen in the{' '}
+  <InternalLink href="/storybook/react/?path=/story/components-login--example-application">Storybook</InternalLink>.
+</Notification>
+
 #### Example with all the components
 
 <Playground scope={{ Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
@@ -309,7 +316,7 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
           openFrontPageLinksAriaLabel="Avaa Etusivun linkkivalikko"
           onMenuClick={(e) => e.stopPropagation()}
         >
-          <Header.LanguageSelector ariaLabel={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
+          <Header.LanguageSelector aria-label={I18n.ariaLanguageSelection} languageHeading={I18n.otherLanguages}>
             <Header.ActionBarSubItemGroup label={I18n.infoOtherLanguages}>
               <Header.ActionBarSubItem label={I18n.clearFinnish} external href="www.example.com" lang="fi" />
               <Header.ActionBarSubItem label={I18n.signLanguage} external href="www.example.com" lang="fse" />
@@ -339,7 +346,7 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
             <Header.ActionBarSubItem
               label="Kirjaudu ulos"
               bold
-              iconRight={<IconSignout />}
+              iconEnd={<IconSignout />}
               onClick={() => console.log('Signout')}
             />
           </Header.ActionBarItem>
@@ -574,7 +581,7 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 
 | Property                    | Description                                             | Values                              | Default value |
 | --------------------------- | ------------------------------------------------------- | ----------------------------------- | ------------- |
-| `ariaLabel`                 | Aria-label for describing header.                       | `string`                            | -             |
+| `aria-label`                | Aria-label for describing header.                       | `string`                            | -             |
 | `className`                 | Additional class names to apply.                        | `string`                            | -             |
 | `defaultLanguage`           | Default selected language.                              | `LanguageType`                      | `fi`          |
 | `id`                        | Id for the element.                                     | `string`                            | -             |
@@ -585,7 +592,7 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 
 The `languages` property is an array of `LanguageOption` objects. If `LanguageOption.isPrimary` is `true`, the option is shown outside of the dropdown, unless a non-primary language is selected.
 
-<NativeElementPropsInfo nodeName="header" overlappingProps={['ariaLabel']} />
+<NativeElementPropsInfo nodeName="header" />
 
 <IndexLink anchor="example">Header</IndexLink>
 ### Header.SkipLink
@@ -594,13 +601,13 @@ The `languages` property is an array of `LanguageOption` objects. If `LanguageOp
 
 | Property                             | Description                                        | Values          | Default value |
 | ------------------------------------ | -------------------------------------------------- | --------------- | ------------- |
-| `ariaLabel`                          | Aria-label for describing SkipLink in more detail. | `string`        | -             |
+| `aria-label`                         | Aria-label for describing SkipLink in more detail. | `string`        | -             |
 | `label`                              | Label for the SkipLink.                            | `string`        | -             |
 | `skipTo`                             | Id of the element where the SkipLink jumps to.     | `string`        | -             |
 | `theme`                              | Custom styling for SkipLink.                       | `SkipLinkTheme` | -             |
 | [Table 2:Header.SkipLink properties] |
 
-<NativeElementPropsInfo nodeName="a" overlappingProps={['ariaLabel']} />
+<NativeElementPropsInfo nodeName="a" />
 
 <IndexLink anchor="with-skip-link">Header.SkipLink</IndexLink>
 
@@ -612,7 +619,7 @@ Note: Under large sized screens (992px and down) the Header.UniversalBar is hidd
 
 | Property                                 | Description                               | Values   | Default value |
 | ---------------------------------------- | ----------------------------------------- | -------- | ------------- |
-| `ariaLabel`                              | Aria-label for describing UniversalBar.   | `string` | -             |
+| `aria-label`                             | Aria-label for describing UniversalBar.   | `string` | -             |
 | `className`                              | Additional class names to apply.          | `string` | -             |
 | `id`                                     | ID for the UniversalBar element.          | `string` | -             |
 | `primaryLinkHref`                        | Hypertext reference for the primary link. | `string` | -             |
@@ -620,7 +627,7 @@ Note: Under large sized screens (992px and down) the Header.UniversalBar is hidd
 | `role`                                   | ARIA role to describe the contents.       | `string` | -             |
 | [Table 3:Header.UniversalBar properties] |
 
-<NativeElementPropsInfo nodeName="div" overlappingProps={['ariaLabel']} />
+<NativeElementPropsInfo nodeName="div" />
 
 <IndexLink anchor="with-universal-bar">Header.UniversalBar</IndexLink>
 
@@ -630,7 +637,7 @@ Note: Under large sized screens (992px and down) the Header.UniversalBar is hidd
 
 | Property                              | Description                                                                              | Values                                        | Default value |
 | ------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| `ariaLabel`                           | Aria-label for describing ActionBar.                                                     | `string`                                      | -             |
+| `aria-label`                          | Aria-label for describing ActionBar.                                                     | `string`                                      | -             |
 | `className`                           | Additional class names to apply.                                                         | `string`                                      | -             |
 | `frontPageLabel`                      | Label for front page link in mobile navigation menu.                                     | `string`                                      | -             |
 | `logoAriaLabel`                       | Aria-label for the logo.                                                                 | `string`                                      | -             |
@@ -649,7 +656,7 @@ Note: Under large sized screens (992px and down) the Header.UniversalBar is hidd
 | `titleHref`                           | URL for the title.                                                                       | `string`                                      | -             |
 | [Table 4:Header.ActionBar properties] |
 
-<NativeElementPropsInfo nodeName="div" overlappingProps={['ariaLabel']} />
+<NativeElementPropsInfo nodeName="div" />
 
 <IndexLink anchor="with-action-bar">Header.ActionBar</IndexLink>
 
@@ -659,7 +666,7 @@ Note: Under large sized screens (992px and down) the Header.UniversalBar is hidd
 
 | Property                                  | Description                                                                                                                          | Values                 | Default value |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
-| `ariaLabel`                               | Aria-label for describing the item.                                                                                                  | `string`               | -             |
+| `aria-label`                              | Aria-label for describing the item.                                                                                                  | `string`               | -             |
 | `avatar`                                  | An avatar which replaces the icon. Usually user's initials, but can be any Element.                                                  | `string` `JSX.Element` | -             |
 | `closeIcon`                               | Icon for the item when dropdown is open.                                                                                             | `ReactNode`            | -             |
 | `closeLabel`                              | Label for the item when dropdown is open.                                                                                            | `string` `JSX.Element` | -             |
@@ -674,7 +681,7 @@ Note: Under large sized screens (992px and down) the Header.UniversalBar is hidd
 | `preventButtonResize`                     | If true, menu button resizing is prevented by rendering button's active state to a separate element.                                 | `boolean`              | `false`       |
 | [Table 5:Header.ActionBarItem properties] |
 
-<NativeElementPropsInfo nodeName="div" overlappingProps={['ariaLabel']} />
+<NativeElementPropsInfo nodeName="div" />
 
 <IndexLink anchor="actionbaritem-and-actionbarbutton">Header.ActionBarItem</IndexLink>
 
@@ -704,7 +711,7 @@ Language options, the default language, and a change listener are passed to the 
 
 | Property                                     | Description                                                                                                                                                                                | Values                                                                                          | Default value |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ------------- |
-| `ariaLabel`                                  | Aria-label for describing the dropdown button.                                                                                                                                             | `string`                                                                                        | -             |
+| `aria-label`                                 | Aria-label for describing the dropdown button.                                                                                                                                             | `string`                                                                                        | -             |
 | `languageHeading`                            | Heading for the list of languages inside the dropdown.                                                                                                                                     | `string`                                                                                        | -             |
 | `sortLanguageOptions`                        | Function for sorting language options into primary and secondary. By default, all primary `LanguageOptions` as shown. If a secondary `LanguageOption` is selected, only that one is shown. | `(options: LanguageOption[], selectedLanguage: string) => [LanguageOption[], LanguageOption[]]` | -             |
 | [Table 7:Header.LanguageSelector properties] |
@@ -749,7 +756,7 @@ Language options, the default language, and a change listener are passed to the 
 
 | Property                                    | Description                               | Values   | Default value |
 | ------------------------------------------- | ----------------------------------------- | -------- | ------------- |
-| `ariaLabel`                                 | Aria-label for describing NavigationMenu. | `string` | -             |
+| `aria-label`                                | Aria-label for describing NavigationMenu. | `string` | -             |
 | `id`                                        | ID for the NavigationMenu.                | `string` | -             |
 | [Table 10:Header.NavigationMenu properties] |
 
@@ -893,8 +900,8 @@ import { Link } from 'gatsby';
 
 | Property                                      | Description                                                            | Values                 | Default value |
 | --------------------------------------------- | ---------------------------------------------------------------------- | ---------------------- | ------------- |
-| `iconLeft`                                    | Icon element (on the left side of the label) for the action bar item.  | `ReactNode`            | -             |
-| `iconRight`                                   | Icon element (on the right side of the label) for the action bar item. | `ReactNode`            | -             |
+| `iconStart`                                   | Icon element (on the start side of the label) for the action bar item. | `ReactNode`            | -             |
+| `iconEnd`                                     | Icon element (on the end side of the label) for the action bar item.   | `ReactNode`            | -             |
 | `notificationBubbleContent`                   | Content for the right aligned red notification bubble.                 | `string`               | -             |
 | `notificationBubbleAriaLabel`                 | Aria label for notification bubble.                                    | `string`               | -             |
 | `label`                                       | Label for the action bar item.                                         | `string` `JSX.Element` | -             |

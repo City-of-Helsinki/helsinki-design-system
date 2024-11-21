@@ -1,0 +1,290 @@
+---
+slug: '/components/button/code'
+title: 'Button - Code'
+---
+
+import {
+  Button,
+  ButtonVariant,
+  LoadingSpinner,
+  IconTrash,
+  IconAngleRight,
+  Notification,
+  IconShare,
+  IconSaveDisketteFill,
+} from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Primary
+
+<Playground scope={{ Button }}>
+
+```jsx
+import { Button } from 'hds-react';
+
+() => <Button>Primary</Button>;
+```
+
+```html
+<button type="button" class="hds-button hds-button--primary">Primary</button>
+```
+
+</Playground>
+
+#### Secondary
+
+<Playground scope={{ Button }}>
+
+```jsx
+import { Button } from 'hds-react';
+
+() => <Button variant="secondary">Secondary</Button>;
+```
+
+```html
+<button type="button" class="hds-button hds-button--secondary">Secondary</button>
+```
+
+</Playground>
+
+#### Supplementary
+
+<Playground scope={{ Button, IconTrash }}>
+
+```jsx
+import { Button, IconTrash } from 'hds-react';
+
+() => (
+  <Button variant="supplementary" iconStart={<IconTrash />}>
+    Supplementary
+  </Button>
+);
+```
+
+```html
+<button type="button" class="hds-button hds-button--supplementary hds-icon--trash hds-icon-start--trash">
+  Supplementary
+</button>
+```
+
+</Playground>
+
+#### Icon button
+
+<Playground scope={{ Button, IconShare, IconAngleRight }}>
+
+```jsx
+import { Button, IconShare, IconAngleRight } from 'hds-react';
+
+() => (
+  <div style={{ display: 'flex', gap: '12px' }}>
+    <Button iconStart={<IconShare />}>Button</Button>
+    <Button iconEnd={<IconAngleRight />}>Button</Button>
+    <Button iconStart={<IconShare />} iconEnd={<IconAngleRight />}>
+      Button
+    </Button>
+  </div>
+);
+```
+
+```html
+<div style="display: flex; gap: 12px;">
+  <button type="button" class="hds-button hds-button--primary hds-icon--share hds-icon-start--share">Button</button>
+  <button type="button" class="hds-button hds-button--primary hds-icon--angle-right hds-icon-end--angle-right">
+    Button
+  </button>
+  <button
+    type="button"
+    class="hds-button hds-button--primary hds-icon--share hds-icon-start--share hds-icon--angle-right hds-icon-end--angle-right"
+  >
+    Button
+  </button>
+</div>
+```
+
+</Playground>
+
+#### Small button
+
+<Playground scope={{ Button }}>
+
+```jsx
+import { Button } from 'hds-react';
+
+() => (
+  <div style={{ display: 'flex', gap: '12px' }}>
+    <Button size="small">Primary</Button>
+    <Button variant="secondary" size="small">
+      Secondary
+    </Button>
+    <Button variant="supplementary" size="small">
+      Supplementary
+    </Button>
+  </div>
+);
+```
+
+```html
+<div style="display: flex; gap: 12px;">
+  <button type="button" class="hds-button hds-button--primary hds-button--small">
+    <span>Primary</span>
+  </button>
+  <button type="button" class="hds-button hds-button--secondary hds-button--small">
+    <span>Secondary</span>
+  </button>
+  <button type="button" class="hds-button hds-button--supplementary hds-button--small">
+    <span>Supplementary</span>
+  </button>
+</div>
+```
+
+</Playground>
+
+#### Utility button
+
+<Playground scope={{ Button, IconSaveDisketteFill, IconTrash }}>
+
+```jsx
+import { Button, IconSaveDisketteFill, IconTrash } from 'hds-react';
+
+() => (
+  <div style={{ display: 'flex', gap: '12px' }}>
+    <Button variant="success" iconStart={<IconSaveDisketteFill />}>
+      Save
+    </Button>
+    <Button variant="danger" iconStart={<IconTrash />}>
+      Delete
+    </Button>
+  </div>
+);
+```
+
+```html
+<div style="display: flex; gap: 12px;">
+  <button
+    type="button"
+    class="hds-button hds-button--success hds-icon--save-diskette-fill hds-icon-start--save-diskette-fill"
+  >
+    Save
+  </button>
+  <button type="button" class="hds-button hds-button--danger hds-icon--trash hds-icon-start--trash">Delete</button>
+</div>
+```
+
+</Playground>
+
+#### Loading button
+
+<Playground scope={{ Button, ButtonVariant, LoadingSpinner, Notification }}>
+
+```jsx
+import { Button, ButtonVariant, LoadingSpinner, Notification } from 'hds-react';
+
+() => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showNotification, setShowNotification] = React.useState(false);
+  React.useEffect(() => {
+    let timeout;
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        setShowNotification(true);
+        setIsLoading(false);
+      }, 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isLoading]);
+
+  const disabled = isLoading;
+  const iconStart = isLoading ? <LoadingSpinner small /> : null;
+  const variant = isLoading ? ButtonVariant.Clear : ButtonVariant.Primary;
+
+  return (
+    <>
+      <Button
+        disabled={disabled}
+        iconStart={iconStart}
+        variant={variant}
+        onClick={() => {
+          setShowNotification(false);
+          setIsLoading(true);
+        }}
+        style={{ cursor: isLoading ? 'wait' : '' }}
+      >
+        {isLoading ? 'Saving form changes' : 'Save form'}
+      </Button>
+      {showNotification && (
+        <Notification
+          key={new Date().toString()}
+          position="top-right"
+          displayAutoCloseProgress={false}
+          autoClose
+          dismissible
+          label="Form saved!"
+          type="success"
+          onClose={() => {
+            setShowNotification(false);
+          }}
+        >
+          Saving your form was successful.
+        </Notification>
+      )}
+    </>
+  );
+};
+```
+
+</Playground>
+
+#### Link button
+
+<Playground scope={{ Button }}>
+
+```jsx
+import { Button } from 'hds-react';
+
+() => (
+  <Button
+    role="link"
+    onClick={() => {
+      window.open('/');
+    }}
+  >
+    Link to page
+  </Button>
+);
+```
+
+```html
+<button role="link" type="button" class="hds-button hds-button--primary" onclick="window.open('/')">
+  Link to page
+</button>
+```
+
+</Playground>
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                         | Source link                                                                                                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-button--primary">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/button">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-button--primary">View in Storybook</Link>  | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/button">View source</ExternalLink>  |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-button--primary">React Storybook.</Link>
+
+| Property    | Description                                                       | Values                                                                       | Default value |
+| ----------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------- |
+| `variant`   | Variant of the button.                                            | `ButtonVariant` or (`"primary"`,`"secondary"`, `"supplementary"`, `"success"`, `"danger"`, `"clear"`) | `"primary"`   |
+| `size`      | Size of the button.                                               | `ButtonSize` or (`"medium"`, `"small"`)                                      | `"medium"`    |
+| `iconStart` | Icon placed on the left side of the button label.                 | `ReactNode`                                                                  | -             |
+| `iconEnd`   | Icon placed on the right side of the button label.                | `ReactNode`                                                                  | -             |
+| `fullWidth` | If set to true, the button will take full width of its container. | `boolean`                                                                    | false         |

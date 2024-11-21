@@ -113,7 +113,7 @@
 
   // This is a hack currently for old type of usage of the HeaderActionBar children (without HeaderActionBarSubItems)
   // TODO: remove in version 4
-  ul > *:not([class*="HeaderActionBar"]) {
+  ul > *:not([class*='HeaderActionBar']) {
     padding: var(--spacing-xs) var(--spacing-s);
 
     &:focus-within {
@@ -122,7 +122,9 @@
       outline-offset: calc(-1 * var(--header-focus-outline-width));
     }
 
-    > *:focus-within, :focus-visible, :focus {
+    > *:focus-within,
+    :focus-visible,
+    :focus {
       border: none;
       outline: none;
       outline-offset: none;
@@ -148,6 +150,10 @@
 
     & > h4 {
       padding: 0 !important;
+    }
+
+    &.selected {
+      border-left: 4px solid var(--color-black);
     }
   }
 

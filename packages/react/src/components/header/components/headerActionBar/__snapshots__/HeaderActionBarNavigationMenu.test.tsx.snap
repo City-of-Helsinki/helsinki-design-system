@@ -65,7 +65,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                       <svg
                         aria-hidden="true"
                         aria-label="cross"
-                        class="icon s"
+                        class="icon small"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         class="isSmallScreen navigationLinkWrapper depth-0"
                       >
                         <a
-                          class="link linkM headerLink depth-0 activeMobileLink isSmallScreen"
+                          class="link link-medium headerLink depth-0 activeMobileLink isSmallScreen"
                           href="https://domain.fi"
                         >
                           frontPageLabel
@@ -132,7 +132,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link linkM headerLink depth-0 mobileLink isSmallScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-0.com"
                         >
                           TestLabel_0
@@ -147,7 +147,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s chevron"
+                            class="icon small chevron"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-0_0.com"
                               >
                                 TestLabel_0_0
@@ -185,7 +185,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_0_0.com"
                                     >
                                       TestLabel_0_0_0
@@ -220,7 +220,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_0_1.com"
                                     >
                                       TestLabel_0_0_1
@@ -235,7 +235,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-0_1.com"
                               >
                                 TestLabel_0_1
@@ -247,7 +247,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-0_2.com"
                               >
                                 TestLabel_0_2
@@ -262,7 +262,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -285,7 +285,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_2_0.com"
                                     >
                                       TestLabel_0_2_0
@@ -297,7 +297,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_2_1.com"
                                     >
                                       TestLabel_0_2_1
@@ -309,7 +309,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-0_2_2.com"
                                     >
                                       TestLabel_0_2_2
@@ -331,7 +331,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link linkM headerLink depth-0 mobileLink isSmallScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-1.com"
                         >
                           TestLabel_1
@@ -346,7 +346,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s chevron"
+                            class="icon small chevron"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -369,7 +369,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-1_0.com"
                               >
                                 TestLabel_1_0
@@ -384,7 +384,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -407,7 +407,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-1_0_0.com"
                                     >
                                       TestLabel_1_0_0
@@ -419,7 +419,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-1_0_1.com"
                                     >
                                       TestLabel_1_0_1
@@ -431,7 +431,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-1_0_2.com"
                                     >
                                       TestLabel_1_0_2
@@ -453,7 +453,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link linkM headerLink depth-0 mobileLink isSmallScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-2.com"
                         >
                           TestLabel_2
@@ -469,7 +469,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                         class="isSmallScreen navigationLinkWrapper depth-0 mobileLinkWrapper"
                       >
                         <a
-                          class="link linkM headerLink depth-0 mobileLink isSmallScreen"
+                          class="link link-medium headerLink depth-0 mobileLink isSmallScreen"
                           href="http://test-link-3.com"
                         >
                           TestLabel_3
@@ -484,7 +484,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                           <svg
                             aria-hidden="true"
                             aria-label="angle-down"
-                            class="icon s chevron"
+                            class="icon small chevron"
                             role="img"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -507,7 +507,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-3_0.com"
                               >
                                 TestLabel_3_0
@@ -519,7 +519,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-3_1.com"
                               >
                                 TestLabel_3_1
@@ -534,7 +534,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -557,7 +557,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_1_0.com"
                                     >
                                       TestLabel_3_1_0
@@ -569,7 +569,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_1_1.com"
                                     >
                                       TestLabel_3_1_1
@@ -581,7 +581,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_1_2.com"
                                     >
                                       TestLabel_3_1_2
@@ -596,7 +596,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                               class="isSmallScreen navigationLinkWrapper depth-1 mobileLinkWrapper"
                             >
                               <a
-                                class="link linkM headerLink depth-1 dropdownLink isSmallScreen"
+                                class="link link-medium headerLink depth-1 dropdownLink isSmallScreen"
                                 href="http://test-link-3_2.com"
                               >
                                 TestLabel_3_2
@@ -611,7 +611,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                 <svg
                                   aria-hidden="true"
                                   aria-label="angle-right"
-                                  class="icon s chevron"
+                                  class="icon small chevron"
                                   role="img"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -634,7 +634,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_2_0.com"
                                     >
                                       TestLabel_3_2_0
@@ -646,7 +646,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_2_1.com"
                                     >
                                       TestLabel_3_2_1
@@ -658,7 +658,7 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
                                     class="isSmallScreen navigationLinkWrapper depth-2 mobileLinkWrapper"
                                   >
                                     <a
-                                      class="link linkM headerLink depth-2 dropdownLink isSmallScreen"
+                                      class="link link-medium headerLink depth-2 dropdownLink isSmallScreen"
                                       href="http://test-link-3_2_2.com"
                                     >
                                       TestLabel_3_2_2

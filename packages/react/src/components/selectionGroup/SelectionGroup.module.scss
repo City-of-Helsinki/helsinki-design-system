@@ -1,36 +1,20 @@
-@import "../../styles/common.scss";
+@import '../../styles/common.scss';
 
 .selectionGroup {
-  --spacing-col: 1.25rem;
-  --spacing-row: var(--spacing-s);
-  --label-color-default: var(--color-black-90);
-  --icon-size: var(--spacing-m);
-
-  border: 0;
-  padding: 0;
-}
-
-.selectionGroup > *:not(.items) {
-  float: left;
+  composes: hds-selection-group from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
 .label {
-  /* Normalize.css rule
-   * Remove the padding so developers are not caught out when they zero out
-   * `fieldset` elements in all browsers.
-   */
+  composes: hds-selection-group__legend from 'hds-core/lib/components/selection-group/selection-group.css';
+}
 
-  @extend %inputLabel;
-
-  margin-bottom: var(--spacing-row);
-  padding: 0;
+.legendAndToolTipWrapper {
+  display: flex;
+  flex-direction: row;
 }
 
 .items {
-  clear: left;
-  display: grid;
-  gap: var(--spacing-row) var(--spacing-col);
-  justify-content: start;
+  composes: hds-selection-group__items from 'hds-core/lib/components/selection-group/selection-group.css';
 
   &.vertical {
     grid-auto-flow: row;
@@ -51,4 +35,5 @@
 
 .helperText {
   composes: helper-text from 'hds-core/lib/utils/helpers.css';
+  composes: hds-selection-group__helper-text-gap from 'hds-core/lib/components/selection-group/selection-group.css';
 }

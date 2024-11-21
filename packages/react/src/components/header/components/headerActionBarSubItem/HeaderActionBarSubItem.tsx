@@ -20,17 +20,13 @@ type ElementProps = React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> 
 
 export interface HeaderActionBarSubItemProps extends ElementProps {
   /**
-   * Aria-label attribute for the action bar item.
+   * Icon element (on the start side of the label) for the action bar item.
    */
-  'aria-label'?: React.ComponentProps<'button'>['aria-label'];
+  iconStart?: ReactNode;
   /**
-   * Icon element (on the left side of the label) for the action bar item.
+   * Icon element (on the end side of the label) for the action bar item.
    */
-  iconLeft?: ReactNode;
-  /**
-   * Icon element (on the right side of the label) for the action bar item.
-   */
-  iconRight?: ReactNode;
+  iconEnd?: ReactNode;
   /**
    * Content for the right aligned red notification bubble
    */
@@ -52,6 +48,10 @@ export interface HeaderActionBarSubItemProps extends ElementProps {
    */
   bold?: boolean;
   /**
+   * If selected
+   */
+  selected?: boolean;
+  /**
    * Hypertext Reference of the link.
    */
   href?: string;
@@ -69,8 +69,8 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
   (
     {
       'aria-label': ariaLabel,
-      iconLeft,
-      iconRight,
+      iconStart,
+      iconEnd,
       notificationBubbleContent,
       notificationBubbleAriaLabel,
       label,
@@ -79,6 +79,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
       onClick,
       className,
       bold,
+      selected,
       external,
       openInExternalDomainAriaLabel,
       ...rest
@@ -89,6 +90,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
       [classes.actionBarSubItem]: true,
       ...(className && { [className]: true }),
       [classes.bold]: bold,
+      [classes.selected]: selected,
     });
 
     const composeAriaLabel = () => {
@@ -121,14 +123,14 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
     const Content = () => (
       <>
         <Icon
-          element={iconLeft}
-          elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconLeft)}
+          element={iconStart}
+          elementClassName={classNames(classes.actionBarSubItemIcon, classes.actionBarSubItemIconStart)}
         />
         <Label text={label} />
         {external ? (
           <IconLinkExternal className={classNames(classes.actionBarSubItemIcon)} />
         ) : (
-          <Icon element={iconRight} elementClassName={classNames(classes.actionBarSubItemIcon)} />
+          <Icon element={iconEnd} elementClassName={classNames(classes.actionBarSubItemIcon)} />
         )}
         {notificationBubbleContent !== undefined && (
           <>
@@ -155,7 +157,14 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
         return isHeading ? (
           <h4 className={itemClassName}>{children}</h4>
         ) : (
-          <li className={actionBarItemClasses.dropdownItem}>{children}</li>
+          <li
+            className={classNames({
+              [actionBarItemClasses.dropdownItem]: true,
+              [actionBarItemClasses.selected]: selected,
+            })}
+          >
+            {children}
+          </li>
         );
       },
       [isHeading, itemClassName],

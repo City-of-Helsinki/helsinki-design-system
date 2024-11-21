@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import React from 'react';
 
 import { Footer, FooterProps } from './Footer';
@@ -11,7 +10,7 @@ import { FooterUtilities } from './components/footerUtilities/FooterUtilities';
 import { FooterUtilityGroup } from './components/footerUtilityGroup/FooterUtilityGroup';
 import { FooterBase } from './components/footerBase/FooterBase';
 import { FooterCustom } from './components/footerCustom/FooterCustom';
-import { Logo, logoFi } from '../logo';
+import { Logo, LogoSize, logoFi } from '../logo';
 
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
@@ -20,42 +19,42 @@ const Utilities = () => {
     return [
       <Footer.Link
         title="Helsingin kaupungin Facebook-tili"
-        ariaLabel="Helsingin kaupungin Facebook-tili"
+        aria-label="Helsingin kaupungin Facebook-tili"
         external
         openInNewTab
-        icon={<IconFacebook aria-hidden />}
+        icon={<IconFacebook />}
         href="https://facebook.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Twitter-tili"
-        ariaLabel="Helsingin kaupungin Twitter-tili"
+        aria-label="Helsingin kaupungin Twitter-tili"
         external
         openInNewTab
-        icon={<IconTwitter aria-hidden />}
+        icon={<IconTwitter />}
         href="https://twitter.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Instagram-tili"
-        ariaLabel="Helsingin kaupungin Instagram-tili"
+        aria-label="Helsingin kaupungin Instagram-tili"
         external
         openInNewTab
-        icon={<IconInstagram aria-hidden />}
+        icon={<IconInstagram />}
         href="https://instagram.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Youtube-tili"
-        ariaLabel="Helsingin kaupungin Youtube-tili"
+        aria-label="Helsingin kaupungin Youtube-tili"
         external
         openInNewTab
-        icon={<IconYoutube aria-hidden />}
+        icon={<IconYoutube />}
         href="https://youtube.com"
       />,
       <Footer.Link
         title="Helsingin kaupungin Tiktok-tili"
-        ariaLabel="Helsingin kaupungin Tiktok-tili"
+        aria-label="Helsingin kaupungin Tiktok-tili"
         external
         openInNewTab
-        icon={<IconTiktok aria-hidden />}
+        icon={<IconTiktok />}
         href="https://tiktok.com"
       />,
     ];
@@ -82,7 +81,7 @@ const Base = () => (
     copyrightHolder="Copyright"
     copyrightText="All rights reserved"
     backToTopLabel="Back to top"
-    logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+    logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
   >
     {createArray(5).map((index) => (
       <Footer.Link
@@ -201,42 +200,42 @@ export const Example = (args: FooterProps) => (
       soMeLinks={[
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           external
           openInNewTab
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />,
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
+          aria-label="Helsingin kaupungin Twitter-tili"
           external
           openInNewTab
-          icon={<IconTwitter aria-hidden="true" />}
+          icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />,
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
+          aria-label="Helsingin kaupungin Instagram-tili"
           external
           openInNewTab
-          icon={<IconInstagram aria-hidden="true" />}
+          icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />,
         <Footer.Link
           title="Helsingin kaupungin LinkedIn-tili"
-          ariaLabel="Helsingin kaupungin LinkedIn-tili"
+          aria-label="Helsingin kaupungin LinkedIn-tili"
           external
           openInNewTab
-          icon={<IconLinkedin aria-hidden="true" />}
+          icon={<IconLinkedin />}
           href="https://linkedin.com/company/city-of-helsinki"
         />,
         <Footer.Link
           title="Helsingin kaupungin Youtube-tili"
-          ariaLabel="Helsingin kaupungin Youtube-tili"
+          aria-label="Helsingin kaupungin Youtube-tili"
           external
           openInNewTab
-          icon={<IconYoutube aria-hidden="true" />}
+          icon={<IconYoutube />}
           href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
         />,
       ]}
@@ -255,7 +254,7 @@ export const Example = (args: FooterProps) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
       logoHref="https://hel.fi"
       onLogoClick={(event: React.MouseEvent) => event.preventDefault()}
     >
@@ -310,37 +309,37 @@ export const UtilityGroups = (args: FooterProps) => (
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
-          ariaLabel="Helsingin kaupungin Facebook-tili"
+          aria-label="Helsingin kaupungin Facebook-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconFacebook aria-hidden="true" />}
+          icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />
         <Footer.Link
           title="Helsingin kaupungin Twitter-tili"
           label="Twitter"
-          ariaLabel="Helsingin kaupungin Twitter-tili"
+          aria-label="Helsingin kaupungin Twitter-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconTwitter aria-hidden="true" />}
+          icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />
         <Footer.Link
           title="Helsingin kaupungin Instagram-tili"
           label="Instagram"
-          ariaLabel="Helsingin kaupungin Instagram-tili"
+          aria-label="Helsingin kaupungin Instagram-tili"
           openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
-          icon={<IconInstagram aria-hidden="true" />}
+          icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />
       </Footer.UtilityGroup>
@@ -349,7 +348,7 @@ export const UtilityGroups = (args: FooterProps) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
-      logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
     >
       <Footer.Link
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -388,6 +387,9 @@ export const CustomSection = (args: FooterProps) => (
 
 export const Minimal = (args: FooterProps) => (
   <Footer {...args}>
-    <Footer.Base backToTopLabel="Back to top" logo={<Logo src={logoFi} size="medium" alt="Helsingin kaupunki" />} />
+    <Footer.Base
+      backToTopLabel="Back to top"
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
+    />
   </Footer>
 );

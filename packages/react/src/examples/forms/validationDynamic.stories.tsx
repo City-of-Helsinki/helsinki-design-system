@@ -3,20 +3,20 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { CityOptionType, getCitites } from './validationUtils';
+import { getCitites } from './validationUtils';
 import { defaultValues, FieldName, FormData, validationSchema } from './validationSchema';
 import {
   Button,
   Checkbox,
-  Combobox,
   DateInput,
+  Option,
   PhoneInput,
   RadioButton,
+  Select,
   SelectionGroup,
   TextArea,
   TextInput,
 } from '../../components';
-
 import './validation.scss';
 
 const cities = getCitites();
@@ -119,20 +119,18 @@ export const Dynamic = () => {
               />
             </div>
           </div>
-          <div className="hds-example-form__grid-8-4">
+          <div className="hds-example-form__grid-6-6">
             <div className="hds-example-form__item">
-              <Combobox<CityOptionType>
+              <Select
                 id="city"
-                label="City"
-                optionLabelField="label"
+                clearable
+                texts={{ label: 'City', error: errors.city?.message, placeholder: '' }}
                 options={cities}
-                onChange={(selected: CityOptionType) => {
-                  handleChange('city', selected ? selected.label : '');
+                onChange={(selectedOptions: Option[]) => {
+                  handleChange('city', selectedOptions.length ? selectedOptions[0].label : '');
                 }}
-                defaultValue={{ label: getValues('city') }}
-                toggleButtonAriaLabel="Toggle"
+                value={[getValues('city')]}
                 invalid={!!errors.city?.message}
-                error={errors.city?.message}
                 required
                 onBlur={() => {
                   trigger('city');

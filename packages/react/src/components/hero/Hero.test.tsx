@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Hero, HeroProps } from './Hero';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 import { getElementAttributesMisMatches, getCommonElementTestProps } from '../../utils/testHelpers';
 
 describe('<Hero /> spec', () => {
@@ -13,7 +13,7 @@ describe('<Hero /> spec', () => {
       <>
         <h1>This is the heading</h1>
         <p>Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!</p>
-        <Button variant="secondary" role="link">
+        <Button variant={ButtonVariant.Secondary} role="link">
           Click me
         </Button>
       </>
@@ -24,6 +24,8 @@ describe('<Hero /> spec', () => {
     const heroProps: HeroProps = {
       ...props,
       imageSrc: props.variant !== 'noImage' ? imageSrc : undefined,
+      showArrowIcon: true,
+      information: 'Test info',
     };
     return (
       <Hero {...heroProps}>

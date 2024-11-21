@@ -6,16 +6,17 @@ import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
+import { IconSize } from '../../icons/Icon.interface';
+
+export enum LinkSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
 
 export type LinkProps = MergeAndOverrideProps<
   AllElementPropsWithoutRef<'a'>,
   {
-    /**
-     * aria-label for providing detailed information for screen readers about a link text.
-     * @deprecated Will be replaced in the next major release with "aria-label"
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ariaLabel?: string;
     /**
      * Link content
      */
@@ -34,9 +35,8 @@ export type LinkProps = MergeAndOverrideProps<
     href: string;
     /**
      * Element placed on the left side of the link text
-     * @deprecated Will be replaced with iconStart in the next major release.
      */
-    iconLeft?: React.ReactNode;
+    iconStart?: React.ReactNode;
     /**
      * Boolean indicating whether the link will open in new tab or not.
      */
@@ -52,7 +52,7 @@ export type LinkProps = MergeAndOverrideProps<
     /**
      * Size of the link
      */
-    size?: 'S' | 'M' | 'L';
+    size?: LinkSize;
     /**
      * Additional styles
      */
@@ -64,27 +64,23 @@ export type LinkProps = MergeAndOverrideProps<
   }
 >;
 
-type LinkToIconSizeMappingType = {
-  L: 'l';
-  M: 's';
-  S: 'xs';
-};
-
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
-      ariaLabel,
+      // aria-label is picked from "...rest", because it is sometimes built from props
+      // and "...rest"  would override the built one.
+      'aria-label': ariaLabel,
       children,
       className,
       disableVisitedStyles = false,
       external = false,
       href,
-      iconLeft,
+      iconStart,
       openInNewTab = false,
       openInExternalDomainAriaLabel,
       openInNewTabAriaLabel,
       style = {},
-      size = 'M',
+      size = LinkSize.Medium,
       useButtonStyles = false,
       ...rest
     }: LinkProps,
@@ -102,26 +98,25 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
     };
 
-    const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
-      L: 'l',
-      M: 's',
-      S: 'xs',
+    const mapLinkSizeToExternalIconSize = {
+      [LinkSize.Large]: IconSize.Large,
+      [LinkSize.Medium]: IconSize.Small,
+      [LinkSize.Small]: IconSize.ExtraSmall,
     };
     const mapLinkSizeToIconVerticalStyling = {
-      L: styles.verticalAlignBigIcon,
-      M: styles.verticalAlignMediumIcon,
-      S: styles.verticalAlignSmallIcon,
+      [LinkSize.Large]: styles.verticalAlignBigIcon,
+      [LinkSize.Medium]: styles.verticalAlignMediumIcon,
+      [LinkSize.Small]: styles.verticalAlignSmallIcon,
     };
 
     const linkStyles = classNames(
       styles.link,
-      styles[`link${size}`],
+      styles[`link-${size}`],
       disableVisitedStyles ? styles.disableVisitedStyles : '',
     );
 
     return (
       <a
-        aria-label={ariaLabel}
         className={classNames(!useButtonStyles ? linkStyles : styles.button, className)}
         href={href}
         style={style}
@@ -130,9 +125,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         ref={ref}
         {...rest}
       >
-        {iconLeft && (
-          <span className={styles.iconLeft} aria-hidden="true">
-            {iconLeft}
+        {iconStart && (
+          <span className={styles.iconStart} aria-hidden="true">
+            {iconStart}
           </span>
         )}
         {useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children}
@@ -140,7 +135,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           <IconLinkExternal
             size={mapLinkSizeToExternalIconSize[size]}
             className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
-            aria-hidden
           />
         )}
       </a>

@@ -18,19 +18,22 @@ In React version, you can use the `theme` property to customise the component.
 
 See all available theme variables in the table below.
 
-| Theme variable                 | Description                                                                                          |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `--arrow-icon-color`           | Arrow icon color. Default is the current text color (`--color`).                                                   |
-| `--background-color`           | Background color. Default is `--color-white`                                                         |
-| `--color`                      | Text color. Default is `--color-black-90`                                                            |
-| `--image-position`             | How image is aligned if it does not fit the container. Default is `bottom right`                     |
-| `--koros-color`                | Color of the koros. Defaults to `--background-color`                                                 |
-| `--koros-height`               | Height of the koros. In React this defaults to the height of the koros shape                         |
-| `--diagonal-koros-position`    | How is angled koros positioned. This is applied to the css property `right`.Default is `right: 45%`. |
-| `--horizontal-padding-small`   | Horizontal padding on small screens (< 768px). Default is `--spacing-layout-2-xs`                    |
-| `--horizontal-padding-medium`  | Horizontal padding on medium screens (>=768px). Default is `--spacing-layout-xs`                     |
-| `--horizontal-padding-large`   | Horizontal padding on large screens (>= 992px). Default is `--spacing-layout-xs`                     |
-| `--horizontal-padding-x-large` | Horizontal padding on xtra large screens (>= 1248px). Default is `--spacing-layout-xs`               |
+| Theme variable                 | Description                                                                                                                  |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `--arrow-icon-color`           | Arrow icon color. Default is the current text color (`--color`).                                                             |
+| `--background-color`           | Background color. Default is `--color-white`.                                                                                |
+| `--bottom-background-color`    | Background color of the bottom area with arrow and information. Default is `transparent`.                                    |
+| `--color`                      | Text color. Default is `--color-black-90`.                                                                                   |
+| `--image-position`             | How image is aligned if it does not fit the container. Default is `bottom right`.                                            |
+| `--information-color`          | Text color of the information text. Default is `inherit`.                                                                    |
+| `--information-padding-top`    | Extra top padding for the information element. Has no effect when Hero variant is `imageLeft` or `imageRight`. Default is 0. |
+| `--koros-color`                | Color of the koros. Defaults to `--background-color`.                                                                        |
+| `--koros-height`               | Height of the koros. In React this defaults to the height of the koros shape.                                                |
+| `--diagonal-koros-position`    | How is angled koros positioned. This is applied to the css property `right`.Default is `right: 45%`.                         |
+| `--horizontal-padding-small`   | Horizontal padding on small screens (< 768px). Default is `--spacing-layout-2-xs`.                                           |
+| `--horizontal-padding-medium`  | Horizontal padding on medium screens (>=768px). Default is `--spacing-layout-xs`.                                            |
+| `--horizontal-padding-large`   | Horizontal padding on large screens (>= 992px). Default is `--spacing-layout-xs`.                                            |
+| `--horizontal-padding-x-large` | Horizontal padding on xtra large screens (>= 1248px). Default is `--spacing-layout-xs`.                                      |
 
 In React version, you can use the `koros` property to customise the Koros component.
 
@@ -48,29 +51,33 @@ You can use the same properties as the <Link href="/components/koros/customisati
 import { Hero } from 'hds-react';
 
 () => (
-<Hero
-  imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
-  variant="imageBottom"
-  theme={{
-    '--background-color': '#fff',
-    '--arrow-icon-color': 'var(--color-brick)',
-  }}
-  koros={{ style: 'pulse', dense: true }}
-  showArrowIcon
->
-  <Hero.Title>Hero title</Hero.Title>
-  <Hero.Text>
-    This is an introduction text. The length is circa two sentences. The suitable total length of the title and
-    introduction is around 230 characters, including spaces. The intro ends with a period.
-  </Hero.Text>
-  <Button
-    variant="secondary"
-    role="link"
-    style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+  <Hero
+    imageSrc="https://hds.hel.fi/images/homepage/amos58.jpg"
+    variant="imageBottom"
+    theme={{
+      '--background-color': '#fff',
+      '--arrow-icon-color': 'var(--color-brick)',
+      '--information-color': 'var(--color-brick)',
+      '--information-padding-top': '18px',
+    }}
+    koros={{ style: 'pulse', dense: true }}
+    showArrowIcon
+    information="Photo: Firstname Middlename Long-Lastname"
   >
-    Call to action
-  </Button>
-</Hero>)
+    <Hero.Title>Hero title</Hero.Title>
+    <Hero.Text>
+      This is an introduction text. The length is circa two sentences. The suitable total length of the title and
+      introduction is around 230 characters, including spaces. The intro ends with a period.
+    </Hero.Text>
+    <Button
+      variant="secondary"
+      role="link"
+      style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+    >
+      Call to action
+    </Button>
+  </Hero>
+)
 ```
 
 ```html
@@ -78,6 +85,8 @@ import { Hero } from 'hds-react';
   .custom-theme {
     --koros-height: 5px;
     --arrow-icon-color: var(--color-brick);
+    --information-color: var(--color-brick);
+    --information-padding-top: 18px;
   }
   .black-button.black-button {
     --background-color: #000;
@@ -95,7 +104,7 @@ import { Hero } from 'hds-react';
           introduction is around 230 characters, including spaces. The intro ends with a period.
         </p>
         <button type="button" class="hds-button hds-button--secondary hds-button--theme-black black-button" role="link">
-          <span class="hds-button__label">Call to action</span>
+          <span>Call to action</span>
         </button>
       </div>
     </div>
@@ -117,8 +126,15 @@ import { Hero } from 'hds-react';
       <img class="hds-hero__image" src="https://hds.hel.fi/images/homepage/amos58.jpg" aria-hidden="true" alt="" />
     </div>
   </div>
-  <div class="hds-hero__arrow-icon-container">
-    <span class="hds-icon hds-hero--arrow-icon hds-icon--arrow-down" />
+  <div class="hds-hero__bottom-container" aria-hidden="true">
+    <div class="hds-hero__bottom-content-aligner">
+      <div class="hds-hero__arrow-icon-container">
+        <span class="hds-icon hds-hero--arrow-icon hds-icon--arrow-down" />
+      </div>
+      <div class="hds-hero__information-container">
+        <span>Photo: Firstname Middlename Long-Lastname</span>
+      </div>
+    </div>
   </div>
 </div>
 ```

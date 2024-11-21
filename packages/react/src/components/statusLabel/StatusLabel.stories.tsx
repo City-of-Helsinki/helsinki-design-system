@@ -23,25 +23,25 @@ export const Error = () => <StatusLabel type="error">Error</StatusLabel>;
 
 export const Icons = () => (
   <>
-    <StatusLabel iconLeft={<IconInfoCircle />}>Default</StatusLabel>
+    <StatusLabel iconStart={<IconInfoCircle />}>Default</StatusLabel>
     <br />
     <br />
-    <StatusLabel type="info" iconLeft={<IconInfoCircle />}>
+    <StatusLabel type="info" iconStart={<IconInfoCircle />}>
       Info
     </StatusLabel>
     <br />
     <br />
-    <StatusLabel type="success" iconLeft={<IconCheckCircle />}>
+    <StatusLabel type="success" iconStart={<IconCheckCircle />}>
       Success
     </StatusLabel>
     <br />
     <br />
-    <StatusLabel type="alert" iconLeft={<IconAlertCircle />}>
+    <StatusLabel type="alert" iconStart={<IconAlertCircle />}>
       Alert
     </StatusLabel>
     <br />
     <br />
-    <StatusLabel type="error" iconLeft={<IconError />}>
+    <StatusLabel type="error" iconStart={<IconError />}>
       Error
     </StatusLabel>
   </>

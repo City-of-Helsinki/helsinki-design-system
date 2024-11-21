@@ -1,0 +1,22 @@
+---
+slug: '/components/select/accessibility'
+title: 'Select - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+
+- Select should be only used as form controls or as value pickers. Do not use select for menus or navigation since they cannot contain links or buttons.
+- Consider carefully other options like selectionGroup before implementing complex select component. Especially multiselect with groups and filtering is a complex component, so always be considerate when using it.
+- Placeholder text can provide hints or examples for what the user should select. However, placeholders can sometimes appear as if the field is already filled, causing users to overlook them. It’s better to provide clear instructions through the label or assistive text to ensure users have the information they need.
+- In the case of an erroneous selection, aim to provide clear instructions to the user how to correct the mistake. Always provide text description of the error. In select it is usually possible to filter selectable options for the user to avoid errors completely.
+- If `texts.label` is not set, provide an alternative element that is used as a label. It must have a `for` attribute that points to the `id` of the main button.
+
+### Known issues
+
+- If the Select has groups and an input field, the main button is not accessible when using Talkback with Firefox. The button has `role="combobox"` that makes it invisible.

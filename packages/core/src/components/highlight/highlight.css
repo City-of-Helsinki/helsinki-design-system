@@ -10,7 +10,7 @@
   border-left: 8px solid var(--accent-line-color);
   color: var(--text-color);
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   justify-content: center;
   margin: var(--margin);
   max-width: 100%;
@@ -28,6 +28,7 @@
 .hds-highlight__text {
   color: var(--text-color);
   font-size: var(--fontsize-heading-m);
+  letter-spacing: -0.2px;
   line-height: var(--lineheight-m);
   margin: 0;
   padding: 0;
@@ -45,13 +46,14 @@
 
 .hds-highlight--large .hds-highlight__text {
   font-size: var(--fontsize-heading-l);
+  letter-spacing: -0.4px;
   line-height: var(--lineheight-l);
 }
 
 .hds-highlight__quote:before,
 .hds-highlight__quote:after {
   content: '"';
-  display: inline;  
+  display: inline;
 }
 
 .hds-highlight__reference {

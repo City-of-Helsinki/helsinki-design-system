@@ -2,12 +2,13 @@ import { fireEvent, act, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { advanceUntilDoesNotThrow, advanceUntilPromiseResolved } from '../../../login/testUtils/timerTestUtil';
-import { getActiveElement } from '../../../cookieConsent/test.util';
+import { getActiveElement } from '../../../../utils/test-utils';
 import { HeaderLogoutSubmenuButton, HeaderLogoutSubmenuButtonProps } from './HeaderLogoutSubmenuButton';
 import { initTests, jestHelpers } from './test.util';
 import { HeaderActionBarItem } from '../headerActionBarItem';
 import { HeaderUserMenuButton } from './HeaderUserMenuButton';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
+import mockWindowLocation from '../../../../utils/mockWindowLocation';
 
 jest.mock('../../LanguageContext', () => ({
   ...(jest.requireActual('../../LanguageContext') as Record<string, unknown>),
@@ -37,11 +38,18 @@ describe('HeaderLogoutSubmenuButton', () => {
     return initTests({ ...props, ...extraProps }, Component, isUserAuthenticated);
   };
 
+  const mockedWindowControls = mockWindowLocation();
+
   beforeEach(() => {
     jestHelpers.beforeEach();
   });
   afterEach(() => {
+    mockedWindowControls.reset();
     jestHelpers.afterEach();
+  });
+
+  afterAll(() => {
+    mockedWindowControls.restore();
   });
 
   it('The button is rendered', async () => {
@@ -153,15 +161,14 @@ describe('HeaderLogoutSubmenuButton', () => {
         getUserMenuButton,
       } = result;
       await clickAndAdvanceUntilErrorShown(result, false);
-      expect(getFocusShifter()).not.toBeNull();
       act(() => {
         getErrorElementButton()?.focus();
         getErrorElementButton()?.click();
       });
       await waitFor(() => {
         expect(getActiveElement(getButtonElement()) === getUserMenuButton()).toBeTruthy();
+        expect(() => getFocusShifter()).toThrow();
       });
-      expect(() => getFocusShifter()).toThrow();
     });
   });
 });

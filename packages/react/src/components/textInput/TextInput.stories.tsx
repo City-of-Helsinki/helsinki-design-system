@@ -3,7 +3,7 @@ import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 
 import { TextInput, TextInputProps } from './TextInput';
-import { Button } from '../button';
+import { Button, ButtonPresetTheme, ButtonSize } from '../button';
 import { IconSearch } from '../../icons';
 
 const textInputProps = {
@@ -31,12 +31,16 @@ export default {
   },
 };
 
-export const Default = () => <TextInput {...textInputProps} />;
+export const Default = () => <TextInput {...textInputProps} data-playwright />;
 
-export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="Text input value" />;
+export const ReadOnly = () => (
+  <TextInput {...textInputProps} readOnly defaultValue="Text input value" data-playwright />
+);
 ReadOnly.storyName = 'Read-only';
 
-export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
+export const Disabled = () => (
+  <TextInput {...textInputProps} disabled defaultValue="Text input value" data-playwright />
+);
 
 export const Invalid = () => <TextInput {...textInputProps} invalid errorText="Error text" />;
 
@@ -64,7 +68,12 @@ export const UsingRef = () => {
 
   return (
     <>
-      <Button onClick={() => ref?.current?.focus()} style={{ marginBottom: '1rem' }} theme="black" size="small">
+      <Button
+        onClick={() => ref?.current?.focus()}
+        style={{ marginBottom: '1rem' }}
+        theme={ButtonPresetTheme.Black}
+        size={ButtonSize.Small}
+      >
         Focus input
       </Button>
       <TextInput {...textInputProps} ref={ref} />
@@ -152,6 +161,7 @@ export const SimpleSearchInput = (args: TextInputProps) => {
       onKeyUp={onKeyUpHandler}
       ref={ref}
       type="search"
+      data-playwright
     />
   );
 };
@@ -163,3 +173,50 @@ export const SimpleSearchInputWithDefaultValue = (args: TextInputProps) => {
 };
 
 SimpleSearchInputWithDefaultValue.storyName = 'As search input with default value';
+
+export const WithCustomStyles = (args: TextInputProps) => {
+  const customStyles = {
+    '--helper-background-color-info': 'var(--color-info)',
+    '--helper-background-color-invalid': 'var(--color-error)',
+    '--helper-background-color-success': 'var(--color-success)',
+    '--helper-color-default': 'var(--color-success)',
+    '--helper-color-invalid': 'var(--color-white)',
+    '--helper-icon-color-invalid': ' var(--color-white)',
+    '--helper-color-success': 'var(--color-white)',
+    '--helper-icon-color-success': ' var(--color-white)',
+    '--helper-color-info': 'var(--color-white)',
+    '--helper-icon-color-info': ' var(--color-white)',
+    '--icon-color': 'var(--color-white)',
+    '--input-background-default': 'var(--color-black)',
+    '--input-background-disabled': 'var(--color-black-40)',
+    '--input-border-color-default': 'var(--color-black-10)',
+    '--input-border-color-hover': 'var(--color-black-20)',
+    '--input-border-color-focus': 'var(--color-black-90)',
+    '--input-border-color-invalid': 'var(--color-error-light)',
+    '--input-border-color-disabled': 'var(--color-black-10)',
+    '--input-border-color-success': 'var(--color-success)',
+    '--input-color-default': 'var(--color-white)',
+    '--input-color-disabled': 'var(--color-black-40)',
+    '--label-color-default': 'var(--color-success)',
+    '--label-color-invalid': 'var(--color-error)',
+    '--placeholder-color': 'var(--color-black-50)',
+  } as React.CSSProperties;
+  return (
+    <TextInput
+      {...textInputProps}
+      style={customStyles}
+      invalid
+      clearButtonAriaLabel="Clear"
+      buttonAriaLabel="Search"
+      buttonIcon={<IconSearch />}
+      onButtonClick={() => undefined}
+      defaultValue={"I'm customised!"}
+      data-playwright
+      successText="Success!"
+      errorText="Error!"
+      infoText="Info!"
+      type="search"
+      {...args}
+    />
+  );
+};

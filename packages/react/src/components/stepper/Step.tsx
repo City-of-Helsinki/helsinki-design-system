@@ -4,6 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Stepper.module.scss';
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 import classNames from '../../utils/classNames';
+import { IconSize } from '../../icons/Icon.interface';
 
 export enum StepState {
   available,
@@ -14,12 +15,6 @@ export enum StepState {
 }
 
 export type StepProps = {
-  /**
-   * Data test id of step
-   * @deprecated Will be replaced in the next major release with "data-testid"
-   */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  dataTestId?: string;
   /**
    * The label of the step
    */
@@ -116,7 +111,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
       stepsTotal,
       renderCustomStateAriaLabel,
       onStepClick,
-      dataTestId,
       ...rest
     }: StepProps,
     ref?: React.RefObject<HTMLButtonElement>,
@@ -157,18 +151,17 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           aria-current={selected ? 'step' : false}
           aria-label={composeAriaLabel()}
           onClick={(e) => onStepClick && onStepClick(e, index)}
-          data-testid={dataTestId}
           {...rest}
         >
           <div className={styles.circleContainer}>
             {state === StepState.completed && !selected ? (
               <div className={styles.completedContainer}>
-                <IconCheck className={styles.completedIcon} aria-hidden />
+                <IconCheck className={styles.completedIcon} />
               </div>
             ) : (
               <div className={classNames(styles.circle)}>
-                {state === StepState.attention && <IconError size="xs" aria-hidden />}
-                {state === StepState.paused && <IconPlaybackPause size="xs" aria-hidden />}
+                {state === StepState.attention && <IconError size={IconSize.ExtraSmall} />}
+                {state === StepState.paused && <IconPlaybackPause size={IconSize.ExtraSmall} />}
                 {(state === StepState.available ||
                   state === StepState.disabled ||
                   (state === StepState.completed && selected)) && <span className={styles.number}>{index + 1}</span>}
