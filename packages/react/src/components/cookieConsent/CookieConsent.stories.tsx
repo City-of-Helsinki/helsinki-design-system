@@ -14,7 +14,6 @@ import {
 import { StoryComponent } from './components/StoryComponent';
 // importing the json because load won't work in e2e
 import siteSettings from '../cookieConsentCore/example/helfi_sitesettings.json';
-import { ToggleButton } from '../toggleButton/ToggleButton';
 import { cookieEventType } from '../cookieConsentCore/cookieConsentCore';
 
 export default {
@@ -81,28 +80,6 @@ const Actions = () => {
   );
 };
 
-const ThemeButton = (props: { current: 'bus' | 'black'; onChange: (selected: 'bus' | 'black') => void }) => {
-  const { current, onChange } = props;
-  const changedTheme = current === 'bus' ? 'black' : 'bus';
-  return (
-    <div>
-      <div>Current theme</div>
-      <div style={{ display: 'flex', gap: 'var(--spacing-s)', alignItems: 'center' }}>
-        <span>Black</span>
-        <ToggleButton
-          id="bus-theme"
-          aria-label={`change cookie consent label to ${changedTheme}`}
-          label=""
-          checked={current === 'bus'}
-          onChange={() => onChange(changedTheme)}
-        />
-        <span>Bus</span>
-      </div>
-      <div>Theme is only applied to the cookie consent banner and page</div>
-    </div>
-  );
-};
-
 export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) => {
   const languages: LanguageOption[] = [
     { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -110,7 +87,6 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
     { label: 'English', value: 'en', isPrimary: true },
   ];
   const [language, updateLang] = useState<string>(languages[0].value);
-  const [theme, updateTheme] = useState<'bus' | 'black'>('bus');
   const onLangChange = (newLanguage: string) => {
     updateLang(newLanguage);
   };
@@ -123,7 +99,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
     <CookieConsentContextProvider
       onChange={onChange}
       // focusing the logo link, because the tab component loses focus on re-render.
-      options={{ language, focusTargetSelector: '#actionbar > a', theme }}
+      options={{ language, focusTargetSelector: '#actionbar > a' }}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
     >
       <Header languages={languages} onDidChangeLanguage={onLangChange} defaultLanguage={language}>
@@ -178,8 +154,6 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
           <p>Banner is never shown on this page unless shown previously.</p>
           <p>Current consents can also be changed my calling the window.hds.cookieConsent instance.</p>
           <Actions />
-          <p>Theme can also be changed like language.</p>
-          <ThemeButton current={theme} onChange={updateTheme} />
           <span data-testid="actions-tab" />
         </Tabs.TabPanel>
       </Tabs>
