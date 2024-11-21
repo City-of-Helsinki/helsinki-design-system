@@ -22,14 +22,47 @@ import versions from '../data/versions.json';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
+const fixUrlExceptions = (href, version) => {
+  const versionNumber = version ? version.replace('release-', '')?.split('.')[0] : 1000;
+
+  // /components/buttons has changed to /components/button after version 3.11.
+  if (versionNumber > 3 && href.indexOf('/components/buttons') >= 0) {
+    return href.replace('/components/buttons', '/components/button');
+  }
+  else if (versionNumber <= 3 && href.indexOf('/components/button') >= 0 && href.indexOf('/components/buttons') < 0) {
+    return href.replace('/components/button', '/components/buttons');
+  }
+
+  // /components/dropdown is not available after version 3.11.
+  if (versionNumber > 3 && href.indexOf('/components/dropdown') >= 0) {
+    return href.replace('/components/dropdown', '/components');
+  }
+
+  // /components/errorsummary is not available before version 3.11.
+  if (versionNumber < 3 && href.indexOf('/components/error-summary') >= 0) {
+    return href.replace('/components/error-summary', '/components');
+  }
+
+  // /components/header is not available before version 3.11.
+  if (versionNumber < 3 && href.indexOf('/components/header') >= 0) {
+    return href.replace('/components/header', '/components');
+  }
+
+  return href;
+}
+
 const hrefWithVersion = (href, version, withoutPrefix = false) => {
-  if (!version || version === '' || href === ''
-    || href.startsWith('mailto:') || href.startsWith('#') || href.startsWith('http'))
-    return href;
+  const hrefWithFixedExceptions = fixUrlExceptions(href, version);
+
+  if (!version || version === '' || hrefWithFixedExceptions === ''
+    || hrefWithFixedExceptions.startsWith('mailto:')
+    || hrefWithFixedExceptions.startsWith('#')
+    || hrefWithFixedExceptions.startsWith('http'))
+    return hrefWithFixedExceptions;
 
   let withVersion = '';
   let versionAdded = false;
-  const pathParts = href.split('/');
+  const pathParts = hrefWithFixedExceptions.split('/');
 
   pathParts.forEach((part, index) => {
     if (index > 0) {
@@ -48,6 +81,7 @@ const hrefWithVersion = (href, version, withoutPrefix = false) => {
 
   return ret;
 };
+
 const hrefWithoutVersion = (href, version) => {
   return href.replace(`/${version}`, '');
 };
@@ -291,7 +325,7 @@ const Layout = ({ location, children, pageContext }) => {
                   selected={itemVersion === versionNumber}
                   href={index > 0
                     ? hrefWithVersion(locationWithoutVersion, `release-${itemVersion}`)
-                    : withPrefix(locationWithoutVersion)}
+                    : hrefWithVersion(locationWithoutVersion)}
                 />
               ))}
             </Header.ActionBarItem>
