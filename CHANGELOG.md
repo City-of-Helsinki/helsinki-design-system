@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.0] - Month, XX, 202X
+## [4.0.0] - November, 21, 2024
 
 ### React
 
@@ -104,12 +104,6 @@ Changes that are not related to specific components
 
 - [Hero] New information element below the hero for photographer credits
 
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
 - [TextInput] Fixed issues with custom colors not applied to all elements.
@@ -159,63 +153,35 @@ Changes that are not related to specific components
 
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
+- [Select, Multiselect] New components to replace Dropdown.
+- [CookieConsent] New component replacing previous CookieConsent 
+- [Variables] The first variable named Deprecated is introduced.
+- [Design kit] New page and documentation for Shadow styles. Shadow in the Overview. New Getting started-section.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
-
-### Sketch/Abstract
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
+- [Checkbox, DateInput, FileInput, NumberInput, PasswordInput, PhoneInput, SelectionGroup, TextArea, TextInput, TimeInput] Refactored required indicator asterisk.
+- [RadioButton, SearchInput, ToggleButton] Required indicator removed as unnecessary.
+- [Dialog] Confirm variant has the correct question-mark icon now.
 
 #### Changed
 
-Changes that are not related to specific components
+- [Checkbox] Removed paddings around checkbox and above label. Checkbox height changed from 28px to 24px.
+- [Design kit] Components have a new configuration: Each component has its own page now. Moved documentation components to new page etc. Updated Colours-documentation page.
+- [Local styles] Headings have new line-heights (check .txt. for details)
+- [Local styles] Drop shadow-style removed, replaced by Shadow styles S-M matching HDS Shadow tokens
+- [Dialog, Notification]  Switched shadow effect to use Shadow L to match implementation
+- [SelectionGroup] Removed 2px left and right padding and adjusted inner gaps.
+- [Tag] Updated paddings for visually better icon alignments.
+- [Tag] Changed icon property names to iconStart and iconEnd.
+- [SearchInput] Replaced deprecated Dropdown.Option with new SearchInput.Option subcomponent.
+- [PhoneInput] Replaced deprecated Dropdown component with Select in CountryCode variant
 
-- [Component] What has been changed
+#### Deprecated
 
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Dropdown] Component is now deprecated and will be removed in the future major version.
 
 ### Hds-js
 
@@ -229,16 +195,6 @@ Changes that are not related to specific components
 
 - [cookieConsentCore] New component for cookie consent handling
 - [standalone/cookieConsentCore] Standalone version of the cookie consent component
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [3.11.0] - Oct, 31, 2024
 
