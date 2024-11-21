@@ -101,12 +101,12 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     onReady,
   });
 
-  const getAllConsentStatuses = () => {
+  const getAllConsentStatuses = useCallback(() => {
     if (!instanceRef.current || !instanceRef.current.getAllConsentStatuses) {
       return [];
     }
     return instanceRef.current.getAllConsentStatuses();
-  };
+  }, []);
 
   const current = windowObjectGetter();
   if (current) {
@@ -127,8 +127,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
           return Promise.resolve(false);
         }
         createHasBeenCalled.current = true;
-        instanceRef.current = await CookieConsentCore.create(siteSettings, mergedOptions);
-        forceRender();
+        await CookieConsentCore.create(siteSettings, mergedOptions);
         return Promise.resolve(true);
       };
       // useEffect cannot be async, so have to use this work-around
@@ -165,19 +164,19 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
     [elementId],
   );
 
-  const removePage = () => {
+  const removePage = useCallback(() => {
     if (!instanceRef.current) {
       return;
     }
     instanceRef.current.removePage();
-  };
+  }, []);
 
-  const removeBanner = () => {
+  const removeBanner = useCallback(() => {
     if (!instanceRef.current) {
       return;
     }
     instanceRef.current.removeBanner();
-  };
+  }, []);
 
   return {
     isReady: readyRef.current && !!instanceRef.current,

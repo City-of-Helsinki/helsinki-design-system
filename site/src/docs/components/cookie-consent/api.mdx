@@ -180,13 +180,13 @@ Events are dispatched with `window.dispatchEvent` and can be listened with `wind
 
 The `hds-cookie-consent-ready` callback is not called with any arguments. Other callback receive the same arguments.
 
-| Property                                             | Description                                                                                      | Type       | Default |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------- | ------- |
-| `type`                                               | Type of the event. Event types are listed in <InternalLink href="#events">events</InternalLink>. | `string`   | -       |
-| `acceptedGroups`                                     | Array of accepted group names.                                                                   | `string[]` | `[]`    |
-| `storageType`                                        | Only in monitor events. Type of storage where the unapproved item was found.                     | `string`   | -       |
-| `storageKeys`                                        | Only in monitor events. Keys of the unapproved items.                                            | `string[]` | -       |
-| [Table 12: Properties of the useCookieConsentEvents] |
+| Property                                               | Description                                                                                      | Type       | Default |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ---------- | ------- |
+| `type`                                                 | Type of the event. Event types are listed in <InternalLink href="#events">events</InternalLink>. | `string`   | -       |
+| `acceptedGroups`                                       | Array of accepted group names.                                                                   | `string[]` | `[]`    |
+| `storageType`                                          | Only in monitor events. Type of storage where the unapproved item was found.                     | `string`   | -       |
+| `storageKeys`                                          | Only in monitor events. Keys of the unapproved items.                                            | `string[]` | -       |
+| [Table 12: Properties of the CookieConsentChangeEvent] |
 
 ### CSS variables
 
