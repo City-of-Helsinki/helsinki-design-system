@@ -54,7 +54,7 @@ const fixUrlExceptions = (href, version) => {
 const hrefWithVersion = (href, version, withoutPrefix = false) => {
   const hrefWithFixedExceptions = fixUrlExceptions(href, version);
 
-  if (!version || version === '' || hrefWithFixedExceptions === ''
+  if (!version || hrefWithFixedExceptions === ''
     || hrefWithFixedExceptions.startsWith('mailto:')
     || hrefWithFixedExceptions.startsWith('#')
     || hrefWithFixedExceptions.startsWith('http'))
