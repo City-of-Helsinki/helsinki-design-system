@@ -15,13 +15,10 @@ import Notification from '../../../components/Notification';
 This guide helps you to start using HDS version 4.0.0.
 
 <Notification label=";tldr; Check at least these" className="siteNotification">
-  When updating to HDS 4.0.0 check and test at least these:
-  - dropdown(Combobox and select) is replaced with whole new select
-  - cookieConsent is replaced with new CookieConsent and now also available in core and standalone js
-  - separate ariaLabel is replaced with native aria-label
-  - iconLeft is now iconStart and iconRight is now iconEnd
-  - size variants in components are changed to enums
-  - Use of Sketch ends, check Figma files instead
+  When updating to HDS 4.0.0 check and test at least these: - dropdown(Combobox and select) is replaced with whole new
+  select - cookieConsent is replaced with new CookieConsent and now also available in core and standalone js - separate
+  ariaLabel is replaced with native aria-label - iconLeft is now iconStart and iconRight is now iconEnd - size variants
+  in components are changed to enums - Use of Sketch ends, check Figma files instead
 </Notification>
 
 ## Breaking changes
@@ -188,11 +185,93 @@ The `iconLeft` prop has been renamed to `iconStart`
     React storybook examples
   </InternalLink>
 
+### Select component rewritten
+
+The Select component has been rewritten, and most props have changed. There is now one `Select` component instead of `Select` and `Combobox`.
+
+Select with a `filter` function is the same as Combobox.
+
+### Passing options and option groups
+
+Supported formats for the options are now:
+
+- array of strings `["Option1"]`
+- array of option objects `[{label:"Option 1", value:"Option 1 value"}]`
+- native html with `<optgroup>` and `<option>`.
+
+#### Removed components from Select
+
+- Combobox
+
+#### Removed props
+
+- `optionLabelField` (the label is always "label").
+- `optionKeyField` (use "option.value").
+- `isOptionDisabled` (option.disabled can be set).
+- `circularNavigation` (always circular).
+
+All texts are passed as an object or returned from a function.
+Removed props include:
+
+- `getA11ySelectionMessage`
+- `getA11yStatusMessage`
+- `getA11yRemovalMessage`
+- `helper` (use `texts.assistive`)
+- `error` (use `texts.error`)
+- `tooltipLabel`
+- `tooltipButtonLabel`
+- `tooltipText`
+- `clearButtonAriaLabel` (default text is provided, can be set with `texts`)
+- `selectedItemRemoveButtonAriaLabel` (default text is provided, can be set with `texts`)
+- `selectedItemSrLabel` (default text is provided, can be set with `texts`)
+
+Instead of
+
+```jsx
+<Select label="Label" placeholder="Placeholder" />
+```
+
+provide texts as an object
+
+```jsx
+<Select texts={{ label: 'Label', placeholder: 'Placeholder', language: 'en' }} />
+```
+
+or return them from a function
+
+```jsx
+<Select
+  texts={(key) => {
+    if (key === 'label') {
+      return 'Label';
+    }
+    if (key === 'placeholder') {
+      return 'Placeholder';
+    }
+  }}
+/>
+```
+
+#### Changes to the onChange callback
+
+The `onChange`receives now 3 arguments:
+
+- The first one is an array of selected options as objects. The array is empty if no selections have been made.
+- The second one is the clicked option.
+- The third one is all the data of the Select component.
+
+#### Changes to theme
+
+The `theme` prop has all new variable names and only a few of the previous theme variables are still usable.
+
 ### Visual changes
+
 #### Headings
+
 There are updates to lineheights to improve readability especially on Headings. Please check that the layout does not break.
 
 #### Black-60 changed to more accesible shade
+
 Design token black-60 is changed from #666666 to #595959 to improve contrast with other colours. With only bus-dark and black-90 the contrast gets worse, all other colours the contrast improves. If needed, verify the used colours.
 
 ---
@@ -212,7 +291,6 @@ The HDS Design Kit in Figma has undergone **a major restructuring**: now, each c
 #### Components that need replacing
 
 - The Dropdown component is now deprecated and will be removed in future versions. Replace it with Select or Multiselect.
-    
 - The CookieConsent component has been replaced with a new version, and it needs to be manually updated.
 
 Deprecated components needs replacing, follow <ExternalLink href="https://help.figma.com/hc/en-us/articles/360039150413-Swap-components-and-instances">Figma guide about swapping components</ExternalLink>.
@@ -220,9 +298,7 @@ Deprecated components needs replacing, follow <ExternalLink href="https://help.f
 #### Components that need manual checking
 
 - Line heights in headings have been updated to improve readability. Please check that the layout does not break.
-    
 - The asterisk indicating required fields in form components like TextInput has been renewed and is now its own property. You’ll need to manually change the required indicators in layouts.
-    
 - The Tag components accessibility has been improved, and a new Link variant has been introduced. These changes do not break the old components, but it’s still better to check the updated components.
 
 ### Introduction of Figma Variables in HDS
@@ -247,7 +323,6 @@ This is just the beginning of our journey to variables in the Helsinki Design Sy
 
 Read more about variables in <ExternalLink href="https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables">Figma Learn</ExternalLink>.
 
-
 ### What should I do?
 
 #### 1. Duplicate your current design file
@@ -261,7 +336,7 @@ In your duplicate file, review and accept the HDS Design Kit library updates. Yo
 #### 3. Find deprecated dropdown components
 
 - You can now easily highlight deprecated components. Read more in section [Introduction of Figma Variables in HDS](#introduction-of-figma-variables-in-hds).
-    
+
 #### 4. Update components & content
 
 This update includes breaking changes to components and may require that you update content in components with breaking changes.
@@ -271,12 +346,11 @@ This update includes breaking changes to components and may require that you upd
 The v3 Figma library has been copied as a new file and will no longer receive updates. However, you can continue to use it by swapping to the v3 library.
 
 Swapping libraries allows you to quickly update instances in a file to use components from another library. Follow the Figma guide to swap to the v3 library if you wish to use the previous HDS version. The guide for swapping components can be found in <ExternalLink href="https://help.figma.com/hc/en-us/articles/4404856784663-Swap-style-and-component-libraries#swap">Figma Learn</ExternalLink>.
-    
+
 #### What about the Sketch library?
 
 The Sketch library will no longer be updated and will be removed after the 4.0.0 release.
 
-
 ### Getting support
 
-Have a question about migration to `4.0.0`? Please head over to the [Support page](https://hds.hel.fi/about/#support "https://hds.hel.fi/about/#support") for more guidelines and ways to contact us.
+Have a question about migration to `4.0.0`? Please head over to the [Support page](https://hds.hel.fi/about/#support 'https://hds.hel.fi/about/#support') for more guidelines and ways to contact us.

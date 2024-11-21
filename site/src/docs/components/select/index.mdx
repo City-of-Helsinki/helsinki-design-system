@@ -1,0 +1,260 @@
+---
+slug: '/components/select'
+title: 'Select'
+navTitle: 'Select'
+---
+
+import { Select, defaultFilter } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+
+<Select
+  texts={{
+    label: 'Select one option',
+    placeholder: 'Choose one',
+    language: 'en',
+  }}
+  options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
+  onChange={(selectedOptions) => {
+    console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+  }}
+/>
+
+</PlaygroundPreview>
+
+<PlaygroundPreview>
+
+<Select
+  multiSelect
+  texts={{
+    label: 'Select multiple options',
+    placeholder: 'Choose many',
+    language: 'en',
+  }}
+  options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
+  onChange={(selectedOptions) => {
+    console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+  }}
+/>
+
+</PlaygroundPreview>
+
+### Principles
+
+- **Use sparingly.** Use a select input for longer lists with 7 or more options. For shorter lists, consider using a <InternalLink href="../selection-group">selectionGroup</InternalLink>, especially when conserving vertical space is not necessary.
+- **More than 15 options.** If the list of options is very long, consider adding a filtering function to select component.
+- **Comparing options.** If options need to be easily comparable (for example, product pricing), prefer radio buttons over select.
+- **Use a good default.** When a specific option is likely to be selected by the majority of users, or when one option must be active by default (e.g. selecting a sorting option), set it as the default.
+- **Setting a default option.** If you use the select for settings, you can make an option pre-selected by default (e.g. selecting a sorting option). However, when using the component for questions, such as in forms, it’s best to avoid pre-selecting an option to ensure unbiased user responses.
+- **Always use a label.** Make sure your select component has a label. Aim for labels that are short, concise and easy to understand.
+- **Short option texts.** Try to avoid dropdown options that span over one line. Aim for short texts for all options.
+- **Real-time validation.** If possible, do input validation client-side in real-time and provide the user with immediate feedback after selection.
+- **Explain required fields.** When given the `required` prop, there will be an asterisk (`*`) added after the label to emphasise its required status. Remember to provide explanation of the required field indicator at the top of your form.
+
+### Variations
+
+#### Select (single selection)
+
+The select input is used in most cases when the user needs to choose from 7 to 15 options, or when vertical space is limited. If more than 15 options are available, consider adding a filtering function.
+
+<PlaygroundPreview>
+  <Select
+    texts={{
+      label: 'Select one option',
+      placeholder: 'Choose one',
+      language: 'en',
+    }}
+    options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Select with filter
+
+A filtering function is recommended when the user needs to choose from more than 15 options (up to hundreds of options).
+
+<PlaygroundPreview>
+  <Select
+    filter={defaultFilter}
+    texts={{
+      label: 'Select one option',
+      placeholder: 'Choose one',
+      language: 'en',
+    }}
+    options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Select with filter and groups
+
+Options can be grouped to provide additional context or to visually separate them. Each group requires a title for better organization. In single selection, group titles are non-interactive, as users can only select individual options.
+
+<PlaygroundPreview>
+  <Select
+    filter={defaultFilter}
+    texts={{
+      label: 'Select one option',
+      placeholder: 'Choose one',
+      language: 'en',
+    }}
+    groups={[
+      {
+        label: 'Group 1 (A-C)',
+        options: [{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }],
+      },
+      {
+        label: 'Group 1 (E-P)',
+        options: [{ label: 'Einsteinium' }, { label: 'Fermium' }, { label: 'Mendelevium' }, { label: 'Plutonium' }],
+      },
+    ]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Multiselect
+
+The multiselect variant is used when the user needs to select one or more options from a list of 7 to 15 items. If more than 15 options are available, consider adding a filtering function. Multiselect is a complex component, so always be considerate when using this.
+
+<PlaygroundPreview>
+  <Select
+    multiSelect
+    texts={{
+      label: 'Select multiple options',
+      placeholder: 'Choose many',
+      language: 'en',
+    }}
+    options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Multiselect with filter
+
+Multiselect with a filtering function is used when the user needs to select one or more options from a list containing more than 15 items (up to hundreds of options).
+
+<PlaygroundPreview>
+  <Select
+    multiSelect
+    filter={defaultFilter}
+    texts={{
+      label: 'Select multiple options',
+      placeholder: 'Choose many',
+      language: 'en',
+    }}
+    options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Multiselect with filter and groups
+
+Options can be grouped to provide additional context or to visually separate them. Each group requires a title for better organization. A group can also allow the user to select all items by naming it “Select All” with a checkbox.
+
+<PlaygroundPreview>
+  <Select
+    multiSelect
+    filter={defaultFilter}
+    texts={{
+      label: 'Select multiple options',
+      placeholder: 'Choose many',
+      language: 'en',
+    }}
+    groups={[
+      {
+        label: 'Group 1 (A-C)',
+        options: [{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }],
+      },
+      {
+        label: 'Group 1 (E-P)',
+        options: [{ label: 'Einsteinium' }, { label: 'Fermium' }, { label: 'Mendelevium' }, { label: 'Plutonium' }],
+      },
+    ]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Multiselect with preselections
+
+When options are selected in multiselect, they appear below the select field. The user can clear selected options individually or all at once using a “Clear All” button.
+
+<PlaygroundPreview>
+  <Select
+    multiSelect
+    filter={defaultFilter}
+    texts={{
+      label: 'Select multiple options',
+      placeholder: 'Choose many',
+      language: 'en',
+    }}
+    groups={[
+      {
+        label: 'Group 1 (A-C)',
+        options: [
+          { label: 'Americium', selected: true },
+          { label: 'Berkelium' },
+          { label: 'Californium' },
+          { label: 'Copernicium' },
+        ],
+      },
+      {
+        label: 'Group 1 (E-P)',
+        options: [
+          { label: 'Einsteinium' },
+          { label: 'Fermium', selected: true },
+          { label: 'Mendelevium', selected: true },
+          { label: 'Plutonium' },
+        ],
+      },
+    ]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
+
+#### Multiselect with tags somewhere else
+
+Selected options can be displayed in another section of the page. This approach allows options to be grouped in the same location with multiple select components, such as in filtering search pages.
+
+An example of this complex variant is <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--multiselect-with-custom-tags">in the Storybook.</ExternalLink>
+
+### Keyboard usage
+
+- When select is closed:
+
+  - Open it by pressing either `Enter`, `Space` or `ArrowDown`.
+  - Writing text also opens it and the typed text is copied to the input field. If an input field does not exist, an option matching the text is focused.
+
+- When select is open:
+
+  - Move up and down using `ArrowUp` and `ArrowDown`
+  - Select an option by pressing either `Space` or `Enter` and dropdown closes if it is not a multiselect.
+  - Collapse dropdown without selecting by pressing `Escape`.
+  - Move to the first element by pressing `PageUp` or `Home`.
+  - Move to the last element by pressing `PageDown` or `End`.
+
+- When open or closed
+  - Writing text anywhere copies the typed text to the input field. If an input field does not exist, an option matching the text is focused. The `defaultFilter` is used to find a matching option.
+  - Writing also opens the dropdown.

@@ -1,0 +1,36 @@
+---
+slug: '/components/select/tabs'
+title: 'Select'
+---
+
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+import StatusLabel from '../../../components/StatusLabel';
+import Notification from '../../../components/Notification';
+
+# Select
+
+<div class="status-label-description">
+  <StatusLabel type="info">Draft</StatusLabel>
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip />
+</div>
+
+<LeadParagraph>
+  The select is a dialog that allows users to quickly navigate and select one or multiple items from a list. It includes
+  a text input for filtering and supports item grouping. Dropdowns are often used as part of forms and filters.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
