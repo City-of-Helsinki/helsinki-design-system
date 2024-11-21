@@ -17,7 +17,7 @@ export default {
   args: {},
 };
 
-const siteSettingsJsonUrl = './static-cookie-consent/helfi_sitesettings.json';
+const siteSettingsJsonUrl = './static-cookie-consent/common_sitesettings.json';
 
 const Actions = () => {
   const addChatCookie = async () => {

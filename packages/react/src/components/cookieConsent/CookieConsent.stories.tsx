@@ -13,7 +13,7 @@ import {
 } from './index';
 import { StoryComponent } from './components/StoryComponent';
 // importing the json because load won't work in e2e
-import siteSettings from '../cookieConsentCore/example/helfi_sitesettings.json';
+import siteSettings from '../cookieConsentCore/example/common_sitesettings.json';
 import { cookieEventType } from '../cookieConsentCore/cookieConsentCore';
 
 export default {

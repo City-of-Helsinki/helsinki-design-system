@@ -5,7 +5,7 @@ import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock'
 
 import mockDocumentCookie from './__mocks__/mockDocumentCookieCore';
 import { CookieConsentCore } from './cookieConsentCore';
-import * as siteSettingsObjRaw from './example/helfi_sitesettings.json';
+import * as siteSettingsObjRaw from './example/common_sitesettings.json';
 import helpers from './helpers/cookieConsentTestHelpers';
 
 const testTimeout = 500; // TODO: this should be removed and the tests should be refactored to work
@@ -66,7 +66,7 @@ describe('cookieConsentCore', () => {
   }
 
   const urls = {
-    siteSettingsJsonUrl: '/helfi_sitesettings.json',
+    siteSettingsJsonUrl: '/common_sitesettings.json',
     siteSettings404: '/404.json',
     siteSettingsNotJSON: '/malformed.json',
   };
